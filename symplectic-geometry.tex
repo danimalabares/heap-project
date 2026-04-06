@@ -74,16 +74,118 @@ Completing $v$ to a basis $v_2,…,v_n$
 we see that $\omega^n(v,v_2,…,v_n)=i_v\omega^n(v_2,…,v_n)=0$.
 \end{proof}
 
+\section{Hamiltonian vector fields, Poisson brackets}
+\label{section-hamiltionian-vector-fields-poisson-brackets}
+
+\noindent
+We know that a symplectic form on a manifold $M$ gives us a map
+\begin{align*}
+\omega^\sharp: TM &\longrightarrow T^*M \\
+X &\longmapsto i_X\omega
+\end{align*}
+
+\noindent
+which says that for $f \in C^\infty(M)$,
+$$
+i_{X_f}\omega=df.
+$$
+\begin{definition}
+\label{definition-poisson-bracket}
+\begin{align*}
+\{\cdot,\cdot\}: C^\infty(M) \times C^\infty(M) &\longrightarrow C^\infty(M) \\
+\{f,g\}&=\omega(X_f,X_g)=df(X_g)=\mathcal{L}_{X_f}g=-\mathcal{L}_{X_g}f
+\end{align*}
+is the {\it Poisson bracket}.
+\end{definition}
+
 \section{Moser's trick}
 \label{section-moser-trick}
 
+\noindent
+Moser's trick is an application of the following technical lemma:
+
+\begin{lemma}
+\label{lemma-lie-derivative-time-dependent-vector-fields}
+\begin{reference}
+\cite[Proposition 22.15]{les}
+\end{reference}
+Let $M$ be a smooth family and $X_t$ a one-parameter family of vector fields
+on $M$, i.e. a {\it time-dependent vector field}.
+Let $A_t$ be a family of tensors indexed by the same parameter $t$.
+Then
+$$
+\frac{d}{dt}\Big|_{t=t_0}\varphi^* _tA_t
+=\varphi^*_t\left(\mathcal{L}_{X_t}A_t+\frac{d}{dt}\Big|_{t=t_0}A_t\right).
+$$
+\end{lemma}
+
 \begin{theorem}[Moser's trick]
 \label{theorem-moser-trick}
-Let $M$ be compact and $\{\omega_t\}$ symplectic forms with $t \in [0,1]$.
-If all these forms are mutually cohomologous, that is $[\omega_t]$
-is constant. Then there exists $\phi_t$ such that
-$\phi^*\omega_t=\omega_0$ for all $t$.
+Let $M$ be a smooth manifold and $V_1, V_0$ two cohomologous volume forms.
+Then there exists a diffeomorphism $\varphi:M \to M$
+such that $\varphi^*V_1=V_0$.
 \end{theorem}
+
+\begin{proof}
+Suppose that $V_1-V_0=d\eta$ for some $\eta \in \Lambda^{n-1}(M)$.
+To construct a time-dependent vector field consider the forms
+$$
+V_t:=tV_1+(1-t)V_0,\qquad t \in [0,1].
+$$
+Then we may associate a unique vector field $X_t$ to $-\eta$
+via the isomorphism $i_\bullet V_t:\mathfrak{X}(M) \to \Lambda^{n-1}(M)$.
+This is a time-dependent vector field,
+so that by Lemma \ref{lemma-lie-derivative-time-dependent-vector-fields}
+we see that the pullback forms $\varphi^*_tV_t$ are constant:
+
+\begin{align*}
+\frac{d}{dt}\Big|_{t=t_0}\varphi^*_tV_t
+&=\varphi^*_t 
+\left(\mathcal{L}_{X_t}V_t
++\frac{d}{dt}\Big|_{t=t_0}V_t\right)\\
+&=\varphi^*_t
+\left(di_{X_t}V_t+i_{X_t}dV_t
++\frac{d}{dt}\Big|_{t=t_0}(tV_1+(1-t)V_0)\right)\\
+&=\varphi^*_t
+\left(d(-\eta)
++V_1-V_0\right)\\
+&=\varphi^*_t(-(V_1-V_0)+V_1-V_0)\\
+&=0.
+\end{align*}
+
+\noindent
+The results follows by taking $t=1$.
+\end{proof}
+
+\section{Darboux theorem}
+\label{section-darboux-theorem}
+
+\begin{theorem}[Darboux]
+\label{theorem-darboux}
+Let $(M,\omega)$ be a symplectic manifold and $p \in M$.
+There exist local coordinates $x^1,…,x^n,y^1,…,y^n$ at $p$ such that
+$$
+\omega=\sum_{i=1}^n dx^i \wedge dy^i.
+$$
+\end{theorem}
+
+\begin{proof}
+Take any chart $(\varphi,U)$ at $p$.
+It's enough to show that there is a symplectomorphism
+$\psi:(U,\varphi^*\omega)\to(U,\omega_{\text{can}})$.
+
+Since both $\varphi^*\omega$ and $\omega_{\text{can}}$
+are closed, so is their difference,
+so that by Poincaré lemma, restricting the neighbourhood if necessary,
+we may assume that $d\eta=\varphi^*\omega-\omega_{\text{can}}$
+for some 1-form $\eta$.
+The result follows by applying the exact same procedure as in
+Moser's trick as follows.
+Let $\omega_t:=t \varphi^*\omega+(1-t)\omega_{\text{can}}$.
+Then $\omega_t$ is symplectic for all $t$.
+Assign to every $t$ the vector field $X_t:=\omega_t^\sharp(-\eta)$.
+Then apply Lemma \ref{lemma-lie-derivative-time-dependent-vector-fields}.
+\end{proof}
 
 \section{Weinstein's Lagrangian submanifold theorem}
 \label{section-weinstein-lagrangian-submanifold}
