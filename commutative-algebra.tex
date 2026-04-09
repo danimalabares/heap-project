@@ -116,7 +116,472 @@ $$
 $$
 \end{enumerate}
 
+\section{Tensor product}
+\label{section-tensor-product}
+
+\begin{definition}
+\label{definition-tensor-product}
+
+\end{definition}
+
+\begin{theorem}[Universal property of tensor product]
+\label{theorem-universal-property-of-tensor-product}
+Let $M_1,M_2,M$ be modules over a ring $R$.
+For any bilinear map $B:M_1\times M_2 \to M$ there exists
+a unique homomorphism $b:M_1 \otimes M_2 \to M$
+making the following diagram commute
+$$
+\xymatrix{
+M_1\times M_2 \ar[r]^\pi\ar[dr]_B &  M_1 \otimes M_2 \ar[d]^b\\
+& M
+}
+$$
+where $\pi(m_1,m_2)=m_1 \otimes m_2$.
+\end{theorem}
+
+\begin{remark}
+\label{remark-whitneys-definition}
+For $R=k$ the above property shows that
+$\text{Bil}(M_1\times M_2,k)=(M_1 \otimes M_2)^*$.
+If we assume that the vector spaces are finite dimensional,
+we can take duals to obtain
+$$
+M_1 \otimes M_2 = (M_1 \otimes M_2)^ {* *}=\text{Bil}(M_1 \times M_2,k)^*,
+$$
+which is how Whitney first defined tensor products.
+\end{remark}
+
 \noindent
+Here's Misha's trick on how to show that the universal property
+of tensor product implies its uniqueness.
+Consider the category $\mathcal{C}$ of pairs of an $R$-module $M$,
+and a bilinear map $M_1 \times M_2 \to M$.
+Then we prove that the tensor product $M_1 \otimes M_2$
+is an initial object in such category,
+and it is easy to show that initial objects are unique.
+
+\begin{remark}
+\label{remark-universal-property}
+Misha's alternative way of stating the universal property of tensor product is
+that there is a bijective correspondence
+$$
+\Hom_R(M_1 \otimes_R M_2, M)
+\xymatrix{\ar@{<~>}[r]&}
+\text{Bil}(M_1\times M_2,M).
+$$
+The key observation is that the LHS are {\it linear} maps from a module to $M$
+while the RHS are {\it bilinear} maps.
+\end{remark}
+
+\begin{exercise}[Currying]
+\label{exercise-currying}
+$$
+\Hom(M_1\otimes_R M_2, M)
+=
+\Hom(M_1,\Hom(M_2,M))
+$$
+\end{exercise}
+
+\begin{proof}
+This is implied by the universal property
+since the RHS is just $\text{Bil}(M_1\times M_2,M)$.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-left-hom-sends-right-exact-to-left-exact}
+Let 
+$$
+\xymatrix{
+M_1\ar[r]^{f_1}
+&M_2\ar[r]^{f_2}
+&M_3\ar[r]
+&0
+}
+$$
+be exact.
+Show that
+$$
+\xymatrix{
+0\ar[r]
+&\Hom(M_3,N)\ar[r]^{-\circ f_2}
+&\Hom(M_2,N)\ar[r]^{- \circ f_1}
+&\Hom(M_1,N)
+}
+$$
+is exact.
+\end{exercise}
+
+\begin{proof}
+Injectivity of the first arrow is easy.
+For the middle term pick $f \in \Hom_R(M_2,N)$
+in the kernel of $- \circ f_1$.
+To show that it is in the image of $-\circ f_2$
+we look for $g \in \Hom_R(M_3,N)$
+such that $f=g\circ f_2$.
+
+Since $M_1 \to M_2 \to M_3 \to 0$
+is exact, we have an isomorphism
+$\bar{f}_2:M_2/\text{img}f_1 \xrightarrow{\simeq} M_3$.
+Since $f \circ f_1=0$, we see that $f$
+induces a map $\bar{f}$ on the quotient since
+Indeed, if $m_2-m_2' \in \text{img}f_1$,
+we have $0=f(m_2-m_2')=f(m_2)-f(m_2')$.
+
+Then for any $m_3 \in M_3$
+we have a unique class $m_2 + M_1 \in M_2/\text{img}f_1$.
+Thus we can define $g = \bar{f} \circ \bar{f}_2^{-1}$.
+
+Note that this choice satisfies $f = g \circ f_2$.
+Indeed,
+$$
+g\circ f_2(m_2)=\bar{f} \circ \bar{f}^{-1}_2(m_3)
+= \bar{f} \circ (m_2+M)
+=f(m_2).
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-counterexample-right-hom-is-not-right-exact}
+Let $R = \mathbb{Z}$.
+Find an example of an injective homomorphism
+$M_1 \to M_2$ such that $\Hom(M_2,N) \to \Hom(M_1,N)$
+is not surjective.
+\end{exercise}
+
+\begin{proof}
+Consider
+$$
+\xymatrix{
+0\ar[r]
+&2\mathbb{Z}\ar[r]^i\ar[d]_\varphi
+&\mathbb{Z}\ar@{-->}[dl]^{\not\exists}\\
+&\mathbb{Z}/2\mathbb{Z}
+}
+$$
+where
+\begin{align*}
+\varphi: 2\mathbb{Z} &\longrightarrow \mathbb{Z}/2\mathbb{Z} \\
+2n &\longmapsto [n].
+\end{align*}
+
+\noindent
+Then there is no extension $\bar{\varphi}:\mathbb{Z} \to \mathbb{Z}/2\mathbb{Z}$
+making $\varphi=\bar{\varphi} \circ i$.
+Indeed, note that $\varphi(2)=[1]$,
+while $\bar{\varphi}(2\cdot 1)=2\bar{\varphi}(1)=[0]$.
+\end{proof}
+
+\noindent
+The idea is that any element in the image must be divisible
+by any integer. This is why $\mathbb{Q}$ is an injective module
+according to the following definition.
+(A precise proof of why $\mathbb{Q}$ is injective
+can be found at
+\href{https://stacks.math.columbia.edu/tag/01D6}{01D6}.)
+
+\begin{definition}
+\label{definition-injective-module}
+An $R$-module is {\it injective} if the functor $\Hom(-,M)$
+is exact.
+That is, if the dotted arrow in the following diagram always exists:
+$$
+\xymatrix{
+0\ar[r]
+&M_1\ar@{^{(}->}[r]\ar[d]
+&M_2\ar@{-->}[dl]^{\exists}\\
+&N
+}
+$$
+\end{definition}
+
+\begin{exercise}
+\label{exercise-left-hom-is-left-exact}
+Let
+$$
+\xymatrix{
+0\ar[r]
+&M_1\ar[r]^{f_1}
+&M_2\ar[r]^{f_2}
+&M_3\ar[r]
+&0
+}
+$$
+be an exact sequence of $R$-modules.
+Prove that
+$$
+\xymatrix{
+0\ar[r]
+&\Hom_R(N,M_1)\ar[r]^{f_1 \circ -}
+&\Hom_R(N,M_2)\ar[r]^{f_2 \circ -}
+&\Hom_R(N,M_3)
+}
+$$
+is exact
+\end{exercise}
+
+\begin{proof}
+Injectivity is simple.
+For the middle term let $f:N \to M_2$ be in the kernel
+of $f_2 \circ -$,
+that is, $f(N)$ is killed by $f_2$.
+
+We want to define a map $g:N \to M_1$
+such that $f_1 \circ g = f$.
+But observe that the image of $f$ already lies in $M_1 = \Ker f_2$.
+Thus $f$ is already a map $f:N \to M_1$,
+save a more precise notation.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-counterexample-left-hom-not-right-exact}
+Let $R=\mathbb{Z}$. Find an epimorphism
+(surjective homomorphism)
+of $R$-modules $M_2 \to M_3$ such that the corresponding map
+$$
+\Hom_R(N,M_2) \to \Hom_R(N,M_3)
+$$
+is not surjective for some $R$-module $N$.
+\end{exercise}
+
+\begin{proof}
+Now consider
+$$
+\xymatrix{
+&\mathbb{Z} \ar[d]^\pi\ar@{-->}[dl]_{\not\exists}\\
+2\mathbb{Z}\ar[r]_-\varphi& \mathbb{Z}/2\mathbb{Z}\ar[r]& 0
+}
+$$
+for the same $\varphi$ as in Exercise
+\ref{exercise-counterexample-right-hom-is-not-right-exact}.
+Then $\pi(1)=[1]$, while any extension mapping $1 \to 2n$
+gives $\varphi(2n)=2\varphi(n)=[0]$.
+\end{proof}
+
+\begin{definition}
+\label{definition-projective-module}
+An $R$-module $N$ is {\it projective} if the functor
+$\Hom_R(N,-)$ is exact. That is, if the dotted
+arrow in the following diagram always exists:
+$$
+\xymatrix{
+&N \ar[d]\ar@{-->}[dl]_{\exists}\\
+M_2\ar@{->>}[r]&M_3\ar[r]& 0
+}
+$$
+
+\end{definition}
+
+\begin{exercise}
+\label{exercise-finitely-generated-projective-iff-factor-of-free}
+A finitely generated $R$-module $N$ is projective
+if and only if
+it is a direct summand of a free $R$-module $R^n$,
+i.e. there is a direct sum decomposition
+$R^n=N \oplus N'$.
+\end{exercise}
+
+\begin{proof}
+Consider $R^n \simeq \bigoplus_{i=1}^n a_iR$
+where $N$ is generated by $a_1,…,a_n$.
+Apply projectivity to obtain
+$$
+\xymatrix{
+&N \ar[d]^{\text{id}}\ar@{-->}[dl]_{\exists \psi}\\
+R^n\ar[r]_-\varphi& N \ar[r]& 0
+}
+$$
+where
+\begin{align*}
+\varphi: R^n &\longrightarrow N \\
+(r_1a_1,…,r_na_n) &\longmapsto \sum r_ia_i.
+\end{align*}
+
+\noindent
+This is a section of $\varphi$ in the exact sequence
+$$
+\xymatrix{
+0\ar[r]
+&\Ker \varphi\ar[r]
+&R^n\ar[r]^{\varphi}
+&N\ar[r]\ar@/_-.5pc/[l]^\psi
+&0
+}
+$$
+which gives decomposition
+$$
+R^n \simeq \Ker\varphi \oplus \text{Im}\psi.
+$$
+More explicitly, the intersection of those modules is clearly trivial
+while any element of $R^n$ may be written as
+$$
+x=\underbrace{(x-\psi \varphi(x))}_{\in \Ker \varphi}
++\underbrace{\psi\varphi(x)}_{\in \text{Im}\psi}.
+$$
+For the converse we start from the diagram given in the definition
+of projective module, add $N'$ to every term, arriving 
+at $R^n\simeq N\oplus N'$. We observe that free modules
+are projective by constructing an extension using a basis of $R^n$,
+and then back to $N$ by taking the action of the extension restricted to $N$.
+\end{proof}
+
+\medskip\noindent
+In fact, currying (Exercise \ref{exercise-currying}) 
+is the essential ingredient
+for the proof that tensor product is left exact.
+Such result follows from two lemmas.
+
+\begin{lemma}
+\label{lemma-tensor-product-functor-is-left-exact}
+Let 
+$$
+\xymatrix{
+0\ar[r]
+&M_1\ar[r]
+&M_2\ar[r]
+&M_3\ar[r]
+&0
+}
+$$
+be an exact sequence of $R$-modules.
+Then for any $R$-modules $N$ and $N'$,
+the sequence
+$$
+\xymatrix{
+0\ar[r]
+&\Hom_R(M_3 \otimes N',N)\ar[r]
+&\Hom_R(M_2 \otimes N',N)\ar[r]
+&\Hom_R(M_1 \otimes N',N)
+}
+$$
+is exact.
+\end{lemma}
+
+\begin{proof}
+Apply $\Hom_R(-,N)$,
+then $\Hom_R(N',-)$
+and then currying.
+\end{proof}
+
+\noindent
+There is an (almost) converse 
+to Exercise \ref{exercise-left-hom-sends-right-exact-to-left-exact}:
+
+\begin{lemma}
+\label{lemma-converse-hom-is-left-exact}
+Let
+$$
+\xymatrix{
+E:&
+M_1\ar[r]^\mu
+&M_2\ar[r]^\rho
+&M_3\ar[r]
+&0
+}
+$$
+be a complex,
+i.e. $\rho\mu=0$,
+such that
+$$
+\xymatrix{
+0\ar[r]
+&\Hom_R(M_3,N)\ar[r]^{\rho_N}
+&\Hom_R(M_2,N)\ar[r]^{\mu_N}
+&\Hom_R(M_1,N)
+}
+$$
+is exact for any $R$-module $N$. Then $E$ is also exact.
+\end{lemma}
+
+\noindent
+And this is what implies right-exactness of tensor product:
+
+\begin{theorem}
+\label{theorem-tensor-product-is-right-exact}
+Let
+$$
+\xymatrix{
+M_1\ar[r]
+&M_2\ar[r]
+&M_3\ar[r]
+&0
+}
+$$
+be exact. Then
+$$
+\xymatrix{
+M_1 \otimes_R M\ar[r]
+&M_2 \otimes_R M\ar[r]
+&M_3 \otimes_R M\ar[r]
+&0
+}
+$$
+is exact.
+\end{theorem}
+
+\begin{proof}
+This is just Lemma \ref{lemma-tensor-product-functor-is-left-exact}
+and Lemma \ref{lemma-converse-hom-is-left-exact}!!!
+\end{proof}
+
+\begin{exercise}
+\label{exercise-not-flat}
+Let $R=\mathbb{C}[t]$.
+Find an exact sequence of $R$-modules
+$$
+\xymatrix{
+0\ar[r]
+&M_1\ar[r]
+&M_2\ar[r]
+&M_3\ar[r]
+&0
+}
+$$
+and an $R$-module $N$
+such that the corresponding map
+$$
+M_1 \otimes_R N \to M_2 \otimes_R N
+$$
+is not injective.
+\end{exercise}
+
+\begin{proof}
+Suppose the given exact sequence is just the ideal
+exact sequence of a point in $\mathbb{A}^1$.
+Then tensoring by $M$ means thickening the point.
+Not having injectivity after tensoring
+means that tensoring the ideal by $M$
+does not give the ideal of the resulting variety.
+\end{proof}
+
+And from this it follows as corollary
+
+\begin{proposition}
+\label{proposition-tensor-ideals}
+Let $I \subset R$ be an ideal of a ring.
+Then $M \otimes_R (R/I)=M/IM$.
+\end{proposition}
+
+\begin{proof}
+Take the exact sequence $0 \to I \to R \to R/I$ and tensor
+by $M$.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-tensor-product-of-quotients-by-maximal-ideals-is-zero}
+Let $I,I'$ be distinct maximal ideals in a ring $R$.
+Then $R/I \otimes_R R/I'=0$.
+\end{exercise}
+
+\begin{proof}
+They key observation is that since $I$ and $I'$
+are maximal we must have $I+I'=M$.
+This means that $1=f+f'$ for some $f \in I$ and $f' \in I'$.
+Then
+$1(a+I)\otimes(b+I')
+=(fa+I) \otimes (b + I')
++(a+I)\otimes(fb+I')=0$.
+\end{proof}
+
 
 
 \section{Algebras}
@@ -219,8 +684,46 @@ However, since it is finitely generated,
 all the generators have to be in some $I_j$,
 and thus the chain stabilizes.
 \end{proof}
+
+\begin{theorem}[Hilbert basis theorem]
+\label{theorem-hilbert-basis}
+If $R$ is Noetherian then so is $R[x]$.
+\end{theorem}
+
+\begin{exercise}
+\label{exercise-one-prime-ideal-is-artinian-or-not}
+
+\end{exercise}
+
+\begin{proof}
+$k[x_1,x_2,…]/(x_1^2,x_2^2,…)$,
+$I_n=(x_n,x_{n+1},…)$
+then $I_1 \supset I_2 \supset …$.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-hilbert-basis-for-formal-power-series}
+If $A$ is Noetherian then so is $A[[t]]$.
+\end{exercise}
+
+\begin{proof}
+Pass from an ideal in $A[[t]]$ to $A$ by taking
+the coefficients of the monomials of minimal degree
+of each element in the ideal.
+Then take a finite set of generators.
+Then go back to $A[[t]]$ by taking the polynomials
+where the generators where taken.
+Then…
+\end{proof}
+
 \section{Localization}
 \label{section-localization}
+
+\noindent
+The general recipe for localization is that
+$\mathcal{O}_U=\mathcal{O}_X[f^{-1}]$ where
+$U=X\setminus V(f)$.
+That is, localizing gives the sheaf of the variety without the zero set.
 
 \begin{definition}
 \label{definition-localization}
