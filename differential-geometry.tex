@@ -299,6 +299,19 @@ derivative at $p$.
 \section{Connections}
 \label{section-connections}
 
+\begin{theorem}[Miracle]
+\label{theorem-miracle}
+There exists a unique metric torsion-free connection on any Riemannian manifold.
+\end{theorem}
+
+\begin{proof}
+\begin{align*}
+2\left<\nabla_XY,Z\right>
+&=X\left<Y,Z\right>+Y\left<X,Z\right>-Z\left<X,Y\right>\\
+&-\left<X,[Y,Z]\right>+\left<Y,[Z,X]\right>+\left<Z,[X,Y]\right>.
+\end{align*}
+\end{proof}
+
 \begin{example}
 \label{example-euclidean-connection}
 The usual connection in $\mathbb{R}^n$ is given by 
@@ -744,15 +757,6 @@ It is clear that the integral curves of $\nabla d_p$
 are unit speed geodesics.
 \end{proof}
 
-\begin{exercise}
-\label{exercise-killing-field-with-zero-of-order-1}
-Let $X$ be a Killing field in a connected Riemannian manifold $M$.
-Suppose there is a point $q \in M$ such that
-$X(q)=0$ and $\nabla_YX(q)=0$ for any $Y(q) \in T_qM$.
-Show that $X=0$.
-\end{exercise}
-
-
 \begin{lemma}
 \label{lemma-geodesic-coordinates}
 At every point $p$ in $M$ there is an orthonormal frame 
@@ -819,6 +823,28 @@ Isometry maps geodesics to geodesics by Lemma
 \ref{lemma-isometry-maps-geodesics-to-geodesics}, then uniqueness of solutions
 of ODEs.
 \end{proof}
+
+\begin{definition}
+\label{definition-killing}
+A {\it Killing vector field} is a vector field
+whose flow diffeomorphisms are isometries.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-killing}
+$X$ is a Killing vector field if and only if
+$$
+\left<\nabla_YX,Z\right> + \left<\nabla_ZX,Y\right>=0.
+$$
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-killing-field-with-zero-of-order-1}
+Let $X$ be a Killing field in a connected Riemannian manifold $M$.
+Suppose there is a point $q \in M$ such that
+$X(q)=0$ and $\nabla_YX(q)=0$ for any $Y(q) \in T_qM$.
+Show that $X=0$.
+\end{exercise}
 
 
 \begin{exercise}
@@ -1802,6 +1828,63 @@ Then there exists a unique isometric
 immersion $f:M \to \mathbb{Q}_c^{n+p}$ and a bundle isomorphism $\varphi:E \to
 T^\perp_pM$ such that $\varphi\circ\tilde{\alpha}=\alpha_f$.
 \end{theorem}
+
+\medskip\noindent
+Now I put some exercises.
+
+\begin{exercise}[Singularities of a Killing vector field]
+\label{exercise-singularities-of-killing-vector-field}
+\begin{reference}
+\cite[Exercise 12, Chapter VI]{doc}
+\end{reference}
+Let $X$ be a Killing vector field on a Riemannian manifold $M$.
+Let $N=\{p \in M: X(p)=0\}$. Show that
+\begin{enumerate}
+\item If $p\in N$, $V \subset M$ is a normal neighbourhood of $p$,
+and $q \in N \cap V$, then the radial geodesic segment
+joining $p$ to $q$ is contained in $N$.
+Conclude that $\gamma \cap V\subset N$.
+
+\item If $p \in N$, there exists a neighbourhood $V \subset M$
+of $p$ such that $V \cap N$ is a submanifold of $M$.
+
+\item The codimension of any connected component of $N$ in $M$ is even.
+Use that a sphere admitting a nowhere-vanishing vector field 
+has odd dimension.
+\end{enumerate}
+\end{exercise}
+
+\begin{proof}
+\begin{enumerate}
+\item Consider the flow $\varphi_t$ of $X$ for small $t$.
+Since it is an isometry, it must map geodesics to geodesics.
+Since both $p$ and $q$ are in $N$, the two geodesics
+$\gamma$ and $\varphi_t(\gamma)$ intersect at $p$ and at $q$.
+But the exponential is bijective in $V$, so this cannot happen
+unless $X$ vanishes throughout the segment of $\gamma$ joining $p$ and $q$.
+This means that $X$ vanishes throughout $\gamma$ since
+we can take any point in $\gamma$ not between $p$ and $q$,
+apply the flow, which would give another geodesic but
+whose starting segment coincides with $\gamma$,
+and by uniqueness of ODEs such a geodesic must be $\gamma$ itself.
+
+\item Por indução usando o inciso anterior.
+
+\item Let $p \in N$ and $q$ in a normal neighbourhood of $p$ in $M$.
+Since $N$ is a submanifold we have the decomposition
+$T_qM\simeq T_q N\oplus T_q^\perp N$.
+Consider the submanifold
+$\tilde{N}:=\text{exp}_q T_q^\perp N$,
+and a geodesic sphere contained in this submanifold.
+$X$ cannot vanish along this sphere.
+Since $X$ is Killing, it is orthogonal to such sphere
+by $\frac{d}{dt}\left<X,\gamma'\right>=0$
+and $\left<X(q),\gamma'(q)\right>=0$.
+Thus we have constructed a nowhere-vanishing vector field
+in a hypersphere of $\tilde{N}$, 
+which shows that $\dim \tilde{N}=\text{codim }N$ is even.
+\end{enumerate}
+\end{proof}
 
 \section{Harmonic maps}
 \label{section-harmonic-maps}
