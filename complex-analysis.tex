@@ -49,9 +49,6 @@ Next in Ahlfors book is a generalization of Cauchy's formula
 for cycles. And after that is the Residue theorem.
 Next are harmonic functions, in particular
 the mean value theorem and Schwarz theorem.
-Also of interest is Riemann's open mapping theorem
-that any simply connected region can be mapped to the
-unit disk.
 
 And after all that elliptic functions.
 
@@ -1755,6 +1752,169 @@ Moreover, $r$ is a Weierstrass polynomial and is thus generated
 by the $g_i$. Since $g$ does not depend on $\tilde{f}$,
 we see that $I=(g,g_1,…,g_k)$.
 \end{proof}
+
+\medskip\noindent
+Not knowing exactly where to put this, here goes:
+
+\medskip\noindent
+Now we discuss the analytic version of Hilbert's Nullstellensatz.
+as explained by Demailly.
+
+\noindent
+Usually I think of Hilbert's Nullstellensatz
+as the statement that $I(V(I))=\sqrt{I}$.
+Following are two simple initial observations.
+
+It is immediate that $\sqrt{\mathfrak{p}}=\mathfrak{p}$
+if $\mathfrak{p}$ is a prime ideal (of any ring):
+if  $f^k \in \mathfrak{p}$ then
+either $f \in \mathfrak{p}$ or $f^{k-1}\in \mathfrak{p}$,
+etc.
+
+It is also easy to see that
+for any ideal $I$ of functions or germs of functions
+(i.e. either  $I \subset \mathcal{O}_X(U)$
+or $I \subset \mathcal{O}_n$)
+we have
+$\sqrt{I}\subseteq I(V(I))$.
+Indeed, if $f^k \in I$,
+then $f^k(x)=0$ for all $x \in V(I)$,
+and since $\mathbb{C}$ has no nonzero divisors
+we see that $f(x)=0$,
+that is $f \in I(V(I))$.
+
+It remains to show that $I(V(I)) \subseteq \sqrt{I}$.
+We shall first suppose that  $I$ is prime
+and prove that $I(V(I)) \subseteq I$.
+(The complete statement for the radical follows
+from a purely algebraic process,
+see \cite[Theorem 4.22]{Demailly}.)
+
+We will need a few preparatory results.
+First recall that $S$ is an integral ring over $R$ 
+if every element of $S$ is expressed as
+a root of a monic polynomial with coefficients in $R$.
+(See Stacks Project \href{https://stacks.math.columbia.edu/tag/00GI}{00GI}.)
+
+It will be handy to keep in mind the following lemma
+(Stacks Project \href{https://stacks.math.columbia.edu/tag/00GH}{00GH}):
+
+\begin{lemma}
+\label{lemma-characterize-finite-in-terms-of-integral}
+Let $R \to S$ be a ring map. The following are equivalent
+\begin{enumerate}
+\item $R \to S$ is finite,
+\item $R \to S$ is integral and of finite type, and
+\item there exist $x_1, \ldots, x_n \in S$ which generate $S$ as an
+algebra over $R$ such that each $x_i$ is integral over $R$.
+\end{enumerate}
+\end{lemma}
+
+\noindent
+This essentially says that an integral extension
+$R \to S$ gives $S$ the structure of a finitely generated $R$-module
+(I think experts call this a ``finite $R$-module'')
+whose generators are integral.
+This just means that $S=R[x_1,\ldots,x_k]$
+and $x_i \in S$ is the root of a monic polynomial in $R$.
+
+\begin{proposition}
+\label{proposition-integral-extension}
+$\mathcal{O}_n/\mathcal{I}$ is a
+finite integral extension of $\mathcal{O}_d$.
+\end{proposition}
+
+\begin{proof}
+For this it's enough to check that
+the map $\mathcal{O}_d \to \mathcal{O}_n/\mathcal{I}$ 
+is finite.
+That is, that every element of $\mathcal{O}_n/\mathcal{I}$ 
+can be expressed as a tuple of elements
+of $\mathcal{O}_d$. 
+(We can think of this tuple
+as a linear combination, or cycle.)
+Step 1: produce some Weierstrass polynomials…
+\end{proof}
+
+\begin{lemma}
+\label{lemma-nullstellensatz}
+\begin{reference}
+\cite[Lemma 4.21]{Demailly}
+\end{reference}
+If $\mathcal{I} \subset \mathcal{O}_n$ is prime and
+$A = V(\mathcal{I})$, then
+$\mathcal{I}_{A,0}=\mathcal{I}$.
+\end{lemma}
+
+\begin{proof}
+Proposition \ref{proposition-integral-extension}
+says: take a polynomial $f \in \mathcal{O}_n$
+and consider its equivalence class $\tilde{f}\in\mathcal{O}_n/\mathcal{I}$.
+Then $\tilde{f}$ is the root of some monic polynomial 
+$t^r+b_{r-1}t^{r-1}+\ldots+b_1t+b_0$
+with $b_i \in \mathcal{O}_d$.
+That is, putting $f$ instead of $t$ we get an equation
+$$
+f^r+b_1f^{r-1}+\ldots+b_r=0\qquad \text{mod }\mathcal{I}.
+$$
+In other words, the holomorphic function
+$f^r+b_1f^{r-1}+\ldots+b_r$ is in  $\mathcal{I}$.
+Since $f$ vanishes on $(A,0)$,
+this says that $b_r$ vanishes in $(A,0)$ too.
+Now suppose that this implied that the class $\tilde{b_r}=0$.
+We are supposed to use that Proposition \ref{proposition-integral-extension}
+also tells us is that the above equation is irreducible,
+which I think means that $F=\sum b_it^i \in \mathcal{O}_d[t]$
+is irreducible.
+In turn this gives that $r=1$.
+\end{proof}
+
+
+\medskip\noindent
+Let's just store what was learned today:
+\begin{enumerate}
+\item {\bf Noether normalization lemma.} 
+See \href{https://www.youtube.com/watch?v=VWWoG_4XVvs}
+{this video}.
+Let $k$ be a (infinite) field,
+$A \neq 0$ a finitely generated $k$-algebra.
+Then there exists elements $y_1,\ldots,y_r \in A$ 
+which are algebraically independent over $k$ 
+and such that $A$ is integral over $k[y_1,\ldots,y_r]$.
+That is,
+$$
+\xymatrix{
+A\ar@{-}[d]^{\substack{\text{integral} \\ \text{ext.}}}\\
+k[y_1,\ldots,y_r]\ar@{-}[d]^{\substack{\text{transc.} \\ \text{ext.}}}\\
+k.
+}
+$$
+
+\item This can be used to prove the weak Nullstellensatz, i.e.
+let $k$ be an algberaically closed field, and $I \subseteq k[x_1,\ldots,x_n]$ 
+an ideal such that $V(I)=\emptyset$. Then $I=k[x_1,\ldots,x_n]$.
+
+To prove it using Noether's normalization lemma,
+suppose that the $I\neq k[x_1,\ldots,x_n]$.
+Let $\mathfrak{m}$ be a maximal ideal such that $I \subseteq \mathfrak{m}$.
+Then $A=k[x_1,\ldots,x_n]/\mathfrak{m}=k[y_1,\ldots,y_n]$,
+where the first string is algebraically independent
+while the last string is integral. But because the 
+whole extension is algebraic, then $y_1,\ldots,y_n$ 
+are integral over $k$.
+Then we can map $y_i \mapsto \alpha_i$, a root
+of its defining polynomial over $k$.
+This means we do have a point where all polynomials
+in $\mathfrak{m}$ vanish.
+
+{\bf Note.} I'm not sure what we mean with "the first string"
+and the "second string".
+
+\item Also reviewed Misha's proof of the Nullstellensatz.
+Looks accessible, though it is not holomorphic!
+
+\item Perhaps start in Demailly just after Prop. 4.13.
+\end{enumerate}
 
 \bibliography{my}
 \bibliographystyle{amsalpha}
