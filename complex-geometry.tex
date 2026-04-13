@@ -12,7 +12,7 @@
 
 \tableofcontents
 
-\section{Complex vector spaces and complex manifolds}
+\section{Complex structures on vector spaces}
 \label{section-complex-structure}
 
 
@@ -46,18 +46,23 @@ Let $V_{\mathbb{C}}:=V \otimes_{\mathbb{R}}\mathbb{C}$.
 This means that elements of $V_{\mathbb{C}}$
 are finite sums of elements of the form $v \otimes (a+iv)$
 for $a,b \in \mathbb{R}$ and $i = \sqrt{-1}$.
-In particular, $V_\mathbb{C}=V \oplus i V$.
 
+Notice that although $(V,I)$ is also a complex vector space,
+it is a different one from $V_\mathbb{C}$.
+The complexification $V_\mathbb{C}$
+is much more interesting since it gives us the $(p,q)$-decomosition
+when we take the exterior algebra.
+
+Further, $V_\mathbb{C}=V \oplus i V$.
 We define {\it conjugation} of vectors in $V_{\mathbb{C}}$ by
 $\bar{v}=\overline{v \otimes \lambda} := v \otimes \bar{\lambda}$
-
 
 This means that $\overline{V}$ is just $V$ but 
 with the scalar product $\lambda v:=\bar{\lambda}v$.
 for any $v \in V_{\mathbb{C}}:=V \otimes_{\mathbb{R}}\mathbb{C}$.
 This makes the equation
-$\overline{\Lambda^{1,0}(V)}=\Lambda^{0,1}(V)$ 
-in the next proposition obvious.
+$\overline{\Lambda^{1,0}(V)}=\Lambda^{0,1}(V)$,
+which appears in the next proposition, obvious.
 (See \cite[p. 25]{huc}.)
 
 \begin{lemma}
@@ -421,12 +426,75 @@ $$
 for $\alpha \in P^{p,q}\setminus\{0\}$ and $p+q\leq n$.
 \end{theorem}
 
-
 \medskip\noindent
 Now let's discuss the local theory on complex manifolds,
 which is rather just analysis on an open set of the complex numbers.
-We start with $\partial,\bar\partial$.
+We start defining $\partial,\bar\partial$
+and aim at proving Dolbeault theorem,
+which is proved exactly in the same way as de Rham's theorem.
 
+\medskip\noindent
+Upshot. We recall by sheaf theory
+that the existence of an acyclic resolution of a sheaf
+implies that the cohomology of the resolution
+equals the cohomology of the sheaf (see next paragraph).
+de Rham's complex is an acylic resolution 
+of the constant sheaf $\underline{\mathbb{R}}$;
+acyclicity is due to Poincaré lemma - a local property.
+There some way of viewing the complex of singular cochains
+as an acyclic resolution of the constant sheaf $\underline{\mathbb{R}}$.
+Thus both de Rham cohomology and singular cohomology
+are isomorphic to the cohomology of the constant sheaf $\underline{\mathbb{R}}$.
+
+The derived functors assign a resolution to every object
+in the abelian category if it has enough injectives.
+An acylcic resolution is such that the derived functors
+of all objects in the resolution vanish.
+The cohomology of a sheaf is defined
+as the resolution given by its exact functors.
+
+Dolbeault theorem is exactly the same:
+Dolbeault's complex is acylcic by $\bar\partial$-Poincaré lemma,
+making it a resolution of the sheaf $\Omega^p$.
+
+There is an interesting relationship between the two results,
+which we anticipated since $\bar\partial$ 
+appears to act on a ``piece'' of the exterior algebra,
+fixing another piece.
+
+\medskip\noindent
+Let us start by defining $\partial$ and $\bar\partial$.
+Take a real-valued smooth function $f \in C^\infty(V,\mathbb{R})$.
+We know that the de Rham differential is given
+in local coordinates $x^i,y^j$ of our $2n$ real-dimensional manifold by
+$$
+df=\partial_{x^i}fdx^i + \partial_{y^j}fdy^j.
+$$
+When we complexify the exterior algebra we obtain
+$\Lambda_{\mathbb{C}}^\bullet(V) 
+= \Lambda^\bullet(V) \otimes_\mathbb{R}\mathbb{C}
+= \Lambda^\bullet(T^*V \otimes_\mathbb{R}\mathbb{C})$.
+Here we can multiply by complex numbers,
+so we can define
+$$
+\partial_z:= \frac{1}{2}(\partial_x  - i \partial_y ),\qquad 
+\partial_{\bar{z}}:=\frac{1}{2}(\partial_x + i \partial_y)
+$$
+and obtain
+$$
+dz=dx+idy,\qquad  d\bar{z}=dx - i dy.
+$$
+
+We see that
+\begin{align*}
+\partial_zfdz+\partial_{\bar{z}} fd\bar{z}
+&=\frac{1}{2}(\partial_xf-i\partial_y f)(dx+idy)\\
+&+\frac{1}{2}(\partial_x f+i \partial_y f)(dx- i dy)\\
+&=\partial_x f dx + \partial_y f dy\\
+&=df.
+\end{align*}
+
+\noindent
 \begin{definition}
 \label{definition-dbar}
 \begin{reference}
@@ -452,13 +520,72 @@ where $\Pi^{p,q}$ is the projection.
 \end{definition}
 
 \noindent
-Since for any local function $f$ we have
+From this definition we see that
 $$
-d(f)=\sum_i\frac{\partial f}{\partial z_i}dz_i
-+\sum_i\frac{\partial d}{\partial \bar{z}_i}d\bar{z}_i,
+\partial f = \partial_z fdz,\qquad 
+\bar\partial f = \partial_{\bar{z}}fd\bar{z}
 $$
-we see that  $f$ is holomorphic if and only if
-$\bar\partial f=0$.
+for $f$ real or complex-valued.
+
+If we take $f$ complex-valued 
+and put $f=u+iv$,
+the condition $\bar\partial f =0$
+becomes the Cauchy-Riemann equations.
+Thus a complex-valued function is holomorphic if and only if
+$\bar\partial f=0$, which means that its
+complexified de Rham differential is a $(1,0)$-form,
+i.e. a multiple of $dz$ only.
+
+This way we see that since real partial derivatives commute,
+\begin{align*}
+\partial_z \partial_{\bar{z}}
+&=\left(\frac{1}{2}(\partial_x - i \partial_y)\right)
+\left(\frac{1}{2}(\partial_x+i \partial_y)\right)\\
+&=\frac{1}{4}(\partial_x^2
++i \partial_x\partial_y-i\partial_y\partial_x
+-i^2 \partial_y^2)\\
+&=\frac{1}{4}(\partial_x^2+\partial_y^2)\\
+&=\frac{1}{4}(\partial_x^2
+-i \partial_x\partial_y+i\partial_y\partial_x
+-i^2 \partial_y^2)\\
+&=\left(\frac{1}{2}(\partial_x + i \partial_y)\right)
+\left(\frac{1}{2}(\partial_x-i \partial_y)\right)\\
+&=\partial_{\bar{z}}\partial_z,
+\end{align*}
+
+\noindent
+so that
+\begin{align*}
+\partial \bar\partial f
+&=\partial(\partial_{\bar{z}}f d\bar{z})\\
+&=\partial_z \partial_{\bar{z}}f dz \wedge d\bar{z}.
+\end{align*}
+
+\noindent
+And similarly,
+
+\begin{align*}
+\bar\partial \partial f 
+&=\partial_{\bar{z}}(\partial_z f dz)\\
+&=\partial_{\bar{z}}\partial_zf d\bar{z} \wedge dz\\
+&=-\partial_z\partial_{\bar{z}}fdz\wedge d\bar{z}
+\end{align*}
+
+\noindent
+and thus
+$$
+\partial\bar\partial=-\bar\partial \partial
+$$
+on functions.
+
+For an arbitrary $(p,q)$-form
+$$
+\alpha=f_{I,J}dz^I \wedge d\bar{z}^J,\qquad 
+|I|=p,|J|=q,
+$$
+we shall also have $\partial\bar\partial=\bar\partial\partial$.
+
+
 
 \medskip\noindent
 We have the following local result:
@@ -493,7 +620,10 @@ $$
 \end{proposition}
 
 
-\medskip\noindent
+\section{Complex manifolds}
+\label{section-complex-manifolds}
+
+\noindent
 Finally we arrive at complex manifolds.
 
 \begin{definition}
@@ -503,6 +633,34 @@ $\{U_\alpha\}$ and coordinate maps $\varphi_\alpha:U_\alpha\to\mathbb{C}^n$ such
 that $\varphi_\alpha\circ\varphi_\beta^{-1}$ is holomorphic on
 $\varphi_\beta(U_\alpha\cap U_\beta)\subset\mathbb{C}^n$ for all $\alpha,\beta$.
 \end{definition}
+
+\begin{example}
+\label{example-projective-space}
+The standard coordinate charts of projective space
+$\mathbb{P}^n$ are 
+$$
+U_i:=\{(z_0:…:z_n): z_i \neq 0\}
+$$
+along with the maps
+\begin{align*}
+\varphi_i: U_i &\longrightarrow \mathbb{C}^n \\
+(z_0:…:z_n) &\longmapsto 
+\left(\frac{z_0}{z_i},…,\frac{z_{i-1}}{z_i},
+\frac{z_{i+1}}{z_i},…,\frac{z_n}{z_i}\right).
+\end{align*}
+
+\noindent
+Transition functions are given by … which are clearly holomorphic.
+\end{example}
+
+\noindent
+As a warning note that we can take the charts to be
+$U_i=\{z_i=1\}$,
+but when considering $U_i \cap U_j$
+we must be careful since this is {\it not} $\{z_i=1\}\cap \{z_j=1\}$.
+For example in $\mathbb{P}^1$, this would say that the intersection
+$U_0 \cap U_1$
+is the single point $(1:1)$, but what about $(1:2)$?
 
 \begin{definition}
 \label{definition-almost-complex-manifold}
@@ -555,6 +713,10 @@ $[T^{0,1},T^{0,1}]\subset T^{0,1}$.
 
 Other equivalent conditions…
 
+The {\it tensor} is given by
+$$
+N_I[X,Y]=[X,Y]+I[IX,Y]+I[X,IY]-[IX,IY]
+$$
 
 
 
@@ -627,15 +789,31 @@ is closed.
 
 \noindent
 As in with vector spaces endowed with almost complex structures,
-we have the operators $L,\Lambda,*$ defined on the exterior algebra
-of an almost complex manifold.
-But now we have others.
+we have the operators $L,\Lambda,*$ defined on the 
+cotangent spaces of a complex manifold.
+As a corollary we have that Lefschetz decomposition
+passes to exterior algebra
+of a hermitian manifold:
+
+\begin{lemma}
+\label{lemma-lefschetz-decomposition-for-manifolds}
+Let $(X,g)$ be an hermitian manifold.
+Then there exists a direct sum decomposition of vector bundles
+$$
+\Lambda^k(X)=\bigoplus_{i\geq 0}L^i(P^{k-2i}X),
+$$
+there $P^{k-2i}X$ is the kernel of $\Lambda$.
+\end{lemma}
+
+\medskip\noindent
+Apart from the linear-algebraic operators,
+on manifolds we have other operators.
 
 \begin{definition}
 \label{definition-adjoint-de-rham-differential}
 The {\it adjoint de Rham differential} is
 $$
-d^*:=(-1)^{n(k+1)+1}*\circ dd^\circ *
+d^*:=(-1)^{n(k+1)+1}*\circ d\circ *
 :\mathcal{A}^k(M) \to \mathcal{A}^{k-1}(M)
 $$
 where, as always, $\mathcal{A}^k(M)$ denotes the
@@ -703,41 +881,6 @@ $$
 {d^c}^*:=-* \circ d^c \circ *.
 $$
 
-
-On a compact hermitian manifold $(X,g)$ we may define
-$$
-(\alpha,\beta):=\int_Xg_{\mathbb{C}}(\alpha,\beta)*1,
-$$
-which is an hermitian product on $\mathcal{A}_{\mathbb{C}}^*(X)$.
-
-\begin{lemma}
-\label{lemma-adjoints}
-\begin{reference}
-\cite[Lemma 3.2.3]{huc}
-\end{reference}
-Let $X$ be a compact hermitian manifold.
-Then $\partial^*$ and $\bar\partial^*$
-are adjoints to $\partial$ and $\bar\partial$ with respect to
-$(\cdot,\cdot)$.
-\end{lemma}
-
-\begin{proof}
-We have
-\begin{align*}
-(\partial\alpha,\beta)
-&=\int_X\left<\partial\alpha,\beta\right>_\mathbb{C}\text{Vol}
-=\int_X \partial\alpha\wedge*\beta,\\
-(\alpha,\partial^*\beta)
-&=\int_X\left<\alpha,-*\partial*\beta\right>_{\mathbb{C}}\text{Vol}
-=\int_X\alpha\wedge\partial*\beta.
-\end{align*}
-
-\noindent
-Now we also have 
-$\partial(\alpha\wedge\beta)
-=\partial\alpha\wedge\beta+\alpha\wedge\partial\beta$,
-and the integral of the first vanishes by Stokes theorem.
-\end{proof}
 
 
 
@@ -1012,527 +1155,319 @@ $(M,I,g)$ is Kähler if and only if $\nabla^{LC}I=0$.
 
 
 
+\section{Hodge theory}
+\label{section-hodge-theory}
 
-
-
-
-
-\section{Vector bundles, connections, curvature and Chern classes}
-\label{section-vector-bundles}
-
-\begin{proposition}[Holomorphic Vector Bundle Isomorphism Criterion]
-\label{proposition-isomorphism-of-vector-bundles}
-\begin{reference}
-\cite[Proposition 3.7]{lec}
-\end{reference}
-Two vector bundles $E$ and $F$ 
-with transition functions $g_{ij}$ and $h_{ij}$
-are isomorphic if and only if
-$g_{ij}=A^{-1}_ih_{ij}A_j$
-for some $A_i:U_i \to \text{GL}_n(\mathbb{C})$.
-\end{proposition}
-
-\begin{proof}
-The idea is to define a map in local trivializations
-and confirm that this glues to a global bundle map.
-This means: invent $\varphi_i:E(U_i):=\Gamma_E(U_i) \to F(U_i)$,
-i.e. a local map of sections
-(yes, a map of sections, since a bundle map
-is constructed as map of the total spaces,
-which are points and vectors, 
-but we need to preserve the projection,
-so all we care is about the vectors).
-Then check that on $U_i\cap U_j:= U_{ij}$ 
-we have $\varphi_i=\varphi_j$.
-This literally creates a bundle map.
-
-Try to do it for line bundles,
-so $A_i$ are just functions.
-Take a local frame $e_i$ for $E$
-and a local frame $f_j$ for $F$.
-Change coordinates and apply the map,
-apply the map and change coordinates
-- this should give both sides of the cocycle condition
-of the proposition.
-\end{proof}
-
-
-
-\begin{definition}
-\label{definition-hermitian-connection}
-Let $(M,I,g)$ be a hermitian manifold.
-A linear connection $\nabla$ on $TM$
-is {\it hermitian} if $\nabla g=0$ and $\nabla J=0$.
-\end{definition}
-
-
-\section{Complex varieties}
-\label{section-complex-varieties}
-
-For a definition of sheaf
-see Algebraic Geometry Definition 
-\ref{algebraic-geometry-definition-sheaf}.
+\noindent
+On a compact hermitian manifold $(X,g)$ we may define
+$$
+(\alpha,\beta):=\int_Xg_{\mathbb{C}}(\alpha,\beta)*1,
+$$
+which is an hermitian product on $\mathcal{A}_{\mathbb{C}}^*(X)$.
 
 \begin{lemma}
-\label{lemma-O_X-is-a-sheaf}
-Let $X$ be a complex manifold of complex dimension $n$.
-
-The functor
-\begin{align*}
-\mathcal{O}_X: \mathit{Open}_X^{\text{op}} &\longrightarrow \mathit{Set}
-\\
-U &\longmapsto \mathcal{O}_X(U):=\{f:U\to \mathbb{C}^n:
-f \text{ is holomorphic}\}\\
-i:V \hookrightarrow V &\longmapsto 
-\mathcal{O}_X(i):\mathcal{O}_X(U) \to \mathcal{O}_X(V)
-\end{align*}
-where $\mathcal{O}_X(i)$ is given by restriction,
-is a sheaf.
+\label{lemma-adjoints}
+\begin{reference}
+\cite[Lemma 3.2.3]{huc}
+\end{reference}
+Let $X$ be a compact hermitian manifold.
+Then $\partial^*$ and $\bar\partial^*$
+are adjoints to $\partial$ and $\bar\partial$ with respect to
+$(\cdot,\cdot)$.
 \end{lemma}
 
 \begin{proof}
-$\mathcal{O}_X$ is a presheaf,
-i.e. a functor,
-by definition: restriction
-maps the identity to the identity
-and preserves compositions.
-
-To check the condition of being a sheaf let
-$U_i$ be an open cover of some open set $U$ of $X$
-and $f_i:U_i \to X$ sections of $\mathcal{O}_X(U_i)$,
-that is, holomorphic functions, which
-coincide pairwise in intersections.
-Then it is obvious that the function $f:U \to \mathbb{C}$,
-$x \mapsto f_i(x)$ for any $U_i \ni x$ 
-is well defined. It is also holomorphic
-since holomorphicity is a condition defined on
-open sets.
-\end{proof}
-
-\medskip\noindent
-A meromorphic function is a function that
-can be written locally as a quotient of two
-holomorphic functions:
-
-\begin{definition}
-\label{definition-meromorphic-functions}
-\begin{reference}
-\cite[Definition 2.1.8]{huc}
-\end{reference}
-A {\it meromorphic function} on a complex manifold $X$ 
-is a map
-$$
-f:X \to \coprod_{x \in X}\text{Frac}(\mathcal{O}_{X,x})
-$$
-which associates to any $x\in X$
-an element $f_x \in \text{Frac}(\mathcal{O}_{X,x})$
-such that for any $x_0 \in X$ 
-there exists $U\ni x$ open and $f,g \in\mathcal{O}(U)$ 
-such that $f_x=g/h$ for all $x \in U$.
-The {\it sheaf of meromorphic functions} is $\mathcal{K}_X$.
-\end{definition}
-
-
-\medskip\noindent
-Now we pass to the theory of analytic subvarieties.
-
-\begin{definition}
-\label{definition-analytic-subvariety}
-\begin{reference}
-
-\end{reference}
-An {\it analytic set} or {\it subvariety} $Y$ 
-is a subset of a complex manifold $X$
-given locally as the zeros of a finite collection of holomorphic functions.
-\end{definition}
-
-\begin{lemma}
-\label{lemma-structure-sheaf-of-subvariety}
-Let $Y \subset X$ be an analytic subvariety
-of a complex manifold $X$
-equipped with the subspace topology.
-Then
+We have
 \begin{align*}
-\mathcal{O}_Y: \mathit{Open}_Y^{\text{op}} &\longrightarrow \mathit{Set} \\
-U\cap Y &\longmapsto \{f|_{U \cap Y}:f \in \mathcal{O}_X(U)\}
+(\partial\alpha,\beta)
+&=\int_X\left<\partial\alpha,\beta\right>_\mathbb{C}\text{Vol}
+=\int_X \partial\alpha\wedge*\beta,\\
+(\alpha,\partial^*\beta)
+&=\int_X\left<\alpha,-*\partial*\beta\right>_{\mathbb{C}}\text{Vol}
+=\int_X\alpha\wedge\partial*\beta.
 \end{align*}
 
 \noindent
-is a sheaf.
-\end{lemma}
-
-\begin{proof}
-This is a presheaf for the same reasons as
-the sheaf $\mathcal{O}_X$ is a presheaf.
-The fact that it is a sheaf follows
-from the fact that $\mathcal{O}_X$ is a 
-sheaf and by definition of subspace topology;
-namely for any family of functions
-defined over an open cover $\{U_i \cap Y\}$
-of some open set  $U\cap Y$ we can reconstruct a function
-on $U$ that restricted to $U \cap Y$ is as desired.
+Now we also have 
+$\partial(\alpha\wedge\beta)
+=\partial\alpha\wedge\beta+\alpha\wedge\partial\beta$,
+and the integral of the first vanishes by Stokes theorem.
 \end{proof}
-
-Recall that any map of sheaves of groups
-has well-defined kernel, see Lemma
-\ref{algebraic-geometry-lemma-sheaves-valued-on-groups-have-kernels}.
-
-\begin{definition}
-\label{definition-ideal-sheaf}
-Let $Y \subset X$ be an analytic subvariety
-of a complex manifold $X$.
-The {\it ideal sheaf} of $Y$, denoted $\mathcal{I}_Y$,
-is the kernel
-of the restriction map $\mathcal{O}_X \to \mathcal{O}_Y$.
-\end{definition}
-
-\noindent
-This just says that $\mathcal{I}_X(U)$ is the
-set of functions $f \in \mathcal{O}_X$ that
-vanish under the restriction map, i.e.
-that vanish at points of $Y$.
-
-Since the restriction map is surjective, 
-we have the following short exact sequence:
-$$
-\xymatrix{
-0\ar[r]&\mathcal{I}_Y\ar[r]&\mathcal{O}_X\ar[r]&\mathcal{O}_Y\ar[r]&0
-}
-$$
-
-\medskip\noindent
-Notice that for any open set $U\subset X$,
-$\mathcal{I}_Y(U)$ is an ideal of $\mathcal{O}_X(U)$. (Indeed,
-if a function vanishes at $Y$ then its product
-with any other function will also vanish.)
-
-\begin{definition}
-\label{definition-irreducible-variety}
-An analytic variety $V\subset U\subset \mathbb{C}^n$ is {\it irreducible} if
-$V$ cannot be written as the union of two distinct analytic varieties 
-$V_1,V_2\subset U$, both distinct to $V$.
-\end{definition}
 
 \begin{lemma}
-\label{lemma-irreducible-analytic-hypersurface-irreducible-polynomial}
-If $V$ is an irreducible analytic hypersurface given locally as $V=\{f=0\}$, 
-then $f$ is irreducible in $\mathcal{O}_p$.
+\label{lemma-harmonic-iff-closed}
+Let $X$ be a compact hermitian manifold.
+A form is $\bar\partial$-harmonic if and only if
+it is $\bar\partial$-closed and $\bar\partial^*$ closed.
+The same holds for $\partial$,
+and in fact, on any compact oriented Riemannian manifold $(M,g)$,
+a similar result holds for the usual $d$-Laplacian.
 \end{lemma}
 
 \begin{proof}
-If $f=gh$ and neither of $g$ and $h$ are units and they are distinct, we could 
-express $V$ as the union of two distinct varieties: $V(g)$ and $V(h)$. (If one 
-of them, was a unit then the vanishing set would be all of $U$.)
+\begin{align*}
+(\Delta \alpha,\alpha)&=((d d^*+d^*d)\alpha,\alpha)\\
+&=(d d^*\alpha,\alpha)+(d^*d\alpha,\alpha)\\
+&=(d^*\alpha,d^*\alpha)+(d\alpha,d\alpha)\\
+&=\|d^*\alpha\|^2+\|d\alpha\|^2.
+\end{align*}
 \end{proof}
 
-\begin{definition}
-\label{definition-germ-of-set}
+\noindent
+The following is the first of the symmetries of the Hodge diamond:
+
+\begin{lemma}
+\label{lemma-hodge-commutes-with-laplacian}
 \begin{reference}
-\cite[Definition 1.1.21]{huc}
+\cite[Lemma A.0.14]{huc}
 \end{reference}
-The {\it germ} of a set in the origin $0\in \mathbb{C}^n$ is given by a subset
-$X \subset \mathbb{C}^n$. To subsets $X,Y$ define the same germ if there exists
-an open neighbourhood $0 \in U\subset \mathbb{C}^n$ with $U\cap X=U\cap Y$. A
-germ is called {\it analytic} if there are functions $f_1,\ldots,f_k\in
-\mathcal{O}_n$ such that $X$ and $Z(f_1,\ldots,f_k)$ define the same germ.
-\end{definition}
+For any Riemannian manifold $(M,g)$,
+not necessarily compact, $*\Delta=\Delta*$
+and $*:\mathcal{H}^k(M,g) \cong \mathcal{H}^{m-k}(M,g)$.
+\end{lemma}
 
+\noindent
+In the hermitian case, we have for a compact hermitian connected
+manifold $(M,g)$, that the pairing
+\begin{align*}
+\mathcal{H}^{p,q}_{\bar\partial}\times\mathcal{H}^{n-p,n-q}_{\bar\partial}
+ &\longrightarrow \mathbb{C} \\
+(\alpha,\beta) &\longmapsto \int_X\alpha\wedge\beta
+\end{align*}
 
+\noindent
+is non-degenerate and thus
+$$
+\mathcal{H}^{p,q}_{\bar\partial}(X,g)
+\cong \mathcal{H}^{n-p,n-q}_{\bar\partial}(X,g),
+$$
+which is called {\it Serre duality},
+the second of the symmetries of the Hodge diamond.
+We shall later generalize this Serre duality to other vector bundles.
+
+There is a third symmetry of the Hodge diamond,
+given by the Lefschetz operator.
+Since $[L,\Delta]=0$, one of the Kähler identities,
+we see that $L$ maps harmonic forms to harmonic forms.
+Further, since $L^{n-k}:\Lambda^k(V^\vee) \to \Lambda^{2n-k}(V^\vee)$
+is bijective we have that the induced map
+$$
+L^{n-k}:\mathcal{H}^{p,k-p}(X,g)
+\to \mathcal{H}^{n+p-k,n-p}(X,g)
+$$
+is injective. It is also bijective since… thus it is an isomorphism.
 
 \medskip\noindent
-Now the adventure of proving that the ideal
-sheaf is a line bundle for hypersurfaces begins.
-
-See Algebraic Geometry Lemma 
-\ref{algebraic-geometry-lemma-ideal-sheaf-is-line-bundle-schemes}
-for the proof that the ideal sheaf of an irreducible codimension-1
-closed subscheme of a smooth scheme is a line bundle.
-Now I will try to prove this for the case of an analytic subvariety
-of a (smooth) complex manifold.
-
-First notice that in
-the case that $Y$ is an irreducible subvariety,
-this ideal is prime: if $fg \in \mathcal{I}_Y(U)$,
-then $V(f) \cup  V(g) \supset Y\cap U$ 
-so that $(V(f) \cup  V(g))\cap Y = Y\cap U$,
-and then it must be true that $V(f)\cap Y\subseteq V(g)\cap Y$
-or that $V(f)\cap Y \supseteq V(g)\cap Y \cap U$
-since $Y$ is irreducible, and thus, say,
-$V(f)\supseteq Y \cap U$,
-that is, $I(V(f))\subseteq Y \cap U$
-so that $f \in I(Y \cap U)$.
-
-If we further ask that $Y$ is a hypersurface,
-we want to show that $\mathcal{I}_Y$ is locally principal.
-If $f \in \mathcal{I}_Y(U)$ is the 
-defining function of some hypersurface
-$Y$ of a variety $X$ on an open set $U \subset X$,
-we shall have that $\mathcal{I}_Y(U)=(f)$. 
-That is, if $g$ also vanishes at $Y\cap U$,
-we want to see that $g = fh$ for some $h \in \mathcal{O}_X(U)$.
-
-By Stacks Project \href{https://stacks.math.columbia.edu/tag/0AFT}{0AFT}
-we need two ingredients:
-(1) the fact that the ring $\mathcal{O}_X(U)$ is a UFD for all $U \subset X$
-and (2) the following lemma.
-
-\begin{lemma}
-\label{lemma-ideal-of-irreducible-hypersurface-is-height-1-prime}
-The ideal of an irreducible analytic hypersurface is a height-1 prime ideal.
-\end{lemma}
-
-\begin{proof} 
-The fact that it is prime comes from the fact that $Y$ is
-irreducible as explained above.
-
-Now suppose that $0 \subset \mathfrak{p} \subseteq I$.
-Then $V(\mathfrak{p})$ is an analytic variety that contains $Y$.
-At regular points of both $V(\mathfrak{p})$ and $Y$, 
-both are smooth manifolds, but since $Y$ is of codimension 1 and 
-$V(\mathfrak{p})$ does not equal all of  $Y$, 
-we conclude that they coincide. 
-Thus, in a neighbourhood
-of a regular point we have $\mathfrak{p}=I(V(\mathfrak{p}))=I$ by the
-holomorphic Nullstellensatz \ref{algebra-Nullstellensatz}.
-\end{proof}
-
-Now we shall use the Gauss Lemma 
-\ref{number-theory-lemma-Gauss} to prove:
-
-\begin{lemma}
-\label{lemma-stalk-is-UFD}
-The stalk $\mathcal{O}_n:=\mathcal{O}_{\mathbb{C}^n,0}$ is a UFD.
-\end{lemma}
-
-\begin{proof}
-By induction on $n$. For $n=0$ it is trivial. Suppose $\mathcal{O}_{n-1}$ is a
-UFD. Then by the Gauss Lemma 
-\ref{number-theory-lemma-Gauss}, $\mathcal{O}_{n-1}[w]$ is a UFD
-too. Thus we may express any Weierstrass polynomial $g$ as a product of
-irreducible elements (uniquely up to multiplication by units).
-
-Let $f\in \mathcal{O}_n$. We want to express $f$ as a product of (unique up to
-multiplication by units) of irreducible elements. By Weierstrass Preparation
-Theorem \ref{theorem-Weierstrass-preparation} there is a Weierstrass polynomial
-$g\in\mathcal{O}_n[w]$ and a holomorphic function not vanishing on $0$ (i.e. a
-unit of $\mathcal{O}_n$) such that $f=gh$. By the previous remark $g$ is
-factored uniquely up to multiplication by units as $g=g_1\ldots g_m$. This shows
-existence of the factorization.
-
-To prove uniqueness suppose that $f=f_1\ldots f_k$ for some irreducible
-$f_1,\ldots,f_k\in\mathcal{O}_n$. Since $f$ does not vanish in the $w$ axis,
-neither can each $f_i$, so that we may decompose each of them as  $f_i=g_i'h_i$
-by Weierstrass Preparation Theorem. Since $f_i$ is irreducible, it follows that
-$g_i'$ is irreducible. Then we have that $$ f=gh=\prod g_i'\prod h_i $$ so by
-uniqueness in Weierstrass Preparation Theorem we conclude that $g=\prod g_i'$,
-and by uniqueness from the fact that  $\mathcal{O}_n[w]$ is a UFD we conclude
-that $g$ coincides with $\prod g_i'$ up to multiplication by units.
-\end{proof}
-
-\begin{lemma}
-\label{lemma-ideal-sheaf-is-line-bundle-analytic-varieties}
-The ideal sheaf of an irreducible codimension-1 analytic subvariety of a smooth
-complex manifold is a line bundle.
-\end{lemma}
-
-\begin{proof}
-By definition, our subvariety $Y$ is locally defined by the zeroes of a single 
-holomorphic function defined on the ambient manifold $X$. That is,
-at every $p\in Y$ there is an open set $U\subset X$ such that $U\cap
-Y=f^{-1}(0)$ for some $f\in\mathcal{O}_X(U)$. Since $U$ is an open set of a
-complex manifold, the ring $\mathcal{O}_X(U)$ is isomorphic to the ring
-$\mathcal{O}_n$ of holomorphic functions on $\mathbb{C}^n$ in a neighbourhood of
-the origin; that's by Definition 
-\ref{complex-analysis-definition-holomorphic-function} since a
-holomorphic function on a manifold is defined as such if its composition with
-the coordinate chart is a holomorphic function on $\mathbb{C}^n$.
-
-By Lemma
-\ref{lemma-irreducible-analytic-hypersurface-irreducible-polynomial}, since $Y$
-is irreducible it follows that $f$ is irreducible and so is the ideal of
-functions vanishing on $Y$.
-
-By Lemma \ref{lemma-stalk-is-UFD}, we prove identically as in Lemma 
-\ref{algebraic-geometry-lemma-ideal-sheaf-is-line-bundle-schemes} 
-that the ideal of functions
-vanishing on $Y$ is principal.
-\end{proof}
-
-\noindent
-Note the that argument actually works backwards if we assume
-the ambient ring is Noetherian,
-see Stacks Project \href{https://stacks.math.columbia.edu/tag/0AFT}{0AFT}.
-
-\begin{definition}
-\label{definition-sheaf-associated-to-effective-Cartier-divisor}
-Let $D:=S$ be an effective Cartier divisor, that is, an analytic hypersurface of
-a complex manifold. The ideal sheaf $\mathcal{I}_S:=\mathcal{O}_X(-S)$ of $S$ is
-the dual line bundle of the {\it line bundle associated to the divisor $D$},
-which is denoted by $\mathcal{O}_X(D)$.
-\end{definition}
-
-\medskip\noindent
-Now we discuss the analytic version of Hilbert's Nullstellensatz.
-as explained by Demailly.
-
-\noindent
-Usually I think of Hilbert's Nullstellensatz
-as the statement that $I(V(I))=\sqrt{I}$.
-Following are two simple initial observations.
-
-It is immediate that $\sqrt{\mathfrak{p}}=\mathfrak{p}$
-if $\mathfrak{p}$ is a prime ideal (of any ring):
-if  $f^k \in \mathfrak{p}$ then
-either $f \in \mathfrak{p}$ or $f^{k-1}\in \mathfrak{p}$,
-etc.
-
-It is also easy to see that
-for any ideal $I$ of functions or germs of functions
-(i.e. either  $I \subset \mathcal{O}_X(U)$
-or $I \subset \mathcal{O}_n$)
-we have
-$\sqrt{I}\subseteq I(V(I))$.
-Indeed, if $f^k \in I$,
-then $f^k(x)=0$ for all $x \in V(I)$,
-and since $\mathbb{C}$ has no nonzero divisors
-we see that $f(x)=0$,
-that is $f \in I(V(I))$.
-
-It remains to show that $I(V(I)) \subseteq \sqrt{I}$.
-We shall first suppose that  $I$ is prime
-and prove that $I(V(I)) \subseteq I$.
-(The complete statement for the radical follows
-from a purely algebraic process,
-see \cite[Theorem 4.22]{Demailly}.)
-
-We will need a few preparatory results.
-First recall that $S$ is an integral ring over $R$ 
-if every element of $S$ is expressed as
-a root of a monic polynomial with coefficients in $R$.
-(See Stacks Project \href{https://stacks.math.columbia.edu/tag/00GI}{00GI}.)
-
-It will be handy to keep in mind the following lemma
-(Stacks Project \href{https://stacks.math.columbia.edu/tag/00GH}{00GH}):
-
-\begin{lemma}
-\label{lemma-characterize-finite-in-terms-of-integral}
-Let $R \to S$ be a ring map. The following are equivalent
-\begin{enumerate}
-\item $R \to S$ is finite,
-\item $R \to S$ is integral and of finite type, and
-\item there exist $x_1, \ldots, x_n \in S$ which generate $S$ as an
-algebra over $R$ such that each $x_i$ is integral over $R$.
-\end{enumerate}
-\end{lemma}
-
-\noindent
-This essentially says that an integral extension
-$R \to S$ gives $S$ the structure of a finitely generated $R$-module
-(I think experts call this a ``finite $R$-module'')
-whose generators are integral.
-This just means that $S=R[x_1,\ldots,x_k]$
-and $x_i \in S$ is the root of a monic polynomial in $R$.
+Now we are almost ready for Hodge theorem.
 
 \begin{proposition}
-\label{proposition-integral-extension}
-$\mathcal{O}_n/\mathcal{I}$ is a
-finite integral extension of $\mathcal{O}_d$.
+\label{proposition-decompositions-are-orthogonal}
+\begin{reference}
+\cite[Proposition 3.2.2]{huc}
+\end{reference}
+Let $(X,g)$ be a compact hermitian manifold.
+The degree, bidegree and Lefschetz decomspositions
+are orthogonal with respect to $(\cdot,\cdot)$.
 \end{proposition}
 
-\begin{proof}
-For this it's enough to check that
-the map $\mathcal{O}_d \to \mathcal{O}_n/\mathcal{I}$ 
-is finite.
-That is, that every element of $\mathcal{O}_n/\mathcal{I}$ 
-can be expressed as a tuple of elements
-of $\mathcal{O}_d$. 
-(We can think of this tuple
-as a linear combination, or cycle.)
-Step 1: produce some Weierstrass polynomials…
-\end{proof}
+\noindent
+The bidegree decomposition passes to
+$\partial$ and $\bar\partial$-harmonic forms
+on any compact hermitian manifold,
+but only for Kähler manifolds does it pass to $d$-harmonic forms.
+
+\begin{proposition}
+\label{proposition-decompositions-harmonic-forms}
+Let $(X,g)$ be a hermitian manifold, not necessarily compact.
+\begin{enumerate}
+\item $\mathcal{H}^{k}_{\bar\partial}(X,g)
+=\bigoplus_{p+q=k}\mathcal{H}^{p,q}_{\bar\partial}(X,g)$
+and
+$\mathcal{H}^{k}_\partial(X,g)
+=\bigoplus_{p+q=k}\mathcal{H}^{p,q}_\partial(X,g)$.
+
+\item If $(X,g)$ is Kähler then both decompositions coincide with
+$\mathcal{H}^{k}(X,g)
+=\bigoplus_{p+q=k}\mathcal{H}^{p,q}(X,g)$.
+In particular,
+$\mathcal{H}^k(X,g)_{\mathbb{C}}
+=\mathcal{H}^k_{\bar\partial}(X,g)
+=\mathcal{H}^k_{\partial}(X,g)$.
+\end{enumerate}
+\end{proposition}
+
+\noindent
+We finally arrive at the Hodge decomposition.
+The first result concerns only compact Riemannian manifolds,
+and ``requires some hard, but by now standard, analysis'':
+
+\begin{theorem}[Hodge decomposition]
+\label{theorem-hodge-decomposition}
+Let $(M,g)$ be a compact Riemannian manifold.
+Then
+$$
+\mathcal{A}^k(M) = 
+d(\mathcal{A}^{k-1}(M))
+\oplus
+\mathcal{H}^k(M,g)
+\oplus
+d^* (\mathcal{A}^{k+1}(M))
+$$
+which is orthogonal with respect to $(\cdot,\cdot)$.
+Moreover, the space $\mathcal{H}^k(M)$ is finite-dimensional.
+\end{theorem}
+
+\noindent
+And now we also have
+\begin{theorem}[Hodge decomposition]
+\label{theorem-hodge-decomposition-hermitian}
+Let $(X,g)$ be a compact hermitian manifold.
+Then
+$$
+\mathcal{A}^{p,q}(X)=
+\partial\mathcal{A}^{p-1,q}(X)
+\oplus
+\mathcal{H}^{p,q}_\partial(X,g)
+\oplus
+\partial^*\mathcal{A}^{p+1,q}(X)
+$$
+and
+$$
+\mathcal{A}^{p,q}(X)=
+\bar\partial\mathcal{A}^{p-1,q}(X)
+\oplus
+\mathcal{H}^{p,q}_{\bar\partial}(X,g)
+\oplus
+\bar\partial^*\mathcal{A}^{p+1,q}(X).
+$$
+If $(X,g)$ is Kähler, then
+$\mathcal{H}^{p,q}_\partial(X,g)=\mathcal{H}^{p,q}_{\bar\partial}(X,g)$.
+\end{theorem}
+
+\noindent
+Upshot: if $X$ is Kähler we can pass from usual
+harmonic $(p,q)$-forms to $\bar\partial$-harmonic $(p,q)$-forms,
+which takes us to $H^{p,q}(X)$.
+To pass from $H^k(X)$ to $\mathcal{H}^k(X)$ and from
+$\mathcal{H}^{p,q}_{\partial}(X)$ to $H^{p,q}(X)$
+we have the following two lemmas
+which in fact are corollaries from the corresponding decompositions
+(Theorems \ref{theorem-hodge-decomposition}
+and \ref{theorem-hodge-decomposition-hermitian}, respectively).
 
 \begin{lemma}
-\label{lemma-nullstellensatz}
+\label{lemma-de-rham-to-harmonic}
 \begin{reference}
-\cite[Lemma 4.21]{Demailly}
+\cite[Corollary A.0.17]{huc}
 \end{reference}
-If $\mathcal{I} \subset \mathcal{O}_n$ is prime and
-$A = V(\mathcal{I})$, then
-$\mathcal{I}_{A,0}=\mathcal{I}$.
+Let $(M,g)$ be a compact oriented Riemannian manifold.
+The natural map $\mathcal{H}^k(M) \to H^k(M,\mathbb{R})$
+that associates to any harmonic form its cohomology class is
+an isomorphism.
 \end{lemma}
 
-\begin{proof}
-Proposition \ref{proposition-integral-extension}
-says: take a polynomial $f \in \mathcal{O}_n$
-and consider its equivalence class $\tilde{f}\in\mathcal{O}_n/\mathcal{I}$.
-Then $\tilde{f}$ is the root of some monic polynomial 
-$t^r+b_{r-1}t^{r-1}+\ldots+b_1t+b_0$
-with $b_i \in \mathcal{O}_d$.
-That is, putting $f$ instead of $t$ we get an equation
+\begin{lemma}
+\label{lemma-from-harmonic-pq-to-dolbeault-pq}
+Let $(X,g)$ be a compact hermitian manifold.
+Then the canonical projection 
+$\mathcal{H}_{\bar\partial}^{p,q}(X,g)\to H^{p,q}(X)$
+is an isomorphism.
+\end{lemma}
+
+\medskip\noindent
+Before we pass to Hodge theorem we state one final key result
+
+\begin{lemma}[ddbar Lemma]
+\label{lemma-ddbar}
+Let $X$ be a compact Kähler manifold.
+If $\alpha$ is a $d$-closed $(p,q)$-form,
+it is equivalent that $\alpha$ is
+\begin{enumerate}
+\item $d$-exact,
+\item $\partial$-exact,
+\item $\bar\partial$-exact,
+\item $\partial \bar\partial$-exact.
+\end{enumerate}
+\end{lemma}
+
+\noindent
+There is another version in terms of
+$dd^c:= I^{-1}dI=\frac{1}{2}(\partial-\bar\partial)$.
+
+\begin{lemma}[ddc Lemma]
+\label{lemma-ddc}
+\begin{reference}
+\cite[Lemma 3.A.22]{huc}
+\end{reference}
+Let $X$ be a compact Kähler manifold.
+Any $d$-closed and $d^c$-exact form form is $dd^c$-exact.
+\end{lemma}
+
+
+
+\noindent
+That's all the ingredients for a
+(very rough) idea on why the Hodge theorem holds.
+Upshot:
 $$
-f^r+b_1f^{r-1}+\ldots+b_r=0\qquad \text{mod }\mathcal{I}.
+H^k(X,\mathbb{C})
+= \mathcal{H}^k(X)
+= \bigoplus_{p+q=k}\mathcal{H}^{p,q}(X)
+= \bigoplus_{p+q=k}\mathcal{H}^{p,q}_{\bar\partial}(X)
+=\bigoplus_{p+q=k}H^{p,q}(X).
 $$
-In other words, the holomorphic function
-$f^r+b_1f^{r-1}+\ldots+b_r$ is in  $\mathcal{I}$.
-Since $f$ vanishes on $(A,0)$,
-this says that $b_r$ vanishes in $(A,0)$ too.
-Now suppose that this implied that the class $\tilde{b_r}=0$.
-We are supposed to use that Proposition \ref{proposition-integral-extension}
-also tells us is that the above equation is irreducible,
-which I think means that $F=\sum b_it^i \in \mathcal{O}_d[t]$
-is irreducible.
-In turn this gives that $r=1$.
-\end{proof}
+\begin{enumerate}
+\item Start with singular complex cohomology,
+\item pass to harmonic forms
+via Lemma \ref{lemma-de-rham-to-harmonic}
+(this is where heavy real analysis enters;
+what Huybrechts calls Hodge decomposition),
+\item decompose harmonic forms in $(p,q)$-types
+via Proposition \ref{proposition-decompositions-harmonic-forms}
+(using Kählerness),
+\item use that $\mathcal{H}^{p,q}\cong \mathcal{H}^{p,q}_{\bar\partial}$ 
+by the same Proposition \ref{proposition-decompositions-harmonic-forms}
+(using Kählerness),
+\item go back to Dolbeault cohomology
+via Lemma \ref{lemma-from-harmonic-pq-to-dolbeault-pq}
+(again Hodge decomposition, now for $\bar\partial$).
+\end{enumerate}
+
+\begin{theorem}[Hodge]
+\label{theorem-hodge-theorem}
+Let $(X,g)$ be a compact Kähler manifold.
+Then there exists a decomposition
+$$
+H^k(X,\mathbb{C})
+= \bigoplus_{p+q=k}H^{p,q}(X)
+$$
+which does not depend on the Kähler structure.
+Moreover, with respect to complex conjugation on
+$H^\bullet(X,\mathbb{C})=H^\bullet(X,\mathbb{R})\otimes\mathbb{C}$
+we have
+$\overline{H^{p,q}(X)}=H^{q,p}(X)$,
+and, by Serre duality on harmonic forms,
+$H^{p,q}(X) \cong H^{n-p,n-q}(X)^\vee$.
+\end{theorem}
+
+\begin{exercise}
+\label{exercise-pic-of-pn-is-z}
+\begin{reference}
+\cite[Exercise 3.2.11]{huc}
+\end{reference}
+Show that $\text{Pic}(\mathbb{P}^n) \simeq \mathbb{Z}$.
+\end{exercise}
+
+\noindent
+The next step is to check
+that most results we've developed so far for
+complex vector spaces and complex manifolds
+descend to cohomology in Kähler manifolds.
 
 
 \medskip\noindent
-Let's just store what was learned today:
-\begin{enumerate}
-\item {\bf Noether normalization lemma.} 
-See \href{https://www.youtube.com/watch?v=VWWoG_4XVvs}
-{this video}.
-Let $k$ be a (infinite) field,
-$A \neq 0$ a finitely generated $k$-algebra.
-Then there exists elements $y_1,\ldots,y_r \in A$ 
-which are algebraically independent over $k$ 
-and such that $A$ is integral over $k[y_1,\ldots,y_r]$.
-That is,
-$$
-\xymatrix{
-A\ar@{-}[d]^{\substack{\text{integral} \\ \text{ext.}}}\\
-k[y_1,\ldots,y_r]\ar@{-}[d]^{\substack{\text{transc.} \\ \text{ext.}}}\\
-k.
-}
-$$
-
-\item This can be used to prove the weak Nullstellensatz, i.e.
-let $k$ be an algberaically closed field, and $I \subseteq k[x_1,\ldots,x_n]$ 
-an ideal such that $V(I)=\emptyset$. Then $I=k[x_1,\ldots,x_n]$.
-
-To prove it using Noether's normalization lemma,
-suppose that the $I\neq k[x_1,\ldots,x_n]$.
-Let $\mathfrak{m}$ be a maximal ideal such that $I \subseteq \mathfrak{m}$.
-Then $A=k[x_1,\ldots,x_n]/\mathfrak{m}=k[y_1,\ldots,y_n]$,
-where the first string is algebraically independent
-while the last string is integral. But because the 
-whole extension is algebraic, then $y_1,\ldots,y_n$ 
-are integral over $k$.
-Then we can map $y_i \mapsto \alpha_i$, a root
-of its defining polynomial over $k$.
-This means we do have a point where all polynomials
-in $\mathfrak{m}$ vanish.
-
-{\bf Note.} I'm not sure what we mean with "the first string"
-and the "second string".
-
-\item Also reviewed Misha's proof of the Nullstellensatz.
-Looks accessible, though it is not holomorphic!
-
-\item Perhaps start in Demailly just after Prop. 4.13.
-\end{enumerate}
-
-\section{Cones}
-\label{section-cone}
+Let's put here the part on the cones until
+I find a better place.
 
 Recall that $\text{NS}(X)$ is the quotient group
 $\text{Pic}(X)/H^1(\mathcal{O}_X)\subset H^2(X,\mathbb{Z})
@@ -1676,37 +1611,161 @@ all analytic curves by $X$ being projective
 
 
 
-\section{Line bundles, divisors, Riemann-Roch formulas}
-\label{section-line-bundles}
+
+
+\section{Lefschetz theorems}
+\label{section-lefschetz-theorems}
+
+\begin{theorem}[Lefschetz theorem on (1,1)-classes]
+\label{theorem-11-classes}
+All the classes in $H^{1,1}(X,\mathbb{Z})
+:=H^{1,1}(X) \cap H^2(X,\mathbb{Z})$ are algebraic.
+\end{theorem}
 
 \noindent
-I have followed mostly \cite{GH} for this, and also
-some \cite{lec}.
+This implies that $\text{NS}(X):=\text{Pic}(X)/\ker c_1$
+is isomorphic to $H^{1,1}(X,\mathbb{Z})$.
+The ``realification'' of the integer classes,
+$H^{1,1}(X,\mathbb{Z}) \otimes \mathbb{R}
+=\text{NS}(X) \otimes \mathbb{R}$
+is a vector subspace
+$H^{1,1}(X) \cap H^2(X,\mathbb{R})$.
 
-For a smooth hypersurface $X \subset Y$
-locally defined as the vanishing of $f_i \in \mathcal{O}_Y(U_i)$
-for an open cover $U_i$ of $Y$,
-we define the line bundle $\mathcal{O}_Y(X)$
-by the cocycle $f_{ij}:=f_i/f_j$.
+\begin{theorem}[Hodge index]
+\label{theorem-hodge-index}
+The index of the intersection pairing on $H^{1,1}(X,\mathbb{R})$
+is $(1,\rho(X)-1)$.
+\end{theorem}
 
-We may also see $\mathcal{O}_Y(X)$ as a locally free sheaf
-by assigning to $U_i$ the group of holomorphic sections of $\mathcal{O}_Y(X)$.
-As explained in  \cite[p. 138]{GH},
-tensoring by a section with divisor $X$
-gives an identification between this group of
-sections and the meromorphic sections on $M$ 
-with poles along $X$.
-Ultimately this means that the sheaf
-corresponding to $\mathcal{O}_Y(X)$ is locally
-generated by $1/f_i$.
 
-In turn this means that its dual, denoted $O_Y(-X)$,
-is a line bundle defined by the cocycle $(f_i/f_j)^{-1}$
-and a locally principal sheaf generated by $f_i$,
-that is, the ideal sheaf of $X$.
 
-\medskip\noindent
+\section{Vector bundles, connections, curvature and Chern classes}
+\label{section-vector-bundles}
 
+\begin{lemma}[Vector bundle construction from fibers]
+\label{lemma-vector-bundle-from-fibers}
+\begin{reference}
+\cite[Lemma 3.4]{lec}
+\end{reference}
+Suppose $M$ is a complex manifold,
+and for each $p \in M$ we are given a $k$-dimensional vector space $E_p$.
+Let $E=\coprod_{p \in M}E_p$ and let $\pi:E \to M$ be the obvious projection.
+Suppose further that we are given
+\begin{enumerate}
+\item an indexed open cover $U_i$ of $M$
+\item for each $i$, a bijection $
+\psi_i:\pi^{-1}(U_i) \to U_i \times\mathbb{C}^k$,
+\item for each $i,j$ with $U_i\cap U_j \neq \emptyset$
+a holomorphic map $g_{ij}:U_i \cap U_J \to \text{GL}(k,\mathbb{C})$
+such that $\psi_i\circ \psi_j^{-1}(p,v)=(p,g_{ij}(p)v$.
+\end{enumerate}
+\noindent
+Then $\pi:E \to M$ has a unique structure as a holomorphic vector bundle
+with $(U_i,\psi_i)$ as holomorphic local trivializations,
+and with $g_{ij}$ as transition functions.
+\end{lemma}
+
+\begin{proposition}[Vector bundle construction from cocycle]
+\label{proposition-vector-bundle-from-cocycle}
+Let $M$ be a complex manifold and let $U_i$ be an open cover of $M$.
+Suppose that for each $i,j$ such that $U_i \cap U_j \neq \emptyset$
+we are given a holomorphic map $g_{ij}:U_i \cap U_j \to \text{GL}(k,\mathbb{C})$
+such that
+$$
+g_{ij}(p)g_{jk}(p)g_{ki}(p)=\text{Id}
+$$
+for any $p \in U_i\cap U_j\cap U_k$.
+
+Then there is a rank-$k$ holomorphic vector bundle $E \to M$
+that admits a holomorphic trivialization over each set $U_i$
+with transition functions given by $g_{ij}$.
+\end{proposition}
+
+\begin{proposition}[Holomorphic Vector Bundle Isomorphism Criterion]
+\label{proposition-isomorphism-of-vector-bundles}
+\begin{reference}
+\cite[Proposition 3.7]{lec}
+\end{reference}
+Two vector bundles $E$ and $F$ 
+with transition functions $g_{ij}$ and $h_{ij}$
+are isomorphic if and only if
+$g_{ij}=A^{-1}_ih_{ij}A_j$
+for some $A_i:U_i \to \text{GL}_n(\mathbb{C})$.
+\end{proposition}
+
+\begin{proof}
+The idea is to define a map in local trivializations
+and confirm that this glues to a global bundle map.
+This means: invent $\varphi_i:E(U_i):=\Gamma_E(U_i) \to F(U_i)$,
+i.e. a local map of sections
+(yes, a map of sections, since a bundle map
+is constructed as map of the total spaces,
+which are points and vectors, 
+but we need to preserve the projection,
+so all we care is about the vectors).
+Then check that on $U_i\cap U_j:= U_{ij}$ 
+we have $\varphi_i=\varphi_j$.
+This literally creates a bundle map.
+
+Try to do it for line bundles,
+so $A_i$ are just functions.
+Take a local frame $e_i$ for $E$
+and a local frame $f_j$ for $F$.
+Change coordinates and apply the map,
+apply the map and change coordinates
+- this should give both sides of the cocycle condition
+of the proposition.
+\end{proof}
+
+\begin{exercise}[Tensor product bundle]
+\label{exercise-tensor-product-bundle}
+\begin{reference}
+\cite[Exercise 2.2.1]{huc}
+\end{reference}
+Let $E$ and $F$ be vector bundles determined by the cocycles
+$g_{ij}: U_i \cap U_j \to \text{GL}(r,\mathbb{C})$
+and $\tilde{g}_{ij}:U_i \cap U_j \to \text{GL}(\tilde{r},\mathbb{C})$.
+Verify the cocycle description for
+\begin{itemize}
+\item The direct sum $E \oplus F$,
+\item the tensor product $E \otimes F$ and
+\item the dual bundle $E^\vee$.
+\end{itemize}
+\end{exercise}
+
+\begin{proof}
+Let's do the tensor product.
+I think that, slightly more generally than in the
+formulation of the question, if $U_i$
+is a trivializing cover for $E$ and 
+$\tilde{U}_j$ is a trivializing cover for $F$,
+we should consider the cover $U_i\cap \tilde{U}_j$.
+Let us denote such a cover simply by $U_i$.
+
+Define a cocycle by
+\begin{align*}
+h_{ij}: U_i\cap U_j &\longrightarrow \text{GL}(r\tilde{r},\mathbb{C}) \\
+p &\longmapsto g_{ij}(p)\otimes \tilde{g}_{ij}(p).
+\end{align*}
+
+\noindent
+The key observation is that while formally the image of $h_{ij}$
+lies in $\text{GL}(\mathbb{C}^r \otimes \mathbb{C}^{\tilde{r}})$,
+we can regard such a space as $\text{GL}(r\tilde{r},\mathbb{C})$
+by defining, for $A \in \text{GL}(r,\mathbb{C})$
+and $A' \in \text{GL}(\tilde{r},\mathbb{C})$,
+the map $A(v^ie_i) \otimes \tilde{A}(\tilde{v}^j\tilde{e}_j)
+=v^i\tilde{v}^j Ae_i \otimes \tilde{A}\tilde{e}_j$
+where $e_i$ and $\tilde{e}_j$ are bases 
+of $\mathbb{C}^r$ and $\mathbb{C}^{\tilde{r}}$.
+This is indeed a linear transformation of the
+$r\tilde{r}$-dimensional $\mathbb{C}$-vector space
+generated by the basis $e_i \otimes \tilde{e}_j$.
+
+Thus the cocycle condition follows simply by 
+the cocycles of $E$ and $F$, and commutativity of the
+coordinate functions.
+\end{proof}
 
 \begin{example}[Determinant bundle]
 \label{example-determinant-bundle}
@@ -1723,7 +1782,7 @@ we may just postcompose $\varphi_i$ with the functor $\Lambda^r$
 on the second entry, giving trivializations
 $$
 \xymatrix{
-U_i\ar[r]^-{\varphi_i}_-{\simeq}
+\pi(U_i)\ar[r]^-{\varphi_i}_-{\simeq}
 & U_i \times \mathbb{C}^r\ar[r]^-{\text{Id}\times \Lambda^r}
 & U_i \times \Lambda^r\mathbb{C}^r=U_i \times \mathbb{C}
 }
@@ -1746,109 +1805,832 @@ We thus obtain the cocycle condition on the maps $g_{ij}$
 after applying $\Lambda^r$.
 \end{example}
 
-\medskip\noindent
-Now let's introduce Néron-Severi group.
-Instead of considering the exact sequence 
-$$
-\xymatrix{
-0\ar[r]
-&H^0(X,\mathcal{M}^*_X)\ar[r]
-&H^0(X,\mathcal{M}_X^*/\mathcal{O}_X^*)\ar[r]
-&H^1(X,\mathcal{O}_X^*)\ar[r]
-&0
-}
-$$
-which says that $\text{Pic}(X)$ is isomorphic
-to Cartier divisors modulo linear equivalence,
-we consider
-$$
-\xymatrix{
-0\ar[r]
-&\text{Pic}^0(X)\ar[r]
-&\text{Pic}(X)\ar[r]
-&\text{Pic}(X)/\text{Pic}^0(X):=\text{NS}(X)\ar[r]
-&0
-}
-$$
-where $\text{Pic}^0(X)$ is the connected component
-of the identity in the Picard scheme,
-which is a scheme representing some functor.
-The idea is that $\text{Pic}^0(X)$-equivalence
-is like linear equivalence, but different.
-The Néron-Severi group describes line bundles
-module this other equivalence.
+\begin{example}[Tautological bundle]
+\label{example-tautological-bundle}
+It's the bundle denoted $\mathcal{O}_{\mathbb{P}^n}(-1)$
+whose fiber over a point is the line that the point is.
+To show this is a line bundle take the canonical trivializing cover
+from Example \ref{example-projective-space}.
+A local trivialization of $\mathcal{O}(-1)$ is given by
+\begin{align*}
+\psi_i: \pi^{-1}(U_i) &\longrightarrow \varphi_i(U_i)\times \mathbb{C} \\
+p=(z_0:…:z_n)&\longmapsto
+\left(\varphi(p),\lambda\right)
+\end{align*}
 
+\noindent
+where the standard coordinate charts $\varphi_i$ are defined by
+$$
+\varphi_i(p):=\left(\frac{z_0}{z_i},…,\frac{z_{i-1}}{z_i},
+\frac{z_{i+1}}{z_i},…,\frac{z_n}{z_i}\right)
+$$
+and $\lambda$ is just the coordinate of a vector
+$$
+\lambda \left(\frac{z_0}{z_i},…,\frac{z_{i-1}}{z_i},
+1,\frac{z_{i+1}}{z_i},…,\frac{z_n}{z_i}\right).
+$$
+This makes sense since what we want is that the fiber of $\mathcal{O}(-1)$
+is the 1-dimensional space spanned by the point $p$ seen
+in $\mathbb{C}^{n+1}$. Also notice that $\pi$ is the projection
+from the total space, which is implicitly defined
+as the disjoint union of the $\varphi_i(U_i) \times \mathbb{C}$
+modulo the identifications given by the transition functions defined as follows.
 
+Now go to $U_j$ and suppose the point is in the intersection.
+The same vector must be expressed as
+$$
+\mu\left(\frac{z_0}{z_j},…,\frac{z_{j-1}}{z_j},1,
+\frac{z_{j+1}}{z_j},…,\frac{z_n}{z_j}\right).
+$$
+To pass from one expression of $p$ to another we multiply by
+$$
+\frac{z_i}{z_j}
+$$
+and thus we want our transition functions
+$$
+g_{ij}:U_i\cap U_j \to \text{GL}(1,\mathbb{C})
+$$
+to satisfy
+$$
+\mu=\lambda\frac{z_j}{z_i}
+$$
+Obviously we take
+$$
+g_{ij}(p)=\frac{z_j}{z_i}.
+$$
+It's clear these satisfy the cocycle condition.
+\end{example}
 
-\medskip\noindent
-Now let's discuss Riemann-Roch formulas.
+\begin{definition}
+\label{definition-line-bundles-in-pn}
+$$
+\mathcal{O}(1):=\mathcal{O}(-1)^\vee,\qquad 
+\mathcal{O}(d):=\bigotimes_d \mathcal{O}(1).
+$$
+\end{definition}
 
-\begin{theorem}[Riemann-Roch for curves]
-\label{theorem-Riemann-Roch-for-curves}
-Let $D$ be a divisor on a compact Riemann surface $X$, that is, $D$ is a
-collection of $d$ points on $X$.
-\begin{equation}
-\label{equation-Riemann-Roch-for-Riemann-surfaces}
-h^0(D)-h^0(K-D)=d-g+1
-\end{equation}
-\end{theorem}
+\noindent
+To show that the sections of $\mathcal{O}(d)$
+are degree-$d$ homogeneous polynomials we first
+show that the fibers are degree-$d$ homogeneous functions
+(not necessarily polynomials)
+and then pass to the global situation.
+
+\begin{lemma}
+\label{lemma-fibers-of-od-are-homogeneous-degree-d-functions}
+The fiber $\mathcal{O}(d)_p$ is in bijection with 
+degree-$d$ homogeneous functions on $p$.
+\end{lemma}
+
+\begin{proof}
+So far we can only say that the fibers of
+$\mathcal{O}(-1)\otimes \mathcal{O}(1)$ are the fibes of $\mathcal{O}$.
+This means that for a fixed $f \in \mathcal{O}(1)_p$
+we have a linear functional $z \mapsto f\otimes z$
+on $\mathcal{O}(-1)_p$. Any linear functional on $\mathcal{O}(-1)_p$
+can be realised this way.
+
+To generalize this for degree $d$ we do as follows.
+First note that
+$$
+\Hom(\mathcal{O}(-1)_p,\mathbb{C})\otimes\Hom(\mathcal{O}(-1)_p,\mathbb{C})
+\cong
+\Hom(\mathcal{O}(-1)_p\otimes\mathcal{O}(-1)_p,\mathbb{C}).
+$$
+(This is not true for general modules,
+but in this case it is using a basis.)
+
+By the universal property of tensor product
+(see Commutative Algebra Theorem
+\cite{theorem-universal-property-of-tensor-product})
+we know that 
+$\Hom(\mathcal{O}(-1)_p \otimes … \otimes \mathcal{O}(-1)_p,\mathbb{C})$
+is the set of multilinear maps
+$\text{Lin}(\mathcal{O}(-1)_p \times…\times\mathcal{O}(-1)_p,\mathbb{C})$.
+Any such map $L$ gives a degree-$d$ function (a polynomial) $P$ by
+$P(x):=L(x,…,x)$.
+In fact, since the fiber $\mathcal{O}(-1)_p$ is one-dimensional,
+we can reconstruct $L$ from $P$ by defining
+the multilinear map on a basis (which is composed by a single vector $x$)
+by $L(x,…,x):=P(x)$. This independs on the choice
+of basis since if $x'=\lambda x$ and we define $L'(x',…,x'):=P(x')$,
+We see that $\lambda^d L'(x,…,x)=L'(x',…,x')=
+=P(x')=P(\lambda x)=\lambda^d P(x)=\lambda^d L(x,…,x)$.
+\end{proof}
+
+\noindent
+To pass from the local situation in Lemma \ref{lemma-fibers-of-od}
+to a section we do as follows.
 
 \begin{exercise}
-\label{exercise-no-holomorphic-vector-fields-for-g-geq2}
-Prove that if $X$ is a complex smooth curve with $g\geq 2$ then $h^0(T_X)=0$.
+\label{exercise-degree-d-polynomials-are-sections-of-od}
+\begin{reference}
+\cite[Exercise 2.2.8]{huc}, and
+\cite[Lemma 3.30]{lec} for the answer.
+\end{reference}
+Show that any non-trivial homogeneous degree-$d$ polynomial
+$0 \neq f \in \mathbb{C}[z_0,…,z_n]_d$
+can be considered as a non-trivial section of $\mathcal{O}(d)$
+on $\mathbb{P}^n$.
 \end{exercise}
 
 \begin{proof}
-First you notice that the dimension of the holomorphic 1-forms is the genus.
-This is just because the genus $p_a$ is defined as $h^1(\mathcal{O}_X)$, which
-is just $h^0(K_X)$ by Serre duality. Then you say well if you have a holomorphic
-vector field, pair it with the nonzero holomorphic 1-form. This gives a nonzero
-function, but it must be constant because $X$ is compact. Then it is actually
-nowhere vanishing. This says the vector field cannot vanish anywhere, which
-means the tangent bundle of the curve is trivial. Apparently elliptic curves,
-i.e. $g=1$ are the 
+Let $P$ be a homogeneous degree-$d$ polynomial.
+We define a section fiberwise and then show it is holomorphic.
+For $p \in \mathbb{P}^n$ we restrict $P$ to the 1-dimensional vector
+space that $p$ is in $\mathbb{C}^{n+1}$.
+To show this is holomorphic we can evaluate our section
+on a local frame for $\mathcal{O}(d)$,
+which gives a holomorphic function since $P$ is a polynoimal
+(see \cite[Proposition 3.35]{lec}.
 \end{proof}
 
-\begin{theorem}[Riemann-Roch for line bundles on surfaces]
-\label{theorem-Riemann-Roch-for-line-bundles-on-surfaces}
-Let $L$ be a line bundle on a complex surface $X$, and $K_X=\Omega^2X$ the
-canonical bundle of $X$. Then
-\begin{equation}
-\label{equation-Riemann-Roch-for-line-bundles-on-surfaces}
-\chi(L)=\chi(\mathcal{O}_X)+\frac{1}{2}(L,L-K_X)
-\end{equation}
+\begin{theorem}
+\label{theorem-sections-of-od-are-degree-d-homogeneous-polynomials}
+Sections of $\mathcal{O}(d)$ are in 
+correspondence with homogeneous degree-$d$ polynomials.
+\end{theorem}
+
+\begin{proof}
+It only remains to prove the direct implication.
+Let $s \in H^0(\mathcal{O}(d))$.
+Then $s(p) \in \mathcal{O}(d)_p$ is a homogeneous degree-$d$ function $f_p$
+by Lemma \ref{lemma-fibers-of-od-are-homogeneous-degree-d-functions}
+defined on the vector space $p$.
+
+Now define a holomorphic homogeneous degree-$d$ function $f$ on
+$\mathbb{C}^{n+1}\setminus\{0\}$ as follows.
+For any $z \in \mathbb{C}^{n+1}\setminus\{0\}$ we can take $p$
+to be the line passing through $z$
+and assign the number $f_p(z)$
+(since $z \in p$).
+
+Finally we show that $f$ must be a polynomial
+by considerations on its Taylor series
+after extending to $\mathbb{C}^{n+1}$ via Hartog's theorem
+(see \cite[Theorem 3.36]{lec}).
+\end{proof}
+
+
+\begin{exercise}
+\label{exercise-line-bundle-trivial-iff}
+\begin{reference}
+\cite[Exercise 2.2.5]{huc}
+\end{reference}
+Let $L$ be a holomorphic line bundle on a compact complex manifold $X$.
+Show that $L$ is trivial if and only if $L$ and its dual $L^\vee$
+admit non-trivial global sections.
+\end{exercise}
+
+\begin{proof}
+Direct implication is easy: trivial bundle has 1-dimensional space of sections.
+For the converse choose nonvtrivial sections $s$ of $L$
+and $s^\vee$ of $L^\vee$.
+Then $s \otimes s^\vee$ which is a section
+of the trivial bundle.
+If such a section has a zero, then it must be zero throughout $X$.
+\end{proof}
+
+\medskip\noindent
+Now let's discuss Serre's duality.
+It is a consequence of Hodge theorem,
+which says that Hodge star operator descends to cohomology.
+In fact, the general result is
+
+\begin{theorem}[Hodge]
+\label{theorem-hodge-star-descends-to-cohomology}
+$$
+*: H^{p,q}(X) \longrightarrow H^{n-p,n-q}(X)
+$$
+is an isomorphism.
+\end{theorem}
+
+\noindent
+However, we shall not use this isomorphic directly
+for Serre duality, see \cite[Remark 4.1.17]{huc}.
+What we do instead is show that the pairing
+of forms given by integration is nondegenerate.
+The upshot is that the proof of nondegeneracy is given
+by the Hodge star operator in cohomology.
+
+\begin{proposition}[Serre duality]
+\label{proposition-serre-duality}
+\begin{reference}
+\cite[Proposition 4.1.15]{huc}
+\end{reference}
+Let $X$ be a compact complex manifold.
+For any holomorphic vector bundle $E$ on $X$,
+the natural pairing
+$$
+H^{p,q}(X,E) \times H^{n-p,n-q}(X,E) \to \mathbb{C}
+$$
+is nondegenerate.
+\end{proposition}
+
+\begin{proof}
+We must show that for any $\alpha \in H^{p,q}(X,E)$
+there exists $\beta \in H^{n-p,n-q}(X,E)$ such that
+$$
+\int_X\alpha\wedge \beta\neq 0.
+$$
+Choose
+$$
+\beta=\overline{*}\beta
+$$
+where $\overline{*}$ is the conjugate of the Hodge star
+operator in cohomology.
+\end{proof}
+
+\noindent
+Of course, this proposition lacks context in these notes;
+we should properly extend Hodge theory to sections of arbitrary
+sections of vector bundles;
+but it looks as if the theory for sections of the cotangent algebra
+generalizes without the need of introducing any new ideas.
+
+We put $p=0$ to obtain
+$$
+H^{0,q}(X)=H^q(X,\Omega^0)=H^q(X,\mathcal{O})
+$$
+and
+$$
+H^{n,n-q}(X)=H^{n-q}(X,\Omega^n).
+$$
+
+\begin{definition}
+\label{definition-hermitian-connection}
+Let $(M,I,g)$ be a hermitian manifold.
+A linear connection $\nabla$ on $TM$
+is {\it hermitian} if $\nabla g=0$ and $\nabla J=0$.
+\end{definition}
+
+
+\section{Complex varieties}
+\label{section-complex-varieties}
+
+For a definition of sheaf
+see Algebraic Geometry Definition 
+\ref{algebraic-geometry-definition-sheaf}.
+
+\begin{lemma}
+\label{lemma-O_X-is-a-sheaf}
+Let $X$ be a complex manifold of complex dimension $n$.
+
+The functor
+\begin{align*}
+\mathcal{O}_X: \mathit{Open}_X^{\text{op}} &\longrightarrow \mathit{Set}
+\\
+U &\longmapsto \mathcal{O}_X(U):=\{f:U\to \mathbb{C}^n:
+f \text{ is holomorphic}\}\\
+i:V \hookrightarrow V &\longmapsto 
+\mathcal{O}_X(i):\mathcal{O}_X(U) \to \mathcal{O}_X(V)
+\end{align*}
+where $\mathcal{O}_X(i)$ is given by restriction,
+is a sheaf.
+\end{lemma}
+
+\begin{proof}
+$\mathcal{O}_X$ is a presheaf,
+i.e. a functor,
+by definition: restriction
+maps the identity to the identity
+and preserves compositions.
+
+To check the condition of being a sheaf let
+$U_i$ be an open cover of some open set $U$ of $X$
+and $f_i:U_i \to X$ sections of $\mathcal{O}_X(U_i)$,
+that is, holomorphic functions, which
+coincide pairwise in intersections.
+Then it is obvious that the function $f:U \to \mathbb{C}$,
+$x \mapsto f_i(x)$ for any $U_i \ni x$ 
+is well defined. It is also holomorphic
+since holomorphicity is a condition defined on
+open sets.
+\end{proof}
+
+\medskip\noindent
+A meromorphic function is a function that
+can be written locally as a quotient of two
+holomorphic functions:
+
+\begin{definition}
+\label{definition-meromorphic-functions}
+\begin{reference}
+\cite[Definition 2.1.8]{huc}
+\end{reference}
+A {\it meromorphic function} on a complex manifold $X$ 
+is a map
+$$
+f:X \to \coprod_{x \in X}\text{Frac}(\mathcal{O}_{X,x})
+$$
+which associates to any $x\in X$
+an element $f_x \in \text{Frac}(\mathcal{O}_{X,x})$
+such that for any $x_0 \in X$ 
+there exists $U\ni x$ open and $f,g \in\mathcal{O}(U)$ 
+such that $f_x=g/h$ for all $x \in U$.
+The {\it sheaf of meromorphic functions} is $\mathcal{K}_X$.
+\end{definition}
+
+
+\medskip\noindent
+Now we pass to the theory of analytic subvarieties.
+
+\begin{definition}
+\label{definition-analytic-subvariety}
+An {\it analytic set} or {\it subvariety} $Y$ 
+is a subset of a complex manifold $X$
+given locally as the zeros of a finite collection of holomorphic functions.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-structure-sheaf-of-subvariety}
+Let $Y \subset X$ be an analytic subvariety
+of a complex manifold $X$
+equipped with the subspace topology.
+Then
+\begin{align*}
+\mathcal{O}_Y: \mathit{Open}_Y^{\text{op}} &\longrightarrow \mathit{Set} \\
+U\cap Y &\longmapsto \{f|_{U \cap Y}:f \in \mathcal{O}_X(U)\}
+\end{align*}
+
+\noindent
+is a sheaf.
+\end{lemma}
+
+\begin{proof}
+This is a presheaf for the same reasons as
+the sheaf $\mathcal{O}_X$ is a presheaf.
+The fact that it is a sheaf follows
+from the fact that $\mathcal{O}_X$ is a 
+sheaf and by definition of subspace topology;
+namely for any family of functions
+defined over an open cover $\{U_i \cap Y\}$
+of some open set  $U\cap Y$ we can reconstruct a function
+on $U$ that restricted to $U \cap Y$ is as desired.
+\end{proof}
+
+Recall that any map of sheaves of groups
+has well-defined kernel, see Lemma
+\ref{algebraic-geometry-lemma-sheaves-valued-on-groups-have-kernels}.
+
+\begin{definition}
+\label{definition-ideal-sheaf}
+Let $Y \subset X$ be an analytic subvariety
+of a complex manifold $X$.
+The {\it ideal sheaf} of $Y$, denoted $\mathcal{I}_Y$,
+is the kernel
+of the restriction map $\mathcal{O}_X \to \mathcal{O}_Y$.
+\end{definition}
+
+\noindent
+This just says that $\mathcal{I}_X(U)$ is the
+set of functions $f \in \mathcal{O}_X$ that
+vanish under the restriction map, i.e.
+that vanish at points of $Y$.
+
+Since the restriction map is surjective, 
+we have the following short exact sequence:
+$$
+\xymatrix{
+0\ar[r]&\mathcal{I}_Y\ar[r]&\mathcal{O}_X\ar[r]&\mathcal{O}_Y\ar[r]&0
+}
+$$
+
+\medskip\noindent
+Notice that for any open set $U\subset X$,
+$\mathcal{I}_Y(U)$ is an ideal of $\mathcal{O}_X(U)$. (Indeed,
+if a function vanishes at $Y$ then its product
+with any other function will also vanish.)
+
+\begin{definition}
+\label{definition-irreducible-variety}
+An analytic variety $V\subset U\subset \mathbb{C}^n$ is {\it irreducible} if
+$V$ cannot be written as the union of two distinct analytic varieties 
+$V_1,V_2\subset U$, both distinct to $V$.
+\end{definition}
+
+\medskip\noindent
+We will show that for the case of an irreducible hypersurface
+the ideal sheaf is locally generated by a single element.
+This will allow us to construct a line bundle from the defining functions
+of the hypersurface, which is in general not possible
+for an arbitrary smooth hypersurface,
+--- although it suffices to ask for orientability in the
+smooth case.
+
+We need two ingredients:
+(1) the fact that the stalks $\mathcal{O}_p$ of the
+sheaf of holomorphic functions are UFDs,
+and (2) the following lemma.
+
+\begin{lemma}
+\label{lemma-ideal-of-irreducible-hypersurface-is-height-1-prime}
+The ideal
+(correction: this should be the stalk)
+of an irreducible analytic hypersurface is a height-1 prime ideal.
+\end{lemma}
+
+\begin{proof}
+We already know that irreducible varieties
+correspond with prime ideals.
+
+To show the ideal $I$ defining the variety $Y$ has height 1
+suppose that $0 \subset \mathfrak{p} \subseteq I$ is prime.
+Then $V(\mathfrak{p})$ is an analytic variety that contains $Y$.
+At regular points of both $V(\mathfrak{p})$ and $Y$, 
+both are smooth manifolds, but since $Y$ is of codimension 1 and 
+$V(\mathfrak{p})$ does not equal all of  $Y$, 
+we conclude that they coincide. 
+Thus, in a neighbourhood
+of a regular point we have $\mathfrak{p}=I(V(\mathfrak{p}))=I$ by the
+Nullstellensatz.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stalks-of-ideal-sheaf-are-principal-for-hypersurfaces}
+The stalks of the ideal sheaf of 
+an irreducible hypersurface
+are principal rings.
+\end{lemma}
+
+\begin{proof}
+Since $\mathcal{O}_p$
+is a UFD, we pick any element
+$f \in \mathcal{I}_p$, and factor it as a product of irreducibles.
+Since $\mathcal{I}$ is prime, some of the irreducible factors,
+say $f_i$, is in $\mathcal{I}_p$.
+The ideal generated by $f_i$ is prime since $\mathcal{O}_p$
+js a UFD (see \href{https://stacks.math.columbia.edu/tag/034T}{034T}).
+But by Lemma \ref{lemma-ideal-of-irreducible-hypersurface-is-height-1-prime},
+$\mathcal{I}_p$ is a height-1 prime ideal, so the prime ideal $(f_i)$
+must equal all of $\mathcal{I}_p$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ideal-sheaf-of-irreducible-hypersurface-is-line-bundle}
+The ideal sheaf $\mathcal{I}$
+of the irreducible hypersurface $Y \subset X$
+corresponds to a unique line bundle.
+\end{lemma}
+
+\begin{proof}
+Let $p \in U$ and consider for any stalk $\mathcal{I}_p$
+its generator $[f_p]$,
+which has a representative $(f_p,U_p)$.
+These form an open cover of $X$,
+coincide up to a unit in the intersections as follows.
+These units shall give us a cocycle.
+
+For any $U_i\cap U_j \neq 0$
+we have 
+[This is slightly imprecise.
+We may extend $f_j|_{U_i\cap U_j}$ to $U_i$
+and $f_i|_{U_i\cap U_j}$ to $U_j$,
+and then restrict back to $U_i\cap U_j$.
+This works because we can extend holomorphic
+functions by their local power series expansion!], 
+$f_j\in (f_i)$, so there exist functions $g_{ij}$ such that
+$$
+f_i=g_{ij}f_j.
+$$
+These satisfy the cocycle condition since
+$$
+f_if_jf_k=g_{ij}f_jg_{jk}f_kg_{ki}f_i.
+$$
+By Proposition \ref{proposition-vector-bundle-from-cocycle} we have a line
+bundle.
+\end{proof}
+
+\noindent
+Finally we have concluded that the ideal sheaf
+of a hypersurface is a line bundle. Now we can take its dual to define:
+
+\begin{definition}
+\label{definition-sheaf-associated-to-effective-Cartier-divisor}
+Let $D:=S$ be an effective Cartier divisor, that is, 
+an analytic hypersurface of a complex manifold.
+The line bundle $\mathcal{O}(D)$ is the dual line bundle
+of the ideal sheaf of $D$.
+\end{definition}
+
+\section{Line bundles, divisors, Riemann-Roch formulas}
+\label{section-line-bundles}
+
+\noindent
+A simple way of associating a line bundle to an irreducible
+hypersurface $Y\subset X$ is by noting that
+by Weierstrass Division Theorem
+\ref{complex-analysis-theorem-weierstrass-division}
+the ideal sheaf of $Y$ is locally generated,
+i.e. there is an open cover $U_i$ of $X$ 
+such that $\mathcal{I}(U_i)=(f_i)$.
+This means that at intersections we have
+$f_j \in (f_i)$ and $f_i\in (f_j)$,
+which says that $f_i$ and $f_j$ are associates,
+i.e. there is a unit $u_{ij} \in \mathcal{O}^*_X(U)$
+(the units in the ring of holomorphic functions
+are nowhere vanishing functions)
+such that $f_i=u_{ij}f_j$.
+Thus $u_{ij}:U_i\cap U_j \to \text{GL}(1,\mathbb{C})$
+define a cocycle in $H^1(X,\mathcal{O}^*_X) = \text{Pic}(X)$.
+
+\begin{definition}
+\label{definition-divisor}
+A {\it Weil divisor} is a formal sum
+$$
+D=\sum a_i Y_i
+$$
+where $a_i\in \mathbb{Z}$ and $Y_i$ are irreducible hypersurfaces.
+\end{definition}
+
+\noindent
+An irreducible hypersurface $Y$ clearly defines a Weil divisor,
+and so does a reducible reduced hypersurface with irreducible
+components $Y_i$ putting $a_i=1$.
+To allow for coefficients $>1$ we may admit nonreduced hypersurfaces,
+so that we have larger multiplicites.
+
+This can also be presented as follows.
+Given a holomorphic function $g$, we define
+{\it order of vanishing of $g$ at $P \in Y$}
+to be the largest number $\text{ord}_{P,Y}g$ such that
+$$
+g=f_i^{\text{ord}_{P,Y}g}h,\qquad h \in \mathcal{O}^*_{X,P},
+$$
+where $f_i$ is an irreducible function vanishing along $Y$ near $P$,
+i.e. a generator of the local ring of $Y$.
+Further, by coherence/preservation relative primes in nearby stalks
+(see \cite[p. 696]{gri})
+the order of $g$ is constant for any $P \in Y$.
+
+Thus for any holomorphic function $g$
+we can define the divisor
+$$
+\text{div}(g):=\sum_{Y}\text{ord}_Y(g)Y
+$$
+where the sum ranges in all irreducible hypersurfaces of $X$.
+
+Similarly, for a meromorphic function $g=g_1/g_2$
+we define the order of vanishing of $g$ at $Y$ to be
+$$
+\text{ord}_Y(g)=\text{ord}_Y(g_1)-\text{ord}_Y(g_2).
+$$
+The associated divisor to a meromorphic function
+is defined identically as that of a holomorphic function,
+and we observe that there might appear negative coefficients.
+Divisors obtained in this way from meromorphic functions
+are called {\it principal divisors}.
+
+This shows how to assign a divisor from any meromorphic function,
+i.e. it's a map
+$$
+H^0(X,\mathcal{M}^*) \to \text{Div}(X).
+$$
+Note that if $g$ is in fact a nowhere vanishing meromorphic or 
+holomorphic function,
+the corresponding divisor is trivial,
+i.e. it is in the kernel of our map.
+In fact,
+$$
+H^0(X,\mathcal{M}^*/\mathcal{O}^*) \simeq \text{Div}(X).
+$$
+Indeed, given a divisor we can assign a section of
+$\mathcal{M}^*/\mathcal{O}_X^*$ as follows.
+If the divisor is an irreducible hypersurface locally given by $V(f_i)$
+we assign the meromorphic function given locally as $f_i$.
+If the divisor has several irreducible connected components
+we consider the product of the irreducible generators
+at every point.
+
+\medskip\noindent
+It remains to connect $\text{Div}(X)$ and $\text{Pic}(X)$.
+The idea is that a section $f$ of $\mathcal{M}^*/\mathcal{O}_X^*$
+defines a cocycle in $H^1(\mathcal{O}_X^*)$.
+Indeed, $f$ is given, by definition of quotient sheaf (?),
+by the data of an open cover $U_i$ and meromorphic functions
+$$
+f_i=\frac{g_i}{h_i} \in \mathcal{M}^*
+$$
+which coincide at the intersections $U_i \cap U_j$,
+that is,
+$$
+f_i|_{U_i\cap U_j} = f_j|_{U_i\cap U_j}.
+$$
+But since we are in the quotient ring, equality means that
+$$
+f_i f_j^{-1} \in \mathcal{O}_X^*.
+$$
+This defines a cocycle, and thus a map
+$$
+\text{Div}(X) \to \text{Pic}(X).
+$$
+This map can also be though of as induced from
+$$
+\xymatrix{
+0\ar[r]
+&\mathcal{O}^*_X\ar[r]
+&\mathcal{M}^*\ar[r]
+&\mathcal{M}^*/\mathcal{O}_X^*\ar[r]
+&0
+}
+$$
+via the cohomology long exact sequence giving
+$$
+\xymatrix{
+\cdots\ar[r]
+& H^0(\mathcal{M}^*_X)\ar[r]
+&H^0(\mathcal{M}^*_X/\mathcal{O}^*_X)\ar[r]
+&H^1(\mathcal{O}_X^*)\ar[r]
+&\cdots
+}
+$$
+Indeed, the kernel of the map $\text{Div}(X) \to \text{Pic}(X)$
+is given by the principal divisors,
+i.e. those coming from meromorphic sections.
+
+In general there is no way to ensure this map is an isomorphism.
+
+\medskip\noindent
+Now we discuss how to obtain submanifolds from sections.
+We will see that $\text{Div}(X)$
+is isomorphic to the group of line bundles
+equipped with a meromorphic section.
+
+
+Bear in mind the following observation for a rank-$r$
+vector bundle $E \to X$.
+Suppose $(\varphi_i,U_i)$ are local trivializations of $E$,
+i.e. $\varphi_i:\pi^{-1}(U_i) \xrightarrow{\simeq}U_i \times \mathbb{C}^k$.
+Take a local section $s :U_i \to \pi^{-1}(U_i)$.
+Take a local basis $e_i$ of $\mathbb{C}^k$.
+Then 
+$$
+s_i(x)=f_i^k(x)\varphi_i^{-1}(x,e_k)
+$$
+for some functions $f_i^k:U_i \to \mathbb{C}$.
+
+At an intersection $U_i \cap U_j$,
+we have
+$$
+s_i(x)=f_i^k(x)\varphi_i^{-1}(x,e_k) 
+=
+s_j(x)=f_j^k(x)\varphi_j(x,e_k).
+$$
+Applying $\varphi_i$ we see that
+$$
+f_i^k e_k = f_j^k g_{ij}(e_k).
+$$
+
+In the case of a line bundle this just says that sections
+are given by local functions $f_i:U_i \to \mathbb{C}$ satisfying
+$$
+f_i=g_{ij}f_j
+$$
+where $g_{ij}$ is the cocycle defining the line bundle.
+
+Let $L$ be a line bundle.
+A {\it meromorphic section} of $L$ is a section
+of $\mathcal{O}(L) \otimes_\mathcal{O}\mathcal{M}$,
+which is given by a collection of meromorphic functions
+$s_i \in \mathcal{M}(U_i)$
+such that
+$$
+s_i=g_{ij}s_j.
+$$
+That is, sections of the line bundle viewed
+as a module over $\mathcal{O}$
+with coefficients that can be meromorphic functions.
+
+The orders of the coefficient meromorphic functions
+is well defined along hypersurfaces of $X$, and thus
+we can define the 
+{\it divisor $\text{div}(s)$ associated to the section $s$ of $L$} 
+by
+$$
+\text{div}(s)
+:= \sum_Y\text{ord}_Y(s)Y.
+$$
+
+Conversely, given any divisor $D$ 
+we can assign a line bundle $L$ as before,
+namely if the divisor is given by the meromorphic functions $f_i$
+we put $g_{ij}=f_i/f_j$.
+But now we observe 
+the existence of a distinguished section $s$
+such that $\text{div}(s)=L$.
+Indeed, we note that
+$$
+f_i=f_if_j^{-1}f_j=g_{ij}f_j,
+$$
+which is a section of $L$,
+and in fact (check…) $\text{div}(s)=L$.
+
+We conclude that $L$ is the line bundle associated to a divisor
+if and only if it has a meromorphic section not identically zero.
+It is the line bundle associated to an effective divisor
+if and only if it has a holomorphic section not identically zero
+--- whose zero set is the divisor.
+
+\medskip\noindent
+Upshot. We have more than the submanifold associated to a section:
+we have the divisor associated to a meromorphic section,
+which gains to becoming less geometrically intuitive
+the virtue of being an element of a group.
+
+\medskip\noindent
+Now we turn to line systems.
+Take a divisor
+$$
+D=\sum a_iV_i.
+$$
+The divisor
+$$
+D+(f)
+$$
+is linearly equivalent to $D$ --- their difference is principal.
+If
+$$
+D+(f)\geq 0,
+$$
+then $f$ must be holomorphic away from $V_i$,
+and on $V_i$ it can have poles with the condition
+$$
+\text{ord}_{V_i}(f) \geq  -a_i.
+$$
+Denote $\mathcal{L}(D)$ the space of such functions.
+
+Note that if $s_0$ is a section such that
+$(s_0)=D$, then multiplication by $s_0$ gives an identification
+$$
+\mathcal{L}(D) \xrightarrow{\otimes s_0} H^0(X,L).
+$$
+
+\begin{definition}
+\label{definition-line-system}
+We denote by
+$$
+|D|\subset \text{Div}(X)
+$$
+the set of all effective divisors linearly equivalent to $D$.
+\end{definition}
+
+\noindent
+$\mathcal{L}(D)=H^0(X,L)$ is almost the same thing as $|D|$.
+At least in the compact case,
+two functions in $f,f' \in \mathcal{L}(D)$
+give the same divisor when $f=\lambda f'$
+for some constant function $\lambda \in \mathbb{C}$.
+
+Thus
+$$
+|D|=\mathbb{P}H^0(X,L).
+$$
+This is called a {\it complete linear system}.
+More generally, a {\it linear system} is a linear
+subspace of $\mathbb{P}H^0(X,L)$.
+The {\it base locus} of $|D|$
+is the set of points where all the global sections
+generating $H^0(X,L)$ vanish.
+
+\begin{theorem}[Bertini]
+\label{theorem-bertini}
+The generic divisor of a linear system
+is smooth away from the base locus.
 \end{theorem}
 
 \medskip\noindent
-Now let's discuss Bertini's theorem.
+Slogan: the first Chern class of a line bundle
+is the Poincaré dual of the divisor's fundamental class
+and the cohomology class of the curvature form
+of any connection of $L$.
 
-\begin{slogan}
+The {\it curvature form} is the differential 2-form
+that represents the curvature operator with respect to a given connection
+on the line bundle.
+This can also be defined for affine vector bundles of any rank.
+
+\begin{proposition}
+\label{proposition-first-chern-class}
+\begin{reference}
+\cite[p. 141]{gri}
+\end{reference}
+\begin{enumerate}
+\item For any line bundle $L$ with curvature form $\Theta$,
+$$
+c_1(L)=\left[\frac{\sqrt{-1}}{2\pi}\Theta\right]
+\in H^2_{dR}(X).
+$$
+
+\item If $L=[D]$ for some $D \in \text{Div}(M)$,
+$c_1(L)$ is the Poincaré dual of the fundamental class of $D$.
+\end{enumerate}
+\end{proposition}
+
+\medskip\noindent
 In \(\mathbb{C}^n\) many complex hypersurfaces can be written as regular level
 sets of globally defined holomorphic functions. But in a compact complex
 manifold, this is never possible, because all global holomorphic functions are
 constants. Instead, we can use sections of line bundles.
-\end{slogan}
-
-\medskip\noindent
-Now let's discuss Serre's duality.
-
-\begin{theorem}[Serre duality]
-\label{theorem-serre-duality}
-\cite{Voisin} II.5.32. The pairing
-$$
-H^q(X,\mathcal{E})\otimes
-H^{n-q}(X,\mathcal{E}^*\otimes K_X)\to H^{n}(X,K_X)\cong\mathbb{C}
-$$
-is perfect.
-\end{theorem}
-
-So when you put the dual \(\vee\) on one of these you get isomorphism.
-
-Our course version says:
-$$
-H^{k}(X,\mathcal{L})^{\vee}=H^{n-k}(X,\omega_X \otimes \mathcal{L}^*)
-$$
-
 
 
 \medskip\noindent
@@ -2079,8 +2861,114 @@ its normalization, which must be strictly positive since there exists at least
 one singularity.
 \end{proof}
 
-\section{Ampleness}
-\label{section-ampleness}
+\medskip\noindent
+Now let's discuss Riemann-Roch formulas.
+
+\begin{theorem}[Riemann-Roch for curves]
+\label{theorem-Riemann-Roch-for-curves}
+Let $D$ be a divisor on a compact Riemann surface $X$, that is, $D$ is a
+collection of $d$ points on $X$.
+\begin{equation}
+\label{equation-Riemann-Roch-for-Riemann-surfaces}
+h^0(D)-h^0(K-D)=d-g+1
+\end{equation}
+\end{theorem}
+
+\begin{exercise}
+\label{exercise-no-holomorphic-vector-fields-for-g-geq2}
+Prove that if $X$ is a complex smooth curve with $g\geq 2$ then $h^0(T_X)=0$.
+\end{exercise}
+
+\begin{proof}
+First you notice that the dimension of the holomorphic 1-forms is the genus.
+This is just because the genus $p_a$ is defined as $h^1(\mathcal{O}_X)$, which
+is just $h^0(K_X)$ by Serre duality. Then you say well if you have a holomorphic
+vector field, pair it with the nonzero holomorphic 1-form. This gives a nonzero
+function, but it must be constant because $X$ is compact. Then it is actually
+nowhere vanishing. This says the vector field cannot vanish anywhere, which
+means the tangent bundle of the curve is trivial. Apparently elliptic curves,
+i.e. $g=1$ are the 
+\end{proof}
+
+\begin{theorem}[Riemann-Roch for line bundles on surfaces]
+\label{theorem-Riemann-Roch-for-line-bundles-on-surfaces}
+Let $L$ be a line bundle on a complex surface $X$, and $K_X=\Omega^2X$ the
+canonical bundle of $X$. Then
+\begin{equation}
+\label{equation-Riemann-Roch-for-line-bundles-on-surfaces}
+\chi(L)=\chi(\mathcal{O}_X)+\frac{1}{2}(L,L-K_X)
+\end{equation}
+\end{theorem}
+
+\medskip\noindent
+Let's put some more exercises here.
+
+\begin{exercise}[Curves on surfaces and the Hodge index theorem]
+\label{exercise-curves-on-surfaces-and-hodge-index-theorem}
+\begin{reference}
+\cite[Exercise 2, Chapter 11]{voi}
+\end{reference}
+Let $S$ be a smooth projective surface and let $\phi:S \to \mathbb{P}^n$
+be a holomorphic map satisfying the following properties:
+\begin{itemize}
+\item There exists a curve $C \subset S$
+such that $\phi(C)$ is a finite set of points.
+(Here $C$ is a not necessarily connected finite union
+of irreducible hypersurfaces $C_i$ which are not necessarily smooth.)
+
+\item There exists an open set of $S$ where $\phi$ is an embedding.
+\end{itemize}
+\begin{enumerate}
+\item Show that the class $h=\phi^*c_1(\mathcal{O}_{\mathbb{P}^n}(1))$
+satisfies $\left<h,h\right> >0$ where $\left<\cdot,\cdot\right>$ is the
+intersection form on $H^2(S,\mathbb{Z})$.
+
+\item Show that $\left<[C_i],h\right>=0$ for any $i$.
+Deduce from the Hodge index theorem that the intersection form
+$\left<\cdot,\cdot\right>$ is negative definite on the subgroup
+of $H^2(S,\mathbb{Z})$ generated by the $[C_i]$'s.
+
+\item Show that $\left<C_i,C_j\right>\geq 0$ for $i\neq j$.
+Deduce then from the above that the $[C_i]$'s
+are independent in $H^2(S,\mathbb{Z})$.
+\end{enumerate}
+\end{exercise}
+
+\begin{proof}
+\begin{enumerate}
+\item Here's an outline of how to prove this result.
+First notice that $h$ is the class of a line bundle
+since $\varphi^*c_1=c_1\varphi^*$.
+Thus $\left<h,h\right>$ is the intersection number
+of two divisors in the class $h$.
+
+To compute their intersection number
+we use that $\varphi$ is an embedding on an open set of $S$,
+say $U \simeq \varphi(U) \subset \mathbb{P}^n$.
+To compute the intersection number we take 
+two generic hyperplanes $H_1$ and $H_2$
+in $\mathbb{P}^n$ and intersect them with $\phi(U)$.
+The dimension of the resulting submanifold is zero.
+Thus the intersection is a finite number of points.
+
+\item Since $C_i$ is mapped to a set of points in $\mathbb{P}^n$,
+we compute the intersection number as above, which gives zero
+for generic choice of $H_1,H_2$. Hodge index theorem tells us that
+the signature of $\left<\cdot,\cdot\right>$ is $(1,\rho-1)$ on
+$H^2(S,\mathbb{Z})$. Since $h$ is positive and $C_i$ is orthogonal to $h$,
+it's necessary that $C_i$ are negative vectors.
+
+\item This is by definition/construction of the intersection form on a surface:
+for two irreducible divisors of the surface,
+the intersection number is the number of intersection points
+of the divisors counted with multiplicity. Such a number cannot be negative.
+The fact that the $C_i$'s are independent follows from a linear-algebra
+argument.
+\end{enumerate}
+\end{proof}
+
+\section{Ample line bundles}
+\label{section-ample}
 
 \begin{definition}
 \label{definition-base-point}
@@ -2254,37 +3142,19 @@ obtain that $h^0(L^{\otimes 2})>h^0(L^{\otimes 2}(-p))$.
 \section{Chow's theorem}
 \label{section-chow-theorem}
 
-\begin{proposition}
-\label{proposition-slice-charts}
-Every codimension-$p$ submanifold of a complex $n$-manifold has slice charts,
-i.e. for any $p \in M$ there's a coordinate chart $U \ni p$ such that points of
-$M$ have coordinates $(z_1,\ldots,z_n,0,\ldots 0)$.
-\end{proposition}
-
-\begin{proof}
-This may be taken as the definition of smooth (real or complex) submanifold, or
-as a proposition using inverse function theorem (real or complex).
-\end{proof}
-
-\begin{proposition}
-\label{proposition-stalk-is-PID}
-Stalk of holomorphic functions is a PID.
-\end{proposition}
-
-\begin{proof}
-This can be proved via Weierstrass Preparation theorem
-\ref{theorem-Weierstrass-preparation} which implies
- Lemma \ref{lemma-stalks-are-UFDs}, and this in turn implies Lemma 
-\ref{lemma-codimension-1-ideals-in-UFD-are-principal}.
-
-Also, it can be shown directly for smooth hypersurfaces
- as in \cite{lec} Lemma 3.38.
-\end{proof}
-
 \begin{theorem}[Chow for hypersurfaces]
 \label{theorem-Chow-for-hypersurfaces}
 Every complex codimension-1 submanifold of $\mathbb{C}P^{n}$ is algebraic.
 \end{theorem}
+
+\begin{proof}
+A hypersurface in $\mathbb{P}^n$ defines a line bundle
+along with a section vanishing on the hypersurface.
+Such a line bundle must be $\mathcal{O}(d)$ for some $d$
+by Exercise \ref{exercise-pic-of-pn-is-z}.
+Sections of $\mathcal{O}(d)$ are homogeneous degree-$d$ polynomials
+by Theorem \ref{theorem-sections-of-od-are-degree-d-homogeneous-polynomials}.
+\end{proof}
 
 \section{Kodaira Vanishing theorem}
 \label{section-Kodaira-vanishing-theorem}
@@ -2348,10 +3218,18 @@ Consider the Hodge star operator with respect to the Riemannian metric on $M$.
 anti self-dual.
 \begin{enumerate}
 \item $\Lambda^+=\text{span}(\omega_I,\omega_J,\omega_K)$.
-This is clear since $M$ is a manifold of real dimension 4,
+$M$ is a manifold of real dimension 4,
 which means that $\dim\Lambda^2(M)=6$ and thus
-$\dim\Lambda^+(M)=3$. Clearly the three fundamental forms
-are linearly independent and thus span $\Lambda^+(M)$.
+$\dim\Lambda^+(M)=3$
+(here we can check using a basis of $\mathbb{R}^6$
+that $*$ permutes the basic covectors with no fixed points,
+so that it has zero trace;
+in turn this means that $\dim \Lambda^+ + \dim\Lambda^-=0$).
+Further, each of $\omega_I$, $\omega_J$ and $\omega_K$
+squared and multiplied by $\frac{1}{2}$ give the Riemannian
+volume form, and therefore the three are in $\Lambda^+(M)$.
+Clearly they are linearly independent and thus span $\Lambda^+(M)$.
+
 \item $\omega_I,\omega_J$ and $\omega_K$ are not fixed by the
 $\text{SU}(2)$ action
 Indeed, $J\omega_I=-\omega_I$ and similarly
