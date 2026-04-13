@@ -1637,7 +1637,26 @@ The index of the intersection pairing on $H^{1,1}(X,\mathbb{R})$
 is $(1,\rho(X)-1)$.
 \end{theorem}
 
-
+\begin{theorem}[Hard Lefschetz Theorem]
+\label{theorem-hard-lefschetz}
+\begin{reference}
+\cite[p. 122]{gri}
+\end{reference}
+The map
+$$
+L^k:H^{n-k}(M) \to H^{n+k}(M)
+$$
+is an isomorphism.
+If we define the {\it primitive} cohomology as
+$$
+P^{n-k}(M) = Ker L^{k+1}
+$$
+we have
+$$
+H^m(M)=\bigoplus_k L^kP^{m-2k}(M),
+$$
+called the Lefschetz decomposition.
+\end{theorem}
 
 \section{Vector bundles, connections, curvature and Chern classes}
 \label{section-vector-bundles}
@@ -2065,255 +2084,7 @@ is {\it hermitian} if $\nabla g=0$ and $\nabla J=0$.
 \end{definition}
 
 
-\section{Complex varieties}
-\label{section-complex-varieties}
-
-For a definition of sheaf
-see Algebraic Geometry Definition 
-\ref{algebraic-geometry-definition-sheaf}.
-
-\begin{lemma}
-\label{lemma-O_X-is-a-sheaf}
-Let $X$ be a complex manifold of complex dimension $n$.
-
-The functor
-\begin{align*}
-\mathcal{O}_X: \mathit{Open}_X^{\text{op}} &\longrightarrow \mathit{Set}
-\\
-U &\longmapsto \mathcal{O}_X(U):=\{f:U\to \mathbb{C}^n:
-f \text{ is holomorphic}\}\\
-i:V \hookrightarrow V &\longmapsto 
-\mathcal{O}_X(i):\mathcal{O}_X(U) \to \mathcal{O}_X(V)
-\end{align*}
-where $\mathcal{O}_X(i)$ is given by restriction,
-is a sheaf.
-\end{lemma}
-
-\begin{proof}
-$\mathcal{O}_X$ is a presheaf,
-i.e. a functor,
-by definition: restriction
-maps the identity to the identity
-and preserves compositions.
-
-To check the condition of being a sheaf let
-$U_i$ be an open cover of some open set $U$ of $X$
-and $f_i:U_i \to X$ sections of $\mathcal{O}_X(U_i)$,
-that is, holomorphic functions, which
-coincide pairwise in intersections.
-Then it is obvious that the function $f:U \to \mathbb{C}$,
-$x \mapsto f_i(x)$ for any $U_i \ni x$ 
-is well defined. It is also holomorphic
-since holomorphicity is a condition defined on
-open sets.
-\end{proof}
-
-\medskip\noindent
-A meromorphic function is a function that
-can be written locally as a quotient of two
-holomorphic functions:
-
-\begin{definition}
-\label{definition-meromorphic-functions}
-\begin{reference}
-\cite[Definition 2.1.8]{huc}
-\end{reference}
-A {\it meromorphic function} on a complex manifold $X$ 
-is a map
-$$
-f:X \to \coprod_{x \in X}\text{Frac}(\mathcal{O}_{X,x})
-$$
-which associates to any $x\in X$
-an element $f_x \in \text{Frac}(\mathcal{O}_{X,x})$
-such that for any $x_0 \in X$ 
-there exists $U\ni x$ open and $f,g \in\mathcal{O}(U)$ 
-such that $f_x=g/h$ for all $x \in U$.
-The {\it sheaf of meromorphic functions} is $\mathcal{K}_X$.
-\end{definition}
-
-
-\medskip\noindent
-Now we pass to the theory of analytic subvarieties.
-
-\begin{definition}
-\label{definition-analytic-subvariety}
-An {\it analytic set} or {\it subvariety} $Y$ 
-is a subset of a complex manifold $X$
-given locally as the zeros of a finite collection of holomorphic functions.
-\end{definition}
-
-\begin{lemma}
-\label{lemma-structure-sheaf-of-subvariety}
-Let $Y \subset X$ be an analytic subvariety
-of a complex manifold $X$
-equipped with the subspace topology.
-Then
-\begin{align*}
-\mathcal{O}_Y: \mathit{Open}_Y^{\text{op}} &\longrightarrow \mathit{Set} \\
-U\cap Y &\longmapsto \{f|_{U \cap Y}:f \in \mathcal{O}_X(U)\}
-\end{align*}
-
-\noindent
-is a sheaf.
-\end{lemma}
-
-\begin{proof}
-This is a presheaf for the same reasons as
-the sheaf $\mathcal{O}_X$ is a presheaf.
-The fact that it is a sheaf follows
-from the fact that $\mathcal{O}_X$ is a 
-sheaf and by definition of subspace topology;
-namely for any family of functions
-defined over an open cover $\{U_i \cap Y\}$
-of some open set  $U\cap Y$ we can reconstruct a function
-on $U$ that restricted to $U \cap Y$ is as desired.
-\end{proof}
-
-Recall that any map of sheaves of groups
-has well-defined kernel, see Lemma
-\ref{algebraic-geometry-lemma-sheaves-valued-on-groups-have-kernels}.
-
-\begin{definition}
-\label{definition-ideal-sheaf}
-Let $Y \subset X$ be an analytic subvariety
-of a complex manifold $X$.
-The {\it ideal sheaf} of $Y$, denoted $\mathcal{I}_Y$,
-is the kernel
-of the restriction map $\mathcal{O}_X \to \mathcal{O}_Y$.
-\end{definition}
-
-\noindent
-This just says that $\mathcal{I}_X(U)$ is the
-set of functions $f \in \mathcal{O}_X$ that
-vanish under the restriction map, i.e.
-that vanish at points of $Y$.
-
-Since the restriction map is surjective, 
-we have the following short exact sequence:
-$$
-\xymatrix{
-0\ar[r]&\mathcal{I}_Y\ar[r]&\mathcal{O}_X\ar[r]&\mathcal{O}_Y\ar[r]&0
-}
-$$
-
-\medskip\noindent
-Notice that for any open set $U\subset X$,
-$\mathcal{I}_Y(U)$ is an ideal of $\mathcal{O}_X(U)$. (Indeed,
-if a function vanishes at $Y$ then its product
-with any other function will also vanish.)
-
-\begin{definition}
-\label{definition-irreducible-variety}
-An analytic variety $V\subset U\subset \mathbb{C}^n$ is {\it irreducible} if
-$V$ cannot be written as the union of two distinct analytic varieties 
-$V_1,V_2\subset U$, both distinct to $V$.
-\end{definition}
-
-\medskip\noindent
-We will show that for the case of an irreducible hypersurface
-the ideal sheaf is locally generated by a single element.
-This will allow us to construct a line bundle from the defining functions
-of the hypersurface, which is in general not possible
-for an arbitrary smooth hypersurface,
---- although it suffices to ask for orientability in the
-smooth case.
-
-We need two ingredients:
-(1) the fact that the stalks $\mathcal{O}_p$ of the
-sheaf of holomorphic functions are UFDs,
-and (2) the following lemma.
-
-\begin{lemma}
-\label{lemma-ideal-of-irreducible-hypersurface-is-height-1-prime}
-The ideal
-(correction: this should be the stalk)
-of an irreducible analytic hypersurface is a height-1 prime ideal.
-\end{lemma}
-
-\begin{proof}
-We already know that irreducible varieties
-correspond with prime ideals.
-
-To show the ideal $I$ defining the variety $Y$ has height 1
-suppose that $0 \subset \mathfrak{p} \subseteq I$ is prime.
-Then $V(\mathfrak{p})$ is an analytic variety that contains $Y$.
-At regular points of both $V(\mathfrak{p})$ and $Y$, 
-both are smooth manifolds, but since $Y$ is of codimension 1 and 
-$V(\mathfrak{p})$ does not equal all of  $Y$, 
-we conclude that they coincide. 
-Thus, in a neighbourhood
-of a regular point we have $\mathfrak{p}=I(V(\mathfrak{p}))=I$ by the
-Nullstellensatz.
-\end{proof}
-
-\begin{lemma}
-\label{lemma-stalks-of-ideal-sheaf-are-principal-for-hypersurfaces}
-The stalks of the ideal sheaf of 
-an irreducible hypersurface
-are principal rings.
-\end{lemma}
-
-\begin{proof}
-Since $\mathcal{O}_p$
-is a UFD, we pick any element
-$f \in \mathcal{I}_p$, and factor it as a product of irreducibles.
-Since $\mathcal{I}$ is prime, some of the irreducible factors,
-say $f_i$, is in $\mathcal{I}_p$.
-The ideal generated by $f_i$ is prime since $\mathcal{O}_p$
-js a UFD (see \href{https://stacks.math.columbia.edu/tag/034T}{034T}).
-But by Lemma \ref{lemma-ideal-of-irreducible-hypersurface-is-height-1-prime},
-$\mathcal{I}_p$ is a height-1 prime ideal, so the prime ideal $(f_i)$
-must equal all of $\mathcal{I}_p$.
-\end{proof}
-
-\begin{lemma}
-\label{lemma-ideal-sheaf-of-irreducible-hypersurface-is-line-bundle}
-The ideal sheaf $\mathcal{I}$
-of the irreducible hypersurface $Y \subset X$
-corresponds to a unique line bundle.
-\end{lemma}
-
-\begin{proof}
-Let $p \in U$ and consider for any stalk $\mathcal{I}_p$
-its generator $[f_p]$,
-which has a representative $(f_p,U_p)$.
-These form an open cover of $X$,
-coincide up to a unit in the intersections as follows.
-These units shall give us a cocycle.
-
-For any $U_i\cap U_j \neq 0$
-we have 
-[This is slightly imprecise.
-We may extend $f_j|_{U_i\cap U_j}$ to $U_i$
-and $f_i|_{U_i\cap U_j}$ to $U_j$,
-and then restrict back to $U_i\cap U_j$.
-This works because we can extend holomorphic
-functions by their local power series expansion!], 
-$f_j\in (f_i)$, so there exist functions $g_{ij}$ such that
-$$
-f_i=g_{ij}f_j.
-$$
-These satisfy the cocycle condition since
-$$
-f_if_jf_k=g_{ij}f_jg_{jk}f_kg_{ki}f_i.
-$$
-By Proposition \ref{proposition-vector-bundle-from-cocycle} we have a line
-bundle.
-\end{proof}
-
-\noindent
-Finally we have concluded that the ideal sheaf
-of a hypersurface is a line bundle. Now we can take its dual to define:
-
-\begin{definition}
-\label{definition-sheaf-associated-to-effective-Cartier-divisor}
-Let $D:=S$ be an effective Cartier divisor, that is, 
-an analytic hypersurface of a complex manifold.
-The line bundle $\mathcal{O}(D)$ is the dual line bundle
-of the ideal sheaf of $D$.
-\end{definition}
-
-\section{Line bundles, divisors, Riemann-Roch formulas}
+\section{Line bundles and divisors}
 \label{section-line-bundles}
 
 \noindent
@@ -2591,6 +2362,8 @@ subspace of $\mathbb{P}H^0(X,L)$.
 The {\it base locus} of $|D|$
 is the set of points where all the global sections
 generating $H^0(X,L)$ vanish.
+We will see in Section \ref{section-kodaira-embedding}
+the relationship between line systems and embeddings to projective space.
 
 \begin{theorem}[Bertini]
 \label{theorem-bertini}
@@ -2599,45 +2372,9 @@ is smooth away from the base locus.
 \end{theorem}
 
 \medskip\noindent
-Slogan: the first Chern class of a line bundle
-is the Poincaré dual of the divisor's fundamental class
-and the cohomology class of the curvature form
-of any connection of $L$.
-
-The {\it curvature form} is the differential 2-form
-that represents the curvature operator with respect to a given connection
-on the line bundle.
-This can also be defined for affine vector bundles of any rank.
-
-\begin{proposition}
-\label{proposition-first-chern-class}
-\begin{reference}
-\cite[p. 141]{gri}
-\end{reference}
-\begin{enumerate}
-\item For any line bundle $L$ with curvature form $\Theta$,
-$$
-c_1(L)=\left[\frac{\sqrt{-1}}{2\pi}\Theta\right]
-\in H^2_{dR}(X).
-$$
-
-\item If $L=[D]$ for some $D \in \text{Div}(M)$,
-$c_1(L)$ is the Poincaré dual of the fundamental class of $D$.
-\end{enumerate}
-\end{proposition}
-
-\medskip\noindent
-In \(\mathbb{C}^n\) many complex hypersurfaces can be written as regular level
-sets of globally defined holomorphic functions. But in a compact complex
-manifold, this is never possible, because all global holomorphic functions are
-constants. Instead, we can use sections of line bundles.
-
-
-\medskip\noindent
-Now let's introduce different adjunction formulas.
-Perhaps the most accessible statement that could be interpreted as ``adjunction
-formula'' is that the line bundle associated to a smooth hypersurface is the
-normal bundle.
+Now let's introduce the first adjunction formula,
+which says that when a divisor is a smooth hypersurface,
+it's associated line bundle is its holomorphic normal bundle.
 
 \begin{theorem}[Adjunction formula I]
 \label{theorem-adjunction-formula-i}
@@ -2673,8 +2410,56 @@ are holomorphic differencials vanishing along $X$.
 \end{proof}
 
 \noindent
-The next adjunction formula is essentially a consequence
-of the following linear algebra fact:
+Now let's find the canonical bundle of $\mathbb{P}^n$.
+By the above discussion, we need the inverse map of
+$$
+\text{Div}(\mathbb{P}^n) \to \{L \in \text{Pic}(X):
+\text{$L$ has a nonzero meromorphic section}\},
+$$
+that is, we need to find a nonzero meromorphic section $s$
+of the canonical bundle $\Omega^{n,0}=K$.
+Then the divisor will be given by
+$$
+\sum_Y \text{ord}_Ys [Y].
+$$
+A meromorphic section is given by local sections $s_i$
+so that
+$$
+s_i=g_{ij}s_j
+$$
+where $g_{ij}$ is the cocycle of $K.$
+
+Consider in the canonical chart $z_0\neq 0$ of $\mathbb{P}^n$
+the local meromorphic section of $K$
+$$
+s_0=
+\frac{dw_1}{w_1}\wedge\frac{dw_2}{w_2}\wedge…
+\wedge\frac{dw_n}{w_n}
+$$
+where $w_i=z_i/z_0$ are the coordinate functions in $z_0\neq 0$.
+
+In any chart $z_j\neq 0$ we obtain the local expression
+$$
+(-1)^j\frac{dw_0'}{w_0'}
+\wedge…
+\wedge \widehat{\frac{dw_j'}{w_j'}}
+\wedge…
+\wedge \frac{dw_n'}{w_n'}
+$$
+according to the canonical change of coordinates, which says
+$$
+w_i=\frac{w_i'}{w'0}, i\neq j,\qquad w_j=\frac{1}{w_0'}.
+$$
+
+The point is that we constructed a meromorphic section which has
+a single pole along each hyperplane $z_i=0$, which means
+$$
+K=-(n+1)H.
+$$
+\medskip\noindent
+The next adjunction formula is the key to computing
+the canonical bundle of submanifolds.
+It is a consequence of this linear algebra fact:
 
 \begin{lemma}
 \label{lemma-detrminant-of-ses}
@@ -2816,92 +2601,40 @@ $$
 Taking determinant of this exact sequence we obtain the result.
 \end{proof}
 
-\begin{lemma}
-\label{lemma-adjunction-formula-for-curves-on-surfaces}
-Let $S$ be any curve on a surface $X$. Then
-\begin{equation}
-\label{equation-adjunction-formula-for-curves-on-surfaces}
-2p_a(S)-2=(S.S-K_X)
-\end{equation}
-\end{lemma}
-
-\begin{proof}
-If $S$ is nonsingular we may use the normal bundle short exact sequence. If
-$S$ is singular we need to use the ideal sheaf short exact sequence, which means
-we think of $S$ either as a closed embedded subscheme of $X$ or as an analytic 
-subvariety. Taking Euler class we obtain
-$$
-\chi(\mathcal{O}(-S))+\chi(\mathcal{O}_S)=\chi(\mathcal{O}_X)
-$$
-Since $p_a(S):=1-\chi(\mathcal{O}_S)$, we obtain that
-$p_a(S)=1-\chi(\mathcal{O}_X)-\chi(\mathcal{O}(-S))$. To compute
-$\chi(\mathcal{O}(-S))$ we use Riemann-Roch formula
-\ref{equation-Riemann-Roch-for-curves-on-surfaces} for curves on surfaces, which
-gives
-$$
-\chi(\mathcal{O}(-S))=\chi(\mathcal{O}_X)
-+\frac{(\mathcal{O}(-S).\mathcal{O}(-S)+\omega_X^*)}{2}
-$$
-Taking duals on both entries of the intersection form and substituting in our
-previous expression for $p_a(S)$ we obtain the result.
-\end{proof}
-
-\begin{exercise}
-\label{exercise-singular-curve-on-K3-has-positive-self-intersection}
-Let $S$ be a singular, irreducible complex curve on a K3 surface. Prove that
-$(S.S)\geq 0$.
-\end{exercise}
-
-\begin{proof}
-This is just an application of Eq.
-\ref{equation-adjunction-formula-for-curves-on-surfaces}. Since
-$K_X=\mathcal{O}_X$ it suffices to show that $p_a(S)$ is not zero. This follows
-fact that $S$ is singular, since its arithmetic genus is defined as the genus of
-its normalization, which must be strictly positive since there exists at least
-one singularity.
-\end{proof}
 
 \medskip\noindent
-Now let's discuss Riemann-Roch formulas.
+Now we turn to Chern classes of line bundles.
 
-\begin{theorem}[Riemann-Roch for curves]
-\label{theorem-Riemann-Roch-for-curves}
-Let $D$ be a divisor on a compact Riemann surface $X$, that is, $D$ is a
-collection of $d$ points on $X$.
-\begin{equation}
-\label{equation-Riemann-Roch-for-Riemann-surfaces}
-h^0(D)-h^0(K-D)=d-g+1
-\end{equation}
-\end{theorem}
+Slogan: the first Chern class of a line bundle
+is the Poincaré dual of the divisor's fundamental class
+and the cohomology class of the curvature form
+of any connection of $L$.
+It is an integral $(1,1)$-curvature form.
 
-\begin{exercise}
-\label{exercise-no-holomorphic-vector-fields-for-g-geq2}
-Prove that if $X$ is a complex smooth curve with $g\geq 2$ then $h^0(T_X)=0$.
-\end{exercise}
+The {\it curvature form} is the differential 2-form
+that represents the curvature operator with respect to a given connection
+on the line bundle.
+This can also be defined for affine vector bundles of any rank.
 
-\begin{proof}
-First you notice that the dimension of the holomorphic 1-forms is the genus.
-This is just because the genus $p_a$ is defined as $h^1(\mathcal{O}_X)$, which
-is just $h^0(K_X)$ by Serre duality. Then you say well if you have a holomorphic
-vector field, pair it with the nonzero holomorphic 1-form. This gives a nonzero
-function, but it must be constant because $X$ is compact. Then it is actually
-nowhere vanishing. This says the vector field cannot vanish anywhere, which
-means the tangent bundle of the curve is trivial. Apparently elliptic curves,
-i.e. $g=1$ are the 
-\end{proof}
+\begin{proposition}
+\label{proposition-first-chern-class}
+\begin{reference}
+\cite[p. 141]{gri}
+\end{reference}
+\begin{enumerate}
+\item For any line bundle $L$ with curvature form $\Theta$,
+$$
+c_1(L)=\left[\frac{\sqrt{-1}}{2\pi}\Theta\right]
+\in H^2_{dR}(X).
+$$
 
-\begin{theorem}[Riemann-Roch for line bundles on surfaces]
-\label{theorem-Riemann-Roch-for-line-bundles-on-surfaces}
-Let $L$ be a line bundle on a complex surface $X$, and $K_X=\Omega^2X$ the
-canonical bundle of $X$. Then
-\begin{equation}
-\label{equation-Riemann-Roch-for-line-bundles-on-surfaces}
-\chi(L)=\chi(\mathcal{O}_X)+\frac{1}{2}(L,L-K_X)
-\end{equation}
-\end{theorem}
+\item If $L=[D]$ for some $D \in \text{Div}(M)$,
+$c_1(L)$ is the Poincaré dual of the fundamental class of $D$.
+\end{enumerate}
+\end{proposition}
 
 \medskip\noindent
-Let's put some more exercises here.
+Finally let's just put some more exercises here.
 
 \begin{exercise}[Curves on surfaces and the Hodge index theorem]
 \label{exercise-curves-on-surfaces-and-hodge-index-theorem}
@@ -2967,61 +2700,392 @@ argument.
 \end{enumerate}
 \end{proof}
 
-\section{Ample line bundles}
-\label{section-ample}
+\section{Kodaira Vanishing theorem}
+\label{section-kodaira-vanishing}
+
+\noindent
+In \cite[p. 150]{gri}
+we see that the curvature form of the tautological bundle
+is given by $\partial\bar\partial \text{log} |z|^2$
+where $z$ is a nonzero section.
+Not giving further details for now,
+this implies that the Chern class of the hyperplane bundle
+is the Fubini-Study form in $\mathbb{P}^n$.
+We already discussed that this form is positive
+in the sense of Definition \ref{definition-positive-11form}.
 
 \begin{definition}
-\label{definition-base-point}
+\label{definition-positive-line-bundle}
 \begin{reference}
-\cite[Definition 2.3.25]{huc}
+\cite[p. 148]{gri}
 \end{reference}
-Let $L$ be a holomorphic bundle on a complex manifold $X$. A point $x \in X$ is
-a {\it base point} of $L$ if $s(x)=0$ for all $s\in H^{0}(X,L)$. 
+Let $M$ be a compact Kähler manifold.
+A line bundle $L \to M$ is {\it positive} 
+if there exists a metric on $L$ with curvature form $\Theta$
+such that $(\sqrt{-1}/2\pi)\Theta$ is a positive $(1,1)$-form.
 \end{definition}
 
-\begin{definition}
-\label{definition-base-locus}
+\begin{theorem}[Kodaira-Nakano Vanishing Theorem]
+\label{theorem-kodaira-nakano-vanishing}
 \begin{reference}
-\cite[Definition 2.3.25]{huc}
+\cite[p. 154]{gri}
 \end{reference}
+[Let $M$ be a compact Kähler manifold of complex dimension $n$.]
+If $L \to M$ is a positive line bundle,
+then
+$$
+H^q(M,\Omega^p(L)) = 0,\qquad p+q>n.
+$$
+\end{theorem}
+
+\noindent
+Here's the same result as it appears in
+\cite[sea], where it is not proved.
+
+\begin{theorem}[Kodaira Vanishing]
+\label{theorem-Kodaira-vanishing-sea}
+\begin{reference}
+\cite[21.5.8]{sea}
+\end{reference}
+Suppose $k$ is a field of characteristic 0, and $X$ is a
+smooth projective $k$-variety. Then for any ample invertible sheaf $L$,
+$H^{i}(X,K_X \otimes L)=0$ for $i>0$.
+\end{theorem}
+
+
+\section{Lefschetz hyperplane sections theorem}
+\label{section-lefschetz-hyperplane}
+
+Lefschetz hyperplane theorem holds for 
+any $n$-dimensional compact complex manifold $M$
+and $V \subset M$ a smooth hypersurface with $L=[V]$ positive.
+An example of this is when $M$ is projective
+and $V$ is the pullback of the hyperplane bundle
+(which, as explained in Section \ref{section-kodaira-vanishing},
+is positive since its curvature form is Fubini-Study),
+that is, $V=M \cap H$ for a generic hyperplane $H \subset \mathbb{P}^N$.
+
+\begin{theorem}[Lefschetz hyperplane sections]
+\label{theorem-lefschetz-hyperplane}
+The map
+$$
+H^q(M,\mathbb{Q}) \to H^q(V,\mathbb{Q})
+$$
+induced by the inclusion $V \xymatrix{\ar@{^{(}->}[r]&} M$
+is an isomorphism for $q \leq  n-2$
+and injective for $q=n-1$.
+\end{theorem}
+
+\begin{proof}
+Looks accessible! ``Purely topological''.
+\end{proof}
+
+\section{Complex varieties}
+\label{section-complex-varieties}
+
+For a definition of sheaf
+see Algebraic Geometry Definition 
+\ref{algebraic-geometry-definition-sheaf}.
+
+\begin{lemma}
+\label{lemma-O_X-is-a-sheaf}
+Let $X$ be a complex manifold of complex dimension $n$.
+
+The functor
+\begin{align*}
+\mathcal{O}_X: \mathit{Open}_X^{\text{op}} &\longrightarrow \mathit{Set}
+\\
+U &\longmapsto \mathcal{O}_X(U):=\{f:U\to \mathbb{C}^n:
+f \text{ is holomorphic}\}\\
+i:V \hookrightarrow V &\longmapsto 
+\mathcal{O}_X(i):\mathcal{O}_X(U) \to \mathcal{O}_X(V)
+\end{align*}
+where $\mathcal{O}_X(i)$ is given by restriction,
+is a sheaf.
+\end{lemma}
+
+\begin{proof}
+$\mathcal{O}_X$ is a presheaf,
+i.e. a functor,
+by definition: restriction
+maps the identity to the identity
+and preserves compositions.
+
+To check the condition of being a sheaf let
+$U_i$ be an open cover of some open set $U$ of $X$
+and $f_i:U_i \to X$ sections of $\mathcal{O}_X(U_i)$,
+that is, holomorphic functions, which
+coincide pairwise in intersections.
+Then it is obvious that the function $f:U \to \mathbb{C}$,
+$x \mapsto f_i(x)$ for any $U_i \ni x$ 
+is well defined. It is also holomorphic
+since holomorphicity is a condition defined on
+open sets.
+\end{proof}
+
+\medskip\noindent
+A meromorphic function is a function that
+can be written locally as a quotient of two
+holomorphic functions:
+
+\begin{definition}
+\label{definition-meromorphic-functions}
+\begin{reference}
+\cite[Definition 2.1.8]{huc}
+\end{reference}
+A {\it meromorphic function} on a complex manifold $X$ 
+is a map
+$$
+f:X \to \coprod_{x \in X}\text{Frac}(\mathcal{O}_{X,x})
+$$
+which associates to any $x\in X$
+an element $f_x \in \text{Frac}(\mathcal{O}_{X,x})$
+such that for any $x_0 \in X$ 
+there exists $U\ni x$ open and $f,g \in\mathcal{O}(U)$ 
+such that $f_x=g/h$ for all $x \in U$.
+The {\it sheaf of meromorphic functions} is $\mathcal{K}_X$.
+\end{definition}
+
+
+\medskip\noindent
+Now we pass to the theory of analytic subvarieties.
+
+\begin{definition}
+\label{definition-analytic-subvariety}
+An {\it analytic set} or {\it subvariety} $Y$ 
+is a subset of a complex manifold $X$
+given locally as the zeros of a finite collection of holomorphic functions.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-structure-sheaf-of-subvariety}
+Let $Y \subset X$ be an analytic subvariety
+of a complex manifold $X$
+equipped with the subspace topology.
+Then
+\begin{align*}
+\mathcal{O}_Y: \mathit{Open}_Y^{\text{op}} &\longrightarrow \mathit{Set} \\
+U\cap Y &\longmapsto \{f|_{U \cap Y}:f \in \mathcal{O}_X(U)\}
+\end{align*}
+
+\noindent
+is a sheaf.
+\end{lemma}
+
+\begin{proof}
+This is a presheaf for the same reasons as
+the sheaf $\mathcal{O}_X$ is a presheaf.
+The fact that it is a sheaf follows
+from the fact that $\mathcal{O}_X$ is a 
+sheaf and by definition of subspace topology;
+namely for any family of functions
+defined over an open cover $\{U_i \cap Y\}$
+of some open set  $U\cap Y$ we can reconstruct a function
+on $U$ that restricted to $U \cap Y$ is as desired.
+\end{proof}
+
+Recall that any map of sheaves of groups
+has well-defined kernel, see Lemma
+\ref{algebraic-geometry-lemma-sheaves-valued-on-groups-have-kernels}.
+
+\begin{definition}
+\label{definition-ideal-sheaf}
+Let $Y \subset X$ be an analytic subvariety
+of a complex manifold $X$.
+The {\it ideal sheaf} of $Y$, denoted $\mathcal{I}_Y$,
+is the kernel
+of the restriction map $\mathcal{O}_X \to \mathcal{O}_Y$.
+\end{definition}
+
+\noindent
+This just says that $\mathcal{I}_X(U)$ is the
+set of functions $f \in \mathcal{O}_X$ that
+vanish under the restriction map, i.e.
+that vanish at points of $Y$.
+
+Since the restriction map is surjective, 
+we have the following short exact sequence:
+$$
+\xymatrix{
+0\ar[r]&\mathcal{I}_Y\ar[r]&\mathcal{O}_X\ar[r]&\mathcal{O}_Y\ar[r]&0
+}
+$$
+
+\medskip\noindent
+Notice that for any open set $U\subset X$,
+$\mathcal{I}_Y(U)$ is an ideal of $\mathcal{O}_X(U)$. (Indeed,
+if a function vanishes at $Y$ then its product
+with any other function will also vanish.)
+
+\begin{definition}
+\label{definition-irreducible-variety}
+An analytic variety $V\subset U\subset \mathbb{C}^n$ is {\it irreducible} if
+$V$ cannot be written as the union of two distinct analytic varieties 
+$V_1,V_2\subset U$, both distinct to $V$.
+\end{definition}
+
+\medskip\noindent
+We will show that for the case of an irreducible hypersurface
+the ideal sheaf is locally generated by a single element.
+This will allow us to construct a line bundle from the defining functions
+of the hypersurface, which is in general not possible
+for an arbitrary smooth hypersurface,
+--- although it suffices to ask for orientability in the
+smooth case.
+
+We need two ingredients:
+(1) the fact that the stalks $\mathcal{O}_p$ of the
+sheaf of holomorphic functions are UFDs,
+and (2) the following lemma.
+
+\begin{lemma}
+\label{lemma-ideal-of-irreducible-hypersurface-is-height-1-prime}
+The ideal
+(correction: this should be the stalk)
+of an irreducible analytic hypersurface is a height-1 prime ideal.
+\end{lemma}
+
+\begin{proof}
+We already know that irreducible varieties
+correspond with prime ideals.
+
+To show the ideal $I$ defining the variety $Y$ has height 1
+suppose that $0 \subset \mathfrak{p} \subseteq I$ is prime.
+Then $V(\mathfrak{p})$ is an analytic variety that contains $Y$.
+At regular points of both $V(\mathfrak{p})$ and $Y$, 
+both are smooth manifolds, but since $Y$ is of codimension 1 and 
+$V(\mathfrak{p})$ does not equal all of  $Y$, 
+we conclude that they coincide. 
+Thus, in a neighbourhood
+of a regular point we have $\mathfrak{p}=I(V(\mathfrak{p}))=I$ by the
+Nullstellensatz.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stalks-of-ideal-sheaf-are-principal-for-hypersurfaces}
+The stalks of the ideal sheaf of 
+an irreducible hypersurface
+are principal rings.
+\end{lemma}
+
+\begin{proof}
+Since $\mathcal{O}_p$
+is a UFD, we pick any element
+$f \in \mathcal{I}_p$, and factor it as a product of irreducibles.
+Since $\mathcal{I}$ is prime, some of the irreducible factors,
+say $f_i$, is in $\mathcal{I}_p$.
+The ideal generated by $f_i$ is prime since $\mathcal{O}_p$
+js a UFD (see \href{https://stacks.math.columbia.edu/tag/034T}{034T}).
+But by Lemma \ref{lemma-ideal-of-irreducible-hypersurface-is-height-1-prime},
+$\mathcal{I}_p$ is a height-1 prime ideal, so the prime ideal $(f_i)$
+must equal all of $\mathcal{I}_p$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ideal-sheaf-of-irreducible-hypersurface-is-line-bundle}
+The ideal sheaf $\mathcal{I}$
+of the irreducible hypersurface $Y \subset X$
+corresponds to a unique line bundle.
+\end{lemma}
+
+\begin{proof}
+Let $p \in U$ and consider for any stalk $\mathcal{I}_p$
+its generator $[f_p]$,
+which has a representative $(f_p,U_p)$.
+These form an open cover of $X$,
+coincide up to a unit in the intersections as follows.
+These units shall give us a cocycle.
+
+For any $U_i\cap U_j \neq 0$
+we have 
+[This is slightly imprecise.
+We may extend $f_j|_{U_i\cap U_j}$ to $U_i$
+and $f_i|_{U_i\cap U_j}$ to $U_j$,
+and then restrict back to $U_i\cap U_j$.
+This works because we can extend holomorphic
+functions by their local power series expansion!], 
+$f_j\in (f_i)$, so there exist functions $g_{ij}$ such that
+$$
+f_i=g_{ij}f_j.
+$$
+These satisfy the cocycle condition since
+$$
+f_if_jf_k=g_{ij}f_jg_{jk}f_kg_{ki}f_i.
+$$
+By Proposition \ref{proposition-vector-bundle-from-cocycle} we have a line
+bundle.
+\end{proof}
+
+\noindent
+Finally we have concluded that the ideal sheaf
+of a hypersurface is a line bundle. Now we can take its dual to define:
+
+\begin{definition}
+\label{definition-sheaf-associated-to-effective-Cartier-divisor}
+Let $D:=S$ be an effective Cartier divisor, that is, 
+an analytic hypersurface of a complex manifold.
+The line bundle $\mathcal{O}(D)$ is the dual line bundle
+of the ideal sheaf of $D$.
+\end{definition}
+
+\section{Chow's theorem}
+\label{section-chow-theorem}
+
+\begin{theorem}[Chow for hypersurfaces]
+\label{theorem-Chow-for-hypersurfaces}
+Every complex codimension-1 submanifold of $\mathbb{C}P^{n}$ is algebraic.
+\end{theorem}
+
+\begin{proof}
+A hypersurface in $\mathbb{P}^n$ defines a line bundle
+along with a section vanishing on the hypersurface.
+Such a line bundle must be $\mathcal{O}(d)$ for some $d$
+by Exercise \ref{exercise-pic-of-pn-is-z}.
+Sections of $\mathcal{O}(d)$ are homogeneous degree-$d$ polynomials
+by Theorem \ref{theorem-sections-of-od-are-degree-d-homogeneous-polynomials}.
+\end{proof}
+
+\section{Kodaira Embedding theorem}
+\label{section-kodaira-embedding}
+
+\noindent
+We introduced line systems in Section \ref{section-line-bundles}.
 Let $L$ be a holomorphic bundle on a complex manifold $X$. 
-The {\it base locus} $\text{Bs}(L)$ is the sate of all base points of $L$.
-\end{definition}
+A point $x \in X$ is
+a {\it base point} of $L$ if $s(x)=0$ for all $s\in H^{0}(X,L)$
+and the {\it base locus} $\text{Bs}(L)$ 
+is the set of all base points of $L$.
 
-\begin{proposition}
-\label{proposition-canonical-map}
-\begin{reference}
-\cite[Proposition 2.3.26]{huc}
-\end{reference}
-Let $L$ be a holomorphic line bundle on a complex manifold $X$ and suppose that
-$s_0,\ldots,s_N\in H^{0}(X,L)$ is a basis. Then
+Let $s_0,\ldots,s_N\in H^{0}(X,L)$ are a basis
+for some subspace $E \subset H^0(X,L)$.
+Define a map
 \begin{align*}
 \varphi_L: X\setminus\text{Bs}(L) &\longrightarrow \mathbb{P}^N \\
-x &\longmapsto (s_0(x):\ldots:s_N(x))
+x &\longmapsto [s_0(x):\ldots:s_N(x)]
 \end{align*}
-defines a holomorphic map such that $\varphi^*
-_L\mathcal{O}_{\mathbb{P}^N}(1)\cong L|_{X\setminus\text{Bs}(L)}$.
-\end{proposition}
 
-\begin{definition}
-\label{definition-linear-system}
-\begin{reference}
-\cite[p. 86]{huc}
-\end{reference}
-The map $\varphi_L$ in Proposition \ref{proposition-canonical-map} is said to be
-associated to the {\it complete linear system} $H^{0}(X,L)$ (i.e. the sections
-of $L$ are what we call a complete linear system) whereas a subspace of 
-$H^{0}(X,L)$ is called a {\it linear system} of $L$.
-\end{definition}
+\noindent
+which is well-defined since we excluded
+the base locus,
+and holomorphic since we chose holomorphic
+sections of $L$ for the coordinates.
+Further, the pullback of the hyperplane bundle of $\mathbb{P}^N$ is $L$, 
+i.e.
+$$
+\varphi^*_L \mathcal{O}_{\mathbb{P}^N}(1)
+\simeq L|_{X\setminus\text{Bs}(L)}
+$$
+since $s_i=0$ is the equation of a hyperplane in $\mathbb{P}^N$,
+so, it is a section of $H$.
+Its pullback under $\varphi$ gives the section $s_i$
+whose associated divisor $(s_i)$
+corresponds to the line bundle $L$ --- 
+the line bundle associated to a divisor
+associated to a section of the line bundle
+is the line bundle itself.
 
-\begin{definition}
-\label{definition-globally-generated}
-\begin{reference}
-\cite[p. 86]{huc}
-\end{reference}
-$L$ is {\it globally generated} by the sections $s_0,\ldots,s_N$ if
-$\text{Bs}(L,s_0,\ldots,s_N)=\emptyset$.
-\end{definition}
+\medskip\noindent
+The question is: when is $\varphi$ an embedding?
 
 \begin{definition}
 \label{definition-ample}
@@ -3033,15 +3097,33 @@ and some linear system in $H^{0}(X,L^k)$ the associated map $\varphi$ is an
 embedding.
 \end{definition}
 
-\begin{slogan}
-By definition, a compact complex manifold is projective if and only if it admits
-an ample line bundle.
-\end{slogan}
+\begin{theorem}[Kodaira Embedding]
+\label{theorem-Kodaira-embedding}
+\begin{reference}
+\cite[Theorem 10.12]{lec}
+\end{reference}
+Suppose $M$ is a compact complex manifold. 
+A holomorphic line bundle $L\to M$ is
+ample if and only if it is positive. 
+Thus $M$ is projective if and only if it
+admits a positive holomorphic line bundle.
+\end{theorem}
+
+\begin{proof}
+We must show that $\varphi$ separates points and has
+surjective differential everywhere…
+\end{proof}
+
+\noindent
+Compare this theorem with Nakai-Moishezon Criterion
+\ref{algebraic-geometry-theorem-Nakai-Moishezon-criterion}.
 
 \begin{exercise}
 \label{exercise-L-ample-implies-Lotimes2-globally-generated}
-Let $L$ be an ample bundle on a K3 surface $M$. Prove that $L^{\otimes 2}$ is
-globally generated (that is, for each $x \in M$ there exists a section $h \in
+Let $L$ be an ample bundle on a K3 surface $M$. 
+Prove that $L^{\otimes 2}$ is
+globally generated 
+(that is, for each $x \in M$ there exists a section $h \in
 H^{0}(L^{\otimes 2})$ which does not vanish in $x$).
 \end{exercise}
 
@@ -3139,65 +3221,92 @@ Finally we apply Riemann-Roch to $L^{\otimes 2}$ and $L^{\otimes 2}(-p)$ to
 obtain that $h^0(L^{\otimes 2})>h^0(L^{\otimes 2}(-p))$.
 \end{proof}
 
-\section{Chow's theorem}
-\label{section-chow-theorem}
+\section{Riemann-Roch formulas}
+\label{section-riemann-roch}
 
-\begin{theorem}[Chow for hypersurfaces]
-\label{theorem-Chow-for-hypersurfaces}
-Every complex codimension-1 submanifold of $\mathbb{C}P^{n}$ is algebraic.
+\begin{theorem}[Riemann-Roch for curves]
+\label{theorem-Riemann-Roch-for-curves}
+Let $D$ be a divisor on a compact Riemann surface $X$, that is, $D$ is a
+collection of points with multiplicities on $X$.
+\begin{equation}
+\label{equation-Riemann-Roch-for-Riemann-surfaces}
+h^0(D)-h^0(K-D)=d-g+1
+\end{equation}
 \end{theorem}
 
+\begin{exercise}
+\label{exercise-no-holomorphic-vector-fields-for-g-geq2}
+Prove that if $X$ is a complex smooth curve with $g\geq 2$ then $h^0(T_X)=0$.
+\end{exercise}
+
 \begin{proof}
-A hypersurface in $\mathbb{P}^n$ defines a line bundle
-along with a section vanishing on the hypersurface.
-Such a line bundle must be $\mathcal{O}(d)$ for some $d$
-by Exercise \ref{exercise-pic-of-pn-is-z}.
-Sections of $\mathcal{O}(d)$ are homogeneous degree-$d$ polynomials
-by Theorem \ref{theorem-sections-of-od-are-degree-d-homogeneous-polynomials}.
+First you notice that the dimension of the holomorphic 1-forms is the genus.
+This is just because the genus $p_a$ is defined as $h^1(\mathcal{O}_X)$, which
+is just $h^0(K_X)$ by Serre duality. Then you say well if you have a holomorphic
+vector field, pair it with the nonzero holomorphic 1-form. This gives a nonzero
+function, but it must be constant because $X$ is compact. Then it is actually
+nowhere vanishing. This says the vector field cannot vanish anywhere, which
+means the tangent bundle of the curve is trivial. Apparently elliptic curves,
+i.e. $g=1$ are the 
 \end{proof}
 
-\section{Kodaira Vanishing theorem}
-\label{section-Kodaira-vanishing-theorem}
-
-\begin{theorem}[Kodaira Vanishing]
-\label{theorem-Kodaira-vanishing}
-\begin{reference}
-\cite[21.5.8]{sea}
-\end{reference}
-Suppose $k$ is a field of characteristic 0, and $X$ is a
-smooth projective $k$-variety. Then for any ample invertible sheaf $L$,
-$H^{i}(X,K_X \otimes L)=0$ for $i>0$.
+\begin{theorem}[Riemann-Roch for line bundles on surfaces]
+\label{theorem-Riemann-Roch-for-line-bundles-on-surfaces}
+Let $L$ be a line bundle on a complex surface $X$, and $K_X=\Omega^2X$ the
+canonical bundle of $X$. Then
+\begin{equation}
+\label{equation-Riemann-Roch-for-line-bundles-on-surfaces}
+\chi(L)=\chi(\mathcal{O}_X)+\frac{1}{2}(L,L-K_X)
+\end{equation}
 \end{theorem}
 
-\begin{proof}
-No proof in \cite{sea}.
-\end{proof}
-
-\section{Kodaira Embedding theorem}
-\label{section-Kodaira-Embedding-theorem}
-
-The forward implication is easy and sometimes not considered as part of the
-theorem.
-
-Compare this theorem with Nakai-Moishezon Criterion
-\ref{algebraic-geometry-theorem-Nakai-Moishezon-criterion}.
-
-\begin{theorem}[Kodaira Embedding]
-\label{theorem-Kodaira-embedding}
-\begin{reference}
-\cite[Theorem 10.12]{lec}
-\end{reference}
-Suppose $M$ is a compact complex manifold. A holomorphic line bundle $L\to M$ is
-ample if and only if it is positive. Thus $M$ is projective if and only if it
-admits a holomorphic line bundle.
-\end{theorem}
+\begin{lemma}[Genus formula]
+\label{lemma-genus-formula}
+Let $C$ be any curve on a surface $S$. Then
+\begin{equation}
+\label{equation-genus-formula}
+2p_a(C)-2=(C.C-K_S)
+\end{equation}
+\end{lemma}
 
 \begin{proof}
-The easy implication as follows. If $L$ is ample then there is $N$ such that
-$L^{\otimes N}$ is very ample, meaning by Misha's definition that the canonical
-map is an embedding such that $L^{\otimes N}=\varphi^*\mathcal{O}(1)$, which has
-degree 1 by definition as in \cite[15.4.14]{sea}.
+If $C$ is nonsingular we may use the normal bundle short exact sequence. If
+$C$ is singular we need to use the ideal sheaf short exact sequence, which means
+we think of $C$ either as a closed embedded subscheme of $S$ or as an analytic 
+subvariety. Taking Euler class we obtain
+$$
+\chi(\mathcal{O}(-S))+\chi(\mathcal{O}_S)=\chi(\mathcal{O}_X)
+$$
+Since $p_a(C):=1-\chi(\mathcal{O}_C)$, we obtain that
+$p_a(C)=1-\chi(\mathcal{O}_S)-\chi(\mathcal{O}(-C))$. To compute
+$\chi(\mathcal{O}(-C))$ we use Riemann-Roch formula
+\ref{equation-Riemann-Roch-for-curves-on-surfaces} for curves on surfaces, which
+gives
+$$
+\chi(\mathcal{O}(-C))=\chi(\mathcal{O}_S)
++\frac{(\mathcal{O}(-C).\mathcal{O}(-C)+\omega_S^*)}{2}
+$$
+Taking duals on both entries of the intersection form and substituting in our
+previous expression for $p_a(C)$ we obtain the result.
 \end{proof}
+
+\begin{exercise}
+\label{exercise-singular-curve-on-K3-has-positive-self-intersection}
+Let $S$ be a singular, irreducible complex curve on a K3 surface. Prove that
+$(S.S)\geq 0$.
+\end{exercise}
+
+\begin{proof}
+This is just an application of Eq.
+\ref{equation-genus-formula}. Since
+$K_X=\mathcal{O}_X$ it suffices to show that $p_a(S)$ is not zero. This follows
+fact that $S$ is singular, since its arithmetic genus is defined as the genus of
+its normalization, which must be strictly positive since there exists at least
+one singularity.
+\end{proof}
+
+
+
 
 \section{Hypercomplex manifolds}
 \label{section-hypercomplex-manifolds}
