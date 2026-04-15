@@ -2734,7 +2734,7 @@ such that $(\sqrt{-1}/2\pi)\Theta$ is a positive $(1,1)$-form.
 If $L \to M$ is a positive line bundle,
 then
 $$
-H^q(M,\Omega^p(L)) = 0,\qquad p+q>n.
+H^q(M,\Omega^p(L)) = 0,\qquad p+q>n=\dim_\mathbb{C} M.
 $$
 \end{theorem}
 
@@ -2752,6 +2752,28 @@ smooth projective $k$-variety. Then for any ample invertible sheaf $L$,
 $H^{i}(X,K_X \otimes L)=0$ for $i>0$.
 \end{theorem}
 
+\noindent
+For completeness we put another vanishing theorem
+concerning higher-rank vector bundles
+(probably due to Serre though Griffith-Harris don't say so).
+The idea is that twisting an ample line bundle with itself
+enough times and tensoring with any vector bundle $E$
+will kill positive cohomology.
+
+\begin{theorem}
+\label{theorem-vanishing-higher-rank-verctor-bundles}
+\begin{reference}
+\cite[p. 159]{gri}
+\end{reference}
+Let $M$ be a compact, complex manifold and $L \to M$
+a positive line bundle.
+Then for any holomorphic vector bundle $E$,
+there exists $\mu$ such that
+$$
+H^q(M,L^\mu \otimes E)=0\qquad \text{for }q>0, \mu\geq \mu_0.
+$$
+
+\end{theorem}
 
 \section{Lefschetz hyperplane sections theorem}
 \label{section-lefschetz-hyperplane}
@@ -3031,18 +3053,38 @@ of the ideal sheaf of $D$.
 \section{Chow's theorem}
 \label{section-chow-theorem}
 
-\begin{theorem}[Chow for hypersurfaces]
-\label{theorem-Chow-for-hypersurfaces}
-Every complex codimension-1 submanifold of $\mathbb{C}P^{n}$ is algebraic.
+\begin{theorem}[Chow]
+\label{theorem-chow}
+Any analytic subvariety of $\mathbb{C}P^{n}$ is algebraic.
 \end{theorem}
 
 \begin{proof}
+First we prove it for hypersurfaces.
 A hypersurface in $\mathbb{P}^n$ defines a line bundle
 along with a section vanishing on the hypersurface.
 Such a line bundle must be $\mathcal{O}(d)$ for some $d$
 by Exercise \ref{exercise-pic-of-pn-is-z}.
 Sections of $\mathcal{O}(d)$ are homogeneous degree-$d$ polynomials
 by Theorem \ref{theorem-sections-of-od-are-degree-d-homogeneous-polynomials}.
+
+For higher codimension the challenge is find adequate planes
+in $\mathbb{P}^n$, so that we can project $V$, $\dim V=k$
+to $\mathbb{P}^{k+1}$ and apply the hypersurface version.
+Pick any point $p\in \mathbb{P}^n$ not in $V$.
+We can choose a $(n-k-1)$-plane not intersecting $V$ and containing $p$.
+Inside such $\mathbb{P}^{n-k-1}$ we can pick a $\mathbb{P}^{n-k-2}$
+not touching $p$.
+Now pick a complementary $\mathbb{P}^{k+1}$ in $\mathbb{P}^n$,
+i.e. $\mathbb{P}^n=\mathbb{P}^{k+1}\oplus \mathbb{P}^{n-k-2}$.
+
+Now project $V$ to $\mathbb{P}^{k+1}$ and apply Chow for hypersurfaces.
+We obtain a polynomial $F$ defining the projection of $V$.
+Extend $F$ to $\tilde{F}$ on all $\mathbb{P}^n$ by the rule
+$\tilde{F}(x_0,…,x_n)=F(x_0,…,x_{k+1})$.
+Note that since $p$ is not in $V$, $\tilde{F}$ does not vanish in $p$.
+Thus $V$ is the intersection of all such polynomials $F$,
+one for each $p$, which ensures that no points other than those
+of $V$ are in the common zeroes.
 \end{proof}
 
 \section{Kodaira Embedding theorem}
@@ -3223,6 +3265,40 @@ obtain that $h^0(L^{\otimes 2})>h^0(L^{\otimes 2}(-p))$.
 
 \section{Riemann-Roch formulas}
 \label{section-riemann-roch}
+
+\noindent
+We want to know the dimension of $H^0(X,\mathcal{O}(D))$,
+where $X$ is a curve and $D$ is a divisor on $X$.
+To refresh out memory recall that if $D$ is a smooth hypersurface
+(in this case this just means that it's a set of points
+without multiplicities)
+then that $\mathcal{O}(D)$ is given by the cocycle
+$g_{ij}=f_j/f_i$ where $D=\text{div}(f_i)$ on $U_i$.
+The $g_{ij}$ give a cocycle, which in turn is a line bundle on $X$.
+If $e_i$ is a local basis then we have $e_i=g_{ij}e_j$
+by definition of transition function.
+A section is given locally by $h_ie_i$ and it has to glue,
+that is, $h_je_j=h_ie_i=e_if_j/f_ie_j$
+so $h_j/f_j=h_i/f_i$.
+That's literally the data of a meromorphic function,
+namely some local meromorphic functions which coincide in intersections.
+
+What's the vanishing of this meromorphic function along $D$?
+Now suppose $D$ is an arbitrary Weil divisor,
+so the $f_i$ have some multiplicities. 
+If $h_i$ has no zeroes, then the multiplicity of the new
+meromorphic function remains unaltered, but $h_i$ can also vanish
+along $D$ and then the vanishing becomes as positive as we want it.
+But it cannot have poles, the least positive it can be is
+the prescribed negativity of $D$.
+
+This is why looking for $h^0(D)$ is just as much as looking for
+meromorphic functions $h$ on $X$ such that
+$$
+\text{div}h + D \geq 0\qquad \text{(is effective).}
+$$
+
+
 
 \begin{theorem}[Riemann-Roch for curves]
 \label{theorem-Riemann-Roch-for-curves}
