@@ -28,7 +28,7 @@ such that $F(h)=g$.
 \end{definition}
 
 \begin{exercise}
-\label{exercise-discrete-fibrations-over-category-are-presheaves}
+\label{exercise-discrete-fibrations-presheaves}
 Prove that discrete fibrations over a category $C$ correspond to presheaves over
 $C$.
 \end{exercise}
@@ -549,7 +549,7 @@ are isomorphic (as groups for $n>1$ or
 as sets for $n=0$).
 
 \begin{lemma}
-\label{lemma-equivalences-satisfy-2-for-3}
+\label{lemma-equivalences-satisfy-3-for-2}
 Equivalences of $\infty$-groupoids
 satisfy the 3-for-2 property:
 if  $f$ and $g$ are composable and two
@@ -627,9 +627,15 @@ $$
 &\pi_n(p^{-1}(b),x)\ar[r]\ar[d]^{\simeq}
 &\pi_n(X,x)\ar[r]\ar@{.>}[d]^{\simeq }
 &\pi_n(B,b)\ar[r]\ar[d]^{\simeq}
-&\pi_{n-1}(p^{-1}(b),x)\ar[d]^{\simeq}\ar[r]&\cdots\\
-\cdots\ar[r]&\pi_{n+1}(B,b)\ar[r]&\pi_n(q^{-1}(b),f(x))\ar[r]&\pi_n(Y,f(x))\ar[r]&
-\pi_n(B,b)\ar[r]&\pi_{n-1}(q^{-1}(b),f(x))\ar[r]&\cdots
+&\pi_{n-1}(p^{-1}(b),x)\ar[d]^{\simeq}\ar[r]
+&\cdots\\
+\cdots\ar[r]
+&\pi_{n+1}(B,b)\ar[r]
+&\pi_n(q^{-1}(b),f(x))\ar[r]
+&\pi_n(Y,f(x))\ar[r]
+&\pi_n(B,b)\ar[r]
+&\pi_{n-1}(q^{-1}(b),f(x))\ar[r]
+&\cdots
 }
 $$
 and for the forward implication just do the same with
@@ -637,7 +643,7 @@ the map $\pi_n(p^{-1}(b),x)\to \pi_n(q^{-1},f(x))$ in the center.
 \end{proof}
 
 \begin{lemma}
-\label{lemma-pullback-iff-fiber-maps-are-equivalences}
+\label{lemma-pullback-iff-fiber-maps-are-equivalences-groupoids}
 A commutative square
 $$
 \xymatrix{
@@ -648,6 +654,33 @@ $$
 is a pullback if and only if for every $x \in X$,
 the induced map on fibres is an equivalence.
 \end{lemma}
+
+\begin{proof}
+We need to check that $X' \simeq Y'\times_Y X$.
+I think we use the universal property of pullbacks
+to get a map $X' \to Y'\times_YX$.
+To check this is an equivalence we use 
+Exercise \ref{exercise-2.2} as in
+$$
+\xymatrix{
+X' \ar[rd]_{f'} \ar[rr] && Y'\times_YX \ar[dl]^p \\
+& X.
+}
+$$
+We see that the map on fibers is non other
+than $f'^{-1}(x) \to f^{-1}(g(x))$… but why?
+This ammounts to showing that  $p^{-1}(x)\simeq f^{-1}(g(x))$.
+$$
+\xymatrix{
+f^{-1}(x)\ar[d]\ar@{-->}[rr]
+& & p^{-1}(x)\ar[dd]\ar[r]^{\simeq?}
+&f^{-1}(g(x))\ar[dd]\\
+X' \ar[rrrd] \ar[rrd] \ar[rrdd]_{f'} & & \\
+& & X \times_YY' \ar[d]_p \ar[r] & Y' \ar[d]^f \\
+& & X \ar[r]_g & Y
+}
+$$
+\end{proof}
 
 \begin{exercise}[2.3]
 \label{exercise-2.3}
@@ -687,10 +720,20 @@ $\pi_0Y \to \pi_0Y'$… looks like the same argument should work.
 \label{section-monomorphisms}
 
 \noindent
-``A monomorphism of groupoids is the inclusion of
-some of the path components''. That is, all information
-about a monomorphism is in $\pi_0$. Namely:
-monomorphism if and only if injective on  $\pi_0$ 
+Monomorphisms can be easily recalled
+as the maps whose fibers are either empty or contractible,
+and, equivalently, as the maps that are
+injective on $\pi_0$ and the square
+$$
+\xymatrix{
+X\ar[r]\ar[d]&Y\ar[d]\\
+\pi_0X\ar[r]&\pi_0Y
+}
+$$
+is a pullback.
+
+In class I picked up that a map is
+monomorphism if and only if it's injective on  $\pi_0$ 
 and isomorphism in higher homotopy groups
 (after fixing a base point).
 
@@ -715,7 +758,6 @@ morphism on path spaces $X(x,x') \to Y(fx,fx')$ is
 an equivalence.
 \end{remark}
 
-
 \noindent
 The following lemma is very similar to
 Proposition \ref{proposition-map-is-equivalence-iff-fibers-contractible}.
@@ -731,7 +773,7 @@ either empty of contractible.
 \end{lemma}
 
 \begin{proof}
-Using Lemma \ref{lemma-pullback-iff-fiber-maps-are-equivalences},
+Using Lemma \ref{lemma-pullback-iff-fiber-maps-are-equivalences-groupoids},
 which says a map is a pullback iff induced maps on fibers are equivalences.
 \end{proof}
 
@@ -742,7 +784,7 @@ that the vertical map on the left in the following
 diagram is ``diagonal map''
 $$
 \xymatrix{
-\bullet\ar[r]\ar[d]&X\ar[d]&Y\ar[d]\\
+\bullet\ar[r]\ar[d]&X\ar[d]\ar[r]&Y\ar[d]\\
 \bullet\ar[r]&X \times X\ar[r]Y \times Y&
 }
 $$
@@ -1041,8 +1083,9 @@ the space of diagonal lifts $B \to X$ is contractible.
 \end{definition}
 
 \noindent
-A choice of horizontal arrows in the former
-diagram is equivalent to a choice of element in
+The key observation is that
+a choice of horizontal arrows making the former
+diagram commute is the same as a choice of element in
 $\mathsf{Map}(B,Y)\times_{\mathsf{Map}(A,Y)}\mathsf{Map}(A,X)$.
 Indeed, given a map $A\to X$,
 we may poscompose with $r$ to obtain
@@ -1138,7 +1181,7 @@ orthogonal to $r$ if and only if $g \circ f$ is.
 \end{lemma}
 
 \begin{proof}
-By 2-for-3 for pullbacks, i.e. Exercise \ref{exercise-2.4}.
+By 3-for-2 for pullbacks, i.e. Exercise \ref{exercise-2.4}.
 \end{proof}
 
 It is important to remember that
@@ -1147,7 +1190,7 @@ as square with $\pi_0$ is pullback.
 That is the key to Lemma 2.4.3.
 For one implication we need
 to put surjectivity on $\pi_0$
-to apply 2-for-3.
+to apply 3-for-2.
 
 Look at the case for sets,
 it's also true that epimorphisms
@@ -1343,6 +1386,12 @@ upon application of $\mathsf{Map}$.
 \section{Conservative functors and mapping spaces}
 \label{section-conservative-functors-and-mapping-spaces}
 
+\noindent
+The fibers of conservative functors are groupoids.
+Fibrations are conservative (Exercise \ref{exercise-3.1})
+and so are fully faithful functors (Theorem
+\ref{theorem-fully-faithful-implies-conservative})
+
 \begin{definition}
 \label{definition-conservative-functor}
 A functor $\mathcal{C} \to \mathcal{D}$ is {\it conservative} 
@@ -1424,7 +1473,7 @@ $$
 $$
 To check this is a pullback we only need to
 check that the maps induced in fibers are equivalences
-by  Lemma \ref{lemma-pullback-iff-fiber-maps-are-equivalences}.
+by  Lemma \ref{lemma-pullback-iff-fiber-maps-are-equivalences-groupoids}.
 But since the fibres of $F$ are $\infty$-groupoids,
 they must equal the fiber of the map on the associated groupoids
 (it's a fact! Fibre and groupoidification commute).
@@ -1551,7 +1600,7 @@ $$
 Then we apply $\mathsf{Map}$ (I think) and get to
 $$
 \xymatrix{
-\mathsf{Map}([1),\mathcal{C})\ar[r]\ar[d]\ar@{}[dr]|-{\lrcorner}&
+\mathsf{Map}([1],\mathcal{C})\ar[r]\ar[d]\ar@{}[dr]|-{\lrcorner}&
 \mathsf{Map}([1],\mathcal{D})\ar[d]\\
 \mathsf{Map}([1],\mathsf{Fun}([1],\mathcal{C})\ar[r]\ar[d]^{=}&
 \mathsf{Map}([1],\mathcal{D})\ar[d]^=\\
@@ -1641,11 +1690,11 @@ $$
 \xymatrix{
 \text{fiber}\ar[d]\ar@{.>}[rr]^{\simeq}&&
 \mathcal{C}(x,y)\times \mathcal{C}(y,z)\ar[d]\\
-\mathsf{Fun}([2],\mathcal{C})\ar[r]^{\simeq}\ar[d]&
-\mathsf{Fun}([1]\amalg_{[0]}[1],\mathcal{C})\ar[r]^{\simeq}\ar[d]
+\mathsf{Fun}([2],\mathcal{C})\ar[r]^-{\simeq}\ar[d]&
+\mathsf{Fun}([1]\amalg_{[0]}[1],\mathcal{C})\ar[r]^-{\simeq}\ar[d]
 &\mathsf{Fun}([1],\mathcal{C})\times_{\mathsf{Fun}([0],\mathcal{C})}
 \mathsf{Fun}([1],\mathcal{C})\ar[ld]\\
-\mathcal{C}\times\mathcal{C}\times\mathcal{C}\ar[r]^{\simeq}&
+\mathcal{C}\times\mathcal{C}\times\mathcal{C}\ar[r]^-{\simeq}&
 (\mathcal{C} \times \mathcal{C})
 \times_{\mathcal{C}}(\mathcal{C}\times\mathcal{C})
 }
@@ -1697,7 +1746,7 @@ $$
 \mathcal{C}(x,y)\xrightarrow{\simeq}\mathcal{D}(Fx,Fy)
 $$
 \begin{proposition}
-\label{proposition-fullt-faithfull-iff-pullback}
+\label{proposition-fully-faithfull-iff-pullback}
 $F:\mathcal{C} \to \mathcal{D}$ is fully faithful
 if and only if the commutative square
 $$
@@ -1777,7 +1826,7 @@ $F$ is conservative.
 We want to prove that $F$ 
 is right orthogonal to $\partial[1]\to [1]$
 then it is right orthogonal to $[1]\to [0]$.
-First we apply some sort of 2-for-3
+First we apply some sort of 3-for-2
 property (some past exercise)
 we look at
 $$
@@ -1832,7 +1881,7 @@ and then apply $\mathsf{Fun}$
 to get to the property for pushouts).
 
 Now back to our objective,
-by the 2-for-3-ish for left-orthogonality,
+by the 3-for-2-ish for left-orthogonality,
 now we aim to prove that
 $$
 \xymatrix{
@@ -1869,7 +1918,7 @@ of spaces.
 Fully faithful says $\partial[1] \to [1]$ is 
 left orthogonal to $F$. But by Theorem \ref{?}
 we also know it is conservative, so it's right orthogonal
-to $[1] \to [0]$. By 2-for-3, $\partial[1] \to [1] \to [0]$ 
+to $[1] \to [0]$. By 3-for-2, $\partial[1] \to [1] \to [0]$ 
 is left orthogonal to $F$. But we know that this is equivalent
 to being an equivalence on underlying groupoids
 \end{proof}
@@ -1971,7 +2020,7 @@ $$
 }
 $$
 (Essentially by definition of pullback.)
-Further, by 2-for-3 in for fully faithful morphisms we may
+Further, by 3-for-2 in for fully faithful morphisms we may
 conclude that $f$ is an equivalence.
 \end{proof}
 
@@ -2131,7 +2180,7 @@ but in this case, it cannot be a point (why?!).
 \end{proof}
 
 \noindent
-Now Some intuition on what is a monomorphism in 1-categories:
+Now some intuition on what is a monomorphism in 1-categories:
 if $f\in \mathcal{C}$ is an isomorphism, then $F(f)$ is an isomorphism too.
 
 \begin{lemma}
@@ -2164,7 +2213,7 @@ That's equivalent to the diagram in Observation 2.10.3.
 
 \begin{lemma}
 \label{lemma-fully-faithful-are-conservative}
-
+Fully faithful functors are conservative.
 \end{lemma}
 
 \begin{proof}
@@ -2172,8 +2221,1339 @@ Use that monomorphism iff monomorphism on groupoids
 and on mapping spaces.
 \end{proof}
 
+\section{Subcategories}
+\label{section-subcategories}
+
+\noindent
+A similar construction to that of full subcategories
+yields the notion of subcategory.
+
+\section{Left and right fibrations}
+\label{section-left-and-right-fibrations}
+
+\begin{definition}
+\label{definition-left-right-fibrations}
+A functor of $\infty$-categories $p:\mathcal{E} \to \mathcal{B}$
+is a {\it left fibration} if it is right orthogonal to the
+inclusion $\{0\}\to [1]$, and a {\it right fibration} 
+if it is orthogonal to $\{1\}\to [1]$.
+Equivalently, $p$ is a left or right fibration if
+the corresponding commutative square
+$$
+\xymatrix{
+\mathsf{Map}([1],\mathcal{E})\ar[r]\ar[d]&\mathsf{Map}([1],\mathcal{B}\ar[d]\\
+\mathcal{E}^\simeq\ar[r]&\mathcal{B}^\simeq
+}
+$$
+is a pullback.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-3.1}
+Every left/right fibration is conservative.
+\end{exercise}
+
+\begin{proof}
+Put orthogonal diagram in $\mathsf{Map}$ form,
+but it doesn't match exactly.
+The same happens when we look at
+Exercise \ref{exercise-equivalences-for-conservative-functor}.
+By the way: shouldn't we use $\mathsf{Fun}$ instead of $\mathsf{Map}$ 
+when we work with $\infty$-categories instead of $\infty$-groupoids?
+[This was solved in class, there must be a picture.]
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fibrations-etale-space-is-groupoid}
+If $\mathcal{B}$ is an $\infty$-groupoid,
+then a functor $p:\mathcal{E} \to \mathcal{B}$
+is a left/right fibration if and only if $\mathcal{E}$ 
+is an $\infty$-groupoid. In particular,
+any morphism of $\infty$-groupoids
+is both a left and right fibration.
+\end{lemma}
+
+\begin{proof}
+The proof looks good: I think the vertical maps
+are induced from maps $[0] \to [1]$ and $[1] \to [0]$.
+But how is the former defined? We can just take
+any of the two maps $[0]\to[1]$:
+each of these concerns the left/right fibration case.
+We see that either choice implies that $\mathcal{E}$ is
+an $\infty$-groupoid, and that $\mathcal{E}$ being an
+$\infty$-groupoid implies both.
+\end{proof}
+
+\noindent
+Next we have a characterization:
+
+\begin{proposition}
+\label{proposition-fibration-characterization}
+$p$ is a left/right fibration if and only if the commutative square
+$$
+\xymatrix{
+\mathsf{Ar}(\mathcal{E})\ar[r]\ar[d]&\mathsf{Ar}(\mathcal{B})\ar[d]\\
+\mathcal{E}\ar[r]&\mathcal{B}
+}
+$$
+is a pullback.
+\end{proposition}
+
+\begin{proof}
+This is complicated.
+\end{proof}
+
+\noindent
+But it gives a nice corollary:
+
+\begin{lemma}
+\label{lemma-induced-map-fibration}
+If $p:\mathcal{E}\to\mathcal{B}$ is a left/right fibration,
+then so is $p_*:
+\mathsf{Fun}(\mathcal{C},\mathcal{E})\to\mathsf{Fun}(\mathcal{C},\mathcal{B})$ 
+for any category $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+It follows easily from the characterization.
+\end{proof}
+
+\noindent
+Now we characterize fibrations that are also equivalences:
+
+\begin{proposition}
+\label{proposition-fibration-equivalence}
+The following are equivalent for a left (or right)
+fibration $p:\mathcal{E} \to \mathcal{B}$:
+
+\begin{enumerate}
+\item $p$ is an equivalence.
+\item The map on cores $p^\simeq:\mathcal{E}^\simeq\to\mathcal{B}^\simeq$
+is an equivalence of $\infty$-groupoids.
+\item The fibre $\mathcal{E}_b$ is contractible for every $b \in \mathcal{B}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Easy, uses previous exercises. 
+\end{proof}
+
+\begin{remark}[3-for-2]
+\label{remark-3-for-2}
+Given a commutative triangle
+$$
+\xymatrix{
+\mathcal{E} \ar[rd]_{p} \ar[rr]_{F} && \mathcal{F} \ar[dl]^{q} \\
+& \mathcal{B}
+}
+$$
+where $p$ and $q$ are both left (or both right)
+fibrations, then so if $F$.
+This follows easily by 3-for-2 for pullback squares.
+\end{remark}
+
+\noindent
+The following proposition looks very similar to
+Proposition \ref{proposition-fibration-equivalence}.
+The only difference is on the third condition:
+this time we look at the fibers of the base
+and total space over $\mathcal{B}$ 
+(last time we asked that the fibers
+of the fibration itself).
+
+\begin{lemma}
+\label{lemma-fibration-equivalence2}
+Suppose given a commutative triangle
+$$
+\xymatrix{
+\mathcal{E} \ar[rd]_{p} \ar[rr]_{F} && \mathcal{F} \ar[dl]^{q} \\
+& \mathcal{B}
+}
+$$
+where $p$ and $q$ are both left (or both right) fibrations.
+Then the following are equivalent.
+\begin{enumerate}
+\item $F$ is an equivalence.
+\item The underlying map of $\infty$-groupoids
+$\mathcal{E}^\simeq\to\mathcal{F}^\simeq$ is an equivalence.
+\item The functor on fibres $\mathcal{E}_b\to\mathcal{F}_b$
+is an equivalence for all $b \in \mathcal{B}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The first two conditions are given by
+Proposition \ref{proposition-fibration-equivalence}
+and Remark \ref{remark-3-for-2}.
+For the last one we apply Exercise \ref{exercise-2.2}.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-pullback-iff-fiber-maps-are-equivalences}
+Show that a commutative square
+$$
+\xymatrix{
+\mathcal{E}\ar[r]\ar[d]_{p}&\mathcal{F}\ar[d]^{q}\\
+\mathcal{B}\ar[r]_{F}&\mathcal{C}
+}
+$$
+\end{exercise}
+
+\begin{proof}
+I think this would be proved
+essentially as Lemma
+\ref{lemma-pullback-iff-fiber-maps-are-equivalences-groupoids},
+using the recently proved Lemma \ref{lemma-fibration-equivalence2}.
+(Notice that the fact that the fibres are groupoids
+follows from Exercise \ref{exercise-3.1} and Exercise
+\ref{exercise-equivalences-for-conservative-functor}.
+It's true, with a single nuance: that we need to prove that the pullback $p$ 
+is a right/left fibration when $q$ is.
+To prove this we need to use a cube diagram,
+see picture.
+\end{proof}
+
+
+
+\section{Slice categories}
+\label{section-slice}
+
+Let $\mathcal{C}$ be a 1-category and $x \in \Ob \mathcal{C}$.
+Then the {\it slice category} $\mathcal{C}/x$ 
+is the 1-category whose objects are morphisms
+$y \to x$ in $\mathcal{C}$, and morphisms are
+$$
+\xymatrix{
+y\ar[dd]\ar[dr]\\
+& x\\
+y'\ar[ur]
+}
+$$
+
+It turns out that the slice category is the pullback
+$$
+\xymatrix{
+\mathcal{C}/x\ar[r]\ar[d]\ar@{}[dr]|-{\lrcorner}&Ar(\mathcal{C})\ar[d]^{ev_1}\\
+\{x\}\ar[r]&\mathcal{C}
+}
+$$
+We claim that the map $ev_1$ is a fibration.
+(Shown in class.)
+
+\begin{definition}
+\label{definition-cone}
+For an $\infty$-category $\mathcal{K}$,
+the {\it left cone} $\mathcal{K}^{\triangleleft}$ 
+and {\it right cone} $\mathcal{K}^{\triangleright}$ on $\mathcal{K}$ 
+are defined by the pushouts
+\begin{align*}
+\mathcal{K}^{\triangleleft}&
+=\{-\infty\}\amalg_{\mathcal{K}\times\{0\}}\mathcal{K}\times[1]\\
+\mathcal{K}^{\triangleright}&
+=\mathcal{K}\times[1]\amalg_{\mathcal{K}\times\{1\}}\{\infty\}.
+\end{align*}
+The {\it cone point} is the object $\pm \infty$.
+\end{definition}
+
+It can be shown (or maybe we take as a fact)
+that cores and mapping spaces in the left cone $\mathcal{K}^{\triangleleft}$ 
+are given by
+\begin{align*}
+(\mathcal{K}^{\triangleleft})^\simeq&
+\simeq \{-\infty\}\amalg\mathcal{K}^\simeq,\\
+\mathcal{K}^{\triangleleft}(x,y)&=
+\begin{cases}
+\emptyset\qquad &x \in \mathcal{K}, y \simeq -\infty \\
+\ast,\qquad &x \simeq -\infty,\\
+\mathcal{K}(x,y),\qquad &x,y \in \mathcal{K}.
+\end{cases}
+\end{align*}
+
+\noindent
+It looks like: there are no maps from any object to $-\infty$,
+there is a single map coming from $-\infty$ to any object
+(i.e., the space of maps from $-\infty$ to any object is contractible).
+
+\begin{lemma}
+\label{lemma-pullback-cone}
+For $\infty$-categories $\mathcal{K}$ and $\mathcal{C}$ 
+and an object $x$ in $\mathcal{C}$,
+there are natural equivalences
+\begin{align*}
+\mathsf{Fun}(\mathcal{K},\mathcal{C}_{/x})&\simeq
+\mathsf{Fun}(\mathcal{K}^{\triangleright},\mathcal{C})
+\times_{\mathsf{Fun}(\{\infty\},\mathcal{C})}\{x\},\\
+\mathsf{Fun}(\mathcal{K},\mathcal{C}_{x/}&
+\simeq \mathsf{Fun}(\mathcal{K}^{\triangleleft},\mathcal{C})
+\times_{\mathsf{Fun}(\{-\infty\},\mathcal{C})}\{x\}.
+\end{align*}
+\end{lemma}
+
+\noindent
+I think of this as describing the fiber of $x$ from the
+projection $\mathcal{K}^{\triangleright} \to \{\infty\}$:
+$$
+\xymatrix{
+\bullet\ar[r]\ar[d]\ar@{}[dr]|-{\lrcorner}
+&\mathsf{Fun}(\mathcal{K}^{\triangleright},\mathcal{C})\ar[d]\\
+\{x\}\ar[r]&\mathsf{Fun}(\{\infty\},\mathcal{C}),
+}
+$$
+i.e., the space of maps from $\infty$ to $x$.
+
+\medskip\noindent
+Looking back at the definition of cone
+with $\mathcal{K}=[1]$,
+if we can show that
+$$
+\xymatrix{
+\mathcal{K}\times\{1\}\simeq[1]\times\{1\}\ar[r]\ar[d]
+&\mathcal{K}\times[1]=[1]\times[1]\ar[d]\\
+\{\infty\}\simeq[0]\ar[r]&[2]
+}
+$$
+is a pushout, we can conclude that $[1]^{\triangleright}\simeq[2]$.
+Consider the following diagram,
+where we want to check that the double lower square is a pushout:
+$$
+\xymatrix{
+&[1]\ar[r]\ar[d]^{\substack{0\mapsto 0 \\ 1\mapsto 2}}
+&[2]\ar[d]\\
+[1]\ar[d]\ar[r]^{\substack{0 \mapsto 1 \\ 1 \mapsto 2}}
+&[2]\ar[r]\ar[d]^{\substack{0\mapsto 0 \\ 1 \mapsto 1\\2\mapsto 1}}
+&[2]\amalg_{[1]}[2]\simeq[1]\times[1]\ar[d]\\
+[0]\ar[r]_{0 \mapsto  1}&[1]\ar[r]_-{\substack{0 \mapsto 0 \\ 1 \mapsto 2}}&[2]\simeq[1]\amalg_{[0]}[1].
+}
+$$
+First observe that the lower left square is a pushout.
+This is by 2-for-3 since the upper right square is a pushout
+by pushout decomposition of $[1]\times[1]$
+and because the two composite vertical arrows are the identity.
+To conclude it's enough to show that the lower left square
+is also a pushout.
+
+\medskip\noindent
+Here's a summary of what else is in the chapter.
+Proposition 3.3.7 on two pullback squares.
+The exercise that the left and right cones of $[n]$ are both $[n+1]$.
+Corollaruy: $C_{/c}\to \mathcal{C}$ is right fibration
+if and only if $C_{c/}\to \mathcal{C}$ is left fibration.
+Corollary: for a morphism  $f:x \to y$ in an $\infty$-category $\mathcal{C}$,
+we have $(C_{/y})_{/f}\xrightarrow{\sim}\mathcal{C}_{/x}$
+and $(\mathcal{C}_{x/})_{f/}\xrightarrow{\sim}\mathcal{C}_{y/}$.
+
+\begin{lemma}
+\label{lemma-3.3.9}
+For a morphism $f:x \to y$ in an $\infty$-category
+we have equivalences $(C_{/y})_{f/}/\simeq \mathcal{C}{/x} $.
+\end{lemma}
+
+
+\medskip\noindent
+This one I like:
+
+\begin{lemma}
+\label{lemma-left-fibration-iff-induced}
+A functor $p:\mathcal{E} \to \mathcal{B}$ is a
+right fibration of and only if
+$\mathcal{E}_{/k}\to\mathcal{B}_{/p(x)}$
+is an equivalence for all $x$, and a
+left fibration
+if and only if for every $x \in \mathcal{E}$,
+the induced functor $\mathcal{E}_{x/}\to \mathcal{B}_{p(x)/}$ 
+is an equivalence.
+\end{lemma}
+
+\begin{proof}
+Did in class. Maybe this is already somewhere else in this document?
+\end{proof}
+
+
+
+
+
+
+\section{Straightening for left and right fibrations}
+\label{section-straightening}
+
+\noindent
+Suppose $p:\mathcal{E} \to \mathcal{B}$ is a left fibration.
+``Then $p$ is supposed to determine a functor
+from $\mathcal{B}\text{}$ to $\infty$-groupoids.''
+
+First we note that a morphism $f:b \to b'$ in $\mathcal{B}$
+we get maps on fibers $f_!:\mathcal{E}_b \to \mathcal{E}_{b'}$.
+$$
+\xymatrix{
+\mathcal{E}[0]\ar[d]&\mathcal{E}[1]\ar[l]^s\ar[d]\ar[r]^t&
+\mathcal{E}[0]\ar[d]\\
+\mathcal{B}[0]&\mathcal{B}[1]\ar[l]_s\ar[r]_t&\mathcal{B}[0]
+}
+$$
+where the left square is a pullback by definition of
+$p$ being a left fibration, which in turn gives
+equivalences on maps on fibers, so that we may invert the
+left morphism in
+$$
+\xymatrix{
+\mathcal{E}_b & \mathcal{E}[1]_f\ar[l]^\simeq \ar[r]& \mathcal{E}_{b'}.
+}
+$$
+Further, we see that $(\text{id}_b)_!$ is 
+homotopic to the identity of $\mathcal{E}_b$
+and that $(gf)_! \simeq g_!f_!$.
+Dually, a right fibration gives the
+basic data for a contravariant functor from
+$\mathcal{B}^{\text{op}}$ to $\infty$-groupoids.
+
+\medskip\noindent
+We introduce the fact that there is an $\infty$-category $\mathsf{Cat}_\infty$
+of $\infty$-categories. We denote $\mathsf{Gpd}_\infty$ 
+the full subcategory spanned by the $\infty$-groupoids.
+For an $\infty$-category $\mathcal{B}$,
+we denote $\mathsf{LFib}(\mathcal{B})$ and $\mathsf{RFib}(\mathcal{B})$
+the subcategories of $\mathsf{Cat}_{\infty/\mathcal{B}}$
+of left and right fibrations.
+
+\begin{theorem}[Lurie]
+\label{theorem-lurie}
+For an $\infty$-category $\mathcal{B}$, there is an equivalence
+$$
+\text{Str}_{\mathcal{B}}^L:\mathsf{LFib}(\mathcal{B})
+\overset{\sim}{\to}\mathsf{Fun}(\mathcal{B},\mathsf{Gpd}_\infty)
+$$
+called the {\it straightning equivalence} for left fibrations.
+This is moreover natural in $\mathcal{B}$ with respect
+to precomposition of functors and pullback of fibrations.
+\end{theorem}
+
+\section{Cartesian and cocartesian fibrations}
+\label{section-cartesian-fibrations}
+
+\noindent
+The idea here is to generalize the notion of right fibration
+to some object whose fibers are not necessarily $\infty$-groupoids
+(recall that a fibration is conservative, which implies its fibers
+are $\infty$-groupoids).
+
+\begin{exercise}
+\label{exercise-3.5}
+Given a functor  $p: \mathcal{E} \to \mathcal{B}$ and a morphism
+$f: x \to y$ in $\mathcal{E}$, show that for an object
+$z \in \mathcal{E}$ we get commutative squares
+$$
+\xymatrix{
+\mathcal{E}(y,z)\ar[r]^{f^*}\ar[d]&\mathcal{E}(x,z)\ar[d]\\
+\mathcal{B}(py,pz)\ar[r]_{p(f)^*}&\mathcal{B}(px,pz)
+}
+\qquad 
+\xymatrix{
+\mathcal{E}(z,x)\ar[r]^{f_*}\ar[d]&\mathcal{E}(z,y)\ar[d]\\
+\mathcal{B}(pz,px)\ar[r]_{p(f)_*}&\mathcal{B}(pz,py)
+}
+$$
+by taking appropriate fibers in a cube with top face
+$$
+\xymatrix{
+\mathcal{E}[2]\ar[r]^{d_1}\ar[d]&\mathcal{E}[1]\ar[d]\\
+\mathcal{B}[2]\ar[r]_{d_1}&\mathcal{B}[1].
+}
+$$
+Similarly we have the diagrams
+$$
+\xymatrix{
+\mathcal{E}_{y/}\ar[r]^{f^*}\ar[d]&\mathcal{E}_{x/}\ar[d]\\
+\mathcal{B}_{py/}\ar[r]_{p(f)^*}&\mathcal{B}_{px/}
+}\qquad 
+\xymatrix{
+\mathcal{E}_{/x}\ar[r]^{f_*}\ar[d]&\mathcal{E}_{/y}\ar[d]\\
+\mathcal{B}_{/px}\ar[r]_{p(f)_*}&\mathcal{B}_{/py}.
+}
+$$
+\end{exercise}
+
+\begin{proof}
+We use the proof of Lemma 3.3.9
+to construct the following complicated diagram:
+
+$$
+\xymatrix{
+&C_{/y}\ar[r]&\mathsf{Ar}(\mathcal{C})\ar[r]^s&\mathcal{C}\\
+(\mathcal{C}_{/y})_{/f}\ar@{-->}[ur]\ar[r]\ar[d]
+&\mathsf{Ar}(\mathcal{C}_{/y})\ar[d]^t\ar[r]\ar[u]^s&
+\mathsf{Fun}([2],\mathcal{C})\ar[d]\ar[r]
+&\mathsf{Fun}([1],\mathcal{C})=\mathsf{Ar}(\mathcal{C})\ar[d]^t\ar[u]^s\\
+pt\ar[r]&\mathcal{C}_{/y}\ar[d]\ar[r]
+&\mathsf{Fun}([1],\mathcal{C})\ar[r]^s \ar[d]&\mathcal{C}\\
+&pt\ar[r]&\mathcal{C}
+}
+$$
+
+This then leads to
+$$
+\xymatrix{
+\mathcal{E}_{/x}\ar[rd]\ar[rr]^{\text{right fib.}}\ar[ddd]
+& & \mathcal{E}_{/y}\ar[ddd]\ar[dl]\\
+& \mathcal{E}\ar[d]\\
+&\mathcal{B}\\
+\mathcal{B}_{px}\ar[ur]\ar[rr]_{\text{right fib.}}&&
+\mathcal{B}_{py}\ar[lu]
+}
+$$
+and in fact the commutativity of the first diagram
+in the exercise is given by taking the fibres
+of this last diagram by the diagonal arrows.
+\end{proof}
+\noindent
+From this we can define $p$-cartesian as in 1-categories:
+
+\begin{definition}
+\label{definition-p-cocartesian}
+Given a functor $p:\mathcal{E} \to \mathcal{B}$,
+we say a morphism $f:x\to y$ 
+in $\mathcal{E}$ is {\it $p$-cocartesian} 
+if for every object $z \in \mathcal{E}$, the commutative square
+$$
+\xymatrix{
+\mathcal{E}(y,z)\ar[r]^{f^*}\ar[d]&\mathcal{E}(x,y)\ar[d]\\
+B(py,pz)\ar[r]_{p(f)^*}&\mathcal{B}(px,pz)
+}
+$$
+is a pullback. Dually, we say that $f$ is {\it $p$-cartesian}
+if all squares
+$$
+\xymatrix{
+\mathcal{E}(z,x)\ar[r]^{f_*}\ar[d]&\mathcal{E}(z,y)\ar[d]\\
+\mathcal{B}(pz,px)\ar[r]_{p(f)_*}&\mathcal{B}(pz,py)
+}
+$$
+are pullbacks.
+\end{definition}
+
+\noindent
+This is basically the definition we had for
+cartesian (and cocartesian, by inverting the arrows)
+for 1-categories. Namely, for cocartesian, that given the solid diagram
+$$
+\xymatrix{
+&z\ar@{-->}[d]^{\exists !}\\
+x\ar[ur]^g\ar[r]_f&y
+}
+\qquad \qquad 
+\xymatrix{
+&p(z)\ar[d]^\phi\\
+p(x)\ar[ur]^{p(g)}\ar[r]_{p(f)}&p(y)
+}
+$$
+there is a unique dashed arrow.
+
+\begin{exercise}
+\label{exercise-3.6}
+A morphism is $p$-cocartesian if and only if
+$$
+\xymatrix{
+\mathcal{E}_{y/}\ar[r]^{f^*}\ar[d]&\mathcal{E}_{x/}\ar[d]\\
+\mathcal{B}_{py/}\ar[r]_{p(f)^*}&\mathcal{B}_{px/}
+}
+$$
+is a pullback.
+\end{exercise}
+
+\begin{proof}
+We have constructed a diagram of two cubes on top of each other.
+In fact, this can be thought of as shifts in derived category.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-3.5.3}
+This looks like a 2-for-3 for cocartesian maps.
+\end{lemma}
+
+\begin{definition}
+\label{definition-cocartesian-lift}
+Given a morphism $f:a \to b$ in $\mathcal{B}$
+and an object $x \in \mathcal{E}$
+\end{definition}
+
+\begin{lemma}
+\label{lemma-3.5.5.}
+Lifts of $p$-cartesian if and only if … equivalence.
+\end{lemma}
+
+\begin{lemma}
+\label{lemma-3.5.6}
+Complicated monomorphism statement.
+\end{lemma}
+
+\begin{proof}
+We start by presenting a general situation.
+We start with a $2\times 2$ square with homotopy
+fibers. We claim that it is well-defined, and proved it.
+
+Now we imagine another situation:
+a cube with the bottom and top faces that are pullbacks.
+Then we take homotopy fibre and produce a cube on top of
+the original cube. We claim that the top face
+is also a pullback. We take homotopy fibres producing
+a cube to one of the sides, then take homotopy
+fibre of the homotopy fibres,
+which gives an equivalence since the maps induced
+on homotopy fibres are equivalences.
+
+As for another equivalence for fibration,
+we have that the diagram
+$$
+\xymatrix{
+\mathsf{Ar}_{\text{cart}}(\mathcal{E})\ar[r]\ar[d]_{\text{ev}_1}&
+\mathsf{Ar}(\mathcal{B})\ar[d]^{\text{ev}_1}\\
+\mathcal{E}\ar[r]&\mathcal{B}
+}
+$$
+is a pullback. That is, that
+$$
+\mathsf{Ar}_{\text{cart}}(\mathcal{E})
+\simeq \mathcal{E}\times_{\mathcal{B}}\mathsf{Ar}(\mathcal{B}).
+$$
+This can also be represented as
+$$
+\xymatrixrowsep{2em}
+\xymatrixcolsep{2em}
+\xymatrix{
+\mathsf{Ar}_{\text{cart}}(\mathcal{E})\ar@{^{(}->}[r]
+&\mathsf{Ar}(\mathcal{E}) \ar[rrrd] \ar[rrd] \ar[rrdd]_{\text{ev}_1} & & \\
+& & & \mathcal{E}\times_{\mathcal{B}}\mathsf{Ar}(\mathcal{B}) \ar[d] \ar[r] 
+& \mathsf{Ar}(\mathcal{B}) \ar[d] \\
+& & & \mathcal{E} \ar[r] & \mathcal{B}
+}
+$$
+Applying $\mathsf{Map}([1],-)$ we obtain
+$$
+\xymatrixrowsep{2em}
+\xymatrixcolsep{2em}
+\xymatrix{
+\mathcal{E}[1]_{\text{cart}}\ar@/_{1pc}/[rrrd]\ar@{^{(}->}[r]
+&\mathcal{E}[1] \ar[rrrd] \ar[rrd] \ar[rrdd] & & \\
+& & &
+\mathcal{E}^{\simeq}\times_{\mathcal{B}^{\simeq}}\mathcal{B}[1]
+ \ar[d] \ar[r] 
+& \mathcal{B}[1] \ar[d] \\
+& & & \mathcal{E}^{\simeq} \ar[r] & \mathcal{B}^{\simeq}
+}
+$$
+where the arrow from $\mathcal{E}[1]$ to the pullback
+comes from the universal property of pullback.
+
+
+\end{proof}
+
+\begin{proposition}
+\label{proposition-left-fibrations-are-cocartesian}
+Left fibrations are $p$-cocartesian and right fibrations are $p$-cartesian.
+\end{proposition}
+
+\noindent
+The following lemma shows that for cocartesian fibrations
+right fibrations are equivalent
+fibrations in $\infty$-groupoids.
+
+\begin{lemma}
+\label{lemma-cocartesian-fibration-equivalences}
+Suppose $p:\mathcal{E} \to \mathcal{B}$ a cocartesian fibration.
+Then the following are equivalent:
+\begin{enumerate}
+\item $p$ is a left fibration (which is the same as saying it's
+a fibration in $\infty$-groupoids).
+\label{item-cocartesian1}
+
+\item Every morphism in $\mathcal{E}$ is $p$-cocartesian.
+\label{item-cocartesian2}
+
+\item $p$ is conservative.
+\label{item-cocartesian3}
+
+\item The fibers of $p$ are $\infty$-groupoids.
+\label{item-cocartesian4}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We already proved (\ref{item-cocartesian1}) implies (\ref{item-cocartesian2})
+(?). For (\ref{item-cocartesian2})implies (\ref{item-cocartesian1}) we consider
+$$
+\xymatrix{
+\mathcal{E}[1]_{\text{cartesian}} \ar[rd]_{\simeq} \ar[rr]^{\simeq} && 
+\mathcal{B}[1]\times_{\mathcal{B}}\mathcal{E}^{\simeq} \\
+& \mathcal{E}[1]\ar[ur]_{\simeq}
+}
+$$
+We already know that (\ref{item-cocartesian3}) is equivalent to
+(\ref{item-cocartesian4}).
+
+To prove that (\ref{item-3}) implies (\ref{item-2})
+we use the property that conservative functors
+lift equivalences to equivalences (?).
+
+
+\end{proof}
+
+\begin{proposition}
+\label{proposition-mophisms-of-cocartesian-fibrations-
+equivalence-iff-equivalence-of-fibres}
+If
+$$
+\xymatrix{
+\mathcal{E} \ar[rd]_{p} \ar[rr]_{F} && \mathcal{F} \ar[dl]^{q} \\
+& \mathcal{B}
+}
+$$
+is a morphism of cocartesian fibrations over $\mathcal{B}$ 
+then $F$ is an equivalence if and only if the induced
+map on fibres is an equivalence for all $b \in \mathcal{B}$.
+\end{proposition}
+
+\begin{proposition}
+\label{proposition-3.5.15}
+Pullback of fibration is fibration.
+\end{proposition}
+
+\begin{exercise}
+\label{exercise-pullback-iff-equivalence-on-fibers-for-infty-categrories}
+Suppose we have a morphism of (co-)cartesian fibrations $F$
+$$
+\xymatrix{
+\mathcal{E}\ar[r]^{F}\ar[d]_{p}&\mathcal{E}'\ar[d]^{p'}\\
+\mathcal{B}\ar[r]_{G}&\mathcal{B}'.
+}
+$$
+\end{exercise}
+
+\begin{proof}
+Factor the above square as
+$$
+\xymatrix{
+\mathcal{E}\ar[r]\ar[d]&\mathcal{E}'\times_{\mathcal{B}'}\mathcal{B}\ar[d]\ar[r]
+&\mathcal{E}'\ar[d]\\
+\mathcal{B}\ar[r]_{\text{id}}&\mathcal{B}\ar[r]&\mathcal{B}'
+}
+$$
+and apply the last two propositions.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-pullback-of-three-fibrations}
+Pullback of three cocartesian fibrations…
+\end{exercise}
+
+
+
+
+
+
+\section{Arrow infty-categories and fibration}
+\label{section-arrow-infty-categories}
+
+\begin{proposition}
+\label{proposition-pullback-in-arrow-category}
+The mapping space of two morphisms
+$f:x \to y$ and $g:x'\to y'$ in an $\infty$-category is the pullback
+$$
+\xymatrix{
+\mathsf{Ar}(\mathcal{C})(f,g)\ar[r]\ar[d]\ar@{}[dr]|-{\lrcorner}
+&\mathcal{C}(x,x')\ar[d]\\
+\mathcal{C}(y,y')\ar[r]_{f^*}&
+\mathcal{C}(x,y').
+}
+$$
+\end{proposition}
+
+\noindent
+Upshot: morphisms of morphisms are 
+a map of sources and map of targets such that
+composing with $f^*$ or $g_*$ accordingly
+give the same map.
+
+More precisely,
+the idea is as in Section \ref{section-lifting-properties},
+where we defined lifting as a pullback.
+In the current situation: a choice of 
+a map $x \to x'$ and a map $y \to y'$
+such that $x \to x' \xrightarrow{g_*}y'$ 
+coincides with
+$x \xrightarrow{f} y \to y'$,
+is just an element of
+$\mathcal{C}(x,x')\times_{\mathcal{C}(x,y')}\mathcal{C}(y,y')$.
+The proposition then says that morphisms from $f$ to $g$ 
+are the same as elements in such pullback.
+
+\begin{proof}
+Rune starts by saying that we want to find
+the fibre at $(f,g)$ of the map
+$$
+\mathsf{Fun}([1],\mathsf{Fun}([1],\mathcal{C}))=
+\mathsf{Map}([1]\times[1],\mathcal{C})\to\mathcal{C}[1]^{\times 2}.
+$$
+Why do we want that? Because that's just the definition
+of the mapping space $\mathsf{Ar}(x,y)$ 
+(see Definition \ref{definition-mapping-space}).
+
+To do it we notice that by the fact that in a general situation
+$$
+\xymatrix{
+\bullet\ar@{-->}[d]\ar[r]&\mathcal{E}_b\ar[d]\ar[rr]&& \mathcal{F}_b\ar[d]\\
+\bullet \ar[r]&\mathcal{E} \ar[rd] \ar[rr] && \mathcal{F} \ar[dl] \\
+&& \mathcal{B}
+}
+$$
+the dashed arrow is
+an equivalence (because the square is a pullback
+by 2-for-3:
+$$
+\xymatrix{
+\mathcal{E}_\ell\ar[r]\ar[d]&\mathcal{F}_\ell\ar[d]\ar[r]&pt\ar[d]\\
+\mathcal{E}\ar[r]&\mathcal{F}\ar[r]&\mathcal{B}),
+}
+$$
+so it's enough to find the fibre of the fibre map.
+
+Since we want to compute $\mathsf{Ar}(x,y)$,
+which is by definition the fibre of
+$\mathsf{Ar}(\mathcal{C})\times\mathsf{Ar}(\mathcal{C})
+\to \mathcal{C}\times\mathcal{C}$, a conservative map,
+which means that its fibres are groupoids,
+then the following diagram should be enough:
+$$
+\xymatrix{
+\bullet\ar@{-->}[d]\ar[r]
+&(\mathcal{C}(x,y)\times\mathcal{C}(y,y'))\times
+_{\mathbb{C}(x,y')}
+(\mathcal{C}(x,x'),\mathcal{C}(z,y'))
+\ar[d]\ar[rr]
+&& \mathcal{C}(x,y)\times \mathcal{C}(x',y')\ar[d]\\
+\bullet \ar[r]
+&\mathsf{Map}([1]\times[1],\mathcal{C})
+=\mathsf{Ar}(\mathsf{Ar}(\mathcal{C}))^\simeq
+\ar[rd] \ar[rr]
+&&\mathcal{C}[1]^{\times 2}\ar[dl] \\
+&& \mathcal{B}
+}
+$$
+We find that the fibre we are seeking is
+\begin{equation}
+\label{equation-fibre}
+\{f\}\times\mathcal{C}(y,y')
+\times_{\mathcal{C}(x,y')}
+(\mathcal{C}(x,x')\times \{g\}).
+\end{equation}
+
+\noindent
+The reason is given by the three diagrams
+$$
+\xymatrix{
+\mathcal{C}(x,y')\ar[r]
+&\mathcal{C}(x,y')\ar[r]
+&pt\\
+\{f\}\times\mathcal{C}(y,y')\ar[r]
+&\mathcal{C}(x,y)\times\mathcal{C}(y,y')\ar[r]
+&\mathcal{C}(x,y)\ni f\\
+\mathcal{C}(x,x')\times\{y\}\ar[r]
+&\mathcal{C}(x,x')\times\mathcal{C}(x',y')\ar[r]
+&\mathcal{C}(x',y')\ni g.
+}
+$$
+\end{proof}
+
+\noindent
+Next we observe that morphisms in $\mathsf{Ar}(\mathcal{C})$ 
+are given by commutative squares
+\begin{equation}
+\label{equation-morphisms-in-arrow}
+\xymatrix{
+y\ar[r]^{e}\ar[d]_{f}&y'\ar[d]^{g}\\
+x\ar[r]_{h}&x'
+}
+\end{equation}
+
+\noindent
+which in fact are elements of the fibre we found
+in the last proposition, namely Equation \ref{equation-fibre}.
+This just says that ``the mapping spaces in $\mathsf{Ar}(\mathcal{C})$ 
+are what we expected them to be''!
+(namely those commutative squares).
+
+\begin{exercise}
+\label{exercise-morphism-of-morphisms}
+Extend this description to show that for a morphism
+$\alpha:f \to g$ in $\mathsf{Ar}(\mathcal{C})$,
+given by a commutative square
+$$
+\xymatrix{
+x\ar[r]^{e}\ar[d]_{f}&z\ar[d]^{g}\\
+y\ar[r]_{h}&w,
+}
+$$
+precomposition with $\alpha$ fits in a commutative cube
+(where the left and right faces are pullbacks)
+$$
+\xymatrixrowsep{1em}
+\xymatrixcolsep{1em}
+\xymatrix{
+\mathsf{Ar}(\mathcal{C})(g,q) \ar[rr]^{\alpha^*} \ar[dd] \ar[rd] & & 
+\mathsf{Ar}(\mathcal{C})(f,q) \ar'[d][dd] \ar[rd] \\
+ & \mathcal{C}(z,u) \ar[rr]^(0.3){e^*} \ar[dd] & & \mathcal{C}(x,u) \ar[dd] \\
+\mathcal{C}(w,v) \ar'[r][rr]^{h^*} \ar[rd] & & \mathcal{C}(y,v) \ar[rd] \\
+ & \mathcal{C}(z,v) \ar[rr]^{e^*} & & \mathcal{C}(x,v)
+}
+$$
+for $q:u \to v$.
+\end{exercise}
+
+\begin{proof}
+By Proposition \ref{proposition-pullback-in-arrow-category}
+we know that the left and right faces are pullbacks
+(and in particular comute).
+The front and back squares are 
+commutative by associativity of composition
+(which in fact is not immediate to prove, but holds).
+The hardest part are the top and bottom faces.
+They commute by a careful application of 
+Exercise \ref{exercise-3.5}.
+\end{proof}
+
+\noindent
+The next proposition looks like a technical statement
+justifying Exercise \ref{exercise-morphism-of-morphisms},
+and to be used for proving the next lemma.
+
+\begin{proposition}
+\label{proposition-evaluation-and-arrow}
+For any $\infty$-category $\mathcal{C}$,
+the functor
+$$
+\text{ev}_1:\mathsf{Ar}(\mathcal{C})\to\mathcal{C}
+$$
+is a cocartesian fibration.
+A morphism in $\mathsf{Ar}(\mathcal{C})$ 
+given by a square \ref{equation-morphisms-in-arrow}
+is $\text{ev}_1$ cocartesian if and only if $e$ 
+is an equivalence.
+\end{proposition}
+
+\begin{lemma}
+\label{lemma-p-cocartesian-characterization}
+Given a functor $p:\mathcal{E}\to\mathcal{B}$,
+the following are equivalent for a morphism
+$\overline{f}:x\to y$ in $\mathcal{E}$ 
+over $f:a \to b$ in $\mathcal{B}$:
+\begin{enumerate}
+\item The morphism $\overline{f}$ is $p$-cocartesian.
+\item For every morphism  …
+\end{enumerate}
+\end{lemma}
+
+\noindent
+The next proposition describes a situation
+in which we have a subcategory $S$ of arrows 
+and we construct a functor $p:\mathcal{E} \to \mathcal{B}$ 
+such that $S$ is the $p$-cocartesian maps.
+
+\begin{proposition}
+\label{proposition-subcategory-of-arrows}
+For a functor $p:\mathcal{E} \to \mathcal{B}$ and a monomorphism
+$S\hookrightarrow \mathcal{E}[1]$, let 
+$\mathsf{Ar}_S(\mathcal{E})\subseteq \mathsf{Ar}(\mathcal{E})$ 
+denote the full subcategory spanned by morphisms in $S$.
+Then the following are equivalent:
+\begin{enumerate}
+\item $p$ is a cocartesian fibration and  $S$ is the
+$\infty$-groupoid of $p$-cocartesian morphisms.
+\item The commutative square
+$$
+\xymatrix{
+\mathsf{Ar}_S(\mathcal{E})\ar[r]^{\text{ev}_0}\ar[d]&\mathcal{E}\ar[d]^{p}\\
+\mathsf{Ar}(\mathcal{B})\ar[r]_{\text{ev}_0}&\mathcal{B}
+}
+$$
+is a pullback.
+\end{enumerate}
+\end{proposition}
+
+We obtain a corollary that seems to establish
+that $\mathsf{Fun}(\mathcal{K},-)$ preserves
+cocartesian functors.
+
+\begin{lemma}
+\label{lemma-covariant-fun-preserves-cocartesian}
+Suppose $p:\mathcal{E}\to \mathcal{B}$ is a cocartesian fibration.
+Then for any $\infty$-category $\mathcal{K}$, the functor
+$$
+p_*:\mathsf{Fun}(\mathcal{K},\mathcal{E})
+\to\mathsf{Fun}(\mathcal{K},\mathcal{B})
+$$
+given by composition with $p$ is also a cocartesian fibration.
+A natural transformation $\phi:\mathcal{K}\times[1]\to\mathcal{E}$ 
+is $p_*$-cocartesian if and only if its components
+$\phi_a:[1]\to\mathcal{E}$are $p$-cocartesian for all $a \in \mathcal{K}$.
+\end{lemma}
+
+\noindent
+Then there's the part on the cocartesian transport functor.
+I think it goes like this: we use Proposition
+\ref{proposition-subcategory-of-arrows} to identify
+$\mathcal{E}\times_{\mathcal{B}}\mathsf{Ar}(\mathcal{B}) \simeq
+\mathsf{Ar}_{\text{coct}}(\mathcal{E})$.
+We have learnt to read elements in the pullback
+as pairs in the product that project nicely; namely,
+elements of $\mathcal{E}\times_{\mathcal{B}}\mathsf{Ar}(\mathcal{B})$ 
+are nothing but pairs $(x,f:p(x)\to b)$ according to the diagram
+$$
+\xymatrix{
+\mathcal{E}\times_{\mathcal{B}}\mathsf{Ar}(\mathcal{B})
+\ar[r]\ar[d]\ar@{}[dr]|-{\lrcorner}&
+\mathsf{Ar}(\mathcal{B})\ar[d]^{s}\\
+\mathcal{E}\ar[r]&\mathcal{B}.
+}
+$$
+Take any such pair, and consider a cocartesian lift.
+This gives a map on $\mathcal{E}$ with source $x$.
+Denote the target by $f_!x$.
+This map,
+$$
+\mathcal{E}\times_{\mathcal{B}}\mathsf{Ar}(\mathcal{B})
+\xrightarrow{\sim}\mathsf{Ar}_{\text{coct}}(\mathcal{E})
+\xrightarrow{\text{ev}_1}\mathcal{E},
+$$
+is called the {\it cocartesian transport functor}.
+
+\medskip\noindent
+The upshot about this part of the book
+is that we defined what the induced maps on mapping spaces
+associated to some straightening functor
+that we didn't define yet should be.
+
+More explicitly, we want to construct
+$$
+\text{CoCart}(\mathcal{B})
+\xrightarrow{\simeq}
+\mathsf{Fun}(\mathcal{B},\mathsf{Cat}_{\infty}),
+$$
+which means that after fixing a cocartestian fibration
+over $\mathcal{B}$, say
+$p:\mathcal{E} \to \mathcal{B}$,
+we need to construct a functor $\mathcal{B} \to \mathsf{Cat}_{\infty}$.
+For this we need to specify 
+the correspondence of morphisms in $\mathcal{B}$,
+namely
+\begin{align*}
+\mathcal{B}(b,b') &\longrightarrow 
+\mathsf{Map}(\mathcal{E}_{b'}, \mathcal{E}_b) \\
+f &\longmapsto f_!.
+\end{align*}
+
+\noindent
+This $f_!$ was constructed using the results of this chapter
+(and of the previous!).
+This is explained in \cite[Section 3.7]{Rune}.
+Notice that this is not detailed
+enough to be a proof of the equivalence
+of $\infty$-categories that we call {\it straightning}.
+
+This section ends explaining that we may take op,
+and get an isomorphism with cartesian morphisms
+(not cocartesian).
+
+\section{Representability and the Yoneda embedding}
+\label{section-representability}
+
+\noindent
+An object $x \in \mathcal{C}$ is {\it initial } if $\mathcal{C}(x,c)$ 
+is contractible for all $c \in \mathcal{C}$ and
+{\it terminal} if $\mathcal{C}(c,x)$ is contractible for all $c$.
+A right fibration $p:\mathcal{E} \to \mathcal{B}$ is
+{\it representable} if $\mathcal{E}$ has a terminal object
+and a left fibration $p:\mathcal{E} \to \mathcal{B}$ is
+{\it corepresentable} if $\mathcal{E}$ has an initial object.
+We say that $p$ is {\it represented} by $b \in \mathcal{B}$
+is $\mathcal{E}$ has a terminal object that lies over $b$,
+and that $x \in \mathcal{E}$ {\it exhibits} $p$ 
+as represented by $b$ if $x$ is terminal
+and $p(x)\simeq b$.
+
+\begin{lemma}
+\label{lemma-equivalence-iff-initial}
+The object $x$ is initial if and only if $\mathcal{C}_{x/}\to \mathcal{C}$ 
+is an equivalence, and terminal if and only if $\mathcal{C}_{/x}\to \mathcal{C}$ 
+is an equivalence.
+\end{lemma}
+
+\begin{proof}
+Since $C_{x/}\to \mathcal{C}$ is a left fibration (why?)
+it's enough to show that the induced maps on fibers of
+the diagram
+$$
+\xymatrix{
+\mathcal{C}(x,y)\ar[r]\ar[d]&C_{x/}\ar[d]\\
+\{y\}\ar[r]&\mathcal{C}
+}
+$$
+is a puback. [See picture.]
+\end{proof}
+
+\medskip\noindent
+It would be natural to define a left fibration $p:\mathcal{E} \to \mathcal{B}$ 
+to be co-representable if its corresponding straightening
+$\mathcal{B} \to \text{Grp}_\infty$
+
+Recall from 
+Exercise \ref{exercise-discrete-fibrations-presheaves}
+that in 1-categories we have an equivalence between presheaves
+$F:\mathcal{B}^{\text{op}}\to \mathsf{Sets}$
+and discrete fibrations $p:\mathcal{E} \to \mathcal{B}$.
+We define $F$ to be {\it representable} if $\mathcal{E}$ 
+has terminal object.
+
+\begin{exercise}
+\label{exercise-}
+Show that this definition is equivalent to
+having $\Hom(-,b_0) \cong F$.
+\end{exercise}
+
+\begin{proof}
+Recall from Exercise \ref{exercise-discrete-fibrations-presheaves}
+that $\mathcal{E}$ is defined so that the fiber of $b \in \mathcal{B}$ 
+is the set $F(b)$. More exactly, the objects of $\mathcal{E}$
+are pairs $(e,b)$ with $b \in \mathcal{B}$ and $e \in F(b)$.
+The morphisms are pairs $(f,F(f))$ for $f:b' \to b$ in $\mathcal{B}$.
+
+Suppose that $\underline{e}=(e,p(e))$ is a terminal object of $\mathcal{E}$.
+We claim that $\Hom(-,p(e))\cong F$.
+Let $b \in \mathcal{B}$. Let's check that
+$\Hom(b,p(e))\simeq F(b)$ as sets.
+By definition of discrete
+fibration for every map $f:b\to p(e)$ 
+there is a unique map $g:e' \to e$ such that $p(g)=f$.
+Then the element $e'$ is in $F(b)$.
+To see that this correspondence is natural in $b$
+pick a map $h:b_1 \to b$.
+We have an induced map $F(h):F(b) \to F(b_1)$
+that for any map $f \in \Hom(b,p(e))$
+puts the element we found $e'$
+to an element $e_1'$ in the set $b_1$,
+which is the $p$-fiber of $b_1$ by definition of $p$.
+$$
+\xymatrix{
+f\ar@{|->}[d]&\Hom(b,p(e))\ar[r]\ar[d]_{h^*}&F(b)\ar[d]^{F(h)}&e'\ar@{|->}[d]\\
+fh&\Hom(b_1,p(e))\ar[r]&F(b_1)& e_1'.
+}
+$$
+To confirm that the diagram commutes we need to check
+that this element $e_1'$ is the source of the unique
+lift of the map $fh$. Since $\underline{e}=(e,p(e))$ is terminal,
+there is only one map in $\mathcal{E}$
+with target $\underline{e}$ and thus 
+the source of the lift of $fh$ is uniquely determined.
+
+Conversely, suppose that $\Hom(-,b_0)\cong F$ for some $b_0 \in \mathcal{B}$.
+To find a terminal object in $\mathcal{E}$ we look
+for a distinguished element in the fiber of $b_0$
+(which is the set $F(b_0)$ by construction).
+We claim that the element corresponding to the identity
+in $\Hom(b_0,b_0)\cong F(b_0)=p^{-1}(b_0)$
+is terminal. Let us denote this element by 
+$\underline{e}=(e,p(e)) \in \mathcal{E}$.
+Let $f:\underline{e}' \to \underline{e}$ be any morphism in $\mathcal{E}$.
+This gives a map on $\mathcal{B}$ by $p(f):p(e')\to p(e)=b_0$.
+Since $p$ is a discrete fibration, there exists a unique morphism
+in $\mathcal{E}$ lifting $p(f)$, which must be $f$.
+\end{proof}
+
+\medskip\noindent
+The following explanation is quite illuminating.
+Let's informally define a Lie groupoid to be a groupoid object
+in the category of differentiable manifolds 
+(see nLab \href{url}{Lie groupoid} and
+\href{https://ncatlab.org/nlab/show/Lie+groupoid}{groupoid object}).
+Actually, this just means that it is a representable
+presheaf of groupoids (perhaps with some other conditions).
+That is, a Lie groupoid is a representable functor
+$\text{Diff}^{\text{op}}\to \text{Grpd}$.
+
+\begin{definition}
+\label{definition-representable-presheaf}
+We say a presheaf $\phi:\mathcal{B}^{\text{op}}\to \mathsf{Gpd}_\infty$
+is {\it representable} if the corresponding right fibration
+is representable, and that a copresheaf
+$\mathcal{B}\to \mathsf{Gpd}_\infty$ is {\it correpresentable} 
+if the corresponding left fibration is corepresentable.
+We say that $\phi$ is {\it represented} by $b \in \mathcal{B}$ 
+and that a point $x \in \phi(b)$ {\it exhibits} $\phi$ 
+as represented by $b$.
+\end{definition}
+
+\medskip\noindent
+Let's do a quick digression for Yoneda lemma.
+First recall the usual Yoneda lemma.
+The easiest way to remember this is that
+the yoneda map $a \to h_a:=\Hom(-,a)$ is an
+embedding $\mathcal{C} \to \text{Psh}$.
+But that's not very precise.
+What is precise is to say that
+$$
+\text{Nat}(\Hom(-,b),X) \cong X(b).
+$$
+This is Yoneda lemma (see Categories, Lemma \ref{lemma-yoneda}).
+There are distinguished objects:
+\begin{align*}
+\text{Nat}(\Hom(-,b),X)&\cong X(b)\\
+\text{id}_b \mapsto \eta(\text{id}_b)& \eta(\text{id}_b)\\
+(f:c \to b) \mapsto f^*(\eta(\text{id}_b))&
+\end{align*}
+
+\noindent
+But we are interested in another version,
+let me put it as a lemma:
+
+\begin{lemma}
+\label{lemma-yoneda-equivalence-presheave-category}
+Yoneda lemma is equivalent to $(\Hom(-,b),\text{id}_b)$ is
+the initial object in $\mathcal{C}$, where $\mathcal{C}$ is defined as the
+category whose objects are presheaves $X$
+over a given category $\mathcal{B}$ together with a
+choice of object $x \in X(b)$,
+and morphisms are morphisms of presheaves that preserve the
+chosen object.
+\end{lemma}
+
+\noindent
+Via straightening, there is more:
+
+\begin{lemma}
+\label{lemma-yoneda-equivalence-fibrations}
+Yoneda lemma is equivalent
+to the category of discrete fibrations $\mathcal{E} \to \mathcal{B}$ 
+with a choice of object $e \in \mathcal{E}$ over $b$
+having an initial object.
+(and such an initial object is a discrete fibration
+with a terminal object in $\mathcal{E}$).
+\end{lemma}
+
+Left as an exercise.
+
+
+\medskip\noindent
+Now recall Lemma \ref{lemma-left-fibration-iff-induced},
+it says that the top arrow in the following diagram
+is an equivalence
+$$
+\xymatrix{
+\mathcal{E}_x\ar[r]^\sim\ar[d]&\mathcal{B}_{/b}\ar[d]\\
+\mathcal{E}\ar[r]^p&\mathcal{B}.
+}
+$$
+Invert the equivalence to obtain a map over $\mathcal{B}$:
+$$
+\xymatrix{
+\mathcal{B}_{/b} \ar[rd] \ar[rr] && \mathcal{E} \ar[dl]^{p} \\
+& \mathcal{B}.
+}
+$$
+which takes $\text{id}_b$ to $x$.
+This leads to a section $s_x:\mathcal{B}_{/b}\to \mathcal{E}$.
+
+\medskip\noindent
+A proposition I did not understand properly,
+but seems not very hard to prove follows. And then,
+
+\begin{proposition}
+\label{proposition-maps-over-x-are-representable}
+$\text{id}_x$ is initial in $\mathcal{C}_{x/}$ 
+and terminal in $\mathcal{C}_{/x}$.
+In particular, $\mathcal{C}_{/x}\to \mathcal{C}$ 
+is a representable right fibration
+and $C_{x/}\to \mathcal{C}$ is a corepresentable left fibration.
+\end{proposition} 
+
+\begin{proof}
+Missing.
+\end{proof}
+
+\noindent
+This leads to a corollary:
+
+\begin{lemma}
+\label{lemma-fibration-equivalent-iff-is-maps-over-b-fibration}
+A right fibration over $\mathcal{B}$ is representable
+if and only if it is equivalent to $\mathcal{B}_{/b}\to \mathcal{B}$ 
+for some $b \in \mathcal{B}$,
+while a left fibration is corepresentable if and only if
+it is equivalent to $\mathcal{B}_{b/}\to \mathcal{B}$ 
+for some $b \in \mathcal{B}$.
+\end{lemma}
+
+\medskip\noindent
+We proved \cite[Corollary 4.2.2]{rune}:
+\begin{lemma}
+label{lemma-corollary-4.2.2}
+Suppose $p:\mathcal{E}\to\mathcal{C}$ is a right fibration,
+then for $x \in \mathcal{C}$, the morphism
+$$
+Map_{/\mathcal{C}}(\mathcal{C}_{x/},\mathcal{E})\to Map_{/\mathcal{C}}(\{x\},\mathcal{E}) \simeq \mathcal{E}_x
+$$
+is an equivalence.
+Dually, if $p$ is a left fibration we obtain a corresponding
+equivalence.
+\end{lemma}
+
+\begin{exercise}
+\label{exercise-4.1}
+Show that, for a right fibration
+$p:\mathcal{E} \to \mathcal{B}$,
+the maps $s_x:\mathcal{B}_{/p(x)} \to \mathcal{E}$ 
+for $x \in \mathcal{E}$ are natural in $x$,
+and use this to produce a section of the map
+ $$
+\mathsf{Map}_{/\mathcal{C}}(\mathcal{C}_{/x},\mathcal{E})
+\to \mathsf{Map}_{/\mathcal{C}}(\{x\},\mathcal{E}).
+$$
+
+\end{exercise}
+
+\section{Bifibrations}
+\label{section-bifibrations}
+
+\noindent
+Now consider
+ $$
+\mathcal{C}(-,-):\mathcal{C}^{\text{op}}\times\mathcal{C} \to
+\mathsf{\text{Grpd}}_\infty
+$$
+We proved Corollary 4.3.5.
+Using this we figured out that we have a map
+\begin{align*}
+\mathcal{B}&\longrightarrow \text{RFib}(\mathcal{A}) \\
+b&\longmapsto (\mathcal{E}_b \to \mathcal{A})
+\end{align*}
+And we can do it also for (probably)
+\begin{align*}
+\mathcal{A}^{\text{op}} &\longrightarrow \text{LFib}(\mathcal{B}) \\
+a &\longmapsto (\mathcal{E}_a \to \mathcal{A})
+\end{align*}
+
+\noindent
+Now we observe that by proposition 3.6.2,
+the well-known map $\mathsf{Ar}(\mathcal{C})\to \mathcal{C}\times \mathcal{C}$ 
+is a bifibration.
+Then we apply the previous observation to get
+the {\it Yoneda embedding} statement that
+ $$
+\mathsf{y}_{\mathcal{C}}\to \mathsf{RFib}(\mathcal{C})\simeq
+\text{Psh}(\mathcal{C})
+$$
+
+\begin{lemma}[Pullback of bifibrations is fibifration]
+\label{lemma-pullback-bifibration}
+\end{lemma}
+
 \bibliography{my}
 \bibliographystyle{amsalpha}
 
 \end{document}
-
