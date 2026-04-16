@@ -15,9 +15,6 @@
 \section{Rings}
 \label{section-rings}
 
-\noindent
-So elementary that this is not in Stacks Project.
-
 \begin{theorem}
 \label{theorem-ideals-quotient-correspondence}
 Let $R$ be a ring and $I \subset R$ an ideal.
@@ -62,9 +59,157 @@ Then $R/I$ is a field.
 
 \begin{proof}
 It's easy to prove that a ring is a field if and only if its
-only ideals are $\{0\}$ and $R$. By Theorem \ref{theorem-correspondence-ideals},
+only ideals are $\{0\}$ and $R$. By Theorem
+\ref{theorem-ideals-quotient-correspondence},
 the ideals of $R/I$ are in correspondence with ideals of $R$ containing $I$,
 but only $R$ is such.
+\end{proof}
+
+\section{Localization}
+\label{section-localization}
+
+\noindent
+The general recipe for localization is that
+$\mathcal{O}_U=\mathcal{O}_X[f^{-1}]$ where
+$U=X\setminus V(f)$.
+That is, localizing gives the sheaf of the variety without the zero set.
+
+\begin{definition}
+\label{definition-localization}
+Let $R$ be a ring and $S \subset R$ 
+a multiplicative subset of $R$ (containing $1$).
+The {\it localization} of $R$ at $S$ 
+is the ring $RS^{-1}$ 
+(where $S^{-1}$ is just a set with
+the same elements as $S$ but with a $-1$ exponent)
+with the operations of $(rs^{-1})(r_1s_1^{-1})=rr_1s^{-1}s_1^{-1}$,
+$rs^{-1}+r_1s_1^{-1}=(rs_1+r_1s)(s^{-1}s^{-1}_1)$
+and the identification given by
+$rs^{-1}=r_1s_1^{-1} \iff rs_1=r_1s$.
+(Check this definition if $R$ has zero divisors!)
+\end{definition}
+
+\noindent
+In a simple case, consider a ring $R$ and $f \in R$.
+The {\it localization of $R$ at $f$}
+is $R[t]/(ft-1):=R[f^{-1}]=R(f)$. 
+The quotient basically says that $t$ is the inverse of $f$.
+
+\begin{example}
+\label{example-localization}
+\begin{itemize}
+\item Dyadic numbers: $\mathbb{Z}[2^{-1}]$,
+which are fractions of integers with denominators which
+are powers of $2$.
+
+\item Laurent polynomials: $\mathbb{C}[t,t^{-1}]$.
+\end{itemize}
+\end{example}
+
+\begin{lemma}
+\label{lemma-localization-nilpotent}
+If $R[f^{-1}]=0$ then $f$ is nilpotent.
+\end{lemma}
+
+\begin{proof}
+If $R[f^{-1}]=0$ then $1 \in (ft-1)$,
+which means that $1=(1-ft)p(t)$ for some $p(t) \in k[t]$.
+Then…
+\end{proof}
+
+\noindent
+The localization a ring is not always a local ring.
+But if $S$ is a prime ideal, then it is.
+
+
+\begin{exercise}
+\label{exercise-localization-of-noetherian-is-noetherian}
+Prove that localization of a Noetherian ring is Noetherian.
+\end{exercise}
+
+\begin{proof}
+Let $R$ be a Noetherian ring and $S \subset R$.
+Let $I_1\subset I_2 \subset…$
+be a chain of ideals in the localization $R[S^{-1}]$.
+Let $\pi:R \to R[S^{-1}]$ the canonical projection $r \mapsto r$.
+
+Let $I$ be any of the $I_i$.
+Consider $\pi^{-1}(I)$. This gives a chain of ideals in $R$,
+which must stabilize.
+To go back to the localization simply recall that
+$\pi^{-1}(I)[S^{-1}]=I$.
+\end{proof}
+
+
+
+
+
+
+\noindent
+\section{Noetherian and Artinian rings}
+\label{section-noetherian-and-artinian-rings}
+
+\begin{definition}
+\label{definition-noetherian-and-artinian-rings}
+A ring is called {\it Noetherian} 
+if any increasing chain of ideals $I_1 \subset I_2 \subset…$
+stabilizes. It is called {\it Artinian} 
+if any descending chain of ideals $I_1 \supset I_2\supset…$
+stabilizes.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-noetherian-iff-ideals-are-finitely-generated}
+A ring is Noetherian if and only if all its ideals are finitely generated.
+\end{exercise}
+
+\begin{proof}
+First we prove that if not every ideal is finitely generated
+then $R$ cannot be Noetherian.
+Indeed, if $I$ is not finitely generated
+we construct an ascending chain by of ideals by starting with
+any generator of $I$ and adding other generators one by one.
+
+For the converse suppose that all ideals of $R$ are finitely generated
+and pick an ascending chain $I_1\subset I_2\subset…$.
+Consider $I=\bigcup_i I_i$,
+which is an ideal since for any $a \in I$
+there is $i$ such that $a \in I_i$
+so that $ra \in I_i$ for any $r \in R$.
+However, since it is finitely generated,
+all the generators have to be in some $I_j$,
+and thus the chain stabilizes.
+\end{proof}
+
+\begin{theorem}[Hilbert basis theorem]
+\label{theorem-hilbert-basis}
+If $R$ is Noetherian then so is $R[x]$.
+\end{theorem}
+
+\begin{exercise}
+\label{exercise-one-prime-ideal-is-artinian-or-not}
+
+\end{exercise}
+
+\begin{proof}
+$k[x_1,x_2,…]/(x_1^2,x_2^2,…)$,
+$I_n=(x_n,x_{n+1},…)$
+then $I_1 \supset I_2 \supset …$.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-hilbert-basis-for-formal-power-series}
+If $A$ is Noetherian then so is $A[[t]]$.
+\end{exercise}
+
+\begin{proof}
+Pass from an ideal in $A[[t]]$ to $A$ by taking
+the coefficients of the monomials of minimal degree
+of each element in the ideal.
+Then take a finite set of generators.
+Then go back to $A[[t]]$ by taking the polynomials
+where the generators where taken.
+Then…
 \end{proof}
 
 \section{Fields}
@@ -116,6 +261,71 @@ $$
 $$
 \end{enumerate}
 
+\section{Algebras}
+\label{section-algebras}
+
+\begin{definition}
+\label{definition-algebra}
+\begin{reference}
+\cite{Eisenbud}
+\end{reference}
+If $R$ is a commutative ring,
+then a {\it commutative algebra} over $R$ 
+is a commutative ring $S$ together
+with a ring morphism $R \to S$.
+\end{definition}
+
+\noindent
+But actually I was expecting that 
+$S$ would be defined as 
+a ring that is also an $R$-module.
+So let us note that a morphism of rings
+$R \to S$ gives a representation
+$R \to \text{End}(S)$ via left multiplication.
+But the other way around,
+given an endomorphism associated
+to some element in $R$,
+how do we assign an element of $S$
+so as to produce a map $R \to S$?
+
+\section{Finitely-generated and finitely presented algebras}
+\label{section-finitely-presented-generated}
+
+\noindent
+See Stacks Project tag \href{https://stacks.math.columbia.edu/tag/00F2}{00F2}.
+
+Upshot: a finitely-generated $R$-algebra $S$ is such that
+$S \simeq R[x_1,\ldots,x_n]/I$ for some ideal $I \subset R$.
+Another way of saying this is that there is a surjective morphism
+$R[x_1,…,x_n]\to S$.
+Finitely-presentedness is when $I = (s_1,\ldots,s_k)$.
+
+As an aside, recall that finitely presented $k$-algebras
+with no nilpotents are in correspondence with affine algebraic varieties.
+
+\begin{definition}
+\label{definition-finite-type}
+Let $R \to S$ be a ring map.
+\begin{enumerate}
+\item We say $R \to S$ is of {\it finite type}, or that {\it $S$ is a finite
+type $R$-algebra} if there exist an $n \in \mathbf{N}$ and a surjection
+of $R$-algebras $R[x_1, \ldots, x_n] \to S$.
+\item We say $R \to S$ is of {\it finite presentation} if there
+exist integers $n, m \in \mathbf{N}$ and polynomials
+$f_1, \ldots, f_m \in R[x_1, \ldots, x_n]$
+and an isomorphism of $R$-algebras
+$R[x_1, \ldots, x_n]/(f_1, \ldots, f_m) \cong S$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+For modules, the definition of finitely generated $R$-module
+is that there exists a surjective morphism $R^n \xymatrix{\ar@{->>}[r]&} S$.
+So: f.g. algebra means elements are polynomials 
+on the generators with coefficients in the ring,
+and f.g. module means elements are linear combinations
+on the generators with coefficients in the ring.
+
 \section{Tensor product}
 \label{section-tensor-product}
 
@@ -152,7 +362,7 @@ which is how Whitney first defined tensor products.
 \end{remark}
 
 \noindent
-Here's Misha's trick on how to show that the universal property
+Here's Misha's way to show that the universal property
 of tensor product implies its uniqueness.
 Consider the category $\mathcal{C}$ of pairs of an $R$-module $M$,
 and a bilinear map $M_1 \times M_2 \to M$.
@@ -582,223 +792,352 @@ $1(a+I)\otimes(b+I')
 +(a+I)\otimes(fb+I')=0$.
 \end{proof}
 
-
-
-\section{Algebras}
-\label{section-algebras}
-
-\noindent
-There appears to be no definition of ``algebra''
-in Stacks Project.
-But there is one in \cite{Eisenbud}:
+\medskip\noindent
+Now we discuss tensor product in the category of rings over a ring.
 
 \begin{definition}
-\label{definition-algebra}
-If $R$ is a commutative ring,
-then a {\it commutative algebra} over $R$ 
-is a commutative ring $S$ together
-with a ring morphism $R \to S$.
+\label{definition-tensor-product-of-rings}
+Let $A,B$ and $C$ be rings, and
+$C \to A$ and $C \to B$ homomorphisms.
+Considering $A$ and $B$ as $C$-modules,
+we can define a product on $A \otimes_C B$ by
+$$
+a \otimes b \cdot a' \otimes b':=a a' \otimes b b'.
+$$
+By the universal property this indeed extends to a product.
 \end{definition}
-
-\noindent
-But actually I was expecting that 
-$S$ would be defined as 
-a ring that is also an $R$-module.
-So let us note that a morphism of rings
-$R \to S$ gives a representation
-$R \to \text{End}(S)$ via left multiplication.
-But the other way around,
-given an endomorphism associated
-to some element in $R$,
-how do we assign an element of $S$
-so as to produce a map $R \to S$?
-
-\section{Finitely-generated and finitely presented algebras}
-\label{section-finitely-presented-generated}
-
-\noindent
-See Stacks Project tag \href{https://stacks.math.columbia.edu/tag/00F2}{00F2}.
-
-Upshot: a finitely-generated $R$-algebra $S$ is such that
-$S \simeq R[x_1,\ldots,x_n]/I$ for some ideal $I \subset R$.
-Another way of saying this is that there is a surjective morphism
-$R[x_1,…,x_n]\to S$.
-Finitely-presentedness is when $I = (s_1,\ldots,s_k)$.
-
-As an aside, recall that finitely presented $k$-algebras
-with no nilpotents are in correspondence with affine algebraic varieties.
-
-\begin{definition}
-\label{definition-finite-type}
-Let $R \to S$ be a ring map.
-\begin{enumerate}
-\item We say $R \to S$ is of {\it finite type}, or that {\it $S$ is a finite
-type $R$-algebra} if there exist an $n \in \mathbf{N}$ and a surjection
-of $R$-algebras $R[x_1, \ldots, x_n] \to S$.
-\item We say $R \to S$ is of {\it finite presentation} if there
-exist integers $n, m \in \mathbf{N}$ and polynomials
-$f_1, \ldots, f_m \in R[x_1, \ldots, x_n]$
-and an isomorphism of $R$-algebras
-$R[x_1, \ldots, x_n]/(f_1, \ldots, f_m) \cong S$.
-\end{enumerate}
-\end{definition}
-
-IA: for modules, the definition of finitely generated $R$-module
-is that there exists a surjective morphism $R^n \xymatrix{\ar@{->>}[r]&} S$.
-So: f.g. algebra means elements are polynomials 
-on the generators with coefficients in the ring,
-and f.g. module means elements are linear combinations
-on the generators with coefficients in the ring.
-
-\section{Noetherian and Artinian rings}
-\label{section-noetherian-and-artinian-rings}
-
-\begin{definition}
-\label{definition-noetherian-and-artinian-rings}
-A ring is called {\it Noetherian} 
-if any increasing chain of ideals $I_1 \subset I_2 \subset…$
-stabilizes. It is called {\it Artinian} 
-if any descending chain of ideals $I_1 \supset I_2\supset…$
-stabilizes.
-\end{definition}
-
-\begin{exercise}
-\label{exercise-noetherian-iff-ideals-are-finitely-generated}
-A ring is Noetherian if and only if all its ideals are finitely generated.
-\end{exercise}
-
-\begin{proof}
-First we prove that if not every ideal is finitely generated
-then $R$ cannot be Noetherian.
-Indeed, if $I$ is not finitely generated
-we construct an ascending chain by of ideals by starting with
-any generator of $I$ and adding other generators one by one.
-
-For the converse suppose that all ideals of $R$ are finitely generated
-and pick an ascending chain $I_1\subset I_2\subset…$.
-Consider $I=\bigcup_i I_i$,
-which is an ideal since for any $a \in I$
-there is $i$ such that $a \in I_i$
-so that $ra \in I_i$ for any $r \in R$.
-However, since it is finitely generated,
-all the generators have to be in some $I_j$,
-and thus the chain stabilizes.
-\end{proof}
-
-\begin{theorem}[Hilbert basis theorem]
-\label{theorem-hilbert-basis}
-If $R$ is Noetherian then so is $R[x]$.
-\end{theorem}
-
-\begin{exercise}
-\label{exercise-one-prime-ideal-is-artinian-or-not}
-
-\end{exercise}
-
-\begin{proof}
-$k[x_1,x_2,…]/(x_1^2,x_2^2,…)$,
-$I_n=(x_n,x_{n+1},…)$
-then $I_1 \supset I_2 \supset …$.
-\end{proof}
-
-\begin{exercise}
-\label{exercise-hilbert-basis-for-formal-power-series}
-If $A$ is Noetherian then so is $A[[t]]$.
-\end{exercise}
-
-\begin{proof}
-Pass from an ideal in $A[[t]]$ to $A$ by taking
-the coefficients of the monomials of minimal degree
-of each element in the ideal.
-Then take a finite set of generators.
-Then go back to $A[[t]]$ by taking the polynomials
-where the generators where taken.
-Then…
-\end{proof}
-
-\section{Localization}
-\label{section-localization}
-
-\noindent
-The general recipe for localization is that
-$\mathcal{O}_U=\mathcal{O}_X[f^{-1}]$ where
-$U=X\setminus V(f)$.
-That is, localizing gives the sheaf of the variety without the zero set.
-
-\begin{definition}
-\label{definition-localization}
-Let $R$ be a ring and $S \subset R$ 
-a multiplicative subset of $R$ (containing $1$).
-The {\it localization} of $R$ at $S$ 
-is the ring $RS^{-1}$ 
-(where $S^{-1}$ is just a set with
-the same elements as $S$ but with a $-1$ exponent)
-with the operations of $(rs^{-1})(r_1s_1^{-1})=rr_1s^{-1}s_1^{-1}$,
-$rs^{-1}+r_1s_1^{-1}=(rs_1+r_1s)(s^{-1}s^{-1}_1)$
-and the identification given by
-$rs^{-1}=r_1s_1^{-1} \iff rs_1=r_1s$.
-(Check this definition if $R$ has zero divisors!)
-\end{definition}
-
-\noindent
-In a simple case, consider a ring $R$ and $f \in R$.
-The {\it localization of $R$ at $f$}
-is $R[t]/(ft-1):=R[f^{-1}]=R(f)$. 
-The quotient basically says that $t$ is the inverse of $f$.
 
 \begin{example}
-\label{example-localization}
-\begin{itemize}
-\item Dyadic numbers: $\mathbb{Z}[2^{-1}]$,
-which are fractions of integers with denominators which
-are powers of $2$.
-
-\item Laurent polynomials: $\mathbb{C}[t,t^{-1}]$.
-\end{itemize}
+\label{example-tensor-product-of-fg-algebras}
+$$
+\mathbb{C}[t_1,…,t_k] \otimes_\mathbb{C} \mathbb{C}[z_1,…,z_n].
+$$
 \end{example}
 
+\begin{example}
+\label{example-tensor-product-of-rings-is-ring}
+For any homomorphism $\varphi:C \to A$,
+the ring $A \otimes_C(C/I)$ is isomorphic to $\frac{A}{\varphi(I)A}$
+by Proposition \ref{proposition-tensor-ideals}.
+\end{example}
+
+\noindent
+Recall that the spectrum of a ring $\Spec R$
+is the corresponding algebraic variety.
+
+\begin{proposition}
+\label{proposition-points-in-affine-algebraic-varieties}
+Let $f:X \to Y$ be a morphism of affine varieties
+and $f^*:\mathcal{O}_Y \to \mathcal{O}_X$ the corresponding morphism.
+Let $y \in Y$ and $\mathfrak{m}_y$ the corresponding maximal ideal.
+Then
+$$
+\Spec(
+(\mathcal{O}_X \otimes_{\mathcal{O}_Y}\frac{\mathcal{O}_Y}{\mathfrak{m}_y})
+\Big/\text{nilradical})
+\cong f_1(y).
+$$
+\end{proposition}
+
 \begin{lemma}
-\label{lemma-localization-nilpotent}
-If $R[f^{-1}]=0$ then $f$ is nilpotent.
+\label{lemma-product-in-affine-varieties-is-tensor-in-algebras}
+Let $A,B$ be finitely generated reduced $\mathbb{C}$-algebras.
+If $R:=A \otimes_{\mathbb{C}}B$, and $N \subset R$
+nilradical (the set of nilpotent elements of $R$).
+Then
+$$
+\Spec(R/N) = \Spec(A) \times \Spec(B).
+$$
+
+\end{lemma}
+
+\medskip\noindent
+Now we discuss…
+
+\begin{lemma}
+\label{lemma-intersection-of-maximal-ideals-is-nilradical}
+Let $A$ be a finitely-generated $\mathbb{C}$-algebra.
+The intersection of all the prime ideals of $A$
+is its nilradical.
+\end{lemma}
+
+\begin{exercise}
+\label{exercise-tensor-product-may-contain-nilpotents}
+Let $A$ and $B$ be finitely generated $\mathbb{C}$-algebras,
+$B \to A$ a homomorphism and $\mathfrak{m} \subset B$ a maximal ideal.
+Then $A\otimes_B (B/\mathfrak{m})$ can contain nilpotents.
+\end{exercise}
+
+\begin{proof}
+The geometric idea is to project a parabola to an axis.
+At the point of tangency we obtain a fat point,
+whose algebra is not reduced.
+\end{proof}
+
+However, over $\mathbb{C}$ the situation is different:
+
+\begin{theorem}
+\label{theorem-tensor-product-over-c-of-reduced-is-reduced}
+Let $A,B$ be finitely generated reduced $\mathbb{C}$-algebras.
+Then $A \otimes_\mathbb{C} B$ is reduced.
+\end{theorem}
+
+It follows that
+
+\begin{theorem}
+\label{theorem-tensor-product-in-affine-varieties-is-tensor-in-algebras}
+$$
+\Spec(A)\times \Spec(B) = \Spec(A \otimes_\mathbb{C}B).
+$$
+\end{theorem}
+
+\medskip\noindent
+Now we can take preimages!
+
+\begin{lemma}
+\label{lemma-preimage-of-affine-subvariety}
+Let $f:X \to Y$ be a morphism of affine algebraic varieties,
+$f^*:\mathcal{O}_Y \to \mathcal{O}_X$ the corresponding ring homomorphism,
+$Z \subset Y $ a subvariety and $I_Z$ its ideal.
+Denote by $R_1$ the quotient ring
+$$
+(\mathcal{O}_X \otimes_{\mathcal{O}_Y}(\mathcal{O}_Y/IZ)/\text{nilradical}
+= (\mathcal{O}_X/f^* (I_Z))/\text{nilradical}.
+$$
+Then
+$$
+\Spec(R_1)=f^{-1}(Z).
+$$
 \end{lemma}
 
 \begin{proof}
-If $R[f^{-1}]=0$ then $1 \in (ft-1)$,
-which means that $1=(1-ft)p(t)$ for some $p(t) \in k[t]$.
-Then…
+Analogous to preimage of a point.
 \end{proof}
 
 \noindent
-The localization a ring is not always a local ring.
-But if $S$ is a prime ideal, then it is.
+The slogan is:
+adding polynomials to an ideal is the same as taking tensor product.
+This operation is given by Exercise
+\ref{exercise-tensor-product-of-quotients-by-maximal-ideals-is-zero}.
 
+We can also consider the diagonal of a product:
 
-\begin{exercise}
-\label{exercise-localization-of-noetherian-is-noetherian}
-Prove that localization of a Noetherian ring is Noetherian.
-\end{exercise}
+\begin{lemma}
+\label{lemma-diagonal-of-product}
+Let $M$ be an affine algebraic variety,
+its diagonal $\Delta \subset M\times M$
+and $I \subset \mathcal{O}_M \otimes_\mathbb{C} \mathcal{O}_M$
+the ideal generated by $r \otimes 1 - 1 \otimes r$
+for all $r \in \mathcal{O}_M$. Then
+$$
+\mathcal{O}_M \otimes_\mathbb{C} \mathcal{O}_M/I.
+$$
+\end{lemma}
+
+\noindent
+And now we introduce fibered product!
+
+\begin{proposition}
+\label{proposition-fibered-product}
+Let $X \to M$ and $Y \to M$ be morphisms of algebraic varieties,
+$R= \mathcal{O}_X \otimes_{\mathcal{O}_M}\mathcal{O}_Y$,
+and $R_1$ the quotient of $R$ by its nilradical.
+Then
+$$
+\Spec(R_1)=X \times_M Y.
+$$
+\end{proposition}
 
 \begin{proof}
-Let $R$ be a Noetherian ring and $S \subset R$.
-Let $I_1\subset I_2 \subset…$
-be a chain of ideals in the localization $R[S^{-1}]$.
-Let $\pi:R \to R[S^{-1}]$ the canonical projection $r \mapsto r$.
-
-Let $I$ be any of the $I_i$.
-Consider $\pi^{-1}(I)$. This gives a chain of ideals in $R$,
-which must stabilize.
-To go back to the localization simply recall that
-$\pi^{-1}(I)[S^{-1}]=I$.
+$$
+X\times Y \xrightarrow{f \times g} Z \times Z,
+$$
+and compute $(f\times g)^{-1}(\Delta)$.
+By Lemma \cite{lemma-diagonal} we must have
+$$
+A \otimes_\mathbb{C} B \big/(r \otimes 1-1 \otimes r)
+=
+A \otimes_C B
+$$
+where $A=\mathcal{O}_X$, $B=\mathcal{O}_Y$ and $C=\mathcal{O}_Z$.
 \end{proof}
 
+\noindent
+We shall not explain why,
+but coproduct in the category of 
+reduced finitely generated algebras
+is direct sum.
 
-
-
-
-\section{Finite and integral ring extensions}
-\label{section-finite-ring-extensions}
+\section{Artinian algebras}
+\label{section-artinian-algebras}
 
 \noindent
+We start with a motivating introduction.
+Field of rational functions on a variety,
+take its covering, remove its ramification locus,
+obtain a field extension.
+Study automorphisms of the field extensions,
+which is the same as studying
+automorphisms of the cover.
+This is Galois theory.
+Decomposition of a direct sum of fields
+shall correspond to the disjoint union of varieties.
+
+\medskip\noindent
+In this section algebras are not assumed to have unity.
+
+\medskip\noindent
+A {\it field extension}
+of the field $k$ is another field $K$ which cointains $k$.
+This is denoted $[K:k]$.
+
+$[K:k]$ is {\it algebraic} if $K$ is finite-dimensional over $k$.
+Otherwise it is {\it trascendental}.
+
+An element $x \in K$ is {\it algebraic} if it is a root
+of a nonzero polynomial with coefficients in $k$,
+and otherwise it is {\it trascendental}.
+
+\begin{exercise}
+\label{exercise-algebraic-field-extension}
+A field extension is algebraic if and only if
+all its elements are algebraic.
+\end{exercise}
+
+\noindent
+A field is called {\it algebraically closed} 
+is all algebraic extensions are trivial.
+This is equivalent to the field containing
+the roots of all polynomials.
+
+\begin{definition}
+\label{definition-minimal-polynomial}
+The {\it minimal polynomial} of an element $v$
+in a finitely-generated $k$-algebra $R$
+a monic polynomial $P \in R[t]$
+of smallest possible degree having $v$ as a root.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-subalgebra-and-minimal-polynomial}
+The subalgebra generated by $v$ is
+isomorphic to $k[t]/(P)$.
+\end{lemma}
+
+\begin{proof}
+Consider the map $k[t] \to Rv$,
+whose kernel is $(P)$ since $P$ divides
+any polynomial vanishing in $v$.
+\end{proof}
+
+\noindent
+For example,
+$$
+\frac{\mathbb{R}[t]}{t^2+1}\simeq \mathbb{C}
+$$
+while
+$$
+\frac{\mathbb{R}[t]}{t^2=1}\simeq \mathbb{R} \oplus \mathbb{R}.
+$$
+
+\medskip\noindent
+Recall that $k[t]$ is a UFD.
+Also recall that $P$ is an irreducible element
+of $k[t]$ if and only if
+$k[t]/(P)$ is a field.
+This follows since $k[t]/(P)$ cannot have
+zerodivisors if $P$ is prime,
+which is equivalent to irreducible in UFDs.
+These extensions are called {\it primitive}. 
+[They are extensions of $k$ obtained by adding a root of $P$.]
+
+\begin{definition}
+\label{definition-artinian-algebra}
+A commutative, associative $k$-algebra $R$
+not necessarily with unit
+is called an {\it Artinian algebra} if it is
+a finite-dimensional vector space over $k$.
+It is called {\it semisimple} 
+if it has no nonzero nilpotents.
+\end{definition}
+
+\noindent
+We will show that any semisimple Artinian algebra
+is a direct sum (direct sum of rings equipped with natural operations)
+of fields, and this decomposition is uniquely defined.
+
+An idempotent element $e$ in $R$,
+i.e. $e^2=e$,
+gives us a canonical decomposition
+$$
+eR \oplus (1-e)R
+$$
+since $1-e$ is also idempotent.
+
+\begin{theorem}
+\label{theorem-reduced-artinian-contains-idempotent}
+An Artinian algebra without nilpotents contains an idempotent.
+\end{theorem}
+
+\noindent
+The proof of the theorem constructs a maximal ideal $I \subset A$
+which contains a unit, and thus is a field $I$.
+
+Thus we obtain
+
+\begin{theorem}
+\label{theorem-artinian-semisimple-is-direct-sum-of-fields}
+An Artinian algebra with unity with no nilpotents
+is a direct sum of fields.
+\end{theorem}
+
+\begin{proof}
+We find an idempotent element $e$,
+so that we can decompose
+$$
+A=eA\oplus (1-e)A
+$$
+where $e$ is a unity on the first factor
+and so is $1-e$ on the second factor,
+thus every component is a field.
+We repeat this process until we exhaust the dimension of $A$.
+\end{proof}
+
+\noindent
+We can also prove this theorem for algebras without unity.
+We consider the kernel of the map
+$u_0:a \mapsto au$ and put
+$$
+A=u A \oplus \Ker u_0A.
+$$
+\begin{lemma}
+\label{lemma-uniqueness-of-decomposition-algebras}
+Any decomposition of an algebra into a direct sum of fields
+is unique up to permutation of the factors.
+\end{lemma}
+
+\section{Finite morphisms}
+\label{section-finite-morphisms}
+
+\begin{remark}
+\label{remark-finite-generated-and-tensor-product}
+If $M$ is a finitely generated $R$-module
+and $R \to R'$ is a ring morphism, then
+$M\otimes_R R'$ is a finitely-generated $R'$-module
+generated by the same generators of $M$.
+\end{remark}
+
+\begin{definition}
+\label{definition-finite-morphism}
+A {\it finite morphism} of affine varieties is called
+{\it finite} if the $\mathcal{O}_X$ is a finitely generated
+$\mathcal{O}_Y$-module.
+In this case, $\mathcal{O}_X$ is called an {\it integral extension} 
+of $\mathcal{O}_Y$.
+\end{definition}
+
+\noindent
+Here's some notes from the past that may pop up in memory:
 The upshot is: let $\varphi:R \to S$ be a ring map.
 An element $s \in S$ is integral over $R$ if there
 is a monic polynomial with coefficients in $R$
@@ -823,6 +1162,71 @@ But the point is: I think that after applying Spec,
 the fibers of an integral extension are {\bf finite}.
 Which of course has all to do with the finite-moduleness
 I was trying to explain.
+
+\medskip\noindent
+Back to Misha's lecture…
+
+\begin{theorem}
+\label{theorem-finite-map-has-finite-preimage}
+
+\end{theorem}
+
+\begin{proof}
+The decomposition into sums of fields gives the finiteness.
+\end{proof}
+
+\medskip\noindent
+Now we discuss the trace form.
+
+\begin{definition}
+\label{definition-invariant-bilinear-form}
+Let $R$ be a $k$-algebra, and $g:R \times R \to k$
+a symmetric $k$-bilinear form on $R$.
+$g$ is called {\it invariant} if
+$$
+g(x,yz)=g(xy,z).
+$$
+\end{definition}
+
+If $R$ has a unity we have
+$$
+g(x,y)=g(xy,1),
+$$
+so that in fact $g$ is determined by a
+linear functional $a \mapsto g(a,1)$.
+
+\begin{example}
+\label{example-invariant-nondegenerate-form}
+In the ring $\mathbb{C}[x,y]/(x^{n+1},y^{n+1})$
+the form $\varepsilon(xy)=a_nn$
+is nondegenerate.
+\end{example}
+
+\begin{definition}[Trace form…]
+\label{definition-trace-form}
+
+\end{definition}
+
+\begin{definition}
+\label{definition-separable-field-extension}
+A field extension is {\it separable} 
+if the trace form is nonzero.
+\end{definition}
+
+\begin{theorem}
+\label{theorem-}
+Let $R$ be an Artinian algebra over $k$
+with nondegenerate trace form.
+Then $R$ is semisimple.
+\end{theorem}
+
+
+
+
+
+
+
+
 
 
 
