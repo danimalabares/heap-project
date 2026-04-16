@@ -109,30 +109,6 @@ Note that given a category $\mathcal{B}$ the set of full subcategories
 of $\mathcal{B}$ is the same as the set of subsets of
 $\Ob(\mathcal{B})$.
 
-\begin{remark}
-\label{remark-functor-into-sets}
-Suppose that $\mathcal{A}$ is a category.
-A functor $F$ from $\mathcal{A}$ to $\textit{Sets}$
-is a mathematical object (i.e., it is a set not a class or a formula
-of set theory, see
-Sets, Section \ref{sets-section-sets-everything})
-even though the category of sets is ``big''.
-Namely, the range of $F$ on objects will be
-a set $F(\Ob(\mathcal{A}))$ and then we
-may think of $F$ as a functor between
-$\mathcal{A}$ and the full subcategory
-of the category of sets whose
-objects are elements of $F(\Ob(\mathcal{A}))$.
-\end{remark}
-
-\begin{example}
-\label{example-group-homomorphism-functor}
-A homomorphism $p : G\to H$ of groups gives rise to a functor
-between the associated groupoids in Example \ref{example-group-groupoid}. It is
-faithful (resp.\ fully faithful) if and only if $p$ is injective (resp.\ an
-isomorphism).
-\end{example}
-
 \begin{example}
 \label{example-category-over-X}
 Given a category $\mathcal{C}$ and an object $X\in \Ob(\mathcal{C})$
@@ -166,8 +142,28 @@ obtained by composition with $f$,
 and $p_{X'}\circ F = p_X$.
 \end{example}
 
+\begin{definition}
+\label{definition-equivalence-of-categories}
+Two categories are {\it equivalent} if there exist functors
+from one to the other and backwards which composed with
+each other are the corresponding identities.
+\end{definition}
 
+\begin{lemma}
+\label{lemma-equivalence-categories}
+A functor is an equivalence of categories if and only if it is both fully
+faithful and essentially surjective.
+\end{lemma}
 
+\begin{proof}
+Let $F : \mathcal{A} \to \mathcal{B}$ be essentially surjective and fully
+faithful. As by convention all categories are small and as $F$ is essentially
+surjective we can, using the axiom of choice, choose for every
+$X \in \Ob(\mathcal{B})$ an object $j(X)$ of $\mathcal{A}$ and an
+isomorphism $i_X : X \to F(j(X))$. Then we apply
+Lemma \ref{lemma-construct-quasi-inverse}
+using that $F$ is fully faithful.
+\end{proof}
 
 \section{Monomorphisms}
 \label{section-monomorphisms-and-epimorphisms}
@@ -882,6 +878,188 @@ $M_i \to \coprod M_i$. These are sometimes called the
 \medskip\noindent
 There is also so-called statement
 of ``commutativity of limits''.
+
+\section{Categories fibred in groupoids}
+\label{section-fibred-groupoids}
+
+\noindent
+General fibration: every map on the base has a lift that is $p$-cartesian.
+(Discrete fibration: unique?)
+Fibered in groupoids: all maps in the Étale space are $p$-cartesian.
+
+\medskip\noindent
+And to my surprise, these are none other than 
+categories fibered in groupoids according to
+Stacks Project 
+\href{https://stacks.math.columbia.edu/tag/003S}{003S} section
+on Categories fibered in groupoids.
+
+\medskip\noindent
+Let $p:\mathcal{E} \to \mathcal{B}$ be any functor.
+The idea of fibrations is to lift maps from $\mathcal{B}$ to $\mathcal{E}$.
+We will fix the target; the condition is that for maps on $\mathcal{B}$
+with target $p(y)$ there exist 
+(unique? that's the condition for discrete fibrations)
+maps on $\mathcal{E}$ corresponding via $p$.
+Why fix the target? Because it's like a base-change.
+But not only that: we need that the map that exists
+is good; it has to be $p$-Cartesian: 
+
+\begin{definition}
+\label{definition-p-cartesian}
+Let $p:\mathcal{E} \to \mathcal{B}$. A morphism $f$ in  $\mathcal{E}$ 
+is {\it $p$-cartesian} if for all $g$ and for all $h'$ 
+such that $p(g)=p(f) \circ h'$ 
+there exists a unique $h$ such that
+ $p(h)=h'$ and $g=f \circ h$
+$$
+\xymatrix{
+Z \ar@{-->}[d]_h \ar[rd]^g\\
+X \ar[r]_f& Y
+}
+$$
+given that
+$$
+\xymatrix{
+p(Z)\ar[d]_{h'}\ar[rd]^{p(g)}\\
+p(X)\ar[r]_{p(f)}&p(Y).
+}
+$$
+\end{definition}
+
+\begin{definition}
+\label{definition-fibration}
+$p:\mathcal{E} \to \mathcal{B}$ is a {\it fibration} if
+for all $Y$ and all $f':X' \to p(Y)$ there exists $X$ and
+$f:X \to Y$ such that
+\begin{enumerate}
+\item $p(f)=f'$, and
+\label{item-fibration1}
+
+ \item $f$ is $p$-Cartesian.
+\label{item-fibration2}
+\end{enumerate}
+\end{definition}
+
+\noindent
+Recall Definition \ref{definition-discrete-fibration} of discrete fibration:
+$p:\mathcal{E} \to \mathcal{B}$ is a discrete fibration if for all 
+$Y \in \mathcal{E}$ 
+and for all $f':X' \to p(Y)$ there exist 
+{\bf unique} ($X$ and  $f:X \to Y$) such that $p(f)=f'$.
+
+\begin{lemma}
+\label{lemma-discrete-fibration-is-fibration}
+If $p:\mathcal{E} \to \mathcal{B}$ 
+is a discrete fibration then it is a fibration,
+i.e.  $f$ is also $p$-Cartesian.
+\end{lemma}
+
+\begin{proof}
+Uniqueness ensures source and target coincide in all lifts.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-p-cartesian}
+Composition of $p$-Cartesian morphisms is $p$-Cartesian.
+\end{lemma}
+
+\begin{proof}
+Write the diagrams and don't forget to prove uniqueness.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-2-for-3-p-cartesian}
+2-for-3 for $p$-Cartesian.
+\end{lemma}
+
+\begin{proof}
+Write the diagrams and don't forget to prove uniqueness.
+\end{proof}
+
+\medskip\noindent
+The notion of pseudofunctor $F:\mathcal{B}^{\text{op}} \to \mathsf{Cat}$
+is like that of a functor but we ask that
+$F(\text{id}_A) \cong \text{id}_{F(A)}$
+and $F(f) \circ F(g) \cong F(f \circ g)$
+in some weaker sense than equality.
+(This is very much like it happens in $\infty$-categories.)
+It turns out that
+$$
+\text{Fibrations over $\mathcal{B}$}\xymatrix{\ar@{<~>}[r]&}
+\text{pseudo functors }F:\mathcal{B}^{\text{op}}\to \mathsf{Cat}.
+$$
+
+\begin{definition}
+\label{definition-fibred-in-groupoids}
+A functor $p:\mathcal{E} \to \mathcal{B}$ is called a 
+{\it fibration in groupoids} 
+if it is a fibration and every fiber is a groupoid.
+\end{definition}
+
+\noindent
+As I said in the beginning of this section,
+I think this condition is equivalent to saying that
+every morphism in the Étale space is cartesian
+(this should be an easy exercise).
+
+\begin{lemma}
+\label{lemma-fibration-in-groupoids-iff}
+$p:\mathcal{E} \to \mathcal{B}$ is a fibration in groupoids if and only if
+every morphism in $\mathcal{E}$ is $p$-cartesian and any lifting problem
+$$
+\xymatrix{
+& e\ar[d]\\
+b\ar[r]& p(e)
+}
+$$
+has a solution.
+\end{lemma}
+
+\begin{proof}
+The backward implication is easy.
+From the hypotheses we get immediately that $p$ is a fibration.
+To show that the fibers are groupoids we lift an arbitrary morphism $f$ 
+and do lifting problem against itself.
+\end{proof}
+
+\begin{definition}
+\label{definition-right-fibration-simplicial}
+
+\end{definition}
+
+\begin{lemma}
+\label{lemma-fibration-nerves}
+Let $X, Y$ be nerves of 1-categories.
+Then $p:X \to Y$ is a right fibration if and only if
+it is a fibration in groupoids.
+\end{lemma}
+
+\begin{proof}
+The condition for right fibration for $n=0$ gives existence,
+for $n=1$ gives commutativty,
+for $n=2$ gives uniqueness.
+\end{proof}
+
+\medskip\noindent
+Now I put two other results:
+
+\begin{lemma}
+\label{lemma-kan-fibration-left-right}
+Kan fibration if and only if both left and right fibration.
+\end{lemma}
+
+\begin{lemma}
+\label{lemma-kan-fibration-infty-groupoids}
+$X$ is $\infty$-groupoid if and only if $X \to pt$ is Kan fibration,
+if and only if it is left (or right) fibration.
+\end{lemma}
+
+
+
+
+
+
 
 \bibliography{my} \bibliographystyle{amsalpha}
 
