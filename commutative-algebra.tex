@@ -826,18 +826,28 @@ Recall that the spectrum of a ring $\Spec R$
 is the corresponding algebraic variety.
 
 \begin{proposition}
-\label{proposition-points-in-affine-algebraic-varieties}
+\label{proposition-preimage-of-points}
 Let $f:X \to Y$ be a morphism of affine varieties
 and $f^*:\mathcal{O}_Y \to \mathcal{O}_X$ the corresponding morphism.
 Let $y \in Y$ and $\mathfrak{m}_y$ the corresponding maximal ideal.
 Then
 $$
-\Spec(
-(\mathcal{O}_X \otimes_{\mathcal{O}_Y}\frac{\mathcal{O}_Y}{\mathfrak{m}_y})
-\Big/\text{nilradical})
-\cong f_1(y).
+\Spec\left(
+\left(\mathcal{O}_X \otimes_{\mathcal{O}_Y}
+\frac{\mathcal{O}_Y}{\mathfrak{m}_y}\right)
+\Big/\text{nilradical}\right)
+\cong f^{-1}(y).
 $$
 \end{proposition}
+
+\begin{remark}
+\label{remark-preimage-as-fibered-product}
+Notice that we can see $y \in Y$ as a subvariety.
+In fact, it is, like $X$, a variety {\it over $Y$}.
+Thus this expression for $f^{-1}(y)$
+matches that of the fibered product
+in Proposition \ref{proposition-fibered-product}. 
+\end{remark}
 
 \begin{lemma}
 \label{lemma-product-in-affine-varieties-is-tensor-in-algebras}
@@ -1063,7 +1073,9 @@ if it has no nonzero nilpotents.
 
 \noindent
 We will show that any semisimple Artinian algebra
-is a direct sum (direct sum of rings equipped with natural operations)
+is a direct sum (direct sum in 
+the categorie of algebras is
+the direct sum of the rings equipped with natural operations)
 of fields, and this decomposition is uniquely defined.
 
 An idempotent element $e$ in $R$,
@@ -1146,18 +1158,12 @@ that gives zero when you put $s$ instead of the variable.
 But it might be convenient to think about
 finite (or, for humans, finitely-generated) $R$-modules:
 $x$ is integral over $R$ if and only if $R[x]$
-is a finitely-generated  $R$-module (i.e.,
-not only finitely generated as an algebra
-but also as a module).
-See \href{
-https://youtu.be/5fCHj80BQHw?si=o7tMC4tRsbBnwmJi}{Zvi Rosen's video}.
+is a finitely-generated  $R$-module.
 The forward implication is: suppose $x$ is integral,
 then $x^n+r_1x^{n-1}+\ldots+r_n=0$, so
 $x^n=-r_1x^{n-1}+\ldots+r_n$,
 which ``says'' $R[x] \cong \bigoplus_{k=0}^{n-1}Rx^k$.
 
-So maybe the details of that are not entirely trivial (Zvi uses some theorem,
-and Stacks Project does lots of things).
 But the point is: I think that after applying Spec,
 the fibers of an integral extension are {\bf finite}.
 Which of course has all to do with the finite-moduleness
@@ -1168,11 +1174,26 @@ Back to Misha's lecture…
 
 \begin{theorem}
 \label{theorem-finite-map-has-finite-preimage}
-
+Let $f:X \to Y$ be a finite morphism of affine varieties.
+Then for any point $y \in Y$,
+the preimage $f^{-1}(y)$ is finite.
 \end{theorem}
 
 \begin{proof}
-The decomposition into sums of fields gives the finiteness.
+Let $R$ be the $\mathcal{O}_Y$-module 
+$R:= \mathcal{O}_X \otimes_{\mathcal{O}_Y}\mathcal{O}_Y/\mathfrak{m}_y$,
+which is the coordinate ring of $f^{-1}(y)$ 
+by Proposition \ref{proposition-preimage-of-point}
+or Lemma \ref{lemma-preimage-of-affine-subvariety}.
+
+Further, it is finitely generated because $\mathcal{O}_X$ is finitely generated
+over $\mathcal{O}_Y$
+(Remark \ref{remark-finite-generated-and-tensor-product}).
+
+Since $\mathcal{O}_Y/\mathfrak{m}_y \simeq \mathbb{C}$,
+$R$ is an Artinian algebra.
+By Theorem \ref{theorem-artinian-semisimple-is-direct-sum-of-fields},
+$\Spec(R)$ is a finite set!
 \end{proof}
 
 \medskip\noindent
@@ -1220,9 +1241,198 @@ with nondegenerate trace form.
 Then $R$ is semisimple.
 \end{theorem}
 
+\begin{lemma}
+\label{lemma-trace-and-tensor-product}
+The trace in the tensor product
+is the tensor product in of the traces.
+\end{lemma}
+
+\section{Field extensions}
+\label{section-field-extensions}
+
+\noindent
+In this section we aim to prove:
+let $[k:k]$ be a finite extension over with $\text{char} k =0$.
+then there exists an element $l \in k$ generating $k$.
 
 
+\medskip\noindent
+Recall that we defined a field $k$ to be algebraically closed
+it all algebraic extensions of $k$ are trivial.
 
+\begin{lemma}
+\label{lemma-algebraically-closed-iff-factoring-polynomials}
+A field $k$ is algebraically closed if and only if
+any polynomial $P \in k[t]$ is a product of linear factors.
+\end{lemma}
+
+\begin{proof}
+If $P$ does not decompose,
+there is a polynomial of degree >1 diving $P$,
+and the quotient $k[t]/$such polynomial is an algebraic field extension.
+\end{proof}
+
+\noindent
+There is a good notion of algebraic closure of a field
+obtained by adding roots and applying Zorn's lemma
+to ensure this process finishes. And it is unique.
+
+\begin{theorem}
+\label{theorem-separable-extension-and-algebraic-closure}
+Let $[\bar{k}:k]$ be the algebraic closure of $k$,
+and $[K:k]$ a separable finite extension.
+Then
+$$
+K \otimes_k \bar{k} = \bigoplus \bar{k}.
+$$
+\end{theorem}
+
+\noindent
+Recall that by Galois theory we can see
+that there only finitely many field extensions.
+Namely Galois theory says that field extensions
+are in correspondence with subgroups of the
+Galois group, which is finite.
+But this a simpler case:
+
+\begin{lemma}
+\label{lemma-finitely-many-k-algebras}
+Let $k$ be a field,
+and $A = \bigoplus_{i=1}^nk$. Then $A$ contains
+only finitely many different $k$-algebras.
+\end{lemma}
+
+\begin{proof}
+
+\end{proof}
+
+\noindent
+Now we can prove (without Galois theory):
+
+\begin{theorem}
+\label{theorem-finite-extension-char-0-generated-by-one-element}
+let $[k:k]$ be a finite extension over with $\text{char} k =0$.
+then there exists an element $l \in k$ generating $k$.
+\end{theorem}
+
+\begin{proof}
+Using finiteness of the contained algebras…
+And the following fun claim:
+if $V_i$ are positive codimension subspaces of $k^n$,
+then $\bigcup V_i \neq  k^n$.
+\end{proof}
+
+\begin{definition}
+\label{definition-galois-extension}
+Let $[K:k]$ be a finite extension.
+It is called a {\it Galois extension} if the algebra
+$K \otimes_k K$ is isomorphic to a direct sum of several copies of $K$.
+\end{definition}
+
+\begin{example}
+\label{example-galois-extension}
+Let $K=k[t]/(P)$
+be a primitive, separable extension with $\text{deg} P=n$.
+Suppose that $P$ has $n$ roots in $K$.
+Then $[K:k]$ is Galois.
+Indeed, this is the Chinese reminder exercise once again:
+$$
+K \otimes_k K = \frac{K[t]}{(P)}
+=\bigoplus_i \frac{K[t]}{(t-a_i)}.
+$$
+\end{example}
+
+\begin{exercise}
+\label{exercise-galois-extension}
+$K=k[t]/P$.
+$[K:k]$ is Galois if and only if
+$P$ has $n$ roots in $K[t]$.
+\end{exercise}
+
+\begin{definition}
+\label{definition-splitting-field}
+Let $P \in k[t]$
+be an irreducible polynomial.
+{\it Splitting field} is the minimal extension
+such that $P$ factors into linear factors.
+
+Equivalently, pick $P \in k[t]$ of degree $n$ without multiple roots,
+and $k$ of characteristic 0.
+Decompose $P$ into irreducible factors and construct finite extensions
+$K_1\subset … \subset K_\ell$ by adding the roots of each factor.
+This process ends (prove this) and the resulting field is
+the {\it splitting field}.
+\end{definition}
+
+\noindent
+Splitting field is Galois by Exercise \ref{exercise-galois-extension}.
+We can think of the splitting field as embedded in $\bar{k}$.
+There is not a unique embedding but all embeddings are isomorphic.
+
+\begin{definition}
+\label{definition-galois-group}
+If $[K:k]$ is a Galois extension,
+$\text{Aut}_k K$ is called {\it Galois group}.
+\end{definition}
+
+\noindent
+Note that $K^*$ acts on $K \otimes_k K$ by multiplication
+on the right and on the left.
+
+\begin{lemma}
+\label{lemma-galois-group-and-extensions}
+Let $[K:k]$ be a Galois extension.
+There is a bijection between the following sets:
+\begin{enumerate}
+\item $\text{Aut}_k K$.
+\item Prime ideals in $K \otimes_k K$.
+\item Homomorphisms $K \otimes_k K \to K$
+which are linear with respect to the left action of $K$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(2 $\implies$ 3) is simple.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-galois-extension-and-direct-sum}
+Let $[K:k]$ be a Galois extension,
+and $K\otimes_k K = \bigoplus_{\nu \in \text{Aut}_k K}K_\nu$
+the decomposition of $K \otimes_k K$ 
+enumerated by elements of $\text{Aut}_k K$.
+Then the left $\mu_l$ and right $\mu_r$ actions of $K^*$ on
+$K\otimes_k K$ are such that
+$\mu_l(a)e_\nu = \mu_r(\nu(a))e_\nu$.
+\end{lemma}
+
+\begin{lemma}
+\label{lemma-gal-invariant}
+Let $[K:k]$ be a Galois extension,
+and $a \in K$ a $\text{Aut}_k K$-invariant element.
+Then $a \in k$.
+\end{lemma}
+
+\begin{lemma}
+\label{lemma-galois-and-g-invariants}
+Let $[K:k]$ be a Galois extension, and $K'$ an intermediate field
+(which, as we will see in the proof, will also be Galois)
+Then 
+$$
+K' = K^{G'}
+$$
+where $G' \subset \text{Aut}_{K'}K$ is the group
+of $K'$-linear automorphisms of $K$
+and $K^{G'}$ is the space of $G'$-invariants.
+\end{lemma}
+
+\begin{theorem}[Main theorem of Galois theory]
+\label{theorem-main-theorem-of-galois-theory}
+Let $[K:k]$ be a Galois extension.
+The subgroups $H \subset \text{Aut}_k K$ are in bijective correspondence
+with intermediate subfields
+$k \subset K^H \subset K$.
+\end{theorem}
 
 
 
@@ -1250,7 +1460,6 @@ https://sites.psu.edu/kul20/
 How is Lin using the Reese algebra here?
 Is it ture that the initial ideal of the Gröbner deformation
 coincides with the initial ideal ``of the Resse algebra''?
-
 
 
 \bibliography{my}
