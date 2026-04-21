@@ -3177,14 +3177,27 @@ ample-line-bundle-on-a-k3-surface-implies-l-otimes-2-is-base-point-free/
 \end{reference}
 As an outline for exposition:
 \begin{enumerate}
-\item Show that $L$ has sections (by ampleness+Kodaira Vanishing+Riemann-Roch), 
+\item Show that $L$ has sections 
+(by ampleness+Kodaira Vanishing+Riemann-Roch for surfaces),
 pick a section $C$ and note that if 
 $L^{\otimes2}$ had base points they would be in $C$.
-\item Show that restriction map is surjective (Kodaira Vanishing).
-\item Show that inclusion map is not surjective. For this it's enough to show
-that $\dim|D|=\dim|D-p|+1$. This follows by writing the formula of Riemann-Roch
-for both of these Weil divisors (have to pass to Weil divisors). But you will
-need to make sure that $h^0(K-D)$ and $h^0(K-(D-p))$ are zero.
+
+\item  Using Kodaira Vanishing again we show 
+that every section of the line bundle restricted to $C$
+comes from a section of the line bundle on $M$.
+Thus it's enough to find a nonvanishing section on the restricted bundle.
+
+\item Then we aim to apply Riemann-Roch on $C$.
+If we can show that $h^0((L^{\otimes 2})^\vee \otimes \omega_C)$
+and $h^0((L^{\otimes 2}(-p))^\vee \otimes \omega_C)$
+both vanish, we apply Riemann-Roch and see that
+$h^0(L^{\otimes 2})> h^0(L^{\otimes 2}(-p)$,
+which proves the result since that says
+that not every section is a section vanishing at $p \in C$.
+
+\item To compute the vanishings of the $h^0$ 
+in the previous step we show they have negative degrees
+(genus formula + degree of canonical bundle of a curve).
 \end{enumerate}
 
 First we need to show that $L$ has sections. To see this I will shot that since
@@ -3198,11 +3211,16 @@ Applying again Riemann-Roch and Kodaira vanishing we see that $h^0(L)>0$. Let
 $C$ be a section of $L$.
 
 Notice that if $L^{\otimes 2}$
-had any base points, they would have to be on $C$. Indeed, since $C$ is the
+had any base points, they would have to be on $C$. 
+Indeed, since $C$ is the
 vanishing set of a section $s\in H^{0}(L)$, we must have $s \otimes s \in
 H^{0}(L^{\otimes 2})$ vanishing in any base point of $L^{\otimes 2}$.
 
-Then we consider the ideal exact sequence for $C$ and tensor by $L^{\otimes 2}$
+Then we consider the ideal exact sequence for $C$ 
+and tensor by $L^{\otimes 2}$
+(which preserves left-exactness because line bundles
+are locally free of rank 1, that is,
+we are tensoring by the underlying ring)
 to obtain
 $$
 \xymatrix{
@@ -3224,7 +3242,7 @@ This says that every section of $L^{\otimes 2}|_C$ is the
 restriction to $C$ of a section of $L^{\otimes 2}$. In turn this shows that it's
 enough to show that the bundle $L^{\otimes 2}$ has no base points along $C$.
 
-By adjunction formula for (possibly singular) curves on smooth surfaces and by 
+By the genus formula for (possibly singular) curves on smooth surfaces and by 
 the fact that $M$ is smooth, we see that $2p_a(C)-2=(L.L)$ so that
 $$
 4p_a(C)-4=(2L.L)=\text{deg}_C(L^{\otimes 2})
@@ -3243,7 +3261,8 @@ $h^0(\omega_C\otimes (L^{\otimes2}|_{C})^\vee)=0
 bundles as Weil divisors by simply taking sections, whose vanishing sets are 
 finite sets of points with multiplicities. Then their degree is the sum of the
 multiplicities.  This definition makes degree additive with respect to tensor
-product (we may take local sections and sum degrees). By Riemann-Roch on the curve
+product (we may take local sections and sum degrees). 
+By Riemann-Roch on the curve
 $C$, we know that $\text{deg}\omega_C=2p_a-2$. Then
 
 $$
@@ -3254,8 +3273,10 @@ $$
 and a similar computation works for $L^{\otimes 2}(-p)$ as it has the same
 degree of $L^{\otimes 2}$ minus 1. This implies that neither of these bundles
 can have sections since any section would provide a linearly equivalent
-effective divisor. This would be a contradiction since both
-$L^{\otimes 2}$ and $L^{\otimes 2}(-p)$ have sections. Therefore 
+effective divisor
+--- degree is preserved under linear equivalence,
+and divisors given by sections are effective.
+Therefore 
 $h^0(\omega_C\otimes (L^{\otimes2}|_{C})^\vee)=0
 =h^0(\omega_C\otimes (L^{\otimes 2}|_{C}(-p))^\vee)$ as claimed.
 
