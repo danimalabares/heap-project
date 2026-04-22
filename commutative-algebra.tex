@@ -65,6 +65,118 @@ the ideals of $R/I$ are in correspondence with ideals of $R$ containing $I$,
 but only $R$ is such.
 \end{proof}
 
+\section{Modules}
+\label{section-modules}
+
+It looks like most books (at least
+\cite{eis} and \cite{Samuel-Zariski-Vol1})
+define a module to be an abelian group
+along with a certain operation with
+elements of the ring.
+
+Which secretly just says that
+
+\begin{definition}
+\label{definition-module}
+Let $R$ be a ring.
+An {\it (left) $R$-module} $M$ is an abelian group
+such that there exists a (left) ring morphism
+$$
+R \to \text{End}(M).
+$$
+\end{definition}
+
+\noindent
+Indeed, the three usual requirements
+correspond to:
+
+\begin{enumerate}
+\item The endomorphism corresponding to $a \in R$ 
+respect the group structure of the group $M$:
+$$
+a(x+y)=ax+ay,
+$$
+
+\item The representation map is a map of rings
+$$
+(a+b)x=ax+by,\qquad (ab)x=a(bx).
+$$
+\end{enumerate}
+
+\section{Algebras}
+\label{section-algebras}
+
+\begin{definition}
+\label{definition-algebra}
+\begin{reference}
+\cite{Eisenbud}
+\end{reference}
+If $R$ is a commutative ring,
+then a {\it commutative algebra} over $R$ 
+is a commutative ring $S$ together
+with a ring morphism $R \to S$.
+\end{definition}
+
+\noindent
+But actually I was expecting that 
+$S$ would be defined as 
+a ring that is also an $R$-module.
+So let us note that a morphism of rings
+$R \to S$ gives a representation
+$R \to \text{End}(S)$ via left multiplication.
+But the other way around,
+given an endomorphism associated
+to some element in $R$,
+how do we assign an element of $S$
+so as to produce a map $R \to S$?
+
+\medskip\noindent
+Now we briefly introduce finitely-generated
+algebras and modules.
+Upshot: a finitely-generated $R$-algebra
+$S$ is such that $S \simeq
+R[x_1,\ldots,x_n]/I$ for some ideal $I
+\subset R$. Another way of saying this is
+that there is a surjective morphism
+$R[x_1,…,x_n]\to S$. Finitely-presentedness
+is when $I = (s_1,\ldots,s_k)$.
+
+As an aside, recall that finitely presented 
+$k$-algebras with no nilpotents are in 
+correspondence with 
+affine algebraic varieties.
+
+\begin{definition}
+\label{definition-finite-type}
+Let $R \to S$ be a ring map.
+\begin{enumerate}
+\item We say $R \to S$ is of {\it finite type}, 
+or that {\it $S$ is a finite
+type $R$-algebra} if there exist an $n \in \mathbf{N}$ 
+and a surjection
+of $R$-algebras $R[x_1, \ldots, x_n] \to S$.
+\item We say $R \to S$ is of 
+{\it finite presentation} if there
+exist integers $n, m \in \mathbf{N}$ and polynomials
+$f_1, \ldots, f_m \in R[x_1, \ldots, x_n]$
+and an isomorphism of $R$-algebras
+$R[x_1, \ldots, x_n]/(f_1, \ldots, f_m) \cong S$.
+\end{enumerate}
+\end{definition}
+
+\noindent 
+For modules, the definition of
+finitely generated $R$-module is that there
+exists a surjective morphism $R^n
+\xymatrix{\ar@{->>}[r]&} S$. 
+So: finitely-generated
+algebra means elements are polynomials on
+the generators with coefficients in the
+ring, and finitely-generated
+module means elements are
+linear combinations on the generators with
+coefficients in the ring.
+
 \section{Localization}
 \label{section-localization}
 
@@ -149,18 +261,44 @@ $\pi^{-1}(I)[S^{-1}]=I$.
 \section{Noetherian and Artinian rings}
 \label{section-noetherian-and-artinian-rings}
 
+\noindent
+In this section we should 
+(it was in the lectures but
+the result is not here) explain
+why can any affine algebraic variety
+be expressed as a union of irreducible
+affine algebraic varieties.
+Roughly, the proof is as follows.
+Hilbert's basis theorem
+assures that the ring of polynomials
+in $n$ variables over a field is
+Noetherian, which guarantees
+that there are only finitely many
+prime ideals containing any given ideal.
+Since the radical of an ideal $I$ is 
+the intersection of all primes
+$\mathfrak{p}_i$ containing $I$, 
+and the variety of the radical is
+the same as the variety of the ideal,
+we can express $V(\sqrt{I}) 
+= V(\cap\mathfrak{p}_i)
+=\cup V(\mathfrak{p}_i)$.
+
 \begin{definition}
-\label{definition-noetherian-and-artinian-rings}
+\label{definition-noetherian-artinian-rings}
 A ring is called {\it Noetherian} 
-if any increasing chain of ideals $I_1 \subset I_2 \subset…$
+if any increasing chain of 
+ideals $I_1 \subset I_2 \subset…$
 stabilizes. It is called {\it Artinian} 
-if any descending chain of ideals $I_1 \supset I_2\supset…$
+if any descending chain of 
+ideals $I_1 \supset I_2\supset…$
 stabilizes.
 \end{definition}
 
 \begin{exercise}
 \label{exercise-noetherian-iff-ideals-are-finitely-generated}
-A ring is Noetherian if and only if all its ideals are finitely generated.
+A ring is Noetherian if and only if 
+all its ideals are finitely generated.
 \end{exercise}
 
 \begin{proof}
@@ -211,120 +349,6 @@ Then go back to $A[[t]]$ by taking the polynomials
 where the generators where taken.
 Then…
 \end{proof}
-
-\section{Fields}
-\label{section-fields}
-
-\noindent
-Just for the record, any simple field extension, i.e. the smallest
-field in $F$ containing a single element, is isomorphic
-to either que ``rational function field $k(t)/k$''
-or to one of the field extensions $k[t]/(P)$ 
-with $P \in k[t]$ irreducible.
-(Stacks Project tag \href{https://stacks.math.columbia.edu/tag/09G1}{09G1}.)
-
-\section{Modules}
-\label{section-modules}
-
-It looks like most books (at least
-\cite{eis} and \cite{Samuel-Zariski-Vol1})
-define a module to be an abelian group
-along with a certain operation with
-elements of the ring.
-
-Which secretly just says that
-
-\begin{definition}
-\label{definition-module}
-Let $R$ be a ring.
-An {\it (left) $R$-module} $M$ is an abelian group
-such that there exists a (left) ring morphism
-$$
-R \to \text{End}(M).
-$$
-\end{definition}
-
-\noindent
-Indeed, the three usual requirements
-correspond to:
-
-\begin{enumerate}
-\item The endomorphism corresponding to $a \in R$ 
-respect the group structure of the group $M$:
-$$
-a(x+y)=ax+ay,
-$$
-
-\item The representation map is a map of rings
-$$
-(a+b)x=ax+by,\qquad (ab)x=a(bx).
-$$
-\end{enumerate}
-
-\section{Algebras}
-\label{section-algebras}
-
-\begin{definition}
-\label{definition-algebra}
-\begin{reference}
-\cite{Eisenbud}
-\end{reference}
-If $R$ is a commutative ring,
-then a {\it commutative algebra} over $R$ 
-is a commutative ring $S$ together
-with a ring morphism $R \to S$.
-\end{definition}
-
-\noindent
-But actually I was expecting that 
-$S$ would be defined as 
-a ring that is also an $R$-module.
-So let us note that a morphism of rings
-$R \to S$ gives a representation
-$R \to \text{End}(S)$ via left multiplication.
-But the other way around,
-given an endomorphism associated
-to some element in $R$,
-how do we assign an element of $S$
-so as to produce a map $R \to S$?
-
-\section{Finitely-generated and finitely presented algebras}
-\label{section-finitely-presented-generated}
-
-\noindent
-See Stacks Project tag \href{https://stacks.math.columbia.edu/tag/00F2}{00F2}.
-
-Upshot: a finitely-generated $R$-algebra $S$ is such that
-$S \simeq R[x_1,\ldots,x_n]/I$ for some ideal $I \subset R$.
-Another way of saying this is that there is a surjective morphism
-$R[x_1,…,x_n]\to S$.
-Finitely-presentedness is when $I = (s_1,\ldots,s_k)$.
-
-As an aside, recall that finitely presented $k$-algebras
-with no nilpotents are in correspondence with affine algebraic varieties.
-
-\begin{definition}
-\label{definition-finite-type}
-Let $R \to S$ be a ring map.
-\begin{enumerate}
-\item We say $R \to S$ is of {\it finite type}, or that {\it $S$ is a finite
-type $R$-algebra} if there exist an $n \in \mathbf{N}$ and a surjection
-of $R$-algebras $R[x_1, \ldots, x_n] \to S$.
-\item We say $R \to S$ is of {\it finite presentation} if there
-exist integers $n, m \in \mathbf{N}$ and polynomials
-$f_1, \ldots, f_m \in R[x_1, \ldots, x_n]$
-and an isomorphism of $R$-algebras
-$R[x_1, \ldots, x_n]/(f_1, \ldots, f_m) \cong S$.
-\end{enumerate}
-\end{definition}
-
-\noindent
-For modules, the definition of finitely generated $R$-module
-is that there exists a surjective morphism $R^n \xymatrix{\ar@{->>}[r]&} S$.
-So: f.g. algebra means elements are polynomials 
-on the generators with coefficients in the ring,
-and f.g. module means elements are linear combinations
-on the generators with coefficients in the ring.
 
 \section{Tensor product}
 \label{section-tensor-product}
