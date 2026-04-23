@@ -16,16 +16,32 @@
 \label{section-algebraic-sets}
 
 \noindent
-I'm following \href{https://www.youtube.com/watch?v=C6XR9DrQnoQ}{this video}
-for this.
-
-\medskip\noindent
-The affine space $\mathbb{A}^n$ is just the Cartesian
-product of the field.
+The {\it affine space} $\mathbb{A}^n$ is the Cartesian
+product of the field $n$ times.
 An {\it algebraic set} is the zero set of an ideal
 in $k[x_1,…,x_n]$.
 
 $V(I)$ and lots of properties…
+
+\begin{lemma}
+\label{lemma-irreducible-variety-prime-ideal}
+An algebraic set is irreducible if and only if
+its defining ideal is prime.
+\end{lemma}
+
+\begin{proof}
+First notice that in
+the case that $Y$ is an irreducible subvariety,
+this ideal is prime: if $fg \in I_Y(U)$,
+then $V(f) \cup  V(g) \supset Y\cap U$ 
+so that $(V(f) \cup  V(g))\cap Y = Y\cap U$,
+and then it must be true that $V(f)\cap Y\subseteq V(g)\cap Y$
+or that $V(f)\cap Y \supseteq V(g)\cap Y \cap U$
+since $Y$ is irreducible, and thus, say,
+$V(f)\supseteq Y \cap U$,
+that is, $I(V(f))\subseteq Y \cap U$
+so that $f \in I(Y \cap U)$.
+\end{proof}
 
 \begin{theorem}[Weak Nullstellensatz]
 \label{theorem-weak-nullstellensatz}
@@ -46,7 +62,6 @@ $I \subset R$ is {\it radical}
 if for every $x \in R$ we have $x^n \in I \implies x \in I$.
 \end{definition}
 
-
 \begin{definition}
 \label{definition-nilpotent}
 An element $a \in R$ is called {\it nilpotent} 
@@ -57,6 +72,11 @@ if $a^n = 0$.
 \label{exercise-no-nilpotents-iff-radical}
 $A/I$ has no nilpotents if and only if $I$ is a radical ideal.
 \end{exercise}
+
+\noindent
+We may understand the Nullstellensatz
+as saying that algebraic subsets of an affine variety
+are the radical ideals of its coordinate algebra.
 
 \begin{theorem}[Nullstellensatz]
 \label{theorem-nullstellensatz}
@@ -77,12 +97,101 @@ and then use Rabinowitsch trick
 $k[x_1,…,x_n]/I$ has no nilpotents if and only if
 $I = \sqrt{I}$.
 
+\medskip\noindent
+Now we discuss how to decompose a variety in irreducible components.
+
+\begin{definition}
+\label{definition-irreducible-variety}
+An algebraic set is {\it irreducible} 
+if it cannot be decomposed as a union of two properly
+contained algebraic sets.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-irreducible-iff-coordinate-ring-reduced}
+An affine variety is irreducibly if and only if
+its coordinate ring has no zerodivisors.
+\end{lemma}
+
+\begin{proof}
+A zero divisor gives an expression $fg=0$.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-surjective-map-irreducible-varieties}
+If $\varphi:A \to B$ is a surjective morphism of varieties
+and $B$ is irreducible, so is $A$.
+\end{exercise}
+
+
+To prove the decomposition in
+irreducible ideals we must discuss Noetherianity.
+
+\begin{definition}
+\label{definition-noetherian-ring}
+A ring $R$ is {\it noetherian} 
+if any ascending chain of ideal stabilizes.
+\end{definition}
+
 \begin{theorem}[Hilbert's basis theorem]
 \label{theorem-hilberts-basis}
 If $R$ is a Noetherian ring, so is $R[x]$.
 Equivalently, every ideal in $R[x]$ is finitely generated.
-(Check this!!!)
 \end{theorem}
+
+\begin{lemma}
+\label{lemma-noetherian-iff-ideals-finitely-generated}
+A ring $R$ is Noetherian
+if and only if
+all its ideals are finitely generated.
+\end{lemma}
+
+\begin{proof}
+Try!
+\end{proof}
+
+\begin{theorem}[Hilbert's basis theorem, Misha's version]
+\label{theorem-hilberts-basis-misha}
+Any finitely generated ring is Noetherian.
+\end{theorem}
+
+\noindent
+The idea is to use this theorem
+to show that any algebraic set may be decomposed
+as a finite union of irreducible varieties.
+The idea of the proof is to reduce the original algebraic set
+to a union of two proper subvarieties, and
+repeat the process until we arrive at
+irreducible varieties.
+
+\begin{definition}
+\label{definition-noetherian-topological-space}
+A topological space is {\it Noetherian} 
+if any descendending sequence of closed subsets stabilizes.
+\end{definition}
+
+\begin{definition}
+\label{definition-zariski-topology}
+{\it Zariski topology} is the topology
+whose closed sets are algebraic sets.
+\end{definition}
+
+\begin{exercise}[Misha]
+\label{exercise-varieties-are-zariski-compact}
+Any variety is Zariski compact.
+\end{exercise}
+
+\noindent
+To prove that any variety has a decomposition
+as a finite union of irreducible components,
+we first show pointwise that every point
+is contained in a finite union of irreducible components.
+With existence at hand we just prove
+in a similar way the existence of the decomposition
+for all the variety.
+
+\medskip\noindent
+I don't know where to put this yet:
 
 \begin{definition}
 \label{definition-degree}
@@ -133,28 +242,12 @@ nonconstant homogeneous polynomial $f$.
 Then it has dimension $n-1$.
 \end{proof}
 
-
-
 \section{Regular functions, rational functions and morphisms}
 \label{section-regular-functions}
 
-\begin{definition}
-\label{definition-regular-function}
-Let $Y$ be a quasi-affine variety
-(i.e. an open set of an affine variety).
-A function $Y \to k$ is called {\it regular} at $P \in Y$
-if there is an open set $U \ni P$ and
-$g,h \in k[x_1,…,x_n]$ such that
-$f=g/h$ on $U$. $f$ is {\it regular} if it is regular
-at all points of $Y$.
-\end{definition}
-
-
 \noindent
-See \href{https://www.youtube.com/live/Vh32DbT0JwA?si=EUXKOcCx5R6xQITt&t=4447}{
-here} for Olivier's definition of morphisms in Lecture 12.
-
-\medskip\noindent
+We start with the intuitive definition, yet different from Harshorne's,
+which works well for affine varieties.
 A {\it regular} or {\it polynomial map} 
 is $\varphi:V \subset \mathbb{A}^n \to W \subset \mathbb{A}^m$
 if there exist $P_1,…,P_m \in k[x_1,…,x_n]$ such that
@@ -169,20 +262,37 @@ A polynomial map $\varphi:V \to W$ is an {\it isomorphism}
 if it has a left and right inverse that is also a polynomial function.
 $V \cong W \iff k[V] \cong k[W]$ for affine varieties.
 
-\begin{remark}
-\label{remark-hartshorne-definition}
-\cite{hart} has slightly different way of defining a regular function:
-$f:V \to k$ is regular if it can be written locally
-as $f=g/h$ for $g,h \in k[x_1,…,x_n]$ with $h$ nowhere zero on $V$.
-… why?
-\end{remark}
+\medskip\noindent
+Here is Hartshorne's definition:
 
-\begin{proposition}
-\label{proposition-coordinate-algebra}
-The coordinate algebra of a variety $V$,
-i.e. $k[x_1,…,x_n]/I(V)$ is isomorphic to
-the ring of regular functions on $V$, i.e. $\mathcal{O}(V)$.
-\end{proposition}
+\begin{definition}
+\label{definition-regular-function}
+Let $Y$ be a quasi-affine variety
+(i.e. an open set of an affine variety).
+A function $Y \to k$ is called {\it regular} at $P \in Y$
+if there is an open set $U \ni P$ and
+$g,h \in k[x_1,…,x_n]$ such that
+$f=g/h$ on $U$. $f$ is {\it regular} if it is regular
+at all points of $Y$.
+\end{definition}
+
+\noindent
+And the definition for projective varieties:
+
+\begin{definition}
+\label{definition-regular-function-projective}
+Let $Y \subset \mathbb{P}^N$ be a (quasi)projective variety.
+A function $f:Y \to k$ is regular at $P \in Y$
+if there is an open set $U \ni P$ such that
+$f=g/h$ for two homogeneous polynomials of the same degree,
+with $h$ nonzero in $U$.
+\end{definition}
+
+\noindent
+Note that although homogeneous polynomials are not functions on $\mathbb{P}^n$
+(because we can rescale points, but the functions will give different outputs),
+the quotient of two homogeneous polynomials is (because the rescaling factor
+cancels out).
 
 \begin{definition}
 \label{definition-morphism}
@@ -193,7 +303,7 @@ $f:W \to k$ to polynomial functions $\varphi^*f:V \to k$.
 
 \begin{exercise}
 \label{exercise-morphisms-def}
-$\varphi$ is a morphism of varieties if and only if
+$\varphi$ is a morphism of affine varieties if and only if
 it is a polynomial function.
 \end{exercise}
 
@@ -208,6 +318,134 @@ by computing $y_i\varphi^*$ where $y_i:W \to k$
 is $i$-th coordinate function (which is clearly a polynomial map).
 \end{proof}
 
+\medskip\noindent
+Now we introduce the notion of local ring (stalk).
+Here's Olivier's (intuitive) definition:
+Let $V$ be an affine variety (:= irreducible algebraic set)
+and $p \in V$.
+$$
+\mathcal{O}_p(V)
+:= \{f \in k(V):\exists g,h \in k[V]
+\text{ s.t. }f=g/h \text{ and } h(p) \neq 0\}\subset k(V).
+$$
+
+Compare with Hartshorne's:
+
+\begin{definition}
+\label{definition-local-ring}
+Let $Y$ be a variety (affine or projective)
+and $P \in Y$.
+The {\it local ring} of $P$ on $Y$ is
+the ring of germs of regular functions on $Y$ near $P$.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-local-ring-is-local}
+The local ring is local with maximal ideal given by functions vanishing at $P$.
+\end{exercise}
+
+
+\begin{exercise}
+\label{exercise-localization}
+Show that $\mathcal{O}_p(V) = k[V]_{\mathfrak{m}_p}$ 
+where $\mathfrak{m}_p$ is the set of regular functions
+that vanish in $p$.
+\end{exercise}
+
+\begin{proof}
+Consider the obvious map: take a quotient of classes
+$[g]/[h]$ in the localization of the coordinate ring of $V$ 
+and map it to the rational function $g/h$.
+This is well defined because if $g-g' \in I(V)$,
+then they obviously coincide in any open set of $V$ 
+because they coincide in all of $V$, hence forming the same germ.
+The key fact is that $\mathcal{O}_p(V)$ is the germs of rational
+functions of $V$.
+It is injective because if a germ $g/h$ is zero, then there's
+an open of $V$ where $g$ vanishes, implying that $g=0$
+since it is a polynomial (or holomorphic) map.
+It is obviously surjective.
+\end{proof}
+
+
+
+
+
+\medskip\noindent
+Now let's discuss rational functions.
+Again let's start with a more reasonable explanation.
+Since $k[V]$ for an irreducible affine algebraic set is a domain,
+there exists a fraction field, which is the
+set of {\it rational functions}.
+Functions here look like $f/g$ for $f,g \in k[V]$,
+which are not defined in $V(g)$.
+Since this can lead to different ways
+of defining the same function
+--- the correct definition shall be that
+we take the greatest set where the function can be defined.
+
+\begin{definition}
+\label{definition-rational-ring}
+The {\it ring of rational
+functions} is the set of regular functions defined
+on open sets with the identifications that $(U,f)\sim(V,g)$ 
+if they coincide in an intersection. (Like the stalk,
+but there's no point.)
+\end{definition}
+
+Compare this to Voisin's way of describing
+a meromorphic function:
+it's a function that can be written locally
+as a quotient of two holomorphic functions.
+
+\medskip\noindent
+Now we have two key propositions clearing up
+all we think we know about the ring of regular functions,
+the local ring at a point, the ring of rational functions,
+the coordinate algebra, and the fraction field of the coordinate algebra.
+It turns out the situation is different for affine and projective varieties.
+
+\begin{proposition}
+\label{proposition-functions-affine-case}
+Let $Y$ be an affine variety.
+The 
+\end{proposition}
+
+\noindent
+For projective varieties we have some sort of ``homogeneous localization''.
+The idea is that while localization of a ring $R$ by a prime
+$\mathfrak{p}\subset R$ is the localization of $R$ by the
+multiplicative subset $R\setminus \mathfrak{p}$,
+in the homogeneous case $S$, we just take the multiplicative subset
+of {\it homogeneous} elements in $S\setminus \mathfrak{p}$,
+where $\mathfrak{p}$ is homogeneous prime.
+
+\begin{theorem}
+\label{theorem-functions-projective-case}
+\begin{reference}
+\cite[Theorem 3.4]{har}
+\end{reference}
+Let $Y \subseteq \mathbb{P}^n$ be a projective variety
+with homogeneous coordinate ring $S(Y)$. Then:
+\begin{enumerate}
+\item $\mathcal{O}(Y)=k$,
+\item $\mathcal{O}_P=S(Y)_{(\mathfrak{m}_P)}$,
+where $\mathfrak{m}_P$ is the ideal generated by the homogeneous
+$f \in S(Y)$ not vanishing in $P$,
+\item $K(Y)\cong S(Y)_{((0))}$.
+\end{enumerate}
+\end{theorem}
+
+\noindent
+Now let's discuss the equivalence of categories between
+affine varieties and finitely generated reduced algebras.
+
+\begin{proposition}
+\label{proposition-coordinate-algebra}
+The coordinate algebra of an affine variety $V$,
+i.e. $k[x_1,…,x_n]/I(V)$ is isomorphic to
+the ring of regular functions on $V$, i.e. $\mathcal{O}(V)$.
+\end{proposition}
 The following proposition is also at
 \href{https://stacks.math.columbia.edu/tag/01I1}{01I1}
 
@@ -258,175 +496,6 @@ finitely-generated (also, domains?) $k$-algebras
 and irreducible algebraic sets.
 \end{lemma}
 
-\noindent
-Olivier was a little sloppy here.
-But we have at \href{https://stacks.math.columbia.edu/tag/01I1}{01I1}
-that ``The category of affine schemes is equivalent 
-to the opposite of the category of rings. 
-The equivalence is given by the functor that 
-associates to an affine scheme the global sections 
-of its structure sheaf''.
-
-An {\it affine variety} is an irreducible algebraic set.
-This means that $k[V]$ is a domain
-because the quotient of ring by a prime ideal is a domain.
-
-\medskip\noindent
-Now let's discuss rational functions.
-Since $k[V]$ for an irreducible algebraic set is a domain,
-there exists a fraction field, which is the
-set of {\it rational functions}.
-Functions here look like $f/g$ for $f,g \in k[V]$,
-which are not defined in $V(g)$.
-Since this can lead to different ways
-of defining the same function
---- the correct definition shall be that
-we take the greatest set where the function can be defined.
-
-\begin{remark}
-\label{remark-hartshorne-rational}
-\cite{har} defines the ring of rational
-functions as the set of regular functions defined
-on open sets with the identifications that $(U,f)\sim(V,g)$ 
-if they coincide in an intersection. (Like the stalk,
-but there's no point.)
-Then he proves that such ring is indeed
-isomorphic to the fraction field of the
-coordinate ring.
-\end{remark}
-
-Compare this to Voisin's way of describing
-a meromorphic function:
-it's a function that can be written locally
-as a quotient of two holomorphic functions.
-
-\begin{definition}
-\label{definition-stalk}
-Let $V$ be an affine variety (:= irreducible algebraic set)
-and $p \in V$.
-$$
-\mathcal{O}_p(V)
-:= \{f \in k(V):\exists g,h \in k[V]
-\text{ s.t. }f=g/h \text{ and } h(p) \neq 0\}\subset k(V).
-$$
-\end{definition}
-
-\begin{definition}
-\label{definition-localization}
-Let $R$ be a ring and $S \subset R$ 
-a multiplicative subset of $R$ (containing $1$).
-The {\it localization} of $R$ at $S$ 
-is the ring $RS^{-1}$ 
-(where $S^{-1}$ is just a set with
-the same elements as $S$ but with a $-1$ exponent)
-with the operations of $(rs^{-1})(r_1s_1^{-1})=rr_1s^{-1}s_1^{-1}$,
-$rs^{-1}+r_1s_1^{-1}=(rs_1+r_1s)(s^{-1}s^{-1}_1)$
-and the identification given by
-$rs^{-1}=r_1s_1^{-1} \iff rs_1=r_1s$.
-(Check this definition if $R$ has zero divisors!)
-\end{definition}
-
-\noindent
-In a simple case, consider a ring $R$ and $f \in R$.
-The {\it localization of $R$ at $f$}
-is $R[t]/(ft-1):=R[f^{-1}]=R(f)$. 
-The quotient basically says that $t$ is the inverse of $f$.
-
-\begin{example}
-\label{example-localization}
-\begin{itemize}
-\item Dyadic numbers: $\mathbb{Z}[2^{-1}]$,
-which are fractions of integers with denominators which
-are powers of $2$.
-
-\item Laurent polynomials: $\mathbb{C}[t,t^{-1}]$.
-\end{itemize}
-\end{example}
-
-\begin{lemma}
-\label{lemma-localization-nilpotent}
-If $R[f^{-1}]=0$ then $f$ is nilpotent.
-\end{lemma}
-
-\begin{proof}
-If $R[f^{-1}]=0$ then $1 \in (ft-1)$,
-which means that $1=(1-ft)p(t)$ for some $p(t) \in k[t]$.
-Then…
-\end{proof}
-
-\noindent
-The localization a ring is not always a local ring.
-But if $S$ is a prime ideal, then it is.
-
-\begin{exercise}
-\label{exercise-localization}
-Show that $\mathcal{O}_p(V) = k[V]_{\mathfrak{m}_p}$ 
-where $\mathfrak{m}_p$ is the set of regular functions
-that vanish in $p$.
-\end{exercise}
-
-\begin{proof}
-Consider the obvious map: take a quotient of classes
-$[g]/[h]$ in the localization of the coordinate ring of $V$ 
-and map it to the rational function $g/h$.
-This is well defined because if $g-g' \in I(V)$,
-then they obviously coincide in any open set of $V$ 
-because they coincide in all of $V$, hence forming the same germ.
-The key fact is that $\mathcal{O}_p(V)$ is the germs of rational
-functions of $V$.
-It is injective because if a germ $g/h$ is zero, then there's
-an open of $V$ where $g$ vanishes, implying that $g=0$
-since it is a polynomial (or holomorphic) map.
-It is obviously surjective.
-\end{proof}
-
-\begin{proposition}
-\label{proposition-poles}
-Let $U$ be the set of points such that $f$ is in the stalk, that is,
-$U=\{p \in k(V):f \in \mathcal{O}_p(V)\}$.
-The {\it set of poles} of a rational function
-$f \in k(V)$ is $V\setminus U$.
-(This is just the points where the function in the denominator
-of $f$ vanishes.)
-
-\begin{enumerate}
-\item The set of poles of $f$ is an algebraic set.
-\item $k[V]=\bigcap_{p\in V}\mathcal{O}_p(V)$ 
-\end{enumerate}\end{proposition}
-
-\begin{proof}
-We define $I_f:=\{g \in k[x_1,…,x_n]:gf \in k[X]\}$ 
-and show that the set of poles is exactly $V(I_f)$.
-This is just writing  $gf = h \in k[X]$
-or equivalently $f=h/g$.
-
-The proof of the second statement is also straightforward.
-(See \href{https://www.youtube.com/watch?v=XJJ04OQnDfc}{video}.)
-\end{proof}
-
-\medskip\noindent
-The condition in the following lemma is the
-definition of a {\it local ring}.
-
-\begin{lemma}
-\label{lemma-maximal-ideal}
-Let $A$ be a ring. The following are equivalent:
-\begin{enumerate}
-\item $\{a \in A:a \text{ is not a unit}\}$ is an ideal.
-\item $A$ has a unique maximal ideal.
-\end{enumerate}
-\end{lemma}
-
-\begin{proof}
-Try!
-\end{proof}
-
-\noindent
-Morally, local rings are rings of germs of functions.
-Never forget that analytic functions are determined
-by their germs because they have Taylor series ---
-unlike smooth functions, .e.g. bump functions that
-can be locally zero but are not globally zero.
 
 \section{Dimension: Krull dimension, transcendence degree}
 \label{section-dimension}
@@ -877,6 +946,33 @@ and that $\tilde{Y} \cong \mathbb{A}^1$.
 \end{exercise}
 
 
+\section{Normalization}
+\label{section-normalization}
+
+\noindent
+All bounded meromorphic functions are holomorphic.
+
+\begin{definition}
+\label{definition-integral-closure}
+Let $R$ be a domain.
+An element of the fraction field $\text{Frac}(R)$
+is {\it integral} if it is the root of a monic polyomial
+with coefficients in $R$.
+
+$R$ is {\it integrally closed} if every element of $\text{Frac}(R)$
+is integrally closed.
+\end{definition}
+
+\begin{definition}
+\label{definition-normal-variety}
+A variety is called {\it normal at $P$}
+is $\mathcal{O}_P$ is integrally closed.
+It is called {\it normal} if every point is normal.
+\end{definition}
+
+
+
+
 \section{Divisors, invertible sheaves}
 \label{section-divisors-line-bundles}
 
@@ -1083,6 +1179,35 @@ is given by the roots of a polynomial of degree $d$,
 thus $C_d.H=d$, and since the Picard group of $\mathbb{P}^2=\mathbb{Z}H$
 we must have $C_d \sim dH$.
 \end{proof}
+\section{Adjunction formulas}
+\label{section-adjunction formulas}
+
+There are several statements called adjunction formula
+in different texts. All of them concern ``subvarieties'',
+that is, closed embedded subschemes.
+
+\begin{exercise}[Genus formula for a curve on a surface]
+\label{exercise-genus-formula-for-curve-on-surface}
+Let $C \to X$ be a closed embedded subscheme 
+of dimension $1$ (as a topological space, i.e. pure dimension)
+inside a smooth surface $X$.
+Then $2p_a-2=(\mathcal{O}_X(C),\mathcal{O}_X(C))$.
+\end{exercise}
+
+\begin{proof}
+Consider the ideal sheaf exact sequence
+$$
+\xymatrix{
+0\ar[r]&\mathcal{O}_X(-C)\ar[r]&\mathcal{O}_X\ar[r]&\mathcal{O}_C\ar[r]&0
+}
+$$
+This sequence splits since there is an obvious inverse morphism
+to the inclusion $\mathcal{O}_X(-C)\to \mathcal{O}_X$, namely
+mapping a function $f$ to 
+Then $\mathcal{O}_X\cong \mathcal{O}_X(-C) \oplus \mathcal{O}_C$.
+ $\chi(\mathcal{O}_X)=\chi$
+\end{proof}
+
 
 \section{Linear systems}
 \label{section-linear-systems}
@@ -1152,6 +1277,164 @@ $\text{Pic}=\mathbb{Z}H \oplus \mathbb{Z}E_1\oplus…\oplus \mathbb{Z}E_9$.
 \end{itemize}
 \end{proof}
 
+\section{Ample line bundles}
+\label{section-ample-line-bundles}
+
+First is this lemma that comes from modules.tex. I think these sets $X_s$ are
+the base points of the bundle. Because look: image of $s$ just means consider
+the section $s$ of the line bundle as a germ near $x$. Now a line bundle is a
+locally free rank-1 $\mathcal{O}_X$-module, so its sections, like $s$, may be
+multiplied by germs of functions in the maximal ring $\mathfrak{m}_x$, i.e. the
+functions that vanish at $x$. So $X_s$ is the vanishing locus of the section
+$s$. If $s(x)\neq 0$, obviously $s
+\not\in\mathfrak{m}_x\mathcal{L}_x$, so $x\in X_s$. Conversely, I would like to
+show that if $s(x)=0$ then  $s\in\mathfrak{m}_x\mathcal{L}_x$ but I'm not sure
+how. It's like: a vector field with a zero can be multiplied by a function that
+vanishes at the point, sure, but what's this function?
+
+\begin{lemma}
+\label{lemma-s-open}
+From modules.tex.
+\begin{slogan}
+A (local) trivialisation of a linebundle
+is the same as a (local) nonvanishing section.
+\end{slogan}
+Let $X$ be a ringed space. Assume that each stalk $\mathcal{O}_{X, x}$
+is a local ring with maximal ideal $\mathfrak m_x$.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+For any section $s \in \Gamma(X, \mathcal{L})$ the set
+$$
+X_s = \{x \in X \mid \text{image }s \not\in \mathfrak m_x\mathcal{L}_x\}
+$$
+is open in $X$. The map $s : \mathcal{O}_{X_s} \to \mathcal{L}|_{X_s}$
+is an isomorphism, and there exists a section $s'$
+of $\mathcal{L}^{\otimes -1}$ over $X_s$ such that $s' (s|_{X_s}) = 1$.
+\end{lemma}
+
+\begin{proof}
+Suppose $x \in X_s$.
+We have an isomorphism
+$$
+\mathcal{L}_x \otimes_{\mathcal{O}_{X, x}} (\mathcal{L}^{\otimes -1})_x
+\longrightarrow
+\mathcal{O}_{X, x}
+$$
+by Lemma \ref{lemma-constructions-invertible}.
+Both $\mathcal{L}_x$ and $(\mathcal{L}^{\otimes -1})_x$
+are free $\mathcal{O}_{X, x}$-modules of rank $1$. We conclude
+from Algebra, Nakayama's Lemma \ref{algebra-lemma-NAK} that
+$s_x$ is a basis for $\mathcal{L}_x$. Hence there exists
+a basis element $t_x \in (\mathcal{L}^{\otimes -1})_x$
+such that $s_x \otimes t_x$ maps to $1$.
+Choose an open neighbourhood $U$ of
+$x$ such that $t_x$ comes from a section $t$
+of $\mathcal{L}^{\otimes -1}$ over $U$ and such that
+$s \otimes t$ maps to $1 \in \mathcal{O}_X(U)$.
+Clearly, for every $x' \in U$ we see that $s$ generates
+the module $\mathcal{L}_{x'}$. Hence $U \subset X_s$.
+This proves that $X_s$ is open. Moreover, the section
+$t$ constructed over $U$ above is unique, and hence
+these glue to give the section $s'$ of the lemma.
+\end{proof}
+
+Recall from Modules, Lemma \ref{modules-lemma-s-open}
+that given an invertible sheaf $\mathcal{L}$ on a locally ringed
+space $X$, and given a global section $s$ of $\mathcal{L}$
+the set $X_s = \{x \in X \mid s \not \in \mathfrak m_x\mathcal{L}_x\}$
+is open. A general remark is that
+$X_s \cap X_{s'} = X_{ss'}$, where $ss'$ denote
+the section $s \otimes s' \in \Gamma(X, \mathcal{L} \otimes \mathcal{L}')$.
+
+\begin{definition}
+\label{definition-ample}
+\begin{reference}
+\cite[II Definition 4.5.3]{EGA}
+\end{reference}
+Let $X$ be a scheme.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+We say $\mathcal{L}$ is {\it ample} if
+\begin{enumerate}
+\item $X$ is quasi-compact, and
+\item for every $x \in X$ there exists an $n \geq 1$
+and $s \in \Gamma(X, \mathcal{L}^{\otimes n})$ such
+that $x \in X_s$ and $X_s$ is affine.
+\end{enumerate}
+\end{definition}
+
+\begin{exercise}
+\label{exercise-ample-bundle-on-K3}
+Let $L$ be an ample bundle on a K3 surface $M$. Prove that
+$\mathcal{L}^{\otimes 2}$ is globally generated (that is, for each $x\in M$
+there exsits a section $h \in H^{0}(L^{\otimes 2})$ which does not vanish in
+$x$).
+\end{exercise}
+
+\begin{proof}
+This just asks that the $n$ in Definition \ref{definition-ample} is $2$ for all
+$x\in X$. Because, again, $x\in X_s$ means that $s(x)\neq 0$ because if it was,
+then we could somehow write $s$ as a product of a vanishing function on
+$\mathfrak{m}_x$ and a local frame of $\Gamma(X,\mathcal{L})$. But I guess for
+the exercise do this: a line bundle is {\it ample} if there is $n$ such that the
+canonical embedding (cf Lemma \ref{lemma-map-into-proj}) is an embedding, i.e.
+that $\mathcal{L}^{\otimes n}$ is {\it very ample}. (Interestingly, the notion
+very ampleness is defined in morphisms.tex.)
+\end{proof}
+
+Now we pass to the part where ampleness gives you an {\bf open immersion} to
+some projective space. Because, it's only very ampleness that gives an
+embedding, right? (Actually I think here in stacks project there are no
+embeddings but closed immersions.)
+
+\begin{definition}
+\label{definition-gamma-star}
+From modules.tex. Let $(X, \mathcal{O}_X)$ be a ringed space.
+Given an invertible sheaf $\mathcal{L}$ on $X$ we define
+the {\it associated graded ring} to be
+$$
+\Gamma_*(X, \mathcal{L})
+=
+\bigoplus\nolimits_{n \geq 0} \Gamma(X, \mathcal{L}^{\otimes n})
+$$
+Given a sheaf of $\mathcal{O}_X$-modules $\mathcal{F}$ we set
+$$
+\Gamma_*(X, \mathcal{L}, \mathcal{F})
+=
+\bigoplus\nolimits_{n \in \mathbf{Z}} \Gamma(X,
+\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n})
+$$
+which we think of as a graded $\Gamma_*(X, \mathcal{L})$-module.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-map-into-proj}
+Let $X$ be a scheme.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Set $S = \Gamma_*(X, \mathcal{L})$ as a graded ring.
+If every point of $X$ is contained in one of the
+open subschemes $X_s$, for some $s \in S_{+}$ homogeneous, then
+there is a canonical morphism of schemes
+$$
+f : X \longrightarrow Y = \text{Proj}(S),
+$$
+to the homogeneous spectrum of $S$ (see
+Constructions, Section \ref{constructions-section-proj}).
+This morphism has the following properties
+\begin{enumerate}
+\item $f^{-1}(D_{+}(s)) = X_s$ for any $s \in S_{+}$ homogeneous,
+\item there are $\mathcal{O}_X$-module maps
+$f^*\mathcal{O}_Y(n) \to \mathcal{L}^{\otimes n}$
+compatible with multiplication maps, see
+Constructions, Equation (\ref{constructions-equation-multiply}),
+\item the composition
+$S_n \to \Gamma(Y, \mathcal{O}_Y(n)) \to \Gamma(X, \mathcal{L}^{\otimes n})$
+is the identity map, and
+\item for every $x \in X$ there is an integer $d \geq 1$
+and an open neighbourhood $U \subset X$ of $x$
+such that $f^*\mathcal{O}_Y(dn)|_U \to \mathcal{L}^{\otimes dn}|_U$
+is an isomorphism for all $n \in \mathbf{Z}$.
+\end{enumerate}
+\end{lemma}
+
 \section{Riemann-Roch theorem for curves}
 \label{section-riemann-roch}
 
@@ -1197,15 +1480,8 @@ Note that by Serre duality
 $h^1(D)=h^0(K-D)$.
 
 
-\section{Normalization}
-\label{section-normalization}
-
-All bounded meromorphic functions are holomorphic.
-
-
-
-\section{Sheaves}
-\label{section-sheaves}
+\section{Schemes}
+\label{section-shemes}
 
 For a definition of presheaf,
 see Categories, Definition \ref{categories-definition-presheaf}.
@@ -1271,8 +1547,8 @@ say ``$s$ is equal to $s'$ in $\mathcal{F}_x$'' to indicate
 that $s_x = s'_x$. Other authors use the terminology
 ``germ of $s$ at $x$''.
 
-\section{Closed immersions}
-\label{section-closed-immersion}
+\medskip\noindent
+Now let's discuss closed immersions.
 
 \noindent
 Closed immersions of ringes spaces are in 
@@ -1294,10 +1570,9 @@ that the $\mathcal{O}_X$-module $\mathcal{I}$ is
 locally generated by sections.
 \end{definition}
 
-\section{Restricting sheaves to subschemes}
-\label{section-restriction}
+\medskip\noindent
+Now let's discuss restricting sheaves to subschemes.
 
-\noindent
 Upshot about restricting sheaves to subschemes:
 the sheaves on $Z$ correspond essentially
 (in the categorical sense)
@@ -1400,8 +1675,18 @@ and tensoring with the structure sheaf does the opposite.
 
 
 
-\section{Proj of a graded ring}
-\label{section-proj}
+
+
+
+
+
+
+
+
+
+
+\medskip\noindent
+Now let's dicuss Proj of a graded ring.
 
 \noindent
 (Stacks Project 
@@ -1426,8 +1711,12 @@ meaning that, indeed,
 {\bf Projs are projective schemes}.
 
 
-\section{Invertible sheaves on Proj (twists!)}
-\label{section-invertible-on-proj}
+
+
+
+
+\medskip\noindent
+Noe let's discuss invertible sheaves on Proj (twists!).
 
 \noindent
 As for the construction of the twisted sheaves:
@@ -1451,8 +1740,17 @@ is the degree $d$ piece of the original module,
 that is we have $M(-d)$.
 
 
-\section{Logarithmic derivations}
-\label{section-logarithmic-derivations}
+
+
+
+
+
+
+
+
+
+\medskip\noindent
+Lost note on logarithmic derivations:
 
 \noindent
 Just to record a notion of logarithmic derivation
@@ -1467,8 +1765,17 @@ $$
 $$
 where $U=\mathbb{C}[x_1,…,x_e]$.
 
-\section{Gonality}
-\label{section-gonality}
+
+
+
+
+
+
+
+
+
+\medskip\noindent
+Lost notes on gonality.
 
 \noindent
 From a talk by Juliana Coelho at Bandoleiros 2025:
@@ -1525,44 +1832,6 @@ for all opens $U$. Pick any nonzero element $f \in \mathcal{O}_{X, x}$.
 Any representative $(U, f \in \mathcal{O}(U))$  of $f$ is nonzero and
 hence not nilpotent. Hence $f$ is not nilpotent in $\mathcal{O}_{X, x}$.
 \end{proof}
-
-\section{Dominant morphisms}
-\label{section-dominant}
-
-\noindent
-The definition of a morphism of schemes being dominant is a little
-different from what you might expect if you are used to the notion
-of a dominant morphism of varieties.
-
-\begin{definition}
-\label{definition-dominant}
-A morphism $f : X \to S$ of schemes is called {\it dominant} if the
-image of $f$ is a dense subset of $S$.
-\end{definition}
-
-\section{Morphisms of finite type}
-\label{section-finite-type}
-
-\noindent
-Recall that a ring map $R \to A$ is said to be of finite type if
-$A$ is isomorphic to a quotient of $R[x_1, \ldots, x_n]$ as an $R$-algebra, see
-Algebra, Definition \ref{algebra-definition-finite-type}.
-
-\begin{definition}
-\label{definition-finite-type}
-Let $f : X \to S$ be a morphism of schemes.
-\begin{enumerate}
-\item We say that $f$ is of {\it finite type at $x \in X$} if
-there exists an affine open neighbourhood $\Spec(A) = U \subset X$
-of $x$ and an affine open $\Spec(R) = V \subset S$
-with $f(U) \subset V$ such that the induced ring map
-$R \to A$ is of finite type.
-\item We say that $f$ is {\it locally of finite type} if it is
-of finite type at every point of $X$.
-\item We say that $f$ is of {\it finite type} if it is locally of
-finite type and quasi-compact.
-\end{enumerate}
-\end{definition}
 
 \section{Flat morphisms}
 \label{section-flat-morphisms}
@@ -1720,711 +1989,6 @@ $S$ is faithfully flat as an $R$-module.
 Recall that a module $M$ over a ring $R$ is {\it flat} if the functor
 $-\otimes_R M : \text{Mod}_R \to \text{Mod}_R$ is exact. A ring map
 $R \to A$ is said to be {\it flat} if $A$ is flat as an $R$-module.
-
-\section{Singularities}
-\label{section-singularities}
-
-As in \cite{sea},
-a Noetherian local ring $A$ is {\it regular} 
-if $\dim A = \dim_k\mathfrak{m}/\mathfrak{m}^2$.
-The stalk $\mathcal{O}_{X,p}$ is
-always local
-so we say that $p$ is {\it regular} 
-if its stalk is regular.
-
-\section{Birational morphisms}
-\label{section-birational}
-
-\noindent
-Recall that for
-\href{https://www.mathnet.ru/php/
-presentation.phtml?option_lang=eng&presentid=337}{Kuznetsov}
-a birational map is that is an isomorphism on two open subsets
-of the varieties…
-
-So far I get: they are isomorphisms on a dense open set,
-but more formally, here in Stacks, they give
-{\bf isomorphisms on the stalks of the generic points}.
-
-\medskip\noindent
-You may be used to the notion of a birational map of varieties
-having the property that it is an isomorphism over an open subset
-of the target. However, in general a birational morphism may
-not be an isomorphism over any nonempty open, see
-Example \ref{example-birational-not-iso-over-open}.
-Here is the formal definition.
-
-\begin{definition}
-\label{definition-birational}
-\begin{reference}
-\cite[(2.2.9)]{EGA1}
-\end{reference}
-Let $X$, $Y$ be schemes. Assume $X$ and $Y$ have finitely many
-irreducible components. We say a morphism $f : X \to Y$ is
-{\it birational} if
-\begin{enumerate}
-\item $f$ induces a bijection between the set of generic points
-of irreducible components of $X$ and the set of generic points
-of the irreducible components of $Y$, and
-\item for every generic point $\eta \in X$ of an irreducible component
-of $X$ the local ring map
-$\mathcal{O}_{Y, f(\eta)} \to \mathcal{O}_{X, \eta}$
-is an isomorphism.
-\end{enumerate}
-\end{definition}
-
-\section{Ampleness}
-\label{section-ampleness}
-
-First is this lemma that comes from modules.tex. I think these sets $X_s$ are
-the base points of the bundle. Because look: image of $s$ just means consider
-the section $s$ of the line bundle as a germ near $x$. Now a line bundle is a
-locally free rank-1 $\mathcal{O}_X$-module, so its sections, like $s$, may be
-multiplied by germs of functions in the maximal ring $\mathfrak{m}_x$, i.e. the
-functions that vanish at $x$. So $X_s$ is the vanishing locus of the section
-$s$. If $s(x)\neq 0$, obviously $s
-\not\in\mathfrak{m}_x\mathcal{L}_x$, so $x\in X_s$. Conversely, I would like to
-show that if $s(x)=0$ then  $s\in\mathfrak{m}_x\mathcal{L}_x$ but I'm not sure
-how. It's like: a vector field with a zero can be multiplied by a function that
-vanishes at the point, sure, but what's this function?
-
-\begin{lemma}
-\label{lemma-s-open}
-From modules.tex.
-\begin{slogan}
-A (local) trivialisation of a linebundle
-is the same as a (local) nonvanishing section.
-\end{slogan}
-Let $X$ be a ringed space. Assume that each stalk $\mathcal{O}_{X, x}$
-is a local ring with maximal ideal $\mathfrak m_x$.
-Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
-For any section $s \in \Gamma(X, \mathcal{L})$ the set
-$$
-X_s = \{x \in X \mid \text{image }s \not\in \mathfrak m_x\mathcal{L}_x\}
-$$
-is open in $X$. The map $s : \mathcal{O}_{X_s} \to \mathcal{L}|_{X_s}$
-is an isomorphism, and there exists a section $s'$
-of $\mathcal{L}^{\otimes -1}$ over $X_s$ such that $s' (s|_{X_s}) = 1$.
-\end{lemma}
-
-\begin{proof}
-Suppose $x \in X_s$.
-We have an isomorphism
-$$
-\mathcal{L}_x \otimes_{\mathcal{O}_{X, x}} (\mathcal{L}^{\otimes -1})_x
-\longrightarrow
-\mathcal{O}_{X, x}
-$$
-by Lemma \ref{lemma-constructions-invertible}.
-Both $\mathcal{L}_x$ and $(\mathcal{L}^{\otimes -1})_x$
-are free $\mathcal{O}_{X, x}$-modules of rank $1$. We conclude
-from Algebra, Nakayama's Lemma \ref{algebra-lemma-NAK} that
-$s_x$ is a basis for $\mathcal{L}_x$. Hence there exists
-a basis element $t_x \in (\mathcal{L}^{\otimes -1})_x$
-such that $s_x \otimes t_x$ maps to $1$.
-Choose an open neighbourhood $U$ of
-$x$ such that $t_x$ comes from a section $t$
-of $\mathcal{L}^{\otimes -1}$ over $U$ and such that
-$s \otimes t$ maps to $1 \in \mathcal{O}_X(U)$.
-Clearly, for every $x' \in U$ we see that $s$ generates
-the module $\mathcal{L}_{x'}$. Hence $U \subset X_s$.
-This proves that $X_s$ is open. Moreover, the section
-$t$ constructed over $U$ above is unique, and hence
-these glue to give the section $s'$ of the lemma.
-\end{proof}
-
-Recall from Modules, Lemma \ref{modules-lemma-s-open}
-that given an invertible sheaf $\mathcal{L}$ on a locally ringed
-space $X$, and given a global section $s$ of $\mathcal{L}$
-the set $X_s = \{x \in X \mid s \not \in \mathfrak m_x\mathcal{L}_x\}$
-is open. A general remark is that
-$X_s \cap X_{s'} = X_{ss'}$, where $ss'$ denote
-the section $s \otimes s' \in \Gamma(X, \mathcal{L} \otimes \mathcal{L}')$.
-
-\begin{definition}
-\label{definition-ample}
-\begin{reference}
-\cite[II Definition 4.5.3]{EGA}
-\end{reference}
-Let $X$ be a scheme.
-Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
-We say $\mathcal{L}$ is {\it ample} if
-\begin{enumerate}
-\item $X$ is quasi-compact, and
-\item for every $x \in X$ there exists an $n \geq 1$
-and $s \in \Gamma(X, \mathcal{L}^{\otimes n})$ such
-that $x \in X_s$ and $X_s$ is affine.
-\end{enumerate}
-\end{definition}
-
-\begin{exercise}
-\label{exercise-ample-bundle-on-K3}
-Let $L$ be an ample bundle on a K3 surface $M$. Prove that
-$\mathcal{L}^{\otimes 2}$ is globally generated (that is, for each $x\in M$
-there exsits a section $h \in H^{0}(L^{\otimes 2})$ which does not vanish in
-$x$).
-\end{exercise}
-
-\begin{proof}
-This just asks that the $n$ in Definition \ref{definition-ample} is $2$ for all
-$x\in X$. Because, again, $x\in X_s$ means that $s(x)\neq 0$ because if it was,
-then we could somehow write $s$ as a product of a vanishing function on
-$\mathfrak{m}_x$ and a local frame of $\Gamma(X,\mathcal{L})$. But I guess for
-the exercise do this: a line bundle is {\it ample} if there is $n$ such that the
-canonical embedding (cf Lemma \ref{lemma-map-into-proj}) is an embedding, i.e.
-that $\mathcal{L}^{\otimes n}$ is {\it very ample}. (Interestingly, the notion
-very ampleness is defined in morphisms.tex.)
-\end{proof}
-
-Now we pass to the part where ampleness gives you an {\bf open immersion} to
-some projective space. Because, it's only very ampleness that gives an
-embedding, right? (Actually I think here in stacks project there are no
-embeddings but closed immersions.)
-
-\begin{definition}
-\label{definition-gamma-star}
-From modules.tex. Let $(X, \mathcal{O}_X)$ be a ringed space.
-Given an invertible sheaf $\mathcal{L}$ on $X$ we define
-the {\it associated graded ring} to be
-$$
-\Gamma_*(X, \mathcal{L})
-=
-\bigoplus\nolimits_{n \geq 0} \Gamma(X, \mathcal{L}^{\otimes n})
-$$
-Given a sheaf of $\mathcal{O}_X$-modules $\mathcal{F}$ we set
-$$
-\Gamma_*(X, \mathcal{L}, \mathcal{F})
-=
-\bigoplus\nolimits_{n \in \mathbf{Z}} \Gamma(X,
-\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n})
-$$
-which we think of as a graded $\Gamma_*(X, \mathcal{L})$-module.
-\end{definition}
-
-\begin{lemma}
-\label{lemma-map-into-proj}
-Let $X$ be a scheme.
-Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
-Set $S = \Gamma_*(X, \mathcal{L})$ as a graded ring.
-If every point of $X$ is contained in one of the
-open subschemes $X_s$, for some $s \in S_{+}$ homogeneous, then
-there is a canonical morphism of schemes
-$$
-f : X \longrightarrow Y = \text{Proj}(S),
-$$
-to the homogeneous spectrum of $S$ (see
-Constructions, Section \ref{constructions-section-proj}).
-This morphism has the following properties
-\begin{enumerate}
-\item $f^{-1}(D_{+}(s)) = X_s$ for any $s \in S_{+}$ homogeneous,
-\item there are $\mathcal{O}_X$-module maps
-$f^*\mathcal{O}_Y(n) \to \mathcal{L}^{\otimes n}$
-compatible with multiplication maps, see
-Constructions, Equation (\ref{constructions-equation-multiply}),
-\item the composition
-$S_n \to \Gamma(Y, \mathcal{O}_Y(n)) \to \Gamma(X, \mathcal{L}^{\otimes n})$
-is the identity map, and
-\item for every $x \in X$ there is an integer $d \geq 1$
-and an open neighbourhood $U \subset X$ of $x$
-such that $f^*\mathcal{O}_Y(dn)|_U \to \mathcal{L}^{\otimes dn}|_U$
-is an isomorphism for all $n \in \mathbf{Z}$.
-\end{enumerate}
-\end{lemma}
-
-\section{Adjunction formulas}
-\label{section-adjunction formulas}
-
-There are several statements called adjunction formula
-in different texts. All of them concern ``subvarieties'',
-that is, closed embedded subschemes.
-
-\begin{exercise}[Genus formula for a curve on a surface]
-\label{exercise-genus-formula-for-curve-on-surface}
-Let $C \to X$ be a closed embedded subscheme 
-of dimension $1$ (as a topological space, i.e. pure dimension)
-inside a smooth surface $X$.
-Then $2p_a-2=(\mathcal{O}_X(C),\mathcal{O}_X(C))$.
-\end{exercise}
-
-\begin{proof}
-Consider the ideal sheaf exact sequence
-$$
-\xymatrix{
-0\ar[r]&\mathcal{O}_X(-C)\ar[r]&\mathcal{O}_X\ar[r]&\mathcal{O}_C\ar[r]&0
-}
-$$
-This sequence splits since there is an obvious inverse morphism
-to the inclusion $\mathcal{O}_X(-C)\to \mathcal{O}_X$, namely
-mapping a function $f$ to 
-Then $\mathcal{O}_X\cong \mathcal{O}_X(-C) \oplus \mathcal{O}_C$.
- $\chi(\mathcal{O}_X)=\chi$
-\end{proof}
-
-\section{Normalization}
-\label{section-normalization}
-
-\begin{definition}
-\label{definition-normalization-X-in-Y}
-Let $f : Y \to X$ be a quasi-compact and quasi-separated morphism of schemes.
-Let $\mathcal{O}'$ be the integral closure of $\mathcal{O}_X$ in
-$f_*\mathcal{O}_Y$. The {\it normalization of $X$ in $Y$} is the
-scheme\footnote{The scheme $X'$ need not be normal, for example if
-$Y = X$ and $f = \text{id}_X$, then $X' = X$.}
-$$
-\nu : X' = \underline{\Spec}_X(\mathcal{O}') \to X
-$$
-over $X$. It comes equipped with a natural factorization
-$$
-Y \xrightarrow{f'} X' \xrightarrow{\nu} X
-$$
-of the initial morphism $f$.
-\end{definition}
-
-\noindent
-The factorization is the composition of the canonical morphism
-$Y \to \underline{\Spec}_X(f_*\mathcal{O}_Y)$ (see
-Constructions, Lemma
-\ref{constructions-lemma-canonical-morphism})
-and the morphism of relative spectra coming from the inclusion map
-$\mathcal{O}' \to f_*\mathcal{O}_Y$. We can characterize the
-normalization as follows.
-
-\begin{lemma}
-\label{lemma-characterize-normalization}
-Let $f : Y \to X$ be a quasi-compact and quasi-separated morphism of schemes.
-The factorization $f = \nu \circ f'$, where $\nu : X' \to X$ is the
-normalization of $X$ in $Y$ is characterized by the following
-two properties:
-\begin{enumerate}
-\item the morphism $\nu$ is integral, and
-\item for any factorization $f = \pi \circ g$, with $\pi : Z \to X$
-integral, there exists a commutative diagram
-$$
-\xymatrix{
-Y \ar[d]_{f'} \ar[r]_g & Z \ar[d]^\pi \\
-X' \ar[ru]^h \ar[r]^\nu & X
-}
-$$
-for some unique morphism $h : X' \to Z$.
-\end{enumerate}
-Moreover, the morphism $f' : Y \to X'$ is dominant and in (2) the
-morphism $h : X' \to Z$ is the normalization of $Z$ in $Y$.
-\end{lemma}
-
-
-
-\section{Reflexive sheaves}
-\label{section-reflexive-sheaves}
-
-\begin{slogan}
-These are vector bundles except for a small locus.
-\end{slogan}
-
-\begin{definition}
-\label{definition-reflexive}
-Let $X$ be an integral locally Noetherian scheme. Let $\mathcal{F}$
-be a coherent $\mathcal{O}_X$-module. The {\it reflexive hull}
-of $\mathcal{F}$ is the $\mathcal{O}_X$-module
-$$
-\mathcal{F}^{**} = \SheafHom_{\mathcal{O}_X}(
-\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{O}_X), \mathcal{O}_X)
-$$
-We say $\mathcal{F}$ is {\it reflexive} if the natural map
-$j : \mathcal{F} \longrightarrow \mathcal{F}^{**}$
-is an isomorphism.
-\end{definition}
-
-\begin{lemma}
-\label{lemma-reflexive-torsion-free}
-Let $X$ be an integral locally Noetherian scheme. Let $\mathcal{F}$
-be a coherent $\mathcal{O}_X$-module.
-\begin{enumerate}
-\item If $\mathcal{F}$ is reflexive, then $\mathcal{F}$ is torsion free.
-\item The map $j : \mathcal{F} \longrightarrow \mathcal{F}^{**}$
-is injective if and only if $\mathcal{F}$ is torsion free.
-\end{enumerate}
-\end{lemma}
-
-\begin{remark}[Talk at IMPA, 11 June]\leavevmode
-\label{remark-reflexive-talk}
-Torsion could also be defined so that the sheaf can inject onto its dual. In
-this talk we discussed the moduli space of reflexive/torsion-free sheaves, which
-turned out to be parametrized by $c_1, c_2$ and $c_3$. This was denoted by 
-$R(c_1,c_2,c_3)$. Actually I think it may have been Manolache that proved the
-existence of this moduli space.
-
-
-Alan Muniz
-
-Nesta palestra discutiremos a classificação de feixes reflexivos de posto dois e
-seus espaços de módulos. Apresentaremos algumas ferramentas básicas usadas na
-construção e determinação de tais feixes. Aplicaremos estas técnicas para o caso
-de feixes com segunda classe de Chern igual a quatro, obtido recentemente em
-colaboração com Marcos Jardim.
-\end{remark}
-
-\subsection{Distributions on manifolds}
-\label{subsection-distributions-on-manifolds}
-
-Here's the abstract from a talk by Marcos Jardim at Geometric Structures:
-
-``I will revise the work done over the past 10 years with various collaborators
-on distributions and foliations on 3-folds, especially on the projective space,
-with a focus on properties of the tangent sheaf and singular scheme."
-
-Here are two key ideas: if the distribution is codimension 1 we can write:
-$$
-\xymatrix{
-0\ar[r]&F\ar[r]&TX\ar[r]^{\omega}&I_Z \otimes L\ar[r]&0
-}
-$$
-where $L$ is a line bundle and $\omega \in H^{0}(\Omega_X \otimes L)$, and
-$Z=\{p:\omega(p)=0\}$.
-
-When codimension is 2 then $\mathcal{D}$ is given by a holomorphic vector field 
-$\nu$: $T_p=\left<\nu(p)\right>$.
-
-It can be encoded as an exact sequence
-$$
-\xymatrix{
-	0\ar[r]&L\ar[r]^{\nu}&TX\ar[r]&N\ar[r]&0
-}
-$$
-where $L$ is a line bundle and $\nu \in H^{0}(TX \otimes L^\vee)$;
-  $Z=\{p | \nu(p) = 0\}$.
-
-\begin{remark}
-\label{remark-stauration}
-Saturation means that $Z \subset X$ is a union of curves and points.
-\end{remark}
-
-And again, distributions are parametrized by Chern classes.
-
-Two interesting open questions:
-\begin{enumerate}
-\item {\bf Conjeture.} if $\mathcal{D}$ is a codimension 1 foliation of degree
-$d$ on $\mathbb{P}^3$, then $c_2(F)\leq d^2-d+1$ and bound is attained
-by rational foliations of type $(1,d+1)$. (True for $d \leq 2$.)
-\item {\bf Conjecture (with Pepe Seade).} $\mathcal{D}$ is a codimension 1 
-foliation on a smooth projective 3-fold, then $\text{Sing}\mathcal{D}$ is connected.
-\end{enumerate}
-
-\begin{theorem}[Jardim-Muniz]
-\label{theorem-jardim-muniz}
-Conditions on Chern classes used to understand moduli space $R(c_1,c_2,c_3)$.
-$c_2=4$ gives (?). For $c_3\leq 6$, possible ``spectrum" exists…
-\end{theorem}
-
-\section{Stability}
-\label{section-stability}
-
-{\bf Question.} What is stability?
-
-\begin{enumerate}
-\item Stable objects in an abelian category are the ``building blocks":
-we can reconstruct the whole category from them.
-\item  An abelian subcategory (hart) $\subset$ a triangulated
-\item stability defined via stability function on $\mathcal{A}$.
-\item Q. Can we reconstruct $\mathcal{T}$ from the semistable elements of
-$\mathcal{A}$
-\item {\bf Example.} $\mathcal{A}=\text{Coh}X$ is heart of $D^b(X)$
-w/ funny function.
-\item Stability condition is hart + stability function.
-\item Bridgeland Stabl:= the stability conditions are a complex manifold
-of complex codimension $\text{rk}\Lambda$:
-$$
- \mathcal{Z}:\text{Stab}(\mathcal{T})
-\longrightarrow \text{Hom}(\Lambda,\mathbb{C})
-$$
-\item There's a chamber structure; moduli space changes across chambers.
-\item I think we typically think of vectors in $\text{Hom}(\Lambda,\mathbb{C})$ 
-as Chern classes, to characterize the moduli spaces.
-\item Existence: given a projective variety $X$, are there stability
-conditions on $D^\text{b}(X)$? Yes for fano 3fold pic rk 1.
-\item Moduli spaces: is $M_\sigma(v)$ a projective scheme? Cannot use
-usual git techniques to study. A stack!
-\item Picture: blue + black are walls. Q. What are $\beta$ and $\alpha$?
-\item thm: bridgeland stable = gieseker stable ?
-\item Q. slope stability = bridgeland stability? A. Not always.
-\item DT/PT correspondance: only one wall between PT and G chambers
-\medskip
-\item Polynomial stability function. This is an asymptotic version of BS.
-\item There are some $\rho$'s. Arrangements of $\rho_i$ are polynomial 
-stability conditions on a threefold.
-\item Pata-Thomas introduced stability for rank 1 objects.
-Bayer compares the---wall. Q. Same for Bridge S---only one wall?
-\item Recall Gieseker stability.
-\medskip
-\item Def. A {\it stable triple}: when
-$\text{gcd}(\text{ch}_0,\text{ch}_2,\text{ch}_3)=1$, every PT stable object
-comes from three conditions (missing).
-\item What happens when you cross the blue wall? 
-Both $\mathcal{G}$ and $\mathcal{T}$ are projective. What happens at the blue
-wall?
-\medskip
-\item For $X$ smooth threefold with $\text{rk}\text{Pic}=1$, $\mathcal{G}(v)$,
-$v=(r,0,0,-n)$, $\mathcal{G}(v)$ is a known sheaf object and
-$\mathcal{T}=\emptyset$.
-\item $X$ sm 3 rkpic1, Fake wall; $\mathcal{G}=\mathcal{T}$.
-\item (Extra.) red circle is a wall for a weaker form of stability.
-\end{enumerate}
-\begin{definition}[Talk at impa]
-\label{definition-slope-stability}
-A rank-2 sheaf $\mathcal{F}$ is {\it semistable (stable)}if
-$H^{0}(\mathcal{F}(t))=0$ for $-t \geq(>) \frac{c_1F}{2}$
-\end{definition}
-
-Compare with
-
-\begin{definition}[moduli-curves.tex]
-\label{definition-semistable}
-Let $f : X \to S$ be a family of curves.
-We say $f$ is a {\it semistable family of curves} if
-\begin{enumerate}
-\item $X \to S$ is a prestable family of curves, and
-\item $X_s$ has genus $\geq 1$ and
-does not have a rational tail for all $s \in S$.
-\end{enumerate}
-\end{definition}
-
-\begin{itemize}
-\item The twistor diagram.
-$$
-\xymatrix{
-&  \ell_\infty \ar@{.>}[dr]\ar[dl]\\
-\mathbb{C}P^{2} \ar@{^{(}->}[rr]& &
-\mathbb{C}P^{3}\ar[dd]_{\substack{\text{twistor} \\ \text{map}}}\\ \\
-\mathbb{C}^2\ar@{^{(}->}[u]
-\mathbb{R}^4 \ar[u]\ar[rr]& &S^4
-}
-$$
-\item Instantons are solutions to some Yang-Mills solution.
-\item Expository paper of Donaldson arXiv:2205.08639
-\item ADHM construction, 1978. The first appearance of Algebraic Geometry in
-Mathematical Physics. See Hitchin-Kobayashi correspondence.
-\item Donaldson: ``unashamedly computational''.
-\item Expository paper by Simon.
-\item Take bundle $(E,\nabla)$ with an anti-self dual (ADS) 
-connection on $S^4$ and pullback to $\mathbb{C}P^{3}$ via the
-twistor map
-$$
-\tau[x:y:z:w]=[x+jy:z+jw] \qquad \text{note: $\tau^{-1}(p)=\mathbb{C}P^{1}$}
-$$
-Then:
-\begin{itemize}
-\item Restriction to fibres are trivial.
-\item Invariant under anti holomorphic involution (check this formula!) 
-$[x:y:z:w] \mapsto [-y:x:-w:z]$.
-\item $\mathcal{E}$ is also an instanton bundle.
-\item Penrose Transform: $H^1(\mathcal{E}(-2)) \cong \Ker \Delta=0$ where
-$\Delta$ is a Laplacian.
-\item Definition of instanton sheaf on $\mathbb{P}^3$ via $c_1(E)=0$ and some
-vanishing of cohomologies.
-\item Passage from [differential equations? algebraic geometry?] 
-to linear algebra: via {\it monads}. The point is that instanton sheaf is
-equivalent to  ``$E$ being the cohomology of a linear monad''; theorem by Horps
-in the 60's, and is the main tool used by ADHM. Indeed, ADHM equations come from
-the cohomology sequences of the so-called monads.
-\item Mathamatical inst bund:= locally free instanton sheaves.
-\end{itemize}
-\end{itemize}
-
-\noindent
-{\bf Properties.}
-\begin{itemize}
-\item The only instanton of rank 1 on $\mathbb{P}^3$ is the structure sheaf.
-\item non-trivial rank 2 locally free instanton sheaf ois  $\mu_0stable$
-\item double dual is locally free and also instanton
-\item non-trivial rank 2 instanton sheaaf is Fieseker stable
-therefore it makes sance fo define moduls space of instanton sheaves as an open
-subset of $\mathcal{M}(c)=\mathcal{G}(k,0,2,0)$.
-\end{itemize}
-
-Then studied the irreducibility (Tikhomirov) and smoothness (Jardim-Verbitsky,
-2014. Uses ``3rd hyperkähler quotient'') of $\mathcal{I}(c)$, the moduli
-space of rank 2 locally gree instanton sheaves of charge $c.$ But nobody likes
-this results; want new proofs.
-
-In contrast, $\mathcal{M}(c)$ of rank 2-instanton sheaves of charge $c$ is not
-irreducible in general!
-$\mathcal{M}(1)$ and $\mathcal{M}(2)$ are irreducible, $\mathcal{M}(3)$ has
-exactly 2 irreducible components of dimension 21;
- $\mathcal{M}(4)$ has 4 irredicuble components: 
-the locally free is irreducible, and the other 3 that intersect the closure of
-the locally
-free, $\overline{\mathcal{I}(c)}$. 3 components of dimension 29 and one of dimension 32
-
-\begin{remark}
-\label{remark-}
-In general the $\mu$ moduli space is not projective, but the Gieseker is.
-\end{remark}
-
-
-\noindent
-{\bf Is $\mathcal{M}(c)$ connected?} Use $\mathbb{C}^*$ action. True for $c \leq
-4$; every component intersects $\overline{\mathcal{I}(c)}$ in this range!
-
-\begin{definition}[Elementary transformation]
-\label{definition-elementary-transformation}
-$F$ of rank 2 locally free instanton, $Q$ of rank 0 instanton with 1 dimensional
-sheaf $h^p Q(-2)$ for $p = 0,1$. So in this conditions if we have an epimorphism
- $$
-F \overset{\varphi,\text{ surj}}{\to}\} Q
-$$
-we get that $\Ker \varphi$ is an instanton.
-\end{definition}
-
-So  we might be interested in
-$$
-E \hookrightarrow E^{* *}\xrightarrow{\text{surj.}} Q_E
-$$
-Let's have a look at $\mathcal{M}(3)=\overline{\mathcal{I}(3)}\cup
-\overline{C(0,1,3}$. Consider a generic line bundle of degree 0 on a planar
-cubic (cwhich is encoded in that we have intersection of something of cimension
-1 and something of simension 3), $L inn \text{Pic}^0(C)$ so we have an
-epimorphism
-$$
-\xymatrix{
-0\ar[r]&E\ar[r]&\mathcal{O}_{\mathbb{P}^3}\oplus
-\mathcal{O}_{\mathbb{P}^3}\ar[r]&(i_* L)\ar[r]&0
-}
-$$
-yielding a bundle $E$ as previously outlined.
-
-So we are studying the components via pushforwards of sheaves on complete
-intersection curves inside $\mathbb{P}^3$ 
-
-``when we do alementary transformation of rational (not rationl?) we get
-something on the boundary of locally free.''
-
-\medskip\noindent
-{\bf Perverse instanton sheaves.} Like an instnaton sheaf in monad description
-but with some restrictions on the cohomologies. This leads to definition of {\it
-$0$-rimensional instanton}, a perverse instanton such that $\mathcal{H}^0=0$.
-
-\medskip\noindent
-{\bf Instantons and quivers.}
-
-\medskip\noindent
-{\bf Framed instantons.} Fix a line $j:L\to \mathbb{P}^3$ and $E$ a perverse
-sheaf; a {\it framing} at $L$ is an isomorphis [missing].
-
-Apply GIT to the ADHM data to construct a moduli space 
-$$
-\mathcal{P}(r,c)=\mathcal{V}(r,c)^{\text{st}}/\!/\text{GL}(V_c)
-$$
-and it will follow that $\mathbb{P}(?,?)$ is connected.
-
-\medskip\noindent
-Considerations on quaternionic spaces lead to generalization of what has been
-discussed so far to higher dimensions. I.e. an {\it instanton sheaf} on
-$\mathbb{P}^n$ is… [other cohomological conditions]
-sheaf
-
-Why are instantons interesting? They are the simplest; may provide examples for
-Bridgeland stability.
-
-In Kuznetsov (2012) and Faenzi (2014) introduced {\it rank 2 instanton bundles
-on Fano 3-folds}. An {\it instanton bundle} on $X$ is a $\mu$-stable … and some
-Chern class is called the {\it charge}. An {\it
-instanton sheaf} (introduced by Marcos-Gaia) is ….
-
- ``Since we are imposing $\mu$-stability on the defintion we can consider the
-moduli $\mathcal{I}_X(c) \subset \mathcal{G}_X(2,-r_X,c,0)$''.
-
-There's also monad representations as an ingredient.
-
-
-\medskip\noindent
-Here are two questions that invite us to join the instanton fever:
-
-\medskip\noindent
-{\bf Task 1.} Construct rank 2-instanton sheaves that do not deform into locally
-free ones, and obtain the new irreducible components of
-$\mathcal{G}(2,-r_X,c,0)$.
-
-\medskip\noindent
-{\bf Task 2.} Nonlocally instanton sheaves that can be deformed into non-locally
-free ones: the {\it instanton boundary}
-$\overline{\mathcal{I}(c)}/\mathcal{I}(X)$[formula right?]
-
-
-\medskip\noindent
-{\bf Recipe to construct your own instanton.}
-\begin{enumerate}
-\item (Make a bunch of instantons.) Find an appropriate curve to 
-use Serre correspondence to find some rank 2 instanton sheaf:
-$$
-\xymatrix{
-0\ar[r]&\mathcal{O}_{\mathbb{P}^3}(-1)\ar[r]&\underbrace{E}_{\exists
-}\ar[r]&\mathcal{I}_{\sqcup \text{lines}}\ar[r]&0
-}
-$$
-where $E$ is a locally free instanton of charge = the number of lines $-1$.
-
-\item (Is your family of instantons generic?) You look at the $\text{Ext}$s.
-``Therefore, the family of instantons only defines a locally closed subset
-within a generically smooth irreducible component of $\mathcal{G}$''.
-
-\item ``Find suitable rank 0 intranton sheaves to perform an elementary
-transformations on the examples obtained in Step 1.'' But they are non-locally
-free.
-
-\item Now I have my instantons, I know they are locally free: but how to prove
-that the elementary transformations deform to locally free ones? Looks like
-the challenge is to prove that the deformation is locally free.
-\end{enumerate}
-
-In the papers by the group there are several particular cases when the
-deformations are locally free. But they don't have a general result that would
-work for 3-folds.
-
-\medskip\noindent
-{\bf What you need to call a thing an instanton.}
-\begin{itemize}
-\item Minimal cohomology possible; try to kill as much cohomology as you can.
-\item Fixing $c_1$ (which may determine other Chern classes).
-\item Some stability condition like $\mu$-stability or quiver stability. Here is
-an example that is not $\mu$-semistable: 
-$T\mathbb{P}^3(-1)\oplus\Omega_{\mathbb{P}^3}(1)$
-\item Whenever possible, look for a monadic representation. (The monadic
-representation comes from ADHM --- the beginnings of this theory. And it's still
-here!)
-\end{itemize}
-
-\section{Coherent sheaves}
-\label{section-coherent-sheaves}
-
-\begin{lemma}
-\label{lemma-quasi-coherent-affine-cohomology-zero}
-\begin{slogan}
-Serre vanishing: Higher cohomology vanishes on affine schemes
-for quasi-coherent modules.
-\end{slogan}
-Let $X$ be a scheme.
-Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
-For any affine open $U \subset X$ we have
-$H^p(U, \mathcal{F}) = 0$ for all $p > 0$.
-\end{lemma}
-
-\begin{proof}
-We are going to apply
-Cohomology, Lemma \ref{cohomology-lemma-cech-vanish-basis}.
-As our basis $\mathcal{B}$ for the topology of $X$ we are going to use
-the affine opens of $X$.
-As our set $\text{Cov}$ of open coverings we are going to use the standard
-open coverings of affine opens of $X$.
-Next we check that conditions (1), (2) and (3) of
-Cohomology, Lemma \ref{cohomology-lemma-cech-vanish-basis}
-hold. Note that the intersection of standard opens in an affine is
-another standard open. Hence property (1) holds.
-The coverings form a cofinal system of open coverings of any element
-of $\mathcal{B}$, see
-Schemes, Lemma \ref{schemes-lemma-standard-open}.
-Hence (2) holds.
-Finally, condition (3) of the lemma follows from
-Lemma \ref{lemma-cech-cohomology-quasi-coherent-trivial}.
-\end{proof}
 
 \section{Hilbert polynomial}
 \label{section-Hilbert-polynomial}
@@ -2681,7 +2245,7 @@ Here let's just put the following important meaning for
 ``deformation theory'' (as opposed to studying flat families!):
 
 \begin{quote}
-``{\it Deformation theory} is the study of infinitesimal deformaions
+``{\it Deformation theory} is the study of infinitesimal deformaitons
 as a tool to understand the local structure of the moduli space.
 The goal is to be able to describe the restriction
 of the universal family to a small neighborhood of $m \in \mathcal{M}$,
@@ -2747,25 +2311,6 @@ $k[t]/(t^2)$ (see \cite{Hartshorne-deformation}) as the tangent space of
 something is thinking of Taylor polynomials: after quotienting by $t^2$ we loose
 the tails of the polynomials and are left with the first derivative information
 only - this justifies the use of the ``first order deformations'' term.
-As for why using the dual numbers as the underlying ring
-of the parameter space, suppose we have a series
-$f(x)=\sum_{n=0}^\infty a_nx^n$.
-Then
- \begin{align*}
-f(x+\varepsilon)&=\sum_{n=0}^\infty a_n(x+\varepsilon)
-&=\sum_{n=0}^\infty\sum_{k=0}^na_n\binom{n}{k}x^{n-k}\varepsilon^k\\
-&=\underbrace{\sum_{n=0}^\infty a_nx^n}_{k=0}
-+\underbrace{\varepsilon\sum_{n=1}^\infty na_nx^{n-1}}_{k=1}\\
-&=f(x)+\varepsilon f'(x),
-\end{align*}
-
-\noindent
-which says that
-$$
-f(x+\varepsilon)-f(x)=\varepsilon f'(x).
-$$
-(Further interpretation needed…)
-
 
 There is the following interpretation in [continued-fractions] p. 39: the space
 of first order deformation classes of $X$ is $D(\mathbb{C}[t]/(t^2)$. This is
@@ -3052,97 +2597,134 @@ Look for the ``Perfect obstruction theory''.
 This is used by Bruzzo for deformations of (super)stacks,
 work with E. Paiva and ---.
 
-\section{Continued fractions}
-\label{section-continued-fractions}
-
-Definition of HJ continued fraction. For $i>2$ they are in bijection with
-$\mathbb{Q}_{>1}$.
-
-The basic diagram of this course starts with a surface $S$ (eg. Hirzebruch
-surface $S=\mathbb{F}_m$). Blowing up leads to $X$, and contracting Wahl chains
-on $X$ leads to $W$, a normal projective surface that has only Wahl
-singularities. Then we construct $\mathbb{Q}$-Gorenstein smoothings $W_t$.
-(These  $\mathbb{Q}$-Gorenstein smoothings have Milnor number =0.)
-
-Continued fractions have minimal models:
-\begin{itemize}
-\item $[1,1]$ means a 0 curve,  $\mathbb{P}^1$.
-\item $[1]$ means a  $-1$ curve,  $\mathbb{P}^1$.
-\item For $\frac{m}{q}\in\mathbb{Q}_{>1}$, the continued fraction
-$[e_1,\ldots,e_r]$ means a chain, which is a sequence of lines that intersect
-transversally with $-e_1,\ldots,-e_r$. This is mapped to $\frac{1}{m}(1,q)$.
-\end{itemize}
-
 \medskip\noindent
+Until I have a better candidate of where to put this…
 
-{\bf Third lecture.}
-
-Here's some slogans/recap:
-\begin{enumerate}
-\item The most important cyclic quotient singularities (c.q.s.) are Wahl
-$\frac{1}{n^2}(na-1)$. There is a model to deal with this kind o singularities
-using continued fractions. This is very silly but what I picked up is that ``you
-add a 2 in the end and add +1 to the first number'', so for example
-$[4]\rightsquigarrow[5,2]\rightsquigarrow[6,2,2]$. But on the second step the
-$[5,2]$ also goes to $[2,5,3]$ in a way I don't understand. This is called the
-Wahl algorithm.
-\item (See [KSB88]) There is a notion of $M$-resolution, which is a drawing of 
-several curves $\Gamma_i$ intersecting at points $P_i$ that may be Wahl 
-singularities or 
-smooth points with the key property that $\Gamma_i\cdot K\geq 0$. We have
-``toric boundary for $P_i$''. These $M$-resolutions are in 1-1 correspondence
-with smoothings of $\frac{1}{m}(1,q)$, and in turn in 1-1 correspondence with
-continued fractions $K\left(\frac{m}{m-q}\right)=\{k_1,\ldots,k_s]:
-1\leq k_i\leq b_i\;\forall i\}$ where $\frac{m}{m-q}=[b_1,\ldots,b_s]$.
-\end{enumerate}
-
-\medskip\noindent
-
-Today we consider the fibers to be $W_t=\mathbb{P}^2$ and
-try to find $W$. Set $m_1,m_2,m_3\in\mathbb{Z}_{>0}$. Define
+\begin{definition}
+\label{definition-extension}
+\begin{reference}
+\cite[p.7]{Sernesi-deformations}
+\end{reference}
+Let $A \to R$ be a ring homomorphism
+(i.e. $R$ is an $A$-algebra).
+An {\it $A$-extension of $R$ by $I$} is a short exact sequence
 $$
-\mathbb{P}(m_1,m_2,m_3):=
-\mathbb{P}^2/(\mathbb{Z}/m_1\oplus\mathbb{Z}/m_2\oplus\mathbb{Z}/m_3)
-=\mathbb{C}^3\setminus\{0\}/(\lambda\in\mathbb{C}^*\lambda(x,y,z)
-=(\lambda^{m_1}x,\lambda^{m_2}y,\lambda^{m_3}z))
+\xymatrix{
+0\ar[r]
+&I\ar[r]
+&E\ar[r]^\varphi
+&R\ar[r]
+&0.
+}
 $$
-For $\text{gdc}(d,m_i)=1$ we have
-$\mathbb{P}(dm_1,dm_2,dm_3)=\mathbb{P}(m_1,m_2,m_3)$.
-
-For a triangle $xyz=0$ given by three lines $\Gamma_i$ we have cqs singularities
-of the kind $\frac{1}{m_1}(m_2,m_3)$. In this case
-$K_W=-(m_1+m_2+m_3)\xi=-\Gamma_1-\Gamma_2-\Gamma_3$ for
-$\xi^2=\frac{1}{m_1m_2m_3}$, and $\text{Cl}(W)=\mathbb{Z}\left<\xi\right>$.
-Since these are Wahl singularities, we must have that the $m_i$ are squares,
-i.e. $m_i=n_i^2$ for some $n_i$. We must have:
-\begin{align*}
-K_W^2=(m_1+m_2+m_3)^2\frac{1}{m_1m_2m_3}=9&=K^2_{\mathbb{P}^2}\\
-\implies (n_1^2+n_2^2+n_3^2)-9n_1^2n_2^2n_3^2&=0\\
-\implies (n_1^2+n_2^2+n_3^2-2n_1n_2n_3)\cdot(\text{positive factor})&=0\\
-\implies n_1^2+n_2^2+n_3^2&=3n_1n_2n_3
-\end{align*}
-The last equation is known as {\it Markov equation}.
+where $E$ is an $R'$-algebra
+and $\varphi$ is a morphism of $A$-algebras
+whose kernel is $I$.
+We also require that $I^2=(0)$;
+this condition implies that $I$ has the sturcture of $R$-module.
+\end{definition}
 
 \begin{example}
-\label{example-Hirzebruch-surface}
-For $\mathbb{P}(1,1,4)=W$, a triangle with a Wahl singularity
-$\frac{1}{4}(1,1)$ in one vertex. Blowing up gives the Hirzebruch surface
-$\mathbb{F}_4$, so that a minimal resolution is the triangle. Compare with
-[\href{https://arxiv.org/pdf/2504.19929}{Hacking-Prokhorov-2010}]. This example
-satisfies the Markov equation for $n_1=1,n_2=1,n_3=2$.
+\label{example-dual-numbers-extension}
+$$
+\xymatrix{
+0\ar[r]
+&(\varepsilon)\ar[r]
+&A[\varepsilon]\ar[r]
+&A\ar[r]
+&0
+}
+$$
+where $A[\varepsilon]$ is the algebra of dual numbers over $A$.
 \end{example}
 
-\begin{theorem}[[HP2010]]
-\label{theorem-HP2010}
-If $\mathbb{P}^2\rightsquigarrow W$ with only log terminal singularities then
-$W$ is a partial $\mathbb{Q}$-Gorenstein smoothing of $\mathbb{P}(a^2,b^2,c^2)$
-where $a^2+b^2+c^2=3abc$.
+\section{Cotangent modules}
+\label{section-cotangent-modules}
+
+\noindent
+My aim in this section is to cover the minimal
+theory needed to apply results in \cite{jan2}
+to my deformation problem. The main theorem
+I expect to use is the following:
+
+\begin{theorem}
+\label{theorem-deformations-threefolds}
+\begin{reference}
+\cite[Theorem 5.7]{jan2}
+\end{reference}
+If $\mathcal{K}$ is a 3-dimensional manifold then
+$$
+\dim T^1_{\mathbb{P}(K)}
+=11d_3+5e_3+3e_4+e_{\geq 5}+c_{\geq 6}+5f_1^{(3)}+2f_1^{(4)}+h^2(\mathcal{K}).
+$$
 \end{theorem}
-By the Markov equation condition all the singularities must be Wahl. The triple
-$(a,b,c)$ is called {\it Markov triple}. Any permutation of a Markov triple is
-another Markov triple. Is $(a,b,c)$ is Markov then so is $(a,b,3ab-c)$. This
-allows to construct a {\it Markov tree}. There is so-called Markov conjecture
-(due to Frobenius) still unsolved.
+
+\noindent
+I need to do some interpretation first.
+From \cite[p. 1]{jan3}:
+
+\begin{quotation}
+  ``For each $\mathbb{C}$-algebra $A$,
+there is a cohomology theory providing modules $T^i_A$.
+However, only $T^1_A$ and $T^2_A$ are relevant for the deformation
+theory of $\Spec A$. The module $T^1_A$ collects the infinitesimal
+deformations of $A$ and $T^2_A$ contains the obstructions
+for lifting these deformations to decent parameter spaces.
+Eventually, $\text{Der}_{\mathbb{C}}(A,A)$ will be called $T_A^0$."
+\end{quotation}
+
+\cite[p. 3]{jan3}:
+\begin{quotation}
+``In general, for a finitely generated $\mathbb{C}$-algebra $A$,
+the modules $T_A^i$ allow the following ad hoc definitions:
+Let $P=\mathbb{C}[x_0,…,x_n]$ mapping onto $A$ so that $A \simeq P/I$
+for an ideal $I$. The $T_A^1$ is the cokernel of the natural map
+$\text{Der}_{\mathbb{C}}(P,P) \to \Hom_P(I,A)$.
+Moreovr, […] and we obtain $T^2_A$ as the cokernel
+of the induced map $\Hom_P(P^m,A)\to\Hom_A(R/R_0,A)$.''
+\end{quotation}
+
+\begin{remark}[dani]
+\label{remark-dani1}
+Let's think more about that definition of $T^1_A$
+as the cokernel of the ``natural map''
+$\text{Der}_\mathbb{C}(P,P) \to \Hom_P(I,A)$.
+
+Pick a derivation $\chi \in \text{Der}_{\mathbb{C}}(P,P)$.
+We want a map $I \to A=P/I$.
+Pick an element $a \in I$ and map it to $\chi(a)$.
+And that's it. It might be zero or not.
+If the $\chi$ we picked maps any $a \in I$ to some element in $I$,
+then this $\chi$ is in the kernel of the natural map.
+So $T^1_A$ is the image of the natural map modulo the kernel.
+\end{remark}
+
+\noindent
+Unfortunately this doesn't say much about the following crucial fact:
+the $T^i_A$ modules are $\mathbb{Z}^{n+1}$-graded.
+But here goes an explanation.
+We use the notation that $e_p$ is a ``face not in the complex'',
+which of course corresponds to a generating monomial $x^p$
+of the SR ideal $I$.
+It has a degree, of course (given by the ``support'' of $p$).
+Now here's a rather sloppy step but:
+since the cotangent modules are built upon $I$,
+who is given by $e_p$,
+we just notice that the degree of $e_p$
+along with a (very natural, too) notion of degree among relations, 
+induce a grading in all the cotangent modules $T_A^i$.
+Thus, the grading is morally just the degree of the monomials,
+which is in fact the support of $p$, a vector $\mathbf{c} \in \mathbb{Z}^{n+1}$.
+
+Next in line is the decomposition $\mathbf{c}=\mathbf{a}-\mathbf{b}$
+into positive minus negative part. But how exactly…?
+
+
+
+
+
+
+
 
 \section{Fano varieties}
 \label{section-Fano-varieties}
@@ -3563,7 +3145,8 @@ $\mathcal{B}(-1,6)$ has $\geq 4$ components.
 \end{itemize}
 
 \medskip\noindent
-\subsection*{Serre correspondence}
+Now let's discuss Serre correspondence.
+
 How can we describe these spaces?
 Let $E$ be a vector bundle of rank 2
 on $\mathbb{P}^3$ and $\sigma \in H^0(E(r))$.
@@ -3592,8 +3175,25 @@ $$
 Upshot about Deligne-Mumford stacks:
 the sit below a stack via a map that is étale.
 
-\subsection{Framed moduli}
-\label{subsection-framed-moduli}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\medskip\noindent
+Now let's discuss framed moduli.
 
 \noindent
 Framed instantons on the blow-up of $\mathbb{P}^3$ at a point.
@@ -3688,9 +3288,682 @@ if and only if $h^1(\mathcal{E}(-2,1) \otimes \mathcal{O}(-E))=0$.
 
 
 
+\section{Marcos Jardim}
+\label{section-jardim}
+
+\begin{slogan}
+These are vector bundles except for a small locus.
+\end{slogan}
+
+\begin{definition}
+\label{definition-reflexive}
+Let $X$ be an integral locally Noetherian 
+scheme. Let $\mathcal{F}$
+be a coherent $\mathcal{O}_X$-module. 
+The {\it reflexive hull}
+of $\mathcal{F}$ is the $\mathcal{O}_X$-module
+$$
+\mathcal{F}^{**} = \SheafHom_{\mathcal{O}_X}(
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{O}_X), \mathcal{O}_X)
+$$
+We say $\mathcal{F}$ is {\it reflexive} 
+if the natural map
+$j : \mathcal{F} \longrightarrow \mathcal{F}^{**}$
+is an isomorphism.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-reflexive-torsion-free}
+Let $X$ be an integral locally Noetherian 
+scheme. Let $\mathcal{F}$
+be a coherent $\mathcal{O}_X$-module.
+\begin{enumerate}
+\item If $\mathcal{F}$ is reflexive, then $\mathcal{F}$ 
+is torsion free.
+\item The map $j : \mathcal{F} \longrightarrow \mathcal{F}^{**}$
+is injective if and only if $\mathcal{F}$ 
+is torsion free.
+\end{enumerate}
+\end{lemma}
+
+\begin{remark}[Talk at IMPA, 11 June]
+\label{remark-reflexive-talk}
+Torsion could also be defined so that the
+sheaf can inject onto its dual. In this talk
+we discussed the moduli space of
+reflexive/torsion-free sheaves, which turned
+out to be parametrized by $c_1, c_2$ and
+$c_3$. This was denoted by $R(c_1,c_2,c_3)$.
+Actually I think it may have been Manolache
+that proved the existence of this moduli
+space.
+
+Alan Muniz
+
+Nesta palestra discutiremos a classificação
+de feixes reflexivos de posto dois e seus
+espaços de módulos. Apresentaremos algumas
+ferramentas básicas usadas na construção e
+determinação de tais feixes. Aplicaremos
+estas técnicas para o caso de feixes com
+segunda classe de Chern igual a quatro,
+obtido recentemente em colaboração com Marcos
+Jardim.
+\end{remark}
+
+
+
+
+\medskip\noindent 
+Now let's discuss
+distributions on manifolds.
+
+Here's the abstract from a talk by Marcos
+Jardim at Geometric Structures:
+
+``I will revise the work done over the past
+10 years with various collaborators on
+distributions and foliations on 3-folds,
+especially on the projective space, with a
+focus on properties of the tangent sheaf and
+singular scheme."
+
+Here are two key ideas: if the distribution 
+is codimension 1 we can write:
+$$
+\xymatrix{
+0\ar[r]&F\ar[r]&TX\ar[r]^{\omega}&I_Z \otimes L\ar[r]&0
+}
+$$
+where $L$ is a line bundle and 
+$\omega \in H^{0}(\Omega_X \otimes L)$, and
+$Z=\{p:\omega(p)=0\}$.
+
+When codimension is 2 then $\mathcal{D}$ is given by 
+a holomorphic vector field 
+$\nu$: $T_p=\left<\nu(p)\right>$.
+
+It can be encoded as an exact sequence
+$$
+\xymatrix{
+	0\ar[r]&L\ar[r]^{\nu}&TX\ar[r]&N\ar[r]&0
+}
+$$
+where $L$ is a line bundle 
+and $\nu \in H^{0}(TX \otimes L^\vee)$;
+  $Z=\{p | \nu(p) = 0\}$.
+
+\begin{remark}
+\label{remark-stauration}
+Saturation means that $Z \subset X$ is a union 
+of curves and points.
+\end{remark}
+
+And again, distributions are parametrized by
+Chern classes.
+
+Two interesting open questions:
+\begin{enumerate}
+\item {\bf Conjeture.} if $\mathcal{D}$ is a 
+codimension 1 foliation of degree
+$d$ on $\mathbb{P}^3$, then $c_2(F)\leq d^2-d+1$ and 
+bound is attained
+by rational foliations of type $(1,d+1)$. 
+(True for $d \leq 2$.)
+\item {\bf Conjecture (with Pepe Seade).}
+$\mathcal{D}$ is a codimension 1 
+foliation on a smooth projective 3-fold, 
+then $\text{Sing}\mathcal{D}$ is connected.
+\end{enumerate}
+
+\begin{theorem}[Jardim-Muniz]
+\label{theorem-jardim-muniz}
+Conditions on Chern classes used to 
+understand moduli space $R(c_1,c_2,c_3)$.
+$c_2=4$ gives (?). For $c_3\leq 6$, possible 
+``spectrum" exists…
+\end{theorem}
+
+
+
+
+
+
+
+
+
+\medskip\noindent
+Now let's discuss stability.
+
+Let $\mathcal{A}$ be an abelian
+category with Grothendieck group
+$K_0(\mathcal{A})$.
+
+\begin{definition}
+\label{definition-stability-function}
+An additive homomorphism
+$Z: K_0(\mathcal{A}) \to \mathbb{C}$
+is a {\it stability function} if for all
+$0 \neq E \in \mathcal{A}$,
+$$
+\text{Im}Z(E) \geq 0\qquad 
+\text{and}\qquad 
+\text{Re}Z(E) <0 \text{ if }
+\text{Im}Z(E)=0.
+$$
+The {\it slope} of $E \in \mathcal{A}$
+with respect to $Z$ is
+$$
+M(E)=
+\begin{cases}
+-\frac{\text{Re}Z(E)}{
+\text{Im}Z(E)}\qquad &
+\text{if }\text{Im}Z(E) \neq 0 \\
+\infty\qquad &
+\text{if }\text{Im}Z(E)=0.
+\end{cases}
+$$
+A nonzero object $E \in \mathcal{A}$
+is called {\it stable} if for all
+proper non trivial subobjects
+$F \subset E$, we have
+$$
+M(F) < M(E)
+$$
+and {\it semistable} if we put
+$\leq $ instead.
+\end{definition}
+
+\begin{definition}
+\label{definition-stability-condition}
+A pair $(\mathcal{A},Z)$ is called
+a {\it stability condition} if
+\begin{enumerate}
+\item $Z$ is a stability function, and
+\item every $0 \neq E \in \mathcal{A}$
+has a Harder-Narasimhan filtration.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{lemma-harder-narasimhan-existence}
+Let $Z:K_0(\mathcal{A})\to \mathbb{C}$
+be a stability function.
+Assume that
+\begin{enumerate}
+\item $\mathcal{A}$ is Noetherian, and
+\item the image of $\text{Im}Z$
+is discrete in $\mathbb{R}$.
+\end{enumerate}
+Then every $0 \neq E \in \mathcal{A}$
+has a Harder-Narasimhan filtration
+with respect to $Z$.
+\end{lemma}
+
+\noindent
+Let $\mathcal{D}$ be a triangulated
+category. Fix a finite rank lattice
+$\Lambda$, a surjective homomorphism
+$v:K_0(\mathcal{D}) \to \Lambda$
+and a norm $\|\cdot\|$ in $\Lambda$.
+
+\begin{definition}
+\label{definition-bridgeland-stability}
+A {\it Bridgeland stability condition} 
+$\mathcal{D}$ is a pair $(\mathcal{A},Z)$
+where $\mathcal{A}$ is the heart of a
+bounded $t$-structure on $\mathcal{D}$,
+such that
+\begin{enumerate}
+\item $(\mathcal{A},Z)$ is a stability
+condition,
+\item the following support property
+holds:
+$$
+\text{inf}\left\{
+\frac{|Z(E)|}{
+\|v(E)\|}
+:0 \neq  E \in \mathcal{A}
+\text{semistable}\right\} 
+>0.
+$$
+\end{enumerate}
+\end{definition}
+
+\noindent
+Let $Stab^{Br}_\Lambda(\mathcal{D})$
+be the set of Bridgeland stability
+conditions and let 
+$Stab_\Lambda(\mathcal{D})$ be the set
+of stability conditions on $\mathcal{D}$
+with respect to $(\Lambda,v)$.
+
+\begin{theorem}[Bridgeland?]
+\label{theorem-bridgeland}
+The natural map
+$$
+Stab_\Lambda(\mathcal{D})
+\to \Hom(\Lambda,\mathbb{C})
+$$
+is a local homeomorphism.
+In particular,
+$Stab_\Lambda(\mathcal{D})$ is a complex
+manifold and
+$$
+Stab_\Lambda^{Br}(\mathcal{D})
+\subset
+Stab(\mathcal{D}).
+$$
+\end{theorem}
+
+\noindent
+Let $(\mathcal{A},Z)$ be a stability
+condition and $M$ be the slope with
+respect to $Z$. 
+For each $\beta \in \mathbb{R}$
+we define the following pair of 
+subcategories on $\mathcal{A}$:
+\begin{align*}
+\mathcal{T}^\beta(A,Z)&=\mathcal{T}^\beta
+=\{\mathcal{E} \in \mathcal{A}
+: M(\mathcal{G})>\beta
+\text{ whenever }
+\mathcal{E} \xymatrix{\ar@{->>}[r]&}
+\mathcal{G}\}\\
+\mathcal{F}^\beta(\mathcal{A},Z)
+&=\mathcal{F}^\beta
+=\{\mathcal{E} \in \mathcal{A}
+:M(\mathcal{F})\leq \beta
+\text{ for every }
+0 \neq  \mathcal{F} \subset \mathcal{E}\}.
+\end{align*}
+
+\begin{definition}
+\label{definition-tilt}
+The {\it tilt}
+$\mathcal{A}^* 
+=\left<\mathcal{F}[1],\mathcal{T}\right>
+\subset\mathcal{D}$
+of $\mathcal{A}$ with respect to
+$(\mathcal{T}^\beta,\mathcal{F}^\beta)$
+is the smallest extension closed full
+subcategory of $\mathcal{D}$ containing
+$\mathcal{T}^\beta$ and 
+$\mathcal{F}^\beta[1]$.
+\end{definition}
+
+\noindent
+$\mathcal{A}^*$ is the heart of a bounded
+$t$-structure on $\mathcal{D}$.
+
+\begin{enumerate}
+\item Stable objects in an abelian category 
+are the ``building blocks":
+we can reconstruct the whole category from 
+them.
+\item  An abelian subcategory (hart) $\subset$ a 
+triangulated
+\item Stability defined via stability f
+unction on $\mathcal{A}$.
+\item Q. Can we reconstruct $\mathcal{T}$ from the 
+semistable elements of
+$\mathcal{A}$
+\item {\bf Example.} $\mathcal{A}=\text{Coh}X$ is heart 
+of $D^b(X)$ w/ funny function.
+\item Stability condition is hart + stability 
+function.
+\item Bridgeland Stabl:= the stability 
+conditions are a complex manifold
+of complex codimension $\text{rk}\Lambda$:
+$$
+ \mathcal{Z}:\text{Stab}(\mathcal{T})
+\longrightarrow \text{Hom}(\Lambda,\mathbb{C})
+$$
+\item There's a chamber structure; 
+moduli space changes across chambers.
+\item I think we typically think of vectors 
+in $\text{Hom}(\Lambda,\mathbb{C})$ 
+as Chern classes, to characterize the 
+moduli spaces.
+\item Existence: 
+given a projective variety $X$, 
+are there stability
+conditions on $D^\text{b}(X)$? 
+Yes for fano 3fold pic rk 1.
+\item Moduli spaces: is $M_\sigma(v)$ 
+a projective scheme? Cannot use
+usual git techniques to study. A stack!
+\item Picture: blue + black are walls. 
+Q. What are $\beta$ and $\alpha$?
+\item thm: bridgeland stable 
+= gieseker stable ?
+\item Q. slope stability 
+= bridgeland stability? 
+A. Not always.
+\item DT/PT correspondance: 
+only one wall between PT and G chambers
+\medskip
+\item Polynomial stability function. 
+This is an asymptotic version of BS.
+\item There are some $\rho$'s. 
+Arrangements of $\rho_i$ are polynomial 
+stability conditions on a threefold.
+\item Pata-Thomas introduced stability 
+for rank 1 objects.
+Bayer compares the---wall. Q. 
+Same for Bridge S---only one wall?
+\item Recall Gieseker stability.
+\medskip
+\item Def. A {\it stable triple}: when
+$\text{gcd}(\text{ch}_0,\text{ch}_2,\text{ch}_3)=1$, 
+every PT stable object
+comes from three conditions (missing).
+\item What happens when 
+you cross the blue wall? 
+Both $\mathcal{G}$ and $\mathcal{T}$ are projective. 
+What happens at the blue wall?
+\medskip
+\item For $X$ smooth threefold with $\text{rk}\text{Pic}=1$, $\mathcal{G}(v)$,
+$v=(r,0,0,-n)$, $\mathcal{G}(v)$ is a known sheaf object and
+$\mathcal{T}=\emptyset$.
+\item $X$ sm 3 rkpic1, Fake wall; $\mathcal{G}=\mathcal{T}$.
+\item (Extra.) red circle is a wall for a weaker form of stability.
+\end{enumerate}
+\begin{definition}[Talk at impa]
+\label{definition-slope-stability}
+A rank-2 sheaf $\mathcal{F}$ is 
+{\it semistable (stable)} if
+$H^{0}(\mathcal{F}(t))=0$ for $-t \geq(>) \frac{c_1F}{2}$
+\end{definition}
+
+\noindent
+Compare with
+
+\begin{definition}[moduli-curves.tex]
+\label{definition-semistable}
+Let $f : X \to S$ be a family of curves.
+We say $f$ is a {\it semistable 
+family of curves} if
+\begin{enumerate}
+\item $X \to S$ is a prestable family of curves, 
+and
+\item $X_s$ has genus $\geq 1$ and
+does not have a rational tail for all $s \in S$.
+\end{enumerate}
+\end{definition}
+
+\begin{itemize}
+\item The twistor diagram.
+$$
+\xymatrix{
+&  \ell_\infty \ar@{.>}[dr]\ar[dl]\\
+\mathbb{C}P^{2} \ar@{^{(}->}[rr]& &
+\mathbb{C}P^{3}\ar[dd]_{\substack{\text{twistor} \\ \text{map}}}\\ \\
+\mathbb{C}^2\ar@{^{(}->}[u]
+\mathbb{R}^4 \ar[u]\ar[rr]& &S^4
+}
+$$
+
+\item Instantons are solutions to some
+Yang-Mills solution.
+\item Expository paper
+of Donaldson arXiv:2205.08639 \item ADHM
+construction, 1978. The first appearance of
+Algebraic Geometry in Mathematical Physics.
+See Hitchin-Kobayashi correspondence. 
+\item Donaldson: ``unashamedly computational''.
+\item Expository paper by Simon. 
+\item Take bundle $(E,\nabla)$ with 
+an anti-self dual
+(ADS) connection on $S^4$ and pullback to
+$\mathbb{C}P^{3}$ via the twistor map
+
+$$
+\tau[x:y:z:w]=[x+jy:z+jw] \qquad \text{note: $\tau^{-1}(p)=\mathbb{C}P^{1}$}
+$$
+Then:
+\begin{itemize}
+\item Restriction to fibres are trivial.
+\item Invariant under anti holomorphic involution (check this formula!) 
+$[x:y:z:w] \mapsto [-y:x:-w:z]$.
+\item $\mathcal{E}$ is also an instanton bundle.
+\item Penrose Transform:
+ $H^1(\mathcal{E}(-2)) \cong \Ker \Delta=0$ where
+$\Delta$ is a Laplacian.
+\item Definition of instanton sheaf 
+on $\mathbb{P}^3$ via $c_1(E)=0$ and some
+vanishing of cohomologies.
+\item Passage from 
+[differential equations? algebraic geometry?] 
+to linear algebra: via {\it monads}. 
+The point is that instanton sheaf is
+equivalent to  ``$E$ being the cohomology 
+of a linear monad''; theorem by Horps
+in the 60's, and is the main tool used 
+by ADHM. Indeed, ADHM equations come from
+the cohomology sequences of the so-called 
+monads.
+\item Mathamatical inst bund:= 
+locally free instanton sheaves.
+\end{itemize}
+\end{itemize}
+
+\noindent
+{\bf Properties.}
+\begin{itemize}
+\item The only instanton of rank 1 on $\mathbb{P}^3$ is 
+the structure sheaf.
+\item non-trivial rank 2 locally free 
+instanton sheaf is  $\mu_0$ stable
+\item double dual is locally free and 
+also instanton
+\item non-trivial rank 2 instanton sheaf 
+is Fieseker stable
+therefore it makes sense to define 
+moduli space of instanton sheaves as 
+an open subset of $\mathcal{M}(c)=\mathcal{G}(k,0,2,0)$.
+\end{itemize}
+
+Then studied the irreducibility (Tikhomirov)
+and smoothness (Jardim-Verbitsky, 2014. Uses
+``3rd hyperkähler quotient'') of
+$\mathcal{I}(c)$, the moduli space of rank 2
+locally free instanton sheaves of charge $c.$
+But nobody likes this results; want new
+proofs.
+
+In contrast, $\mathcal{M}(c)$ of rank
+2-instanton sheaves of charge $c$ is not
+irreducible in general! $\mathcal{M}(1)$ and
+$\mathcal{M}(2)$ are irreducible,
+$\mathcal{M}(3)$ has exactly 2 irreducible
+components of dimension 21; $\mathcal{M}(4)$
+has 4 irredicuble components: the locally
+free is irreducible, and the other 3 that
+intersect the closure of the locally free,
+$\overline{\mathcal{I}(c)}$. 3 components of
+dimension 29 and one of dimension 32
+
+\begin{remark}
+\label{remark-gieseker}
+In general the $\mu$ moduli space is 
+not projective, but the Gieseker is.
+\end{remark}
+
+
+\noindent
+{\bf Is $\mathcal{M}(c)$ connected?} Use
+$\mathbb{C}^*$ action. True for $c \leq 4$;
+every component intersects
+$\overline{\mathcal{I}(c)}$ in this range!
+
+\begin{definition}[Elementary transformation]
+\label{definition-elementary-transformation}
+$F$ of rank 2 locally free instanton,
+$Q$ of rank 0 instanton with 1 dimensional
+sheaf $h^p Q(-2)$ for $p = 0,1$. 
+So in this conditions if we have an 
+epimorphism
+ $$
+F \overset{\varphi,\text{ surj}}{\to}\} Q
+$$
+we get that $\Ker \varphi$ is an instanton.
+\end{definition}
+
+So  we might be interested in
+$$
+E \hookrightarrow E^{* *}\xrightarrow{\text{surj.}} Q_E
+$$
+Let's have a look at
+$\mathcal{M}(3)=\overline{\mathcal{I}(3)}\cup
+\overline{C(0,1,3}$. Consider a generic line
+bundle of degree 0 on a planar cubic (which
+is encoded in that we have intersection of
+something of cimension 1 and something of
+simension 3), $L inn \text{Pic}^0(C)$ so we
+have an epimorphism
+$$
+\xymatrix{
+0\ar[r]&E\ar[r]&\mathcal{O}_{\mathbb{P}^3}\oplus
+\mathcal{O}_{\mathbb{P}^3}\ar[r]&(i_* L)\ar[r]&0
+}
+$$
+yielding a bundle $E$ as previously outlined.
+
+So we are studying the components via pushforwards of sheaves on complete
+intersection curves inside $\mathbb{P}^3$ 
+
+``when we do alementary transformation of rational (not rationl?) we get
+something on the boundary of locally free.''
+
+\medskip\noindent
+{\bf Perverse instanton sheaves.} Like an instnaton sheaf in monad description
+but with some restrictions on the cohomologies. This leads to definition of {\it
+$0$-rimensional instanton}, a perverse instanton such that $\mathcal{H}^0=0$.
+
+\medskip\noindent
+{\bf Instantons and quivers.}
+
+\medskip\noindent
+{\bf Framed instantons.} Fix a line $j:L\to \mathbb{P}^3$ and $E$ a perverse
+sheaf; a {\it framing} at $L$ is an isomorphis [missing].
+
+Apply GIT to the ADHM data to construct a moduli space 
+$$
+\mathcal{P}(r,c)=\mathcal{V}(r,c)^{\text{st}}/\!/\text{GL}(V_c)
+$$
+and it will follow that $\mathbb{P}(?,?)$ is connected.
+
+\medskip\noindent
+
+Considerations on quaternionic spaces lead to
+generalization of what has been discussed so
+far to higher dimensions. I.e. an {\it
+instanton sheaf} on $\mathbb{P}^n$ is… [other
+cohomological conditions] sheaf
+
+Why are instantons interesting? They are the
+simplest; may provide examples for Bridgeland
+stability.
+
+In Kuznetsov (2012) and Faenzi (2014)
+introduced {\it rank 2 instanton bundles on
+Fano 3-folds}. An {\it instanton bundle} on
+$X$ is a $\mu$-stable … and some Chern class
+is called the {\it charge}. An {\it instanton
+sheaf} (introduced by Marcos-Gaia) is ….
+
+ ``Since we are imposing $\mu$-stability on
+the defintion we can consider the moduli
+$\mathcal{I}_X(c) \subset
+\mathcal{G}_X(2,-r_X,c,0)$''.
+
+There's also monad representations as an
+ingredient.
+
+\medskip\noindent
+Here are two questions that invite us to join
+the instanton fever:
+
+\medskip\noindent
+{\bf Task 1.} Construct rank 2-instanton
+sheaves that do not deform into locally free
+ones, and obtain the new irreducible
+components of $\mathcal{G}(2,-r_X,c,0)$.
+
+\medskip\noindent
+{\bf Task 2.} Nonlocally instanton sheaves
+that can be deformed into non-locally free
+ones: the {\it instanton boundary}
+$\overline{\mathcal{I}(c)}/\mathcal{I}(X)$[formula
+right?]
+
+
+\medskip\noindent
+{\bf Recipe to construct your own instanton.}
+\begin{enumerate}
+\item (Make a bunch of instantons.) Find an 
+appropriate curve to 
+use Serre correspondence to find some 
+rank 2 instanton sheaf:
+$$
+\xymatrix{
+0\ar[r]&\mathcal{O}_{\mathbb{P}^3}(-1)\ar[r]&\underbrace{E}_{\exists
+}\ar[r]&\mathcal{I}_{\sqcup \text{lines}}\ar[r]&0
+}
+$$
+where $E$ is a locally free instanton 
+of charge = the number of lines $-1$.
+
+\item (Is your family of instantons generic?) 
+You look at the $\text{Ext}$s.
+``Therefore, the family of instantons only 
+defines a locally closed subset
+within a generically smooth irreducible 
+component of $\mathcal{G}$''.
+
+\item ``Find suitable rank 0 intranton sheaves
+ to perform an elementary
+transformations on the examples obtained in 
+Step 1.'' But they are non-locally
+free.
+
+\item Now I have my instantons, I know they 
+are locally free: but how to prove
+that the elementary transformations deform 
+to locally free ones? Looks like
+the challenge is to prove that the 
+deformation is locally free.
+\end{enumerate}
+
+In the papers by the group there are several particular cases when the
+deformations are locally free. But they don't have a general result that would
+work for 3-folds.
+
+\medskip\noindent
+{\bf What you need to call a thing an 
+instanton.}
+\begin{itemize}
+\item Minimal cohomology possible; 
+try to kill as much cohomology as you can.
+\item Fixing $c_1$ (which may determine other 
+Chern classes).
+\item Some stability condition 
+like $\mu$-stability or quiver stability. 
+Here is an example that is not 
+$\mu$-semistable: 
+$T\mathbb{P}^3(-1)\oplus\Omega_{\mathbb{P}^3}(1)$
+\item Whenever possible, 
+look for a monadic representation. 
+(The monadic
+representation comes from ADHM --- 
+the beginnings of this theory. 
+And it's still here!)
+\end{itemize}
+
 \section{Campana}
 
-A \textit{special} variaty should be thought of 
+A \textit{special} variety should be thought of 
 as the farthest notion possible from being of general type.
 
 \begin{definition}[Campana]
