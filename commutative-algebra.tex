@@ -827,7 +827,7 @@ by $M$.
 \end{proof}
 
 \begin{exercise}
-\label{exercise-tensor-product-of-quotients-by-maximal-ideals-is-zero}
+\label{exercise-tensor-product-maximal-ideal}
 Let $I,I'$ be distinct maximal ideals in a ring $R$.
 Then $R/I \otimes_R R/I'=0$.
 \end{exercise}
@@ -978,7 +978,7 @@ Analogous to preimage of a point.
 The slogan is:
 adding polynomials to an ideal is the same as taking tensor product.
 This operation is given by Exercise
-\ref{exercise-tensor-product-of-quotients-by-maximal-ideals-is-zero}.
+\ref{exercise-tensor-product-maximal-ideal}.
 
 We can also consider the diagonal of a product:
 
@@ -1036,10 +1036,10 @@ The aim of this section
 is to prove that a commutative 
 algebra over a field
 which is finite-dimensional as a 
-vector space
-is a direct sum of fields,
-namely Theorem \ref{theorem-artinian-
-semisimple-is-direct-sum-of-fields}.
+vector space and has no nilpotents
+(i.e. is semisimple)
+is a direct sum of fields;
+namely Theorem \ref{theorem-semisimple-decomposition}.
 The key idea is that in a
 finite-dimensional algebra
 we can use Chinese Reminder Theorem
@@ -1321,8 +1321,7 @@ and \ref{exercise-artinian-without-idempotents-is-field}.
 \end{proof}
 
 \begin{exercise}
-\label{exercise-artinian-algebra
--decomposition-in-char2}
+\label{exercise-decomposition-char2}
 Does it work in characteristic 2?
 \end{exercise}
 
@@ -1384,7 +1383,7 @@ a field $I$.
 Thus we obtain
 
 \begin{theorem}
-\label{theorem-artinian-semisimple-is-direct-sum-of-fields}
+\label{theorem-semisimple-decomposition}
 An Artinian algebra with unity with 
 no nilpotents
 is a direct sum of fields.
@@ -1423,6 +1422,113 @@ Any decomposition of an algebra into
 a direct sum of fields
 is unique up to permutation of the 
 factors.
+\end{lemma}
+
+
+\medskip\noindent
+We devote the end of this section
+to explain the relationship
+between semisimplicity and the trace form.
+Namely,
+Theorem
+\ref{theorem-nondegenerate-trace-semisimple}
+states that a semisimple Artinian
+algebra has nondegenerate trace form.
+This is reminiscent of Cartan's
+theorem which says that a
+finite-dimensional Lie algebra
+is semisimple in the sense that can be
+decomposed as a direct sum of simple
+Lie algebras (i.e. without nontrivial
+proper ideals) if and only if the 
+Killing form (i.e. trace of adjoint
+operators) is nondegenerate.
+
+\begin{definition}
+\label{definition-invariant-bilinear-form}
+Let $R$ be a $k$-algebra, and $g:R \times R \to k$
+a symmetric $k$-bilinear form on $R$.
+$g$ is called {\it invariant} if
+$$
+g(x,yz)=g(xy,z).
+$$
+\end{definition}
+
+If $R$ has a unity we have
+$$
+g(x,y)=g(xy,1),
+$$
+so that in fact $g$ is determined by a
+linear functional $a \mapsto g(a,1)$.
+
+\begin{example}
+\label{example-invariant-nondegenerate-form}
+In the ring $\mathbb{C}[x,y]/(x^{n+1},y^{n+1})$
+the form $\varepsilon(xy)=a_nn$
+is nondegenerate.
+\end{example}
+
+\begin{definition}
+\label{definition-trace-form}
+Let $R$ be an Artinian ring over $k$.
+The {\it trace form} is the bilinear form
+$a,b \mapsto \text{tr}(ab)$
+where $\text{tr}(ab)$ is the trace
+of the left-multiplication
+by $ab$ endomorphism, i.e.
+$L_{ab} \in \text{End}_kR$,
+$x \mapsto abx$.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-field-extension-trace}
+Let $[K:k]$ be a finite field extension
+in characteristic 0.
+Prove that the trace form is always
+non-degenerate.
+\end{exercise}
+
+\begin{proof}
+Since $[K:k]$ is finite,
+we find that $K \simeq k^n$
+and we can choose an orthonormal
+base $e_i$ with respect to usual
+Euclidean norm on $k^n$, i.e. dot product.
+Then for any $a,b \in K$,
+$$
+\text{tr}(ab)=
+\sum_i\left<abe_i,e_i\right>
+$$
+by definition. Thus, since $K$ is a field
+there exist inverses and a unity, so that
+for any nonzero $x$,
+$\text{tr}_k(x,x^{-1})=n \neq 0$.
+\end{proof}
+
+\begin{definition}
+\label{definition-separable-field-extension}
+A field extension is {\it separable} 
+if the trace form is nonzero.
+\end{definition}
+
+\begin{theorem}
+\label{theorem-nondegenerate-trace-semisimple}
+Let $R$ be an Artinian algebra over $k$
+with nondegenerate trace form.
+Then $R$ is semisimple.
+Conversely, for $\text{char }k=0$,
+the trace form is nondegenerate
+for any semisimple Artinian ring.
+\end{theorem}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{lemma}
+\label{lemma-trace-and-tensor-product}
+The trace in the tensor product
+is the tensor product in of the traces.
 \end{lemma}
 
 \section{Finite morphisms}
@@ -1484,95 +1590,9 @@ slot, where they collapse to
 complex numbers; thus $R$
 is a finite-dimensional vector
 space over $\mathbb{C}$.
-By Theorem \ref{theorem-artinian-semisimple-is-direct-sum-of-fields},
+By Theorem \ref{theorem-semisimple-decomposition},
 $\Spec(R)$ is a finite set!
 \end{proof}
-
-\section{Trace form}
-\label{section-trace-form}
-
-\noindent
-It's not yet clear why do we need the
-trace form for.
-The main theorem in this section
-states that a semisimple Artinian
-algebra has nondegenerate trace form.
-This is reminiscent of Cartan's
-theorem which says that a
-finite-dimensional Lie algebra
-is semisimple in the sense that can be
-decomposed as a direct sum of simple
-Lie algebras (i.e. without nontrivial
-proper ideals) if and only if the 
-Killing form (i.e. trace of adjoint
-operators) is nondegenerate.
-
-\begin{definition}
-\label{definition-invariant-bilinear-form}
-Let $R$ be a $k$-algebra, and $g:R \times R \to k$
-a symmetric $k$-bilinear form on $R$.
-$g$ is called {\it invariant} if
-$$
-g(x,yz)=g(xy,z).
-$$
-\end{definition}
-
-If $R$ has a unity we have
-$$
-g(x,y)=g(xy,1),
-$$
-so that in fact $g$ is determined by a
-linear functional $a \mapsto g(a,1)$.
-
-\begin{example}
-\label{example-invariant-nondegenerate-form}
-In the ring $\mathbb{C}[x,y]/(x^{n+1},y^{n+1})$
-the form $\varepsilon(xy)=a_nn$
-is nondegenerate.
-\end{example}
-
-\begin{definition}
-\label{definition-trace-form}
-Let $R$ be an Artinian ring over $k$.
-The {\it trace form} is the bilinear form
-$a,b \mapsto \text{tr}(ab)$
-where $\text{tr}(ab)$ is the trace
-of the left-multiplication
-by $ab$ endomorphism, i.e.
-$L_{ab} \in \text{End}_kR$,
-$x \mapsto abx$.
-\end{definition}
-
-\begin{exercise}
-\label{exercise-field-extension-trace}
-Let $[K:k]$ be a finite field extension
-in characteristic 0.
-Prove that the trace form is always
-non-degenerate.
-\end{exercise}
-
-\begin{proof}
-
-\end{proof}
-
-\begin{definition}
-\label{definition-separable-field-extension}
-A field extension is {\it separable} 
-if the trace form is nonzero.
-\end{definition}
-
-\begin{theorem}
-\label{theorem-nondegenerate-trace-semisimple}
-Let $R$ be an Artinian algebra over $k$
-with nondegenerate trace form.
-Then $R$ is semisimple.
-\end{theorem}
-
-\begin{lemma}
-\label{lemma-trace-and-tensor-product}
-The trace in the tensor product
-is the tensor product in of the traces.
-\end{lemma}
 
 \section{Field extensions}
 \label{section-field-extensions}
@@ -2023,6 +2043,11 @@ $$
 I\cdot \bigcap I^n = \bigcap I^n.
 $$
 
+The setting is:
+$\mathfrak{a}\subset A$ an ideal,
+$M$ finitely generated module…
+
+
 \begin{definition}
 \label{definition-torsion}
 Let $A$ be a domain an
@@ -2032,13 +2057,91 @@ such that there exists $0 \neq a \in A$
 such that $a m=0$.
 \end{definition}
 
+\begin{definition}
+\label{definition-jacobson-ideal}
+If $R$ is a ring,
+its {\it Jacobson ideal} is
+the intersection of all maximal ideals.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-jacobson-ideal}
+$a \in R$ belongs to $J(R)$
+if and only if for all $r \in R$,
+$1+ar$ is invertible.
+\end{lemma}
+
+\begin{definition}
+\label{definition-quasi-regular-ideal}
+An ideal $\mathfrak{a}\subset R$
+is {\it quasi-regular} if $1+a$
+is invertible for any $a \in \mathfrak{a}$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-quasi-regular-jacobson}
+An ideal is quasi-regular if and only if
+it belongs to the Jacobson ideal.
+\end{lemma}
+
+\begin{proof}
+Straightforward.
+\end{proof}
+
+\noindent
+Recall that the intuition of localization
+is ``to pass to a smaller set'' - 
+at least geometrically.
+
+\begin{definition}
+\label{definition-localization-module}
+Let $S \subset A$ be a multiplicative
+system,
+and $A(S^{-1})$ the localization of $A$
+in $A$.
+The {\it localization} of $M$ in $S$
+is $M(S^{-1}):= M \otimes_A A(S^{-1})$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-kernel-localization}
+The natural map $\tau:M\to M(S^{-1})$
+has kernel
+$\{m \in M:ms=0\text{ for some }
+s \in S \}$.
+\end{lemma}
+
+\begin{lemma}[Nakayama, first version]
+\label{lemma-nakayama-first}
+If $\mathfrak{a}\subset A$ is a quasiregular
+ideal and $M$ is a finitely generated
+$A$-module. Then
+$$
+M=\mathfrak{a}M \implies M=0.
+$$
+\end{lemma}
+
 \begin{lemma}[Nakayama]
 \label{lemma-nakayama}
 Let $A$ be a domain and $M$
-a finitely-generated $A$-module.
-If $M = aM$ for some $a \in A$
-then $M=0$.
+a finitely generated $A$-module.
+If $M = \mathfrak{a}M$ for some nonzero ideal
+$\mathfrak{a}\subset A$
+then $(1+a)M=0$
+for some $a \in \mathfrak{a}$.
 \end{lemma}
+
+\begin{lemma}
+\label{lemma-nakayama-equivalence}
+Lemmas \ref{lemma-nakayama-first}
+and \ref{lemma-nakayama} are equivalent.
+\end{lemma}
+
+\begin{proof}
+Converse is immediate,
+for forward implication uses
+Lemma \ref{lemma-kernel-localization}.
+\end{proof}
 
 \noindent
 Recall that we call a module
@@ -2048,24 +2151,35 @@ $M=\left<x\right>$.
 This gives a surjective map
 $A \to M$, $a \mapsto ax$
 and so $M=A/\Ker$.
-So cyclcic modules are quotients of
+So cyclic modules are quotients of
 the ring by an ideal.
-
-\begin{lemma}[Nakayama]
-\label{lemma-nakayama-cyclic}
-$M$ finitely generated $A$-module
-$\mathfrak{a} \subset A$ an ideal,
-$\mathfrak{a}M\subset M$.
-Then there exists $a \in \mathfrak{a}$
-such that
-$$
-(1-a)M=M.
-$$
-\end{lemma}
 
 \begin{proof}
 First prove it for cyclic $M$.
-** Rest of the proof pending.
+The definition of quasiregular ideal and
+cyclicness of $M$ give us
+$(1-a)x=0$ which means that $z=0$
+since $1-a$ is invertible.
+
+If $M$ is generated by $z_1…,z_n$,
+we have a matrix given by the equation
+$\mathfrak{a}M=M$.
+Namely
+$$
+z_i=\sum a_{ij}z_j
+$$
+then put
+$$
+(1-a_{11})z_1=\sum_{i=2}^na_{ij}z_j.
+$$
+Dividing by $1-a_{11}$ since it is
+invertible, we can ``get rid of $z_1$'',
+and construct a submodule $M_1$, namely
+the submodule generated by the remaining
+generators, and in fact it satisfies
+$\mathfrak{a}M_1=M_1$. Apply induction
+hypothesis.
+
 \end{proof}
 
 \noindent
@@ -2106,6 +2220,30 @@ The intuition behind this is that
 if a map of modules induces a surjection
 on local quotients, then it is invertible
 locally (inverse function thorem!).
+
+In the following lemma
+I think of $M_1,M_2$ as their
+corresponding affine varieties
+over the local algebra $(A,\mathfrak{m})$,
+which I can think as the stalk of a point.
+Then $M_1/\mathfrak{m}M_1
+=M_1 \otimes_A A/\mathfrak{m}$
+by Exercise
+\ref{exercise-tensor-product-maximal-ideal}.
+But we also know
+by Proposition
+\ref{proposition-preimage-of-point}
+that this is the ring of the fiber of
+the point corresponding to the maximal ideal.
+So the following lemma says:
+if the map is surjective on fibers
+of the point, then it is surjective
+on the stalk.
+It looks like for a global statement, i.e.
+when $A$ is not local,
+we could check this for every
+maximal ideal and conclude that
+$\varphi$ is a surjective morphism.
 
 \begin{lemma}
 \label{lemma-localization-nakayama}
@@ -2203,6 +2341,93 @@ this is a bijection.
 \end{proof}
 
 
+\section{Noether normalization lemma}
+\label{section-noether-normalization}
+
+\noindent
+We start discussing finite quotients.
+
+\begin{theorem}[Noether theorem for 
+G-invariants]
+\label{theorem-noether-g-invariants}
+Let $R$ be a finitely generated
+ring over $\mathbb{C}$ and $G$ a finite
+group acting on $R$ by automorphisms.
+The ring $R^G$ of $G$-invariants
+is finitely generated.
+\end{theorem}
+
+\begin{proof}
+A bit involved - past lecture.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-g-invariants-surjective}
+Let $R$ be a Noetherian ring without
+zero divisors, $G$ a finite group
+acting by automorphisms on $R$,
+and $R^G$ the ring of $G$-invariants.
+Then $\varphi:\Spec R \to \Spec R^G$
+is a finite, dominant morphism.
+\end{lemma}
+
+\begin{proof}
+Dominance is immediate because the map
+on rings
+is clearly injective, which is our
+definition of dominant map.
+We need to show that $R$ is finitely
+generated
+as a $R^G$-module.
+Recall that to show that the ring
+is finitely generated is equivalent
+to finding minimal polynomials…
+\end{proof}
+
+\begin{example}
+\label{example-quotient-singularity}
+$\mathbb{C}^2=\Spec\mathbb{C}[x,y]$
+under the antipodal action of $\mathbb{Z}_2$.
+We obtain $\mathbb{C}^2/\pm 1
+\simeq \mathbb{C}[a,b,c]/(c^2-ab)$
+because invariant polynomials are
+even polynomials.
+
+Another example is $\mathbb{C}/\mathbb{Z}_n$,
+which gives $\Spec \mathbb{C}[t^n]$
+which is actually $\mathbb{C}$ again.
+\end{example}
+
+\begin{theorem}
+\label{theorem-orbit-space}
+The fibers of the natural map
+$\varphi:\Spec R \to \Spec R^G$
+are the orbits of $G$.
+\end{theorem}
+
+\begin{proof}
+We prove that the orbit is a finite
+set of points by showing the corresponding
+algebra is a semisimple Artinian algebra.
+\end{proof}
+
+\medskip\noindent
+Now we pass to applications.
+
+\begin{lemma}
+\label{lemma-field-extension-finite}
+Let $[k:\mathbb{C}]$ be an extension of
+$\mathbb{C}$. Then either $z$ is
+trascendental and $K$ is isomorphic to
+the field of rational functions,
+or $z$ is algebraic and the extension
+is finite.
+\end{lemma}
+
+\begin{proof}
+A polynomial vanishing on the point
+gives us finiteness once again…
+\end{proof}
 
 
 
