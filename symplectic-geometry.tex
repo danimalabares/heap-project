@@ -208,24 +208,26 @@ and a symplectomorphism $\varphi:U_0 \to U_1$.
 \label{section-coadjoint-orbits}
 
 \noindent
-The coadjoint action induces orbits in $\mathfrak{g}^*$.
-The tangent space at any point of a
-coadjoint orbit is given by infinitesimal vector
-fields, that is,
-$$
-T_{\xi}\mathcal{O}=\{u_{\mathfrak{g}^*}(\xi):\forall u \in \mathfrak{g}\}.
-$$
+The coadjoint action induces orbits in
+$\mathfrak{g}^*$. The tangent space at any
+point of a coadjoint orbit is given by
+infinitesimal vector fields, that is, $$
+T_{\xi}\mathcal{O}=\{u_{\mathfrak{g}^*}(\xi):\forall
+u \in \mathfrak{g}\}. $$
 
 \noindent
-We may introduce a symlpectic form
+We may introduce a symplectic form
 $\omega \in \Lambda^{2}T^*_\xi\mathcal{O}$
 on the tangent space 
 at some point of a
 coadjoint orbit by
 $$
-\omega_\xi(X,Y):=\xi([u,v])=-u_{\mathfrak{g}^*}(\xi)v=v_{\mathfrak{g}^*}(\xi)(u)
+\omega_\xi(X,Y):=\xi([u,v])
+=-u_{\mathfrak{g}^*}(\xi)v
+=v_{\mathfrak{g}^*}(\xi)(u)
 $$
-which does not depend on $u,v \in \mathfrak{g}$.
+which does not depend on 
+$u,v \in \mathfrak{g}$.
 
 \begin{theorem}[KKS]
 \label{theorem-KKS}
@@ -238,25 +240,131 @@ Then show that $\omega$ is $G$-invariant.
 Closedness follows from Jacobi identity.
 \end{proof}
 
-\section{Hamiltonian actions and moment map}
-\label{section-hamiltonian-actions-and-moment-map}
+\begin{exercise}
+\label{exercise-rough-vector-field}
+Let $G$ be a Lie group.
+Let $X:G \to TG$ be a section
+of the projection $TG \to G$,
+not necessarily smooth.
+Show that if $X$ is left invariant
+(i.e. $dL_g(X)=X \circ L_g$
+for all $g \in G$, then $X$ is smooth.
+\end{exercise}
+
+\begin{proof}
+We have to show that
+$X(f)$ is a smooth function on $M$
+for any $f \in C^\infty(M)$.
+Indeed,
+\begin{align*}
+X(f)g&=X_g(f)\\
+&=X_e \circ L_g(f)\\
+&=dL_g(X_e)(f)\\
+&=X_e(f \circ L_g),
+\end{align*}
 
 \noindent
-To warm-up we define real symplectic and Hamiltonian actions.
+which is smooth since $X_e$
+is not varying while
+$f \circ L_g$ is smooth.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-killing-form}
+For a Lie algebra $\mathfrak{g}$,
+there is always a canonical bilinear form
+$k:\mathfrak{g}\times\mathfrak{g}
+\to \mathbb{R}$
+called the {\it Killing form} 
+given by
+$$
+k(u,v)=\text{tr}(\text{ad}_u\text{ad}_v).
+$$
+\begin{enumerate}
+\item Note that $k$ is symmetric
+and check that it is Ad-invariant.
+\item A Lie algebra is called semisimple
+if $k$ is nondegenerate.
+Show that $\mathfrak{so}(3)$ is semisimple.
+\end{enumerate}
+\end{exercise}
+
+\begin{proof}
+\begin{enumerate}
+\item 
+\item Let
+$$
+e_1=\begin{pmatrix}
+0&1&0\\ 
+-1&0&0\\
+0&0&0\end{pmatrix},
+e_2=\begin{pmatrix}
+0&0&1\\
+0&0&0\\
+-1&0&0\end{pmatrix},
+e_3=\begin{pmatrix}
+0&0&0\\
+0&0&1\\
+0&-1&0\end{pmatrix}
+$$
+be a basis of $\mathfrak{so}_3$.
+Then
+$$
+[e_1,e_2]=-e_3,\quad 
+[e_1,e_3]=e_2,\quad 
+[e_2,e_3]=-e_1.
+$$
+To compute the trace we use
+Euclidean dot product identifying
+$\mathfrak{so}_3=\mathbb{R}^3$.
+We obtain
+\begin{align*}
+\kappa(e_1,e_2)&=
+\text{tr}\text{ad}_{e_1}\text{ad}_{e_2}
+&=\sum_i\left<[e_1,[e_2,e_i]],e_i\right>\\
+&=\left<[e_1,[e_2,e_1]],e_1\right>
++\left<[e_1,[e_2,e_2]],e_2\right>
++\left<[e_1,[e_2,e_3]],e_3\right>\\
+&=0,
+\end{align*}
+
+\noindent
+and similarly
+$$
+\kappa(e_1,e_3)=1,\quad 
+\kappa(e_2,e_1)=1,\quad 
+\kappa(e_3,e_3)=-2.
+$$
+Ok, the computations are left to the reader,
+but $\kappa$ is should be a diagonal matrix
+and therefore nondegenerate.
+\end{enumerate}
+\end{proof}
+\section{Hamiltonian actions and moment map}
+\label{section-hamiltonian-action-moment-map}
+
+\noindent
+To warm-up we define real symplectic and
+Hamiltonian actions.
 
 \begin{definition}
 \label{definition-real-symplectic-and-hamiltonian-actions}
 \begin{itemize}
-\item An $\mathbb{R}$-action is {\it symplectic} if $\psi_t^* \iff L_X \omega=0$,
+\item An $\mathbb{R}$-action is {\it symplectic} 
+if $\psi_t^*\omega=\omega 
+\iff L_X \omega=0$,
 that is, $X$ is a symplectic field.
-\item An $\mathbb{R}$-action is {\it hamiltonian} if $X$ is Hamiltonian,
-that is, if there exists a function $H \in C^\infty(M)$ such that
+\item An $\mathbb{R}$-action is {\it hamiltonian} 
+if $X$ is Hamiltonian,
+that is, if there exists 
+a function $H \in C^\infty(M)$ such that
 $X=X_H$.
 \end{itemize}
 \end{definition}
 
 \noindent
-To define moment map suppose there exists a map $\hat{\mu}$ 
+To define moment map suppose 
+there exists a map $\hat{\mu}$ 
 such that
 $$
 \xymatrixcolsep{3em}
@@ -268,20 +376,24 @@ u \ar@{|->}[dr] & \mathfrak{X}(M) & X_f\\
 & u_M \ar@{=}[ur]
 }
 $$
-Note that if  $\hat{\mu}$ exists, it's not uniquely determined,
-and that we may suppose that it is linear.
+Note that if  $\hat{\mu}$ exists, it's not
+uniquely determined, and that we may suppose
+that it is linear.
 
-It's equivalente to define $\hat{\mu}$ as a map 
-$\hat{\mu}:\mathfrak{g}\to C^\infty(M)$ or as a map
+It's equivalent to define $\hat{\mu}$ 
+as a map 
+$\hat{\mu}:\mathfrak{g}\to C^\infty(M)$ 
+or as a map
 \begin{align*}
 \mu: M &\longrightarrow \mathfrak{g}^* \\
 \hat{\mu}(u)(x) &= \left<\mu(x),u\right>.
 \end{align*}
 
 \begin{definition}
-\label{definition-symplectic-and-hamiltonian-actions}
+\label{definition-symplectic-action}
 \begin{itemize}
-\item A $G$-action is symplectic if $\psi_g^*\omega=\omega$ for all $g \in G$,
+\item A $G$-action is symplectic if 
+$\psi_g^*\omega=\omega$ for all $g \in G$,
 that is, if
 $$
 \xymatrix{
@@ -290,24 +402,33 @@ $$
 }
 $$
 
-\item A symplectic action $G \overset{\psi}{\mathbb{y}}(M,\omega)$
-is {\it weakly Hamiltonian} if there exists a map $\mu:M \to \mathfrak{g}^*$ 
-(or equivalently, $\hat{\mu}:\mathfrak{g} \to C^\infty(M)$ linear)
-such that
+\item A symplectic action 
+$G \overset{\psi}{\mathbb{y}}(M,\omega)$
+is {\it weakly Hamiltonian}
+if there exists a map 
+$\mu:M \to \mathfrak{g}^*$ 
+(or equivalently, 
+$\hat{\mu}:\mathfrak{g} \to C^\infty(M)$ 
+linear) such that
 $$
-i_{u_M}\omega=d\left<\mu,u\right>,\qquad (\text{resp. } u_M=X_{\hat{\mu}(u)}).
+i_{u_M}\omega=d\left<\mu,u\right>,\qquad 
+(\text{resp. } u_M=X_{\hat{\mu}(u)}).
 $$
 
-\item A weakly Hamiltonian action is {\it Hamiltonian} if it is also
+\item A weakly Hamiltonian action is 
+{\it Hamiltonian} if it is also
 $\mu$-equivariant, that is,
-$\mu: G\mathbb{y} M \to g^*\overset{\text{Ad}^*}{\mathbb{x}}G$,
+$\mu: G\mathbb{y} M \to 
+\mathfrak{g}^*
+\overset{\text{Ad}^*}{\mathbb{x}}G$,
 $$
 \mu \circ \psi_g=(\text{Ad}^*)_g(\mu).
 $$
 In this case we call $\mu$ a {\it moment map}.
 \end{itemize}
-
 \end{definition}
+
+
 
 \section{Noether's principle}
 \label{section-Noether-principle}
@@ -364,7 +485,7 @@ stabilizer of $\xi$.
 Then we have
 $$
 \xymatrix{
-G_\xi \mathbb{y} \mu^{-1}(\xi)\ar[d]^{\pi_\xi}\ar@{^{(}->}[r]^{i_\xi}& M\\
+G_\xi \mathbb{y} \mu^{-1}(\xi)\ar[d]^{\pi_\xi}\ar@{^{(}->}[r]^-{i_\xi}& M\\
 (M_\xi=\mu^{-1}(\xi)/G_\xi,\omega_{\text{red}}).
 }
 $$
