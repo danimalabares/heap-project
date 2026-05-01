@@ -15,7 +15,6 @@
 \section{Complex structures on vector spaces}
 \label{section-complex-structure}
 
-
 \noindent
 Let's discuss complex structures at the level of linear algebra.
 
@@ -1824,61 +1823,57 @@ We thus obtain the cocycle condition on the maps $g_{ij}$
 after applying $\Lambda^r$.
 \end{example}
 
-\begin{example}[Tautological bundle]
-\label{example-tautological-bundle}
-It's the bundle denoted $\mathcal{O}_{\mathbb{P}^n}(-1)$
-whose fiber over a point is the line that the point is.
-To show this is a line bundle take the canonical trivializing cover
-from Example \ref{example-projective-space}.
-A local trivialization of $\mathcal{O}(-1)$ is given by
-\begin{align*}
-\psi_i: \pi^{-1}(U_i) &\longrightarrow \varphi_i(U_i)\times \mathbb{C} \\
-p=(z_0:…:z_n)&\longmapsto
-\left(\varphi(p),\lambda\right)
-\end{align*}
+\begin{definition}
+\label{definition-connection-vector-bundle}
+Let $E$ be a vector bundle.
+A {\it connection} on $E$ is an
+$\mathbb{R}$-linear map
+$\nabla:H^0(E)\to H^0(E) \otimes \Omega^1(M)$
+satisfying the identity
+$\nabla(fs)=dfs + f\nabla s$.
+\end{definition}
+
+\begin{definition}
+\label{definition-hermitian-connection}
+\begin{reference}
+\cite[Definition 4.2.9]{huc}
+\end{reference}
+Let $(E,h)$ be a hermitian vector bundle.
+A connection $\nabla$ on $E$ is called
+{\it hermitian} if
+$d(h(s,s'))=h(\nabla s,s')+h(s,\nabla s')$.
+\end{definition}
 
 \noindent
-where the standard coordinate charts $\varphi_i$ are defined by
-$$
-\varphi_i(p):=\left(\frac{z_0}{z_i},…,\frac{z_{i-1}}{z_i},
-\frac{z_{i+1}}{z_i},…,\frac{z_n}{z_i}\right)
-$$
-and $\lambda$ is just the coordinate of a vector
-$$
-\lambda \left(\frac{z_0}{z_i},…,\frac{z_{i-1}}{z_i},
-1,\frac{z_{i+1}}{z_i},…,\frac{z_n}{z_i}\right).
-$$
-This makes sense since what we want is that the fiber of $\mathcal{O}(-1)$
-is the 1-dimensional space spanned by the point $p$ seen
-in $\mathbb{C}^{n+1}$. Also notice that $\pi$ is the projection
-from the total space, which is implicitly defined
-as the disjoint union of the $\varphi_i(U_i) \times \mathbb{C}$
-modulo the identifications given by the transition functions defined as follows.
+Perhaps this notion defined on a seminar
+talk by Beatrice Brienza is the same:
+let $(M,I,g)$ be a hermitian manifold. A
+linear connection $\nabla$ on $TM$ is 
+{\it hermitian} if 
+$\nabla g=0$ and $\nabla I =0$.
 
-Now go to $U_j$ and suppose the point is in the intersection.
-The same vector must be expressed as
-$$
-\mu\left(\frac{z_0}{z_j},…,\frac{z_{j-1}}{z_j},1,
-\frac{z_{j+1}}{z_j},…,\frac{z_n}{z_j}\right).
-$$
-To pass from one expression of $p$ to another we multiply by
-$$
-\frac{z_i}{z_j}
-$$
-and thus we want our transition functions
-$$
-g_{ij}:U_i\cap U_j \to \text{GL}(1,\mathbb{C})
-$$
-to satisfy
-$$
-\mu=\lambda\frac{z_j}{z_i}
-$$
-Obviously we take
-$$
-g_{ij}(p)=\frac{z_j}{z_i}.
-$$
-It's clear these satisfy the cocycle condition.
-\end{example}
+\begin{definition}
+\label{definition-holomorphic-connection}
+A connection $\nabla$ on a vector bundle $E$
+is said to be {\it compatible with the
+complex structure $I$} if
+$\pi^{0,1}\nabla s=\bar\partial s$
+where $\pi^{0,1}:\mathcal{A}^1(M)
+\to \mathcal{A}^{0,1}(M)$ is the projection.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-chern-connection}
+On a holomorphic vector bundle
+equipped with a hermitian metric there exists
+a unique hermitian connection
+compatible with the complex structure
+called the {\it Chern connection}.
+\end{proposition}
+
+\medskip\noindent
+Now we discuss line bundles on
+$\mathbb{P}^n$.
 
 \begin{definition}
 \label{definition-line-bundles-in-pn}
@@ -1942,26 +1937,29 @@ To pass from the local situation in Lemma \ref{lemma-fibers-of-od}
 to a section we do as follows.
 
 \begin{exercise}
-\label{exercise-degree-d-polynomials-are-sections-of-od}
+\label{exercise-polynomials-are-sections}
 \begin{reference}
 \cite[Exercise 2.2.8]{huc}, and
 \cite[Lemma 3.30]{lec} for the answer.
 \end{reference}
-Show that any non-trivial homogeneous degree-$d$ polynomial
-$0 \neq f \in \mathbb{C}[z_0,…,z_n]_d$
-can be considered as a non-trivial section of $\mathcal{O}(d)$
-on $\mathbb{P}^n$.
+Show that any non-trivial homogeneous
+degree-$d$ polynomial $0 \neq f \in
+\mathbb{C}[z_0,…,z_n]_d$ can be considered as
+a non-trivial section of $\mathcal{O}(d)$ on
+$\mathbb{P}^n$.
 \end{exercise}
 
 \begin{proof}
-Let $P$ be a homogeneous degree-$d$ polynomial.
-We define a section fiberwise and then show it is holomorphic.
-For $p \in \mathbb{P}^n$ we restrict $P$ to the 1-dimensional vector
-space that $p$ is in $\mathbb{C}^{n+1}$.
-To show this is holomorphic we can evaluate our section
-on a local frame for $\mathcal{O}(d)$,
-which gives a holomorphic function since $P$ is a polynoimal
-(see \cite[Proposition 3.35]{lec}.
+Let $P$ be a homogeneous degree-$d$
+polynomial. We define a section fiberwise and
+then show it is holomorphic. For $p \in
+\mathbb{P}^n$ we restrict $P$ to the
+1-dimensional vector space that $p$ is in
+$\mathbb{C}^{n+1}$. To show this is
+holomorphic we can evaluate our section on a
+local frame for $\mathcal{O}(d)$, which gives
+a holomorphic function since $P$ is a
+polynoimal (see \cite[Proposition 3.35]{lec}.
 \end{proof}
 
 \begin{theorem}
@@ -2017,20 +2015,20 @@ which says that Hodge star operator descends to cohomology.
 In fact, the general result is
 
 \begin{theorem}[Hodge]
-\label{theorem-hodge-star-descends-to-cohomology}
-$$
+\label{theorem-hodge-star-descends}$$
 *: H^{p,q}(X) \longrightarrow H^{n-p,n-q}(X)
 $$
 is an isomorphism.
 \end{theorem}
 
 \noindent
-However, we shall not use this isomorphic directly
-for Serre duality, see \cite[Remark 4.1.17]{huc}.
-What we do instead is show that the pairing
-of forms given by integration is nondegenerate.
-The upshot is that the proof of nondegeneracy is given
-by the Hodge star operator in cohomology.
+However, we shall not use this isomorphism
+directly for Serre duality, see \cite[Remark
+4.1.17]{huc}. What we do instead is show that
+the pairing of forms given by integration is
+nondegenerate. The upshot is that the proof
+of nondegeneracy is given by the Hodge star
+operator in cohomology.
 
 \begin{proposition}[Serre duality]
 \label{proposition-serre-duality}
@@ -2047,8 +2045,9 @@ is nondegenerate.
 \end{proposition}
 
 \begin{proof}
-We must show that for any $\alpha \in H^{p,q}(X,E)$
-there exists $\beta \in H^{n-p,n-q}(X,E)$ such that
+We must show that for any $\alpha \in
+H^{p,q}(X,E)$ there exists $\beta \in
+H^{n-p,n-q}(X,E)$ such that
 $$
 \int_X\alpha\wedge \beta\neq 0.
 $$
@@ -2056,16 +2055,18 @@ Choose
 $$
 \beta=\overline{*}\beta
 $$
-where $\overline{*}$ is the conjugate of the Hodge star
-operator in cohomology.
+where $\overline{*}$ is the conjugate of the
+Hodge star operator in cohomology.
 \end{proof}
 
 \noindent
-Of course, this proposition lacks context in these notes;
-we should properly extend Hodge theory to sections of arbitrary
-sections of vector bundles;
-but it looks as if the theory for sections of the cotangent algebra
-generalizes without the need of introducing any new ideas.
+Of course, this proposition lacks context in
+these notes; we should properly extend Hodge
+theory to sections of arbitrary sections of
+vector bundles; but it looks as if the theory
+for sections of the cotangent algebra
+generalizes without the need of introducing
+any new ideas.
 
 We put $p=0$ to obtain
 $$
@@ -2075,14 +2076,6 @@ and
 $$
 H^{n,n-q}(X)=H^{n-q}(X,\Omega^n).
 $$
-
-\begin{definition}
-\label{definition-hermitian-connection}
-Let $(M,I,g)$ be a hermitian manifold.
-A linear connection $\nabla$ on $TM$
-is {\it hermitian} if $\nabla g=0$ and $\nabla J=0$.
-\end{definition}
-
 
 \section{Line bundles and divisors}
 \label{section-line-bundles}
@@ -3407,21 +3400,6 @@ previous expression for $p_a(C)$ we obtain
 the result.
 \end{proof}
 
-\begin{exercise}
-\label{exercise-singular-curve-on-K3-has-positive-self-intersection}
-Let $S$ be a singular, irreducible complex curve on a K3 surface. Prove that
-$(S.S)\geq 0$.
-\end{exercise}
-
-\begin{proof}
-This is just an application of Eq.
-\ref{equation-genus-formula}. Since
-$K_X=\mathcal{O}_X$ it suffices to show that $p_a(S)$ is not zero. This follows
-fact that $S$ is singular, since its arithmetic genus is defined as the genus of
-its normalization, which must be strictly positive since there exists at least
-one singularity.
-\end{proof}
-
 \begin{remark}
 \label{remark-euler-characteristic-additive}
 To prove that Euler characteristic is
@@ -3458,6 +3436,23 @@ $$
 $$
 which basically follows by dimension theorem.
 \end{remark}
+
+\begin{exercise}
+\label{exercise-singular-curve-on-K3}
+Let $S$ be a singular, irreducible complex 
+curve on a K3 surface. Prove that
+$(S.S)\geq 0$.
+\end{exercise}
+
+\begin{proof}
+This is just an application of Eq.
+\ref{equation-genus-formula}. Since
+$K_X=\mathcal{O}_X$ it suffices to show that $p_a(S)$ is not zero. This follows
+fact that $S$ is singular, since its arithmetic genus is defined as the genus of
+its normalization, which must be strictly positive since there exists at least
+one singularity.
+\end{proof}
+
 
 \section{Hypercomplex manifolds}
 \label{section-hypercomplex-manifolds}
@@ -3591,6 +3586,189 @@ d \omega_{\tilde{J}}&=d(g(\cdot,\tilde{J}\cdot))\\
 \noindent
 which is not always zero if $\theta$ is not constant.
 \end{proof}
+
+\section{Holonomy}
+\label{section-holonomy}
+
+\noindent
+Let $M$ be a smooth manifold
+and $\nabla$ a linear connection.
+Any loop $\gamma$ gives a map
+$P_\gamma:T_pM \to T_pM$.
+
+Define
+$$
+\text{Hol}_p(\nabla)
+=\{P_\gamma:\text{loops starting at }p\}
+\subseteq \text{GL}(n,\mathbb{R}),
+$$
+which indeed is a subgroup of
+$\text{GL}(n,\mathbb{R})$
+since parallel transport is invertible
+by changing the direction of the
+parametrization.
+If $M$ is connected, $\text{Hol}_p(\nabla)$
+is independent of $p$.
+
+\begin{example}
+\label{example-holonomy}
+\begin{enumerate}
+\item For $\nabla^{\text{LC}}$
+we have $\text{Hol}(\nabla^{\text{LC}})
+\subset O(n,\mathbb{R})$.
+
+\end{enumerate}
+\end{example}
+
+\begin{theorem}[Berger, 1955]
+\label{theorem-berger}
+If $(M,g)$ a complete Riemannian 
+simply connected 
+manifold,
+not locally a product
+and not a symmetric space,
+then $\text{Hol}(\nabla^{\text{LC}})$
+can only be one of the following:
+\begin{enumerate}
+\item $\text{SO}(n)$ oriented Riemannian
+manifold.
+\item $\text{SU}(n/2)$ Calabi-Yau.
+\item $Sp(n/4)$ Hyperkähler.
+\item $Sp(n/4)Sp(1)$ quaternionic Kähler.
+\item $U(n/2)$ Kähler.
+\item $G_2$ exceptional geometry -+.
+\item $\text{Spin}(7)$ exceptional 
+geometry 8.
+\end{enumerate}
+\end{theorem}
+
+\section{Bismut connection}
+\label{section-bistmuth}
+
+\begin{theorem}[Gauduchon]
+\label{theorem-gauduchon-connections}
+On $TM$ there exists an affine line
+of Hermitian connections known as 
+{\it canonical} or
+{\it Gauduchon connections} 
+$$
+g(\nabla_X^tY,Z)
+=g(\nabla_X^{\text{LC}}Y,Z)
++\frac{t-1}{4}
+d^c\omega(X,Y,Z)
++\frac{t+1}{4}
+d^c(X,JY,JZ).
+$$
+\end{theorem}
+
+\noindent
+Note that:
+\begin{enumerate}
+\item $\nabla^{\text{LC}}$ is Hermitian
+if and only if $d \omega=0$.
+\item $d \omega \neq 0 \implies 
+\forall t \in \mathbb{R}$, 
+$\nabla^t$ has torsion. This leads to
+``Hermitian geometry with torsion''.
+\item $t=1$ gives the Chern connection,
+i.e. the unique Hermitian connection
+such that $\nabla^{0,1}=\bar\partial$
+(see Definition
+\ref{definition-chern-connection}).
+\item $t=-1$ gives the Bismut connection,
+defined next, satisfying
+$$
+g(\nabla_X^BY,Z)
+=g(\nabla^{\text{LC}}_XY,Z)
+-\frac{1}{2}d^c\omega(X,Y,Z),
+$$
+where $\omega$ is the {\it Bismut torsion}.
+\end{enumerate}
+
+\begin{definition}[Stve, Bis, Fl, 2002]
+\label{definition-bismut-connection}
+The {\it Bismut connection} is the
+unique Hermitian connection with
+totally skew symmetric torsion, i.e.
+$g(T^B(X,Y),Z) \in \Omega^3(M)$,
+where of course
+$T^B(X,Y)=\nabla^B_XY-\nabla^B_YX-[X,Y]$
+is the usual torsion.
+\end{definition}
+
+After lowering an index of the torsion,
+we obtain a tensor $T$:
+$$
+T \in \Lambda^2(T^*M) \otimes T^*M
+\simeq \underbrace{T^*M}_{\text{vectorial
+type}} \oplus\underbrace{\Lambda^3T^*M}_{
+\text{skew type}} 
+\oplus \underbrace{\tau}_{\text{
+terra incognita}}
+$$
+and we are interested in the case
+where $T$ is in $\Lambda^3T^*M$.
+
+\medskip\noindent
+It turns out that
+$$
+\rho^B=0 \iff
+\text{Hol}(\nabla^B) \subseteq
+\text{SU}(n)
+$$
+where $\rho^B$ is the
+Bismut Ricci curvature,
+$$
+\rho^B(X,Y)
+=\frac{1}{2}\sum_i^{2n}
+R^B(X,Y,e_i,J e_i)
+\in \Omega^2(M),
+$$
+in fact $\rho^B \in H^2$ is
+the Chern class of $M$.
+
+\begin{definition}
+\label{definition-bismut-hermite-einstein}
+A {\it Bismut Hermite Einstein} manifold
+is when
+$$
+dH=d d^c\omega=0,\qquad 
+\rho^B=0.
+$$
+\end{definition}
+
+\noindent
+And $\rho^B=0 \iff \text{Hol}(\nabla^B)
+\subseteq \text{SU}(n)$.
+
+\medskip\noindent
+In dimension 4, a BHE
+can only be a Kähler Ricci flat manifold
+or $S^1 \times \text{SU}(2)$. On
+dimension 6, ABSL.
+
+\begin{definition}
+\label{definition-almost-contact}
+An {\it almost contact manifold} 
+is a triple $(\varphi,\eta,\xi)$
+where $\varphi \in \text{End}(TM)$,
+$\eta \in \Omega^1(M)$,
+$\xi \in \mathfrak{X}(M)$,
+$\varphi^2 = -\text{Id} + \eta \otimes \xi$,
+$\eta(\xi)=1$.
+\end{definition}
+
+\noindent
+This means that
+$$
+TM = \mathcal{F}_{\xi}\oplus Ker\xi.
+$$
+
+We then introduce a metric
+compatible with $\varphi$.
+
+
+
 
 \section{Instantons}
 \label{section-instantons}
