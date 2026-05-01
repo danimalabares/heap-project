@@ -399,7 +399,7 @@ submanifolds, cf. Definition \ref{definition-totally-geodesic-submanifold},
 addressing the case when also the normal component vanishes:
 
 \begin{lemma}
-\label{lemma-geodesics-of-submanifold-characterization}
+\label{lemma-geodesics-of-submanifold}
 Let $f:M \to \tilde{M}$ be an isometric immersion and $\gamma:I\to M$ a smooth
 curve parametrized by arclength. Show that $\gamma$ is a geodesic of M
 if and only if its acceleration on $\tilde{M}$ is perpendicular to $M$, that is,
@@ -454,13 +454,53 @@ Then
 \end{proof}
 
 \begin{exercise}
+\label{exercise-unique-connection-torsion}
+Show that if $\nabla$ is any connection
+on $M$, then there exists a unique
+torsion-free connection on $M$
+which has the same geodesics as $\nabla$.
+\end{exercise}
+
+\begin{proof}
+Suppose that $\nabla'$  and $\nabla''$
+are two such connections. Let
+$A(X,Y)=\nabla'_XY-\nabla''_XY$.
+Then $A$ is a symmetric tensor.
+By tensoriality, the condition of
+having the same geodesics gives $A(X,X)=0$.
+Since $A$ is symmetric, we may polarize
+and obtain that $A \equiv 0$.
+
+For existence let 
+$\nabla'=\nabla-\frac{1}{2}T$
+where $T$ is the torsion of $\nabla$.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-two-torsion-free-connections}
+$\nabla$ and $\nabla'$ are two torsion
+free connections on $M$ with the same
+geodesics up to reparametrization
+if and only if there exists a 1-form
+$\omega$ such that
+$\nabla_XY-\nabla'_XY
+=\omega(X)Y-\omega(Y)X$.
+\end{exercise}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{exercise}
 \label{exercise-constant-curve-connection}
-Let $M$ be a Riemannian manifold and $p$ a point in $M$.
-Consider the constant curve $f:I \to M$ given by $f(t)=p$.
-Let $V$ be a differentiable vector field along $f$,
-that is, a differentiable map from $I$ to $T_pM$.
-Show that $\frac{DV}{dt}=\frac{dV}{dt}$, that is,
-the covariant derivative coincides with the usual derivative.
+Let $M$ be a Riemannian manifold and $p$ a
+point in $M$. Consider the constant curve
+$f:I \to M$ given by $f(t)=p$. Let $V$ be a
+differentiable vector field along $f$, that
+is, a differentiable map from $I$ to $T_pM$.
+Show that $\frac{DV}{dt}=\frac{dV}{dt}$, that
+is, the covariant derivative coincides with
+the usual derivative.
 \end{exercise}
 
 \begin{proof}
@@ -2138,7 +2178,180 @@ with finite length. Choose a ball $B$ of radius $\ell(\gamma)$
 containing $\gamma$. The closure of $B$ is compact,
 but $\gamma$ is contained in it.
 
-For the converse 
+For the converse …
+\end{proof}
+
+\begin{exercise}
+\label{exercise-ray}
+A geodesic $\gamma:[0,\infty) \to M$
+in a Riemannian manifold $M$ is a {\it ray starting at $\gamma(0)$}
+if it is minimizing between $\gamma(0)$ and $\gamma(s)$
+for all $s \in (0,\infty)$.
+Let $M$ be complete, non-compact and $p \in M$.
+Construct a ray starting at $p$.
+\end{exercise}
+
+\begin{proof}
+Since $m$ is not compact and complete,
+we can pick a sequence $p_n \in m\setminus \bar{b}_n(p)$
+and minimizing geodesics $\gamma_n$ from $p$ to $p_n$.
+we would like to consider a curve by taking limit
+and show it's minimizing.
+however pointwise convergence would not
+ensure smoothness of the limit curve.
+instead, we consider the normalized initial velocity vectors
+of the curves $\gamma_n$ and take the limit inside
+the compact unit sphere in the tangent space
+and apply the exomponential map.
+This defines a geodesic $\gamma$ which
+is minimizing for any $s \in (0,\infty)$.
+Indeed, supposing that our geodesics
+are normalized, we have
+\begin{align*}
+s &= \ell(\gamma(s))\\
+&< s + d(\gamma_n(s),\gamma(s))\\
+&< \ell(\gamma_n(s)) + d(\gamma_n(s),\gamma(s)),
+\end{align*}
+
+\noindent
+To conclude consider a curve $\alpha$ connecting $p$ and $\gamma(s)$,
+we extend it to a curve $\alpha_n$ connecting $p$ and $\gamma_n(s)$.
+Since $\gamma_n$ is minimizing,
+$$
+\ell(\gamma_n(s))\leq \ell(\alpha_n)
+=\ell(\alpha)+d(\gamma_n(s),\gamma(s)).
+$$
+The conclusion follows since we showed that the
+length of $\gamma$ up to $\gamma(s)$
+is smaller than the length of $\alpha$ up to $\gamma(s)$
+plus a term that converges to zero as $n\to \infty$.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-contraction-and-completeness}
+Let $M$ and $\overline{M}$ be Riemannian manifolds
+and $f:M \to \overline{M}$ a diffeomorphism.
+Suppose $\overline{M}$ is complete and there is a constant $c>0$
+such that
+$$
+|v|\geq c|d_pf(v)|
+$$
+for all $p \in M$ and $v \in T_pM$.
+Show that $M$ is complete.
+\end{exercise}
+
+\begin{proof}
+Let $p_n$ be a Cauchy sequence in $M$.
+The given inequality is used to prove
+that $f(p_n)$ is also Cauchy in $\overline{M}$,
+and thus converges to a point $f(p)$.
+Convergence of the preimage follows from continuity of $f$.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-local-isometry-hopf-rinow}
+\begin{reference}
+\cite[Exercise 8, Chapter VIII]{doc}
+\end{reference}
+Let $M$ be a complete Riemannian manifold,
+$\overline{M}$ connected Riemannian manifold
+and $f:M \to \overline{M}$ a local isometry.
+Suppose that any two points of $\overline{M}$
+can be connected be a unique geodesic
+of $\overline{M}$.
+Show that $f$ is injective and surjective
+(and thus a global isometry).
+\end{exercise}
+
+\begin{proof}
+For injectivety consider the fiber of
+any point of $\overline{M}$. Since $M$
+is complete, we can connect any two distinct
+points in the fiber by a geodesic of $M$.
+Since $f$ is a local isometry, it maps
+this geodesic to a closed geodesic of
+$\overline{M}$, which is impossible:
+two nearby points along a closed geodesic
+have to geodesics joining them, the short
+way and the long way along the geodesic.
+
+For surjectivity suppose there is a point
+outside the image of $f$. Connect such a
+point with a point inside the image of $f$
+with the geodesic of $\overline{M}$
+that connects them. At the point in the image
+of $f$,  $f^{-1}$ takes this geodesic segment
+to a geodesic segment of $M$,
+which can be extended
+throughout $\mathbb{R}$ since $M$ is
+complete. But then the whole geodesic in
+$\overline{M}$ would be contained in the
+image of the geodesic in $M$ since both
+are determined by their initial velocities
+and point.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-bounded-flow-speed}
+\begin{reference}
+\cite[Exercise 11, Chapter VII]{doc}
+\end{reference}
+Let $M$ be a complete Riemannian manifold
+and let $X$ be a smooth vector field on $M$.
+Suppose that $|X(p)|<c$ for all $p \in M$.
+Show that the integral curves of $X$ 
+are defined for all $t$.
+\end{exercise}
+
+\begin{proof}
+The basic idea is:
+why if the manifold is complete
+every geodesic,
+characterized by having constant
+velocity,
+is maximally defined in $\mathbb{R}$?
+The same trick should work in this case.
+
+Suppose that an integral curve $\varphi$
+is defined maximally at $(a,b)$.
+Choose a sequence converging to $b$,
+which is a Cauchy sequence in $\mathbb{R}$.
+This gives a Cauchy sequence in $M$
+along $\varphi$ by continuity.
+By completeness of $M$, $\varphi(t_n) \to p$
+for some $p \in M$.
+If $X(p) \neq 0$ we can integrate locally
+to find a flow $\psi$ at $p$,
+which must coincide with $\varphi$ in
+the intersection of both curves,
+thus extending $\varphi$.
+If $X(p)=0$…
+\end{proof}
+
+\begin{exercise}
+\label{exercise-homogeneous-manifold}
+A Riemannian manifold $M$ is
+{\it homogeneous} if for any $p,q \in M$
+there is an isometry of $M$ that takes
+$p$ to $q$. Show that any homogeneous
+manifold is complete.
+\end{exercise}
+
+\begin{proof}
+Let $\gamma$ be any geodesic. Consider
+a geodesic ball $B_\varepsilon(\gamma(0))$ 
+of radius $\varepsilon$
+about $\gamma(0)$. Let $t \neq 0$
+such that $\gamma(t)$ is well defined.
+Take $\gamma(0)$ to $\gamma(t)$ 
+with an isometry. Such an isometry
+also takes $B_\varepsilon(\gamma(0))$
+to $B_\varepsilon(\gamma(t))$.
+This shows we can extend $\gamma(t)$
+to $\gamma(t+\varepsilon/2)$
+for any $t$ in the domain of definition
+of $\gamma$, i.e. $\gamma$ is a complete
+geodesic.
 \end{proof}
 
 \section{Hadamard's theorem}
@@ -3924,19 +4137,28 @@ $$
 \begin{exercise}
 \label{exercise-product-of-compact-and-Rn}
 $M^n$ compact, $\text{Ric} \geq 0$, then $\tilde{M}=N \times \mathbb{R}^n$ for
-some compact manifold $N$, where  $\tilde{M}$ is the universal cover of $M$.
+some compact manifold $N$, where  $\tilde{M}$ is 
+the universal cover of $M$.
 \end{exercise}
 
 \begin{proof}
-If $\tilde{M}$ is compact we are done. So suppose it is not. Then there exists a
-ray. We want to construct a line to use Splitting Theorem \ref{theorem-splitting}.
-Consider the fundamental domain of the cover $\tilde{M}$, which exists since
-$M$ is compact: we may take a finite covering of normal neighbourhoods of $M$,
-so that the preimage under $\pi$ is a compact set containing at least one
+If $\tilde{M}$ is compact we are done. 
+So suppose it is not. 
+Then there exists a
+ray. We want to construct 
+a line to use Splitting Theorem \ref{theorem-splitting}.
+Consider the fundamental domain of the cover $\tilde{M}$, 
+which exists since
+$M$ is compact: we may take a finite covering 
+of normal neighbourhoods of $M$,
+so that the preimage under $\pi$ is a compact 
+set containing at least one
 representative of each class.
 
-Let $p_i$ be a sequence along the ray $\gamma$ so that $p_i$ goes to infinity.
-For each of them there exists a deck transformation $F_i$ that puts $p_i$ inside
+Let $p_i$ be a sequence along the ray $\gamma$ 
+so that $p_i$ goes to infinity.
+For each of them there exists a 
+deck transformation $F_i$ that puts $p_i$ inside
 $K$. Consider the ray $F_i \circ \gamma$.
 \end{proof}
 
