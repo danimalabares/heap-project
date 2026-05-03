@@ -348,7 +348,7 @@ To warm-up we define real symplectic and
 Hamiltonian actions.
 
 \begin{definition}
-\label{definition-real-symplectic-and-hamiltonian-actions}
+\label{definition-one-parameter-actions}
 \begin{itemize}
 \item An $\mathbb{R}$-action is {\it symplectic} 
 if $\psi_t^*\omega=\omega 
@@ -370,10 +370,10 @@ $$
 \xymatrixcolsep{3em}
 \xymatrixrowsep{.7em}
 \xymatrix{
-&C^\infty(M)\ar[dd]&f\ar@{|->}[dd]\\
+&C^\infty(M)\ar[dd]&H\ar@{|->}[dd]\\
 \mathfrak{g}\ar[dr]\ar[ur]^{\hat{\mu}}\\
-u \ar@{|->}[dr] & \mathfrak{X}(M) & X_f\\
-& u_M \ar@{=}[ur]
+u \ar@{|->}[dr] & \mathfrak{X}(M) & X_H\\
+& u_M=X_u \ar@{=}[ur]
 }
 $$
 Note that if  $\hat{\mu}$ exists, it's not
@@ -390,7 +390,7 @@ or as a map
 \end{align*}
 
 \begin{definition}
-\label{definition-symplectic-action}
+\label{definition-moment-map}
 \begin{itemize}
 \item A $G$-action is symplectic if 
 $\psi_g^*\omega=\omega$ for all $g \in G$,
@@ -402,8 +402,7 @@ $$
 }
 $$
 
-\item A symplectic action 
-$G \overset{\psi}{\mathbb{y}}(M,\omega)$
+\item A symplectic action of $G$ on $(M,\omega)$ via $\psi$
 is {\it weakly Hamiltonian}
 if there exists a map 
 $\mu:M \to \mathfrak{g}^*$ 
@@ -411,16 +410,14 @@ $\mu:M \to \mathfrak{g}^*$
 $\hat{\mu}:\mathfrak{g} \to C^\infty(M)$ 
 linear) such that
 $$
-i_{u_M}\omega=d\left<\mu,u\right>,\qquad 
+i_{u_M}\omega=d\left<\mu(p),u\right>,\qquad 
 (\text{resp. } u_M=X_{\hat{\mu}(u)}).
 $$
 
 \item A weakly Hamiltonian action is 
 {\it Hamiltonian} if it is also
-$\mu$-equivariant, that is,
-$\mu: G\mathbb{y} M \to 
-\mathfrak{g}^*
-\overset{\text{Ad}^*}{\mathbb{x}}G$,
+$\mu$-equivariant for the action of $G$ on $M$ and the coadjoint action on
+$\mathfrak{g}^*$, that is,
 $$
 \mu \circ \psi_g=(\text{Ad}^*)_g(\mu).
 $$
@@ -428,7 +425,256 @@ In this case we call $\mu$ a {\it moment map}.
 \end{itemize}
 \end{definition}
 
+\begin{exercise}
+\label{exercise-linear-moment-map-rotation}
+Let $V=\mathbb{R}^2$ with symplectic form
+$\omega=dx\wedge dy$.
+Consider the action of $S^1$ on $V$
+given by rotations,
+$$
+e^{it}(x,y)=
+(x\cos t-y\sin t,x\sin t+y\cos t).
+$$
+Identifying $\mathfrak{s}^1=\mathbb{R}$,
+let $u=1$.
+\begin{enumerate}
+\item Compute the infinitesimal vector field
+$$
+u_V(x,y)=
+\frac{d}{dt}\Big|_{t=0} e^{it}(x,y).
+$$
+\item Compute the $1$-form $i_{u_V}\omega$.
+\item Find a function $H:\mathbb{R}^2
+\to \mathbb{R}$ such that
+$$
+dH=i_{u_V}\omega.
+$$
+\item Check that
+$$
+H(v)=\frac{1}{2}\omega(uv,v).
+$$
+Here we identify $T_vV$ with $V$, and $uv$
+denotes the infinitesimal action of $u$ on $v$.
+\end{enumerate}
+\end{exercise}
 
+\begin{proof}
+We have
+\begin{align*}
+u_V(x,y)
+&=
+\frac{d}{dt}\Big|_{t=0}
+(x\cos t-y\sin t,
+x\sin t+y\cos t)\\
+&=(-y,x).
+\end{align*}
+Let $w=(a,b)$. Since
+$$
+\omega((p,q),(a,b))=pb-qa,
+$$
+we get
+\begin{align*}
+(i_{u_V}\omega)(w)
+&=\omega((-y,x),(a,b))\\
+&=-yb-xa.
+\end{align*}
+Thus
+$$
+i_{u_V}\omega=-x\,dx-y\,dy.
+$$
+Therefore
+$$
+H(x,y)=-\frac{1}{2}(x^2+y^2)
+$$
+satisfies
+$$
+dH=i_{u_V}\omega.
+$$
+Finally, we identify $T_vV$ with $V$. Since
+$$
+uv=(-y,x),\qquad v=(x,y),
+$$
+we get
+\begin{align*}
+\frac{1}{2}\omega(uv,v)
+&=
+\frac{1}{2}\omega((-y,x),(x,y))\\
+&=
+-\frac{1}{2}(x^2+y^2).
+\end{align*}
+Hence
+$$
+H(v)=\frac{1}{2}\omega(uv,v).
+$$
+\end{proof}
+
+\noindent
+The following exercise shows 
+how the moment map, i.e.
+$\hat{\mu}=H$ looks for any
+linear symplectic action.
+
+\begin{exercise}
+\label{exercise-linear-moment-map}
+Let $(V,\omega)$ be a symplectic vector space
+and let $G$ act linearly on $V$ preserving
+$\omega$.
+Write
+$$
+u_M(v)=X_u(v)=uv=\frac{d}{dt}\Big|_{t=0}\exp(tu)v
+$$
+for the infinitesimal action of $u$ on $v$.
+We identify $T_vV$ with $V$ and,
+for $u \in \mathfrak{g}$, define
+$$
+H_u(v)=\frac{1}{2}\omega(uv,v).
+$$
+Show that
+$$
+dH_u=i_{u_V}\omega,
+$$
+where $u_V(v)=uv$ is the infinitesimal
+vector field associated to $u$.
+\end{exercise}
+\begin{proof}
+Let $w \in V$. Since $V$ is a vector
+space, we identify $T_vV$ with $V$.
+Thus $w$ is a tangent vector at $v$,
+and $dH_u(v)(w)$ is the directional
+derivative of $H_u$ at $v$ in the
+direction $w$. Therefore
+\begin{align*}
+dH_u(v)(w)
+&=
+\frac{d}{dt}\Big|_{t=0}
+H_u(v+tw)\\
+&=
+\frac{1}{2}
+\frac{d}{dt}\Big|_{t=0}
+\omega(u(v+tw),v+tw)\\
+&=
+\frac{1}{2}\omega(uw,v)
++
+\frac{1}{2}\omega(uv,w).
+\end{align*}
+Here we used that $\omega$ is bilinear:
+differentiating a bilinear expression
+means differentiating in the first slot
+and in the second slot.
+
+Since the action preserves $\omega$,
+we have
+$$
+\omega(e^{tu}a,e^{tu}b)=\omega(a,b)
+$$
+for all $a,b \in V$.
+Differentiating at $t=0$ gives
+$$
+\omega(ua,b)+\omega(a,ub)=0.
+$$
+Taking $a=w$ and $b=v$, we obtain
+$$
+\omega(uw,v)+\omega(w,uv)=0.
+$$
+Since $\omega$ is skew-symmetric, this
+gives
+$$
+\omega(uw,v)=\omega(uv,w).
+$$
+Therefore
+$$
+dH_u(v)(w)=\omega(uv,w).
+$$
+But $u_V(v)=uv$, so
+$$
+dH_u(v)(w)
+=
+(i_{u_V}\omega)_v(w).
+$$
+Thus
+$$
+dH_u=i_{u_V}\omega.
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-tangent-moment-level-set}
+Let $(M,\omega)$ be a symplectic manifold
+and let $G$ act on $M$ with moment map
+$\mu:M\to\mathfrak{g}^*$.
+Assume that $0$ is a regular value of
+$\mu$.
+Show that, for every $p \in \mu^{-1}(0)$,
+we have
+$$
+T_p\mu^{-1}(0)
+=
+(T_p(Gp))^\omega.
+$$
+Here $(T_p(Gp))^\omega$ denotes the
+symplectic orthogonal of the tangent
+space to the orbit.
+\end{exercise}
+
+\begin{proof}
+For the inclusion $\subseteq$
+we need to show that $\omega(v,w)=0$
+for any $v \in T_p\mu^{-1}(0)$
+and $w \in T_p(G\cdot p)$.
+A $w$ looks like: take a 1-parameter
+subgroup of $G$, which of course
+we want to see as something of the kind
+$\text{exp}(tu)\cdot p$ and differentiate
+at $t=0$. And of course this is the
+infinitesimal generator $u_M = X_u$
+for $u \in \mathfrak{g}$.
+On the other hand, a $v$ looks like:
+take a curve $\gamma \subset \mu^{-1}(0)$
+and differentiate at $t=0$.
+
+By the moment map property we see that
+$$
+\omega(u_M,v)=d\left<\mu,u\right>_p(v).
+$$
+How to compute that differential?
+I remember that the differential of a
+function can be computed by
+using a curve that realises the vector,
+i.e. $df(v) = \frac{d}{dt}\Big|_{t=0}
+f\circ \gamma(t)$.
+That is,
+$$
+d\left<\mu(p),u\right>v
+=\frac{d}{dt}\Big|_{t=0}
+\left<\mu(\gamma(t)),u\right>=0.
+$$
+
+For the $\supseteq$ inclusion
+suppose that $v$ is such that
+$\omega(u_M,v)=0$ for all
+$u \in \mathfrak{g}$.
+To show that $v \in T_p\mu^{-1}(0)$
+we need to show that
+$v \in \Ker d\mu$ by the
+level set theorem.
+This is what the moment map equation says:
+$0=i_{u_M}\omega(v)
+=d\left<\mu,u\right>_p(v)$,
+and the latter differential is in fact
+$d(\text{ev}_u \circ \mu)$.
+Since $\operatorname{ev}_u$ is linear, its
+differential is again $\operatorname{ev}_u$.
+Hence
+$$
+d\left<\mu,u\right>_p(v)
+=
+\left<d\mu_p(v),u\right>.
+$$
+Since this vanishes for every
+$u \in \mathfrak{g}$, the covector
+$d\mu_p(v)\in\mathfrak{g}^*$ vanishes
+identically. Thus $d\mu_p(v)=0$.
+\end{proof}
 
 \section{Noether's principle}
 \label{section-Noether-principle}
@@ -453,10 +699,10 @@ We need to use level-sets of the moment map.
 
 \begin{theorem}[Marsden-Weinstein, Megre]
 \label{theorem-marsden-weinstein-megre}
-Let $G \mathbb{y} (M,\omega)$ be a Hamiltonian action
+Let $G$ act on $(M,\omega)$ in a Hamiltonian way
 with moment map $\mu:M \to \mathfrak{g}^*$.
 Suppose $0 \in \mathfrak{g}^*$ is a regular value.
-By the equivariance of $\mu$, we have an action $G \mathbb{y} \mu^{-1}(0)$
+By the equivariance of $\mu$, we have an action of $G$ on $\mu^{-1}(0)$
 given as follows. For $x \in \mu^{-1}(0)$, 
 $\mu(\psi_g(x))=\text{Ad}_g^*(\mu(x))=0$.
 Suppose that this action is regular (this will be defined later),
@@ -470,14 +716,14 @@ That is, the pullback of the symplectic form to the
 0 level-set of $\mu$ passes to the quotient:
 $$
 \xymatrix{
-G \mathbb{y} \mu^{-1}(0)\ar[d]^{\pi_0}\ar@{^{(}->}[r]& M\\
+G\text{ acts on }\mu^{-1}(0)\ar[d]^{\pi_0}\ar@{^{(}->}[r]& M\\
 (M_0:=\mu^{-1}(0)/G,\omega_{\text{red}})
 }
 $$
 
 \noindent
 A slightly more general setting is the following.
-Hamiltonian action $G \mathbb{y} (M,\omega)$,
+Hamiltonian action of $G$ on $(M,\omega)$,
 and moment map
 $\mu:M \to \mathfrak{g}^*$.
 $\xi \in \mathfrak{g}^*$ regular, $G_\xi \subseteq G$
@@ -485,7 +731,7 @@ stabilizer of $\xi$.
 Then we have
 $$
 \xymatrix{
-G_\xi \mathbb{y} \mu^{-1}(\xi)\ar[d]^{\pi_\xi}\ar@{^{(}->}[r]^-{i_\xi}& M\\
+G_\xi\text{ acts on }\mu^{-1}(\xi)\ar[d]^{\pi_\xi}\ar@{^{(}->}[r]^-{i_\xi}& M\\
 (M_\xi=\mu^{-1}(\xi)/G_\xi,\omega_{\text{red}}).
 }
 $$
@@ -494,8 +740,9 @@ $$
 \label{section-toric-varieties}
 
 \noindent
-For any compact connected symplectic manifold with an action of a torus,
-$\mathbb{T}^n \mathbb{y} (M^{2n},\omega)\xrightarrow{\mu}\mathbb{R}^n
+For any compact connected symplectic manifold $(M^{2n},\omega)$ with an action
+of a torus $\mathbb{T}^n$ and moment map
+$\mu:M \to \mathbb{R}^n
 =(\mathfrak{t}^n)^*$, the image of $\mu$
 is a polytope. By [Guilleimin-Sternberg] and [Atiyah], this polytope is
 convex. Further, if the dimension of the torus is exactly half
@@ -602,7 +849,7 @@ Then $N \simeq \mathbb{T}^n$.
 \begin{proof}
 First we present the steps:
 \begin{enumerate}
-\item Flows of $X_1,\ldots,X_n$ define an action $\mathbb{R}^n \mathbb{y} N$.
+\item Flows of $X_1,\ldots,X_n$ define an action of $\mathbb{R}^n$ on $N$.
 
 \item This action is transitive. Then $N \simeq \mathbb{R}^n/\Gamma$
 where $\Gamma$ is the stabilizer.
@@ -617,7 +864,7 @@ $\Gamma=2\pi \mathbb{Z}^n \subset \mathbb{R}^n$ .
 Let $\varphi^i_t$ be the flow of $X_i$ (which are complete since $N$ is
 compact).
 Since $[X_i,X_j]=0$, then $\varphi_t^i \varphi_s^j=\varphi_s^j \varphi^i_t$.
-Thus we have an action $\mathbb{R}^n\mathbb{y} N$
+Thus we have an action of $\mathbb{R}^n$ on $N$
 given by moving along the flows of the vector fields, that is
 $$
 \underbrace{(t_1,\ldots,t_n)}_{\mathbf{t}}\cdot x
@@ -717,4 +964,3 @@ Problema: o producto de campos quânticos não é bem definido.
 \bibliographystyle{amsalpha}
 
 \end{document}
-
