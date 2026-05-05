@@ -1227,7 +1227,7 @@ Theorem
 \ref{theorem-finit-map-has-finit-preim}.
 Moreover, it also used quite a lot in the
 development of Galois theory in
-Section \ref{section-field-extensions}.
+Section \ref{section-galois-theory}.
 
 
 \medskip\noindent
@@ -1813,47 +1813,187 @@ $\Spec(R)$ is a finite set!
 \label{section-field-extensions}
 
 \noindent
-In this section we aim to prove:
-let $[K:k]$ be a finite extension over with
-$\text{char} k =0$.
-then there exists an element $l \in k$
-generating $k$.
+We collect the basic language of field
+extensions here. It will be used later both
+for Galois theory and for the function fields
+which appear in Noether normalization.
 
-\medskip\noindent
-We start with a motivating introduction.
-Field of rational functions on a variety,
-take its covering, remove its ramification
-locus,
-obtain a field extension.
-Study automorphisms of the field extensions,
-which is the same as studying
-automorphisms of the cover.
-This is Galois theory.
-Decomposition of a direct sum of fields
-shall correspond to the disjoint union of
-varieties.
-
-\medskip\noindent
+\begin{definition}
+\label{definition-field-extension}
 A {\it field extension}
 of the field $k$ is another field $K$ which
 cointains $k$.
 This is denoted $[K:k]$.
+\end{definition}
 
-$[K:k]$ is {\it algebraic} if $K$ is
-finite-dimensional over $k$.
-Otherwise it is {\it trascendental}.
-
+\begin{definition}
+\label{definition-algebraic-element}
+Let $[K:k]$ be a field extension.
 An element $x \in K$ is {\it algebraic} if it
 is a root
 of a nonzero polynomial with coefficients in
 $k$,
 and otherwise it is {\it trascendental}.
+\end{definition}
+
+\begin{definition}
+\label{definition-finite-extension}
+Let $[K:k]$ be a field extension.
+We say that $[K:k]$ is a {\it finite extension}
+if $K$ is finite-dimensional as a vector space
+over $k$.
+The dimension of this vector space is denoted
+$[K:k]$ and is called the {\it degree} of the
+extension.
+\end{definition}
+
+\begin{definition}
+\label{definition-algebraic-extension}
+Let $[K:k]$ be a field extension.
+$[K:k]$ is {\it algebraic} if every element
+of $K$ is algebraic over $k$.
+\end{definition}
+
+\noindent
+Finite extensions are algebraic, but
+algebraic extensions need not be finite.
+
+\begin{definition}
+\label{definition-field-generated-by-elements}
+Let $[K:k]$ be a field extension, and let
+$a_1,\ldots,a_m \in K$.
+We write $k(a_1,\ldots,a_m)$ for the smallest
+subfield of $K$ containing $k$ and
+$a_1,\ldots,a_m$.
+Equivalently, it is the fraction field of the
+$k$-subalgebra $k[a_1,\ldots,a_m]\subset K$.
+\end{definition}
+
+\begin{definition}
+\label{definition-finitely-generated-field-extension}
+Let $[K:k]$ be a field extension.
+We say that $[K:k]$ is a {\it finitely
+generated field extension} if there exist
+elements $a_1,\ldots,a_m \in K$ such that
+$K=k(a_1,\ldots,a_m)$.
+\end{definition}
+
+\noindent
+The simple upshot is that algebraic
+independence is the analogue of being
+transcendental, but for several elements at
+once.
+
+\begin{definition}
+\label{definition-algebraically-independent}
+Let $[K:k]$ be any field extension.
+$t_1,…,t_n \in K$ are called
+{\it algebraically independent} 
+if there is no nonzero polynomial
+$P \in k[z_1,…,z_n]$
+such that $P(t_1,…,t_n)=0$.
+\end{definition}
+
+\begin{example}
+\label{example-numbers-algebraically-dependent}
+The numbers $1$ and $2$ are algebraically
+dependent over $\mathbb{Q}$.
+Indeed, the nonzero polynomial
+$P(z_1,z_2)=z_1-1$ satisfies $P(1,2)=0$.
+More generally, any two elements of
+$\mathbb{Q}$ are algebraically dependent
+over $\mathbb{Q}$.
+\end{example}
+
+\begin{example}
+\label{example-transcendental-number-algebraically-independent}
+A single transcendental number, such as
+$\pi \in \mathbb{R}$, is algebraically
+independent over $\mathbb{Q}$.
+Indeed, algebraic independence of one element
+just says that there is no nonzero polynomial
+$P \in \mathbb{Q}[z]$ such that $P(\pi)=0$.
+For two actual numbers, things get hard fast:
+for example $e$ and $e^{\sqrt{2}}$ are
+algebraically independent over $\mathbb{Q}$,
+but this uses the Lindemann-Weierstrass
+theorem.
+\end{example}
+
+\begin{example}
+\label{example-coordinate-functions-algebraically-independent}
+The elements $x,y \in \mathbb{C}(x,y)$
+are algebraically independent over
+$\mathbb{C}$.
+Indeed, there is no nonzero polynomial
+$P \in \mathbb{C}[z_1,z_2]$ such that
+$P(x,y)=0$ as a rational function.
+In contrast, the elements $x,x^2 \in
+\mathbb{C}(x)$ are algebraically dependent,
+since $z_2-z_1^2$ vanishes after setting
+$z_1=x$ and $z_2=x^2$.
+\end{example}
+
+\begin{definition}
+\label{definition-transcendence-basis}
+Let $[K:k]$ be a field extension.
+A set $t_1,…,t_n \in K$ is called
+a {\it transcendence basis} of $K$ over $k$
+if $t_1,…,t_n$ are algebraically independent
+over $k$ and $K$ is algebraic over
+$k(t_1,…,t_n)$.
+\end{definition}
 
 \begin{exercise}
-\label{exercise-algebraic-field-extension}
-A field extension is algebraic if and only if
-all its elements are algebraic.
+\label{exercise-frac-fg-algebra-fg-field}
+Let $A$ be a finitely generated domain over
+a field $k$.
+Prove that $\text{Frac}(A)$ is a finitely
+generated field extension of $k$.
 \end{exercise}
+
+\begin{exercise}
+\label{exercise-fg-algebraic-field-extension-finite}
+Let $[K:k]$ be a finitely generated field
+extension.
+Assume that $K$ is algebraic over $k$.
+Prove that $[K:k]$ is finite.
+\end{exercise}
+
+\begin{proof}
+Suppose that $K=k(a_1,\ldots,a_n)$.
+Let $K_0=k$ and
+$K_i=K_{i-1}[a_i]$.
+Since $K$ is algebraic over $k$, each $a_i$
+is algebraic over $k$, hence also over the
+larger field $K_{i-1}$.
+By Lemma
+\ref{lemma-integral-element-fg-submodule},
+$K_i$ is a finitely generated
+$K_{i-1}$-module.
+Moreover, $K_i$ is a field: if
+$0\neq h(a_i)\in K_{i-1}[a_i]$, let $m_i(t)$
+be the minimal polynomial of $a_i$ over
+$K_{i-1}$.
+Since $h(a_i)\neq 0$, the polynomial $m_i$
+does not divide $h$.
+Thus $\text{gcd}(h,m_i)=1$, and by
+Bachet-Bézout for polynomials over a field,
+Theorem
+\ref{number-theory-theorem-bache-bezou-polyn-over-fiel},
+there exist $u(t),v(t)\in K_{i-1}[t]$ such
+that
+$$
+u(t)h(t)+v(t)m_i(t)=1.
+$$
+Evaluating at $a_i$ gives
+$u(a_i)h(a_i)=1$, so $h(a_i)$ has inverse
+$u(a_i)$ in $K_{i-1}[a_i]$.
+Thus $K_i=K_{i-1}(a_i)$ is a finite extension
+of $K_{i-1}$.
+Inducting on $i$ and multiplying degrees,
+$K=K_n$ is finite over $k$.
+\end{proof}
 
 \noindent
 A field is called {\it algebraically closed}
@@ -1884,6 +2024,23 @@ obtained by adding roots and applying Zorn's
 lemma
 to ensure this process finishes. And it is
 unique.
+
+\section{Galois theory}
+\label{section-galois-theory}
+
+\noindent
+Now we study finite extensions from the point
+of view of automorphisms. Geometrically, one
+should think of passing from a variety to a
+cover and then studying automorphisms of the
+corresponding extension of function fields.
+
+\medskip\noindent
+In this section we aim to prove:
+let $[K:k]$ be a finite extension over with
+$\text{char} k =0$.
+then there exists an element $l \in k$
+generating $k$.
 
 \begin{theorem}
 \label{theorem-separ-exten-algeb-closu}
@@ -2145,10 +2302,17 @@ $\mathbb{C}/\left<1-ft\right>$, where $t$ is
 the inverse of $f$.
 \end{remark}
 
+\begin{definition}
+\label{definition-birational-morphism}
+A morphism of irreducible algebraic varieties
+$f:X \to Y$ is called a
+{\it birational morphism} if
+the induced map on fraction fields
+$k(Y) \to k(X)$ is an isomorphism.
+\end{definition}
+
 \noindent
-We also define {\it birational morphism} if
-the induced map on fraction fields is an
-isomorphism, and further show:
+We further show:
 
 \begin{proposition}
 \label{proposition-birat-then-isomo-away}
@@ -2203,15 +2367,21 @@ monic polynomial with coefficients in $A$.
 
 \begin{proof}
 The chain statement is almost tautological
-(recall that being noetherian is the same
-as…). As for the second, express $x^n$ as an
+As for the second, express $x^n$ as an
 element of the finitely-generated module.
-For the converse of the last equivalence
-we use division algorithm on the
-minimal polynomial to kill any residue,
-and thus the minimal polynomial divides
-any other polynomial in the algebra
-generated by the element.
+Conversely, if $x$ is a root of a monic
+polynomial
+$$
+x^n+a_{n-1}x^{n-1}+\cdots+a_0=0,
+$$
+then $x^n$ is an $A$-linear combination of
+$1,x,\ldots,x^{n-1}$.
+Multiplying by powers of $x$ and arguing by
+induction, every higher power of $x$ is also
+an $A$-linear combination of
+$1,x,\ldots,x^{n-1}$.
+Thus $A[x]$ is generated as an $A$-module by
+$1,x,\ldots,x^{n-1}$.
 \end{proof}
 
 \begin{lemma}
@@ -2616,6 +2786,20 @@ this is a bijection.
 \label{section-noether-normalization}
 
 \noindent
+Normalization means taking integral closure
+in the field of rational functions.
+Noether normalization lemma is the key
+ingredient to prove the Finiteness of
+Integral Closure theorem,
+Theorem
+\ref{theorem-integrl-clsure-fntly-genertd},
+which says that the integral closure
+is a finitely generated algebra.
+In turn, this is the key fact needed
+to define normalization of a variety:
+it's the spectrum of the integral closure!
+
+\medskip\noindent
 We start discussing finite quotients.
 
 \begin{theorem}[Noether theorem for
@@ -2702,35 +2886,24 @@ A polynomial vanishing on the point
 gives us finiteness once again…
 \end{proof}
 
-\begin{definition}
-\label{definition-algebraically-independent}
-$t_1,…,t_n \in K$ are called
-{\it algebraically independent} 
-if there is no nonzero polynomial
-$P \in k[z_1,…,z_n]$
-such that $P(t_1,…,t_n)=0$.
-\end{definition}
-
-\begin{definition}
-\label{definition-transcendence-basis}
-Let $[K:k]$ be a field extension.
-A set $t_1,…,t_n \in K$ is called
-a {\it transcendence basis} of $K$ over $k$
-if $t_1,…,t_n$ are algebraically independent
-over $k$ and $K$ is algebraic over
-$k(t_1,…,t_n)$.
-\end{definition}
-
-\begin{definition}
-\label{definition-finite-extension}
-Let $[K:k]$ be a field extension.
-We say that $[K:k]$ is a {\it finite extension}
-if $K$ is finite-dimensional as a vector space
-over $k$.
-The dimension of this vector space is denoted
-$[K:k]$ and is called the {\it degree} of the
-extension.
-\end{definition}
+\noindent
+We will use the terminology of field
+extensions from Section
+\ref{section-field-extensions}. In particular,
+a finitely generated field extension does not
+mean that $K=k(t_1,\ldots,t_n)$ for some
+transcendence basis $t_1,\ldots,t_n$.
+Relations among generators are allowed. This
+explains why, if
+$X \subset \mathbb{C}^n$ is an affine variety,
+then $k(X)=\text{Frac}(\mathcal{O}_X)$ is a
+finitely generated field extension of
+$\mathbb{C}$: the coordinate classes
+$\bar z_1,\ldots,\bar z_n$ generate $k(X)$ as
+a field, even though they may satisfy the
+relations coming from the ideal of $X$.
+See Exercise
+\ref{exercise-frac-fg-algebra-fg-field}.
 
 \begin{theorem}
 \label{theorem-finitely-gen-extension}
@@ -2741,6 +2914,38 @@ Then $K$ is a finite extension
 of $k(t_1,…,t_n)$ where $t_1,…,t_n$
 is a transcendence basis.
 \end{theorem}
+
+\begin{proof}
+Choose generators $a_1,\ldots,a_m$ such that
+$K=k(a_1,\ldots,a_m)$.
+Among them choose a maximal algebraically
+independent subset, say $t_1,\ldots,t_n$.
+By maximality, every remaining generator is
+algebraic over $k(t_1,\ldots,t_n)$.
+Since there are only finitely many remaining
+generators, adjoining them gives an algebraic
+finitely generated extension of
+$k(t_1,\ldots,t_n)$, hence a finite extension
+by Exercise
+\ref{exercise-fg-algebraic-field-extension-finite}.
+\end{proof}
+
+\noindent
+Let us spell out the notation in geometric
+terms. If $X\subset \mathbb{C}^n$, then
+$$
+\mathcal{O}_X
+=\mathbb{C}[z_1,\ldots,z_n]/I(X),
+$$
+and the symbols $t_i$ below are really the
+classes of the ambient coordinate functions
+$z_i+I(X)$ in this quotient ring, viewed also
+as elements of the function field $k(X)$.
+If some of these elements are algebraically
+independent, then they can serve as genuine
+independent coordinates on a dense part of
+$X$; geometrically this will say that the
+projection to those coordinates is dominant.
 
 \begin{proposition}
 \label{proposition-dominant-transcendence}
@@ -2759,7 +2964,44 @@ in $k(X)$.
 \end{enumerate}
 \end{proposition}
 
+\begin{proof}
+Dominance of $\Pi_k$ means that
+$\mathbb{C}[t_1,\ldots,t_k]\to
+\mathcal{O}_X$ is injective.
+This is equivalent to saying that
+$t_1,\ldots,t_k$ satisfy no nonzero
+polynomial relation, i.e. they are
+algebraically independent.
+Passing to fraction fields gives
+$\mathbb{C}(t_1,\ldots,t_k)\subset k(X)$,
+the field generated by these independent
+coordinates inside $k(X)$.
+
+The remaining condition that
+$[k(X):\mathbb{C}(t_1,\ldots,t_k)]$ is finite
+is precisely the statement that $k(X)$ is
+algebraic over the field generated by these
+elements; since $k(X)$ is finitely generated
+because $\mathcal{O}_X$ is a finitely
+generated algebra, algebraic here implies
+finite. Thus
+$t_1,\ldots,t_k$ is a transcendence basis
+inside $k(X)$.
+\end{proof}
+
 \noindent
+Here is the density point more concretely.
+The image of $\Pi_k$ is not dense exactly
+when it is contained in the zero set of some
+nonzero polynomial
+$P \in \mathbb{C}[z_1,\ldots,z_k]$.
+But being contained in that zero set means
+$P(t_1,\ldots,t_k)=0$ on $X$, i.e. a
+polynomial relation among the classes
+$t_i=z_i+I(X)$.
+Thus no polynomial relation among the $t_i$
+means the projection has dense image.
+
 We are looking for conditions where
 this projection is a finite map.
 The projection $\Pi_{n-1}$ is finite
@@ -2767,27 +3009,47 @@ if and only if $P(z_n)=0$ in $\mathcal{O}_X$
 for some monic polynomial
 $P(t) \in \mathbb{C}[z_1,…,z_{n-1}][t]$.
 
-\begin{exercise}
-\label{exercise-finite-projectn-weierstrass}
-Explain why the preceding monic polynomial
-looks like a Weierstrass polynomial.
-More precisely, compare the algebraic
-statement that a finite projection is
-detected by a monic equation in the fiber
-variable with the analytic statement of the
-Weierstrass preparation theorem.
-\end{exercise}
-
 \begin{lemma}
 \label{lemma-coord-change-transcen-basis}
-Under these assumptions, there exists
-a linear coordinate change
+Let $X\subset \mathbb{C}^n$ be an irreducible
+affine variety and suppose that the coordinate
+classes $z_1,\ldots,z_k \in k(X)$ form a
+transcendence basis.
+Then there exists a linear coordinate change
 $z_i':=z_i+\lambda_iz_n$ such that $z_n$
 is finite over $z_1',…,z_k'$,
 that is, $z_n$ is a root of a monic
 polynomial with coefficients in
 $\mathbb{C}[z_1',…,z_k']$.
 \end{lemma}
+
+\begin{proof}
+Since $z_1,\ldots,z_k$ is a transcendence
+basis, $z_n$ is algebraic over
+$\mathbb{C}(z_1,\ldots,z_k)$.
+Thus there is a polynomial relation involving
+$z_n$ and $z_1,\ldots,z_k$.
+After replacing
+$z_i$ by $z_i'=z_i+\lambda_i z_n$, choose the
+constants $\lambda_i$ generically so that the
+highest-degree part of this relation does not
+vanish in the $z_n$ direction.
+Then the relation can be viewed as a
+polynomial in $z_n$ whose leading coefficient
+is a nonzero constant.
+Dividing by this leading coefficient gives a
+monic polynomial for $z_n$ with coefficients
+in $\mathbb{C}[z_1',\ldots,z_k']$.
+This is exactly the statement that $z_n$ is
+finite over $z_1',\ldots,z_k'$.
+\end{proof}
+
+\noindent
+Finally we can prove Noether's normalization
+lemma. The finite map obtained in this
+theorem is the key ingredient
+to prove the finiteness of the integral
+closure of an algebra.
 
 \begin{lemma}[Noether's normalization]
 \label{lemma-noether-normalization}
@@ -2817,6 +3079,31 @@ first $k$ variables is a finite,
 dominant morphism.
 \end{lemma}
 
+\begin{proof}
+The fact that $z_1,\ldots,z_k$ is a
+transcendence basis says, by Proposition
+\ref{proposition-dominant-transcendence},
+that the projection to the first $k$
+coordinates is dominant and generically
+finite.
+Apply Lemma
+\ref{lemma-coord-change-transcen-basis}
+successively to the remaining coordinates
+$z_{k+1},\ldots,z_n$.
+After a suitable linear change, each remaining
+coordinate becomes a root of a monic
+polynomial with coefficients in
+$\mathbb{C}[z_1',\ldots,z_k']$.
+Thus all coordinate functions of $X$ are
+integral over
+$\mathbb{C}[z_1',\ldots,z_k']$.
+Since $\mathcal{O}_X$ is generated by these
+coordinate functions, this makes
+$\mathcal{O}_X$ finite over
+$\mathbb{C}[z_1',\ldots,z_k']$, which is
+exactly the finiteness of the projection.
+\end{proof}
+
 \noindent
 Now we introduce a version that
 applies to non-irreducible varieties
@@ -2834,20 +3121,15 @@ to the first $k$ variables is finite.
 \end{proposition}
 
 \noindent
-Normalization means taking integral
-closure in the field of rational functions.
-All we have to do is to show
-this is a finitely generated algebra.
-
 Recall that the integral closure of $A$ 
 in $K$ is the set of all elements
 such that $A[x]$ is a finitely
 generated $A$-module.
-The integral closure $B$ of $A$ is
-its integral closure in its field of
-fractions $k(A)$.
+The integral closure of $A$ is its integral
+closure in its field of fractions $k(A)$.
 
-\begin{theorem}
+\begin{theorem}[Finiteness of Integral
+Closure]
 \label{theorem-integrl-clsure-fntly-genertd}
 Let $A$ be an integrally closed Noetherian
 ring without zero divisors and
@@ -2859,40 +3141,29 @@ as an $A$-module.
 \end{theorem}
 
 \begin{proof}
-Using trace… several steps.
+Here is the expected strategy.
+\begin{enumerate}
+\item Use Noether normalization to find a
+polynomial subring
+$R=\mathbb{C}[x_1,\ldots,x_d]\subset A$
+such that $A$ is finite over $R$.
+\item Reduce the problem from $A$ to the
+polynomial ring $R$.
+\item Observe that $K$ is a finite extension
+of $\text{Frac}(R)$, since it is finite over
+$k(A)=\text{Frac}(A)$ and $A$ is finite over
+$R$.
+\item Prove that the integral closure of
+$R$ in $K$ is finite over $R$.
+This is the serious algebra step, usually
+proved using trace.
+\item Conclude that the integral closure of
+$A$ in $K$ is contained in this finite
+$R$-module, hence is finite over $R$ and
+therefore finitely generated over $A$.
+\end{enumerate}
 \end{proof}
 
 
-
-\section{Gröbner theory}
-\label{section-grobner}
-
-\noindent
-So far here's some rather unformatted notes
-from
-Lin's talk at Commutative Algebra school in
-Recife 2025.
-
-Would SAGBI bases be related to this?
-
-square free monomial ideals preserve
-regularity upon Grobner deformation
-i.e. initial ideal!
-
-Constantini-Fouli-Goel-Lin-Lindo-Liske-
-Mostafazadehfard,
-2025.
-
-https://sites.psu.edu/kul20/
-
-How is Lin using the Reese algebra here?
-Is it ture that the initial ideal of the
-Gröbner deformation
-coincides with the initial ideal ``of the
-Resse algebra''?
-
-
-\bibliography{my}
-\bibliographystyle{amsalpha}
 
 \end{document}
