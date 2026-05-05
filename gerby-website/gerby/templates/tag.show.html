@@ -1,0 +1,261 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ tag.type | capitalize }} {{ tag.ref }} ({{ tag.tag }}){% if tag.name and "<" not in tag.name %}: {{ tag.name }}{% endif %}{% endblock %}
+
+{% block head %}
+  <script type="text/javascript" src="/static/js/toggle.js"></script>
+  <script type="text/javascript" src="/static/js/comments.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/easymde@2.0.1/dist/easymde.min.css" integrity="sha384-IRbzB9px0sfIx90vkN+geaX3F4LVcg/M+k5vmVkfjs5TnRX3MIhGS8Ma06ALKVYp" crossorigin="anonymous">
+  <script src="https://unpkg.com/easymde@2.0.1/dist/easymde.min.js" integrity="sha384-v06sb0t0ToY1YRtVlfD/GCGpIZ/QHYyeH2Gzjvr0ZJI62/50DIzT8XRgQ6JvptVu" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jquery-bonsai@2.1.2/jquery.bonsai.css" integrity="sha384-U1uEPfU2/stCtBJ6oZS4XLX35g0MD+BZTTskUun0Vhv64RLEaTUXtcpxGScTbkUP" crossorigin="anonymous">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-bonsai@2.1.2/jquery.bonsai.min.js" integrity="sha384-ZKch/OmPYYZT/9GpxSgMqUIDdBjwYYuJ3+CfQytRQElwdBsCMJkEmcsynJlFlsCS" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block breadcrumb %}
+  {{ macros.breadcrumb(breadcrumb) }}
+{% endblock %}
+
+{% block hamburger %}
+  {{ macros.tagHamburger(tag, neighbours, "", dependencies) }}
+{% endblock %}
+
+{% block body %}
+<div class="html" id="tag">
+  {% if tag.slogan %}
+    <p class="slogan alert alert-primary"><strong>{{ tag.slogan.html | safe }}</strong>
+  {% endif %}
+
+  {% if tag.reference %}
+    <p class="reference alert alert-info">{{ tag.reference.html | safe }}
+  {% endif %}
+
+  {% if tag.history %}
+    <p class="history alert alert-secondary">{{ tag.history.html | safe }}
+  {% endif %}
+
+  {{ html | safe }}
+
+  <script type="text/javascript">
+$(document).ready(function() {
+  // move extras from parent element to after environment name and number
+  $("article a[data-toggle]").each(function(index, element) {
+    $(element).insertAfter(($(element).parent().find("a.environment-identifier")));
+  });
+
+  $('article a[data-toggle="popover"]').popover()
+
+  // render mathematics in popovers
+  $("[data-toggle=popover]").on('shown.bs.popover', function () {
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, $("div.popover-body").html()]);
+  });
+});
+  </script>
+
+  {% if tree %}
+    <ul class="tree" id="tree">
+    {% for item in tree recursive %}
+      {% if loop.depth <= depth %}<li class="expanded" id="{{ item.tag }}">{% else %}<li id="{{ item.tag }}">{% endif %}
+      {{ item.type | capitalize }} <a href="/tag/{{ item.tag }}" data-tag="{{ item.tag }}">{{ item.ref }}</a>{% if item.name %}: {{ item.name | safe }}{% endif %}
+
+      {{ macros.badges(item) }}
+
+      {% if item.children %}
+        <ul>{{ loop(item.children) }}</ul>
+      {% endif %}
+    {% endfor %}
+    </ul>
+
+    <script type="text/javascript">
+$("ul.tree").bonsai({
+  addExpandAll: true,
+});
+
+var state = localStorage.getItem("bonsai-{{ tag.tag }}");
+if (state !== null)
+  $("ul#tree").data("bonsai").restore(JSON.parse(state));
+
+$("ul#tree").click(function() {
+  var bonsai = $(this).data("bonsai");
+  var state = bonsai.serialize();
+  localStorage.setItem("bonsai-{{ tag.tag }}", JSON.stringify(state));
+});
+
+// trigger the click event handler to save state even when clicking on the expand/collapse all links, which are outside ul#tree
+$("div.expand-all").click(function() {
+  $("ul#tree").click();
+});
+
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+    </script>
+
+  {% endif %}
+
+  {% if footnotes %}
+    <section id="footnotes">
+    {% for footnote in footnotes %}
+      <div><a id="footnote-{{ loop.index }}" class="footnote-offset"></a><a href="#footnote-{{ loop.index }}-mark">[{{ loop.index }}]</a> {{ footnote.html | safe }}</div>
+    {% endfor %}
+    </section>
+  {% endif %}
+</div>
+
+{% if commentsEnabled %}
+<hr>
+
+<section id="comments">
+  <h2>Comments ({{ comments | length }})</h2>
+
+  {% for comment in comments %}
+    <a id="comment-{{ comment.id }}" class="header-offset"></a>
+    <article>
+      <header>
+        <p><a href="/tag/{{ tag.tag }}#comment-{{ comment.id }}">Comment #{{ comment.id }}</a>
+        by
+        {% if comment.site %}<cite><a href="{{ comment.site }}" rel="author">{{ comment.author }}</a></cite>
+        {% else %}<cite>{{ comment.author }}</cite>{% endif %}
+        on <time datetime="{{ comment.date }}">{{ comment.date.strftime("%B %d, %Y at %H:%M %Z") }}</time>
+      </header>
+
+      <blockquote>{{ comment.comment | safe }}</blockquote>
+    </article>
+  {% endfor %}
+
+  {% if parentComments %}
+    <p>There are also:
+    <ul>
+      {% for parent in parentComments %}
+        <li>{{ parent[1] }} comment(s) on {{ parent[0].type | capitalize }} <a href="/tag/{{ parent[0].tag }}#comments" data-tag="{{ parent[0].tag }}">{{ parent[0].ref }}</a>{% if parent[0].name %}: {{ parent[0].name | safe }}{% endif %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>
+
+<hr>
+
+<section id="post-comment">
+  <h2>Post a comment</h2>
+  <p>Your email address will not be published. Required fields are marked.
+  <p>In your comment you can use <a href="/markdown">Markdown</a> and LaTeX style mathematics (enclose it like <code>$\pi$</code>). A preview option is available if you wish to see how it works out (just click on the eye in the toolbar).
+  <noscript><p>Unfortunately JavaScript is disabled in your browser, so the comment preview function will not work.</p></noscript>
+
+  <p>All contributions are licensed under the <a href="https://github.com/stacks/stacks-project/blob/master/COPYING">GNU Free Documentation License</a>.
+
+  <form name="comment" id="comment-form" action="/post-comment" method="post">
+    <label for="name">Name<sup>*</sup>:</label>
+    <input type="text" name="name" id="name" required><br>
+
+    <label for="mail">E-mail<sup>*</sup>:</label>
+    <input type="email" name="mail" id="mail" required><br>
+
+    <label for="site">Site:</label>
+    <input type="url" name="site" id="site"><br>
+
+    <label>Comment:</label>
+    <textarea name="comment" id="comment-textarea" cols="80" rows="10" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+    <script type="text/javascript">
+var easymde = new EasyMDE({
+  autosave: {
+    enabled: true,
+    delay: 1000,
+    uniqueId: "comment-{{ tag.tag }}",
+  },
+  element: $("#comment")[0],
+  forceSync: true,
+  insertTexts: { link: ["\\ref{", "}"], table: ["$", "$"], image: ["\\begin{equation}\n", "\n\\end{equation}\n"] }, // we hack into these insertion methods, I couldn't figure out how to write your own...
+  placeholder: "You can type your comment here, use the preview option to see what it will look like.",
+  previewRender: function(plaintext, preview) {
+    // deal with references
+    plaintext = plaintext.replace(/\\ref\{([0-9A-Z]{4})\}/g, "<span class=\"tag\">[$1](/tag/$1)</span>");
+    // deal with \[\] getting replaced to []
+    plaintext = plaintext.replace(/\\\[/g, "\\begin{equation}");
+    plaintext = plaintext.replace(/\\\]/g, "\\end{equation}");
+
+    output = this.parent.markdown(plaintext);
+
+    setTimeout(function() {
+      preview.innerHTML = output;
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }, 0);
+
+    return "";
+  },
+  spellChecker: false,
+  status: false,
+  toolbar: [
+    "link", {name: "inline", action: EasyMDE.drawTable, className: "fa fa-usd"}, {name: "block", action: EasyMDE.drawImage, className: "fa fa-square"}, "|",
+    "bold", "italic", "|",
+    "ordered-list", "unordered-list", "|",
+    "preview"
+  ],
+});
+
+// make sure to show tags, not numbers
+var tagToggleHappened = false; // only do this once to not annoy the user too much
+easymde.codemirror.on("change", function() {
+  // if data-tag elements do not have tag attribute we need to make tags visible
+  if (!$("*[data-tag]").hasClass("tag") && !tagToggleHappened)
+    $("section#meta input.toggle").bootstrapToggle("toggle");
+  tagToggleHappened = true;
+});
+
+// prevent form submit when the captcha isn't correct
+// it's a bit silly to use HTML5 validation for this, as bots can figure that out
+// also save the author information to localStorage
+easymde.element.form.addEventListener("submit", function(event) {
+  if ($("#check").val() != $("#hidden-tag").val()) {
+    // explain captcha
+    $("#captcha-message").toggle();
+
+    // stop submit
+    event.preventDefault();
+    return false;
+  }
+
+  // save author information
+  localStorage.setItem("name", $("input#name").val());
+  localStorage.setItem("mail", $("input#mail").val());
+  localStorage.setItem("site", $("input#site").val());
+});
+    </script>
+
+    <p>In order to prevent bots from posting comments, we would like you to prove that you are human. You can do this by <em>filling in the name of the current tag</em> in the following input field. As a reminder, this is tag <span class="tag">{{ tag.tag }}</span>. Beware of the difference between the letter&nbsp;'<span class="tag">O</span>' and the digit&nbsp;'<span class="tag">0</span>'.</p>
+    <!--<p>This <abbr title="Completely Automated Public Turing test to tell Computers and Humans Apart">captcha</abbr> seems more appropriate than the usual illegible gibberish, right?<br>-->
+    <label for="check">Tag:</label>
+    <input type="text" name="check" id="check" required autocomplete="off">
+    <button type="submit" class="btn btn-primary">Post comment</button>
+    <input type="hidden" name="tag" id="hidden-tag" value="{{ tag.tag }}"><br>
+
+    <p id="captcha-message" style="display: none" class="alert alert-warning" role="alert">The tag you filled in for the captcha is wrong. You need to write <span class="tag">{{ tag.tag }}</span>, in case you are confused.</p>
+
+    <script type="text/javascript">
+// enter in captcha fields causes \ref to appear (?!)
+$("input#check").on("keypress", function(e) {
+  if (e.which == 13) {
+    // always stop the event
+    e.preventDefault();
+
+    // perform clientside check as for actual submit
+    if ($("#check").val() != $("#hidden-tag").val()) {
+      // explain captcha
+      $("#captcha-message").toggle();
+    }
+    else {
+      $("form#comment-form").submit();
+    }
+  }
+});
+    </script>
+  </form>
+</section>
+
+{% endif %}
+
+{% endblock %}
+
+{% block sidebar %}
+  {{ macros.tagSidebar(tag, neighbours, "", dependencies, filename) }}
+{% endblock %}

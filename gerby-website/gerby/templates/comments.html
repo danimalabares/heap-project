@@ -1,0 +1,111 @@
+{% extends "layout.html" %}
+
+{% block title %}Recent comments{% endblock %}
+
+{% block head %}
+  <script type="text/javascript" src="/static/js/toggle.js"></script>
+
+  <link rel="alternate" type="application/rss+xml" href="/recent-comments.rss">
+{% endblock %}
+
+{% block breadcrumb %}
+{% endblock %}
+
+{% macro pagination() %}
+
+<ul class="neighbours">
+{% if page > 1 %}
+  <li class="left"><a href="/recent-comments/{{ page - 1 }}">previous</a>
+{% endif %}
+{% if page * perpage < count %}
+  <li class="right"><a href="/recent-comments/{{ page + 1 }}">next</a>
+{% endif %}
+</ul>
+{% if page > 1 or page * perpage < count %}<br style="clear:both">{% endif %}
+
+{% endmacro %}
+
+{% block hamburger %}
+  <div class="interaction">
+    {{ pagination() }}
+
+    <p style="text-align: center"><a rel="alternate" type="application/rss.xml" href="/recent-comments.rss">feed</a></p>
+
+  </div>
+{% endblock %}
+
+{% block body %}
+  <p>Comments {{ (page - 1) * perpage + 1 }} to {{ [page * perpage, count] | sort | first }} out of {{ count }} in reverse chronological order.
+
+<div style="display: none">
+\begin{equation*}
+
+\DeclareMathOperator\Coim{Coim}
+\DeclareMathOperator\Coker{Coker}
+\DeclareMathOperator\Ext{Ext}
+\DeclareMathOperator\Hom{Hom}
+\DeclareMathOperator\Im{Im}
+\DeclareMathOperator\Ker{Ker}
+\DeclareMathOperator\Mor{Mor}
+\DeclareMathOperator\Ob{Ob}
+\DeclareMathOperator\Sh{Sh}
+\DeclareMathOperator\SheafExt{\mathcal{E}\mathit{xt}}
+\DeclareMathOperator\SheafHom{\mathcal{H}\mathit{om}}
+\DeclareMathOperator\Spec{Spec}
+
+\newcommand\colim{\mathop{\mathrm{colim}}\nolimits}
+\newcommand\lim{\mathop{\mathrm{lim}}\nolimits}
+\newcommand\Qcoh{\mathit{Qcoh}}
+\newcommand\Sch{\mathit{Sch}}
+
+\newcommand\QCohstack{\mathcal{QC}\!\mathit{oh}}
+\newcommand\Cohstack{\mathcal{C}\!\mathit{oh}}
+\newcommand\Spacesstack{\mathcal{S}\!\mathit{paces}}
+\newcommand\Quotfunctor{\mathrm{Quot}}
+\newcommand\Hilbfunctor{\mathrm{Hilb}}
+\newcommand\Curvesstack{\mathcal{C}\!\mathit{urves}}
+\newcommand\Polarizedstack{\mathcal{P}\!\mathit{olarized}}
+\newcommand\Complexesstack{\mathcal{C}\!\mathit{omplexes}}
+\newcommand\Pic{\mathop{\mathrm{Pic}}\nolimits}
+\newcommand\Picardstack{\mathcal{P}\!\mathit{ic}}
+\newcommand\Picardfunctor{\mathrm{Pic}}
+\newcommand\Deformationcategory{\mathcal{D}\!\mathit{ef}}
+
+\end{equation*}
+</div>
+
+
+  <hr>
+
+  <section id="comments">
+    {% for comment in comments %}
+      <header>
+        <p>On <time datetime="{{ comment.date }}">{{ comment.date.strftime("%b %d, %Y") }}</time>
+        {% if comment.site %}<cite><a href="{{ comment.site }}" rel="author">{{ comment.author }}</a></cite>
+        {% else %}<cite>{{ comment.author }}</cite>{% endif %}
+        left
+        <a href="/tag/{{ comment.tag.tag }}#comment-{{ comment.id }}">comment #{{ comment.id }}</a>
+        on
+	{{ comment.tag.type | capitalize }}
+	<a href="/tag/{{ comment.tag.tag }}" data-tag="{{ comment.tag.tag }}">{{ comment.tag.ref }}</a>
+	{% for parent in comment.breadcrumb %}
+          {% if parent.type == "chapter" %}
+	    in {{ parent.name }}
+	  {% endif %}
+        {% endfor %}
+      </header>
+
+      <blockquote>{{ comment.comment | safe }}</blockquote>
+
+      {% if not loop.last %}<hr>{% endif %}
+    {% endfor %}
+  </section>
+{% endblock %}
+
+{% block sidebar %}
+  <div class="interaction">
+    {{ pagination() }}
+    <p style="text-align: center"><a rel="alternate" type="application/rss.xml" href="/recent-comments.rss">feed</a></p>
+  </div>
+{% endblock %}
+

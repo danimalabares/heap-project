@@ -1,0 +1,418 @@
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans);
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans+Mono);
+@import url(https://fonts.googleapis.com/css?family=Inconsolata);
+
+@import url("bibliography.css");
+@import url("browse.css");
+@import url("comments.css");
+@import url("search.css");
+@import url("tag.css");
+@import url("toc.css");
+@import url("tree.css");
+
+html {
+  font-size: 14px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+nav#header > * {
+  display: inline-block;
+}
+
+section#meta,
+ul#quicklinks {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  section#meta {
+    display: block;
+  }
+
+  ul#quicklinks {
+    display: inline-block;
+  }
+
+  div#burger {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  ul#toc .pdf-link {
+    display: inline;
+  }
+}
+
+body {
+  position: relative;
+  font-family: "Droid Sans", Arial, sans-serif;
+  color: #000;
+}
+
+div.bounded {
+  max-width: calc(980rem / 14);
+}
+
+a {
+  text-decoration: none;
+  color: #1d5cb4;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #0d1cb4;
+}
+
+ul#crumbs {
+  padding: 0;
+  list-style: none;
+  margin: auto 0;
+  vertical-align: center;
+  min-width: 2rem;
+}
+
+div#burger {
+  text-align: right;
+  padding: 0;
+}
+
+input#burger-input {
+  display: none;
+}
+
+label#burger-icon {
+  margin-bottom: 0 !important;
+  height: calc(6rem / 4);
+}
+
+label#burger-icon span {
+  display: block;
+  position: relative;
+  width: calc(23rem / 14);
+  height: calc(3rem / 14);
+  border-radius: calc(3rem / 14);
+  background-color: black;
+  margin-top: calc(4rem / 14);
+  transition: all 0.1s ease-in-out;
+}
+
+input#burger-input:checked + label#burger-icon span#top-bun {
+  transform: rotate(-45deg);
+  margin-top: calc(9rem / 14);
+}
+
+input#burger-input:checked + label#burger-icon span#meat {
+  transform: rotate(45deg);
+  margin-top: calc(-2.5rem / 14);
+}
+
+input#burger-input:checked + label#burger-icon span#bottom-bun {
+  opacity: 0;
+  transform: rotate(45deg);
+}
+
+input#burger-input:checked + label#burger-icon + div#burger-content {
+  display: block;
+  box-shadow: 1px 1px 1px gray;
+}
+
+div#burger-content {
+  display: none;
+  position: absolute;
+  width: calc(250rem / 14);
+  top: calc(30rem / 14);
+  margin-left: calc(-225rem / 14);
+  padding: calc(5rem / 14);
+  background-color: #f9f8f4;
+  z-index: 2;
+  text-align: left;
+  border: 1px solid black;
+  border-radius: 6px;
+}
+
+div#burger-content div.interaction {
+}
+
+
+div#burger-content div.toggle,
+section#meta div.toggle {
+  margin-top: 1rem;
+}
+
+div#burger-content ul.tag-info {
+  margin-left: .5rem;
+  margin-bottom: 0;
+}
+
+ul#crumbs li + li::before {
+  display: inline-block;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  color: #636c72;
+  content: "/";
+}
+
+ul#crumbs li {
+  float: left;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+ul#crumbs li.active {
+  color: #636c72;
+}
+
+header.col {
+  padding-left: 0;
+}
+
+header h1 {
+  float: left;
+  padding: 0;
+  margin: 0;
+  margin-top: calc(3rem / 14);
+  font-size: calc(22rem / 14);
+  font-weight: bold;
+}
+
+header h1 a {
+  display: block;
+  padding-left: calc(30rem / 14);
+  height: 100%;
+  background-image: url('/static/stacks.png');
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: calc(24rem / 14);
+  color: black;
+  text-decoration: none;
+}
+
+div.main {
+  padding-left: calc(20rem / 14);
+  padding-right: calc(20rem / 14);
+}
+
+div#first-bar {
+  background-color: #d9d8d1;
+  z-index: 2000;
+}
+
+div.inner-top {
+  padding: calc(10rem / 14);
+}
+
+nav#header {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  padding-top: calc(3rem / 14);
+}
+
+form#quicksearch span#search-icon {
+  position: relative;
+  left: calc(24rem / 14);
+  width: 0;
+}
+
+form#quicksearch input {
+  border-radius: calc(5rem / 14);
+  border-style: solid;
+  border-width: 0;
+  padding-left: calc(23rem / 14);
+  padding-top: calc(5rem / 14);
+  padding-bottom: calc(5rem / 14);
+}
+
+nav#header ul#quicklinks {
+  margin: 0 calc(20rem / 14) 0 0;
+}
+
+nav#header ul#quicklinks li {
+  display: inline-block;
+  margin-left: calc(10rem / 14);
+}
+
+nav#second-bar {
+  padding: calc(10rem / 14);
+  background-color: #edece6;
+  z-index: 2000;
+}
+
+div#content {
+  padding: calc(10rem / 14);
+}
+
+section#main {
+  padding: 0;
+}
+
+section#meta {
+  top: calc(45rem / 14);
+  z-index: 0;
+  padding: 0 calc(10rem / 14) 0 calc(5rem / 4);
+}
+
+.tag, .commit, .filename, .label {
+  font-family: "Inconsolata", monospace;
+}
+
+h2 {
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 1.3em;
+}
+
+a[href^="https://github.com"],
+a[href^="https://doi.org"],
+a[href^="https://arxiv.org"],
+a[href^="https://mathscinet.ams.org"],
+a[href*=".pdf"],
+a[href*=".rss"],
+a[href*=".atom"] {
+  background-repeat: no-repeat;
+  background-position: center right;
+  padding-right: calc(18rem / 14);
+  min-height: calc(16rem / 14);
+  background-size: calc(16rem / 14);
+}
+
+a[href^="https://github.com"] {
+  background-image: url("../images/icon.github.png");
+}
+
+a[href^="https://doi.org"] {
+  background-image: url("../images/icon.doi.png");
+}
+
+a[href^="https://arxiv.org"] {
+  background-image: url("../images/icon.arxiv.png");
+}
+
+a[href^="https://mathscinet.ams.org"] {
+  background-image: url("../images/icon.ams.png");
+}
+
+a[href*=".pdf"] {
+  background-image: url("../images/icon.pdf.png");
+}
+
+a[href*=".rss"],
+a[href*=".atom"] {
+  background-image: url("../images/icon.rss.png");
+}
+
+ul#index-select {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: calc(400rem / 14);
+}
+
+ul#index-select li {
+  float: left;
+  width: 48%;
+  margin-left: 4px;
+  margin-bottom: 1em;
+  border: 1px solid black;
+  border-radius: 6px;
+  box-shadow: 1px 1px 1px gray;
+}
+
+ul#index-select li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  height: 4em;
+  line-height: 4em;
+}
+
+ul#index-select li img {
+  width: 2.5em;
+  padding: 0 .4em;
+}
+
+ul#index-select li#index-browse,
+ul#index-select li#index-search,
+ul#index-select li#index-bibliography,
+ul#index-select li#index-comments {
+  text-align: right;
+}
+
+ul#index-select a {
+  background-image: none;
+}
+
+.header-offset {
+  display: inline-block;
+  position: relative;
+  top: -4em;
+  visibility: hidden;
+}
+
+.footnote-offset {
+  display: inline-block;
+  position: relative;
+  top: -10em;
+  visibility: hidden;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+h2.error {
+  background-image: url("../images/alert.svg");
+  background-repeat: no-repeat;
+  background-position: left .2rem;
+  padding-left: 1.5rem;
+}
+
+.toggle-off {
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+.toggle.off {
+  border-color: rgba(0, 0, 0, .25);
+}
+
+.toggle-handle {
+  background-color: white;
+  border: thin rgba(0, 0, 0, .25) solid;
+}
+
+div.toggle,
+div.toggle:hover,
+div.toggle:active {
+  display: block;
+  margin: auto;
+  background-color: #edece6 !important;
+  border-color: rgba(0, 0, 0, .25) !important;
+}
+
+div.btn-primary,
+div.btn-primary:hover,
+div.btn-primary:active {
+  border-color: rgba(0, 0, 0, .25);
+}
+
+label.toggle-on,
+label.toggle-off {
+  background-color: #edece6;
+  color: black;
+}
+
+label.toggle-on:hover,
+label.toggle-off:hover,
+label.toggle-on:active,
+label.toggle-off:active {
+  background-color: #d9d8d1 !important;
+  color: black !important;
+}
