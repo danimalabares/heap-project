@@ -88,8 +88,18 @@ cd gerby-website && gunicorn wsgi:application --bind 0.0.0.0:$PORT
 ```
 
 Keep the deployment simple: use this `danimalabares/stack` repo as the source
-of truth. Rebuild the Gerby database with `make gerby-import` before deploying,
-then serve the generated SQLite-backed Flask app with Gunicorn.
+of truth. Render rebuilds the Gerby database during each deploy, so the usual
+workflow is just:
+
+```sh
+git add changed-file.tex
+git commit -m "Update notes"
+git push origin main
+```
+
+Render then runs `make gerby-deploy-build` and serves the generated
+SQLite-backed Flask app with Gunicorn. Use `make gerby-import` locally when you
+want to preview the generated site before pushing.
 
 The default rendered files are the main titled notes, excluding templates and
 scratch files. Override them with `GERBY_FILES`, for example:

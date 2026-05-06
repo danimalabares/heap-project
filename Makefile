@@ -8,8 +8,8 @@ AUXS = $(patsubst %,%.aux,$(LIJST))
 # Commands
 PDFLATEX = pdflatex
 BIBTEX = bibtex
-PYTHON ?= /usr/local/bin/python3.11
-PLASTEX ?= /usr/local/bin/plastex
+PYTHON ?= python3
+PLASTEX ?= plastex
 GERBY_FILES ?= basic-math.tex commutative-algebra.tex number-theory.tex differential-geometry.tex differential-topology.tex algebraic-geometry.tex algebraic-topology.tex categories.tex infty-categories.tex complex-analysis.tex complex-geometry.tex symplectic-geometry.tex lie-algebras.tex representation-theory.tex vertex-algebras.tex homological-algebra.tex deformations.tex physics.tex seminars.tex surfaces.tex mumford-tate-groups-in-hodge-theory.tex birational-maps-commutative-algebra.tex cremona-transformations.tex
 GERBY_PORT ?= 5001
 
@@ -45,7 +45,7 @@ book.pdf: tmp/book.tex
 	pdflatex tmp/book
 	pdflatex tmp/book
 
-.PHONY: gerby-book gerby-tags gerby-render gerby-import gerby-serve gerby-serve-prod gerby-smoke
+.PHONY: gerby-book gerby-tags gerby-render gerby-import gerby-deploy-build gerby-serve gerby-serve-prod gerby-smoke
 
 gerby-book:
 	mkdir -p gerby
@@ -61,6 +61,8 @@ gerby-render: gerby-tags
 
 gerby-import: gerby-render
 	cd gerby-website/gerby/tools && PYTHONPATH=../.. $(PYTHON) update.py
+
+gerby-deploy-build: gerby-import
 
 gerby-serve:
 	cd gerby-website && PYTHONPATH=. FLASK_APP=gerby $(PYTHON) -m flask run --host 127.0.0.1 --port $(GERBY_PORT)
