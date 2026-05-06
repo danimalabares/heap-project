@@ -10,6 +10,9 @@ PDFLATEX = pdflatex
 BIBTEX = bibtex
 PYTHON ?= python3
 PLASTEX ?= plastex
+PLASTEXFLAGS ?=
+PLASTEX_LOG ?= gerby/plastex.log
+GERBY_UPDATE_FLAGS ?=
 GERBY_FILES ?= basic-math.tex commutative-algebra.tex number-theory.tex differential-geometry.tex differential-topology.tex algebraic-geometry.tex algebraic-topology.tex categories.tex infty-categories.tex complex-analysis.tex complex-geometry.tex symplectic-geometry.tex lie-algebras.tex representation-theory.tex vertex-algebras.tex homological-algebra.tex deformations.tex physics.tex seminars.tex surfaces.tex mumford-tate-groups-in-hodge-theory.tex birational-maps-commutative-algebra.tex cremona-transformations.tex
 GERBY_PORT ?= 5001
 
@@ -57,10 +60,10 @@ gerby-tags: gerby-book
 
 gerby-render: gerby-tags
 	rm -rf gerby/document
-	printf 'y\n' | $(PLASTEX) --renderer=Gerby --tags=gerby/tags --dir=gerby/document gerby/book.tex
+	printf 'y\n' | $(PLASTEX) $(PLASTEXFLAGS) --renderer=Gerby --tags=gerby/tags --dir=gerby/document gerby/book.tex > $(PLASTEX_LOG) 2>&1 || (tail -n 120 $(PLASTEX_LOG); false)
 
 gerby-import: gerby-render
-	cd gerby-website/gerby/tools && PYTHONPATH=../.. $(PYTHON) update.py
+	cd gerby-website/gerby/tools && PYTHONPATH=../.. $(PYTHON) update.py $(GERBY_UPDATE_FLAGS)
 
 gerby-deploy-build: gerby-import
 

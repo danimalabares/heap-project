@@ -101,6 +101,24 @@ Render then runs `make gerby-deploy-build` and serves the generated
 SQLite-backed Flask app with Gunicorn. Use `make gerby-import` locally when you
 want to preview the generated site before pushing.
 
+The Gerby renderer is noisy: plasTeX reports many missing `.tag` files as
+errors even when the import succeeds. By default the Makefile sends this output
+to `gerby/plastex.log` instead of the terminal. If the renderer really fails,
+the Makefile prints the end of that log. To see the full renderer output in the
+terminal, run:
+
+```sh
+make gerby-import PLASTEX_LOG=/dev/stdout
+```
+
+For a faster local preview of one note, override `GERBY_FILES`:
+
+```sh
+make gerby-import GERBY_FILES="commutative-algebra.tex" GERBY_UPDATE_FLAGS=--noInactivityCheck
+```
+
+Use the normal full build before relying on a complete local preview.
+
 The default rendered files are the main titled notes, excluding templates and
 scratch files. Override them with `GERBY_FILES`, for example:
 
