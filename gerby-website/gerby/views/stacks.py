@@ -427,7 +427,7 @@ def show_history(tag):
       return render_template("tag.history.html",
                              tag=tag,
                              changes=changes,
-                             filename=tag.label.split("-" + tag.type)[0],
+                             filename=pdfFilename(tag),
                              breadcrumb=breadcrumb,
                              neighbours=neighbours)
 
@@ -456,7 +456,7 @@ def send_to_github(filename=""):
 
 @app.route("/download/<string:filename>")
 def download_pdf(filename):
-  return send_from_directory("tex/tags/tmp", filename)
+  return send_from_directory(ROOT, filename)
 
 
 @app.route("/recent-changes")
@@ -467,4 +467,3 @@ def show_recent_changes():
     commit.tags = sorted(Tag.select().join(Change).where(Change.commit == commit, Change.action << ["tag", "statement", "proof", "statement and proof"]).distinct())
 
   return render_template("stacks/changes.html", commits=commits)
-

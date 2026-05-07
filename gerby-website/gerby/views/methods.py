@@ -6,6 +6,14 @@ from mdx_math import MathExtension
 
 from gerby.database import *
 
+
+def pdfFilename(tag):
+  if tag.type == "part":
+    return "part-" + tag.label.split("-part-")[1]
+  if tag.type == "chapter":
+    return tag.label.removeprefix("chapter-")
+  return tag.label.split("-" + tag.type)[0]
+
 def is_math(tag, name, value):
   return name == "type" and value in ["math/tex", "math/tex; mode=display"]
 
@@ -59,4 +67,3 @@ def getBreadcrumb(tag):
     tags.insert(0, part)
 
   return tags
-

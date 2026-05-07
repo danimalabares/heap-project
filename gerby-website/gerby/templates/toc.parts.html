@@ -33,7 +33,7 @@
         <ul>
           {% for chapter in part.chapters %}
             <li><p><a href="/tag/{{ chapter.tag }}">Chapter <span data-tag="{{ chapter.tag }}">{{ chapter.ref }}</span></a>: {{ chapter.name }}
-            {% set filename = chapter.label.split("-section-")[0] %}</p>
+            {% set filename = chapter.label[8:] if chapter.label.startswith("chapter-") else chapter.label.split("-section-")[0] %}</p>
             <a href="/download/{{ filename }}.pdf" class="pdf-link">pdf</a>
           {% endfor %}
         </ul>
@@ -84,4 +84,3 @@ $("a.sidebar-link").click(function() {
 
   <a href="/download/book.pdf">Download the book</a>
 {% endblock %}
-
