@@ -1335,7 +1335,7 @@ Show that there is a normal affine
 variety $\tilde{Y}$, and a morphism
 $\pi:\tilde{Y}\to Y$,
 with the property that whenever $Z$
-is a normal variety and 
+is a (affine) normal variety and 
 $\varphi:Z \to Y$ is a dominant morphism,
 then there is a unique morphism
 $\theta:Z \to \tilde{Y}$ such that
@@ -1364,6 +1364,45 @@ because $B$ is integrally closed,
 we conclude that $\theta^\#(x)$
 is also a root of $P$.
 … but what if the roots are different?
+
+A correct solution is as follows.
+The inclusion $A \xymatrix{\ar@{^{(}->}[r]&}
+B$ induces an inclusion on fraction fields
+$\text{Frac}A \xymatrix{\ar@{^{(}->}[r]&}
+\text{Frac} B$.
+The key observation is that by definition
+an element in the integral closure 
+$\tilde{A}$ of $A$ is an element in
+the fraction field $\text{Frac} A$.
+This says that any integral element
+can already be seen as an element in
+$\text{Frac}B$.
+But since $B$ is integrally closed and the
+minimal polynomial of any such element
+has coefficients in $A \subset B$,
+we are done: an integral element of $A$
+is mapped to an element of $B$ making
+the following diagram commute
+$$
+\xymatrix{
+A\ar[dr]_{\pi^\sharp}
+\ar@{^{(}->}[r]^{\varphi^\sharp}
+&  B\\
+&  \tilde{A}\ar@{-->}[u]^{\theta^\sharp}
+}
+$$
+For uniqueness, suppose that
+$\theta':\tilde{A} \to B$ is another
+map making the above diagram commute.
+Then for any $x=a/b$ integral over $A$ 
+we have
+$\theta'(b)\theta'(x)=\theta'(a)$.
+But this coincides on $A$
+with $\theta^\sharp$
+we introduced before, giving
+$\theta^\sharp(b)(\theta'(x)-\theta^\sharp)
+=0$. Since there are no zerodivisors on $B$,
+we obtain $\theta\equiv\theta^\sharp$.
 \end{proof}
 
 \begin{exercise}
@@ -1393,75 +1432,92 @@ normality depends on the embedding.
 
 \begin{proof}
 \begin{enumerate}
-\item (For the record, I'll
-keep my original attempt of copying
-the affine case to the projective case
-- this doesn't work.)
-Suppose $x \in
-\text{Frac}(\mathcal{O}_P)$
-is integral, i.e. there is a monic
-polynomial $P=\sum_i \frac{a_i}{b_i}t^i
-\in \mathcal{O}_P[t]$ vanishing at $x$.
-Note that $x \in \text{Frac}S(Y)$.
-Multiplying $P$ with the least common
-multiple of the $b_i$ we obtain a polynomial
-with coefficients in $S(Y)$ vanishing
-at $x$. As in the affine case,
-to obtain a monic polynomial and use
-integrality of $S(Y)$ we must consider
-instead of $x$, its product with
-$lcm(b_i)^{\text{deg}P}$.
-Since $S(Y)$ embeds in $\mathcal{O}_P$
-(that's the mistake! $S(Y)$ cannot
-be seen as regular functions for projective
-varieties)
-we conclude
-that $lcm(b_i)^{\text{deg}P}x 
-\in \mathcal{O}_P$
-which means that $x \in \mathcal{O}_P$.
+\item Take an affine chart $D_+(f)$.
+By Proposition
+\ref{proposition-standard-open-proj}
+the coordinate algebra of $Y$
+at this open set is given by
+$(S(Y)_f)_0$, the degree-0 elements
+in the localization $S(Y)_f$.
+By Commutative Algebra Proposition
+\ref{prop-localization-integrally-closed},
+localization of an integrally closed
+ring remains integrally closed,
+thus $S(Y)_f$ is integrally closed.
+Let $A=(S(Y)_f)_0$.
+If $x \in \text{Frac}(A)$ is integral
+over $A$, then it is integral over
+$S(Y)_f$.
+Thus $x \in S(Y)_f$.
+But $x$ is a quotient of degree-0
+elements, hence has degree 0.
+Therefore $x \in (S(Y)_f)_0=A$.
 
-The correct solution requires us
-to take an affine chart at some point.
-Then all we have to do is check
-that the affine variety corresponding to $Y$
-in this chart is normal. The ideal
-of such a variety is obtained
-by adding the ideal of $Y$ with $(x_i-1)$
-for some $i$ --- this corresponds to
-intersecting with the plane $x_i=1$.
-The resulting algebra is not immediately 
-integral! --- we must use proposition
-\ref{?} to view such an algebra as a 
-0-localization…
-we can readily use integrality of $S(Y)$
-by noting that the monic polynomial
-of any integral element of the restricted
-algebra is also a monic polynomial with
-coefficients in $S(Y)$, which means that
-the denominator in the fraction is a unit
-of $S(Y)$ and thus a unit of the restricted
-algebra as well.
+\item By the next item, the twisted quartic
+is isomorphic to $\mathbb{P}^1$, hence is
+normal.
+It remains to see that it is not
+projectively normal in this embedding.
+Its homogeneous coordinate ring is
+\[
+R=k[t^4,t^3u,tu^3,u^4]\subset k[t,u].
+\]
+The element $t^2u^2$ lies in
+$\text{Frac}(R)$, since
+\[
+t^2u^2=\frac{(t^3u)(u^4)}{tu^3}.
+\]
+Moreover it is integral over $R$, since
+\[
+(t^2u^2)^2=(t^3u)(tu^3)\in R.
+\]
+But $t^2u^2\notin R$: the exponent
+$(2,2)$ is not in the semigroup generated
+by
+\[
+(4,0),(3,1),(1,3),(0,4).
+\]
+Thus $R$ is not integrally closed.
 
-\item To show that the twisted quartic
-has all stalks which are integrally closed
-it's enough to show it's smooth,
-which in turn makes stalks be UFDs.
-It is clearly smooth since all its
-coordinate functions are smooth.
-To show it's not projectively normal
-we must have a look at its coordinate
-algebra… but unfortunately this is given
-by a determinantal ideal… the minors
-of the catalecticant matrix…
-
-\item The isomorphism is clear:
-in fact the parametrization is a
-biholomorphism since it is surjective
-on its image and locally invertible.
-We can confirm that $\mathbb{P}^1$ is
-projectively normal since we can embed it
-in $\mathbb{P}^3$ with ideal $(x_0,x_1,x_2)$,
-giving coordinate algebra $k[t]$.
+\item Let
+\[
+\varphi:\mathbb{P}^1\to Y
+\]
+be the map
+\[
+[t:u]\longmapsto [t^4:t^3u:tu^3:u^4].
+\]
+We construct its inverse.
+On the open subset of $Y$ where
+$(x,y)\neq (0,0)$, define
+\[
+[x:y:z:w]\longmapsto [x:y].
+\]
+On the open subset where
+$(z,w)\neq (0,0)$, define
+\[
+[x:y:z:w]\longmapsto [z:w].
+\]
+These opens cover $Y$.
+On the image of $\varphi$ we have
+\[
+[x:y]=[t^4:t^3u]=[t:u]
+\]
+and
+\[
+[z:w]=[tu^3:u^4]=[t:u].
+\]
+Thus the two local formulae agree on
+overlaps and define a morphism
+$Y\to \mathbb{P}^1$ inverse to
+$\varphi$.
+Hence $Y\cong \mathbb{P}^1$.
+Finally, the standard embedding of
+$\mathbb{P}^1$ has homogeneous
+coordinate ring $k[t,u]$,
+which is integrally closed.
+Thus $\mathbb{P}^1$ is projectively
+normal.
 \end{enumerate}
 \end{proof}
 
