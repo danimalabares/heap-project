@@ -16,6 +16,13 @@
 \section{Rings}
 \label{section-rings}
 
+\begin{definition}
+\label{definition-domain}
+A ring $R$ is called a {\it domain} if it has
+no proper zero divisors,
+that is, if $ab=0$ then $a=0$ or $b=0$.
+\end{definition}
+
 \begin{theorem}
 \label{theorem-ideal-quoti-corre}
 Let $R$ be a ring and $I \subset R$ an ideal.
@@ -83,6 +90,913 @@ only ideals are $\{0\}$ and $R$. By Theorem
 the ideals of $R/I$ are in correspondence
 with ideals of $R$ containing $I$,
 but only $R$ is such.
+\end{proof}
+
+\section{Polynomial rings}
+\label{section-polynomial-%
+rings}
+
+\begin{lemma}
+\label{lemma-ring-polyn-one-%
+indet-over}
+The ring of polynomials in one indeterminante
+over
+a domain $R$ is a domain.
+\end{lemma}
+
+\begin{proof}
+Suppose that $fg=0$ for $f,g \in R[x]$. Then
+the leading coefficient of $fg$ is $a_nb_m$
+where $f=\sum_{i=1}^n a_ix^i$ and
+$g=\sum_{i=1}^mb_ix^i$.
+Since $a_nb_m=0$, then $a_n=0$ or $b_m=0$,
+but this is a contradiction since $R$ is a
+domain and $a_n \neq 0$, $b_m \neq 0$.
+\end{proof}
+
+\section{Greatest common divisor and least
+common multiple}
+\label{section-gcd-and-lcm}
+
+Following is the universal definition of lcm
+and gdc:
+
+\begin{definition}
+\label{definition-lcm-and-gdc-%
+universal}
+A {\it least common multiple} of $a,b \in R$
+is an element $d$ such that if for
+every $c\in R$, if $a,b|c$ then $d|c$.
+
+A {\it greatest common divisor} of $a,b \in
+R$ is an element $d$ such that
+for every  $c \in R$,  if $c|a,b$ then
+$c|d$.
+\end{definition}
+
+But it looks like it shall be easier to
+define them
+as follows:
+
+\begin{definition}
+\label{definition-lcm-and-gdc-%
+polynomial}
+A {\it least common multiple} of $f,g \in
+R[x]$ is the monic polynomial $d$ of
+smallest degree such that $f,g|d$.
+
+A {\it greatest common divisor} of $f,g\in
+R[x]$ is the monic polynomial $d$ of
+greatest degree such that $d|f,g$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-existence-of-lcm-%
+and-gcd}
+If $R$ is a UFD, in $R[x]$ there exist lcm
+and mcd, and are unique up to
+multiplication by units.
+\end{lemma}
+
+\begin{proof}
+We can order by degree, and those of the same
+degree order by the leading
+term… but this requires an order in $R$.
+\end{proof}
+
+\section{Euclidean domains}
+\label{section-euclidean-%
+domains}
+
+\begin{definition}
+\label{definition-euclidean-%
+domain}
+A domain $R$ is an {\it Euclidean domain} if
+there
+is a function  $\varphi:R\to \mathbb{Z}_+$,
+the positive integers,
+such that
+\begin{enumerate}
+\item $\varphi(ab)\geq \varphi(a)$ for all
+$a,b \in R$,
+\label{item-valuation}
+\item For all $a,b \in R$ with $\varphi(a)
+\geq \varphi(b)$,
+there are $q,r \in R$ such that
+$$
+a=bq+r\qquad \text{and}
+\qquad\varphi(r)<\varphi(b).
+$$
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+\label{remark-equivalence-for-%
+valuation}
+Item
+\ref{item-valuation}
+is equivalent to
+asking that if $a$ divides $b$ then
+$\varphi(a) \leq \varphi (b)$.
+\end{remark}
+
+\begin{theorem}[Euclidean algorithm for
+polynomial rings]
+\label{theorem-eucli-algor-%
+polyn-rings}
+Let $R$ be a domain and $f,g \in R[x]$
+with the leading coefficient of $g$ a unit
+and $\text{deg}(f)\geq \text{deg}(g)$. Then
+there are polynomials $q,r \in R[x]$ such
+that
+$f=qg+r$ with $\text{deg}(r)<\text{deg}g$.
+\end{theorem}
+
+\begin{proof}
+Since $\text{deg}(r)$ must be smaller than
+$\text{deg}q$
+and the leading coefficient of a product is
+the
+product of the leading coefficients of the
+factors,
+we readily see that the leading coefficient
+of $q$ must
+be $L(f)/L(g)$ and of degree $n-m$, where $L$
+is the leading
+coefficient function and $\text{deg}(f)=n$,
+$\text{deg}(g)=m$.
+
+We are lead to the following natural
+strategy:
+write $g=L(g)x^m+g_1$ for some $g_1$ of
+degree
+strictly smaller than $m$. Likewise, write
+$f=L(f)x^n+f_1$.
+
+Then multiply $g$ with the leading term of
+$q$ to obtain
+\begin{align*}
+g
+\left(\frac{L(f)}{L(g)}x^{n-m}\right)&=(L(g)
+x^m+g_1)
+\left(\frac{L(f)}{L(g)}x^{n-m}\right)\\
+&=L(f)x^n+g_1\left(\frac{L(f)}{L(g)}x^{n-m}
+\right).
+\end{align*}
+Add $f_1$ on both sides to obtain $f$:
+\begin{align*}
+g\left(\frac{L(f)}{L(g)}x^{n-m}\right)+f_1&=
+L(f)x^n+f_1+
+g_1\left(\frac{L(f)}{L(g)}x^{n-m}\right)\\
+\iff
+f&=g\left(\frac{L(f)}{L(g)}x^{n-m}\right)+f_1
+-g_1\left(\frac{L(f)}{L(g)}x^{n-m}\right)
+\end{align*}
+We have great candidates for $q$ and $r$,
+except that put this way
+it is not necessarily true that the remainder
+will have degree
+strictly smaller than $g$. However, it is
+true that it
+will have degree strictly smaller than the
+degree of $f$.
+Then we can just repeat
+the process until we arrive at a reminder
+with degree
+strictly smaller than the degree of $g$.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-gaussian-%
+integers-euclidean}
+Prove that the ring of Gaussian integers
+$\mathbb{Z}[\sqrt{-1}]$ is Euclidean.
+\end{exercise}
+
+\begin{proof}
+Take two Gaussian integers $p,q$ and
+take their quotient in $\mathbb{C}$.
+By simple geometrical observation,
+the nearest Gaussian integer $s$
+is at distance at most $1/\sqrt{2}$
+from $p/q$. That is,
+$$
+\left|\frac{p}{q}-s\right|<\frac{1}{\sqrt{2}}
+.
+$$
+Multiplying by $|q|$ we obtain
+$$
+|p-qs|\leq \frac{|q|}{\sqrt{2}}.
+$$
+Indeed --- we can view the squared norms
+of Gaussian integers as $x \bar{x}$, so that
+$$
+|q|^2\left|\frac{p}{q}-s\right|^2
+=q\bar{q}\left(
+\frac{p}{q}-s\right)
+\overline{\left(\frac{p}{q}-s\right)}
+=\left(q\frac{p}{q}-qs\right)
+\overline{\left(q\frac{p}{q}-qs\right)}
+=|p-qs|^2.
+$$
+Defining $r=p-qs$ yields the result.
+\end{proof}
+
+\noindent
+The same argument shows that
+$\mathbb{Z}$,
+$\mathbb{Z}[\sqrt{-2}]$ and
+$\mathbb{Z}
+\left[\frac{1+\sqrt{-3}}{2}\right]$
+are also Euclidean rings.
+But we can't use it for
+$\mathbb{Z}[\sqrt{-3}]$
+or $\mathbb{Z}[\sqrt{5}]$
+--- is any of these Euclidean?
+Neither, since they are not
+integrally closed, while we have:
+
+\begin{lemma}
+\label{lemma-euclidan-is-ufd}
+A PID is integrally closed.
+\end{lemma}
+
+\begin{proof}
+?
+\end{proof}
+\section{Unique factorization domains and
+the
+Gauss lemma}
+\label{section-UFD}
+
+The point of the Gauss lemma is that a
+polynomial $f$ over the field of fractions
+$F$ of a UFD $R$ can be expressed as a
+rational number called the content of $f$
+times a polynomial over $R$ called the
+primitive part. The point of the Gauss
+lemma is that it allows us to make sure that
+the content will in fact be an
+element of $R$.
+
+\medskip\noindent
+The following lemma shows that in UFDs
+irreducibles are primes, but this is not
+true in general. (Counterexample in
+$\mathbb{Z}[\sqrt{-5}]$.)
+
+\begin{lemma}
+\label{lemma-irreducible-is-%
+prime}
+If $R$ is a UFD then irreducible elements are
+prime.
+\end{lemma}
+
+\begin{proof}
+If $f$ is irreducible and $f|ab$ then $f$
+must be an element of the unique
+factorization of $a$ or $b$.
+\end{proof}
+
+In fact, showing that irreducibles are prime
+would be enough for our purpose of
+showing that $F[x]$ is a UFD when $F$ is a
+field. We shall be able to prove this
+(without the assumption of UFD as above) via
+Bachet-Bézout theorem; which we
+state first in its version for integer
+numbers:
+
+\begin{theorem}[Bachet-Bézout for integers]
+\label{theorem-Bachet-Bezout-%
+for-integers}
+\begin{reference}
+\cite[Theorem 1.7]{MMST}
+\end{reference}
+Let $a,b \in \mathbb{Z}$ (what is the
+essential property of $\mathbb{Z}$ that
+makes this true?). Then
+there exist $x,y \in \mathbb{Z}$ with
+ $$
+ax+by=\text{gcd}(a,b)
+$$
+Therefore, if $c \in \mathbb{Z}$ divides both
+$a$ and $b$ then $c$ divides
+$\text{gcd}(a,b)$ as well.
+\end{theorem}
+
+\begin{lemma}
+\label{lemma-relat-prime-%
+divid-impli-divid}
+Let $a,b,c \in \mathbb{Z}$. If $a|bc$ and
+$(a,b)=1$, then $a|c$.
+\end{lemma}
+
+\begin{proof}
+By Theorem
+\ref{theorem-Bachet-Bezout-%
+for-integers},
+there exist elements $p,q$ such
+that $ap+bq=1\implies apc+bcq=c$, so that $a$
+divides both summands and thus
+divides $c$.
+\end{proof}
+
+\begin{theorem}[Division algorithm for
+polynomials]
+\label{theorem-divis-algor-%
+polyn}
+\begin{reference}
+\cite[Theorem 1.48]{MMST}
+\end{reference}
+Let $F$ be a field. Given two polynomials
+$f,g \in F[x]$ there are two unique
+$q,r \in F[x]$ such that
+$$
+f=qg+r,\qquad \text{deg}r<\text{deg}g.
+$$
+{\bf Remark.} We use the hypothesis that $F$
+is a field to take a fraction with
+denominator the leading coefficient of $g$;
+that is, the theorem is valid if the
+leading coefficient of $g$ is a unit.
+\end{theorem}
+
+\begin{proof}
+We may suppose that $\text{deg}f \geq
+\text{deg}g$ for if not we just pick
+$q=0$ and $r=f$. Now we use induction.
+If $\text{deg}f=\text{deg}g=0$ then $f$ and
+$g$ are numbers and the result is
+obvious since $F$ is a field.
+
+If $\text{deg}f>0$ we do as follows. Suppose
+$\text{deg}f=n$ and
+$\text{deg}g=m$. Write $f(x)=a_nx^n+f_1(x)$
+and $g(x)=b_mx^m+g_1(x)$. Notice
+that
+$$
+\frac{a_nx^n}{b_mx^m}g(x)=a_nx^n+\frac{a_n}
+{b_m}x^{n-m}g_1(x)
+$$
+so that
+$f(x)-\frac{a_n}{b_m}x^{n-m}g(x)=f_1(x)-
+\frac{a_n}{b_m}x^{n-m}g_1(x)$.
+This is a polynomial of strictly less degree
+than that of $f$, so that we can
+use induction hypothesis to write it as
+$qg+r$ with $\text{deg}r<m$. Then
+$$
+f(x)=g(x)\left(q(x)+\frac{a_n}{b_m}x^{n-m}
+\right)+r(x).
+$$
+To prove uniqueness suppose that
+$f=q_1g+r_1=q_2g+r_2$.
+Then
+$$
+(q_1-q_2)g=r_1-r_2
+$$
+Taking degrees we see that the degree of this
+polynomial should be,
+by the right-hand-side less than the degree
+of $g$,
+and by the left hand side more than the
+degree of $g$.
+Then the degree must be zero and $q_1=q_2$,
+$r_1=r_2$.
+\end{proof}
+
+Recall that the greatest common divisor of
+two polynomials $f$ and $g$
+is the {\it monic}
+polynomial of least degree that divides both
+$f$ and $g$.
+
+\begin{theorem}[Bachet-Bezout for
+polynomials
+over field]
+\label{theorem-bache-bezou-%
+polyn-over-fiel}
+\begin{reference}
+\cite[Theorem 1.53]{MMST}
+\end{reference}
+Let $F$ be a field and $f,g\in F[x]$.
+There exist elements  $p,q \in F[x]$ such
+that $fp+gq=\text{gcd}(f,g)$.
+\end{theorem}
+
+\begin{proof}
+Consider the set
+$$
+I:=\{fx+gy:x,y \in F[x]\}.
+$$
+Let $d=fp+gq$ be the monic polynomial of
+least degree
+of the form $fx+gy$, for $x,y \in F[x]$.
+Notice that the existence of $d$ monic comes
+from $F$ being a field.
+We claim that $d=\text{gcd}(f,g)$.
+Indeed, we first check by division algorithm
+that $d$ divides both $f$ and $g$:
+suppose that $f=dq+r$ with
+$\text{deg}r<\text{deg}d$.
+Then, if $r=f-dq=f(1-xq)-yg$ is not zero,
+dividing by its leading coefficient gives an
+element in $I$
+of degree strictly smaller than the degree of
+$d$, a contradiction.
+Thus $r$ is zero. The same argument shows
+that $d|g$, and we conclude that
+Thus $\text{deg}d \leq
+\text{deg}\text{gcd}(f,g)$.
+
+Now, since
+$\text{gcd}(f,g)$ divides both $f$ and $g$,
+it divides $d=xf+yg$. (Indeed, if
+$c:=\text{gcd}(f,g)$ is such that $ca=f,cb=g$
+then $c(ap+bq)=cap+cbq=fp+gq=d$.)
+Thus $\text{deg}d=\text{deg}\text{gcd}(f,g)$,
+and since both are monic we are
+done.
+\end{proof}
+
+Finally we obtain
+
+\begin{lemma}
+\label{lemma-irreducible-is-%
+prime-in-F[x]}
+Let $F$ be a field. Irreducible elements of
+$F[x]$ are prime. That is, if $f|gh$
+then $f|g$ or $f|h$ for any $f,g,h \in F[x]$.
+\end{lemma}
+
+\begin{proof}
+Let $d=\text{gcd}(f,g)$. Then $dp=f$ and
+$dq=g$. If $d$ is not $1$
+we get that $p$ is a unit. Then $gp$ is a
+multiple by a unit of $g$ which is
+divided by $f$: $gp=dpq=fq$. That's good
+enough.
+
+Now suppose that $d=1$. Then by
+Bachet-Bezout
+Theorem
+\ref{theorem-bache-bezou-%
+polyn-over-fiel}
+there are $p,q \in F[x]$ such that $fp+gq=1$.
+Then $fph+gqh=h$. Since by
+hypothesis $f|gh$ we conclude that $f$
+divides both summands, so $f|h$.
+\end{proof}
+
+Applying this last lemma over and over again
+we get that if $f|f_1\ldots f_k$
+then $f$ must divide $f_i$ for some $i$.
+
+\begin{lemma}
+\label{lemma-polynomials-over-%
+fields-are-UFD}
+If $F$ is a field then $F[x]$ is a UFD.
+\end{lemma}
+
+\begin{proof}
+The existence of the factorization is an easy
+induction on the degree of $f\in
+R[x]$. If $f$ has degree zero, then we are
+done. If $f$ has positive degree and
+is irreducible, we are done. If $f$ has
+positive degree and it is reducible,
+i.e. $f=gh$, then both $g$ and $h$ have
+strictly smaller degree and we may apply
+induction hypothesis to obtain a
+decomposition of each factor into irreducible
+elements.
+
+To prove uniqueness suppose that there exists
+an element in $F[x]$ that admits
+more than one factorization in irreducible
+elements
+up to multiplication by units. Choose $f$ so
+that
+$\text{deg}f$ is minimal among all such
+elements.
+
+Write two factorizations of $f$ in
+irreducible elements as
+$f_1\ldots f_k=f_1'\ldots f_\ell'$ . Suppose
+that the factors are in
+ascending order of degree.
+
+We have that $f_1|f_1'\ldots f_{k'}$, so
+that $f_1$ must divide some $f_{i'}'$
+by Lemma
+\ref{lemma-irreducible-is-%
+prime-in-F[x]}.
+Since $f'_{i'}$ is irreducible and $f_1$ is
+not a unit, we conclude that $f_{i'}=f_1 u$
+for some unit $u$.
+
+Then we apply cancellation law using that
+$R[x]$ is a domain
+to obtain $uf_2\ldots f_k=f_2'\ldots f'_{k'}$
+is a
+polynomial with two distinct factorizations.
+Since $f$ is minimal among all
+elements that admit more than one
+factorization, we conclude that $k=k'$ and
+$f_i=f'_i$ for all $i$.
+\end{proof}
+
+\begin{remark}
+\label{remark-not-the-same-as-%
+in-Z}
+Notice that the proof given for integers does
+not work identically,
+for in this case we cannot conclude that
+$f_1=f_1'$ directly from putting the
+factors in order of degree (we can conclude
+that they have the same degree, but
+not that they arr the same polynomial!).
+\end{remark}
+
+\medskip\noindent
+The true definition of content can be done in
+three steps:
+\begin{definition}
+\label{definition-content}
+\begin{reference}
+\cite[p. 181]{Lang-algebra}
+\end{reference}
+\begin{enumerate}
+\item (Order of a fraction $a$ at a prime
+$p$.)
+Let $a \in F$. If $p \in R$ is irreducible,
+the {\it order} of $a$ at $p$
+to be the number $r$ such that $a=p^rb$ for
+some fraction $b$ that does not have
+$p$ as factor in the numerator nor in the
+denominator. (To understand the point
+of the Gauss lemma, notice that the order
+can be a fraction, i.e. if $p$ is a factor of
+the denominator.)
+\item (Order of a polynomial $f \in F[x]$ at
+a prime $p$.)
+The {\it  order of $f\in F[x]$ at $p$} is the
+minimium order of
+$p$ in any of the coefficients of $f$.
+(Defining this number as the {\bf
+minimum} ensures that the primitive part of
+$f$ (see below) has all coefficients
+in $R$. It also follows that the gcd of the
+coefficients of the primitive part is 1.)
+\item (Content of $f \in F[x]$) The {\it
+content} of $f$ is the product
+of every irreducible factor $p$ of $f$ raised
+to its order.
+\item (Primitive polynomial.) A polynomial is
+called {\it primitive} if it has content 1.
+\end{enumerate}
+\end{definition}
+
+As explained in the beginning of this
+section, the point of the Gauss
+lemma is that it will allow us to make sure
+that the content of $f$ is an
+element of $R$, i.e. not a fraction.
+
+Also, in the definition of order of a
+fraction $a$ at a prime $p$, notice
+ the order well-defined, i.e. unique, by the
+ uniqueness of the factorization
+in $R$.
+
+\begin{lemma}[True Gauss lemma]
+\label{lemma-true-Gauss}
+\begin{reference}
+\cite{Chapter 4, Theorem 2.1}{Lang-algebra}
+\end{reference}
+Let $R$ be a UFD and $F$ its fraction field.
+Let $f,g\in F[x]$. Then the
+$\text{cont}(fg)=\text{cont}(f)\text{cont}(g)
+$.
+\end{lemma}
+
+This clearly implies that the product of two
+primitive polynomials being
+primitive, and the converse I think is true
+as well.
+
+\begin{proof}
+Since $\text{cont}(bf)=b\text{cont}(f)$ it's
+enough to suppose that  $f$ and $g$
+are primitive. Indeed, taking content of $fg$
+we obtain on one hand
+$\text{cont}(fg)$ and on the other hand
+$\text{cont}(\text{cont}(f)\text{pp}(f)
+\text{cont}(g)\text{pp}(g))
+=\text{cont}(f)\text{cont}(g)\text{cont}
+(\text{pp}(f)\text{pp}(g))$.
+Thus we would finish if we show that the
+product of two primitive polynomials is
+primitive.
+
+Put another way, it's enough to show will
+show that if $f,g$ are primitive (as
+are the primitive parts of $f$ and $g$ in the
+preceding paragraph) then $fg$ is
+primitive. This means that I will show that
+any $p$ is not a factor of all the
+coefficients in $fg$. A coefficient of $fg$
+looks as
+$c_j=\sum_{i=0}^ja_ib_{j-i}$.  Since $f,g$
+are primitive then $p$ cannot divide
+all $a_i$ and all $b_i$.  Thus we can pick
+the maximum $a_s$ and the maximum
+$b_t$ that $p$ does not divide. Then the
+$c_j$ containing the product $a_sb_t$
+will not be divided by $p$, for $p$ cannot
+divide $a_sb_t$ because it is prime,
+but will divide the remaining terms in the
+sum $c_j$; thus if $p$ divided $c_j$
+it would also divide $a_sb_t$lmail.
+\end{proof}
+
+\begin{lemma}[Gauss]
+\label{lemma-R-UFD-implies-%
+R[x]-UFD}
+\begin{reference}
+\cite[Chapter 4, Theorem 2.3]{Lang-algebra}
+\end{reference}
+If $R$ is a UFD then $R[x]$ is a UFD.
+\end{lemma}
+
+\begin{proof}
+Let $f\in R[x]$ be distinct from 0. Since
+$F[x]$ is UFD we can write
+$f=f_1\ldots f_k$. Notice that the primitive
+parts of the $f_i$ coincide
+with the primitive part of the product
+$f_1\ldots f_k$ by
+the Gauss Lemma:
+\begin{align*}
+f&=c(f_1\ldots f_k)\text{pp}(f_1\ldots
+f_k),\\
+f&=c(f_1)\text{pp}(f_1)\ldots
+c(f_k)\text{pp}(f_k)
+\end{align*}
+and we cancel the content part dividing
+(using that we are in a field) by the
+Gauss Lemma.
+
+We also apply the Gauss Lemma to conclude
+that
+$c(f)=c(f_1)\ldots c(f_k)$, being the content
+of a polynomial with coefficients
+in $R$, must be in $R$ as well, so that we
+can decompose it as a product of
+irreducibles since $R$ is a UFD.
+
+To obtain a factorization in irreducibles we
+only need to show that each of the
+$\text{pp}(f_i)$ is irreducible in $R[x]$.
+To see this suppose that
+$\text{pp}(f_i)=gh$.
+$c(f_i)\text{pp}(f_i)=f_i$ is irreducible
+in $F[x]$, so either $c(f_i)g$ or $h$ is a
+unit of $F$. Then
+either $g$ or $h$ are in $R$. But the gcd of
+the coefficients of $\text{pp}(f_i)$ is 1,
+so, since we have factored
+an element of $R$ from $\text{pp}(f_i)$, it
+must be 1.
+
+The uniqueness of the factorization follows
+from the uniqueness of the
+factorization in $F[x]$, for another
+factorization in $R[x]$ would be a
+factorization in $F[x]$
+Indeed, to see this suppose that $f=gh$ with
+$g,h \in F[x]$.
+Then take contents. The content of  $f$ must
+be a unit
+for otherwise the principal part of $f$ would
+have to be
+trivial, and $f$ is not a constant.
+By the Gauss Lemma the contents of $g$ and
+$h$ are units.
+Then we are left with
+$f=\text{pp}(g)\text{pp}(h)$, an equation
+in $R[x]$ that makes either of the principal
+parts a unit of
+$R[x]$.
+
+Then any factorization in $R[x]$ has the
+same number of factors,
+and any two factorizations are equal up
+to a fraction $u$,
+which is a unit of $F[x]$. We just need to
+make sure $u$ is a unit of $R$.
+Write uniqueness of the factorization in
+$F[x]$ as:
+$f_1=uf_1'$ and $f_i=f_i'$ for $i\neq 1$.
+It is clear that $u \in R$, since otherwise
+$f_1$ couldn't
+be a polynomial in $R[x]$. But since $f_1$ is
+irreducible in $R[x]$
+and $f_1'$ is not a unit of $R[x]$,
+we conclude that $u$ is a unit of $R[x]$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ufd-irred-eleme-%
+gener-prime}
+In a UFD, irreducible elements generate prime
+ideals.
+\end{lemma}
+
+\begin{proof}
+Let $f$ be irreducible. Suppose that
+$pq\in(f)$. Then $pq=fg$ for some  $g\in
+R$. Then $p_1\ldots p_kq_1\ldots
+q_\ell=fg_1\ldots g_m$. But since $f$ is
+irreducible and factorization is unique we
+conclude that $f$ must be one of the
+ $p_i$ or one of the $q_i$. Then $f$ divides
+ $p$ or $q$, i.e. either $p\in(f)$
+or $q\in(f)$.
+\end{proof}
+
+\section{Unique factorization domains
+(alternative approach)}
+\label{section-UFD-alternative}
+
+
+\begin{lemma}
+\label{lemma-primi-part-uniqu-%
+up-unit}
+$\text{pp}(f)$ is unique up to multiplication
+by unit.
+\end{lemma}
+
+\begin{proof}
+This follows from uniqueness up to units of
+gdc and lcm.
+\end{proof}
+
+\begin{definition}
+\label{definition-primitive-%
+part}
+If $f\in F[x]$, define its {\it primitive
+part} to be a primitive polynomial
+$\text{pp}(f)$ such that $c\text{pp}(f)=df$
+where
+\begin{itemize}
+\item $d\in R$ is the minimum common
+factor of the denominators of the
+coefficients of $f$, which may be defined as
+the product of the least elements among all
+the factors (in their unique
+factorization) of the denominators such that
+$df \in R[x]$.
+\item $c\in R$ is the greatest common divisor
+of the coefficients of $df$, which
+may be defined as the product of the greatest
+number of common elements in the
+factorizations of each of the coefficients in
+$df$.
+\end{itemize}
+\end{definition}
+
+\begin{lemma}[Gauss]
+\label{lemma-true-gauss}
+Let $R$ be a ring and $F$ its field of
+fractions. A primitive polynomial $f\in
+R[x]$ is irreducible in $F[x]$ if and only if
+it is irreducible in $R[x]$.
+\end{lemma}
+
+\begin{proof}
+The direct implication is easy: suppose $f$
+is irreducible in $F[x]$ and let
+$f=gh$ for $g,h\in R[x]$. Then $g,h$ are also
+in $F[x]$ so that either of them
+must be a unit of $F$, i.e. a fraction. But
+since they are polynomials in
+$R[x]$, then it must be an element of $R$.
+But since $f$ is primitive we obtain
+a contradiction unless the number is a unit.
+
+For the converse, suppose that $f$ is
+irreducible in $R[x]$. To obtain a
+contradiction suppose that $f=gh$ in $F[x]$
+with $g,h$ not units in $F[x]$.
+Then
+$f=c\text{pp}(f)=c\text{pp}(g)\text{pp}(h)$
+by the True Gauss lemma.
+Notice that we cannot take primitive parts of
+$g$ and $h$ separately since this
+would give perhaps rational contents.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-irred-fx-impli-%
+primi-part}
+If $f\in F[x]$ is irreducible (in $F[x]$),
+then its primitive part
+$\text{pp}(f)$ is irreducible in $R[x]$.
+\end{lemma}
+
+\begin{proof}
+Suppose that $\text{pp}(f)=gh$ for two
+non-unit polynomials $g,h\in F[x]$.
+Multiplying by $c$ as in Definition
+\ref{definition-%
+primitive-part}
+we obtain
+$c\text{pp}(f)=cgh \implies df=cgh \implies
+f=\frac{c}{d}gh$, a contradiction
+since $f$ is irreducible in $F[x]$. This
+shows that
+$\text{pp}(f)$ is irreducible in $F[x]$. By
+Gauss lemma, since $\text{pp}(f)$ is
+irreducible in $F[x]$ and primitive, it must
+be irreducible in $R[x]$.
+\end{proof}
+
+\noindent
+The following is also commonly referred to as
+the Gauss lemma:
+
+\begin{lemma}
+\label{lemma-gauss}
+If $R$ is a UFD then $R[x]$ is a UFD.
+\end{lemma}
+
+\begin{proof}
+Let $f\in R[x]$. Let $c$ be the greatest
+common divisor of the coefficients of
+$f$, so that $f=cf'$. Factor $f'$ in $F[x]$
+as $f'=f_1'\ldots f_k'$. Take
+primitive parts to write
+$f=c'\text{pp}(f_1')\ldots \text{pp}(f_k')$.
+By Lemma
+\ref{lemma-irred-fx-impli-%
+primi-part} each of
+the
+$\text{pp}(f_i')$ is primitive in $R[x]$. By
+the True Gauss lemma we get that
+$c'=c\in R$. Since $R$ is a UFD we also
+obtain that
+$c'$ may be factored into irreducible
+elements of $R$, which are also
+irreducible in $R[x]$.
+
+Uniqueness of the factorization follows from
+uniqueness of the factorization in
+$F[x]$ and Gauss lemma: suppose that $f$ may
+also be factored into irreducible
+elements of $R[x]$ as $g_1\ldots g_\ell$. We
+wish to show that this is a
+factorization in irreducible elements of
+$F[x]$, which we know to be unique up
+to multiplication by units of $F$. To show
+this we use the converse implication
+of Gauss lemma \ref{lemma-true-gauss}: after
+taking primitive parts to obtain
+$\text{pp}(g_i)$, which are irreducible and
+primitive elements of $R[x]$, which
+must be irreducible in $F[x]$. Then $i=\ell$,
+the constants coincide and
+$\text{pp}(g_i)=\text{pp}(f_i)$. Since taking
+primitive part is unique up to
+multiplication by unit, we are done.
+
+By induction on the degree of $f \in R[x]$.
+Write $f=cf'$ for
+$c=\text{gcd}(\text{coefficients of $f$})$.
+Then I claim that $f=cf'$ is a
+factorization of $f$ into irreducible
+elements. $f'$ is irreducible because it
+is linear and primitive; that is, writing
+$f'=c'f''$ is impossible because
+there is no way to factor a non-unit number
+from the coefficients of $f'$;
+indeed, in such case, $cc'$ would be a {\it
+larger} common factor of $f$. Here I
+define larger as follows using that $R$ is
+UFD: if $a=a_1\ldots a_k$ and
+$b=b_1\ldots b_\ell$ then the gdc is the
+product of all common factors of $a$
+and $b$.
+
+To conclude our induction now suppose that
+degree-$n$ elements have
+factorization and let $f$ be of degree $n+1$.
+If $f$ is irreducible we are done.
+Otherwise $f$ can be expressed as the product
+of two positive degree elements,
+each of which is expressed in a product of
+irreducibles.
 \end{proof}
 
 \section{Modules}
@@ -1839,8 +2753,10 @@ and otherwise it is {\it trascendental}.
 \begin{definition}
 \label{definition-finite-extension}
 Let $[K:k]$ be a field extension.
-We say that $[K:k]$ is a {\it finite extension}
-if $K$ is finite-dimensional as a vector space
+We say that $[K:k]$ is a {\it finite
+extension}
+if $K$ is finite-dimensional as a vector
+space
 over $k$.
 The dimension of this vector space is denoted
 $[K:k]$ and is called the {\it degree} of the
@@ -1859,7 +2775,8 @@ Finite extensions are algebraic, but
 algebraic extensions need not be finite.
 
 \begin{definition}
-\label{definition-field-generated-by-elements}
+\label{definition-field-generated-by-%
+elements}
 Let $[K:k]$ be a field extension, and let
 $a_1,\ldots,a_m \in K$.
 We write $k(a_1,\ldots,a_m)$ for the smallest
@@ -1870,7 +2787,8 @@ $k$-subalgebra $k[a_1,\ldots,a_m]\subset K$.
 \end{definition}
 
 \begin{definition}
-\label{definition-finitely-generated-field-extension}
+\label{definition-finitely-generated-field-%
+extension}
 Let $[K:k]$ be a field extension.
 We say that $[K:k]$ is a {\it finitely
 generated field extension} if there exist
@@ -1895,7 +2813,8 @@ such that $P(t_1,…,t_n)=0$.
 \end{definition}
 
 \begin{example}
-\label{example-numbers-algebraically-dependent}
+\label{example-numbers-algebraically-%
+dependent}
 The numbers $1$ and $2$ are algebraically
 dependent over $\mathbb{Q}$.
 Indeed, the nonzero polynomial
@@ -1906,7 +2825,8 @@ over $\mathbb{Q}$.
 \end{example}
 
 \begin{example}
-\label{example-transcendental-number-algebraically-independent}
+\label{example-transcendental-number-%
+algebraically-independent}
 A single transcendental number, such as
 $\pi \in \mathbb{R}$, is algebraically
 independent over $\mathbb{Q}$.
@@ -1921,7 +2841,8 @@ theorem.
 \end{example}
 
 \begin{example}
-\label{example-coordinate-functions-algebraically-independent}
+\label{example-coordinate-functions-%
+algebraically-independent}
 The elements $x,y \in \mathbb{C}(x,y)$
 are algebraically independent over
 $\mathbb{C}$.
@@ -1937,11 +2858,12 @@ $z_1=x$ and $z_2=x^2$.
 \begin{definition}
 \label{definition-transcendence-basis}
 Let $[K:k]$ be a field extension.
-A set $t_1,…,t_n \in K$ is called
+A set $t_1,\ldots,t_n \in K$ is called
 a {\it transcendence basis} of $K$ over $k$
-if $t_1,…,t_n$ are algebraically independent
+if $t_1,\ldots,t_n$ are algebraically
+independent
 over $k$ and $K$ is algebraic over
-$k(t_1,…,t_n)$.
+$k(t_1,\ldots,t_n)$.
 \end{definition}
 
 \begin{exercise}
@@ -1953,7 +2875,8 @@ generated field extension of $k$.
 \end{exercise}
 
 \begin{exercise}
-\label{exercise-fg-algebraic-field-extension-finite}
+\label{exercise-fg-algebraic-field-%
+extension-finite}
 Let $[K:k]$ be a finitely generated field
 extension.
 Assume that $K$ is algebraic over $k$.
@@ -1980,7 +2903,8 @@ does not divide $h$.
 Thus $\text{gcd}(h,m_i)=1$, and by
 Bachet-Bézout for polynomials over a field,
 Theorem
-\ref{number-theory-theorem-bache-bezou-polyn-over-fiel},
+\ref{theorem-bache-bezou-%
+polyn-over-fiel},
 there exist $u(t),v(t)\in K_{i-1}[t]$ such
 that
 $$
@@ -2334,18 +3258,31 @@ polynomial with coefficients in $R$ that
 gives zero when you put $s$ instead of the
 variable.
 
+\medskip\noindent
+Integral closure is analogous to algebraic
+closure, but it is not the same construction.
+For a field, the algebraic closure is a
+larger field in which all algebraic equations
+split.
+For a ring, integral closure is relative to
+an ambient ring, usually the fraction field,
+and only adds elements satisfying monic
+polynomial equations.
+
 \begin{definition}
 \label{definition-integral-element}
 Let $A \subset B$ be rings. An element $b \in
 B$ is called {\it integral over $A$} if the
-subring $A[b]=A\cdot \left<1,b,b^2,…\right>$
+subring
+$A[b]=A\cdot \left<1,b,b^2,\ldots\right>$
 is generated by $b$ and $A$, is finitely
 generated as an $A$-module.
 \end{definition}
 
 \noindent
 Note that if $A$ is finitely generated, $A
-\left<1,b,b^2,…\right>$ is obviously finitely
+\left<1,b,b^2,\ldots\right>$ is obviously
+finitely
 generated as a ring, but not as a module,
 which is what we care about.
 
@@ -2382,6 +3319,38 @@ an $A$-linear combination of
 $1,x,\ldots,x^{n-1}$.
 Thus $A[x]$ is generated as an $A$-module by
 $1,x,\ldots,x^{n-1}$.
+\end{proof}
+
+\begin{proposition}
+\label{prop-localization-integrally-closed}
+Let $R$ be an integrally closed domain and
+let $S \subset R$ be a multiplicative
+subset with $0 \notin S$.
+Then $RS^{-1}$ is integrally
+closed.
+\end{proposition}
+
+\begin{proof}
+Let $x \in \text{Frac}(RS^{-1})$ be
+integral over $RS^{-1}$.
+Then there is a monic polynomial
+\[
+x^n+c_{n-1}x^{n-1}+\cdots+c_0=0
+\]
+with $c_i \in RS^{-1}$.
+Choose $s \in S$ so that
+$sc_i \in R$ for all $i$.
+Multiplying by the right power of $s$,
+we get
+\[
+(sx)^n+s c_{n-1}(sx)^{n-1}
++\cdots+s^n c_0=0.
+\]
+This is a monic polynomial over $R$
+vanishing at $sx$.
+Since $R$ is integrally closed,
+we have $sx \in R$.
+Therefore $x=(sx)/s \in RS^{-1}$.
 \end{proof}
 
 \begin{lemma}
@@ -2889,13 +3858,15 @@ gives us finiteness once again…
 \noindent
 We will use the terminology of field
 extensions from Section
-\ref{section-field-extensions}. In particular,
+\ref{section-field-extensions}.
+In particular,
 a finitely generated field extension does not
 mean that $K=k(t_1,\ldots,t_n)$ for some
 transcendence basis $t_1,\ldots,t_n$.
 Relations among generators are allowed. This
 explains why, if
-$X \subset \mathbb{C}^n$ is an affine variety,
+$X \subset \mathbb{C}^n$ is an affine
+variety,
 then $k(X)=\text{Frac}(\mathcal{O}_X)$ is a
 finitely generated field extension of
 $\mathbb{C}$: the coordinate classes
@@ -2927,7 +3898,8 @@ generators, adjoining them gives an algebraic
 finitely generated extension of
 $k(t_1,\ldots,t_n)$, hence a finite extension
 by Exercise
-\ref{exercise-fg-algebraic-field-extension-finite}.
+\ref{exercise-fg-algebraic-field-extension-%
+finite}.
 \end{proof}
 
 \noindent
@@ -3012,7 +3984,8 @@ $P(t) \in \mathbb{C}[z_1,…,z_{n-1}][t]$.
 \begin{lemma}
 \label{lemma-coord-change-transcen-basis}
 Let $X\subset \mathbb{C}^n$ be an irreducible
-affine variety and suppose that the coordinate
+affine variety and suppose that the
+coordinate
 classes $z_1,\ldots,z_k \in k(X)$ form a
 transcendence basis.
 Then there exists a linear coordinate change
@@ -3090,7 +4063,8 @@ Apply Lemma
 \ref{lemma-coord-change-transcen-basis}
 successively to the remaining coordinates
 $z_{k+1},\ldots,z_n$.
-After a suitable linear change, each remaining
+After a suitable linear change, each
+remaining
 coordinate becomes a root of a monic
 polynomial with coefficients in
 $\mathbb{C}[z_1',\ldots,z_k']$.
@@ -3164,6 +4138,849 @@ therefore finitely generated over $A$.
 \end{enumerate}
 \end{proof}
 
+\begin{lemma}
+\label{lemma-normalization}
+Let $B$ be a domain over $\mathbb{C}$.
+Assume that there is an injective
+ring morphism
+$$
+A=\mathbb{C}[x_1,\ldots,x_k]\to B
+$$
+such that $B$ is finitely generated
+as an $A$-module.
+Then the integral closure $\tilde{B}$
+of $B$ is finitely generated
+as an $A$-module.
+In particular, $\tilde{B}$ is a
+finitely generated ring.
+\end{lemma}
+
+\begin{proof}
+The ring $A$ is factorial by Gauss'
+lemma, hence integrally closed.
+Since $B$ is finite over $A$,
+the field extension
+$\text{Frac}(B)/\text{Frac}(A)$
+is finite.
+Theorem
+\ref{theorem-integrl-clsure-fntly-genertd}
+implies that the integral closure
+of $A$ in $\text{Frac}(B)$
+is a finitely generated $A$-module.
+The integral closure $\tilde{B}$
+is contained in this ring.
+Since $A$ is Noetherian, $\tilde{B}$
+is a finite $A$-module as well.
+\end{proof}
+
+\begin{definition}
+\label{definition-normalization}
+Let $X$ be an irreducible affine variety,
+and let $A=\mathcal{O}_X$.
+Let $\tilde{A}$ be the integral closure
+of $A$ in its field of fractions.
+Assume that $\tilde{A}$ is a finitely
+generated $\mathbb{C}$-algebra.
+Then
+$$
+\tilde{X}=\Spec \tilde{A}
+$$
+is called the {\it normalization} of $X$.
+The inclusion $A \subset \tilde{A}$
+gives a morphism
+$\tilde{X}\to X$.
+\end{definition}
+
+\noindent
+The normalization map is birational
+to $X$, and it is finite.
+
+\begin{example}
+Let $C \subset \mathbb{A}^2$ be the curve
+defined by
+$$
+x^2=y^3.
+$$
+Consider the parametrization
+$$
+\varphi:\mathbb{C}\to C,\qquad
+t\longmapsto (t^3,t^2).
+$$
+On coordinate rings this gives
+$$
+\mathbb{C}[x,y]/(x^2-y^3)
+\cong \mathbb{C}[t^2,t^3]
+\subset \mathbb{C}[t].
+$$
+Thus $\mathcal{O}_C=\mathbb{C}[t^2,t^3]$
+and its fraction field is $\mathbb{C}(t)$.
+The element $t$ lies in this fraction field,
+since $t=x/y$, and it is integral over
+$\mathcal{O}_C$ because it satisfies
+$$
+t^2-y=0.
+$$
+But $t\notin \mathbb{C}[t^2,t^3]$,
+so $C$ is not normal.
+
+Moreover $\mathbb{C}[t]$ is integral over
+$\mathbb{C}[t^2,t^3]$, because it is
+generated by the integral element $t$.
+It is integrally closed, since it is a
+polynomial ring in one variable.
+Therefore the integral closure of
+$\mathcal{O}_C$ in $\mathbb{C}(t)$
+is $\mathbb{C}[t]$.
+Thus the normalization of $C$ is
+$$
+\Spec \mathbb{C}[t]=\mathbb{A}^1,
+$$
+with normalization map $\varphi$.
+\end{example}
+
+\begin{lemma}
+\label{lemma-universal-property-%
+normalization}
+Let $\nu:\tilde{X}\to X$ be the
+normalization of an irreducible affine
+variety.
+Then $\nu$ is finite and birational.
+For every finite birational morphism
+$\mu:Y\to X$, there is a unique morphism
+$\tilde{X}\to Y$ over $X$.
+In particular, if $Y$ is normal, then
+$Y$ is isomorphic to $\tilde{X}$ over $X$.
+\end{lemma}
+
+\begin{proof}
+Let $A=\mathcal{O}_X$ and
+$\tilde{A}$ be its integral closure in
+$k(X)$.
+Since $\tilde{A}$ is finite over $A$,
+the map $\nu$ is finite.
+Since $A$ and $\tilde{A}$ have the same
+fraction field, $\nu$ is birational.
+
+Let $Y$ be finite and birational over $X$.
+Then $\mathcal{O}_Y$ is a finite
+$A$-module inside $k(X)$.
+Thus every element of $\mathcal{O}_Y$
+is integral over $A$, so
+$\mathcal{O}_Y\subset \tilde{A}$.
+This inclusion gives the unique morphism
+$\tilde{X}\to Y$ over $X$.
+
+If $Y$ is normal, then $\mathcal{O}_Y$
+is integrally closed in $k(X)$ and contains
+$A$.
+Hence it contains $\tilde{A}$, and so
+$$
+\mathcal{O}_Y=\tilde{A},
+$$
+which gives the desired isomorphism.
+\end{proof}
+
+\noindent
+Equivalently, normalization is the initial
+object in the category whose objects are
+finite birational morphisms
+$\mu:X'\to X$, and whose morphisms are maps
+over $X$.
+If one restricts to normal sources $X'$,
+the preceding lemma says that all objects
+are canonically isomorphic to the
+normalization.
+
+\section{Algebraic dimension}
+\label{section-algebraic-dimension}
+
+\begin{definition}
+\label{definition-algebraic-dimension}
+Let $M$ be an irreducible affine variety.
+The {\it algebraic dimension} $a(M)$
+is the transcendence degree of the
+field extension
+$$
+[k(M):\mathbb{C}].
+$$
+\end{definition}
+
+\noindent
+Equivalently, if $k(M)$ is finite over
+$\mathbb{C}(t_1,\ldots,t_n)$,
+then $a(M)=n$.
+
+\medskip\noindent
+We shall prove that this definition agrees
+with Krull dimension.
+The idea is to cut $M$ by a principal
+divisor, then cut this divisor by a
+principal divisor on it, and continue in
+this way until we get a point.
+The Krull dimension shall be the number
+of such operations.
+
+\begin{definition}
+\label{definition-principal-divisor}
+Let $X$ be an affine variety, and let
+$f\in \mathcal{O}_X$ be a regular function
+which does not vanish on any irreducible
+component of $X$.
+The zero set of $f$ is called a
+{\it principal divisor} on $X$.
+Its irreducible components are called
+{\it divisors} on $X$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-divisors-affine-space}
+Any divisor in $\mathbb{A}^n$ is principal.
+\end{lemma}
+
+\begin{proof}
+Let $I=(f)\subset \mathbb{C}[t_1,\ldots,t_n]$
+be a principal ideal.
+Write
+$$
+f=\prod_i f_i^{\alpha_i}
+$$
+as the prime decomposition of $f$.
+Since $\mathbb{C}[t_1,\ldots,t_n]$
+is factorial, the ideals $(f_i)$
+are prime.
+Moreover
+$$
+V(f)=\bigcup_i V(f_i).
+$$
+Since all $(f_i)$ are prime, this is the
+irreducible decomposition of $V(f)$.
+Thus each irreducible component of $V(f)$
+is the zero set of a single equation,
+hence is principal.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-algebraic-dimension-divisor}
+Let $D$ be an irreducible divisor in
+$\mathbb{A}^n$.
+Then
+$$
+a(D)=n-1.
+$$
+\end{lemma}
+
+\begin{proof}
+By Lemma
+\ref{lemma-divisors-affine-space},
+we can write $D=V(f)$ for an irreducible
+polynomial
+$f\in \mathbb{C}[t_1,\ldots,t_n]$.
+After reordering the coordinates, suppose
+that $f$ depends nontrivially on $t_n$.
+
+The equation $f=0$ gives one algebraic
+relation among the coordinate functions
+on $D$, so
+$$
+a(D)\leq n-1.
+$$
+On the other hand, the classes of
+$t_1,\ldots,t_{n-1}$ in $\mathcal{O}_D$
+are algebraically independent.
+Indeed, if a nonzero polynomial in
+$\mathbb{C}[t_1,\ldots,t_{n-1}]$
+vanished on $D$, it would be divisible
+by $f$, which is impossible because
+$f$ depends on $t_n$.
+
+Finally, the class of $t_n$ in $k(D)$
+is a root of the polynomial $f$,
+viewed as a polynomial in $t_n$
+with coefficients in
+$\mathbb{C}[t_1,\ldots,t_{n-1}]$.
+Thus $k(D)$ is finite over
+$\mathbb{C}(t_1,\ldots,t_{n-1})$,
+and hence $a(D)=n-1$.
+\end{proof}
+
+\noindent
+The point is that $t_n$ satisfies one
+polynomial equation over
+$\mathbb{C}(t_1,\ldots,t_{n-1})$.
+Thus, after passing to rational functions,
+adjoining $t_n$ is an algebraic extension.
+Since the field is generated by this one
+algebraic element over
+$\mathbb{C}(t_1,\ldots,t_{n-1})$,
+the extension is finite.
+
+\medskip\noindent
+The length of a chain
+$$
+A_1\subset A_2\subset \cdots \subset A_n
+$$
+is $n-1$, namely the number of inclusions.
+
+\begin{definition}
+\label{definition-krull-dimension-ring}
+The {\it Krull dimension} of a ring $A$
+is the maximal possible length of a chain
+of prime ideals
+$$
+0\neq \mathfrak{p}_1
+\subset \mathfrak{p}_2
+\subset \cdots
+\subset \mathfrak{p}_n
+\subset A.
+$$
+\end{definition}
+
+\begin{definition}
+\label{definition-krull-dimension-variety}
+The {\it Krull dimension} of a variety $X$
+is the maximal possible length of a chain
+of nonempty, irreducible, distinct
+subvarieties
+$$
+X_1\subset X_2\subset \cdots \subset X_n.
+$$
+\end{definition}
+
+\begin{theorem}
+\label{theorem-krull-algebraic-geometric}
+Let $X$ be an affine variety.
+Then the Krull dimension of $X$ as a
+variety is equal to the Krull dimension
+of its coordinate ring $\mathcal{O}_X$.
+\end{theorem}
+
+\begin{proof}
+Irreducible subvarieties of $X$
+correspond to prime ideals of
+$\mathcal{O}_X$ by taking vanishing ideals.
+This correspondence reverses inclusions:
+if $Y\subset Z$, then
+$$
+I(Z)\subset I(Y).
+$$
+Thus a chain of irreducible subvarieties
+of $X$ is the same thing as a chain of
+prime ideals in $\mathcal{O}_X$, with the
+order reversed.
+The two maximal possible lengths are
+therefore equal.
+\end{proof}
+
+\noindent
+We shall prove below that for any affine
+variety, the algebraic dimension and the
+Krull dimension coincide.
+
+\begin{lemma}[Nakayama for local rings]
+\label{lemma-nakayama-local-rings}
+Let $A$ be a Noetherian local ring,
+and let $\mathfrak{p}$ be its maximal ideal.
+Let $M$ be a finitely generated $A$-module.
+If
+$$
+\mathfrak{p}M=M,
+$$
+then $M=0$.
+\end{lemma}
+
+\begin{definition}
+\label{definition-finite-ring-extension}
+Let $A\subset B$ be rings.
+We say that $B$ is a {\it finite extension}
+of $A$ if $B$ is finitely generated
+as an $A$-module.
+\end{definition}
+
+\noindent
+If $A\subset B$ and $\mathfrak{q}\subset B$
+is an ideal, the {\it contraction} of
+$\mathfrak{q}$ to $A$ is the ideal
+$$
+\mathfrak{q}\cap A\subset A.
+$$
+It is just the set of elements of $A$
+which already lie in $\mathfrak{q}$.
+
+\begin{lemma}[Going down]
+\label{lemma-contraction-nonzero-prime}
+Let $A\subset B$ be domains, and assume
+that $B$ is a finite extension of $A$.
+Let $\mathfrak{q}\subset B$ be a nonzero
+prime ideal.
+Then
+$$
+\mathfrak{p}:=\mathfrak{q}\cap A
+$$
+is a nonzero prime ideal of $A$.
+\end{lemma}
+
+\begin{proof}
+The contraction of a prime ideal is prime,
+so it remains to prove that
+$\mathfrak{p}\neq 0$.
+Choose $0\neq b\in \mathfrak{q}$.
+Since $B$ is finite over $A$,
+the element $b$ is integral over $A$.
+Thus $b$ satisfies a monic equation
+$$
+b^n+a_{n-1}b^{n-1}+\cdots+a_0=0
+$$
+with $a_i\in A$.
+Choose such an equation with $n$ minimal.
+Then $a_0\neq 0$, otherwise we could divide
+by $b$ because $B$ is a domain.
+But
+$$
+a_0=-b(b^{n-1}+a_{n-1}b^{n-2}
++\cdots+a_1)
+$$
+lies in $\mathfrak{q}$.
+Hence $0\neq a_0\in \mathfrak{q}\cap A$.
+\end{proof}
+
+\begin{proof}[Alternative proof]
+Let
+$$
+S=A\setminus \{0\}.
+$$
+Suppose that $\mathfrak{q}\cap A=0$.
+Then $S\cap \mathfrak{q}=\emptyset$,
+so $\mathfrak{q}S^{-1}B$ is a nonzero
+proper ideal in $S^{-1}B$.
+
+On the other hand,
+$S^{-1}A=\text{Frac}(A)$ is a field.
+Since $B$ is finite over $A$,
+the ring $S^{-1}B$ is a finite-dimensional
+algebra over $\text{Frac}(A)$.
+In particular it is Artinian.
+It is also a domain, because $B$ is a
+domain.
+By Theorem
+\ref{theorem-semisimple-decomposition},
+an Artinian algebra without nilpotents
+is a direct sum of fields.
+Since $S^{-1}B$ is a domain, this direct
+sum has only one summand.
+Thus $S^{-1}B$ is a field.
+
+But a field has no nonzero proper ideals,
+contradicting the existence of
+$\mathfrak{q}S^{-1}B$.
+Therefore $\mathfrak{q}\cap A\neq 0$.
+\end{proof}
+
+\noindent
+The proof of the next lemma first localizes
+at $\mathfrak{p}$.
+Nakayama shows that the fiber over
+$\mathfrak{p}$ is nonzero.
+Prime ideals in this fiber correspond
+precisely to prime ideals of $B$ lying over
+$\mathfrak{p}$.
+The fiber is a finite-dimensional algebra
+over a field, hence Artinian.
+Thus the Artinian algebra classification
+shows that it has only finitely many prime
+ideals.
+
+\begin{lemma}[Going up]
+\label{lemma-going-up}
+Let $A\subset B$ be rings, with $A$
+Noetherian, and assume that $B$ is a
+finite extension of $A$.
+Let $\mathfrak{p}\subset A$ be a prime
+ideal.
+Then there exist finitely many prime ideals
+$\mathfrak{q}\subset B$ such that
+$$
+\mathfrak{q}\cap A=\mathfrak{p}.
+$$
+\end{lemma}
+
+\begin{proof}
+Let
+$$
+S=A\setminus \mathfrak{p}.
+$$
+Localize:
+$$
+A_{\mathfrak{p}}=S^{-1}A,\qquad
+B_{\mathfrak{p}}=S^{-1}B.
+$$
+The ring $A_{\mathfrak{p}}$ is local,
+with maximal ideal
+$\mathfrak{p}A_{\mathfrak{p}}$.
+Also $B_{\mathfrak{p}}$ is finite as an
+$A_{\mathfrak{p}}$-module.
+
+By Nakayama's lemma,
+Lemma
+\ref{lemma-nakayama-local-rings},
+we have
+$$
+B_{\mathfrak{p}}\neq
+\mathfrak{p}B_{\mathfrak{p}}.
+$$
+Hence
+$$
+C:=B_{\mathfrak{p}}/
+\mathfrak{p}B_{\mathfrak{p}}
+$$
+is a nonzero finite-dimensional algebra
+over the field
+$A_{\mathfrak{p}}/
+\mathfrak{p}A_{\mathfrak{p}}$.
+In particular, $C$ is Artinian.
+Every prime ideal of $C$ contains its
+nilradical.
+After quotienting by the nilradical,
+the Artinian algebra decomposition,
+Theorem
+\ref{theorem-semisimple-decomposition},
+identifies the reduced quotient with a
+finite direct sum of fields.
+Thus there are only finitely many prime
+ideals in $C$.
+
+Let $\overline{\mathfrak{q}}\subset C$
+be a prime ideal, and let
+$\tilde{\mathfrak{q}}\subset
+B_{\mathfrak{p}}$
+be its preimage.
+Then $\tilde{\mathfrak{q}}$ is prime.
+Put
+$$
+\mathfrak{q}:=
+\tilde{\mathfrak{q}}\cap B.
+$$
+Then $\mathfrak{q}$ is prime in $B$.
+Moreover
+$\tilde{\mathfrak{q}}\cap
+A_{\mathfrak{p}}
+=\mathfrak{p}A_{\mathfrak{p}}$,
+because the quotient
+$A_{\mathfrak{p}}/
+\mathfrak{p}A_{\mathfrak{p}}$
+is a field.
+Contracting back to $A$ gives
+$\mathfrak{q}\cap A=\mathfrak{p}$.
+
+Conversely, every prime of $B$ lying over
+$\mathfrak{p}$ arises from a prime ideal
+of $C$ in this way.
+Thus there are only finitely many such
+prime ideals $\mathfrak{q}$.
+\end{proof}
+
+\noindent
+The Cohen-Seidenberg theorem is essentially
+the union of the going-up and going-down
+lemmas.
+
+\begin{theorem}[Cohen-Seidenberg]
+\label{theorem-cohen-seidenberg}
+Let $A\subset B$ be a finite extension
+of Noetherian rings.
+Let
+$$
+\mathfrak{q}_1\subset \mathfrak{q}_2
+\subset \cdots \subset \mathfrak{q}_n
+\subset B
+$$
+be a chain of prime ideals, and put
+$$
+\mathfrak{p}_i=\mathfrak{q}_i\cap A.
+$$
+Then
+$$
+\mathfrak{p}_1\subset \mathfrak{p}_2
+\subset \cdots \subset \mathfrak{p}_n
+\subset A
+$$
+is a chain of distinct prime ideals.
+
+Conversely, any chain of prime ideals
+$$
+\mathfrak{p}_1\subset \mathfrak{p}_2
+\subset \cdots \subset \mathfrak{p}_n
+\subset A
+$$
+is obtained in this way from a chain of
+prime ideals in $B$.
+\end{theorem}
+
+\begin{proof}
+We prove (i).
+Suppose that for some $i$ we have
+$$
+\mathfrak{q}_{i-1}\subset \mathfrak{q}_i
+$$
+but
+$$
+\mathfrak{p}_{i-1}=\mathfrak{p}_i.
+$$
+Replacing $A$ by $A/\mathfrak{p}_{i-1}$
+and $B$ by $B/\mathfrak{q}_{i-1}$,
+we reduce to the case where $A\subset B$
+are domains and
+$0\neq \mathfrak{q}_i\subset B$
+is a prime ideal.
+The Going down lemma,
+Lemma
+\ref{lemma-contraction-nonzero-prime},
+then gives
+$\mathfrak{q}_i\cap A\neq 0$,
+a contradiction.
+Thus the contractions are distinct.
+
+We prove (ii).
+Now let
+$$
+\mathfrak{p}_1\subset \cdots
+\subset \mathfrak{p}_n
+$$
+be a chain of prime ideals in $A$.
+By the Going up lemma,
+Lemma
+\ref{lemma-going-up},
+there is a prime
+$\mathfrak{q}_1\subset B$ lying over
+$\mathfrak{p}_1$.
+Assume by induction that
+$$
+\mathfrak{q}_1\subset \cdots
+\subset \mathfrak{q}_r
+$$
+have been chosen over
+$$
+\mathfrak{p}_1\subset \cdots
+\subset \mathfrak{p}_r.
+$$
+Apply the Going up lemma to the finite
+extension
+$$
+A/\mathfrak{p}_r
+\subset B/\mathfrak{q}_r
+$$
+and to the prime
+$\mathfrak{p}_{r+1}/\mathfrak{p}_r$.
+This gives a prime ideal
+$\mathfrak{q}_{r+1}/\mathfrak{q}_r$
+of $B/\mathfrak{q}_r$ lying over it.
+Equivalently, we get a prime
+$\mathfrak{q}_{r+1}\subset B$
+with
+$$
+\mathfrak{q}_r\subset \mathfrak{q}_{r+1}
+\quad\text{and}\quad
+\mathfrak{q}_{r+1}\cap A
+=\mathfrak{p}_{r+1}.
+$$
+This completes the induction.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-krull-dimension-finite-dominant}
+Let $f:X\to Y$ be a finite dominant
+morphism of irreducible affine varieties.
+Then the Krull dimension of $X$ is equal
+to the Krull dimension of $Y$.
+\end{lemma}
+
+\begin{proof}
+The morphism $f$ gives an injective finite
+ring extension
+$$
+\mathcal{O}_Y\subset \mathcal{O}_X.
+$$
+Any chain of prime ideals in
+$\mathcal{O}_Y$ lifts to a chain in
+$\mathcal{O}_X$ by Theorem
+\ref{theorem-cohen-seidenberg}.
+Conversely, any chain of distinct prime
+ideals in $\mathcal{O}_X$ contracts to a
+chain of distinct prime ideals in
+$\mathcal{O}_Y$, again by Theorem
+\ref{theorem-cohen-seidenberg}.
+Therefore the maximal possible lengths of
+chains are equal.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-algebraic-dimension-krull}
+For any affine variety $X$, its algebraic
+dimension $a(X)$ is equal to its Krull
+dimension.
+\end{theorem}
+
+\begin{proof}
+Let $d=a(X)$.
+By Noether normalization,
+Lemma
+\ref{lemma-noether-normalization},
+there exists a finite dominant morphism
+$$
+X\to \mathbb{A}^d.
+$$
+By Lemma
+\ref{lemma-krull-dimension-finite-dominant},
+$X$ and $\mathbb{A}^d$ have the same
+Krull dimension.
+Thus it remains to prove that
+$$
+\dim \mathbb{A}^d=d.
+$$
+
+We prove this by induction on $d$.
+For $d=0$, affine space is a point.
+Assume the result for affine varieties
+of algebraic dimension $<d$.
+Let
+$$
+0=\mathfrak{p}_0\subset \mathfrak{p}_1
+\subset \cdots
+$$
+be a maximal chain of prime ideals in
+$$
+\mathbb{C}[t_1,\ldots,t_d].
+$$
+The prime ideal $\mathfrak{p}_1$ contains
+a nonzero polynomial $g$.
+Writing $g$ as a product of irreducibles,
+and using that $\mathfrak{p}_1$ is prime,
+we find an irreducible polynomial
+$f\in \mathfrak{p}_1$.
+Since $\mathbb{C}[t_1,\ldots,t_d]$
+is a UFD, $(f)$ is a prime ideal.
+Thus
+$$
+0\subset (f)\subset \mathfrak{p}_1.
+$$
+By maximality of the chain,
+$\mathfrak{p}_1=(f)$.
+
+Let $D=V(f)\subset \mathbb{A}^d$.
+Then $D$ is an irreducible divisor.
+Prime ideals containing $(f)$ correspond
+to prime ideals of
+$$
+\mathbb{C}[t_1,\ldots,t_d]/(f)
+=\mathcal{O}_D.
+$$
+Hence
+$$
+\dim \mathbb{A}^d=1+\dim D.
+$$
+By Lemma
+\ref{lemma-algebraic-dimension-divisor},
+we have $a(D)=d-1$.
+By the induction hypothesis,
+$$
+\dim D=d-1.
+$$
+Therefore
+$$
+\dim \mathbb{A}^d=1+(d-1)=d.
+$$
+This proves the theorem.
+\end{proof}
+
+\medskip\noindent
+We finish with Hilbert's Nullstellensatz.
+The proof below is algebraic: it uses
+Noether normalization instead of the usual
+complex-analytic trick.
+This is more appropriate here, because the
+analytic proof is special to
+$\mathbb{C}$, while the algebraic proof
+works over any algebraically closed field.
+
+\begin{theorem}[Hilbert's Nullstellensatz]
+\label{theorem-hilbert-nullstellensatz}
+Let $k$ be an algebraically closed field.
+Then every maximal ideal of
+$k[x_1,\ldots,x_n]$ is of the form
+$$
+(x_1-a_1,\ldots,x_n-a_n)
+$$
+for some point $a=(a_1,\ldots,a_n)\in k^n$.
+Moreover, for every ideal
+$I\subset k[x_1,\ldots,x_n]$,
+we have
+$$
+I(V(I))=\sqrt{I}.
+$$
+\end{theorem}
+
+\begin{proof}
+Let $\mathfrak{m}\subset k[x_1,\ldots,x_n]$
+be a maximal ideal, and put
+$$
+A=k[x_1,\ldots,x_n]/\mathfrak{m}.
+$$
+Then $A$ is a field, finitely generated
+as a $k$-algebra.
+By Noether normalization, there is a
+polynomial subring
+$$
+k[t_1,\ldots,t_d]\subset A
+$$
+such that $A$ is finite over it.
+Since $A$ is a field and is integral over
+$k[t_1,\ldots,t_d]$, the ring
+$k[t_1,\ldots,t_d]$ is a field.
+This forces $d=0$.
+Therefore $A$ is a finite algebraic
+extension of $k$.
+Since $k$ is algebraically closed, $A=k$.
+Thus the quotient map
+$$
+k[x_1,\ldots,x_n]\to A=k
+$$
+is evaluation at a point
+$a=(a_1,\ldots,a_n)$, and
+$$
+\mathfrak{m}
+=(x_1-a_1,\ldots,x_n-a_n).
+$$
+
+Now let $I\subset k[x_1,\ldots,x_n]$.
+The inclusion
+$$
+\sqrt{I}\subset I(V(I))
+$$
+is immediate.
+Conversely, let $f\notin \sqrt{I}$.
+Then the ideal
+$$
+J=(I,1-tf)\subset k[x_1,\ldots,x_n,t]
+$$
+is proper.
+Indeed, if $1\in J$, then after setting
+$t=1/f$ we would get that a power of $f$
+lies in $I$.
+By the first part, $J$ is contained in a
+maximal ideal corresponding to a point
+$(a,b)\in k^{n+1}$.
+Then $a\in V(I)$ and
+$$
+1-bf(a)=0,
+$$
+so $f(a)\neq 0$.
+Thus $f$ does not vanish on $V(I)$, and
+$f\notin I(V(I))$.
+Therefore
+$$
+I(V(I))\subset \sqrt{I},
+$$
+and the theorem follows.
+\end{proof}
 
 
 \end{document}
