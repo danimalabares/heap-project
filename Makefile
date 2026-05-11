@@ -13,7 +13,9 @@ PLASTEX ?= plastex
 PLASTEXFLAGS ?=
 PLASTEX_LOG ?= gerby/plastex.log
 GERBY_UPDATE_FLAGS ?=
-GERBY_FILES ?= basic-math.tex commutative-algebra.tex number-theory.tex differential-geometry.tex differential-topology.tex algebraic-geometry.tex algebraic-topology.tex categories.tex infty-categories.tex complex-analysis.tex complex-geometry.tex symplectic-geometry.tex lie-algebras.tex representation-theory.tex vertex-algebras.tex homological-algebra.tex deformations.tex physics.tex seminars.tex surfaces.tex mumford-tate-groups-in-hodge-theory.tex birational-maps-commutative-algebra.tex cremona-transformations.tex
+GERBY_ORDER ?= order-chapters.txt
+GERBY_FILES ?= basic-math.tex commutative-algebra.tex differential-geometry.tex differential-topology.tex algebraic-geometry.tex algebraic-topology.tex categories.tex infty-categories.tex complex-analysis.tex complex-geometry.tex symplectic-geometry.tex lie-algebras.tex representation-theory.tex vertex-algebras.tex homological-algebra.tex deformations.tex physics.tex seminars.tex surfaces.tex mumford-tate-groups-in-hodge-theory.tex birational-maps-commutative-algebra.tex cremona-transformations.tex springer.tex bridgeland-stability-general-theory.tex derived-categories-of-sheaves.tex geometric-invariant-theory.tex geometric-stability-conditions-and-group-actions.tex moduli-spaces-of-sheaves.tex noncommutative-abelian-surfaces-and-kummer-type-hyperkahler-varieties.tex \
+	hodge-birational-atoms-2026.tex
 GERBY_PORT ?= 5001
 
 # Default target: build all PDFs
@@ -52,7 +54,7 @@ book.pdf: tmp/book.tex
 
 gerby-book:
 	mkdir -p gerby
-	$(PYTHON) scripts/make_gerby_book.py $(GERBY_FILES) > gerby/book.tex
+	$(PYTHON) scripts/make_gerby_book.py --order $(GERBY_ORDER) $(GERBY_FILES) > gerby/book.tex
 
 gerby-tags: gerby-book
 	$(PYTHON) scripts/gerby_tagger.py gerby/book.tex --tags gerby/tags > gerby/tags.tmp
