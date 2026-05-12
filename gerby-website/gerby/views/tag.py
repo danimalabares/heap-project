@@ -21,6 +21,24 @@ TAGS_PATTERN = re.compile("^[0-9a-zA-Z]{4}")
 def isTag(string):
   return TAGS_PATTERN.match(string) is not None and len(string) == 4
 
+def chapter_tag_for_missing_tag(tag):
+  try:
+    with open(gerby.configuration.TAGS) as f:
+      for line in f:
+        line = line.strip()
+        if not line or line.startswith("#"):
+          continue
+        pieces = line.split(",", 1)
+        if len(pieces) != 2 or pieces[0].upper() != tag:
+          continue
+        prefix = pieces[1].split("-", 1)[0]
+        return Tag.get(
+            Tag.label == "chapter-" + prefix,
+            Tag.active == True)
+  except Exception:
+    return None
+  return None
+
 # turn a flat list into a tree based on tag.ref length
 def combine(tags):
   level = min([len(tag.ref.split(".")) for tag in tags], default=0)
@@ -138,6 +156,9 @@ def show_tag(tag):
       return redirect("/tag/" + replacement.tag, code=302)
     except Tag.DoesNotExist:
       pass
+    replacement = chapter_tag_for_missing_tag(tag)
+    if replacement is not None:
+      return redirect("/tag/" + replacement.tag, code=302)
     return render_template("tag.notfound.html", tag=tag), 404
 
   html = ""
