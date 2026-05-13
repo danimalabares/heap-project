@@ -1,0 +1,1764 @@
+\input{preamble}
+\begin{document}
+
+\title{Derived categories of sheaves}
+\maketitle
+
+\noindent
+Minicourse by Lyalya Guseva (Universit\'e
+Bourgogne Franche-Comt\'e, France; HSE
+University, Moscow, Russia), CIMPA school
+Florian\'opolis 2025.
+
+\medskip\noindent
+Notes at
+\href{%
+http://github.com/danimalabares/cimpa-floripa
+}{%
+github.com/danimalabares/cimpa-floripa
+}
+
+\bigskip\noindent
+
+{\bf Abstract.} Derived category of coherent
+sheaves is a convenient environment of
+investigating algebraic geometry of a
+variety. It provides useful techniques and
+gives a perspective point of view. On the
+level of derived categories one can see
+unexpected connections which are not visible
+on the classical level. I will try to give an
+introduction into the techniques of derived
+categories and semiorthogonal decomposition
+and (hopefully) will present many examples of
+applications of derived categories in
+algebraic geometry.
+
+\tableofcontents
+
+{\bf Upshot.} The derived category of an
+abelian category is the localization of its
+homotopy category with respect to the class
+of quasi-isomorphisms.
+\begin{itemize}
+\item The objects of $D(\mathcal{A})$ are
+complexes in $\mathcal{A}$ and the
+arrows are equivalence classes of roofs.
+\item $D(\mathcal{A})$ is additive but not
+abelian unless $\mathcal{A}$ is
+semisimple.
+\item $D(\text{Vect}_k)=$ graded vector
+spaces.
+\item For all $A,B\in \mathcal{A}$,
+$$
+\text{Hom}_{D(\mathcal{A})}(A,B[i])=
+\begin{cases}
+0\qquad &i<0 \\
+\text{Hom}_{\mathcal{A}}(A,B)\qquad &i=0\\
+\text{Ext}^i(A,B)\qquad &i>0
+\end{cases}
+$$
+\item A sequence
+$$
+\xymatrix{
+A\ar[r]^f&B\ar[r]^b&\text{Cone}(f)\ar[r]^a&
+A[I]\ar[r]&0
+}
+$$
+gives long exact sequences
+$\text{Hom}^\bullet_{D(\mathcal{A})}(C,\cdot)
+$
+and
+$\text{Hom}^\bullet_{D(\mathcal{A})}(\cdot,C)
+$,
+which are the distinguished triangles.
+\end{itemize}
+
+\section{Basic concepts}
+
+\begin{definition}
+\label{definition-abelian-category}
+An {\it abelian category} $\mathcal{A}$ is a
+category such that
+\begin{enumerate}
+\item $\forall X,Y \in \mathcal{A}$,
+$\text{Hom}_{\mathcal{A}}(X,Y)$ is an
+abelian group such that
+$\text{Hom}_{\mathcal{A}}(X,Y)
+\times\text{Hom}
+(Y,Z)\to
+\text{Hom}(X,Y)$ is bilinear.
+\item There is a zero object
+$0_{\mathcal{A}}$ such that for every $A \in
+\mathcal{A}$,
+$\text{Hom}(0_{\mathcal{A}},A)=\text{Hom}(A,
+0)
+=0$.
+\item There exist finite products.
+\item For every  $f \in \text{Hom}(A,B)$
+there exist kernel and cokernel such
+that
+$$
+\xymatrix{
+\Ker f\ar[r]&A\ar[r]^{f}&B\ar[r]&\Coker f
+}
+$$
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+\label{definition-additive-category}
+$\mathcal{A}$ satisfying 1-3 is called  {\it
+additive category}.
+\end{definition}
+
+Examples: abelian groups, $R$-modules,
+$\text{Coh}(X)$. Non-example: vector bundles
+over $X$, it is an additive category but not
+abelian.
+
+\medskip\noindent
+
+Now consider the category
+$\text{Com}(\mathcal{A})$, the category of
+complexes in $\mathcal{A}$, with
+quasi-isomorphisms:
+
+\begin{definition}
+\label{definition-quasi-isomorphism}
+$f\in
+\text{Hom}_{\text{Com}(\mathcal{A})}(A',B')$
+is a {\it quasi-isomorphism} if it induces
+isomorphisms $H^i(f):H^i(A^{\bullet})\cong
+H^i(B^{\bullet})$ for all $i$.
+\end{definition}
+
+\begin{definition}
+\label{definition-derived-category}
+Let $\mathcal{A}$ be an abelian category. The
+{\it derived category} of $\mathcal{A}$ is
+the localization
+$\text{Com}(\mathcal{A})[QIS]^{-1}$, where
+$QIS$ is the class of quasi-isomorphisms.
+\end{definition}
+
+But what is localization? Given a class of
+morphisms $S$ inside the class of morphisms
+of a given category, the localization will
+allow us to invert these morphisms.
+
+\begin{definition}
+\label{definition-localization-of-category}
+Let $\mathcal{C}$ be a category, $S$ a class
+of morphisms in $\mathcal{C}$ and
+$\text{Iso}(\mathcal{C})$ the class of all
+isomorphisms of $\mathcal{C}$. The {\it
+localization} of $\mathcal{C}$ with respect
+to $S$ is the category $\mathcal{C}[S]^{-1}$
+with an isomorphism
+$$
+Q:\mathcal{C}\to
+\mathcal{C}[S]^{i-\mathcal{A}}
+$$
+that satisfy
+\begin{enumerate}
+\item $Q(S) \subset
+\text{Iso}(\mathcal{C}[S]^{-1})$
+\item (Universality.) For any
+$F:\mathcal{C}\to \tilde{\mathcal{C}}$ and
+$Q:\mathcal{C}\to \mathcal{C}[S^{-1}]$ there
+exists a unique $G:\mathcal{C}[S^{-1}]\to
+\tilde{ \mathcal{C}}$ making the diagram
+commute, i.e. $F=GQ$.
+\end{enumerate}
+\end{definition}
+
+\begin{exercise}
+\label{exercise-uniqueness-of-localization}
+Show that if $\mathcal{C}[S^{-1}]$ exists, it
+must be unique up to isomorphism.
+\end{exercise}
+
+\begin{definition}
+\label{definition-bounded-derived-category}
+If instead of $\text{Com}(\mathcal{A})$ we
+consider
+$$
+\text{Com}^b(\mathcal{A}):=\{A^{\bullet} \in
+\text{Com}(\mathcal{A}):
+A^i=0\forall  |i|\gg 0\}
+$$
+Then we obtain the {\it bounded derived
+category} $D^b(\mathcal{A})$.
+\end{definition}
+
+\section{Motivation}
+\label{section-motivation}
+
+Let $X$ be a smooth projective variety over
+$\mathbb{C}$. Then we can associate
+$X\rightsquigarrow \text{Coh}(X)$.
+
+\begin{theorem}[Gabriel]
+\label{theorem-Gabriel}
+Let $X$ and $Y$ be smooth projective
+varieties. If $\text{Coh}(X)\cong
+\text{Coh}(Y)$ then $X\cong Y$.
+\end{theorem}
+
+This means we may reconstruct $X$ from its
+coherent sheaf category. But it is not such
+an interesting invariant. It's more
+interesting the derived category. So the
+motivation for studying derived categories
+are:
+
+\begin{enumerate}
+\item (Beilinson 1979.)
+$\text{Coh}(\mathbb{P}^n)\hookrightarrow
+D^b(\mathbb{P}^n)$ gives good information
+about coherent sheaves on $\mathbb{P}^n$.
+\item (Mukai.) If $\mathcal{A}$ is an abelian
+variety and $\hat{\mathcal{A}}$ is
+the dual abelian variety,
+$D^b(\mathcal{A})\cong
+D^b(\hat{\mathcal{A}})$.
+\item (Bondal, Orlov, 1990's.) Let $X$ be a
+smooth projective variety with an
+ample or anti-ample canonical bundle
+$\omega_X$. Suppose that $D^b(X)\cong D^b(Y)$
+for a smooth projective variety $Y$. Then $Y
+\cong X$.
+\end{enumerate}
+
+\begin{remark}
+\label{dcos-label-001}
+If you consider not only the bounded derived
+category $D^b(X)$ but consider it with the
+tensor product $D^b \times D^b(X)
+\xrightarrow{\otimes} D^b(X)$ allow to
+reconstruct $X$.
+\end{remark}
+
+I hope you are now convinced this is
+interesting.
+
+\section{Explicit description of localization
+under
+some assumption}
+\label{dcos-label-002}
+
+If $S$ satisfies some properties called the
+{\it right Ore conditions} then
+$\mathcal{C}[S^{-1}]$ can be explicitly
+described. The conditions are:
+
+\begin{enumerate}
+\item All identities should belong to $S$ and
+if any two morphisms from $f,g$
+and $f \circ g$ (whenever composition is
+defined) belong to $S$, then all three belong
+to $S$.
+\item For any diagram
+$$
+\xymatrix{
+X\ar[d]_{f}&W\ar@{.>}[l]_{\tilde{s}\in
+S}\ar@{.>}[d]\\
+Z&\ar[l]^{s\in S}Y
+}
+$$
+can be completed to a commutative square.
+\item If for $f,g\in
+\text{Hom}_{\mathcal{C}}(A,B)$ and $u:B \to
+U$ such athat
+$u\circ f=u\circ g$ there exists $t:C \to A$
+such that $ft=gt$, that is,
+$$
+\xymatrix{
+C\ar[r]^{t}&A\ar[r]^{f,g}&B\ar[r]^{u}&U
+}
+$$
+\end{enumerate}
+
+The quasi-isomorphisms don't satisfy
+condition 2.
+
+\begin{proposition}
+\label{dcos-label-003}
+Let $\mathcal{C}$ be a category and $S\subset
+\Mor(\mathcal{C})$ satisfy right Ore
+conditions. Then $\mathcal{C}[S^{-1}]$ can be
+described as follows:
+\begin{itemize}
+\item
+$\text{Ob}(\mathcal{C}[S^{-1}]=\text{Ob}
+(\mathcal{C})$.
+\item
+$\Mor_{\mathcal{C}[S^{-1}]}(A,B)=
+\{\text{equivalence
+classes of
+roofs}\}$, where a roof is
+$$
+\xymatrix{
+& C\ar[dl]_{S \ni s}\ar[dr]^{f}\\
+A&&B
+}
+$$
+where $fs^{-1}\sim gt^{-1}$ if there exists a
+commutative diagram
+$$
+\xymatrix{
+& & \tilde{W} \ar[ld]^{a \in S} \ar[dr]^{b
+\in S} & & \\
+& C \ar[ld]^{s \in S} \ar[rr]^{f} & &
+\tilde{C} \ar[rd]^{t} & \\
+A & & & & B
+}
+$$
+and composition is defined as follows:
+$$
+\xymatrix{
+& & \tilde{W}\ar[ld]^{a \in S}\ar[dr]^{b \in
+S}\\
+&Z\ar[ld]^{s \in S}\ar[dr]^{f} & &
+\tilde{Z}\ar[dr]\ar[dl]^{t}\\
+A & &B & & C
+}
+$$
+where
+$$
+(fs^{-1})\circ (gt^{-1})=(sa^{-1})\circ(gb)
+$$
+\end{itemize}
+\end{proposition}
+
+$\mathcal{C}[S^{-1}]$ always exists but
+morphisms are difficult to describe. The
+proof of the proposition is an exercise:
+
+\begin{proof}
+\begin{enumerate}
+\item This is an equivalence relation.
+\item Composition doesn't depend on $a$ and
+$b$.
+\item Composition doesn't depend on the
+choice of the roof in equivalence
+classes.
+\item Composition is associative.
+\item $\text{Id}_X \times \text{Id}_X^{-1}$
+is identity morphism.
+\end{enumerate}
+\end{proof}
+
+{\bf Definition of} $Q:\mathcal{C} \to
+\mathcal{C}[S^{-1}]$. (Missing.)
+
+{\bf Universal property.}
+
+$$
+\xymatrix{
+\mathcal{C}\ar[r]^{F}\ar[dr]^{Q}&
+\tilde{\mathcal{C}}\\
+&\mathcal{C}[S^{-1}]\ar@{.>}[u]
+}
+$$
+defines a universal property.
+
+\begin{proposition}
+\label{proposition-Ore-conditions}
+Let $\mathcal{C}$ be an additive category and
+$S$ satisfy right Ore conditions. Then
+$\mathcal{C}[S^{-1}]$ is also additive and
+$Q:\mathcal{C} \to
+\mathcal{C}[S^{-1}]$ is additive.
+\end{proposition}
+
+\begin{proof}
+Some indications, then exercise.
+\end{proof}
+
+The point is that with Ore conditions you can
+really define what is addition of fractions.
+
+\section{Ore conditions for category of
+complexes}
+\label{dcos-label-004}
+
+Let $\mathcal{C}=\text{Com}(\mathcal{A})$ and
+$S=\text{QIS}$. Then QIS {\bf does not}
+satisfy Ore conditions: second and third
+properties fail. But we can consider instead
+the homotopy category
+$\mathcal{H}(\mathcal{A})$. But what is that.
+
+\begin{definition}
+\label{definition-homotopy-category}
+\begin{enumerate}
+\item
+A morphism $f \in
+\text{Hom}_{\text{Com}\mathcal{A}}
+(A^{\bullet}
+,B^{\bullet})$
+is {\it homotopically equivalent to zero},
+i.e. $f \sim_{\text{hom}}0$ if for all $i\in
+\mathbb{Z}$, $h^i:A^i \to B^i$ such that
+$f^i=d_B^{-1}\circ h^i \circ d_A^i$.
+$$
+\xymatrix{
+A^{i-1}\ar[r]&
+A^{i}\ar[r]\ar@{.>}[dl]^{h^i}\ar[d]^{f^i}&
+A^{i+1}\ar@{.>}[dl]^{h^{i+1}}\\
+B^{i-1}\ar[r]& B^i\ar[r]& B^{i+1}
+}
+$$
+\item $f\sim_{\text{hom}}g$ are {\it
+homotopically equivalent} if $f-g
+\sim_{\text{hom}}0$.
+\item The {\it homotopy category}
+$\mathcal{H}(\mathcal{A})$ of $\mathcal{A}$
+has objects
+$\text{Ob}(\mathcal{H}(\mathcal{A})=
+\text{Com}
+(\mathcal{A})$
+and morphisms
+$$
+\text{Hom}_{\mathcal{H}(\mathcal{A})
+}(A^{\bullet},B^{\bullet})
+=\text{Hom}_{\text{Com}\mathcal{A}}(A,B
+)\Big/\{f\sim_{\text{hom}}0\}.
+$$
+\end{enumerate}
+\end{definition}
+
+\begin{exercise}
+\label{exercise-homotopy-category}
+\begin{enumerate}
+\item $f\sim_{\text{hom}}0$,
+$H^i(f):H^i(A)\xrightarrow{0}H^i(B)$.
+\item Morphisms homotopic to zero form an
+ideal in $\text{Com}(\mathcal{A})$,
+that is, abelian subgroups w.r.t.
+compositions.
+\item $\mathcal{H}(\mathcal{A})$ is an
+additive category and
+$\text{Com}(\mathcal{A}) \to
+\mathcal{H}(\mathcal{A})$ is additive.
+\end{enumerate}
+\end{exercise}
+
+{\bf Objectives.}
+\begin{enumerate}
+\item QIS satisfy the Ore conditions in
+$\mathcal{H}(\mathcal{A})$.
+\item
+$D(\mathcal{A})=\text{Com}(\mathcal{A})
+[\text{QIS}^{-1}]
+\cong
+\mathcal{H}(\mathcal{A})[\text{QIS}^{-1}]$.
+This will allow to describe
+$D(\mathcal{A})$ explicitly as an additive
+category.
+\item $\mathcal{H}(\mathcal{A})$ and
+$D(\mathcal{A})$ are not abelian, but
+triangulated!
+\end{enumerate}
+
+When we lose the property of an abelian
+category, we lose the notion of exact
+sequence.
+
+{\bf Goal.} Now we shall prove that QIS
+satisfy right Ore conditions on
+$\mathfrak{X}(f)$ and $D(\mathcal{A})\cong
+\mathcal{H}[\text{QIS}]^{-1}$.
+
+\begin{definition}
+\label{definition-shift-functor}
+The {\it shift functor} is given by
+\begin{align*}
+[1]: \text{Com}(\mathcal{A}) &\longrightarrow
+\text{Com}(\mathcal{A}) \\
+A^\bullet &\longmapsto (A^\bullet[1])
+\end{align*}
+where
+$$
+(A^\bullet[1])^i=A^{i+1},\qquad
+d_{A[1]}=-d_A
+$$
+\end{definition}
+
+\begin{definition}
+\label{definition-mapping-cone}
+For a morphsm $f \in
+\text{Hom}_{\text{Com}(\mathcal{A})
+}(A^\bullet,B^{\bullet})$,
+its {\it mapping
+cone} is the complex
+$$
+\text{Cone}(f):=B^{\bullet}\oplus
+A^{\bullet}[1]
+$$
+with
+\begin{align*}
+d_{\text{Cone}(f)}^i: A^{i+1}\oplus B^{i}
+&\longrightarrow A^{i+2}\oplus B^{i+1} \\
+(a^{i+1},b^i) &\longmapsto
+(-d_Aa^{i+1},d_Bb^i+f(a^{i+1}))
+\end{align*}
+\end{definition}
+
+\begin{exercise}
+\label{exercise-cone-is-complex}
+$\text{Cone}(f) \in \text{Com}(\mathcal{A})$.
+\end{exercise}
+
+Exact sequence in $\text{Com}(\mathcal{A})$:
+$$
+\xymatrix{
+0\ar[r]&B\ar[r]&\text{Cone}(f)\ar[r]&
+A^{\bullet}[1]\ar[r]&0
+}
+$$
+\begin{definition}
+\label{definition-contractible-complex}
+$A^\bullet \in \mathcal{H}(\mathcal{A})$ is
+{\it contractible} if $\mathcal{A}
+\cong 0$ in $\mathcal{H}(\mathcal{A})$, that
+is,
+$\text{Id}_{A^{\bullet}}\sim_{\text{hom}}0$.
+\end{definition}
+
+\begin{exercise}
+\label{dcos-label-005}
+$f \in \text{Hom}(A^{\bullet},B^{\bullet})$
+is isomorphism in $\mathcal{H}(\mathcal{A})$
+if and only if $\text{Cone}(f)$ is
+contractible.
+\end{exercise}
+
+\begin{definition}
+\label{definition-Hom-of-complexes}
+Let  $A^{\bullet},B^{\bullet}\in
+\text{Com}(\mathcal{A})$. Then we define
+$\underline{\text{Hom}}(A^{\bullet},
+B^{\bullet})
+\in \text{Com}(\text{Ab})$,
+$$
+\text{Hom}^i(A,B)=\prod_{n \in
+\mathbb{Z}}\text{Hom}(A^n,B^{n+i})
+$$
+\begin{align*}
+d^i_{\underline{\text{Hom}}}:
+\underline{\text{Hom}}(A,B)^i
+&\longrightarrow
+\underline{\text{Hom}}(A,B)^{i+1} \\
+f=\prod f^n &\longmapsto g
+\end{align*}
+and $g^n=d_Bf^n-(-1)^i f^{n+1}d_A$.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-Hom}
+\begin{enumerate}
+\item Check that $\underline{\text{Hom}}$ is
+a complex.
+\item $\Ker
+d^i_{\underline{\text{Hom}}}
+=\text{Hom}_{\text{Com}(\mathcal{A})
+}(A^{\bullet},B^{\bullet}[i])$.
+\item
+$\text{Im}d^{i-1}_{\text{Hom}}=
+\{fsim_{\text{hom}}0\}$
+\end{enumerate}
+\end{exercise}
+
+Notation:
+$\text{Hom}^i(A^{\bullet},B^{\bullet})=
+\text{Hom}(A^{\bullet},B^{\bullet}[i])$.
+
+\begin{lemma}
+\label{lemma-cone-long-exact-sequence}
+Consider the following composition
+$$
+\xymatrix{
+A^\bullet\ar[r]_f&  B^{\bullet}\ar[r]^b&
+\text{Cone}(f)\ar[r]^a &
+A^{\bullet}[1]
+}
+$$
+(which is your first {\it distinguished
+triangle in life}) induces the following long
+exact sequence for all $C^{\bullet \in
+\text{Com}(\mathcal{A})}$:
+$$
+\xymatrix{
+\cdots\ar[r]
+&\text{Hom}^i_{\mathcal{H}(\mathcal{A})
+}(C^{\bullet},A^{\bullet})\ar[r]
+&\text{Hom}_{\mathcal{H}}(\mathcal{A})
+^i(C^{\bullet},B^{\bullet})\ar[r]&\\
+\ar[r]&\text{Hom}^i_{\mathcal{H}(\mathcal{A})
+}(C,\text{Cone}(f))\ar[r]
+&\text{Hom}^{i+1}_{\mathcal{H}(\mathcal{A})
+}(C^{\bullet},A^{\bullet})\ar[r]
+&\cdots
+}
+$$
+and the same happens for
+$\text{Hom}^i_{\mathcal{H}(\mathcal{A})
+}(\cdot,C^{\bullet})$.
+\end{lemma}
+
+It is very important that we went in
+$\mathcal{H}(\mathcal{A})$!
+
+\begin{proof}[Idea of proof]
+(The long exact sequence is the cohomology
+exact sequence associated to a short exact
+sequence. Also some exercise from the past is
+hidden in the details.)
+
+The short exact sequence
+$$
+\xymatrix{
+0\ar[r]&B^{\bullet}\ar[r]&\text{Cone}(f)
+\ar[r]
+&A[1]\ar[r]&0
+}
+$$
+splits. This gives
+$$
+\xymatrix{
+0\ar[r]&B^i\ar[r]&B^i\oplus
+A^{i+1}\ar[r]&A^{i+1}\ar[r]&0
+}
+$$
+Which in turn gives
+$$
+\xymatrix{
+0\ar[r]&\underline{\text{Hom}}(C^{\bullet},
+B^{\bullet})
+\ar[r]&\underline{\text{Hom}}(C^{\bullet},
+\text{Cone}(f))
+\ar[r]&\underline{\text{Hom}}(C^{\bullet},
+A[1]
+\ar[r]&0
+}
+$$
+and {\it then} we take the cohomology long
+exact sequence.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-simple}
+$bf=ab=fa[-1]=0$ in
+$\mathcal{H}(\mathcal{A})$.
+\end{exercise}
+
+\begin{exercise}
+\label{dcos-label-006}
+Prove that the right Ore conditions are not
+satisfied in $\text{Com}(\mathcal{A})$.
+\end{exercise}
+
+\begin{proposition}
+\label{dcos-label-007}
+QIS satisfy the right Ore conditions in
+$\mathcal{H}(\mathcal{A})$.
+\end{proposition}
+
+\begin{proof}
+In lecture we proved condition 1 and part of
+condition 2 of the right Ore conditions, see
+Subsection
+\ref{subsection-explicit-description-of-local
+ization}.
+Finishing the proof was
+left as exercise, including Ore condition 3.
+\end{proof}
+
+\bigskip\noindent
+Now we shall show that
+$$
+D(\mathcal{A})\cong
+\mathcal{H}(\mathcal{A})[\text{QIS}]
+$$
+$$
+H:\text{Com}(\mathcal{A}\to
+\mathcal{H}(\mathcal{A})
+$$
+\begin{proposition}
+\label{proposition-localization-functor}
+The localization functor
+$$
+\xymatrix{
+Q:\text{Com}(\mathcal{A})\ar[d]_H\ar[r]
+&
+D(\mathcal{A})\cong\mathcal{H}(\mathcal{A})
+[\text{QIS}]^{-1}\\
+\mathcal{H}(\mathcal{A})\ar[ur]_{Q'}
+}
+$$
+can be be decomposed as $Q' \circ H$.
+Moreover $Q' \cong
+\mathcal{H}(\mathcal{A})$, where
+$Q_{\mathcal{H}(\mathcal{A})}:\mathcal{H}
+(\mathcal{A})
+\to
+\mathcal{H}(\mathcal{A})[\text{QIS}]^{-1}$.
+\end{proposition}
+
+\begin{proof}
+Done in class, with some exercises for us to
+complete.
+\end{proof}
+
+This shows that the derived category is
+equivalent to the homotopy category with
+localization. We have the following
+corollary:
+
+\begin{lemma}
+\label{lemma-}
+We can specifically describe
+$$
+D(\mathcal{A}): \text{Ob}(D(\mathcal{A}) =
+\text{Com}(\mathcal{A})
+$$
+$$
+\text{Hom}_{D(\mathcal{A})}(A^{\bullet},
+B^{\bullet})
+=\{\text{equivelnce classes of roofs}\}
+$$
+Recall that a roof is
+$$
+\xymatrix{
+& C\ar[dl]_{\text{QIS}\ni S}\ar[dr]^{f}\\
+A& & B
+}
+$$
+\end{lemma}
+
+\bigskip\noindent
+Now we shall show that $D(\mathcal{A})$ is
+additive. (Or have we already proved this?
+ie. from the corollary?)
+
+\bigskip\noindent
+Why $\mathcal{H}(\mathcal{A})$ and
+$D(\mathcal{A})$ are not abelian: there are
+not so many injective and surjective
+morphisms.
+
+\begin{exercise}
+\label{dcos-label-008}
+$f \in \text{Hom}_{\mathcal{H}(\mathcal{A})}
+(A^{\bullet},B^{\bullet})$ is injective if
+and only if there exists  $g: B \to
+A^{\bullet} \in
+\text{Hom}_{\mathcal{H}(\mathcal{A})}
+(B^{\bullet},A^{\bullet})$ such that $g
+\circ f=\text{id}_A$. Formulate the same for
+surjections.
+\end{exercise}
+
+\section{Some properties of the derived
+category}
+\label{dcos-label-009}
+
+For every $i \in \mathbb{Z}$ define
+\begin{align*}
+\mathcal{A} &\longrightarrow D(\mathcal{A})
+\\
+A &\longmapsto A[i], \quad \{0 \to
+\overset{i}{A} \to 0\}
+\end{align*}
+
+So $A[i]$ is {\it that} complex. It is
+``concentrated in degree i''
+
+{\bf Goal:} understand morphisms between
+$M,N[i]$.
+
+\begin{definition}
+\label{definition-embedding-in-Com}
+Let $A \in \text{Com}(\mathcal{A})$. For all
+$n$,
+$$
+\tau_{\leq n}(A^{\bullet})^i:=\begin{cases}
+A^i\qquad &i<n \\
+\Ker d^n\qquad &i=n\\
+0,\quad &i>n
+\end{cases}
+$$
+then
+$$
+\tau_{\geq  n}(A^{\bullet})^i=\begin{cases}
+0\qquad
+&i<n \\
+A^n/\text{Im}d^{n-1}\qquad &i=n\\
+A^i,\qquad &i>n
+\end{cases}
+$$
+and $A^{\bullet}\to\tau_{\geq n}A^{\bullet}$.
+\end{definition}
+
+Then
+$$
+\tau_{\leq n}:\text{Com}(\mathcal{A}) \to
+\text{Com}(\mathcal{A})
+$$
+defines a functor $\tau_{\leq
+n}(\text{QIS})\subset \text{QIS}$ where
+$$
+\tau_{\leq }(f \sim _{\text{hom}}0) \subset
+\sim_{\text{hom}}0
+\implies
+$$
+\begin{align*}
+\tau_{\leq n}: \mathcal{H}(\mathcal{A})
+&\longrightarrow
+\mathcal{H}(\mathcal{A}) \\
+D(\mathcal{A}) &\longmapsto D(\mathcal{A})
+\end{align*}
+the same for $\tau_{\geq n}$.
+
+\medskip
+The following lemma allows us to understand
+how are morphisms behaved.
+
+\begin{lemma}
+\label{lemma-Homs}
+Let $A,B \in \mathcal{A}$. Then
+\begin{enumerate}
+\item
+$\text{Hom}_{D(\mathcal{A})}(A,B[-i])=0$ for
+all $i>0$.
+\item
+$\text{Hom}_{\mathcal{A}}(A,B)=\text{Hom}
+_{D(\mathcal{A})}(A,B)$.
+\end{enumerate}
+In particular, $\mathcal{A} \hookrightarrow
+A(\mathcal{A})$ is fully-faithful.
+\end{lemma}
+
+Now we introduce a notion of Ext, which will
+recover the usual Ext (derived functors).
+
+\begin{definition}
+\label{definition-Ext}
+For $i>0$,
+$$
+\text{Ext}^i_{\mathcal{A}}(A,B)=\text{Hom}
+_{D(\mathcal{A})}(A,B[i]).
+$$
+\end{definition}
+\begin{definition}[Yoneda]
+\label{definition-Yoneda}
+For $i>0$ let
+$$
+\text{Ext}_Y^i(A,B):=
+\{\substack{\text{equivalence
+classes of exact sequences}\\
+B\to K^{i-1}\to K^{i-2}\to \ldots \to K^0 \to
+A}\}
+$$
+and say that two such sequences are
+equivalent if there is a commutative diagram
+$$
+\xymatrix{
+B\ar[r]&  K^{i-1}\ar[r]\ar[d]&
+K^{i-2}\ar[r]\ar[d]& \cdots\ar[r]\ar[d]
+&K^0\ar[r]\ar[d]&A\\
+B\ar[r]&  \tilde{K}^{i-1}\ar[r]&
+\tilde{K}^{i-2}\ar[r]& \cdots\ar[r]
+&\tilde{K}^0\ar[r]&A
+}
+$$
+and are equivalent if there exists a sequence
+of equivalent elements
+$$
+K \sim K_0 \sim \ldots \sim \tilde{K}
+$$
+\end{definition}
+
+\begin{proposition}
+\label{proposition-Ext}
+$$
+\text{Ext}_{\mathcal{A}}^i(A,B) \cong
+\text{Ext}_Y^i(A,B)
+$$
+\end{proposition}
+
+\begin{proof}
+Sketched in class.
+\end{proof}
+
+\begin{exercise}
+\label{dcos-label-010}
+$D(\mathcal{A})$ and
+$\mathcal{H}(\mathcal{A})$ are abelian if and
+only if $\mathcal{A}$ is semisimple, that is,
+all exact sequences in $\mathcal{A}$ split.
+If $\mathcal{A}$ is semisimple, then
+$D(\mathcal{A})\cong \bigoplus_{i inn
+\mathbb{Z}}\mathcal{A}[-i]$.
+\end{exercise}
+
+\section{Triangulated categories}
+\label{section-triangulated-categories}
+
+\begin{definition}
+\label{definition-triangulated-category}
+An additive category $\mathcal{T}$ is a {\it
+triangulated category} if it has the
+following structures:
+\begin{itemize}
+\item $[1]:\mathcal{T} \to \mathcal{T}$
+autoequiv.
+\item Class of sequences of the form
+$$
+\xymatrix{
+A\ar[r]&B\ar[r]&C\ar[r]&A[1]
+}
+$$
+which are called {\it distinguished
+triangles}, and satisfy the following axioms:
+\begin{itemize}
+\item (Axiom 1.)
+\begin{itemize}
+\item $\xymatrix{
+A\ar[r]^{\text{id}}&A \ar[r]& 0\ar[r]&A[1] }$
+is a distinguished triangle.
+\item Any triangle $A \to B \to C \to A[I]$
+isomorphic to a distinguished
+triangle is a distinguished triangle.
+\item Any morphism $(A \xrightarrow{f}B)\in
+\mathcal{T}$ can be completed to a
+distinguished triangle $A\xrightarrow{f}B \to
+\mathcal{K} \to A[I]$, and $\mathcal{K}$ is
+called the {\it cone} of $f$.
+\end{itemize}
+\item (Axiom 2.) A triangle
+$$
+\xymatrix{
+A\ar[r]^f &  B \ar[r]^g &  C\ar[r]^h & A[1]
+}
+$$
+is distinguished if and only if
+$$
+\xymatrix{
+B\ar[r]^g &  C \ar[r]^g &  A[1]\ar[r]^{f[1]}
+& B[1]
+}
+$$
+is distinguihsed.
+
+\item (Axiom 3.) For any two distinguished
+triangles
+$$
+\xymatrix{
+A\ar[r]^f\ar[d]_a &  B \ar[r]\ar[d]^b &  C
+\ar@{.>}[d]^{u}\ar[r]&
+A[1]\ar[d]^{a[1]}\\
+A'\ar[r]_{f'}& B'\ar[r]& C'\ar[r]&A'[1]
+}
+$$
+and any $a,b$ such that $bf=f'a$ there exists
+$u$ that makes the above diagram commute (it
+is not unique!)
+
+\item (Octahedral axiom.) Any two
+distinguished triangles with a common vertex
+of the form
+$$
+\xymatrix{
+X\ar[r]^u& Y\ar[r]^v\ar[d]& Z\ar[r]&X[1]\\
+& Y'\ar[d]\\
+& W\ar[d]\\
+& Y[1]
+}
+$$
+can be completed to the following commutative
+diagram:
+$$
+\xymatrix{
+X\ar[d]_{=}\ar[r]^u& Y\ar[r]^v\ar[d]&
+Z\ar[r]&  X[1]\ar[d]^=\\
+X\ar[r]&  Y'\ar[d]\ar[r]&  Z'\ar[d]\ar[r]&
+X[1]\ar[d]^{u[1]}\\
+& W\ar[r]^=\ar[d]_h & W\ar[r]^h\ar[d]&
+Y[1]\\
+& Y[1]\ar[r]_{v[1]}&Z[1]
+}
+$$
+\end{itemize}
+\end{itemize}
+\end{definition}
+
+{\bf Properties.} Let
+$X\xrightarrow{f}Y\xrightarrow{g}
+Z\xrightarrow{h}X[1]$
+be a distinguished triangle.
+
+\begin{lemma}
+\label{dcos-label-011}
+\begin{enumerate}
+\item $gf=hg=f[1]h=0$.
+\item It induces the following sequence
+$$
+\xymatrix{
+\cdots\ar[r]&Z[-1]\ar[r]& X\ar[r]& Y\ar[r]&
+Z\ar[r]&X[1]
+\ar[r]&Y[1]\ar[r]& Z[1]\ar[r]&\cdots
+}
+$$
+such that any sequence of length $h$
+(contained in it?) is a distinguished
+triangle.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+$$
+\xymatrix{
+Y\ar[r]^g\ar[d]_=& Z\ar[d]_=\ar[r]^h&
+C[1]\ar[r]^{f[1]}\ar[d]&
+Y[1]\ar[d]^{g[1]}\\
+Z\ar[r]^{=}&Z\ar[r]& 0\ar[r]&Z[1]
+}
+$$
+and by axiom 3 we get $gf=0$. By Axiom 2 we
+get the second statement.
+\end{proof}
+
+\begin{lemma}
+\label{dcos-label-012}
+If $X \to Y \to Z \to X[1]$ is a
+distinguished triangle, then for every $U \in
+\mathcal{T}$ we have the following long exact
+sequences:
+$$
+\xymatrix{
+\cdots\ar[r]&\text{Hom}(U,X[i])\ar[r]&
+\text{Hom}(U,Y[i]\ar[r]&
+\text{Hom}(U,Z[i])\ar[r]&\text{Hom}(U,X[i+1]
+\ar[r]&\cdots
+}
+$$
+and the same happens for
+$\text{Hom}(\cdot,U)$
+\end{lemma}
+
+\begin{proof}
+Done in lecture, uses previous lemma and
+Axiom 3.
+\end{proof}
+
+We have the following corollary:
+
+\begin{lemma}
+\label{dcos-label-013}
+If in Axiom 3 two morphisms are isomorphisms,
+then the constructed one is also an
+isomorphism.
+\end{lemma}
+
+\begin{proof}
+Exercise. {\bf Hint.} Use Yoneda lemma.
+\end{proof}
+
+\begin{exercise}
+\label{dcos-label-014}
+If
+$A\xrightarrow{f}B\xrightarrow{g}
+C\xrightarrow{h}A[1]$
+is a distinguished triangle, then $h=0$ if
+and only if $f$ has a left inverse, if and
+only if $g$ has a right inverse.
+\end{exercise}
+
+As a corollary,
+
+\begin{lemma}
+\label{lemma-cone-of-morphism-is-unique}
+The cone of a morphism is unique up to
+isomorphism.
+\end{lemma}
+
+However, the cone is not functorial, which is
+a problem.
+
+\medskip\noindent
+Now we want to show that the homotopy
+category $\mathcal{H}(\mathcal{A})$ of an
+abelian category $\mathcal{A}$ has a
+triangulated structure. We need to say which
+are the distinguished triangles: but we
+already did this for the derived category:
+they are
+$$
+\xymatrix{
+A\ar[r]^f&B\ar[r]^b&\text{Cone}(f)\ar[r]^a&
+A[I]\ar[r]&0
+}
+$$
+
+\begin{theorem}
+\label{dcos-label-015}
+$\mathcal{H}(\mathcal{A})$ is triangulated.
+\end{theorem}
+
+\begin{proof}
+It looks like Axiom 1 should be immediate
+from our construction. Also Axiom 2 (indeed,
+we have a notion of $\text{Cone}(f)$ which we
+obviously expect to satisfy the property of
+the cone $\mathcal{K}$. Axiom 3 uses an
+exercise using the notion of cylinder.
+Proving the octahedral axiom is also an
+exercise with a big hint.
+\end{proof}
+
+{\bf $D(\mathcal{A})$ is triangulated.} Let
+$\mathcal{C}$ be triangulated, and $S$ a
+class of morphisms satisfying the right Ore
+conditions. We know that
+$\mathcal{C}[S]^{-1}$ is an additive
+category, but when is it triangulated?
+
+\begin{definition}
+\label{dcos-label-016}
+$S$ is {\it compatible} with a triangulated
+structure if
+\begin{enumerate}
+\item $s \in S$, $S[1]\in S$,
+\item In Axiom 3, if $a,b \in S$ then we can
+choose $u \in S$.
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}
+\label{dcos-label-017}
+It $\mathcal{T}$ is triangulated an $S$
+satisfies the right Ore conditions and is
+compatible with the triangulated structure of
+$\mathcal{T}$ then $\mathcal{T}[S]^{-1}$ is
+triangulated.
+\end{proposition}
+
+\begin{proof}
+Axioms 1-3 proved, Octahedral axiom is
+exercise with hint.
+\end{proof}
+
+We finally obtain:
+
+\begin{lemma}
+\label{dcos-label-031}
+$D(\mathcal{A})$ is triangulated.
+\end{lemma}
+
+\begin{proof}
+Two or three lines, uses 5 lemma, uses long
+exact sequences of $\text{Hom}$.
+\end{proof}
+
+\section{Derived functors}
+\label{section-derived-functors}
+
+\begin{definition}
+\label{definition-additive-exact-functor}
+An additive functor $F:\mathcal{T} \to
+\mathcal{T}'$ between triangulated categories
+is {\it exact} if
+\begin{enumerate}
+\item $F \circ
+[1]_{\mathcal{T}}=[1]_{\mathcal{T}'}\circ F$.
+\item Maps distinguished triangles to
+distinguished triangles.
+\end{enumerate}
+\end{definition}
+
+\medskip\noindent
+Here are some bounded notions:
+\begin{align*}
+\text{Com}^\bullet(\mathcal{A})&\\
+\text{Com}^+(\mathcal{A})&=\{A\in
+\text{Com}(\mathcal{A})
+|A^i=0,\quad i\ll 0\}\\
+\text{Com}^-(\mathcal{A})&=\{A\in
+\text{Com}(\mathcal{A})|i \gg 0\}\\
+\text{Com}^b(\mathcal{A})&=\{A \in
+\text{Com}(\mathcal{A})||i|\gg 0\}
+\end{align*}
+each of which gives a derived category $D^*$
+for $*=b,+$ or $-$.
+
+Now consider an exact functor of abelian
+categories $F:\mathcal{A} \to
+\mathcal{B}$. We would like to obtain a
+functor
+$D^*(\mathcal{A}) \to D^*(\mathcal{B})$.
+
+In general functors are not exact. Thus our
+goal now is:
+\begin{itemize}
+\item From a left exact functor
+$F:\mathcal{A} \to \mathcal{B}$ obtain
+$RF:D^+(\mathcal{A})\to D^+(\mathcal{B})$,
+\item From a right exact functor
+$G:\mathcal{A}\to \mathcal{B}$ obtain
+$LG:D^-(\mathcal{A})\to D^-(\mathcal{B})$.
+\end{itemize}
+Given an additive category $\mathcal{I}
+\subset \mathcal{A}$ of injective objects in
+$\mathcal{A}$, we have  $\mathcal{H}^*
+(\mathcal{I})\subset
+\mathcal{H}^* (\mathcal{A})
+\xrightarrow{G_{\mathcal{A}}}D^*(\mathcal{A})
+$.
+
+\begin{lemma}
+\label{dcos-label-018}
+Suppose that $\mathcal{A}$ has enough
+injective objects, $\forall A^\bullet \in
+\mathcal{A}$ can be embedded $A
+\hookrightarrow I \in\mathcal{I}$. Then
+$i:\mathcal{H}^+(\mathcal{I}) \to
+D^+(\mathcal{A})$ is an equivalence.
+\end{lemma}
+
+\begin{proof}
+Not proved.
+\end{proof}
+
+\section{Semiorthogonal decompositions}
+\label{dcos-label-032}
+
+{\bf Idea.} To split $D^*(\mathcal{A})$ in
+smaller pieces that are easier.
+
+\begin{definition}
+\label{dcos-label-019}
+$\mathcal{A} \subset \mathcal{T}$ is a {\it
+strictly full triangulated subcategory} if
+\begin{itemize}
+\item
+$\text{Hom}_{\mathcal{A}}(A,B)=\text{Hom}
+_{\mathcal{T}}(A,B)$
+for all $A,B
+\in \mathcal{A}$.
+\item If  $B \in \mathcal{T}$ is isomorphic
+to an object from $\mathcal{A}$,
+then $B \in \mathcal{A}$.
+\end{itemize}
+\end{definition}
+
+\begin{definition}
+\label{dcos-label-020}
+Let $\mathcal{T}$ be a triangulated category
+and $\mathcal{A}$, $\mathcal{B}$ strictly
+full trinagulated subcategories in
+$\mathcal{T}$. Then
+$\mathcal{T}=\left<\mathcal{A},\mathcal{B}
+\right>$
+is a {\it semiorthogonal decomposition} if
+\begin{itemize}
+\item $\text{Hom}_{\mathcal{T}}(B,A)=0$ for
+all $B \in \mathcal{B}$ and $A\in
+\mathcal{A}$.
+\item For all $T \in \mathcal{T}$ there
+exists a distinguished triangle
+$$
+T_B \to T \to T_{\mathcal{A}}\to
+T_{\mathcal{B}}[1]
+$$
+where $T_B \in \mathcal{B}$ and
+$T_\mathcal{A} \in \mathcal{A}$.
+\end{itemize}
+\end{definition}
+
+\begin{proposition}[Properties of
+semiorthogonal decomposition]
+\label{dcos-label-021}
+\begin{enumerate}
+\item Functoriality: for any $f \in T \to
+T'$,
+$$
+\xymatrix{
+T_{\mathcal{B}}\ar@{.>}[d]_{\exists
+f_{\mathcal{B}}}\ar[r]& T\ar[d]^f\ar[r]
+&
+T_{\mathcal{A}}\ar@{.>}[d]^{f_{\mathcal{A}}}
+\ar[r]&
+T_{\mathcal{B}}[1]\\
+T_{\mathcal{B}}'\ar[r]& T'\ar[r]&
+T'_{\mathcal{A}}\ar[r]& T'_{\mathcal{B}}[1]
+}
+$$
+there exist $f_{\mathcal{B}}$ and
+$f_{\mathcal{A}}$ as in the diagram.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+For $f_{\mathcal{A}}$,apply
+$\text{Hom}_{\mathcal{T}}(\cdot,
+T_{\mathcal{A}
+}')$
+to the upper distinguished triangle, obtain a
+long exact sequence\ldots{}
+\end{proof}
+
+Functoriality: defnote by $\alpha:\mathcal{A}
+\hookrightarrow  \mathcal{T}$ the inclusion,
+then we have a functor $\alpha^*:\mathcal{T}
+\to \mathcal{A}$ given by $T \to
+T_{\mathcal{A}}$, $f \mapsto
+f_{\mathcal{A}}$. Similarly for
+$\beta:\mathcal{B} \hookrightarrow
+\mathcal{T}$ we have a functor $\beta
+^*:\mathcal{T} \to \mathcal{B}$ by $T \to
+T_{\mathcal{B}}$, $f \mapsto
+f_{\mathcal{B}}$.
+
+\begin{lemma}
+\label{lemma-alpha-and-beta-adjoint}
+$\alpha^*$ is left adjoint to $\alpha$ and
+$\beta^*$ is right adjoint to $\beta.$
+\end{lemma}
+
+\begin{proof}
+We have for any $A \in \mathcal{A}$,
+$\text{Hom}_{\mathcal{A}}(\alpha^*T,A)=
+\text{Hom}_{\mathcal{T}}(T,\alpha_*A)$.
+But that is equal to
+$\text{Hom}_{\mathcal{A}}(\mathcal{T}
+_{\mathcal{A}},A)$.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-orthogonal}
+If
+$\mathcal{T}=\left<\mathcal{A},\mathcal{B}
+\right>$,
+then
+$$
+\mathcal{B}=\mathcal{A}^\perp=\left<B \in
+\mathcal{T} |
+\text{Hom}(B,A), \forall A \in
+\mathcal{A}\right>:=\Ker \alpha^*
+$$
+(the $\perp$ sign should be on the left of
+$\mathcal{A}$ but I don't know how to write
+this) and
+$$
+\mathcal{A}=\mathcal{B}^\perp=\left<A \in
+\mathcal{T} |
+\text{Hom}(B,A)=0,\forall B \in
+\mathcal{B}\right>:=\Ker B
+$$
+(here the $\perp$ is correct on the right
+side of $\mathcal{B}$).
+\end{exercise}
+
+This construction can be reversed.
+
+\begin{definition}
+\label{dcos-label-022}
+A strictly full subcategory $\mathcal{A}
+\hookrightarrow  \mathcal{T}$ is called
+\begin{itemize}
+\item {\it left admissible} is there exists
+$\alpha^*:\mathcal{T} \to
+\mathcal{A}$ left adjoint,
+\item {\it right admissible} is there exists
+$\alpha^!:\mathcal{T} \to
+\mathcal{A}$ right adjoint.
+\end{itemize}
+\end{definition}
+
+\begin{lemma}
+\label{dcos-label-023}
+If $\mathcal{A} \hookrightarrow  \mathcal{T}$
+is left admissible, then
+$\mathcal{T}=\left<\mathcal{A},\mathcal{A}
+^\perp\right>$
+is semiorthogonal decomposition. If
+$\mathcal{B} \hookrightarrow  \mathcal{T}$ is
+right admissible then
+$\mathcal{T}=\left<\mathcal{B}^\perp,
+\mathcal{B}\right>$ is semiorthogonal
+decomposition.
+\end{lemma}
+
+\begin{proof}
+Uses a remark, Yoneda lemma.
+\end{proof}
+
+\begin{proposition}[Bondall, Van der Borgh]
+\label{proposition-Bondall-Van-der-Borgh}
+If $\mathcal{T}$ is smooth and proper (if
+$\mathcal{T}=D^b(X)$, where $X$ is smooth and
+proper, we call $\mathcal{T}$ smooth and
+proper) then $\mathcal{A} \subset
+\mathcal{T}$ is left admissible $\iff$
+$\mathcal{A}$ is right admissible $\iff$
+$\mathcal{A}$ is smooth proper. If
+$\mathcal{A}$ is smooth and proper and
+$\mathcal{A} \hookrightarrow  \mathcal{T}$
+then $\mathcal{A}$ is left and right
+admissible.
+\end{proposition}
+
+\medskip\noindent
+If $D^b(C) \hookrightarrow  \mathcal{T}$ is
+fully faithful, then it is left and right
+admissible.
+
+{\bf Question.} When can we construct a full
+faithful embedding
+$$
+D^b(\text{pt})\cong D^b(\text{mod}k)
+\hookrightarrow  \mathcal{T}?
+$$
+Let \begin{align*} D^b(\text{mod}k)
+&\longrightarrow \mathcal{T} \\ k
+&\longmapsto E
+\end{align*}
+and define
+$$
+\varphi_E:V^\bullet \to V^\bullet \otimes E
+$$
+where $V^\bullet$ is a graded vector space.
+
+When is $\varphi_E$ full faithful? Some
+computations show that $\varphi_E$ is fully
+faithful if and only if $\text{Hom}(E,E)=k$.
+Recall from
+\texttt{categories.tex} that
+
+\begin{definition}
+\label{definition-faithful}
+Let $F : \mathcal{A} \to \mathcal{B}$ be a
+functor.
+\begin{enumerate}
+\item We say $F$ is {\it faithful} if
+for any objects $x, y \in \Ob(\mathcal{A})$
+the map
+$$
+F : \Mor_\mathcal{A}(x, y) \to
+\Mor_\mathcal{B}(F(x), F(y))
+$$
+is injective.
+\item If these maps are all bijective then
+$F$ is called
+{\it fully faithful}.
+\end{enumerate}
+\end{definition}
+
+\medskip\noindent
+\begin{definition}
+\label{definition-exceptional-object}
+$E \in \mathcal{T}$ is exceptional if
+$$
+\text{Hom}(E,E[i])=
+\begin{cases}
+k\qquad &i=0 \\
+0\qquad &i \neq 0
+\end{cases}
+$$
+\end{definition}
+
+\begin{lemma}
+\label{dcos-label-024}
+If $E$ is exceptional then
+$\varphi_E:D(\text{pt}) \to \mathcal{T}$ is a
+fully faithful embedding. Then
+$$
+\mathcal{T}=\left<\varphi_E(D^b(\text{pt})
+^\perp,E\right>=
+\left<E^\perp,\varphi_E(D^b(\text{pt}))
+\right>
+$$
+\end{lemma}
+
+{\bf Notation.} In this case,
+$\mathcal{T}=\left<E,E^\perp\right>=
+\left<E^\perp,E\right>$,
+where on the first bracket the $\perp$ should
+be on the left side of $E$.
+
+\begin{example}
+\label{dcos-label-025}
+On  $\mathbb{P}^n$, $\mathcal{O}(i)$ is
+exceptional. More general, if $X$ is Fano
+(i.e. smooth projective with $-K_X$ ample),
+then any line bundle on  $X$ is ample.
+\end{example}
+
+\begin{proof}
+$\text{Ext}^i(\mathcal{L},\mathcal{L})=H^{i}
+(X,\mathcal{O}_X)$,
+$H^{0}(X,\mathcal{O})=k$ and
+$H^{>0}(X,\mathcal{O})=0$ by Kodaira
+Vanishing.
+\end{proof}
+
+For Fano varieties we have nontrivial
+semiorthogonal decomposition.
+
+\begin{remark}
+\label{dcos-label-026}
+If $K_X \cong \mathcal{O}_X$ then there is no
+semiorthogonal decomposition of $D^b(X)$ (for
+K3 or abelian).
+\end{remark}
+
+Back to Fano,
+\begin{definition}
+\label{dcos-label-027}
+Let $\mathcal{A}_1,\ldots,\mathcal{A}_n \in
+\mathcal{T}$ be strictly full subcategories
+and
+$\mathcal{T}=\left<\mathcal{A}_1,\ldots,
+\mathcal{A}_n\right>$
+a {\it semiorthogonal decomposition}
+\begin{itemize}
+\item
+$\text{Hom}(\mathcal{A}_j,\mathcal{A}_i)=0$
+for all $j>i$.
+\item For all $T$ there is a chain of
+morphisms
+$$
+0 = T_n \to T_{n-1}\to \ldots \to T_1 \to
+T_0=T
+$$
+such that $\text{Cone}(T_i \to T_{i-1}) \in
+\mathcal{A}_i$.
+\end{itemize}
+\end{definition}
+
+\begin{exercise}
+\label{exercise-functoriality-and-cone}
+Prove functoriality of $T \to \text{Cone}(T_i
+\to T_j)$ for $i>j$.
+\end{exercise}
+
+\begin{definition}
+\label{dcos-label-028}
+A collection of objects $E_1,\ldots, E_n$ is
+{\it exceptional} if
+\begin{enumerate}
+\item For all $i$, $E_i$ is exceptional.
+\item
+$\text{Hom}(\left<E_i\right>,
+\left<E_j\right>)
+=0$
+for all $i>j$, where
+$\left<E_j\right>$ is a minimal triangulated
+category generated by $E_i$.
+\end{enumerate}
+\end{definition}
+
+We have a corollary:
+
+\begin{lemma}
+\label{dcos-label-029}
+If $E_1,\ldots,E_n$ is an exceptional
+collection, then
+$$
+\mathcal{T}=\left<E_1,\ldots,E_n,\left<E_1,
+\ldots,E_n\right>^\perp\right>
+=\left<\left<E_1,\ldots,E_n\right>^\perp,E_1,
+\ldots,E_n\right>
+$$
+(where $\perp$ should be on the left of the
+bracket in the first appearence) is a
+semiorthogonal decomposition.
+\end{lemma}
+
+\begin{definition}
+\label{dcos-label-033}
+If $\left<E_1,\ldots,E_n\right>^\perp=0$
+(equivalently with $\perp$ on the left).
+\end{definition}
+
+\begin{exercise}
+\label{dcos-label-030}
+Let $X$ be a Fano variety with $-K_X=mH$ for
+$H$ ample ($m$ is the index of $X$). Then for
+every line bundle $\mathcal{L}$,
+$$
+(\mathcal{L}(-m+1)H,\ldots,\mathcal{L}(-H)
+\mathcal{L})
+$$
+is an exceptional collection.
+\end{exercise}
+
+\begin{proof}
+Use Serre duality and Kodaira Vanishing.
+\end{proof}
+
+\medskip\noindent
+Here is the promised theorem from the
+beginning of this minicourse:
+
+\begin{theorem}[Beilinson]
+\label{theorem-Beilinson}
+$D^b(\mathbb{P}^n)=\left<\mathcal{O}(-n),
+\ldots,\mathcal{O}\right>$
+is a full exceptional collection.
+\end{theorem}
+
+This means that we can classify all objects
+of $D^b(\mathbb{P}^n)$. Because whenever we
+have a semiorthogonal decomposition we get
+these chains of morphisms, i.e. for all
+$D^b(\mathbb{P}^n)$ there exists a chain
+$$
+0=T_n \to \ldots \to T_0=T
+$$
+such that $\text{Cone}(T_i \to T_{i-1}) \in
+\left<\mathcal{O}(-i)\right> \cong
+D^b(\text{pt})$.
+
+Probably this is the content of
+\cite{Beilinson-derived}.
+
+\begin{proof}[Proof of Beilinson theorem]
+Consider the Koszul complex
+$$
+0\to \mathcal{O}(-n-1)\to\ldots \to
+\Lambda^{2}V^\vee \otimes \mathcal{O}(-2)
+\to V^{\vee}\otimes \mathcal{O}(-1) to
+\mathcal{O} \to0
+$$
+This implies that
+$$
+\mathcal{O}(n-1) \in \left<
+\mathcal{O}(-n),\ldots,\mathcal{O}\right>
+$$
+\ldots{} proof completed in class.
+\end{proof}
+
+\section{Kuznetsov - Video}
+\label{section-video}
+
+\noindent
+In this section I go over
+\href{https://www.mathnet.ru/php/
+presentation.phtml?option_lang=eng&presentid=
+337}{this
+video} of a talk by Kuznetsov where he
+explains derived category in a very synthetic
+way.
+
+\begin{example}
+\label{example-simplest-derived-category}
+Perhaps the simplest example of a derived
+category is when $X=\Spec k$ is a point. In
+this case,
+$$
+D^b(X)=D^b(k)=\left\{\bigoplus_tk^{n_t}[t]:
+n_t=0\text{ for }|t|\gg 0\right\}
+$$
+with morphisms
+$$
+\Hom(k,k[t])
+=\begin{cases}
+k\qquad &t=0 \\
+0\qquad &t\neq 0.
+\end{cases}
+$$
+\end{example}
+
+\noindent
+Now let's define semiorthogonal
+decomposition. Let $\mathcal{T}$ be a
+category and
+$\mathcal{A}_1,\mathcal{A}_2,\ldots,
+\mathcal{A}_m
+\subset \mathcal{T}$ full triangulated
+subcategories. This means that each of these
+subcategories is invariant under the shift
+functor and under taking cones; i.e. if a
+complex is in $\mathcal{A}_i$ then so is its
+shift, and if two complexes are in
+$\mathcal{A}_i$ then so is their cone. Then
+$\mathcal{A}_1,\ldots,\mathcal{A}_m$ are a
+{\it semiorthogonal decomposition} of
+$\mathcal{T}$ if
+$\Hom(\mathcal{A}_i,\mathcal{A}_j)=0$ for
+$i>j$, and if for every object $T \in
+\mathcal{T}$ there exist
+$$
+\xymatrixcolsep{1.5em}
+\xymatrix{
+0\ar[r]&T_m\ar[rr]&&\ar[dl]T_{m-1}\ar[r]
+&\cdots\ar[r]&
+T_2\ar[rr]&&\ar[dl]T_1\ar[rr]&&\ar[dl]T_0=T\\
+&&A_m
+\ar@{-->}[ul]&&&&A_2\ar@{-->}[ul]&&
+A_1\ar@{-->}[ul]
+}
+$$
+with $A_i \in \mathcal{A}_i$. That is, it's
+like if there was a filtration of $T$ with
+the components in the $\mathcal{A}_i$. In
+this case we write
+$\mathcal{T}=\left<\mathcal{A}_1,\ldots,
+\mathcal{A}_m\right>$.
+
+An interesting question is: suppose that you
+have a full triangulated subcategory
+$\mathcal{A}_1 \subset \mathcal{T}$. Is it
+possible to extend this to a semiorthogonal
+decomposition? Actually, usually it is
+impossible. It is a complicated problem to
+construct semiorthogonal decompositions. What
+we need is adjoint functors.
+
+We say that $\mathcal{A}$ is {\it admissible}
+if there exist $\alpha^*\alpha^!:\mathcal{T}
+\to \mathcal{A}$ left and right adjoint. It
+is easy to check that if $\mathcal{A}$ is
+admissible, then
+$\mathcal{T}=\left<\mathcal{A},
+\leavevmode^\perp\mathcal{A}\right>$
+and
+$\mathcal{T}=\left<\mathcal{A}^\perp,
+\mathcal{A}\right>$
+are semiorthogonal decompositions, where
+these two subcategories are the {\it left and
+right orthogonal subcategories}
+\begin{align*}
+\leavevmode^\perp\mathcal{A}&=\{T \in
+\mathcal{T}: \Hom(T,\mathcal{A})=0\}\\
+\mathcal{A}^\perp&=\{T \in
+\mathcal{T}:\Hom(\mathcal{A},T)=0\}.
+\end{align*}
+In fact for the first orthogonal
+decomposition we only need the left adjoint
+functor, and for the second, only the right
+adjoint functor.
+
+If $X$ is a connected Calabi-Yau manifold,
+it's easy to see that $D^b(X)$ has no
+semiorthogonal decomposition. This is because
+since the canonical class is trivial then by
+Serre duality we obtain that any
+semiorthogonal decomposition is in fact
+completely orthogonal, but it's easy to see
+that there are no completely orthogonal
+decompositions in any connected algebraic
+variety.
+
+
+
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

@@ -1,0 +1,626 @@
+\input{preamble}
+\begin{document}
+
+\title{Geometric Stability Conditions and
+Group Actions}
+\maketitle
+
+\noindent
+Minicourse by Hannah Dell (University of
+Bonn, Germany), CIMPA school Florian\'opolis
+2025.
+
+\medskip\noindent
+Hannah's notes at
+\href{https://www.hannahdell.me/cimpa2025}
+{hannahdell.me/cimpa2025}
+
+\medskip\noindent
+These notes at
+\href{%
+http://github.com/danimalabares/cimpa-floripa
+}{%
+github.com/danimalabares/cimpa-floripa
+}
+
+\bigskip\noindent
+
+{\bf Abstract.} Group actions on categories
+arise naturally from symmetries of varieties
+and quivers, but how does this interact with
+Bridgeland stability? In the frist half of
+this course we will introduce equivariant
+categories, which generalises the category of
+equivariant sheaves. Then we will show there
+is a correspondence between stability
+conditions on a category with a fniite group
+action, and stability conditions on the
+equivariant category -- this will also play a
+role in Xiaolei Zhao's course. We will use
+this to produce stability conditions on
+quotient varieties (and stacks).
+
+In the second half of the course, we will
+apply this to study open questions about the
+geometry of the stability manifold: in
+particular, we will discuss "geometric
+stability conditions" -- those for which all
+skyscraper sheaves of points are stable. In
+practice, these are constructed using slope
+stability for sheaves. Some varieties have
+only geometric stability conditions, whereas
+in other cases, there are more (for example
+if there is an equivalence with quiver
+representations). Lie Fu, Chunyi Li, and
+Xiaolei Zhao were the frist to provide a
+general result explaining this phenomenon. In
+particular, they showed that if a variety has
+a fniite map to an abelian variety, then all
+stability conditions are geometric. We will
+test the converse on free quotients of
+abelian varieties by fniite groups, including
+Beauville-type and bielliptic surfaces. This
+is based on joint work with Edmund Heng and
+Anthony Licata.
+
+\bigskip\noindent
+\tableofcontents
+\bigskip\noindent
+
+\section*{Motivation}
+\label{section-motivation}
+
+The Bridgeland stability machine:
+
+$$
+[diagram]
+$$
+\noindent
+{\bf Question 1.} How does the geometry of
+$\text{Stab}(X)$ relate to $X$?
+\noindent
+{\bf Question 2.} How to invariants (of $X$
+or $\ddot\cup $) behave under (finite) group
+actions?
+
+\medskip\noindent
+{\bf Goal of these lectures.} Answer both by
+studying ``free quotients'' (and see lots of
+examples along the way!)
+
+\section{Geometric stability conditions on
+surfaces}
+\label{gscag-label-001}
+\noindent
+{\bf Setup.} $X$ smooth projective surface
+over $\mathbb{C}$.
+\begin{align*}
+\text{NS}(X)&:=\text{Pic}(X)/\text{Pic}^0(X)
+\qquad
+\text{Neron-Severi group}\\
+\text{NS}_{\mathbb{R}}(X)& :=\text{NS}(X)
+\otimes \mathbb{R}\\
+\text{Amp}_{\mathbb{R}}(X)&:=\text{ ample
+cone, i.e. $H \in
+\text{NS}_{\mathbb{R}}(X)$ such that $H^2>0$}
+\end{align*}
+
+\begin{definition}
+\label{definition-slope-and-stability}
+Let $0 \neq  E \in \text{Coh}(X)$ and $H \in
+\text{Amp}_{\mathbb{R}}(X)$,
+\begin{enumerate}
+\item The {\it $H$-slope} of $E$ is
+$$
+\mu_H(E):=
+\begin{cases}
++\infty\qquad &\text{ch}_0(E)=0 \\
+\frac{H\cdot \text{ch}_1(E)}{H^2
+\text{ch}_0(E)}\qquad &\text{otherwise}
+\end{cases}
+$$
+\item $E$ is {\it $H$-(semi)stable} if $0
+\neq  F \subset E$ implies
+$$
+\mu_H(F) < \mu_H(E/F)\qquad (\mu_H\leq
+\mu_H(E/F)
+$$
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+\label{example-semistable-condition}
+
+\end{example}
+
+\noindent
+{\bf Problem.} [missing]
+
+\begin{definition}
+\label{gscag-label-002}
+A path $\sigma=(\mathcal{A},Z)$ is a {\it
+(numerical) Bridgeland stability condition}
+for $D^b(X)$ if
+\begin{enumerate}
+\item $\mathcal{A} \subset D^b(X)$ is the
+heart of an bounded $t$-structure.
+\item $Z:K_0(X) \to \mathbb{C}$ homomorphism
+(the {\it central charge}) such
+that
+\begin{itemize}
+\item $0 \neq E \in \mathcal{A} \implies
+Z(E) \in \mathbb{H}$, where
+$\mathbb{H}$ is the upper half plane in
+$\mathbb{C}$.
+\item HN filtrations exist.
+\item Factors via $\text{Knum}(X)$.
+\end{itemize}
+\item Support property.
+\end{enumerate}
+\end{definition}
+
+Let $X$ be a surface, and fix  $H \in
+\text{Amp}_\mathbb{R}(X)$ and $\beta \in
+\mathbb{R}$. Define
+\begin{align*}
+\tau_{M,\beta}&:=\{E \in \text{Coh}(X):E
+\overset{\text{surj.}}{\to} Q \neq 0
+\implies \mu_M(Q)>\beta\}\\
+\mathcal{F}_{H,\beta}&:=\{E \in
+\text{Coh}(X):0 \neq  F \subset E
+\implies \mu_M(F) \leq \beta\}
+\end{align*}
+
+\begin{exercise}
+\label{exercise-torsion-pair}
+$(\tau_{M,\beta},\mathcal{F}_{H,\beta})$ is a
+torsion pair in $\text{Coh}(X)$.
+\end{exercise}
+
+\begin{definition}
+\label{definition-Coh-H-beta}
+$$
+\text{Coh}^{H,\beta}(X):=\left\{ E \in
+D^b(X):
+\substack{H^0(E) \in \tau_{H,\beta} \\
+H^{-1}(E) \in \mathcal{F}_{H,\beta}\\
+H^i(E)=0} \right\}
+$$
+\end{definition}
+
+\begin{exercise}
+\label{exercise-new-slope}
+
+\end{exercise}
+
+There are notes available about the
+following:
+
+\begin{theorem}[Bridgeland '08,
+Arcara-Bertam, Macri-Schmidt]
+\label{theorem-Bridgeland}
+For $\alpha\gg 0$,
+$$
+\mathbb{C}\cdot \{\sigma_{H,D,\alpha,\beta}=
+(\text{Coh}^{H,B}(X),Z_{H,D,\alpha,\beta})\}
+$$
+is a continuous family of Bridgeland
+stability conditions.
+\end{theorem}
+
+\noindent
+{\bf Question 3.} Is this all of
+$\text{Stab}(X)$?
+
+\begin{exercise}
+\label{exercise-O-is-stable}
+$\mathcal{O}_x$ is
+$\sigma_{H,D,\alpha,\beta}$-stable for all
+$x\in X$.
+\end{exercise}
+
+\begin{definition}
+\label{gscag-label-003}
+$X$ smooth projective variety, $\sigma \in
+\text{Stab}(X)$ is {\it geometric} if for all
+$x \in X$, $\mathcal{O}_x$ is
+$\sigma$-stable. Write
+$\text{Stab}^{\text{geo}}(X)=$ all geometric
+stability conditions.
+\end{definition}
+
+\medskip\noindent
+Now we can refine Question 3:
+
+\medskip\noindent
+{\bf Question 3.1.} Does Theorem
+\ref{theorem-Bridgeland} describe all
+geometric stability conditions?
+
+\medskip\noindent
+{\bf Question 3.2.} Do there exist
+nongeometric stability conditions?
+
+\medskip\noindent
+{\bf Answer 3.2.}
+\begin{itemize}
+\item $\dim X=1$ no! Unless $X=\mathbb{P}^1$.
+\item $\dim X \leq 3$? Yes if $X$ has a full
+exceptional collection.
+\item $\dim X=2$?
+\begin{enumerate}
+\item If $X$ is an abelian surface, no!
+\item Yes for $\mathbb{P}^2$, and more
+generally for rational surfaces.
+\item Yes for K3 surfaces.
+\item $X \supset C \cong \mathbb{P}^1$ such
+that $C^2 < 0$.
+\end{enumerate}
+\end{itemize}
+
+\medskip\noindent
+{\bf Takeaway.} $\text{Stab}(X)$ sees
+something about how (1) is different to
+(2)-(4) but what is it?
+
+\medskip\noindent
+The following theorem is valid in any
+dimension:
+
+\begin{theorem}[Lie Fu-Chunyi Li-Xiaolei Zhao
+'21]
+\label{theorem-Albanese-variety}
+$X$ has a finite Albanese morphism ($\iff$
+there exist a finite morphism to an abelian
+variety), then
+$$
+\text{Stab}(X) = \text{Stab}^{\text{geo}}(X)
+$$
+\end{theorem}
+
+\begin{proof}[Sketch of proof]
+\begin{itemize}
+\item $\sigma \in \text{Stab}(X)$.
+\item Let $E_1,\ldots,E_k$ be the {\it
+Jordan-H\"older factors} of $\mathcal{O}_X$
+w.r.t. $\sigma$ (i.e. $E_i$ $\sigma$-stable
+connected component containing the identity).
+\item $\mathcal{L} \in \text{Pic}^0(X)$.
+\end{itemize}
+By [Polishchuk '07], $\otimes \mathcal{L}$
+does not change stability. Also
+$\mathcal{O}_x \otimes \mathcal{L}\cong
+\mathcal{O}_x$ so HN filtration and
+Jordan-H\"older factors are preserved
+$\implies
+$ $E_i \otimes \mathcal{L} \cong E_i$.
+\begin{itemize}
+\item $\mathcal{L} \in
+\text{Pic}^0(\text{Alb}(X))$, $E_i \otimes
+\text{alb}^\vee(\mathcal{L})\cong E_i$.
+\end{itemize}
+\begin{align*}
+\implies & R\text{alb}_*(E_i)\otimes
+\mathcal{L} \cong R\text{alb}_*(E_i)\qquad
+\text{(projection formula)}\\
+\implies &  R\text{alb}_*(E_i)\text{ has
+finite support}\qquad
+\text{([Polishucuk '03])}\\
+\implies &E_i\text{ has finite support}\qquad
+\text{($\text{alb}_*$ finite)}\\
+\overset{\text{claim}}{\implies
+}&\mathcal{O}_x\text{ is $\sigma$-stable}
+\end{align*}
+\end{proof}
+
+\medskip\noindent
+{\bf Question 4.} Albanese morphism of $X$ is
+not finite implies that there exist
+nongeometric stability conditions?
+
+\medskip\noindent
+The idea is to investigate this for examples
+arising as free quotients. If $G \mathbb{y}
+X$ is a free action of a finite group, then
+$\text{alb}_X$ is finite, and for $Y:=X/G$ we
+have $\text{alb}_Y$ is not finite. In
+sections 2 and 3 we will compate
+$\text{Stab}(X)$ and $\text{Stab}(X/G)$.
+
+\section{Equivariant categories}
+\label{section-equivariant-categories}
+
+Let $G$ be a finite group and $\mathcal{D}$ a
+$k$-linear category (i.e. all $\Hom$ are
+$k$-vector spaces, in particular it is
+additive), where $k=\bar{k}$ and
+$(|G|,\text{char}k)=1$.
+
+The following definition is by [Deligne '97].
+
+\begin{definition}[Group action]
+\label{definition-group-action}
+A {\it (right) action} of $G$ on
+$\mathcal{D}$ is the data of
+\begin{enumerate}
+\item $\forall g \in G$,
+$\phi_g:\mathcal{D}\xrightarrow{\sim}
+\mathcal{D}$.
+\item $\forall g,h\in G$, a natural
+isomorphism
+$\mathcal{E}_{g,h}:\phi_g\circ \phi_h
+\xrightarrow{\sim}\phi_{hg}$ such that
+$$
+\xymatrix{
+\phi_f \circ\phi_g \circ\phi_h
+\ar[r]^{\mathcal{E}_{g,h}}\ar[d]_{\mathcal{E}
+_{f,g}}&\phi_f
+\circ \phi_{hg}
+\ar[d]^{\mathcal{E}_{f \circ hg}}\\
+\phi_{gf}\circ
+\phi_h\ar[r]^{\mathcal{E}_{gf,h}}&\phi_{hgf}
+}
+$$
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+\label{remark-more-than-a-homomorphism}
+This is more than a group a homomorphism $G
+\to \text{Aut}(\mathcal{D})$. Indeed, given
+this, $\forall E \in \mathcal{D}$,
+$$
+\phi_g \circ \phi_h(E)\cong \phi_{gh}(E)
+$$
+but may not come from a natural isomorphism
+of functors
+$\phi_g\circ\phi_h\cong\phi_{hg}$.
+\end{remark}
+
+\begin{example}
+\label{example-group-actions}
+\begin{enumerate}
+\item $X$: scheme, $G \leq \text{Aut}(X)$.
+For every $g \in G$ define
+$\phi_g:=g^*
+:\text{Coh}(X)\xrightarrow{\sim}\text{Coh}(X)
+$.
+Then for every $g,h$ there are canonical
+isomorphisms
+$$
+\phi_g \circ\phi_h=g^*\circ
+h^*\xrightarrow{\sim}(hg)^* =\phi_{hg}.
+$$
+$G \mathbb{y} \text{Coh}(X)$ lifts to
+$G\mathbb{y}D^b(X)$.
+
+Eg. an Enriques surface, i.e.
+$Y=X/\mathbb{Z}/2\mathbb{Z}$, $X$ a K3
+surface,
+$\mathbb{Z}/2\mathbb{Z}=\left<i\right>$, for
+$i:X\to X$ involution, $x
+\in X$, $i^*
+(\mathcal{O}_x)=\mathcal{O}_{i^{-1}(x)}$.
+
+\item $Q$: acyclic quiver, $G\leq
+\text{Aut}^+(Q)=$ automorphisms of the
+graph, orientation preserving. Then
+$G\mathbb{y}\text{Rep}Q$. Via
+$(M_i,\varphi_\alpha)\mapsto
+(M_{g(i)},\varphi_{g(x)})$.
+
+Eg. [Missing]
+\end{enumerate}
+\end{example}
+
+\medskip\noindent
+{\bf Equivariantization.}
+
+\begin{definition}
+\label{definition-G-equivariant-object}
+Let $G \mathbb{y}\mathcal{D}$. A {\it
+$G$-equivariant} object is a pair
+$(E,\{\lambda_g\}_G$,
+\begin{itemize}
+\item $E \in \mathcal{D}$,
+\item $\lambda_g:E
+\xrightarrow{\sim}\phi_g(E)$, a {\bf choice}
+of isomorphism
+for all $g\in G$, such that
+$$
+\xymatrix{
+E\ar[r]^{\lambda_g}\ar[d]_{\lambda_hg,\sim}&
+\phi_g(E)\\
+\phi_{hg}(E)&\phi_g(\phi_n(E))\ar[l]
+_{\mathcal{E}_{gh}}
+}
+$$
+A {\it morphism of $G$-equivariant objects}
+is
+$$
+(E,\{\lambda_g\}_G)\to(E'_g,\{\lambda'_g\}_G)
+$$
+is $F \in \Hom_\mathcal{D}(E,E')$ such that
+for all $g \in G$,
+$$
+\xymatrix{
+E\ar[d]_F\ar[r]^{\lambda_g}&\phi_g(E)\ar[d]
+^{\phi_g(F)}\\
+E'\ar[r]^{\lambda'_g}&\phi_g(E')
+}
+$$
+Together these form a category,
+$\mathcal{D}_G$, called {\it $G$-equivariant
+category}.
+\end{itemize}
+\end{definition}
+
+\begin{remark}
+\label{remark-uses-isomorphisms-Egh}
+This uses the isomorphisms
+$\mathcal{E}_{g,h}$.
+\end{remark}
+
+\begin{example}
+\label{example-G-equivariant-objects}
+\begin{enumerate}
+\item $G\mathbb{y}X$, $G$-equivariant objects
+are $G$-equivariant coherent
+sheaves.
+$$
+(\text{Coh}(X))_G=:\text{Coh}_G(X)
+$$
+In fact, $\text{Coh}_G(X)\cong
+\text{Coh}([X/G])$.
+
+If $G$ acts freely, then
+$$
+\xymatrix{
+X\ar[dr]_{\pi}\ar[rr]^g &  &
+X\ar[dl]_{\pi}\\
+&X/G
+}
+$$
+and $\text{Coh}(X/G)\cong \text{Coh}_G(X)$
+via $E \mapsto (\pi^* E,\{\lambda_g\}_{g \in
+G}$ where
+$$
+\xymatrix{
+\lambda_g:\pi^* E\ar[dr]_{\lambda_g}\ar[r]&
+(\pi \circ g)^* E\ar[d]^=\\
+&g^*(\pi^*E)
+}
+$$
+Eg. $Y=X/(\mathbb{Z}/2\mathbb{Z})$ Enriques
+surface, $y \in Y$,
+$\text{supp}\pi^{-1}(y)=\{x,x'=i^{-1}(x)\}$
+$$
+\xymatrixrowsep{.2em}
+\xymatrix{
+&\mathcal{O}_x\ar[r]^{\text{id}}&\mathcal{O}
+_x\\
+\pi^*
+(\mathcal{O}_x)=&\oplus&\oplus&=\text{id}
+^*(\pi^*(\mathcal{O}_y))\\
+&\mathcal{O}_{x'}\ar[r]^{\text{id}}&
+\mathcal{O}_{x'}
+}
+$$
+$$
+\xymatrixrowsep{.2em}
+\xymatrix{
+&\mathcal{O}_x\ar[r]^{i^*}\ar[ddr]&
+\mathcal{O}
+_x\\
+\pi^*
+(\mathcal{O}_y)=&\oplus&\oplus&
+=i^*(\pi^*(\mathcal{O}_y))\\
+&\mathcal{O}_{x'}\ar[r]^{i^*}\ar[uur]&
+\mathcal{O}_{x'}
+}
+$$
+In general,
+$$
+(D^b(X))_G\cong
+D^b(\text{Coh}_G(X))=:D^b_G(X)
+$$
+\item {\bf Theorem (Demonet '10).}
+$G\mathbb{y} Q$ then $\exists Q_G$ such that
+$\text{Rep}(Q_G)\cong\text{Rep}(Q)_G$. Eg.
+[Missing.]
+
+\item $G \mathbb{y} \mathcal{D}$ for $G$
+abelian,
+$\hat{G}:=\Hom(G,K^*)\mathbb{y}\mathcal{D}_G$
+by
+$$
+\phi_{\underbrace{x}_{\in
+G}}((E,\{\lambda_g\}_G))
+:=(E,\{\lambda_g\}_G)\otimes
+x=(E,\{\lambda_g\cdot x(g)\}_{g \in G})
+$$
+Eg. $Y$ Enriques surface \ldots{} [Missing]
+\end{enumerate}
+\end{example}
+
+\begin{theorem}[Elagin '15]
+\label{theorem-Elagin}
+$G$ abelian, $G\mathbb{y}\mathcal{D}$
+$$
+(\mathcal{D}_G)_{\hat{G}}\cong \mathcal{D}
+$$
+\end{theorem}
+
+\section{Exercise lecture}
+\label{section-exercise-lecture}
+
+On a surface $X$, to have a Bridgeland
+stability condition we wanted a map
+$$
+\xymatrix{
+Z:K_0(X)\ar[rr]\ar[dr]&  &  \mathbb{C}\\
+&  \Lambda\ar[ur]
+}
+$$
+For a numerical B.s.c., we ask
+$$
+\xymatrix{
+Z:K_0(X)\ar[rr]\ar[dr]&  &  \mathbb{C}\\
+&  K_{num}\ar[ur]
+}
+$$
+Recall that the {\it Grothendieck group}
+$K_0$ can be defined to be the free group
+generated by isomorphism calsess of objects
+in $D^b(X)$ quotient by the {\it Euler
+pairing}, i.e.
+$$
+[F]=[E]+[G] \iff E \to F \to G \to E[i]
+$$
+Now let
+$$
+\chi(E,F)=\sum_{i}(-1)^{i}\dim
+\underbrace{\text{Ext}^i(E,F)}
+_{=\Hom(E,F[i])}
+$$
+then
+$$
+K_{num}=K_0(X)/\underbrace{\text{null}(\chi)}
+_{=\{E:\chi(E,F)=0\forall F\in K_0(X)\}}
+$$
+To obtain a lattice consider
+$$
+\xymatrix{
+K_0(X)\ar[d]\ar[r]^{ch}& \CH^* (X)\ar[d]\\
+K_{num}(X)\ar[r]^{ch}&\underbrace{\CH^*_{num}
+(X)}
+_{\simeq \underbrace{\mathbb{Z}}_{ch_0}
+\oplus \text{NS}(X) \oplus
+\frac{1}{2}\underbrace{\mathbb{Z}}_{ch_2}}
+}
+$$
+Fix $B \in \text{NS}(X)_{\mathbb{R}}$.
+$$
+\text{NS}(X)\ni A \mapsto \text{deg}(A\cdot
+B)
+\in
+c\cdot \mathbb{Z}
+$$
+for $c \in \mathbb{R}$. For a surface,
+$$
+\Lambda = \mathbb{Z} \oplus
+\mathbb{Z}^{\oplus \text{rk}(\text{NS}(X))}
+\oplus \frac{1}{2}\mathbb{Z}
+$$
+$$
+Z_{H,D,\alpha,\beta}=(\alpha+i \beta)H^2
+ch_0+(D+iH)ch_1-ch_2.
+$$
+
+\begin{exercise}
+\label{exercise-Ox-is-simple}
+$\mathcal{O}_X$ is simple (i.e. no
+subobjects) in $\text{Coh}^{H,\beta}(X)$.
+\end{exercise}
+
+\end{document}

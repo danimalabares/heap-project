@@ -1,0 +1,910 @@
+\input{preamble}
+\begin{document}
+
+\title{Moduli Spaces of Sheaves}
+\maketitle
+
+Minicourse by Cristina Manolache, CIMPA
+school Florian\'opolis 2025.
+
+Notes at
+\href{%
+http://github.com/danimalabares/cimpa-floripa
+}{%
+github.com/danimalabares/cimpa-floripa
+}
+
+\bigskip\noindent
+
+{\bf Abstract.} This course will be an
+introduction to Moduli Spaces of vector
+bundles. A moduli space of stable vector
+bundles on a smooth, algebraic variety X is a
+scheme whose points are in ``natural
+bijection'' to isomorphic classes of stable
+vector bundles on X. Using Geometric
+Invariant Theory the moduli space can be
+constructed as a quotient of certain
+Quot-scheme by a natural group action. We
+introduce the crucial concept of stability of
+vector bundles over smooth projective
+varieties and we give a cohomological
+characterization of the (semi)stability. The
+notion of (semi)stability is needed to ensure
+that the set of vector bundles one wants to
+parameterize is small enough to be
+parameterized by a scheme of fniite type. We
+introduce the formal defniition of moduli
+functor, fnie moduli space and coarse moduli
+space and we recall some generalities on
+moduli spaces of vector bundles. Then we
+focus on vector bundles on algebraic
+surfaces. Quite a lot is known in this case
+and we will review the main results, some of
+which will illustrate how the geometry of the
+surface is refelcted in the geometry of the
+moduli space. Going beyond surfaces, we
+introduce the notion of monad, which allow
+the classifciation of vector bundles on, for
+instance, $\mathbb{P}^3$. Monads appeared in
+a wide variety of contexts within algebraic
+geometry, and they are very useful when we
+want to construct vector bundles with
+prescribed invariants like rank, determinant,
+Chern classes, etc.  Finally, we will study
+moduli spaces of vector bundles on higher
+dimensional varieties. As we will stress, the
+situation drastically difefrs and results
+like the smoothness and irreducibility of
+moduli spaces of stable vector bundles on
+algebraic surfaces turn to be false for
+moduli spaces of stable vector bundles on
+higher dimensional algebraic varieties.
+
+\bigskip\noindent
+\tableofcontents
+
+\bigskip\noindent
+
+\section{Introduction}
+\label{section-introduction}
+
+The goal is the following. $X$ smooth
+projective variety over $\mathbb{C}$. We want
+to define a moduli space of sheaves up to
+some kind of isomorphism. Also give some
+discrete invariants. And give structure of
+scheme which ``respects limits''.
+
+{\bf Functor of points.} For a given scheme
+$X$, the set
+$\text{Hom}(\text{Spec}\mathbb{C},X)$ is the
+set of points of $X$. This motivates defining
+a functor $h_X:\text{Sch}\to \text{Sets}$ by
+$h_X(S)=\text{Hom}(S,X)$, and morphisms are
+just mapped via composition.
+
+And there's more: given a morphism of schemes
+$\varphi:X\to Y$ we can produce
+$h_\varphi:h_X \to h_Y$.
+
+\begin{slogan}
+Schemes are functors.
+\end{slogan}
+
+\begin{definition}
+\label{msos-label-001}
+A functor $F$ is called {\it representable
+(by a scheme)} if there is a scheme $X$ such
+that $F\cong h_X$ and we say $X$ is a {\it
+fine moduli space for $X$}.
+\end{definition}
+
+\begin{remark}
+\label{msos-label-002}
+If $X$ exists it is unique.
+\end{remark}
+
+\begin{example}
+\label{example-quotient-sheaf}
+$X$ scheme,
+$$
+\text{Quot}_X:(\text{Sch})\to (\text{Sets})
+$$
+$$
+\text{Quot}_X(S)=\{
+\mathcal{O}_{X \times S}^{\oplus
+n}\to\mathcal{F}
+:\mathcal{F} \text{ is a flat sheaf}\}\Big/
+\sim
+$$
+and morphisms are mapped by pullback.
+\end{example}
+
+Here, ``flat'' accounts for a continuously
+varying family of copies of $X$ over $S$,
+i.e. the product $X \times S$.
+
+\begin{theorem}
+\label{theorem-Quot-is-represented}
+$\text{Quot}_X$ is represented by a
+projective scheme.
+\end{theorem}
+
+Almost all examples of moduli spaces are
+quotients.
+
+\medskip\noindent
+
+The one example of a moduli space everybody
+knows is\ldots{}
+
+\begin{example}[Projective space is a
+quotient]
+\label{msos-label-016}
+Take $X=$ point, and then
+$$
+F(S)=\{\mathcal{O}_S^{\oplus n+1}\to
+\mathcal{L}\}\cong h_{\mathbb{P}^n}
+$$
+where $\mathcal{L}$ is a line bundle on $S$.
+\end{example}
+
+\begin{definition}
+\label{definition-universal-family}
+If $F$ is represented by a scheme $X$ and
+$\eta:F(S)\to h_X(S)$ in part we have a
+bijection
+\begin{align*}
+F(X) &\longrightarrow h_X(X):=\text{Hom}(X,X)
+\\
+U &\longmapsto \text{id}
+\end{align*}
+\end{definition}
+
+\bigskip\noindent
+
+Again, flat means continuously varying.
+Consider first
+$$
+\mathcal{M}(S)=\{\mathcal{F}\text{a fheaf on
+$X\times S$ flat over }S\}/\sim
+$$
+and
+$$
+\mathcal{M}(f:T \to S)=f^*
+$$
+and equivalence is given by: $\mathcal{F}\sim
+\mathcal{G}$ iff there exists a line bundle
+$\mathcal{L}$ on $S$ such that
+$\mathcal{F}\cong \mathcal{G}\otimes\pi^*S$.
+
+\medskip\noindent
+{\bf Problem.} $X:=\mathbb{P}^1$ and rank 2
+sheaves on $\mathbb{P}^1$. In this case
+$[\ldots{}]$
+
+\medskip\noindent
+{\bf Fact.} Fine moduli spaces are rare.
+
+\begin{definition}
+\label{definition-coarse-moduli-space}
+A {\it coarse moduli space} of  $X$ is a
+scheme $X$ with a natural transformation
+$\eta:F \to h_X$ such that
+\begin{itemize}
+\item $\eta_{\eta \times \mathbb{C}}:F(hec
+\mathbb{C}) \to h_X(hec \mathbb{C}$
+is hij.
+\item For all $Y$ and $F \to h_T$ we have [$F
+\to h_Y$, $F\to h_X$, $\exists !
+h_X \to h_Y$.
+\end{itemize}
+\end{definition}
+
+\medskip\noindent
+{\bf Summary.}
+\begin{enumerate}
+\item Schemes are functors.
+\item The best moduli spaces are represented
+functors, they are called fine.
+These have universal families, and all are
+pullbacks of from the universal family.
+\end{enumerate}
+
+\section{Discrete data}
+\label{section-discrete-data}
+
+$X$ projective and $H$ an ample divisor on
+$X$. The {\it Hilbert polynomial} is
+$$
+P(\mathcal{F},m):=\chi(\mathcal{F}\otimes
+\mathcal{O}(m))
+$$
+
+\medskip\noindent
+{\bf Fact.}
+$P(\mathcal{F},m)=\sum_{i=0}^{\dim
+X}\alpha_i(\mathcal{F})\frac{m^i}{i!}$.
+
+The {\it rank of $\mathcal{F}$} is
+$\text{rk}(\mathcal{F}):=
+\frac{\alpha_d(\mathcal{F})
+}{\alpha_d(\mathcal{O}_X)}$.
+And $\alpha_d(\mathcal{O}_X)$ is the {\it
+degree} of $\mathfrak{X}$ w.r.t
+$\mathcal{O}(1)$.
+
+The {\it reduced Hilbert polynomial} is
+$P(\mathcal{F},m):=\frac{P(\mathcal{F},m)
+}{\alpha_d(\mathcal{F})}$.
+The {\it slope} of $\mathcal{F}$ is
+$\mu_H(\mathcal{F}):=\frac{c_1(\mathcal{F})
+H^{d-1}}{\text{rk}\mathcal{F}}$.
+
+\begin{example}[Curve of genus $g$ using
+Riemann-Roch]
+\label{msos-label-003}
+(Missing.)
+\end{example}
+
+\medskip\noindent
+Here begin the contents of the second
+lecture.
+\begin{definition}
+\label{definition-Gieseker-and-mu-stability}
+$\mathcal{F}$ is {\it
+Gieseker/$\mu$-semistable} w.r.t. $H$ if
+\begin{itemize}
+\item $P_\varepsilon(\mathfrak{m})\leq
+P_{\mathcal{F}}(\mathfrak{m})$ for all $0
+\neq  \varepsilon \subset \mathcal{F}$ proper
+subsheaf.
+\item $\mu_{M}(\varepsilon) \leq
+\mu_{M}(\mathcal{F})$ of rank $0<r \leq r-1$.
+\end{itemize}
+If the inequality is strict then
+$\mathcal{F}$ is called {\it stable}.
+\end{definition}
+
+\begin{example}
+\label{msos-label-004}
+$X$ a curve, $d=\text{deg}\mathcal{F}$,
+$r=\text{rk}\mathcal{F}$,
+$p=\text{deg}Hm+\frac{d}{r}+1-g$. Then
+$\mu$-stability is the same as G-stability.
+\end{example}
+In general:
+$$
+\mu\text{-stability}\implies \text{
+G-stability }\implies \text{G semi-stability
+}\implies \mu \text{ semi-stability}
+$$
+\begin{remark}
+\label{remark-stability-depends-on-H}
+Stability depends on the choice of $H$.
+\end{remark}
+
+\begin{example}[Stability depends on choice
+of ample divisor]
+\label{msos-label-005}
+$X=\mathbb{P}^1\times \mathbb{P}^1$, then
+$\text{Pic}(X)
+=\mathbb{Z}[\ell]\oplus\mathbb{Z}[m]$ where
+$\ell^2=m^2=0$ and $\ell m=1$. Consider
+$\mathcal{F}$ given by
+\begin{equation}
+\label{equation-extensions}
+\xymatrix{
+0\ar[r]&\mathcal{O}_X(\ell-3m)\ar[r]&
+\mathcal{F}\ar[r]&\mathcal{O}_X(3m)
+\ar[r]&0
+}
+\end{equation}
+Then $c_1(\mathcal{F})=\ell$ and
+$c_2(\mathcal{F})=(\ell-3m)(3m)=3$. Then
+$L=\ell+sm$; $L'=\ell+7m$. We will show that
+$\mathcal{F}$ is semistable w.r.t. $L$ but
+not w.r.t. $L'$. We do have non-trivial
+extensions as in the sequence
+\ref{equation-extensions}. These are
+parametrized by
+$$
+\text{Ext}^1(\mathcal{O}_X(3m)),
+\mathcal{O}_X(-3m)\cong
+H^{1}(X,\mathcal{O}_X(\ell-6m))\cong \ldots
+\cong \mathbb{C}^{10}
+$$
+So it is semi-stable w.r.t. $L$.
+
+Suppose $\mathcal{O}(s) \subset \mathcal{F}$.
+We want to show that $\mu(\mathcal{O}(s))
+\leq  \mu(\mathcal{F})$.
+
+We claim that we have either
+$\mathcal{O}(s)\hookrightarrow
+\mathcal{O}(3m)$ or
+$\mathcal{O}(s)\hookrightarrow
+\mathcal{O}(\ell-3m)$. Claim was proved and
+further computations showed the required
+inequality, so $\mathcal{F}$ is
+$\mu$-semistable w.r.t. $L$. On the other
+side, $\mathcal{F}$ is not semistable w.r.t.
+$L'$ since $\mathcal{O}(\ell-3m)
+\hookrightarrow  \mathcal{F}$ (so here I
+realise that probably taking Chern class will
+be monotonous with respect to this
+inclusion\ldots{}) which gives
+$\mu_{L'}(\mathcal{O}(\ell-3m))=(\ell-3m)
+(\ell+7m)=4\not
+\leq \frac{7}{2}$.
+\end{example}
+
+\begin{example}[Results on $\mu$-stability]
+\label{example-results-on-mu-stability}
+\begin{itemize}
+\item All line bundles are stable.
+\item If $0\to L_0 \to \mathcal{F} \to L_1
+\to 0$ is a non-trivial extension
+with degree $L_0=0$, $\text{deg}(L_1)=1$,
+$L_i$ line bundles, then $\mathcal{F}$ is
+stable.
+\item $E_i$ semi-stable shows $E_1\oplus E_2$
+is semistable if and only if
+$\mu(E_i)=\mu(E_2)$.
+\item $E$ is $\mu$-semistable if and only if
+for all $L$ line bundles $E \otimes
+L$ is semistable.
+\item $E$ is semistable then $E^{\vee}$ is
+semi-stable.
+\item $E_1,E_2$ semistable then $E_1 \otimes
+E_2$ is semistable.
+\end{itemize}
+\end{example}
+
+Now we explain some {\bf easy criteria.} (We
+shall find a condition on cohomology that is
+equivalent to stability.)
+
+\begin{definition}
+\label{definition-norm-sheaf}
+$\mathcal{F}$ a reflexive sheaf on
+$\mathbb{P}^n$ of rank $r$. We define
+$\mathcal{F}_{\text{norm}}:=\mathcal{F}(k)$
+where $k$ is the unique integer such that
+$c_1(\mathcal{F}(k))\in \{-r+1,\ldots,c\}$.
+\end{definition}
+
+\begin{proposition}[Cohomological
+characterization of stability]
+\label{msos-label-006}
+$\mathcal{F}$ reflexive sheaf of rank  $2$,
+then $\mathcal{F}$ is $\mu$-stable if and
+only if
+$H^{0}(\mathbb{P}^n,\mathcal{F}_{\text{norm}}
+)
+=0$.
+\end{proposition}
+
+\begin{proof}
+$\mathcal{F}$ vector bundle of rank $r$ on a
+smooth projective variety with
+$\text{Pic}=\mathbb{Z}$.
+\begin{itemize}
+\item If
+$H^{0}(X,(\Lambda^{z}\mathcal{F})
+_{\text{norm}
+})=0$
+for all $z \in
+\{1,\ldots,r-1\}$ then $\mathcal{F}$ is
+$\mu$-stable.
+\item If
+$H^{0}(X,\Lambda^{z}\mathcal{F})_{\text{norm}
+}
+(-1))=0$
+for all $z \in
+\{1,\ldots,r-1\}$, then $\mathcal{F}$ is
+$\mu$-semi-stable.
+\end{itemize}
+\end{proof}
+
+\begin{example}
+\label{msos-label-007}
+$\Omega_{\mathbb{P}^n}$ is stable, and also
+$T_{\mathbb{P}^1}$. The cohomologies vanish
+using Bott.
+\end{example}
+
+\begin{example}
+\label{example-lots-of-Os}
+
+\end{example}
+
+{\bf Filtrations.} $H$ ample, $\mathcal{F}$
+torsion free sheaf, then there exists a
+unique filtration $0 \hookrightarrow
+\mathcal{F}_0\subset
+\mathcal{F}_1\subset\ldots\subset\mathcal{F}
+_m=\mathcal{F}$
+with
+$E_i=\mathcal{F}_i/\mathcal{F}_{i+1}$
+$\mu$-semi-stable w.r.t. $H$ and
+$\mu(E_1)>\mu(E_2)>\ldots>\mu(E_m)$. This is
+called {\it Harder-Narorimnan filtration}.
+
+Given any Chern classes, can we guarantee the
+existence of a sheaf with these Chern
+classes? No.
+
+\begin{theorem}[Bogomolov Inequality]
+\label{theorem-Bogomolov-inequality}
+$X$ smooth, projective variety of dimension
+$\geq 2$, $H$ ample. If $\mathcal{F}$ is
+torsion-free, $\mu$ semi-stable sheaf w.r.t.
+all
+$$
+\Delta(\mathcal{F}):=(2rc_2(\mathcal{F})-
+(r-1)c_1(\mathcal{F})^2)H^{n-2}\geq 0
+$$
+where $r=\text{rk}(\mathcal{F})$ and $\dim
+X=n$. We call $\Delta$ the {\it
+discriminant}.
+\end{theorem}
+
+\section{Boundedness}
+\label{section-boundedness}
+
+We need further preparation before we can
+define moduli spaces.
+
+\begin{definition}
+\label{definition-bounded-family}
+A family of isomorphism classes of coherent
+sheaves on $X$ is called {\it bounded} if
+there exists $S$ of {\bf finite type} and an
+$\mathcal{O}_{S \times X}$ sheaf $F$ such
+that the family is contained in $\{
+\mathcal{F}_{S \times X}|s  \text{ closed in
+}S\}$.
+\end{definition}
+
+\begin{definition}
+\label{definition-m-regularity}
+A coherent sheaf is called {\it $m$-regular}
+if $H^{i}(X,\mathcal{F}(m-i))=0$ for all
+$i>0$.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-m-regularity}
+If $\mathcal{F}$ is $m$-regular,
+\begin{itemize}
+\item $F$ is $m'$ regular for all $m' \geq
+m$.
+\item $F(m)$ is globally generated.
+\end{itemize}
+\end{proposition}
+
+\begin{definition}
+\label{definition-regular-infimum}
+$\text{reg}\mathcal{F}: =\text{inf}\{m \in
+\mathbb{Z}:\mathcal{F}\text{ is
+$m$-regular}\}$
+\end{definition}
+
+\begin{lemma}
+\label{lemma-}
+The following are equivalent:
+\begin{itemize}
+\item $\{\mathcal{F}_i\}_{i \in I}$ is
+bounded
+\item The set of Hilbert polynomials
+$\{P(\mathcal{F}_i)\}_{i \in I}$ is finite
+and there exists a bound $\rho$ such that
+$\text{reg}\mathcal{F}_i\leq \rho$ for all $i
+\in I$.
+\end{itemize}
+\end{lemma}
+
+The following is a difficult result that we
+shall only state and use.
+
+\begin{theorem}
+\label{theorem-}
+$X$ projective, $H$ ample, $P$ a fixed
+polynomial of degree $d$. The family of
+torsion-free sheaves with Hilbert polynomial
+$P$ is bounded.
+\end{theorem}
+
+\begin{proposition}
+\label{msos-label-008}
+Let $X$ be a curve of genus $g$ with fixed
+Hilbert polynomial. The semi-stable sheaves
+on $X$ are bounded.
+\end{proposition}
+
+\begin{proof}
+Let $E$ be a semis-stable sheaf. We want $m$
+such that $H^{1}(X,E(m-1))$. We apply Serre
+Duality as follows:
+$$
+H^{1}(X,E(m-1))\overset{\text{S.D.}}{=
+}\text{Hom}(E,\omega(1-m))^\vee
+$$Then $E \to \omega(m+1)$ $\implies$
+$\omega^\vee(m-1)\to E^\vee$. $E$ is
+semi-stable then
+$-\text{deg}(\omega^\vee)\leq
+\frac{\text{deg}(E^\vee)}{r}$
+which implies that $-2g+2+m-1\leq
+-\frac{d}{r}$ for $d=\text{deg}E$, and then
+$m\leq  2g-2-\frac{d}{r}+1$. If we take
+$m>2g-2\frac{d}{r}+1$.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-}
+If  $E$ is a stable sheaf, then
+$\text{Hom}(E,E)=\mathbb{C}$.
+\end{proposition}
+
+\begin{proof}
+If $f:E \to E$ factors through $E \to F \to
+F$ and is not surjective, then
+$\mu(E)<\mu(F)<\mu(E)$ $\implies$ $f$ is
+injective. As an exercise, prove that
+$E$ is stable if and only if for all $E \to
+F$ surjective we have that
+$\mu(E)<\mu(F)$.
+\end{proof}
+
+\section{Construction of the moduli space of
+semi-stable sheaves}
+\label{msos-label-009}
+$$
+\mathcal{M}^p(s)=\left\{
+\substack{\text{$\mathcal{F}$ on $X\times S$,
+pet over $S$}
+\\ \text{with Hilbert polynomial $P$}}
+\right\} \Big/\sim
+$$
+where $\mathcal{F}\sim \mathcal{G}$ $\iff$
+there exists $L$ on $S$ such that
+$\mathcal{F}\otimes \pi^*L \cong \mathcal{G}$
+where
+$X \times S\xrightarrow{\pi}\mathcal{G}$.
+
+$\mathcal{F}$ is a semi-stable sheaf is
+$\exists $ $m$ such that
+$\mathcal{F}$ is $m$-regular, which implies
+that $\mathcal{F}(m)$ is globally
+generated.
+
+\medskip\noindent
+{\bf Warning.} Following are several formulas
+I don't understand and just copied
+from the board as they were.
+$$
+\dim H^{0}(X,\mathcal{F}(m))=P(m)
+$$
+$$
+H^{i}(X,\mathcal{F}(m-1))=0\qquad \forall i>0
+$$
+$$
+V=\mathcal{O}_X^{\oplus P(m)}\to
+\mathcal{F}(m)\to 0
+$$
+$$
+\implies \left[ \mathcal{O}_X^{\oplus
+P(m)}(-m) \to \mathcal{F} \to 0 \right]
+\in \text{Quot}(\mathcal{H},P)
+$$
+Let $R$ be open locus in
+$\text{Quot}(\mathcal{H},P)$ such that
+\begin{itemize}
+\item $\mathcal{F}$ is semi-stable.
+\item $H^{0}(\mathcal{H}(m))\cong
+H^{0}(\mathcal{F}(m))$.
+\end{itemize}
+$\text{GL}(V)\mathbb{y} R$ by $g[\rho]=\pi
+\circ g$ for $\rho \in R$.
+$$
+\xymatrix{
+\mathcal{O}^{\oplus
+p(m)}\ar[r]^{\rho}\ar[d]_{g,\cong}&
+\mathcal{F}\\
+\mathcal{O}_X^{\oplus p(m)}\ar[ur]
+}
+$$
+We want
+``$R/\text{GL}(V)$''.
+
+\begin{theorem}
+\label{msos-label-010}
+There exists a coarse moduli space $M_{X,P}$
+of semi-stable sheaves with fixed
+Hilbert polynomial $P$, $\mathcal{M}_{X,P}$
+is projective and
+$\mathcal{M}_{X,P}^s$ of stable sheaves with
+Hilbert polynomial $P$.
+\end{theorem}
+
+\medskip\noindent
+{\bf Fact.} The GIT (semi-)stability
+coincides with the Gieseker
+(semi-)stability (see \cite{HL}).
+
+\medskip\noindent
+{\bf Remarks on working with stacks.}
+
+\begin{itemize}
+\item Instead of constructing sheaves which
+are coarse/fine moduli spaces we may
+find more general geometric objects called
+``stacks''.
+\item Advantage: Quotients always exist:
+$G \mathbb{y} X \rightsquigarrow [X/G]$.
+\item Stacks have universal families.
+\item Disadvantage: we need to work with more
+general moduli functors. Instead
+of $\mathcal{M}:(\text{Sch}) \to
+(\text{Sets})$, we substitute $(\text{Sets})$
+with a 2-category.
+\item Disadvantage: not all algebraic stacks
+have coarse moduli spaces but if
+the number of automorphisms of points [is
+finite?].
+\item Disadvantage: may not be projective
+(even if proper/compact).
+\end{itemize}
+
+In sum, we may not be able to produce a
+moduli space, and even if we can, it may
+not be projective.
+
+\medskip\noindent
+Even in the easiest situation we can have, we
+don't have universal family:
+
+\begin{example}[The line bundles of degree
+$d$ on $\mathbb{P}^1$ do not have
+universal family]
+\label{msos-label-011}
+Line bundles on $\mathbb{P}^1$ of degree $d$
+are $\mathcal{O}(d)$. Them
+$\mathcal{M}=\text{Spec}\mathbb{C}$. It does
+not have a universal family:
+$$
+\xymatrix{
+\mathcal{O}_{\mathbb{P}^1}\ar[r]\ar[d]&
+\mathbb{C}\ar[d]\\
+\mathbb{P}^1\ar[r]&\text{Spec}\mathbb{C}
+}
+$$
+and $\mathcal{O}(d) \neq
+\mathcal{O}_{\mathbb{P}^1}$, $d\neq 0$.
+\end{example}
+
+
+\section{Remarks on stacks}
+\label{section-remarks-on-stacks}
+
+The following was not defined properly. As a
+stack,
+$$
+\text{Pic}_{\mathbb{P}^1,d}=\left[
+\cdot/\mathbb{G}_m \right] = B\mathbb{G}_m
+$$
+parametrized by $\mathbb{G}_m$-bundles.
+$$
+\xymatrix{
+\mathcal{L}\setminus\{\text{zero
+section}\}\ar[r]\ar[d]&\Gamma^A[?]\ar[d]\\
+\mathbb{P}^1\ar[r]_\varphi&B\mathbb{G}_m
+}
+$$
+\medskip\noindent
+{\bf Tangent space.} The tangent space of
+$\mathcal{M}_{X,P}$, in $\ni E$, is
+$\text{Ext}^1(E,E)$ if $\text{Ext}^2(E,E)=0
+\implies  \mathcal{M}_{X,P}$ is
+smooth. ($\text{Ext}$ groups are defined in
+Stacks Project, Algebra; this result
+also appears to be a theorem in deformation
+theory.)
+
+\begin{example}
+\label{msos-label-012}
+Let $X$ be a curve. $E$ is a vector bundle of
+rank $n$, then
+$$
+\text{Ext}^2(E,E)=H^{2}(X,E \otimes
+E^{\vee})=0
+$$
+then the moduli space is smooth.
+\end{example}
+
+The dimension of the stack is $\dim
+T_{\mathcal{M},E}-\dim \text{Aut}(E)$, which
+is just $\dim (\text{Ext}^1(E,E) - \dim
+\text{Ext}^0(E,E)$, which in turn says
+that $\mathcal{X}(X,E \otimes
+E^\vee)=V^2(f-g)$.
+
+\medskip\noindent
+{\bf Question 2.} Once we have a moduli space
+we want so study its geometry.
+What can we say about $\mathcal{M}_{X,P,H}$?
+
+Let $X$ be a projective surface and $E$ a
+vector bundle.
+Let $r = \text{rk} E$, $L = \Lambda^{n}E$.
+Consider
+$\mathcal{M}_{X,P,H}(r,L,n)$.
+$n=c_2(E)$
+
+\begin{theorem}
+\label{msos-label-013}
+If $\Delta=2rm-(r-1)L^2 \gg 0$ then
+$\mathcal{M}_{X,H}(r,L,n)$ is a normal,
+generically smooth irreducible
+quasi-projective variety. (If $\Delta$ is
+small
+then it is not true.)
+\end{theorem}
+
+\begin{theorem}
+\label{theorem-birrational-moduli-spaces}
+Fix $H,H'$ ample. For $\Delta \gg 0$,
+$\mathcal{M}_{X,H}(r,L,n)$ and
+$\mathcal{M}_{X,H}(r,L,n)$ are birrational.
+\end{theorem}
+
+\medskip\noindent
+Intuitive idea of what follows: there are
+ample cones, and walls between them,
+and when we cross the
+wall, we get to an object birational to the
+one we were previously at.
+
+\begin{definition}
+\label{definition-wall}
+Let $C_X$ be the ample cone $\mathbb{R}
+\otimes \text{Num}(X)$. For
+$\xi \in\text{Num}(X)$,
+$W^\xi:=C_X \cap \{x \in \text{Num}(X)
+\otimes\mathbb{R}:x\cdot\xi=0\}$.
+$W^\xi$ is called a {\it wall} of type
+$(c_1,c_2) \iff \exists G \in\text{Pic}(X)$
+with $\xi = G$ such that
+\begin{itemize}
+\item $G+c_1$ is divisible by $2$ in
+$\text{Pic}(X)$
+\item $c_1^2-4c_2 \leq G^2 <0$.
+\end{itemize}
+\end{definition}
+
+\begin{remark}
+\label{msos-label-014}
+$W^\xi \neq 0$ if there exists an ample line
+bundle $L$ with $L\xi =0$,
+$W(c_1,c_2)=\bigcup_{\xi}W^1$.
+\end{remark}
+
+\begin{definition}
+\label{definition-chamber}
+A {\it chamber} is a connected component of
+$C_X\setminus W(c_1,c_2)$. (Perhaps
+this is the same as $C_X \setminus
+\bigcup_{\xi}W\xi$.)
+\end{definition}
+
+\begin{theorem}[Qin]
+\label{theorem-Qin}
+The moduli space $M_{X,H}(2c_1,c_2)$ of rank
+2 locally free sheaves only depends
+on the chamber of $H$.
+\end{theorem}
+
+\begin{remark}
+\label{remark-remarks}
+\begin{itemize}
+\item $c_1^2-4c_2<0$ is Bogomolov inequality.
+\item  $G^2<0$ is Hodge index theorem
+\item $F \subset E$ destabilizing line bundle
+$F$ $\iff$ $H$
+$c_1(F)>\frac{c_1(E)H}{2}$ $\iff$
+$(\underbrace{2c_1(F)-c_1(E)}_{=G})H>0$
+$\implies$ $2c_1(F)=c_1(G)+c_1(E) \implies
+c_1(G)+c_1(E)$ is divisible by 2.
+\item Suppose we have $0 \to F \to E \to M
+\otimes |_{Z}\to 0$ with $M$ a line
+bundle, $Z$ codimension 2 in $X$.
+\end{itemize}
+\end{remark}
+
+[Lots of computations I missed.]
+
+\begin{exercise}
+\label{exercise-P1timesP1}
+$X=\mathbb{P}^1\times \mathbb{P}^1$, $E$ of
+rank 2, $c_1=\ell$, $c_2=3$.
+$G=a\ell+bm$, $G^2=2ab \implies ab<0$,
+$\Delta=c_1^2-4c_2\leq G^2=ab\implies
+-12\leq 2ab<0$, $(a+1)\ell+bm$ divisible by
+$2$, then $a+1$ is even.
+
+I understand the walls and chambers were
+computed:
+$L_0=(\ell+7m)\in C_0$,
+$L_1=(\ell+5m) \in C_1$ and $L_2=(\ell+3m)
+\in C_2$.
+
+We have
+\begin{itemize}
+\item For $L$ in  $C_0$,
+$\mathcal{M}(2,\ell,3)=\emptyset$. (Proved.)
+\item For $L$ in $C_1$,
+$\mathcal{M}(2,\ell,3)\cong \mathbb{P}^5$.
+\item For $L$ in $C_2$,
+$\mathcal{M}(2,\ell,3)$ is an open in
+$\mathbb{P}^3$.
+\end{itemize}
+\end{exercise}
+
+For more general rank:
+
+\begin{theorem}
+\label{theorem-general-rank}
+$F \subset E$ a subsheaf of rank $r'<r$,
+$\mu_H(F)=\mu_H(E)$, then
+$\xi=rc_1(F)-r'c_1(E)$ satisfies $\xi H=0$
+and
+$\frac{r^2}{4}\Delta \leq \xi^2<0$, with
+$e_2$ $\iff$ $\xi=0$.
+\end{theorem}
+
+\begin{theorem}
+\label{msos-label-015}
+$X$ smooth irreducible projective surface,
+$H,H'$ ample and $\Delta\gg 0$. Then
+$\mathcal{M}_{X,H}$ and $\mathcal{M}_{X,H'}$
+are birational (any rank).
+\end{theorem}
+
+For dimension $\geq 3$, the moduli space of
+sheaves is in general smooth or
+irreducible.
+
+\begin{theorem}[Ein]
+\label{theorem-Ein}
+Let $C$ be a smooth projective 3-fold, $c_1,H
+\in \text{Pic}(X)$, $H$ ample.
+Assume there exists $a,b$ such that
+$ac_1=bH$. $\mathcal{M}_{X,H}$ rank 2 vector
+bundle on $X$, $\mu$ stable with respect to
+$d:=c_2H$. $\mu(d)=F$ irreducible
+component of $\mathcal{M}_{X,H}(c_1,c_2)$,
+$\implies $
+$\lim_{d \to \infty} m(d)=\infty$.
+\end{theorem}
+
+\begin{example}
+\label{example-}
+In DT (Donaldson-Thomas) theory, $X$ 3-fold,
+$$
+I(X,P)=\left\{Z \subset X: \substack{Z \text{
+a curve with} \\
+\text{fixed Hilbert polynomial}}\right\}
+$$
+$P(u)=3u+1$ twisted cubics have  $P(u)=3u+1$.
+But genus 1 curves with a
+point also have  $P(u)=3u+1$.
+$I(\mathbb{P}^3,3n+1)$ has several
+components.
+\end{example}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

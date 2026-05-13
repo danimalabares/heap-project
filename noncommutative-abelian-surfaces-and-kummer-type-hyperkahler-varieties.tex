@@ -1,0 +1,1502 @@
+\input{preamble}
+\begin{document}
+
+\title{Noncommutative Abelian Surfaces and
+Kummer Type Hyperk\"ahler Varieties}
+\maketitle
+
+\noindent
+Minicourse by Xiaolei Zhao (University of
+California, Santa Barbara (CA), USA), CIMPA
+school Florian\'opolis 2025.
+
+\medskip\noindent
+Notes at
+\href{%
+http://github.com/danimalabares/cimpa-floripa
+}{%
+github.com/danimalabares/cimpa-floripa
+}
+
+\bigskip\noindent
+
+{\bf Abstract.} Examples of noncommutative K3
+surfaces arise from semiorthogonal
+decompositions of the bounded derived
+category of certain Fano varieties. The most
+interesting cases are those of cubic
+fourfolds and Gushel-Mukai varieties of even
+dimension. Using the deep theory of families
+of stability conditions, locally complete
+families of hyperk\"ahler manifolds
+deformation
+equivalent to Hilbert schemes of points on a
+K3 surface have been constructed from moduli
+spaces of stable objects in these
+noncommutative K3 surfaces. On the other
+hand, an explicit description of a locally
+complete family of hyperk\"ahler manifolds
+deformation equivalent to a generalized
+Kummer variety is not available from
+classical geometry. In this lecture series,
+we will construct families of noncommutative
+abelian surfaces as equivariant categories of
+the derived category of K3 surfaces which
+specialize to Kummer K3 surfaces. Then we
+will explain how to induce stability
+conditions on them and produce examples of
+locally complete families of hyperk\"ahler
+manifolds of Kummer type. Based on joint work
+with Arend Bayer, Alex Perry and Laura
+Pertusi.
+
+\bigskip\noindent
+\tableofcontents
+\bigskip\noindent
+
+\noindent
+
+\section{K3 surfaces and Hyperk\"ahler
+varieties}
+\label{nasak-label-001}
+
+\begin{definition}
+\label{definition-K3-surface}
+A {\it K3 surface} (over $\mathbb{C}$) is a
+smooth projective surface $S$ such that
+$\omega_S \cong \mathcal{O}_S$ and
+$\pi_1(S)=1$.
+\end{definition}
+
+\begin{example}[K3 surfaces]
+\label{example-K3-surfaces}
+\begin{enumerate}
+\item $S\subset \mathbb{P}^3$ of degree 4. A
+straightforward computation shows
+the conditions of the definition are
+verified.
+\item $S \to \mathbb{P}^2$ double cover
+ramified along a degree 6 curve.
+\end{enumerate}
+\end{example}
+
+\begin{definition}
+\label{definition-hyperkahler-variety}
+A {\it hyperk\"ahler} variety is a smooth
+projective variety $X$ such that
+\begin{enumerate}
+\item $\pi_{1}(X)=1$
+\item $H^{0}(X,\Omega_X^2)=\mathbb{C} \omega$
+(i.e. the space of global
+holomorphic 2-forms is one dimensional) where
+$\omega$ is holomorphically symplectic.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+\label{remark-hyperkahler}
+If $X$ is hyperk\"ahler, it must be even
+dimensional and $\omega_X=\mathcal{O}_X$.
+\end{remark}
+
+\begin{remark}
+\label{remark-Beauville-Bogomolov}
+We just mention the name of
+Beauville-Bogomolov theorem.
+\end{remark}
+
+For a while people were looking for examples
+of hyperk\"ahler varieties.
+
+\begin{example}[Hyperk\"ahler varieties]
+\label{example-hyperkahler}
+\begin{enumerate}
+\item K3 surface $S$.
+\item $X=S^{[n]}$ Hilbert scheme of $n$
+points on K3 surface. (Moduli space of
+stable sheaves on K3 $S$ of rank 1,  $c_1=0$,
+$c_2=0$.)
+\item $\mathcal{M}_H(s,v)=$ moduli of
+$H$-stable sheaves on $S$ of class $v$.
+($v$ primitive, $H$ is $v$-generic.) (Recall
+the example in Cristina's course where we
+studied how the moduli changes under changes
+in the polarization $H$.) Let $[E] \in
+\mathcal{M}_H(s,v)$. We have the Yoneda map
+$$
+T_{[E]}\mathcal{M}\cong
+\text{Ext}^1(E,E)\times \text{Ext}^1(E,E)
+\to \text{Ext}^2(E,E)\overset{\substack{S
+\text{ is}\\\text{ a
+K3}}}{\cong}\Hom(E,E)^*\cong \mathbb{C}
+$$
+where the first factor product of
+$\text{Ext}^1(E,E)\times \text{Ext}^1(E,E)$
+is associated to first arrow, the second
+factor to the second arrow, of the following
+diagram:
+$$
+E \to E[1] \to E[2]
+$$
+This moduli space is always of Picard rank 2.
+\item $Y \subset \mathbb{P}^5$ a smooth cubic
+fourfold.
+$$
+F(Y)=\{[\ell] \in \text{Gr}(2,6)|\ell
+\subseteq Y\}
+$$
+is a hyperk\"ahler 4-fold. For a specific
+choice $Y_0$ of hyperk\"ahler 4-fold in the
+moduli of smooth cubic 4-folds (which is
+20-dimensional) we find $F(Y_0)$ is
+deformation equivalent to $S^{[2]}$ where $S$
+is a K3 surface.
+\end{enumerate}
+\end{example}
+
+\medskip\noindent
+Here is a general picture:
+\iffalse$$
+\xymatrix{
+\substack{\text{cubic 4-fold $Y$} \\
+D^b(Y)}\ar[dr]&  &
+\substack{\text{moduli of} \\ \text{stable
+objects}\\ \text{in $\text{Ku}_Y$ as}
+\\ \text{HK variety}}\\
+&\substack{\text{sod K3} \\ \text{cat
+conditions} \\ \text{Ku}_Y }
+\ar[ur]_{\substack{\text{stability} \\
+\text{conditions}}}
+$$\fi
+
+\medskip\noindent
+Let $X,Y$ be projective smooth varieties and
+$f:X\to Y$. Consider the functors
+$$
+Rf_*:D^b(X) \to D^b(Y)\qquad Lf^*:D^b(Y) \to
+D^b(X)
+$$
+for $F,G \in D^b(X)$, $F\overset{L}{\otimes}G
+\in D^b(X)$. {\bf Convention:} we drop the
+$R$ and $L$.
+
+\begin{definition}
+\label{definition-}
+Let $K \in D^b(X \times Y)$. The {\it
+Fourier-Mulai functor} is
+\begin{align*}
+\Phi_K: D^b(X) &\longrightarrow D^b(Y) \\
+F &\longmapsto \text{pr}_{Y,*}(\text{pr}_X^*F
+\otimes K)
+\end{align*}
+where we are using our convention --- all
+functors here are derived. Here the maps are
+$$
+\xymatrix{
+& X \times
+Y\ar[dl]_{\text{pr}_X}\ar[dr]^{\text{pr}_Y}\\
+X& & Y
+}
+$$
+\end{definition}
+
+\begin{example}
+\label{example-Fourier-Mukai}
+$f:X \to Y$ and $\Gamma_f \equiv X \times Y$
+graph. Then $\Phi_{\mathcal{O}_{p_f}}=f_*$.
+\end{example}
+
+\begin{theorem}[Orlov]
+\label{theorem-Orlov}
+If $F:D^b(X) \to D^b(Y)$ is an equivalence,
+then $\exists ! K \in D^b(X \times Y)$ such
+that $F \cong \Phi_K$.
+\end{theorem}
+
+\begin{theorem}
+\label{nasak-label-002}
+The following are preserved by derived
+equivalence:
+\begin{enumerate}
+\item (Bondal-Orlov.) $\dim X$.
+\item (Bondal-Orlov.) $\bigoplus_{m \geq
+0}H^{0}(X,\pm m K_X)$.
+\item $H^{*}(X,\mathbb{Q})$, and
+$\bigoplus_{p-q=i}H^{p,q}(X)$ for any $i \in
+\mathbb{Z}$.
+\end{enumerate}
+\end{theorem}
+
+\medskip\noindent
+{\bf Non-trivial equivalences.} $S$ a K3
+surface. $H^{2}(S,\mathbb{Z})$.
+\begin{itemize}
+\item (Hodge decomposition.)
+$H^{2}(S,\mathbb{C})\cong H^{2,0} \oplus
+H^{1,1} \oplus H^{0,2}$.
+\item Pairing on $H^{2}(S,\mathbb{Z})$ given
+by cup product.
+\end{itemize}
+
+\begin{theorem}[Torelli for K3]
+\label{theorem-Torelli-for-K3}
+Two K3 surfaces $S,S'$ are isomorphic if and
+only if there exists a Hodge isometry
+$\varphi:H^{2}(S,\mathbb{Z})\to
+H^{2}(S',\mathbb{Z})$ (i.e. an isomorphism
+that preserves the Hodge decomposition and
+the pairing).
+\end{theorem}
+
+This was the classical content.
+
+\subsection{Mukai lattice}
+\label{subsection-Mukai-lattice}
+
+``The Mukai lattice is some sort of
+topological invariant that behaves better
+with derived category.''
+
+$$
+\tilde{H}(S,\mathbb{Z})
+=H^{0}(S,\mathbb{Z})\oplus
+H^{2}(S,\mathbb{Z})\oplus H^{4}(S,\mathbb{Z})
+$$
+\begin{itemize}
+\item Weight 2 Hodge structure
+$$
+\tilde{H}^{2,0}=H^{2,0}\qquad
+\tilde{H}^{1,1}=H^0\oplus H^{1,1}\oplus H^2
+\qquad \tilde{H}^{0,2}\cong H^{0,2}.
+$$
+\item Pairing:
+$$
+\left<(a,b,c),(a',b',c')\right>=bb'-ac'-a'c
+$$
+\end{itemize}
+
+\begin{theorem}[Mukai, Orlov]
+\label{theorem-Mukai-Orlov}
+If $S,S'$ are K3 surfaces, then $D^b(S) \cong
+D^b(S')\iff
+\tilde{H}(S,\mathbb{Z})\underset{\varphi}
+{\cong}\tilde{H}(S',\mathbb{Z})$
+Hodge
+isometry.
+\end{theorem}
+
+\subsection{Mukai vector}
+\label{subsection-Mukai-vector}
+
+Let $K_0(S)$ be the free abelian group
+generated by $\Ob(D^b(S))$. Consider
+$$
+v:K_0(S)\to \tilde{H}(S;\mathbb{Z})
+$$
+Where $[F]=[E]+[G]$ if $E \to F \to G
+\xrightarrow{+1}$ is a distinguished
+triangle.
+$$
+v:[E] \to \text{ch}(E)\cdot \sqrt{\det(S)}
+$$
+where $\text{ch}(E)$ is the Chern character.
+$$
+\left<v(E),v(F)\right>=-\chi(E,F),
+$$
+where
+$\chi(E,F):=\sum(-1)^i\dim\text{Ext}^i(E,F):=
+\Hom_{D^b(S)}(E,F[i])$.
+
+\begin{proof}[Proof of the backward
+implication of Mukai-Orlov theorem]
+Let
+\begin{align*}
+\varphi: \tilde{H}(S,\mathbb{Z})
+&\longrightarrow \tilde{H}(S',\mathbb{Z}) \\
+(0,0,1) &\longmapsto v\\
+(-1,0,0) &\longmapsto v'
+\end{align*}
+The intersection matrix of $v$ and $v'$ is
+$$
+U=\begin{pmatrix}
+0&1\\
+1&0
+\end{pmatrix}
+$$
+For simplicity assume that $v$ is of positive
+rank. ($V=(a,b,c)$, where $a\in H^0$ is
+positive.)
+
+The heart of the proof uses the following
+result by Mukai. There exists a nonempty
+moduli space $\mathcal{M}$ of stable sheaves
+on $S'$ of class $v$ $\implies$ $S'$ is a K3
+surface!
+$$
+0=\chi(v,v)=\underbrace{\Hom(E,E)}_{=1}
+-\underbrace{\text{ext}^1(E,E)}_{=2}
++\underbrace{\text{ext}^2(E,E)}_{=1}
+$$
+$v\cdot v'=1\implies \mathcal{M}$ is a fine
+moduli space. There exists a universal family
+$D^b(S \times M)\ni \mathcal{E} \to S' \times
+M$.
+
+{\bf Claim.}
+$\Phi_{\mathcal{E}}:D^b(S')
+\xrightarrow{\cong}
+D^b(\mathcal{M})$ (general criteria).
+
+Now
+$\tilde{H}(S,\mathbb{Z})\xrightarrow{\varphi,
+\cong}
+\tilde{H}(S',\mathbb{Z}$
+$$
+\xymatrixrowsep{1em}
+\xymatrix{
+\tilde{H}(S,\mathbb{Z})\ar[r]^{\varphi,\cong}
+&
+\tilde{H}(S',\mathbb{Z})
+\ar[r]^{\Phi_{\mathcal{E}}}&\overset{\vee}{H}
+(M,\mathbb{Z})\\
+(0,0,1)\ar@{|->}[r]&  v \ar@{|->}[r]&
+(0,0,1)\\
+(1,0,0)\ar@{|->}[rr]& & (1,0,0)
+}
+$$
+\end{proof}
+
+\section{Semiorthogonal decomposition and
+Calabi-Yau
+categories}
+\label{section-SOD-and-CY-categories}
+
+\begin{situation}
+\label{situation-SOD-and-SC}
+$$
+\xymatrix{
+D^b(Y),\substack{Y\text{ a cubic} \\
+\text{4-fold}}\ar[dr]
+_{\substack{\text{semiorthogonal}
+\\
+\text{decomposition}}}
+&  &\substack{\text{moduli}\\ \text{on K3} \\
+\text{as HK}}\\
+&\text{Ku}_Y\substack{\text{K3} \\
+\text{category}}
+\ar[ur]_{\text{stability conditions}}
+}
+$$
+\end{situation}
+
+\begin{definition}
+\label{definition-SOD}
+Let $X$ be a projective smooth variety over
+$\mathbb{C}$. A {\it SOD}
+$D^b(X)=\left<A_1,\ldots,A_n\right>$ is a
+sequence $A_i$ full triangulated subcategory
+such that
+\begin{enumerate}
+\item $\Hom(F,G)=0$ for all $F \in A_i$, $G
+\in A_j$.
+\item $\forall F \in D^b(X)$ $\exists
+0=F_n\to F_{n-1}\to\ldots\to F_0=F$
+such that $\text{Cone}(F_i \to F_{i-1})\in
+A_i$.
+\end{enumerate}
+\end{definition}
+
+\begin{exercise}
+\label{exercise-}
+\begin{enumerate}
+\item $D^b(\text{Spec}\mathbb{C})\ni V \simeq
+\bigoplus_{i}H^{i}(V)[-i]$.
+\item For $E \in D^b(X)$ define
+\begin{align*}
+\phi_E: D^b(\text{Spec}\mathbb{C})
+&\longrightarrow D^b(X) \\
+V &\longmapsto V\otimes
+E=\bigoplus_{i}H^i(V)\otimes E[-i]
+\end{align*}
+Then $\phi_E$ fully faithful $\iff$ $E$ is
+exceptional
+$$
+\left(\text{Ext}^p(E,E)=
+\begin{cases}
+\mathbb{C}\qquad &p=0 \\
+0\qquad &p\neq 0
+\end{cases}\right)
+$$
+\begin{definition}
+\label{definition-}
+$\left<E\right>:=\phi_E(D^b(\text{Spec}
+\mathbb{C}))\subset
+D^b(X)$ for exceptional $E$.
+
+\end{definition}
+\item {\bf Example.} $\mathcal{O}(i)$
+exceptional on $\mathbb{P}^n$.
+(Beilinson.) $D^b(\mathbb{P}^n)
+=\left<\mathcal{O},\mathcal{O}(1),\ldots,
+\mathcal{O}(n)\right>$
+\end{enumerate}
+\end{exercise}
+
+\begin{definition}
+\label{definition-right-admissible}
+A triangulated category $A \subset D^b(X)$ is
+{\it right admissible} if $\alpha:A\to
+D^b(X)$ admits a right adjoint.
+$\alpha^!:D^b(X)\to A$. (I.e.,
+$\Hom_{D^b(X)}(\alpha(E),F)\simeq
+\Hom_A(E,\alpha^!(F))$
+\end{definition}
+
+\begin{exercise}
+\label{exercise-right-admissible}
+Let $E$ be exceptional.
+$\left<E\right>\subset D^b(X)$ is right
+admissible.
+$$
+\alpha^!=R \Hom(E,F) \in D^b(\text{Spec}
+\mathbb{C})
+$$
+\end{exercise}
+
+Let
+$$
+A^\perp:=\{F \in D^b(X):\Hom(E,F)=0, \forall
+E \in ?\}
+$$
+\begin{lemma}
+\label{lemma-right-admissible}
+$A \subset D^b(X)$ is right admissible
+$\implies$ $D^b(X)=\left<A^\perp,A\right>$.
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item Is clear.
+\item $0=F_2 \to F_1 \to F_0=F$, $F_1 \in A$,
+$\text{Cone}(F_1 \to F) \in
+A^\perp$. We use adjunction as follows:
+$$
+\text{id} \in
+\Hom(\alpha^!(F),\alpha^!(F))=\Hom(\alpha
+\alpha^!F,F)
+$$
+We have the following exact triangle:
+$$
+\xymatrix{
+\alpha \alpha^!F\ar[r]^{\text{counit}}&
+F\ar[r]& B
+}
+$$
+{\bf Claim.} $B \in A^\perp$. Let $E \in A$
+$$
+\xymatrixcolsep{1em}
+\xymatrix{
+\cdots\ar[r]&\Hom(\alpha(E),\alpha
+\alpha^!(F))\ar[dr]^{\cong}\ar[rr]&&
+\Hom(\alpha(E),F)\ar[dl]_{\cong}\ar[r]&
+\Hom(\alpha(E),B)\\
+& & \Hom(E,\alpha^!(F))
+}
+$$
+which implies that $\Hom(\alpha(E),B)=0$.
+
+\end{enumerate}
+\end{proof}
+
+\begin{definition}
+\label{definition-left-mutation}
+{\it Left mutation} $\mathbb{L}_A$ is defined
+as
+$$
+\alpha \alpha^!F \to F \to \mathbb{L}_AF.
+$$
+\end{definition}
+
+\begin{exercise}
+\label{exercise-left-mutation}
+$A=\left<E\right>$.
+$$
+R \Hom(E,F)\otimes E \xrightarrow{\text{ev}}F
+\to \mathbb{L}_{\left<E\right>}F
+$$
+\end{exercise}
+
+{\bf Corollary.} $E_1,\ldots,E_n \in D^b(X)$
+exceptional objects with
+$\text{Ext}^\bullet(E_i,E_j)=0$ for $i>j$ (we
+say this is an  {\it exceptional
+collection}). Then
+$$
+D^b(X)=\left<R_x,E_1,\ldots,E_n\right>,\qquad
+R_X=\left<E_1,\ldots,E_n\right>^\perp
+$$
+
+\begin{example}
+\label{example-Fano}
+$X$ Fano, $-K_X=rH$, $H$ ample, $r>0$,
+$\mathcal{O}_X,\mathcal{O}_X(H),\ldots,
+\mathcal{O}_X((r-1)H)$
+an exceptional collection.
+
+($\text{Ext}^\bullet(\mathcal{O}(iH),
+\mathcal{O}(jH))=
+H^{\bullet}(X,\mathcal{O}(j-i)H)=0$) if
+$-r<j-i<0$. $\implies$
+$$
+D^b(X)=\left<R_X,\mathcal{O}
+_X\ldots\mathcal{O}_X(r-i)H\right>
+$$
+\end{example}
+
+\begin{definition}
+\label{definition-Serre-functor}
+A {\it Serre functor} for a $\Delta$-category
+$\mathcal{D}$ is an autoeq $S_{\mathcal{D}}$
+such that
+$$
+\Hom_{\mathcal{D}}(E,F)^\vee \cong
+\Hom(F,S_{\mathcal{D}}(E)).
+$$
+functorially in $E,F \in \mathcal{D}$.
+\end{definition}
+
+\begin{remark}
+\label{remark-uniqueness-of-Serre-functor}
+It is unique if it exists.
+\end{remark}
+
+The following example explains why this is
+called the Serre functor --- it is a
+generalization of Serre duality.
+
+\begin{example}
+\label{nasak-label-012}
+$X$ smooth projective variety of dimension
+$n$. Consider
+$$
+S_{D^b(X)}=(-\otimes \omega_X)[n]
+$$
+eg. $E$ locally free on $X$.
+\begin{align*}
+H^{i}(X,E)&=\Hom_{D^b(X)}(\mathcal{O}_X,E[i])
+\\
+& =\Hom_{D^b(X)}(E[i],\omega_X(n])^* \\
+&=\Hom(\mathcal{O},E^\vee \otimes
+\omega_X[n-i])\\
+&=H^{n-i}(E^{\vee}\otimes \omega_X)^*
+\end{align*}
+\end{example}
+
+\begin{definition}
+\label{definition-Calabi-Yau-category}
+$\mathcal{D}$ is
+\begin{itemize}
+\item {\it Calabi-Yau category} of dimension
+$n$ if $S_{\mathcal{D}}\cong[n]$.
+(I.e. the Serre functor is just shifting by
+$n$.)
+\item {\it Fractional Calabi-Yau category} of
+dimension $p/q$ if
+$S^q_{\mathcal{D}}\cong[p]$ (where the
+exponent $q$ just means composing the functor
+$S_{\mathcal{D}}$ $q \in \mathbb{Z}$ times).
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[Kuznetsov]
+\label{theorem-Kuznetsov}
+$X \subset \mathbb{P}^n$ smooth Fano
+hypersurface of degree $d \leq n$.
+$$
+D^b(X)=\left<\text{Ku}_X,\mathcal{O}_X,
+\ldots,
+\mathcal{O}_X(n-d)\right>
+$$
+Then $\text{Ku}_X$ has a Serre functor $S$
+with
+$S^{d/c}\cong\left[\frac{(n+1)(d-2)}{c}
+\right]
+$
+where $c=\text{gcd}(d,n+1)$.
+\end{theorem}
+
+\begin{example}
+\label{example-cubic-3-and-4-folds}
+$d=3$, a cubic 3-fold,  $n=4$,  $S^3=[5]$,
+cubic 4-fold $n=5$,  $S=[2]$.
+\end{example}
+
+\begin{theorem}[Kuznetsov]
+\label{theorem-Kuznetsov-2}
+$X$ cubic 4-fold,
+\begin{enumerate}
+\item $\exists $ special $X$ such that
+$\text{Ku}_X \simeq D^b(S)$, where $S$ is
+a K3 surface.
+\item $X$ very general $\implies$
+$\text{Ku}_X \not \simeq D^b(\text{var})$.
+\end{enumerate}
+\end{theorem}
+
+We shall not prove this theorems. However, by
+the fourth lecture we may give the idea of
+their proofs.
+
+\medskip\noindent
+{\bf Conjecture (Kuznetsov).} Cubic 4-fold
+$X$ is rational if and only if $\text{Ku}_X
+\simeq D^b(\text{K3 surface})$.
+
+\medskip\noindent
+[KKPY] very general $X$ is not rational.
+
+\medskip\noindent
+Let's go back and show how to prove the
+statement in Example
+\ref{example-cubic-3-and-4-folds} about
+the cubic 4-fold.
+
+\begin{lemma}
+\label{lemma-cubic-4-fold}
+Assume that
+$\mathcal{D}=\left<A^{\perp},A\right>$,
+$S_{\mathcal{D}}\exists $. Then
+$S^{-1}_{A^\perp}=\mathbb{L}_A\circ
+S^{-1}_{\mathcal{D}}|_{A^\perp}$.
+\end{lemma}
+
+\begin{proof}
+$F,G \in A^\perp$,
+\begin{align*}
+\Hom_{A^\perp}(F,G)
+&\cong\Hom_{\mathcal{D}}(G,S_{\mathcal{D}}(F)
+)
+^\vee\\
+&\cong\Hom_{\mathcal{D}}(S^{-1}_{\mathcal{D}}
+(G),F)^\vee\\
+&\cong
+\Hom_{\mathcal{D}}(\mathbb{L}
+_A(\underbrace{S^{-1}_{\mathcal{D}}(G))}
+_{\in A^\perp},F)^\vee
+\end{align*}
+\end{proof}
+
+Now: cubic 4-fold $X \subset \mathbb{P}^5$,
+$$
+D^b(X)=\left<\text{Ku}_X,\mathcal{O},
+\mathcal{O}(1),\mathcal{O}(2)\right>
+$$
+The lemma tells us that
+$$
+S_{\text{Ku}_X}^{-1}
+=\mathbb{L}_{\left<\mathcal{O},\mathcal{O}(1)
+,
+\mathcal{O}(2)\right>}
+\circ (- \otimes \mathcal{O}(3)[-4])
+$$
+
+\medskip\noindent
+{\bf Key observation 1.}
+$X\overset{i}{\hookrightarrow}\mathbb{P}^5$,
+for $F \in D^b(X)$ there exists an exact
+$\Delta$:
+$$
+i^*i_*F \to F \to F \otimes
+\mathcal{O}_X(-3)[2]
+$$
+Assume $F \in \text{Ku}_X$, apply
+$S^{-1}_{\text{Ku}}$.
+
+$$
+\mathbb{L}_{\left<\mathcal{O},\mathcal{O}(1),
+\mathcal{O}(2)\right>}
+\circ (i^* i_* F \otimes \mathcal{O}(3)[-4])
+\to S_{\text{Ku}}^{-1}(F)
+\to
+\underbrace{\mathbb{L}_{\left<\ldots\right>}
+\circ(F[-2])}
+_{\cong F[-2]\text{, as }F\in \text{Ku}_X}
+$$
+
+\medskip\noindent
+{\bf Key observation 2.} $i^*i_*F \otimes
+\mathcal{O}(3) \in
+\left<\mathcal{O},\mathcal{O}(1),\mathcal{O}
+(2)\right>$,
+so the first term
+vanishes. (It's enough to show that $i_*F
+\otimes \mathcal{O}(3) \in
+\left<\mathcal{O}_{\mathbb{P}^5},\mathcal{O}
+_{\mathbb{P}^5}(1),
+\mathcal{O}_{\mathbb{P}^5}(2)\right>
+\iff i_*F \in
+\underbrace{\left<\mathcal{O}(-3),\mathcal{O}
+(-2),\mathcal{O}(-1)\right>}
+_{=\left<\mathcal{O},\mathcal{O}(1),
+\mathcal{O}(2)\right>^\perp}
+\subset D^b(\mathbb{P}^5)$.)
+
+\begin{align*}
+R\Hom\left(
+\begin{matrix}
+\mathcal{O}\\ \mathcal{O}(1)\\ \mathcal{O}(2)
+\end{matrix},i_*F
+\right)&=0
+\\
+R\Hom\left(
+i^*\begin{matrix}
+\mathcal{O}\\ \mathcal{O}(1)\\ \mathcal{O}(2)
+\end{matrix},F
+\right)&=0\qquad \text{since $F \in
+\text{Ku}_X$}
+\end{align*}
+and the left-hand-sides on the last two
+equations are $\cong$.
+
+\begin{proof}[Proof of Key observation 1
+assuming $F$ is a sheaf.]
+Take $i^*i_*F \to F \to G$ and consider its
+pushforward
+$$
+i_*i^*i_*F \to i_* F \to i_*G
+$$
+Note that
+\begin{align*}
+i_*i^*i_*F \simeq
+i_*F\overset{L}{\otimes}_{\mathcal{O}
+_{\mathbb{P}^5}}
+&\cong \left[
+\underbrace{i_* F \otimes\mathcal{O}
+_{\mathbb{P}^5}(-x)}_{\text{deg}-1}
+\xrightarrow{\vee}
+i_*F\otimes \mathcal{O}_{\mathbb{P}^5}\right]
+\\
+&  \simeq i_*F \oplus i_*F\otimes
+\mathcal{O}_{\mathbb{P}^5}(-x)[1]\\
+&\xrightarrow{\substack{ \text{proj.
+to}\\\text{$1^{\text{st}}$ factor}}}i_*F\\
+&  \implies i_*G \simeq i_* F \otimes
+\mathbb{P}_{\mathbb{P}^5(-x)[2]}\\
+& \implies G \simeq F \otimes
+\mathcal{O}_X(-x)[2]\qquad i_*\text{ f.f.}
+\end{align*}
+
+\end{proof}
+
+\section{Inducing $t$-structure and stability
+conditions}
+\label{nasak-label-003}
+
+\begin{example}
+\label{example-cubic-3-fold}
+$X$ cubic 3-fold,
+$D^b(X)=\left<\text{Ku}_X,\mathcal{O},
+\mathcal{O}(1)\right>$.
+\end{example}
+
+\noindent
+{\bf Goal.} Use $t$-structure/(weak)
+stability conditions on $D^b(X)$ to induce a
+$t$-structure/stability conditions on $Ku_X$.
+
+\medskip\noindent
+\begin{proposition}[Key proposition]
+\label{proposition-key}
+Let
+$\mathcal{D}=\left<R,E_1,\ldots,E_n\right>$
+be a semiorthogonal decomposition. Assume
+that $\mathcal{A} \subset \mathcal{D}$ is the
+heart of a bonded $t$-structure such that
+\begin{enumerate}
+\item $\forall i,$ $E_i \in \mathcal{A}$.
+\item $\forall i$, $S_{\mathcal{D}}(E_i) \in
+\mathcal{A}[i]$.
+\end{enumerate}
+Then $\mathcal{A}:=\mathcal{A}\cap R$ is the
+heart of a bounded $t$-structure on $R$.
+(Concretely, this means for $F \in R$, view
+it as an object in $\mathcal{D}$ and take
+cohomology with respect to the $t$-structure,
+we need $H_{\mathcal{A}}^q(F) \in R$ $\forall
+q$.)
+\end{proposition}
+
+[BLMS] using spectral sequence.
+
+\begin{example}
+\label{example-cubic-3-fold-continued}
+For $X$ cubic 3-fold and
+$D^b(X)=\left<\text{Ku}_X,\mathcal{O},
+\mathcal{O}(1)\right>$,
+\begin{align*}
+\left(\textit{Coh}^{-\frac{1}{2}}(X),
+Z_{\alpha,-\frac{1}{2}}
+=\frac{1}{2}\alpha^2H^2 ch_0
+-ch_2^{-\frac{1}{2}}+iHch_1^{-\frac{1}{2}}
+\right)
+\end{align*}
+\end{example}
+
+\begin{exercise}
+\label{exercise-}
+\begin{itemize}
+\item For all $\alpha>0$, $\mathcal{O}$,
+$\mathcal{O}(1)$, $\mathcal{O}(-2)[1]$,
+$\mathcal{O}(-1)[1]\in
+\textit{Coh}^{-\frac{1}{2}}$.
+\item For all $\alpha \sim 0$,
+\begin{align*}
+\mu_{\alpha,-\frac{1}{2}}(\mathcal{O}(-2)[1])
+&<\mu_{\alpha,-\frac{1}{2}}(\mathcal{O}(-1)
+[1]
+)<0\\
+&<\mu_{\alpha,-\frac{1}{2}}(\mathcal{O})
+<\mu_{\alpha,-\frac{1}{2}}(\mathcal{O}(1)).
+\end{align*}
+So tilt $\textit{Coh}^{-\frac{1}{2}}(X)$ one
+more time w.r.t.
+$\mu_{\alpha,-\frac{1}{2}}=0$. We can apply
+Key Proposition
+\ref{proposition-key}.
+\end{itemize}
+\end{exercise}
+
+\begin{example}
+\label{example-cubic-4-fold}
+How about cubic 4-fold $Y$? Idea: embed
+$Ku_X\hookrightarrow
+\underbrace{D^b(\mathbb{P}^3,\mathcal{D}_0)}
+_{\text{conic fibration}}$.
+\end{example}
+
+\begin{theorem}
+\label{theorem-exists-SC-for-cubic-4-fold}
+There exist stability conditions on $Ku_Y$
+for a cubic 4-fold $Y$.
+\end{theorem}
+
+\medskip\noindent
+Now we shall give the idea of why Key
+Proposition \ref{proposition-key} holds.
+
+General question modeling Key Proposition
+\ref{proposition-key}: $F: \mathcal{C} \to
+\mathcal{D}$ exact functor between
+triangulated categories. Say
+$\mathcal{D}^{heart}$ is the heart of a
+$t$-structure on $\mathcal{D}$. Under what
+condition is
+$$
+\mathcal{C}^{heart}=\{E \in \mathcal{C}|F(E)
+\in \mathcal{D}^{heart}\}
+$$
+the heart of a $t$-structure on
+$\mathcal{C}$?
+
+\begin{example}
+\label{example-}
+Let $X,Y$ be smooth projective and $f:X \to
+Y$ a finite a morphism.
+$$
+\xymatrix{
+D^b(X)\ar[r]_{f_*} \ar@{^{(}->}[d]
+&D^b(Y)
+\ar@/_{1.5pc}/[l]_{f^*}\ar@{^{(}->}[d]\\
+D(Q\textit{Coh}(X))=D_{qc}(X)\ar[r]_{f_*}
+&\underbrace{D_{qc}(Y)
+}_{\substack{\text{admits
+small} \\ \text{direct sum}}}
+\ar@/_{1.5pc}/[l]_{f^*}
+}
+$$
+\end{example}
+
+\begin{situation}
+\label{situation-}
+$\tilde{\mathcal{C}},\tilde{\mathcal{D}}$
+triangulated categories admitting direct
+sums. $\mathcal{C}\subset
+\tilde{\mathcal{C}}$, $\mathcal{D}
+\subset\tilde{\mathcal{D}}$ full essentially
+small triangulated subcategories.
+$F:\tilde{\mathcal{C}}\to
+\tilde{\mathcal{D}}$ exact functor such that
+\begin{itemize}
+\item $F$ commutes with direct sums.
+\item $F$ has left adjoint
+$\mathcal{G}:\tilde{\mathcal{D}}\to
+\tilde{\mathcal{C}}$.
+\item $F(\mathcal{C}) \subseteq \mathcal{D}$
+and if $E \in \tilde{\mathcal{C}}$
+is such that $F(E) \in \mathcal{D}$ then $E
+\in \mathcal{C}$.
+\item $G(\mathcal{D}) \subseteq \mathcal{
+C}$.
+\item For $E \in \mathcal{C}$, if $F(E)=0
+\implies E=0$.
+\end{itemize}
+\end{situation}
+
+\begin{definition}
+\label{nasak-label-004}
+Let $\mathcal{D}^{heart}$ be the heart of a
+$t$-structure on $\mathcal{D}$. Define
+\begin{align*}
+\mathcal{D}^{\leq 0}&=\{E \in
+\mathcal{D}|H^{i}(E)=0, i>0\}
+\mathcal{D}^{\geq 0}&=\{E \in
+\mathcal{D}|H^{i}(E)=0, i<0\}
+\end{align*}
+\end{definition}
+
+\begin{theorem}[Polischuk]
+\label{theorem-Polischuk}
+Let $\mathcal{D}^{heart}$ be the heart of a
+bounded $t$-structure on $\mathcal{D}$. If
+$FG:\mathcal{D} \to \mathcal{D}$ is right
+$t$-exact (i.e. $FG(\mathcal{D}^{\leq
+0})\subseteq \mathcal{D}^{\leq 0}$) then
+$$
+\mathcal{C}^{heart}=\{E \in \mathcal{C}|F(E)
+\in \mathcal{D}^{heart}\}
+$$
+is the heart of a bounded $t$-structure on
+$\mathcal{C}$.
+\end{theorem}
+
+\begin{example}
+\label{example-right}
+$f_*:D^b(X) \to D^b(Y)$, $f_*f^*(E)=E\otimes
+f_*\mathcal{O}_x$. If this is right
+$t$-exact, then can induce $t$-structures,
+e.g. $f:H \hookrightarrow Y$ hypersurface.
+$$
+E \to E \otimes f_*\mathcal{O}_H\to E\otimes
+\mathcal{O}_T(-H)[1]
+$$
+See recent paper by Chengi Li ``Real
+reduction \ldots{}''
+\end{example}
+
+\begin{example}
+\label{example-Kuznetsov}
+$D^b(X)=\left<R,E\right>$, $i:R \to D^b(X)$.
+See [Kuznetsov]. There exists a
+semiorthogonal decomposition of $D_{qc}(X)
+\supset \tilde{R}$, $i^* \to i$,
+$$
+\mathbb{L}_{\left<E\right>}=ii^* :D^b(X) \to
+D^b(X)\qquad \text{right exact?}
+$$
+\end{example}
+
+The reader is really encouraged to solve the
+following exercise.
+
+\begin{exercise}
+\label{exercise-right-exact}
+Let $E \in \mathcal{D}^{heart}$, $S(E) \in
+\mathcal{D}^{heart}[1]$, then $\mathbb{L}_E$
+is right exact.
+\end{exercise}
+
+\noindent
+{\bf Key homological algebra ingredient.} Let
+$\tilde{\mathcal{C}}^{\leq 0}$ be the
+smallest full subcategory of
+$\tilde{\mathcal{C}}$ that
+\begin{itemize}
+\item contains $G(\mathcal{D}^{\leq 0})$,
+\item is closed under direct sum, extension,
+positive shift $[n]$, $n>0$.
+\end{itemize}
+$$
+\tilde{\mathcal{C}}^{\geq 0}:=\{E \in
+\tilde{\mathcal{C}}|
+\Hom(\tilde{\mathcal{C}}^{\leq 0}[1],E)=0\}.
+$$
+Then this is a $t$-structure on
+$\tilde{\mathcal{C}}$.
+
+\begin{example}
+\label{example-curve}
+Let $X$ be a smooth projective curve and $p
+\in X$ a point. Then $D_{qc}(X)^{\leq 0}$
+contains $\mathcal{O}_p$ and is closed under
+\ldots{}.
+$$
+D_{qc}(X)^{\geq 0}j_*
+\mathcal{O}_U/\mathcal{O}_X[-1] \to
+\mathcal{O}_X \to j_*\mathcal{O}_U
+$$
+\end{example}
+
+\section{Moduli of objects in derived
+category}
+\label{nasak-label-005}
+
+\subsection{Moduli on a variety}
+\label{subsection-moduli-on-a-variety}
+
+Let $X$ be a scheme of finite type over
+$\mathbb{C}$.
+
+\begin{definition}
+\label{definition-perfect-complex}
+An object $E \in D^b(X)$ is a {\it perfect
+complex} if locally on $X$, $E$ is isomorphic
+to a bounded cx of locally free sheaves
+$D_{\text{perf}}(X)\subset D^b(X)$
+subcategory of perfect cx. [?]
+\end{definition}
+
+\begin{remark}
+\label{remark-perfect}
+\begin{enumerate}
+\item $D_{perf}(-)$ is preserved under
+derived pullback.
+\item $X$ smooth $\implies$
+$D_{\text{perf}}(X)=D^b(X)$.
+\end{enumerate}
+\end{remark}
+
+\begin{definition}
+\label{definition-universally-gluable}
+Given $T$ scheme of finite type over
+$\mathbb{C}$ and $E \in
+D_{\text{perf}}(X\times T)$, say $E$ is {\it
+universally gluable} over $T$ if for all $t
+\in T(\mathbb{C})$, $\text{Ext}^i(E_t,E_t)=0$
+if $i<0$, where  $E_t$ is the derived
+pullback.
+\end{definition}
+
+\begin{example}
+\label{example-locally-free}
+Locally free on $X \times T$.
+\end{example}
+
+We will consider the following functor to
+formulate the moduli problem:
+
+\begin{definition}
+\label{nasak-label-006}
+Let $X$ be a smooth projective variety over
+$\mathbb{C}$. The {\it moduli stack of
+perfectly universally gluable objects} is the
+functor
+\begin{align*}
+\mathcal{M}_{\text{proj}}(X):
+(\Sch^{ft}/\mathbb{C})^{op}
+&\longrightarrow \mathit{Gpds} \\
+T &\longmapsto  \{E \in
+D_{\text{perf}}(X\times T)\text{ uniersally
+gluable}/T\}
+\end{align*}
+
+\end{definition}
+
+\begin{theorem}[Lieblich]
+\label{theorem-Lieblich}
+$\mathcal{M}_{\text{proj}}(X)$ is an
+algebraic stack locally of finite type over
+$\mathbb{C}$.
+\end{theorem}
+
+\subsection{Moduli of $\sigma$-semistable
+objects}
+\label{nasak-label-007}
+
+Let $X$ be a smooth projective variety over
+$\mathbb{C}$. Fix
+$\sigma=(A,Z)\in\text{Stab}_{\Lambda}(X)$,
+$v:K_0(X) \to \Lambda$. Fix $w \in
+\Lambda$, define
+\begin{align*}
+\mathcal{M}_{\sigma}(w):(\Sch^{ft}/\mathbb{C}
+)
+^{op}
+&\longrightarrow  \mathit{Gpds} \\
+T &\longmapsto \left\{
+\substack{\text{perfect complex $E$ on
+$X\times T$ s.t.}
+\\ \text{$\forall t \in T(\mathbb{C})$, $E_t$
+is in $\mathcal{A}$}\\
+\text{$\sigma$-ss, $V(E_t)=w$}} \right\}
+\end{align*}
+
+\medskip\noindent
+{\bf Hard problems.}
+\begin{enumerate}
+\item Are $\mathcal{M}_{\sigma}^s(w) \subset
+\mathcal{M}_{\sigma}(w)
+\subset \mathcal{M}_{\text{proj}}(X)$.
+\begin{enumerate}
+\item Open.
+\item Finite type?
+\end{enumerate}
+Known for $X$ surface, $\sigma$ via tilting
+(Toda).
+\begin{itemize}
+\item \text{[}Halper-Leistner-Robotis '25].
+\item Proper SC.
+\end{itemize}
+\item Do there exist maps to schemes
+$$
+\xymatrix{
+\mathcal{M}_{\sigma}(w)&M_\sigma(w)\\
+\mathcal{M}_{\sigma}^s(w)\ar[r]\ar@{^{(}->}
+[u]
+&
+M_{\sigma}^s(w)\ar@{^{(}->}[u]
+}
+$$
+where $M_\sigma(w)$ is projective and
+paramatrizes s-equivalent classes.
+\end{enumerate}
+
+\begin{definition}
+\label{definition-good-moduli-space}
+Let $\mathcal{M}$ be an algebraic stack, $M$
+algebraic space. $\pi:\mathcal{M} \to M$ is a
+{\it good moduli space} if
+\begin{enumerate}
+\item $\pi_* :\text{QCoh}(\mathcal{M}) \to
+\text{QCoh}(M)$ is exact.
+\item $\mathcal{O}_M \xrightarrow{\simeq
+}\pi_*\mathcal{O}_{\mathcal{M}}$
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+\label{example-good-moduli-space}
+$X$ affine, $G$ linear reductive $G
+\mathbb{y} X$, $[X/G] \to X/\!/G$ is a good
+moduli space. {\bf Exercise:} think this
+through!
+\end{example}
+
+\begin{theorem}
+[Alper-Halpern-Leistor-Heisloth]
+\label{theorem-AHLH}
+Good moduli space exists if the stack
+satisfies $\Theta$-reductivity and
+S-completeness.
+\end{theorem}
+
+Where, roughly,
+\begin{itemize}
+\item $\Theta$-reductivity means ``HN
+filtration specializes'',
+\item S-completeness means: two
+specializations of a family of objects differ
+by
+``elementary modification''.
+\end{itemize}
+
+\begin{example}[Elementary modification I]
+\label{example-elementary-modification}
+$\mathbb{P}_0=\mathbb{P}^1 \times \{0\} =
+\mathbb{P}^1 \times \mathbb{A}^1$,
+$$
+\xymatrix{
+0\ar[r]&  K \ar[r]&
+\mathcal{O}_{\mathbb{P}^1\times\mathbb{A}^1}
+^{\oplus
+2}
+\ar[rr]\ar@{->>}[rd]&  &
+\mathcal{O}_{\mathbb{P}^0}(1) \ar[r]&  0\\
+&  &  &  \mathcal{O}_{\mathbb{P}_0^{\oplus
+2}}\ar@{->>}[ur]
+}
+$$
+\end{example}
+
+\begin{example}[Elementary modification II]
+\label{example-elementary-modification-2}
+$C \times \mathbb{A}^1$, $E$ rank 2 vector
+bundle such that
+$$
+\xymatrix{
+0\ar[r]&\mathcal{L}_1\ar[r]&E|_{co}\ar[r]&
+\mathcal{L}\ar[r]&0
+}
+$$
+for
+$\text{deg}\mathcal{L}_1=\text{deg}
+\mathcal{L}
+^2$.
+$$
+\xymatrix{
+0\ar[r]&  K \ar[r]& E\ar[rr]\ar@{->>}[rd]
+&  &  \mathcal{L}_2 \ar[r]&  0\\
+&  &  &  E|_{c_0}\ar@{->>}[ur]
+}
+$$
+\end{example}
+
+\medskip\noindent
+{\bf Upshot.} $\mathcal{M}_{\sigma}(w) \to
+M_{\sigma}(w)$ good moduli exist.
+
+\begin{itemize}
+\item Bayer-Macri: there exists a (numerical)
+divisor class on $M_{\sigma}(w)$
+that intersects every curve positively.
+\end{itemize}
+
+\subsection{Mukai's theorem for K3 category}
+\label{nasak-label-008}
+
+\begin{proposition}
+\label{proposition-4-fold-Mukai-lattice}
+$X$ cubic 4-fold. Then there exists a Mukai
+lattice (cf Subsection
+\ref{subsection-Mukai-lattice})
+$\tilde{H}(Ku_X';\mathbb{Z})$ with
+\begin{itemize}
+\item Weight 2 Hodge structure,
+\item Pairing compatible with $-\chi$.
+\end{itemize}
+\end{proposition}
+
+\begin{theorem}[BLMNPS]
+\label{theorem-BLMNPS}
+Let $0 \neq  v \in
+\tilde{H}_{\text{alg}}(Ku_X;\mathbb{Z})$
+primitive, $\sigma$ generic w.r.t. $v$. Then
+$\mathcal{M}_{\sigma}(v)$ has a good moduli
+space $M_{\sigma}(v)\neq \emptyset$ smooth
+projective hyperk\"ahler variety of dimension
+$v^2+2$, deformation equivalent to
+$K3^{\left[ \frac{v+1}{2 } \right] }$.
+\end{theorem}
+
+(The deepest part of this theorem is showing
+that $M_{\sigma}(v)$ is not empty!)
+
+\medskip\noindent
+There exists a rank 2 lattice contained in
+$\tilde{H}_{alg}(Ku_X;\mathbb{Z})$ for any
+$X$ $\rightsquigarrow $ $M_\sigma(v)$ deforms
+in $20$-dimensional family.
+
+\section{Noncommutative abelian surfaces and
+Hyperk\"ahler of Kummer type}
+\label{nasak-label-009}
+
+Joint work with Boyer, Perry, Petrusi ('25?)
+
+\subsection{Polarized hyperk\"ahler}
+\label{subsection-polarized-hyperkahler}
+
+Recall Definition
+\ref{definition-hyperkahler-variety}. In the
+past lectures we have seen that the spaces
+$K3^{[n]}$ are examples.
+
+Let $A$ be an abelian surface ($A \cong
+\mathbb{C}^2/\Lambda
+\hookrightarrow\mathbb{P}^N$). The fact that
+abelian surfaces are not abelian makes
+$M_H(v)$, the moduli of $H$-semistable
+sheaves of topological class $V$ on $A$, not
+abelian. So we consider
+$$
+\xymatrix{
+M_H(v)\ar[d]_{\text{alb}}\\
+\hat{A}\times A
+}
+$$
+where we must assume that $v$ is primitive,
+$v^2>0$ and $\sigma/H$ is $v$-gen. Then
+$M:=\text{alb}^{-1}(0)$ is a hyperk\"ahler
+variety called {\it generalized Kummer}.
+
+Now consider the even cohomology
+$H^{ev}(Z,\mathbb{Z})$. Let
+$$
+H^{ev}(A;\mathbb{Z})\supset V^\perp
+\xrightarrow{\theta,\simeq }H^{2}(M)
+$$
+(Torelli theorem, [\ldots{}, Verbitsky])
+
+\begin{remark}
+\label{nasak-label-013}
+$$
+\Lambda=\left<v,\theta^{-1}(H)\right>\subset
+H^{ev}_{alg}(A,\mathbb{Z})
+$$
+positive definite rank 2 lattice.
+\end{remark}
+
+{\bf Goal.} Fix $\Lambda$. Look for:
+$\Lambda$-polarized deformation of $D^b(A)$
+(i.e. $\Lambda$ remains alg.).
+
+\subsection{Deformations via equivariant
+categories}
+\label{nasak-label-010}
+
+Consider an involution on an abelian surface,
+$\mathbb{Z}/2 \mathbb{y} A$. This induces an
+action $ \mathbb{Z}/2 \mathbb{y}D^b(A)$.
+
+There are 16 singular points in the quotient
+$A/(\mathbb{Z}/2)$. The resolution
+$\widetilde{A/(\mathbb{Z}/2)=S}$ is the
+so-called {\it Kummer K3}. (Another way to
+see this is considering the quotient stack
+$A$ by  $\mathbb{Z}/2$, the result is
+``basically'' equivalent to $S$.)
+
+[BKR] $D^b(S)\cong D^b(A)^{\mathbb{Z}/2}$.
+
+[Elagin] $D^b(A) \cong
+D^b(S)^{\widehat{\mathbb{Z}/2}}$ where
+$\widehat{\mathbb{Z}/2}$ is an involution
+acting on the derived category of $S$, and we
+explain it next: there are 16 exceptional
+divisors $E_1,\ldots,E_{16}\subset S$. The
+involution is
+$$
+(- \otimes \mathcal{L})\cdot
+\prod_{i=1}^{16}ST_{\mathcal{O}_{E_i}(-1)}.
+$$
+
+\medskip\noindent
+{\bf Key 1.} In order to deform $D^b(A)$, we
+only need to deform $D^b(S)$ together with
+its involution.
+
+\medskip\noindent
+{\bf Definition/Proposition.}
+\begin{itemize}
+\item The derived Kummer lattice
+$\tilde{K}\subset\tilde{H}^*(S;\mathbb{Z})$
+is the $(-1)$-eigenspace of
+$\widehat{\mathbb{Z}/2}$ action on
+$\tilde{H}(S;\mathbb{Z})$.
+\item Spanned by $(0,2E_i,-1)$.
+\end{itemize}
+
+\medskip\noindent
+{\bf General theory (for deforming K3
+surfaces).} Due to Huybrechts, Toda,
+Addington-Thomas. To deform $D^b(S)$ and its
+$\widehat{\mathbb{Z}/2}$-action is equivalent
+to deforming $D^b(S)$ such that $\tilde{K}$
+remains algebraic.
+
+What need to remain algebraic under
+deformation?
+\begin{itemize}
+\item $\tilde{K}^{16}$ (so that the
+involution deforms).
+\item $\Lambda^2$.
+\end{itemize}
+[The dimension of the moduli space must then
+be $22-16=4$.]
+
+\begin{lemma}
+\label{lemma-}
+$$
+\left<\tilde{K},\Lambda\right>\supset
+U=\begin{pmatrix}
+0&1\\
+1&0
+\end{pmatrix}
+$$
+$$
+\underbrace{\left<\tilde{K},\Lambda\right>}
+_{(2,16)}
+=\underbrace{U}_{(1,1)
+}\oplus\underbrace{\Lambda_T}_{(1,15)}
+$$
+\end{lemma}
+
+\medskip\noindent
+{\bf Key 2.} There exists
+\begin{align*}
+\Phi: D^b(S) &\longrightarrow D^b(T) \\
+\tilde{H}(S) &\qquad  \tilde{H}(T)\\
+\left<\tilde{K}, U\right>\quad U &\longmapsto
+H^0 \oplus H^4\\
+U \oplus \Lambda_T\quad \Lambda_T
+&\longmapsto \Lambda'_T \subset H^2
+\end{align*}
+where $ T$ is a K3 surface and $\tilde{H}(S)
+\supset \left<
+\tilde{K},\Lambda\right>=U\oplus \Lambda_T$.
+Deform $T$ as a
+$\Lambda_T$-polarized K3 surface.
+
+Since $\tilde{K}$ remains algebraic,
+invariant deformations w/ $D^b(T)$ take the
+equiv. category.
+
+\begin{theorem}
+\label{nasak-label-011}
+There exists a quasi-finite dominant map
+\begin{align*}
+U  &\longrightarrow
+\text{Mod}_{\Lambda_T}^{K3}
+\end{align*}
+such that $u \in U$.
+$D^b(T_u)^{\widehat{\mathbb{Z}/2}}=$
+4-dimensional family of categories deforming.
+\end{theorem}
+
+\begin{theorem}
+\label{theorem-}
+For each $u \in U$, there exists an
+involution $\widehat{\mathbb{Z}/2}$ stability
+condition on $D^b(T_u)$.
+\end{theorem}
+
+From these two theorems we obtain
+$$
+\xymatrix{
+\substack{\text{Kummer} \\\text{type}\\
+\text{HK}}\to
+\mathcal{M}_{\sigma}(D^b(T_u)
+^{\widehat{\mathbb{Z}/2}},v)\ar[d]^{alb}\\
+\text{abelian 4-fold}
+}
+$$
+
+\begin{definition}
+\label{definition-Weil-type}
+An abelian 4-fold $W$ is of {\it Weil type}
+if $\mathbb{R}(\sqrt{-d}) \hookrightarrow
+\text{End}_{\mathbb{Q}}(W)$ for
+$d\in\mathbb{Z}_+$ along with some mild
+condition.
+\end{definition}
+
+Let $\Lambda=\left<v,w\right>$. Consider the
+abelian category $\mathcal{A}$ nc abelian
+surface. [In fact,
+$\text{Aut}^0(\mathcal{A})$ is an abelian
+4-fold.]
+$$
+\xymatrix{
+M_\sigma(v)\ar[dr]_{alb_v}&
+\text{Aut}^0(\mathcal{A})\ar[l]\ar[r]
+\ar@/^{.5pc}/[d]^{c_w}\ar@/^{-0.5pc}/[d]
+_{c_v}
+& M_\sigma(w)\ar[dl]^{alb_w}\\
+&\text{Alb}(\mathcal{A})
+}
+$$
+\begin{theorem}
+\label{theorem-}
+$c_w^{-1} \circ c_v$ is an endomorphism of
+Weil type.
+\end{theorem}
+\end{document}

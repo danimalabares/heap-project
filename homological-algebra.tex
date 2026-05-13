@@ -1,0 +1,2298 @@
+\input{preamble}
+
+\begin{document}
+
+\title{Homological algebra}
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+\hfill
+\href{http://github.com/danimalabares/stack}%
+{github.com/danimalabares/stack}
+
+\tableofcontents
+
+\section{Preadditive and additive categories}
+\label{section-additive-categories}
+
+\noindent
+Here is the definition of a preadditive
+category.
+
+\begin{definition}
+\label{definition-preadditive}
+A category $\mathcal{A}$ is called {\it
+preadditive} if each
+morphism set $\Mor_\mathcal{A}(x, y)$ is
+endowed
+with the structure of an abelian group such
+that the
+compositions
+$$
+\Mor(x, y) \times \Mor(y, z)
+\longrightarrow
+\Mor(x, z)
+$$
+are bilinear. A functor $F : \mathcal{A} \to
+\mathcal{B}$ of
+preadditive categories is called {\it
+additive} if and only
+if $F : \Mor(x, y) \to \Mor(F(x), F(y))$
+is a homomorphism of abelian groups for all
+$x, y \in \Ob(\mathcal{A})$.
+\end{definition}
+
+\noindent
+In particular for every $x, y$ there exists
+at least
+one morphism $x \to y$, namely the zero map.
+
+\begin{lemma}
+\label{lemma-preadditive-zero}
+Let $\mathcal{A}$ be a preadditive category.
+Let $x$ be an object of $\mathcal{A}$.
+The following are equivalent
+\begin{enumerate}
+\item $x$ is an initial object,
+\item $x$ is a final object, and
+\item $\text{id}_x = 0$ in
+$\Mor_\mathcal{A}(x, x)$.
+\end{enumerate}
+Furthermore, if such an object $0$ exists,
+then a morphism
+$\alpha : y \to z$ factors through $0$ if and
+only if $\alpha = 0$.
+\end{lemma}
+
+\begin{proof}
+First assume that $x$ is either (1) initial
+or (2) final.
+In both cases, it follows that $\Mor(x,x)$ is
+a trivial abelian group
+containing $\text{id}_x$, thus $\text{id}_x =
+0$ in
+$\Mor(x, x)$, which shows that each of (1)
+and (2) implies (3).
+
+\medskip\noindent
+Now assume that $\text{id}_x = 0$ in
+$\Mor(x,x)$. Let $y$
+be an arbitrary object of $\mathcal{A}$ and
+let $f \in \Mor(x ,y)$.
+Denote $C : \Mor(x,x) \times \Mor(x,y) \to
+\Mor(x,y)$ the composition map.
+Then $f = C(0, f)$ and since $C$ is bilinear
+we have $C(0, f) = 0$.
+Thus $f = 0$. Hence $x$ is initial in
+$\mathcal{A}$.
+A similar argument for $f \in \Mor(y, x)$ can
+be used to show that
+$x$ is also final. Thus (3) implies both (1)
+and (2).
+\end{proof}
+
+\begin{definition}
+\label{definition-zero-object}
+In a preadditive category $\mathcal{A}$, we
+call an object that is both
+final and initial (as in Lemma
+\ref{lemma-preadditive-zero}) a
+{\it zero object} and denote it $0$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-preadditive-direct-sum}
+Let $\mathcal{A}$ be a preadditive category.
+Let $x, y \in \Ob(\mathcal{A})$.
+If the product $x \times y$ exists, then so
+does
+the coproduct $x \amalg y$.
+If the coproduct $x \amalg y$ exists, then so
+does
+the product $x \times y$. In this case
+also $x \amalg y \cong x \times y$.
+\end{lemma}
+
+\begin{proof}
+Suppose that $z = x \times y$ with
+projections
+$p : z \to x$ and $q : z \to y$. Denote $i :
+x \to z$
+the morphism corresponding to $(1, 0)$.
+Denote $j : y \to z$
+the morphism corresponding to $(0, 1)$. Thus
+we have the
+commutative diagram
+$$
+\xymatrix{
+x \ar[rr]^1 \ar[rd]^i & & x \\
+& z \ar[ru]^p \ar[rd]^q & \\
+y \ar[rr]^1 \ar[ru]^j & & y
+}
+$$
+where the diagonal compositions are zero. It
+follows that
+$i \circ p + j \circ q : z \to z$ is the
+identity since
+it is a morphism which upon composing with
+$p$ gives $p$
+and upon composing with $q$ gives $q$.
+Suppose given morphisms $a : x \to w$ and $b
+: y \to w$.
+Then we can form the map $a \circ p + b \circ
+q : z \to w$.
+In this way we get a bijection $\Mor(z, w)
+= \Mor(x, w) \times \Mor(y, w)$ which
+show that $z = x \amalg y$.
+
+\medskip\noindent
+We leave it to the reader to construct the
+morphisms
+$p, q$ given a coproduct $x \amalg y$ instead
+of a
+product.
+\end{proof}
+
+\begin{definition}
+\label{definition-direct-sum}
+Given a pair of objects $x, y$ in a
+preadditive category $\mathcal{A}$,
+the {\it direct sum} $x \oplus y$ of $x$ and
+$y$ is the direct
+product $x \times y$ endowed with the
+morphisms
+$i, j, p, q$ as in Lemma
+\ref{lemma-preadditive-direct-sum} above.
+\end{definition}
+
+\begin{remark}
+\label{remark-direct-sum}
+Note that the proof of Lemma
+\ref{lemma-preadditive-direct-sum}
+shows that given $p$ and $q$ the morphisms
+$i$, $j$ are uniquely
+determined by the rules $p \circ i =
+\text{id}_x$,
+$q \circ j = \text{id}_y$, $p \circ j = 0$,
+$q \circ i = 0$.
+Moreover, we automatically have
+$i \circ p + j \circ q = \text{id}_{x \oplus
+y}$.
+Similarly, given $i$, $j$ the morphisms $p$
+and $q$ are uniquely determined.
+Finally, given objects $x, y, z$ and
+morphisms
+$i : x \to z$, $j : y \to z$, $p : z \to x$
+and
+$q : z \to y$ such that $p \circ i =
+\text{id}_x$,
+$q \circ j = \text{id}_y$, $p \circ j = 0$,
+$q \circ i = 0$
+and $i \circ p + j \circ q = \text{id}_z$,
+then $z$
+is the direct sum of $x$ and $y$ with the
+four morphisms
+equal to $i, j, p, q$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-additive-additive}
+Let $\mathcal{A}$, $\mathcal{B}$ be
+preadditive categories.
+Let $F : \mathcal{A} \to \mathcal{B}$ be an
+additive functor.
+Then $F$ transforms direct sums to direct
+sums and zero to zero.
+\end{lemma}
+
+\begin{proof}
+Suppose $F$ is additive. A direct sum $z$
+of $x$ and $y$ is characterized by having
+morphisms
+$i : x \to z$, $j : y \to z$, $p : z \to x$
+and
+$q : z \to y$ such that $p \circ i =
+\text{id}_x$,
+$q \circ j = \text{id}_y$, $p \circ j = 0$,
+$q \circ i = 0$
+and $i \circ p + j \circ q = \text{id}_z$,
+according
+to Remark \ref{remark-direct-sum}. Clearly
+$F(x), F(y), F(z)$
+and the morphisms $F(i), F(j), F(p), F(q)$
+satisfy exactly the
+same relations (by additivity) and we see
+that $F(z)$ is
+a direct sum of $F(x)$ and $F(y)$.
+Hence, $F$ transforms direct sums to direct
+sums.
+
+\medskip\noindent
+To see that $F$ transforms zero to zero, use
+the
+characterization (3) of the zero object in
+Lemma \ref{lemma-preadditive-zero}.
+\end{proof}
+
+\begin{definition}
+\label{definition-additive-category}
+A category $\mathcal{A}$ is called {\it
+additive}
+if it is preadditive and finite products
+exist, in other
+words it has a zero object and direct sums.
+\end{definition}
+
+\noindent
+Namely the empty product is a finite product
+and
+if it exists, then it is a final object.
+
+\begin{definition}
+\label{definition-kernel}
+Let $\mathcal{A}$ be a preadditive category.
+Let $f : x \to y$ be a morphism.
+\begin{enumerate}
+\item A {\it kernel} of $f$ is a morphism
+$i : z \to x$ such that (a) $f \circ i = 0$
+and (b)
+for any $i' : z' \to x$ such that $f \circ i'
+= 0$ there
+exists a unique morphism $g : z' \to z$ such
+that
+$i' = i \circ g$.
+\item If the kernel of $f$ exists, then we
+denote
+this $\Ker(f) \to x$.
+\item A {\it cokernel} of $f$ is a morphism
+$p : y \to z$ such that (a) $p \circ f = 0$
+and (b)
+for any $p' : y \to z'$ such that $p' \circ f
+= 0$ there
+exists a unique morphism $g : z \to z'$ such
+that
+$p' = g \circ p$.
+\item If a cokernel of $f$ exists we denote
+this
+$y \to \Coker(f)$.
+\item If a kernel of $f$ exists, then a {\it
+coimage
+of $f$} is a cokernel for the morphism
+$\Ker(f) \to x$.
+\item If a kernel and coimage exist then we
+denote this
+$x \to \Coim(f)$.
+\item If a cokernel of $f$ exists, then the
+{\it image of
+$f$} is a kernel of the morphism $y \to
+\Coker(f)$.
+\item If a cokernel and image of $f$ exist
+then we denote
+this $\Im(f) \to y$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+In the above definition, we have spoken of
+``the kernel'' and
+``the cokernel'', tacitly using their
+uniqueness
+up to unique isomorphism. This follows from
+the Yoneda lemma
+(Categories, Section
+\ref{categories-section-opposite})
+because the kernel of $f : x \to y$
+represents the functor
+sending an object $z$ to the set
+$\Ker(\Mor_\mathcal{A}(z, x) \to
+\Mor_\mathcal{A}(z, y))$.
+The case of cokernels is dual.
+
+\medskip\noindent
+We first relate the direct sum to kernels as
+follows.
+
+\begin{lemma}
+\label{lemma-additive-cat-biproduct-kernel}
+Let $\mathcal{C}$ be a preadditive category.
+Let $x \oplus y$ with morphisms $i, j, p, q$
+as in
+Lemma \ref{lemma-preadditive-direct-sum}
+be a direct sum in $\mathcal{C}$. Then $i : x
+\to x \oplus y$
+is a kernel of $q : x \oplus y \rightarrow
+y$. Dually, $p$ is
+a cokernel for $j$.
+\end{lemma}
+
+\begin{proof}
+Let $f : z' \to x \oplus y$ be a morphism
+such that $q \circ f = 0$.
+We have to show that there exists a unique
+morphism $g : z' \to x$
+such that $f = i \circ g$. Since $i \circ p +
+j \circ q$ is the identity on
+$x \oplus y$ we see that
+$$
+f = (i \circ p + j \circ q) \circ f = i \circ
+p \circ f
+$$
+and hence $g = p \circ f$ works. Uniqueness
+holds because $p \circ i$
+is the identity on $x$. The proof of the
+second statement is dual.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-kernel-mono}
+Let $\mathcal{C}$ be a preadditive category.
+Let $f : x \to y$ be a morphism in
+$\mathcal{C}$.
+\begin{enumerate}
+\item If a kernel of $f$ exists, then
+this kernel is a monomorphism.
+\item If a cokernel of $f$ exists, then
+this cokernel is an epimorphism.
+\item If a kernel and coimage of $f$ exist,
+then
+the coimage is an epimorphism.
+\item If a cokernel and image of $f$ exist,
+then
+the image is a monomorphism.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (1) follows easily from the uniqueness
+required in the
+definition of a kernel. The proof of (2) is
+dual.
+Part (3) follows from (2), since the coimage
+is a cokernel.
+Similarly, (4) follows from (1).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-coim-im-map}
+Let $f : x \to y$ be a morphism in a
+preadditive category
+such that the kernel, cokernel, image and
+coimage all exist.
+Then $f$ can be factored uniquely as
+$x \to \Coim(f) \to \Im(f) \to y$.
+\end{lemma}
+
+\begin{proof}
+There is a canonical morphism $\Coim(f) \to
+y$
+because $\Ker(f) \to x \to y$ is zero.
+The composition $\Coim(f) \to y \to
+\Coker(f)$
+is zero, because it is the unique morphism
+which gives
+rise to the morphism $x \to y \to \Coker(f)$
+which
+is zero
+(the uniqueness follows from
+Lemma \ref{lemma-kernel-mono} (3)).
+Hence $\Coim(f) \to y$ factors uniquely
+through
+$\Im(f) \to y$, which gives us the desired
+map.
+\end{proof}
+
+\begin{example}
+\label{example-not-abelian}
+Let $k$ be a field.
+Consider the category
+of filtered vector spaces over $k$.
+(See Definition \ref{definition-filtered}.)
+Consider the filtered vector spaces $(V, F)$
+and $(W, F)$ with
+$V = W = k$ and
+$$
+F^iV
+=
+\left\{
+\begin{matrix}
+V & \text{if} & i < 0 \\
+0 & \text{if} & i \geq 0
+\end{matrix}
+\right.
+\text{ and }
+F^iW
+=
+\left\{
+\begin{matrix}
+W & \text{if} & i \leq 0 \\
+0 & \text{if} & i > 0
+\end{matrix}
+\right.
+$$
+The map $f : V \to W$ corresponding to
+$\text{id}_k$ on the underlying
+vector spaces has trivial kernel and cokernel
+but is not
+an isomorphism. Note also that $\Coim(f) = V$
+and $\Im(f) = W$.
+This means that the category of filtered
+vector spaces over $k$
+is not abelian.
+\end{example}
+
+
+
+
+
+\section{Abelian categories}
+\label{section-abelian-categories}
+
+\noindent
+An abelian category is a category satisfying
+just enough axioms so the
+snake lemma holds. An axiom (that is
+sometimes forgotten)
+is that the canonical map $\Coim(f) \to
+\Im(f)$
+of Lemma \ref{lemma-coim-im-map} is always an
+isomorphism.
+Example \ref{example-not-abelian} shows that
+it is necessary.
+
+\begin{definition}
+\label{definition-abelian-category}
+A category $\mathcal{A}$ is {\it abelian} if
+it is additive, if all kernels and cokernels
+exist,
+and if the natural map $\Coim(f) \to \Im(f)$
+is an isomorphism for all morphisms $f$ of
+$\mathcal{A}$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-abelian-opposite}
+Let $\mathcal{A}$ be a preadditive category.
+The additions on sets of morphisms make
+$\mathcal{A}^{opp}$ into a preadditive
+category.
+Furthermore, $\mathcal{A}$ is additive if and
+only if $\mathcal{A}^{opp}$
+is additive, and
+$\mathcal{A}$ is abelian if and only if
+$\mathcal{A}^{opp}$ is abelian.
+\end{lemma}
+
+\begin{proof}
+The first statement is straightforward.
+To see that $\mathcal{A}$ is additive if and
+only if $\mathcal{A}^{opp}$
+is additive, recall that additivity can be
+characterized by
+the existence of a zero object and direct
+sums, which are both
+preserved when passing to the opposite
+category.
+Finally, to see that
+$\mathcal{A}$ is abelian if and only if
+$\mathcal{A}^{opp}$ is abelian,
+observes that kernels, cokernels, images and
+coimages in
+$\mathcal{A}^{opp}$ correspond to
+cokernels, kernels, coimages and images in
+$\mathcal{A}$,
+respectively.
+\end{proof}
+
+\begin{definition}
+\label{definition-injective-surjective}
+Let $f : x \to y$ be a morphism in an abelian
+category.
+\begin{enumerate}
+\item We say $f$ is {\it injective} if
+$\Ker(f) = 0$.
+\item We say $f$ is {\it surjective} if
+$\Coker(f) = 0$.
+\end{enumerate}
+If $x \to y$ is injective, then we say that
+$x$ is a {\it subobject}
+of $y$ and we use the notation $x \subset y$.
+If $x \to y$ is
+surjective, then we say that $y$ is a {\it
+quotient} of $x$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-characterize-injective}
+Let $f : x \to y$ be a morphism in an abelian
+category $\mathcal{A}$. Then
+\begin{enumerate}
+\item $f$ is injective if and only if $f$ is
+a monomorphism,
+\item $f$ is surjective if and only if $f$ is
+an epimorphism, and
+\item $f$ is an isomorphism if and only if
+$f$ is injective and surjective.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Proof of (1). Recall that $\Ker(f)$ is an
+object representing the
+functor sending $z$ to
+$\Ker(\Mor_\mathcal{A}(z, x) \to
+\Mor_\mathcal{A}(z, y))$, see
+Definition \ref{definition-kernel}.
+Thus $\Ker(f)$ is $0$ if and only if
+$\Mor_\mathcal{A}(z, x) \to
+\Mor_\mathcal{A}(z, y)$
+is injective for all $z$ if and only if $f$
+is a monomorphism.
+The proof of (2) is similar.
+For the proof of (3) note that an isomorphism
+is both a monomorphism
+and epimorphism, which by (1), (2) proves $f$
+is injective
+and surjective. If $f$ is both injective and
+surjective, then
+$x = \Coim(f)$ and $y = \Im(f)$ whence $f$ is
+an isomorphism.
+\end{proof}
+
+\noindent
+In an abelian category, if $x \subset y$ is a
+subobject,
+then we denote
+$$
+y/x = \Coker(x \to y).
+$$
+
+\begin{lemma}
+\label{lemma-colimit-abelian-category}
+Let $\mathcal{A}$ be an abelian category.
+All finite limits and finite colimits exist
+in $\mathcal{A}$.
+\end{lemma}
+
+\begin{proof}
+To show that finite limits exist it suffices
+to show
+that finite products and equalizers exist,
+see
+Categories, Lemma
+\ref{categories-lemma-finite-limits-exist}.
+Finite products exist
+by definition and the equalizer of $a, b : x
+\to y$ is
+the kernel of $a - b$. The argument for
+finite colimits
+is similar but dual to this.
+\end{proof}
+
+\begin{example}
+\label{example-fibre-product-pushouts}
+Let $\mathcal{A}$ be an abelian category.
+Pushouts and fibre products in $\mathcal{A}$
+have the following
+simple descriptions:
+\begin{enumerate}
+\item If $a : x \to y$, $b : z \to y$ are
+morphisms in $\mathcal{A}$, then
+we have the fibre product:
+$x \times_y z = \Ker((a, -b) : x \oplus z \to
+y)$.
+\item If $a : y \to x$, $b : y \to z$ are
+morphisms in $\mathcal{A}$, then
+we have the pushout:
+$x \amalg_y z = \Coker((a, -b) : y \to x
+\oplus z)$.
+\end{enumerate}
+\end{example}
+
+\begin{definition}
+\label{definition-exact}
+Let $\mathcal{A}$ be an additive category.
+Consider a sequence of morphisms
+$$
+\ldots \to x \to y \to z \to \ldots
+\quad\text{or}\quad
+x_1 \to x_2 \to \ldots \to x_n
+$$
+in $\mathcal{A}$. We say such a sequence is a
+{\it complex} if the
+composition of any two consecutive (drawn)
+arrows is zero.
+If $\mathcal{A}$ is abelian then we say a
+complex of the first
+type above is {\it exact at $y$} if $\Im(x
+\to y) = \Ker(y \to z)$
+and we say a complex of the second kind is
+{\it exact at $x_i$}
+where $1 < i < n$ if
+$\Im(x_{i - 1} \to x_i) = \Ker(x_i \to x_{i +
+1})$. We a
+sequence as above is {\it exact} or is an
+{\it exact sequence} or is an
+{\it exact complex} if it is a complex and
+exact at every object (in
+the first case) or exact at $x_i$ for all $1
+< i < n$ (in the second case).
+There are variants of these notions for
+sequences of the form
+$$
+\ldots \to x_{-3} \to x_{-2} \to x_{-1}
+\quad\text{and}\quad
+x_1 \to x_2 \to x_3 \to \ldots
+$$
+A {\it short exact sequence} is an exact
+complex of the form
+$$
+0 \to A  \to B \to C \to 0.
+$$
+\end{definition}
+
+\noindent
+In the following lemma we assume the reader
+knows what it means
+for a sequence of abelian groups to be exact.
+
+\begin{lemma}
+\label{lemma-check-exactness}
+Let $\mathcal{A}$ be an abelian category.
+Let $0 \to M_1 \to M_2 \to M_3 \to 0$ be a
+complex of $\mathcal{A}$.
+\begin{enumerate}
+\item $M_1 \to M_2 \to M_3 \to 0$ is exact if
+and only if
+$$
+0 \to \Hom_\mathcal{A}(M_3, N) \to
+\Hom_\mathcal{A}(M_2, N) \to
+\Hom_\mathcal{A}(M_1, N)
+$$
+is an exact sequence of abelian groups for
+all objects $N$ of
+$\mathcal{A}$, and
+\item $0 \to M_1 \to M_2 \to M_3$ is exact if
+and only if
+$$
+0 \to \Hom_\mathcal{A}(N, M_1) \to
+\Hom_\mathcal{A}(N, M_2) \to
+\Hom_\mathcal{A}(N, M_3)
+$$
+is an exact sequence of abelian groups for
+all objects $N$ of $\mathcal{A}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: See
+Algebra, Lemma \ref{algebra-lemma-hom-exact}.
+\end{proof}
+
+\begin{definition}
+\label{definition-ses-split}
+Let $\mathcal{A}$ be an abelian category.
+Let $i : A \to B$ and $q : B \to C$ be
+morphisms
+of $\mathcal{A}$ such that
+$0 \to A \to B \to C \to 0$ is a short
+exact sequence. We say the short exact
+sequence is {\it split} if there exist
+morphisms $j : C \to B$ and $p : B \to A$
+such
+that $(B, i, j, p, q)$ is the direct sum of
+$A$ and $C$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-ses-split}
+Let $\mathcal{A}$ be an abelian category.
+Let $0 \to A \to B \to C \to 0$
+be a short exact sequence.
+\begin{enumerate}
+\item Given a morphism $s : C \to B$ right
+inverse to
+$B \to C$, there exists a unique $\pi : B \to
+A$
+such that $(s, \pi)$ splits the short exact
+sequence
+as in Definition \ref{definition-ses-split}.
+\item Given a morphism $\pi : B \to A$ left
+inverse to
+$A \to B$, there exists a unique $s : C \to
+B$
+such that $(s, \pi)$ splits the short exact
+sequence
+as in Definition \ref{definition-ses-split}.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-cartesian}
+Let $\mathcal{A}$ be an abelian category. Let
+$$
+\xymatrix{
+w\ar[r]^f\ar[d]_g
+& y\ar[d]^h\\
+x\ar[r]^k
+& z
+}
+$$
+be a commutative diagram.
+\begin{enumerate}
+\item The diagram is cartesian if and only if
+$$
+0 \to w \xrightarrow{(g, f)} x \oplus y
+\xrightarrow{(k, -h)} z
+$$
+is exact.
+\item The diagram is cocartesian if and only
+if
+$$
+w \xrightarrow{(g, -f)} x \oplus y
+\xrightarrow{(k, h)} z \to 0
+$$
+is exact.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $u = (g, f) : w \to x \oplus y$ and $v =
+(k, -h) : x \oplus y \to z$.
+Let $p : x \oplus y \to x$ and $q : x \oplus
+y \to y$ be the canonical
+projections. Let $i : \Ker(v) \to x \oplus y$
+be the canonical
+injection. By Example
+\ref{example-fibre-product-pushouts}, the
+diagram is
+cartesian if and only if there exists an
+isomorphism
+$r : \Ker(v) \to w$ with $f \circ r = q \circ
+i$ and
+$g \circ r = p \circ i$. The sequence
+$0 \to w \overset{u} \to x \oplus y
+\overset{v} \to z$ is exact if and
+only if there exists an isomorphism $r :
+\Ker(v) \to w$ with
+$u \circ r = i$. But given $r : \Ker(v) \to
+w$, we have
+$f \circ r = q \circ i$ and $g \circ r = p
+\circ i$ if and
+only if $q \circ u \circ r= f \circ r = q
+\circ i$ and
+$p \circ u \circ r = g \circ r = p \circ i$,
+hence if and only if
+$u \circ r = i$. This proves (1), and then
+(2) follows by duality.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cartesian-kernel}
+Let $\mathcal{A}$ be an abelian category. Let
+$$
+\xymatrix{
+w\ar[r]^f\ar[d]_g
+& y\ar[d]^h\\
+x\ar[r]^k
+& z
+}
+$$
+be a commutative diagram.
+\begin{enumerate}
+\item If the diagram is cartesian, then the
+morphism
+$\Ker(f)\to\Ker(k)$ induced by $g$ is an
+isomorphism.
+\item If the diagram is cocartesian, then the
+morphism
+$\Coker(f)\to\Coker(k)$ induced by $h$ is an
+isomorphism.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Suppose the diagram is cartesian. Let
+$e:\Ker(f)\to\Ker(k)$ be induced by $g$. Let
+$i:\Ker(f)\to w$ and $j:\Ker(k)\to x$ be the
+canonical
+injections. There exists $t:\Ker(k)\to w$
+with $f\circ t=0$
+and $g\circ t=j$. Hence, there exists
+$u:\Ker(k)\to\Ker(f)$
+with $i\circ u=t$. It follows
+$g\circ i\circ u\circ e=g\circ t\circ
+e=j\circ e=g\circ i$ and
+$f\circ i\circ u\circ e=0=f\circ i$, hence
+$i\circ u\circ e=i$. Since
+$i$ is a monomorphism this implies $u\circ
+e=\text{id}_{\Ker(f)}$.
+Furthermore, we have $j\circ e\circ u=g\circ
+i\circ u=g\circ t=j$.
+Since $j$ is a monomorphism this implies
+$e\circ u=\text{id}_{\Ker(k)}$.
+This proves (1). Now, (2) follows by duality.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cartesian-cocartesian}
+Let $\mathcal{A}$ be an abelian category. Let
+$$
+\xymatrix{
+w\ar[r]^f\ar[d]_g
+& y\ar[d]^h\\
+x\ar[r]^k
+& z
+}
+$$
+be a commutative diagram.
+\begin{enumerate}
+\item If the diagram is cartesian and $k$ is
+an epimorphism,
+then the diagram is cocartesian and $f$ is an
+epimorphism.
+\item If the diagram is cocartesian and $g$
+is a monomorphism,
+then the diagram is cartesian and $h$ is a
+monomorphism.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Suppose the diagram is cartesian and $k$ is
+an epimorphism.
+Let $u = (g, f) : w \to x \oplus y$ and let
+$v = (k, -h) : x \oplus y \to z$.
+As $k$ is an epimorphism, $v$ is an
+epimorphism, too. Therefore
+and by Lemma
+\ref{lemma-characterize-cartesian}, the
+sequence
+$0\to w\overset{u}\to x\oplus y\overset{v}\to
+z\to 0$ is exact. Thus, the
+diagram is cocartesian by Lemma
+\ref{lemma-characterize-cartesian}. Finally,
+$f$ is an epimorphism by Lemma
+\ref{lemma-cartesian-kernel} and
+Lemma \ref{lemma-characterize-injective}.
+This proves (1), and (2)
+follows by duality.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-epimo-unive-abeli-categ}
+Let $\mathcal{A}$ be an abelian category.
+\begin{enumerate}
+\item If $x \to y$ is surjective, then for
+every $z \to y$ the
+projection $x \times_y z \to z$ is
+surjective.
+\item If $x \to y$ is injective, then for
+every $x \to z$ the
+morphism $z \to z \amalg_x y$ is injective.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Immediately from Lemma
+\ref{lemma-characterize-injective} and
+Lemma \ref{lemma-cartesian-cocartesian}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-check-exactness-fibre-product}
+Let $\mathcal{A}$ be an abelian category. Let
+$f:x\to y$ and $g:y\to z$
+be morphisms with $g\circ f=0$. Then, the
+following statements are equivalent:
+\begin{enumerate}
+\item The sequence $x\overset{f}\to
+y\overset{g}\to z$ is exact.
+\item For every $h:w\to y$ with $g\circ h=0$
+there exist an object $v$,
+an epimorphism $k:v\to w$ and a morphism
+$l:v\to x$ with $h\circ k=f\circ l$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $i:\Ker(g)\to y$ be the canonical
+injection. Let
+$p:x\to\Coim(f)$ be the canonical projection.
+Let
+$j:\Im(f)\to\Ker(g)$ be the canonical
+injection.
+
+\medskip\noindent
+Suppose (1) holds. Let $h:w\to y$ with
+$g\circ h=0$. There exists
+$c:w\to\Ker(g)$ with $i\circ c=h$.
+Let $v=x\times_{\Ker(g)}w$ with canonical
+projections
+$k:v\to w$ and $l:v\to x$, so that $c\circ
+k=j\circ p\circ l$.
+Then, $h\circ k=i\circ c\circ k=i\circ j\circ
+p\circ l=f\circ l$.
+As $j\circ p$ is an epimorphism by
+hypothesis, $k$ is an
+epimorphism by Lemma
+\ref{lemma-cartesian-cocartesian}. This
+implies (2).
+
+\medskip\noindent
+Suppose (2) holds. Then, $g\circ i=0$. So,
+there are an object
+$w$, an epimorphism $k:w\to\Ker(g)$ and a
+morphism
+$l:w\to x$ with $f\circ l=i\circ k$. It
+follows
+$i\circ j\circ p\circ l=f\circ l=i\circ k$.
+Since $i$ is a
+monomorphism we see that $j\circ p\circ l=k$
+is an epimorphism.
+So, $j$ is an epimorphisms and thus an
+isomorphism. This implies (1).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-exact-kernel-sequence}
+Let $\mathcal{A}$ be an abelian category. Let
+$$
+\xymatrix{
+x \ar[r]^f \ar[d]^\alpha &
+y \ar[r]^g \ar[d]^\beta &
+z \ar[d]^\gamma\\
+u \ar[r]^k & v \ar[r]^l & w
+}
+$$
+be a commutative diagram.
+\begin{enumerate}
+\item If the first row is exact and $k$ is a
+monomorphism, then the induced
+sequence $\Ker(\alpha) \to \Ker(\beta) \to
+\Ker(\gamma)$
+is exact.
+\item If the second row is exact and $g$ is
+an epimorphism, then the induced
+sequence
+$\Coker(\alpha) \to \Coker(\beta) \to
+\Coker(\gamma)$
+is exact.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Suppose the first row is exact and $k$ is a
+monomorphism. Let
+$a:\Ker(\alpha)\to\Ker(\beta)$ and
+$b:\Ker(\beta)\to\Ker(\gamma)$ be the induced
+morphisms.
+Let $h:\Ker(\alpha)\to x$, $i:\Ker(\beta)\to
+y$ and
+$j:\Ker(\gamma)\to z$ be the canonical
+injections. As $j$ is
+a monomorphism we have $b\circ a=0$. Let
+$c:s\to\Ker(\beta)$
+with $b\circ c=0$. Then, $g\circ i\circ
+c=j\circ b\circ c=0$. By
+Lemma
+\ref{lemma-check-exactness-fibre-product}
+there are an object $t$, an
+epimorphism $d:t\to s$ and a morphism $e:t\to
+x$ with
+$i\circ c\circ d=f\circ e$. Then,
+$k\circ \alpha\circ e=\beta\circ f\circ
+e=\beta\circ i\circ c\circ d=0$.
+As $k$ is a monomorphism we get $\alpha\circ
+e=0$. So, there exists
+$m:t\to\Ker(\alpha)$ with $h\circ m=e$. It
+follows
+$i\circ a\circ m=f\circ h\circ m=f\circ
+e=i\circ c\circ d$.
+As $i$ is a monomorphism we get $a\circ
+m=c\circ d$. Thus,
+Lemma
+\ref{lemma-check-exactness-fibre-product}
+implies (1), and then
+(2) follows by duality.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-snake}
+Let $\mathcal{A}$ be an abelian category. Let
+$$
+\xymatrix{
+& x \ar[r]^f \ar[d]^\alpha &
+y \ar[r]^g \ar[d]^\beta &
+z \ar[r] \ar[d]^\gamma &
+0 \\
+0 \ar[r] & u \ar[r]^k & v \ar[r]^l & w
+}
+$$
+be a commutative diagram with exact rows.
+\begin{enumerate}
+\item There exists a unique morphism
+$\delta : \Ker(\gamma) \to \Coker(\alpha)$
+such that the diagram
+$$
+\xymatrix{
+y \ar[d]_\beta &
+y \times_z \Ker(\gamma) \ar[l]_{\pi'}
+\ar[r]^{\pi} &
+\Ker(\gamma) \ar[d]^\delta \\
+v \ar[r]^{\iota'} & \Coker(\alpha) \amalg_u v
+&
+\Coker(\alpha) \ar[l]_\iota
+}
+$$
+commutes, where $\pi$ and $\pi'$ are the
+canonical projections
+and $\iota$ and $\iota'$ are the canonical
+coprojections.
+\item The induced sequence
+$$
+\Ker(\alpha) \xrightarrow{f'} \Ker(\beta)
+\xrightarrow{g'}
+\Ker(\gamma) \xrightarrow{\delta}
+\Coker(\alpha) \xrightarrow{k'}
+\Coker(\beta) \xrightarrow{l'} \Coker(\gamma)
+$$
+is exact. If $f$ is injective then so is
+$f'$, and if $l$ is
+surjective then so is $l'$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+As $\pi$ is an epimorphism and $\iota$ is a
+monomorphism by
+Lemma \ref{lemma-cartesian-cocartesian},
+uniqueness of $\delta$ is clear.
+Let $p = y \times_z \Ker(\gamma)$ and $q =
+\Coker(\alpha) \amalg_u v$.
+Let $h : \Ker(\beta) \to y$, $i :
+\Ker(\gamma) \to z$ and
+$j : \Ker(\pi) \to p$ be the canonical
+injections.
+Let $\pi'' : u \to \Coker(\alpha)$ be the
+canonical projection.
+Keeping in mind Lemma
+\ref{lemma-cartesian-cocartesian} we get a
+commutative
+diagram with exact rows
+$$
+\xymatrix{
+0 \ar[r] &
+\Ker(\pi) \ar[r]^j &
+p \ar[r]^{\pi} \ar[d]_{\pi'} &
+\Ker(\gamma) \ar[d]_i \ar[r] & 0 \\
+& x \ar[r]^f \ar[d]_\alpha & y \ar[r]^g
+\ar[d]_\beta &
+z \ar[d]_\gamma \ar[r] & 0 \\
+0 \ar[r] & u \ar[r]^k \ar[d]_{\pi''} &
+v \ar[r]^l \ar[d]_{\iota'} & w & \\
+0 \ar[r] & \Coker(\alpha) \ar[r]^\iota & q &
+&
+}
+$$
+As $l \circ \beta \circ \pi' = \gamma \circ i
+\circ \pi = 0$ and as the third
+row of the diagram above is exact, there is
+an $a : p \to u$
+with $k \circ a = \beta \circ \pi'$. As the
+upper right quadrangle of the
+diagram above is cartesian, Lemma
+\ref{lemma-cartesian-kernel} yields an
+epimorphism $b : x \to \Ker(\pi)$ with $\pi'
+\circ j \circ b = f$.
+It follows
+$k \circ a \circ j \circ b = \beta \circ \pi'
+\circ j \circ b =
+\beta \circ f = k \circ \alpha$.
+As $k$ is a monomorphism this implies $a
+\circ j \circ b = \alpha$. It follows
+$\pi'' \circ a \circ j \circ b = \pi'' \circ
+\alpha = 0$. As $b$ is an
+epimorphism this
+implies $\pi'' \circ a \circ j = 0$.
+Therefore, as the top row of the diagram
+above is exact, there exists
+$\delta : \Ker(\gamma) \to \Coker(\alpha)$
+with
+$\delta \circ \pi = \pi'' \circ a$. It
+follows
+$\iota \circ \delta \circ \pi = \iota \circ
+\pi'' \circ a =
+\iota' \circ k \circ a = \iota' \circ \beta
+\circ \pi'$
+as desired.
+
+\medskip\noindent
+As the upper right quadrangle in the diagram
+above is cartesian there
+is a $c : \Ker(\beta) \to p$ with $\pi' \circ
+c = h$ and $\pi \circ c = g'$.
+It follows
+$\iota \circ \delta \circ g' = \iota \circ
+\delta \circ \pi \circ c =
+\iota' \circ \beta \circ \pi' \circ c =
+\iota' \circ \beta \circ h = 0$.
+As $\iota$ is a monomorphism this implies
+$\delta \circ g' = 0$.
+
+\medskip\noindent
+Next, let $d : r \to \Ker(\gamma)$ with
+$\delta \circ d = 0$. Applying
+Lemma
+\ref{lemma-check-exactness-fibre-product}
+to the exact sequence
+$p \xrightarrow{\pi} \Ker(\gamma) \to 0$ and
+$d$ yields an object $s$,
+an epimorphism $m : s \to r$ and a morphism
+$n : s \to p$ with
+$\pi \circ n = d \circ m$. As
+$\pi'' \circ a \circ n = \delta \circ d \circ
+m = 0$,
+applying Lemma
+\ref{lemma-check-exactness-fibre-product} to
+the exact sequence
+$x \xrightarrow{\alpha} u \xrightarrow{p}
+\Coker(\alpha)$ and
+$a \circ n$ yields an object $t$, an
+epimorphism $\varepsilon : t \to s$ and
+a morphism $\zeta : t \to x$ with
+$a \circ n \circ \varepsilon = \alpha \circ
+\zeta$.
+It holds
+$\beta \circ \pi' \circ n \circ \varepsilon =
+k \circ \alpha \circ \zeta = \beta \circ f
+\circ \zeta$.
+Let $\eta = \pi' \circ n \circ \varepsilon -
+f \circ \zeta : t \to y$. Then,
+$\beta \circ \eta = 0$. It follows that there
+is a
+$\vartheta : t \to \Ker(\beta)$ with $\eta =
+h \circ \vartheta$. It holds
+$i \circ g' \circ \vartheta = g \circ h \circ
+\vartheta =
+g \circ \pi' \circ n \circ \varepsilon - g
+\circ f \circ \zeta =
+i \circ \pi \circ n \circ \varepsilon = i
+\circ d \circ m \circ \varepsilon$.
+As $i$ is a monomorphism we get
+$g' \circ \vartheta = d \circ m \circ
+\varepsilon$.
+Thus, as $m \circ \varepsilon$ is an
+epimorphism,
+Lemma
+\ref{lemma-check-exactness-fibre-product}
+implies that
+$\Ker(\beta) \xrightarrow{g'} \Ker(\gamma)
+\xrightarrow{\delta} \Coker(\alpha)$
+is exact. Then, the claim follows by Lemma
+\ref{lemma-exact-kernel-sequence}
+and duality.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-snake-natural}
+Let $\mathcal{A}$ be an abelian category. Let
+$$
+\xymatrix{
+& & & x\ar[ld]\ar[rr]\ar[dd]^(.4)\alpha
+& & y\ar[ld]\ar[rr]\ar[dd]^(.4)\beta
+& & z\ar[ld]\ar[rr]\ar[dd]^(.4)\gamma
+& & 0\\
+& & x'\ar[rr]\ar[dd]^(.4){\alpha'}
+& & y'\ar[rr]\ar[dd]^(.4){\beta'}
+& & z'\ar[rr]\ar[dd]^(.4){\gamma'}
+& & 0
+& \\
+& 0\ar[rr]
+& & u\ar[ld]\ar[rr]
+& & v\ar[ld]\ar[rr]
+& & w\ar[ld]
+& & \\
+0\ar[rr]
+& & u'\ar[rr]
+& & v'\ar[rr]
+& & w'
+& & &
+}
+$$
+be a commutative diagram with exact rows.
+Then, the induced diagram
+$$
+\xymatrix@C=15pt{
+\Ker(\alpha) \ar[r] \ar[d] &
+\Ker(\beta) \ar[r] \ar[d] &
+\Ker(\gamma) \ar[r]^(.45){\delta} \ar[d] &
+\Coker(\alpha) \ar[r] \ar[d] &
+\Coker(\beta) \ar[r] \ar[d] &
+\Coker(\gamma) \ar[d] \\
+\Ker(\alpha') \ar[r] &
+\Ker(\beta') \ar[r] &
+\Ker(\gamma') \ar[r]^(.45){\delta'} &
+\Coker(\alpha') \ar[r] &
+\Coker(\beta') \ar[r] &
+\Coker(\gamma')
+}
+$$
+commutes.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-four-lemma}
+Let $\mathcal{A}$ be an abelian category. Let
+$$
+\xymatrix{
+w \ar[r] \ar[d]^\alpha & x \ar[r]
+\ar[d]^\beta & y \ar[r] \ar[d]^\gamma &
+z \ar[d]^\delta \\
+w' \ar[r] & x' \ar[r] & y' \ar[r] & z'
+}
+$$
+be a commutative diagram with exact rows.
+\begin{enumerate}
+\item If $\alpha, \gamma$ are surjective and
+$\delta$ is injective, then
+$\beta$ is surjective.
+\item If $\beta, \delta$ are injective and
+$\alpha$ is surjective, then
+$\gamma$ is injective.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume $\alpha, \gamma$ are surjective and
+$\delta$ is injective.
+We may replace $w'$ by $\Im(w' \to x')$,
+i.e., we may assume
+that $w' \to x'$ is injective.
+We may replace $z$ by $\Im(y \to z)$, i.e.,
+we may assume that
+$y \to z$ is surjective. Then we may apply
+Lemma \ref{lemma-snake}
+to
+$$
+\xymatrix{
+& \Ker(y \to z) \ar[r] \ar[d] & y \ar[r]
+\ar[d] & z \ar[r] \ar[d] & 0 \\
+0 \ar[r] & \Ker(y' \to z') \ar[r] & y' \ar[r]
+& z'
+}
+$$
+to conclude that $\Ker(y \to z) \to \Ker(y'
+\to z')$ is
+surjective. Finally, we apply
+Lemma \ref{lemma-snake}
+to
+$$
+\xymatrix{
+& w \ar[r] \ar[d] & x \ar[r] \ar[d] & \Ker(y
+\to z) \ar[r] \ar[d] & 0 \\
+0 \ar[r] & w' \ar[r] & x' \ar[r] & \Ker(y'
+\to z')
+}
+$$
+to conclude that $x \to x'$ is surjective.
+This proves (1). The proof
+of (2) is dual to this.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-five-lemma}
+\begin{reference}
+\cite[Lemma 4.5 page 16]{Eilenberg-Steenrod}
+\end{reference}
+Let $\mathcal{A}$ be an abelian category. Let
+$$
+\xymatrix{
+v \ar[r] \ar[d]^\alpha &
+w \ar[r] \ar[d]^\beta &
+x \ar[r] \ar[d]^\gamma &
+y \ar[r] \ar[d]^\delta &
+z \ar[d]^\epsilon \\
+v' \ar[r] & w' \ar[r] & x' \ar[r] & y' \ar[r]
+& z'
+}
+$$
+be a commutative diagram with exact rows. If
+$\beta, \delta$
+are isomorphisms, $\epsilon$ is injective,
+and $\alpha$ is surjective
+then $\gamma$ is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+Immediate consequence of
+Lemma \ref{lemma-four-lemma}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Extensions}
+\label{section-extensions}
+
+\begin{definition}
+\label{definition-extension}
+Let $\mathcal{A}$ be an abelian category.
+Let $A, B \in \Ob(\mathcal{A})$.
+An {\it extension $E$ of $B$ by $A$} is a
+short
+exact sequence
+$$
+0 \to A \to E \to B \to 0.
+$$
+A {\it morphism of extensions} between two
+extensions $0 \to A \to E \to B \to 0$ and
+$0 \to A \to F \to B \to 0$ means a morphism
+$f : E \to F$ in $\mathcal{A}$ making the
+diagram
+$$
+\xymatrix{
+0 \ar[r] &
+A \ar[r] \ar[d]^{\text{id}} &
+E \ar[r] \ar[d]^f &
+B \ar[r] \ar[d]^{\text{id}} &
+0 \\
+0 \ar[r] &
+A \ar[r] &
+F \ar[r] &
+B \ar[r] &
+0
+}
+$$
+commutative.
+Thus, the extensions of $B$ by $A$ form a
+category.
+\end{definition}
+
+\noindent
+By abuse of language we often omit mention of
+the
+morphisms $A \to E$ and $E \to B$, although
+they are
+definitively part of the structure of an
+extension.
+
+\begin{definition}
+\label{definition-ext-group}
+Let $\mathcal{A}$ be an abelian category.
+Let $A, B \in \Ob(\mathcal{A})$.
+The set of isomorphism classes of extensions
+of $B$ by $A$ is denoted
+$$
+\Ext_\mathcal{A}(B, A).
+$$
+This is called the {\it $\Ext$-group}.
+\end{definition}
+
+\noindent
+This definition works, because by our
+conventions
+$\Ob(\mathcal{A})$ is a set, and hence
+$\Ext_\mathcal{A}(B, A)$ is a set.
+In any of the cases of ``big'' abelian
+categories
+listed in Categories, Remark
+\ref{categories-remark-big-categories}
+one can check by hand that
+$\Ext_\mathcal{A}(B, A)$
+is a set as well. Also, we will see later
+that this is
+always the case when $\mathcal{A}$ has either
+enough projectives
+or enough injectives. Insert future reference
+here.
+
+\medskip\noindent
+Actually we can turn $\Ext_\mathcal{A}(-, -)$
+into a
+functor
+$$
+\mathcal{A} \times \mathcal{A}^{opp}
+\longrightarrow \textit{Sets}, \quad
+(A, B) \longmapsto \Ext_\mathcal{A}(B, A)
+$$
+as follows:
+\begin{enumerate}
+\item Given a morphism $B' \to B$ and an
+extension
+$E$ of $B$ by $A$ we define $E' = E \times_B
+B'$.
+By Lemma \ref{lemma-cartesian-kernel} we have
+the following
+commutative diagram of short exact sequences
+$$
+\xymatrix{
+0 \ar[r] & A \ar[r] \ar[d] & E' \ar[r] \ar[d]
+& B' \ar[r] \ar[d] & 0 \\
+0 \ar[r] & A \ar[r] & E \ar[r] & B \ar[r] & 0
+}
+$$
+The extension $E'$ is called the {\it
+pullback of $E$ via
+$B' \to B$}.
+\item Given a morphism $A \to A'$ and an
+extension
+$E$ of $B$ by $A$ we define $E' = A' \amalg_A
+E$.
+By Lemma \ref{lemma-cartesian-cocartesian}
+we have the following commutative diagram
+of short exact sequences
+$$
+\xymatrix{
+0 \ar[r] & A \ar[r] \ar[d] & E \ar[r] \ar[d]
+& B \ar[r] \ar[d] & 0 \\
+0 \ar[r] & A' \ar[r] & E' \ar[r] & B \ar[r] &
+0
+}
+$$
+The extension $E'$ is called the {\it pushout
+of $E$ via
+$A \to A'$}.
+\end{enumerate}
+To see that this defines a functor as
+indicated above
+there are several things to verify. First of
+all
+functoriality in the variable $B$ requires
+that
+$(E \times_B B') \times_{B'} B'' = E \times_B
+B''$
+which is a general property of fibre
+products.
+Dually one deals with functoriality in the
+variable $A$. Finally, given $A \to A'$ and
+$B' \to B$ we have to show that
+$$
+A' \amalg_A (E \times_B B')
+\cong
+(A' \amalg_A E)\times_B B'
+$$
+as extensions of $B'$ by $A'$. Recall that
+$A' \amalg_A E$
+is a quotient of $A' \oplus E$.
+Thus the right hand side is a quotient of
+$A' \oplus E \times_B B'$, and it is
+straightforward to see that
+the kernel is exactly what you need in order
+to
+get the left hand side.
+
+\medskip\noindent
+Note that if $E_1$ and $E_2$ are extensions
+of
+$B$ by $A$, then $E_1\oplus E_2$ is an
+extension
+of $B \oplus B$ by $A\oplus A$. We
+push out by the sum map $A \oplus A \to A$
+and we
+pull back by the diagonal map $B \to B \oplus
+B$ to get
+an extension $E_1 + E_2$ of $B$ by $A$.
+$$
+\xymatrix{
+0 \ar[r] &
+A \oplus A \ar[r] \ar[d]_\Sigma &
+E_1 \oplus E_2 \ar[r] \ar[d] &
+B \oplus B \ar[r] \ar[d] &
+0 \\
+0 \ar[r] &
+A \ar[r] &
+E' \ar[r] &
+B \oplus B \ar[r] &
+0\\
+0 \ar[r] &
+A \ar[r] \ar[u] &
+E_1 + E_2 \ar[r] \ar[u] &
+B \ar[r] \ar[u]^\Delta &
+0
+}
+$$
+The extension $E_1 + E_2$ is called the {\it
+Baer sum} of the
+given extensions.
+
+\begin{lemma}
+\label{lemma-baer-sum}
+The construction $(E_1, E_2) \mapsto E_1 +
+E_2$
+above defines a commutative group
+law on $\Ext_\mathcal{A}(B, A)$ which is
+functorial in both variables.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-six-term-sequence-ext}
+Let $\mathcal{A}$ be an abelian category.
+Let $0 \to M_1 \to M_2 \to M_3 \to 0$ be a
+short exact sequence
+in $\mathcal{A}$.
+\begin{enumerate}
+\item There is a canonical six term exact
+sequence of abelian groups
+$$
+\xymatrix{
+0 \ar[r] &
+\Hom_\mathcal{A}(M_3, N) \ar[r] &
+\Hom_\mathcal{A}(M_2, N) \ar[r] &
+\Hom_\mathcal{A}(M_1, N) \ar[lld] \\
+& \Ext_\mathcal{A}(M_3, N) \ar[r] &
+\Ext_\mathcal{A}(M_2, N) \ar[r] &
+\Ext_\mathcal{A}(M_1, N)
+}
+$$
+for all objects $N$ of $\mathcal{A}$, and
+\item there is a canonical six term exact
+sequence of abelian groups
+$$
+\xymatrix{
+0 \ar[r] &
+\Hom_\mathcal{A}(N, M_1) \ar[r] &
+\Hom_\mathcal{A}(N, M_2) \ar[r] &
+\Hom_\mathcal{A}(N, M_3) \ar[lld] \\
+& \Ext_\mathcal{A}(N, M_1) \ar[r] &
+\Ext_\mathcal{A}(N, M_2) \ar[r] &
+\Ext_\mathcal{A}(N, M_3)
+}
+$$
+for all objects $N$ of $\mathcal{A}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: The boundary maps are defined
+using either the pushout
+or pullback of the given short exact
+sequence.
+\end{proof}
+
+
+
+
+
+
+\section{Complexes}
+\label{section-complexes}
+
+\noindent
+The upshot here is:
+complexes on an additive category
+$\mathcal{A}$ form a category called
+the {\it category of chain complexes of
+$\mathcal{A}$},
+denoted $\text{Ch}(\mathcal{A})$.
+
+For any $i \in \mathbf{Z}$ the $i$-th
+homology group is a functor
+$$
+H_i : \text{Ch}(\mathcal{A}) \longrightarrow
+\mathcal{A},
+$$
+which assigns to a chain complex $A_\bullet$
+in an abelian category
+its  $i$th {\it homology group}, defined by
+the following formula
+$$
+H_i(A_\bullet) = \Ker(d_i)/\Im(d_{i + 1}).
+$$
+If $f : A_\bullet \to B_\bullet$ is a
+morphism of chain
+complexes of $\mathcal{A}$ then we get an
+induced
+morphism $H_i(f) : H_i(A_\bullet) \to
+H_i(B_\bullet)$
+because clearly
+$f_i(\Ker(d_i : A_i \to A_{i - 1})) \subset
+\Ker(d_i : B_i \to B_{i - 1})$, and similarly
+for $\Im(d_{i + 1})$.
+This proves that $H_i$ is indeed a functor.
+
+Similarly,
+for any $i \in \mathbf{Z}$ the $i$th {\it
+cohomology group}
+of a cochain complex $A^\bullet$ is defined
+by
+the following formula
+$$
+H^i(A^\bullet) = \Ker(d^i)/\Im(d^{i - 1}).
+$$
+If $f : A^\bullet \to B^\bullet$ is a
+morphism of cochain
+complexes of $\mathcal{A}$ then we get an
+induced
+morphism $H^i(f) : H^i(A^\bullet) \to
+H^i(B^\bullet)$
+because clearly
+$f^i(\Ker(d^i : A^i \to A^{i + 1})) \subset
+\Ker(d^i : B^i \to B^{i + 1})$, and similarly
+for $\Im(d^{i - 1})$.
+Thus we obtain a functor
+$$
+H^i : \text{CoCh}(\mathcal{A})
+\longrightarrow \mathcal{A}.
+$$
+
+
+
+
+\medskip\noindent
+Of course the notions of a chain complex and
+a cochain complex
+are dual and you only have to read one of the
+two parts of
+this section. So pick the one you like.
+(Actually, this doesn't
+quite work right since the conventions on
+numbering things
+are not adapted to an easy transition between
+chain and cochain
+complexes.)
+
+\medskip\noindent
+A {\it chain complex $A_\bullet$} in an
+additive category $\mathcal{A}$
+is a complex
+$$
+\ldots \to
+A_{n + 1} \xrightarrow{d_{n + 1}}
+A_n \xrightarrow{d_n}
+A_{n - 1} \to
+\ldots
+$$
+of $\mathcal{A}$. In other words, we are
+given an object $A_i$ of
+$\mathcal{A}$ for all $i \in \mathbf{Z}$ and
+for
+all $i \in \mathbf{Z}$ a morphism $d_i : A_i
+\to A_{i - 1}$ such that
+$d_{i - 1} \circ d_i = 0$ for all $i$. A {\it
+morphism of chain
+complexes $f : A_\bullet \to B_\bullet$} is
+given by a
+family of morphisms $f_i : A_i \to B_i$ such
+that all
+the diagrams
+$$
+\xymatrix{
+A_i \ar[r]_{d_i} \ar[d]_{f_i} & A_{i - 1}
+\ar[d]^{f_{i - 1}} \\
+B_i \ar[r]^{d_i} & B_{i - 1}
+}
+$$
+commute. The {\it category of chain complexes
+of $\mathcal{A}$}
+is denoted $\text{Ch}(\mathcal{A})$. The full
+subcategory consisting
+of objects of the form
+$$
+\ldots \to A_2 \to A_1 \to A_0 \to 0 \to 0
+\to \ldots
+$$
+is denoted $\text{Ch}_{\geq 0}(\mathcal{A})$.
+In other words, a chain complex $A_\bullet$
+belongs to
+$\text{Ch}_{\geq 0}(\mathcal{A})$ if and only
+if
+$A_i = 0$ for all $i < 0$.
+
+\medskip\noindent
+Given an additive category $\mathcal{A}$ we
+identify $\mathcal{A}$
+with the full subcategory of
+$\text{Ch}(\mathcal{A})$ consisting
+of chain complexes zero except in degree $0$
+by the functor
+$$
+\mathcal{A} \longrightarrow
+\text{Ch}(\mathcal{A}),\quad
+A \longmapsto (\ldots \to 0 \to A \to 0 \to
+\ldots)
+$$
+By abuse of notation we often denote the
+object on the right hand side
+simply $A$. If we want to stress that we are
+viewing $A$ as a chain
+complex we may sometimes use the notation
+$A[0]$, see
+Section \ref{section-homotopy-shift}.
+
+\medskip\noindent
+A {\it homotopy $h$} between a pair of
+morphisms
+of chain complexes $f, g : A_\bullet \to
+B_\bullet$
+is a collection of morphisms $h_i : A_i \to
+B_{i + 1}$
+such that we have
+$$
+f_i - g_i = d_{i + 1} \circ h_i + h_{i - 1}
+\circ d_i
+$$
+for all $i$.
+Two morphisms $f, g : A_\bullet \to
+B_\bullet$ are
+said to be {\it homotopic} if a homotopy
+between $f$
+and $g$ exists.
+Clearly, the notions of chain complex,
+morphism of
+chain complexes, and homotopies between
+morphisms of chain complexes
+make sense even in a preadditive category.
+
+\begin{lemma}
+\label{lemma-compose-homotopy}
+\begin{slogan}
+Hom functors of $\text{Ch}(\mathcal{A})$
+respect the homotopy relation.
+\end{slogan}
+Let $\mathcal{A}$ be an additive category.
+Let $f, g : B_\bullet \to C_\bullet$ be
+morphisms
+of chain complexes. Suppose given morphisms
+of chain
+complexes $a : A_\bullet \to B_\bullet$, and
+$c : C_\bullet \to D_\bullet$.
+If $\{h_i : B_i \to C_{i + 1}\}$ defines a
+homotopy
+between $f$ and $g$, then $\{c_{i + 1} \circ
+h_i \circ a_i\}$
+defines a homotopy between $c \circ f \circ
+a$ and
+$c \circ g \circ a$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\noindent
+In particular this means that it makes sense
+to define
+the category of chain complexes with maps up
+to homotopy.
+We'll return to this later.
+
+\begin{definition}
+\label{definition-homotopy-equivalent}
+Let $\mathcal{A}$ be an additive category.
+We say a morphism $a : A_\bullet \to
+B_\bullet$
+is a {\it homotopy equivalence} if there
+exists
+a morphism $b : B_\bullet \to A_\bullet$
+such that there exists a homotopy between
+$a \circ b$ and $\text{id}_A$
+and there exists a homotopy between $b \circ
+a$ and $\text{id}_B$.
+If there exists such a morphism between
+$A_\bullet$ and $B_\bullet$, then
+we say that $A_\bullet$ and $B_\bullet$ are
+{\it homotopy equivalent}.
+\end{definition}
+
+\noindent
+In other words, two complexes are homotopy
+equivalent if they become
+isomorphic in the category of complexes up to
+homotopy.
+
+\begin{lemma}
+\label{lemma-cat-chain-abelian}
+Let $\mathcal{A}$ be an abelian category.
+\begin{enumerate}
+\item The category of chain complexes in
+$\mathcal{A}$ is
+abelian.
+\item A morphism of complexes
+$f : A_\bullet \to B_\bullet$ is injective
+if and only if each $f_n : A_n \to B_n$ is
+injective.
+\item A morphism of complexes
+$f : A_\bullet \to B_\bullet$ is surjective
+if and only if each $f_n : A_n \to B_n$ is
+surjective.
+\item A sequence of chain complexes
+$$
+A_\bullet \xrightarrow{f} B_\bullet
+\xrightarrow{g} C_\bullet
+$$
+is exact at $B_\bullet$ if and only if each
+sequence
+$$
+A_i \xrightarrow{f_i} B_i \xrightarrow{g_i}
+C_i
+$$
+is exact at $B_i$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\noindent
+For any $i \in \mathbf{Z}$ the $i$th {\it
+homology group}
+of a chain complex $A_\bullet$ in an abelian
+category is defined by
+the following formula
+$$
+H_i(A_\bullet) = \Ker(d_i)/\Im(d_{i + 1}).
+$$
+If $f : A_\bullet \to B_\bullet$ is a
+morphism of chain
+complexes of $\mathcal{A}$ then we get an
+induced
+morphism $H_i(f) : H_i(A_\bullet) \to
+H_i(B_\bullet)$
+because clearly
+$f_i(\Ker(d_i : A_i \to A_{i - 1})) \subset
+\Ker(d_i : B_i \to B_{i - 1})$, and similarly
+for $\Im(d_{i + 1})$.
+Thus we obtain a functor
+$$
+H_i : \text{Ch}(\mathcal{A}) \longrightarrow
+\mathcal{A}.
+$$
+
+\begin{definition}
+\label{definition-quasi-isomorphism}
+Let $\mathcal{A}$ be an abelian category.
+\begin{enumerate}
+\item A morphism of chain complexes $f :
+A_\bullet \to B_\bullet$
+is called a {\it quasi-isomorphism} if the
+induced
+map $H_i(f) : H_i(A_\bullet) \to
+H_i(B_\bullet)$
+is an isomorphism for all $i \in \mathbf{Z}$.
+\item A chain complex $A_\bullet$ is called
+{\it acyclic} if all of its homology objects
+$H_i(A_\bullet)$ are zero.
+\end{enumerate}
+\end{definition}
+
+
+\begin{lemma}
+\label{lemma-map-homology-homotopy}
+Let $\mathcal{A}$ be an abelian category.
+\begin{enumerate}
+\item If the maps $f, g : A_\bullet \to
+B_\bullet$ are
+homotopic, then the induced maps $H_i(f)$ and
+$H_i(g)$
+are equal.
+\item If the map $f : A_\bullet \to
+B_\bullet$ is a homotopy
+equivalence, then $f$ is a quasi-isomorphism.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-long-exact-sequence-chain}
+Let $\mathcal{A}$ be an abelian category.
+Suppose that
+$$
+0 \to
+A_\bullet \to
+B_\bullet \to
+C_\bullet \to
+0
+$$
+is a short exact sequence of chain complexes
+of $\mathcal{A}$.
+Then there is a canonical long exact homology
+sequence
+$$
+\xymatrix{
+\ldots & \ldots & \ldots \ar[lld] \\
+H_i(A_\bullet) \ar[r] & H_i(B_\bullet) \ar[r]
+& H_i(C_\bullet) \ar[lld] \\
+H_{i - 1}(A_\bullet) \ar[r] &
+H_{i - 1}(B_\bullet) \ar[r] &
+H_{i - 1}(C_\bullet) \ar[lld] \\
+\ldots & \ldots & \ldots \\
+}
+$$
+\end{lemma}
+
+\begin{proof}
+Omitted. The maps come from the Snake Lemma
+\ref{lemma-snake}
+applied to the diagrams
+$$
+\xymatrix{
+&
+A_i/\Im(d_{A, i + 1}) \ar[r] \ar[d]^{d_{A,
+i}} &
+B_i/\Im(d_{B, i + 1}) \ar[r] \ar[d]^{d_{B,
+i}} &
+C_i/\Im(d_{C, i + 1}) \ar[r] \ar[d]^{d_{C,
+i}} &
+0 \\
+0 \ar[r] &
+\Ker(d_{A, i - 1}) \ar[r] &
+\Ker(d_{B, i - 1}) \ar[r] &
+\Ker(d_{C, i - 1}) &
+}
+$$
+\end{proof}
+
+\noindent
+A {\it cochain complex $A^\bullet$} in an
+additive category $\mathcal{A}$
+is a complex
+$$
+\ldots \to
+A^{n - 1} \xrightarrow{d^{n - 1}}
+A^n \xrightarrow{d^n}
+A^{n + 1} \to
+\ldots
+$$
+of $\mathcal{A}$. In other words, we are
+given an object $A^i$ of
+$\mathcal{A}$ for all $i \in \mathbf{Z}$ and
+for
+all $i \in \mathbf{Z}$ a morphism $d^i : A^i
+\to A^{i + 1}$ such that
+$d^{i + 1} \circ d^i = 0$ for all $i$. A {\it
+morphism of cochain
+complexes $f : A^\bullet \to B^\bullet$} is
+given by a
+family of morphisms $f^i : A^i \to B^i$ such
+that all
+the diagrams
+$$
+\xymatrix{
+A^i \ar[r]_{d^i} \ar[d]_{f^i} & A^{i + 1}
+\ar[d]^{f^{i + 1}} \\
+B^i \ar[r]^{d^i} & B^{i + 1}
+}
+$$
+commute. The {\it category of cochain
+complexes of $\mathcal{A}$}
+is denoted $\text{CoCh}(\mathcal{A})$. The
+full subcategory consisting
+of objects of the form
+$$
+\ldots \to 0 \to 0 \to A^0 \to A^1 \to A^2
+\to \ldots
+$$
+is denoted $\text{CoCh}_{\geq
+0}(\mathcal{A})$.
+In other words, a cochain complex $A^\bullet$
+belongs to the subcategory
+$\text{CoCh}_{\geq 0}(\mathcal{A})$ if and
+only if
+$A^i = 0$ for all $i < 0$.
+
+\medskip\noindent
+Given an additive category $\mathcal{A}$ we
+identify $\mathcal{A}$
+with the full subcategory of
+$\text{CoCh}(\mathcal{A})$ consisting
+of cochain complexes zero except in degree
+$0$ by the functor
+$$
+\mathcal{A} \longrightarrow
+\text{CoCh}(\mathcal{A}),\quad
+A \longmapsto (\ldots \to 0 \to A \to 0 \to
+\ldots)
+$$
+By abuse of notation we often denote the
+object on the right hand side
+simply $A$. If we want to stress that we are
+viewing $A$ as a cochain
+complex we may sometimes use the notation
+$A[0]$, see
+Section \ref{section-homotopy-shift}.
+
+\medskip\noindent
+A {\it homotopy $h$} between a pair of
+morphisms
+of cochain complexes $f, g : A^\bullet \to
+B^\bullet$
+is a collection of morphisms $h^i : A^i \to
+B^{i - 1}$
+such that we have
+$$
+f^i - g^i = d^{i - 1} \circ h^i + h^{i + 1}
+\circ d^i
+$$
+for all $i$.
+Two morphisms $f, g : A^\bullet \to
+B^\bullet$ are
+said to be {\it homotopic} if a homotopy
+between $f$
+and $g$ exists.
+Clearly, the notions of cochain complex,
+morphism of
+cochain complexes, and homotopies between
+morphisms of cochain complexes
+make sense even in a preadditive category.
+
+\begin{lemma}
+\label{lemma-compose-homotopy-cochain}
+Let $\mathcal{A}$ be an additive category.
+Let $f, g : B^\bullet \to C^\bullet$ be
+morphisms
+of cochain complexes. Suppose given morphisms
+of cochain
+complexes $a : A^\bullet \to B^\bullet$, and
+$c : C^\bullet \to D^\bullet$.
+If $\{h^i : B^i \to C^{i - 1}\}$ defines a
+homotopy
+between $f$ and $g$, then $\{c^{i - 1} \circ
+h^i \circ a^i\}$
+defines a homotopy between $c \circ f \circ
+a$ and
+$c \circ g \circ a$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\noindent
+In particular this means that it makes sense
+to define
+the category of cochain complexes with maps
+up to homotopy.
+We'll return to this later.
+
+\begin{definition}
+\label{definition-homot-equiv-cocha}
+Let $\mathcal{A}$ be an additive category.
+We say a morphism $a : A^\bullet \to
+B^\bullet$
+is a {\it homotopy equivalence} if there
+exists
+a morphism $b : B^\bullet \to A^\bullet$
+such that there exists a homotopy between
+$a \circ b$ and $\text{id}_A$
+and there exists a homotopy between $b \circ
+a$ and $\text{id}_B$.
+If there exists such a morphism between
+$A^\bullet$ and $B^\bullet$, then
+we say that $A^\bullet$ and $B^\bullet$ are
+{\it homotopy equivalent}.
+\end{definition}
+
+\noindent
+In other words, two complexes are homotopy
+equivalent if they become
+isomorphic in the category of complexes up to
+homotopy.
+
+\begin{lemma}
+\label{lemma-cat-cochain-abelian}
+Let $\mathcal{A}$ be an abelian category.
+\begin{enumerate}
+\item The category of cochain complexes in
+$\mathcal{A}$ is
+abelian.
+\item A morphism of cochain complexes
+$f : A^\bullet \to B^\bullet$ is injective
+if and only if each $f^n : A^n \to B^n$ is
+injective.
+\item A morphism of cochain complexes
+$f : A^\bullet \to B^\bullet$ is surjective
+if and only if each $f^n : A^n \to B^n$ is
+surjective.
+\item A sequence of cochain complexes
+$$
+A^\bullet \xrightarrow{f} B^\bullet
+\xrightarrow{g} C^\bullet
+$$
+is exact at $B^\bullet$ if and only if each
+sequence
+$$
+A^i \xrightarrow{f^i} B^i \xrightarrow{g^i}
+C^i
+$$
+is exact at $B^i$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\noindent
+For any $i \in \mathbf{Z}$ the $i$th {\it
+cohomology group}
+of a cochain complex $A^\bullet$ is defined
+by
+the following formula
+$$
+H^i(A^\bullet) = \Ker(d^i)/\Im(d^{i - 1}).
+$$
+If $f : A^\bullet \to B^\bullet$ is a
+morphism of cochain
+complexes of $\mathcal{A}$ then we get an
+induced
+morphism $H^i(f) : H^i(A^\bullet) \to
+H^i(B^\bullet)$
+because clearly
+$f^i(\Ker(d^i : A^i \to A^{i + 1})) \subset
+\Ker(d^i : B^i \to B^{i + 1})$, and similarly
+for $\Im(d^{i - 1})$.
+Thus we obtain a functor
+$$
+H^i : \text{CoCh}(\mathcal{A})
+\longrightarrow \mathcal{A}.
+$$
+
+\begin{definition}
+\label{definition-quasi-isomorphism-cochain}
+Let $\mathcal{A}$ be an abelian category.
+\begin{enumerate}
+\item A morphism of cochain complexes $f :
+A^\bullet \to B^\bullet$
+of $\mathcal{A}$ is called a {\it
+quasi-isomorphism} if the induced
+maps $H^i(f) : H^i(A^\bullet) \to
+H^i(B^\bullet)$
+is an isomorphism for all $i \in \mathbf{Z}$.
+\item A cochain complex $A^\bullet$ is called
+{\it acyclic} if all of its cohomology
+objects
+$H^i(A^\bullet)$ are zero.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{lemma-map-cohomology-homotopy-cochain}
+Let $\mathcal{A}$ be an abelian category.
+\begin{enumerate}
+\item If the maps $f, g : A^\bullet \to
+B^\bullet$ are
+homotopic, then the induced maps $H^i(f)$ and
+$H^i(g)$
+are equal.
+\item If $f : A^\bullet \to B^\bullet$ is a
+homotopy equivalence,
+then $f$ is a quasi-isomorphism.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-long-exact-sequence-cochain}
+\begin{slogan}
+Short exact sequences of complexes give rise
+to long exact sequences
+of (co)homology.
+\end{slogan}
+Let $\mathcal{A}$ be an abelian category.
+Suppose that
+$$
+0 \to
+A^\bullet \to
+B^\bullet \to
+C^\bullet \to
+0
+$$
+is a short exact sequence of cochain
+complexes of $\mathcal{A}$.
+Then there is a long exact cohomology
+sequence
+$$
+\xymatrix{
+\ldots & \ldots & \ldots \ar[lld] \\
+H^i(A^\bullet) \ar[r] &
+H^i(B^\bullet) \ar[r] &
+H^i(C^\bullet) \ar[lld] \\
+H^{i + 1}(A^\bullet) \ar[r] &
+H^{i + 1}(B^\bullet) \ar[r] &
+H^{i + 1}(C^\bullet) \ar[lld] \\
+\ldots & \ldots & \ldots \\
+}
+$$
+The construction produces long exact
+cohomology sequences
+which are functorial in the short exact
+sequence and compatible with shifts as in
+Definition \ref{definition-cohomology-shift}.
+\end{lemma}
+
+\begin{proof}
+For the horizontal maps $H^i(A^\bullet) \to
+H^i(B^\bullet)$ and
+$H^i(B^\bullet) \to H^i(C^\bullet)$ we use
+the fact that $H^i$
+is a functor, see above. For the ``boundary
+map''
+$H^i(C^\bullet) \to H^{i + 1}(A^\bullet)$ we
+use the map $\delta$
+of the Snake Lemma \ref{lemma-snake}
+applied to the diagram
+$$
+\xymatrix{
+&
+A^i/\Im(d_A^{i - 1}) \ar[r] \ar[d]^{d_A^i} &
+B^i/\Im(d_B^{i - 1}) \ar[r] \ar[d]^{d_B^i} &
+C^i/\Im(d_C^{i - 1}) \ar[r] \ar[d]^{d_C^i} &
+0 \\
+0 \ar[r] &
+\Ker(d_A^{i + 1}) \ar[r] &
+\Ker(d_B^{i + 1}) \ar[r] &
+\Ker(d_C^{i + 1}) &
+}
+$$
+This works as the kernel of the right
+vertical map is equal to
+$H^i(C^\bullet)$ and the cokernel of the left
+vertical map is
+$H^{i + 1}(A^\bullet)$. The exactness of the
+long sequence is
+the exactnesss in part (2) of Lemma
+\ref{lemma-snake}.
+The functoriality is Lemma
+\ref{lemma-snake-natural}. Compatibility
+with shifts is immediate from the
+definitions.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}
+

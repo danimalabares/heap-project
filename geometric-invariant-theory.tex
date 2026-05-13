@@ -1,0 +1,1052 @@
+\input{preamble}
+\begin{document}
+
+\title{Geometric Invariant Theory}
+\maketitle
+
+\noindent
+Minicourse by Michel Brion (Universit\'e
+Grenoble Alpes, Institut Fourier, France),
+CIMPA school Florian\'opolis 2025.
+
+\medskip\noindent
+Notes at
+\href{%
+http://github.com/danimalabares/cimpa-floripa
+}{%
+github.com/danimalabares/cimpa-floripa
+}
+
+\bigskip\noindent
+
+{\bf Abstract.} Geometric Invariant Theory
+(GIT) studies the actions of reductive
+algebraic groups on algebraic varieties and
+the constructions of quotients in algebraic
+geometry. One of the most relevant aspect of
+GIT is its application to moduli theory: we
+can indeed approach moduli problems trying to
+construct moduli spaces as GIT quotients. In
+this course we will present the basic notions
+of geometric invariant theory, we will
+illustrate its connections to moduli and
+provide concrete examples of moduli spaces
+obtained as GIT quotients.
+
+\bigskip\noindent
+\tableofcontents
+\bigskip\noindent
+
+{\bf Plan.}
+
+\begin{enumerate}
+\item Quotients by finite groups.
+\item Linear algebraic groups.
+\item GIT (affine case).
+\item GIT (general case).
+\end{enumerate}
+
+\section{Introduction}
+\label{section-introduction}
+
+Let $G$ be a finite group of order $N$, $G
+\subset \text{Aut}(X)$,  where $X$ is an
+affine variety over a field  $k=\overline{k}$
+of arbitrary characteristic $p \geq 0$. $G$
+acts on
+$\Gamma(X,\mathcal{O}_X)=\mathcal{O}(X)$ by
+$$
+(gf)(x)=f(g^{-1}x).
+$$
+Define
+$$
+\mathcal{O}(X)^G:=\{f|gf=f\;\forall g \in
+G\}\subset\mathcal{O}(X)
+$$
+
+\begin{proposition}
+\label{git-label-018}
+$\mathcal{O}(X)^G$ is finitely generated and
+$\mathcal{O}(X)$ is a finite module over
+$\mathcal{O}(X)^G$.
+\end{proposition}
+
+\begin{proof}
+Let $A:=\mathcal{O}(X) \supset
+\mathcal{O}(X)^G:=B$. Then the coordinate
+ring of $X$ is a finitely presented algebra
+$\mathcal{O}(X)=k[f_1,\ldots,f_n]$. For every
+generator of  $\mathcal{O}(X)$ define a
+polynomial $P_i(t):=\prod_{g \in G}(t-gf_i)
+\in A^G[t]=B[t]$.
+\end{proof}
+
+Let $Y = \text{Spec}B$ and $\pi:X\to Y$ a
+dominant, finite morphism, which implies it
+is surjective.
+
+\begin{proposition}
+\label{proposition-fibers-of-pi-are-orbits}
+The set-theoretic fibers of $\pi$ are the
+orbits $Gx$
+\end{proposition}
+
+\begin{proof}
+$\pi$ is $G$-invariant, i.e. constant on
+orbits.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-2-second}
+The quotient map $\pi$ is open and if
+$U\subset X$ is open, affine, $G$-stable,
+then the restriction $\pi|_{U}$ is the
+quotient map $U\to U/G$.
+\end{proposition}
+
+\begin{proposition}
+\label{git-label-001}
+$f:X\to Z$ $G$-invariant morphism, then there
+is a unique morphism $\varphi:Y
+\to Z$ such that $f=\varphi \circ\pi$. This
+says that $\pi$ is the categorical
+quotient.
+\end{proposition}
+
+\begin{proof}[Sketch of proof]
+It is clear that $\varphi$ exists as a map of
+sets. It is continuous since $\pi$ is open
+surjective. $\varphi^\sharp:\mathcal{O}_Z \to
+\varphi_*(\mathcal{O}_Y)$.
+\end{proof}
+
+\begin{example}
+\label{example-quotients}
+\begin{enumerate}
+\item $G=\mu_n$ the roots of unity of order
+$n$ (prime to $p$). $G$ acts on
+$\mathbb{A}^2$ by $g(x,y)=(gx,gy)$.
+$\mathcal{O}(\mathbb{A}^2)=k[x,y]$ and
+$\mathcal{O}(\mathbb{A}^2)=k[x^n,x^{n-1}y,
+\ldots,xy^{n-1},y^n]$.
+$\mathbb{A}^2/G$ is a singular surface.
+\item $G=S_n$ symmetric group, acts on
+$\mathbb{A}^n$ permuting the coordinates.
+$\mathcal{O}(\mathbb{A}^n)=k[x_1,\ldots,x_n]
+$,
+$\mathcal{O}(\mathbb{A}^2)^G=k[e_1,\ldots,
+e_n]
+$
+where $e_i$ is the $i$-th symmetric function.
+The quotient
+$\pi:\mathbb{A}^n\xrightarrow{(e_1,\ldots,
+e_n)
+}\mathbb{A}^n$
+is finite, flat of degree $n!$.
+\item (Symmetric products.) $X=Z^n$, $Z$
+affine algebraic variety, $G=S_n$
+acting by permuting copies of $Z$. Then
+$X/G:=Z^{(n)}$, the $n$-th symmetric product
+of $Z$. Points of $Z^{(n)}=$effective
+$0$-cycles in $Z$ of degree $n$ =
+$z_1+\ldots+z_n$, $(z_i \in Z)$ =
+$n_1z_1+\ldots+n_kz_k$ where $z_i$ are
+distinct and $n_i$ are positive integers with
+some $n$.
+\end{enumerate}
+\end{example}
+
+\section{Local structure of quotients}
+\label{section-local-structure-of-quotients}
+
+See \cite{AVar}.
+
+\begin{definition}
+\label{definition-free-locus}
+Points with trivial stabilizer.
+\end{definition}
+
+The local structure of  the symmetric product
+variety $Z^{(n)}$ at the point $x$ is the
+stabilizer
+$$
+G_x=S_{n_1}\times\ldots\times S_{n_2}\subset
+S_n=G
+$$
+and we get
+$$
+Z^{(n_1)}\times\ldots\times Z^{n_r} = X/G_x
+\to Z^{(n)}=X/G
+$$
+which is \'etale at the image of $x$.
+
+\begin{proposition}
+\label{git-label-002}
+If $Z$ is smooth then $Z^{(n)}$ is smooth.
+\end{proposition}
+
+\begin{proof}
+Using power series rings.
+\end{proof}
+
+\begin{proposition}
+\label{git-label-003}
+If $\dim Z \geq 2$ then $Z^{(n)}$ is
+singular.
+\end{proposition}
+
+\begin{proof}
+Done in lecture.
+\end{proof}
+
+\medskip\noindent
+Then we have the {\it Hilbert scheme
+characteristic morphism}
+\begin{align*}
+\gamma: \text{Hilb}_n(Z) &\longrightarrow
+Z^{(n)} \\
+W\subset Z &\longmapsto \sum_{z \in Z}\dim
+(\mathcal{O}_{W,z}z)
+\end{align*}
+where $W$ must be {\bf finite of length }$n$.
+See Binger, Linear determinants (older) or J.
+Bertin, The punctual Hilbert Scheme.
+
+If $Z$ is smooth of dimension 1 then $\gamma$
+is an isomorphism. If $Z$ is of dimension 2
+then $\gamma$ is a resolution. In general
+$\gamma$ is an isomorphism above
+$Z_{f_2}^{(n)}$.
+
+\section{Linear algebraic groups}
+\label{section-linear-algebraic-groups}
+\begin{definition}
+\label{definition-algebraic-group}
+An {\it algebraic group} is a variety $G$
+equipped with morphisms
+\begin{align*}
+m: G\times G &\longrightarrow G \\
+(g,h) &\longmapsto gh
+\end{align*}
+and
+\begin{align*}
+i: G &\longrightarrow G \\
+g &\longmapsto g^{-1}
+\end{align*}
+with an element $e \in G$ which satisfies the
+group axioms.
+\end{definition}
+
+(In fact this is the same as a group scheme
+of finite type over $k$.)
+
+\begin{example}
+\label{example-algebraic-groups}
+\begin{enumerate}
+\item Finite groups.
+\item $\mathbb{G}_a=$additive group =
+$(\mathbb{A}^1,+)$ and $\mathbb{G}_m$
+=multiplicative group =
+$(\mathbb{A}^1\setminus\{0\},\times)$.
+\item $\text{GL}_n$ = general linear group.
+This is a principal open subset
+($\det \neq 0$), an affine variety.
+\item Classical groups
+$\text{SL}_n,\text{O}_n,\text{Sp}_{2n}$
+closed in
+$\text{GL}_n$. Also
+$\text{PGL}_n=\text{GL}_n/\mathbb{G}
+_n:I_n\hookrightarrow\text{GL}_{n^2}$.
+\item $(E,0)$ elliptic curve; there is a
+unique algebraic group law + with
+neutral element $0$. (Abelian varieties.)
+\end{enumerate}
+\end{example}
+
+\begin{proposition}
+\label{git-label-004}
+$G$ algebraic group, $G^0$ connected
+component of $e$: $G^0$ is a closed normal
+subgroup of $G$ and the connected components
+of $G$ are the $gG^0$ for $g \in G$.
+Moreover, $G^0$ is irreducible and $G$ is
+smooth (which is obvious because it is smooth
+somewhere and we may just translate).
+\end{proposition}
+$$
+\xymatrix{
+1\ar[r]&G^0\ar[r]&G\ar[r]&\pi_0(G)\ar[r]&1
+}
+$$
+\begin{definition}
+\label{definition-action-of-algebraic-group}
+An {\it action} of an algebraic group $G$ on
+a variety $X$ is a morphism $a:G
+\times X \to X$ which satisfies the axioms of
+an action:
+$$
+a(g,x)=g\cdot x,\qquad  g\cdot(h\cdot
+x)=gh\cdot x,\qquad  e\cdot x=x
+$$
+The {\it orbit} of $x \in X$ is $G\cdot
+x=\{g\cdot x|g \in G\}$. The {\it stabilizer}
+$G_x$ is $\{g \in G|g\cdot x=x\}$, which is a
+closed subgroup of $G$.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-properties-of-orbit}
+\begin{enumerate}
+\item Each orgbit $G\cdot x$ is locally
+closed, smooth of dimension
+$\dim(G)-\dim(G_x)$.
+\item The orbit map $G \to G\cdot x$, $g
+\mapsto  g\cdot x$ is faithfully flat.
+\item $\overline{G\cdot x}\setminus G\cdot x$
+is a union of orbits of smaller
+dimension.
+\item Closed orbits exist.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Should be easy. For example, to see it's
+faithfully flat you just notice it is flat
+somewhere (if it is connected, is it
+connected?) and then use homogeneity again.
+\end{proof}
+
+\begin{proposition}
+\label{git-label-005}
+For any $n \geq 1$, the set $\{x \in
+X|\dim(G\cdot x)\geq n\}$ is open. That is,
+$\{x \in X|\dim(G_x)\leq n\}$ is open.
+
+In particular, the points with finite
+stabilizer form an open subset.
+\end{proposition}
+
+\begin{proof}
+Use
+\begin{align*}
+\gamma: G \times X &\longrightarrow X\times X
+\\
+(g,x) &\longmapsto (g\cdot x,x)
+\end{align*}
+\end{proof}
+
+\begin{lemma}
+\label{git-label-019}
+Let $f:G \to H$ be an homomorphism of
+algebraic groups. Then $\Ker (f)$ is a normal
+subgroup of $G$. $\text{Im}(f)$ is a closed
+subgroup of $H$ of dimension $\dim(G)-\dim
+\Ker f$.
+\end{lemma}
+
+\begin{example}
+\label{git-label-006}
+$G=\text{SL}_2$ acts on $k[x,y]_n:=V_n$
+(these are called the {\it binary forms of
+degree $n$}) by linear change of variables.
+\end{example}
+
+\begin{definition}
+\label{definition-linear-algebraic-group}
+An algebraic group is {\it linear} if $G
+\hookrightarrow \text{GL}_n$ for some $n$.
+\end{definition}
+
+\begin{example}
+\label{git-label-020}
+$\mathbb{G}_a=\left\{\begin{pmatrix} 1&t\\
+0&q
+\end{pmatrix}\right\}$ is linear.
+\end{example}
+
+\begin{proposition}
+\label{proposition-co-action}
+$G$ linear algebraic group,  $X$ a
+$G$-variety, $G$ acts on
+$\mathcal{O}(X)=\Gamma(X,\mathcal{O}_X)$ via
+$(g\cdot f)(x)=f(g^{-1}\cdot x)$ then
+$\mathcal{O}(X)$ is a union of f.d.
+$G$-stable subspaces on which $G$ acts
+algebraically.
+\end{proposition}
+
+\begin{proof}
+From the action $a:G \times X \to X$ we get
+the {\it co-action}
+\begin{align*}
+a^\sharp: \mathcal{O}(X) &\longrightarrow
+\mathcal{O}(G \times X) \\
+f &\longmapsto \sum_{i=1}^n(\varphi_i \otimes
+\psi_i)
+\end{align*}
+\end{proof}
+
+\begin{definition}
+\label{definition-G-module}
+A finite dimensional vector space $V$ is
+called a {\it $G$-module} if $V$ is equipped
+with an action of $G$ via a homomorphism of
+algebraic groups $G \to \text{GL}(V)$.
+
+A  {\it $G$-module} is a vector space $V$
+equipped with a linear action of the group
+$G$ such that $V=$ union of finite
+dimensional $G$-submodules.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-G-modules}
+\begin{enumerate}
+\item $X$ affine $G$-variety, $G$ linear
+algebraic group, then $X
+\hookrightarrow  V$ finite dimensional
+$G$-module as a closed $G$-stable
+subvariety.
+\item Every affine algebraic group is linear.
+\end{enumerate}
+\end{proposition}
+
+Let $X$ be an affine $G$-variety. Then
+\begin{align*}
+\mathcal{O}(X) &\longrightarrow
+\mathcal{O}(G\times X)
+=\mathcal{O}(X)[t,t^{-1}] \\
+f &\longmapsto \sum_{n \in \mathbb{Z}}f_n t^n
+\end{align*}
+
+In particular, every $\mathbb{G}_m$-module is
+semisimple: every nonzero $G$-module contains
+a nonzero fixed point. Indeed, let $V$ be a
+finite-dimensional $G$-module. Let $v \in V$
+be a $\mathbb{G}_a$-eigenvector. Then $g\cdot
+v=\gamma(g)v$ for ? $X \in
+\mathcal{O}(\mathbb{G}_a)^{\times}=k^{\times}
+$
+taking $g=0$ yields $X=1$.
+
+$G$ connected algebraic group, then $G$ is
+{\it unipotent} if it is an iterated
+extension of copies of $\mathbb{G}_a$. Then
+every nonzero $G$-module contains a nonzero
+fixed point.
+
+As an example consider $G=\text{SL}_2$. (We
+saw that it is not linearly reductive in the
+sense described in the next section.)
+
+\section{Quotients by linearly reductive
+groups}
+\label{git-label-007}
+
+\begin{definition}
+\label{definition-linearly-reductive-group}
+A linear algebraic group $G$ is {\it linearly
+reductive} if every $G$-module is
+semi-simple.
+\end{definition}
+
+\begin{exercise}
+\label{git-label-008}
+$G$ is linearly reductive if and only if the
+functor $(\text{$G$-modules})\to(\text{vector
+spaces})$, $V \mapsto V^G$ is exact.
+\end{exercise}
+
+\begin{theorem}
+\label{git-label-009}
+If $G$ is linearly reductive then every
+connected normal unipotent subgroup $U$ of
+$G$ is trivial. The converse is true in
+characteristic zero.
+\end{theorem}
+
+\begin{proof}
+($\implies$) Let $V$ be a $G$-module, $V\neq
+0$ and $U$ as in the statement. Then $V^U\neq
+0$ is a $G$-module. Let $W$ be a $G$-module.
+Then $V=V^U \oplus W$. [Missing]
+
+($\impliedby$) We show this for $k=
+\mathbb{C}$. View $G \supset K$ compact
+subgroup, Zariski dense (eg. $C^* \supset
+S^1$ or $\text{GL}_n(\mathbb{C})\supset
+\text{U}_n$.) [Missing]
+\end{proof}
+
+\begin{definition}
+\label{git-label-010}
+A linear algebraic group $G$ is {\it
+reductive} if it has a nontrivial connected
+unipotent normal subgroup.
+\end{definition}
+
+The following definition is from
+StacksProject, \texttt{brauer.tex}:
+
+\begin{definition}
+\label{definition-simple}
+Let $A$ be a $k$-algebra. We say an
+$A$-module $M$ is {\it simple} if it is
+nonzero and the only $A$-submodules are $0$
+and $M$. We say $A$ is {\it simple} if the
+only two-sided ideals of $A$ are $0$ and $A$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-Reynolds-operator}
+$G$ linearly reductive, $V$ a $G$-module.
+Then
+\begin{enumerate}
+\item There is a unique projection of
+$G$-modules $R_V:V \to V^G$ called the
+{\it Reynolds operator}.
+\item
+$$
+\xymatrix{
+V\ar[d]_{R_V}\ar[r]^f&  W\ar[d]_{R_V}\\
+V^G\ar[r]^{f^G}&W^G
+}
+$$
+commutes.
+\item $A$ a $G$-algebra, $B:=A^G$. Then
+$R_A(ab)=bR_A(a)$ for all $a \in A$, $b
+\in B$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item There is a unique decomposition $V=V^G
+\oplus V'$ where $V'$ is the sum of
+nontrivial simple $G$-submodules.
+\item Implied by the decomposition $V=V^G
+\oplus V'$.
+\item
+$$
+\xymatrix{
+V\ar[d]_{R_A}\ar[r]^b&  W\ar[d]_{R_A}\\
+V^G\ar[r]^{b}&W^G
+}
+$$
+commutes.
+\end{enumerate}
+\end{proof}
+
+\begin{theorem}[Hilbert,Nagata]
+\label{git-label-011}
+If $G$ is a linearly reductive group acting
+on an affine variety $X$, then
+$\mathcal{O}(X)^G$ is finitely generated.
+\end{theorem}
+
+\begin{proof}
+Done in class, uses $R_A$ and graded Nakayama
+lemma.
+\end{proof}
+
+\medskip\noindent
+$\mathcal{O}(X)^G \subset \mathcal{O}(X)$
+yields $\pi:X\to Y$, a $G$-invariant morphism
+of affine varieties, giving a good quotient.
+
+\begin{proposition}
+\label{proposition-projection}
+\begin{enumerate}
+\item $\pi$ is regular.
+\item If  $Z \subset X$ is closed and
+$G$-stable, then $\pi|_{Z}$ if the good
+quotient of $Z$.
+\item If $Z,Z'\subset X$ are closed
+$G$-stable and disjoint, then $\pi(Z)$,
+$\pi_i(Z')$ are disjoint.
+\item Every fiber of $\pi$ contains a unique
+closed $\mathbb{G}$-orbit.
+\end{enumerate}
+But if $U\subset X$ is open affine
+$G$-stable, then $\pi|_{U}$ is not the good
+quotient.
+\end{proposition}
+
+\begin{example}
+\label{example-Hopf-surface?}
+$G=\mathbb{G}_n$ acts on $\mathbb{A}^n$ by
+scalar, i.e.
+$g(x_1,\ldots,x_n)=(gx_1,\ldots,gx_n)$. Then
+$\mathcal{O}(\mathbb{A}^n)^G=k$,
+$\pi:\mathbb{A}^n \to \bullet$, but
+$f_nU=D(f)$, where $f$ is a nonzero linear
+form,
+$$
+\mathcal{O}(U)^{\mathbb{G}_m}=\bigcup_{d \geq
+0}\frac{k[x_1,\ldots,x_n]}{f^d}
+$$
+\end{example}
+
+{\bf Notation:} $Y=X/\!/G$, the space of
+closed orbits.
+
+\begin{definition}
+\label{definition-stable-point}
+A point $x \in X$ is called {\it stable} if
+its orbit $G\cdot x \subset X$ is closed and
+the stabilizer  $G_x$ is finite.
+\end{definition}
+
+This definition is different from that in
+Mumford's book on GIT (our definition there
+is called {\it properly} stable point.)
+
+\begin{proposition}
+\label{proposition-stable-points}
+The set of stable points $X^s$ is open,
+$G$-stable and $\pi(X^s)=Y^s$ is open.
+Moreover, $X^s=\pi^{-1}(Y^s)$ and $X^s \to
+Y^s$ is a geometric quotient.
+\end{proposition}
+
+Warning: there might not be any stable points
+at all! (But it looks like there are some
+ways to get around this.)
+
+\begin{proof}
+The first trick very elementary; just playing
+with orbits. Let $x_0 \in X$ be stable. Then
+$$
+G\cdot x_0 \subset \pi^{-1}\pi(x_0)=\{ x \in
+X
+: \overline{G\cdot x}\supset G\cdot
+x\}=G\cdot x_0
+$$
+since $\dim (G\cdot x_0)=\dim G$.
+
+Then, roughly, remove higher dimensional
+orbits, and since the remaining orbits have
+all the same dimension, then they are all
+closed.
+
+The final assertion $X^s \to Y^s$ is similar
+to what we did. No deep arguments.
+\end{proof}
+
+\begin{example}
+\label{example-action-of-SL2-on-forms}
+$G=\text{SL}_n$ acts on
+$X=k[x_1,\ldots,x_n]_d$ by linear change of
+variables. Let's consider some values. If
+$d=1$, then the quotient is
+$X/\!/G=\text{pt}$. For $d=2$, the quadractic
+forms, we have the discriminant $\Delta$ as
+an invariant, and in fact
+$\mathcal{O}(\Delta)=k[\Delta]$ {\bf (A nice
+exercise!)}. Actually it looks like
+$\pi=\Delta:X \to \mathbb{A}^1$, and the
+stabilizer of $f$ is $\text{SO}(f)$, no
+stable points.
+
+For $d \geq 3$, and $n \geq 5$, then
+$\mathcal{O}(X)^G$ is not known! But we also
+have the discriminant $\Delta \in
+\mathcal{O}(X)^G$ and in fact (Jordan) if
+$\Delta(f) \neq 0$ then $f$ is stable. Let us
+prove this fact (we don't know how did Jordan
+proved this): we show that $G_f$ is finit and
+stable, i.e. $\text{Lie}(G_f)=0$. The Lie
+algebra of $\text{SL}_2$, the traceless
+matrices, acts on $X$ by
+$$
+A\cdot f= \sum_{i=1}^n \ell_i \frac{\partial
+f}{\partial x_i}
+$$
+where $\ell_i = \sum_{j=1}^n a_{ij}x_j$. Then
+$A\cdot f=0$. Now $\Delta(f) \neq 0$ iff
+$\frac{\partial f}{\partial x_j}$ have no
+nontrivial common zero, iff, $\frac{\partial
+f}{\partial x_j}$ form a regular sequence.
+This says that the ring Cohen-Macaulay. Then
+$$
+\ell_i \frac{\partial f}{\partial x_i}
+=\sum_{i \neq  j}\ell_j \frac{\partial
+f}{\partial x_j}
+$$
+which in turn implies that
+$$
+\ell_i \in \left(\frac{\partial f}{\partial
+x_j}, \; j \neq  i\right)
+\iff \ell_i=0 \forall  i
+$$
+\ldots{} which says {\it what?}
+\end{example}
+
+\medskip\noindent
+Let $X$ be a projective $G$-variety, $G$
+linearly reductive, $L \to X$ an ample line
+bundle
+$$
+R(X,L)=\bigoplus_{n=0}^{\infty}
+\Gamma(X,L^{\otimes n})
+$$
+which is a graded, finitely generated
+algebra, then $X=\text{Proj}R(X,L)$. If $G$
+acts on $R(X,L)$ ``compatibly'', then
+$R(X,L)^G$ is finitely generated:
+$$
+\text{Proj}R(X,L)^G=X/\!/G
+$$
+and we get a birational map
+$$
+\xymatrix{
+X\ar@{.>}[r]& X/\!/G\\
+U\ar@{^{(}->}[u]\ar[ur]^{\pi}
+}
+$$
+where $U$ is the domain of definition.
+
+If $G$ is finite, then  $X= \mathbb{P}(V)$,
+$V$ finite dimensional $G$-module. $L =
+\mathcal{O}_X(1)$: $G$ acts on $L$ and hence
+on $R(X,L)$ (``{\it I'll explain details
+soon}'')
+
+We have a finite ring extension $R(X,L)^G =
+R(X,L)$, and we get
+$$
+X=\text{Proj}R(X,L) \to \text{Proj}R(X,L)^G=Y
+$$
+
+\medskip\noindent
+Now let $G$ be an algebraic group, $X$ a
+$G$-variety, $f:L \to X$ a line bundle.
+
+\begin{definition}
+\label{definition-G-linearization}
+A  {\it $G$-liearization} of $L$ is a
+$G$-action on $L$ such that $f$ is
+equivariant and $g:L_x \to L_{g\cdot x}$ is
+linear for all $g \in G, x \in X$. That is,
+the $G$-action on $L$ commutes with the
+$\mathbb{G}_m$-action by multiplication on
+fibers.
+\end{definition}
+
+Then we get an action on the section ring:
+$G$ acts on $L^{\times}=L\setminus
+\{\text{zero section}\}$ and hence
+$\mathcal{O}(L^{\times})$ is a $G$-module. As
+we said before,
+$\mathcal{O}(L^{\times})=\bigoplus_{n \in
+\mathbb{Z}}\Gamma(X,L^{\otimes n})$ is a
+graded module, and the grading corresponds to
+the $G$-action! That is, this is a $G$-module
+structure on $\Gamma(X,L^{\otimes n})$. And
+$R(X,L)$ is a graded $G$-algebra.
+
+\begin{definition}
+\label{definition-semi-stable-line-bundle}
+$X$ a $G$-variety, $L$ a $G$-linearized line
+bundle on $X$ and $x \in X$. We say $x$ is
+{\it semi-stable} w.r.t. $L$ if there exists
+$n \geq 1$ and $\sigma \in
+\Gamma(X,L^{\otimes n})^G$ and that $x \in
+X_\sigma$ and $X_\sigma$ is affine.
+
+$x$ is  {\it stable} if in addition $G\cdot
+x$ is closed in $X_\sigma$ and $G_x$ is
+finite.
+\end{definition}
+
+\begin{theorem}[Mumford]
+\label{theorem-Mumford}
+The set of semis-stable points
+$X^{ss}(L)\subset X$ is open, $G$-stable and
+has a good quotient $\pi:X^{ss}(L) \to Y(L)$.
+(Notice everything depends on the line
+bundle.) The set of stable poins $X^s(L)$ is
+open $G$-stable and equal to
+$\pi^{-1}\pi(X^s(L))$ and $\pi|_{X^s(L)}$ is
+a geometric quotient.
+\end{theorem}
+
+\begin{proposition}
+\label{proposition-on-projectivization-of-V}
+Let $x \in \mathbb{P}(V)$ and $x \in [v]$.
+\begin{enumerate}
+\item $x \in \mathbb{P}(V)^{ss}$ $\iff$ $0
+\not \in \overline{G\cdot v}$.
+\item $x\in \mathbb{P}(V)^s$ $\iff$ $v \in
+V^s$ i.e. $G\cdot v$ is closed in $V$
+and $G_v$ is finite.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Done in class.
+\end{proof}
+
+The following is our first example of moduli
+space.
+
+\begin{example}[Smooth hypersurfaces of
+degree $d$ in $\mathbb{P}^n$]
+\label{example-smooth-hypersurfaces}
+The isomorphism classes of such surfaces are
+given by: take degree $d$ polynomials,
+projectivize, take away diagonal ( this gives
+an open set) and finally quoetient by
+$\text{SL}_{n+1}$:
+\begin{align*}
+\{\text{isom.
+classes}\}&=\mathbb{P}(k[x_0,\ldots,x_n]_d)
+_{\Delta}
+/\text{SL}_{n+1}\overset{\text{open}}
+{\hookrightarrow
+}\\
+\mathbb{P}(\cdot)^1/\text{SL}_{n+1}&
+\hookrightarrow
+\mathbb{P}(\cdot)^n/\!/\text{SL}_{n+1}
+\end{align*}
+a projective variety, normal, very singular.
+\end{example}
+
+\begin{remark}
+\label{git-label-012}
+$G \mathbb{y} X$ categorical quotient $\pi:X
+\to Y$, then $\pi$ yields a coarse moduli
+space for
+$$
+\xymatrix{
+X\ar[r]\ar[rd]& [X/G]\ar@{.>}[d]\\
+&Y
+}
+$$
+\end{remark}
+
+\begin{proof}
+$\text{Hom}(S,[X/G])$ is a category, not a
+set as usual. Its objects are
+$$
+\xymatrix{
+P\ar[d]_{\substack{\text{principal} \\
+\mathbb{G}\text{-bundle}}}
+\ar[rr]^{\substack{G\text{-equivariant} \\
+\text{morphism }b}}&&X\\
+S
+}
+$$
+and morphisms are
+$$
+\xymatrix{
+&X\\
+P\ar[ur]^{b'}\ar[rr]^\varphi \ar[dr]&  &
+P\ar[ul]_b\ar[dl]\\
+&S
+}
+$$
+(continues\ldots{})
+\end{proof}
+
+\section{Hilbert-Mumford criterion}
+\label{section-Hilbert-Mumford-criterion}
+
+\begin{definition}
+\label{definition-one-parameter-subgroup}
+A {\it one-parameter subgroup} of  $G$ is a
+homomorphism $\lambda:\mathbb{G}_m \to G$. If
+$G \mathbb{y} X$ and $x \in X$, we say that
+$$
+\lim_{t \to 0}\lambda(t)
+$$
+exists and equals $y \in X$ if
+$\mathbb{A}^1\setminus\{0\}=\mathbb{G}_m \to
+X$, $t \mapsto \lambda(t)\cdot x$ extends to
+$\mathbb{A}^1 \to X$, $0 \mapsto y$.
+\end{definition}
+
+\begin{theorem}[Hilbert-Mumford criterion]
+\label{theorem-Hilbert-Mumford-criterion}
+$V$ finite-dimensional $G$-module, $G$
+linearly reductive, $v \in V$,
+$\overline{G\cdot v}\supset G\cdot v$ closed
+orbit. There exists a one-paremeter subgroup
+$\lambda$ such that $\lim_{t \to 0}
+\lambda(t)\cdot v \in G\cdot w$.
+\end{theorem}
+
+We will not prove this theorem. Here are some
+corollaries.
+
+\begin{lemma}
+\label{lemma-unstable}
+$v \not \in V^{ss} \iff \exists  \lambda$
+such that $\lim_{t\to_0}\lambda(t)\cdot v
+=0$. Then $v$ is called {\it unstable} and
+$$
+\{\text{unstable points}\}=\text{{\it
+nilcone}} \mathcal{N}(V)=V.
+$$
+\end{lemma}
+
+\begin{lemma}
+\label{git-label-013}
+$G\cdot v$ is closed $\iff$ $\lim_{t \to 0}
+\lambda(t)\cdot v$ exists, then it lies in
+$G\cdot v$.
+\end{lemma}
+
+\begin{proposition}
+\label{git-label-014}
+$G\cdot v$ is affine $\iff$ $G_v$ is linearly
+reductive.
+\end{proposition}
+
+\begin{proof}
+($\implies$) $G_v = H \iff G\cdot v
+G/H=G/\!/H$.
+
+($\impliedby$) We show that the functor
+\begin{align*}
+(\text{left $H$-modules}) &\longrightarrow
+(\text{f.d. vector spces}) \\
+V &\longmapsto V^H
+\end{align*}
+(continues\ldots{})
+\end{proof}
+
+We can characterize stable points using this
+proposition.
+
+\begin{lemma}
+\label{git-label-015}
+$v \in V^s$ $\iff$ $G\cdot v$ is closed and
+$v$ is fixed by no nontrivial one-parameter
+subgroup.
+\end{lemma}
+
+\begin{proof}
+The reason is that if $G_v=H$ is linearly
+reductive then $H^0$ is generated by images
+of a one-parameter subgroup.
+\end{proof}
+
+\begin{example}[Stable points for $SL_2$
+acting on degree $d$ polynomials]
+\label{git-label-016}
+If $G=\text{SL}_2$ in characterstic zero,
+then
+$$
+\lambda(t)=\begin{pmatrix}
+t&0\\
+0&t^{-1}
+\end{pmatrix}
+$$
+every nontrivial one-parameter subgroup of
+$G$ is conjugate to $\lambda(t)^n$ for a
+unique $n \geq 1$. $V=V_d=k[x,y]_d\ni x^e
+y^{d-e}$.
+$$
+\lambda(t) x^e y^{d-e}=t^{d-2e}x^ey^{d-e}
+$$
+$f \in V$ is unstable $\iff$ $\exists g \in
+G$ such that $gb \in \left<
+x^{d/2-t}y^{d/2+1},\ldots, y^d\right>$ if
+dimension is even, and $
+\left<x^{(d-1)/2}y^{(d+1)/2},\ldots,
+y^d\right>$ if dimension is odd, $\iff$
+$f$ has no root of multiplicity $d/2$. $f
+\not \in V^s$ $\iff$ $f$ has no root of
+multiplicity $\geq d/2$.
+
+If $d$ is odd then $V^s=V^{ss}$. If $d$ is
+even then $x^{d/2}y^{d/2}$ has a closed orbit
+and is fixed by $\\text{Im}(\lambda)$.
+\end{example}
+
+\section{Hyperelliptic curves}
+\label{section-hyperelliptic-curves}
+
+Let $C \to \mathbb{P}^1$ be a smooth
+projective curve of degree $2$, genus $g$,
+branched in $2g+2$ distinct points, uniquely
+determined by the branch divisor.
+\begin{gather*}
+\{\text{isomorphism classes of hyperellipetic
+curves of genus $g$}\}\\
+=\mathbb{P}(V_{2g+2})_\Delta/\text{SL}_2
+\hookrightarrow
+\mathbb{P}(V_{2g+2})^{ss}/\!/\text{SL}_2
+\end{gather*}
+projective normal of dimension $2g-3$.
+
+\section{Local structure of quotients}
+\label{section-local-structure-of-quotients}
+$X$ affine $G$-variety, $G$ reductive, $x\in
+X$ such that $G\cdot x$ is closed, $H=G_x$
+(reductive).
+
+\begin{theorem}
+\label{theorem-}
+There exists an affine $H$-stable (locally ?)
+subvariety $S \subset X$ such that the
+sequence
+$$
+\xymatrix{
+(g,s)H\ar@{|->}[r]&g\cdot s\\
+(G\times S)/H\ar[d]\ar[r]&  X\ar[d]\\
+S/\!/H\ar[r]&  X//G\\
+x\ar@{|->}[r]&\overline{x}
+}
+$$
+$h(g,s)=(gh^{-1},hs)$ is cartesian with
+\'etale
+horizontal arrows. If $x \in X$ is smooth,
+then there is an $H$-equivariant morphism.
+\begin{align*}
+S &\longrightarrow T_x(X)/T_x(G\cdot
+x)=N_{G\cdot x/X,x} \\
+x &\longmapsto 0
+\end{align*}
+\end{theorem}
+
+This finishes the statement of the theorem.
+The last map may be interpreted as the
+inverse of the exponential map from
+differential geometry.
+
+A corollary:
+
+\begin{lemma}
+\label{lemma-}
+If $G_x=e$ then $X \to X/\!/G$ is a principal
+$G$-bundle in a $G$-stable neighbourhood of
+$x$.
+\end{lemma}
+
+\begin{exercise}
+\label{git-label-017}
+$G$ finite, works with $S\subset X$ open.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-}
+$G=\text{SL}_2$, $V=V_G$, $x^3y^3 \in V_G$,
+stabilizer
+$=\mathbb{G}_m=\text{Im}(\lambda)$. Prove
+that $V_G/\!/\text{SL}_2$ is singular at the
+image of $x^3y^3$. ($S=\mathbb{G}_m$-module
+with weights $-6,-4,0,4,6$.) {\bf Hint.} To
+check for non-smoothness you can check that
+$\mathcal{O}(S)^{\mathbb{G}_m}$ is not a
+polynomial ring; this is equivalent to
+non-smoothness for the quotient, and it
+should be easy to find: you just find that
+there are too many generators.
+\end{exercise}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}
