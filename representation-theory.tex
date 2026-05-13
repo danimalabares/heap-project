@@ -8,7 +8,8 @@
 \phantomsection
 \label{section-phantom}
 \hfill
-\href{http://github.com/danimalabares/stack}{github.com/danimalabares/stack}
+\href{http://github.com/danimalabares/stack}%
+{github.com/danimalabares/stack}
 
 \tableofcontents
 
@@ -16,8 +17,9 @@
 \label{section-basic-definitions}
 
 \begin{definition}
-\label{definition-representation}
-A {\it representation of Lie algebra} $\mathfrak{g}$ is a vector space $V$ 
+\label{definition-representation-lie-algebra}
+A {\it representation of Lie algebra}
+$\mathfrak{g}$ is a vector space $V$
 and homomorphism
 $$
 \rho:\mathfrak{g} \to \text{End}(V)
@@ -30,106 +32,603 @@ $$
 
 \begin{remark}
 \label{remark-representations-are-modules}
-Another name for a representation of a Lie algebra $\mathfrak{g}$ is a 
-{\it $\mathfrak{g}$-module}. This is like the abstract definition of an algebra
-using a morphism. It's as if the morphism lets us define a sort of product of
-elements in the codomain by elements in the domain.
+Another name for a representation of a Lie
+algebra $\mathfrak{g}$ is a
+{\it $\mathfrak{g}$-module}. This is like the
+abstract definition of an algebra
+using a morphism. It's as if the morphism
+lets us define a sort of product of
+elements in the codomain by elements in the
+domain.
 \end{remark}
 
-It is not possible to classify all representations of a Lie algebra
-$\mathfrak{g}$. But there is a theorem by Weyl that says that if $\mathfrak{g}$
-is finite-dimensional and (semi)simple, then every finite-dimensional
-representation of $\mathfrak{g}$ 
-(i.e. a representation where $V$ is finite-dimensional) 
-is isomorphic to a direct sum of irreducible representations 
+It is not possible to classify all
+representations of a Lie algebras
+$\mathfrak{g}$. But there is a theorem by
+Weyl that says that if $\mathfrak{g}$
+is finite-dimensional and (semi)simple, then
+every finite-dimensional
+representation of $\mathfrak{g}$
+(i.e. a representation where $V$ is
+finite-dimensional)
+is isomorphic to a direct sum of irreducible
+representations
+
+\section{Representations of groups}
+\label{section-representations-of-groups}
+
+\noindent
+Notes from
+\href{http://verbit.ru/IMPA/CA-2026/slides-%
+CA-2026-05.pdf}{
+Misha's lecture}.
+
+\begin{definition}
+\label{definition-representation-group}
+A {\it representation of a group}
+is a vector space $V$ and a morphism
+$\rho:G \to \text{GL}(V)$.
+A {\it morphism} of $G$-representations
+is a map of the underlying vector spaces
+commuting
+with the $G$-action, i.e.
+$\varphi(gx)=g\varphi(x)$.
+\end{definition}
+
+\begin{definition}
+\label{definition-irreducible-representation}
+A group representation $G \to \text{GL}(V)$
+is {\it irreducible} if $V$ has no
+$G$-invariant subspaces,
+i.e. if there are no subrepresentations.
+It is called {\it semisimple} if it is a
+direct sum
+of irreducible representations.
+\end{definition}
+
+\begin{remark}
+\label{remark-semis-iff-any-short-exact}
+All representations are semismple if and only
+if
+any short exact sequence of
+$G$-representations splits.
+\end{remark}
+
+\begin{proposition}
+\label{proposition-finit-group-have-semis}
+Let $\text{Rep}_k(G)$ be the category of
+representations
+of a finite group $G$ over $k$,
+with $\text{char}(k)$ coprime with $|G|$.
+Then any short exact sequence of
+$G$-representations splits.
+\end{proposition}
+
+\begin{proof}
+The idea is to construct a section of the
+right-hand map
+on a short exact sequence by averaging over
+the group.
+We need $\text{char}(k)$ coprime with $|G|$
+so that
+we can divide by $|G|$.
+\end{proof}
+
+This means that any finite-dimensional
+representation
+of finite group with $\text{char}(k)$ coprime
+with $|G|$
+is semisimple.
+
+\begin{exercise}
+\label{exercise-nonsemisimple-borel}
+Consider the group $G$ of non-degenerate
+upper triangular matrices $n \times n$.
+Construct a non-semisimple representation of
+$G$.
+\end{exercise}
+
+\begin{proof}
+Assume $n\geq 2$ and let $G$ act on
+$V=k^n$ by the standard representation.
+Let $e_1,\ldots,e_n$ be the standard basis.
+The line
+$$
+U=\langle e_1\rangle
+$$
+is $G$-invariant, since every upper
+triangular matrix sends $e_1$ to a scalar
+multiple of $e_1$.
+
+We claim that $U$ has no $G$-invariant
+complement. Suppose that such a complement
+$W$ exists. Since $V=U\oplus W$, there is a
+unique vector $w\in W$ whose image in
+$V/U$ is the image of $e_2$. Thus
+$$
+w=e_2+ce_1
+$$
+for some $c\in k$.
+
+Now consider the unipotent upper triangular
+matrix
+$$
+u_t=
+\begin{pmatrix}
+1&t&0&\cdots&0\\
+0&1&0&\cdots&0\\
+0&0&1&\cdots&0\\
+\vdots&\vdots&\vdots&\ddots&\vdots\\
+0&0&0&\cdots&1
+\end{pmatrix}.
+$$
+Since $W$ is assumed invariant, $u_t w$ must
+belong to $W$. But
+$$
+u_t w=e_2+(c+t)e_1.
+$$
+This vector has the same image as $e_2$ in
+$V/U$. By uniqueness of $w$, we must have
+$u_t w=w$, hence $c+t=c$. Taking
+$t\neq 0$ gives a contradiction.
+
+Therefore the invariant subspace $U$ has no
+$G$-invariant complement. Hence the standard
+representation of $G$ on $k^n$ is not
+semisimple.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-finite-field-nonsemisimple}
+Construct a finite group $G$ and a
+non-semisimple representation
+$$
+G \longrightarrow \text{GL}(V),
+$$
+where $V$ is a finite-dimensional vector
+space over a finite field.
+\end{exercise}
+
+\begin{proof}
+We may use the above example for any
+nontrivial finite field - the group
+of upper triangular matrices is finite
+and we get a non-semisimple representation
+in the exact same way.
+\end{proof}
+
+\begin{definition}
+\label{definition-real-complex-quaternionic}
+Let $V$ be a finite-dimensional irreducible
+group representation over $\mathbb{R}$.
+It is called {\it real} if
+$\text{End}_G(V)=\mathbb{R}$, {\it complex}
+if $\text{End}_G(V)=\mathbb{C}$, and
+{\it quaternionic} if $\text{End}_G(V)$ is
+the algebra of quaternions.
+\end{definition}
+
+\begin{remark}
+\label{remark-real-complex-quaternionic}
+This definition is not about the image of
+the homomorphism
+$G \to \text{GL}(V)$. It is about the
+endomorphisms of $V$ which commute with the
+whole $G$-action:
+$$
+\text{End}_G(V)=
+\{T\in \text{End}_{\mathbb{R}}(V):
+T\rho(g)=\rho(g)T\text{ for all }g\in G\}.
+$$
+Thus $\text{End}_G(V)$ is an algebra of
+operators on $V$. For an irreducible real
+representation, Schur's lemma says that this
+is a division algebra over $\mathbb{R}$.
+By Frobenius' theorem, it is isomorphic to
+one of
+$$
+\mathbb{R},\qquad \mathbb{C},\qquad
+\mathbb{H}.
+$$
+These are the real, complex, and
+quaternionic cases.
+
+In other words, $\text{End}_G(V)$ asks:
+after $G$ acts, what linear operations on
+$V$ are still invisible to $G$, because they
+commute with everything $G$ does? If these
+invisible operations form $\mathbb{H}$, the
+representation is quaternionic.
+\end{remark}
+
+\begin{exercise}
+\label{exercise-quaternionic-finite-group}
+Find an example of a quaternionic
+representation of a finite group.
+\end{exercise}
+
+\begin{proof}
+Let $G=Q_8=\{\pm 1,\pm i,\pm j,\pm k\}$ be
+the quaternion group, and let $V=\mathbb{H}$
+be regarded as a real vector space. Let
+$G$ act by left multiplication:
+$$
+\rho(q)(x)=qx.
+$$
+This is a real representation of $G$.
+
+We first check that it is irreducible. Let
+$0\neq W\subset V$ be a $G$-invariant real
+subspace. Since $W$ is stable under left
+multiplication by $i,j,k$, it is stable
+under left multiplication by every
+quaternion.
+Choose $0\neq x\in W$. Since $x$ is
+invertible in $\mathbb{H}$, left
+multiplication by $x^{-1}$ shows that
+$1\in W$. Hence $W=\mathbb{H}$.
+
+Now compute the commuting endomorphisms.
+For every $a\in \mathbb{H}$, right
+multiplication
+$$
+R_a(x)=xa
+$$
+commutes with left multiplication by $G$.
+Conversely, let $T\in \text{End}_G(V)$ and
+put $a=T(1)$. Since $T$ commutes with left
+multiplication by $i,j,k$, it commutes with
+left multiplication by every quaternion.
+Thus, for all $x\in\mathbb{H}$,
+$$
+T(x)=T(x\cdot 1)=xT(1)=xa.
+$$
+So every $G$-equivariant endomorphism is
+some $R_a$. Therefore
+$$
+\text{End}_G(V)\cong \mathbb{H}^{op}
+\cong \mathbb{H}.
+$$
+Thus $V$ is quaternionic.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-quaternionic-cyclic-17}
+Find a quaternionic representation of a
+cyclic group of order $17$, or prove that
+such a representation cannot exist.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-quaternionic-tetrahedron}
+Find a quaternionic representation of the
+group $G$ of isometries of a regular
+tetrahedron, or prove that such a
+representation cannot exist.
+\end{exercise}
+
+\begin{proof}
+The full group of isometries of a regular
+tetrahedron is isomorphic to $S_4$. We show
+that it has no quaternionic irreducible real
+representation.
+
+We use the Frobenius-Schur indicator. If
+$\chi$ is an irreducible complex character
+of a finite group, then
+$$
+\nu(\chi)=
+\frac{1}{|G|}\sum_{g\in G}\chi(g^2)
+$$
+is $1,0,-1$ according as the corresponding
+real representation is of real, complex, or
+quaternionic type.
+
+Let the conjugacy classes of $S_4$ be
+$$
+C_1,\ C_2,\ C_{22},\ C_3,\ C_4
+$$
+with cycle types
+$$
+1,\quad (12),\quad (12)(34),\quad
+(123),\quad (1234).
+$$
+Their sizes are $1,6,3,8,6$. Squaring sends
+$C_1,C_2,C_{22}$ to $C_1$, sends $C_3$ to
+$C_3$, and sends $C_4$ to $C_{22}$. Hence
+$$
+\nu(\chi)=
+\frac{10\chi(C_1)+8\chi(C_3)
++6\chi(C_{22})}{24}.
+$$
+
+The irreducible characters of $S_4$ are
+$$
+\begin{array}{c|ccccc}
+&C_1&C_2&C_{22}&C_3&C_4\\
+\hline
+\chi_1&1&1&1&1&1\\
+\chi_{\mathrm{sgn}}&1&-1&1&1&-1\\
+\chi_2&2&0&2&-1&0\\
+\chi_3&3&1&-1&0&-1\\
+\chi_3'&3&-1&-1&0&1
+\end{array}
+$$
+Substituting these rows into the formula for
+$\nu(\chi)$ gives $\nu(\chi)=1$ in every
+case. Thus every irreducible real
+representation of $S_4$ is of real type.
+In particular, none is quaternionic.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-cyclic-rational-2d}
+Let $V=\mathbb{Q}^2$ be an irreducible
+$2$-dimensional representation of the cyclic
+group $G=\mathbb{Z}/n$ over $\mathbb{Q}$.
+\begin{enumerate}
+\item Prove that the algebra
+$\text{End}_G(V)$ of endomorphisms of this
+representation is commutative and
+$2$-dimensional.
+\item Prove that $\text{End}_G(V)$ is a
+number field isomorphic to
+$\mathbb{Q}[\sqrt{a}]$ for some
+$a \in \mathbb{Z}$.
+\end{enumerate}
+\end{exercise}
+
+\begin{proof}
+Let $g$ be a generator of $G$, and write
+$$
+A=\rho(g)\in \text{GL}_2(\mathbb{Q}).
+$$
+Geometrically, one may picture this as a
+finite order rotation. Then an endomorphism
+commuting with the representation should be
+something which has the same symmetry: a
+homothety, or the rotation itself, or a
+linear combination of these two operations.
+Over $\mathbb{Q}$ we should say this
+algebraically rather than in terms of angles.
+
+Since $G$ is cyclic, an endomorphism
+$T\in\text{End}_{\mathbb{Q}}(V)$ is
+$G$-equivariant if and only if it commutes
+with $A$:
+$$
+\text{End}_G(V)=
+\{T\in\text{End}_{\mathbb{Q}}(V):TA=AT\}.
+$$
+Thus the problem is to compute the
+centralizer of the single matrix $A$.
+
+The scalar matrices give the homotheties,
+and $A$ itself is the algebraic replacement
+for the rotation. Since the representation is
+irreducible, $A$ cannot be scalar; otherwise
+every line in $V$ would be $G$-invariant.
+Therefore $I$ and $A$ are linearly
+independent over $\mathbb{Q}$.
+
+By Cayley-Hamilton, every polynomial in $A$
+is of the form
+$$
+aI+bA,\qquad a,b\in\mathbb{Q}.
+$$
+So the algebra $\mathbb{Q}[A]$ has dimension
+$2$ and is commutative. The remaining point
+is to show that every matrix commuting with
+$A$ already lies in $\mathbb{Q}[A]$.
+\end{proof}
+
+
+
 
 
 \section{Representations of SL(2,C)}
 \label{section-sl2c}
 
 \noindent
-Klein classified nontrivial finite subgroups of $\text{SL}_2(\mathbb{C})$ 
+Klein classified nontrivial finite subgroups
+of $\text{SL}_2(\mathbb{C})$
 up to conjugacy:
 \begin{itemize}
-\item Cyclic groups $\mathcal{C}_m$, $m \geq 2$. $|\mathcal{C}_m|=m$,
+\item Cyclic groups $\mathcal{C}_m$, $m \geq
+2$. $|\mathcal{C}_m|=m$,
 $$
 \mathcal{C}_m=\left\{\begin{pmatrix}
-\zeta&0\\ 
+\zeta&0\\
 0&\zeta^{-1}\end{pmatrix}:\zeta^m=1
 \right\}.
 $$
-\item Dihedral groups $\mathcal{D}_m$, $m\geq 2$,
+\item Dihedral groups $\mathcal{D}_m$, $m\geq
+2$,
 $$
-\mathcal{D}_m=\left<\mathcal{C}_{2m},\begin{pmatrix}
-0&-1\\ 
+\mathcal{D}_m=\left<\mathcal{C}_{2m},
+\begin{pmatrix}
+0&-1\\
 1&0
 \end{pmatrix}\right>.
 $$
-For example, $\mathcal{D}_2$ is the {\it quaternion group} 
+For example, $\mathcal{D}_2$ is the {\it
+quaternion group}
 $\left<\underbrace{\begin{pmatrix}
-i&0\\ 
+i&0\\
 0&-i
-\end{pmatrix}}_{i},\underbrace{\begin{pmatrix}
-0&-1\\ 
+\end{pmatrix}}_{i},
+\underbrace{\begin{pmatrix}
+0&-1\\
 1&0
 \end{pmatrix}}_{j}\right>$.
 
-\item Binary tetrahedral group $\mathcal{T}$, with $|\mathcal{T}|=24$.
-\item Binary octahedral group, $\mathcal{O}$, with $|\mathcal{O}|=48$.
-\item Binary icosahedral group $\mathcal{I}$ with $|I|=120$.
+\item Binary tetrahedral group $\mathcal{T}$,
+with $|\mathcal{T}|=24$.
+\item Binary octahedral group, $\mathcal{O}$,
+with $|\mathcal{O}|=48$.
+\item Binary icosahedral group $\mathcal{I}$
+with $|I|=120$.
 
-These three are related to the rotation groups of the
+These three are related to the rotation
+groups of the
 Platonic solids by the 2-to-1 covering
 $\text{SU}_2 \to \text{SO}_3(\mathbb{R})$.
-To classify the finite subgroups of $\text{SL}_2(\mathbb{C})$:
-first show that any such subgroup is conjugate to a subgroup
-of $\text{SU}_2$ so that its image is a finite subgroup of
-$\text{SO}_3(\mathbb{R})$. We can classify those by considering their
-action on the sphere and showing that they have to be the
-rotation group of one of the Platonic solids or a dihedral group
-or a cyclic group (related to planar polygons).
+To classify the finite subgroups of
+$\text{SL}_2(\mathbb{C})$:
+first show that any such subgroup is
+conjugate to a subgroup
+of $\text{SU}_2$ so that its image is a
+finite subgroup of
+$\text{SO}_3(\mathbb{R})$. We can classify
+those by considering their
+action on the sphere and showing that they
+have to be the
+rotation group of one of the Platonic solids
+or a dihedral group
+or a cyclic group (related to planar
+polygons).
 \end{itemize}
 
+\subsection{Unit quaternions and rotations}
+\label{subsection-unit-quaternions-rotations}
+
 \noindent
-At some point of the XX century it was realised that this
-classification is an instance of an ADE classification.
+Notes from Conway's book on quaternions.
 
-Now we explain the (historically second explanation of this) McKay
+\begin{lemma}
+\label{lemma-so3-simple-rotations}
+$\text{SO}(3)$ is generated by simple
+rotations, i.e. rotations which fix a
+vector.
+\end{lemma}
+
+\begin{lemma}
+\label{lemma-unit-quaternions-cover-so3}
+Every element of $\text{SO}(3)$ has the form
+$x \mapsto q^{-1}xq$ for some unit
+quaternion $q$. The map
+$$
+q \longmapsto [q],
+\qquad
+[q](x)=q^{-1}xq
+$$
+is a $2$-to-$1$ homomorphism from the group
+of unit quaternions to $\text{SO}(3)$.
+\end{lemma}
+
+\noindent
+The imaginary quaternions
+$$
+\operatorname{Im}\mathbb{H}
+=
+\mathbb{R}i\oplus\mathbb{R}j
+\oplus\mathbb{R}k
+$$
+are naturally $\mathbb{R}^3$. The unit
+quaternions act on them by conjugation:
+$$
+\rho(\alpha)(\beta)
+=
+\alpha\beta\overline{\alpha}.
+$$
+Thus we get a homomorphism
+$$
+\rho:S^3 \longrightarrow
+\text{SO}_3(\mathbb{R})
+$$
+with kernel $\{\pm 1\}$. This identifies the
+unit quaternions with $\text{Spin}(3)$, and
+also with $\text{SU}(2)$. The covering is
+$2$-to-$1$ because opposite unit quaternions
+give the same rotation.
+
+\begin{definition}
+\label{definition-binary-icosahedral}
+The {\it binary icosahedral group} is the
+preimage of the icosahedral rotation group
+$I\cong A_5$ under the covering
+$$
+\text{SU}(2) \longrightarrow
+\text{SO}_3(\mathbb{R}).
+$$
+\end{definition}
+
+\begin{remark}
+\label{remark-quaternions-binary-groups}
+This is the bridge between the rotation
+groups of the Platonic solids and the finite
+subgroups of $\text{SU}(2)$, or equivalently
+of $\text{SL}_2(\mathbb{C})$. The word
+``binary'' means ``take the inverse image
+under the double cover''. For example, the
+quaternion group $Q_8$ is the binary
+dihedral group $\mathcal{D}_2$.
+\end{remark}
+
+\noindent
+At some point of the XX century it was
+realised that this
+classification is an instance of an ADE
+classification.
+
+Now we explain the (historically second
+explanation of this) McKay
 correspondence.
-If $\Gamma$ is a nontrivial finite subgroup of $\text{SL}_2(\mathbb{C})$,
-define the  {\it McKay graph} $\tilde{\Delta}_\Gamma$ as follows:
-the vertices are $0,1,2,\ldots,\ell$ which index the
-irreducible representations $R_0,R_1,\ldots,R_\ell$ of $\Gamma$.
+If $\Gamma$ is a nontrivial finite subgroup
+of $\text{SL}_2(\mathbb{C})$,
+define the  {\it McKay graph}
+$\tilde{\Delta}_\Gamma$ as follows:
+the vertices are $0,1,2,\ldots,\ell$ which
+index the
+irreducible representations
+$R_0,R_1,\ldots,R_\ell$ of $\Gamma$.
 
-Let $Q$ be the 2-dimensional $\Gamma$ coming from
+Let $Q$ be the 2-dimensional $\Gamma$ coming
+from
 $\Gamma<\text{SL}_2(\mathbb{C})$.
-(Note that $Q$ is one of the $R_i$'s unless $\Gamma=\mathcal{C}_m$,
+(Note that $Q$ is one of the $R_i$'s unless
+$\Gamma=\mathcal{C}_m$,
 in which case $Q$ is reducible.)
-The number of edges between $i$ and $j$ in $\tilde{\Delta}_\Gamma$ 
-is the multiplicity of $R_j$ in $Q \otimes R_i$.
-So: take the representation $R_i$, tensor it with the
-2-dimensional representation $Q$, 
-express it as a direct sum of irreducible representations
-and perhaps $R_j$ will appear with nonzero multiplicity,
-in which case you put $R_j$ with that number of edges.
-So in general it's a multigraph, though in most
+The number of edges between $i$ and $j$ in
+$\tilde{\Delta}_\Gamma$
+is the multiplicity of $R_j$ in $Q \otimes
+R_i$.
+So: take the representation $R_i$, tensor it
+with the
+2-dimensional representation $Q$,
+express it as a direct sum of irreducible
+representations
+and perhaps $R_j$ will appear with nonzero
+multiplicity,
+in which case you put $R_j$ with that number
+of edges.
+So in general it's a multigraph, though in
+most
 cases its a simple graph.
 Also note that this multiplicity coincides
-with the multiplicity of $R_i$ in $Q \otimes R_j$
-since $Q^* \cong Q$; that is the graph is not directed.
+with the multiplicity of $R_i$ in $Q \otimes
+R_j$
+since $Q^* \cong Q$; that is the graph is not
+directed.
 
-The surprising thing is that when we do this we obtain
-the affine Dynkin diagrams. McKay's famous observation says:
+The surprising thing is that when we do this
+we obtain
+the affine Dynkin diagrams. McKay's famous
+observation says:
 \begin{enumerate}
-\item $\tilde{\Delta}_\Gamma$ is a simply-laced affine Dynkin
+\item $\tilde{\Delta}_\Gamma$ is a
+simply-laced affine Dynkin
 diagram.
 
 \item This is a bijection:
 $$
-\left\{\substack{\text{nontrvial finite} \\ \Gamma \subset
-\text{SL}_2(\mathbb{C})}\right\}\Big/\text{conj.}
+\left\{\substack{\text{nontrvial finite} \\
+\Gamma \subset
+\text{SL}_2(\mathbb{C})}\right\}\Big/
+\text{conj.}
 \xymatrix{\ar@{<~>}[r]&}
-\left\{\substack{\text{simply-laced} \\ \text{affine Dynkin diagrams}}\right\}.
+\left\{\substack{\text{simply-laced} \\
+\text{affine Dynkin diagrams}}\right\}.
 $$
 \end{enumerate}
 
@@ -140,24 +639,34 @@ The correspondance reads
 \widetilde{A}_{m-1}\\
 \mathcal{D}_m &\xymatrix{\ar@{<->}[r]&}
 \widetilde{D}_{m+2}\\
-\mathcal{T}&\xymatrix{\ar@{<->}[r]&}\tilde{E}_6\\
-\mathcal{O}&\xymatrix{\ar@{<->}[r]&}\tilde{E}_7\\
-\mathcal{I}&\xymatrix{\ar@{<->}[r]&}\tilde{E}_8.
+\mathcal{T}&\xymatrix{\ar@{<->}[r]&}\tilde{E}
+_6\\
+\mathcal{O}&\xymatrix{\ar@{<->}[r]&}\tilde{E}
+_7\\
+\mathcal{I}&\xymatrix{\ar@{<->}[r]&}\tilde{E}
+_8.
 \end{align*}
 
 \medskip\noindent
 Now we explain the geometric approach.
-Given a finite $\Gamma \subset \text{SL}_2(\mathbb{C})$, consider
-the quotient $Y_\Gamma=\Gamma\setminus Q$ as an algebraic variety,
-that is, (since $Q$ is just a representation of $\Gamma$, i.e.
-a 2-dimensional affine space with an action of $\Gamma$)
-we can take its quotient in the sense described before:
-$Y_\Gamma$ is the affine variety with coordinate algebra
+Given a finite $\Gamma \subset
+\text{SL}_2(\mathbb{C})$, consider
+the quotient $Y_\Gamma=\Gamma\setminus Q$ as
+an algebraic variety,
+that is, (since $Q$ is just a representation
+of $\Gamma$, i.e.
+a 2-dimensional affine space with an action
+of $\Gamma$)
+we can take its quotient in the sense
+described before:
+$Y_\Gamma$ is the affine variety with
+coordinate algebra
 $\mathbb{C}[x,y]^\Gamma$.
 
 \begin{lemma}
 \label{lemma-action-is-free-outside-origin}
-The action of $\Gamma$ is free on $Q\setminus\{0\}$ is free.
+The action of $\Gamma$ is free on
+$Q\setminus\{0\}$ is free.
 \end{lemma}
 
 
@@ -165,27 +674,42 @@ The action of $\Gamma$ is free on $Q\setminus\{0\}$ is free.
 \section{Borel-Weil-Bott theorem}
 \label{section-Borel-Weil-Bott-thoerem}
 
-[These are {\it very} sketchy notes after a conversation with Lyalya Guseva on
+[These are {\it very} sketchy notes after a
+conversation with Lyalya Guseva on
 Borel-Weil-Bott theorem]
 
-Borel-Weil-Bott theorem is a device for computing cohomologies of sheaves.
+Borel-Weil-Bott theorem is a device for
+computing cohomologies of sheaves.
 
-Take the Grassmanian $\text{Gr}(n,k)$, which may be obtained as a quotient $G$
-of a group $G$ by a parabolic subgroup $P$. We would like it if $P$ was a
-semisimple group since those are classified, but unfortunately it is not. 
-So instead we use so-called Levi quotient denoted by $L$ which is semisimple
-and allows us to understand the cohomologies of the variety $G/P$.
+Take the Grassmanian $\text{Gr}(n,k)$, which
+may be obtained as a quotient $G$
+of a group $G$ by a parabolic subgroup $P$.
+We would like it if $P$ was a
+semisimple group since those are classified,
+but unfortunately it is not.
+So instead we use so-called Levi quotient
+denoted by $L$ which is semisimple
+and allows us to understand the cohomologies
+of the variety $G/P$.
 
-Fortunately the representation theory of $\text{Gr}(k,n)$ is well known, in fact
+Fortunately the representation theory of
+$\text{Gr}(k,n)$ is well known, in fact
 we get $\text{GL}_k \times \text{GL}_{n-k}$.
 
-There are functors associated to $L$, which are described by a sequence of
-numbers $a_1,\ldots,a_n$. Along with other sequences of numbers
-$k_1,\ldots,k_\ell$, and $\rho$ (the latter is a concept in representation
-theory but we may ultimately think of it as another sequence of numbers) we may
-construct an action of the symmetric group $S^n$ acting on these sequences and
-obtain a result concerning the cohomology $H^{\ell(\sigma)}(L)$, and in
-particular we find that if two entries in our list of numbers coincide, the
+There are functors associated to $L$, which
+are described by a sequence of
+numbers $a_1,\ldots,a_n$. Along with other
+sequences of numbers
+$k_1,\ldots,k_\ell$, and $\rho$ (the latter
+is a concept in representation
+theory but we may ultimately think of it as
+another sequence of numbers) we may
+construct an action of the symmetric group
+$S^n$ acting on these sequences and
+obtain a result concerning the cohomology
+$H^{\ell(\sigma)}(L)$, and in
+particular we find that if two entries in our
+list of numbers coincide, the
 cohomology will vanish.
 
 
@@ -193,4 +717,3 @@ cohomology will vanish.
 \bibliographystyle{amsalpha}
 
 \end{document}
-
