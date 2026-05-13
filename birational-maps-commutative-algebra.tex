@@ -2,7 +2,8 @@
 
 \begin{document}
 
-\title{Birational maps from the commutative algebra viewpoint}
+\title{Birational maps from the commutative
+algebra viewpoint}
 \maketitle
 
 \noindent
@@ -15,7 +16,28 @@ github.com/danimalabares/stack}
 
 
 \medskip\noindent
-O estudo da equivalência de variedades algébricas a partir da biracionalidade é um dos temas centrais da Geometria Algébrica. Nessa direção, a classificação de variedades pode ser vista como parte da chamada geometria birracional. De modo análogo, podemos concentrar-nos na estrutura dos mapas racionais que definem biracionalidades entre variedades — este será o ponto de partida do minicurso. Apresentarei aplicações de métodos de Álgebra Comutativa, como o uso de syzygies no estudo dos ideais de base de mapas racionais, e discutirei critérios algébricos que fornecem ferramentas computacionais para verificar a biracionalidade de tais mapas. Introduziremos também alguns métodos no Macaulay2 para testar biracionalidade. Além disso, veremos como diferentes teorias de multiplicidades — como mixed multiplicity e j-multiplicity — desempenham um papel importante na abordagem algébrica dos mapas racionais.
+O estudo da equivalência de variedades
+algébricas a partir da biracionalidade é um
+dos temas centrais da Geometria Algébrica.
+Nessa direção, a classificação de variedades
+pode ser vista como parte da chamada
+geometria birracional. De modo análogo,
+podemos concentrar-nos na estrutura dos mapas
+racionais que definem biracionalidades entre
+variedades — este será o ponto de partida do
+minicurso. Apresentarei aplicações de métodos
+de Álgebra Comutativa, como o uso de syzygies
+no estudo dos ideais de base de mapas
+racionais, e discutirei critérios algébricos
+que fornecem ferramentas computacionais para
+verificar a biracionalidade de tais mapas.
+Introduziremos também alguns métodos no
+Macaulay2 para testar biracionalidade. Além
+disso, veremos como diferentes teorias de
+multiplicidades — como mixed multiplicity e
+j-multiplicity — desempenham um papel
+importante na abordagem algébrica dos mapas
+racionais.
 
 \tableofcontents
 
@@ -23,12 +45,15 @@ O estudo da equivalência de variedades algébricas a partir da biracionalidade 
 \label{section-plan}
 
 \begin{itemize}
-\item A. Simis, A. Doria, - 2012 (Adv. Math) Criterio de Biracionalidade
+\item A. Simis, A. Doria, - 2012 (Adv. Math)
+Criterio de Biracionalidade
 \item Simis, - 2012: Plane Cremona.
-\item Simis, -, 2017. Bounds for degrees of Birational maps with CM graph.
+\item Simis, -, 2017. Bounds for degrees of
+Birational maps with CM graph.
 \item Simis, Chardin 2021:
 degree of rational map versus syzygy.
-\item Mostafazadeh, 2024: loci de $\text{Bir}(X)$.
+\item Mostafazadeh, 2024: loci de
+$\text{Bir}(X)$.
 \item \texttt{RationalMaps.m2}
 \end{itemize}
 
@@ -37,16 +62,21 @@ degree of rational map versus syzygy.
 
 \noindent
 Let $R$ be a ring.
-We are interested in $Mod_R$ and $R$-algebras categories.
-The first one is abelian, while the second one isn't.
+We are interested in $Mod_R$ and $R$-algebras
+categories.
+The first one is abelian, while the second
+one isn't.
 There are other diferences.
 
-We are interested in discussing flat $R$-algebras
+We are interested in discussing flat
+$R$-algebras
 and flat $R$-modules.
 
-\begin{theorem}[Grothendieck Generic freeness theorem]
+\begin{theorem}[Grothendieck Generic freeness
+theorem]
 \label{theorem-grothendieck}
-Let $R$ be noetherian domain, $\varphi:R \to S$,
+Let $R$ be noetherian domain, $\varphi:R \to
+S$,
 $S$ a finitely generated $R$-algebra.
 Then there exists $f \in R$
 such that $\varphi:R_f \to S_{\varphi(f)}$,
@@ -54,21 +84,25 @@ $S_{\varphi(f)}$ is a free $R_f$-module.
 $S_{\varphi(f)}$ is a flat $R_f$-module.
 \end{theorem}
 
-\begin{theorem}[Dimension of fibers theorem (Matsumura 15.1)]
+\begin{theorem}[Dimension of fibers theorem
+(Matsumura 15.1)]
 \label{theorem-dimension-of-fibers}
 $\varphi:R \to S$, $R$ Noetherian,
 $S$ Noetherian, $Q \in \Spec(S)$,
 $p=\varphi^{-1}(Q) \in \Spec(R)$,
 \begin{enumerate}
-\item $ht Q \leq  ht p + \dim \frac{S_Q}{pS_Q}$ 
+\item $ht Q \leq  ht p + \dim
+\frac{S_Q}{pS_Q}$
 [Shafarevich section 3].
 \item If $\varphi$ is flat then
-$\text{ht}Q=\text{ht}p+\dim \frac{S_Q}{pS_Q}$.
+$\text{ht}Q=\text{ht}p+\dim
+\frac{S_Q}{pS_Q}$.
 \end{enumerate}
 
 \noindent
 If $Q \not\ni \varphi(f) \implies $
-$S_Q$ is a free $R_p$-module (by Grothendieck's theorem).
+$S_Q$ is a free $R_p$-module (by
+Grothendieck's theorem).
 $\dim S_Q= \dim R_p+\dim \frac{S_Q}{p S_Q}$.
 \end{theorem}
 
@@ -81,19 +115,24 @@ $$
 \text{fechado }=V(I)= \{ Q: Q \supseteq I\}.
 $$
 
-$S$ is a domain, $\Spec(S)$ is an irreducible space,
+$S$ is a domain, $\Spec(S)$ is an irreducible
+space,
 $\implies $ open nonempty sets are dense.
 
 
 \medskip\noindent
-$k$ field. An algebraic set is  $V(I) = Z(I)$ for an ideal 
-$I \subset k[x_1,…,x_n]$. $I$ is prime if and only if
+$k$ field. An algebraic set is  $V(I) = Z(I)$
+for an ideal
+$I \subset k[x_1,…,x_n]$. $I$ is prime if and
+only if
 $X:=V(I)$ is irreducible.
 Recall that a polynomial map is given
 by polynomial functions in the entries.
-Any such map yields in the category of algebras a map
+Any such map yields in the category of
+algebras a map
 \begin{align*}
-k[Y]=A[Y]=\mathcal{O}_Y=\frac{k[y_1,…,y_m]}{J}
+k[Y]=A[Y]=\mathcal{O}_Y=\frac{k[y_1,…,y_m]}
+{J}
 &\xrightarrow{\varphi^*}
 \frac{k[x_1,…,x_n]}{I}\\
 y_i&\mapsto \overline{f_i(x)}
@@ -103,14 +142,17 @@ y_i&\mapsto \overline{f_i(x)}
 where $Y:=V(J)$.
 $\varphi^*(g)=0$ $\forall  g \in J$,
 $g \in J \iff g(f_1,…,f_m)\in I$
-where $f_i$ are the coordinate polynomial functions of $\varphi$.
+where $f_i$ are the coordinate polynomial
+functions of $\varphi$.
 
-$\varphi$ is an isomorphism if it has a right and left inverse morphism.
+$\varphi$ is an isomorphism if it has a right
+and left inverse morphism.
 $\varphi:X \to X$ is an automorphism
 if it is an isomorphism.
 
 \medskip\noindent
-Question: determine the automorphism group $\text{Aut}(X)$.
+Question: determine the automorphism group
+$\text{Aut}(X)$.
 
 If $X=\mathbb{A}^1$, a morphism
 \begin{align*}
@@ -119,15 +161,19 @@ x &\longmapsto f(x)
 \end{align*}
 
 \noindent
-has an inverse if and only if there exists $f(x)$ such that $f(g(x))=x$.
+has an inverse if and only if there exists
+$f(x)$ such that $f(g(x))=x$.
 [This forces $f$ to have degree 1 since
 composition $f \circ g$ must have degree
-$\text{deg} f \cdot \text{deg} g = \text{deg} x=1$.]
+$\text{deg} f \cdot \text{deg} g = \text{deg}
+x=1$.]
 So $f(x)=ax+b$, $a\neq 0$.
-Thus, we can parametrize the automorphism by two numbers
-$a,b$ with $a \neq 0$. This is a quasi-affine variety.
+Thus, we can parametrize the automorphism by
+two numbers
+$a,b$ with $a \neq 0$. This is a quasi-affine
+variety.
 
-For $X=\mathbb{A}^2$ 
+For $X=\mathbb{A}^2$
 the situation is a little more involved.
 de Jonequeres, Triangular group.
 Hierzch Jung 1942, chre.
@@ -138,29 +184,35 @@ $$
 $$
 
 For $\text{Aut}(\mathbb{A}^3)$,
-the question if whether $\text{Aut}(\mathbb{A}^3)=
+the question if whether
+$\text{Aut}(\mathbb{A}^3)=
 \left<\text{linear, triangular}\right>$.
 This is false in general
 
 \begin{definition}
 \label{definition-tame}
-An auotomorphism $\sigma \in \text{Aut}(\mathbb{A}^3)$ 
-is called {\it tame} if $\sigma \in \left<\text{linear, triangular}\right>$ 
+An auotomorphism $\sigma \in
+\text{Aut}(\mathbb{A}^3)$
+is called {\it tame} if $\sigma \in
+\left<\text{linear, triangular}\right>$
 and {\it wild} otherwise.
 \end{definition}
 
 \noindent
 Nagata's conjecture is that
 a $\sigma:k[x,y,z] \to k[x,y,z]$,
-$(x,y,z) \mapsto (x+(x^2-yz)z,y+2(x^2yz)x+(x^2-yz)^2z,z)$ 
+$(x,y,z) \mapsto
+(x+(x^2-yz)z,y+2(x^2yz)x+(x^2-yz)^2z,z)$
 is wild.
 
-Shiguero Kuroda 2014. Introduce a monomial order
+Shiguero Kuroda 2014. Introduce a monomial
+order
 $\leq $ in $k[x,y,z]$.
 [The following is not a criterion;
-this just says "if this happens, then the morphism is wild",
+this just says "if this happens, then the
+morphism is wild",
 but not an iff.]
-Let 
+Let
 \begin{align*}
 \sigma: k[x,y,z] &\longrightarrow k[x,y,z] \\
 \leavevmode &\longmapsto (f_1,f_2,f_3)
@@ -169,52 +221,69 @@ Let
 \noindent
 $\sigma$ is wild if
 \begin{enumerate}
-\item $\text{int}(f_1),\text{int}(f_2), \text{int}(f_3)$
+\item $\text{int}(f_1),\text{int}(f_2),
+\text{int}(f_3)$
 are linearly dependent over $\mathbb{Z}$,
 pairwise linear over $\mathbb{Z}$.
-\item $\text{int}(f_{i_1}) \neq  p \text{int}(f_{i_2})+q(\text{int}(f_{i_3})$ 
+\item $\text{int}(f_{i_1}) \neq  p
+\text{int}(f_{i_2})+q(\text{int}(f_{i_3})$
 for $p,q \in \mathbb{Z}_{\geq 0}$.
 \end{enumerate}
 
 \medskip\noindent
 Jacobian conjecture:
-a polynomial map $\varphi:\mathbb{C}^n \to \mathbb{C}^n$
-[with coordinate functions] $(f_1(\mathbf{x}),…,f_n(\mathbf{x}))$
+a polynomial map $\varphi:\mathbb{C}^n \to
+\mathbb{C}^n$
+[with coordinate functions]
+$(f_1(\mathbf{x}),…,f_n(\mathbf{x}))$
 is an automorphism if and only if
-$\det \text{Jacob}(\varphi)=\text{constant}\neq 0$.
+$\det
+\text{Jacob}(\varphi)=\text{constant}\neq
+0$.
 
-The forward implication is clear: 
+The forward implication is clear:
 if  $\varphi \psi=\text{id}$
-then $\text{Jac}(\varphi)(\psi)\text{Jac}(\psi)=\text{Jac}(\text{id})=1$.
+then
+$\text{Jac}(\varphi)(\psi)\text{Jac}(\psi)=
+\text{Jac}(\text{id})=1$.
 
 [Bass-Conell-Wright, 1982]
-Let $\varphi:\mathbb{C}^n \to \mathbb{C}^n$ 
+Let $\varphi:\mathbb{C}^n \to \mathbb{C}^n$
 a polynomial map with
 $\det \text{Jac}\varphi=$ constant. Then
-$\varphi$ is invertible (its inverse is a polynomial map)
-[note that by the holomorphic inverse function theorem
-we already know that there exists a local inverse
-that is a series, but here we see it's actually polynomial]
+$\varphi$ is invertible (its inverse is a
+polynomial map)
+[note that by the holomorphic inverse
+function theorem
+we already know that there exists a local
+inverse
+that is a series, but here we see it's
+actually polynomial]
 if and only if $\varphi$ is injective
-if and only if 
-$\varphi$ is proper ($\varphi^{-1}(\text{compact})=\text{compact}$).
+if and only if
+$\varphi$ is proper
+($\varphi^{-1}(\text{compact})=\text{compact}
+$).
 
 \begin{theorem}
 \label{theorem-jacobian-conjecture}
-If the Jacobian conjecture is valid for all  $n$ and
+If the Jacobian conjecture is valid for all
+$n$ and
 for any polynomial of degree $\leq 3$,
 then it's valid.
 \end{theorem}
 
 \begin{theorem}
 \label{theorem-jacobian-conjecture2}
-If the Jacobian conjecture is valid over $\mathbb{C}$
+If the Jacobian conjecture is valid over
+$\mathbb{C}$
 then it is valid over any domain.
 \end{theorem}
 
 
-\section{Rational maps of projective varieties}
-\label{section-rational-maps-projective-varieties}
+\section{Rational maps of projective
+varieties}
+\label{section-ratio-maps-proje-varie}
 
 \noindent
 $X=V(I) \subseteq \mathbb{P}^n$,
@@ -222,8 +291,10 @@ $I \subseteq k[x_0,…,x_n]$ homogeneous.
 
 \begin{definition}
 \label{definition-presentation-of-map}
-A rational map is $\varphi:X \dashrightarrow Y$ 
-for $X\subseteq \mathbb{P}^n$, $Y\subseteq \mathbb{P}^m$ 
+A rational map is $\varphi:X \dashrightarrow
+Y$
+for $X\subseteq \mathbb{P}^n$, $Y\subseteq
+\mathbb{P}^m$
 given by $(f_0:…:f_m)$
 is {\it presented} by
 $f_i \in R=k[\mathbf{x}]/I_X$,
@@ -247,7 +318,8 @@ $$
 If
 $$
 I_2
-\begin{pmatrix}f_0(\mathbf{x})&f_m(\mathbf{x})\\ 
+\begin{pmatrix}f_0(\mathbf{x})&f_m(\mathbf{x}
+)\\
 g_0(\mathbf{x})&g_m(\mathbf{x})\end{pmatrix}
 \in I_X
 $$
@@ -257,27 +329,30 @@ $$
 \label{exercise-standard-quadratic}
 $X=V(y^3-x^2z) \subseteq \mathbb{P}^2$,
 $\sigma:X \dashrightarrow X$, $(yz:xz:xy)$.
-[Show that] $(xz:y^2:x^2)$ 
+[Show that] $(xz:y^2:x^2)$
 [is an equivalent presentation, that is,]
 $$
 I_2
-\begin{pmatrix} 
+\begin{pmatrix}
 yz & xz & xy\\
-xz & y^2 & x^2 \end{pmatrix} 
+xz & y^2 & x^2 \end{pmatrix}
 \in (y^3-x^2z).
 $$
 
 \end{exercise}
 
 \noindent
-What are the possible presentations of a given rational map?
+What are the possible presentations of a
+given rational map?
 $$
 f_0g_j=f_jg_0\qquad \text{ in }I_X.
 $$
-If $f_0 \neq 0 \implies  g_j=\left(\frac{g_0}{f_0}\right) f_j$.
+If $f_0 \neq 0 \implies
+g_j=\left(\frac{g_0}{f_0}\right) f_j$.
 
 \medskip\noindent
-[We see that there is a 1-1 correspondence between]
+[We see that there is a 1-1 correspondence
+between]
 $$
 \text{Presentations of } \varphi
 \xymatrix{\ar@{<~>}[r]&}
@@ -292,7 +367,7 @@ $$
 &R/I\ar[r]
 &0
 }
-$$ 
+$$
 we obtain
 $$
 \xymatrix{
@@ -304,14 +379,19 @@ $$
 &\underbrace{\text{Ext}^1(R,R)
 }_{=0}}
 $$
-And $\Hom(R/I,R)=\ast \iff \text{grade}(I) \geq 1$.
+And $\Hom(R/I,R)=\ast \iff \text{grade}(I)
+\geq 1$.
 
-If $\text{Ext}^1(R/I,R)=0 \implies R \simeq\Hom(I,R)$.
-Note that $\text{Ext}^1(R/I,R) \iff \text{grade}(I,R)\geq 2$.
+If $\text{Ext}^1(R/I,R)=0 \implies R
+\simeq\Hom(I,R)$.
+Note that $\text{Ext}^1(R/I,R) \iff
+\text{grade}(I,R)\geq 2$.
 
-[This would help us understand $\text{Bir}(X)_d$.
+[This would help us understand
+$\text{Bir}(X)_d$.
 $$
-\text{Domin}\varphi=\bigcup \text{Domin}(\text{presentation})=X.
+\text{Domin}\varphi=\bigcup
+\text{Domin}(\text{presentation})=X.
 $$
 
 
@@ -320,20 +400,24 @@ $$
 
 [Given a rational map]
 $\varphi:X \dashrightarrow Y$, $(f_0:…:f_m)$,
-the ideal of definition of the image of $\varphi$ 
+the ideal of definition of the image of
+$\varphi$
 is
 $$
 \mathcal{K}
 =\{h(y) \in k[y_0,…,y_m]
-:h(f_0(p),…,f_m(p)), \forall p \in \text{Dom}\varphi\}.
+:h(f_0(p),…,f_m(p)), \forall p \in
+\text{Dom}\varphi\}.
 $$
-[The coordinate ring of the image has a special name:]
+[The coordinate ring of the image has a
+special name:]
 $$
 \frac{k[y_0:…:y_m]}{\mathcal{K}}
 \simeq k[f_0,…,f_m]
 \subseteq\frac{k[x_0,…,x_n]}{I_X}
 $$
-is called {\it special fiber $\mathcal{I}_I$ of the ideal $I\subseteq R$}.
+is called {\it special fiber $\mathcal{I}_I$
+of the ideal $I\subseteq R$}.
 
 The {\it analytic spread} is
 $$
@@ -344,13 +428,15 @@ $$
 
 Para um anel em geral
 $f_0,…,f_m \in R$,
-$\mathcal{I}_I=k[f_0t,…,f_mt] \subseteq R[t]$.
+$\mathcal{I}_I=k[f_0t,…,f_mt] \subseteq
+R[t]$.
 $$
 \text{ht}(I) \leq  \ell(I) \leq  \dim R.
 $$
 
-One can also prove via Dedekind-Mertens lemma,
-which says that 
+One can also prove via Dedekind-Mertens
+lemma,
+which says that
 $c(f)^nc(fg)=c(g)c(f)^{n+1}$,
 where $c$ is the content of a polynomial
 as in Gauss lemma,
@@ -376,7 +462,7 @@ h(\mathbf{x},\mathbf{y})
 \forall p \in \text{Dom}(\varphi)\}.
 $$
 
-The  {\it ideal of definition of the graph} 
+The  {\it ideal of definition of the graph}
 is given by homogeneous polynomial equations
 of a presentation of $\varphi$.
 
@@ -393,11 +479,13 @@ $f_0,…,f_m$.
 \label{section-finite-maps}
 
 \noindent
-[Another concept before we get to birational maps.]
+[Another concept before we get to birational
+maps.]
 
 \begin{definition}
 \label{definition-finite-map}
-A rational map $\varphi:X \dashrightarrow \mathbb{P}^m$
+A rational map $\varphi:X \dashrightarrow
+\mathbb{P}^m$
 presented by $(f_0:…:f_m)$
 is called a {\it finite map} if and only if
 $\ell(I) = \dim R$.
@@ -405,12 +493,14 @@ $I$ maximal analytic spread.
 \end{definition}
 
 \noindent
-[Keep in mind that dimension of image is analytic spread minus 1,
+[Keep in mind that dimension of image is
+analytic spread minus 1,
 and dimension of domain is $\dim R-1$.]
 
 \medskip\noindent
 [The following is another version
-of Hilbert's Nullstellensatz in commutative algebra:]
+of Hilbert's Nullstellensatz in commutative
+algebra:]
 
 \begin{theorem}[Matsumura 5.6]
 \label{theorem-matsumura-5.6}
@@ -421,25 +511,30 @@ $$
 \end{theorem}
 
 $$
-[\text{Equations involving fraction fields of coordinate rings}]
+[\text{Equations involving fraction fields of
+coordinate rings}]
 $$
 We obtain that
-$\varphi:X \dashrightarrow Y$ 
+$\varphi:X \dashrightarrow Y$
 is finite if and only if
-$\dim(\varphi^{-1}(q))=0$ for generic $q \in Y$.
-$\text{deg}(\varphi)=\# \{p : \varphi(p)=q\}$.
+$\dim(\varphi^{-1}(q))=0$ for generic $q \in
+Y$.
+$\text{deg}(\varphi)=\# \{p :
+\varphi(p)=q\}$.
 
 \medskip\noindent
-How can we compute (algebraically) $\text{deg}(\varphi)$?
+How can we compute (algebraically)
+$\text{deg}(\varphi)$?
 
 \begin{align*}
-\text{deg}Z&=\sum_{\substack{z\text{ closed} \\ \text{
+\text{deg}Z&=\sum_{\substack{z\text{ closed}
+\\ \text{
 in $Z$}}}
 \lambda(\mathcal{O}_{Z,z}\text{deg}(Z)\\
 &=
 \sum_{ p \not \supseteq I}
 \lambda \left(\left(
-\frac{R}{I_q}\right)_p\right) 
+\frac{R}{I_q}\right)_p\right)
 e\left(\frac{R}{p}\right)
 \end{align*}
 
@@ -451,11 +546,13 @@ $$
 $$
 $$
 I_q=I_2
-\begin{pmatrix}f_0(\mathbf{x})&f_m(\mathbf{x})\\ 
+\begin{pmatrix}f_0(\mathbf{x})&f_m(\mathbf{x}
+)\\
 q_0&q_m\end{pmatrix},\qquad  V(I_q).
 $$
 $$
-I_q=Q_1\cap…\cap Q_t\cap\underbrace{…\cap Q_s}_{
+I_q=Q_1\cap…\cap Q_t\cap\underbrace{…\cap
+Q_s}_{
 \sqrt{Q_i}\supseteq I}.
 $$
 
@@ -476,7 +573,8 @@ Integral closure (1,82).
 $$
 \xymatrix{
 &  V \ar[dr]^{\pi_L}\\
-X\ar@{-->}[ur]^{(g_0,…,g_N)}\ar@{-->}[rr]^{\varphi=(f_0,…,f_m)}
+X\ar@{-->}[ur]^{(g_0,…,g_N)}\ar@{-->}[rr]
+^{\varphi=(f_0,…,f_m)}
 & & Y
 }
 $$
@@ -487,8 +585,8 @@ $$
 $$
 
 
-The center of the projection $\pi_L$ 
-does not intersect $V$ if and only if $J$ 
+The center of the projection $\pi_L$
+does not intersect $V$ if and only if $J$
 is reduction of $I$, that is,
 $I \subseteq \overline{J}$.
 
@@ -510,23 +608,27 @@ $(\ell_0,…,\ell_m)$ is $m$-primary.
 \label{section-summary}
 
 \noindent
-Let $x \subset \mathbb{P}^n$ and $y \subset \mathbb{P}^m$.
+Let $x \subset \mathbb{P}^n$ and $y \subset
+\mathbb{P}^m$.
 $\varphi:x \dashrightarrow y$, $(f_0:…:f_m)$,
 $r=k[x]=k[x_0,…,x_n]/I_x$,
 $I=(f_0,…,f_n) \subseteq R$.
 
-We defined $\varphi$ to be {\it finite} if $\ell(I) = \dim r$.
+We defined $\varphi$ to be {\it finite} if
+$\ell(I) = \dim r$.
 $[q(x),q(y)]<\infty$.
-$\#\{p : p \in x: \varphi(p) = q,q\text{ general in }y\}$.
+$\#\{p : p \in x: \varphi(p) = q,q\text{
+general in }y\}$.
 
 $$
 i_q=i_2
-\begin{pmatrix} f_0(\mathbf{x}&  \cdots &  f_n(\mathbf{x})\\
-q_0& \cdots & q_m \end{pmatrix} 
+\begin{pmatrix} f_0(\mathbf{x}&  \cdots &
+f_n(\mathbf{x})\\
+q_0& \cdots & q_m \end{pmatrix}
 \subseteq r
 $$
 $$
-e\left(\frac{R}{I_q:I^\infty}\right) 
+e\left(\frac{R}{I_q:I^\infty}\right)
 =\text{deg}(\varphi)
 $$
 [is the topological degree of $\varphi$.]
@@ -537,48 +639,61 @@ Correspondence fiber ideal
 $$
 \xymatrix{
 &\underbrace{\Gamma}_{\substack{\text{
-graph} \\ \text{of }X}} \subseteq X \times\mathbb{P}^m
-\ar[dr]_{\pi_2}\ar[dl]^{\substack{\pi_1 \\ \text{(birational)}}}\\
+graph} \\ \text{of }X}} \subseteq X
+\times\mathbb{P}^m
+\ar[dr]_{\pi_2}\ar[dl]^{\substack{\pi_1 \\
+\text{(birational)}}}\\
 X \ar@{-->}[rr]& & Y \ni q
 }
 $$
 
 \begin{align*}
-\pi_2^* :\frac{k[Y]}{I_Y}&\to R_I=\frac{y_0,…,y_m]}{J}
-y_i&\longmapsto \mathbf{y_i}=f_it \in R[\mathbf{f}t].
+\pi_2^* :\frac{k[Y]}{I_Y}&\to
+R_I=\frac{y_0,…,y_m]}{J}
+y_i&\longmapsto \mathbf{y_i}=f_it \in
+R[\mathbf{f}t].
 \end{align*}
 
 $$
-C_q=(I_qtR_I :_{R_I}I^{\infty}t) \cap R, \qquad  R \subseteq R_I.
+C_q=(I_qtR_I :_{R_I}I^{\infty}t) \cap R,
+\qquad  R \subseteq R_I.
 $$
 \begin{exercise}
 \label{exercise-raw-ideal}
 $C_q=(I_qtR_I:R_i^{\infty}t)
-=\bigcup_{n=1}^\infty (I_q I^{n-1}:_R I^n) 
+=\bigcup_{n=1}^\infty (I_q I^{n-1}:_R I^n)
 \subseteq(I_q:I^\infty)$.
 \end{exercise}
 
 $$
-v(q)=\{p:(I_q)_p:\text{ is not a reduction of $I_p$}\}.
+v(q)=\{p:(I_q)_p:\text{ is not a reduction of
+$I_p$}\}.
 $$
 $$
-I_q(q:\psi)=(\underbrace{I_q:I}_{\text{raw ideal}}
+I_q(q:\psi)=(\underbrace{I_q:I}_{\text{raw
+ideal}}
 \subseteq C_q \subseteq (I_q:I^\infty)
 $$
-Question: when to $(I_q:I)$ and $C_q$ have the
+Question: when to $(I_q:I)$ and $C_q$ have
+the
 same saturation?
 
-If $I$ has a [crossed: linear generalized] raw
+If $I$ has a [crossed: linear generalized]
+raw
  and $I$ is locally of linear type
-$\implies (I_q:I)^{\text{sat}}=C_q^{\text{sat}}$.
+$\implies
+(I_q:I)^{\text{sat}}=C_q^{\text{sat}}$.
 
 
 
 
 \medskip\noindent
 [Simis Chardin, 2021.]
-$Q(X)=R_i{\underline{0}}=\left\{\frac{a}{b}:b\neq 0\right\}$.
-$R_{(\underline{0})}=\left\{\frac{a}{b}:b\neq 0,b\text{
+$Q(X)=R_i{\underline{0}}=\left\{\frac{a}{b}:
+b\neq
+0\right\}$.
+$R_{(\underline{0})}=\left\{\frac{a}{b}:b\neq
+0,b\text{
 homogeneous}\right\}$.
 
  $$
@@ -590,21 +705,24 @@ $$
 
 \begin{lemma}
 \label{lemma-degree}
-Let $A = \bigoplus_{i=0}^\infty A_i$ 
+Let $A = \bigoplus_{i=0}^\infty A_i$
 be a graded domain over a field $A_0=F$
 with $\dim A=1$.
 Then $e(A)=[K(A):F]$.
 \end{lemma}
 
 \begin{proof}
-There exists $d$ such that $d_F A_i=e$ 
-for all $i \geq d$, $A_d=F\left<a_1,…,a_e\right>$.
-Show that $K(A)= F \left<\frac{a_1}{a_1},…,\frac{a_e}{a_1}\right>$
+There exists $d$ such that $d_F A_i=e$
+for all $i \geq d$,
+$A_d=F\left<a_1,…,a_e\right>$.
+Show that $K(A)= F
+\left<\frac{a_1}{a_1},…,\frac{a_e}{a_1}
+\right>$
 (exercise).
 \end{proof}
 
 \noindent
-[Then] 
+[Then]
 \begin{align*}
 e(S/J \otimes_B Q(Y))
 &=[K(S/J \otimes Q(Y)):Q(Y)]\\
@@ -614,12 +732,15 @@ e(S/J \otimes_B Q(Y))
 \end{align*}
 
 
-[The ring $S/J \otimes_B Q(Y)$ is always Cohen-Macaulay of rank 1.]
+[The ring $S/J \otimes_B Q(Y)$ is always
+Cohen-Macaulay of rank 1.]
 
 \begin{theorem}
 \label{theorem-minimal}
-Suppose that $J$ is prime minimal over an ideal $I$ 
-generated by elements of degrees $d_1 \geq  d_2 \geq …$.
+Suppose that $J$ is prime minimal over an
+ideal $I$
+generated by elements of degrees $d_1 \geq
+d_2 \geq …$.
 $$
 \text{deg}\varphi\leq  d_1…d_{t}e(R)
 $$
@@ -631,7 +752,8 @@ where $t=\dim X$.
 We have the following corollary:
 \begin{lemma}
 \label{lemma-minimal}
-$\text{deg}(\varphi)\leq  d_1… d_{d_\text{max}}e(R)$.
+$\text{deg}(\varphi)\leq  d_1…
+d_{d_\text{max}}e(R)$.
 \end{lemma}
 
 \section{Eisenbud-Goto conjecture}
@@ -643,14 +765,20 @@ Let $X \subseteq \mathbb{P}^n$ irreducible
 and ``non-degenerated''.
 
 \begin{align*}
-reg(X) &\leq  \text{deg}(X) - \text{codim}(X)\\
+reg(X) &\leq  \text{deg}(X) -
+\text{codim}(X)\\
 reg(X)&=
-\text{min}\{r:H^1(X,\mathcal{O}_X(r-i))=0\forall  i >0\}\\
-&=\text{min} \{r: H^2_{\underline{m}}(R)_{r-i}=0 \forall  i>0\}.
+\text{min}\{r:H^1(X,\mathcal{O}_X(r-i))=
+0\forall
+i >0\}\\
+&=\text{min} \{r:
+H^2_{\underline{m}}(R)_{r-i}=0 \forall
+i>0\}.
 \end{align*}
 
 [Regularity controls properties of the ideal
-such as the degree of the generators in a Gröbner base.]
+such as the degree of the generators in a
+Gröbner base.]
 
 $$
 reg(R/I_X)
@@ -661,23 +789,32 @@ $$
 reg(R/f)=\text{deg}f-(n+1)+n=\text{deg}f-1.
 $$
 
-[Notice the term ``non-degenerate''. It means that
-the ideal $I_X$ in  $R=\frac{k[x_0,…,x_n]}{I_X}$
+[Notice the term ``non-degenerate''. It means
+that
+the ideal $I_X$ in
+$R=\frac{k[x_0,…,x_n]}{I_X}$
 does not contain any linear terms.]
 
 \begin{align*}
-e\left(\frac{S}{J}\otimes Q(Y)\right) &\geq 
-n+1- \dim_{Q(Y)}(\tilde{J}_{\underbrace{1}_{\text{deg} X}}
+e\left(\frac{S}{J}\otimes Q(Y)\right) &\geq
+n+1-
+\dim_{Q(Y)}(\tilde{J}_{\underbrace{1}
+_{\text{deg}
+X}}
 +reg(\tilde{J})-2.\\
-\text{deg}\varphi\geq n+q-\dim_{Q(Y)}(\tilde{J}_1)
+\text{deg}\varphi\geq
+n+q-\dim_{Q(Y)}(\tilde{J}_1)
 =\text{ Jacobian dual rank}.\\
-reg(\tilde{J}) \geq  \text{deg}(\text{gens})\geq 2\\
-\text{deg}\varphi\geq n+1-r \text{jdrank}(\varphi).
+reg(\tilde{J}) \geq
+\text{deg}(\text{gens})\geq 2\\
+\text{deg}\varphi\geq n+1-r
+\text{jdrank}(\varphi).
 \end{align*}
 
 \noindent
 [The conjecture is false in general,
-but in some cases holds, such as in the Cohen-Macaulay case.]
+but in some cases holds, such as in the
+Cohen-Macaulay case.]
 
 
 \section{Summary}
@@ -685,7 +822,8 @@ but in some cases holds, such as in the Cohen-Macaulay case.]
 
 Recall our notations:
 \begin{itemize}
-\item $\varphi:X \dashrightarrow Y$, $(f_1,…,f_n)$.
+\item $\varphi:X \dashrightarrow Y$,
+$(f_1,…,f_n)$.
 
 \item $I=(f_0,…,f_n)$.
 
@@ -697,10 +835,12 @@ Recall our notations:
 
 \item $k[Y]=k[y_0,…,y_m]/J\cap B=B/q$/
 
-\item $S/J \otimes_B Q(Y)$, $Q(Y)=Q(B/q)$. CM dim 1, domain.
+\item $S/J \otimes_B Q(Y)$, $Q(Y)=Q(B/q)$. CM
+dim 1, domain.
 
  \item $S/J \otimes )B Q(Y)
-=\frac{Q(Y)[x_0,…,x_n]}{\underbrace{\tilde{J}}_{=\text{Im}\theta}}$,
+=\frac{Q(Y)[x_0,…,x_n]}{\underbrace{\tilde{J}
+}_{=\text{Im}\theta}}$,
 $$
 \xymatrix{
 0\ar[r]
@@ -720,26 +860,32 @@ J \otimes Q(Y)\ar[r]^{\theta}
 $$
 $S=k[\mathbf{x},\mathbf{y}]/I_X$.
 
-\item $e\left(\frac{Q(Y)[\mathbf{x}]}{\tilde{J}}\right)=\text{deg}\varphi$.
+\item
+$e\left(\frac{Q(Y)[\mathbf{x}]}{\tilde{J}}
+\right)=\text{deg}\varphi$.
 
-\item $\text{djrank}=\dim_{Q(Y)}(\tilde{J})_1$ 
+\item
+$\text{djrank}=\dim_{Q(Y)}(\tilde{J})_1$
 
-\item $\text{deg}(\varphi)\geq  (n-\text{jdrank}(\varphi))
+\item $\text{deg}(\varphi)\geq
+(n-\text{jdrank}(\varphi))
 +\text{reg}(\tilde{J})-1)$.
 \end{itemize}
 
 
 
 \begin{theorem}
-\label{theorem-jacobian-rank-and-birationality}
+\label{theorem-jacob-rank-birat}
 $n=\text{jdrank}(\varphi)$ if and only if
 $\varphi$ is birational.
 \end{theorem}
 
 \begin{proof}
-$\text{deg}(\varphi)=e(Q(Y)[x_0,…,x_n]/\tilde{J})$.
+$\text{deg}(\varphi)=e(Q(Y)[x_0,…,x_n]/
+\tilde{J})$.
 
-($\implies$) If $\text{jdrank}(\varphi)=n \implies 
+($\implies$) If $\text{jdrank}(\varphi)=n
+\implies
 \tilde{J}_1=(\ell_1,…,\ell_n)
 \implies e(A)=e(Q(Y)[x]/\tilde{J})$
 where $A:=S/J\otimes_BQ(Y)$.
@@ -751,20 +897,24 @@ $\implies $ quasi-unmixed
 $\implies$ $\hat{A}$ is equidimensional
 and $A$ is analytically unmixed
 $\implies $ $A$ is a regular ring.
-$A=\frac{Q(Y)[\mathbf{x}]}{\tilde{J}}$ (See [Bruns-Herzog §2]).
+$A=\frac{Q(Y)[\mathbf{x}]}{\tilde{J}}$ (See
+[Bruns-Herzog §2]).
 [Thus $\tilde{J}$ is linear,]
-$\tilde{J}=(\ell_1,…,\ell_n)$ 
+$\tilde{J}=(\ell_1,…,\ell_n)$
 since $\text{codim}\tilde{J}=n$.
 \end{proof}
 
 \begin{proposition}
 \label{proposition-regular-local-ring}
-Let $(A,\mathfrak{m})$ a regular local ring and $I\subseteq \mathfrak{m}$.
-If  $A/I$ is regular then $I$ is generated by a part
+Let $(A,\mathfrak{m})$ a regular local ring
+and $I\subseteq \mathfrak{m}$.
+If  $A/I$ is regular then $I$ is generated by
+a part
 of a system of parameters.
 \end{proposition}
 
-\section{How to compute the Jacobian dual rank}
+\section{How to compute the Jacobian dual
+rank}
 \label{section-computing-jacobian-dual-rank}
 
 $$
@@ -782,13 +932,13 @@ lifts $g_1(\overline{Q}_i)$,
 $Q_i \in k[\mathbf{x},\mathbf{y}]_{i,\ast)}$.
 $$
 k[\mathbf{y}]\ni
-\begin{pmatrix} 
+\begin{pmatrix}
 \frac{\partial Q_1}{\partial x_0}& \cdots
 &\frac{\partial Q_t}{\partial x_0}\\
 \vdots &  &  \vdots \\
 \frac{\partial Q_1}{\partial x_n}&  \cdots
 &  \frac{\partial Q_t}{\partial x_n}
- \end{pmatrix} 
+ \end{pmatrix}
 =M
 $$
 Jacobian dual matrix.
@@ -797,20 +947,21 @@ $$
 $$
 $$
 \psi=
-\begin{pmatrix} 
+\begin{pmatrix}
 \overline{\frac{\partial Q_1}{\partial x_0}}
-&  \cdots & 
-\overline{\frac{\partial Q_1}{\partial x_0}}\\
+&  \cdots &
+\overline{\frac{\partial Q_1}{\partial
+x_0}}\\
 \vdots &  &  \vdots \\
 \overline{\frac{\partial Q_1}{\partial x_n}}
-&  \cdots & 
+&  \cdots &
 \overline{\frac{\partial Q_t}{\partial x_n}}
- \end{pmatrix} 
+ \end{pmatrix}
 \in M_{(n+1) \times t}(k[Y]).
 $$
 $$
 \tilde{\psi}
-=\begin{pmatrix} 
+=\begin{pmatrix}
 \frac{\partial Q_1}{\partial x_0}    \\
 &  \ddots & \\
 &  &  \frac{\partial Q_t}{\partial x_n}
@@ -821,7 +972,8 @@ $$
 
 \begin{proposition}
 \label{proposition-rank-and-birationality}
-$\text{rk}\psi=\text{rk}\tilde{\psi}=\text{jrank}(\varphi)
+$\text{rk}\psi=\text{rk}\tilde{\psi}=
+\text{jrank}(\varphi)
 =\dim_{Q(Y)}\tilde{J}_1$,
 $\text{rk}\psi=n$ if and only if
 $\varphi$ is birational.
@@ -829,7 +981,8 @@ $\varphi$ is birational.
 
 \begin{proof}
 [Compute minors, add a row that is missing…
-this way we obtain a candidate for the inverse map…]
+this way we obtain a candidate for the
+inverse map…]
 \end{proof}
 
 \section{Extra}
@@ -839,16 +992,20 @@ this way we obtain a candidate for the inverse map…]
 Consider
 $$
 \text{Bir}(X)_d
-= \{ \varphi:X \dashrightarrow X,(f_0,…,f_n):\text{deg} f_i=d\}.
+= \{ \varphi:X \dashrightarrow
+X,(f_0,…,f_n):\text{deg} f_i=d\}.
 $$
 $$
 f_0=d_0x^d+a_1x_0^{d-1}x_1
 +a_2x_0^{d-1}x_1x_2…
 $$
-Let $H_d \subseteq \mathbb{A}^{(n+1)\times\binom{n+d}{d}}$ 
-be the points whose corresponding map is birational.
+Let $H_d \subseteq
+\mathbb{A}^{(n+1)\times\binom{n+d}{d}}$
+be the points whose corresponding map is
+birational.
 We have a map $H_d \to \text{Bir}(X)_d$.
-[We have proved that] $H_d$ is a quasi-projective variety
+[We have proved that] $H_d$ is a
+quasi-projective variety
 and $\text{Bir}(X)_d$ is a constructible set.
 
 [If the Cremona map has degree $d$,
@@ -861,7 +1018,8 @@ A proof of this is due to Gabber.
 
 $$
 D=\underbrace{\sum a_i P_i}_{E}
-- \sum\underbrace{b_j}_{\in \mathbb{Z}_{\geq 0}}
+- \sum\underbrace{b_j}_{\in \mathbb{Z}_{\geq
+0}}
 \underbrace{q_j}_{\text{proj}},
 \qquad \text{proj}(R)=X.
 $$
@@ -870,7 +1028,8 @@ $$
 $$
 \begin{align*}
 \mathcal{O}_X(D)&=\tilde{M}\\
-\text{prod}E&=\prod p_i^{[a_i]}=(f^{a_i}:…: f_k^{a_i})\\
+\text{prod}E&=\prod p_i^{[a_i]}=(f^{a_i}:…:
+f_k^{a_i})\\
 \text{prod}F&=\prod q_j^{[b_j]}\\
 \text{prod}E^{\ast \ast}&=
 \Hom(\Hom(\text{prod}F,R',R))\\
@@ -883,7 +1042,8 @@ M&=\Hom(\text{dual},R).
 D. OO(D). divisorToModule(D)
 
 \medskip\noindent
-Divisor (Karl Schewede,…) [is the name of this Macaulay2 package].
+Divisor (Karl Schewede,…) [is the name of
+this Macaulay2 package].
 $M$ rk 1, torsion-free. embedAsIdeal(M).
 
 $$
