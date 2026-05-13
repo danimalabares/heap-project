@@ -1,22 +1,55 @@
 \input{preamble}
+\usepackage{amssymb}
+\usepackage{tikz-cd}
+\definecolor{6}{rgb}{0,0,0}
+
+\newtheorem{thm}[subsection]{Theorem}
+\newtheorem{prop}[subsection]{Proposition}
+\newtheorem{defn}[subsection]{Definition}
+\newtheorem{conjecture}[subsection]%
+{Conjecture}
+\newtheorem{question}[subsection]{Question}
 
 \begin{document}
 
 \title{Factoring Cremona transformations}
-\maketitle
-
 \noindent
-Minicourse by Carolina Araujo and Sokratis Zikas.
+Factoring Cremona transformations.
+Minicourse by Carolina Araujo and
+Sokratis Zikas.
 OPEGA 2026, UFPE.
 
-\hfill Notes at
-\href{http://github.com/danimalabares/stack}{
-github.com/danimalabares/stack}
+\medskip\noindent
+Notes at
+\href{http://github.com/danimalabares/stack}
+{github.com/danimalabares/stack}
 
 
 \medskip\noindent
-Abstract.
-O grupo de Cremona em dimensão n é o grupo das transformações birracionais do espaço projetivo de dimensão n. O celebrado teorema de Noether-Castelnuovo (1871-1901) afirma que o grupo de Cremona em dimensão 2 é gerado pelos automorfismos lineares e por uma única transformação quadrática. Em dimensões superiores, não há uma descrição simples do grupo de Cremona em termos de geradores, e a situação é bem mais complicada. Por outro lado, técnicas de geometria birracional, em particular o MMP (Minimal Model Program), fornecem uma maneira de fatorar transformações de Cremona como composições de elos elementares. Essa teoria, conhecida como "Programa de Sarkisov", tem se mostrado extremamente útil no estudo do grupo de Cremona em dimensão superior. Neste minicurso, faremos uma introdução ao MMP e ao Programa de Sarkisov.
+\textbf{Abstract.}
+O grupo de Cremona em dimensão n é o grupo
+das transformações birracionais do espaço
+projetivo de dimensão n. O celebrado teorema
+de Noether-Castelnuovo (1871-1901) afirma que
+o grupo de Cremona em dimensão 2 é gerado
+pelos automorfismos lineares e por uma única
+transformação quadrática. Em dimensões
+superiores, não há uma descrição
+simples do
+grupo de Cremona em termos de geradores, e a
+situação é bem mais complicada. Por outro
+lado, técnicas de geometria birracional, em
+particular o MMP (Minimal Model Program),
+fornecem uma maneira de fatorar
+transformações de Cremona como
+composições de
+elos elementares. Essa teoria, conhecida como
+"Programa de Sarkisov", tem se mostrado
+extremamente útil no estudo do grupo de
+Cremona em dimensão superior. Neste
+minicurso, faremos uma introdução ao
+MMP e ao
+Programa de Sarkisov.
 \phantomsection
 
 \tableofcontents
@@ -25,32 +58,40 @@ O grupo de Cremona em dimensão n é o grupo das transformações birracionais d
 \label{section-cremona-group}
 
 \noindent
-Let $\text{Cr}_n(k):=\text{Aut}_k k(x_1,…,x_n)$.
+Let $\text{Cr}_n(k):=\text{Aut}_k
+k(x_1,…,x_n)$.
 
 \begin{definition}
 \label{definition-rational-map}
-$f:X \dashrightarrow Y$ is {\it rational} 
-if it is defined in an open dense set $U_X \subseteq X$.
-It is {\it birational} if it admits an inverse;
-equivalently, if there is $U_Y \subseteq Y$ open dense
+$f:X \dashrightarrow Y$ is {\it rational}
+if it is defined in an open dense set $U_X
+\subseteq X$.
+It is {\it birational} if it admits an
+inverse;
+equivalently, if there is $U_Y \subseteq Y$
+open dense
 such that $f:U_X \to U_Y$ is an isomorphism.
 \end{definition}
 
 \noindent
 Fix $n =2$ and consider the map
-$(x_1,x_2) \mapsto  \left(\frac{1}{x_1},\frac{1}{x_2}\right)$.
+$(x_1,x_2) \mapsto
+\left(\frac{1}{x_1},\frac{1}{x_2}\right)$.
 
 \begin{example}
-\label{example-standard-quadratic-transformation}
+\label{example-stand-quadr-trans}
 \begin{align*}
-\sigma: \mathbb{P}^2 &\dashrightarrow \mathbb{P}^2\\
-(x_0,x_1,x_2) &\longmapsto (x_1x_2,x_0x_2,x_0x_1).
+\sigma: \mathbb{P}^2 &\dashrightarrow
+\mathbb{P}^2\\
+(x_0,x_1,x_2) &\longmapsto
+(x_1x_2,x_0x_2,x_0x_1).
 \end{align*}
 
 \noindent
 Then $\sigma=\sigma^{-1}$, with
 \begin{align*}
-\{x_i=0\}\mapsto p_i,\qquad \qquad \{x_0=0\}\mapsto (1:0:0).
+\{x_i=0\}\mapsto p_i,\qquad \qquad
+\{x_0=0\}\mapsto (1:0:0).
 \end{align*}
 
 \noindent
@@ -58,26 +99,34 @@ $\sigma$: standard quadratic transformation.
 \end{example}
 
 \medskip\noindent
+\textbf{Main question.}
 Question (Enrique, 1895):
 Is  $\text{Cr}_n(k)$ simple?
-[i.e. does it have any nontrivial normal subgroups?]
-Do there exists any homomorphisms $\text{Cr}_n(k) \to H?$ 
+[i.e. does it have any nontrivial normal
+subgroups?]
+Do there exists any homomorphisms
+$\text{Cr}_n(k) \to H?$
 
-$\text{PGL}_{n-1}(k) \cong \text{Aut}(\mathbb{P}^n)
+$\text{PGL}_{n-1}(k) \cong
+\text{Aut}(\mathbb{P}^n)
 \subseteq \text{Cr}_n(k)$.
 
 \medskip\noindent
+\textbf{Strategy.}
 How to find homomorphism to a group $H$,
 $\text{Cr}_n(k) \to H$.
 
 \begin{enumerate}
-\item Find a set of generators $G$ by $\text{Cr}_n(k)$.
+\item Find a set of generators $G$ by
+$\text{Cr}_n(k)$.
 
 \item Get a set $R$ of relators.
 $\text{Cr}_n(k)=\left<G|R\right>$.
 
-\item Map the generators to arbitrary elements of $H$
-and check that the relators are mapped to $1_H$.
+\item Map the generators to arbitrary
+elements of $H$
+and check that the relators are mapped to
+$1_H$.
 \end{enumerate}
 
 \begin{theorem}[Noether-Castelnuovo, 1872]
@@ -88,22 +137,26 @@ automorphisms of $\mathbb{P}^2$ and $\sigma$.
 
 \begin{theorem}[Gizatulin, 1983]
 \label{theorem-gizatulin}
-Description of the relators with respect to two generators
+Description of the relators with respect to
+two generators
 $\{\text{PGL}_3(k),\sigma\}$.
 \end{theorem}
 
 \begin{remark}
 \label{remark-dim-2}
-Contat-Lamy, 2010. $\text{Cr}_2(k)$ is not simple for $k=\bar{k}$.
+Contat-Lamy, 2010. $\text{Cr}_2(k)$ is not
+simple for $k=\bar{k}$.
 Lonjoi, 2017: any field.
 [This is the proof that uses an action on an
 infinite-dimensional hyperbolic space.
-The same technique does not work for higher dimensions.]
+The same technique does not work for higher
+dimensions.]
 \end{remark}
 
 \begin{theorem}[Hudson, 1927 \& Pan, 1999]
 \label{theorem-hudson-pan}
-Any set of [nonlinear] generators for $\text{Cr}_n(k)$, $n\geq 3$,
+Any set of [nonlinear] generators for
+$\text{Cr}_n(k)$, $n\geq 3$,
 is uncountable.
 \end{theorem}
 
@@ -115,26 +168,32 @@ is uncountable.
 \label{section-mmp-and-sarkisov}
 
 \noindent
-[MMP is an algorithm.]
+\textbf{Main idea.}
+MMP is an algorithm.
 
 $$
 \xymatrix{
-X:\substack{\text{smooth} \\ \text{projective}}
+X:\substack{\text{smooth} \\
+\text{projective}}
 \ar[r]
 &  \text{MMP}
 \ar[r]
-&  X_{\text{min}}: \substack{\text{mildly singular} \\ \text{projective}}
+&  X_{\text{min}}: \substack{\text{mildly
+singular} \\ \text{projective}}
 }
 $$
 so that
 \begin{itemize}
 \item  $X \sim_{bir} X_{\text{min}}$
-\item $X_{\text{min}}$ is the ``simpler'' than $X$
+\item $X_{\text{min}}$ is the ``simpler''
+than $X$
 \begin{itemize}
-\item $K_{X_{\text{min}}}$ is ``more positive'',
+\item $K_{X_{\text{min}}}$ is ``more
+positive'',
 \item $\rho(X_{\text{min}}) \leq  \rho(X)$.
 \end{itemize}
-\item The process is realized in ``elementary''steps.
+\item The process is realized in
+``elementary''steps.
 \end{itemize}
 
 \noindent
@@ -146,14 +205,17 @@ are of two types:
 \end{enumerate}
 
 \medskip\noindent
-Sarkisov program.
+\textbf{Sarkisov program.}
 An algorithm for decomposing birational maps
 among Mfs into ``simpler'' maps.
 
-[The idea of these maps is to copy the action of 
-the standard quadratic transformation $\sigma$
-from Example \ref{example-standard-quadratic-transformation}:
-we blow up three points (vertices of a triangle, the $p_i$),
+[The idea of these maps is to copy the action
+of
+the standard quadratic transformation
+$\sigma$
+from Example \ref{example-stand-quadr-trans}:
+we blow up three points (vertices of a
+triangle, the $p_i$),
 then we get a ``hexagonal'' arangement,
 and contract three lines (the other three)
 to get back at a triangle).]
@@ -169,7 +231,8 @@ $$
 \xymatrix{
 \underbrace{\mathbb{P}^2}_{\text{triangle}}
 \ar@{~>}[r]
-&\underbrace{\mathbb{F}_1}_{\text{Hirzebruch}}
+&\underbrace{\mathbb{F}_1}_{\text{Hirzebruch}
+}
 \ar@{~>}[r]
 &\ast
 \ar@{~>}[r]
@@ -183,34 +246,43 @@ $$
 }
 $$
 
-\begin{theorem}[Corb, 1995 and Hacon-McKeman, 2011]
+\begin{theorem}[Corb, 1995 and Hacon-McKeman,
+2011]
 \label{theorem-corcb-hacon-mckeman}
-Any birational map among Mfs can be factored as
+Any birational map among Mfs can be factored
+as
 a composition of Sarkisov links
 if and only if
-the Sarkisov links are generators of the groupoid
+the Sarkisov links are generators of the
+groupoid
 $$
 \underbrace{\text{BirMori}
 }_{\supseteq \text{Cr}_n(k)}
 =\left\{f:X\dashrightarrow Y
-\substack{f\text{ birational} \\ X,Y\text{ Mfs,}\\
+\substack{f\text{ birational} \\ X,Y\text{
+Mfs,}\\
 X,Y \sim_{\text{bir}}\mathbb{P}^n}\right\}
 $$
 \end{theorem}
 
 \begin{theorem}[Blanc-Lamy-Zimmerman]
 \label{theorem-blanc-lamy-zimmerman}
-Description of the relators among the Sarkisov links.
+Description of the relators among the
+Sarkisov links.
 \end{theorem}
 
 \begin{theorem}[BLZ, 2021]
 \label{theorem-blz-2021}
-$\text{Cr}_n(k)$ is not simple for $n \geq 3$,
-$\varphi_i$ only appearing in relations of the form
-$\varphi_i \circ X \circ \varphi_i^{-1} \circ X^{-1}=\text{id}$,
+$\text{Cr}_n(k)$ is not simple for $n \geq
+3$,
+$\varphi_i$ only appearing in relations of
+the form
+$\varphi_i \circ X \circ \varphi_i^{-1} \circ
+X^{-1}=\text{id}$,
 $\varphi_i^2=\text{id}$.
 \begin{align*}
-\text{BirMor}(\mathbb{P}^n) &\longrightarrow \mathbb{Z}/2\mathbb{Z} \\
+\text{BirMor}(\mathbb{P}^n) &\longrightarrow
+\mathbb{Z}/2\mathbb{Z} \\
 \varphi &\longmapsto 1\\
 \text{links}\neq \varphi&\longmapsto 0
 \end{align*}
@@ -222,14 +294,15 @@ $\varphi_i^2=\text{id}$.
 
 \begin{definition}
 \label{definition-surface}
-A {\it surface} is a smooth projective variety
+A {\it surface} is a smooth projective
+variety
 of dimension 2.
 \end{definition}
 
 \begin{example}
 \label{example-surfaces}
 \begin{enumerate}
-\item $S=\mathbb{P}^2$ 
+\item $S=\mathbb{P}^2$
 
 \item
  $$
@@ -241,21 +314,29 @@ S=\mathbb{P}^1\times \mathbb{P}^1
 $$
 
 \item Blowup de $\mathbb{P}^2$ em $p$.
-[Picture showing an arbitrary line $\mathbb{P}^1$ contained
+[Picture showing an arbitrary line
+$\mathbb{P}^1$ contained
 in the projective plane $\mathbb{P}^2$.
 Given $P$ not in the line,
 we can project any point $Q$ not in the line
 to the line.
 This gives a rational map
-$\pi_P:\mathbb{P}^2\setminus \{P\}\dashrightarrow \mathbb{P}^1$.
+$\pi_P:\mathbb{P}^2\setminus
+\{P\}\dashrightarrow \mathbb{P}^1$.
 Consider the graph $\Gamma$ of $\pi_P$,
-it is contained in $\mathbb{P}^2\setminus\{ P\} \times \mathbb{P}^1$.
-Its closure, $\overline{\Gamma}$ 
-is contained in $\mathbb{P}^2\times \mathbb{P}^1$.
-We have projections $p:\mathbb{P}^2\times \mathbb{P}^1 \to \mathbb{P}^2$
-and $q:\mathbb{P}^2\times P^1\to \mathbb{P}^1$.
+it is contained in $\mathbb{P}^2\setminus\{
+P\} \times \mathbb{P}^1$.
+Its closure, $\overline{\Gamma}$
+is contained in $\mathbb{P}^2\times
+\mathbb{P}^1$.
+We have projections $p:\mathbb{P}^2\times
+\mathbb{P}^1 \to \mathbb{P}^2$
+and $q:\mathbb{P}^2\times P^1\to
+\mathbb{P}^1$.
 Note that $E=p^{-1}(P) \cong \mathbb{P}^1$
-and $S\setminus E \xrightarrow{\cong}\mathbb{P}^1\setminus\{P\}$.
+and $S\setminus E
+\xrightarrow{\cong}\mathbb{P}^1\setminus\{P\}
+$.
 More generally,
 $$
 \tilde{S}=Bl_PS \xrightarrow{\pi}S
@@ -270,32 +351,38 @@ for $P \in S$.
 \begin{definition}
 \label{definition-picard}
 $S$ surface,
-$\text{Pic}(S) = \text{Div}(S)/\sim \cong \{\text{invertible sheaves}\}/\sim$.
+$\text{Pic}(S) = \text{Div}(S)/\sim \cong
+\{\text{invertible sheaves}\}/\sim$.
 
 $$
 \text{Div}(S)
 =\left\{\sum_{\text{finite}}n_iD_i:
 n_i \in \mathbb{Z},
-D_i \subset S\text{ irreducible curve}\right\}.
+D_i \subset S\text{ irreducible
+curve}\right\}.
 $$
 $$
-\text{Div}(S) \iff D-D'=\text{div}(f)=(f)_0 - (f_\infty),\qquad 
+\text{Div}(S) \iff D-D'=\text{div}(f)=(f)_0 -
+(f_\infty),\qquad
 f \in K(S)\setminus \{0\}.
 $$
 \end{definition}
 
 
 
-\section{The role of the blowup in surface birational geometry}
+\section{The role of the blowup in surface
+birational geometry}
 \label{section-role-of-blowup}
 
 \noindent
-Let $S$ and $S'$ be two (projective nonsingular) surfaces.
+Let $S$ and $S'$ be two (projective
+nonsingular) surfaces.
 \begin{itemize}
 \item Any birational morphism $f:S \to S'$
 is a composition of blowups.
 
-\item Any birational map $f:S \dashrightarrow S'$ 
+\item Any birational map $f:S \dashrightarrow
+S'$
 factors as
 $$
 \xymatrix{
@@ -303,7 +390,8 @@ $$
 S\ar@{-->}[rr]&& S'
 }
 $$
-where $W$ is a surface and $p,q$ are compostions
+where $W$ is a surface and $p,q$ are
+compostions
 of blowups.
 \end{itemize}
 
@@ -313,10 +401,12 @@ same birational class.]
 
 \begin{definition}
 \label{definition-minimal-surface}
-A surface $S$ is called {\it minimal} if 
-[if whenever we have a birational map from $S$ to another surface then 
+A surface $S$ is called {\it minimal} if
+[if whenever we have a birational map from
+$S$ to another surface then
 that morphism is an isomorphism]
-if any birational morphism $S \to S'$ is an isomorphism.
+if any birational morphism $S \to S'$ is an
+isomorphism.
 \end{definition}
 
 \section{Intersection theory for surfaces}
@@ -326,22 +416,27 @@ if any birational morphism $S \to S'$ is an isomorphism.
 \label{theorem-intersection-form}
 Let $S$ be a surface.
 There exists a unique symmetric bilinear form
-$\text{Pic}(S) \times \text{Pic}(S)\to \mathbb{Z}$
+$\text{Pic}(S) \times \text{Pic}(S)\to
+\mathbb{Z}$
 such that
-if $C$ and  $C'$ are two curves intersecting transversally, 
+if $C$ and  $C'$ are two curves intersecting
+transversally,
 then $[C]\cdot[C']=\#(C \cap C')$.
 \end{theorem}
 
 \begin{example}
 \label{example-intersection}
 \begin{enumerate}
-\item $S=\mathbb{P}^1$, $\text{Pic}(S)=\mathbb{Z}[H]$ where
+\item $S=\mathbb{P}^1$,
+$\text{Pic}(S)=\mathbb{Z}[H]$ where
 $H$ is a line (hyperplane).
 $H^2=1$.
 
 \item $S=\mathbb{P}^1 \times \mathbb{P}^1$,
-$\text{Pic}(S)=\mathbb{Z}[H_1] \oplus \mathbb{Z}[H_2]$
-there $H_i$ is the class determined by either projection.
+$\text{Pic}(S)=\mathbb{Z}[H_1] \oplus
+\mathbb{Z}[H_2]$
+there $H_i$ is the class determined by either
+projection.
 We have
 $$
 \begin{cases}
@@ -349,13 +444,16 @@ H_1^2=0&=H^2_2 \\
 H_1\cdot H_2 &= 1.
 \end{cases}
 $$
-In this case $C \subset S$, $C=Z(F)\subset \mathbb{P}^1_{(x:y)}
+In this case $C \subset S$, $C=Z(F)\subset
+\mathbb{P}^1_{(x:y)}
 \times \mathbb{P}^1_{(z:w)}$,
-$F \in k[x,y,z,w]$ 
+$F \in k[x,y,z,w]$
 bi homogeneous of degree $(d_1,d_2)$.
 
-\item $S=Bl_P\mathbb{P}^2 \xrightarrow{\pi}\mathbb{P}^2 $, 
-$\text{Pic}(S)=\mathbb{Z}[\pi^*H] \oplus\mathbb{Z}[E]$.
+\item $S=Bl_P\mathbb{P}^2
+\xrightarrow{\pi}\mathbb{P}^2 $,
+$\text{Pic}(S)=\mathbb{Z}[\pi^*H]
+\oplus\mathbb{Z}[E]$.
 $$
 \begin{cases}
 \pi^*H \cdot \pi^*H&=H\cdot H=1\\
@@ -364,7 +462,8 @@ E^2&=?
 \end{cases}
 $$
 $$
-\pi^* \ell=\tilde{\ell}+E,\qquad  \ell \text{ line }\subset \mathbb{P}^2
+\pi^* \ell=\tilde{\ell}+E,\qquad  \ell \text{
+line }\subset \mathbb{P}^2
 $$
 \begin{align*}
 E^2&=E\cdot(\pi^* \ell - \tilde{\ell})
@@ -383,7 +482,8 @@ let
 \end{align*}
 
 $$
-\text{Pic}(\tilde{S})=\pi^*\text{Pic}(S) \oplus \mathbb{Z}E
+\text{Pic}(\tilde{S})=\pi^*\text{Pic}(S)
+\oplus \mathbb{Z}E
 $$
 $$
 \begin{cases}
@@ -394,32 +494,38 @@ E^2&=-1.
 $$
 \begin{definition}
 \label{definition-minus1-curve}
-A {\it $(-1)$ curve} in a surface $S$ is a curve $C \subset S$ 
+A {\it $(-1)$ curve} in a surface $S$ is a
+curve $C \subset S$
 such the $C \cong \mathbb{P}^1$ and $C^2=-1.$
 \end{definition}
 
-\begin{theorem}[Castelnuovo's contractibility theorem]
+\begin{theorem}[Castelnuovo's contractibility
+theorem]
 \label{theorem-castelnuovo}
-Let $S$ be a surface and $C\subset S$ a $(-1)$-curve.
-Then there exists a surface $S' \ni P$ such that
+Let $S$ be a surface and $C\subset S$ a
+$(-1)$-curve.
+Then there exists a surface $S' \ni P$ such
+that
 $S \cong Bl_PS'$ and via this isomorphism
 $C$ is an exceptional curve.
 \end{theorem}
 
 \noindent
-Notation. We say that $S\cong Bl_PS' \to S'$ 
+Notation. We say that $S\cong Bl_PS' \to S'$
 is a contraction of $C$.
 
 As a corollary,
 \begin{lemma}
 \label{lemma-corollary-castelnuovo}
-A surface $S$ is minimal if $S$ does not contain any $(-1)$ curves.
+A surface $S$ is minimal if $S$ does not
+contain any $(-1)$ curves.
 \end{lemma}
 
 \section{MMP for surfaces}
 \label{section-mmp-for-surfaces}
 
-Let $S$ be a (nonsingular projective) surface.
+Let $S$ be a (nonsingular projective)
+surface.
 
 $$
 \xymatrix{
@@ -427,26 +533,33 @@ $$
 \ar[dl]\ar[dr]\\
 \substack{\text{Não} \\ \text{Stop!}\\
 \text{$S$ is a minimal}\\\text{surface}}
-&  & 
-\substack{\text{Sim} \\ \text{Pick a $(-1)$ curve}\\
-\text{Apply Castelnuovo}}\ar@/^2.5pc/[ul]^{\substack{
-\text{substitute} \\ S=S'\\\text{where }S=Bl_PS'\\
+&  &
+\substack{\text{Sim} \\ \text{Pick a $(-1)$
+curve}\\
+\text{Apply
+Castelnuovo}}\ar@/^2.5pc/[ul]^{\substack{
+\text{substitute} \\ S=S'\\\text{where
+}S=Bl_PS'\\
 \text{and repeat}}}
 }
 $$
 
 \begin{definition}
 \label{definition-numerical-equivalence}
-Let $S$ be a surface and $D,D' \in \text{Div}(S)$.
-$D$ and $D'$ are {\it numerically equivalent} if for any curve $C \subset S$ 
+Let $S$ be a surface and $D,D' \in
+\text{Div}(S)$.
+$D$ and $D'$ are {\it numerically equivalent}
+if for any curve $C \subset S$
 we have $D\cdot C= D'\cdot C$.
-$\text{Num}(S)=\text{Div}/ \equiv=\text{Pic}(S)/\equiv$.
+$\text{Num}(S)=\text{Div}/
+\equiv=\text{Pic}(S)/\equiv$.
 \end{definition}
 
 \begin{theorem}
 \label{theorem-num}
-$\text{Num}(S)$ is a finite-rank free abelian group.
-Such a rank is called the {\it Picard number} 
+$\text{Num}(S)$ is a finite-rank free abelian
+group.
+Such a rank is called the {\it Picard number}
 $\rho(S):=\text{rk}(\text{Num}(S))$.
 \end{theorem}
 
@@ -455,69 +568,91 @@ $\rho(S):=\text{rk}(\text{Num}(S))$.
 [The rank of the blowup is one larger.]
 $\tilde{S}=Bl_PS$ Then
 \begin{align*}
-\text{Pic}(\tilde{S})&=\pi^*\text{Pic}(S) \oplus \mathbb{Z}\cdot E\\
-\text{Num}(S)&=\pi^*\text{Num}(S) \oplus \mathbb{Z}[E].
+\text{Pic}(\tilde{S})&=\pi^*\text{Pic}(S)
+\oplus \mathbb{Z}\cdot E\\
+\text{Num}(S)&=\pi^*\text{Num}(S) \oplus
+\mathbb{Z}[E].
 \end{align*}
 \end{remark}
 
 \noindent
-[The following examples shows how we may arrive
+[The following examples shows how we may
+arrive
 at different surface…]
 
 \begin{example}
 \label{example-arrive-at-different-surfaces}
 Let $S= Bl_{P,Q}\mathbb{P}^2$ and denote
-$E_P$ and $E_Q$ the exceptional divisors of $P$ and $Q$.
-Let $\ell$ be the line containing $P$ and $Q$.
-Consider a lift  $\tilde{\ell} \cong \mathbb{P}^1$.
+$E_P$ and $E_Q$ the exceptional divisors of
+$P$ and $Q$.
+Let $\ell$ be the line containing $P$ and
+$Q$.
+Consider a lift  $\tilde{\ell} \cong
+\mathbb{P}^1$.
 Then $\pi^* \ell = \tilde{\ell}+E_P+E_Q$
 and $(\tilde{\ell})^2=-1$.
-[One may show that in fact these are the only $(-1)$ curves.]
-Applying Castelnuovo we obtain a contraction of $\tilde{\ell}$,
+[One may show that in fact these are the only
+$(-1)$ curves.]
+Applying Castelnuovo we obtain a contraction
+of $\tilde{\ell}$,
 $S \to \mathbb{P}^1\times \mathbb{P}^1$,
-where $\tilde{\ell}$ is mapped to a point 
+where $\tilde{\ell}$ is mapped to a point
 $R \in \mathbb{P}^1 \times\mathbb{P}^1$.
-[It is AG jargon that the blowup of two points is $\mathbb{P}^1\times
-\mathbb{P}^1$ 
+[It is AG jargon that the blowup of two
+points is $\mathbb{P}^1\times
+\mathbb{P}^1$
 with …]
-Since $\mathbb{P}^1 \times \mathbb{P}^1 \cong Q \subset \mathbb{P}^3$,
+Since $\mathbb{P}^1 \times \mathbb{P}^1 \cong
+Q \subset \mathbb{P}^3$,
 [a doubly ruled surface?]
-[We also have a map $Q \xrightarrow{\pi_R} \mathbb{P}^2$.
-It looks like the two lines passing through $R$
+[We also have a map $Q \xrightarrow{\pi_R}
+\mathbb{P}^2$.
+It looks like the two lines passing through
+$R$
 (since it is a doubly ruled surface)
 are mapped to two points under  $\pi_R$.]
 \end{example}
 
 $$
 \xymatrix{
-\substack{S \\ \text{rational}\\\text{surface}\\
+\substack{S \\
+\text{rational}\\\text{surface}\\
 \text{i.e., }S \sim_{bir}\mathbb{P}^2}
 \ar@{~>}[r]^{\text{MMP}}
-&\mathbb{P}^2,\mathbb{P}^1\times \mathbb{P}^1, \mathcal{F}_n,
+&\mathbb{P}^2,\mathbb{P}^1\times
+\mathbb{P}^1, \mathcal{F}_n,
 \qquad  n\geq 2.
 }
 $$
 \begin{definition}
 \label{definition-scroll}
-A {\it scroll} is a surface $S \xrightarrow{\pi}\mathbb{P}^1$ 
-such that all fibers are isomorphic to $\mathbb{P}^1$.
+A {\it scroll} is a surface $S
+\xrightarrow{\pi}\mathbb{P}^1$
+such that all fibers are isomorphic to
+$\mathbb{P}^1$.
 $S= \mathbb{P}_{\mathbb{P}^1}(\mathcal{E})$
-where $\mathcal{E}$ is a vector bundle of rank 2.
+where $\mathcal{E}$ is a vector bundle of
+rank 2.
 
 $$
-\mathcal{E}=\mathcal{O}_{\mathbb{P}^1}\oplus \mathcal{O}_{\mathbb{P}^1}(n)
+\mathcal{E}=\mathcal{O}_{\mathbb{P}^1}\oplus
+\mathcal{O}_{\mathbb{P}^1}(n)
 $$
 $$
-\mathbb{P}(\mathcal{E}) \cong 
-\mathbb{P}(\mathcal{E} \otimes \mathcal{O}_{\mathbb{P}^1}(n)).
+\mathbb{P}(\mathcal{E}) \cong
+\mathbb{P}(\mathcal{E} \otimes
+\mathcal{O}_{\mathbb{P}^1}(n)).
 $$
 \end{definition}
 $$
-\mathbb{F}_n=\mathbb{P}_{\mathbb{P}^1}(\mathcal{O} \oplus \mathcal{O}(n)).
+\mathbb{F}_n=\mathbb{P}_{\mathbb{P}^1}
+(\mathcal{O}
+\oplus \mathcal{O}(n)).
 $$
 \begin{exercise}
-\label{exercise-intersection-theory-hirzebruch}
-$\text{Pic}(\mathbb{F}_n)=\mathbb{Z}\cdot[f] \oplus \mathbb{Z}\cdot[E]$
+\label{exercise-inter-theor-hirze}
+$\text{Pic}(\mathbb{F}_n)=\mathbb{Z}\cdot[f]
+\oplus \mathbb{Z}\cdot[E]$
 $$
 \begin{cases}
 f^2&=0\\
@@ -533,9 +668,11 @@ $$
 
 $$
 \xymatrix{
-\substack{S\text{ rational} \\ \text{surface}}
+\substack{S\text{ rational} \\
+\text{surface}}
 \ar@{~>}[r]^{\text{MMP}}
-&  \substack{S=\mathbb{P}^2\\\text{or} \\ S=\mathbb{F}_m, \quad
+&  \substack{S=\mathbb{P}^2\\\text{or} \\
+S=\mathbb{F}_m, \quad
 \substack{m=0 \\ \text{or }m \geq 2}}.
 }
 $$
@@ -543,31 +680,37 @@ $$
 \begin{exercise}
 \label{exercise-rational}
 Given $n_0>1$,
-construct $S$ such that there exists MMP $\xymatrix{\ar@{<~>}[r]&}$ 
-$\mathbb{F}_m$ for all $m=0$ or $2 \leq  m \leq  n_0$.
+construct $S$ such that there exists MMP
+$\xymatrix{\ar@{<~>}[r]&}$
+$\mathbb{F}_m$ for all $m=0$ or $2 \leq  m
+\leq  n_0$.
 \end{exercise}
 
 \medskip\noindent
 Consider $\mathbb{F}_m$ and $\sigma^2=-m$.
-If $m\geq 1 \exists !$ curve $C \subset \mathbb{F}_m$
+If $m\geq 1 \exists !$ curve $C \subset
+\mathbb{F}_m$
 such that $C^2<0$  $(C=\sigma)$.
-If $m=0$, $\mathbb{F}_0=\mathbb{P}^1 \times \mathbb{P}^1$.
+If $m=0$, $\mathbb{F}_0=\mathbb{P}^1 \times
+\mathbb{P}^1$.
 
 
 $$
 \xymatrix{
 &\substack{\text{variety containing }
-\\\pi^* f,E,\widetilde{f_P}\cong\mathbb{P}^1\\
+\\\pi^*
+f,E,\widetilde{f_P}\cong\mathbb{P}^1\\
 \tilde{\sigma}}
 \ar[dl]^{Bl_P}_\pi
-\ar[dr]^{\substack{\text{contraction} \\ \text{of $\widetilde{f_P}$}}}
+\ar[dr]^{\substack{\text{contraction} \\
+\text{of $\widetilde{f_P}$}}}
 \ar[d]\\
 \substack{\mathbb{F}_m \\
 \text{containing}\\
 f,f_P,P}
 \ar[d]\ar@{-->}[rr]^{\text{Sarkisov link}}
 &\mathbb{P}
-&\substack{\mathbb{F}_n \\ 
+&\substack{\mathbb{F}_n \\
 \text{containing}\\
 \tilde{E},\tilde{\tilde{\sigma}},Q\\
 n=?}
@@ -576,7 +719,8 @@ n=?}
 }
 $$
 \begin{align*}
-(\tilde{f}_P)^2&=\tilde{f}_P\cdot(\pi^*f-E)=-1\\
+(\tilde{f}_P)^2&=\tilde{f}_P\cdot(\pi^*f-E)=-
+1\\
 \pi^*f_P …
 \end{align*}
 
@@ -588,31 +732,39 @@ $$
 
 \noindent
 Now we want to reinterpret the MMP
-in terms of ``positivity of the canonical class''.
+in terms of ``positivity of the canonical
+class''.
 
 \begin{definition}
 \label{definition-canonical-class}
-Let $S$ be a surface and $\Omega^1_S$ 
+Let $S$ be a surface and $\Omega^1_S$
 the Kähler differentials on $S$.
-The canonic sheaf is $\omega_S=\Lambda^2\Omega_S^1$
+The canonic sheaf is
+$\omega_S=\Lambda^2\Omega_S^1$
 [because the dimension of $S$ is 2].
-Thus, $[\omega_S]=K_S \in \text{Pic}(S)=\text{Div}/\sim$
+Thus, $[\omega_S]=K_S \in
+\text{Pic}(S)=\text{Div}/\sim$
 [is well-defined].
 \end{definition}
 
 \noindent
 More concretely,
 $\omega$ is a rational 2-form in $S$,
-$\text{div}(\omega)=(\omega)_0-(\omega)_\infty$.
+$\text{div}(\omega)=(\omega)_0-(\omega)
+_\infty$.
 
 \begin{example}
 \label{example-canonical-class-of-p2}
 \begin{enumerate}
-\item $S=\mathbb{P}^2$, $\text{Pic}(S)=\mathbb{Z}\cdot[H]$.
-[We look for the zeroes and poles of the form.]
-[Choose an affine open] $U=\mathbb{A}^2_{\left(
+\item $S=\mathbb{P}^2$,
+$\text{Pic}(S)=\mathbb{Z}\cdot[H]$.
+[We look for the zeroes and poles of the
+form.]
+[Choose an affine open]
+$U=\mathbb{A}^2_{\left(
 \underbrace{\frac{x}{z}}_{u},
-\underbrace{\frac{y}{z}_{t}}\right) }\subset \mathbb{P}^2$
+\underbrace{\frac{y}{z}_{t}}\right) }\subset
+\mathbb{P}^2$
 where $\omega=du \wedge dt$.
 
 Let $V=\mathbb{A}^2_{\left(
@@ -622,31 +774,37 @@ $\omega= ? dv \wedge ds$.
 
 In $U \cap V$, [computations…]
 Thus, $\omega=-\frac{1}{s^3}dv \wedge ds$.
-[Thus, this form has a pole of degree 3 at infinity.]
+[Thus, this form has a pole of degree 3 at
+infinity.]
 
 We conclude that $K_{\mathbb{P}^2}=-3H$.
 
 \item $S=\mathbb{P}^1 \times \mathbb{P}^1$,
-$\text{Pic}(S)=\mathbb{Z}\cdot H_1 \oplus \mathbb{Z}\cdot H_2$,
+$\text{Pic}(S)=\mathbb{Z}\cdot H_1 \oplus
+\mathbb{Z}\cdot H_2$,
 [Exercise:] $K_S=-2H_1 - 2H_2$.
 \begin{lemma}[Adjunction formula]
 \label{lemma-adjunction}
 Let $X$ be a smooth projective variety
-and $Y \subset X$ an irreducible hypersurface.
+and $Y \subset X$ an irreducible
+hypersurface.
 Then $K_Y=(K_X+Y)|_Y$.
 \end{lemma}
 
 \noindent
 [Then]
 $$
-S=\mathbb{P}^1 \times \mathbb{P}^1 \cong S_2 \subset \mathbb{P}^3
+S=\mathbb{P}^1 \times \mathbb{P}^1 \cong S_2
+\subset \mathbb{P}^3
 $$
 $$
 K_S = (-4H+2H)|_S=-2H|_S
 $$
 
-\item $S= \mathbb{F}_m$, $\text{Pic}(\mathbb{F}_m)=\mathbb{Z}\cdot f
-\oplus \mathbb{Z}\cdot\sigma$… [More computations].
+\item $S= \mathbb{F}_m$,
+$\text{Pic}(\mathbb{F}_m)=\mathbb{Z}\cdot f
+\oplus \mathbb{Z}\cdot\sigma$… [More
+computations].
 \end{enumerate}
 \end{example}
 
@@ -654,8 +812,10 @@ $$
 \begin{definition}
 \label{definition-positive}
 A divisor $D \in \text{Div}(S)$
-is {\it nef} if [it has nonegative intersection number with
-any curve in $S$] $D\cdot C \geq 0$ for any curve $C \subset S$.
+is {\it nef} if [it has nonegative
+intersection number with
+any curve in $S$] $D\cdot C \geq 0$ for any
+curve $C \subset S$.
 \end{definition}
 
 \begin{example}
@@ -668,11 +828,14 @@ S \ar@{^{(}->}[r]^f
 &\mathbb{P}^n
 }
 $$
-where $\text{Pic}(\mathbb{P}^n)=\mathbb{Z}\cdot[H]$,
+where
+$\text{Pic}(\mathbb{P}^n)=\mathbb{Z}\cdot[H]
+$,
 then $f^*H$ is very ample since
 $f^*H\cdot C = f_*(C)\cdot H >0$.
 
-\item (Ample divisor.) Recall that $D$ is ample if $mD$ 
+\item (Ample divisor.) Recall that $D$ is
+ample if $mD$
 is very ample for some $m>0$.
 Let $f:S \to \mathbb{P}^m$ be a morphism,
 $D= f^* H$, $C \subset S$.
@@ -682,11 +845,13 @@ D\cdot C
 =H \cdot f_\ast(C)
 =
 \begin{cases}
->0\qquad &\text{if }f_*(C)\text{ is a curve} \\
+>0\qquad &\text{if }f_*(C)\text{ is a curve}
+\\
 =0\qquad &\text{if }f(C) = pt.
 \end{cases}
 $$
-[Qualquer $D$ que seja o pullback da classe do hiperplano
+[Qualquer $D$ que seja o pullback da classe
+do hiperplano
 sob alguma $f$ é dito de semi-amplo.]
 $D$ is called {\it semi-ample}.
 \end{enumerate}
@@ -701,54 +866,68 @@ $D$ is called {\it semi-ample}.
 \medskip\noindent
 Recall that we defined
 $$
-\text{Num}(S) = \text{Div}(S)/\equiv = \mathbb{Z}^{\rho(S)}.
+\text{Num}(S) = \text{Div}(S)/\equiv =
+\mathbb{Z}^{\rho(S)}.
 $$
 Now let
 $$
-N'(S):= \text{Num}(S) \otimes_{\mathbb{Z}}\mathbb{R}=\mathbb{R}^{\rho(S)}.
+N'(S):= \text{Num}(S)
+\otimes_{\mathbb{Z}}\mathbb{R}=\mathbb{R}
+^{\rho(S)}.
 $$
 [Now we consider the following cones:]
 
 $\overline{NE(S)}$,
-the closed cone generated by all classes $[C]$ of curves $C \subset S$,
-called the {\it Mori cone}. $\overline{NE(S)}\subset N'(S)$.
+the closed cone generated by all classes
+$[C]$ of curves $C \subset S$,
+called the {\it Mori cone}.
+$\overline{NE(S)}\subset N'(S)$.
 
 Let
 $D \in \text{Div}(S)$.
-$D$ is nef if and only if 
-$D\cdot\alpha \geq 0\forall \alpha \in \overline{NE(S)}$.
+$D$ is nef if and only if
+$D\cdot\alpha \geq 0\forall \alpha \in
+\overline{NE(S)}$.
 
-$\text{Nef}(S)$ is the closed convex cone generated by
-the nef divisors = $(\overline{NE_1(S)})^\vee \subset N^1(S)$.
+$\text{Nef}(S)$ is the closed convex cone
+generated by
+the nef divisors = $(\overline{NE_1(S)})^\vee
+\subset N^1(S)$.
 
 \begin{theorem}[Kleimann's amplitude theorem]
 \label{theorem-kleimann}
 Let $D \in \text{Div}(S)$.
-$D$ is ample if and only if $D\cdot \alpha>0$ for all
+$D$ is ample if and only if $D\cdot \alpha>0$
+for all
 $\alpha \in \overline{NE_1(S)}\setminus\{0\}$
-if and only if $D \in \text{Int}(\text{Nef}(S))$.
+if and only if $D \in
+\text{Int}(\text{Nef}(S))$.
 \end{theorem}
 
 \begin{definition}
 \label{definition-face-extremal-rays}
-Let $C \subset \mathbb{R}^n$ a closed convex cone.
-A {\it face} $F \subset N$ is a subcone such that
+Let $C \subset \mathbb{R}^n$ a closed convex
+cone.
+A {\it face} $F \subset N$ is a subcone such
+that
 $u,v \in N$ and $u+v \in F$ imply
 that $u,v \in F$.
 
-An {\it extremal ray} of $N$ is a face of [maximal?] dimension.
+An {\it extremal ray} of $N$ is a face of
+[maximal?] dimension.
 \end{definition}
 
 \begin{example}
 \label{example-cone}
 \begin{enumerate}
-\item 
+\item
 $S= \mathbb{F}_m$,
 $N_1(\mathbb{R}^2)$.
 $K_S \cdot f=-2$,
 $K_S \cdot \sigma=n-2$.
 
-\item (The extremal ray of the exceptional divisor
+\item (The extremal ray of the exceptional
+divisor
 is an extremal ray.)
 
 $$
@@ -763,22 +942,26 @@ Then $\mathbb{R}_{\geq 0}E$ is an extremal
 ray of $\overline{NE_1(\tilde{S})}$.
 
 $K_S\cdot E=-1$.
-[ $(-1)$-curves always have $-1$ intersection number with the canonical
+[ $(-1)$-curves always have $-1$ intersection
+number with the canonical
 divisor.]
 \end{enumerate}
 \end{example}
 
 \begin{exercise}
 \label{exercise-adjunction-again}
-$C \subset S$, $C$ a $(-1)$-curve if and only if
+$C \subset S$, $C$ a $(-1)$-curve if and only
+if
 $C^2 <0$ and $C\cdot K_S<0$
 if and only if $C^2=-1$ and  $K_S\cdot C=-1$.
 \end{exercise}
 
 \begin{remark}
 \label{remark-minimal-surface}
-If $K_S$ is nef, then  $S$ is a minimal surface.
-$\mathbb{P}^2$ is minimal but $K_{\mathbb{P}^2}=-3H$.
+If $K_S$ is nef, then  $S$ is a minimal
+surface.
+$\mathbb{P}^2$ is minimal but
+$K_{\mathbb{P}^2}=-3H$.
 \end{remark}
 
 \begin{definition}
@@ -790,29 +973,37 @@ $S$ is  {\it minimal model} if $K_S$ is nef.
 \label{theorem-mori-cone}
 Let $S$ be a surface.
 \begin{align*}
-\overline{NE}_1(S)&=\overline{NE}_1(S)^{K_S \geq 0}
+\overline{NE}_1(S)&=\overline{NE}_1(S)^{K_S
+\geq 0}
 +\sum_i\mathbb{R}_{\geq 0}[C_i]\\
 &=\overline{NE}_1(S)^{K_S+A \geq 0}
-+ \sum_{\text{finite}}\mathbb{R}_{\geq 0}[C_i], \qquad C_i\cong
++ \sum_{\text{finite}}\mathbb{R}_{\geq
+0}[C_i], \qquad C_i\cong
 \mathbb{P}^1.
 \end{align*}
 \end{theorem}
 
 $$
-\left[ 
+\left[
 \substack{\text{
-Figure of $N^1(S)$ split into two regions} \\ 
+Figure of $N^1(S)$ split into two regions} \\
 \text{by $K_S$. One region is positive}\\
-\text{and the other negative. In the boundary}\\
-\text{we see $K_S + \varepsilon A$, ample.}} \right] 
+\text{and the other negative. In the
+boundary}\\
+\text{we see $K_S + \varepsilon A$, ample.}}
+\right]
 $$
 
-\begin{theorem}[Classification of the $C_i$ 's]
+\begin{theorem}[Classification of the $C_i$
+'s]
 \label{theorem-classification}
 \begin{itemize}
-\item $C_i^2<0 \implies C_i$ is a $(-1)$ curve.
-\item $C_i^2 = 0 \implies $ $S \cong \mathbb{F}_m$ and $C_i=f$.
-\item  $C_i^2 >0 \implies S \cong \mathbb{P}^2$ and $C_i=\lambda H$.
+\item $C_i^2<0 \implies C_i$ is a $(-1)$
+curve.
+\item $C_i^2 = 0 \implies $ $S \cong
+\mathbb{F}_m$ and $C_i=f$.
+\item  $C_i^2 >0 \implies S \cong
+\mathbb{P}^2$ and $C_i=\lambda H$.
 \end{itemize}
 \end{theorem}
 
@@ -831,30 +1022,40 @@ Recall:
 \item $D \in \text{Div}(S)$ is {\it nef} if
 $D\cdot C \geq 0$ for all $C \subset S$.
 
-\item [Take the blow up of a surface at a point:]
-$\tilde{S}=Bl_PS \xrightarrow{\pi}S$ with exceptional divisor $E$,
+\item [Take the blow up of a surface at a
+point:]
+$\tilde{S}=Bl_PS \xrightarrow{\pi}S$ with
+exceptional divisor $E$,
 then $K_S\cdot E=-1$ and $E^2=-1$.
 
 \item $S= \mathbb{F}_m$, $K_S\cdot f=-2$.
 $f^2=0$.
 
-\item\leavevmode [The Mori cone is the convex cone generated
+\item\leavevmode [The Mori cone is the convex
+cone generated
 by the curves in $S$:]
-$\overline{NE}_1(S)=\overline{\left<\text{curves in $S$}\right>}
+$\overline{NE}_1(S)=
+\overline{\left<\text{curves
+in $S$}\right>}
 \subset \underbrace{N^1(S)}_{=\mathbb{R}^e}
-=\text{Num}(S) \otimes_\mathbb{Z} \mathbb{R}$.
+=\text{Num}(S) \otimes_\mathbb{Z}
+\mathbb{R}$.
 
 \item Theorem. Let $S$ be a surface. Then
 \begin{enumerate}
 \item (Cone theorem.) [
-Picture of the hyperplane $K_S$ limiting two regions,
-a positive and a negative one. The negative side is locally
+Picture of the hyperplane $K_S$ limiting two
+regions,
+a positive and a negative one. The negative
+side is locally
 polyhedral - while on the positive
-side it may be round. We also consider a small
-perturbation $K_S+\varepsilon A$.] 
+side it may be round. We also consider a
+small
+perturbation $K_S+\varepsilon A$.]
 
 \item (Contraction theorem.)
-Any face on the negative side of the Mori cone admits a contraction.
+Any face on the negative side of the Mori
+cone admits a contraction.
 [See definitions below.]
 
 \item (Classification of contractions
@@ -862,21 +1063,24 @@ of $K_S$-negative extrmal rays.)
 \begin{itemize}
 \item If $C^2<0$, then  $\text{cont}_R=Bl_P$.
 \item If $C^2=0$, then  $S= \mathbb{F}_m$
-and $\text{cont}_R:\mathbb{F}_m \to \mathbb{P}^1$.
+and $\text{cont}_R:\mathbb{F}_m \to
+\mathbb{P}^1$.
 \item If $C^2 \geq 0$,
 then $S \cong \mathbb{P}^1$.
 \end{itemize}
 \end{enumerate}
 
-\item \leavevmode [A face is a hyperplane that encosta no cone.]
-A {\it face} $F$ of a cone is such that  $v,u \in \overline{ NE}(S)$
-and $v+u \in F$ then $u,v \in F$. 
+\item \leavevmode [A face is a hyperplane
+that encosta no cone.]
+A {\it face} $F$ of a cone is such that  $v,u
+\in \overline{ NE}(S)$
+and $v+u \in F$ then $u,v \in F$.
 
 \begin{definition}
 \label{definition-contraction-of-face}
 Let $F \subset \overline{NE}_1(S)$ be a face.
 A {\it contraction} of $F$ is a morphism
-$\text{cont}_F:S \to X$ 
+$\text{cont}_F:S \to X$
 with connected fibers,
 $X$ normal such that
 given a curve $C \subset S$,
@@ -888,7 +1092,8 @@ $$
 
 \begin{remark}
 \label{remark-contractions}
-$\text{cont}_F$ may or not exist, but if it exists it is unique.
+$\text{cont}_F$ may or not exist, but if it
+exists it is unique.
 \end{remark}
 \end{itemize}
 
@@ -896,8 +1101,10 @@ $\text{cont}_F$ may or not exist, but if it exists it is unique.
 \label{section-modern-mmp}
 
 \noindent
-[Instead of asking whether there are any $(-1)$ curves,
-now we ask if the canonical divisor is positive:]
+[Instead of asking whether there are any
+$(-1)$ curves,
+now we ask if the canonical divisor is
+positive:]
 
 $$
 \xymatrix{
@@ -905,22 +1112,22 @@ $$
 \ar[dl]\ar[dr]\\
 \substack{\text{Yes} \\ \text{Stop!}\\
 \text{$S$ is a minimal}\\\text{model}}
-&  & 
+&  &
 \substack{\text{No} \\
 \text{Pick a $K_S$ negative}\\
 \text{extremal ray}\\
 \text{and take}\\
 f=\text{cont}_R:S \to X.}
 \ar[dr]\ar[dl]\\
-& 
+&
 \substack{\dim X=2 \\
 \text{Then} \\
 S=Bl_P\underbrace{S'}_{X}}
-\ar[uu]^{\substack{S:=S' \\ 
+\ar[uu]^{\substack{S:=S' \\
 \rho(S')\\
 \rho(S)=1}}.
-&& 
-\substack{\dim X <2 \\ 
+&&
+\substack{\dim X <2 \\
 \text{Stop!}\\
 \text{In this case}\\
 f:S \to X\\
@@ -940,7 +1147,8 @@ $K_S\cdot \sigma = 2m-2-m=m-2$.
 \end{example}
 
 \noindent
-[Notice the diagram is more complicated now: there are more options.
+[Notice the diagram is more complicated now:
+there are more options.
 Why is this formulation convenient?]
 
 Now fix a divisor $D \in \text{Pic}(S)$.
@@ -951,23 +1159,25 @@ $$
 \ar[dl]\ar[dr]\\
 \substack{\text{Yes} \\ \text{Stop!}\\
 \text{$S$ is a $D$-minimal}\\\text{model}}
-&  & 
+&  &
 \substack{\text{No} \\
 \text{Pick a $D$ negative}\\
-\underbrace{\text{extremal ray}}_{\text{may not exist!}}\\
+\underbrace{\text{extremal ray}}_{\text{may
+not exist!}}\\
 \text{and take}\\
 f=\text{cont}_R:S \to X.}
 \ar[dr]^{\substack{\text{type} \\\text{A}}}
-\ar[dl]_{\substack{\text{type} \\ \text{B}}}\\
-& 
+\ar[dl]_{\substack{\text{type} \\
+\text{B}}}\\
+&
 \substack{\dim X=2 \\
 \text{Then} \\
 f:S \to S'}
 \ar[uu]^{\substack{
 X\text{ may be singular}\\
 D:=f_* D}}
-&& 
-\substack{\dim X <2 \\ 
+&&
+\substack{\dim X <2 \\
 \text{Stop!}\\
 \text{In this case}\\
 f:S \to X\\
@@ -994,7 +1204,7 @@ the result is in general not unique.
 \label{example-mmp-rational-surface}
 When $S$ is a rational surface,
 the possible results are wither
-$\mathbb{P}^2 \to pt$ 
+$\mathbb{P}^2 \to pt$
 or
 $\mathbb{F}_m \to \mathbb{P}^1$.
 \end{example}
@@ -1012,17 +1222,22 @@ When does a $D$-MMP exist?
 [This is the reason for the name.]
 If $\text{Pic}(S)=\mathbb{Z}^{\oplus m}$,
 the {\it Cox ring} is
- $\text{Cox}(S)=\bigoplus_{D \in \text{Pic}(S)}H^0(S,D)$.
-$S$ is a {\it Mori dream space} if $\text{Cox}(S)$ is finitely generated.
+ $\text{Cox}(S)=\bigoplus_{D \in
+ \text{Pic}(S)}H^0(S,D)$.
+$S$ is a {\it Mori dream space} if
+$\text{Cox}(S)$ is finitely generated.
 
-\item Let $S$ be any surface, $D=K+\varepsilon A$,
+\item Let $S$ be any surface,
+$D=K+\varepsilon A$,
 $A$ ample.
-[With such a $D$ we always guarantee that the program exists.]
+[With such a $D$ we always guarantee that the
+program exists.]
 
 \begin{remark}
 \label{remark-ample}
 If $D \in \overline{NE}(S)$,
-the $D$-MMP always ends in a $D$-minimal model.
+the $D$-MMP always ends in a $D$-minimal
+model.
 \end{remark}
 \end{itemize}
 
@@ -1035,14 +1250,16 @@ $$
 S \ar[r]&\cdots
 \ar[r]
 &S' \ar[d]_g\\
-& &\underbrace{X}_{\substack{\text{$D$-ample} \\ \text{model}}}
+& &\underbrace{X}_{\substack{\text{$D$-ample}
+\\ \text{model}}}
 }
 $$
-$D'=g^*AX$, then 
+$D'=g^*AX$, then
 $D'$ is nef (semi-ample).
 
 \medskip\noindent
-[Extra: A K3 is a MDS is it has a trivial automorphism group
+[Extra: A K3 is a MDS is it has a trivial
+automorphism group
 (for $D$-MMP).]
 
 \section{Geography of ample models}
@@ -1053,22 +1270,28 @@ $D'$ is nef (semi-ample).
 [The following is a toric surface;
 we worked on this two lectures ago.]
 $S= Bl_{P,Q}\mathbb{P}^2$
-[The cone has dimension 3, but we can make a transverse section.
-Imagine that the rest of the cone is behind the screen:]
+[The cone has dimension 3, but we can make a
+transverse section.
+Imagine that the rest of the cone is behind
+the screen:]
 $$
 \xymatrix{
   &           &  \tilde{\ell}
 \ar@{-}[dl]\ar@{-}[dr]\\
   &  \tilde{\ell}_Q\ar@{-}[ddl]
-\ar@{-}[dr]\ar@{-}[rr]&  &  \tilde{\ell}_{P} \ar@{-}[ddr]\ar@{-}[dl]\\
+\ar@{-}[dr]\ar@{-}[rr]&  &  \tilde{\ell}_{P}
+\ar@{-}[ddr]\ar@{-}[dl]\\
   &                          & H\\
 E_P\ar@{-}[urr]\ar@{-}[uur]
-\ar@{-}[rrrr]& & & & E_Q\ar@{-}[ull]\ar@{-}[uul]
+\ar@{-}[rrrr]& & & &
+E_Q\ar@{-}[ull]\ar@{-}[uul]
 }
 $$
 
-[$H$ should be in the center of the of the quadrilateral
-with vertices $E_P$,  $E_Q$  $\tilde{\ell}_P$ and $\tilde{\ell}_Q$.
+[$H$ should be in the center of the of the
+quadrilateral
+with vertices $E_P$,  $E_Q$  $\tilde{\ell}_P$
+and $\tilde{\ell}_Q$.
 $Nef(S)$ is the triangle with vertices
  $\tilde{\ell}_Q, \tilde{\ell}_P$ and $H$.]
 \end{example}
@@ -1100,53 +1323,62 @@ are the same
 [Inside $Nef(S)$ the model is itself.
 In the lower edge of the triangle,
 the model is $\mathbb{P}^2 \to pt$.
-In the edge from $\tilde{\ell}_p$ to $\tilde{\ell}$,
-$\mathbb{P}^1 \times \mathbb{P}^1 \xrightarrow{p_1}\mathbb{P}^1$.
+In the edge from $\tilde{\ell}_p$ to
+$\tilde{\ell}$,
+$\mathbb{P}^1 \times \mathbb{P}^1
+\xrightarrow{p_1}\mathbb{P}^1$.
 In the edge $\tilde{\ell}_p$ to $E_Q$,
 $\mathbb{F}_1 \to \mathbb{P}^1$.]
 
-[This figure shows us all the Mfs that may be obtained from $S$.
-The results are codified in the faces of the cone decomposition.
+[This figure shows us all the Mfs that may be
+obtained from $S$.
+The results are codified in the faces of the
+cone decomposition.
 The strategy of the proof of Sarkisov theorem
-is to move around in the boundary of the cone;
+is to move around in the boundary of the
+cone;
 that is, passing from one Mfs to another.]
 
 \begin{theorem}[Sarkisov program]
 \label{theorem-sarkisov}
 Any birational map of Mfs is a composition of
-{\it Sarkisov links}, which may be either of the follwing:
+{\it Sarkisov links}, which may be either of
+the following:
 \begin{enumerate}
-\item 
+\item
 $$
 \xymatrix{
 &\mathbb{F}_1
-\ar[dl]\ar[dr]\\
-\ar[d]\mathbb{P}^2 & & \mathbb{P}^1\\
-pt
+\ar[dl]\ar[dr]&\\
+\mathbb{P}^2\ar[d] & & \mathbb{P}^1\\
+\operatorname{pt} & &
 }
 $$
 
-\item 
+\item
 $$
 \xymatrix{
 &  \tilde{S}\ar[dl]^{Bl_P}\ar[dr]\\
-\mathbb{F}_m \ar[d]\ar@{-->}[rr]&&  \mathbb{F}_{m \pm 1}\ar[d]\\
+\mathbb{F}_m \ar[d]\ar@{-->}[rr]&&
+\mathbb{F}_{m \pm 1}\ar[d]\\
 \mathbb{P}^1 & & \mathbb{P}^1
 }
 $$
-\item 
+\item
 $$
 \xymatrix{
 &\mathbb{F}_1\ar[dl]\ar[dr]\\
-\mathbb{P}^1 &  &  \mathbb{P}^2\ar[d]\\
-&& pt
+\mathbb{P}^1 & & \mathbb{P}^2\ar[d]\\
+& & \operatorname{pt}
 }
 $$
 
-\item  $\mathbb{F}_0 = \mathbb{P}^1 \times \mathbb{P}^1$,
+\item  $\mathbb{F}_0 = \mathbb{P}^1 \times
+\mathbb{P}^1$,
 $$
 \xymatrix{
-\mathbb{F}_0\ar[d]_{p_1} \ar@{=}[r]&  \mathbb{F}_0\ar[d]^{p_2}\\
+\mathbb{F}_0\ar[d]_{p_1} \ar@{=}[r]&
+\mathbb{F}_0\ar[d]^{p_2}\\
 \mathbb{P}^1&\mathbb{P}^1
 }
 $$
@@ -1155,7 +1387,8 @@ $$
 
 \noindent
 [In fact, the Sarkisov links appear when
-we pass from one chamber to another in the Mori cone.]
+we pass from one chamber to another in the
+Mori cone.]
 
 
 
@@ -1164,54 +1397,71 @@ we pass from one chamber to another in the Mori cone.]
 \label{section-proof-sarkisov}
 
 \begin{itemize}
-\item 
-Let $D \in N^1(S)_d$ be of the form $K_S + A$, $A$ ample.
+\item
+Let $D \in N^1(S)_d$ be of the form $K_S +
+A$, $A$ ample.
 
-\item A birational map $f:S \to T$ is called a 
- {\it $D$-minimal model} if it is the result of a $D$-MMP.
+\item A birational map $f:S \to T$ is called
+a
+ {\it $D$-minimal model} if it is the result
+ of a $D$-MMP.
 
 \item A map $g:S \to B$ is called an
-{\it ample model of $D$} if it factos from a $D$-minimal model
-$f:S \to T$ followed by the contraction of $f_*D$.
+{\it ample model of $D$} if it factors from a
+$D$-minimal model
+$f:S \to T$ followed by the contraction of
+$f_*D$.
 
 \item (Geography of ample models.)
-We pick two ample divisors $A_1,…,A_k, K_S \not\in \overline{NE}(S)$,
+We pick two ample divisors $A_1,…,A_k, K_S
+\not\in \overline{NE}(S)$,
  $$
 \mathcal{C}=
 \{D=A_0K_S + \sum_{i=1}na_iA_i:
 a_0,…,a_k \geq 0\}\cap \overline{NE}(S).
 $$
-$D_1,D_2$ are Mori equivalent if they have the same ample model.
+$D_1,D_2$ are Mori equivalent if they have
+the same ample model.
 
-\item A {\it Mori chamber} is an equivalence class
+\item A {\it Mori chamber} is an equivalence
+class
 $(\mathcal{A}_i)_{i \in I}$ with ample model
-$f:S \to T_i$. $\mathcal{A}_I$ is a {\it big chamber}
+$f:S \to T_i$. $\mathcal{A}_I$ is a {\it big
+chamber}
 if $f_i$ is birational.
 \end{itemize}
 
 \begin{proposition}
 \label{proposition-mori-chambers}
 \begin{enumerate}
-\item The chamber decomposition 
-[of the Mori cone $\mathcal{C}$ in Mori chambers]
+\item The chamber decomposition
+[of the Mori cone $\mathcal{C}$ in Mori
+chambers]
 is finite.
-(Cone theorem + $K_S \not\in \overline{ \text{NE}}(S)$.)
+(Cone theorem + $K_S \not\in \overline{
+\text{NE}}(S)$.)
 
 \item The chambers are convex subcones.
 $(\mathcal{A}_i=
-\left<f_i^*\text{Nef},f_i\text{-exeptional divisors}\right>$.
+\left<f_i^*\text{Nef},f_i\text{-exceptional
+divisors}\right>$.
 
-\item $\mathcal{A}_i$ big chamber if and only if
+\item $\mathcal{A}_i$ big chamber if and only
+if
 \label{item-3}
 $\dim \mathcal{A}_i = \dim \mathcal{C}$.
 
 \item If $\mathcal{A}_i$ is big,
 $\overline{\mathcal{A}_i}=
-\{D \in \mathcal{C}:f_i:S \to T_i\text{ is a minimal $D$-model}\}$.
+\{D \in \mathcal{C}:f_i:S \to T_i\text{ is a
+minimal $D$-model}\}$.
 (ample $\to$ nef).
 
-\item If $\overline{\mathcal{A}_i}\cap\mathcal{A}_j \neq \emptyset$ 
-there exists $\rho_{ij}:T_i \to T_j$ making the diagram
+\item If
+$\overline{\mathcal{A}_i}\cap\mathcal{A}_j
+\neq \emptyset$
+there exists $\rho_{ij}:T_i \to T_j$ making
+the diagram
 $$
 \xymatrix{
 A \ar[r]^{f_i}\ar[dr]_{f_j}&  T_i\\
@@ -1219,8 +1469,10 @@ A \ar[r]^{f_i}\ar[dr]_{f_j}&  T_i\\
 }
 $$
 commute and $\rho(T_i)-\rho(T_j)
-=\dim(\mathcal{A}_i)-\dim(\overline{\mathcal{A}_i}
--\dim(\overline{\mathcal{A}_i} \cap \mathcal{A}_j)$.
+=\dim(\mathcal{A}_i)-
+\dim(\overline{\mathcal{A}_i}
+-\dim(\overline{\mathcal{A}_i} \cap
+\mathcal{A}_j)$.
 \end{enumerate}
 \end{proposition}
 
@@ -1236,34 +1488,46 @@ B_1
 &&B_2
 }
 $$
-$\mathcal{C}_w$, there exist $D_1,D_2 \in \mathcal{C}$
-such that $\eta_i \circ p_i$ is an ample model of $D_i$.
-By (\ref{item-3}), $D_i \in \partial \overline{\text{NE}}(W)$.
+$\mathcal{C}_w$, there exist $D_1,D_2 \in
+\mathcal{C}$
+such that $\eta_i \circ p_i$ is an ample
+model of $D_i$.
+By (\ref{item-3}), $D_i \in \partial
+\overline{\text{NE}}(W)$.
 
-[The idea is to show that there exists a way that joins
-those two points which contained completely in the 
+[The idea is to show that there exists a way
+that joins
+those two points which contained completely
+in the
 boundary.
 After showing it exists,
-we show that this path is in fact a Sarkisov link decomposition.]
+we show that this path is in fact a Sarkisov
+link decomposition.]
 
 The visible boundary is
 $$
 \partial^+ \mathcal{C}
 =\left\{D \in \partial \mathcal{C}:
-\substack{ D= \partial \mathcal{C} \cap [K_W,D^0 ]\\
-\text{for some }D^0 \in \text{Int}(\mathcal{C}) }\right\}
+\substack{ D= \partial \mathcal{C} \cap
+[K_W,D^0 ]\\
+\text{for some }D^0 \in
+\text{Int}(\mathcal{C}) }\right\}
 \subseteq \partial\mathcal{C}.
 $$
-[Geometrically, we know that the canonical divisor
-is not in the cone -- because it is not ample.]
+[Geometrically, we know that the canonical
+divisor
+is not in the cone -- because it is not
+ample.]
 
 \begin{lemma}
 \label{lemma-boundary}
 \begin{itemize}
-\item The visible boundary is contained in $\partial \overline{
+\item The visible boundary is contained in
+$\partial \overline{
 \text{NE}}(W)$.
 
-\item $\dim \partial^+\mathcal{C}=\dim \mathcal{C}-1$.
+\item $\dim \partial^+\mathcal{C}=\dim
+\mathcal{C}-1$.
 \item $\partial^+\mathcal{C}$ is connected.
 \end{itemize}
 \end{lemma}
@@ -1272,38 +1536,49 @@ is not in the cone -- because it is not ample.]
 \begin{align*}
 D \in \partial^+ \mathcal{C}_1 D&=
 t K_W+(1-t) A_0,\qquad  t \in [0,1)\\
-A_0 \in \text{Int}\mathcal{C} 
-&  \implies A_0 = \sum a_i A_i,\qquad a_i>0, \forall i=1,…,k\\
-D\not\in \partial \mathcal{D} &\implies 
+A_0 \in \text{Int}\mathcal{C}
+&  \implies A_0 = \sum a_i A_i,\qquad a_i>0,
+\forall i=1,…,k\\
+D\not\in \partial \mathcal{D} &\implies
 D \in \partial \overline{\text{NE}}(W)
 \end{align*}
-where $\mathcal{D}:=\{a_0K_W+\sum a_iA_i:a_i \geq 0\}$ 
-which appears in the definition of $\mathcal{C}$.
+where $\mathcal{D}:=\{a_0K_W+\sum a_iA_i:a_i
+\geq 0\}$
+which appears in the definition of
+$\mathcal{C}$.
 \end{proof}
 
 \noindent
-Let $V_2 \subseteq N^1(W)$ 
+Let $V_2 \subseteq N^1(W)$
 be a 2-dimensional affine space.
 Take a slice of the cone:
 $\mathcal{C} \cap V_2=\mathcal{P}$.
-[This space has to be general in the sense that]
+[This space has to be general in the sense
+that]
 $\text{codim}_{V_2}(\mathcal{A}_i \cap V_2)=
 \text{codim}_{\mathcal{C}}\mathcal{A}_i$.
-[We obtain a polygon with a chamber decomposition.
-Let's see what happens at a point $\Theta$ where two
+[We obtain a polygon with a chamber
+decomposition.
+Let's see what happens at a point $\Theta$
+where two
 (or more) chambers meet.
-Zooming in, we see a some lines $\mathcal{O}_0,…,\mathcal{O}_k$
+Zooming in, we see a some lines
+$\mathcal{O}_0,…,\mathcal{O}_k$
 meeting at $\Theta$, which determine chambers
-$\overline{\mathcal{A}}_1, \overline{\mathcal{A}}_2,…,
+$\overline{\mathcal{A}}_1,
+\overline{\mathcal{A}}_2,…,
 \overline{\mathcal{A}}_k$.]
 
-[The $\mathcal{O}_i$ are the intersections of the sheaves.
-The $\mathcal{O}_i$ are not chambers themselves:]
+[The $\mathcal{O}_i$ are the intersections of
+the sheaves.
+The $\mathcal{O}_i$ are not chambers
+themselves:]
 
 \begin{proposition}
 \label{proposition-o-are-not-chambers}
  \begin{enumerate}
-\item $0<i<k$, $\mathcal{O}_i \subseteq \mathcal{A}_i$ or 
+\item $0<i<k$, $\mathcal{O}_i \subseteq
+\mathcal{A}_i$ or
 $\mathcal{O}_i \subseteq \mathbb{A}_{i+1}$.
 
 \item $D_0 \in \text{ rel int}\mathcal{O}_0$,
@@ -1311,19 +1586,23 @@ the ample model of $D_0$ is a Mfs.
 
 \item $k<3$.
 
-\item 
-Let $\mathcal{A}$ be the chamber such that $\Theta \in \mathcal{A}$.
+\item
+Let $\mathcal{A}$ be the chamber such that
+$\Theta \in \mathcal{A}$.
 If there exists $i$ such that
-$\dim(\overline{\mathcal{A}}_k \cap \mathcal{A})=0$ 
+$\dim(\overline{\mathcal{A}}_k \cap
+\mathcal{A})=0$
 then there exists a Sarkisov link between the
-Mfs of Proposition \ref{proposition-mori-chambers}.
+Mfs of Proposition
+\ref{proposition-mori-chambers}.
 \end{enumerate}
 \end{proposition}
 
 \begin{proof}
 \begin{align*}
 \text{Type I}
-&\xymatrix{\ar@{<~>}[r]&}k=2, \mathcal{O}_q \subseteq \mathcal{A}_2\\
+&\xymatrix{\ar@{<~>}[r]&}k=2, \mathcal{O}_q
+\subseteq \mathcal{A}_2\\
 \text{Type II}&\xymatrix{\ar@{<~>}[r]&}k=3\\
 \text{Type III}&\xymatrix{\ar@{<~>}[r]&}
 k=2,\mathcal{O}_q \subseteq \mathcal{A}_1\\
@@ -1337,36 +1616,44 @@ k=2,\mathcal{O}_q \subseteq \mathcal{A}_1\\
 
 
 
-\section{About simplicity of the Cremona group}
+\section{About simplicity of the Cremona
+group}
 \label{section-simplicity-Cremona-group}
 
-Recall that the {\it Cremona group} is defined by
+Recall that the {\it Cremona group} is
+defined by
 $$
 \text{Cr}_n(k)=
-\{f:\mathbb{P}^n \dashrightarrow \mathbb{P}^n:
+\{f:\mathbb{P}^n \dashrightarrow
+\mathbb{P}^n:
 f\text{ is birational}\}.
 $$
 Question by Enriques (1865):
 is $\text{Cr}_n(k)$ simple?
 
-We know that $\text{Cr}_n(k)$ is not simple in the following cases:
+We know that $\text{Cr}_n(k)$ is not simple
+in the following cases:
 \begin{enumerate}
 \item $n=2$, $k$ any field.
 Contat-Lamy '13, Lonjou '16.
 
 \item $n=2$, $k$ perfect field
-such that there exists a Galois orbit of size 8.
+such that there exists a Galois orbit of size
+8.
 Lamy-Zimmermann '20.
 
-\item $n \geq 3, k=\mathbb{C}$. Blanc-Lamy-Zimmermann '21.
+\item $n \geq 3, k=\mathbb{C}$.
+Blanc-Lamy-Zimmermann '21.
 \end{enumerate}
 
-[The second and third item they use a different method
+[The second and third item they use a
+different method
 to define the automorphisms.]
 
 \begin{theorem}
 \label{theorem-cr3}
-There is an isomorphism $\text{Cr}_3(\mathbb{C}) \simeq
+There is an isomorphism
+$\text{Cr}_3(\mathbb{C}) \simeq
 G \ast (\ast_J \mathbb{Z}/2\mathbb{Z})$
 where $J$ is uncountable.
 \end{theorem}
@@ -1375,29 +1662,33 @@ With corollaries:
 
 \begin{lemma}
 \label{lemma-corollary}
-$\text{Aut}(\text{Cr}_3(\mathbb{C}))$ 
+$\text{Aut}(\text{Cr}_3(\mathbb{C}))$
 is not generated by inner automorphisms
 nor automorphisms of the field $\mathbb{C}$.
 \end{lemma}
 
-Déserti '06: $\text{Aut}(\text{Cr}_2(\mathbb{C}))$ 
+Déserti '06:
+$\text{Aut}(\text{Cr}_2(\mathbb{C}))$
 is generated by such automorphisms.
 
 \medskip\noindent
 [We shall prove Theorem \ref{theorem-cr3}.]
 
-Define a groupoid by 
+Define a groupoid by
 $$
-\underbrace{\text{BirMori}(\mathbb{P}^n)}_{\text{Cr}_n(\mathbb{C})}
+\underbrace{\text{BirMori}(\mathbb{P}^n)}
+_{\text{Cr}_n(\mathbb{C})}
 =
 \left\{f:X \dashrightarrow Y
-:\substack{X,Y \text{ Mfs}, X,Y \sim_{\text{bir}}\mathbb{P}^n \\ 
+:\substack{X,Y \text{ Mfs}, X,Y
+\sim_{\text{bir}}\mathbb{P}^n \\
 f\text{ birational}}\right\}.
 $$
 \begin{definition}
 \label{definition-rank-r-fibration}
 Let $r \geq 1$.
-A morphism  $\eta:X \to B$ is a {\it rank $r$ fibration}
+A morphism  $\eta:X \to B$ is a {\it rank $r$
+fibration}
 if
 \begin{enumerate}
 \item $\dim X > \dim B, \rho(X)-\rho(B) = r$.
@@ -1406,7 +1697,7 @@ if
 \item The result of any
 $D$-MMP over $B$ is
 $\mathbb{Q}$-factorial is terminal.
-\item $\exists \Delta_B \geq 0$ 
+\item $\exists \Delta_B \geq 0$
 such that $(B,\Delta_B)$ is kld.
 \end{enumerate}
 \end{definition}
@@ -1423,15 +1714,17 @@ stays in the category of MMP.
 
 \begin{theorem}[BLZ]
 \label{theorem-blz2}
-The relations among Sarkisov links are generated by
-by the dominated relations of rank 3 fibrations.
+The relations among Sarkisov links are
+generated by
+by the dominated relations of rank 3
+fibrations.
 \end{theorem}
 
 $$
 \text{BirMori}=
 \left<
 \substack{\text{Sarkisov} \\ \text{links}}
-:\substack{\text{relations given by} \\ 
+:\substack{\text{relations given by} \\
 \text{rank-3 fibrations}}\right>.
 $$
 
@@ -1439,11 +1732,13 @@ Let $(g,d) \in
 \{(2,8),(6,9),(10,10),(11,14)\}$,
 $C \in U_{g,d}\subseteq H_{g,d}^{\leq}$,
 $J=\bigcup U_{g,d}$,
-$X=Bl_C \mathbb{P}^3 \dashrightarrow \mathbb{P}^3$.
+$X=Bl_C \mathbb{P}^3 \dashrightarrow
+\mathbb{P}^3$.
 
 \begin{proposition}
 \label{proposition-rank-2}
-Let $X \to \mathbb{P}^3 \to \Spec(\mathbb{C})$
+Let $X \to \mathbb{P}^3 \to
+\Spec(\mathbb{C})$
 be a rank-2 fibration.
 $$
 \xymatrix{
@@ -1477,4 +1772,890 @@ dominated $X \to \Spec(\mathbb{C})$.
 
 
 
+\clearpage
+\phantomsection
+\stepcounter{section}
+\addcontentsline{toc}
+{section}{\thesection\quad
+Automorphisms of quartic surfaces and Cremona
+transformations}
+\addtocontents{toc}{\hspace{1em}\textit{
+Carolina
+Araujo, \hspace{.2em}IMPA,\hspace{.5em}24
+September, 2024}\par}
+\noindent
+Automorphisms of quartic surfaces and
+Cremona transformations.
+
+\medskip\noindent
+\textbf{Speaker.}
+Carolina Araujo.
+
+\medskip\noindent
+\textbf{Place.}
+IMPA.
+
+\medskip\noindent
+\textbf{Date.}
+24 September, 2024.
+\iffalse
+\phantomsection
+\stepcounter{section}
+\addcontentsline{toc}
+{section}{\thesection\quad
+Automorphisms of quartic surfaces and Cremona
+transformations}
+\addtocontents{toc}{\hspace{1em}\textit{
+Carolina
+Araujo}\par}
+{\Huge Automorphisms of quartic surfaces and
+Cremona transformations}
+
+\hfill{\Large Carolina Araujo}
+{\Large \hfill IMPA}
+
+\hfill{\large September 24, 2024}
+\fi
+
+\subsection{Motivation}
+
+$X$ a smooth hypersurface of degree $d $,
+$X\subset \mathbb{P}^{n+1}$. We want to
+understand the group $\operatorname{Aut}(X)$.
+These are invertible polynomial maps from $X$
+to itself. $X$ is defined by a single
+polynomial equation of degree $d$.
+
+\begin{thm}[Matsumura-Mousky,
+1964]\leavevmode
+	Except in two special cases, all
+	automorphisms of $X$ come from automorphisms
+	of the ambient space:
+	
+	If $(n,d)\neq (1,3),(2,4)$, there is a
+	surjective map
+	\[
+	\operatorname{Aut}(\mathbb{P}^{n+1},X)
+	\overset{\pi}{\longrightarrow}
+	\operatorname{Aut}(X)
+	\]
+	where $\operatorname{Aut}(X,Y)$ means
+	automorphisms of $X$ that stabilize  $Y$.
+\end{thm}
+
+\subsection{Exceptional cases}
+
+Let's look at the exceptionals cases.
+
+\begin{enumerate}
+	\item $(n,d)=(1,3)$. In this case
+	$C=X_3\subset \mathbb{P}^2$ is an elliptic
+	curve and we have
+		\[\operatorname{Aut}(C)\cong C\rtimes
+		\mathbb{Z}_m\quad m=2,4,6\]
+and
+ \[\operatorname{Aut}(\mathbb{P}^2,C)\text{
+ is finite.} \]
+
+ Elements in $C$ are translations of the
+ torus. The \textit{\textbf{translation of
+ $x$ with respect to $p$ and $(x:y:z)$}} is
+ done by intersecting the curve with the line
+ that joins $p$ and $(x:y:z)$ and reflecting.
+ So we have a map
+  \[
+  t_p(x:y:z)=
+  (F_1(x,y,z),F_2(x,y,z),F_3(x,y,z)
+  \]
+  We have created a \textit{\textbf{Cremona
+  transformation}} (=biholomorphic birational
+  map?).
+ 
+  \begin{defn}[Cremona group]
+	\[\operatorname{Bir}(\mathbb{P}^n)=\{\varphi
+	:\mathbb{P}^n
+	\overset{\operatorname{bir}}
+	{\longrightarrow}
+	\mathbb{P}^n:\text{bimeromorphic
+	map} \}\]
+\end{defn}
+
+And we then have the surjective map
+\[
+\operatorname{Bir}(\mathbb{P}^2,C)
+\overset{\pi}{\longrightarrow}
+\operatorname{Aut}(C)
+\]
+
+
+	\item $(n,d)=(2,4)$. Here
+	$S=X_4=\mathbb{P}^3$ is a smooth quartic
+	surface.
+
+		\paragraph{Problem} (Gizatullin) Which
+		automorphisms of $S$ are induced (not
+		necesarily by automorphisms of
+		$\mathbb{P}^3$) but at least by Cremona
+		transformations of $\mathbb{P}^3$? ie. are
+		restrictions of
+		$\varphi\in
+		\operatorname{Bir}(\mathbb{P}^3,S)$
+
+\begin{remark}
+	Related to K3 surface structure,
+	\[
+	\operatorname{Bir}(\mathbb{P}^3,S)
+	\overset{\pi}{\longrightarrow}
+	\operatorname{Bir}(S)\cong
+	\operatorname{Aut}(S)\]
+\end{remark}
+
+$S$ is a K3 surface.
+$H^{2}(S,\mathbb{Z})\cong \mathbb{Z}^{22}$
+and the Picard group acts on this lattice.
+
+\begin{defn}[Picard rank of $S$]
+	\[
+	\rho(S)=
+	\operatorname{rk}(\operatorname{Pic}(S))
+	\in\{1,\ldots,20\}
+	\]
+\end{defn}
+
+\begin{itemize}
+\item If $S$ is very general, then
+$\rho(S)=1$ and
+$\operatorname{Aut}(S)=\{1\}$.
+
+\item We are interested in $\rho(S)\geq 2$.
+\end{itemize}
+\end{enumerate}
+
+\begin{example}[Oguiso, 2012]\leavevmode 
+	\begin{enumerate}
+		\item $\rho(S)=2$. Any cremona
+		transformation that stabilizes the quadric
+		is the identity:
+			\[\operatorname{Aut}(S)=\mathbb{Z}\qquad
+			\operatorname{Bir}(\mathbb{P}^3,S)=\{1\}\]
+	
+			
+		\item $\rho(S)=3$,
+			\[
+			\operatorname{Aut}(S)=
+			\mathbb{Z}_2*\mathbb{Z}_2*\mathbb{Z}_2
+			\]
+			All automorphisms are induced by Cremona
+			transformations, ie. there is a surjective
+			map
+			\[
+			\operatorname{Bir}(\mathbb{P}^3,S)
+			\overset{\pi}{\longrightarrow}
+			\operatorname{Aut}(S)
+			\]
+
+		\item (Paiva, Quedo 2023) Constructed
+		surfaces with $\rho(S)=2$,
+		$\operatorname{Aut}(S)=\mathbb{Z}_2$ and
+		$\operatorname{Bir}(\mathbb{P}^3,S)=\{1\}$.
+	\end{enumerate}
+\end{example}
+
+\begin{thm}[A-Paiva-(Socrates)
+Zika]\leavevmode
+	Solution of Giztallin S problem for
+	$\rho(S)=2$.
+\end{thm}
+
+\begin{remark}
+	Not exactly, but "there is a moduli space
+	for K3 surfaces of dimension $20-\rho(S)$".
+	The generic case is $\rho(S)=1$.
+\end{remark}
+
+\subsection{K3 surfaces}
+
+\begin{defn}
+	A \textit{\textbf{K3 surface}} is a smooth
+	projective surface that is simply connected
+	and has a nowhere vanishing symplectic form
+	$\omega\in H^{0}(S,\Omega^2_S)$
+\end{defn}
+
+\subsubsection{Lattices of $S$}
+
+A \textit{\textbf{lattice}} is a
+finitely-generated abelian group with a
+nondegenerate pairin.
+
+\begin{enumerate}
+	\item $H^{2}(X,\mathbb{Z})\cong \mathbb{Z}
+	\overset{\pi}{\hookleftarrow}
+	\operatorname{Pic}(S)
+	$. And if we tensor this with $\mathbb{C}$
+	we get $H^{2}(C,\mathbb{C})$, which admits a
+	Hodge decomposition.
+
+		Let's study automorphisms of a K3 surface.
+		Let $g\in\operatorname{Aut}(S)$. It yields
+		an element $g^*$ that acts on cohomology,
+		ie $g^*\in\mathcal{O}(H^{2}(X,\mathbb{Z}))$
+		preserving the Hodge decomposition. This is
+		called \textit{\textbf{Hodge isometry}}.
+
+\begin{thm}[Global Torelli
+theorem]\leavevmode
+	\begin{itemize}
+	\item The correspondence $g\mapsto g^*$ is
+	injective
+	
+	\item If
+	$\varphi\in\mathcal{O}(H^{2}(X,\mathbb{Z}))$
+	is a Hodge isometry preserving the ample
+	classes, then $\varphi=g^*$ for some
+	$g\in\operatorname{Aut}(S)$.
+	\end{itemize}
+\end{thm}
+\end{enumerate}
+
+\begin{example}
+	$S\subset \mathbb{P}^3$ smooth quartic
+	surface with $\rho(S)=2$. Using the
+	equivalence of line bundles module
+	isomorphism and curves modulo intersection,
+	\[\operatorname{Pic}(S)= \left<H,C\right> \]
+	where $H$ is a hyperplane section of
+	$\mathbb{P}^3$. Then
+	\[Q=\begin{pmatrix} H^2& H\cdot C\\H\cdot C&
+	C^2 \end{pmatrix} =\begin{pmatrix} 4&b\\b&2c
+	\end{pmatrix} \]
+	using that $2g(c)-1$, so the number in the
+	lower-right on RHS is even.
+\end{example}
+
+\begin{remark}
+	Hodge Index Them $Q$ is rank (1,1).
+\end{remark}
+
+\begin{defn}[Discriminant]
+	\[r=\operatorname{disc}(S)=-\det Q\]
+\end{defn}
+
+\begin{prop}
+	$S$ general K3 surface (not needed that it
+	is a quartic) with $\rho(S)=2$. Then
+	\[\operatorname{Aut}(S)=\begin{cases}
+		\{1\}\qquad &\text{(finite)}  \\
+		\mathbb{Z}_2\qquad &\text{(finite,
+		Dani-Ana)} \\
+		\mathbb{Z}\qquad&\text{(infinite, Oguiso
+		1)}  \\
+		\mathbb{Z}_2*\mathbb{Z}_2\qquad
+		&\text{(infinite, Dani-Ana)}
+	\end{cases}\]
+	where the first two are characterized by
+	containing a en elliptic curve or a
+	rational? curve, ir. $\exists
+	D\in\operatorname{Pic}(S)$ such that
+	$D^2=0,-2$. On the other hand, the last two
+	cases are distinguised by $\not\exists
+	D\in\operatorname{Pic}(S)$ such that
+	$D^2=0,-2$.
+
+	\[\exists
+	\sigma\in\operatorname{Aut}(S)\text{ of
+	order 2}\iff \exists  \text{ ample
+	}A\in\operatorname{Pic}(S) \text{ such that
+	}A^2=2.\]
+\end{prop}
+
+\begin{remark}
+	In low Picard numbers there are no
+	symplectic involutions…?
+\end{remark}
+
+So to understand the surface we want to
+understand those bundles and that is all in
+the discriminant (not in the lattice
+itself!).
+
+\begin{remark}
+	$\exists D\in\operatorname{Pic}(S)$ s.t.
+	$D^2=k \iff x^2-ry^2=4k$  has integer
+	solutions.
+\end{remark}
+
+Given the quadratic form we can find the
+automorphisms.
+
+\subsubsection{Main theorem}
+
+\begin{thm}[A-Paiva-Zika]\leavevmode
+	$S\subset \mathbb{P}^3$ general smooth
+	quartic surface with $\rho(S)=2$ and
+	$\operatorname{disc}(S)=r$.
+\begin{enumerate}
+	\item (Negative answer to Gizatulla's
+	problem) If $r>57$ or  $r=52$ then
+		 \[
+		 \operatorname{Bir}(\mathbb{P}^3,S)=\{1\}
+		 \]
+		 So we cannot realize any automorphism as a
+		 Cremona transformation.
+
+	\item If $r\leq 57$ and $r \neq 52$, then we
+	get the full automorphism group, ie. a
+	surjective map
+		\[
+		\operatorname{Bir}(\mathbb{P}^3,S)
+		\overset{\pi}{\longrightarrow}
+		\operatorname{Aut}(S)
+		\]
+\end{enumerate}
+\end{thm}
+
+\subsection{Birational geometry}
+
+Take the case of
+\[\begin{tikzcd}
+	\operatorname{Bir}(\mathbb{P}^2)=
+	\left<\operatorname{Aut}(\mathbb{P}^2),
+	q\right>
+	\\
+	\operatorname{Aut}(\mathbb{P}^2)
+	\arrow[u,hook]
+\end{tikzcd}\]
+and the map
+\begin{align*}
+	q: \mathbb{P}^2
+	&\overset{\operatorname{bir}}
+	{\longrightarrow}
+	\mathbb{P}^2
+	\\
+	(x:y:z) &\longmapsto
+	\left(\frac{1}{x}:\frac{1}{y}:
+	\frac{1}{z}\right)=(yz:xz:xy)
+\end{align*}
+which is well-known (Noether-Castelnuovo). So
+that is a decomposition of automorphisms and
+quadratics. Now in greater dimension, $n\geq
+3$ we have
+
+\begin{thm}[Sakisov Program]\leavevmode
+	(The theorem is much more general) Any
+	$\varphi
+	\in\operatorname{Pic}(\mathbb{P}^n)$ can be
+	factorized with  \textit{\textbf{Sarkisov
+	links}}  $\varphi_i$:
+	\[\begin{tikzcd}
+		\mathbb{P}^n
+		\arrow[r,dashed,"\varphi_1"]
+		\arrow[rrrr,bend left,"\varphi"]
+		&
+		X_1\arrow[r,dashed,"\varphi_2"]
+		\arrow[d]
+		&
+		X_2\arrow[r,dashed]\arrow[d]
+		&
+		\cdots
+		\arrow[r,dashed]&X_k=\mathbb{P}^n\\
+		&T_1&T_2
+	\end{tikzcd}\]
+\end{thm}
+
+Now look at $n=3$,
+$\operatorname{Bir}(\mathbb{P}^3,S)\subset
+\operatorname{Bir}(\mathbb{P}^3)$. This is a
+Calabi-Yau pair:
+
+\begin{defn}[Calabi-Yau pair]\leavevmode 
+	A pair $(X,D)$
+	\begin{itemize}
+	\item Terminal projective variety.
+	\item $K_X+D\sim0$ that is, a meromorphic
+	top form that does not vanish on
+	hypersurface and has simple pole on $D$.
+	Then $(X,D)$ is called \textit{\textbf{log
+	canonical}}.
+	\end{itemize}
+
+Now take two Calabi-Yau pairs $(X,D_X)$ and
+$(Y,D_Y)$.
+
+ \begin{align*}
+	\operatorname{div}(\omega_{D_X})&=-D_X\\
+	\operatorname{div}(\omega_{D_Y})&=-D_Y
+\end{align*}
+We say that a birrational map $f:X\to Y$ is
+\textit{\textbf{volume preserving}} is
+$f_*\omega_{D_X}=\omega_{D_Y}$.
+
+\end{defn}
+
+
+\begin{thm}[Volume-Preserving]\leavevmode
+	Everything like in the Sarkisov theorem but
+	now maps are volume-preserving.
+\end{thm}
+
+In our case, $(\mathbb{P}^3,S)$, we can
+classify the v.p. Sakisov links from
+$(\mathbb{P}^3,S)$. It starts by blowing up a
+curve $C\subset S$. But this curve has genus
+and degree very restricted, it's something
+like
+\[
+(g(C),\operatorname{deg}(C))\in
+\{(0,1),(0,2),\ldots,(11,10),(14,11)\}
+\]
+
+So for the main theorem, it was checked that
+if $r>57$ there are no curves from the list.
+And in the second item of the main theorem,
+there exist these curves, for instance curve
+$(14,11)$ for rank 56, then produce a link
+that starts by blowing it up and magically
+gives you the Cremona transformation that
+restricts with automorphism with which you
+started.
+
+\begin{remark}
+	So perhaps we expect the answer to G.
+	problem to be almost never.
+\end{remark}
+
+\begin{question}
+	How does that blowing-up work?
+\end{question}
+
+\[\begin{tikzcd}
+	X\arrow[r,"\text{flops}"
+	]\arrow[d,"\operatorname{Bl}_C"]&
+	X\arrow[d,"\text{contract?}" ]\\
+	C\subset S\subset
+	\mathbb{P}^3\arrow[r,dashed]&
+	\mathbb{P}^3\supset
+	S'\supset C'
+\end{tikzcd}\]
+So for example in case $(2,8)$ you obtain
+something of the same type.
+
+\phantomsection
+\stepcounter{section}
+\addcontentsline{toc}
+{section}{\thesection\quad
+Birational geometry of Calabi-Yau
+pairs}
+\addtocontents{toc}{\hspace{1em}\textit{
+Carolina
+Araujo}\par}
+\noindent
+Birational geometry of Calabi-Yau
+pairs.
+
+\medskip\noindent
+\textbf{Speaker.}
+Carolina Araujo.
+
+\medskip\noindent
+\textbf{Place.}
+IMPA.
+
+\medskip\noindent
+\textbf{Date.}
+January 31, 2025.
+
+\vspace{2em}
+\subsection{Pairs \((X,D)\)}
+Itaca's program (1970's): \(U\) complex
+algebraic variety. We want to find invariants
+like Kodaira dimension. Compactify \(U
+\rightsquigarrow X\), and consider
+\(X\setminus U:=D\) (the boundary). The
+\(\Omega^q_X(\operatorname{log}D)\)
+
+\begin{thm}[Itaca, 1977]\leavevmode
+Kodaira dimension of the pair \((X,D)\) does
+not depend on the choice of compactification
+(and it exists ;)
+\end{thm}
+
+\begin{defn}[Lu-Zhang, 2017]\leavevmode
+\((X,D)\) is
+\textit{\textbf{Brody-hyperbolic}}
+\textit{\textbf{(Mori-hyperbolic)}} if there
+is no nonconstant holomorphic (analytic)
+morphism  \(f:\mathbb{C} \to X\setminus D\)
+and the same holds for the open strata of
+\(D\).
+\end{defn}
+
+\begin{conjecture}
+\((X,D)\) is Brody-hyperbolic then \(K_X +
+D\) is ample.
+\end{conjecture}
+
+\begin{thm}[Sraldi, 2019]\leavevmode
+\((X,D)\) Mori-hyperbolic then \(K_X+D\) is
+nef.
+\end{thm}
+
+\begin{question}\leavevmode
+How to make sense of ``the birational
+geometry of \((X,D)\)"
+\end{question}
+
+\subsection{Calabi-Yau pairs}
+
+\begin{defn}[Calabi-Yau pair]\leavevmode
+We relax a condition: we won't ask that \(X\)
+is smooth, but that it is a terminal
+projective variety. And also that \(K_X+D
+\sim 0\) (I think this ``would be equivalent
+to" Kodaira dimension 0). Also ask that
+\((X,D)\) is log canonica.
+\end{defn}
+
+\begin{remark}\leavevmode
+The condition \(K_X+D \sim 0\) says that
+there is unique up to scaling volume form
+\(\omega_D \in \Omega^m_{\mathbb{C}(X)}\)
+that does not vanish and has a simple pole
+along \(D\), i.e.
+\(\operatorname{div}(\omega_D)=-D\).
+\end{remark}
+
+Now we study the birational geometry of CY
+pairs:
+
+\begin{defn}\leavevmode
+Let \((X,D_X),(Y,D_Y)\) CY pairs and \(f: X
+\dashrightarrow Y\) a birational map. We get
+a pullback
+\(f_*:\Omega^n_{\mathbb{C}(X)}
+\overset{\cong}{\to}
+\Omega^n_{\mathbb{C}(Y)}\). Then \(f:(X,D_X)
+\dashrightarrow (Y,D_Y)\) is
+\textit{\textbf{volume preserving}} is
+\(f_*(\omega_{D_X}=\lambda \omega_{D_Y}\).
+\end{defn}
+
+\begin{remark}[Valuative
+characterization]\leavevmode
+
+\end{remark}
+
+\begin{defn}\leavevmode
+\((X,D)\) CY pair,
+\[\operatorname{Bir}(X,D):=\{f \in
+\operatorname{Bir}(X) : f:(X,D)
+\dashrightarrow (X,D) \text{ is volume
+preserving} \}\]
+\end{defn}
+
+\subsection{The Sarkisov-Program}
+
+\(\operatorname{Bir}(\mathbb{P}^n)\) Cremona
+group.
+
+\begin{thm}[Noether-Castelnuovo,
+1870-1901]\leavevmode
+The creoma group of \(\mathbb{P}^2\) has a
+nice set of generators: maps of degree 1 and
+\(q\):
+\[\operatorname{Bir}(\mathbb{P}^2) =
+\left<\operatorname{Aut}(\mathbb{P}^2),
+q\right>\]
+where \(q\) is the \textit{\textbf{standard
+quadratic transformation}} given by \((x:y:z)
+\overset{q}{\mapsto }(yz:xz:xy)\)
+\end{thm}
+
+You might think that because it has such a
+nice group generators it'd be easy to study
+this group. It's not the case.
+
+Now in dimension 3:
+
+\begin{thm}[Hilda Hudson (1927)]\leavevmode
+\(\operatorname{Bir}(\mathbb{P}^n)\) does not
+admit a set of generators of bounded degree.
+\end{thm}
+
+\begin{thm}[Sarkisov Program, Corti 1995;
+Hazon-McKunam 2013 for \(n \geq
+4\)]\leavevmode
+	\[\begin{tikzcd}
+		\mathbb{P}^n
+		\arrow[r,dashed,"\varphi_1"]
+		\arrow[d]
+		\arrow[rrrr,bend left,"\varphi"]
+		&
+		X_1\arrow[r,dashed,"\varphi_2"]
+		\arrow[d]
+		&
+		X_2\arrow[r,dashed]\arrow[d]
+		&
+		\cdots
+		\arrow[r,dashed]&
+		X_k=\mathbb{P}^n\arrow[d]\\
+	\{\operatorname{pt}\}
+	&T_1&T_2&&\{\operatorname{pt}\}
+	\end{tikzcd}\]
+The intermediate varieties \(X_i/T_i\) are
+called \textit{\textbf{Mori-fiber spaces}},
+and \(\varphi_i\) are
+\textit{\textbf{Sarkisov links}}. So the
+theorem is that a map (what map?) can be
+factorized by Sarkisov links.
+\end{thm}
+
+\begin{thm}[Corti-Kalog(?) 2016]\leavevmode
+Any volume-preserving birrational map between
+Mori-fiber CY pairs is a composition of
+volume-preserving Sarkisov links. Now every
+intermidiate variety admits a divisor making
+it a CY pair:
+	\[\begin{tikzcd}
+		(X,D_X)\arrow[r,dashed,"\varphi_1"]
+		\arrow[d]\arrow[rrrr,bend left,"\varphi"]
+		&
+		(X_1,D_1)\arrow[r,dashed,"\varphi_2"]
+		\arrow[d]
+		&
+		(X_2,D_2)\arrow[r,dashed]\arrow[d]
+		&
+		\cdots
+		\arrow[r,dashed]&(Y,D_Y)\arrow[d]\\
+	T_X	&T_1&T_2&&T_Y
+	\end{tikzcd}\]
+\end{thm}
+
+\begin{remark}\leavevmode
+\begin{itemize}
+\item The Sarkisov links
+\[\begin{tikzcd}
+	 \mathbb{P}^n\arrow[r,
+	 dashed]\arrow[d]&X_1\arrow[d]\\
+	 \operatorname{pt}&T_1
+\end{tikzcd}\]
+are not classified.
+
+\item Depending on \(D\), the
+volume-preserving Sarkisov links
+\[\begin{tikzcd}
+	 \mathbb{P}^n\arrow[r,
+	 dashed]\arrow[d]&X_1\arrow[d]\\
+	 \operatorname{pt}&T_1
+\end{tikzcd}\]
+can be classified.
+\end{itemize}
+\end{remark}
+
+\begin{thm}[A-Coti-Massareti]\leavevmode
+\(D \subset \mathbb{P}^n\) a \textit{general}
+hypersurface of degree \(n+1\). If you want
+to study the birational group of the pair
+\((\mathbb{P}^n,D)\),
+\(\operatorname{Bir}(\mathbb{P}^n,D)\), then
+this group is not interesting. Because
+\(\operatorname{Bir}(\mathbb{P}^n,D)=
+\operatorname{Aut}(\mathbb{P}^n,D)\).
+
+And then also consider \(D\) smooth instead
+of general, and with Picard rank
+\(\rho(D)=1\).
+\end{thm}
+
+\begin{thm}[A-C-M]\leavevmode
+\(D \subset \mathbb{P}^3\) general (A1
+singularity and \(\rho(S)=1\)) quartic with a
+singularity.
+\(\operatorname{Bir}(\mathbb{P}^3,D)\cong
+\mathbb{G} \rtimes \mathbb{Z}/2\mathbb{Z}\),
+where \(\mathbb{G}\) is ``form of
+\(\mathbb{G}m\) over \(\mathbb{C}(x,y)\)".
+\end{thm}
+
+\subsection{Last application}
+
+\(X=X_d \subset \mathbb{P}^{n+1}\) smooth
+hypersurface of degree \(d\). I want to study
+the automorphism group.
+
+\begin{thm}[Matsumata-Monsky,
+1964]\leavevmode
+Except for the two cases when
+\(\mathcal{H}\), \((n,d)=(1,3)\) or
+\((2,4)\), any smooth automorphism is the
+restricition of an automorphism of the
+ambient space, i.e.
+\(\operatorname{Aut}(\mathbb{P}^{n+1},X)
+\twoheadrightarrow
+\operatorname{Aut}(X)\).
+
+In the exceptional cases: for \((n,d)=(1,3)\)
+we get \(\operatorname{Bir}(\mathbb{P}^2,C)
+\twoheadrightarrow \operatorname{Aut}(C)\)
+{\color{6}\(C\) is a curve}. For
+\((n,d)=(2,4)\), we  \textit{ask}: when
+\(\operatorname{Bir}(\mathbb{P}^3,S)
+\twoheadrightarrow \operatorname{Aut}(S)\)?
+\end{thm}
+
+\begin{thm}[A-Paiva-Zika]\leavevmode
+Complete solution \(\rho(S)=2\).
+\end{thm}
+
+
+
+
+
+
+
+\begin{thm}\leavevmode
+\(\nabla I = 0\) (connection preserves
+complex structure) and connection is torsion
+free, then \(I \) is integrable.
+\end{thm}
+
+\begin{exercise}\leavevmode
+
+Flat bundle on simply connected is trivial
+\end{exercise}
+
+\section{Comparison with the hyperk\"ahler
+story}
+\label{section-comparison-hyperkahler}
+
+\medskip\noindent
+Both stories say that birational
+geometry is controlled by cones and by
+wall crossing.
+But the cones are different.
+
+\medskip\noindent
+In the Mori and Sarkisov story, the
+basic cone is the Mori cone
+\[
+\overline{NE}_1(X),
+\]
+generated by curve classes.
+Its dual is the nef cone.
+The canonical class \(K_X\) is the
+driving functional.
+The \(K_X\)-negative extremal rays are
+contractible, and their contractions
+produce divisorial contractions,
+flips, or Mori fiber spaces.
+
+\medskip\noindent
+For Sarkisov, one studies a chamber
+decomposition of a cone of divisors.
+Two divisors lie in the same chamber
+when they define the same ample model.
+Moving from one chamber to an
+adjacent chamber changes the
+birational model.
+The rank two wall crossings are the
+Sarkisov links.
+Thus
+\[
+\text{Mori chambers}
+\Rightarrow
+\text{Sarkisov links}
+\Rightarrow
+\text{factorizations}.
+\]
+
+\medskip\noindent
+In the Calabi--Yau pair version,
+the same Sarkisov philosophy remains,
+but the boundary divisor and volume
+form are part of the data.
+The maps are volume-preserving
+birational maps of Calabi--Yau pairs,
+and the elementary pieces are
+volume-preserving Sarkisov links.
+
+\medskip\noindent
+In the hyperk\"ahler story, the
+canonical class is trivial.
+So \(K\) cannot drive the process.
+Instead, the cone is the positive cone
+inside \(H^{1,1}(M)\), defined using
+the Beauville--Bogomolov--Fujiki form
+\(q\):
+\[
+\mathcal C_M
+=
+\{x\in H^{1,1}(M):q(x)>0\}^{\circ}.
+\]
+Inside it sits the K\"ahler cone
+\(\mathcal K_M\).
+Amerik--Verbitsky describe a locally
+finite wall-and-chamber decomposition
+of \(\mathcal C_M\), with walls
+orthogonal to MBM classes.
+
+\medskip\noindent
+If
+\[
+\varphi:M\dashrightarrow M'
+\]
+is bimeromorphic, then
+\[
+\varphi^*\mathcal K_{M'}
+\]
+is another chamber in the same
+positive cone.
+Crossing a wall gives a small
+symplectic contraction and a
+wall-crossing flop.
+Amerik--Soldatenkov--Verbitsky show
+that these wall crossings give a
+finite decomposition into Hu--Yau
+transformations.
+In codimension two these are modeled
+by Mukai flops.
+
+\medskip\noindent
+The dictionary is:
+\[
+\begin{array}{c|c}
+\text{Mori/Sarkisov} &
+\text{hyperk\"ahler} \\
+\hline
+\text{Mori cone, nef cone} &
+\text{positive cone, K\"ahler cone} \\
+\text{extremal rays, faces} &
+\text{MBM walls} \\
+\text{Mori chambers} &
+\text{K\"ahler-type chambers} \\
+\text{MMP contractions} &
+\text{symplectic small contractions} \\
+\text{Sarkisov links} &
+\text{wall-crossing flops} \\
+\text{Mori fiber spaces} &
+\text{hyperk\"ahler models} \\
+K_X\text{-negative geometry} &
+K_M=0\text{ symplectic geometry} \\
+\text{volume-preserving CY links} &
+\text{Hu--Yau transformations}
+\end{array}
+\]
+
+\medskip\noindent
+Thus Carolina's side is the
+MMP/Sarkisov chamber geometry of
+Mori fiber spaces and Calabi--Yau
+pairs.
+Misha's side is the K\"ahler cone
+wall geometry of hyperk\"ahler
+manifolds.
+The common pattern is that a
+complicated birational map becomes a
+path through chambers of a cone, and
+the elementary steps are the wall
+crossings.
 \end{document}
