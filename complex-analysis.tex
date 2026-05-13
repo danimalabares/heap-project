@@ -8,45 +8,66 @@
 \phantomsection
 \label{section-phantom}
 \hfill
-\href{http://github.com/danimalabares/stack}{github.com/danimalabares/stack}
+\href{http://github.com/danimalabares/stack}%
+{github.com/danimalabares/stack}
 
 \tableofcontents
 
-\medskip\noindent
-{\bf Current status.}
+\section{Current status}
+\label{section-status}
+
 The basic result of complex analysis,
-Cauchy's integral formula \ref{equation-cauchy-integral-formula}
+Cauchy's integral formula
+\ref{equation-cauchy-integral-formula}
 is very well explained:
-if follows from Cauchy integral theorem \ref{theorem-cauchy},
-which is nothing else than an application of Stokes theorem,
+if follows from Cauchy integral theorem
+\ref{theorem-cauchy},
+which is nothing else than an application of
+Stokes theorem,
 (in this case also Green's theorem),
 which I do not prove in this document.
 After Cauchy's integral formula
 I prove that a function is holomorphic
-if and only if it is analytic (i.e. has convergent
-power series expansion in a neighbourhood of the point)
-in Theorem \ref{theorem-holomorphic-iff-analytic}.
-I use this to prove Riemann removable singularity theorem
+if and only if it is analytic (i.e. has
+convergent
+power series expansion in a neighbourhood of
+the point)
+in Theorem
+\ref{theorem-holomorphic-iff-analytic}.
+I use this to prove Riemann removable
+singularity theorem
 \ref{theorem-removable-singularity},
-from which I can explain how to ``factor zeroes'' of a 
-holomorphic function as in Equations \ref{equation-zero}
+from which I can explain how to ``factor
+zeroes'' of a
+holomorphic function as in Equations
+\ref{equation-zero}
 and \ref{equation-factor-zeroes}.
 
 The so-called Argument principle,
-which is presented as Exercise \ref{exercise-argument-principle},
+which is presented as Exercise
+\ref{exercise-argument-principle},
 follows easily from the above development.
-Also Morera's and Liouville's 
-theorems \ref{theorem-Morera} and \ref{theorem-Liouville} follow easily
+Also Morera's and Liouville's
+theorems \ref{theorem-Morera} and
+\ref{theorem-Liouville} follow easily
 and their proofs are outlined.
-Other important results not stated so far also follow,
-in particular: the \href{https://en.wikipedia.org/wiki/Identity_theorem}{
+Other important results not stated so far
+also follow,
+in particular: the
+\href{https://en.wikipedia.org/wiki/%
+Identity_theorem}{
 Identity theorem},
-which says that if two functions coincide in a 
-set with an accumulation point they will coincide in their domains,
-the open mapping theorem, and the maximum principle.
+which says that if two functions coincide in
+a
+set with an accumulation point they will
+coincide in their domains,
+the open mapping theorem, and the maximum
+principle.
 
-Next in Ahlfors book is a generalization of Cauchy's formula
-for cycles. And after that is the Residue theorem.
+Next in Ahlfors book is a generalization of
+Cauchy's formula
+for cycles. And after that is the Residue
+theorem.
 Next are harmonic functions, in particular
 the mean value theorem and Schwarz theorem.
 
@@ -54,18 +75,23 @@ And after all that elliptic functions.
 
 \medskip\noindent
 Then multivariable complex analysis,
-with a beautifully worked out proof of Weierstrass preparation theorem
-\ref{theorem-weierstrass-preparation-theorem},
-culminating in the proof that the ring of holomorphic
-functions $\mathcal{O}_n$ is a UFD via the Gauss lemma
-from Number Theory \ref{number-theory-gauss-lemma}.
+with a beautifully worked out proof of
+Weierstrass preparation theorem
+\ref{theorem-weier-prepa-theor},
+culminating in the proof that the ring of
+holomorphic
+functions $\mathcal{O}_n$ is a UFD via the
+Gauss lemma
+from Commutative Algebra
+\ref{commutative-algebra-lemma-gauss}.
 
 \section{Holomorphic functions}
 \label{section-holomorphic-functions}
 
 \begin{definition}
 \label{definition-holomorphic-function}
-A function $f:\Omega\subset \mathbb{C} \to \mathbb{C}$
+A function $f:\Omega\subset \mathbb{C} \to
+\mathbb{C}$
 is {\it holomorphic} at $z_0 \in \Omega$ if
 $$
 \lim_{z\to z_0} \frac{f(z)-f(z_0)}{z-z_0}
@@ -76,7 +102,7 @@ exists.
 \noindent
 This is equivalent to
 \begin{equation}
-\label{equation-holomorphic-function-second-definition}
+\label{equation-holom-funct-secon-defin}
 \lim_{h\to 0} \frac{f(z_0+h)-f(z_0)}{h}
 \end{equation}
 where $h$ is a complex parameter.
@@ -87,66 +113,90 @@ where $h$ is a complex parameter.
 
 \begin{theorem}
 \label{theorem-cauchy-riemann}
-Let $f:\Omega\subset\mathbb{C}\to \mathbb{C}$ be a function. Let $z=x+iy$ coordinates
+Let $f:\Omega\subset\mathbb{C}\to \mathbb{C}$
+be a function. Let $z=x+iy$ coordinates
 in $\mathbb{C}$. Define $f:=u+iv$ and
-$z_0=x_0+iy_0 \in \Omega$. $f$ is holomorphic at $z_0$ if and only if
+$z_0=x_0+iy_0 \in \Omega$. $f$ is holomorphic
+at $z_0$ if and only if
 $$
-\frac{\partial u}{\partial x}=\frac{\partial v}{\partial y},\qquad
-\frac{\partial v}{\partial x}=-\frac{\partial u}{\partial y}.
+\frac{\partial u}{\partial x}=\frac{\partial
+v}{\partial y},\qquad
+\frac{\partial v}{\partial x}=-\frac{\partial
+u}{\partial y}.
 $$
 \end{theorem}
 
 \begin{proof}
-The idea is to use Equation \ref{equation-holomorphic-second-definition}
-as definition of holomorphic function. 
+The idea is to use Equation
+\ref{equation-holomorphic-second-definition}
+as definition of holomorphic function.
 Let's differentiate along the $x$ axis.
 Let $h \in \mathbb{R}$
 (this time $h$ {\it is} just a real number,
-while in the definition of holomorphic function
+while in the definition of holomorphic
+function
 it is a complex parameter).
 We see that
 \begin{align*}
-f(z_0+h)-f(z_0)&=\Big(u(x_0+h,y_0)+iv(x_0+h,y_0)\Big)-\Big(u(x_0,y_0)+iv(x_0,y_0)\Big)\\
-&=\Big(u(x_0+h,y_0)-u(x_0,y_0)\Big)+i\Big(v(x_0+h,y_0)-v(x_0,y_0)\Big)
+f(z_0+h)-f(z_0)&=\Big(u(x_0+h,y_0)+iv(x_0+h,
+y_0)\Big)-\Big(u(x_0,y_0)+iv(x_0,y_0)\Big)\\
+&=\Big(u(x_0+h,y_0)-u(x_0,y_0)\Big)+
+i\Big(v(x_0+h,y_0)-v(x_0,y_0)\Big)
 \end{align*}
 
 \noindent
 Takin limit as $h \to 0$ we obtain
 \begin{equation}
 \label{equation-crproof1}
-\frac{\partial u}{\partial x}+i\frac{\partial v}{\partial x}.
+\frac{\partial u}{\partial x}+i\frac{\partial
+v}{\partial x}.
 \end{equation}
-If we differentiate along the $y$ axis we shall obtain
+If we differentiate along the $y$ axis we
+shall obtain
 \begin{equation}
 \label{equation-crproof2}
-\frac{\partial v}{\partial y}-i\frac{\partial u}{\partial y}.
+\frac{\partial v}{\partial y}-i\frac{\partial
+u}{\partial y}.
 \end{equation}
 Indeed, we let $h$ be again a real number,
 but now we multiply by $i$:
 \begin{align*}
-f(z_0+ih)-f(z_0)&=\Big(u(x_0,y_0+ih)+iv(x_0,y_0+ih)\Big)-\Big(u(x_0,y_0)+iv(x_0,y_0)\Big)\\
-&=\Big(u(x_0,y_0+ih)-u(x_0,y_0)\Big)+i\Big((v(x_0,y_0+ih)-v(x_0,y_0)\Big)\ldots
+f(z_0+ih)-f(z_0)&=\Big(u(x_0,y_0+ih)+iv(x_0,
+y_0+ih)\Big)-\Big(u(x_0,y_0)+iv(x_0,y_0)\Big)
+\\
+&=\Big(u(x_0,y_0+ih)-u(x_0,y_0)\Big)+
+i\Big((v(x_0,y_0+ih)-v(x_0,y_0)\Big)\ldots
 \end{align*}
 
 \noindent
-To agree with our definition we must take limit as $ih \to 0$.
+To agree with our definition we must take
+limit as $ih \to 0$.
 Thus we obtain
 \begin{align*}
 \lim_{ih \to 0}\frac{f(z+ih)-f(z)}{ih}
-&=\frac{1}{i}\left(\frac{\partial u}{\partial y}+i\frac{\partial v}{\partial y}\right)
-=\frac{\partial v}{\partial y}-i\frac{\partial u}{\partial y}
+&=\frac{1}{i}\left(\frac{\partial u}{\partial
+y}+i\frac{\partial v}{\partial y}\right)
+=\frac{\partial v}{\partial
+y}-i\frac{\partial u}{\partial y}
 \end{align*}
 
 \noindent
-To conclude observe that since $f$ is holomorphic,
-The expressions \ref{equation-crproof1} and  \ref{equation-crproof2}
-must both equal the derivative of $f$ at $z_0$.
-Matching real and imaginary parts gives the result.
+To conclude observe that since $f$ is
+holomorphic,
+The expressions \ref{equation-crproof1} and
+\ref{equation-crproof2}
+must both equal the derivative of $f$ at
+$z_0$.
+Matching real and imaginary parts gives the
+result.
 
 \medskip\noindent
-For the converse first observe that if $u$ and $v$
-are two real-valued functions of two real variables
-satisfying Cauchy-Riemann equations \ref{equation-cauchy-riemann},
+For the converse first observe that if $u$
+and $v$
+are two real-valued functions of two real
+variables
+satisfying Cauchy-Riemann equations
+\ref{equation-cauchy-riemann},
 then they are harmonic, i.e.
 \begin{align*}
 \Delta u&=\frac{\partial^2 u}{\partial x^2}+
@@ -156,53 +206,69 @@ then they are harmonic, i.e.
 \end{align*}
 
 \noindent
-Now if $u$ and $v$ have continuous first-order partial
+Now if $u$ and $v$ have continuous
+first-order partial
 derivatives, then we know (?) that
 \begin{align*}
 u(x+h,y+k)-u(x,y)
-&=\frac{\partial u}{\partial x}h+\frac{\partial u}{\partial y}k+\varepsilon_1\\
+&=\frac{\partial u}{\partial
+x}h+\frac{\partial u}{\partial
+y}k+\varepsilon_1\\
 v(x+h,y+k)-v(x,y)
-&=\frac{\partial v}{\partial x}h+\frac{\partial v}{\partial y}k+\varepsilon_2.
+&=\frac{\partial v}{\partial
+x}h+\frac{\partial v}{\partial
+y}k+\varepsilon_2.
 \end{align*}
 
 \noindent
-For real numbers $h,k,\varepsilon_1$ and $\varepsilon_2$,
-where $\varepsilon_1,\varepsilon_2$ tend to zero
+For real numbers $h,k,\varepsilon_1$ and
+$\varepsilon_2$,
+where $\varepsilon_1,\varepsilon_2$ tend to
+zero
 more rapidly than $h+ik$ in the sense that
-$\varepsilon_1/(h+ik) \to 0$ and $\varepsilon_2/(h+ik)\to 0$ 
+$\varepsilon_1/(h+ik) \to 0$ and
+$\varepsilon_2/(h+ik)\to 0$
 for $h+ik\to 0$. Then we compute that
 \begin{align*}
 f(z+h+ik)-f(z)
 &=u(z+h+ik)+iv(z+h+ik)-(u(z)+iv(z))\\
 &=u(x+h,y+k)+iv(x+h,y+k)-u(x,y)-iv(x,y)\\
-&=u_xh+u_yk+\varepsilon_1+i(v_xh+v_yk+\varepsilon_2)
-&=h(u_x+iv_x)+k(u_y+iv_y)+\varepsilon_1+i\varepsilon_2\\
-&=h(u_x+iv_x)+k(-v_x+iu_x)+\varepsilon_1+i\varepsilon_2
+&=u_xh+u_yk+\varepsilon_1+i(v_xh+v_yk+
+\varepsilon_2)
+&=h(u_x+iv_x)+k(u_y+iv_y)+\varepsilon_1+
+i\varepsilon_2\\
+&=h(u_x+iv_x)+k(-v_x+iu_x)+\varepsilon_1+
+i\varepsilon_2
 \qquad \text{by Cauchy-Riemann}\\
-&=h(u_x+iv_x)+ik(iv_x+u_x)+\varepsilon_1+i\varepsilon_2.
+&=h(u_x+iv_x)+ik(iv_x+u_x)+\varepsilon_1+
+i\varepsilon_2.
 \end{align*}
 
 \noindent
 Then we see that
 $$
 \lim_{h+ik\to 0}\frac{f(z+h+ik)-f(z)}{h+ik}
-=\frac{\partial u}{\partial x}+i\frac{\partial v}{\partial x},
+=\frac{\partial u}{\partial
+x}+i\frac{\partial v}{\partial x},
 $$
-so that the limit exists and thus $f$ is holomorphic.
+so that the limit exists and thus $f$ is
+holomorphic.
 \end{proof}
 
 \section{Integration}
 \label{section-integration}
 
 \noindent
-The complex integral may first be defined for a complex-valued function $f$
+The complex integral may first be defined for
+a complex-valued function $f$
 defined on a real integral as
 $$
 \int_a^bf=\int_a^b u + i \int_a^bv.
 $$
 And then for curves as
 $$
-\int_\gamma f:=\int_a^b f(\gamma(t))\gamma'(t)dt.
+\int_\gamma f:=\int_a^b
+f(\gamma(t))\gamma'(t)dt.
 $$
 \section{Cauchy integral theorem}
 \label{section-cauchy-integral}
@@ -210,15 +276,18 @@ $$
 \noindent
 The upshot about complex integration
 (and complex analysis, really)
-is that the integral $\int_\Delta fdz$ vanishes
+is that the integral $\int_\Delta fdz$
+vanishes
 by Stokes theorem when $f$ is holomorphic.
 This leads to Cauchy integral formula and
 several other results.
-Beware: this works only when the domain is simply connected.
+Beware: this works only when the domain is
+simply connected.
 
 \begin{theorem}[Cauchy]
 \label{theorem-cauchy}
-If $f(z)$ is analytic in an open disk $\Delta$, then
+If $f(z)$ is analytic in an open disk
+$\Delta$, then
 \begin{equation}
 \label{equationcauchy-theorem}
 \int_\gamma f(z)dz=0
@@ -227,79 +296,108 @@ for every closed curve $\gamma$ in $\Delta$.
 \end{theorem}
 
 \begin{proof}
-The following proof comes from 
-\href{https://en.wikipedia.org/wiki/Cauchy%27s_integral_theorem}{wiki}.
+The following proof comes from
+\href{https://en.wikipedia.org/wiki/Cauchy
+% 27s_integral_theorem}{wiki}.
 First write
 $$
 \int_\gamma f(z)dz=\int_\gamma(u+iv)(dx+idy)
 =\int_\gamma (udx-vdy)+i\int_\gamma(vdx+udy).
 $$
-Now apply Stokes theorem. For example, the second integral is
+Now apply Stokes theorem. For example, the
+second integral is
 $$
-\int_{\partial\Delta}(vdx+udy)=\int_\Delta d(vdx+udy)
-=\int_\Delta(\partial_xu-\partial_yv)\text{Vol}.
+\int_{\partial\Delta}(vdx+udy)=\int_\Delta
+d(vdx+udy)
+=\int_\Delta(\partial_xu-\partial_yv)
+\text{Vol}.
 $$
 There's Cauchy-Riemann equations!
 \end{proof}
 
 \noindent
-The following result is essential for proving Cauchy integral formula.
-We are interested in taking a point away from the domain
-and seeing if we can extend the function holomorphically.
-The condition we need for this to work is given by the following theorem:
+The following result is essential for proving
+Cauchy integral formula.
+We are interested in taking a point away from
+the domain
+and seeing if we can extend the function
+holomorphically.
+The condition we need for this to work is
+given by the following theorem:
 
 \begin{theorem}
 \label{theorem-cauchy-removable}
-Let $f$ be analytic in the region $\Delta'$ by omitting a finite number of
-points $z_j$ from an open disk $\Delta$. If $f$ satisfies that
+Let $f$ be analytic in the region $\Delta'$
+by omitting a finite number of
+points $z_j$ from an open disk $\Delta$. If
+$f$ satisfies that
 \begin{equation}
 \label{equation-removable-singularity}
 \lim_{z\to z_j} (z-z_j)f(z)=0
 \end{equation}
-for all $j$, then $\int_\gamma fdz=0$ for any closed curve
+for all $j$, then $\int_\gamma fdz=0$ for any
+closed curve
 $\gamma$ in $\Delta'$.
 \end{theorem}
 
 \begin{proof}[Proof]
-So I think it might be using logarithmic derivative. The limit above allows to
+So I think it might be using logarithmic
+derivative. The limit above allows to
 write
 $$
 |f(z)|\leq \frac{\varepsilon}{|z-z_j|}
 $$
-Then integrate. On the left we can bound the integral of $f$ after applying
-integral triangle inequality, and on the right we have logarithmic derivative of
-$z-z_j$. This will be a fixed number (the index, see Definition
-\ref{definition-index}), so that we have effectively bounded the integral.
+Then integrate. On the left we can bound the
+integral of $f$ after applying
+integral triangle inequality, and on the
+right we have logarithmic derivative of
+$z-z_j$. This will be a fixed number (the
+index, see Definition
+\ref{definition-index}), so that we have
+effectively bounded the integral.
 \end{proof}
 
 \section{Cauchy integral formula}
 \label{sectioncauchy-integral-formula}
 
 \noindent
-The way to Cauchy's integral formula is basically:
-holomorphic functions satisfy Cauchy-Riemann equations,
-which give Cauchy's integral theorem 
+The way to Cauchy's integral formula is
+basically:
+holomorphic functions satisfy Cauchy-Riemann
+equations,
+which give Cauchy's integral theorem
 (which is just a consequence Stokes)
-and then apply this to the function $\frac{f(z)-f(z_0)}{z-z_0}$.
+and then apply this to the function
+$\frac{f(z)-f(z_0)}{z-z_0}$.
 
-The theorem says that we can compute the value of
-a holomorphic function at a point as an integral around the point.
-The crucial point here is that the function inside the integral
-has a singularity at the point because of the fraction $\frac{1}{z-z_0}$.
+The theorem says that we can compute the
+value of
+a holomorphic function at a point as an
+integral around the point.
+The crucial point here is that the function
+inside the integral
+has a singularity at the point because of the
+fraction $\frac{1}{z-z_0}$.
 This is to be understood as the fact
-that the domain of holomorphy is not simply connected, and thus
-(we cannot apply Stokes) the integral does not vanish --- 
-it gives the value of the function at the point!
+that the domain of holomorphy is not simply
+connected, and thus
+(we cannot apply Stokes) the integral does
+not vanish ---
+it gives the value of the function at the
+point!
 
-To prove a general version we shall use the notion of index of a curve
-about a point, which tells us how many times the curve winds about the point.
+To prove a general version we shall use the
+notion of index of a curve
+about a point, which tells us how many times
+the curve winds about the point.
 
 \begin{lemma}
 \label{lemma-index-is-multiple-of-2pii}
 \begin{reference}
 \cite[Section 2.2, Lemma 1]{ahl}
 \end{reference}
-If the piecewise differentiable closed curve $\gamma$ does not pass through the
+If the piecewise differentiable closed curve
+$\gamma$ does not pass through the
 point $a$, then the value of the integral
 $$
 \int_\gamma\frac{dz}{z-a}
@@ -307,31 +405,48 @@ $$
 is a multple of $2\pi i$.
 \end{lemma}
 
-An idea (though not at proof) for a proof is the following:
-We are tempted to simply write the integrand as the logarithmic derivative of
-the function $f(z)=z-a$. But this isn't quite right, we must be careful with the
-domain of the logarithm. But it is instructive to see the computation:
+An idea (though not at proof) for a proof is
+the following:
+We are tempted to simply write the integrand
+as the logarithmic derivative of
+the function $f(z)=z-a$. But this isn't quite
+right, we must be careful with the
+domain of the logarithm. But it is
+instructive to see the computation:
 $$
-\int_\gamma\frac{dz}{z-a}=\int_\gamma d \text{log}(z-a)=
-\int_\gamma d\text{log}|z-a|+i\int_\gamma d \text{arg}(z-a)
+\int_\gamma\frac{dz}{z-a}=\int_\gamma d
+\text{log}(z-a)=
+\int_\gamma d\text{log}|z-a|+i\int_\gamma d
+\text{arg}(z-a)
 $$
-If  $\gamma$ is closed then $\text{log}|z-a|$ would return to its initial value
-and $\text{arg}(z-a)$ increases or decreases by a multiple of $2\pi$. The actual
+If  $\gamma$ is closed then $\text{log}|z-a|$
+would return to its initial value
+and $\text{arg}(z-a)$ increases or decreases
+by a multiple of $2\pi$. The actual
 proof by Ahlfors is different.
 
 \begin{proof}[Proof for circle]
-Still, the proof for a circle about a point $z_0$ is also trivial: this is just
-the case of the integral $\int_{\partial\Delta}\frac{dz}{z-z_0}$, but the curve
-here is  $\gamma(t)=e^{it}+z_0$ so that when substituting in the parametrization
-we obtain $\int_0^{2\pi}\frac{ie^{it}}{(e^{it}+z_0)-z_0}=2\pi i$.
+Still, the proof for a circle about a point
+$z_0$ is also trivial: this is just
+the case of the integral
+$\int_{\partial\Delta}\frac{dz}{z-z_0}$, but
+the curve
+here is  $\gamma(t)=e^{it}+z_0$ so that when
+substituting in the parametrization
+we obtain
+$\int_0^{2\pi}\frac{ie^{it}}{(e^{it}+z_0)-
+z_0}=2\pi
+i$.
 \end{proof}
 
 \begin{definition}
 \label{definition-index}
-The {\it index} of the point $a$ with respect to the closed curve $\gamma$ is
+The {\it index} of the point $a$ with respect
+to the closed curve $\gamma$ is
 \begin{equation}
 \label{equation-index}
-n(\gamma,a):=\frac{1}{2\pi i}\int_\gamma\frac{dz}{z-a}
+n(\gamma,a):=\frac{1}{2\pi
+i}\int_\gamma\frac{dz}{z-a}
 \end{equation}
 \end{definition}
 
@@ -340,52 +455,69 @@ n(\gamma,a):=\frac{1}{2\pi i}\int_\gamma\frac{dz}{z-a}
 \begin{reference}
 \cite[Section 2.2, Theorem 6]{ahl}
 \end{reference}
-Suppose that $f(z)$ is analytic in an open disk $\Delta$, and let $\gamma$ be a
-closed curve in $\Delta$. For any point not on $\gamma$,
+Suppose that $f(z)$ is analytic in an open
+disk $\Delta$, and let $\gamma$ be a
+closed curve in $\Delta$. For any point not
+on $\gamma$,
 \begin{equation}
 \label{equation-cauchy-integral-formula}
-n(\gamma,a)f(a)=\frac{1}{2\pi i}\int_\gamma\frac{f(z)dz}{z-a}
+n(\gamma,a)f(a)=\frac{1}{2\pi
+i}\int_\gamma\frac{f(z)dz}{z-a}
 \end{equation}
-where $n(\gamma,a)$ is the index of $a$ with respect to $\gamma$.
+where $n(\gamma,a)$ is the index of $a$ with
+respect to $\gamma$.
 \end{theorem}
 
 \begin{proof}
-This is a simple application of Theorem \ref{theorem-cauchy-removable} for the
+This is a simple application of Theorem
+\ref{theorem-cauchy-removable} for the
 function
 $$
 F(z):=\frac{f(z)-f(a)}{z-a}
 $$
-Notice the limit condition holds, so that the integral vanishes!
+Notice the limit condition holds, so that the
+integral vanishes!
 \end{proof}
 
 \noindent
-Notice that we can differentiate Cauchy integral formula to obtain
+Notice that we can differentiate Cauchy
+integral formula to obtain
 \begin{equation}
-\label{equation-first-derivativecauchy-formula}
-f'(z)=\frac{1}{2\pi i}\int_\gamma\frac{f(\zeta)}{(\zeta-z)^2}d\zeta
+\label{equation-first-deriv-formu}
+f'(z)=\frac{1}{2\pi
+i}\int_\gamma\frac{f(\zeta)}{(\zeta-z)^2}
+d\zeta
 \end{equation}
 and more generally
 $$
-f^{(n)}(z)=\frac{n!}{2\pi i}\int_\gamma \frac{f(\zeta)}{(\zeta-z)^{n+1}}
+f^{(n)}(z)=\frac{n!}{2\pi i}\int_\gamma
+\frac{f(\zeta)}{(\zeta-z)^{n+1}}
 $$
-Though we can just say that integrals can be differentiating by splitting into
-real and imaginary part, and using the real derivative, a technical lemma is 
-used by Ahlfors to confirm that indeed we can differentiate
+Though we can just say that integrals can be
+differentiating by splitting into
+real and imaginary part, and using the real
+derivative, a technical lemma is
+used by Ahlfors to confirm that indeed we can
+differentiate
 under the integral sign.
 
 \begin{lemma}
 \label{lemma-differentiation-of-integral}
-Suppose that $\varphi(\zeta)$ is continuous on the arc $\gamma$.
+Suppose that $\varphi(\zeta)$ is continuous
+on the arc $\gamma$.
 Then the function
 $$
-F_n(z)=\int_\gamma \frac{\varphi(\zeta)}{(\zeta-z)^n}d\zeta
+F_n(z)=\int_\gamma
+\frac{\varphi(\zeta)}{(\zeta-z)^n}d\zeta
 $$
-is analytic in each of the regions determined by $\gamma$,
+is analytic in each of the regions determined
+by $\gamma$,
 and its derivative is $F_n'(z)=nF_{n+1}(z)$.
 \end{lemma}
 
 \noindent
-The importance of this result is that it shows that a holomorphic function has
+The importance of this result is that it
+shows that a holomorphic function has
 derivatives of all degrees.
 
 Then we state two interesting results:
@@ -395,70 +527,100 @@ Then we state two interesting results:
 \begin{reference}
 \cite[p. 122]{ahl}
 \end{reference}
-If $f(z)$ is defined and continuous in a region $\Omega$, and if 
-$\int_\gamma fdz=0$ for all closed curves $\gamma$ in $\Omega$, then $f(z)$ is
+If $f(z)$ is defined and continuous in a
+region $\Omega$, and if
+$\int_\gamma fdz=0$ for all closed curves
+$\gamma$ in $\Omega$, then $f(z)$ is
 analytic in $\Omega$.
 \end{theorem}
 
 \noindent
-This is what Lee calls a {\it conservative covector field}, i.e. a form whose
-integral on closed curves vanishes. The proof of Morera's theorem then reduces
-to the fact that a covector field is conservative if and only if it is exact
-\cite[Theorem 11.42]{les}. The reverse implication is the fundamental theorem of
-calculus. The forward implication is not very straightforward in \cite{les}.
+This is what Lee calls a {\it conservative
+covector field}, i.e. a form whose
+integral on closed curves vanishes. The proof
+of Morera's theorem then reduces
+to the fact that a covector field is
+conservative if and only if it is exact
+\cite[Theorem 11.42]{les}. The reverse
+implication is the fundamental theorem of
+calculus. The forward implication is not very
+straightforward in \cite{les}.
 
-As a final remark, I add that (\cite[Propoistion 11.40]{les}) a smooth covector
-field is conservative if and only if its line integrals are path-independent, in
-the sense that integrals coincide along two {\it piecewise} smooth curve
-segments with the same starting and ending points. That is, form is exact
-implies integral independent of homotopy class?
+As a final remark, I add that
+(\cite[Propoistion 11.40]{les}) a smooth
+covector
+field is conservative if and only if its line
+integrals are path-independent, in
+the sense that integrals coincide along two
+{\it piecewise} smooth curve
+segments with the same starting and ending
+points. That is, form is exact
+implies integral independent of homotopy
+class?
 
 We finish with
 
 \begin{theorem}[Liouville]
 \label{theorem-Liouville}
-A bounded holomorphic function defined on all of $\mathbb{C}$ must be constant.
+A bounded holomorphic function defined on all
+of $\mathbb{C}$ must be constant.
 \end{theorem}
 
 \begin{proof}
-Let $\gamma$ be a circle of radius $r$ about $z$, then by the first derivative
-of Cauchy formula (Eq. \ref{equation-first-derivativecauchy-formula}),
+Let $\gamma$ be a circle of radius $r$ about
+$z$, then by the first derivative
+of Cauchy formula (Eq.
+\ref{equation-first-deriv-formu}),
 $$
-|f'(z)|\leq \frac{M}{2\pi i}\int_\gamma \frac{d\zeta}{|\zeta-z|^2}
+|f'(z)|\leq \frac{M}{2\pi i}\int_\gamma
+\frac{d\zeta}{|\zeta-z|^2}
 $$
-and compute the integral, which is $\frac{2\pi i}{r}$.
+and compute the integral, which is
+$\frac{2\pi i}{r}$.
 \end{proof}
 
 \noindent
-A fun application of this is proving the fundamental theorem of algebra. If a
-complex polynomial had no zeroes, $1/P(z)$ would be analytic in all of
-$\mathbb{C}$, and since $P(z)$ tends to $\infty$ as $z$ tends to $\infty$,
-$1/P(z)$ is bounded (use Riemann sphere argument).
+A fun application of this is proving the
+fundamental theorem of algebra. If a
+complex polynomial had no zeroes, $1/P(z)$
+would be analytic in all of
+$\mathbb{C}$, and since $P(z)$ tends to
+$\infty$ as $z$ tends to $\infty$,
+$1/P(z)$ is bounded (use Riemann sphere
+argument).
 
 \section{Taylor series}
 \label{section-taylor}
 
 \noindent
-In this section I put 
-\href{https://en.wikipedia.org/wiki/Analyticity_of_holomorphic_functions}
+In this section I put
+\href{https://en.wikipedia.org/wiki/%
+Analyticity_of_holomorphic_functions}
 {wiki's proof}
-that a function is holomorphic if and only if it is analytic.
+that a function is holomorphic if and only if
+it is analytic.
 This gives for free the Taylor expansion.
-See Remark \ref{remark-taylor-before} to understand why this is here
+See Remark \ref{remark-taylor-before} to
+understand why this is here
 and not elsewhere in this notes.
 
 \medskip\noindent
-Before proving the statement I need the following tool,
+Before proving the statement I need the
+following tool,
 which I also borrow from
-\href{https://en.wikipedia.org/wiki/Weierstrass_M-test}{wiki}.
+\href{https://en.wikipedia.org/wiki/%
+Weierstrass_M-test}{wiki}.
 
 \begin{theorem}[Weierstrass M-test]
 \label{theorem-m-test}
-Suppose that $(f_n)$ is a sequence of real or complex-valued functions
-defined on a set $A$, and that there is a sequence
+Suppose that $(f_n)$ is a sequence of real or
+complex-valued functions
+defined on a set $A$, and that there is a
+sequence
 of non-negative numbers $(M_n)$ satisfying
 \begin{itemize}
-\item $|f_n(x)|<M_n$ for all $n \geq 1$ and all $x \in A$, and
+\item $|f_n(x)|<M_n$ for all $n \geq 1$ and
+all $x \in A$, and
 \item $\sum_{n=1}^\infty M_n$ converges.
 \end{itemize}
 
@@ -469,34 +631,49 @@ converges absolutely and uniformly on $A$.
 \end{theorem}
 
 \begin{proof}
-The sequence $S_n$ of partial sums is shown to be a Cauchy sequence,
-which must converge by completeness of $\mathbb{C}$. Indeed,
-for any $x \in A$ and large enough $m>n>N$, we must have
+The sequence $S_n$ of partial sums is shown
+to be a Cauchy sequence,
+which must converge by completeness of
+$\mathbb{C}$. Indeed,
+for any $x \in A$ and large enough $m>n>N$,
+we must have
 $$
-|S_m(x)-S_n(x)|=|\sum_{k=n+1}^mf_k(x)|\leq \sum_{k=n+1}^m|f_k(x)|
+|S_m(x)-S_n(x)|=|\sum_{k=n+1}^mf_k(x)|\leq
+\sum_{k=n+1}^m|f_k(x)|
 <\sum_{k=n+1}^mM_k.
 $$
-To conclude we basically apply the argument backwards:
-saying that $\sum_{k}M_k$ converges is the same as saying
+To conclude we basically apply the argument
+backwards:
+saying that $\sum_{k}M_k$ converges is the
+same as saying
 that the sequence of partial sums converges,
-which is equivalent to saying it is a Cauchy sequence,
-and that's just saying that the rightmost number on the right
-is smaller than any $\varepsilon>0$ for suitable $N$.
-(This argument is commonly known as 
-\href{https://en.wikipedia.org/wiki/Cauchy%27s_convergence_test}{
+which is equivalent to saying it is a Cauchy
+sequence,
+and that's just saying that the rightmost
+number on the right
+is smaller than any $\varepsilon>0$ for
+suitable $N$.
+(This argument is commonly known as
+\href{https://en.wikipedia.org/wiki/Cauchy
+% 27s_convergence_test}{
 Cauchy convergence test}.)
 
 Notice that convergence is uniform
-since the limit converges regardless of the choice of $x$.
-(Of course this not very profound 
-since the bounds $M_n$ are uniform by hypothesis.)
+since the limit converges regardless of the
+choice of $x$.
+(Of course this not very profound
+since the bounds $M_n$ are uniform by
+hypothesis.)
 \end{proof}
 
 \begin{definition}
 \label{definition-analytic}
-A function $f:\Omega \subset \mathbb{C} \to \mathbb{C}$ is
-{\it analytic} at $z_0 \in \Omega$ if in some open disk centered at $z_0$ 
-it can be expanded as a convergent power series
+A function $f:\Omega \subset \mathbb{C} \to
+\mathbb{C}$ is
+{\it analytic} at $z_0 \in \Omega$ if in some
+open disk centered at $z_0$
+it can be expanded as a convergent power
+series
 $$
 f(z)=\sum_{n=0}^\infty c_n(z-z_0)^n.
 $$
@@ -504,78 +681,108 @@ $$
 
 \begin{theorem}
 \label{theorem-holomorphic-iff-analytic}
-A function $f:\Omega \subset \mathbb{C} \to \mathbb{C}$ is holomorphic
-in the sense of Definition \ref{definition-holomorphic-function}
+A function $f:\Omega \subset \mathbb{C} \to
+\mathbb{C}$ is holomorphic
+in the sense of Definition
+\ref{definition-holomorphic-function}
 if and only if it is analytic.
 \end{theorem}
 
 \begin{proof}
 The backward implication is easy.
-Suppose that $f(z)=\sum_{n=0}^\infty c_n(z-z_0)^n$.
+Suppose that $f(z)=\sum_{n=0}^\infty
+c_n(z-z_0)^n$.
 Then
 \begin{align*}
 \lim_{z \to z_0}\frac{f(z)-f(z_0)}{z-z_0} &=
-\lim_{z\to z_0}\frac{\sum_{n=0}^\infty c_n(z-z_0)^n-c_0}{z-z_0}\\
-&=\lim_{z\to z_0}\frac{\sum_{n=1}^\infty c_n(z-z_0)^n}{z-z_0}\\
-&=\lim_{z\to z_0}\sum_{n=1}^\infty c_n(z-z_0)^{n-1}=c_1.
+\lim_{z\to z_0}\frac{\sum_{n=0}^\infty
+c_n(z-z_0)^n-c_0}{z-z_0}\\
+&=\lim_{z\to z_0}\frac{\sum_{n=1}^\infty
+c_n(z-z_0)^n}{z-z_0}\\
+&=\lim_{z\to z_0}\sum_{n=1}^\infty
+c_n(z-z_0)^{n-1}=c_1.
 \end{align*}
 
 \noindent
-The forward implication uses Cauchy integral formula
-\ref{equation-cauchy-integral-formula} and the geometric series.
-Let us prove the geometric series, namely that
-$\lim_{n\to\infty} r^n=\frac{1}{1-r}$ for any complex number $r$ of
+The forward implication uses Cauchy integral
+formula
+\ref{equation-cauchy-integral-formula} and
+the geometric series.
+Let us prove the geometric series, namely
+that
+$\lim_{n\to\infty} r^n=\frac{1}{1-r}$ for any
+complex number $r$ of
 norm strictly less than 1:
 $$
 \xymatrixcolsep{.2em}
 \xymatrixrowsep{1em}
 \xymatrix{
-S_n & & 1 \ar@{}[r]&+&r\ar@{}[r]&+&r^2\ar@{}[r]&+&\cdots\ar@{}[r]&+
+S_n & & 1
+\ar@{}[r]&+&r\ar@{}[r]&+&r^2\ar@{}[r]&+&
+\cdots\ar@{}[r]&+
 &r^{n-2}\ar@{}[r]&+&r^{n-1}\\
-rS_n & & & & r\ar@{}[r]&+&r^2\ar@{}[r]&+&\cdots\ar@{}[r]&+
+rS_n & & & &
+r\ar@{}[r]&+&r^2\ar@{}[r]&+&\cdots\ar@{}[r]&+
 &r^{n-2}\ar@{}[r]&+&r^{n-1}\ar@{}[r]&+&r^n\\
 S_n-rS_n& & 1 & & & & & & & & & & & - & r^n
 }
 $$
-Thus $S_n(1-r)=1-r^n$, so that $S_n=\frac{1-r^n}{1-r}$.
-Taking limit as $n\to \infty$ gives the result.
+Thus $S_n(1-r)=1-r^n$, so that
+$S_n=\frac{1-r^n}{1-r}$.
+Taking limit as $n\to \infty$ gives the
+result.
 
 \medskip\noindent
-To prove $f$ is analytic at $z_0\in \Omega$ 
-and suppose that $\gamma$ is a circle contained in $\Omega$
+To prove $f$ is analytic at $z_0\in \Omega$
+and suppose that $\gamma$ is a circle
+contained in $\Omega$
 centered in $z_0$.
 We need to construct a series expansion for
 every $z$ inside the interior of $\gamma$.
-By Cauchy integral formula \ref{equation-cauchy-integral-formula},
+By Cauchy integral formula
+\ref{equation-cauchy-integral-formula},
 \begin{align*}
-f(z)&=\frac{1}{2\pi\sqrt{-1}}\int_\gamma \frac{f(\zeta)}{\zeta-z}d\zeta\\
+f(z)&=\frac{1}{2\pi\sqrt{-1}}\int_\gamma
+\frac{f(\zeta)}{\zeta-z}d\zeta\\
 &=\frac{1}{2\pi\sqrt{-1}}
-\int_\gamma\frac{f(\zeta)}{(\zeta-z_0)-(z-z_0)}d\zeta\\
+\int_\gamma\frac{f(\zeta)}{(\zeta-z_0)-(z-
+z_0)}d\zeta\\
 &=\frac{1}{2\pi\sqrt{-1}}
 \int_\gamma \frac{1}{\zeta-z_0}
-\sum_{n=0}^\infty\left(\frac{z-z_0}{\zeta-z_0}\right)^n
+\sum_{n=0}^\infty\left(\frac{z-z_0}{\zeta-
+z_0}\right)^n
 f(\zeta)d\zeta\\
 &=\sum_{n=0}^\infty \frac{1}{2\pi\sqrt{-1}}
-\int_\gamma\frac{(z-z_0)^n}{(\zeta-z_0)^{n+1}}f(\zeta)d\zeta.
+\int_\gamma\frac{(z-z_0)^n}{(\zeta-z_0)^{n+1}
+}f(\zeta)d\zeta.
 \end{align*}
 
 \noindent
 The critical step in the above computation
-is interchanging the integral sign and the series in the last step.
-To make sure we can do this all we need to do is check
+is interchanging the integral sign and the
+series in the last step.
+To make sure we can do this all we need to do
+is check
 that the last series converges.
-This is done via Weierstrass M-test, i.e. Theorem \ref{theorem-m-test}.
-We need to find uniform bounds for every term in the series.
-This is clear since $f$ is bounded on $\gamma$ (by compactness of $\gamma$),
-and the modulus of the quotient 
-$(z-z_0)/(\zeta-z_0)$ is strictly smaller than $1$
-(since $\zeta$ is farther from $z_0$ than $z$), giving
+This is done via Weierstrass M-test, i.e.
+Theorem \ref{theorem-m-test}.
+We need to find uniform bounds for every term
+in the series.
+This is clear since $f$ is bounded on
+$\gamma$ (by compactness of $\gamma$),
+and the modulus of the quotient
+$(z-z_0)/(\zeta-z_0)$ is strictly smaller
+than $1$
+(since $\zeta$ is farther from $z_0$ than
+$z$), giving
 for every $n$
 \begin{align*}
 \left| \frac{1}{2\pi\sqrt{-1}}
-\int_\gamma\frac{(z-z_0)^n}{(\zeta-z_0)^{n+1}}f(z)d\zeta\right| 
+\int_\gamma\frac{(z-z_0)^n}{(\zeta-z_0)^{n+1}
+}f(z)d\zeta\right|
 &=\frac{1}{2\pi}\left|
-\int_\gamma\left(\frac{z-z_0}{\zeta-z_0}\right)^n\frac{f(z)}{\zeta-z_0}
+\int_\gamma\left(\frac{z-z_0}{\zeta-z_0}
+\right)^n\frac{f(z)}{\zeta-z_0}
 d\zeta\right|\\
 &< \frac{1}{2\pi}\int_\gamma |K|^n
 \left|\frac{M}{r}\right|\\
@@ -583,35 +790,52 @@ d\zeta\right|\\
 \end{align*}
 
 \noindent
-where $M=\text{max}_{\zeta \in \gamma}f(\zeta)$, 
-$\frac{z-z_0}{\zeta-z_0}=K<1$ and $r$ is the radius of $\gamma$.
+where $M=\text{max}_{\zeta \in
+\gamma}f(\zeta)$,
+$\frac{z-z_0}{\zeta-z_0}=K<1$ and $r$ is the
+radius of $\gamma$.
 \end{proof}
-\section{Riemann removable singularity theorem}
+\section{Riemann removable singularity
+theorem}
 \label{section-removable-singularity}
 
 \noindent
 The upshot about the condition that
-$\lim_{z \to z_0} (z-z_0)f(z)=0$ is that this implies
-that $\int_\gamma f=0$. But this actually doesn't
-work in the following proof, since we don't get much from that
-integral vanishing --- that's just to say that
-\cite[Chapter 4, Theorem 7]{Ahlfors} is confusing.
-Instead, I'll put here this great 
-\href{https://en.wikipedia.org/wiki/Removable_singularity}{Wikipedia})
+$\lim_{z \to z_0} (z-z_0)f(z)=0$ is that this
+implies
+that $\int_\gamma f=0$. But this actually
+doesn't
+work in the following proof, since we don't
+get much from that
+integral vanishing --- that's just to say
+that
+\cite[Chapter 4, Theorem 7]{Ahlfors} is
+confusing.
+Instead, I'll put here this great
+\href{https://en.wikipedia.org/wiki/%
+Removable_singularity}{Wikipedia})
 proof:
 
-\begin{theorem}[Riemann's removable singularity theorem]
+\begin{theorem}[Riemann's removable
+singularity theorem]
 \label{theorem-removable-singularity}
-Let $f(z)$ be analytic in a region $\Omega'$ obtained by omitting a point $z_0$
-from a region $\Omega$. There exists an analytic function  defined on all 
-$\Omega$ that coincides with $f$ on $\Omega'$ if and only if 
-$\lim_{z \to z_0} (z-z_0)f(z)=0$. Such a function is unique.
+Let $f(z)$ be analytic in a region $\Omega'$
+obtained by omitting a point $z_0$
+from a region $\Omega$. There exists an
+analytic function  defined on all
+$\Omega$ that coincides with $f$ on $\Omega'$
+if and only if
+$\lim_{z \to z_0} (z-z_0)f(z)=0$. Such a
+function is unique.
 \end{theorem}
 
 \begin{proof}
-The direct implication is obvious since we can replace $f$ by
-its holomorphic extension in the limit, which will converge to a fixed
-value, so that the limit is zero. Uniqueness also is trivial
+The direct implication is obvious since we
+can replace $f$ by
+its holomorphic extension in the limit, which
+will converge to a fixed
+value, so that the limit is zero. Uniqueness
+also is trivial
 by continuity of any holomorphic extension.
 
 For the converse define
@@ -621,64 +845,87 @@ h(z)=\begin{cases}
 0\qquad &z=z_0.
 \end{cases}
 $$
-Clearly $h$ is holomorphic on $\Omega\setminus\{z_0\}$,
-and at $z_0$ it's also complex-differentiable:
+Clearly $h$ is holomorphic on
+$\Omega\setminus\{z_0\}$,
+and at $z_0$ it's also
+complex-differentiable:
 $$
-h'(z_0)=\lim_{z \to z_0} \frac{(z-z_0)^2f(z)-0}{z-z_0}
+h'(z_0)=\lim_{z \to z_0}
+\frac{(z-z_0)^2f(z)-0}{z-z_0}
 =\lim_{z\to z_0}(z-z_0)f(z)=0.
 $$
 by hypothesis. That is, $h$ is holomorphic
-and thus has a Taylor series about $z_0$ (justify!
-\href{https://en.wikipedia.org/wiki/Analyticity_of_holomorphic_functions}{wiki}
+and thus has a Taylor series about $z_0$
+(justify!
+\href{https://en.wikipedia.org/wiki/%
+Analyticity_of_holomorphic_functions}{wiki}
 ):
 $$
-h(z)=c_0+c_1(z-z_0)+c_2(z-z_0)^2+c_3(z-z_0)^3+\ldots
+h(z)=c_0+c_1(z-z_0)+c_2(z-z_0)^2+c_3(z-z_0)
+^3+\ldots
 $$
 
-We have $c_0=h(z_0)=0$ and $c_1=h'(z_0)=0$, and thus
+We have $c_0=h(z_0)=0$ and $c_1=h'(z_0)=0$,
+and thus
 $$
 h(z)=c_2(z-z_0)^2+c_3(z-z_0)^3+\ldots.
 $$
 Hence, where $z\neq z_0$ we have
 $$
-f(z)=\frac{h(z)}{(z-z_0)^2}=c_2+c_3(z-z_0)+\ldots.
+f(z)=\frac{h(z)}{(z-z_0)^2}=c_2+c_3(z-z_0)+
+\ldots.
 $$
 However
 $$
 g(z)=c_2+c_3(z-z_0)+\ldots
 $$
-is holomorphic on all $\Omega$, and is thus an extension of $f$.
+is holomorphic on all $\Omega$, and is thus
+an extension of $f$.
 \end{proof}
 
 \section{Zeroes of a holomorphic function}
 \label{section-zeroes}
 
 \noindent
-Perhaps the best way to remember this section is by the formula
+Perhaps the best way to remember this section
+is by the formula
 \begin{equation}
 \label{equation-zero}
 f(z)=f_n(z)(z-z_0)^n,
 \end{equation}
-which holds for a holomorphic function with a {\it zero of order $k$} on
-$z_0$, meaning that $f$ and its derivatives $f^{(k)}(z_0)$ vanish
+which holds for a holomorphic function with a
+{\it zero of order $k$} on
+$z_0$, meaning that $f$ and its derivatives
+$f^{(k)}(z_0)$ vanish
 for $k<n$ (see \cite[p. 126]{Ahlfors}).
-Here $f_n$ is a holomorphic function which does not vanish at $z_0$ .
-This fact shows that the zero $z_0$ is isolated,
-since $f_n(z)$ is continuous and nonzero in $z_0$,
-and $(z-z_0)^n$ is also nonzero in a pointed neighbourhood of $z_0$.
- 
+Here $f_n$ is a holomorphic function which
+does not vanish at $z_0$ .
+This fact shows that the zero $z_0$ is
+isolated,
+since $f_n(z)$ is continuous and nonzero in
+$z_0$,
+and $(z-z_0)^n$ is also nonzero in a pointed
+neighbourhood of $z_0$.
+
 \medskip\noindent
-Let's explain why Equation \ref{equation-zero} holds.
-Recall the function that we used to prove Cauchy integral formula
-(Theorem \ref{theorem-cauchy-integral-formula}):
+Let's explain why Equation
+\ref{equation-zero} holds.
+Recall the function that we used to prove
+Cauchy integral formula
+(Theorem
+\ref{theorem-cauchy-integral-formula}):
 \begin{equation}
 \label{equation-F}
 F(z)=\frac{f(z)-f(z_0)}{z-z_0},
 \end{equation}
-which has $\lim_{z\to z_0} (z-z_0)F(z)=0$. Then we apply
-Riemann's removable singularity theorem \ref{theorem-removable-singularity}
-to find a holomorphic function $f_1$ extending $F$.
-Taking the limit as $z \to z_0$, we see that in fact
+which has $\lim_{z\to z_0} (z-z_0)F(z)=0$.
+Then we apply
+Riemann's removable singularity theorem
+\ref{theorem-removable-singularity}
+to find a holomorphic function $f_1$
+extending $F$.
+Taking the limit as $z \to z_0$, we see that
+in fact
 $f_1(z_0)=f'(z_0)$.
 Substituting $F$ by $f_1$
 in Equation \ref{equation-F} we obtain
@@ -686,36 +933,28 @@ in Equation \ref{equation-F} we obtain
 \label{equation-zero2}
 f(z)=f(z_0)+f_1(z)(z-z_0).
 \end{equation}
-If $f(z_0)$ and $f'(z_0)\neq 0$, then we say that $f$ has
-a zero of order 0 at $z_0$, which is one case of
-Equation \ref{equation-zero}. If  $f'(z_0)$ also vanishes,
-we repeat process for $f_1$, and for $f_2$ if necessary, and so on, 
-until we arrive at Equation \ref{equation-zero}.
+If $f(z_0)$ and $f'(z_0)\neq 0$, then we say
+that $f$ has
+a zero of order 0 at $z_0$, which is one case
+of
+Equation \ref{equation-zero}. If  $f'(z_0)$
+also vanishes,
+we repeat process for $f_1$, and for $f_2$ if
+necessary, and so on,
+until we arrive at Equation
+\ref{equation-zero}.
 
-\iffalse The argument so far may be summarized in the following statement found
-(without proof) in \cite[p. 13]{lec}:
-
-\begin{theorem}
-\label{theorem-zeroes-are-isolated-and-have-finite-order}
-\begin{reference}
-\cite[p. 13]{lec}
-\end{reference}
-If $f:\Omega\subset\mathbb{C}\to \mathbb{C}$ is a holomorphic function defined on an
-open set $\Omega$ and $f(a)=0$ for some $a\in \Omega$, and $f$ is not identically zero,
-then there is a disk $D_r(a)\subseteq \Omega$ such that $f(z)\neq 0$ for $z \in
-D_r(a)\setminus\{a\}$ and a positive integer $m$ called the {\it order} or
-{\it multiplicity} of the zero $a$ such that  $f(z)=(z-a)^mh(z)$ for some
-holomorphic function $h$ that does not vanish at $a$. The order of a zero is
-equal to the smallest integer $m$ such that $f^{(m)}(a)\neq 0$.
-\end{theorem}\fi
-
-Let us now stop assuming that $z_0$ is a zero of $f$ 
-and just apply the argument to $f_1$. We obtain
+Let us now stop assuming that $z_0$ is a zero
+of $f$
+and just apply the argument to $f_1$. We
+obtain
 $$
 f_1(z)=f_1(z_0)+f_2(z)(z-z_0)
 $$
-for some function $f_2$ such that $f_2(z_0)=f''(z_0)$.
-Substituing back in Equation \ref{equation-zero2} we obtain
+for some function $f_2$ such that
+$f_2(z_0)=f''(z_0)$.
+Substituing back in Equation
+\ref{equation-zero2} we obtain
 $$
 f(z)=f(z_0)+f_1(z)(z-z_0)+f_2(z)(z-z_0)^2.
 $$
@@ -725,67 +964,94 @@ Repeating this process yields:
 \begin{lemma}[Finite Taylor expansion]
 \label{lemma-finite-taylor-expansion}
 \begin{reference}
-\cite[Chapter 4, Section 3, Subsection 2, Theorem 8]{ahl}
+\cite[Chapter 4, Section 3, Subsection 2,
+Theorem 8]{ahl}
 \end{reference}
-If $f$ is analytic in a connected open set $\Omega\subset\mathbb{C}$ and $z_0 \in \Omega$,
+If $f$ is analytic in a connected open set
+$\Omega\subset\mathbb{C}$ and $z_0 \in
+\Omega$,
 then we can write
 \begin{equation}
 \label{equation-finite-taylor-expansion}
-f(z)=f(z_0)+f'(z_0)(z-z_0)+\frac{f''(z_0)}{2!}(z-z_0)^2+\ldots
-+\frac{f^{(n-1)}(z_0)}{(n-1)!}(z-z_0)^{n-1}+f_n(z)(z-z_0)^n
+f(z)=f(z_0)+f'(z_0)(z-z_0)+\frac{f''(z_0)}
+{2!}(z-z_0)^2+\ldots
++\frac{f^{(n-1)}(z_0)}{(n-1)!}(z-z_0)^{n-1}+
+f_n(z)(z-z_0)^n
 \end{equation}
 for some function $f_n$ analytic on $\Omega$.
 \end{lemma}
 
 \noindent
-The coefficients $\frac{f^{(n)}(z_0)}{n!}$ may be found
+The coefficients $\frac{f^{(n)}(z_0)}{n!}$
+may be found
 by induction differentiating
-Equation \ref{equation-finite-taylor-expansion} $n$ times
+Equation
+\ref{equation-finite-taylor-expansion} $n$
+times
 and evaluating at $z_0$:
 any term with
-factor $(z-z_0)$ will vanish at $z_0$, and we are left with
+factor $(z-z_0)$ will vanish at $z_0$, and we
+are left with
 $f^{(n)}(z_0)=n!f_n(z_0)$.
 
 \medskip\noindent
 \begin{remark}
 \label{remark-taylor-before}
-Now I will briefly discuss \cite[Section 1.2, Chapter 5]{Ahlfors}.
-Since the proof presented by Ahlfors of the 
-Riemann removable singularity theorem \ref{theorem-removable-singularity}
+Now I will briefly discuss \cite[Section 1.2,
+Chapter 5]{Ahlfors}.
+Since the proof presented by Ahlfors of the
+Riemann removable singularity theorem
+\ref{theorem-removable-singularity}
 did not convince me,
-I went to \href{https://en.wikipedia.org/wiki/Removable_singularity}{wiki}
-and this forced me to do Taylor series before Riemann removable singularity.
-Of course if I ever understand Ahlfors' idea I could put Taylor after
-Riemann removable singularity, and after zeroes of holomorphic functions
+I went to
+\href{https://en.wikipedia.org/wiki/%
+Removable_singularity}{wiki}
+and this forced me to do Taylor series before
+Riemann removable singularity.
+Of course if I ever understand Ahlfors' idea
+I could put Taylor after
+Riemann removable singularity, and after
+zeroes of holomorphic functions
 which seems much more natural
 \end{remark}
 
 \medskip\noindent
-Actually this part is quite later in Ahlfors book because it requires
+Actually this part is quite later in Ahlfors
+book because it requires
 the theory of convergence of series.
-To pass from the finite Taylor expansion to the
-infinite version we notice that the 
-term $f_{n+1}$ in Equation \ref{equation-finite-taylor-expansion}
+To pass from the finite Taylor expansion to
+the
+infinite version we notice that the
+term $f_{n+1}$ in Equation
+\ref{equation-finite-taylor-expansion}
 is of the form
 $$
-f_{n+1}(z)=\frac{1}{2\pi i}\int_\gamma \frac{f(\zeta)d\zeta}
+f_{n+1}(z)=\frac{1}{2\pi i}\int_\gamma
+\frac{f(\zeta)d\zeta}
 {(\zeta-z_0)^{n+1}(\zeta-z)}
 $$
 where $\gamma$ is a curve of radius $\rho$.
 Then ``we obtain at once''
 $$
-|f_{n+1}(z)(z-z_0)^{n+1}|\leq \frac{M|z-z_0|^{n+1}}{\rho^n(\rho-|z-z_0|}.
+|f_{n+1}(z)(z-z_0)^{n+1}|\leq
+\frac{M|z-z_0|^{n+1}}{\rho^n(\rho-|z-z_0|}.
 $$
-Then we must observe that the bound converges uniformly
-to zero in every disk of radius smaller than $\rho$,
-and by Weierstrass theorem there should be a limit
+Then we must observe that the bound converges
+uniformly
+to zero in every disk of radius smaller than
+$\rho$,
+and by Weierstrass theorem there should be a
+limit
 function identical to zero.
 
 \medskip\noindent
 Here's an important result from
-\href{https://en.wikipedia.org/wiki/Analyticity_of_holomorphic_functions}{wiki}:
-a complex-valued function is holomorphic if and only if it
-has a Taylor series expansion at every point (raidus of convergence is finite).
+\href{https://en.wikipedia.org/wiki/%
+Analyticity_of_holomorphic_functions}{wiki}:
+a complex-valued function is holomorphic if
+and only if it
+has a Taylor series expansion at every point
+(raidus of convergence is finite).
 
 
 \section{Maximum principle}
@@ -796,50 +1062,67 @@ has a Taylor series expansion at every point (raidus of convergence is finite).
 \begin{reference}
 \cite[Theorem 12, p.134]{ahl}
 \end{reference}
-If $f$ is analytic and non constant in a region $\Omega$,
-then its absolute value $|f|$ has no maximum in $\Omega$.
+If $f$ is analytic and non constant in a
+region $\Omega$,
+then its absolute value $|f|$ has no maximum
+in $\Omega$.
 \end{theorem}
 
 Now look at \cite[p. 166]{ahl}:
-``the maximum principle for analytic functions
-follows from the maximum principle for harmonic functions
-by applying the latter to $\text{log}|f|$ which is harmonic
+``the maximum principle for analytic
+functions
+follows from the maximum principle for
+harmonic functions
+by applying the latter to $\text{log}|f|$
+which is harmonic
 when $f(z)\neq 0$''.
 
-\begin{theorem}[Maxmimum principle for harmonic functions]
+\begin{theorem}[Maxmimum principle for
+harmonic functions]
 \label{theorem-maximum-principle-harmonic}
 A nonconstant harmonic function has
-neither a maximum nor a minimum in its region of definition.
+neither a maximum nor a minimum in its region
+of definition.
 Consequently, the maximum and the minimum
-on a closed bounded set $E$ are taken on the boundary of $E$.
+on a closed bounded set $E$ are taken on the
+boundary of $E$.
 \end{theorem}
 
 \noindent
-Which basically says the same thing but now for harmonic functions
+Which basically says the same thing but now
+for harmonic functions
 and now also for the minimum.
 ``It applies also to the minimum
-for the reason that $-u$ is harmonic together with $u$''.
+for the reason that $-u$ is harmonic together
+with $u$''.
 
 
 \section{Argument Principle}
 \label{section-argument-principle}
 
 \noindent
-A simple version of the Argument Principle does not need Residue theorem:
+A simple version of the Argument Principle
+does not need Residue theorem:
 
 \begin{exercise}
 \label{exercise-argument-principle}
-Let $f$ be a holomorphic function on a disk, non-zero on $\partial \Delta$, and
-let $S_k(f):=\frac{1}{2\pi\sqrt{-1}}\int_{\partial\Delta}\frac{f'}{f}z^kdz$.
-Prove the $S_k(f)=\sum d_i\alpha_i^k$ where $\alpha_i$ are all zeroes of $f$ and
+Let $f$ be a holomorphic function on a disk,
+non-zero on $\partial \Delta$, and
+let
+$S_k(f):=\frac{1}{2\pi\sqrt{-1}}
+\int_{\partial\Delta}\frac{f'}{f}z^kdz$.
+Prove the $S_k(f)=\sum d_i\alpha_i^k$ where
+$\alpha_i$ are all zeroes of $f$ and
 $d_i$ their multiplicities.
 \end{exercise}
 
 \begin{proof}
 We use Equation \ref{equation-zero} to write
-$f(z)=(z-z_1)h_1(z)$ where $z_1$ is a zero of $f$. 
-Applying that to $h_1$ for another zero  $z_2$ of $f$,
-and continuing in this way, we obtain 
+$f(z)=(z-z_1)h_1(z)$ where $z_1$ is a zero of
+$f$.
+Applying that to $h_1$ for another zero
+$z_2$ of $f$,
+and continuing in this way, we obtain
 \begin{equation}
 \label{equation-factor-zeroes}
 f(z)=(z-z_1)(z-z_2)\ldots(z-z_n)h(z).
@@ -849,33 +1132,46 @@ f(z)=(z-z_1)(z-z_2)\ldots(z-z_n)h(z).
 Computing the quotient we obtain
 $$
 \frac{f'(z)}{f(z)}=\frac{\text{derivative of
-$(z-z_1)\ldots(z-z_n)$}}{(z-z_1)\ldots(z-z_n)}+\frac{h'(z)}{h(z)}
+$(z-z_1)\ldots(z-z_n)$}}{(z-z_1)\ldots(z-z_n)
+}+\frac{h'(z)}{h(z)}
 $$
-The right hand term will vanish upon integration since it is a holomorphic
-function (with no poles because $h(z)\neq 0$). The left-hand term will give a
-sum of $\frac{1}{z-z_i}$ upon differentiation. As it is, the result of
-integration is the sum of the orders of each zero i.e. the number of zeroes
-counted without multiplicity 
-(because the integrals are all 1, and there's one for each zero without
+The right hand term will vanish upon
+integration since it is a holomorphic
+function (with no poles because $h(z)\neq
+0$). The left-hand term will give a
+sum of $\frac{1}{z-z_i}$ upon
+differentiation. As it is, the result of
+integration is the sum of the orders of each
+zero i.e. the number of zeroes
+counted without multiplicity
+(because the integrals are all 1, and there's
+one for each zero without
 multiplicity).
 
-Multiplying by $z^k$ yields the desired result by Cauchy formula
-\ref{equation-cauchy-integral-formula}. More exactly,
-multiplying $z^k$ in the formula gives instead of a sum
-of integrals $\int \frac{1}{z-z_i}$, a sum of integrals
-$\int\frac{z^k}{z-z_i}$ which by Cauchy formula give $z_i^k$
+Multiplying by $z^k$ yields the desired
+result by Cauchy formula
+\ref{equation-cauchy-integral-formula}. More
+exactly,
+multiplying $z^k$ in the formula gives
+instead of a sum
+of integrals $\int \frac{1}{z-z_i}$, a sum of
+integrals
+$\int\frac{z^k}{z-z_i}$ which by Cauchy
+formula give $z_i^k$
 (disregarding the factor $2\pi\sqrt{-1}$).
 \end{proof}
 
 \begin{theorem}[Argument Principle]
-\label{theorem-argument-principle-and-Rouche-theorem}
+\label{theorem-argum-princ-rouch-theor}
 \begin{reference}
 \cite[Chapter 5, Theorem 18]{ahl}
 \end{reference}
-If $f$ is meromorphic in $\Omega$ with zeros $a_j$ and poles $b_k$, then
+If $f$ is meromorphic in $\Omega$ with zeros
+$a_j$ and poles $b_k$, then
 \begin{equation}
 \label{equation-argument-principle}
-\frac{1}{2\pi i}\int_\gamma\frac{f'(\zeta)}{f(\zeta)}d\zeta
+\frac{1}{2\pi
+i}\int_\gamma\frac{f'(\zeta)}{f(\zeta)}d\zeta
 =\sum_{i}n(\gamma,a_i)-\sum_{k}n(\gamma,b_k)
 \end{equation}
 \end{theorem}
@@ -885,67 +1181,95 @@ If $f$ is meromorphic in $\Omega$ with zeros $a_j$ and poles $b_k$, then
 \begin{reference}
 \cite[Chapter 5, Corollary, p. 153]{ahl}
 \end{reference}
-Let $\gamma$ be homologous to zero in $\Omega$ and such that $n(\gamma,z)$ is
-either 0 or 1 for any point $z$ not on $\gamma$. Suppose that $f$ and $g$ are
-analytic in $\Omega$ and satisfy that $|f-g|<|f|$ on $\gamma$. Then $f$ and $g$
-have the same number of zeros enclosed by $\gamma$.
+Let $\gamma$ be homologous to zero in
+$\Omega$ and such that $n(\gamma,z)$ is
+either 0 or 1 for any point $z$ not on
+$\gamma$. Suppose that $f$ and $g$ are
+analytic in $\Omega$ and satisfy that
+$|f-g|<|f|$ on $\gamma$. Then $f$ and $g$
+have the same number of zeros enclosed by
+$\gamma$.
 \end{lemma}
 
 Compare with Misha's version
 
 \begin{theorem}[Rouché theorem]
 \label{theorem-Rouche-theorem-Mishas-version}
-Let $f_t$ be a family of holomorphic functions on a disk  $\Delta$, continuously
-depending on a parameter $t\in \mathbb{R}$ and non-zero everywhere on its
-boundary $\partial\Delta$. Prove that the number of zeros of $f_t$ in $\Delta$
+Let $f_t$ be a family of holomorphic
+functions on a disk  $\Delta$, continuously
+depending on a parameter $t\in \mathbb{R}$
+and non-zero everywhere on its
+boundary $\partial\Delta$. Prove that the
+number of zeros of $f_t$ in $\Delta$
 is constant.
 \end{theorem}
 
 \begin{proof}
-Consider the map $t\mapsto f_t\mapsto S(f_t)$, which is continuous by hypothesis
-and because $S$, being an integral, is continuous. Then we obtain a continuous
-map $\mathbb{R}\to\mathbb{R}$ with integer values, meaning it must be constant.
+Consider the map $t\mapsto f_t\mapsto
+S(f_t)$, which is continuous by hypothesis
+and because $S$, being an integral, is
+continuous. Then we obtain a continuous
+map $\mathbb{R}\to\mathbb{R}$ with integer
+values, meaning it must be constant.
 \end{proof}
 
-A similar argument may be used to prove that a holomorphic function $F$ defined
-on $\Delta\times\Delta$ gives a holomorphic map 
+A similar argument may be used to prove that
+a holomorphic function $F$ defined
+on $\Delta\times\Delta$ gives a holomorphic
+map
 \begin{equation}
 \label{equation-zeros-on-polydisk}
-y_0\mapsto \int_{\partial\Delta}\frac{F'(x,y_0)}{F(x,y_0)}\phi(x)dx
+y_0\mapsto
+\int_{\partial\Delta}\frac{F'(x,y_0)}{F(x,
+y_0)}\phi(x)dx
 =\sum_id_i\phi(\alpha_i)
 \end{equation}
-for any holomorphic function $\phi:\Delta\to\mathbb{C}$.
+for any holomorphic function
+$\phi:\Delta\to\mathbb{C}$.
 
-\section{Holomorphic functions in several variables}
-\label{section-holomorphic-functions-in-several-variables}
+\section{Holomorphic functions in several
+variables}
+\label{section-holom-funct-sever-varia}
 
 \begin{lemma}
-\label{lemma-holomorphic-function-characterization}
-\cite{lec}, Theorem 1.21. Let $U\subseteq\mathbb{C}^n$ be open and $f:U\to
+\label{lemma-holom-funct-chara}
+\cite{lec}, Theorem 1.21. Let
+$U\subseteq\mathbb{C}^n$ be open and $f:U\to
 \mathbb{C}$. The following are equivalent:
 \begin{enumerate}
-\item $f$ is holomorphic (i.e. it is continuous and has a complex partial
-derivative with respect to each variable at each point of $U$)
-\item $f$ is smooth and satisfies the following Cauchy-Riemann equations:
+\item $f$ is holomorphic (i.e. it is
+continuous and has a complex partial
+derivative with respect to each variable at
+each point of $U$)
+\item $f$ is smooth and satisfies the
+following Cauchy-Riemann equations:
 \begin{equation}
-\label{equationcauchy-riemann-several-variables}
-\frac{\partial u}{\partial x^j}=\frac{\partial v}{\partial y^j},\qquad 
-\frac{\partial u}{\partial y^j}=-\frac{\partial v}{\partial x^j}
+\label{equationcauchy-equat-riema-sever}
+\frac{\partial u}{\partial
+x^j}=\frac{\partial v}{\partial y^j},\qquad
+\frac{\partial u}{\partial
+y^j}=-\frac{\partial v}{\partial x^j}
 \end{equation}
-where $z^j=x^j+\sqrt{-1}y^j$ and $f(s)=u(z)+\sqrt{-1}v(x)$.
-\item For each $p=(p^1,\ldots,p^n)\in U$ there exists a neighbourhood of $p$ in
-$U$ on which $f$ is equal to the sum of an absolutely convergent power series of
+where $z^j=x^j+\sqrt{-1}y^j$ and
+$f(s)=u(z)+\sqrt{-1}v(x)$.
+\item For each $p=(p^1,\ldots,p^n)\in U$
+there exists a neighbourhood of $p$ in
+$U$ on which $f$ is equal to the sum of an
+absolutely convergent power series of
 the form
 \begin{equation}
-\label{equation-Taylor-series-several-variables}
-f(z)=\sum_{i_1,\ldots,i_n}a_{i_1,\ldots,i_n}(z^1-p^1)\ldots(z^n-p^n)
+\label{equation-taylo-serie-sever-varia}
+f(z)=\sum_{i_1,\ldots,i_n}a_{i_1,\ldots,i_n}
+(z^1-p^1)\ldots(z^n-p^n)
 \end{equation}
 \end{enumerate}
 \end{lemma}
 
 \begin{proof}
-I will prove that if $f$ is holomorphic then it has a Taylor series for $n=2$. 
-First apply Cauchy integral formula on each variable to obtain
+I will prove that if $f$ is holomorphic then
+it has a Taylor series for $n=2$.
+First apply Cauchy integral formula on each
+variable to obtain
 $$
 f(z^1,z^2)=\frac{1}{(2\pi\sqrt{-1})^2}
 \int_{\substack{|z^1-w^1|=r \\ |z^2-w^2|=r}}
@@ -955,58 +1279,81 @@ Now observe:
 \begin{equation}
 \label{equation-multivariablecauchy}
 \frac{1}{w^1-z^1}=\frac{1}{w^1-p^1+p^1-z^1}
-=\frac{1}{w^1-p^1}\frac{1}{1-\frac{p^1-z^1}{w^1-p^1}}
+=\frac{1}{w^1-p^1}\frac{1}{1-\frac{p^1-z^1}
+{w^1-p^1}}
 \end{equation}
-And on the right-hand-side we have a geometric series so that we may write
+And on the right-hand-side we have a
+geometric series so that we may write
 $$
 \frac{1}{w^1-z^1}
-=\frac{1}{w^1-p^1}\sum_{k=0}^\infty\left(\frac{p^1-z^1}{w^1-p^1}\right)^k
+=\frac{1}{w^1-p^1}\sum_{k=0}
+^\infty\left(\frac{p^1-z^1}{w^1-p^1}\right)^k
 $$
-finally substituting this into (\ref{equation-multivariablecauchy}) we may take
-the products $(p^1-z^1)^{k_1}(p^2-z^2)^{k_2}$ out of the integral and define the
+finally substituting this into
+(\ref{equation-multivariablecauchy}) we may
+take
+the products $(p^1-z^1)^{k_1}(p^2-z^2)^{k_2}$
+out of the integral and define the
 remaining term as $a_{k_1k_2}$.
 \end{proof}
 
-\section{Identity theorem in several variables}
-\label{section-identity-theorem-in-several-variables}
+\section{Identity theorem in several
+variables}
+\label{section-ident-theor-sever-varia}
 
 \begin{theorem}[Identity theorem]
 \label{theorem-identity-several-variables}
 \begin{reference}
 \cite[Proposition 1.28]{lec}
 \end{reference}
-If two holomorphic functions $f,g:\Omega\subset \mathbb{C}^n \to \mathbb{C}$ coincide
-in an open subset of the connected open set $\Omega$, 
+If two holomorphic functions
+$f,g:\Omega\subset \mathbb{C}^n \to
+\mathbb{C}$ coincide
+in an open subset of the connected open set
+$\Omega$,
 then they coincide in all of $\Omega$.
 \end{theorem}
 
 \begin{proof}
-Let $U$ be the set where the function $h:=f-g$ and all its partial derivatives
-vanish. Then $U$ is open since for every point in $U$ there is a neighbourhood
-where $h$ is expressed as a Taylor series, whose coefficients must be given by
-the partial derivatives of $h$. By definition of $U$, we see that $h$ must be
-zero in such a neighbourhood. $U$ is also closed by continuity of partial
-derivatives of all orders. 
+Let $U$ be the set where the function
+$h:=f-g$ and all its partial derivatives
+vanish. Then $U$ is open since for every
+point in $U$ there is a neighbourhood
+where $h$ is expressed as a Taylor series,
+whose coefficients must be given by
+the partial derivatives of $h$. By definition
+of $U$, we see that $h$ must be
+zero in such a neighbourhood. $U$ is also
+closed by continuity of partial
+derivatives of all orders.
 \end{proof}
 
 \section{Hartog's phenomenon}
 \label{section-hartog}
 
 \noindent
-In particular, Hartog's phenomom says 
-that any isolated singularity is removable in dimension $\geq 2$.
+In particular, Hartog's phenomom says
+that any isolated singularity is removable in
+dimension $\geq 2$.
 
 More precisely but still roughly,
 it says that in dimension at least two,
-a holomorphic function defined on an open set minus a compact set
+a holomorphic function defined on an open set
+minus a compact set
 can be extended to the whole open set
-as long as the open minus the compact is connected.
-This doesn't happen in one variable: $\frac{1}{z}$
-is holomorphic away from the origin, but cannot be extended.
+as long as the open minus the compact is
+connected.
+This doesn't happen in one variable:
+$\frac{1}{z}$
+is holomorphic away from the origin, but
+cannot be extended.
 
-Hopefully we will see how this theorem is used
-in Kodaira embedding theorem and in showing that
-the sections of $\mathcal{O}(d)$ are precisely degree $d$-polynomials.
+Hopefully we will see how this theorem is
+used
+in Kodaira embedding theorem and in showing
+that
+the sections of $\mathcal{O}(d)$ are
+precisely degree $d$-polynomials.
 
 
 \begin{theorem}[Hartog's phenomenon]
@@ -1014,211 +1361,315 @@ the sections of $\mathcal{O}(d)$ are precisely degree $d$-polynomials.
 \end{theorem}
 
 \section{Germs of holomorphic functions}
-\label{section-germs-of-holomorphic-functions}
+\label{section-germs-holom-funct}
 
 \begin{definition}
-\label{definition-germ-of-holomorphic-function}
-Let $U,U' \subset \mathbb{C}^n$ be neighbourhoods of $0$ and $f \in
-\mathcal{O}_U$, $f'\in\mathcal{O}_{U'}$ holomorphic functions. We say that $f$
-and $f'$ have the same germ, $f\sim f'$, if $f|_{U\cap U'}=f'|_{U\cap U'}$.
-Clearly (?), $\sim$ gives an equivalence relation on the set of pairs $(U\ni 0,
-f\in \mathcal{O}_U)$. An equivalence class is called {\bf germ of a holomorphic
-function}. The space of germs in $0$ of holomorphic functions on $\mathbb{C}^n$
+\label{definition-germ-holom-funct}
+Let $U,U' \subset \mathbb{C}^n$ be
+neighbourhoods of $0$ and $f \in
+\mathcal{O}_U$, $f'\in\mathcal{O}_{U'}$
+holomorphic functions. We say that $f$
+and $f'$ have the same germ, $f\sim f'$, if
+$f|_{U\cap U'}=f'|_{U\cap U'}$.
+Clearly (?), $\sim$ gives an equivalence
+relation on the set of pairs $(U\ni 0,
+f\in \mathcal{O}_U)$. An equivalence class is
+called {\bf germ of a holomorphic
+function}. The space of germs in $0$ of
+holomorphic functions on $\mathbb{C}^n$
 is denoted $\mathcal{O}_n$.
 \end{definition}
 
 \begin{exercise}
-\label{exercise-stalk-is-not-finitely-generated-over-C}
-Prova that the ring $\mathcal{O}_n$ of germs of holomorphic functions is not
-finitely generated over $\mathbb{C}$ for any $n>0$.
+\label{exercise-stalk-not-finit-gener-over}
+Prova that the ring $\mathcal{O}_n$ of germs
+of holomorphic functions is not
+finitely generated over $\mathbb{C}$ for any
+$n>0$.
 \end{exercise}
 
 \begin{proof}
-I think the existence of $e^z$ as a holomorphic function satisfying the
-differential equation $f'=f$ is enough to show that the coefficients of its
-Taylor polynomial are all nonzero. This argument works for several variables as
+I think the existence of $e^z$ as a
+holomorphic function satisfying the
+differential equation $f'=f$ is enough to
+show that the coefficients of its
+Taylor polynomial are all nonzero. This
+argument works for several variables as
 well.
 \end{proof}
 
 \begin{definition}
 \label{definition-formal-power-series}
-A {\it formal power series} in the variables $t_1,\ldots,t_n$ is a sum
-$\sum_{i=0}^{\infty}P_i(t_1,\ldots,t_n)$ where $P_i$ are homogeneous polynomials
-of degree $i$. Addition of power series is defined componentwise, and
+A {\it formal power series} in the variables
+$t_1,\ldots,t_n$ is a sum
+$\sum_{i=0}^{\infty}P_i(t_1,\ldots,t_n)$
+where $P_i$ are homogeneous polynomials
+of degree $i$. Addition of power series is
+defined componentwise, and
 multiplication is defined via
 $$
-\left(\sum_{i=0}^\infty P_i(t_1,\ldots,t_n)\right)
-\left(\sum_{i=0}^\infty Q_i(t_1,\ldots,t_n)\right)
+\left(\sum_{i=0}^\infty
+P_i(t_1,\ldots,t_n)\right)
+\left(\sum_{i=0}^\infty
+Q_i(t_1,\ldots,t_n)\right)
 =\sum_{i=0}^\infty R_i(t_1,\ldots,t_n)
 $$
-where $R_d(t_1,\ldots,t_n)=\sum_{i+j=d}P_i(t_1,\ldots,t_n)Q_j(t_1,\ldots,t_n)$.
+where
+$R_d(t_1,\ldots,t_n)=\sum_{i+j=d}P_i(t_1,
+\ldots,t_n)Q_j(t_1,\ldots,t_n)$.
 \end{definition}
 
-We can think of germs of functions in $\mathcal{O}_n$ as elements in the ring of
-power series $\mathbb{C}[\![t_1,\ldots,t_n]\!]$. I think there is no problem to
-prove this statement, nor the fact that power series is actually a ring with
-units the nonzero constants and zero the zero constant.
+We can think of germs of functions in
+$\mathcal{O}_n$ as elements in the ring of
+power series
+$\mathbb{C}[\![t_1,\ldots,t_n]\!]$. I think
+there is no problem to
+prove this statement, nor the fact that power
+series is actually a ring with
+units the nonzero constants and zero the zero
+constant.
 
 \begin{exercise}
 \label{exercise-stalk-has-no-zero-divisors}
-Prove that $\mathcal{O}_n$ has no zero divisors.
+Prove that $\mathcal{O}_n$ has no zero
+divisors.
 \end{exercise}
 
 \begin{proof}
-Suppose that $PQ=0$ but neither of $P$ nor $Q$ are zero. Then $P_i \neq 0$ for
-some $i$ and $Q_j \neq 0$ for some $j$. Then we can write
+Suppose that $PQ=0$ but neither of $P$ nor
+$Q$ are zero. Then $P_i \neq 0$ for
+some $i$ and $Q_j \neq 0$ for some $j$. Then
+we can write
 $$
-P_iQ_j=-\sum_{\substack{p+q=i+j \\ p\neq i,q\neq j}}P_pQ_q
+P_iQ_j=-\sum_{\substack{p+q=i+j \\ p\neq
+i,q\neq j}}P_pQ_q
 $$
-And then what. Other way is by induction. For $n=0$ we are the complex numbers
-so no problem. Suppose that $\mathcal{O}_n$ has no zero divisors. Then it looks
-like we can deal with degrees smaller than $n+1$, but the $d$-th term is not a
-simple product of $P_iQ_j$ with $i+j=d$, but a sum. So not sure too.
+And then what. Other way is by induction. For
+$n=0$ we are the complex numbers
+so no problem. Suppose that $\mathcal{O}_n$
+has no zero divisors. Then it looks
+like we can deal with degrees smaller than
+$n+1$, but the $d$-th term is not a
+simple product of $P_iQ_j$ with $i+j=d$, but
+a sum. So not sure too.
 \end{proof}
 
 \begin{definition}
 \label{definition-local-ring}
-A ring $R$ is called {\it local} if it contains an ideal $I\subset R$ such that
+A ring $R$ is called {\it local} if it
+contains an ideal $I\subset R$ such that
 all elements $r \not \in I$ are invertible.
 \end{definition}
 
-It is an easy exercise to show that this definition is equivalent to having a
+It is an easy exercise to show that this
+definition is equivalent to having a
 unique maximal ideal.
 
 \begin{exercise}
-\label{exercise-power-series-is-not-finitely-generated-over-stalk}
-Prove that the ring $\mathbb{C}[\![ t_1,\ldots,t_n]\!]$ is not
-finitely generated over $\mathcal{O}_n \subset 
+\label{exercise-power-serie-not-finit-gene}
+Prove that the ring $\mathbb{C}[\![
+t_1,\ldots,t_n]\!]$ is not
+finitely generated over $\mathcal{O}_n
+\subset
 \mathbb{C}[\![ t_1,\ldots,t_n]\!]$.
 \end{exercise}
 
 \begin{proof}
-I thought that $\mathcal{O}_n$ would be the same as 
-$\mathbb{C}[\![ t_1,..,t_n]\!]$… the natural map is surely injective
-but why not surjective? There are power series that are not holomorphic
-functions? Maybe because of radius of convergence? No, because germs of
-holomorphic functions can be defined very near the origin… Every power series
+I thought that $\mathcal{O}_n$ would be the
+same as
+$\mathbb{C}[\![ t_1,..,t_n]\!]$…
+the natural map is surely injective
+but why not surjective? There are power
+series that are not holomorphic
+functions? Maybe because of radius of
+convergence? No, because germs of
+holomorphic functions can be defined very
+near the origin… Every power series
 has a nonzero radius of convergence, right?
 \end{proof}
 
 \noindent
-Now I will discuss zeroes of holomorphic functions of several variables.
+Now I will discuss zeroes of holomorphic
+functions of several variables.
 
 \begin{definition}
-\label{definition-zero-of-holomorphic-function-of-several-variables}
-Let  $f\in \mathcal{O}_n$ be a germ of holomorphic function on $\mathbb{C}^n$.
-Write its Taylor series $f(z)=\sum_{i=0}^\infty P_i(t_1,\ldots,t_n)$, where
-$P_i$ are homogeneous polynomials of degree $i$. We say that $f$ has a {\it
-zero of order (or multiplicity) $k$ in $0$} if $P_0=\ldots=P_{k-1}=0$. In this
-situation {\it principal part} of the function $f$ is the homogeneous polynomial
+\label{definition-zero-holom-funct-sever}
+Let  $f\in \mathcal{O}_n$ be a germ of
+holomorphic function on $\mathbb{C}^n$.
+Write its Taylor series
+$f(z)=\sum_{i=0}^\infty P_i(t_1,\ldots,t_n)$,
+where
+$P_i$ are homogeneous polynomials of degree
+$i$. We say that $f$ has a {\it
+zero of order (or multiplicity) $k$ in $0$}
+if $P_0=\ldots=P_{k-1}=0$. In this
+situation {\it principal part} of the
+function $f$ is the homogeneous polynomial
 $P_k$.
 \end{definition}
 
-The following exercise shows that a holomorphic change of coordinates will
-preserve the order of a zero, and the principal part of the new function will be
-determined by the differential of the change of coordinate map. We will need to
-change coordinates when we do Weierstrass Preparation theorem
+The following exercise shows that a
+holomorphic change of coordinates will
+preserve the order of a zero, and the
+principal part of the new function will be
+determined by the differential of the change
+of coordinate map. We will need to
+change coordinates when we do Weierstrass
+Preparation theorem
 \ref{theorem-weierstrass-preparation}.
 
 \begin{exercise}
-\label{exercise-principal-part-under-coordinate-change}
-Let $\Phi(t_1,\ldots,t_n)=(F_1(t_1,\ldots,t_n),\ldots,F_n(t_1,\ldots,t_n))$ be
-the holomorphic coordinate change around zero (?), with $F_i(0,\ldots,0)=0$ and
-$A:=\left(\frac{\partial F_i}{\partial t_j}\right)_0$ its differential (I suppose
+\label{exercise-princ-part-under-coord}
+Let
+$\Phi(t_1,\ldots,t_n)=(F_1(t_1,\ldots,t_n),
+\ldots,F_n(t_1,\ldots,t_n))$
+be
+the holomorphic coordinate change around zero
+(?), with $F_i(0,\ldots,0)=0$ and
+$A:=\left(\frac{\partial F_i}{\partial
+t_j}\right)_0$ its differential (I suppose
 $\det A \neq 0$. Prove that
 \begin{enumerate}
-\item For any germ $f\in \mathcal{O}_n$ which has multiplicity $k$, the function
-$\Phi^*(f)$ has zero of the same multiplicity.
-\item The principal part of $\Phi^*(f)$ is obtained from the principal part of
+\item For any germ $f\in \mathcal{O}_n$ which
+has multiplicity $k$, the function
+$\Phi^*(f)$ has zero of the same
+multiplicity.
+\item The principal part of $\Phi^*(f)$ is
+obtained from the principal part of
 $f$ by action of $A$.
 \end{enumerate}
 \end{exercise}
 
 \begin{proof}[Sketch of proof]
 \begin{enumerate}
-\item The condition that $\det A \neq 0$ implies that all $F_i$ must have linear
-term---otherwise their partial derivatives would vanish when evaluated at zero.
-When substituting $f(z_1,\ldots,z_n)=\sum_{|\alpha|\geq k}\alpha z^\alpha$ with
-$\Phi$ we find that there must be a term of order $k$.
-\item The case for $n=1$ is clear. The general case follows, I think, from the
-observation that the derivative $A$ recovers the linear terms, which, as shown
-in the previous item, correspond to the principal part of $\Phi^*f$.
+\item The condition that $\det A \neq 0$
+implies that all $F_i$ must have linear
+term---otherwise their partial derivatives
+would vanish when evaluated at zero.
+When substituting
+$f(z_1,\ldots,z_n)=\sum_{|\alpha|\geq
+k}\alpha z^\alpha$ with
+$\Phi$ we find that there must be a term of
+order $k$.
+\item The case for $n=1$ is clear. The
+general case follows, I think, from the
+observation that the derivative $A$ recovers
+the linear terms, which, as shown
+in the previous item, correspond to the
+principal part of $\Phi^*f$.
 \end{enumerate}
 \end{proof}
 
 \begin{exercise}
-\label{exercise-zero-locus-of-homogeneous-polynomial}
-Let $Q$ be a non-zero homogeneous polynomial on $t_0,\ldots,t_n$, and $V(Q)$ its
-zero set, which we consider as a subset in $\mathbb{C}P^{n}$.
+\label{exercise-zero-locus-homog-polyn}
+Let $Q$ be a non-zero homogeneous polynomial
+on $t_0,\ldots,t_n$, and $V(Q)$ its
+zero set, which we consider as a subset in
+$\mathbb{C}P^{n}$.
 \begin{enumerate}
-\item Prove that $\mathbb{C}P^{n}\setminus V(Q)$ is non-empty.
-\item Prove that $V(Q)\subset\mathbb{C}P^{n}$ is a set of measure 0.
+\item Prove that $\mathbb{C}P^{n}\setminus
+V(Q)$ is non-empty.
+\item Prove that $V(Q)\subset\mathbb{C}P^{n}$
+is a set of measure 0.
 \end{enumerate}
 \end{exercise}
 
 \begin{proof}
 \begin{enumerate}
 \item This follows from Identity Theorem
-\ref{theorem-identity-several-variables}. Indeed, if $V(Q)$ was all of
-$\mathbb{C}^{n}$, it would vanish on an open set, implying that $Q$ is
+\ref{theorem-identity-several-variables}.
+Indeed, if $V(Q)$ was all of
+$\mathbb{C}^{n}$, it would vanish on an open
+set, implying that $Q$ is
 identically zero.
-\item $V(Q)$ may be decomposed in the sets of regular and singular points.
-Regular points have submanifold charts, while singular points have measure zero
+\item $V(Q)$ may be decomposed in the sets of
+regular and singular points.
+Regular points have submanifold charts, while
+singular points have measure zero
 by Sard's theorem.
 \end{enumerate}
 \end{proof}
 
 \begin{exercise}
 \label{exercise-principal-parts}
-Let $f_1,f_2,\ldots\in \mathcal{O}_n$ be a countable collection of germs, which
-vanish with multiplicity $k_1,k_2,\ldots$. Prove that there exists a coordinate
-system $z_1,\ldots,z_n$ such that 
-$\lim_{z_n\to 0} \frac{f_i(0,z_n)}{z_n^{k_i}}\neq 0$ for all $i$.
+Let $f_1,f_2,\ldots\in \mathcal{O}_n$ be a
+countable collection of germs, which
+vanish with multiplicity $k_1,k_2,\ldots$.
+Prove that there exists a coordinate
+system $z_1,\ldots,z_n$ such that
+$\lim_{z_n\to 0}
+\frac{f_i(0,z_n)}{z_n^{k_i}}\neq 0$ for all
+$i$.
 \end{exercise}
 
 \begin{proof}[Sketch of proof]
-I don't understand this exercise: evaluating any germ $f_i$ on $(0,z_n)$ will
-make all terms that have any variable other than $z_n$ vanish. Thus the first
-term will be a homogeneous polynomial in $z_n$, which is the principal part of
-$f_i$ evaluated in $(0,z_n)$. But of course taking quotient by $z_n$ all terms
-with powers of $z_n$ higher than 1 will vanish, barely leaving the principal
-part of $f_i$ evaluated at $(0,1)$. But this works regardless of the coordinate
+I don't understand this exercise: evaluating
+any germ $f_i$ on $(0,z_n)$ will
+make all terms that have any variable other
+than $z_n$ vanish. Thus the first
+term will be a homogeneous polynomial in
+$z_n$, which is the principal part of
+$f_i$ evaluated in $(0,z_n)$. But of course
+taking quotient by $z_n$ all terms
+with powers of $z_n$ higher than 1 will
+vanish, barely leaving the principal
+part of $f_i$ evaluated at $(0,1)$. But this
+works regardless of the coordinate
 system.
 \end{proof}
 
-\section{Elementary symmetric polynomials and Newton formula}
-\label{section-elementary-symmetric-polynomials-and-newton-formula}
+\section{Elementary symmetric polynomials and
+Newton formula}
+\label{section-eleme-symme-polyn-newto}
 
 \noindent
 The main result in this section
-is to show that the elementary symmetric polynomials
-can be given in terms of the Newton polynomials.
+is to show that the elementary symmetric
+polynomials
+can be given in terms of the Newton
+polynomials.
 More exactly, as elements of the polynomial
-ring with rational coefficients and Newton polynomials
+ring with rational coefficients and Newton
+polynomials
 as indeterminates.
-In turn, this says that the elementary symmetric polynomials
-are Weierstrass polynomials as long as the Newton polynomials
-are holomorphic (which is easy to prove using the Argument Principle,
+In turn, this says that the elementary
+symmetric polynomials
+are Weierstrass polynomials as long as the
+Newton polynomials
+are holomorphic (which is easy to prove using
+the Argument Principle,
 Exercise \ref{exercise-argument-principle}).
-The elementary symmetric polynomials, in the form of a product,
-are exactly what we get when we factor the zeroes
-of a holomorphic function as in Equation \ref{equation-factor-zeroes}.
-So essentially this paragraph says the proof of 
-Weierstrass Preparation Theorem \ref{theorem-weierstrass-preparation-theorem}.
+The elementary symmetric polynomials, in the
+form of a product,
+are exactly what we get when we factor the
+zeroes
+of a holomorphic function as in Equation
+\ref{equation-factor-zeroes}.
+So essentially this paragraph says the proof
+of
+Weierstrass Preparation Theorem
+\ref{theorem-weier-prepa-theor}.
 
 \medskip\noindent
-The $\alpha_i$ will eventually play the roles of the zeroes
-of the holomorphic function, but in this section they are just
-indeterminates in the ring $\mathbb{Z}[\alpha_1,\ldots,\alpha_n]$.
-We start by defining three types of polynomials in this ring.
+The $\alpha_i$ will eventually play the roles
+of the zeroes
+of the holomorphic function, but in this
+section they are just
+indeterminates in the ring
+$\mathbb{Z}[\alpha_1,\ldots,\alpha_n]$.
+We start by defining three types of
+polynomials in this ring.
 
 \begin{definition}
 \label{definition-symmetric-polynomial}
-Let $e_i \in \mathbb{Z}[\alpha_1,\ldots,\alpha_n]$ be the coefficients of the
-polynomial 
+Let $e_i \in
+\mathbb{Z}[\alpha_1,\ldots,\alpha_n]$ be the
+coefficients of the
+polynomial
 \begin{equation}
-\label{equation-elementary-symmetric-polynomial}
-t^n+e_1t^{n-1}+\ldots+e_{n-1}t+e_n:=\prod_{i=1}^n(t+\alpha_i).
+\label{equation-eleme-symme-polyn}
+t^n+e_1t^{n-1}+\ldots+e_{n-1}t+e_n:=\prod_{i=
+1}^n(t+\alpha_i).
 \end{equation}
 Then $e_i$ are called {\it elementary
 symmetric polynomials} on $\alpha_i$.
@@ -1226,65 +1677,86 @@ symmetric polynomials} on $\alpha_i$.
 
 \noindent
 Notice that the polynomial in Equation
-\ref{equation-elementary-symmetric-polynomial} is an element of
-the polynomial ring 
-on the indeterminates $t,\alpha_1,\ldots,\alpha_n$.
+\ref{equation-eleme-symme-polyn} is an
+element of
+the polynomial ring
+on the indeterminates
+$t,\alpha_1,\ldots,\alpha_n$.
 
 There are explicit descriptions
 for the elementary symmetric polynomials.
-In fact, $e_1=\sum_i\alpha_i$ 
-(which is the first Newton polynomial $p_1$ defined below).
-Also $e_n=\prod_{i}\alpha_i$, and in general 
-$e_k=\sum_{1\leq i_1<\ldots<i_k\leq n}\alpha_{i_1}\ldots\alpha_{i_k}$.
+In fact, $e_1=\sum_i\alpha_i$
+(which is the first Newton polynomial $p_1$
+defined below).
+Also $e_n=\prod_{i}\alpha_i$, and in general
+$e_k=\sum_{1\leq i_1<\ldots<i_k\leq
+n}\alpha_{i_1}\ldots\alpha_{i_k}$.
 
 \begin{definition}
 \label{definition-newton-polynomial}
-A {\it Newton polynomial} is $p_j:=\sum_{i=1}^n\alpha_i^j$.
+A {\it Newton polynomial} is
+$p_j:=\sum_{i=1}^n\alpha_i^j$.
 \end{definition}
 
 \begin{definition}
-\label{definition-complete-homogeneous-symmetric-polynomial}
-A {\it complete homogeneous symmetric polynomial} of degree $k$ is $h_k$
-obtained as a sum of all homogeneous monomials of degree $k$, that is,
-$\alpha_1^k+\ldots+\alpha_n^k+\alpha_1^{k-1}\alpha_2+\ldots$.
+\label{definition-compl-homog-symme-polyn}
+A {\it complete homogeneous symmetric
+polynomial} of degree $k$ is $h_k$
+obtained as a sum of all homogeneous
+monomials of degree $k$, that is,
+$\alpha_1^k+\ldots+\alpha_n^k+\alpha_1^{k-1}
+\alpha_2+\ldots$.
 \end{definition}
 
-\begin{slogan}
-\begin{reference}
-\cite[p. 1]{generatingfunctionology}
-\end{reference}
-A generating function is a clothesline on which we hang up a sequence of numbers
-for display.
-\end{slogan}
+\noindent
+Upshot: a generating function is a
+clothesline on which we hang up a sequence of
+numbers
+for display
+(\cite[p. 1]{generatingfunctionology})
 
 \noindent
-Corresponding to the above definitions we have the generating functions 
-$E(t):=\sum_{i=0}^ne_it^i$, $P(t):=\sum_{i=1}^\infty p_it^i$ and 
-$H(t):=\sum_{i=0}^\infty h_it^i$ which are formal series in 
-$\mathbb{Z}[\alpha_1,\ldots,\alpha_n][\![t]\!]$.
+Corresponding to the above definitions we
+have the generating functions
+$E(t):=\sum_{i=0}^ne_it^i$,
+$P(t):=\sum_{i=1}^\infty p_it^i$ and
+$H(t):=\sum_{i=0}^\infty h_it^i$ which are
+formal series in
+$\mathbb{Z}[\alpha_1,\ldots,\alpha_n][\![t]
+\!]$.
 
 \begin{exercise}
 \label{exercise-H}
-Prove that $H(t)=\prod_{i=1}^n\frac{1}{1-t\alpha_i}$.
+Prove that
+$H(t)=\prod_{i=1}^n\frac{1}{1-t\alpha_i}$.
 \end{exercise}
 
 \begin{proof}
-Let us write (possibly as a formal definition)
+Let us write (possibly as a formal
+definition)
 $$
-\prod_{i=1}^n\frac{1}{1-t\alpha_i}=\prod_{i=1}^n\sum_{k=0}^\infty\alpha_i^kt^k.
+\prod_{i=1}^n\frac{1}{1-t\alpha_i}=\prod_{i=
+1}^n\sum_{k=0}^\infty\alpha_i^kt^k.
 $$
 
-We also write 
-$f_i\overset{\text{ops}}{\longleftrightarrow}\{\alpha_i^k\}_{k=1}^\infty$ to mean
-that $f_i$ is the power series associated to the sequence
-$\{\alpha_i^k\}_{k=1}^\infty$. Then the equation above is the product of the
+We also write
+$f_i\overset{\text{ops}}{\longleftrightarrow}
+\{\alpha_i^k\}_{k=1}^\infty$
+to mean
+that $f_i$ is the power series associated to
+the sequence
+$\{\alpha_i^k\}_{k=1}^\infty$. Then the
+equation above is the product of the
 $f_i$. Then all we have to prove is that
 $$
-\prod_{i=1}^nf_i\overset{\text{ops}}{\longleftrightarrow}
-\left\{\sum_{i_1+\ldots+i_n=k}\alpha_1^{i_1}\ldots\alpha_n^{i_n}\right\}
+\prod_{i=1}^nf_i\overset{\text{ops}}
+{\longleftrightarrow}
+\left\{\sum_{i_1+\ldots+i_n=k}\alpha_1^{i_1}
+\ldots\alpha_n^{i_n}\right\}
 _{k=1}^\infty=\{h_k\}_{k=0}^\infty
 $$
-This is just a generalization of the formula for product of power series for a
+This is just a generalization of the formula
+for product of power series for a
 product of $n$ power series.
 \end{proof}
 
@@ -1294,15 +1766,21 @@ Prove that $E(t)=\prod_{i=1}^n(1+t\alpha_i)$.
 \end{exercise}
 
 \begin{proof}
-This is just writing $\prod_{i=1}^n(1+t\alpha_i)
-=\prod_{i=1}^nt(\frac{1}{t}+\alpha_i)$ and continue until we get to $E(t)$.
+This is just writing
+$\prod_{i=1}^n(1+t\alpha_i)
+=\prod_{i=1}^nt(\frac{1}{t}+\alpha_i)$ and
+continue until we get to $E(t)$.
 \end{proof}
 
 \noindent
-It follows from the two previous exercises that $H(t)E(-t)=1$. Using Exercise
-\ref{exercise-E} and applying logarithm we obtain that
-$\frac{E'(-t)}{E(-t)}=-\sum_{i=1}^n \frac{\alpha_i}{1-t\alpha_i}$. Expanding
-this formula as geometric power series we obtain that 
+It follows from the two previous exercises
+that $H(t)E(-t)=1$. Using Exercise
+\ref{exercise-E} and applying logarithm we
+obtain that
+$\frac{E'(-t)}{E(-t)}=-\sum_{i=1}^n
+\frac{\alpha_i}{1-t\alpha_i}$. Expanding
+this formula as geometric power series we
+obtain that
 \begin{equation}
 \label{equation-P-in-terms-of-E}
 P(t)=-\frac{E'(-t)}{E(-t)}
@@ -1310,16 +1788,19 @@ P(t)=-\frac{E'(-t)}{E(-t)}
 
 \begin{exercise}
 \label{exercise-p-polynomials-of-e}
-Prove that $p_i$ can be expressed as polynomials of $e_i$ (with integer
+Prove that $p_i$ can be expressed as
+polynomials of $e_i$ (with integer
 coefficients).
 \end{exercise}
 
 \begin{proof}
-Using Eq. \ref{equation-P-in-terms-of-E}, and $H(t)E(-t)=1$, we have
+Using Eq. \ref{equation-P-in-terms-of-E}, and
+$H(t)E(-t)=1$, we have
 $$
 P(t)=E'(-t)H(t).
 $$
-Expanding the power series we obtain that the $k$-th term is
+Expanding the power series we obtain that the
+$k$-th term is
 $$
 p_k=\sum_{i=0}^k(-1)^{i+1}ie_ih_{k-i}
 $$
@@ -1327,36 +1808,49 @@ $$
 
 \begin{exercise}
 \label{exercise-h-and-e}
-Prove that $h_i$ can be expressed as polynomials of $e_i$ with integer
-coefficients. Prove that $e_i$ can be expressed as polynomials of $h_i$ with
+Prove that $h_i$ can be expressed as
+polynomials of $e_i$ with integer
+coefficients. Prove that $e_i$ can be
+expressed as polynomials of $h_i$ with
 integer coefficients.
 \end{exercise}
 
 \begin{proof}[Sketch of proof]
-By $H(t)E(-t)=1$ we see that $\frac{E'(-t)}{E(-t)}=\frac{H(t)}{H'(t)}$. Both
-denominators are expressed as power series in $\alpha_i$. Multiplying by $E(-t)$
-as in Exercise \ref{exercise-E} 
-would let $E'(-t)$ be expressed as a power series in $h_i$ and
-$\alpha_i$, while multiplying by $H(t)$ as in Exercise \ref{exercise-H} would 
+By $H(t)E(-t)=1$ we see that
+$\frac{E'(-t)}{E(-t)}=\frac{H(t)}{H'(t)}$.
+Both
+denominators are expressed as power series in
+$\alpha_i$. Multiplying by $E(-t)$
+as in Exercise \ref{exercise-E}
+would let $E'(-t)$ be expressed as a power
+series in $h_i$ and
+$\alpha_i$, while multiplying by $H(t)$ as in
+Exercise \ref{exercise-H} would
 let $H'(t)$ expressed in terms of
 $e_i$ and $\alpha_i$.
 \end{proof}
 
 \begin{exercise}[Newton formula]
 \label{exercise-newton-formula}
-Prove that $ke_k=\sum_{i=1}^{k-1}(-1)^ie_{k-i}p_i$.
+Prove that
+$ke_k=\sum_{i=1}^{k-1}(-1)^ie_{k-i}p_i$.
 \end{exercise}
 
 \begin{proof}
 Note that
 $$
-P(t)E(-t)=\left(\sum_{k=0}^{\infty} p_it^i\right)
+P(t)E(-t)=\left(\sum_{k=0}^{\infty}
+p_it^i\right)
 \left(\sum_{i=0}^n(-1)^ie_it^i\right)
-=\sum_{k=0}^\infty \sum_{i=0}^k (-1)^{k-i}e_{k-i}p_it^k
+=\sum_{k=0}^\infty \sum_{i=0}^k
+(-1)^{k-i}e_{k-i}p_it^k
 $$
-using the product formula of power series, where we define $E(-t)$ as a power
-series by letting $e_i=0$ for $i>n$. By Eq. \ref{equation-P-in-terms-of-E}, this
-equals $E'(-t)$, which we may also see as a power series. Comparing the $k$-th
+using the product formula of power series,
+where we define $E(-t)$ as a power
+series by letting $e_i=0$ for $i>n$. By Eq.
+\ref{equation-P-in-terms-of-E}, this
+equals $E'(-t)$, which we may also see as a
+power series. Comparing the $k$-th
 term yields the result modulo a minus sign.
 \end{proof}
 
@@ -1364,8 +1858,9 @@ term yields the result modulo a minus sign.
 Finally,
 
 \begin{exercise}
-\label{exercise-symmetric-polynomials-in-terms-of-newton-polynomials}
-Prove that $e_i$ are expressed as polynomials on $p_i$ with rational
+\label{exercise-symme-polyn-terms-newto}
+Prove that $e_i$ are expressed as polynomials
+on $p_i$ with rational
 coefficients.
 \end{exercise}
 
@@ -1374,108 +1869,163 @@ coefficients.
 \end{proof}
 
 \section{Weierstrass preparation theorem}
-\label{section-weierstrass-preparation-theorem}
+\label{section-weier-prepa-theor}
 
 \noindent
-The upshot about Weierstrass preparation theorem is that
-we would like it if $\mathcal{O}_n$ was an Euclidean domain,
-i.e. that there was a division algorithm, 
-as in Number Theory Definition \ref{number-theory-definition-euclidean-domain}.
+The upshot about Weierstrass preparation
+theorem is that
+we would like it if $\mathcal{O}_n$ was an
+Euclidean domain,
+i.e. that there was a division algorithm,
+as in Commutative Algebra Definition
+\ref{commutative-algebra-definition-%
+euclidean-domain}.
 Probably that's not true because
 holomorphic functions are infinite series,
-so we cannot put an Euclidean function like the degree.
-Instead, we have Weierstrass preparation theorem
-(which gives a Weierstrass {\it division} theorem…?)
+so we cannot put an Euclidean function like
+the degree.
+Instead, we have Weierstrass preparation
+theorem
+(which gives a Weierstrass {\it division}
+theorem…?)
 
 \medskip\noindent
 Before starting let's say the proof.
-Start with a germ of holomorphic function $f$.
+Start with a germ of holomorphic function
+$f$.
 Split the domain as $(z',z_n)$ and regard $f$
-as a function of $z_n$. 
-Then factor its zeroes 
+as a function of $z_n$.
+Then factor its zeroes
 as in Equation \ref{equation-factor-zeroes}.
-This gives, for every $z'$, 
-a product of $z_n$ minus the zeroes times a holomorphic function
-without zeros, namely $u(z',z_n)\prod (z_n-w_i(z'))$.
-But hey, that product is a polynomial function in the ring
-$\mathbb{C}[z_n,w_1(z'),\ldots,w_n(z')]$; i.e.
-we shall be done once prove it is in fact a Weierstrass polynomial!
-By definition, its coefficients are the 
-elementary symmetric polynomials on the $w_i(z')$.
-But we showed that these can be expressed as polynomials
-with indeterminates being the Newton polynomials.
-And hey, the Newton polynomials are holomorphic functions
-by the Argument principle exercise \ref{exercise-argument-principle}.
-That says that that product of $z_n$ minus the roots
+This gives, for every $z'$,
+a product of $z_n$ minus the zeroes times a
+holomorphic function
+without zeros, namely $u(z',z_n)\prod
+(z_n-w_i(z'))$.
+But hey, that product is a polynomial
+function in the ring
+$\mathbb{C}[z_n,w_1(z'),\ldots,w_n(z')]$;
+i.e.
+we shall be done once prove it is in fact a
+Weierstrass polynomial!
+By definition, its coefficients are the
+elementary symmetric polynomials on the
+$w_i(z')$.
+But we showed that these can be expressed as
+polynomials
+with indeterminates being the Newton
+polynomials.
+And hey, the Newton polynomials are
+holomorphic functions
+by the Argument principle exercise
+\ref{exercise-argument-principle}.
+That says that that product of $z_n$ minus
+the roots
 is a Weierstrass polynomial, as desired.
 
 
 \begin{definition}
 \label{definition-weierstrass-polynomial}
-A {\it Weierstrass polynomial} is a function $f \in \mathcal{O}_{n-1}[z_n]$,
-that is, a function which is polynomial in the last variables with coefficients
-that are analytic functions on the first $n-1$ variables.
+A {\it Weierstrass polynomial} is a function
+$f \in \mathcal{O}_{n-1}[z_n]$,
+that is, a function which is polynomial in
+the last variables with coefficients
+that are analytic functions on the first
+$n-1$ variables.
 \end{definition}
 
 \noindent
-The following formulation is found in \cite{Demailly}:
+The following formulation is found in
+\cite{Demailly}:
 
-\begin{theorem}[Weierstrass preparation theorem]
-\label{theorem-weierstrass-preparation-theorem}
-Let $f$ be holomorphic on a neighourhood of $0$ in $\mathbb{C}^n$,
-such that $f(0,z_n)/z_n^s$ has a nonzero finite limit at $z_n=0$.
+\begin{theorem}[Weierstrass preparation
+theorem]
+\label{theorem-weier-prepa-theor}
+Let $f$ be holomorphic on a neighourhood of
+$0$ in $\mathbb{C}^n$,
+such that $f(0,z_n)/z_n^s$ has a nonzero
+finite limit at $z_n=0$.
 With the ``above'' choice of $r'$ and $r_n$,
-one can write 
+one can write
 $$
 f(z)=u(z)P(z',z_n)
 $$
-where $u$ is an invertible holomorphic function
-in a neighbourhood of the polydisk $\overline{\Delta}(r',r_n)$ 
-and $P$ is a Weierstrass polynomial with coefficient
-functions defined for $|z'|\leq r'$ in $\mathbb{C}^{n-1}$.
+where $u$ is an invertible holomorphic
+function
+in a neighbourhood of the polydisk
+$\overline{\Delta}(r',r_n)$
+and $P$ is a Weierstrass polynomial with
+coefficient
+functions defined for $|z'|\leq r'$ in
+$\mathbb{C}^{n-1}$.
 \end{theorem}
 
 \begin{proof}
-Step 0. First notice that since I will use this theorem
-to prove that $\mathcal{O}_n$ is a UFD, I will start with
+Step 0. First notice that since I will use
+this theorem
+to prove that $\mathcal{O}_n$ is a UFD, I
+will start with
 an arbitrary function $f \in \mathcal{O}_n$.
-(Right now it's not clear why we need that $f(0)=0$.)
-But then it's straightforward to change coordinates so that $f$
+(Right now it's not clear why we need that
+$f(0)=0$.)
+But then it's straightforward to change
+coordinates so that $f$
 is not identically zero on the  $z_n$-axis:
-just complete the point where $f$ is nonzero to a basis $\{b_i\}_{i=1}^{n-1}$
-and precompose with a linear map sending to $(0,\ldots,0,1)$
-to that point, and the rest of the canonical basis
+just complete the point where $f$ is nonzero
+to a basis $\{b_i\}_{i=1}^{n-1}$
+and precompose with a linear map sending to
+$(0,\ldots,0,1)$
+to that point, and the rest of the canonical
+basis
 to the corresponding basis vectors $b_i$.
-The composition of this linear map with $f$ remains holomorphic
+The composition of this linear map with $f$
+remains holomorphic
 and is nonvanishing in the $z_n$-axis.
 
-(See Exercise \ref{exercise-principal-parts} for a proof that we can suppose
-that the coordinate change preserves the order of the zero,
+(See Exercise \ref{exercise-principal-parts}
+for a proof that we can suppose
+that the coordinate change preserves the
+order of the zero,
 but again it's not clear why I need that.)
 
 \medskip\noindent
 Step 1. Now we define the correct domain.
 This is necessary for the next step.
 
-Then $f(0,z_n)$ is a holomorphic function with a zero on $0$. By
-the Taylor expansion we know that this zero must be isolated, so that there is a
-number $r_n>0$ such that $f(0,z_n)\neq 0$ for  $0<|z_n|\leq r_n$.
+Then $f(0,z_n)$ is a holomorphic function
+with a zero on $0$. By
+the Taylor expansion we know that this zero
+must be isolated, so that there is a
+number $r_n>0$ such that $f(0,z_n)\neq 0$ for
+$0<|z_n|\leq r_n$.
 
-Since the circle $\partial\Delta_0(r_n)=\{(0,z_n):|z_n|=r_n\}$ is compact 
-and $f(0,z_n)\neq 0$ on this circle, we can construct
-an open neighbourhood of the circle where $f$ is nonzero as follows.
-For any point of the circle $|z_n|=r_n$ 
-pick a pointed open neighbourhood where $f$ is nonzero (using continuity).
-This gives a collection of open neighbourhoods of $\mathbb{C}^n$ 
-covering the circle $\partial\Delta_{0}(r_n)$,
+Since the circle
+$\partial\Delta_0(r_n)=\{(0,z_n):|z_n|=r_n\}$
+is compact
+and $f(0,z_n)\neq 0$ on this circle, we can
+construct
+an open neighbourhood of the circle where $f$
+is nonzero as follows.
+For any point of the circle $|z_n|=r_n$
+pick a pointed open neighbourhood where $f$
+is nonzero (using continuity).
+This gives a collection of open
+neighbourhoods of $\mathbb{C}^n$
+covering the circle
+$\partial\Delta_{0}(r_n)$,
 from which we take a finite subcover.
-Let $r'$ be the minimum radius of these balls.
-We have that $f(z',z_n)\neq 0$ for $z'<r'$ and  $|z_n|<r_n+\varepsilon$ 
+Let $r'$ be the minimum radius of these
+balls.
+We have that $f(z',z_n)\neq 0$ for $z'<r'$
+and  $|z_n|<r_n+\varepsilon$
 for some small $\varepsilon$.
 
-This means that in the definition of $S_k$ in the next
-step we are confident that we can integrate the function
-$\frac{1}{f(z',z_n)}$ along the circle $\partial\Delta_{z'}r_n$ 
+This means that in the definition of $S_k$ in
+the next
+step we are confident that we can integrate
+the function
+$\frac{1}{f(z',z_n)}$ along the circle
+$\partial\Delta_{z'}r_n$
 for every $z'$.
 
 \medskip\noindent
@@ -1487,44 +2037,66 @@ S_k(z'):=\frac{1}{2\pi\sqrt{-1}}
 \frac{f'(z',z_n)}{f(z',z_n)}z_n^kdz_n.
 $$
 In Exercise \ref{exercise-argument-principle}
-we showed that $S_k(z')$ is the sum of the $k$-th powers of
-the zeroes of  $f(z',-)$ without multiplicities.
-In particular 
+we showed that $S_k(z')$ is the sum of the
+$k$-th powers of
+the zeroes of  $f(z',-)$ without
+multiplicities.
+In particular
 $S_0(z')$ is an integer: the number of
-zeroes of $f(z',-)$ on $\Delta_{z'}(r_n)$ (for fixed 
-$z' \in \Delta(r')=\{z' \in \mathbb{C}^{n-1}:|z'|<r'\}$).
+zeroes of $f(z',-)$ on $\Delta_{z'}(r_n)$
+(for fixed
+$z' \in \Delta(r')=\{z' \in
+\mathbb{C}^{n-1}:|z'|<r'\}$).
 
-The map $S_k$ is holomorphic as a function of $z'$ because
-it is holomorphic in each of its $n-1$ complex variables.
-This can be checked by fixing all but one of such variables
-and splitting the expression in real and imaginary parts.
-By interchanging partial derivatives and integrals as real functions
-we conclude that Cauchy-Riemann equations are satisfied
+The map $S_k$ is holomorphic as a function of
+$z'$ because
+it is holomorphic in each of its $n-1$
+complex variables.
+This can be checked by fixing all but one of
+such variables
+and splitting the expression in real and
+imaginary parts.
+By interchanging partial derivatives and
+integrals as real functions
+we conclude that Cauchy-Riemann equations are
+satisfied
 by holomorphicity of the integrands.
-The proof for differentiation of integrals of real functions may be found
-\href{https://en.wikipedia.org/wiki/Leibniz_integral_rule#Proof_of_basic_form}
+The proof for differentiation of integrals of
+real functions may be found
+\href{https://en.wikipedia.org/wiki/%
+Leibniz_integral_rule#Proof_of_basic_form}
 {here}.
 
 Moreover, since
 $S_0(z')$ is an integer,
-it's constant (as a function of $z'$) by continuity.
+it's constant (as a function of $z'$) by
+continuity.
 Thus we have exactly $s$ functions
-$w_1(z'),\ldots,w_s(z')$ which give the $s$ zeroes of $f(z',-)$
-at every $z' \in \Delta(r')$. 
-Now we apply argument principle with multiplication by
-$z^k$ to obtain $S_k(z')=\sum w_i(z')^k$ (without multiplicities).
-Again, these maps are holomorphic on $z'$ by Theorem
-\ref{theorem-holomorphic-iff-analytic} since they are defined as integrals
-and have series expansions. 
+$w_1(z'),\ldots,w_s(z')$ which give the $s$
+zeroes of $f(z',-)$
+at every $z' \in \Delta(r')$.
+Now we apply argument principle with
+multiplication by
+$z^k$ to obtain $S_k(z')=\sum w_i(z')^k$
+(without multiplicities).
+Again, these maps are holomorphic on $z'$ by
+Theorem
+\ref{theorem-holomorphic-iff-analytic} since
+they are defined as integrals
+and have series expansions.
 Notice these are by definition the Newton
 polynomials on $w_i(z')$.
 
 \medskip\noindent
-Step 3. 
-By the Newton formula (Exercise \ref{exercise-newton-formula})
-we know that the elementary symmetric polynomials $e_i$ can be expressed 
-as polynomials of the Newton polynomials $p_i$.
-We conclude that the $e_i$ are also holomorphic functions of $z'$. 
+Step 3.
+By the Newton formula (Exercise
+\ref{exercise-newton-formula})
+we know that the elementary symmetric
+polynomials $e_i$ can be expressed
+as polynomials of the Newton polynomials
+$p_i$.
+We conclude that the $e_i$ are also
+holomorphic functions of $z'$.
 This shows that
 \begin{align*}
 P(z',z_n):&=\prod_{i=1}^k(z_n-w_i(z'))\\
@@ -1532,29 +2104,36 @@ P(z',z_n):&=\prod_{i=1}^k(z_n-w_i(z'))\\
 \end{align*}
 
 \noindent
-where the $e_i$ are the elementary symmetric polynomials,
-defined exactly by the above relation (see 
-Equation \ref{equation-elementary-symmetric-polynomial}),
-is a Weiestrass polynomial 
-(because its coefficients are holomorphic functions).
+where the $e_i$ are the elementary symmetric
+polynomials,
+defined exactly by the above relation (see
+Equation \ref{equation-eleme-symme-polyn}),
+is a Weiestrass polynomial
+(because its coefficients are holomorphic
+functions).
 
 Factoring the zeroes of $f(z',-)$ as in
 Equation \ref{equation-factor-zeroes}
 we obtain
 $$
-f(z',z_n)=\left(\prod_{i}z_n-w_i(z')\right)h(z',z_n)
+f(z',z_n)=\left(\prod_{i}z_n-w_i(z')\right)
+h(z',z_n)
 $$
-for a function $h$ that doesn't vanish in 
+for a function $h$ that doesn't vanish in
 $\Delta(r')\times \Delta_0(r_n+\varepsilon)$.
 
-To conclude we need to confirm that $h$ is holomorphic.
-By our factorization we know that for every fixed $z'$ 
+To conclude we need to confirm that $h$ is
+holomorphic.
+By our factorization we know that for every
+fixed $z'$
 $h(z',-)$ is holomorphic in $z_n$.
-Then we can use Cauchy integral formula \ref{equation-cauchy-integral-formula}
+Then we can use Cauchy integral formula
+\ref{equation-cauchy-integral-formula}
 to get
 $$
 h(z',z_n)=\frac{1}{2\pi\sqrt{-1}}
-\int_{\partial\Delta(r_n)}\frac{f(z',w_n)}{w_n-z_n}dw_n.
+\int_{\partial\Delta(r_n)}\frac{f(z',w_n)}
+{w_n-z_n}dw_n.
 $$
 This is a holomorphic function of $z'$ since
 for any $z_0' \in \Delta(r')$ the limit
@@ -1571,143 +2150,198 @@ $$
 exists.
 
 
-%The classical way is to notice that the function $f/P$ is holomorphic in $z_n$
-%because $f$ and $P$ have the same zeroes, and we write the integral formula to
-%complete to a holomorphic function (but I think it should be enough with my
-%argument).
+% The classical way is to notice that the
+% function $f/P$ is holomorphic in $z_n$
+% because $f$ and $P$ have the same zeroes,
+% and we write the integral formula to
+% complete to a holomorphic function (but I
+% think it should be enough with my
+% argument).
 \end{proof}
 
 \noindent
-Recall from Number Theory Lemma \ref{lemma-gauss}
+Recall from Commutative Algebra Lemma
+\ref{commutative-algebra-lemma-gauss}
 that if $R$ is a UFD, then $R[x]$ is a UFD.
 
 \begin{lemma}
 \label{lemma-stalk-is-UFD}
-The stalk $\mathcal{O}_n:=\mathcal{O}_{\mathbb{C}^n,0}$ is a UFD.
+The stalk
+$\mathcal{O}_n:=\mathcal{O}_{\mathbb{C}^n,0}$
+is a UFD.
 \end{lemma}
 
 \begin{proof}
-By induction on $n$. For $n=0$ it is trivial. Suppose $\mathcal{O}_{n-1}$ is a
-UFD. Then by Gauss' Lemma \ref{number-theory-lemma-gauss}, 
+By induction on $n$. For $n=0$ it is trivial.
+Suppose $\mathcal{O}_{n-1}$ is a
+UFD. Then by Gauss' Lemma
+\ref{commutative-algebra-lemma-gauss},
 $\mathcal{O}_{n-1}[w]$ is a UFD
-too. Thus we may express any Weierstrass polynomial $g$ as a product of
-irreducible elements (uniquely up to multiplication by units).
+too. Thus we may express any Weierstrass
+polynomial $g$ as a product of
+irreducible elements (uniquely up to
+multiplication by units).
 
-Let $f\in \mathcal{O}_n$. We want to express $f$ as a product of (unique up to
-multiplication by units) of irreducible elements. By Weierstrass Preparation
-Theorem \ref{theorem-weierstrass-preparation} there is a Weierstrass polynomial
-$g\in\mathcal{O}_n[w]$ and a holomorphic function not vanishing on $0$ (i.e. a
-unit of $\mathcal{O}_n$) such that $f=gh$. By the previous remark $g$ is
-factored uniquely up to multiplication by units as $g=g_1\ldots g_m$. This shows
+Let $f\in \mathcal{O}_n$. We want to express
+$f$ as a product of (unique up to
+multiplication by units) of irreducible
+elements. By Weierstrass Preparation
+Theorem \ref{theorem-weierstrass-preparation}
+there is a Weierstrass polynomial
+$g\in\mathcal{O}_n[w]$ and a holomorphic
+function not vanishing on $0$ (i.e. a
+unit of $\mathcal{O}_n$) such that $f=gh$. By
+the previous remark $g$ is
+factored uniquely up to multiplication by
+units as $g=g_1\ldots g_m$. This shows
 existence of the factorization.
 
-To prove uniqueness suppose that $f=f_1\ldots f_k$ for some irreducible
-$f_1,\ldots,f_k\in\mathcal{O}_n$. Since $f$ does not vanish in the $w$ axis,
-neither can each $f_i$, so that we may decompose each of them as  $f_i=g_i'h_i$
-by Weierstrass Preparation Theorem. Since $f_i$ is irreducible, it follows that
-$g_i'$ is irreducible. Then we have that $$ f=gh=\prod g_i'\prod h_i $$ so by
-uniqueness in Weierstrass Preparation Theorem we conclude that $g=\prod g_i'$,
-and by uniqueness from the fact that  $\mathcal{O}_n[w]$ is a UFD we conclude
-that $g$ coincides with $\prod g_i'$ up to multiplication by units.
+To prove uniqueness suppose that $f=f_1\ldots
+f_k$ for some irreducible
+$f_1,\ldots,f_k\in\mathcal{O}_n$. Since $f$
+does not vanish in the $w$ axis,
+neither can each $f_i$, so that we may
+decompose each of them as  $f_i=g_i'h_i$
+by Weierstrass Preparation Theorem. Since
+$f_i$ is irreducible, it follows that
+$g_i'$ is irreducible. Then we have that $$
+f=gh=\prod g_i'\prod h_i $$ so by
+uniqueness in Weierstrass Preparation Theorem
+we conclude that $g=\prod g_i'$,
+and by uniqueness from the fact that
+$\mathcal{O}_n[w]$ is a UFD we conclude
+that $g$ coincides with $\prod g_i'$ up to
+multiplication by units.
 \end{proof}
 
 \medskip\noindent
-Here's some material I wrote on the way:
+We finish with an exercise from Misha's
+handouts
+that helped on the way.
 
-We denote by $B_r(z_1,\ldots,z_{n-1})$ the ball of radius $r$ in
+We denote by $B_r(z_1,\ldots,z_{n-1})$ the
+ball of radius $r$ in
 $\mathbb{C}^{n-1}\subset\mathbb{C}^n$.
 
 \begin{exercise}
 \label{exercise-polydisks}
-Let $F$ be a holomorphic function on a neighbourhood of $0$ in $\mathbb{C}^n$,
-such that $\lim_{z_n\to 0} \frac{F(0,z_n)}{z_n^k}\neq 0,\infty$.
-Consider the projection map $\Pi:\mathbb{C}^n\to\mathbb{C}^{n-1}$ 
-$(z_1,\ldots,z_n)\mapsto (z_1,\ldots,z_{n-1})$.
+Let $F$ be a holomorphic function on a
+neighbourhood of $0$ in $\mathbb{C}^n$,
+such that $\lim_{z_n\to 0}
+\frac{F(0,z_n)}{z_n^k}\neq 0,\infty$.
+Consider the projection map
+$\Pi:\mathbb{C}^n\to\mathbb{C}^{n-1}$
+$(z_1,\ldots,z_n)\mapsto
+(z_1,\ldots,z_{n-1})$.
 \begin{enumerate}
-\item Prove that for an appropriate pair $r,r'$, the resitriction of $F$ to the
-polydisk $\Delta(n-1,1):=B_r(z_1,\ldots,z_{n-1})\times\Delta_{r'}(z_n)$ nowhere
-vanishes on the set $\Pi^{-1}(\partial\Delta_{r'}(z_n))$.
-\item Prove that in this case the resitriction of $F$ to this polydisk has
-precisely $k$ zeroes $\alpha_1,\ldots,\alpha_k$ on each fiber of $\Pi$.
-\item Prove that $\sum_{i=1}^k \alpha_i^d$ is a holomorphic function on
+\item Prove that for an appropriate pair
+$r,r'$, the resitriction of $F$ to the
+polydisk
+$\Delta(n-1,1):=B_r(z_1,\ldots,z_{n-1})
+\times\Delta_{r'}(z_n)$
+nowhere
+vanishes on the set
+$\Pi^{-1}(\partial\Delta_{r'}(z_n))$.
+\item Prove that in this case the
+resitriction of $F$ to this polydisk has
+precisely $k$ zeroes
+$\alpha_1,\ldots,\alpha_k$ on each fiber of
+$\Pi$.
+\item Prove that $\sum_{i=1}^k \alpha_i^d$ is
+a holomorphic function on
 $B_r(z_1,\ldots,z_{n-1})$.
-\item Prove that any elementary symmetric polynomial on $\alpha_i$ gives a
-holomorphic function on $B_r(z_1,\ldots,z_{n-1})$.
+\item Prove that any elementary symmetric
+polynomial on $\alpha_i$ gives a
+holomorphic function on
+$B_r(z_1,\ldots,z_{n-1})$.
 \end{enumerate}
 \end{exercise}
 
 \begin{proof}
 \begin{enumerate}
-\item Suppose that for every $(r,r')$ there are points 
-$z_1\in B_r(z_1,\ldots,z_{n-1})$ and $z_n\in \partial\Delta_{r'}(z_n)$
-where $F$ vanishes. Then we obtain a convergent sequence where $F$
-vanishes, and by Identity Principle \ref{theorem-identity-several-variables} we
+\item Suppose that for every $(r,r')$ there
+are points
+$z_1\in B_r(z_1,\ldots,z_{n-1})$ and $z_n\in
+\partial\Delta_{r'}(z_n)$
+where $F$ vanishes. Then we obtain a
+convergent sequence where $F$
+vanishes, and by Identity Principle
+\ref{theorem-identity-several-variables} we
 conclude that $F$ mus be identically zero.
-\item This is just applying Argument principle, i.e. the integral 
-$\frac{1}{2\pi\sqrt{-1}}\int_{\partial \Delta}\frac{F'(y_0,z)}{F(y_0,z)}dz$ 
-equals the number of zeroes. Since it is a continuous (holomorphic?) function on
-$\Delta_y$ and integer valued, it must be constant.
+\item This is just applying Argument
+principle, i.e. the integral
+$\frac{1}{2\pi\sqrt{-1}}\int_{\partial
+\Delta}\frac{F'(y_0,z)}{F(y_0,z)}dz$
+equals the number of zeroes. Since it is a
+continuous (holomorphic?) function on
+$\Delta_y$ and integer valued, it must be
+constant.
 
-The condition that $\lim_{z_n\to0}\frac{F(0,z_n)}{z_n^k}\neq 0,\infty$ means
+The condition that
+$\lim_{z_n\to0}\frac{F(0,z_n)}{z_n^k}\neq
+0,\infty$ means
 that the fiber at 0 has a zero of order $k$:
 $$
-\frac{F(0,z_n)}{z_n^k}=\frac{F(0)}{z_n^k}+F'(0)\frac{z_n}{z_n^k}+\ldots
-+\frac{F^{(k)}(0)}{k!}\frac{z_n^k}{z_n^k}+\ldots
+\frac{F(0,z_n)}{z_n^k}=\frac{F(0)}{z_n^k}+
+F'(0)\frac{z_n}{z_n^k}+\ldots
++\frac{F^{(k)}(0)}{k!}\frac{z_n^k}{z_n^k}+
+\ldots
 $$
 Thus, on other fibers we can have
-more zeroes, but without multiplicities they are always $k$.
-\item 
+more zeroes, but without multiplicities they
+are always $k$.
+\item
 \end{enumerate}
 \end{proof}
 
-\begin{exercise}[Weierstrass preparation theorem]
-\label{exercise-weierstrass-preparation-theorem}
-Let $F$ be an analytic function in a neighbourhood of $0$ in $\mathbb{C}^n$,
-such that $\lim_{z_n\to 0}\neq 0,\infty$. Consider the projection map
-$\Pi:\mathbb{C}^n\to\mathbb{C}^{n-1}$, 
-$(z_1,\ldots,z_n)\mapsto(z_1,\ldots,z_{n-1})$, and let 
-$P(z_n)\in \mathcal{O}_{n_-1}[z_n]$ be the Weierstrass polynomial given by 
-$P(z_n)=\sum_{i=0}^ke_iz_n^i$, where $e_i$ are the elementary symmetric
-polynomials on the zeros $\alpha_1,\ldots,\alpha_k$ defined in the previous
-exercise. Prove that $F=P(z_n)u$, where $u$ is a germ of an invertible
+\begin{exercise}[Weierstrass preparation
+theorem]
+\label{exercise-weier-prepa-theor}
+Let $F$ be an analytic function in a
+neighbourhood of $0$ in $\mathbb{C}^n$,
+such that $\lim_{z_n\to 0}\neq 0,\infty$.
+Consider the projection map
+$\Pi:\mathbb{C}^n\to\mathbb{C}^{n-1}$,
+$(z_1,\ldots,z_n)\mapsto(z_1,\ldots,z_{n-1})
+$,
+and let
+$P(z_n)\in \mathcal{O}_{n_-1}[z_n]$ be the
+Weierstrass polynomial given by
+$P(z_n)=\sum_{i=0}^ke_iz_n^i$, where $e_i$
+are the elementary symmetric
+polynomials on the zeros
+$\alpha_1,\ldots,\alpha_k$ defined in the
+previous
+exercise. Prove that $F=P(z_n)u$, where $u$
+is a germ of an invertible
 holomorphic function.
 \end{exercise}
 
 \begin{proof}
 For every $y_0$ we can write
 $$
-F(y_0,z_n)=(z_n-\alpha_1)\ldots(z_n-\alpha_n)h(z_n)
+F(y_0,z_n)=(z_n-\alpha_1)\ldots(z_n-\alpha_n)
+h(z_n)
 $$
-where implicitly all $\alpha_i$ and $h$ depend on $y_0$. The product of 
-$(z_n-\alpha_i)$ is the definition of $P$. Varying $y_0$ we obtain the result.
+where implicitly all $\alpha_i$ and $h$
+depend on $y_0$. The product of
+$(z_n-\alpha_i)$ is the definition of $P$.
+Varying $y_0$ we obtain the result.
 \end{proof}
-
-\noindent
-Also \cite{GH} formulation:
-
-As I recall the following is \cite{GH} formulation of the theorem:
-
-\begin{theorem}[Weierstrass preparation theorem]
-If $f:U\subset\mathbb{C}^n\to\mathbb{C}$ is holomorphic and $f$ is not
-identically zero in the coordinate axis $z_n:=w$, there
-is a unique germ of a monic Weierstrass polynomial $g$ whose coefficients are
-holomorphic functions on the first $n-1$ variables 
-and a germ of a holomorphic 
-function $h$ with $h(0)\neq 0$ 
-(i.e. $h$ is a unit of $\mathcal{O}_n$)
-such that $f=gh$.
-\end{theorem}
 
 \section{Weierstrass division theorem}
 \label{section-weierstrass-division-theorem}
 
 \begin{theorem}[Weierstrass division theorem]
 \label{theorem-weierstrass-division-theorem}
-For any $f \in \mathcal{O}_{\mathbb{C}^n,0}$ and
-a Weierstrass polynomial $g \in \mathcal{O}_{\mathbb{C}^{n-1},0}[z_n]$
+For any $f \in \mathcal{O}_{\mathbb{C}^n,0}$
+and
+a Weierstrass polynomial $g \in
+\mathcal{O}_{\mathbb{C}^{n-1},0}[z_n]$
 there exist a unique Weierstrass polynomial
 $r \in \mathcal{O}_{\mathbb{C}^{n-1},0}[z_n]$
-and a unique germ $h \in \mathcal{O}_{\mathbb{C}^n,0}$
+and a unique germ $h \in
+\mathcal{O}_{\mathbb{C}^n,0}$
 such that
 $$
 f=gh+r,\qquad \text{deg }r < \text{deg }g.
@@ -1720,103 +2354,143 @@ $\mathcal{O}_{\mathbb{C}^n,0}$ is Noetherian.
 \end{proposition}
 
 \begin{proof}
-Let $I \subset \mathcal{O}_{\mathbb{C}^n,0}$ be any ideal.
-We want to show that $I$ is finitely generated.
+Let $I \subset \mathcal{O}_{\mathbb{C}^n,0}$
+be any ideal.
+We want to show that $I$ is finitely
+generated.
 
-First notice that the ring of Weierstrass polynomials is
-Noetherian by induction on Hilbert basis theorem:
-$\mathcal{O}_{\mathbb{C}^0,0}[z_1]=\mathbb{C}[z_1]$
-(because $\mathbb{C}$-valued functions on $\mathbb{C}^0=pt$
+First notice that the ring of Weierstrass
+polynomials is
+Noetherian by induction on Hilbert basis
+theorem:
+$\mathcal{O}_{\mathbb{C}^0,0}[z_1]=\mathbb{C}
+[z_1]$
+(because $\mathbb{C}$-valued functions on
+$\mathbb{C}^0=pt$
 are just constants, i.e. $\mathbb{C}$)
 is Noetherian because $\mathbb{C}$ is,
 and so on.
 
-This means that $I \cap \mathcal{O}_{\mathbb{C}^{n-1},0}[z_n]$
+This means that $I \cap
+\mathcal{O}_{\mathbb{C}^{n-1},0}[z_n]$
 is finitely generated, say $I=(g_1,…,g_k)$
 for $g_i$ Weierstrass polynomials.
 
 Now pick any Weierstrass polynomial
-$g \in I \cap \mathcal{O}_{\mathbb{C}^{n-1},0}[z_n]$,
-which is granted to exist by Weierstrass Preparation theorem
+$g \in I \cap
+\mathcal{O}_{\mathbb{C}^{n-1},0}[z_n]$,
+which is granted to exist by Weierstrass
+Preparation theorem
 applied to any $f \in \mathcal{O}_{C_n,0}$:
-we must have $f=gh$ for $g \in \mathcal{O}_{\mathbb{C}^{n-1},0}[z_n]$
-and $h$ unit (i.e. holomorphic germ not vanishing at $0$),
+we must have $f=gh$ for $g \in
+\mathcal{O}_{\mathbb{C}^{n-1},0}[z_n]$
+and $h$ unit (i.e. holomorphic germ not
+vanishing at $0$),
 which means that $g=fh^{-1}$ is in $I$,
 and pick also any element $\tilde{f} \in I$.
 Apply Wierestrass Division theorem to obtain
 $$
-\tilde{f}=gh+r,\qquad \text{deg }r < \text{deg }g.
+\tilde{f}=gh+r,\qquad \text{deg }r <
+\text{deg }g.
 $$
-Since $g$ and $\tilde{f}$ are in $I$, so is $r$.
-Moreover, $r$ is a Weierstrass polynomial and is thus generated
-by the $g_i$. Since $g$ does not depend on $\tilde{f}$,
+Since $g$ and $\tilde{f}$ are in $I$, so is
+$r$.
+Moreover, $r$ is a Weierstrass polynomial and
+is thus generated
+by the $g_i$. Since $g$ does not depend on
+$\tilde{f}$,
 we see that $I=(g,g_1,…,g_k)$.
 \end{proof}
 
 \medskip\noindent
-Not knowing exactly where to put this, here goes:
+Not knowing exactly where to put this, here
+goes:
 
 \medskip\noindent
-Now we discuss the analytic version of Hilbert's Nullstellensatz.
+Now we discuss the analytic version of
+Hilbert's Nullstellensatz.
 as explained by Demailly.
 
 \noindent
 Usually I think of Hilbert's Nullstellensatz
 as the statement that $I(V(I))=\sqrt{I}$.
-Following are two simple initial observations.
+Following are two simple initial
+observations.
 
-It is immediate that $\sqrt{\mathfrak{p}}=\mathfrak{p}$
-if $\mathfrak{p}$ is a prime ideal (of any ring):
+It is immediate that
+$\sqrt{\mathfrak{p}}=\mathfrak{p}$
+if $\mathfrak{p}$ is a prime ideal (of any
+ring):
 if  $f^k \in \mathfrak{p}$ then
-either $f \in \mathfrak{p}$ or $f^{k-1}\in \mathfrak{p}$,
+either $f \in \mathfrak{p}$ or $f^{k-1}\in
+\mathfrak{p}$,
 etc.
 
 It is also easy to see that
-for any ideal $I$ of functions or germs of functions
+for any ideal $I$ of functions or germs of
+functions
 (i.e. either  $I \subset \mathcal{O}_X(U)$
 or $I \subset \mathcal{O}_n$)
 we have
 $\sqrt{I}\subseteq I(V(I))$.
 Indeed, if $f^k \in I$,
 then $f^k(x)=0$ for all $x \in V(I)$,
-and since $\mathbb{C}$ has no nonzero divisors
+and since $\mathbb{C}$ has no nonzero
+divisors
 we see that $f(x)=0$,
 that is $f \in I(V(I))$.
 
-It remains to show that $I(V(I)) \subseteq \sqrt{I}$.
+It remains to show that $I(V(I)) \subseteq
+\sqrt{I}$.
 We shall first suppose that  $I$ is prime
 and prove that $I(V(I)) \subseteq I$.
-(The complete statement for the radical follows
+(The complete statement for the radical
+follows
 from a purely algebraic process,
 see \cite[Theorem 4.22]{Demailly}.)
 
 We will need a few preparatory results.
-First recall that $S$ is an integral ring over $R$ 
+First recall that $S$ is an integral ring
+over $R$
 if every element of $S$ is expressed as
-a root of a monic polynomial with coefficients in $R$.
-(See Stacks Project \href{https://stacks.math.columbia.edu/tag/00GI}{00GI}.)
+a root of a monic polynomial with
+coefficients in $R$.
+(See Stacks Project
+\href{https://stacks.math.columbia.edu/tag/%
+00GI}{00GI}.)
 
-It will be handy to keep in mind the following lemma
-(Stacks Project \href{https://stacks.math.columbia.edu/tag/00GH}{00GH}):
+It will be handy to keep in mind the
+following lemma
+(Stacks Project
+\href{https://stacks.math.columbia.edu/tag/%
+00GH}{00GH}):
 
 \begin{lemma}
-\label{lemma-characterize-finite-in-terms-of-integral}
-Let $R \to S$ be a ring map. The following are equivalent
+\label{lemma-chara-finit-terms-integ}
+Let $R \to S$ be a ring map. The following
+are equivalent
 \begin{enumerate}
 \item $R \to S$ is finite,
-\item $R \to S$ is integral and of finite type, and
-\item there exist $x_1, \ldots, x_n \in S$ which generate $S$ as an
-algebra over $R$ such that each $x_i$ is integral over $R$.
+\item $R \to S$ is integral and of finite
+type, and
+\item there exist $x_1, \ldots, x_n \in S$
+which generate $S$ as an
+algebra over $R$ such that each $x_i$ is
+integral over $R$.
 \end{enumerate}
 \end{lemma}
 
 \noindent
-This essentially says that an integral extension
-$R \to S$ gives $S$ the structure of a finitely generated $R$-module
-(I think experts call this a ``finite $R$-module'')
+This essentially says that an integral
+extension
+$R \to S$ gives $S$ the structure of a
+finitely generated $R$-module
+(I think experts call this a ``finite
+$R$-module'')
 whose generators are integral.
 This just means that $S=R[x_1,\ldots,x_k]$
-and $x_i \in S$ is the root of a monic polynomial in $R$.
+and $x_i \in S$ is the root of a monic
+polynomial in $R$.
 
 \begin{proposition}
 \label{proposition-integral-extension}
@@ -1826,14 +2500,17 @@ finite integral extension of $\mathcal{O}_d$.
 
 \begin{proof}
 For this it's enough to check that
-the map $\mathcal{O}_d \to \mathcal{O}_n/\mathcal{I}$ 
+the map $\mathcal{O}_d \to
+\mathcal{O}_n/\mathcal{I}$
 is finite.
-That is, that every element of $\mathcal{O}_n/\mathcal{I}$ 
+That is, that every element of
+$\mathcal{O}_n/\mathcal{I}$
 can be expressed as a tuple of elements
-of $\mathcal{O}_d$. 
+of $\mathcal{O}_d$.
 (We can think of this tuple
 as a linear combination, or cycle.)
-Step 1: produce some Weierstrass polynomials…
+Step 1: produce some Weierstrass
+polynomials…
 \end{proof}
 
 \begin{lemma}
@@ -1841,30 +2518,41 @@ Step 1: produce some Weierstrass polynomials…
 \begin{reference}
 \cite[Lemma 4.21]{Demailly}
 \end{reference}
-If $\mathcal{I} \subset \mathcal{O}_n$ is prime and
+If $\mathcal{I} \subset \mathcal{O}_n$ is
+prime and
 $A = V(\mathcal{I})$, then
 $\mathcal{I}_{A,0}=\mathcal{I}$.
 \end{lemma}
 
 \begin{proof}
-Proposition \ref{proposition-integral-extension}
+Proposition
+\ref{proposition-integral-extension}
 says: take a polynomial $f \in \mathcal{O}_n$
-and consider its equivalence class $\tilde{f}\in\mathcal{O}_n/\mathcal{I}$.
-Then $\tilde{f}$ is the root of some monic polynomial 
+and consider its equivalence class
+$\tilde{f}\in\mathcal{O}_n/\mathcal{I}$.
+Then $\tilde{f}$ is the root of some monic
+polynomial
 $t^r+b_{r-1}t^{r-1}+\ldots+b_1t+b_0$
 with $b_i \in \mathcal{O}_d$.
-That is, putting $f$ instead of $t$ we get an equation
+That is, putting $f$ instead of $t$ we get an
+equation
 $$
-f^r+b_1f^{r-1}+\ldots+b_r=0\qquad \text{mod }\mathcal{I}.
+f^r+b_1f^{r-1}+\ldots+b_r=0\qquad \text{mod
+}\mathcal{I}.
 $$
 In other words, the holomorphic function
-$f^r+b_1f^{r-1}+\ldots+b_r$ is in  $\mathcal{I}$.
+$f^r+b_1f^{r-1}+\ldots+b_r$ is in
+$\mathcal{I}$.
 Since $f$ vanishes on $(A,0)$,
 this says that $b_r$ vanishes in $(A,0)$ too.
-Now suppose that this implied that the class $\tilde{b_r}=0$.
-We are supposed to use that Proposition \ref{proposition-integral-extension}
-also tells us is that the above equation is irreducible,
-which I think means that $F=\sum b_it^i \in \mathcal{O}_d[t]$
+Now suppose that this implied that the class
+$\tilde{b_r}=0$.
+We are supposed to use that Proposition
+\ref{proposition-integral-extension}
+also tells us is that the above equation is
+irreducible,
+which I think means that $F=\sum b_it^i \in
+\mathcal{O}_d[t]$
 is irreducible.
 In turn this gives that $r=1$.
 \end{proof}
@@ -1873,47 +2561,70 @@ In turn this gives that $r=1$.
 \medskip\noindent
 Let's just store what was learned today:
 \begin{enumerate}
-\item {\bf Noether normalization lemma.} 
-See \href{https://www.youtube.com/watch?v=VWWoG_4XVvs}
+\item {\bf Noether normalization lemma.}
+See
+\href{https://www.youtube.com/watch?v=%
+VWWoG_4XVvs}
 {this video}.
 Let $k$ be a (infinite) field,
 $A \neq 0$ a finitely generated $k$-algebra.
-Then there exists elements $y_1,\ldots,y_r \in A$ 
-which are algebraically independent over $k$ 
-and such that $A$ is integral over $k[y_1,\ldots,y_r]$.
+Then there exists elements $y_1,\ldots,y_r
+\in A$
+which are algebraically independent over $k$
+and such that $A$ is integral over
+$k[y_1,\ldots,y_r]$.
 That is,
 $$
 \xymatrix{
-A\ar@{-}[d]^{\substack{\text{integral} \\ \text{ext.}}}\\
-k[y_1,\ldots,y_r]\ar@{-}[d]^{\substack{\text{transc.} \\ \text{ext.}}}\\
+A\ar@{-}[d]^{\substack{\text{integral} \\
+\text{ext.}}}\\
+k[y_1,\ldots,y_r]\ar@{-}[d]
+^{\substack{\text{transc.}
+\\ \text{ext.}}}\\
 k.
 }
 $$
 
-\item This can be used to prove the weak Nullstellensatz, i.e.
-let $k$ be an algberaically closed field, and $I \subseteq k[x_1,\ldots,x_n]$ 
-an ideal such that $V(I)=\emptyset$. Then $I=k[x_1,\ldots,x_n]$.
+\item This can be used to prove the weak
+Nullstellensatz, i.e.
+let $k$ be an algberaically closed field, and
+$I \subseteq k[x_1,\ldots,x_n]$
+an ideal such that $V(I)=\emptyset$. Then
+$I=k[x_1,\ldots,x_n]$.
 
-To prove it using Noether's normalization lemma,
+To prove it using Noether's normalization
+lemma,
 suppose that the $I\neq k[x_1,\ldots,x_n]$.
-Let $\mathfrak{m}$ be a maximal ideal such that $I \subseteq \mathfrak{m}$.
-Then $A=k[x_1,\ldots,x_n]/\mathfrak{m}=k[y_1,\ldots,y_n]$,
-where the first string is algebraically independent
-while the last string is integral. But because the 
-whole extension is algebraic, then $y_1,\ldots,y_n$ 
+Let $\mathfrak{m}$ be a maximal ideal such
+that $I \subseteq \mathfrak{m}$.
+Then
+$A=k[x_1,\ldots,x_n]/\mathfrak{m}=k[y_1,
+\ldots,y_n]$,
+where the first string is algebraically
+independent
+while the last string is integral. But
+because the
+whole extension is algebraic, then
+$y_1,\ldots,y_n$
 are integral over $k$.
-Then we can map $y_i \mapsto \alpha_i$, a root
+Then we can map $y_i \mapsto \alpha_i$, a
+root
 of its defining polynomial over $k$.
-This means we do have a point where all polynomials
+This means we do have a point where all
+polynomials
 in $\mathfrak{m}$ vanish.
 
-{\bf Note.} I'm not sure what we mean with "the first string"
+{\bf Note.} I'm not sure what we mean with
+"the first string"
 and the "second string".
 
-\item Also reviewed Misha's proof of the Nullstellensatz.
-Looks accessible, though it is not holomorphic!
+\item Also reviewed Misha's proof of the
+Nullstellensatz.
+Looks accessible, though it is not
+holomorphic!
 
-\item Perhaps start in Demailly just after Prop. 4.13.
+\item Perhaps start in Demailly just after
+Prop. 4.13.
 \end{enumerate}
 
 \bibliography{my}
