@@ -10,28 +10,56 @@
 
 \tableofcontents
 
-\section{Trace}
-\label{section-trace}
-
-\begin{proposition}
-\label{proposition-trace-is-coordinate-independent}
-
-\end{proposition}
-
 \section{Signature}
 \label{section-signature}
 
-The signature of a form quadratic form can be equivalently computed as the
-maximal dimension of an isotropic subspace, or as the maximal dimension of the
+The signature of a form quadratic form can be
+equivalently computed as the
+maximal dimension of an isotropic subspace,
+or as the maximal dimension of the
 subspace where the form is negative.
+
+\begin{remark}
+\label{remark-nondegenerate-vs-anisotropic}
+Let $B:V \times V \to k$ be a bilinear form.
+The {\it radical} of $B$ is
+$$
+\operatorname{rad}(B)=
+\{v \in V : B(v,w)=0\text{ for all }w
+\in V\}.
+$$
+The form is {\it nondegenerate} if
+$\operatorname{rad}(B)=0$. In coordinates,
+if $A$ is the Gram matrix of $B$, this is
+equivalent to $\det(A)\neq 0$.
+
+This should not be confused with the
+condition that there are no nonzero isotropic
+vectors. A vector $v\neq 0$ is {\it
+isotropic} if $B(v,v)=0$, and a form with no
+nonzero isotropic vectors is called
+{\it anisotropic}. Anisotropic implies
+nondegenerate, since a nonzero vector in the
+radical would be isotropic. The converse is
+false; for example the form with matrix
+$$
+\begin{pmatrix}
+1&0\\
+0&-1
+\end{pmatrix}
+$$
+is nondegenerate, but $(1,1)$ is isotropic.
+\end{remark}
 
 \section{Adjoint}
 \label{section-adjoint}
 
 \begin{definition}
 \label{definition-adjoint}
-Let  $A:(V,\left<\cdot,\cdot\right>_V) \to (W,\left<\cdot,\cdot\right>_W)$ be a 
-linear transformation of inner product vector spaces, its {\it adjoint} is the
+Let  $A:(V,\left<\cdot,\cdot\right>_V) \to
+(W,\left<\cdot,\cdot\right>_W)$ be a
+linear transformation of inner product vector
+spaces, its {\it adjoint} is the
 map
 $$
 A^{\dag}:W\to V
@@ -43,24 +71,32 @@ satisfying
 \end{equation}
 \end{definition}
 
-Let $G$ be a matrix representation for $\left<\cdot,\cdot\right>_V$ and $H$ for
-$\left<\cdot,\cdot\right>_W$. Then Eq. \ref{equation-adjoint} is
+Let $G$ be a matrix representation for
+$\left<\cdot,\cdot\right>_V$ and $H$ for
+$\left<\cdot,\cdot\right>_W$. Then Eq.
+\ref{equation-adjoint} is
 $$
-v^{\mathbf{T}}A^{\mathbf{T}}Hw=(Av)^{\mathbf{T}}Hw=v^{\mathbf{T}}GA^\dag w
+v^{\mathbf{T}}A^{\mathbf{T}}Hw=(Av)
+^{\mathbf{T}}Hw=v^{\mathbf{T}}GA^\dag
+w
 $$
 So
 \begin{equation}
 \label{equation-adjoint-transpose}
-A^{\mathbf{T}}H=GA^\dag \iff A^\dag:=G^{-1}A^{\mathbf{T}}H
+A^{\mathbf{T}}H=GA^\dag \iff
+A^\dag:=G^{-1}A^{\mathbf{T}}H
 \end{equation}
-which gives the relationship between the usual transpose matrix and the adjoint.
+which gives the relationship between the
+usual transpose matrix and the adjoint.
 
 \begin{definition}
 \label{definition-Frobenius-norm}
-In the space of matrices we define {\it Frobenius norm} as
+In the space of matrices we define {\it
+Frobenius norm} as
 \begin{equation}
 \label{equation-Frobenius-norm}
-\|A\|^2=\text{tr}A^\dag A=\text{tr}(G^{-1}A^{\mathbf{T}}HA
+\|A\|^2=\text{tr}A^\dag
+A=\text{tr}(G^{-1}A^{\mathbf{T}}HA
 \end{equation}
 \end{definition}
 
@@ -69,37 +105,86 @@ In the space of matrices we define {\it Frobenius norm} as
 
 \begin{definition}
 \label{definition-Frechet-derivative}
-\cite{zo1}, Section 8.2.1, Definition 1. A function $f:E \to \mathbb{R}^n$
-defined on a set $E \subset \mathcal{R}^m$ is {\it differentiable} at the point
+\cite{zo1}, Section 8.2.1, Definition 1. A
+function $f:E \to \mathbb{R}^n$
+defined on a set $E \subset \mathcal{R}^m$ is
+{\it differentiable} at the point
 $x \in E$, which is a limit point of $E$, if
 $$
 f(x+h)-f(x)=L(x)h+\alpha(x;h)
 $$
-where $L(x):\mathbb{R}^m\to \mathbb{R}^n$ is a function that is linear in $h$
-and $\alpha(x;h)=o(h)$ as $h\to 0$, $x+h\in E$.
+where $L(x):\mathbb{R}^m\to \mathbb{R}^n$ is
+a function that is linear in $h$
+and $\alpha(x;h)=o(h)$ as $h\to 0$, $x+h\in
+E$.
 \end{definition}
 
 This means that
 $$
-\lim_{\|h\|\to 0} \frac{\|f(x+h)-f(x)-Ah\|}{\|h\|}=0
+\lim_{\|h\|\to 0}
+\frac{\|f(x+h)-f(x)-Ah\|}{\|h\|}=0
 $$
+\begin{lemma}
+\label{lemma-differentiating-bilinear-form}
+Let $V$ be a finite dimensional real vector
+space and let $B:V\times V\to \mathbb{R}$ be
+a bilinear form. If $a(t),b(t)$ are
+differentiable
+curves in $V$, then
+$$
+\frac{d}{dt}B(a(t),b(t))
+=
+B(a'(t),b(t))+B(a(t),b'(t)).
+$$
+\end{lemma}
+
+\begin{proof}
+Choose a basis $e_1,\ldots,e_n$ of $V$. Write
+$$
+a(t)=\sum_i a_i(t)e_i,\qquad
+b(t)=\sum_j b_j(t)e_j.
+$$
+If $B_{ij}=B(e_i,e_j)$, then by bilinearity
+$$
+B(a(t),b(t))=\sum_{i,j}B_{ij}a_i(t)b_j(t).
+$$
+Therefore the ordinary product rule gives
+$$
+\frac{d}{dt}B(a(t),b(t))
+=
+\sum_{i,j}B_{ij}a_i'(t)b_j(t)
++
+\sum_{i,j}B_{ij}a_i(t)b_j'(t).
+$$
+Packing the two sums back into
+coordinate-free notation, this is
+$$
+B(a'(t),b(t))+B(a(t),b'(t)).
+$$
+\end{proof}
 
 \section{Arzelà-Ascoli Theorem}
 \label{section-Arzela-Ascoli-theorem}
 \begin{definition}[Equicontinuous family]
 \label{definition-equicontinuous}
-From Wikipedia. Let $X$ be a compact Hausdorff space and let  $C(X)$ be the
-space of real-valued continuous functions on $X$. A subset $\mathcal{F} \subset
-C(X)$ is said to be {\it equicontinuous} if for every $x in X$ and every
-$\varepsilon>0$, $x$ has a neighbourhood $U_x$ such that
+From Wikipedia. Let $X$ be a compact
+Hausdorff space and let  $C(X)$ be the
+space of real-valued continuous functions on
+$X$. A subset $\mathcal{F} \subset
+C(X)$ is said to be {\it equicontinuous} if
+for every $x in X$ and every
+$\varepsilon>0$, $x$ has a neighbourhood
+$U_x$ such that
 $$
-\forall y \in U_x, \forall f \in \mathcal{F}: \qquad |f(y)-f(x)|<\varepsilon
+\forall y \in U_x, \forall f \in \mathcal{F}:
+\qquad |f(y)-f(x)|<\varepsilon
 $$
 \end{definition}
 
 \begin{definition}[Pointwise bounded]
 \label{definition-pointwise-bounded}
-A set $\mathcal{F}\subset C(X,\mathbb{R})$ is said to be {\it pointwise
+A set $\mathcal{F}\subset C(X,\mathbb{R})$ is
+said to be {\it pointwise
 bounded} if for every $x \in X$,
 $$
 \text{sup}\{|f(x)|:f \in \mathcal{F}\}<\infty
@@ -108,8 +193,10 @@ $$
 
 \begin{theorem}[Arzelà-Ascoli]
 \label{theorem-Arzela-Ascoli}
-Let $X$ be a compact Hausdorff space. Then a subset $\mathcal{F}$ of $C(X)$ is
-relatively compact in the topology induced by the uniform norm if and only if it
+Let $X$ be a compact Hausdorff space. Then a
+subset $\mathcal{F}$ of $C(X)$ is
+relatively compact in the topology induced by
+the uniform norm if and only if it
 is equicontinuous and pointwise bounded.
 \end{theorem}
 
@@ -117,4 +204,3 @@ is equicontinuous and pointwise bounded.
 \bibliographystyle{amsalpha}
 
 \end{document}
-
