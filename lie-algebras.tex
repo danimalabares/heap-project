@@ -8,75 +8,194 @@
 \phantomsection
 \label{section-phantom}
 \hfill
-\href{http://github.com/danimalabares/stack}{github.com/danimalabares/stack}
+\href{http://github.com/danimalabares/stack}%
+{github.com/danimalabares/stack}
 
 \tableofcontents
 
+\noindent
+Upshot. Semisimple
+finite-dimensional Lie algebras can be
+classified using root space decomposition.
+We choose a Cartan subalgebra
+$\mathfrak{h}\subset\mathfrak{g}$ (see
+Definition
+\ref{definition-Cartan-subalgebra}) and
+consider the generalized weight
+decomposition with respect to the adjoint
+representation (which is by convention
+called the {\it root} space decomposition)
+$$ \mathfrak{g}=\bigoplus_{\alpha \in
+\mathfrak{h}^*}\mathfrak{g}_\alpha \qquad
+\text{with }\mathfrak{g}_0=\mathfrak{h}, $$
+where
+$[\mathfrak{g}_\alpha,\mathfrak{g}_\beta]
+\subset\mathfrak{g}_{\alpha+\beta}$.
+
+``For arbitrary Lie algebras, Cartan
+subalgebras can have unwieldy stucture, and
+an unpredicatble action under the adjoint
+representation. We see from the previous
+(\cite[Lecture 12]{KLAL}) result, however,
+that with the assumption of semisimplicity
+the situation is much more transparent. We
+can rewrite the root space decomposition as
+$$
+\mathfrak{g}=\mathfrak{h}
+\oplus\bigoplus_{\alpha\in\Delta}\mathfrak{g}
+_\alpha
+$$ where $\Delta$ is the set of all
+$\alpha\neq 0$ such that
+$\mathfrak{g}_\alpha\neq 0$. We call
+$\alpha \in \Delta$ a {\it root} of
+$\mathfrak{g}$, and $\mathfrak{g}_\alpha$
+the corresponding {\it root space}.''
+
+In Lecture 17 we have: ``Previously, given
+a semisimple Lie algebra $\mathfrak{g}$ we
+constructed its associtated root system
+$(V,\Delta)$. (The construction depends on
+choosing a Cartan subalgebra, but by
+Chevalley's theorem, the root systems
+constructed from the same $\mathfrak{g}$
+are isomorphic.) Next, given a root system
+we'll construct a {\it Cartan matrix} $A$,
+and from this we'll eventually see how to
+reconstruct $\mathfrak{g}$.
+
+We'll see that to every root system
+corresponds a semisimple Lie algebra so
+it's important to know all the root
+systems. Last time we saw the four series
+$A_r,B_r,C_r$ and $D_r$, and the three
+exceptions $E_6,E_7$ and $E_8$. The
+remaining two exceptions are $F_4$ and
+$G_2$.''
+
+Suppose $(V,\Delta)$ is a root system and
+$f:V \to \mathbb{R}$ is a linear map such
+that $f(\alpha)\neq 0$ for all $\alpha \in
+\Delta$. Define \cite[Definition
+17.1]{KLAL}
+\begin{enumerate}
+\item $\alpha \in \Delta$ is {\it positive}
+if $f(\alpha)>0$
+and  {\it negative} if $f(\alpha)<0$.
+\item A positive root is {\it simple} if it
+cannot be written
+as the sum of two positive roots.
+\item A {\it highest root} $\theta \in
+\Delta$ is
+a root where $f$ is maximal;
+that is $f(\theta)\geq f(\alpha)$ for all
+$\alpha \in \Delta$.
+\end{enumerate}
+
+Finally, on Lecture 21,
+``Let $V$ be a finite dimensional real vector
+space
+with a positive definite bilinear form
+$(\cdot,\cdot)$.
+Let $a \in V$ be a nonzero vector and denote
+by $r_a$ the orthogonal reflection relative
+to $a$,
+i.e. $r_a(a)=-a$, $r_a(v)=v$ if $(a,v)=0$,
+$r_a(v)=v-2\frac{(a,v)}{(a,a)}a$.
+
+Let $(V,\Delta)$ be a root system.
+Let $W$ be the subgroup of $O(V)$ generated
+by $r_\alpha, \alpha \in \Delta$.
+The group $W$ is called the {\it Weyl group}
+of $(V,\Delta)$
+(and of the corresponding semisimple Lie
+algebra $\mathfrak{g}$.)''
+
 \section{Basic definitions and examples}
-\label{section-basic-definitions-and-examples}
+\label{section-basic-defin-examp}
 
 \begin{definition}
 \label{definition-algebra}
-An {\it algebra} is a vector space over a field $\mathbb{F}$ endowed with a
+An {\it algebra} is a vector space over a
+field $\mathbb{F}$ endowed with a
 binary operation that is bilinear
 \begin{align*}
 a(\lambda b+\mu c)&=\lambda ab+\mu ac\\
-(\lambda b + \mu c) a &= \lambda b a + \mu c a
+(\lambda b + \mu c) a &= \lambda b a + \mu c
+a
 \end{align*}
 \end{definition}
 
 \begin{definition}
 \label{definition-Lie-algebra}
-A {\it Lie algebra} is an algebra $\mathfrak{g}$ 
-with a product $[\cdot,\cdot]$ we call 
-{\it bracket} that satisfies
+A {\it Lie algebra} is an algebra
+$\mathfrak{g}$
+whose product $[\cdot,\cdot]$ is called
+{\it bracket} and satisfies
 \begin{enumerate}
-\item $[x,x]=0\qquad \forall x\in \mathfrak{g}$,
+\item $[x,x]=0\qquad \forall x\in
+\mathfrak{g}$,
 \item (Jacobi identity.)
 \end{enumerate}
 \end{definition}
 
 \begin{definition}
 \label{definition-simple-Lie-algebra}
-A {\it simple Lie algebra} is a Lie algebra that has no nontrivial proper
-ideals.
+A {\it simple Lie algebra} is a
+Lie algebra that has no
+nontrivial proper ideals.
 \end{definition}
 
-As a rule of thumb I keep in mind the following silly computation:
+As a rule of thumb I keep in mind the
+following silly computation:
 $$
-\text{log}\det A=\text{log} \prod_{i}\lambda_i=\sum \text{log}\lambda_i
+\text{log}\det A=\text{log}
+\prod_{i}\lambda_i=\sum \text{log}\lambda_i
 =``\text{tr}\text{log}A''
 $$
-And recall that exponent map goes from $T_eG= \mathfrak{g} \to G$, so that
-logarithm would go from $G\to \mathfrak{g}$. This is why I remember that the
-condition on a classical Lie group of 
-{\it having determinant 1} goes to {\it having vanishing trace} in the 
+And recall that exponent map goes from $T_eG=
+\mathfrak{g} \to G$, so that
+logarithm would go from $G\to \mathfrak{g}$.
+This is why I remember that the
+condition on a classical Lie group of
+{\it having determinant 1} goes to {\it
+having vanishing trace} in the
 Lie algebra. (Because $\text{log}1=0$.)
 
 \begin{example}
 \label{example-Lie-algebras}
 \begin{enumerate}
-\item The {\it special linear Lie algebra} 
+\item The {\it special linear Lie algebra}
 $$
 \mathfrak{sl}_n=\{\text{Mat}_n|Tr(A)=0\}
 $$
 which is just obvious from the slogan above.
-\item The {\it special orthogonal Lie algebra} 
+\item The {\it special orthogonal Lie
+algebra}
 $$
-\mathfrak{so}_n=\{A\in \text{Mat}_n|A+A^{\mathbf{T}}=0\}
+\mathfrak{so}_n=\{A\in
+\text{Mat}_n|A+A^{\mathbf{T}}=0\}
 $$
-which is obvious from: $\text{SO}(n)=$isometries, so
-$\left<v,v\right>=\left<Av,Av\right>=\left<v,A^{\mathbf{T}}Av\right>$, so
-$\text{SO}(n)=\{A \in \text{Mat}_n:A^{-1}=A^{\mathbf{T}}\}$, and then
+which is obvious from:
+$\text{SO}(n)=$isometries, so
+$\left<v,v\right>=\left<Av,Av\right>=\left<v,
+A^{\mathbf{T}}Av\right>$,
+so
+$\text{SO}(n)=\{A \in
+\text{Mat}_n:A^{-1}=A^{\mathbf{T}}\}$, and
+then
 $0=
-\text{log}1=\text{log}(A A^{\mathbf{T}})=\text{log}A+\text{log}A^{\mathbf{T}}$.
+\text{log}1=\text{log}(A
+A^{\mathbf{T}})=\text{log}A+\text{log}
+A^{\mathbf{T}}$.
 
 \item The {\it symplectic Lie algebra}
 $$
-\mathfrak{sp}_{2n}=\{A \in \text{Mat}_{2n}:\Omega A+A^{\mathbf{T}}\Omega=0\}
+\mathfrak{sp}_{2n}=\{A \in
+\text{Mat}_{2n}:\Omega
+A+A^{\mathbf{T}}\Omega=0\}
 $$
 where $\Omega=\begin{pmatrix}
-0&\text{Id}_n\\ 
+0&\text{Id}_n\\
 -\text{Id}_n & 0
 \end{pmatrix}$.
 
@@ -85,32 +204,45 @@ where $\Omega=\begin{pmatrix}
 \end{example}
 
 \begin{example}
-\label{example-associative-algebra-gives-Lie-algebra}
-If $A$ is an associative Lie algebra, then $A$ with the bracket  $[a,b]=ab-ba$
-is a Lie algebra, denoted by  $A_-$. (It is an exercise to verify Jacobi's
-identity.) This gives  $\mathfrak{gl}_V:=\text{End}(V)_-$.
+\label{example-assoc-algeb-gives-lie-algeb}
+If $A$ is an associative Lie algebra,
+then $A$ with the bracket  $[a,b]=ab-ba$
+is a Lie algebra, denoted by  $A_-$.
+(It is an exercise to verify Jacobi's
+identity.) This gives
+ $\mathfrak{gl}_V:=\text{End}(V)_-$.
 \end{example}
 
 \begin{definition}
 \label{definition-Lie-subalgebra}
-A {\it Lie subalgebra} is a vector subspace $\mathfrak{h} \subset \mathfrak{g}$
-such that $[\mathfrak{h},\mathfrak{h}] \subset \mathfrak{h}$.
+A {\it Lie subalgebra} is a vector
+subspace $\mathfrak{h} \subset \mathfrak{g}$
+such that $[\mathfrak{h},\mathfrak{h}]
+\subset \mathfrak{h}$.
 \end{definition}
 
 \begin{definition}
 \label{definition-ideal}
-A subspace $\mathfrak{h}\subset \mathfrak{g}$ is called an {\it ideal} if
-$[\mathfrak{h},\mathfrak{g}]\subset\mathfrak{h}$.
+A subspace $\mathfrak{h}\subset \mathfrak{g}$
+is called an
+{\it ideal} if
+$[\mathfrak{h},\mathfrak{g}]
+\subset\mathfrak{h}$.
 \end{definition}
 
 \medskip\noindent
 Recall that a bilinear form
-$(\cdot,\cdot):\mathfrak{g}\times\mathfrak{g}\to \mathbb{C}$ is {\it invariant}
-if $([a,b],c])=(a,[b,c])$ for all  $a,b,c \in \mathfrak{g}$.
+$(\cdot,\cdot):\mathfrak{g}\times\mathfrak{g}
+\to
+\mathbb{C}$ is {\it invariant}
+if $([a,b],c])=(a,[b,c])$ for all  $a,b,c \in
+\mathfrak{g}$.
 
 \begin{definition}
 \label{definition-ad}
-For any finite dimensional Lie algebra  $\mathfrak{g}$ and $x \in \mathfrak{g}$
+For any finite dimensional Lie algebra
+$\mathfrak{g}$
+and $x \in \mathfrak{g}$
 we write
 $$
 \text{ad}_a=[a,-]
@@ -119,8 +251,9 @@ $$
 
 \begin{exercise}
 \label{exercise-adjoint-representation}
-Show that the map $\text{ad}:\mathfrak{g}\to \text{End}(\mathfrak{g})$,
-$a \mapsto \text{ad}_a$ is a representation, 
+Show that the map $\text{ad}:\mathfrak{g}\to
+\text{End}(\mathfrak{g})$,
+$a \mapsto \text{ad}_a$ is a representation,
 i.e. a morphism of Lie algebras.
 \end{exercise}
 
@@ -128,122 +261,199 @@ i.e. a morphism of Lie algebras.
 \label{definition-Killing-form}
 The {\it Killing form} is
 $$
-\kappa(x,y)=\text{Tr}_{\mathfrak{g}}\text{ad}x\text{ad}y
+\kappa(x,y)=\text{Tr}_{\mathfrak{g}}\text{ad}
+x\text{ad}y
 $$
 \end{definition}
 
 \begin{exercise}
-\label{exercise-invariant-bilinear-form-on-simple-Lie-algebra-is-symmetric}
-Prove that an invariant bilinear form on a simple Lie algebra must in fact be
+\label{exercise-invar-bilin-form-simpl}
+Prove that an invariant bilinear form on a
+simple Lie algebra must in fact be
 symmetric.
 \end{exercise}
 
 \begin{proof}
-(David.) It's enough to show that $\mathfrak{g}$ is
-{\it perfect}, i.e. that $[\mathfrak{g},\mathfrak{g}]=\mathfrak{g}$. In this
-case, let $a,b \in \mathfrak{g}$ and suppose that $b=[x,y]$. Then
+(David.) It's enough to show that
+$\mathfrak{g}$ is
+{\it perfect}, i.e. that
+$[\mathfrak{g},\mathfrak{g}]=\mathfrak{g}$.
+In this
+case, let $a,b \in \mathfrak{g}$ and suppose
+that $b=[x,y]$. Then
 \begin{align*}
-(a,b)&=(a,[x,y])=(a,-[y,x])=(-[a,y],x)=([y,a],x)\\
-&=(y,[a,x])=(y,-[x,a])=(-[y,x],a)=([x,y],a)=(b,a)
+(a,b)&=(a,[x,y])=(a,-[y,x])=(-[a,y],x)=([y,a]
+,x)\\
+&=(y,[a,x])=(y,-[x,a])=(-[y,x],a)=([x,y],a)=
+(b,a)
 \end{align*}
-To confirm that $\mathfrak{g}$ is perfect just observe that
-$[\mathfrak{g},\mathfrak{g}]$ is a nontrivial ideal of $\mathfrak{g}$.
+To confirm that $\mathfrak{g}$ is perfect
+just observe that
+$[\mathfrak{g},\mathfrak{g}]$ is a nontrivial
+ideal of $\mathfrak{g}$.
 \end{proof}
 
 \begin{definition}
 \label{definition-semisimple-Lie-algebra}
-A {\it semisimple Lie algebra} is a direct sum of simple ones
+A {\it semisimple Lie algebra}
+is a direct sum of simple ones
 $$
-\mathfrak{g}=\mathfrak{g}_1\oplus\ldots\oplus\mathfrak{g}_s
+\mathfrak{g}=\mathfrak{g}
+_1\oplus\ldots\oplus\mathfrak{g}_s
 $$
 \end{definition}
 
 \begin{theorem}[Cartan]
-\label{theorem-finite-dimensional-Lie-algebra-is
--semisimple-iff-Killing-form-is-nondegenerate}
-The finite dimensional Lie algebra $\mathfrak{g}$ is semisimple if and only if
+\label{theorem-cartan-semisimple}
+The finite dimensional Lie algebra
+$\mathfrak{g}$ is semisimple if and only if
 its Killing form is nondegenerate.
 \end{theorem}
 
-\section{Nilpotent and solvable Lie algebras}
-\label{section-nilpotent-and-solvable-Lie-algebras}
+\noindent
+There are other equivalent definitions
+semisimple Lie algebras:
+
+\begin{theorem}[Levi decomposition]
+\label{theorem-levi-decomposition}
+\begin{reference}
+\cite[Theorem 11.1]{KLAL}
+\end{reference}
+If $\mathfrak{g}$ is a finite dimensional Lie
+algebra
+over a field $\mathbb{F}$ of characteristic
+0,
+then there exists a semisimple subalgebra
+$\mathfrak{s}\subset\mathfrak{g}$,
+complementary
+to the radical $R(\mathfrak{g})$,
+such that $\mathfrak{g}=\mathfrak{s} \oplus
+R(\mathfrak{g})$
+as vector spaces.
+\end{theorem}
+
+Here the {\it radical} $R(\mathfrak{g})$
+is a solvable ideal of maximal possible
+dimension
+(\cite[Definition 11.1]{KLAL}.)
+
+It is equivalent that $\mathfrak{g}$ is
+semisimple to
+
+\begin{itemize}
+\item
+
+\item
+\end{itemize}
+
+\section{Semisimple, nilpotent and solvable
+Lie algebras}
+\label{section-nilpo-solva-lie-algeb}
 
 Let $\mathfrak{g}$ be a Lie algebra. Define
 $$
-\mathfrak{g}^1:=[\mathfrak{g},\mathfrak{g}],\quad 
-\mathfrak{g}^2:=[\mathfrak{g},\mathfrak{g}^1],\quad 
+\mathfrak{g}^1:=[\mathfrak{g},\mathfrak{g}],
+\quad
+\mathfrak{g}^2:=[\mathfrak{g},\mathfrak{g}^1]
+,\quad
 \ldots,
-\mathfrak{g}^n:=[\mathfrak{g},\mathfrak{g}^{n-1}]
+\mathfrak{g}^n:=[\mathfrak{g},\mathfrak{g}
+^{n-1}]
 $$
 and
 $$
-\mathfrak{g}^{(1)}:=[\mathfrak{g},\mathfrak{g}],\quad 
-\mathfrak{g}^{(2)}:=[\mathfrak{g}^{(1)},\mathfrak{g}^{(1)}],
+\mathfrak{g}^{(1)}:=[\mathfrak{g},
+\mathfrak{g}],\quad
+\mathfrak{g}^{(2)}:=[\mathfrak{g}^{(1)},
+\mathfrak{g}^{(1)}],
 \ldots,
-\mathfrak{g}^{(n)}:=[\mathfrak{g}^{(n-1)},\mathfrak{g}^{(n-1)}].
+\mathfrak{g}^{(n)}:=[\mathfrak{g}^{(n-1)},
+\mathfrak{g}^{(n-1)}].
 $$
 
 \begin{definition}
-\label{definition-nilpotent-and-solvable-Lie-algebras}
+\label{definition-nilpo-solva-lie-algeb}
 A Lie algebra $\mathfrak{g}$ is
 \begin{itemize}
-\item {\it nilpotent} if there exists $n$ such that $\mathfrak{g}^n=0$,
-\item {\it solvable} is there exists $n$ such that $\mathfrak{g}^{(n)}=0$.
+\item {\it nilpotent} if there exists $n$
+such that $\mathfrak{g}^n=0$,
+\item {\it solvable} is there exists $n$ such
+that $\mathfrak{g}^{(n)}=0$.
 \end{itemize}
 \end{definition}
 
 \section{Lie's theorem}
 \label{section-Lie-theorem}
 
-Lie's theorem says that solvable Lie algebras over closed fields of
+Lie's theorem says that solvable Lie algebras
+over closed fields of
 characterstic not zero have weights.
 
 \begin{definition}
 \label{definition-weight-space}
-Let $\mathfrak{h}$ be a Lie algebra, 
-$\pi:\mathfrak{h}\to\mathfrak{gl}_V$ a representation of $\mathfrak{h}$ 
-and $\lambda \in \mathfrak{h}^*$. The {\it weight space} of $\mathfrak{h}$
+Let $\mathfrak{h}$ be a Lie algebra,
+$\pi:\mathfrak{h}\to\mathfrak{gl}_V$ a
+representation of $\mathfrak{h}$
+and $\lambda \in \mathfrak{h}^*$. The {\it
+weight space} of $\mathfrak{h}$
 attached to $\lambda$ is
 $$
-V_\lambda^{\mathfrak{h}}:=\{v \in V|\pi(h)v=\lambda(h)v,\; 
+V_\lambda^{\mathfrak{h}}:=\{v \in
+V|\pi(h)v=\lambda(h)v,\;
 \forall h \in \mathfrak{h}\}.
 $$
-If $V_\lambda^{\mathfrak{h}}\neq 0$, we say that $\lambda$ is a {\it weight} for
+If $V_\lambda^{\mathfrak{h}}\neq 0$, we say
+that $\lambda$ is a {\it weight} for
 $\pi$.
 \end{definition}
 
 \begin{theorem}[Lie's theorem]
 \label{theorem-Lie}
-Let $\mathfrak{g}$ be a solvable Lie algebra and $\pi$ a representation of
-$\mathfrak{g}$ on a finite dimensional vector space $V \neq 0$, over an
-algebraically closed field $\mathbb{F}$ of characterstic 0. 
-Then there exists a weight $\lambda \in \mathfrak{g}^*$ for $\pi$ 
-(that is, $V_\lambda^\mathfrak{g} \neq \{0\}$).
+Let $\mathfrak{g}$ be a solvable Lie algebra
+and $\pi$ a representation of
+$\mathfrak{g}$ on a finite dimensional vector
+space $V \neq 0$, over an
+algebraically closed field $\mathbb{F}$ of
+characterstic 0.
+Then there exists a weight $\lambda \in
+\mathfrak{g}^*$ for $\pi$
+(that is, $V_\lambda^\mathfrak{g} \neq
+\{0\}$).
 \end{theorem}
 
 \begin{exercise}
 \label{exercise-corollaries-of-Lie-theorem}
-Show the following two corollaries of Lie's theorem:
+Show the following two corollaries of Lie's
+theorem:
 \begin{itemize}
-\item for all representations $\pi$ of a solvable Lie algebra $\mathfrak{g}$ on
-a finite dimensional vector space $\mathcal{V}$ over an algebraically closed
-field $\mathbb{F}$, $\text{char}\mathbb{F}=0$, 
-there exists a basis for $V$ for which the matrices
+\item for all representations $\pi$ of a
+solvable Lie algebra $\mathfrak{g}$ on
+a finite dimensional vector space
+$\mathcal{V}$ over an algebraically closed
+field $\mathbb{F}$,
+$\text{char}\mathbb{F}=0$,
+there exists a basis for $V$ for which the
+matrices
 of $\pi(\mathfrak{g})$ are upper triangular;
-\item a solvable subalgebra $\mathfrak{g} \subset \mathfrak{gl}_V$,
-(where $V$ is finite-dimensional over an algebraically closed field
+\item a solvable subalgebra $\mathfrak{g}
+\subset \mathfrak{gl}_V$,
+(where $V$ is finite-dimensional over an
+algebraically closed field
 $\mathbb{F}$, $\text{char}\mathbb{F}=0$),
-is contained in the subalgebra of upper triangular matrices
+is contained in the subalgebra of upper
+triangular matrices
 over $\mathbb{F}$ for some basis of $V$.
 \end{itemize}
 \end{exercise}
 
-\section{Generalized Eigenspaces and Generalized Weight spaces}
-\label{section-generalized-eigenspaces-and-generalized-weight-spaces}
+\section{Generalized Eigenspaces and
+Generalized Weight spaces}
+\label{section-gener-eigen-gener-weigh}
 
 \begin{definition}
 \label{definition-generalized-eigenspace}
-A {\it generalized eigenspace of $A \in \text{End}(V)$ 
+A {\it generalized eigenspace of $A \in
+\text{End}(V)$
 with eigenvalue $\lambda$} is
 $$
 V_\lambda=\{v \in V:(A-\lambda \text{Id})^N=0
@@ -251,148 +461,202 @@ V_\lambda=\{v \in V:(A-\lambda \text{Id})^N=0
 $$
 \end{definition}
 
-It turns out that any linear operator on an algebraically closed field gives a
-decomposition into generalized eigenspaces via Jordan canonical form:
+It turns out that any linear operator on an
+algebraically closed field gives a
+decomposition into generalized eigenspaces
+via Jordan canonical form:
 
 \begin{proposition}
-\label{proposition-generalized-eigenspace-decomposition}
-Let $A$ be a linear operator on a finite-dimensional
+\label{proposition-gener-eigen-decom}
+Let $A$ be a linear operator on a
+finite-dimensional
 vector space $V$ over an algebraically closed
-field $\mathbb{F}$, and let $\lambda_1,\ldots,\lambda_s$ 
-be all eigenvalues of $A$, and $n_1,\ldots,n_s$ their 
+field $\mathbb{F}$, and let
+$\lambda_1,\ldots,\lambda_s$
+be all eigenvalues of $A$, and
+$n_1,\ldots,n_s$ their
 multiplicities.
-Then one has the generalized eigenspace decomposition:
+Then one has the generalized eigenspace
+decomposition:
 $$
-V=\bigoplus_{i=1}^s V_{\lambda_i},\qquad \dim V_{\lambda_i}=n_i.
+V=\bigoplus_{i=1}^s V_{\lambda_i},\qquad \dim
+V_{\lambda_i}=n_i.
 $$
 \end{proposition}
 
-In particular, for a Lie algebra $\mathfrak{g}$ with a
-representation 
+In particular, for a Lie algebra
+$\mathfrak{g}$ with a
+representation
 (i.e. Lie algebra morphism)
 $\pi:\mathfrak{g} \to \text{End}(V)$ we have
 $$
-V=\bigoplus_{\lambda \in \mathbb{F}}V^a_\lambda,\qquad 
-V^a_\lambda=\{v \in V:(\pi(a)v-\lambda \text{Id})^Nv=0\text{ for some }
+V=\bigoplus_{\lambda \in
+\mathbb{F}}V^a_\lambda,\qquad
+V^a_\lambda=\{v \in V:(\pi(a)v-\lambda
+\text{Id})^Nv=0\text{ for some }
 N \in \mathbb{N}\}
 $$
-And even more particularly, for the adjoint representation we have
+And even more particularly, for the adjoint
+representation we have
 $$
-V=\bigoplus_{\lambda \in \mathbb{F}}\mathfrak{g}^a_\lambda,\qquad 
-\mathfrak{g}_\alpha^a=\{b \in \mathfrak{g}:([a,\cdot]-\alpha \text{Id})^Nb=0,
+V=\bigoplus_{\lambda \in
+\mathbb{F}}\mathfrak{g}^a_\lambda,\qquad
+\mathfrak{g}_\alpha^a=\{b \in
+\mathfrak{g}:([a,\cdot]-\alpha
+\text{Id})^Nb=0,
 \text{ for some }N \in \mathbb{N}\}
 $$
 And a little more generally we have
 \begin{definition}
 \label{definition-generalized-weight-space}
-Let $\mathfrak{h}$ be a Lie algebra with a representation $\pi$ on a vector
+Let $\mathfrak{h}$ be a Lie algebra with a
+representation $\pi$ on a vector
 space $V$, and $\lambda \in \mathfrak{h}^*$.
-A {\it generalized weight space of $\mathfrak{h}$ in $V$ attached to $\lambda$} 
+A {\it generalized weight space of
+$\mathfrak{h}$ in $V$ attached to $\lambda$}
 is
 $$
 V_\lambda^\mathfrak{h}=
-\left\{v \in V: (\pi(a)-\lambda(a)\text{Id})^Nv=0,
-\substack{ \text{ for some }N \in \mathbb{N}\\
+\left\{v \in V:
+(\pi(a)-\lambda(a)\text{Id})^Nv=0,
+\substack{ \text{ for some }N \in
+\mathbb{N}\\
 \text{ depending on }a \in \mathfrak{h}\\
 \text{for all }a \in \mathfrak{h}}\right\}
 $$
 \end{definition}
 
-Under the right conditions, a nilpotent subalgebra 
+Under the right conditions, a nilpotent
+subalgebra
 $\mathfrak{h} \subset \mathfrak{g}$ permits
-decomposing $V$ as a direct sum of generalized weight
+decomposing $V$ as a direct sum of
+generalized weight
 spaces of $\mathfrak{h}$. Namely,
 
 \begin{theorem}
-\label{theorem-decomposition-into-generalized-weight-spaces}
-Let $\mathfrak{g}$ be a finite-dimensional Lie algebra
-and $\pi$ its representation on a finite-dimensional vector
+\label{theorem-decom-into-gener-weigh-spac}
+Let $\mathfrak{g}$ be a finite-dimensional
+Lie algebra
+and $\pi$ its representation on a
+finite-dimensional vector
 space $V$, over an algebraically closed field
 $\mathbb{F}$ of characteristic 0.
-Let $\mathfrak{h}$ be a nilpotent subalgebra of $\mathfrak{g}$.
+Let $\mathfrak{h}$ be a nilpotent subalgebra
+of $\mathfrak{g}$.
 Then the following equalities hold:
 $$
-V=\bigoplus_{\lambda \in \mathfrak{h}^*}V_\lambda^\mathfrak{h}
+V=\bigoplus_{\lambda \in
+\mathfrak{h}^*}V_\lambda^\mathfrak{h}
 $$
 \begin{equation}
-\label{equation-inclusion-for-general-representation}
-\pi\left(\mathfrak{g}^\mathfrak{h}_\alpha\right)V_\lambda^\mathfrak{h}
+\label{equation-inclu-gener-repre}
+\pi\left(\mathfrak{g}^\mathfrak{h}
+_\alpha\right)V_\lambda^\mathfrak{h}
 \subseteq V_{\lambda+\alpha}^\mathfrak{h}
 \end{equation}
 \end{theorem}
 
-Which in the case of the adjoint representation, looks like:
+Which in the case of the adjoint
+representation, looks like:
 
 \begin{definition}
-\label{definition-generalized-root-space-decomposition}
-The {\it generalized root space decomposition} of a Lie algebra 
-$\mathfrak{g}$ over an algebraically closed field $\mathbb{F}$ 
-of characteristic zero with respect to a nilpotent subalgebra $\mathfrak{h}$
-is the generalized weight space decomposition with respect to the
+\label{definition-gener-root-space-decom}
+The {\it generalized root space
+decomposition} of a Lie algebra
+$\mathfrak{g}$ over an algebraically closed
+field $\mathbb{F}$
+of characteristic zero with respect to a
+nilpotent subalgebra $\mathfrak{h}$
+is the generalized weight space decomposition
+with respect to the
 adjoint representation. That is,
 $$
-\mathfrak{g}=\bigoplus_{\alpha \in \mathfrak{h}^*}
+\mathfrak{g}=\bigoplus_{\alpha \in
+\mathfrak{h}^*}
 \mathfrak{g}_\alpha^\mathfrak{h}
 $$
 and it has the property that
 \begin{equation}
-\label{equation-inclusion-for-adjoint-representation}
-[\mathfrak{g}_\alpha^\mathfrak{h},\mathfrak{g}_\beta^\mathfrak{h}]
-\subseteq\mathfrak{g}_{\alpha+\beta}^\mathfrak{h}
+\label{equation-inclu-adjoi-repre}
+[\mathfrak{g}_\alpha^\mathfrak{h},
+\mathfrak{g}_\beta^\mathfrak{h}]
+\subseteq\mathfrak{g}_{\alpha+\beta}
+^\mathfrak{h}
 \end{equation}
 \end{definition}
 
-It is important to make the distinction between the generalized weight
-space decomposition and the generalized root space decomposition;
-``we will see its convenience in later lectures, as 
-we try to better understand the functionals $\alpha$ appearing
+It is important to make the distinction
+between the generalized weight
+space decomposition and the generalized root
+space decomposition;
+``we will see its convenience in later
+lectures, as
+we try to better understand the functionals
+$\alpha$ appearing
 in the decomposition''.
 
 \begin{exercise}
-\label{exercise-generalized-weight-space-decomposition-for-gl}
-Take $\mathfrak{g}=\mathfrak{gl}_n(\mathbb{F})$ and 
+\label{exercise-gener-weigh-space-decom}
+Take
+$\mathfrak{g}=\mathfrak{gl}_n(\mathbb{F})$
+and
 $\mathfrak{h}=\{\text{diagonal matrices}\}$.
-Find the generalized weight space decomposition in both the 
+Find the generalized weight space
+decomposition in both the
 tautological and the adjoint representations,
-and check the inclusions \ref{equation-inclusion-for-general-representation} and
-\ref{equation-inclusion-for-adjoint-representation}. 
+and check the inclusions
+\ref{equation-inclu-gener-repre} and
+\ref{equation-inclu-adjoi-repre}.
 \end{exercise}
 
-\section{Zarisky Topology and Regular Elements}
-\label{section-Zarisky-topology-and-regular-elements}
+\section{Zarisky Topology and Regular
+Elements}
+\label{section-zaris-topol-regul-eleme}
 
-Let $\mathfrak{g}$ be a finite-dimensional Lie algebra
-of dimension $d$. For every element  $a \in \mathfrak{g}$
+Let $\mathfrak{g}$ be a finite-dimensional
+Lie algebra
+of dimension $d$. For every element  $a \in
+\mathfrak{g}$
 the characeristic polynomial
 of $\text{ad}_a$ must be of the form
 $$
-\det_{\mathfrak{g}}(\text{ad}_a-\lambda\text{Id})
+\det_{\mathfrak{g}}(\text{ad}_a-
+\lambda\text{Id})
 =(-\lambda)^d+c_{d-1}(-\lambda)^{d-1}+\ldots
 +\det(\text{ad}_a).
 $$
 [to be honest I don't see why the constant
-term must be de determinant of $\text{ad}_a$, but OK…]
-since $[a,a]=0$, $\det(\text{ad}_a)=0$, i.e., the
+term must be de determinant of $\text{ad}_a$,
+but OK…]
+since $[a,a]=0$, $\det(\text{ad}_a)=0$, i.e.,
+the
 constant term vanishes.
 
 \begin{exercise}
-\label{exercise-characteristic-polynomial-of-ada}
-Show that $c_j$ is a homogeneous polynomial on $\mathfrak{g}$ 
+\label{exercise-chara-polyn-ada}
+Show that $c_j$ is a homogeneous polynomial
+on $\mathfrak{g}$
 of degree $d-j$.
 \end{exercise}
 
 \begin{proof}
-The term ``polynomial on $\mathfrak{g}$'' is not clear.
-But we follow \cite{KLAL} to interpret this is only as
-being a polynomial on the $a^i$ where $a=a^iX_i$
+The term ``polynomial on $\mathfrak{g}$'' is
+not clear.
+But we follow \cite{KLAL} to interpret this
+is only as
+being a polynomial on the $a^i$ where
+$a=a^iX_i$
 for some basis $X_i$ of $\mathfrak{g}$.
 
-Then we just notice that denoting $[X_i,X_j]:=L_{ij}$ we have
+Then we just notice that denoting
+$[X_i,X_j]:=L_{ij}$ we have
 $$
 [a,X_j]=[a^iX_i,X_j]=a^i[X_i,X_j]=a^iL_{ij}
 $$
-which is a linear combination of the $a^i$. Then the matrix
-representation of $\text{ad}_a$ in terms of the basis $X_i$ is
+which is a linear combination of the $a^i$.
+Then the matrix
+representation of $\text{ad}_a$ in terms of
+the basis $X_i$ is
 $$
 [\text{ad}_a]=\begin{pmatrix}
 a^iL_{i1}^1&\cdots &a^iL_{in}^1\\
@@ -400,139 +664,184 @@ a^iL_{i1}^1&\cdots &a^iL_{in}^1\\
 a^iL_{i 1}^n&  \cdots &  a^iL_{in}^n
 \end{pmatrix}
 $$
-substracting $\lambda \text{Id}$ and taking determinant
-we obtain that a term with $\lambda^k$ would have 
-for coefficient a product of $k$ of the linear
-combinations $a^iL_{i\ell}^j$ for varying $j$ and $\ell$.
-Such a product is understood to be a homogeneous polynomial
+substracting $\lambda \text{Id}$ and taking
+determinant
+we obtain that a term with $\lambda^k$ would
+have
+for coefficient a product of $k$ of the
+linear
+combinations $a^iL_{i\ell}^j$ for varying $j$
+and $\ell$.
+Such a product is understood to be a
+homogeneous polynomial
 of degree $k$ in $\mathfrak{g}$.
 \end{proof}
 
 \begin{definition}
 \label{definition-rank}
-I think this goes for any Lie algebra $\mathfrak{g}$:
+I think this goes for any Lie algebra
+$\mathfrak{g}$:
 \begin{itemize}
 \item The {\it rank} of $\mathfrak{g}$ is
-the smallest integer $r$ such that $c_r(a)$ is not the 
+the smallest integer $r$ such that $c_r(a)$
+is not the
 zero polynomial on $\mathfrak{g}$.
-\item An element $a \in \mathfrak{g}$ is called {\it regular} 
+\item An element $a \in \mathfrak{g}$ is
+called {\it regular}
 if $c_r(a)\neq 0$.
-\item The {\it discriminant} of $\mathfrak{g}$ is
-the nonzero polynomial $c_r(a)$ of degree $d-r$, what? 
+\item The {\it discriminant} of
+$\mathfrak{g}$ is
+the nonzero polynomial $c_r(a)$ of degree
+$d-r$, what?
 \end{itemize}
 \end{definition}
 
-Explanation: we compute the polynomial characteristic w.r.t.
+Explanation: we compute the polynomial
+characteristic w.r.t.
 $\text{ad}_a$ for every $a \in \mathfrak{g}$.
-Express this polynomial as a polynomial with coefficients in $\mathfrak{g}[t]$,
-(here's the question: this polynomial seems to me to be a polynomial
+Express this polynomial as a polynomial with
+coefficients in $\mathfrak{g}[t]$,
+(here's the question: this polynomial seems
+to me to be a polynomial
 in $\mathbb{F}$.)
-This polynomial does not have a constant term.
-But what is the next smallest-degree monomial? 1? 2?
+This polynomial does not have a constant
+term.
+But what is the next smallest-degree
+monomial? 1? 2?
 That's the rank of the Lie algebra.
 
 \section{Cartan subalgebra}
 \label{section-Cartan-subalgebra}
 
-Recall that $\mathfrak{h}\subset\mathfrak{g}$ is an ideal
-if $[a,\mathfrak{h}]\subset\mathfrak{h}$ for all $a \in \mathfrak{g}$.
-Maybe $\mathfrak{h}$ is not an ideal, but we 
-can consider the largest subalgebra of $\mathfrak{g}$ 
+Recall that $\mathfrak{h}\subset\mathfrak{g}$
+is an ideal
+if $[a,\mathfrak{h}]\subset\mathfrak{h}$ for
+all $a \in \mathfrak{g}$.
+Maybe $\mathfrak{h}$ is not an ideal, but we
+can consider the largest subalgebra of
+$\mathfrak{g}$
 where $\mathfrak{h}$ is an ideal.
 This is called the normalizer.
 
 \begin{definition}
 \label{definition-normalizer}
-Let $\mathfrak{h}$ be a subalgebra of a Lie algebra $\mathfrak{g}$.
+Let $\mathfrak{h}$ be a subalgebra of a Lie
+algebra $\mathfrak{g}$.
 The {\it normalizer} of $\mathfrak{h}$
-is 
-$N_\mathfrak{g}(\mathfrak{h}):=\{a \in \mathfrak{g}
+is
+$N_\mathfrak{g}(\mathfrak{h}):=\{a \in
+\mathfrak{g}
 |[a,\mathfrak{h}]\subset\mathfrak{h}\}$
 \end{definition}
 
-I think behind the Cartan subalgebra is that, roughly,
+I think behind the Cartan subalgebra is that,
+roughly,
 taking product with
-anything not in $\mathfrak{h}$ leaves $\mathfrak{h}$.
+anything not in $\mathfrak{h}$ leaves
+$\mathfrak{h}$.
 
 \begin{definition}
 \label{definition-Cartan-subalgebra}
-A {\it Cartan subalgebra} of a Lie algebra $\mathfrak{g}$ is a subalgebra
-$\mathfrak{h}$, satisfying the following two conditions:
+A {\it Cartan subalgebra} of a Lie algebra
+$\mathfrak{g}$ is a subalgebra
+$\mathfrak{h}$, satisfying the following two
+conditions:
 \begin{enumerate}
-\item $\mathfrak{h}$ is a nilpotent Lie algebra,
-\item $N_\mathfrak{g}(\mathfrak{h})=\mathfrak{h}$.
+\item $\mathfrak{h}$ is a nilpotent Lie
+algebra,
+\item
+$N_\mathfrak{g}(\mathfrak{h})=\mathfrak{h}$.
 \end{enumerate}
 \end{definition}
 
 \begin{proposition}
-\label{proposition-diagonal-matrices-are-Cartan-subalgebra}
-Let $\mathfrak{g}\subset \mathfrak{gl}_n(\mathbb{F})$ be a subalgebra
-containing a diagonal matrix $a=\text{diag}(a_1,\ldots,a_n)$ 
-with distinct $a_i$, and let $\mathfrak{h}$ be the subspace
-of all diagonal matrices in $\mathfrak{g}$. Then $\mathfrak{h}$ 
-is a Cartan subalgebra (of $\mathfrak{g}$ I guess).
+\label{proposition-diago-matri-carta-subal}
+Let $\mathfrak{g}\subset
+\mathfrak{gl}_n(\mathbb{F})$ be a subalgebra
+containing a diagonal matrix
+$a=\text{diag}(a_1,\ldots,a_n)$
+with distinct $a_i$, and let $\mathfrak{h}$
+be the subspace
+of all diagonal matrices in $\mathfrak{g}$.
+Then $\mathfrak{h}$
+is a Cartan subalgebra (of $\mathfrak{g}$ I
+guess).
 \end{proposition}
 
 \begin{proof}[Idea of proof]
 Consider the following illustrative example:
 \begin{align*}
 &\begin{pmatrix}
-a&b\\ 
+a&b\\
 c&d
 \end{pmatrix}\begin{pmatrix}
-\lambda_1&0\\ 
+\lambda_1&0\\
 0&\lambda_2
 \end{pmatrix}-\begin{pmatrix}
-\lambda_1&0\\ 
+\lambda_1&0\\
 0&\lambda_2
 \end{pmatrix}\begin{pmatrix}
-a&b\\ 
+a&b\\
 c&d
 \end{pmatrix}\\
 &=\begin{pmatrix}
-a \lambda_1&b \lambda_2\\ 
+a \lambda_1&b \lambda_2\\
 c \lambda_3&d \lambda_2
 \end{pmatrix}-
 \begin{pmatrix}
-\lambda_1a&\lambda_1b\\ 
+\lambda_1a&\lambda_1b\\
 \lambda_2c&\lambda_2d
 \end{pmatrix}\\
 &=\begin{pmatrix}
-0&b\lambda_2-\lambda_1b\\ 
+0&b\lambda_2-\lambda_1b\\
 \lambda_3a-\lambda_2c&0
-\end{pmatrix}\qquad 
+\end{pmatrix}\qquad
 \end{align*}
-which says that any non-diagonal matrix would escape $\mathfrak{h}$.
+which says that any non-diagonal matrix would
+escape $\mathfrak{h}$.
 \end{proof}
 
 \begin{theorem}[Cartan]
-\label{theorem-finite-dimensional-Lie-algebra-over-closed-field-has
--Cartan-subalgebra}
-Let $\mathfrak{g}$ be a finite-dimensional Lie algebra over an 
-algebraically closed field $\mathbb{F}$. Let $a \in \mathfrak{g}$ 
-be a regular element (which exists since $\mathbb{F}$ is infinite),
-and let $\mathfrak{g}=\bigoplus_{\lambda \in \mathbb{F}}\mathfrak{g}^a_\lambda$
-be the generalized eigenspace decomposition of $\mathfrak{g}$ 
-with respect to $\text{ad}_a$. Then $\mathfrak{g}_0^a$ 
+\label{theorem-finit-dimen-lie-algeb-over}
+Let $\mathfrak{g}$ be a finite-dimensional
+Lie algebra over an
+algebraically closed field $\mathbb{F}$. Let
+$a \in \mathfrak{g}$
+be a regular element (which exists since
+$\mathbb{F}$ is infinite),
+and let $\mathfrak{g}=\bigoplus_{\lambda \in
+\mathbb{F}}\mathfrak{g}^a_\lambda$
+be the generalized eigenspace decomposition
+of $\mathfrak{g}$
+with respect to $\text{ad}_a$. Then
+$\mathfrak{g}_0^a$
 is a Cartan subalgebra.
 \end{theorem}
 
 \begin{proof}[Idea of proof]
-First recall what is $\mathfrak{h}=\mathfrak{g}_0^a$, the set of elements
-$b\in\mathfrak{g}$ such that $\text{ad}_a^N(b)=0$.
+First recall what is
+$\mathfrak{h}=\mathfrak{g}_0^a$, the set of
+elements
+$b\in\mathfrak{g}$ such that
+$\text{ad}_a^N(b)=0$.
 \end{proof}
 
 \begin{remark}
-\label{remark-rank-is-dimension-of-that-subalgebra}
-The rank of a Lie algebra is the dimension of $\mathfrak{g}_0^a=\mathfrak{h}$.
+\label{remark-rank-dimen-subal}
+The rank of a Lie algebra is the dimension of
+$\mathfrak{g}_0^a=\mathfrak{h}$.
 \end{remark}
 
 \begin{proposition}
-\label{proposition-g0-equals-h-for-any-Cartan-subalgebra-h}
-Let $\mathfrak{g}$ be a finite-dimensional Lie algebra over
-an algebraically closed field $\mathbb{F}$ of characteristic zero
-and let $\mathfrak{h}\subset\mathfrak{g}$ be a Cartan subalgebra.
-Then $\mathfrak{g}_0=\mathfrak{h}$ in the generalized 
+\label{proposition-g0-equal-h-any-carta}
+Let $\mathfrak{g}$ be a finite-dimensional
+Lie algebra over
+an algebraically closed field $\mathbb{F}$ of
+characteristic zero
+and let $\mathfrak{h}\subset\mathfrak{g}$ be
+a Cartan subalgebra.
+Then $\mathfrak{g}_0=\mathfrak{h}$ in the
+generalized
 weight space decomposition.
 \end{proposition}
 
@@ -545,57 +854,92 @@ Engel's theorem…
 \section{Semisimple Lie algebras}
 \label{section-semisimple-Lie-algebras}
 
+\noindent
+Recall that the root space decomposition
+works best for semisimple finite-dimensional
+Lie algebras!
+
+\begin{exercise}
+\label{exercise-semis-iff-killi-nonde}
+\begin{reference}
+\cite[Exercise 12.1]{KLAL}
+\end{reference}
+Let $\mathfrak{g}$ denote a Lie algebra over
+a field of characteristic 0.
+Show that $\mathfrak{g}$ is semisimple if and
+only if
+the Killing form on $\mathfrak{g}$ is
+nondegenerate.
+\end{exercise}
+
 \begin{definition}
 \label{definition-radical}
-A {\it radical} $R(\mathfrak{g})$ of a finite-dimensional Lie algebra
-$\mathfrak{g}$ is a solvable ideal of $\mathfrak{g}$ of maximal possible
+A {\it radical} $R(\mathfrak{g})$ of a
+finite-dimensional Lie algebra
+$\mathfrak{g}$ is a solvable ideal of
+$\mathfrak{g}$ of maximal possible
 dimension.
 \end{definition}
 
 \begin{proposition}
-\label{proposition-radical-ideal-contains-any-solvable-ideal-and-is-unique}
-The radical ideal of $\mathfrak{g}$ contains any solvable ideal of
+\label{proposition-radic-ideal-conta-any}
+The radical ideal of $\mathfrak{g}$ contains
+any solvable ideal of
 $\mathfrak{g}$ and is unique.
 \end{proposition}
 
-If $\mathfrak{g}$ is a finite dimensional solvable Lie algebra,
-then $R(\mathfrak{g})=\mathfrak{g}$. 
-The opposite case if when $R(\mathfrak{g})=0$.
+If $\mathfrak{g}$ is a finite dimensional
+solvable Lie algebra,
+then $R(\mathfrak{g})=\mathfrak{g}$.
+The opposite case if when
+$R(\mathfrak{g})=0$.
 
 \begin{definition}
 \label{definition-semisimple-Lie-algebra}
-A finite-dimensional Lie algebra $\mathfrak{g}$ is called {\it semisimple} if
+A finite-dimensional Lie algebra
+$\mathfrak{g}$ is called {\it semisimple} if
 $R(\mathfrak{g})=0$.
 \end{definition}
 
-In \cite[Lecture 11]{KLAL} we have the tools needed for a characterization
-of semisimple Lie algebras in terms of the Killing form:
+In \cite[Lecture 11]{KLAL} we have the tools
+needed for a characterization
+of semisimple Lie algebras in terms of the
+Killing form:
 
 \begin{theorem}[Cartan]
 \label{theorem-Cartan}
-Let $\mathfrak{g}$ be a finite-dimensional Lie algebra
+Let $\mathfrak{g}$ be a finite-dimensional
+Lie algebra
 over a field of characteristic 0.
-Then the Killing form on $\mathfrak{g}$ is non-degenerate is and only if
+Then the Killing form on $\mathfrak{g}$ is
+non-degenerate is and only if
 $\mathfrak{g}$ is semisimple.
-Moreover, if $\mathfrak{g}$ is semisimple and $\mathfrak{a}\subset\mathfrak{g}$
+Moreover, if $\mathfrak{g}$ is semisimple and
+$\mathfrak{a}\subset\mathfrak{g}$
 is an ideal,
-then the restriction of the Killing form to $\mathfrak{a}$,
+then the restriction of the Killing form to
+$\mathfrak{a}$,
 $K|_{\mathfrak{a}\times\mathfrak{a}}$,
-is also nondegenerate and coincides with the Killing form of $\mathfrak{a}$.
+is also nondegenerate and coincides with the
+Killing form of $\mathfrak{a}$.
 \end{theorem}
 
-I think we need semisimplicity, i.e. nondegeneracy of the
+I think we need semisimplicity, i.e.
+nondegeneracy of the
 Killing form for the following definition:
 
 \begin{definition}
 \label{definition-coroot}
-Given a set of simple roots $\Pi=\{\alpha_1,\ldots,\alpha_\ell\}$,
-we define the {\it coroot} 
+Given a set of simple roots
+$\Pi=\{\alpha_1,\ldots,\alpha_\ell\}$,
+we define the {\it coroot}
 \begin{equation}
 \label{equation-coroot}
-\alpha_i^\vee=\frac{2}{(\alpha_i,\alpha_i)}\nu^{-1}(\alpha_i)
+\alpha_i^\vee=\frac{2}{(\alpha_i,\alpha_i)}
+\nu^{-1}(\alpha_i)
 \end{equation}
-where $\nu:\mathfrak{h}\to\mathfrak{h}^*$ is the pairing
+where $\nu:\mathfrak{h}\to\mathfrak{h}^*$ is
+the pairing
 induced by the Killing form.
 \end{definition}
 
@@ -604,8 +948,10 @@ induced by the Killing form.
 
 \begin{definition}
 \label{definition-g-module}
-Let $\mathfrak{g}$ be a Lie algebra. A {\it $\mathfrak{g}$-module}
-(also called a {\it representation of $\mathfrak{g}$}
+Let $\mathfrak{g}$ be a Lie algebra. A {\it
+$\mathfrak{g}$-module}
+(also called a {\it representation of
+$\mathfrak{g}$}
 is a vector space $V$ and a homomorphism
 $$
 \rho:\mathfrak{g}\to \text{End}(V)
@@ -614,42 +960,50 @@ of Lie algebras, i.e.,
 $$
 \rho([x,y])=\rho(x)\rho(y)-\rho(y)\rho(x).
 $$
-A vector space $W \subset V$ such that $vW\subset W$ for all
+A vector space $W \subset V$ such that
+$vW\subset W$ for all
 $x \in \mathfrak{g}$ is called a
  {\it $\mathfrak{g}$-submodule}.
 \end{definition}
 
 \begin{definition}
 \label{definition-irreducible-g-module}
-An {\it irreducible $\mathfrak{g}$-module} is one that has
+An {\it irreducible $\mathfrak{g}$-module} is
+one that has
 no $\mathfrak{g}$-submodules other than the
 trivial ones (namely, 0 and $V$ itself).
 \end{definition}
 
-It is possible to classify and describe the 
+It is possible to classify and describe the
 irreducible finite-dimensional
 $\mathfrak{g}$-modules. This is in contrast
-with all the modules of a Lie algebra $\mathfrak{g}$,
+with all the modules of a Lie algebra
+$\mathfrak{g}$,
 which is ``impossible in general''.
 
 \section{Verma module}
 \label{section-Verma-module}
 
-Let $M$ be a $\mathfrak{g}$-module. Recall 
-Definition \ref{definition-weight-space}: 
-let $\mathfrak{h}$ be a Lie algebra, 
-$\pi:\mathfrak{h}\to\mathfrak{gl}_V$ a representation of $\mathfrak{h}$ 
-and $\lambda \in \mathfrak{h}^*$. The {\it weight space} of $\mathfrak{h}$
+Let $M$ be a $\mathfrak{g}$-module. Recall
+Definition \ref{definition-weight-space}:
+let $\mathfrak{h}$ be a Lie algebra,
+$\pi:\mathfrak{h}\to\mathfrak{gl}_V$ a
+representation of $\mathfrak{h}$
+and $\lambda \in \mathfrak{h}^*$. The {\it
+weight space} of $\mathfrak{h}$
 attached to $\lambda$ is
 $$
-V_\lambda^{\mathfrak{h}}:=\{v \in V|\pi(h)v=\lambda(h)v,\; 
+V_\lambda^{\mathfrak{h}}:=\{v \in
+V|\pi(h)v=\lambda(h)v,\;
 \forall h \in \mathfrak{h}\}.
 $$
 We have
-that a weight space in $M$ is a nonzero subspace
+that a weight space in $M$ is a nonzero
+subspace
 $M_\lambda \subset M$ such that
 $$
-hv=\lambda(h)v \qquad \forall h \in \mathfrak{h}\subset\mathfrak{g}
+hv=\lambda(h)v \qquad \forall h \in
+\mathfrak{h}\subset\mathfrak{g}
 \text{ and }v \in M,
 $$
 and in this case we call $\lambda$ a weight.
@@ -659,23 +1013,27 @@ call it a {\it weight module}.
 The {\it support} of a weight module $M$ is
 \begin{equation}
 \label{equation-support-of-weight-module}
-\text{supp}(M):=\{\lambda \in \mathfrak{h}^*:M_\lambda\neq 0\}
+\text{supp}(M):=\{\lambda \in
+\mathfrak{h}^*:M_\lambda\neq 0\}
 \end{equation}
 We call elements of $M_\lambda$ {\it vectors
 of weight $\lambda$}.
 
 \begin{definition}
 \label{definition-highest-root}
-$\Lambda \in \mathfrak{h}^*$ is a 
-{\it highest weight} of $M$ 
+$\Lambda \in \mathfrak{h}^*$ is a
+{\it highest weight} of $M$
 if $\Lambda \in \text{supp}(M)$
-and for all positive roots $\alpha \in \Delta_+$
-we have that $\Lambda+\alpha \not\in\text{supp}(M)$.
+and for all positive roots $\alpha \in
+\Delta_+$
+we have that $\Lambda+\alpha
+\not\in\text{supp}(M)$.
 \end{definition}
 
 \begin{exercise}
-\label{exercise-highest-weight-of-an-irreducible-g-module-is-unique}
-The highest weight of an irreducible $\mathfrak{g}$-module
+\label{exercise-highe-weigh-irred-g-modul}
+The highest weight of an irreducible
+$\mathfrak{g}$-module
 is unique.
 \end{exercise}
 
@@ -693,53 +1051,69 @@ Let $\Lambda \in \mathfrak{h}^*$
 The {\it Verma module} $M(\Lambda)$
 of highest weight $\Lambda$ is
 $$
-M(\Lambda)=U(\mathfrak{g})\otimes_{U(\mathfrak{h}\oplus \mathfrak{n}_+}
+M(\Lambda)=U(\mathfrak{g})
+\otimes_{U(\mathfrak{h}\oplus
+\mathfrak{n}_+}
 \mathbb{C}_\Lambda,
 $$
-where $\mathbb{C}_\Lambda=\mathbb{C}v_\Lambda$
-is the $1$-dimensional $(\mathfrak{h} \oplus \mathfrak{n}_+)$-module
+where
+$\mathbb{C}_\Lambda=\mathbb{C}v_\Lambda$
+is the $1$-dimensional $(\mathfrak{h} \oplus
+\mathfrak{n}_+)$-module
 defined by $\mathfrak{n}_+v_\Lambda=0$
-and $hv_\Lambda=\left<\Lambda,h\right>v_\Lambda$
+and
+$hv_\Lambda=\left<\Lambda,h\right>v_\Lambda$
 for all $h \in \mathfrak{h}$.
 \end{definition}
 
 Long story short, by the PBW Theorem we
-have an isomorphism $U(\mathfrak{n}_-) \to M(\Lambda)$
+have an isomorphism $U(\mathfrak{n}_-) \to
+M(\Lambda)$
 of $U(\mathfrak{n}_-)$ modules.
 
 \section{Weyl character formula}
 \label{section-Weyl-character-formula}
 
-There are at least two Weyl character formulas.
+There are at least two Weyl character
+formulas.
 This one is \cite[Theorem 10.14]{Hall}:
 
 \begin{theorem}[Weyl Character Formula]
 \label{theorem-Weyl-character-formula-Hall}
-If $(\pi,V_\mu)$ is an irreducible representation of
-$\mathfrak{g}$ with highest weight $\mu$, then
+If $(\pi,V_\mu)$ is an irreducible
+representation of
+$\mathfrak{g}$ with highest weight $\mu$,
+then
 \begin{equation}
 \label{equation-Weyl-character-formula-Hall}
-\chi_\pi(H)=\frac{\sum_{w \in W}\det(w)e^{\left<w\cdot(\mu+\delta),H\right>}}
-{\sum_{w \in W}\det(w)e^{\left<w\cdot \delta,H\right>}}
+\chi_\pi(H)=\frac{\sum_{w \in
+W}\det(w)e^{\left<w\cdot(\mu+\delta),
+H\right>}}
+{\sum_{w \in W}\det(w)e^{\left<w\cdot
+\delta,H\right>}}
 \end{equation}
-for all $H \in \mathfrak{h}$ for which the denominator is nonzero.
+for all $H \in \mathfrak{h}$ for which the
+denominator is nonzero.
 \end{theorem}
 
 And this one is \cite[Theorem 25.3]{KLAL}:
 
 \begin{theorem}[Weyl Character Formula]
 \label{theorem-Weyl-character-formula-KLAL}
-Let $R=\prod_{\alpha \in \Delta_+}(1-e^{-\alpha}$.
+Let $R=\prod_{\alpha \in
+\Delta_+}(1-e^{-\alpha}$.
 If  $\Lambda \in P_+$, then
 \begin{equation}
 \label{equation-Weyl-character-formula-KLAL}
-e^{\rho}R \text{ch}L(\Lambda)=\sum_{w \in W}\det w e^{w(\Lambda+\rho)}
+e^{\rho}R \text{ch}L(\Lambda)=\sum_{w \in
+W}\det w e^{w(\Lambda+\rho)}
 \end{equation}
 \end{theorem}
 
 \begin{exercise}
-\label{exercise-Weyl-character-formula-in-sl3}
-Let $\mathfrak{g}=\mathfrak{sl}_3$. Compute $\text{ch}_{L(\lambda)}$
+\label{exercise-weyl-chara-formu-sl3}
+Let $\mathfrak{g}=\mathfrak{sl}_3$. Compute
+$\text{ch}_{L(\lambda)}$
 for some $\lambda$,
 \begin{enumerate}
 \item $\lambda=0$,
@@ -752,83 +1126,115 @@ etc.
 \begin{proof}
 No matter what formula I use, I must compute
 the determinants of the Weyl reflections
-and the $\rho$ (which I think is $\delta$ for Hall),
-which is just the sum of all the fundamental weights,
-which in turn are the dual of the coroot vectors.
-Finally applying the reflections to $\rho$ and
+and the $\rho$ (which I think is $\delta$ for
+Hall),
+which is just the sum of all the fundamental
+weights,
+which in turn are the dual of the coroot
+vectors.
+Finally applying the reflections to $\rho$
+and
 to $\lambda+\rho$ would yield the result.
 \begin{enumerate}
-\item (Find roots of $\mathfrak{sl}_3$.) We look for $\alpha \in \mathfrak{h}^*
+\item (Find roots of $\mathfrak{sl}_3$.) We
+look for $\alpha \in \mathfrak{h}^*
 = \{\text{diagonal matrices}\}$ such that
 $$
-[H,E_{ij}]=\alpha(H)E_{ij}\qquad \forall H \in \mathfrak{h}
+[H,E_{ij}]=\alpha(H)E_{ij}\qquad \forall H
+\in \mathfrak{h}
 $$
-where $E_{ij}$ is the matrix that has zero in every entry but 
-in the $(i,j)$-th where it has a 1. One obtains that
-$[H,E_{ij}]=(h_i-h_j)E_{ij}$, so that the roots are
-$\alpha_{ij}(h)=h_i-h_j$. 
+where $E_{ij}$ is the matrix that has zero in
+every entry but
+in the $(i,j)$-th where it has a 1. One
+obtains that
+$[H,E_{ij}]=(h_i-h_j)E_{ij}$, so that the
+roots are
+$\alpha_{ij}(h)=h_i-h_j$.
 
-\item (Compute the Killing form.) Recall that by definition
-$\kappa(H,H')=\text{Tr}(\text{ad}_H\text{ad}_{H'})$.
-But in this case, we have $\kappa(H,H')=\text{Tr}(HH')$ 
-because $\text{ad}_H\text{ad}_{H'}=[H,[H',A]]$
+\item (Compute the Killing form.) Recall that
+by definition
+$\kappa(H,H')=\text{Tr}(\text{ad}_H\text{ad}
+_{H'})$.
+But in this case, we have
+$\kappa(H,H')=\text{Tr}(HH')$
+because
+$\text{ad}_H\text{ad}_{H'}=[H,[H',A]]$
 
-The first thing Jethro did was to consider a basis
+The first thing Jethro did was to consider a
+basis
 $$
 H_1=\begin{pmatrix}
-1&0&0\\ 
+1&0&0\\
 0&-1&0\\
 0&0&0
 \end{pmatrix},
 \qquad
 H_2=\begin{pmatrix}
-0&0&0\\ 
+0&0&0\\
 0&1&0\\
 0&0&-1
 \end{pmatrix}
 $$
 and then compute the Killing form via
 \begin{align*}
-H_1H_1&=2,\qquad H_1H_2=-1,\qquad H_2H_1=-1,\qquad H_2H_2=2.
+H_1H_1&=2,\qquad H_1H_2=-1,\qquad
+H_2H_1=-1,\qquad H_2H_2=2.
 \end{align*}
 
-\item (Find the dual basis vectors.) Now we use the musical
-isomorphism $\nu:\mathfrak{h}\to \mathfrak{h}^*$, 
+\item (Find the dual basis vectors.) Now we
+use the musical
+isomorphism $\nu:\mathfrak{h}\to
+\mathfrak{h}^*$,
 $H\mapsto (-,H)$ to find
 $$
 \nu(H_1)=
 $$
-\item (Find fundamental weights.) It looks like $\alpha_1=2 \omega_1-\omega_2$
-and $\alpha_2=2\omega_2-\omega_1$. This says 
-$\omega_1=2\omega_2-\alpha_2=2(2\omega_1-\alpha_1)-\alpha_2$ so
-$3\omega_1=2\alpha_1+\alpha_2$. And then 
-$\omega_2=2(\frac{2}{3}\alpha_1+\frac{1}{3}\alpha_2)-\alpha_1
+\item (Find fundamental weights.) It looks
+like $\alpha_1=2 \omega_1-\omega_2$
+and $\alpha_2=2\omega_2-\omega_1$. This says
+$\omega_1=2\omega_2-\alpha_2=2(2\omega_1-
+\alpha_1)-\alpha_2$
+so
+$3\omega_1=2\alpha_1+\alpha_2$. And then
+$\omega_2=2(\frac{2}{3}\alpha_1+\frac{1}{3}
+\alpha_2)-\alpha_1
 =\frac{1}{3}(\alpha_1+2\alpha_2)$.
 
-\item (Find $\rho$.) Then $\rho=\omega_1+\omega_2=\alpha_1+\alpha_2$.
+\item (Find $\rho$.) Then
+$\rho=\omega_1+\omega_2=\alpha_1+\alpha_2$.
 
-\item (Find Weyl reflections.) To find Weyl reflections I need to compute
-first the numbers $(\alpha_i, \alpha_j)$. I think this is still not
-very clear --- have to use Killing form? But OK, I know we must have
-$(\alpha_i,\alpha_i)=2$, and the both of the crossed ones give $-1$.
-This should give by bilinearity the values on $\omega_i$ also.
+\item (Find Weyl reflections.) To find Weyl
+reflections I need to compute
+first the numbers $(\alpha_i, \alpha_j)$. I
+think this is still not
+very clear --- have to use Killing form? But
+OK, I know we must have
+$(\alpha_i,\alpha_i)=2$, and the both of the
+crossed ones give $-1$.
+This should give by bilinearity the values on
+$\omega_i$ also.
 
-\item (Find determinants of Weyl reflections.) I guess for this
-I have to evaluate the reflections in each of the w
+\item (Find determinants of Weyl
+reflections.) I guess for this
+I have to evaluate the reflections in each of
+the w
 
-\item (Evaluate $\rho$ and $\lambda+\rho$ on Weyl reflections.)
+\item (Evaluate $\rho$ and $\lambda+\rho$ on
+Weyl reflections.)
 
 \item (Find the Weyl character.)
 \end{enumerate}
 
 What's funny in this whole story is that
-in the end we can just find the Weyl character geometrically.
+in the end we can just find the Weyl
+character geometrically.
 For every $\lambda=m \omega_1+n \omega_2$
-I want to compute its orbit under the Weyl group $W$.
-This means 
+I want to compute its orbit under the Weyl
+group $W$.
+This means
 
 
-I would start by finding the determinant 
+I would start by finding the determinant
 of the Weyl reflections…
 \end{proof}
 
