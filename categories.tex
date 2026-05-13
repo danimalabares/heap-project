@@ -8,7 +8,8 @@
 \phantomsection
 \label{section-phantom}
 \hfill
-\href{http://github.com/danimalabares/stack}{github.com/danimalabares/stack}
+\href{http://github.com/danimalabares/stack}%
+{github.com/danimalabares/stack}
 
 \tableofcontents
 
@@ -16,126 +17,191 @@
 \label{section-definition-categories}
 
 \noindent
-We recall the definitions, partly to fix notation.
+We recall the definitions, partly to fix
+notation.
 
 \begin{definition}
 \label{definition-category}
-A {\it category} $\mathcal{C}$ consists of the following data:
+A {\it category} $\mathcal{C}$ consists of
+the following data:
 \begin{enumerate}
 \item A set of objects $\Ob(\mathcal{C})$.
-\item For each pair $x, y \in \Ob(\mathcal{C})$ a set of morphisms
+\item For each pair $x, y \in
+\Ob(\mathcal{C})$ a set of morphisms
 $\Mor_\mathcal{C}(x, y)$.
-\item For each triple $x, y, z\in \Ob(\mathcal{C})$ a composition
-map $ \Mor_\mathcal{C}(y, z) \times \Mor_\mathcal{C}(x, y)
-\to \Mor_\mathcal{C}(x, z) $, denoted $(\phi, \psi) \mapsto
+\item For each triple $x, y, z\in
+\Ob(\mathcal{C})$ a composition
+map $ \Mor_\mathcal{C}(y, z) \times
+\Mor_\mathcal{C}(x, y)
+\to \Mor_\mathcal{C}(x, z) $, denoted $(\phi,
+\psi) \mapsto
 \phi \circ \psi$.
 \end{enumerate}
-These data are to satisfy the following rules:
+These data are to satisfy the following
+rules:
 \begin{enumerate}
-\item For every element $x\in \Ob(\mathcal{C})$ there exists a
-morphism $\text{id}_x\in \Mor_\mathcal{C}(x, x)$ such that
-$\text{id}_x \circ \phi = \phi$ and $\psi \circ \text{id}_x = \psi $ whenever
+\item For every element $x\in
+\Ob(\mathcal{C})$ there exists a
+morphism $\text{id}_x\in \Mor_\mathcal{C}(x,
+x)$ such that
+$\text{id}_x \circ \phi = \phi$ and $\psi
+\circ \text{id}_x = \psi $ whenever
 these compositions make sense.
-\item Composition is associative, i.e., $(\phi \circ \psi) \circ \chi =
-\phi \circ ( \psi \circ \chi)$ whenever these compositions make sense.
+\item Composition is associative, i.e.,
+$(\phi \circ \psi) \circ \chi =
+\phi \circ ( \psi \circ \chi)$ whenever these
+compositions make sense.
 \end{enumerate}
 \end{definition}
 
 \begin{definition}
 \label{definition-functor}
-A {\it functor} $F : \mathcal{A} \to \mathcal{B}$
-between two categories $\mathcal{A}, \mathcal{B}$ is given by the
+A {\it functor} $F : \mathcal{A} \to
+\mathcal{B}$
+between two categories $\mathcal{A},
+\mathcal{B}$ is given by the
 following data:
 \begin{enumerate}
-\item A map $F : \Ob(\mathcal{A}) \to \Ob(\mathcal{B})$.
-\item For every $x, y \in \Ob(\mathcal{A})$ a map
-$F : \Mor_\mathcal{A}(x, y) \to \Mor_\mathcal{B}(F(x), F(y))$,
+\item A map $F : \Ob(\mathcal{A}) \to
+\Ob(\mathcal{B})$.
+\item For every $x, y \in \Ob(\mathcal{A})$ a
+map
+$F : \Mor_\mathcal{A}(x, y) \to
+\Mor_\mathcal{B}(F(x), F(y))$,
 denoted $\phi \mapsto F(\phi)$.
 \end{enumerate}
-These data should be compatible with composition and identity morphisms
-in the following manner: $F(\phi \circ \psi) =
-F(\phi) \circ F(\psi)$ for a composable pair $(\phi, \psi)$ of
-morphisms of $\mathcal{A}$ and $F(\text{id}_x) = \text{id}_{F(x)}$.
+These data should be compatible with
+composition and identity morphisms
+in the following manner: $F(\phi \circ \psi)
+=
+F(\phi) \circ F(\psi)$ for a composable pair
+$(\phi, \psi)$ of
+morphisms of $\mathcal{A}$ and
+$F(\text{id}_x) = \text{id}_{F(x)}$.
 \end{definition}
 
 \noindent
 Note that every category $\mathcal{A}$ has an
-{\it identity} functor $\text{id}_\mathcal{A}$.
-In addition, given a functor $G : \mathcal{B} \to \mathcal{C}$
-and a functor $F : \mathcal{A} \to \mathcal{B}$ there is
-a {\it composition} functor $G \circ F : \mathcal{A} \to \mathcal{C}$
+{\it identity} functor
+$\text{id}_\mathcal{A}$.
+In addition, given a functor $G : \mathcal{B}
+\to \mathcal{C}$
+and a functor $F : \mathcal{A} \to
+\mathcal{B}$ there is
+a {\it composition} functor $G \circ F :
+\mathcal{A} \to \mathcal{C}$
 defined in an obvious manner.
 
 \begin{definition}
 \label{definition-faithful}
-Let $F : \mathcal{A} \to \mathcal{B}$ be a functor.
+Let $F : \mathcal{A} \to \mathcal{B}$ be a
+functor.
 \begin{enumerate}
 \item We say $F$ is {\it faithful} if
-for any objects $x, y \in \Ob(\mathcal{A})$ the map
+for any objects $x, y \in \Ob(\mathcal{A})$
+the map
 $$
-F : \Mor_\mathcal{A}(x, y) \to \Mor_\mathcal{B}(F(x), F(y))
+F : \Mor_\mathcal{A}(x, y) \to
+\Mor_\mathcal{B}(F(x), F(y))
 $$
 is injective.
-\item If these maps are all bijective then $F$ is called
+\item If these maps are all bijective then
+$F$ is called
 {\it fully faithful}.
 \item
-The functor $F$ is called {\it essentially surjective} if for any
-object $y \in \Ob(\mathcal{B})$ there exists an object
-$x \in \Ob(\mathcal{A})$ such that $F(x)$ is isomorphic to $y$ in
+The functor $F$ is called {\it essentially
+surjective} if for any
+object $y \in \Ob(\mathcal{B})$ there exists
+an object
+$x \in \Ob(\mathcal{A})$ such that $F(x)$ is
+isomorphic to $y$ in
 $\mathcal{B}$.
 \end{enumerate}
 \end{definition}
 
 \begin{definition}
 \label{definition-subcategory}
-A {\it subcategory} of a category $\mathcal{B}$ is a category $\mathcal{A}$
-whose objects and arrows form subsets of the objects and arrows of $\mathcal{B}$
-and such that source, target and composition in $\mathcal{A}$ agree with those
-of $\mathcal{B}$ and such that the identity morphism of an object of
-$\mathcal{A}$ matches the one in $\mathcal{B}$. We say $\mathcal{A}$ is a
-{\it full subcategory} of $\mathcal{B}$ if $\Mor_\mathcal{A}(x, y)
-= \Mor_\mathcal{B}(x, y)$ for all $x, y \in \Ob(\mathcal{A})$.
-We say $\mathcal{A}$ is a {\it strictly full} subcategory of $\mathcal{B}$
-if it is a full subcategory and given $x \in \Ob(\mathcal{A})$ any
-object of $\mathcal{B}$ which is isomorphic to $x$ is also in $\mathcal{A}$.
+A {\it subcategory} of a category
+$\mathcal{B}$ is a category $\mathcal{A}$
+whose objects and arrows form subsets of the
+objects and arrows of $\mathcal{B}$
+and such that source, target and composition
+in $\mathcal{A}$ agree with those
+of $\mathcal{B}$ and such that the identity
+morphism of an object of
+$\mathcal{A}$ matches the one in
+$\mathcal{B}$. We say $\mathcal{A}$ is a
+{\it full subcategory} of $\mathcal{B}$ if
+$\Mor_\mathcal{A}(x, y)
+= \Mor_\mathcal{B}(x, y)$ for all $x, y \in
+\Ob(\mathcal{A})$.
+We say $\mathcal{A}$ is a {\it strictly full}
+subcategory of $\mathcal{B}$
+if it is a full subcategory and given $x \in
+\Ob(\mathcal{A})$ any
+object of $\mathcal{B}$ which is isomorphic
+to $x$ is also in $\mathcal{A}$.
 \end{definition}
 
 \noindent
-If $\mathcal{A} \subset \mathcal{B}$ is a subcategory then the
-identity map is a functor from $\mathcal{A}$ to $\mathcal{B}$.
-Furthermore a subcategory $\mathcal{A} \subset \mathcal{B}$
-is full if and only if the inclusion functor is fully faithful.
-Note that given a category $\mathcal{B}$ the set of full subcategories
-of $\mathcal{B}$ is the same as the set of subsets of
+If $\mathcal{A} \subset \mathcal{B}$ is a
+subcategory then the
+identity map is a functor from $\mathcal{A}$
+to $\mathcal{B}$.
+Furthermore a subcategory $\mathcal{A}
+\subset \mathcal{B}$
+is full if and only if the inclusion functor
+is fully faithful.
+Note that given a category $\mathcal{B}$ the
+set of full subcategories
+of $\mathcal{B}$ is the same as the set of
+subsets of
 $\Ob(\mathcal{B})$.
 
 \begin{example}
 \label{example-category-over-X}
-Given a category $\mathcal{C}$ and an object $X\in \Ob(\mathcal{C})$
-we define the {\it category of objects over $X$},
+Given a category $\mathcal{C}$ and an object
+$X\in \Ob(\mathcal{C})$
+we define the {\it category of objects over
+$X$},
 denoted $\mathcal{C}/X$ as follows.
-The objects of $\mathcal{C}/X$ are morphisms $Y\to X$ for
-some $Y\in \Ob(\mathcal{C})$. Morphisms between objects
-$Y\to X$ and $Y'\to X$ are morphisms $Y\to Y'$ in $\mathcal{C}$ that
-make the obvious diagram commute. Note that there is a functor
-$p_X : \mathcal{C}/X\to \mathcal{C}$ which simply forgets the
-morphism. Moreover given a morphism $f : X'\to X$ in
+The objects of $\mathcal{C}/X$ are morphisms
+$Y\to X$ for
+some $Y\in \Ob(\mathcal{C})$. Morphisms
+between objects
+$Y\to X$ and $Y'\to X$ are morphisms $Y\to
+Y'$ in $\mathcal{C}$ that
+make the obvious diagram commute. Note that
+there is a functor
+$p_X : \mathcal{C}/X\to \mathcal{C}$ which
+simply forgets the
+morphism. Moreover given a morphism $f :
+X'\to X$ in
 $\mathcal{C}$ there is an induced functor
-$F : \mathcal{C}/X' \to \mathcal{C}/X$ obtained by composition with $f$,
+$F : \mathcal{C}/X' \to \mathcal{C}/X$
+obtained by composition with $f$,
 and $p_X\circ F = p_{X'}$.
 \end{example}
 
 \begin{example}
 \label{example-category-under-X}
-Given a category $\mathcal{C}$ and an object $X\in \Ob(\mathcal{C})$
-we define the {\it category of objects under $X$},
+Given a category $\mathcal{C}$ and an object
+$X\in \Ob(\mathcal{C})$
+we define the {\it category of objects under
+$X$},
 denoted $X/\mathcal{C}$ as follows.
-The objects of $X/\mathcal{C}$ are morphisms $X\to Y$ for
-some $Y\in \Ob(\mathcal{C})$. Morphisms between objects
-$X\to Y$ and $X\to Y'$ are morphisms $Y\to Y'$ in $\mathcal{C}$ that
-make the obvious diagram commute. Note that there is a functor
-$p_X : X/\mathcal{C}\to \mathcal{C}$ which simply forgets the
-morphism. Moreover given a morphism $f : X'\to X$ in
+The objects of $X/\mathcal{C}$ are morphisms
+$X\to Y$ for
+some $Y\in \Ob(\mathcal{C})$. Morphisms
+between objects
+$X\to Y$ and $X\to Y'$ are morphisms $Y\to
+Y'$ in $\mathcal{C}$ that
+make the obvious diagram commute. Note that
+there is a functor
+$p_X : X/\mathcal{C}\to \mathcal{C}$ which
+simply forgets the
+morphism. Moreover given a morphism $f :
+X'\to X$ in
 $\mathcal{C}$ there is an induced functor
 $F : X/\mathcal{C} \to X'/\mathcal{C}$
 obtained by composition with $f$,
@@ -144,64 +210,87 @@ and $p_{X'}\circ F = p_X$.
 
 \begin{definition}
 \label{definition-equivalence-of-categories}
-Two categories are {\it equivalent} if there exist functors
-from one to the other and backwards which composed with
+Two categories are {\it equivalent} if there
+exist functors
+from one to the other and backwards which
+composed with
 each other are the corresponding identities.
 \end{definition}
 
 \begin{lemma}
 \label{lemma-equivalence-categories}
-A functor is an equivalence of categories if and only if it is both fully
+A functor is an equivalence of categories if
+and only if it is both fully
 faithful and essentially surjective.
 \end{lemma}
 
 \begin{proof}
-Let $F : \mathcal{A} \to \mathcal{B}$ be essentially surjective and fully
-faithful. As by convention all categories are small and as $F$ is essentially
-surjective we can, using the axiom of choice, choose for every
-$X \in \Ob(\mathcal{B})$ an object $j(X)$ of $\mathcal{A}$ and an
-isomorphism $i_X : X \to F(j(X))$. Then we apply
+Let $F : \mathcal{A} \to \mathcal{B}$ be
+essentially surjective and fully
+faithful. As by convention all categories are
+small and as $F$ is essentially
+surjective we can, using the axiom of choice,
+choose for every
+$X \in \Ob(\mathcal{B})$ an object $j(X)$ of
+$\mathcal{A}$ and an
+isomorphism $i_X : X \to F(j(X))$. Then we
+apply
 Lemma \ref{lemma-construct-quasi-inverse}
 using that $F$ is fully faithful.
 \end{proof}
 
 \section{Monomorphisms}
-\label{section-monomorphisms-and-epimorphisms}
+\label{section-monom-epimo}
 
 \begin{definition}
 \label{definition-mono-epi}
-Let $\mathcal{C}$ be a category and let $f : X \to Y$ be
+Let $\mathcal{C}$ be a category and let $f :
+X \to Y$ be
 a morphism of $\mathcal{C}$.
 \begin{enumerate}
-\item We say that $f$ is a {\it monomorphism} if for every object
-$W$ and every pair of morphisms $a, b : W \to X$ such that
+\item We say that $f$ is a {\it monomorphism}
+if for every object
+$W$ and every pair of morphisms $a, b : W \to
+X$ such that
 $f \circ a = f \circ b$ we have $a = b$.
-\item We say that $f$ is an {\it epimorphism} if for every object
-$W$ and every pair of morphisms $a, b : Y \to W$ such that
+\item We say that $f$ is an {\it epimorphism}
+if for every object
+$W$ and every pair of morphisms $a, b : Y \to
+W$ such that
 $a \circ f = b \circ f$ we have $a = b$.
 \end{enumerate}
 \end{definition}
 
 \begin{definition}
-\label{definition-presheaves-injective-surjective}
-Let $\mathcal{C}$ be a category, and let $\varphi : \mathcal{F}
-\to \mathcal{G}$ be a map of presheaves of sets.
+\label{definition-presh-injec-surje}
+Let $\mathcal{C}$ be a category, and let
+$\varphi : \mathcal{F}
+\to \mathcal{G}$ be a map of presheaves of
+sets.
 \begin{enumerate}
-\item We say that $\varphi$ is {\it injective} if for every object
-$U$ of $\mathcal{C}$ the map $\varphi_U : \mathcal{F}(U)
+\item We say that $\varphi$ is {\it
+injective} if for every object
+$U$ of $\mathcal{C}$ the map $\varphi_U :
+\mathcal{F}(U)
 \to \mathcal{G}(U)$ is injective.
-\item We say that $\varphi$ is {\it surjective} if for every object
-$U$ of $\mathcal{C}$ the map $\varphi_U : \mathcal{F}(U)
+\item We say that $\varphi$ is {\it
+surjective} if for every object
+$U$ of $\mathcal{C}$ the map $\varphi_U :
+\mathcal{F}(U)
 \to \mathcal{G}(U)$ is surjective.
 \end{enumerate}
 \end{definition}
 
 \begin{lemma}
 \label{lemma-mono-epi}
-The injective (resp.\ surjective) maps defined above
-are exactly the monomorphisms (resp.\ epimorphisms) of
-$\textit{PSh}(\mathcal{C})$. A map is an isomorphism
-if and only if it is both injective and surjective.
+The injective (resp.\ surjective) maps
+defined above
+are exactly the monomorphisms (resp.\
+epimorphisms) of
+$\textit{PSh}(\mathcal{C})$. A map is an
+isomorphism
+if and only if it is both injective and
+surjective.
 \end{lemma}
 
 \section{Presheaves}
@@ -209,20 +298,25 @@ if and only if it is both injective and surjective.
 
 \begin{definition}
 \label{definition-presheaves-sets}
-A {\it presheaf of sets} on $\mathcal{C}$ is a contravariant
-functor from $\mathcal{C}$ to $\textit{Sets}$. {\it Morphisms
-of presheaves} are natural transformations of functors.
+A {\it presheaf of sets} on $\mathcal{C}$ is
+a contravariant
+functor from $\mathcal{C}$ to
+$\textit{Sets}$. {\it Morphisms
+of presheaves} are natural transformations of
+functors.
 The category
-of presheaves of sets is denoted $\textit{PSh}(\mathcal{C})$
+of presheaves of sets is denoted
+$\textit{PSh}(\mathcal{C})$
 or $\hat{\mathcal{C}}$.
 \end{definition}
 
 \section{Yoneda lemma}
 \label{section-Yoneda-lemma}
 
-The Yoneda lemma says that the sections over $a$
+The Yoneda lemma says that the sections over
+$a$
 of a presheaf $X$ can be described completely
-as natural transformations between the 
+as natural transformations between the
 presheaf $\Hom(-,a)$ and $X$.
 
 \begin{definition}
@@ -235,13 +329,15 @@ The {\it Yoneda embedding} is the functor
 $$
 h:A \to \hat{A}
 $$
-whose value at an object $a$ of $A$ is the presheaf
+whose value at an object $a$ of $A$ is the
+presheaf
 $$
 h_a=\Hom_A(-,a).
 $$
 \end{definition}
 
-In other words, the evaluation of the presheaf
+In other words, the evaluation of the
+presheaf
 $h_a$ at an object $c$ of $A$ is the set of
 maps from $c$ to $a$.
 
@@ -250,10 +346,12 @@ maps from $c$ to $a$.
 \begin{reference}
 \cite[Theorem 1.1.4]{Cisinsky}
 \end{reference}
-For any presheaf $X$ over $A$, there is a natural bijection
+For any presheaf $X$ over $A$, there is a
+natural bijection
 (in $\text{Sets}$ I think!!)
 \begin{align*}
-\Hom_{\widehat{A}}(h_a,X) &\xrightarrow{\simeq} X_a  \\
+\Hom_{\widehat{A}}(h_a,X)
+&\xrightarrow{\simeq} X_a  \\
 (h_a \xrightarrow{u}X) &\longmapsto u_a(1_a)
 \end{align*}
 
@@ -266,71 +364,105 @@ For any presheaf $X$ over $A$, there is a natural bijection
 {\bf Upshot.} Internal Hom is when the
 Hom set of two objects in some category
 is in also an object of the category.
-Down-to-earth, that for two sheaves $\mathcal{F},\mathcal{G}$,
-$U\mapsto \Hom(\mathcal{F}(U),\mathcal{G}(U)$ 
+Down-to-earth, that for two sheaves
+$\mathcal{F},\mathcal{G}$,
+$U\mapsto \Hom(\mathcal{F}(U),\mathcal{G}(U)$
 is also a sheaf, called $\SheafHom$.
 
 \medskip\noindent
 I start with Stacks Project approach.
 
 Let $(X, \mathcal{O}_X)$ be a ringed space.
-Let $\mathcal{F}$, $\mathcal{G}$ be $\mathcal{O}_X$-modules.
+Let $\mathcal{F}$, $\mathcal{G}$ be
+$\mathcal{O}_X$-modules.
 Consider the rule
 $$
-U \longmapsto \Hom_{\mathcal{O}_X|_U}(\mathcal{F}|_U, \mathcal{G}|_U).
+U \longmapsto
+\Hom_{\mathcal{O}_X|_U}(\mathcal{F}|_U,
+\mathcal{G}|_U).
 $$
-It follows from the discussion in Sheaves, Section
-\ref{sheaves-section-glueing-sheaves} that this is a sheaf of
+It follows from the discussion in Sheaves,
+Section
+\ref{sheaves-section-glueing-sheaves} that
+this is a sheaf of
 abelian groups. In addition, given an element
-$\varphi \in \Hom_{\mathcal{O}_X|_U}(\mathcal{F}|_U, \mathcal{G}|_U)$
-and a section $f \in \mathcal{O}_X(U)$ then we can define
-$f\varphi \in \Hom_{\mathcal{O}_X|_U}(\mathcal{F}|_U, \mathcal{G}|_U)$
-by either precomposing with multiplication by $f$ on $\mathcal{F}|_U$
-or postcomposing with multiplication by $f$ on $\mathcal{G}|_U$ (it gives
-the same result). Hence we in fact get a sheaf of $\mathcal{O}_X$-modules.
+$\varphi \in
+\Hom_{\mathcal{O}_X|_U}(\mathcal{F}|_U,
+\mathcal{G}|_U)$
+and a section $f \in \mathcal{O}_X(U)$ then
+we can define
+$f\varphi \in
+\Hom_{\mathcal{O}_X|_U}(\mathcal{F}|_U,
+\mathcal{G}|_U)$
+by either precomposing with multiplication by
+$f$ on $\mathcal{F}|_U$
+or postcomposing with multiplication by $f$
+on $\mathcal{G}|_U$ (it gives
+the same result). Hence we in fact get a
+sheaf of $\mathcal{O}_X$-modules.
 We will denote this sheaf
-$\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})$.
+$\SheafHom_{\mathcal{O}_X}(\mathcal{F},
+\mathcal{G})$.
 There is a canonical ``evaluation'' morphism
 $$
 \mathcal{F}
 \otimes_{\mathcal{O}_X}
-\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})
+\SheafHom_{\mathcal{O}_X}(\mathcal{F},
+\mathcal{G})
 \longrightarrow
 \mathcal{G}.
 $$
-For every $x \in X$ there is also a canonical morphism
+For every $x \in X$ there is also a canonical
+morphism
 $$
-\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})_x
+\SheafHom_{\mathcal{O}_X}(\mathcal{F},
+\mathcal{G})_x
 \to
-\Hom_{\mathcal{O}_{X, x}}(\mathcal{F}_x, \mathcal{G}_x)
+\Hom_{\mathcal{O}_{X, x}}(\mathcal{F}_x,
+\mathcal{G}_x)
 $$
 which is rarely an isomorphism.
 
 \medskip\noindent
-{\bf Cartesian closed category} In the category of sets there is a bijection
-$\Hom(X\times Y, Z)\cong \Hom(X, \text{Hom}(Y, Z))$ that depends
-naturally on $X$, $Y$ and $Z$. The notions related to this bijection are
-“Cartesian closed category”, “currying” and “internal Hom”.
+{\bf Cartesian closed category} In the
+category of sets there is a bijection
+$\Hom(X\times Y, Z)\cong \Hom(X,
+\text{Hom}(Y, Z))$ that depends
+naturally on $X$, $Y$ and $Z$. The notions
+related to this bijection are
+“Cartesian closed category”, “currying” and
+“internal Hom”.
 
 \begin{definition}
 \label{definition-Cartesian-closed-category}
-A category $\mathcal{C}$ is {\it Cartesian closed} if:
+A category $\mathcal{C}$ is {\it Cartesian
+closed} if:
 \begin{enumerate}
-\item $\mathcal{C}$ has all finite products 
-(Caveat: some require that $\mathcal{C}$ has all finite limits)
-\item For any object $Y$ the functor $- \times Y$ has a right adjoint,
-which we will denote by $\text{Map}(Y,-)$ or by $-^Y$ .
+\item $\mathcal{C}$ has all finite products
+(Caveat: some require that $\mathcal{C}$ has
+all finite limits)
+\item For any object $Y$ the functor $-
+\times Y$ has a right adjoint,
+which we will denote by $\text{Map}(Y,-)$ or
+by $-^Y$ .
 \end{enumerate}
 \end{definition}
 
 \begin{remark}
 \label{remark-currying}
-By section 3 \href{https://ncatlab.org/nlab/show/internal+hom }{here}, the
-second property above implies that we get a functor 
-$\text{Map}(-,-) :\mathcal{C}^{\text{op}} \times \mathcal{C} \to \mathcal{C}$,
-and moreover we get natural isomorphisms 
-$\Hom(X, \text{Map}(Y, Z)) \cong \Hom(X \times Y, Z)$
-and $\text{Map}(X, \text{Map}(Y, Z))\cong \text{Map}(X \times Y, Z)$.
+By section 3
+\href{https://ncatlab.org/nlab/show/internal%
++hom
+}{here}, the
+second property above implies that we get a
+functor
+$\text{Map}(-,-) :\mathcal{C}^{\text{op}}
+\times \mathcal{C} \to \mathcal{C}$,
+and moreover we get natural isomorphisms
+$\Hom(X, \text{Map}(Y, Z)) \cong \Hom(X
+\times Y, Z)$
+and $\text{Map}(X, \text{Map}(Y, Z))\cong
+\text{Map}(X \times Y, Z)$.
 \end{remark}
 
 \section{Product}
@@ -338,7 +470,8 @@ and $\text{Map}(X, \text{Map}(Y, Z))\cong \text{Map}(X \times Y, Z)$.
 
 \begin{definition}
 \label{definition-product}
-A {\it product} in a category $\mathcal{C}$ is
+A {\it product} in a category $\mathcal{C}$
+is
 $$
 \xymatrix{
 P\ar[d]_b \ar[r]^a&A\\
@@ -352,12 +485,14 @@ P'\ar[d]_{b'} \ar[r]^{a'}&A\\
 B
 }
 $$
-there exists a unique map $p:P'\to P$ such that
+there exists a unique map $p:P'\to P$ such
+that
 $ap=a'$ and  $bp=b'$.
 
 \end{definition}
 
-For completeness here's Stacks Project formulation:
+For completeness here's Stacks Project
+formulation:
 
 \begin{definition}
 \label{definition-products}
@@ -367,16 +502,19 @@ an object $x \times y \in \Ob(\mathcal{C})$
 together with morphisms
 $p\in \Mor_{\mathcal C}(x \times y, x)$ and
 $q\in\Mor_{\mathcal C}(x \times y, y)$ such
-that the following universal property holds: for
+that the following universal property holds:
+for
 any $w\in \Ob(\mathcal{C})$ and morphisms
 $\alpha \in \Mor_{\mathcal C}(w, x)$ and
 $\beta \in \Mor_\mathcal{C}(w, y)$
 there is a unique
-$\gamma\in \Mor_{\mathcal C}(w, x \times y)$ making
+$\gamma\in \Mor_{\mathcal C}(w, x \times y)$
+making
 the diagram
 $$
 \xymatrix{
-w \ar[rrrd]^\beta \ar@{-->}[rrd]_\gamma \ar[rrdd]_\alpha & & \\
+w \ar[rrrd]^\beta \ar@{-->}[rrd]_\gamma
+\ar[rrdd]_\alpha & & \\
 & & x \times y \ar[d]_p \ar[r]_q & y \\
 & & x &
 }
@@ -384,23 +522,28 @@ $$
 commute.
 \end{definition}
 
-And some nice piece of information and a definition also from Stacks Project.
+And some nice piece of information and a
+definition also from Stacks Project.
 
 \medskip\noindent
 If a product exists it is unique up to unique
-isomorphism. This follows from the Yoneda lemma as
-the definition requires $x \times y$ to be an object
+isomorphism. This follows from the Yoneda
+lemma as
+the definition requires $x \times y$ to be an
+object
 of $\mathcal{C}$ such that
 $$
 h_{x \times y}(w) = h_x(w) \times h_y(w)
 $$
-functorially in $w$. In other words the product $x \times y$
+functorially in $w$. In other words the
+product $x \times y$
 is an object representing the functor
 $w \mapsto h_x(w) \times h_y(w)$.
 
 \begin{definition}
 \label{definition-has-products-of-pairs}
-We say the category $\mathcal{C}$ {\it has products of pairs
+We say the category $\mathcal{C}$ {\it has
+products of pairs
 of objects} if a product $x \times y$
 exists for any $x, y \in \Ob(\mathcal{C})$.
 \end{definition}
@@ -411,22 +554,26 @@ exists for any $x, y \in \Ob(\mathcal{C})$.
 \begin{definition}
 \label{definition-coproducts}
 Let $x, y \in \Ob(\mathcal{C})$.
-A {\it coproduct}, or {\it amalgamated sum} of $x$ and $y$ is
+A {\it coproduct}, or {\it amalgamated sum}
+of $x$ and $y$ is
 an object $x \amalg y \in \Ob(\mathcal{C})$
 together with morphisms
 $i \in \Mor_{\mathcal C}(x, x \amalg y)$ and
 $j \in \Mor_{\mathcal C}(y, x \amalg y)$ such
-that the following universal property holds: for
+that the following universal property holds:
+for
 any $w \in \Ob(\mathcal{C})$ and morphisms
 $\alpha \in \Mor_{\mathcal C}(x, w)$ and
 $\beta \in \Mor_\mathcal{C}(y, w)$
 there is a unique
-$\gamma \in \Mor_{\mathcal C}(x \amalg y, w)$ making
+$\gamma \in \Mor_{\mathcal C}(x \amalg y, w)$
+making
 the diagram
 $$
 \xymatrix{
 & y \ar[d]^j \ar[rrdd]^\beta \\
-x \ar[r]^i \ar[rrrd]_\alpha & x \amalg y \ar@{-->}[rrd]^\gamma \\
+x \ar[r]^i \ar[rrrd]_\alpha & x \amalg y
+\ar@{-->}[rrd]^\gamma \\
 & & & w
 }
 $$
@@ -434,20 +581,25 @@ commute.
 \end{definition}
 
 \noindent
-If a coproduct exists it is unique up to unique
-isomorphism. This follows from the Yoneda lemma (applied to the
+If a coproduct exists it is unique up to
+unique
+isomorphism. This follows from the Yoneda
+lemma (applied to the
 opposite category) as
-the definition requires $x \amalg y$ to be an object
+the definition requires $x \amalg y$ to be an
+object
 of $\mathcal{C}$ such that
 $$
 \Mor_\mathcal{C}(x \amalg y, w) =
-\Mor_\mathcal{C}(x, w) \times \Mor_\mathcal{C}(y, w)
+\Mor_\mathcal{C}(x, w) \times
+\Mor_\mathcal{C}(y, w)
 $$
 functorially in $w$.
 
 \begin{definition}
 \label{definition-has-coproducts-of-pairs}
-We say the category $\mathcal{C}$ {\it has coproducts of pairs
+We say the category $\mathcal{C}$ {\it has
+coproducts of pairs
 of objects} if a coproduct $x \amalg y$
 exists for any $x, y \in \Ob(\mathcal{C})$.
 \end{definition}
@@ -462,26 +614,33 @@ and $g\in \Mor_{\mathcal C}(z, y)$.
 A {\it fibre product} of $f$ and $g$ is
 an object $x \times_y z\in \Ob(\mathcal{C})$
 together with morphisms
-$p \in \Mor_{\mathcal C}(x \times_y z, x)$ and
-$q \in \Mor_{\mathcal C}(x \times_y z, z)$ making the diagram
+$p \in \Mor_{\mathcal C}(x \times_y z, x)$
+and
+$q \in \Mor_{\mathcal C}(x \times_y z, z)$
+making the diagram
 $$
 \xymatrix{
-x \times_y z \ar[r]_q \ar[d]_p & z \ar[d]^g \\
+x \times_y z \ar[r]_q \ar[d]_p & z \ar[d]^g
+\\
 x \ar[r]^f & y
 }
 $$
-commute, and such that the following universal property holds: for
+commute, and such that the following
+universal property holds: for
 any $w\in \Ob(\mathcal{C})$ and morphisms
 $\alpha \in \Mor_{\mathcal C}(w, x)$ and
 $\beta \in \Mor_\mathcal{C}(w, z)$ with
 $f \circ \alpha = g \circ \beta$
 there is a unique
-$\gamma \in \Mor_{\mathcal C}(w, x \times_y z)$ making
+$\gamma \in \Mor_{\mathcal C}(w, x \times_y
+z)$ making
 the diagram
 $$
 \xymatrix{
-w \ar[rrrd]^\beta \ar@{-->}[rrd]_\gamma \ar[rrdd]_\alpha & & \\
-& & x \times_y z \ar[d]^p \ar[r]_q & z \ar[d]^g \\
+w \ar[rrrd]^\beta \ar@{-->}[rrd]_\gamma
+\ar[rrdd]_\alpha & & \\
+& & x \times_y z \ar[d]^p \ar[r]_q & z
+\ar[d]^g \\
 & & x \ar[r]^f & y
 }
 $$
@@ -496,14 +655,19 @@ when we put $y$ to be the terminal object!
 
 
 \noindent
-If a fibre product exists it is unique up to unique
-isomorphism. This follows from the Yoneda lemma as
-the definition requires $x \times_y z$ to be an object
+If a fibre product exists it is unique up to
+unique
+isomorphism. This follows from the Yoneda
+lemma as
+the definition requires $x \times_y z$ to be
+an object
 of $\mathcal{C}$ such that
 $$
-h_{x \times_y z}(w) = h_x(w) \times_{h_y(w)} h_z(w)
+h_{x \times_y z}(w) = h_x(w) \times_{h_y(w)}
+h_z(w)
 $$
-functorially in $w$. In other words the fibre product $x \times_y z$
+functorially in $w$. In other words the fibre
+product $x \times_y z$
 is an object representing the functor
 $w \mapsto h_x(w) \times_{h_y(w)} h_z(w)$.
 
@@ -518,34 +682,44 @@ x \ar[r] &
 y
 }
 $$
-in a category is {\it cartesian} if $w$ and the morphisms $w \to x$ and
-$w \to z$ form a fibre product of the morphisms $x \to y$ and $z \to y$.
+in a category is {\it cartesian} if $w$ and
+the morphisms $w \to x$ and
+$w \to z$ form a fibre product of the
+morphisms $x \to y$ and $z \to y$.
 \end{definition}
 
 \begin{definition}
 \label{definition-has-fibre-products}
-We say the category $\mathcal{C}$ {\it has fibre products} if
-the fibre product exists for any $f\in \Mor_{\mathcal C}(x, y)$
+We say the category $\mathcal{C}$ {\it has
+fibre products} if
+the fibre product exists for any $f\in
+\Mor_{\mathcal C}(x, y)$
 and $g\in \Mor_{\mathcal C}(z, y)$.
 \end{definition}
 
 \begin{definition}
 \label{definition-representable-morphism}
-A morphism $f : x \to y$ of a category $\mathcal{C}$ is said to be
-{\it representable} if for every morphism $z \to y$
-in $\mathcal{C}$ the fibre product $x \times_y z$ exists.
+A morphism $f : x \to y$ of a category
+$\mathcal{C}$ is said to be
+{\it representable} if for every morphism $z
+\to y$
+in $\mathcal{C}$ the fibre product $x
+\times_y z$ exists.
 \end{definition}
 
 \begin{lemma}
 \label{lemma-composition-representable}
 Let $\mathcal{C}$ be a category.
-Let $f : x \to y$, and $g : y \to z$ be representable.
+Let $f : x \to y$, and $g : y \to z$ be
+representable.
 Then $g \circ f : x \to z$ is representable.
 \end{lemma}
 
 \begin{proof}
-Let $t \in \Ob(\mathcal C)$ and $ \varphi \in \Mor_{\mathcal C}(t,z) $.
-As $g$ and $f$ are representable, we obtain commutative diagrams
+Let $t \in \Ob(\mathcal C)$ and $ \varphi \in
+\Mor_{\mathcal C}(t,z) $.
+As $g$ and $f$ are representable, we obtain
+commutative diagrams
 $$
 \xymatrix{
 y \times_z t \ar[r]_q \ar[d]_p &
@@ -554,34 +728,47 @@ y \ar[r]^{g} & z
 }
 \quad\quad
 \xymatrix{
-x \times_y (y\! \times_z\! t) \ar[r]_{q'} \ar[d]_{p'} &
+x \times_y (y\! \times_z\! t) \ar[r]_{q'}
+\ar[d]_{p'} &
 y \times_z t \ar[d]^p \\
 x \ar[r]^f & y
 }
 $$
-with the universal property of Definition \ref{definition-fibre-products}.
-We claim that $x \times_z t = x \times_y (y \times_z t)$
-with morphisms $q \circ q' : x \times_z t \to t$ and $p' : x \times_z t \to x$
-is a fibre product. First, it follows from the commutativity of the
-diagrams above that $\varphi \circ q \circ q' = g \circ f \circ p'$.
+with the universal property of Definition
+\ref{definition-fibre-products}.
+We claim that $x \times_z t = x \times_y (y
+\times_z t)$
+with morphisms $q \circ q' : x \times_z t \to
+t$ and $p' : x \times_z t \to x$
+is a fibre product. First, it follows from
+the commutativity of the
+diagrams above that $\varphi \circ q \circ q'
+= g \circ f \circ p'$.
 To verify the universal property, let
-$w \in \Ob(\mathcal C)$ and suppose $\alpha : w \to x$ and
+$w \in \Ob(\mathcal C)$ and suppose $\alpha :
+w \to x$ and
 $\beta : w \to y$ are morphisms with
-$\varphi \circ \beta = g \circ f \circ \alpha$.
+$\varphi \circ \beta = g \circ f \circ
+\alpha$.
 By definition of the fibre product, there
-are unique morphisms $\delta$ and $\gamma$ such that
+are unique morphisms $\delta$ and $\gamma$
+such that
 $$
 \xymatrix{
-w \ar[rrrd]^\beta \ar@{-->}[rrd]_\delta \ar[rrdd]_{f\circ\alpha} & & \\
-& & y \times_z t \ar[d]_p \ar[r]_q & t \ar[d]^{\varphi} \\
+w \ar[rrrd]^\beta \ar@{-->}[rrd]_\delta
+\ar[rrdd]_{f\circ\alpha} & & \\
+& & y \times_z t \ar[d]_p \ar[r]_q & t
+\ar[d]^{\varphi} \\
 & & y \ar[r]^{g} & z
 }
 $$
 and
 $$
 \xymatrix{
-w \ar[rrrd]^\delta \ar@{-->}[rrd]_\gamma \ar[rrdd]_{\alpha} & & \\
-& & x \times_y (y\!\times_z\! t) \ar[d]_{p'} \ar[r]_{q'} &
+w \ar[rrrd]^\delta \ar@{-->}[rrd]_\gamma
+\ar[rrdd]_{\alpha} & & \\
+& & x \times_y (y\!\times_z\! t) \ar[d]_{p'}
+\ar[r]_{q'} &
 y \times_z t \ar[d]^{p} \\
 & & x \ar[r]^{f} & y
 }
@@ -589,19 +776,29 @@ $$
 commute. Then, $\gamma$ makes the diagram
 $$
 \xymatrix{
-w \ar[rrrd]^\beta \ar@{-->}[rrd]_\gamma \ar[rrdd]_{\alpha} & & \\
-& & x \times_z t \ar[d]_{p'} \ar[r]_{q\circ q'} & t \ar[d]^{\varphi} \\
+w \ar[rrrd]^\beta \ar@{-->}[rrd]_\gamma
+\ar[rrdd]_{\alpha} & & \\
+& & x \times_z t \ar[d]_{p'} \ar[r]_{q\circ
+q'} & t \ar[d]^{\varphi} \\
 & & x \ar[r]^{g\circ f} & z
 }
 $$
-commute. To show its uniqueness, let $\gamma'$ verify $ q\circ q'\circ\gamma' =
-\beta $ and $ p'\circ \gamma' = \alpha $. Because $\gamma$ is unique, we just
-need to prove that $ q'\circ\gamma' = \delta $ and $ p'\circ\gamma' = \alpha $
-to conclude. We supposed the second equality. For the first one, we also need
-to use the uniqueness of delta. Notice that $\delta$ is the only morphism
-verifying $ q\circ\delta = \beta $ and $ p\circ\delta = f\circ\alpha $. We
-already supposed that $ q\circ (q'\circ\gamma') = \beta $. Furthermore, by
-definition of the fibre product, we know that $ f\circ p' = p\circ q' $.
+commute. To show its uniqueness, let
+$\gamma'$ verify $ q\circ q'\circ\gamma' =
+\beta $ and $ p'\circ \gamma' = \alpha $.
+Because $\gamma$ is unique, we just
+need to prove that $ q'\circ\gamma' = \delta
+$ and $ p'\circ\gamma' = \alpha $
+to conclude. We supposed the second equality.
+For the first one, we also need
+to use the uniqueness of delta. Notice that
+$\delta$ is the only morphism
+verifying $ q\circ\delta = \beta $ and $
+p\circ\delta = f\circ\alpha $. We
+already supposed that $ q\circ
+(q'\circ\gamma') = \beta $. Furthermore, by
+definition of the fibre product, we know that
+$ f\circ p' = p\circ q' $.
 Therefore:
 $$
 p\circ (q'\circ\gamma') =
@@ -609,24 +806,31 @@ p\circ (q'\circ\gamma') =
 (f\circ p')\circ\gamma' =
 f\circ (p'\circ\gamma') = f\circ\alpha.
 $$
-Then $ q'\circ\gamma' = \delta $, which concludes the proof.
+Then $ q'\circ\gamma' = \delta $, which
+concludes the proof.
 \end{proof}
 
 \begin{lemma}
 \label{lemma-base-change-representable}
 Let $\mathcal{C}$ be a category.
 Let $f : x \to y$ be representable.
-Let $y' \to y$ be a morphism of $\mathcal{C}$.
-Then the morphism $x' := x \times_y y' \to y'$ is representable also.
+Let $y' \to y$ be a morphism of
+$\mathcal{C}$.
+Then the morphism $x' := x \times_y y' \to
+y'$ is representable also.
 \end{lemma}
 
 \begin{proof}
-Let $z \to y'$ be a morphism. The fibre product
-$x' \times_{y'} z$ is supposed to represent the
+Let $z \to y'$ be a morphism. The fibre
+product
+$x' \times_{y'} z$ is supposed to represent
+the
 functor
 \begin{eqnarray*}
-w & \mapsto & h_{x'}(w)\times_{h_{y'}(w)} h_z(w) \\
-& = & (h_x(w) \times_{h_y(w)} h_{y'}(w)) \times_{h_{y'}(w)} h_z(w) \\
+w & \mapsto & h_{x'}(w)\times_{h_{y'}(w)}
+h_z(w) \\
+& = & (h_x(w) \times_{h_y(w)} h_{y'}(w))
+\times_{h_{y'}(w)} h_z(w) \\
 & = & h_x(w) \times_{h_y(w)} h_z(w)
 \end{eqnarray*}
 which is representable by assumption.
@@ -636,46 +840,70 @@ which is representable by assumption.
 \label{section-example-fibre-products}
 
 \noindent
-In this section we list examples of fibre products and
+In this section we list examples of fibre
+products and
 we describe them.
 
 \medskip\noindent
 As a really trivial first example we observe
-that the category of sets has fibre products and hence every
-morphism is representable. Namely, if $f : X \to Y$
-and $g : Z \to Y$ are maps of sets then we define
-$X \times_Y Z$ as the subset of $X \times Z$ consisting
-of pairs $(x, z)$ such that $f(x) = g(z)$. The morphisms
-$p : X \times_Y Z \to X$ and $q : X \times_Y Z \to Z$ are
-the projection maps $(x, z) \mapsto x$, and $(x, z) \mapsto z$.
-Finally, if $\alpha : W \to X$ and $\beta : W \to Z$
-are morphisms such that $f \circ \alpha = g \circ \beta$
-then the map $W \to X \times Z$, $w\mapsto (\alpha(w), \beta(w))$
-obviously ends up in $X \times_Y Z$ as desired.
+that the category of sets has fibre products
+and hence every
+morphism is representable. Namely, if $f : X
+\to Y$
+and $g : Z \to Y$ are maps of sets then we
+define
+$X \times_Y Z$ as the subset of $X \times Z$
+consisting
+of pairs $(x, z)$ such that $f(x) = g(z)$.
+The morphisms
+$p : X \times_Y Z \to X$ and $q : X \times_Y
+Z \to Z$ are
+the projection maps $(x, z) \mapsto x$, and
+$(x, z) \mapsto z$.
+Finally, if $\alpha : W \to X$ and $\beta : W
+\to Z$
+are morphisms such that $f \circ \alpha = g
+\circ \beta$
+then the map $W \to X \times Z$, $w\mapsto
+(\alpha(w), \beta(w))$
+obviously ends up in $X \times_Y Z$ as
+desired.
 
 \medskip\noindent
-In many categories whose objects are sets endowed with certain types of
-algebraic structures the fibre product of the underlying sets also
-provides the fibre product in the category. For example, suppose
-that $X$, $Y$ and $Z$ above are groups and that $f$, $g$ are
-homomorphisms of groups. Then the set-theoretic fibre product
-$X \times_Y Z$ inherits the structure of a group, simply by
-defining the product of two pairs by the formula
-$(x, z) \cdot (x', z') = (xx', zz')$. Here we list those categories
+In many categories whose objects are sets
+endowed with certain types of
+algebraic structures the fibre product of the
+underlying sets also
+provides the fibre product in the category.
+For example, suppose
+that $X$, $Y$ and $Z$ above are groups and
+that $f$, $g$ are
+homomorphisms of groups. Then the
+set-theoretic fibre product
+$X \times_Y Z$ inherits the structure of a
+group, simply by
+defining the product of two pairs by the
+formula
+$(x, z) \cdot (x', z') = (xx', zz')$. Here we
+list those categories
 for which a similar reasoning works.
 \begin{enumerate}
-\item The category $\textit{Groups}$ of groups.
+\item The category $\textit{Groups}$ of
+groups.
 \item The category $G\textit{-Sets}$ of sets
-endowed with a left $G$-action for some fixed group $G$.
+endowed with a left $G$-action for some fixed
+group $G$.
 \item The category of rings.
-\item The category of $R$-modules given a ring $R$.
+\item The category of $R$-modules given a
+ring $R$.
 \end{enumerate}
 
 \section{Pushouts}
 \label{section-pushouts}
 
 \noindent
-The dual notion to fibre products is that of pushouts.
+The dual notion to fibre products is that of
+pushouts.
 
 \begin{definition}
 \label{definition-pushouts}
@@ -686,24 +914,30 @@ A {\it pushout} of $f$ and $g$ is
 an object $x\amalg_y z\in \Ob(\mathcal{C})$
 together with morphisms
 $p\in \Mor_{\mathcal C}(x, x\amalg_y z)$ and
-$q\in\Mor_{\mathcal C}(z, x\amalg_y z)$ making the diagram
+$q\in\Mor_{\mathcal C}(z, x\amalg_y z)$
+making the diagram
 $$
 \xymatrix{
 y \ar[r]_g \ar[d]_f & z \ar[d]^q \\
 x \ar[r]^p & x\amalg_y z
 }
 $$
-commute, and such that the following universal property holds:
+commute, and such that the following
+universal property holds:
 For any $w\in \Ob(\mathcal{C})$ and morphisms
 $\alpha \in \Mor_{\mathcal C}(x, w)$ and
 $\beta \in \Mor_\mathcal{C}(z, w)$ with
-$\alpha \circ f = \beta \circ g$ there is a unique
-$\gamma\in \Mor_{\mathcal C}(x\amalg_y z, w)$ making
+$\alpha \circ f = \beta \circ g$ there is a
+unique
+$\gamma\in \Mor_{\mathcal C}(x\amalg_y z, w)$
+making
 the diagram
 $$
 \xymatrix{
-y \ar[r]_g \ar[d]_f & z \ar[d]^q \ar[rrdd]^\beta & & \\
-x \ar[r]^p \ar[rrrd]^\alpha & x \amalg_y z \ar@{-->}[rrd]^\gamma & & \\
+y \ar[r]_g \ar[d]_f & z \ar[d]^q
+\ar[rrdd]^\beta & & \\
+x \ar[r]^p \ar[rrrd]^\alpha & x \amalg_y z
+\ar@{-->}[rrd]^\gamma & & \\
 & & & w
 }
 $$
@@ -711,11 +945,16 @@ commute.
 \end{definition}
 
 \noindent
-It is possible and straightforward to prove the uniqueness of the triple
-$(x\amalg_y z, p, q)$ up to unique isomorphism (if it exists) by direct
-arguments. Another possibility is to think of the pushout as the
-fibre product in the opposite category, thereby getting this uniqueness for
-free from the discussion in Section \ref{section-fibre-products}.
+It is possible and straightforward to prove
+the uniqueness of the triple
+$(x\amalg_y z, p, q)$ up to unique
+isomorphism (if it exists) by direct
+arguments. Another possibility is to think of
+the pushout as the
+fibre product in the opposite category,
+thereby getting this uniqueness for
+free from the discussion in Section
+\ref{section-fibre-products}.
 
 \begin{definition}
 \label{definition-cocartesian}
@@ -726,8 +965,10 @@ y \ar[r] \ar[d] & z \ar[d] \\
 x \ar[r] & w
 }
 $$
-in a category is {\it cocartesian} if $w$ and the morphisms $x \to w$ and
-$z \to w$ form a pushout of the morphisms $y \to x$ and $y \to z$.
+in a category is {\it cocartesian} if $w$ and
+the morphisms $x \to w$ and
+$z \to w$ form a pushout of the morphisms $y
+\to x$ and $y \to z$.
 \end{definition}
 
 \medskip\noindent
@@ -736,14 +977,16 @@ to define a pushout is as follows.
 The diagram
 $$
 \xymatrix{
-A\ar[r]\ar[d]\ar@{}[dr]|-{\ulcorner}&B\ar[d]\\
+A\ar[r]\ar[d]\ar@{}[dr]|-{\ulcorner}&B\ar[d]
+\\
 C\ar[r]&D
 }
 $$
 is a {\it pushout} if the diagram
 $$
 \xymatrix{
-\mathit{Map}(D,X)\ar[r]\ar[d]\ar@{}[dr]|-{\lrcorner}&
+\mathit{Map}(D,X)\ar[r]\ar[d]\ar@{}[dr]|-
+{\lrcorner}&
 \mathit{Map}(B,X)\ar[d]\\
 \mathit{Map}(C,D)\ar[r]&\mathit{Map}(D,X)
 }
@@ -754,19 +997,22 @@ In fact, spheres are (homotopy?) pushouts:
 
 $$
 \xymatrix{
-S^{n-1}\ar[r]\ar[d]\ar@{}[dr]|-{\ulcorner}&\text{pt}\ar[d]\\
+S^{n-1}\ar[r]\ar[d]\ar@{}[dr]|-{\ulcorner}&
+\text{pt}\ar[d]\\
 \text{pt}\ar[r]&S^n
 }
 $$
 which is homotopically the same as
 $$
 \xymatrix{
-S^{n-1}\ar[r]\ar[d]\ar@{}[dr]|-{\ulcorner}&D^n\ar[d]\\
+S^{n-1}\ar[r]\ar[d]\ar@{}[dr]|-{\ulcorner}&
+D^n\ar[d]\\
 D^n\ar[r]&S^n,
 }
 $$
 the familiar construction of glueing two
-disks along their boundary to obtain a sphere.
+disks along their boundary to obtain a
+sphere.
 
 
 \section{Limits and colimits}
@@ -776,103 +1022,153 @@ disks along their boundary to obtain a sphere.
 A colimit is:
 take an abstract diagram $\mathcal{I}$.
 Realize it in the category that interests you
-(for the stack this are open sets which contain the point,
+(for the stack this are open sets which
+contain the point,
 and are a poset by inclusion).
 The colimit is the unique object that
-there is an arrow from all the points of the diagram
+there is an arrow from all the points of the
+diagram
 and satisfies some universal property that
-any other such object there's a morphism bla bla.
+any other such object there's a morphism bla
+bla.
 (In the case of the stack it is the unique
-open set contained in all the other open sets.
-Which actually it's interesting that such a thing
+open set contained in all the other open
+sets.
+Which actually it's interesting that such a
+thing
 exists.)
 
 \noindent
-A product is actually a particular case of a limit.
+A product is actually a particular case of a
+limit.
 
 \medskip\noindent
-Let $\mathcal{C}$ be a category. A {\it diagram} in $\mathcal{C}$ is
-simply a functor $M : \mathcal{I} \to \mathcal{C}$. We say that
-$\mathcal{I}$ is the {\it index category} or that $M$ is an
-$\mathcal{I}$-diagram. We will use the notation $M_i$ to denote the
+Let $\mathcal{C}$ be a category. A {\it
+diagram} in $\mathcal{C}$ is
+simply a functor $M : \mathcal{I} \to
+\mathcal{C}$. We say that
+$\mathcal{I}$ is the {\it index category} or
+that $M$ is an
+$\mathcal{I}$-diagram. We will use the
+notation $M_i$ to denote the
 image of the object
-$i$ of $\mathcal{I}$. Hence for $\phi : i \to i'$ a morphism
-in $\mathcal{I}$ we have $M(\phi) : M_i \to M_{i'}$.
+$i$ of $\mathcal{I}$. Hence for $\phi : i \to
+i'$ a morphism
+in $\mathcal{I}$ we have $M(\phi) : M_i \to
+M_{i'}$.
 
 \begin{definition}
 \label{definition-limit}
-A {\it limit} of the $\mathcal{I}$-diagram $M$ in the category
-$\mathcal{C}$ is given by an object $\lim_\mathcal{I} M$ in $\mathcal{C}$
-together with morphisms $p_i : \lim_\mathcal{I} M \to M_i$ such that
+A {\it limit} of the $\mathcal{I}$-diagram
+$M$ in the category
+$\mathcal{C}$ is given by an object
+$\lim_\mathcal{I} M$ in $\mathcal{C}$
+together with morphisms $p_i :
+\lim_\mathcal{I} M \to M_i$ such that
 \begin{enumerate}
 \item for $\phi : i \to i'$ a morphism
-in $\mathcal{I}$ we have $p_{i'} = M(\phi) \circ p_i$, and
-\item for any object $W$ in $\mathcal{C}$ and any family of
-morphisms $q_i : W \to M_i$ (indexed by $i \in \Ob(\mathcal{I})$)
+in $\mathcal{I}$ we have $p_{i'} = M(\phi)
+\circ p_i$, and
+\item for any object $W$ in $\mathcal{C}$ and
+any family of
+morphisms $q_i : W \to M_i$ (indexed by $i
+\in \Ob(\mathcal{I})$)
 such that for all $\phi : i \to i'$
-in $\mathcal{I}$ we have $q_{i'} = M(\phi) \circ q_i$ there
-exists a unique morphism $q : W \to \lim_\mathcal{I} M$ such that
-$q_i = p_i \circ q$ for every object $i$ of $\mathcal{I}$.
+in $\mathcal{I}$ we have $q_{i'} = M(\phi)
+\circ q_i$ there
+exists a unique morphism $q : W \to
+\lim_\mathcal{I} M$ such that
+$q_i = p_i \circ q$ for every object $i$ of
+$\mathcal{I}$.
 \end{enumerate}
 \end{definition}
 
 \noindent
-Limits $(\lim_\mathcal{I} M, (p_i)_{i\in \Ob(\mathcal{I})})$ are
+Limits $(\lim_\mathcal{I} M, (p_i)_{i\in
+\Ob(\mathcal{I})})$ are
 (if they exist)
-unique up to unique isomorphism by the uniqueness requirement
-in the definition. Products of pairs, fibre products, and equalizers are
-examples of limits. The limit over the empty diagram is a final object
+unique up to unique isomorphism by the
+uniqueness requirement
+in the definition. Products of pairs, fibre
+products, and equalizers are
+examples of limits. The limit over the empty
+diagram is a final object
 of $\mathcal{C}$.
 In the category of sets all limits exist.
 The dual notion is that of colimits.
 
 \begin{definition}
 \label{definition-colimit}
-A {\it colimit} of the $\mathcal{I}$-diagram $M$ in the category
-$\mathcal{C}$ is given by an object $\colim_\mathcal{I} M$ in $\mathcal{C}$
-together with morphisms $s_i : M_i \to \colim_\mathcal{I} M$ such that
+A {\it colimit} of the $\mathcal{I}$-diagram
+$M$ in the category
+$\mathcal{C}$ is given by an object
+$\colim_\mathcal{I} M$ in $\mathcal{C}$
+together with morphisms $s_i : M_i \to
+\colim_\mathcal{I} M$ such that
 \begin{enumerate}
 \item for $\phi : i \to i'$ a morphism
-in $\mathcal{I}$ we have $s_i = s_{i'} \circ M(\phi)$, and
-\item for any object $W$ in $\mathcal{C}$ and any family of
-morphisms $t_i : M_i \to W$ (indexed by $i \in \Ob(\mathcal{I})$)
+in $\mathcal{I}$ we have $s_i = s_{i'} \circ
+M(\phi)$, and
+\item for any object $W$ in $\mathcal{C}$ and
+any family of
+morphisms $t_i : M_i \to W$ (indexed by $i
+\in \Ob(\mathcal{I})$)
 such that for all $\phi : i \to i'$
-in $\mathcal{I}$ we have $t_i = t_{i'} \circ M(\phi)$ there
-exists a unique morphism $t : \colim_\mathcal{I} M \to W$ such that
-$t_i = t \circ s_i$ for every object $i$ of $\mathcal{I}$.
+in $\mathcal{I}$ we have $t_i = t_{i'} \circ
+M(\phi)$ there
+exists a unique morphism $t :
+\colim_\mathcal{I} M \to W$ such that
+$t_i = t \circ s_i$ for every object $i$ of
+$\mathcal{I}$.
 \end{enumerate}
 \end{definition}
 
 \begin{definition}
 \label{definition-product-as-a-limit}
-Suppose that $I$ is a set, and suppose given for every $i \in I$ an
-object $M_i$ of the category $\mathcal{C}$. A {\it product}
-$\prod_{i\in I} M_i$ is by definition $\lim_\mathcal{I} M$
+Suppose that $I$ is a set, and suppose given
+for every $i \in I$ an
+object $M_i$ of the category $\mathcal{C}$. A
+{\it product}
+$\prod_{i\in I} M_i$ is by definition
+$\lim_\mathcal{I} M$
 (if it exists)
-where $\mathcal{I}$ is the category having only identities as
-morphisms and having the elements of $I$ as objects.
+where $\mathcal{I}$ is the category having
+only identities as
+morphisms and having the elements of $I$ as
+objects.
 \end{definition}
 
 \noindent
-An important special case is where $I = \emptyset$ in which case the
+An important special case is where $I =
+\emptyset$ in which case the
 product is a final object of the category.
-The morphisms $p_i : \prod M_i \to M_i$ are called the
+The morphisms $p_i : \prod M_i \to M_i$ are
+called the
 {\it projection morphisms}.
 
 \begin{definition}
 \label{definition-coproduct}
-Suppose that $I$ is a set, and suppose given for every $i \in I$ an
-object $M_i$ of the category $\mathcal{C}$. A {\it coproduct}
-$\coprod_{i\in I} M_i$ is by definition $\colim_\mathcal{I} M$
-(if it exists) where $\mathcal{I}$ is the category having only
-identities as morphisms and having the elements of $I$ as objects.
+Suppose that $I$ is a set, and suppose given
+for every $i \in I$ an
+object $M_i$ of the category $\mathcal{C}$. A
+{\it coproduct}
+$\coprod_{i\in I} M_i$ is by definition
+$\colim_\mathcal{I} M$
+(if it exists) where $\mathcal{I}$ is the
+category having only
+identities as morphisms and having the
+elements of $I$ as objects.
 \end{definition}
 
 \noindent
-An important special case is where $I = \emptyset$ in which case the
-coproduct is an initial object of the category.
-Note that the coproduct comes equipped with morphisms
-$M_i \to \coprod M_i$. These are sometimes called the
+An important special case is where $I =
+\emptyset$ in which case the
+coproduct is an initial object of the
+category.
+Note that the coproduct comes equipped with
+morphisms
+$M_i \to \coprod M_i$. These are sometimes
+called the
 {\it coprojections}.
 
 \medskip\noindent
@@ -883,33 +1179,45 @@ of ``commutativity of limits''.
 \label{section-fibred-groupoids}
 
 \noindent
-General fibration: every map on the base has a lift that is $p$-cartesian.
+General fibration: every map on the base has
+a lift that is $p$-cartesian.
 (Discrete fibration: unique?)
-Fibered in groupoids: all maps in the Étale space are $p$-cartesian.
+Fibered in groupoids: all maps in the Étale
+space are $p$-cartesian.
 
 \medskip\noindent
-And to my surprise, these are none other than 
+And to my surprise, these are none other than
 categories fibered in groupoids according to
-Stacks Project 
-\href{https://stacks.math.columbia.edu/tag/003S}{003S} section
+Stacks Project
+\href{https://stacks.math.columbia.edu/tag/%
+003S}{003S}
+section
 on Categories fibered in groupoids.
 
 \medskip\noindent
-Let $p:\mathcal{E} \to \mathcal{B}$ be any functor.
-The idea of fibrations is to lift maps from $\mathcal{B}$ to $\mathcal{E}$.
-We will fix the target; the condition is that for maps on $\mathcal{B}$
-with target $p(y)$ there exist 
-(unique? that's the condition for discrete fibrations)
+Let $p:\mathcal{E} \to \mathcal{B}$ be any
+functor.
+The idea of fibrations is to lift maps from
+$\mathcal{B}$ to $\mathcal{E}$.
+We will fix the target; the condition is that
+for maps on $\mathcal{B}$
+with target $p(y)$ there exist
+(unique? that's the condition for discrete
+fibrations)
 maps on $\mathcal{E}$ corresponding via $p$.
-Why fix the target? Because it's like a base-change.
-But not only that: we need that the map that exists
-is good; it has to be $p$-Cartesian: 
+Why fix the target? Because it's like a
+base-change.
+But not only that: we need that the map that
+exists
+is good; it has to be $p$-Cartesian:
 
 \begin{definition}
 \label{definition-p-cartesian}
-Let $p:\mathcal{E} \to \mathcal{B}$. A morphism $f$ in  $\mathcal{E}$ 
-is {\it $p$-cartesian} if for all $g$ and for all $h'$ 
-such that $p(g)=p(f) \circ h'$ 
+Let $p:\mathcal{E} \to \mathcal{B}$. A
+morphism $f$ in  $\mathcal{E}$
+is {\it $p$-cartesian} if for all $g$ and for
+all $h'$
+such that $p(g)=p(f) \circ h'$
 there exists a unique $h$ such that
  $p(h)=h'$ and $g=f \circ h$
 $$
@@ -929,8 +1237,10 @@ $$
 
 \begin{definition}
 \label{definition-fibration}
-$p:\mathcal{E} \to \mathcal{B}$ is a {\it fibration} if
-for all $Y$ and all $f':X' \to p(Y)$ there exists $X$ and
+$p:\mathcal{E} \to \mathcal{B}$ is a {\it
+fibration} if
+for all $Y$ and all $f':X' \to p(Y)$ there
+exists $X$ and
 $f:X \to Y$ such that
 \begin{enumerate}
 \item $p(f)=f'$, and
@@ -942,30 +1252,38 @@ $f:X \to Y$ such that
 \end{definition}
 
 \noindent
-Recall Definition \ref{definition-discrete-fibration} of discrete fibration:
-$p:\mathcal{E} \to \mathcal{B}$ is a discrete fibration if for all 
-$Y \in \mathcal{E}$ 
-and for all $f':X' \to p(Y)$ there exist 
-{\bf unique} ($X$ and  $f:X \to Y$) such that $p(f)=f'$.
+Recall Definition
+\ref{definition-discrete-fibration} of
+discrete fibration:
+$p:\mathcal{E} \to \mathcal{B}$ is a discrete
+fibration if for all
+$Y \in \mathcal{E}$
+and for all $f':X' \to p(Y)$ there exist
+{\bf unique} ($X$ and  $f:X \to Y$) such that
+$p(f)=f'$.
 
 \begin{lemma}
 \label{lemma-discrete-fibration-is-fibration}
-If $p:\mathcal{E} \to \mathcal{B}$ 
-is a discrete fibration then it is a fibration,
+If $p:\mathcal{E} \to \mathcal{B}$
+is a discrete fibration then it is a
+fibration,
 i.e.  $f$ is also $p$-Cartesian.
 \end{lemma}
 
 \begin{proof}
-Uniqueness ensures source and target coincide in all lifts.
+Uniqueness ensures source and target coincide
+in all lifts.
 \end{proof}
 
 \begin{lemma}
 \label{lemma-composition-p-cartesian}
-Composition of $p$-Cartesian morphisms is $p$-Cartesian.
+Composition of $p$-Cartesian morphisms is
+$p$-Cartesian.
 \end{lemma}
 
 \begin{proof}
-Write the diagrams and don't forget to prove uniqueness.
+Write the diagrams and don't forget to prove
+uniqueness.
 \end{proof}
 
 \begin{lemma}
@@ -974,39 +1292,50 @@ Write the diagrams and don't forget to prove uniqueness.
 \end{lemma}
 
 \begin{proof}
-Write the diagrams and don't forget to prove uniqueness.
+Write the diagrams and don't forget to prove
+uniqueness.
 \end{proof}
 
 \medskip\noindent
-The notion of pseudofunctor $F:\mathcal{B}^{\text{op}} \to \mathsf{Cat}$
+The notion of pseudofunctor
+$F:\mathcal{B}^{\text{op}} \to \mathsf{Cat}$
 is like that of a functor but we ask that
 $F(\text{id}_A) \cong \text{id}_{F(A)}$
 and $F(f) \circ F(g) \cong F(f \circ g)$
 in some weaker sense than equality.
-(This is very much like it happens in $\infty$-categories.)
+(This is very much like it happens in
+$\infty$-categories.)
 It turns out that
 $$
-\text{Fibrations over $\mathcal{B}$}\xymatrix{\ar@{<~>}[r]&}
-\text{pseudo functors }F:\mathcal{B}^{\text{op}}\to \mathsf{Cat}.
+\text{Fibrations over
+$\mathcal{B}$}\xymatrix{\ar@{<~>}[r]&}
+\text{pseudo functors
+}F:\mathcal{B}^{\text{op}}\to \mathsf{Cat}.
 $$
 
 \begin{definition}
 \label{definition-fibred-in-groupoids}
-A functor $p:\mathcal{E} \to \mathcal{B}$ is called a 
-{\it fibration in groupoids} 
-if it is a fibration and every fiber is a groupoid.
+A functor $p:\mathcal{E} \to \mathcal{B}$ is
+called a
+{\it fibration in groupoids}
+if it is a fibration and every fiber is a
+groupoid.
 \end{definition}
 
 \noindent
 As I said in the beginning of this section,
-I think this condition is equivalent to saying that
-every morphism in the Étale space is cartesian
+I think this condition is equivalent to
+saying that
+every morphism in the Étale space is
+cartesian
 (this should be an easy exercise).
 
 \begin{lemma}
 \label{lemma-fibration-in-groupoids-iff}
-$p:\mathcal{E} \to \mathcal{B}$ is a fibration in groupoids if and only if
-every morphism in $\mathcal{E}$ is $p$-cartesian and any lifting problem
+$p:\mathcal{E} \to \mathcal{B}$ is a
+fibration in groupoids if and only if
+every morphism in $\mathcal{E}$ is
+$p$-cartesian and any lifting problem
 $$
 \xymatrix{
 & e\ar[d]\\
@@ -1018,8 +1347,10 @@ has a solution.
 
 \begin{proof}
 The backward implication is easy.
-From the hypotheses we get immediately that $p$ is a fibration.
-To show that the fibers are groupoids we lift an arbitrary morphism $f$ 
+From the hypotheses we get immediately that
+$p$ is a fibration.
+To show that the fibers are groupoids we lift
+an arbitrary morphism $f$
 and do lifting problem against itself.
 \end{proof}
 
@@ -1031,12 +1362,14 @@ and do lifting problem against itself.
 \begin{lemma}
 \label{lemma-fibration-nerves}
 Let $X, Y$ be nerves of 1-categories.
-Then $p:X \to Y$ is a right fibration if and only if
+Then $p:X \to Y$ is a right fibration if and
+only if
 it is a fibration in groupoids.
 \end{lemma}
 
 \begin{proof}
-The condition for right fibration for $n=0$ gives existence,
+The condition for right fibration for $n=0$
+gives existence,
 for $n=1$ gives commutativty,
 for $n=2$ gives uniqueness.
 \end{proof}
@@ -1046,13 +1379,16 @@ Now I put two other results:
 
 \begin{lemma}
 \label{lemma-kan-fibration-left-right}
-Kan fibration if and only if both left and right fibration.
+Kan fibration if and only if both left and
+right fibration.
 \end{lemma}
 
 \begin{lemma}
 \label{lemma-kan-fibration-infty-groupoids}
-$X$ is $\infty$-groupoid if and only if $X \to pt$ is Kan fibration,
-if and only if it is left (or right) fibration.
+$X$ is $\infty$-groupoid if and only if $X
+\to pt$ is Kan fibration,
+if and only if it is left (or right)
+fibration.
 \end{lemma}
 
 
@@ -1061,7 +1397,8 @@ if and only if it is left (or right) fibration.
 
 
 
-\bibliography{my} \bibliographystyle{amsalpha}
+\bibliography{my}
+\bibliographystyle{amsalpha}
 
 
 
