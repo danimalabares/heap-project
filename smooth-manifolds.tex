@@ -1,0 +1,404 @@
+\input{preamble}
+
+\begin{document}
+
+\title{Smooth Manifolds}
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+\hfill
+\href{http://github.com/danimalabares/stack}%
+{github.com/danimalabares/stack}
+\tableofcontents
+
+\section{Orientable manifolds}
+\label{section-orientable-manifolds}
+
+\begin{exercise}
+\label{exercise-orientable-surfaces}
+Show that a regular surface $S \subset
+\mathbb{R}^3$
+is orientable if and only if there is a
+differentiable
+map $N:S \to \mathbb{R}^3$ such that
+$N(p)\perp T_pS$
+and $|N(p)|=1$ for all $p \in S$.
+\end{exercise}
+
+\begin{proof}
+($\implies$) Take the normalization of the
+cross product of an orientable basis.
+It is nowhere vanishing because the
+determinant,
+which is positive by orientability,
+is the size of the cross product.
+
+($\impliedby$) Take the determinant of the
+matrix $(v,w,N)$
+where $v,w$ is any basis of $S$.
+This is nowhere zero differentiable 2-form on
+$S$.
+\end{proof}
+
+\section{Immersions and submersions}
+\label{section-immersions-and-submersions}
+
+\noindent
+For any smooth manifold submersion
+$\pi:\tilde{M}\to M$ there is a bundle
+isomorphism I love:
+\begin{equation}
+\label{equation-subme-bundl-decom}
+\pi^*TM \oplus \Ker \pi\cong
+T\tilde{M}
+\end{equation}
+ where $\Ker\pi$ is the {\it kernel bundle},
+ whose
+fiber is the kernel of $\pi_*$, and is also
+called the {\it vertical bundle}.
+Proving that $\Ker\pi$ is in fact a bundle
+and confirming the isomorphism
+\ref{equation-subme-bundl-decom} is a simple
+exercise.
+
+We call $\pi$ a {\it riemannian submersion}
+only when $\pi^*TM$ is isometric to
+$TM$, which makes sense only when $\tilde{M}$
+and $M$ are Riemannian manifolds.
+
+Following notation of
+\cite{Milnor-Characteristic-Classes}, for any
+subbundle
+$\xi \subset\eta$ over a Riemannian manifold,
+the {\it orthogonal complement
+bundle} $\xi^\perp$ can be defined fiberwise
+as the orthogonal complement of the
+fiber and shown to be a bundle as in the case
+of the kernel bundle. Then Milnor
+defines the {\it normal bundle} when $\xi$ is
+the tangent bundle of a
+submanifold. Finally this construction is
+noted to work just as well for any
+isometric immersion $f:M\to \tilde{M}$, so
+that
+\begin{equation}
+\label{equation-immer-bundl-decom}
+f^*T\tilde{M}\cong TM\oplus T^\perp M
+\end{equation}
+Further, in problem 3-B we are asked to
+define for $\xi \subset \eta$ the {\it
+quotient bundle} and show it's a bundle. And
+if $\eta$ has a Riemannian metric,
+then $\xi^\perp\cong\eta/\xi$. So that's why
+we sometimes say that we can define
+the normal bundle using a Riemannian metric
+but we don't need to.
+
+An interesting thought is: given a subbundle,
+is there a manifold whose tangent
+bundle is that subbundle?
+
+\begin{definition}
+\label{definition-basic-form}
+Let $M$ be a manifold and $\omega \in
+\Omega^k(M)$.
+Suppose that $\pi:M \to B$ is a surjective
+submersion with connected fibers.
+We say that $\omega$ is {\it basic} (with
+respect
+to $\pi$) is there exists a form
+\(\overline{\omega}\in \Omega^k(B)\) such
+that
+\(\pi^*\overline{\omega}\).
+\end{definition}
+
+\begin{exercise}
+\label{exercise-basic-form}
+\begin{enumerate}
+\item Show that $\omega$ is basic if and only
+if
+$i_X \omega=0$ and $L_X\omega=0$
+for all vector fields $X$ tangent
+to the fibers of $\pi$.
+In particular, if $\omega$ is closed,
+show that it is basic if
+\(\Ker(\pi_*) \subseteq \Ker(\omega)\)
+(pointwise in $M$).
+
+\item Suppose that $\omega$ is a closed
+2-form on $M$ and
+\(\Ker(\pi_*)=\Ker(\omega)\).
+Show that $\omega=\pi^*\overline{\omega}$
+and \(\overline{\omega}\in\Omega^2(B)\)
+is symplectic.
+
+\item (Application to reduction.)
+\end{enumerate}
+\end{exercise}
+
+\begin{proof}
+\begin{enumerate}
+\item The idea is to define a form 
+downstairs by the equation
+$$
+\overline{\omega}(\bar{X}_1,\dots,\bar{X}_k)
+:=\omega(X_1,\dots,X_k)
+$$
+where every $X_i$ is a lift of $\bar{X}_i$.
+To construct such lifts the first thing
+is to note that since $\pi$ is a surjective
+submersion we immediately get a 
+rough vector field on the total space.
+But it's not immediate that it is smooth.
+To construct a smooth lift we can use
+local submersion charts for $\pi$,
+and just lift the vector field in
+the base by simply putting the same
+local coordinate functions in the first
+slots upstairs. This is clearly a smooth
+vector field on the local chart for
+the upstairs manifold.
+Then we use a partition of unity to extend
+it. 
+
+To check that $\bar{\omega}$ is well
+defined suppose that $X$ and $X'$
+are lifts of $\bar{X}$. Then their
+difference must vertical. Since $i_Z\omega=0$
+for vertical $Z$, we see that
+$\omega(X-X',\cdot)=0$ which says
+that $\bar{\omega}$ has the same value
+for either lift.
+
+Observe that we have defined a map
+$$
+\bar{\omega} : 
+\mathfrak{X}(B) \times \mathfrak{X}(B)
+\longrightarrow C^\infty(M),
+$$
+i.e. with the wrong codomain.
+We need to prove that the function
+$\bar{\omega}(\bar{X},\bar{Y})$
+is constant along the fibers,
+for which we use
+the condition that $L_Z\omega =0$
+for vertical $Z$.
+Given any such $Z$, $L_Z\omega=0$
+says that $\varphi^*_t\omega=\omega$
+for all $t$, where $\varphi$ is
+the flow of $Z$.
+In other words,
+$\omega(\varphi_{*,t}X,\varphi_{*,t}Y)
+=\omega(X,Y)$
+for any $X,Y \in \mathfrak{X}(M)$.
+This is all we need:
+given any pair of points $p,p'$ 
+in some fiber $\pi^{-1}(b)$,
+there exists a vector field $Z \in\ker\pi_*$
+whose flow maps $p$ to $p'$…
+but why exactly?
+\end{enumerate}
+\end{proof}
+
+\begin{proof}
+\begin{enumerate}
+\item Since $\pi$ is surjective, for any
+vector $\bar{X}$ tangent to $B$ there is
+a vector $X$ tangent to $M$ such that
+\(\pi_*X=\bar{X}\).
+Define a form
+\[
+\overline{\omega}(\bar{X}^1,\dots,\bar{X}^k)
+:=\omega(X^1,\dots,X^k).
+\]
+
+To show this does not depend on the choice of
+lift of $\bar{X}$
+just notice that the tangent space of $M$ can
+be written
+\(T_pM \simeq T_pF_b \oplus \pi^*(T_bB)\)
+where \(\pi(p)=b\).
+Since $\omega$ kills vectors tangent to the
+fibers,
+\(\overline{\omega}\) is well-defined.
+
+Notice that there can be different choices of
+\(p\) such that
+\(\pi(p)=b\). To show that
+\(\overline{\omega}\) is
+well-defined independent of the choice of
+\(p\) note
+that since fibers are connected, we can
+connect two such points by a curve $c$ in the
+fiber, and the vector fields tangent to the
+fiber are generated by the integral curves of
+their vector fields. Therefore the value of
+\(\overline{\omega}\) is constant along the
+fiber.
+
+\item If \(\omega\) is closed and
+\(\Ker(\pi_*) \subseteq \Ker(\omega)\),
+then by the first part \(\omega\) is basic.
+The second part follows because a closed
+2-form with the same kernel as \(\pi\)
+descends to a nondegenerate form on the base.
+
+\item The reduction application is the usual
+Marsden-Weinstein argument.
+\end{enumerate}
+\end{proof}
+
+\section{Embeddings}
+\label{section-embeddings}
+
+\begin{exercise}
+\label{exercise-p2-in-r4}
+Seja \(F:\mathbb{R}^3 \to \mathbb{R}^4\)
+dada por
+\[F(x,y,z)=(x^2-y^2,xy,xz,yz),\qquad
+(x,y,z)=p \in \mathbb{R}^3.\]
+Seja \(S^2 \subset \mathbb{R}^3\) a esfera
+unitária com centro na origem \(0 \in
+\mathbb{R}^3\). Oberve que a restrição \(
+\varphi:= F|_{S^2}\) é tal que
+\(\varphi(p)=\varphi(-p)\), e considere a
+aplicação \(\tilde{\varphi}:\mathbb{R}P^2
+\to
+\mathbb{R}^4\) dada por
+\[\tilde{\varphi}([p])=\varphi(p),\qquad
+[p]\text{=clase de equivalência de
+\(p=\{p,-p\}\)}\]
+
+Prove que
+\begin{enumerate}
+\item \(\tilde{\varphi}\) é uma imersão.
+\item \(\tilde{\varphi}\) é biunívoca;
+junto com (a) e a compacidade de
+\(\mathbb{R}P^2\), isto implica
+que \(\tilde{\varphi}\) é um mergulho.
+\end{enumerate}
+\end{exercise}
+
+\begin{proof}
+\begin{enumerate}
+\item Considere a carta \(\{z=1\}\). A
+representação coordenada de
+\(\tilde{\varphi}\) vira
+\[(x,y) \longmapsto (x^2-y^2,xy,x,y)\]
+cuja derivada como mapa \(\mathbb{R}^2 \to
+\mathbb{R}^4\) é
+\[\begin{pmatrix} 2x& -2y\\y&x\\1&0\\0&1
+\end{pmatrix}\]
+que é injetiva. Agora pegue a carta
+\(\{x=1\}\). Então a representão coordenada
+de \(\tilde{\varphi}\) vira
+\[(y,z) \longmapsto (1-y^2,y,z,yz)\]
+e tem derivada
+\[\begin{pmatrix} -2y&0\\1&0\\0&1\\z&y
+\end{pmatrix}\]
+que também é injetiva. Seguramente algo
+análogo acontece na carta \(\{y=1\}\).
+
+\item \(\tilde{\varphi}\) é injetiva. Pegue
+dois pontos \(p_1:=[x_1:y_1:z_1]\) e
+\(p_2:=[x_2:y_2:z_2]\) e suponha que
+\(\tilde{\varphi}(p_1)=\tilde{\varphi}(p_2)\)
+.
+I.e.,
+\[x_1^2-y_1^2=x_2^2-y_2^2,\qquad
+x_1y_1=x_2y_2,\qquad x_1z_1=x_2z_2,\qquad
+y_1z_1=y_2z_2\]
+Suponha primeiro que \(z_1 \neq 0\). Segue
+que
+\[x_1=\frac{z_2}{z_1}x_2,\qquad
+y_1=\frac{z_2}{z_1}y_2\]
+logo
+\[x_2^2-y_2^2=x_1^2-y_1^2=
+\left(\frac{z_2}{z_1}\right)^2(x_2^2-y_2^2)
+\implies
+z_2=z_1\implies x_1=x_2,\qquad y_1=y_2\]
+
+\noindent
+Em fim, uma imersão injetiva com domínio
+compacto é um mergulho porque é fechada:
+pegue um fechado no domínio, vira compacto,
+imagem é compacta, que é fechado. Pronto.
+\end{enumerate}
+\end{proof}
+
+\begin{exercise}
+\label{exercise-extension-vector-fields}
+Dada uma subvariedade \(M \subseteq
+\tilde{M}\) uma subvariedade mergulhada e
+\(X \in \mathfrak{X}(M)\). Mostre que existe
+um aberto \(U \subset \tilde{M}\) contendo
+\(M\) e um campo
+\(\tilde{X} \in \mathfrak{X}(U)\) tal que
+\(\tilde{X}|_{M}=X\).
+Caso \(M\) seja subconjunto fechado de
+\(\tilde{M}\), prove que \(U\) pode ser
+tomado igual a \(\tilde{M}\). Se \(M\) não
+é subconjunto fechado de \(\tilde{M}\),
+pode não existir extensão de \(X\)
+definida em todo \(\tilde{M}\).
+\end{exercise}
+
+\begin{proof}
+Take submanifold coordinates for $M$,
+i.e. coordinates where $M\cap U
+=(x_1,...,x_n,0,...,0)$.
+The local expression of $X$ is
+$\sum a^i(p)\partial_i$.
+Then we just literally extend this to a
+vector
+field in all of $U$ by putting
+$\tilde{X}=\sum
+a^i(\pi_M(\tilde{p}))\partial_i$.
+\end{proof}
+
+\section{Principal bundles}
+\label{section-principal-bundles}
+
+Upshot:
+a principal bundle is a fiber bundle such
+that, if you choose a point in a fiber,
+then the map $g \mapsto p\cdot g$
+identifies that fiber with $G$.
+It is surjective by transitivity and
+injective by freeness.
+The chosen point plays the role of the
+identity.
+
+\begin{definition}
+\label{definition-principal-bundle}
+Let $G$ be a Lie group.
+A {\it principal $G$-bundle}
+\[
+\pi:P\to M
+\]
+is a smooth fiber bundle with a smooth
+right action of $G$ on $P$ such that:
+\begin{enumerate}
+\item the action preserves fibers,
+\item it is free and transitive on each
+fiber, and
+\item locally $P|_U \cong U\times G$
+as $G$-spaces,
+with $G$ acting on itself by right
+multiplication.
+\end{enumerate}
+\end{definition}
+
+Equivalently,
+the transition functions of a local
+trivialization take values in $G$.
+
+In particular,
+the frame bundle $\operatorname{Fr}(M)$
+from
+hodge-birational-atoms-2026.tex
+is a principal
+\(\operatorname{GL}(n,\mathbf R)\)-bundle.
+
+\end{document}
