@@ -33,9 +33,9 @@ app.config.from_object(__name__)
 
 feeds = {
   "github": {
-    "url": "https://github.com/stacks/stacks-project/commits/master.atom",
+    "url": "https://github.com/danimalabares/heap-project/commits/master.atom",
     "title": "Recent commits",
-    "link": "https://github.com/stacks/stacks-project/commits",
+    "link": "https://github.com/danimalabares/heap-project/commits",
   },
   "blog": {
     "url": "https://www.math.columbia.edu/~dejong/wordpress/?feed=rss2",
@@ -181,5 +181,5 @@ import gerby.views.tag
 
 #flask_profiler.init_app(app)
 
-# Stacks project specific pages
+# Heap Project specific pages
 import gerby.views.stacks
