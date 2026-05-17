@@ -1,6 +1,6 @@
 ## What is this
 
-This is a copy of the [Heap Project repository](https://github.com/danimalabares/heap-project).
+This is a copy of the [Stacks Project repository](https://github.com/danimalabares/heap-project).
 There are some files with math notes.
 
 ## How to use
