@@ -2,6 +2,7 @@
 
 import argparse
 import re
+import sys
 from pathlib import Path
 
 
@@ -10,7 +11,6 @@ KNOWN_CHAPTERS = {
     "basic-math",
     "algebra",
     "commutative-algebra",
-    "number-theory",
     "differential-geometry",
     "differential-topology",
     "algebraic-geometry",
@@ -35,10 +35,17 @@ KNOWN_CHAPTERS = {
 
 
 def chapter_title(lines, fallback):
-    for line in lines:
-        match = re.search(r"\\title\{([^}]*)\}", line)
+    for index, line in enumerate(lines):
+        if not line.lstrip().startswith("\\title{"):
+            continue
+        title_lines = [line]
+        while "}" not in title_lines[-1] and index + 1 < len(lines):
+            index += 1
+            title_lines.append(lines[index])
+        title = "".join(title_lines)
+        match = re.search(r"\\title\{(.*?)\}", title, re.S)
         if match:
-            return match.group(1)
+            return " ".join(match.group(1).split())
     return fallback.replace("-", " ").title()
 
 
@@ -53,9 +60,72 @@ def safe_label(label):
     return label.strip("-")
 
 
+def normalize_title(title):
+    title = title.strip().lower()
+    title = title.replace("&", "and")
+    return re.sub(r"[^0-9a-z]+", " ", title).strip()
+
+
+def ordered_files(files, order_path):
+    if not order_path:
+        return files
+
+    path = Path(order_path)
+    if not path.exists():
+        print(
+            f"warning: order file not found: {order_path}",
+            file=sys.stderr,
+        )
+        return files
+
+    entries = [
+        line.strip()
+        for line in path.read_text(encoding="utf-8").splitlines()
+        if line.strip() and not line.lstrip().startswith("#")
+    ]
+    by_title = {}
+    for filename in files:
+        source = Path(filename)
+        if not source.exists():
+            continue
+        lines = source.read_text(encoding="utf-8").splitlines(True)
+        title = chapter_title(lines, source.stem)
+        keys = {
+            normalize_title(title),
+            normalize_title(source.stem),
+            normalize_title(source.stem.replace("-", " ")),
+        }
+        for key in keys:
+            by_title.setdefault(key, filename)
+
+    ordered = []
+    used = set()
+    for entry in entries:
+        key = normalize_title(entry)
+        filename = by_title.get(key)
+        if not filename:
+            print(
+                f"warning: no Gerby source matches "
+                f"order-chapters entry: {entry}",
+                file=sys.stderr,
+            )
+            continue
+        if filename in used:
+            continue
+        ordered.append(filename)
+        used.add(filename)
+
+    ordered.extend(filename for filename in files if filename not in used)
+    return ordered
+
+
 def prefix_labels_and_refs(line, prefix, label_counts):
     def label_repl(match):
-        label = safe_label(f"{prefix}-{match.group(1)}")
+        raw_label = match.group(1)
+        if should_prefix_ref(raw_label):
+            label = safe_label(f"{prefix}-{raw_label}")
+        else:
+            label = safe_label(raw_label)
         label_counts[label] = label_counts.get(label, 0) + 1
         if label_counts[label] > 1:
             label = f"{label}-duplicate-{label_counts[label]}"
@@ -84,6 +154,18 @@ def preamble():
         "\\usepackage{amsmath}\n",
         "\\usepackage{amssymb}\n",
         "\\usepackage{amsthm}\n",
+        "\\def\\text#1{\\mbox{#1}}\n",
+        "\\newcommand{\\mathbb}[1]{#1}\n",
+        "\\newcommand{\\tilde}[1]{#1}\n",
+        "\\newcommand{\\hat}[1]{#1}\n",
+        "\\newcommand{\\bar}[1]{#1}\n",
+        "\\newcommand{\\vec}[1]{#1}\n",
+        "\\newcommand{\\dot}[1]{#1}\n",
+        "\\newcommand{\\ddot}[1]{#1}\n",
+        "\\newcommand{\\underline}[1]{#1}\n",
+        "\\newcommand{\\overline}[1]{#1}\n",
+        "\\newcommand{\\widehat}[1]{#1}\n",
+        "\\newcommand{\\widetilde}[1]{#1}\n",
     ]
 
     skip_class = False
@@ -106,6 +188,24 @@ def body_for(filename):
     path = Path(filename)
     prefix = path.stem
     content = path.read_text(encoding="utf-8")
+    content = re.sub(r"\\mathbb\{([^{}]+)\}", r"\1", content)
+    content = re.sub(r"\\text\{([^{}]+)\}", r"\1", content)
+    for macro in [
+        "tilde",
+        "hat",
+        "bar",
+        "vec",
+        "dot",
+        "ddot",
+        "underline",
+        "overline",
+        "widehat",
+        "widetilde",
+        "partial",
+    ]:
+        content = re.sub(rf"\\{macro}\s*\{{([^{{}}]+)\}}", r"\1", content)
+        content = re.sub(rf"\\{macro}\s+([A-Za-z0-9])", r"\1", content)
+        content = re.sub(rf"\\{macro}\b", "", content)
     content = re.sub(r"\\label\{([^}]*)\}", lambda match: "\\label{" + " ".join(match.group(1).split()) + "}", content)
     lines = content.splitlines(True)
     title = chapter_title(lines, prefix)
@@ -161,13 +261,18 @@ def body_for(filename):
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--order",
+        help="text file listing chapter titles in TOC order",
+    )
     parser.add_argument("files", nargs="*", default=DEFAULT_FILES)
     args = parser.parse_args()
+    files = ordered_files(args.files, args.order)
 
     print(preamble(), end="")
     print("\\begin{document}\n")
     print("\\tableofcontents\n")
-    for filename in args.files:
+    for filename in files:
         print(f"% --- Begin {filename} ---")
         print(body_for(filename), end="")
         print(f"% --- End {filename} ---\n")
