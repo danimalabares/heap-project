@@ -1,0 +1,10 @@
+[build]
+builder = "RAILPACK"
+buildCommand = "pip install -r requirements-gerby.txt && make gerby-deploy-build"
+
+[deploy]
+startCommand = "cd gerby-website && gunicorn wsgi:application --bind 0.0.0.0:$PORT"
+healthcheckPath = "/browse"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
