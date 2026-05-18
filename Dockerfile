@@ -28,4 +28,4 @@ COPY . /app
 RUN rm -f gerby/stack.sqlite gerby/comments.sqlite
 RUN make gerby-deploy-build
 
-CMD ["sh", "-lc", "cd gerby-website && gunicorn wsgi:application --bind 0.0.0.0:${PORT:-8080}"]
+CMD ["gunicorn", "--chdir", "gerby-website", "wsgi:application", "--bind", "0.0.0.0:8080"]
