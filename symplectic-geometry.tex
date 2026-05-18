@@ -42,6 +42,124 @@ is symplectic, so we get a normal
 decomposition…
 \end{proof}
 
+\begin{definition}
+\label{definition-symplectic-orthogonal}
+Let $(V,\omega)$ be a symplectic vector
+space and let $W \subseteq V$ be a
+subspace. The {\it symplectic orthogonal}
+of $W$ is
+$$
+W^\omega=\{v \in V \mid \omega(v,w)=0
+\;\forall\, w \in W\}.
+$$
+The restriction $\omega|_W$ has kernel
+$$
+\ker(\omega|_W)=W \cap W^\omega.
+$$
+\end{definition}
+
+\begin{lemma}
+\label{lemma-symplectic-orthogonal-dimension}
+If $(V,\omega)$ is symplectic, then
+$$
+\dim W + \dim W^\omega = \dim V.
+$$
+\end{lemma}
+
+\begin{proof}
+The map
+$$
+\omega^\flat:V \longrightarrow V^*,\qquad
+v \longmapsto \omega(v,\cdot)
+$$
+is an isomorphism. Under this map,
+$W^\omega$ corresponds to $\operatorname{Ann}(W)$,
+so
+$$
+\dim W^\omega=\dim \operatorname{Ann}(W)
+=\dim V-\dim W.
+$$
+\end{proof}
+
+\begin{definition}
+\label{definition-symplectic-subspaces}
+Let $W \subseteq V$ be a subspace of a
+symplectic vector space $(V,\omega)$.
+\begin{itemize}
+\item $W$ is {\it isotropic} if
+$W \subseteq W^\omega$.
+\item $W$ is {\it coisotropic} if
+$W^\omega \subseteq W$.
+\item $W$ is {\it Lagrangian} if
+$W=W^\omega$.
+\item $W$ is {\it symplectic} if
+$W \cap W^\omega=\{0\}$, equivalently
+$\omega|_W$ is nondegenerate.
+\end{itemize}
+\end{definition}
+
+\begin{remark}
+If $W$ is symplectic, then
+$$
+V=W \oplus W^\omega.
+$$
+If $W$ is isotropic, then
+$$
+\dim W \leq \frac{1}{2}\dim V.
+$$
+If $W$ is coisotropic, then
+$$
+\dim W \geq \frac{1}{2}\dim V.
+$$
+In particular, $W$ is Lagrangian if and
+only if it is isotropic and
+\(\dim W=\frac{1}{2}\dim V\).
+\end{remark}
+
+\begin{exercise}
+\label{exercise-symplectic-orthogonal}
+Show that
+$$
+(W^\omega)^\omega = W
+$$
+and
+$$
+(W_1 \cap W_2)^\omega = W_1^\omega + W_2^\omega.
+$$
+\end{exercise}
+
+\begin{example}
+\leavevmode
+\begin{itemize}
+\item One-dimensional subspaces are
+isotropic.
+\item Codimension-one subspaces are
+coisotropic.
+\item If
+$$
+\{e_1,\ldots,e_n,f_1,\ldots,f_n\}
+$$
+is a symplectic basis of $V$, then
+\(\operatorname{span}\{e_1,\ldots,e_k\}\)
+is isotropic, and it is Lagrangian when
+$k=n$.
+\item If $(V_1,\omega_1)$ and
+$(V_2,\omega_2)$ are symplectic vector
+spaces and $T:V_1 \to V_2$ is linear, then
+$\operatorname{graph}(T) \subseteq
+V_1 \times \bar V_2$ is Lagrangian if and
+only if $T$ is a symplectomorphism.
+\item If $W$ is a vector space, then
+$W \oplus W^*$ with
+$$
+\omega((w,\alpha),(w',\alpha'))
+=\alpha'(w)-\alpha(w')
+$$
+is symplectic, and $W$ and $W^*$ are
+Lagrangian subspaces.
+\end{itemize}
+\end{example}
+
 \begin{exercise}
 \label{exercise-omega-power-n}
 Let $V$ be a vector space and $\omega$ a
@@ -579,8 +697,11 @@ but $\kappa$ is should be a diagonal matrix
 and therefore nondegenerate.
 \end{enumerate}
 \end{proof}
-\section{Hamiltonian actions and moment map}
-\label{section-hamiltonian-action-moment-map}
+
+
+\section{Hamiltonian actions, moment map
+and symplectic reduction}
+\label{section-reduction}
 
 \noindent
 To warm-up we define real symplectic and
@@ -668,6 +789,12 @@ In this case we call $\mu$ a {\it moment
 map}.
 \end{itemize}
 \end{definition}
+
+\noindent
+This first exercise shows how
+the function $\hat{\mu} = H$
+looks like for the simplest
+action on a symplectic manifold:
 
 \begin{exercise}
 \label{exercise-linear-moment-map-rotation}
@@ -922,6 +1049,193 @@ $d\mu_p(v)\in\mathfrak{g}^*$ vanishes
 identically. Thus $d\mu_p(v)=0$.
 \end{proof}
 
+\noindent
+The following definition
+and exercise are the
+key to symplectic reduction:
+
+\begin{definition}
+\label{definition-basic-form}
+Let $M$ be a manifold and $\omega \in
+\Omega^k(M)$.
+Suppose that $\pi:M \to B$ is a surjective
+submersion with connected fibers.
+We say that $\omega$ is {\it basic} (with
+respect
+to $\pi$) is there exists a form
+\(\overline{\omega}\in \Omega^k(B)\) such
+that
+\(\pi^*\overline{\omega}\).
+\end{definition}
+
+\begin{exercise}
+\label{exercise-basic-form}
+\begin{enumerate}
+\item Show that $\omega$ is basic if and only
+if
+$i_X \omega=0$ and $L_X\omega=0$
+for all vector fields $X$ tangent
+to the fibers of $\pi$.
+In particular, if $\omega$ is closed,
+show that it is basic if
+\(\Ker(\pi_*) \subseteq \Ker(\omega)\)
+(pointwise in $M$).
+
+\item
+\label{item-reduction-form}
+Suppose that $\omega$ is a closed
+2-form on $M$ and
+\(\Ker(\pi_*)=\Ker(\omega)\).
+Show that $\omega=\pi^*\overline{\omega}$
+and \(\overline{\omega}\in\Omega^2(B)\)
+is symplectic.
+
+\item (Application to reduction.)
+Let $(M,\omega)$ be a symplectic
+manifold and 
+$\iota:N \xymatrix{\ar@{^{(}->}[r]&} M$
+a submanifold such that
+$D=TN \cap TN^\omega \subset TN$
+has constant rank
+(e.g. $N$ could be coisotropic).
+We saw in class that $D$ is an
+integrable distribution
+(by Frobenius);
+suppose that the leafspace
+$B:=N/\sim$ is smooth so that the
+natural projection
+$\pi:N \to B$ is a submersion.
+Show that $B$ inherits a unique symplectic
+form $\omega_{\text{red}}$
+with the property that
+$\pi^*\omega_{\text{red}}=\iota^*\omega$.
+\end{enumerate}
+\end{exercise}
+
+\begin{proof}
+\begin{enumerate}
+\item The idea is to define a form 
+downstairs by the equation
+$$
+\overline{\omega}(\bar{X}_1,\dots,\bar{X}_k)
+:=\omega(X_1,\dots,X_k)
+$$
+where every $X_i$ is a lift of $\bar{X}_i$.
+To construct such lifts the first thing
+is to note that since $\pi$ is a surjective
+submersion we immediately get a 
+rough vector field on the total space.
+But it's not immediate that it is smooth.
+To construct a smooth lift we can use
+local submersion charts for $\pi$,
+and just lift the vector field in
+the base by simply putting the same
+local coordinate functions in the first
+slots upstairs. This is clearly a smooth
+vector field on the local chart for
+the upstairs manifold.
+Then we use a partition of unity to extend
+it.
+
+To check that $\bar{\omega}$ is well
+defined suppose that $X$ and $X'$
+are lifts of $\bar{X}$. Then their
+difference must vertical. Since $i_Z\omega=0$
+for vertical $Z$, we see that
+$\omega(X-X',\cdot)=0$ which says
+that $\bar{\omega}$ has the same value
+for either lift.
+
+Observe that we have defined a map
+$$
+\bar{\omega} : 
+\mathfrak{X}(B) \times \mathfrak{X}(B)
+\longrightarrow C^\infty(M),
+$$
+i.e. with the wrong codomain.
+We need to prove that the function
+$\bar{\omega}(\bar{X},\bar{Y})$
+is constant along the fibers,
+for which we use
+the condition that $L_Z\omega =0$
+for vertical $Z$.
+Given any such $Z$, $L_Z\omega=0$
+says that $\varphi^*_t\omega=\omega$
+for all $t$, where $\varphi$ is
+the flow of $Z$.
+In other words,
+$\omega(\varphi_{*,t}X,\varphi_{*,t}Y)
+=\omega(X,Y)$
+for any $X,Y \in \mathfrak{X}(M)$.
+This is all we need:
+given any pair of points $p,p'$ 
+in some fiber $\pi^{-1}(b)$,
+there exists a vector field $Z \in\ker\pi_*$
+whose flow maps $p$ to $p'$.
+More precisely,
+since the fibers are connected, 
+any two points
+in a fiber can be joined by 
+a path inside the
+fiber. Covering this path by finitely many
+submersion charts, we see that the two points
+are connected by a finite composition 
+of flows of vertical vector fields.
+
+We have constructed a smooth map
+$\bar{\omega}:\mathfrak{X}(B)\times
+\mathfrak{X}(B) \to C^\infty(B)$.
+It is also $C^\infty(B)$-linear
+(i.e. tensorial) since
+any smooth function on $B$ can be
+extended to a smooth function on $M$
+using submersion charts, and then
+we use tensoriality of $\omega$.
+
+It follows that $\bar{\omega}$ is
+a smooth differential form on $B$,
+and $\pi^* \bar{\omega}=\omega$
+by construction:
+taking submersion charts,
+the action of $\pi_*$ is the identity
+on the nonvanishing coordinates.
+
+\item If $\omega$ is closed,
+then it's clear that $\bar{\omega}$
+will be closed too since exterior
+differential commutes with pullback.
+It's also immediate that
+$\bar{\omega}$ is nondegenerate
+because by passing to the quotient
+and assuming $\Ker\pi_*=\Ker\omega$
+we have literally thrown away
+all the vectors in the kernel.
+
+\item Pulling back $\omega$ from
+$M$ to $N$ we obtain a closed form
+$\iota^*\omega$ which need not be
+nondegenerate.
+However, the fibers of the leaf-space
+projection $\pi$ are by definition
+the vectors in $\Ker \omega$.
+Thus we are in the situation
+of Item (\ref{item-reduction-form}).
+
+For uniqueness suppose
+that $\omega_{\text{red}}' 
+\in \Omega^2(B)$
+also satisfies 
+$\pi^*\omega_{\text{red}}'=\iota^*\omega$.
+Then
+$\pi^*(\omega_\text{red}-\omega_\text{red}')
+=0$,
+but since $\pi$ is a surjective
+submersion, the pullback map $\pi^*$
+is injective and thus
+$\omega_\text{red}=\omega_\text{red}'$.
+\end{enumerate}
+\end{proof}
+
 \begin{exercise}
 \label{exercise-reduced-symplectic-form}
 Let $(M,\omega)$ be a symplectic manifold
@@ -952,10 +1266,10 @@ inclusion.
 \end{exercise}
 
 \begin{proof}
-By Symplectic Geometry Exercise
+By Exercise
 \ref{exercise-basic-form},
 we know that all we have to do is check that
-$\Ker \pi_* \subset \Ker\omega$,
+$\Ker \pi_* \subset \Ker \iota^*\omega$,
 that is, that every vertical vector field
 $Z$ gives the zero 1-form when contracted
 with $\omega$, i.e. $i_Z\omega=0$.
@@ -975,39 +1289,6 @@ Note that the original intention of the
 exercise above was to use its
 preceding exercise (but of course
 my solution is also correct).
-Here's the alternative proof:
-
-By Exercise \ref{exercise-tangent-moment-level-set},
-we have
-$$
-T_pZ=(T_p(G\cdot p))^\omega.
-$$
-Let $X \in \Ker \pi_{*,p}$ and
-$Y \in T_pZ$. Since $X$ is vertical,
-we have
-$$
-X \in T_p(G\cdot p).
-$$
-Since $Y \in T_pZ$, the previous identity
-gives
-$$
-Y \in (T_p(G\cdot p))^\omega.
-$$
-Hence
-$$
-(\iota^*\omega)_p(X,Y)=\omega_p(X,Y)=0.
-$$
-Thus
-$$
-\Ker\pi_* \subset \Ker(\iota^*\omega).
-$$
-Since $\iota^*\omega$ is closed, Symplectic
-Geometry Exercise \ref{exercise-basic-form}
-implies that $\iota^*\omega$ is basic.
-Therefore it descends to a unique $2$-form
-$\omega_{\mathrm{red}}$ on $Z/G$.
-
-
 
 \begin{exercise}
 \label{exercise-reduced-form-is-symplectic}
@@ -1023,41 +1304,40 @@ and that $\omega_{\mathrm{red}}$ is
 nondegenerate.
 \end{exercise}
 
-\begin{exercise}
-\label{exercise-reduction-cpn}
-This result is the geometric engine behind symplectic reduction. Let's see it in action for the most important example: the construction of $\mathbb{CP}^{n-1}$ from $\mathbb{C}^n$.
-Consider $M = \mathbb{C}^n \cong \mathbb{R}^{2n}$ with the standard symplectic form $\omega = \sum dx_j \wedge dy_j$. Let $S^1$ act by diagonal rotation: $e^{i\theta} \cdot z = e^{i\theta}z$.
-\begin{enumerate}
-\item Show that the moment map for this action is $\mu(z) = \frac{1}{2}\sum |z_j|^2 + c$. We choose $c = -1/2$ so that $\mu^{-1}(0) = S^{2n-1}$ is the unit sphere.
-\item Show that the orbits of this action on $S^{2n-1}$ are the fibers of the Hopf fibration.
-\item Using the previous exercise, check that $T_p S^{2n-1} = (T_p(\text{Orbit}))^\omega$. This means the restricted form $\omega|_{S^{2n-1}}$ is degenerate only in the direction of the orbits!
-\item This implies that $\omega$ descends to a non-degenerate form on $S^{2n-1}/S^1 = \mathbb{CP}^{n-1}$. This is (a multiple of) the Fubini-Study form.
-\end{enumerate}
-\end{exercise}
-
-\section{Noether's principle}
-\label{section-Noether-principle}
-
-\begin{theorem}[Noether's principle]
-\label{theorem-Noether-principle}
-Let $(M,\omega,\mu)$ be a Hamiltonian
-$G$-space with Hamiltonian
-$H\in C^\infty(M)$. $H$ is $G$-invariant if
-and only if $\mu$ is preserved by
-the Hamiltonian flow.
-\end{theorem}
-
 \begin{proof}
-one line
+Closedness is immediate
+by commutation of pullback and
+exterior differential since $\omega$
+is closed.
+
+For nondegeneracy,
+by Exercise \ref{exercise-basic-form}
+we just need to check the inclusion
+$\Ker \iota^*\omega \subset \Ker \pi_*$.
+In words, if a vector $v$ is in the
+kernel of $\omega$, it has to be vertical.
+By Exercise
+\ref{exercise-tangent-moment-level-set}
+we know that
+$$
+T_pZ = T_p(G\cdot p)^\omega
+$$
+for any $p \in Z$.
+
+Taking symplectic orthogonals
+we get
+$$
+(T_pZ)^\omega=T_p(G\cdot p).
+$$
+Now just observe that the vertical
+vectors are, by definition 
+since $\pi$ is the projection of
+a group quotient, the vectors
+tangent to the orbits.
 \end{proof}
 
-\section{Symplectic quotient}
-\label{section-symplectic-quotient}
-
 \noindent
-In symplectic geometry we cannot always take
-quotients.
-We need to use level-sets of the moment map.
+We have just proved
 
 \begin{theorem}[Marsden-Weinstein, Megre]
 \label{theorem-marsden-weinstein-megre}
@@ -1075,9 +1355,11 @@ will be defined later),
 that $\mu^{-1}(0)/G$ is smooth, and that the
 projection is a submersion.
 Then there exists a unique symplectic form
-$\omega_{\text{red}}$ in $M_0$
+$\omega_{\text{red}}$ in $\mu^{-1}(0)/G$
 such that
-$i^*\omega=\pi_0^*\omega_{\text{red}}$.
+$$
+\iota^*\omega=\pi^*\omega_{\text{red}}.
+$$
 \end{theorem}
 
 \noindent
@@ -1086,10 +1368,10 @@ to the
 0 level-set of $\mu$ passes to the quotient:
 $$
 \xymatrix{
-G\text{ acts on
-}\mu^{-1}(0)\ar[d]^{\pi_0}\ar@{^{(}->}[r]&
-M\\
-(M_0:=\mu^{-1}(0)/G,\omega_{\text{red}})
+Z=\mu^{-1}(0)\ar[d]^{\pi}\ar@{^{(}->}[r]
+^{\iota}&
+(M,\omega)\\
+(\mu^{-1}(0)/G,\omega_{\text{red}})
 }
 $$
 
@@ -1102,17 +1384,71 @@ $\mu:M \to \mathfrak{g}^*$.
 $\xi \in \mathfrak{g}^*$ regular, $G_\xi
 \subseteq G$
 stabilizer of $\xi$.
-Then we have
+Then $G_\xi$ acts on the level set
+$\mu^{-1}(\xi)$, so we obtain:
 $$
 \xymatrix{
-G_\xi\text{ acts on
-}\mu^{-1}(\xi)\ar[d]^{\pi_\xi}\ar@{^{(}->}[r]
-^-{i_\xi}&
-M\\
-(M_\xi=\mu^{-1}(\xi)/G_\xi,\omega_{\text{red}
+\mu^{-1}(\xi)\ar[d]^{\pi}\ar@{^{(}->}[r]
+^-{\iota}&
+(M,\omega)\\
+(\mu^{-1}(\xi)/G_\xi,\omega_{\text{red}
 }).
 }
 $$
+
+
+
+\medskip\noindent
+Now we pass to applications.
+The next exercise shows the
+construction of $\mathbb{CP}^{n-1}$ from
+$\mathbb{C}^n$.
+
+\begin{exercise}
+\label{exercise-projective-space-as-reduction}
+Let $\mathbb{C}^n$ have its standard
+symplectic form
+$$
+\omega_0=\frac{i}{2}\sum_{j=1}^n
+dz_j\wedge d\bar z_j.
+$$
+Consider the diagonal $S^1$-action
+$$
+e^{it}\cdot(z_1,\dots,z_n)
+=
+(e^{it}z_1,\dots,e^{it}z_n).
+$$
+\begin{enumerate}
+\item Show that this action is Hamiltonian
+with moment map
+$$
+\mu(z)=
+-\frac{1}{2}\sum_{j=1}^n |z_j|^2.
+$$
+
+\item For $r>0$, identify
+$$
+\mu^{-1}\left(-\frac{r^2}{2}\right)
+$$
+with the sphere $S^{2n-1}_r\subset
+\mathbb{C}^n$.
+
+\item Show that
+$$
+\mu^{-1}\left(-\frac{r^2}{2}\right)/S^1
+\simeq \mathbb{P}^{n-1}_{\mathbb{C}}.
+$$
+
+\item Conclude that $\mathbb{P}^{n-1}$
+inherits a symplectic form from reduction.
+This is the Fubini--Study form, up to scale.
+\end{enumerate}
+\end{exercise}
+
+
+\noindent
+The next exercise is the 
+Hamiltonian-mechanics example.
 
 \begin{exercise}
 \label{exercise-so3-action-cotangent}
@@ -1334,6 +1670,23 @@ So the exterior differential is…
 probably itself!
 \end{enumerate}
 \end{proof}
+
+\section{Noether's principle}
+\label{section-Noether-principle}
+
+\begin{theorem}[Noether's principle]
+\label{theorem-Noether-principle}
+Let $(M,\omega,\mu)$ be a Hamiltonian
+$G$-space with Hamiltonian
+$H\in C^\infty(M)$. $H$ is $G$-invariant if
+and only if $\mu$ is preserved by
+the Hamiltonian flow.
+\end{theorem}
+
+\begin{proof}
+one line
+\end{proof}
+
 
 \section{Toric varieties}
 \label{section-toric-varieties}
