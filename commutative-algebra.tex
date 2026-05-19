@@ -2665,9 +2665,10 @@ $M$.
 
 \begin{definition}
 \label{definition-finite-morphism}
-A {\it finite morphism} of affine
-varieties is called {\it finite} if
-the $\mathcal{O}_X$ is a finitely
+A morphism of affine
+varieties $X \to Y$
+is called {\it finite} if
+$\mathcal{O}_X$ is a finitely
 generated $\mathcal{O}_Y$-module. In
 this case, $\mathcal{O}_X$ is called
 an {\it integral extension} of
@@ -3150,8 +3151,11 @@ in bijective correspondence
 with intermediate subfields
 $k \subset K^H \subset K$.
 \end{theorem}
-\section{Normal varieties}
-\label{section-normal-varieties}
+
+
+\section{Dominant
+and birational morphisms}
+\label{section-dominant-birational-morphisms}
 
 \noindent
 Recall that $\Spec(R)$ is the set of all
@@ -3255,9 +3259,13 @@ polynomial with coefficients in $R$ that
 gives zero when you put $s$ instead of the
 variable.
 
-\medskip\noindent
-Integral closure is analogous to algebraic
-closure, but it is not the same construction.
+\section{Integrally closed rings
+and normal varieties}
+\label{section-integrally-closed}
+
+Integral closure is for rings like 
+algebraic closure for fields,
+but it's not exactly the same construction.
 For a field, the algebraic closure is a
 larger field in which all algebraic equations
 split.
@@ -4170,6 +4178,9 @@ Since $A$ is Noetherian, $\tilde{B}$
 is a finite $A$-module as well.
 \end{proof}
 
+\section{Normalization}
+\label{section-normalization}
+
 \begin{definition}
 \label{definition-normalization}
 Let $X$ be an irreducible affine variety,
@@ -4198,7 +4209,36 @@ defined by
 $$
 x^2=y^3.
 $$
-Consider the parametrization
+Let's check if $C$ is normal.
+
+First we need a parametrization of $C$.
+This means that we look for functions
+$x(t)$ and $y(t)$ such that
+$$
+x(t)^2=y(t)^3.
+$$
+In this example it is natural to try powers
+of $t$, say
+$$
+x(t)=t^a,\qquad y(t)=t^b.
+$$
+Then we need
+$$
+t^{2a}=t^{3b},
+$$
+hence
+$$
+2a=3b.
+$$
+The smallest positive solution is
+$$
+a=3,\qquad b=2.
+$$
+Thus we take
+$$
+x(t)=t^3,\qquad y(t)=t^2.
+$$
+Thus we have a parametrization
 $$
 \varphi:\mathbb{C}\to C,\qquad
 t\longmapsto (t^3,t^2).
@@ -4234,6 +4274,224 @@ $$
 $$
 with normalization map $\varphi$.
 \end{example}
+
+
+\begin{exercise}
+\label{exercise-normalization}
+\begin{enumerate}
+\item Parametrize the curve
+$$
+C = V(x^3-y^4) \subset \mathbb{A}^2.
+$$
+\item What is $\mathcal{O}_C$?
+\label{item-2-exer-normalization}
+\item What is its fraction field?
+\item What is its normalization?
+\end{enumerate}
+\end{exercise}
+
+\begin{proof}
+We want functions of the form
+$$
+x(t)=? \quad  y(t)=?
+$$
+giving points in $C$.
+We guess that this will work:
+$$
+x(t)=t^a \quad  y(t)=t^b.
+$$
+For those points to be in the curve we need
+$$
+t^{3a} = t^{4b},
+$$
+so
+$$
+3a=4b.
+$$
+Obviously we pick
+$$
+a=4,\qquad b=3.
+$$
+Alright, the candidate parametrization is
+\begin{align*}
+\varphi: \mathbb{C} &\longrightarrow
+\mathbb{C}^2 \\
+t &\longmapsto (t^4,t^3).
+\end{align*}
+
+\noindent
+But is it surjective on $C$?
+Actually we don't need surjectivity.
+To prove this parametrization is good
+we look at the induced map on rings,
+and confirm that the coordinate algebra
+$\mathcal{O}_C$ of $C$ appears.
+Look at the pullback
+map on regular functions:
+\begin{align*}
+\varphi^*: \mathbb{C}[x,y] 
+&\longrightarrow \mathbb{C}[t] \\
+x &\longmapsto t^4\\
+y &\longmapsto t^3.
+\end{align*}
+
+\noindent
+What's the kernel? Obviously
+$x^3-y^4$ is in the kernel --- that's
+the whole point. To prove that's all
+the kernel let $f \in \Ker \varphi^*$.
+
+Think of $\mathbb{C}[x,y]$
+as
+$$
+\mathbb{C}[y][x]
+$$
+that is, as polynomials in $x$
+with coefficients in $\mathbb{C}[y]$.
+This has a division algorithm
+for polynomials whose leading
+coefficient is a unit
+because $\mathbb{C}[y]$ is a domain
+(see Theorem
+\ref{theorem-eucli-algor-polyn-rings})
+which is due to $\mathbb{C}$
+being a domain
+(see Lemma
+\ref{lemma-ring-polyn-one-indet-over}).
+So we can divide $f$ by
+the monic polynomial $x^3 - y^4 
+\in \mathbb{C}[y][x]$:
+$$
+f = q(x)(x^3-y^4) + r(x)
+\qquad \text{deg }r < 3,
+$$
+where $q,r$ have coefficients in 
+$\mathbb{C}[y]$. Since the degree
+in $x$ of $r$ is at most 2, we can
+write:
+$$
+f
+=
+q(x,y)(x^3-y^4)
++
+r_0(y)+r_1(y)x+r_2(y)x^2,
+$$
+where
+$$
+q(x,y)\in \mathbb C[x,y],
+\qquad
+r_0,r_1,r_2\in \mathbb C[y].
+$$
+
+Now use the fact that $\varphi^*f=0$:
+$$
+0=\varphi^*f=f(t^4,t^3)
+=q(t^4,t^3)(t^{12}-t^{12}) 
++ r_0(t^3)
++r_1(t^3)t^4
++r_2(t^3)t^8
+$$
+Hence
+$$
+r_0(t^3)+r_1(t^3)t^4+r_2(t^3)t^8=0.
+$$
+Now the powers of $t$ appearing in
+$r_0(t^3)$ are congruent to $0$ modulo $3$.
+The powers of $t$ appearing in
+$r_1(t^3)t^4$ are congruent to $1$ modulo $3$.
+The powers of $t$ appearing in
+$r_2(t^3)t^8$ are congruent to $2$ modulo $3$.
+Thus these three terms cannot cancel each
+other. Therefore
+$$
+r_0(t^3)=0,\qquad
+r_1(t^3)t^4=0,\qquad
+r_2(t^3)t^8=0.
+$$
+So
+$$
+r_0(t^3)=r_1(t^3)=r_2(t^3)=0.
+$$
+But the map
+$$
+\mathbb C[y]\longrightarrow \mathbb C[t],
+\qquad
+y\longmapsto t^3
+$$
+is injective. Hence
+$$
+r_0=r_1=r_2=0.
+$$
+Therefore
+$$
+f=q(x,y)(x^3-y^4),
+$$
+so
+$$
+f\in (x^3-y^4).
+$$
+This proves
+$$
+\Ker\varphi^*=(x^3-y^4).
+$$
+
+
+Then we have an isomorphism
+$$
+\mathcal{O}_C=
+\frac{\mathbb{C}[x,y]}{(x^3-y^4)}
+\cong \text{Im} \varphi^*
+=\mathbb{C}[t^4,t^3]
+$$
+This answers Item
+(\ref{item-2-exer-normalization}).
+Writing the coordinate ring of $C$
+in this form is what allows us
+to check if it's normal or not, as show
+next.
+
+Observe that $C$ is not normal.
+The fraction $t^4/t^3 = t \in \mathbb{C}(C)
+=\text{Frac}\mathbb{C}[t^4,t^3]$.
+Further, $t$ is integral over
+$\mathcal{O}_C$ since there is a 
+monic polynomial 
+$P(z)\in \mathcal{O}_C[z]$
+vanishing at $t$:
+$P(z)=z^3-t^3$. Also we can put
+$Q(z)=z^4-t^4$ but not
+$R(z)=z-t$ because 
+$t \not \in \mathcal{O}_C$.
+(This may seem stupid to the reader
+but when we face the problem without
+the open book it might be not so obvious.)
+Precisely because $t \not \in \mathcal{O}_C$
+we conclude that $\mathcal{O}_C$
+is not integrally closed, and so $C$ cannot
+be normal.
+
+To find the normalization we seek
+the integral closure of 
+$\mathbb{C}[t^4,t^3]$.
+As observed above,
+such integral closure must contain $t$,
+which makes it a ring which conatins
+$\mathbb{C}[t]$,
+which is already integrally closed
+(because it's a UFD,
+c.f. Proposition
+\ref{proposition-ufd-integrally-closed}),
+and therefore we conclude that the
+normalization of $C$ is
+$\Spec\mathbb{C}[t]=\mathbb{C}$,
+that is, $C$ is rational
+with normalization map
+$$
+\mathbb A^1\longrightarrow C,
+\qquad
+t\longmapsto (t^4,t^3).
+$$
+\end{proof}
 
 \begin{lemma}
 \label{lemma-universal-property-%
