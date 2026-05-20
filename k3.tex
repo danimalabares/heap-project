@@ -127,6 +127,206 @@ The intersection form lives on
 $H^2(M,\mathbb{Z})$.
 \end{remark}
 
+\section{Curves on K3 surfaces}
+\label{section-curves-on-k3}
+
+\noindent
+Alright my progress on this
+exercise (after 1 year and 5 months)
+still has three black boxes:
+\begin{enumerate}
+\item Construction of normalization
+from gluing affine pieces.
+\item I know that the normalization map 
+$\nu:\widetilde{C}\to C$
+is finite by Noether normalization
+(and gluing business, this I don't know
+actually).
+The black box is:
+Finite morphism $\implies$
+affine morphism $\implies$
+preserves cohomology, i.e.
+for any sheaf $\mathcal{F}$ on
+$\widetilde{C}$ we have
+$$
+H^i(\widetilde{C}, \mathcal{F})
+\cong H^i(C,\nu_*\mathcal{F}).
+$$
+That uses Leray Spectral Sequence,
+apparently.
+But it obviously gives
+$\chi(\mathcal{O}_{\widetilde{C}})
+=\chi (\nu_*\mathcal{O}_{\widetilde{C}})$
+which is what we really need.
+\item If the local ring is regular
+i.e. $\mathfrak{m}/\mathfrak{m}^2
+=\dim \mathcal{O}_p$
+then the variety is smooth
+in the sense that it has 
+holomorphic coordinates near $p$.
+If I presented this on Friday I would have to
+prove that.
+\end{enumerate}
+
+\begin{exercise}
+\label{exercise-singular-curve-on-K3}
+Let $C$ be a singular, irreducible complex
+curve on a K3 surface $X$. Prove that
+$(C.C)\geq 0$.
+\end{exercise}
+
+\begin{proof}
+By the genus formula
+we have
+$$
+2p_a(C)-2 = C \cdot (C + K_X).
+$$
+Since $X$ is a K3 surface, the canonical
+divisor is linearly equivalent to zero.
+Hence
+$$
+C^2 = 2p_a(C)-2.
+$$
+Thus it suffices to prove that
+$p_a(C) \geq 1$.
+
+\medskip\noindent
+Let
+$$
+\nu : \widetilde C \longrightarrow C
+$$
+be the normalization of $C$. We recall its
+construction. Choose an affine open covering
+$U_i = \Spec(A_i)$ of $C$. Since $C$ is
+irreducible, all the rings $A_i$ have the
+same function field $K(C)$. Let
+$\overline A_i$ be the integral closure of
+$A_i$ in $K(C)$. Then the affine schemes
+$$
+\Spec(\overline A_i)
+$$
+glue to a normal curve $\widetilde C$,
+and the inclusions
+$$
+A_i \subset \overline A_i
+$$
+glue to a finite birational morphism
+$\nu : \widetilde C \to C$
+(finiteness follows
+from Noether normalization lemma,
+i.e. Commutative Algebra
+Theorem \ref{theorem-noether-normalization},
+and birationality is basically by
+construction of the normalization
+as the spectrum of the integral
+closure, i.e. the fraction fields
+are the same and the induced
+map on the original ring is the identity;
+check the definition of birational
+morphism, Commutative Algebra Definition
+\ref{commutative-algebra-definition-birational-morphism}.).
+
+We have an exact sequence of sheaves
+$$
+0 \to \mathcal O_C
+  \to \nu_*\mathcal O_{\widetilde C}
+  \to \delta \to 0,
+$$
+where
+$$
+\delta =
+\nu_*\mathcal O_{\widetilde C}/\mathcal O_C.
+$$
+Taking Euler characteristics gives
+$$
+\chi(\mathcal O_C)
+=
+\chi(\nu_*\mathcal O_{\widetilde C})
+-
+\chi(\delta).
+$$
+Since $\nu$ is finite (this is
+a black box for now)
+$$
+\chi(\nu_*\mathcal O_{\widetilde C})
+=
+\chi(\mathcal O_{\widetilde C}).
+$$
+
+Now observe that, at smooth
+points $p \in C$, the stalks
+$\mathcal{O}_{C,p}$ are
+UFDs by Complex Analysis
+Lemma
+\ref{complex-analysis-lemma-stalk-is-ufd}
+--- due to Weierstrass Preparation
+Theorem, in turn due to the Gauss lemma.
+By Commutative Algebra Lemma
+\ref{commutative-algebra-lemma-ufd-integrally-closed},
+UFDs are integrally closed,
+which means that the stalks
+of $\tilde{C}$ and $C$ are isomorphic.
+Thus, the stalks of $\delta$
+can only be non trivial at non smooth
+points of $C$. There can only
+be finitely many non smooth points
+in a projective variety,
+and therefore $\delta$
+is a skyscraper sheaf with finite support.
+Thus
+$$
+\chi(\delta)=h^0(\delta).
+$$
+Therefore
+$$
+\begin{aligned}
+p_a(C)
+&= 1-\chi(\mathcal O_C) \\
+&= 1-\chi(\mathcal O_{\widetilde C})
+   + h^0(\delta) \\
+&= g(\widetilde C)+h^0(\delta),
+\end{aligned}
+$$
+where in the last equality
+we we can replace
+$1-\chi(\mathcal{O}_{\widetilde{C}})$
+with the geometric genus
+$g(\widetilde{C}):=
+h^0(\omega_{\widetilde{C}})$
+by applying Serre duality,
+thereby using that $\widetilde{C}$
+is smooth since it is normal.
+To prove that normal implies
+smooth we use
+Commutative Algebra
+Proposition
+\ref{commutative-algebra-proposition-one-dimensional-dvr}
+to get from integrally closed
+that the local ring is regular.
+Then we need Hartshorne
+to get differential-geometric smoothness
+from regular local ring.
+
+Now $g(\widetilde C)\geq 0$. Since $C$ is
+singular, the normalization is not an
+isomorphism, so $\delta\neq 0$. Since
+$\delta$ is a nonzero skyscraper sheaf, it
+has a nonzero global section. Hence
+$$
+h^0(\delta)\geq 1.
+$$
+Thus
+$$
+p_a(C)=g(\widetilde C)+h^0(\delta)\geq 1.
+$$
+Consequently
+$$
+C^2=2p_a(C)-2\geq 0.
+$$
+\end{proof}
+
+
+
 \section{Period domain}
 
 \begin{definition}
