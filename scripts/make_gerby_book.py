@@ -67,9 +67,9 @@ def normalize_title(title):
     return re.sub(r"[^0-9a-z]+", " ", title).strip()
 
 
-def ordered_files(files, order_path):
+def order_entries(order_path):
     if not order_path:
-        return files
+        return []
 
     path = Path(order_path)
     if not path.exists():
@@ -77,12 +77,29 @@ def ordered_files(files, order_path):
             f"warning: order file not found: {order_path}",
             file=sys.stderr,
         )
+        return []
+
+    entries = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        match = re.fullmatch(r"PART\s+[IVXLCDM]+\s*:\s*(.+)", stripped)
+        if match:
+            entries.append(("part", match.group(1)))
+        else:
+            entries.append(("chapter", stripped))
+    return entries
+
+
+def ordered_files(files, order_path):
+    if not order_path:
         return files
 
     entries = [
-        line.strip()
-        for line in path.read_text(encoding="utf-8").splitlines()
-        if line.strip() and not line.lstrip().startswith("#")
+        entry
+        for kind, entry in order_entries(order_path)
+        if kind == "chapter"
     ]
     by_title = {}
     for filename in files:
@@ -269,14 +286,28 @@ def main():
     parser.add_argument("files", nargs="*", default=DEFAULT_FILES)
     args = parser.parse_args()
     files = ordered_files(args.files, args.order)
+    entries = order_entries(args.order)
 
     print(preamble(), end="")
     print("\\begin{document}\n")
     print("\\tableofcontents\n")
-    for filename in files:
-        print(f"% --- Begin {filename} ---")
-        print(body_for(filename), end="")
-        print(f"% --- End {filename} ---\n")
+    filenames = iter(files)
+    next_filename = next(filenames, None)
+    for kind, entry in entries:
+        if kind == "part":
+            print(f"\\part{{{entry}}}\n")
+            continue
+        if not next_filename:
+            continue
+        print(f"% --- Begin {next_filename} ---")
+        print(body_for(next_filename), end="")
+        print(f"% --- End {next_filename} ---\n")
+        next_filename = next(filenames, None)
+    while next_filename:
+        print(f"% --- Begin {next_filename} ---")
+        print(body_for(next_filename), end="")
+        print(f"% --- End {next_filename} ---\n")
+        next_filename = next(filenames, None)
     print("\\bibliographystyle{amsalpha}")
     print("\\bibliography{my}")
     print("\\end{document}")
