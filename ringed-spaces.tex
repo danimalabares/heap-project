@@ -1,0 +1,547 @@
+\input{preamble}
+
+\begin{document}
+
+\title{Ringed Spaces}
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\noindent
+So far
+this chapter is completely AI-generated.
+
+\tableofcontents
+
+\section{Motivation}
+\label{section-motivation}
+
+\medskip\noindent
+Many geometric spaces
+carry a sheaf of functions.
+This records not only the
+topology of the space,
+but also the local algebra
+of functions on it.
+
+\medskip\noindent
+The basic examples are
+smooth manifolds with
+smooth functions,
+complex manifolds with
+holomorphic functions,
+affine varieties with
+regular functions,
+and schemes with their
+structure sheaf.
+
+\section{Presheaves}
+\label{section-presheaves}
+
+\begin{definition}
+\label{definition-presheaf}
+Let $X$ be a topological space.
+A presheaf of sets $\mathcal F$
+on $X$ assigns to each open
+$U \subset X$ a set
+$\mathcal F(U)$,
+and to each inclusion
+$V \subset U$
+a restriction map
+$$
+\rho_{UV}:\mathcal F(U)\to\mathcal F(V).
+$$
+These maps satisfy
+$$
+\rho_{UU}=\mathrm{id}
+$$
+and for $W \subset V \subset U$,
+$$
+\rho_{UW}=\rho_{VW}\circ\rho_{UV}.
+$$
+\end{definition}
+
+\begin{definition}
+\label{definition-presheaf-abelian}
+A presheaf of abelian groups,
+rings, or modules is defined
+in the same way,
+with each $\mathcal F(U)$
+an abelian group, ring,
+or module, and each
+restriction map respecting
+the structure.
+\end{definition}
+
+\begin{remark}
+\label{remark-restrictions}
+The maps $\rho_{UV}$ are
+called restriction maps.
+If $s \in \mathcal F(U)$,
+we often write $s|_V$
+for $\rho_{UV}(s)$.
+\end{remark}
+
+\section{Sheaves}
+\label{section-sheaves}
+
+\begin{definition}
+\label{definition-sheaf}
+A presheaf $\mathcal F$
+on $X$ is a sheaf if for every
+open cover $U=\bigcup U_i$:
+
+if $s,t \in \mathcal F(U)$
+and $s|_{U_i}=t|_{U_i}$ for all
+$i$, then $s=t$.
+
+if $s_i \in \mathcal F(U_i)$
+agree on overlaps
+$U_i \cap U_j$,
+then there exists a unique
+$s \in \mathcal F(U)$
+with $s|_{U_i}=s_i$.
+\end{definition}
+
+\begin{remark}
+\label{remark-sheaf-intuition}
+A sheaf is a presheaf whose
+sections are determined locally
+and can be glued from
+compatible local data.
+\end{remark}
+
+\begin{example}
+\label{example-sheaves}
+The sheaves of continuous,
+smooth, holomorphic, and
+regular functions are
+basic examples.
+\end{example}
+
+\section{Stalks and germs}
+\label{section-stalks}
+
+\begin{definition}
+\label{definition-stalk}
+Let $\mathcal F$ be a sheaf on
+$X$ and let $p \in X$.
+The stalk $\mathcal F_p$
+is the set of germs of sections
+near $p$.
+An element is represented by
+a pair $(U,s)$ with
+$p \in U$ and $s \in \mathcal F(U)$.
+We declare
+$(U,s)\sim(V,t)$ if there is a
+neighborhood $W \subset U \cap V$
+of $p$ such that
+$s|_W=t|_W$.
+\end{definition}
+
+\begin{theorem}
+\label{theorem-stalk-iso}
+Let $\varphi:\mathcal F\to\mathcal G$
+be a morphism of sheaves.
+Then $\varphi$ is an isomorphism
+if and only if
+each induced map
+$\mathcal F_p\to\mathcal G_p$
+is an isomorphism.
+\end{theorem}
+
+\begin{proof}
+If $\varphi$ is an isomorphism,
+then each stalk map is an
+isomorphism by functoriality.
+
+Conversely, assume all stalk maps
+are isomorphisms.
+To prove injectivity, let
+$s \in \mathcal F(U)$ satisfy
+$\varphi(s)=0$.
+For each $p \in U$,
+the germ of $s$ at $p$
+maps to $0$ in $\mathcal G_p$,
+so the germ of $s$ is $0$
+in $\mathcal F_p$.
+Hence there is a neighborhood
+where $s$ vanishes.
+By the local identity axiom,
+$s=0$.
+
+For surjectivity, let
+$t \in \mathcal G(U)$.
+For each $p \in U$,
+choose a germ $s_p \in \mathcal F_p$
+mapping to the germ of $t$.
+Represent $s_p$ on some
+neighborhood $U_p$.
+The family of local lifts
+agrees on overlaps because the
+stalk maps are injective.
+By gluing, these local lifts
+come from a section of
+$\mathcal F(U)$ mapping to $t$.
+\end{proof}
+
+\section{Kernels and cokernels}
+\label{section-kernels-cokernels}
+
+\begin{definition}
+\label{definition-kernel-image-cokernel}
+Let $\varphi:\mathcal F\to\mathcal G$
+be a morphism of sheaves of
+abelian groups or modules.
+The kernel is defined on opens by
+$$
+(\ker\varphi)(U)=\ker(\mathcal F(U)\to
+\mathcal G(U)).
+$$
+The image and cokernel are
+defined as presheaves and then
+sheafified when needed.
+\end{definition}
+
+\begin{remark}
+\label{remark-image-cokernel}
+Kernels are computed directly
+on open sets.
+Images and cokernels usually
+must be sheafified.
+A quotient of sheaves of rings
+is usually not a sheaf of rings;
+it is naturally a sheaf of
+abelian groups or modules.
+\end{remark}
+
+\section{Exact sequences}
+\label{section-exact-sequences}
+
+\begin{definition}
+\label{definition-exact-stalkwise}
+A sequence
+$$
+0\to \mathcal F'\to \mathcal F
+\to \mathcal F''\to 0
+$$
+of sheaves of abelian groups or
+modules is exact if the induced
+sequence on every stalk is exact.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-exact-stalks}
+Exactness of sheaves can be checked
+on stalks.
+\end{proposition}
+
+\begin{proof}
+For sheaves of abelian groups or
+modules, exactness on opens
+implies exactness on stalks
+by passing to germs.
+Conversely, if a morphism has
+zero stalk at every point,
+then the section vanishes on a
+cover by neighborhoods, hence
+vanishes globally by the
+sheaf axiom.
+This gives exactness at each
+term.
+\end{proof}
+
+\begin{remark}
+\label{remark-exact-sequences-use}
+Exact sequences of sheaves are
+the basic tool for comparing
+local and global invariants.
+\end{remark}
+
+\section{Pushforward sheaves}
+\label{section-pushforward}
+
+\begin{definition}
+\label{definition-pushforward}
+Let $f:X\to Y$ be continuous and
+let $\mathcal F$ be a sheaf on
+$X$.
+The pushforward sheaf is
+defined by
+$$
+(f_*\mathcal F)(U)
+=
+\mathcal F(f^{-1}(U)).
+$$
+\end{definition}
+
+\begin{remark}
+\label{remark-pushforward-sheaf}
+This is a sheaf on $Y$.
+It lets us view a sheaf upstairs
+downstairs by assigning to each
+open set in $Y$ the sections
+over its inverse image.
+\end{remark}
+
+\section{Pullback sheaves}
+\label{section-pullback}
+
+\begin{definition}
+\label{definition-pullback}
+Let $f:X\to Y$ be continuous and
+let $\mathcal G$ be a sheaf on
+$Y$.
+Informally, the inverse image
+sheaf $f^{-1}\mathcal G$
+is the sheafification of the
+presheaf
+$$
+U\mapsto
+\varinjlim_{f(U)\subset V}
+\mathcal G(V).
+$$
+For sheaves of modules one
+usually sets
+$$
+f^*\mathcal G
+=
+f^{-1}\mathcal G
+\otimes_{f^{-1}\mathcal O_Y}
+\mathcal O_X.
+$$
+\end{definition}
+
+\section{Rings and modules}
+\label{section-rings-modules}
+
+\begin{definition}
+\label{definition-sheaf-ring}
+A sheaf of rings is a sheaf
+whose sections over each open
+set form a ring.
+An $\mathcal O_X$-module is a
+sheaf of abelian groups
+with an action of the sheaf of
+rings $\mathcal O_X$.
+\end{definition}
+
+\begin{remark}
+\label{remark-module-example}
+If $(X,\mathcal O_X)$ is a
+ringed space, then an
+$\mathcal O_X$-module is a sheaf
+locally acted on by functions.
+\end{remark}
+
+\section{Ringed spaces}
+\label{section-ringed-spaces}
+
+\begin{definition}
+\label{definition-ringed-space}
+A ringed space is a pair
+$$
+(X,\mathcal O_X)
+$$
+where $X$ is a topological space
+and $\mathcal O_X$ is a sheaf
+of rings on $X$.
+\end{definition}
+
+\begin{example}
+\label{example-ringed-spaces}
+Smooth manifolds, complex
+manifolds, affine varieties,
+and schemes are ringed spaces.
+\end{example}
+
+\section{Locally ringed spaces}
+\label{section-locally-ringed}
+
+\begin{definition}
+\label{definition-locally-ringed}
+A ringed space $(X,\mathcal O_X)$
+is locally ringed if each stalk
+$\mathcal O_{X,p}$ is a local
+ring.
+\end{definition}
+
+\begin{remark}
+\label{remark-local-natural}
+This is geometrically natural:
+the maximal ideal in
+$\mathcal O_{X,p}$ consists of
+functions vanishing at $p$.
+\end{remark}
+
+\begin{definition}
+\label{definition-lrs-morphism}
+A morphism of locally ringed
+spaces is a morphism of ringed
+spaces whose induced maps on
+stalks are local homomorphisms.
+\end{definition}
+
+\section{Gluing sheaves}
+\label{section-gluing-sheaves}
+
+\begin{lemma}
+\label{lemma-gluing-sheaves}
+Let $X=\bigcup U_i$ be an open
+cover.
+Suppose $\mathcal F_i$ are
+sheaves on $U_i$ and the
+restrictions to $U_i\cap U_j$
+are identified by isomorphisms
+satisfying the cocycle
+condition.
+Then there is a unique sheaf
+$\mathcal F$ on $X$ whose
+restriction to $U_i$ is
+$\mathcal F_i$.
+\end{lemma}
+
+\begin{proof}
+Define $\mathcal F(U)$ to be
+families of sections on the
+pieces $U\cap U_i$
+which agree on overlaps.
+The sheaf axioms follow from
+those of the $\mathcal F_i$.
+Uniqueness is built into the
+construction.
+\end{proof}
+
+\section{Gluing ringed spaces}
+\label{section-gluing-ringed-spaces}
+
+\medskip\noindent
+Ringed spaces can be glued by
+gluing both the underlying spaces
+and the structure sheaves.
+This is one of the basic ways to
+build global objects from local
+charts.
+
+\section{Affine schemes}
+\label{section-affine-schemes}
+
+\medskip\noindent
+Very briefly, $\Spec A$ carries a
+structure sheaf.
+For a basic open set $D(f)$,
+$$
+\mathcal O_{\Spec A}(D(f))=A_f.
+$$
+
+\section{Complex spaces}
+\label{section-complex-spaces}
+
+\medskip\noindent
+Complex spaces are locally ringed
+spaces locally modeled on
+quotients of sheaves of
+holomorphic functions.
+We do not develop complex
+analytic geometry here.
+
+\section{Skyscraper sheaves}
+\label{section-skyscraper-sheaves}
+
+\begin{definition}
+\label{definition-skyscraper}
+Let $p\in X$ and let $A$ be an
+abelian group.
+The skyscraper sheaf at $p$
+with value $A$ is the sheaf
+whose sections on an open set
+$U$ are $A$ if $p\in U$ and $0$
+otherwise.
+For finitely many points one
+takes the direct sum of the
+corresponding skyscraper sheaves.
+\end{definition}
+
+\begin{theorem}
+\label{theorem-skyscraper-cohomology}
+In the elementary cases needed
+later, a skyscraper sheaf
+supported on finitely many
+points has no higher
+cohomology.
+\end{theorem}
+
+\begin{proof}
+Such a sheaf is a finite direct
+sum of sheaves supported on
+points, and each of these is
+acyclic on the usual spaces
+that will occur later, because
+its sections are already
+concentrated on a finite closed
+set.
+\end{proof}
+
+\section{Cohomology and Euler characteristic}
+\label{section-cohomology-euler}
+
+\medskip\noindent
+At a basic level, the
+Euler characteristic of a sheaf
+$\mathcal F$ is
+$$
+\chi(\mathcal F)
+=
+\sum_i (-1)^i h^i(X,\mathcal F).
+$$
+
+\begin{proposition}
+\label{proposition-euler-additive}
+Short exact sequences of sheaves
+give long exact sequences in
+cohomology.
+Hence the Euler characteristic
+is additive on short exact
+sequences.
+\end{proposition}
+
+\begin{proof}
+The long exact sequence in
+cohomology is the standard
+derived-functor statement.
+Taking alternating sums of
+dimensions in a long exact
+sequence gives additivity of
+Euler characteristic.
+\end{proof}
+
+\section{Finite maps}
+\label{section-finite-maps}
+
+\begin{theorem}
+\label{theorem-finite-pushforward}
+If $f:X\to Y$ is finite and
+$\mathcal F$ is coherent on $X$,
+then
+$$
+H^i(Y,f_*\mathcal F)
+\cong
+H^i(X,\mathcal F).
+$$
+\end{theorem}
+
+\begin{proof}
+Finite maps are affine.
+Affine maps have no higher
+direct images for
+quasi-coherent sheaves.
+The Leray spectral sequence
+then gives the claimed
+identification.
+\end{proof}
+
+\input{chapters}
+\bibliography{my}
+\bibliographystyle{amsalpha}
+\end{document}
