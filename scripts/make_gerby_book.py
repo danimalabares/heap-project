@@ -19,6 +19,7 @@ KNOWN_CHAPTERS = {
     "infty-categories",
     "complex-analysis",
     "complex-geometry",
+    "ringed-spaces",
     "symplectic-geometry",
     "lie-algebras",
     "representation-theory",

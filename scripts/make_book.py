@@ -9,6 +9,7 @@ FILES = [
     "differential-geometry.tex",
     "algebraic-geometry.tex",
     "complex-geometry.tex",
+    "ringed-spaces.tex",
     "physics.tex",
 ]
 
