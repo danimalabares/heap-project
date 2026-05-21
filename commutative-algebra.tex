@@ -321,6 +321,26 @@ A PID is integrally closed.
 \begin{proof}
 ?
 \end{proof}
+
+\section{Principal ideal domains}
+\label{section-pid}
+
+\begin{lemma}
+\label{lemma-pid-free-module}
+Let $R$ be a PID, $M$ a a free
+$R$-module of finite rank $n$ and $N$ a
+submodule of $M$. Then $N$ is a free module
+of rank $m\leq n$ and there exists a basis
+$y_1,y_2,\ldots,y_n$ of $M$ such that
+$a_1y_1,a_2y_2,\ldots,a_my_m$ is a basis of
+$N$, where $a_1,a_2,\ldots,a_m$ are nonzero
+elements of $R$ with the divisibility
+relations
+$$
+a_1|a_2|\ldots|a_m.
+$$
+\end{lemma}
+
 \section{Unique factorization domains and
 the
 Gauss lemma}
@@ -1036,6 +1056,388 @@ $$
 (a+b)x=ax+by,\qquad (ab)x=a(bx).
 $$
 \end{enumerate}
+
+\section{Invariant factors theorem}
+\label{section-invariant-factors-theorem}
+ 
+\begin{exercise}
+\label{exercise-invariant-factors-theorem}
+Let $R$ be a principal ideal ring. Prove that
+any finitely-generated $R$-module is a direct
+sum of cyclic $R$-modules. Use this result to
+deduce the Jordan normal form theorem, and to
+classify the finitely-generated abelian
+groups.
+\end{exercise}
+
+I follow \cite[Section 12.1]{dummit} 
+to prove the
+invariant factors theorem in
+the following form:
+
+\begin{theorem}[Invariant factors]
+\label{theorem-invariant-factors}
+Let $R$ be a principal ideal domain and
+let $M$ be a finitely generated $R$-module.
+Then
+$$
+M\cong R^r\oplus R/(a_1)\oplus R/(a_2)
+\oplus \ldots\oplus R/(a_m)
+$$
+for some integer $r\geq 0$ and nonzero
+elements $a_1,a_2,\ldots,a_m$ of $R$ which
+are not units in $R$ and which satisfy the
+divisibility relation
+$$
+a_1|a_2|\ldots|a_m.
+$$
+\end{theorem}
+
+\begin{proof}
+This strongly relies on 
+Lemma \ref{lemma-pid-free-module}.
+
+Choose a basis $\{x_i\}_{i=1}^n$ of $M$.
+Consider the free module $R^n$ along with a
+basis $\{b_i\}_{i=1}^n$. The homomorphism
+$\pi:R^n\to M$, $b_i\mapsto x_i$ is
+surjective, so we get
+$R^n/\ker \pi\cong M$.
+
+Apply the theorem for the module $R^n$ and
+its submodule $\ker \pi$. We get a basis
+$\{y_i\}_{i=1}^n$ of $R^n$ such that
+$\{a_iy_i\}_{i=1}^m$ is a basis of
+$\ker \pi$ for $a_i\in R$ for
+$i=1,\ldots,m$ such that
+$a_1|\ldots|a_m$. Then
+$$
+M\cong R^n/\ker \pi
+=
+(Ry_1\oplus \ldots\oplus Ry_n)/
+(Ra_1y_1\oplus \ldots\oplus Ra_my_m).
+$$
+It remains to show that the quotient on the
+right-hand side of last equation is in fact
+the desired decomposition of $M$.
+
+Consider the map
+$$
+Ry_1\oplus \ldots\oplus Ry_n
+\longrightarrow
+R/(a_1)\oplus \ldots\oplus R/(a_m)
+\oplus R^{n-m}
+$$
+given by
+$$
+(\alpha_1y_1,\ldots,\alpha_ny_n)
+\longmapsto
+(\alpha_1+(a_1),\ldots,\alpha_m+(a_m),
+\alpha_{m+1},\ldots,a_n).
+$$
+The kernel of this map is the set of
+elements which $\alpha_i\in(a_i)$ for all
+$i=1,\ldots,m$. Thus we can write the
+kernel as
+$$
+Ra_1y_1\oplus \ldots\oplus Ra_my_m.
+$$
+\end{proof}
+
+\noindent
+Looks like I didn't use the divisibility
+condition $a_1|\ldots|a_m$.
+
+\medskip\noindent
+Now let's deduce the Jordan normal form
+theorem using again \cite{dummit}. 
+
+\begin{definition}
+\label{definition-jordan-form}
+A $k\times k$ matrix with $\lambda$
+along the main diagonal
+and 1 along the first
+superdiagonal, that is,
+$$
+\begin{pmatrix} 
+\lambda & 1\\
+& \lambda & \ddots\\
+& & \ddots\\
+& & & \lambda & 1\\
+& & &   & \lambda
+\end{pmatrix} 
+$$
+
+
+A matrix is said to be in {\it Jordan
+canonical form} if it is a block
+diagonal matrix with Jordan blocks 
+along the diagonal.
+\end{definition}
+
+\begin{theorem}[Jordan canonical form]
+\label{theorem-jordan-form}
+\begin{reference}
+\cite[Theorem 22, Section 12.3]{dummit}
+\end{reference}
+Let $A$ be an $n \times n$
+matrix over the field $F$
+and assume $F$ contains
+all the eigenvalues of $A$.
+\begin{enumerate}
+\item The matrix $A$ is similar
+to a matrix in Jordan canonical form,
+i.e. there is an invertibnle $n \times n$
+matrix $P$ over $F$ such that
+$P^{-1}AP$ is a block diagonal matrix
+whose diagonal blocks are the 
+Jordan blocks for the elementary
+divisors of $A$.
+\item The Jordan canonical form
+of $A$ is unique up to permutation
+of the Jordan blocks along the diagonal.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Fix a vector space $V$ over a field $F$
+and a linear transformation $T$. This makes
+$V$ into an $F[x]$-module by substitution of
+the variable $x$ by $T$.
+Note that if $V$ is finite-dimensional
+then there is no free part,
+that is $F[x]$ is not contained
+in $V$ since $F[x]$ is
+infinite-dimensional as a vector space
+over $F$ --- so we only have the
+torsion part in the invariant factor
+decomposition.
+
+The ``invariant factors'' are the elements
+$a_i$, which in our
+present case can be shown to be monic
+polynomials $a_i(x)$ satisfying
+$a_1(x)|\ldots|a_n(x)$. 
+AI-facts: $a_n$ is the minimal polynomial
+of $T$, and $a_1a_2… a_n$ is the
+characteristic polynomial of $T$.
+So the canonical example should be
+$a_i(x)=(x-\lambda)^k$
+where $\lambda$ is an eigenvalue of $T$.
+
+Further, these
+elements are associated to the so-called
+{\it elementary divisors}, which concern
+another similar formulation of the Invariant
+factors theorem. The elementary divisors are
+powers of the irreducible components of the
+$a_i(x)$.
+
+If we assume that the $a_i(x)$ factor into
+linear polynomials, 
+i.e. that the field contains all the
+eigenvalues of $T$,
+the elementary divisors
+can be written as $(x-\lambda)^k$, where
+$\lambda$ is one of the eigenvalues of $T$
+(we consider only one of the eigenvalues at
+this point since we are constructing
+{\it one} of Jordan blocks of $T$).
+
+Using the Invariant factors theorem for
+elementary divisors, we see that $V$ is the
+direct sum of finitely many cyclic modules of
+the form $F[x]/(x-\lambda)^k$. Such quotients
+have basis
+$$
+\bar{x}^{k-1},\bar{x}^{k-2},\ldots,
+\bar{x},1.
+$$
+Now we observe that the polynomials
+$$
+(\bar{x}-\lambda)^{k-1},
+(\bar{x}-\lambda)^{k-2},\ldots,
+\bar{x}-\lambda,1
+$$
+are also a basis. This follows since
+expanding the latter in terms of the
+$\bar{x}_i$ gives a triangular matrix, which
+makes it invertible, so it's a valid change
+of coordinates.
+
+Next we observe that action of multiplication
+by $x$, which is the same as applying $T$,
+maps these basis elements in the quotient as
+follows:
+$$
+1\mapsto 1\bar{x}
+=
+\lambda\cdot 1+\bar{x}-\lambda
+$$
+$$
+(\bar{x}-\lambda)
+\mapsto
+\bar{x}^2-\lambda\bar{x}
+=
+x\lambda\cdot(\bar{x}-\lambda)
++
+(\bar{x}-\lambda)^2
+$$
+$$
+\vdots
+$$
+$$
+(\bar{x}-\lambda)^{k-2}
+\mapsto
+\lambda\cdot(\bar{x}-\lambda)^{k-2}
++
+(\bar{x}-\lambda)^{k-1}
+$$
+$$
+(\bar{x}-\lambda)^{k-1}
+\mapsto
+\lambda\cdot(\bar{x}-\lambda)^{k-1}
++
+(\bar{x}-\lambda)^k
+$$
+(where I'm not sure how to compute the last
+two). The last expression simplifies further
+since $(\bar{x}-\lambda)^k=0$ in the
+quotient, so that multiplication of $x$ by
+the basis element $(\bar{x}-\lambda)^{k-1}$
+is barely multiplication by $\lambda$. In sum,
+we have constructed the {\it Jordan block}
+$$
+J_{\lambda}
+=
+\begin{pmatrix}
+\lambda &1\\
+&\lambda\\
+&&\ddots&1\\
+&&&\lambda\\
+&&&&1\\
+&&&&\lambda
+\end{pmatrix}
+$$
+applying this procedure to the rest of the
+cyclic components of $V$ we obtain the
+matrix representation
+$$
+\begin{pmatrix}
+J_1\\
+&J_2\\
+&&\ddots\\
+&&&J_t
+\end{pmatrix}
+$$
+of $T$.
+\end{proof}
+
+\noindent
+In the context of representation theory,
+$T$ is diagonalizable if and only if
+$$
+V=\bigoplus_\lambda E_\lambda,
+$$
+and every eigenspace $E_\lambda$
+is invariant under the $F[x]$ action
+on $V$ induced by $T$. That is,
+the representation is semisimple
+if and only if $T$ is diagonalizable.
+
+More demanding is that the representation
+be irreducible: this says that
+the invariant factor decomposition is
+$$
+V=\frac{F[x]}{(a_1)}.
+$$
+Here's a more precise AI-generated note:
+
+\begin{example}
+\label{example-irreducible-vs-semisimple-z}
+Let $V$ be a finite-dimensional complex
+vector space and let
+$$
+T:V\to V
+$$
+be a linear map. We regard $V$ as a
+$\mathbb{C}[x]$-module by setting
+(on the generator $x$,
+this is just as above)
+$$
+xv=T(v).
+$$
+Then a submodule is exactly a
+$T$-invariant subspace.
+
+Therefore $V$ is irreducible as a
+$\mathbb{C}[x]$-module if and only if $V$
+has no nonzero proper $T$-invariant
+subspaces. But every linear operator on a
+nonzero finite-dimensional complex vector
+space has an eigenvector. If $\dim V>1$ and
+$$
+Tv=\lambda v,
+$$
+then the line $\mathbb{C}v$ is a nonzero
+proper $T$-invariant subspace. Hence $V$
+cannot be irreducible.
+
+Thus the irreducible finite-dimensional
+$\mathbb{C}[x]$-modules are exactly the
+one-dimensional ones.
+(An irreducible representation over
+a complex vector space is one dimensional!
+Regardless the group!)
+Equivalently, they are
+the modules
+$$
+\mathbb{C}[x]/(x-\lambda).
+$$
+
+This should be compared with semisimplicity.
+For example, if
+$$
+T=
+\begin{pmatrix}
+1&0\\
+0&2
+\end{pmatrix},
+$$
+then $T$ is diagonalizable and
+$$
+V=
+\mathbb{C}e_1\oplus\mathbb{C}e_2.
+$$
+Each summand is irreducible, but $V$ itself
+is not irreducible. It is semisimple.
+
+So irreducible means one simple piece,
+whereas semisimple means a direct sum of
+simple pieces.
+
+For representations of $\mathbb{Z}$ over
+$\mathbb{C}$, the generator acts by an
+invertible operator $T$. Hence the
+irreducible representations are the
+one-dimensional representations where the
+generator acts by some
+$\lambda\in\mathbb{C}^{*}$, and a
+finite-dimensional representation is
+semisimple if and only if $T$ is
+diagonalizable.
+\end{example}
+
+
+\noindent
+Finally, the classification of finitely
+generated abelian groups follows by direct
+application of the Invariant factors theorem
+choosing $R=\mathbb{Z}$, since abelian
+groups are in correspondence with
+$\mathbb{Z}$-modules.
+
+
 
 \section{Algebras}
 \label{section-algebras}
