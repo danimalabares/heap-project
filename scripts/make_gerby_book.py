@@ -67,6 +67,10 @@ def normalize_title(title):
     return re.sub(r"[^0-9a-z]+", " ", title).strip()
 
 
+def part_label(entry):
+    return safe_label(f"part-{normalize_title(entry)}")
+
+
 def order_entries(order_path):
     if not order_path:
         return []
@@ -295,7 +299,8 @@ def main():
     next_filename = next(filenames, None)
     for kind, entry in entries:
         if kind == "part":
-            print(f"\\part{{{entry}}}\n")
+            print(f"\\part{{{entry}}}")
+            print(f"\\label{{{part_label(entry)}}}\n")
             continue
         if not next_filename:
             continue
