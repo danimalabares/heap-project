@@ -3233,17 +3233,29 @@ the geodesic $\gamma:[0,a]\to M$, then
 
 \begin{proof}
 If $\gamma$ is smooth,
-\begin{align*}
-E'(s)&=
-2\int_0^a\left<f_{ts},f_t\right>
-=2\int_0^a\left<f_s,f_{tt}\right>-\left<f_s,
-f_t\right>|_{0}^a
-\end{align*}
-using that
+$$
+E'(s)=
+\left(\int_0^a\left<f_t,t_s\right>\right)_s
+=2\int_0^a\left<f_{ts},f_t\right>.
+$$
+By the Symmetry Lemma,
+$f_{ts}=f_{st}$.
+Now since the connection is metric,
+we can make the $\left<f_{st},f_t\right>$
+term appear by differentiating
+$\left<f_s,f_t\right>$
+with respect to $t$:
 $$
 \left<f_s,f_t\right>_t=\left<f_{st},
-f_t\right>+\left<f_s,f_{tt}\right>
+f_t\right>+\left<f_s,f_{tt}\right>.
 $$
+Substituting we obtain
+$$
+\frac{1}{2}E'(s)
+=\left<f_s,f_t\right>|_0^a
+-\int_0^a\left<f_s,f_{tt}\right>.
+$$
+
 If $\gamma$ is not smooth, the integral of
 $\left<f_s,f_t\right>_t$ must be
 done part by part, obtaining the sum in Eq.
@@ -3350,34 +3362,112 @@ E''(0)=\int_0^a |V'|^2-\int_0^a \left<R_{\gamma'}V,V\right>+
 \end{theorem}
 
 \begin{proof}
+Differentiating the First Variation
+Formula we obtain
 \begin{align*}
-E''(s)&
-=2\left(\int_0^a\left<f_s,f_{tt}\right>-
-\left<f_s,f_t\right>|_{0}^a\right)_s
-&=\int_0^a\left<f_{ss},f_{tt}\right>+
-\int_0^a\left<f_s,f_{t
-ts}\right>
--\left<f_{ss},f_t\right>|_{0}^a-\left<f_s,
-f_{ts}\right>|_{0}^a
+\frac{1}{2}E''(s)&
+=\left(
+\left<f_s,f_t\right>|_{0}^a
+-\int_0^a\left<f_s,f_{tt}\right>\right)_s\\
+&=(\left<f_s,f_t\right>|_{0}^a)_s
+-\int_0^a\left<f_{ss},f_{tt}\right>
+-\int_0^a\left<f_s,f_{tts}\right>
 \end{align*}
 Now substitute
+using the Symmetry Lemma for Curvature
+\ref{lemma-symmetry-lemma-curvature}:
 $$
-R_{\gamma'}V=R(V,\gamma')\gamma'=f_{t
+R(\gamma',V)\gamma'
+=f_{t
 ts}-f_{tst}
 $$
-and
+to get
 $$
-\left<f_s,f_{
-ts}\right>|_{0}^a=\int_0^a\left<f_s,f_{
-ts}\right>_t
-=\int_0^a\left<f_{st},f_{ts}\right>+
-\int_0^a\left<f_s,f_{tst}\right>
+\frac{1}{2}E''(s)=
+(\left<f_s,f_t\right>|_{0}^a)_s
+-\int_0^a \left<f_{ss},f_{tt}\right>
+-\int_0^a\left<f_s,R(s,t)f_t\right>
+-\int_0^a\left<f_s,f_{t s t}\right>
 $$
-If the variational field is not
-differentiable we must be careful when
-applying
-the fundamental theorem of calculus.
+
+Now use that the connection is metric
+to make the term $\left<f_s,f_{tst}\right>$ 
+appear by differentiating 
+$\left<f_s,f_{t s}\right>$
+with respect to $t$:
+$$
+\left<f_s,f_{ts}\right>_t
+=\left<f_{st},f_{ts}\right>
++ \left<f_s,f_{t s t}\right>.
+$$
+We obtain
+$$
+\frac{1}{2}E''(s)=
+(\left<f_s,f_t\right>|_{0}^a)_s
+-\int_0^a \left<f_{ss},f_{tt}\right>
+-\int_0^a\left<f_s,R(s,t)f_t\right>
++\int_0^a\left<f_{s t},f_{t s}\right>
+-\left<f_s,f_{t s}\right>|_0^a.
+$$
+Now note that $\left<f_s,f_{t s}\right>|_0^a$
+cancels out with the very first term,
+which is
+$$
+(\left<f_s,f_t\right>|_0^a)_s
+=\left<f_{s s},f_t\right>|_0^a
++\left<f_s,f_{t s}\right>|_0^a,
+$$
+giving
+$$
+\frac{1}{2}E''(s)=
+\left<f_{ss},f_t\right>|_{0}^a
+-\int_0^a \left<f_{ss},f_{tt}\right>
+-\int_0^a\left<f_s,R(s,t)f_t\right>
++\int_0^a\left<f_{s t},f_{t s}\right>.
+$$
+Since $\gamma$ is a geodesic the
+$\left<f_{ss},f_{tt}\right>$ vanishes
+and we obtain the desired formula
+in case $\gamma$
+is smooth.
+
+As before, for piecewise smooth $\gamma$
+we obtain a sum at the integration
+by parts (i.e. using metric connection)
+step.
 \end{proof}
+
+\begin{remark}
+\label{remark-second-variation-non-geodesic}
+If $\gamma$ is not a geodesic we may
+use again that the connection
+is metric to deal with the
+$\left<f_{ss},f_{tt}\right>$ term:
+$$
+\left<f_{ss},f_t\right>_t
+=\left<f_{ss t},f_{t}\right>
++\left<f_{ss},f_{tt}\right>
+$$
+gives
+$$
+\begin{aligned}
+\frac{1}{2}E''(s)&=
+\left<f_{ss},f_t\right>|_{0}^a
+-\left<f_{ss},f_t\right>|_0^a
++\int_0^a \left<f_{ss t},f_t\right>\\
+&-\int_0^a\left<f_s,R(s,t)f_t\right>
++\int_0^a\left<f_{s t},f_{t s}\right>.
+\end{aligned}
+$$
+So, a second-variation-like formula 
+for non geodesic curves is
+$$
+\frac{1}{2}E''(s)=
+\int_0^a \left<f_{ss t},f_t\right>
+-\int_0^a\left<f_s,R(s,t)f_t\right>
++\int_0^a\left<f_{s t},f_{t s}\right>.
+$$
+\end{remark}
 
 \begin{definition}
 \label{definition-index-form}
@@ -3417,6 +3507,88 @@ W,V\right>\\
 \end{aligned}
 \end{equation}
 \end{remark}
+
+\begin{exercise}
+\label{exercise-two-submanifolds}
+\cite{doc} Chapter IX, Exercise 5. Sejam
+$N_1$ e $N_2$ duas subvariedades
+ fechadas e disjuntas de uma variedade
+ Riemanniana compacta.
+\begin{enumerate}
+\item Mostre que a distância entre $N_1$ e
+$N_2$ é realizada por uma geodésica
+	$\gamma$ perpendicular a ambas $N_1$ e
+	$N_2$.
+\item Mostre que, para qualquer variação
+ortogonal $h(t,s)$ de $\gamma$, com
+$h(0,s) \in N_1$ e $h(\ell,s) \in N_2$,
+tem-se para a fórmula da segunda
+variação a seguinte expressão
+$$
+\frac{1}{2}E''(0)=I_{\ell}(V,V)+
+\left<V(\ell),A_{\gamma'(\ell)}^{(2)}V(\ell)
+\right>
+-\left<V(0),A^{(1)}_{\gamma'(0)}(V(0))\right>
+$$
+\end{enumerate}
+\end{exercise}
+
+\begin{proof}
+\begin{enumerate}
+\item Since both submanifolds are compact,
+there exists a minimizing geodesic
+$\gamma$ joining them. Then we can apply the
+first variation formula. Consider a
+variation that fixes $\gamma$ everywhere but
+in a small neighbourhood of one of
+the contact points. We realise by Eq.
+\ref{equation-first-variation-formula}
+that it must be orthogonal. A similar
+procedure proves the other endpoint also
+arrives orthogonally.
+
+\item By the previous item, we
+know that $\gamma'$ is orthogonal to the
+curves $h(0,s)$ and $h(\ell,s)$. Then
+we can differentiate using the formula for
+normal sections at the endpoints of
+$\gamma$:
+$$
+\tilde{\nabla}_{V}\gamma'=A^{(i)}_{\gamma'}V+
+\nabla^{\perp,i}_V\gamma'
+$$
+When computing
+$V\left<\gamma',\gamma'\right>$ we obtain
+$\left<\nabla^{\perp,i}_V\gamma',
+\gamma'\right>=0$
+since the shape operator is
+tangent to the submanifolds. If $M_1$ and
+$M_2$ are hypersurfaces we conclude
+that the normal vector
+$\nabla^{\perp,i}_V\gamma'$ vanishes since it
+must be a
+multiple of $\gamma'$. Otherwise I'm not sure
+why this term would vanish.
+
+Now, other than the Index form, in the Second
+Variation Formula
+\ref{equation-second-variation-formula} we
+have
+$\left<\nabla_{\partial_s}V,\gamma'\right>$.
+Notice that
+$$
+\left<f_s,f_t\right>_s=\left<f_{ss},
+f_t\right>+\left<f_s,f_{st}\right>
+$$
+The left-hand-side will vanish because the
+variation is orthogonal, giving the
+equality we want (modulo a sign) since
+$f_{st}$ is precisely
+$\tilde{\nabla}_V\gamma'$ by the Symmetry
+Lemma.
+\end{enumerate}
+\end{proof}
+
 
 \section{Bonnet-Myers Theorem}
 \label{section-Bonnet-Myers-theorem}
@@ -5369,87 +5541,6 @@ algum passo na prova.
 \item 2+3 dão que $I_{\mathcal{V}^-}>0$.
 \item Logo $I>0$.
 \end{enumerate}
-\end{enumerate}
-\end{proof}
-
-\begin{exercise}
-\label{exercise-two-submanifolds}
-\cite{doc} Chapter IX, Exercise 5. Sejam
-$N_1$ e $N_2$ duas subvariedades
- fechadas e disjuntas de uma variedade
- Riemanniana compacta.
-\begin{enumerate}
-\item Mostre que a distância entre $N_1$ e
-$N_2$ é realizada por uma geodésica
-	$\gamma$ perpendicular a ambas $N_1$ e
-	$N_2$.
-\item Mostre que, para qualquer variação
-ortogonal $h(t,s)$ de $\gamma$, com
-$h(0,s) \in N_1$ e $h(\ell,s) \in N_2$,
-tem-se para a fórmula da segunda
-variação a seguinte expressão
-$$
-\frac{1}{2}E''(0)=I_{\ell}(V,V)+
-\left<V(\ell),A_{\gamma'(\ell)}^{(2)}V(\ell)
-\right>
--\left<V(0),A^{(1)}_{\gamma'(0)}(V(0))\right>
-$$
-\end{enumerate}
-\end{exercise}
-
-\begin{proof}
-\begin{enumerate}
-\item Since both submanifolds are compact,
-there exists a minimizing geodesic
-$\gamma$ joining them. Then we can apply the
-first variation formula. Consider a
-variation that fixes $\gamma$ everywhere but
-in a small neighbourhood of one of
-the contact points. We realise by Eq.
-\ref{equation-first-variation-formula}
-that it must be orthogonal. A similar
-procedure proves the other endpoint also
-arrives orthogonally.
-
-\item By the previous item, we
-know that $\gamma'$ is orthogonal to the
-curves $h(0,s)$ and $h(\ell,s)$. Then
-we can differentiate using the formula for
-normal sections at the endpoints of
-$\gamma$:
-$$
-\tilde{\nabla}_{V}\gamma'=A^{(i)}_{\gamma'}V+
-\nabla^{\perp,i}_V\gamma'
-$$
-When computing
-$V\left<\gamma',\gamma'\right>$ we obtain
-$\left<\nabla^{\perp,i}_V\gamma',
-\gamma'\right>=0$
-since the shape operator is
-tangent to the submanifolds. If $M_1$ and
-$M_2$ are hypersurfaces we conclude
-that the normal vector
-$\nabla^{\perp,i}_V\gamma'$ vanishes since it
-must be a
-multiple of $\gamma'$. Otherwise I'm not sure
-why this term would vanish.
-
-Now, other than the Index form, in the Second
-Variation Formula
-\ref{equation-second-variation-formula} we
-have
-$\left<\nabla_{\partial_s}V,\gamma'\right>$.
-Notice that
-$$
-\left<f_s,f_t\right>_s=\left<f_{ss},
-f_t\right>+\left<f_s,f_{st}\right>
-$$
-The left-hand-side will vanish because the
-variation is orthogonal, giving the
-equality we want (modulo a sign) since
-$f_{st}$ is precisely
-$\tilde{\nabla}_V\gamma'$ by the Symmetry
-Lemma.
 \end{enumerate}
 \end{proof}
 
