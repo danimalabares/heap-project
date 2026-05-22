@@ -28,6 +28,7 @@ KNOWN_CHAPTERS = {
     "deformations",
     "physics",
     "seminars",
+    "geometric-prequantization",
     "surfaces",
     "mumford-tate-groups-in-hodge-theory",
     "birational-maps-commutative-algebra",
