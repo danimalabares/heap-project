@@ -27,6 +27,13 @@
 
 % For cross-file-references
 \usepackage{xr-hyper}
+\newcommand{\maybeexternaldocument}[2]{%
+  \IfFileExists{#2.aux}{%
+    \externaldocument[#1]{#2}%
+  }{%
+    \PackageWarning{stack}{Missing #2.aux; external references with prefix #1 unavailable}%
+  }%
+}
 
 % Package for hypertext links:
 \usepackage{hyperref}
@@ -168,7 +175,7 @@
 \externaldocument[algebraic-geometry-]{algebraic-geometry}
 \externaldocument[symplectic-geometry-]{symplectic-geometry}
 \externaldocument[complex-geometry-]{complex-geometry}
-\externaldocument[deformations-]{deformations}
+\maybeexternaldocument{deformations-}{deformations}
 \externaldocument[vertex-algebras-]{vertex-algebras}
 \externaldocument[springer-]{springer}
 \externaldocument[infty-categories-]{infty-categories}
