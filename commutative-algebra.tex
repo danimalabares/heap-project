@@ -3928,7 +3928,8 @@ $\{m \in M:ms=0\text{ for some }
 s \in S \}$.
 \end{lemma}
 
-\begin{lemma}[Nakayama, first version]
+\begin{lemma}[Nakayama, first version,
+AKA Krull lemma]
 \label{lemma-nakayama-first}
 If $\mathfrak{a}\subset A$ is a quasiregular
 ideal and $M$ is a finitely generated
@@ -5643,6 +5644,14 @@ and the theorem follows.
 \label{section-fractional-ideals}
 
 \noindent
+We shall use the relationship
+between fractional ideals and
+projective modules in
+\ref{lemma-invertible-maximal-ideal-dvr},
+in the next section.
+
+\medskip\noindent
+{\bf AI-generated outline of the section.}
 This section develops two related ideas. First,
 it studies fractional ideals as submodules of
 the fraction field $k(R)$ and shows that their
@@ -6051,6 +6060,20 @@ hence $II^{-1}\ni 1$, and $I^{-1}I=R$.
 \section{Discrete valuations}
 \label{section-discrete-valuations}
 
+\noindent
+Discrete valuation rings are
+the local rings of normal curves!!
+The key proposition that
+shows this is
+Proposition 
+\ref{proposition-integrally-closed-dvr}.
+
+\medskip\noindent
+The prototypical example of a DVR
+is the $p$-adic numbers, described below.
+The notion of discrete valuation is more
+abstract, but we introduce it first.
+
 \begin{definition}
 \label{definition-discrete-valuation}
 Let $K$ be a field. A {\it discrete valuation}
@@ -6103,6 +6126,43 @@ $$
 is a metric.
 \end{exercise}
 
+\noindent
+This metric has two properties:
+\begin{itemize}
+\item $|x-y|\leq \text{max}(
+|x-z|,|z-y|)$, (shouldn't it be min…?)
+\item $|xy|=|x||y|$.
+\end{itemize}
+
+\noindent
+We can extend this norm to the rational
+numbers using the product property.
+Now let $q \in \mathbb{Q}$
+with $q=\frac{m}{n}$, $m,n$ coprime.
+Then
+$$
+|q|\leq  1 
+\iff n \not| p.
+$$
+
+\begin{definition}
+\label{definition-p-adic-numbers}
+The {\it $p$-adic numbers} is the ring
+$\mathbb{Z}_p$, the completion  of $\mathbb{Z}$
+with respect to this norm as a metric space.
+Similarly, $\mathbb{Q}_p$
+is the completion of $\mathbb{Q}$
+with respect to the extension
+of the norm described above.
+\end{definition}
+
+\begin{remark}
+\label{remark-binary-decimals-etc}
+$p$-adic numbers are for $p$
+as binary numbers are for 2
+and decimals for 10. Look for this!
+\end{remark}
+
 \begin{example}
 \label{example-laurent-series-valuation}
 Consider the ring of Laurent power series
@@ -6118,15 +6178,16 @@ F=t^k+a_1t^{k+1}+a_2t^{k+2}+\cdots,
 $$
 define
 $$
-\nu(F):=k.
+\nu(F):=k,
 $$
+the minimum exponent.
+This makes sense because it's finite
+seres in the negative exponents by
+definition.
+
 Then $\nu$ is a discrete valuation, with
 $\nu(t)=1$ and $\nu(FG)=\nu(F)+\nu(G)$.
 \end{example}
-
-\noindent
-Discrete valuation rings are
-the local rings of normal curves.
 
 \begin{definition}
 \label{definition-discrete-valuation-ring}
@@ -6136,102 +6197,286 @@ $k(A)$ admits a discrete valuation such that
 $A$ is its valuation ring.
 \end{definition}
 
-\begin{proposition}
-\label{proposition-dvr-properties}
+\begin{lemma}
+\label{lemma-dvr-principal-maximal-ideal}
+Let $R$ be a Noetherian local ring without
+zero divisors, and let $\mathfrak{m}$ be its maximal
+ideal. Then $\mathfrak{m}$ is principal if and only if
+$R$ is a discrete valuation ring.
+\end{lemma}
+
+\begin{proof}
+Let $R$ be a DVR, and choose an element $p$
+with $\nu(p)=1$. For any $x\in R$ with
+$\nu(x)=k$, we have $x=up^k$, where $u$ is
+invertible. Hence every ideal of $R$ is
+principal, so in particular $\mathfrak{m}$ is
+principal.
+
+Conversely, suppose that $\mathfrak{m}=(p)$
+is principal. Then any element $x\in R$ which
+is not divisible by $p$ is invertible. Hence
+every nonzero $x\in k(R)$ can be written as
+$x=up^k$, where $u$ is invertible and
+$k\in \mathbb{Z}$. This defines a discrete
+valuation on $k(R)$ with valuation ring $R$.
+\end{proof}
+
+\begin{lemma}[Corollary]
+\label{lemma-dvr-basic-properties}
 A discrete valuation ring is local,
 Noetherian, integrally closed, all its ideals
-are principal, and its Krull dimension is 1.
-\end{proposition}
+are principal, and the Krull dimension of $R$
+is $1$.
+\end{lemma}
+
+\begin{lemma}
+\label{lemma-radical-ideal-local-dim1}
+Let $R$ be a local ring of Krull dimension
+$1$. Then any non-zero radical ideal of $R$
+is its maximal ideal.
+\end{lemma}
 
 \begin{proof}
-Step 1. Clearly, all $x\in A$ with
-$\nu(x)=0$ are invertible. Therefore, the
-ideal
-$$
-\mathfrak p:=\{x\in A\mid \nu(x)>0\}
-$$
-is maximal. Since all elements not in
-$\mathfrak p$ are invertible, $A$ is local.
+Let $I\subset R$ be a non-zero radical ideal.
+Since $I$ is radical, the quotient ring
+$R/I$ has nilradical $0$, by
+Lemma~\ref{lemma-inter-maxim-ideal-nilra}.
+Pulling this back to $R$, we see that
+$I$ is the intersection of all prime ideals
+of $R$ containing $I$.
 
-Step 2. Let $p\in A$ be an element such that
-$\nu(p)=1$. Then for any $x\in A$ with
-$k=\nu(x)$, the element
-$$
-x_1:=xp^{-k}
-$$
-belongs to $A$ and is invertible. Then
-$x=p^kx_1$. We obtain that any ideal which
-contains $p^k$ contains all elements
-$x\in A$ with $\nu(x)>k$.
-
-Step 3. Let $I\subset A$ be an ideal, and
-$k:=\min_{x\in I}\nu(x)$. By Step 2,
-$I=(p^k)$, hence $I$ is principal. The only
-chain of ideals in $A$ is
-$$
-(p^{k_1})\supset (p^{k_2})\supset (p^{k_3})
-\supset \cdots
-$$
-with $k_1>k_2>k_3>\cdots$, and it terminates
-because all $k_i$ are positive integers.
-Therefore, $A$ is Noetherian. It is
-integrally closed because it is factorial.
+Since $R$ has Krull dimension $1$, any chain
+of prime ideals has length at most $2$. Because
+$I\neq 0$, the only prime ideal of $R$
+containing $I$ is the maximal ideal
+$\mathfrak{m}$. Hence $I=\mathfrak{m}$.
 \end{proof}
 
-\medskip\noindent
-The following proposition is AI-generated;
-I needed it for some unrelated exercise:
+\begin{lemma}[Corollary]
+\label{lemma-power-in-maximal-ideal}
+Let $R$ be a Noetherian local ring of Krull
+dimension $1$, and let $\mathfrak{m}$ be its
+maximal ideal. Then for any $t\in\mathfrak{m}$
+there exists $n$ such that
+$\mathfrak{m}^n\subset (t)$.
+\end{lemma}
+
+\begin{proof}
+The radical of $(t)$ is $\mathfrak{m}$, by the
+previous lemma.
+Spelling out the definition, this says
+that $\forall x \in R$, if
+$t|x^n$ for some $n$, 
+then $x \in \mathfrak{m}$.
+Suppose that $\mathfrak{m}$ is generated
+by $a_1,…,a_k$ using that $R$
+is Noetherian.
+We need to show that there is $n$
+such that for any
+$\left(\sum r_ia_i\right)^n$
+has a factor $t$.
+[Details missing… perhaps there's an error]
+
+A standard Noetherian fact is that if
+$\sqrt{(t)}=\mathfrak{m}$, then some power of the
+radical is contained in $(t)$. Therefore there
+exists $n>0$ such that
+$\mathfrak{m}^n\subset (t)$.
+\end{proof}
+
+\noindent
+Recall that we showed before
+that a projective module over a local
+ring is free --- this is a variation
+for local rings of the fact
+that projective modules
+are direct summands of free modules.
+I think that uses Nakayama somehow.
 
 \begin{proposition}
-\label{proposition-one-dimensional-dvr}
-Let $A$ be a Noetherian local domain of
-Krull dimension $1$. Then the following are
-equivalent:
-\begin{enumerate}
-\item $A$ is integrally closed.
-\item $A$ is a discrete valuation ring.
-\item $A$ is a regular local ring.
-\end{enumerate}
+\label{proposition-projective-maximal-ideal-dvr}
+Let $R$ be a Noetherian local ring, and let
+$\mathfrak{m}$ be its maximal ideal. Assume
+that $\mathfrak{m}$ is projective as an
+$R$-module. Then $R$ is a DVR.
 \end{proposition}
 
 \begin{proof}
+Since $R$ is Noetherian and local,
+$\mathfrak{m}$ is free. Choose elements
+$p_1,\dots,p_n$ freely generating
+$\mathfrak{m}$. Then
+$$
+\mathfrak{m}=\bigoplus_i (p_i),
+$$
+which is impossible unless $n=1$, because
+$p_1p_2\in (p_1)\cap(p_2)$. Therefore,
+$\mathfrak{m}$ is a principal ideal, and
+$R$ is a DVR by Lemma~\ref{lemma-dvr-principal-maximal-ideal}.
+\end{proof}
+
+\noindent
+Here we use the fractional ideal-projective
+module construction from the past section!
+
+\begin{lemma}[Corollary]
+\label{lemma-invertible-maximal-ideal-dvr}
+Let $R$ be a Noetherian local ring, and let
+$\mathfrak{m}$ be its maximal ideal. Assume
+that $\mathfrak{m}$ is invertible as a
+fractional ideal. Then $R$ is a DVR.
+\end{lemma}
+
 \begin{proof}
-A discrete valuation ring is integrally
-closed by Proposition
-\ref{proposition-dvr-properties}. Also, if
-$A$ is a discrete valuation ring, then its
-maximal ideal is generated by one element,
-say $\mathfrak m=(t)$. Therefore
-$$
-\dim_{A/\mathfrak m}\mathfrak m/\mathfrak m^2
-=1
-=\dim A,
-$$
-so $A$ is regular local.
-
-Conversely, if $A$ is regular local of
-dimension $1$, then its maximal ideal is
-generated by one element, say
-$\mathfrak m=(t)$. By the Krull intersection
-theorem, every nonzero $x\in A$ can be
-written uniquely as
-$$
-x=t^n u
-$$
-with $u$ a unit. Hence $A$ is the valuation
-ring of the valuation
-$$
-\nu(t^n u)=n,
-$$
-so $A$ is a discrete valuation ring.
-
-Finally, the implication from integrally
-closed to discrete valuation ring is the
-standard one-dimensional normal local
-criterion: a Noetherian local domain of
-dimension $1$ is integrally closed if and
-only if it is a discrete valuation ring.
+Invertible fractional ideals are projective.
 \end{proof}
+
+\noindent
+The following proposition is the
+key step in proving that
+normality in dimension 1 is smoothness!!!
+A remark: ``The converse statement
+[of the following proposition]
+is implied by Corollary 1''…
+but what's that one?
+
+\begin{proposition}
+\label{proposition-integrally-closed-dvr}
+Let $R$ be an integrally closed Noetherian
+local ring of Krull dimension $1$. Then $R$
+is a discrete valuation ring.
+\end{proposition}
+
+\begin{proof}
+\textbf{Step 1.} Let $I\subset k(R)$ be a
+fractional ideal, and $R(I)\subset k(R)$ the
+ring of all $x\in k(R)$ such that $xI\subset I$.
+Since $R(I)\subset \operatorname{Hom}_R(I, I)$,
+it is finitely generated as an $R$-module,
+hence $R(I)=R$.
+
+\textbf{Step 2.} Let $\mathfrak{m}$ be the
+maximal ideal of $R$. Then
+$R\subset \mathfrak{m}\mathfrak{m}^{-1}\subset
+\mathfrak{m}$. Since any element of
+$R\setminus \mathfrak{m}$ is invertible, we
+have either $\mathfrak{m}\mathfrak{m}^{-1}=R$
+or $\mathfrak{m}\mathfrak{m}^{-1}=\mathfrak{m}$.
+In the second case,
+$\mathfrak{m}^{-1}=R$ by Step 1, because in
+this case $\mathfrak{m}^{-1}\subset R(\mathfrak{m})$.
+In the first case, the fractional ideal
+$\mathfrak{m}$ is invertible.
+
+\textbf{Step 3.} By Krull lemma
+(which is a version
+of Nakayama lemma, 
+namely Lemma~\ref{lemma-nakayama-first}),
+$\mathfrak{m}\supset \mathfrak{m}^2\supset
+\cdots \supset \mathfrak{m}^n$.
+Let $t\in \mathfrak{m}\setminus \mathfrak{m}^2$.
+By Corollary~\ref{lemma-power-in-maximal-ideal},
+$\mathfrak{m}^n\subset (t)$ for some $n>0$;
+choose the minimal $n$ with this property, and
+let $x\in \mathfrak{m}^{n-1}\setminus (t)$.
+Let
+$$
+y:=\frac{x}{t}.
+$$
+Since $x\notin (t)$, we have $y\notin R$.
+Clearly, $x\mathfrak{m}\subset \mathfrak{m}^n
+\subset (t)$. This gives
+$y\mathfrak{m}\subset R$, hence
+$\mathfrak{m}^{-1}\neq R$. Then Step 2 implies
+that $\mathfrak{m}^{-1}\mathfrak{m}=R$, and
+Corollary~\ref{lemma-invertible-maximal-ideal-dvr}
+implies that $R$ is a DVR.
 \end{proof}
+
+\begin{lemma}
+\label{lemma-dvr-quotient-powers}
+Let $R$ be a discrete valuation ring, and let
+$\mathfrak{m}$ be its maximal ideal. Set
+$k:=R/\mathfrak{m}$. Then
+$\mathfrak{m}^d/\mathfrak{m}^{d+1}$ is
+1-dimensional as a $k$-vector space for all
+$d\in \mathbb{Z}_{\geq 0}$.
+\end{lemma}
+
+\begin{proof}
+Let $p$ be the generator of $\mathfrak{m}$,
+and let $L_{p^d}(x):=p^d x$. Then
+$L_{p^d}:R\to \mathfrak{m}^d$ is an isomorphism
+which maps $\mathfrak{m}$ to $\mathfrak{m}^{d+1}$.
+Therefore
+$$
+\mathfrak{m}^d/\mathfrak{m}^{d+1}\cong R/\mathfrak{m}=k,
+$$
+so it is 1-dimensional over $k$.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-dvr-characterizations}
+Let $R$ be a Noetherian local ring without
+zero divisors, $\mathfrak{m}$ its maximal
+ideal, and $k:=R/\mathfrak{m}$ its residue
+field. Assume that $R$ has Krull dimension
+$1$. Then the following are equivalent.
+\begin{enumerate}
+\item[$(i)$] $R$ is a discrete valuation ring.
+\item[$(ii)$] $R$ is integrally closed.
+\item[$(iii)$] $\mathfrak{m}$ is a principal ideal.
+\item[$(iv)$] $\dim_k \mathfrak{m}/\mathfrak{m}^2 = 1$.
+\item[$(v)$] Every non-zero ideal of $R$ 
+is a power of $\mathfrak{m}$.
+\item[$(vi)$]
+All non-zero ideals are principal, 
+generated by
+some $p \in R$. More precisely,
+there exists $p\in R$ such that every 
+non-zero ideal of $R$ is generated by $p^k$, 
+for some $k\in \mathbb{Z}_{>0}$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\textbf{Step 1.} $(i)$ implies $(ii)$,
+$(iii)$, $(v)$ and $(vi)$ as follows from
+Proposition~
+\ref{proposition-integrally-closed-dvr}.
+$(i)$ implies $(iv)$ by
+Lemma~\ref{lemma-dvr-quotient-powers}.
+Therefore, $(i)$ implies $(ii)$--$(vi)$.
+
+\textbf{Step 2.} $(iii)\Leftrightarrow (i)$
+by Lemma~
+\ref{lemma-dvr-principal-maximal-ideal}.
+$(ii)$ implies $(i)$ by
+Proposition~
+\ref{proposition-integrally-closed-dvr}.
+Also, $(v)$ implies $(vi)$ which implies that
+$R$ is factorial which implies $(ii)$.
+We proved that all $(i)$--$(vi)$ are
+equivalent, except maybe $(iv)$.
+
+\textbf{Step 3.} Now we prove that $(iv)$
+implies $(iii)$. Let $p$ be a generator of
+$\mathfrak{m}$ modulo $\mathfrak{m}^2$.
+Then the natural map
+$$
+(p)/(p)\mathfrak{m}
+\to \mathfrak{m}/\mathfrak{m}^2
+$$
+is surjective. By Nakayama lemma, for any
+morphism $\varphi:M\to N$ of finitely
+generated modules over a local ring,
+surjectivity of the map
+$\varphi:M/\mathfrak{m}M\to N/\mathfrak{m}N$
+implies the surjectivity of $\varphi$,
+hence $\mathfrak{m}$ is a principal ideal.
+\end{proof}
+
 
 \end{document}
+but what's that one?
