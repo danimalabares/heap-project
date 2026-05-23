@@ -27,6 +27,12 @@ Repository guidance for AI agents working in this repo.
   ```
 
 - Do not write inner products with raw angle brackets like `\left< X,Y \right>`. Use `\left\langle{} X,Y \right\rangle{}` instead.
+- Never use capital letters in LaTeX labels. Use labels like
+  `\label{theorem-rauch-clean}` instead of
+  `\label{theorem-Rauch-clean}` or
+  `\label{section-Hadamard}`. This applies to theorem, lemma,
+  proposition, definition, equation, exercise, section, and
+  remark labels.
 - Do not globally reformat existing TeX files. Preserve the repo's line wrapping and style.
 - Before committing TeX cleanup changes, check that no source `.tex` files contain `\begin{align*}`, `\end{align*}`, `\left<`, or `\right>` outside generated directories like `gerby/` and `tmp/`.
 
