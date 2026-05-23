@@ -1039,6 +1039,84 @@ And so on. So the all Christoffel symbols
 vanish at the same time at $p$.
 \end{proof}
 
+\begin{lemma}[Gauss' lemma]
+\label{lemma-Gauss}
+Let $p\in M$ and let $v\in T_pM$ be such
+that $\exp_p$ is defined at $v$. Then, after
+identifying $T_v(T_pM)\cong T_pM$, we have
+$$
+\left\langle{}d_v\exp_p(v),d_v\exp_p(w)
+\right\rangle{}
+=
+\left\langle{}v,w\right\rangle{}
+$$
+for every $w\in T_pM$.
+\end{lemma}
+
+\begin{proof}[Sketch of proof]
+First suppose $w\perp v$. Let
+$\alpha(s)$ be a curve in the Euclidean
+sphere of radius $|v|$ in $T_pM$ such that
+$\alpha(0)=v$ and $\alpha'(0)=w$. Consider
+$$
+f(s,t)=\exp_p(t\alpha(s)).
+$$
+For each fixed $s$, the curve
+$t\mapsto f(s,t)$ is a geodesic, and its
+speed is $|\alpha(s)|=|v|$, independent of
+$s$.
+
+We want to show that the radial direction is
+orthogonal to the spherical direction after
+applying $d\exp_p$. For this, compute
+$$
+\frac{d}{dt}\left\langle{}f_t,f_s
+\right\rangle{}
+=
+\left\langle{}f_{tt},f_s\right\rangle{}
++\left\langle{}f_t,f_{st}\right\rangle{}.
+$$
+The first term vanishes because
+$t\mapsto f(s,t)$ is a geodesic. For the
+second term, use symmetry of the pullback
+connection and the fact that
+$
+\left\langle{}f_t,f_t\right\rangle{}
+$
+is
+constant in $s$:
+$$
+\left\langle{}f_t,f_{st}\right\rangle{}
+=
+\frac{1}{2}\frac{d}{ds}
+\left\langle{}f_t,f_t\right\rangle{}
+=0.
+$$
+Thus $\left\langle{}f_t,f_s\right\rangle{}$
+is constant in $t$. At $t=0$ it is zero,
+because $f(s,0)=p$ is constant. Therefore
+$$
+\left\langle{}d_v\exp_p(v),d_v\exp_p(w)
+\right\rangle{}
+=0
+$$
+whenever $w\perp v$.
+
+If $w$ is radial, say $w=av$, then
+$d_v\exp_p(w)=a\gamma'(1)$ for
+$\gamma(t)=\exp_p(tv)$, so
+$$
+\left\langle{}d_v\exp_p(v),d_v\exp_p(w)
+\right\rangle{}
+=
+a|v|^2
+=
+\left\langle{}v,w\right\rangle{}.
+$$
+The general case follows by decomposing
+$w=w^\parallel+w^\perp$.
+\end{proof}
+
 \begin{proposition}
 \label{proposition-naturality-of-exponential}
 If $f:M\to \tilde{M}$ is an isometry,
@@ -3134,6 +3212,167 @@ geodesic.
 \section{Hadamard's theorem}
 \label{section-Hadamard}
 
+\noindent
+Proposition
+\ref{proposition-exp-nonpositive-curvature-expanding}
+is the main tool
+to prove Hadamard's theorem. It
+is basically an application
+of Rauch's Theorem \ref{theorem-rauch-clean}.
+The idea is to disguise the image
+of $w$ under the differential of
+the exponential as a Jacobi field,
+and compare it with the constant Euclidean
+field. Since the curvature is nonpositive,
+Rauch's theorem flips the inequality
+and gives the result. But to apply
+Rauch we need that the angle between
+$w$ and $v$ is the same as the angle
+of our comparison vectors, which are
+perpendicular. So, we need to split
+$w$ into tangential and perpendicular
+parts with respect to $v$, and apply
+Gauss lemma, which, recalling its
+precise statement, allows us to
+forget the tangential part ---
+exponential will preserve the
+lengths of the tangential part,
+and preserve orthogonality
+of the orthogonal part.
+
+Having 
+Proposition
+\ref{proposition-exp-nonpositive-curvature-expanding}
+at hand, we use 
+Proposition 
+\ref{proposition-local-diffeomorphism-covering}
+to obtain that the exponential map
+is a covering space. But since $M$
+is simply connected, the identity map
+is a covering space, so that the
+identity factors through the exponential,
+providing an inverse smooth map
+with $\mathbb{R}^n\cong T_pM$.
+
+
+\begin{proposition}[Differential of the
+exponential in nonpositive curvature]
+\label{proposition-exp-nonpositive-curvature-expanding}
+Let $M$ be a complete Riemannian manifold
+with $K\leq 0$. Fix $p\in M$. Then
+$\exp_p:T_pM\to M$ is defined on all of
+$T_pM$, and for every $v\in T_pM$ and every
+$w\in T_v(T_pM)\cong T_pM$,
+$$
+|d_v\exp_p(w)|\geq |w|.
+$$
+\end{proposition}
+
+\begin{proof}
+Completeness implies, by Hopf-Rinow, that
+$\exp_p$ is defined on all of $T_pM$.
+
+Fix $v\in T_pM$ and decompose
+$w=w^\parallel+w^\perp$ into the part
+parallel to $v$ and the part perpendicular to
+$v$. By Gauss' lemma,
+$d_v\exp_p(w^\parallel)$ is orthogonal to
+$d_v\exp_p(w^\perp)$, and the radial part
+preserves length:
+$$
+|d_v\exp_p(w^\parallel)|=|w^\parallel|.
+$$
+Hence
+$$
+|d_v\exp_p(w)|^2=
+|w^\parallel|^2+
+|d_v\exp_p(w^\perp)|^2.
+$$
+So it is enough to prove
+$$
+|d_v\exp_p(w^\perp)|\geq |w^\perp|.
+$$
+
+Let $\gamma(t)=\exp_p(tv)$ and consider the
+Jacobi field
+$$
+J(t)=d_{tv}\exp_p(tw^\perp).
+$$
+Then $J(0)=0$, $J'(0)=w^\perp$, and
+$J(t)\perp\gamma'(t)$. Compare $J$ with the
+Euclidean Jacobi field
+$$
+\tilde{J}(t)=tw^\perp.
+$$
+Since $K\leq 0=K_{\mathbb{R}^n}$, Rauch
+comparison gives
+$$
+|J(1)|\geq |\tilde{J}(1)|
+=|w^\perp|.
+$$
+Thus
+$$
+|d_v\exp_p(w)|^2
+=
+|w^\parallel|^2+
+|d_v\exp_p(w^\perp)|^2
+\geq
+|w^\parallel|^2+|w^\perp|^2
+=
+|w|^2.
+$$
+\end{proof}
+
+\begin{proposition}
+\label{proposition-local-diffeomorphism-covering}
+\begin{reference}
+\cite[Chapter VII, Lemma 3.3]{doc}
+\end{reference}
+Let $f:\tilde M\to M$ be a local
+diffeomorphism of Riemannian manifolds.
+Suppose that $\tilde M$ is complete and that
+$$
+|d_pf(v)|\geq |v|
+$$
+for every $p\in\tilde M$ and every
+$v\in T_p\tilde M$. Then $f$ lifts curves.
+In particular, $f$ is a covering map.
+\end{proposition}
+
+\begin{proof}
+Let $\gamma:[0,a]\to M$ be a smooth curve
+and let $\tilde p\in \tilde M$ be such that
+$f(\tilde p)=\gamma(0)$. Since $f$ is a
+local diffeomorphism, there is a unique local
+lift $\tilde\gamma$ of $\gamma$ starting at
+$\tilde p$. Let $[0,b)$ be the maximal
+interval on which this lift is defined.
+
+For $t<b$ we have
+$$
+\gamma'(t)=d_{\tilde\gamma(t)}f
+(\tilde\gamma'(t)).
+$$
+By hypothesis,
+$$
+|\tilde\gamma'(t)|\leq |\gamma'(t)|.
+$$
+Thus the length of $\tilde\gamma|_{[s,t]}$
+is bounded by the length of
+$\gamma|_{[s,t]}$. In particular, if
+$t_i\to b$, then $\tilde\gamma(t_i)$ is a
+Cauchy sequence. Since $\tilde M$ is complete,
+it converges to some point $\tilde q$.
+
+Because $f$ is a local diffeomorphism near
+$\tilde q$, the lift can be continued past
+$b$. This contradicts maximality unless
+$b=a$. Therefore every curve admits a lift.
+
+Finally, a local diffeomorphism with curve
+lifting is a covering map.
+\end{proof}
+
 \begin{theorem}[Hadamard]
 \label{theorem-Hadamard}
 If $M$ is a complete simply connected
@@ -4138,17 +4377,125 @@ ODEs again.
 \end{proof}
 
 \begin{theorem}[Rauch]
-\label{theorem-Rauch}
+\label{theorem-rauch-comparison}
+Let $\gamma:[0,a]\to M$ and
+$\tilde{\gamma}:[0,a]\to \tilde M^{n+p}$
+be geodesics, and let
+$J\in\mathfrak{X}^J_\gamma$ and
+$\tilde J\in\mathfrak{X}^J_{\tilde\gamma}$
+be Jacobi fields with comparable initial
+conditions, that is,
+$$
+|\gamma'|=|\tilde\gamma'|,
+\qquad
+J(0)=0,\qquad \tilde J(0)=0,
+$$
+$$
+\left\langle{}J'(0),\gamma'(0)\right\rangle{}
+=
+\left\langle{}\tilde J'(0),
+\tilde\gamma'(0)\right\rangle{},
+$$
+and
+$$
+|J'(0)|=|\tilde J'(0)|.
+$$
+Assume that $\tilde\gamma$ has no conjugate
+points on $(0,a]$ and that, on $(0,a]$,
+$$
+K(\gamma',J)
+\leq
+\tilde K(\tilde\gamma',\cdot).
+$$
+Then
+$$
+\frac{|J|}{|\tilde J|}
+$$
+is nondecreasing. In particular,
+$$
+|J|\geq |\tilde J|.
+$$
+Moreover, if $|\tilde J(r)|=|J(r)|$ for
+some $r\in(0,a]$, then
+$$
+K(\gamma',J)=\tilde K(\tilde\gamma',
+\tilde J)
+$$
+on $(0,r]$.
+\end{theorem}
+
+\begin{remark}
+\label{remark-rauch-comparison-notation}
+The notation $\tilde K(\tilde\gamma',\cdot)$
+means the sectional curvature of every plane
+containing $\tilde\gamma'$. Thus the
+hypothesis says that the sectional curvature
+of the plane generated by $\gamma'$ and $J$
+is bounded above by the corresponding
+sectional curvatures in $\tilde M$.
+\end{remark}
+
+\begin{remark}
+\label{remark-jacobi-orthogonality-initial}
+For any Jacobi field $J$ along a geodesic
+$\gamma$, the function
+$$
+t\mapsto \left\langle{}J(t),\gamma'(t)
+\right\rangle{}
+$$
+has zero second derivative. Indeed,
+$\gamma''=0$ and
+$$
+J''=-R(J,\gamma')\gamma',
+$$
+so the curvature symmetries give
+$$
+\left\langle{}J'',\gamma'\right\rangle{}=0.
+$$
+Thus
+$$
+\left\langle{}J,\gamma'\right\rangle{}=a+bt.
+$$
+If $J(0)=0$, then $a=0$, and if
+$J'(0)\perp\gamma'(0)$, then $b=0$. Hence
+$J\perp\gamma'$ for all $t$.
+\end{remark}
+
+\begin{remark}
+\label{remark-rauch-real-jacobi-equation}
+The real Jacobi equation is
+$$
+J''+R(J,\gamma')\gamma'=0.
+$$
+The notation
+$$
+J''+KJ=0
+$$
+is only literally correct in dimension two,
+in constant curvature, or when the curvature
+operator preserves the line spanned by $J$.
+In the clean Rauch theorem, $K_M(\gamma',J)$
+means the sectional curvature of the plane
+spanned by $\gamma'$ and $J$.
+\end{remark}
+
+\begin{theorem}[Rauch, Sturm-related version]
+\label{theorem-rauch}
 Let $\gamma$ be a geodesic of $M$ and
 $\tilde{\gamma}$ a geodesic of
 $\tilde{M}$. Suppose that $J \in
 \mathfrak{X}^J_\gamma$ and $\tilde{J}\in
 \mathfrak{X}^J_{\tilde{\gamma}}$ satisfy the
 following conditions. $J(0)=0$,
-$\tilde{J}(0)=0$, $|J'(0)|=|\tilde{J}'(0)|$
-and
-$\left\langle{}J,\gamma'\right\rangle{}=\left\langle{}\tilde{J},
-\tilde{\gamma}'\right\rangle{}$.
+$\tilde{J}(0)=0$, $|J'(0)|=|\tilde{J}'(0)|$.
+This follows from matching the initial
+tangential components:
+$$
+\left\langle{}J'(0),\gamma'(0)\right\rangle{}
+=
+\left\langle{}\tilde{J}'(0),
+\tilde{\gamma}'(0)\right\rangle{}.
+$$
 Also,
 $$
 J''+K J=0,\qquad
@@ -4972,7 +5319,7 @@ minimizing by definition. Looks like for
 
 First notice that the following result can be
 proved using Rauch's theorem
-\ref{theorem-Rauch}:
+\ref{theorem-rauch-comparison}:
 
 \begin{theorem}[Toponogov, local version]
 \label{theorem-Toponogov-local}
@@ -5140,7 +5487,7 @@ with $K_\Delta \equiv k$.
 
 \begin{proof}
 Using the map from Cartan's lemma. Use
-Rauch's theorem \ref{theorem-Rauch} to
+Rauch's theorem \ref{theorem-rauch-comparison} to
 compare $M$ with $\mathbb{Q}_k$, and again to
 compare $\Delta$ with $M$. As you
 might expect, use Gauss' equation
@@ -6647,8 +6994,8 @@ exercício anterior. Para chegar a
  uma contradição, suponha que $p $ é
  conjugado a $q$, i.e. que existe um campo
  de Jacobi $J$ que se anula em $p$ e em $q$.
- Podemos usar o teorema de Rauch
-\ref{theorem-Rauch} para comparar esse campo
+Podemos usar o teorema de Rauch
+\ref{theorem-rauch-comparison} para comparar esse campo
 com $\tilde{J}$,
 um campo em $S^n_{K_{\text{max}}}$, a esfera
 de curvatura constante
