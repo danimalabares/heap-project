@@ -1,4 +1,10 @@
 \input{preamble}
+\usepackage{amssymb}
+
+\newcommand{\rightlooparrow}{\mathbin{
+\vbox{\openup-10.25pt\halign{\hss$##$\hss\cr
+\circ\cr\longrightarrow\cr}}
+}}
 
 \begin{document}
 
@@ -10,22 +16,22 @@
 
 \tableofcontents
 
-\section{Transversailty theorems}
+\section{Transversality theorems}
 \label{section-transversality-theorems}
 
 \noindent
 A simple case of the following definition is
-when
-$f$ is the inclusion and $X,W$ are both
+when $f$ is the inclusion and $X,W$ are both
 submanifolds of $Y$.
 
 \begin{definition}
 \label{definition-transversal-map}
-Let $X,Y$ be smooth manifolds and $f \in
-C^\infty(X,Y)$.
+Let $X,Y$ be smooth manifolds and let
+$f \in C^\infty(X,Y)$.
 Let $W \subset Y$ be a submanifold.
-$f$ is {\it transversal} to $W$ if for all $x
-\in f^{-1}(W)$
+We say that $f$ is {\it transverse} to $W$,
+and write $f \pitchfork W$, if for every
+$x \in f^{-1}(W)$ we have
 $$
 d_xf(T_xX)+T_{f(x)}W=T_{f(x)}Y.
 $$
@@ -37,73 +43,1095 @@ of $X$ and $W$:
 $$
 \dim X+\dim W \geq \dim Y.
 $$
-
-This might also be thought of as a
-generalization of
-the notion of regular value: if $W$ is a
-single point,
-then the definition of $f$ being transversal
-to $Y$ becomes
+This may also be thought of as a
+generalization of the regular value
+condition.  If $W$ is a single point $y$,
+then $f \pitchfork \{y\}$ says exactly that
 $$
-d_xf(T_xX)=T_yY,\qquad x \in f^{-1}(y)
+d_xf(T_xX)=T_yY,
+\qquad x \in f^{-1}(y),
 $$
-which is to say that $df$ is surjective
-everywhere.
+that is, $df$ is surjective at every point of
+the fiber.
 
-\section{Poincaré-Hopf theorem}
+\begin{theorem}
+\label{theorem-preimage-transverse}
+Let $f:X \to Y$ be smooth and let
+$W \subset Y$ be a submanifold.  If
+$f \pitchfork W$, then $f^{-1}(W)$ is a
+submanifold of $X$ and
+$$
+\operatorname{codim}_X f^{-1}(W)
+=
+\operatorname{codim}_Y W.
+$$
+\end{theorem}
+
+\begin{proof}
+This is the regular value theorem in local
+coordinates.  Near a point of $W$ choose
+coordinates in which $W$ is cut out by the
+last $c$ coordinates, where
+$c=\operatorname{codim}W$.  The map to these
+last $c$ coordinates has surjective
+differential along $f^{-1}(W)$ exactly because
+of transversality.  Hence its zero set is a
+submanifold of codimension $c$.
+\end{proof}
+
+\section{Course plan and review}
+\label{section-course-plan-review}
+
+\begin{reference}
+These notes follow Vinicius Ramos' course on
+differential topology.  Standard references
+are \cite{milnordt}, \cite{muk}, and
+\cite{hirsch}.
+\end{reference}
+
+\noindent
+The course plan was the following.
+
+\begin{enumerate}
+\item Review of manifolds.
+
+\item Transversality: Sard's theorem,
+Whitney topologies, and approximation.
+
+\item Intersection theory and index.
+
+\item Morse theory.
+
+\item Additional possible topics:
+$h$-cobordism, low-dimensional topology, and
+Poincar\'e in dimensions $n\geq 5$.
+\end{enumerate}
+
+\noindent
+We use the standard convention that a smooth
+manifold is Hausdorff, second countable, and
+locally Euclidean, equipped with a maximal
+smooth atlas.  The dimension is locally
+constant, hence constant on connected
+components.  There are topological atlases
+which do not contain a smooth subatlas.
+
+\begin{theorem}
+\label{theorem-smoothing-manifolds}
+Every $C^k$-manifold, for
+$k=1,\ldots,\infty$, is $C^k$-diffeomorphic
+to a $C^\infty$-manifold.
+\end{theorem}
+
+\begin{proof}
+We record the statement as one of the basic
+smoothing theorems used in the course.  The
+proof is not included here.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-compatible-smoothings}
+Let $1\leq \ell \leq k \leq \infty$.
+If two $C^k$-manifolds are
+$C^\ell$-diffeomorphic, then they are
+$C^k$-diffeomorphic.
+\end{theorem}
+
+\begin{proof}
+We omit the proof.  The point is that lower
+regularity compatibility is enough to compare
+the induced smooth structures.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-partition-of-unity}
+Let $M$ be a smooth manifold and let
+$\{U_i\}$ be an open cover.  Then there is a
+smooth partition of unity subordinate to this
+cover.
+\end{theorem}
+
+\begin{proof}
+This uses paracompactness of smooth
+manifolds.  Every topological manifold is
+paracompact, and smooth bump functions allow
+one to refine locally finite covers by smooth
+functions.
+\end{proof}
+
+\section{Tangent and cotangent bundles}
+\label{section-tangent-cotangent-bundles}
+
+\noindent
+Let $M$ be a smooth manifold.  The tangent
+space $T_pM$ can be defined either as
+velocities of curves through $p$ or as
+derivations at $p$.  In a chart
+$(U,\varphi)$ with
+$\varphi=(x^1,\ldots,x^n)$, a basis is
+$$
+\left\{
+\frac{\partial}{\partial x^1}\Big|_p,
+\ldots,
+\frac{\partial}{\partial x^n}\Big|_p
+\right\}.
+$$
+The cotangent space is
+$$
+T_p^*M=(T_pM)^*
+=\operatorname{Hom}(T_pM,\mathbb R),
+$$
+with dual basis
+$$
+\left\{dx^1|_p,\ldots,dx^n|_p\right\},
+\qquad
+ dx^i|_p
+\left(
+\frac{\partial}{\partial x^j}\Big|_p
+\right)=\delta^i_j.
+$$
+Changing charts changes these bases; there is
+no canonical basis of $T_pM$ or $T_p^*M$.
+
+\begin{exercise}
+\label{exercise-change-of-basis}
+Let $(U,\varphi)$ and $(V,\psi)$ be charts
+near $p$, with coordinates
+$x^1,\ldots,x^n$ and $y^1,\ldots,y^n$.
+Show that
+$$
+\frac{\partial}{\partial x^j}
+=
+\sum_{i=1}^n
+\frac{\partial y^i}{\partial x^j}
+\frac{\partial}{\partial y^i}.
+$$
+\end{exercise}
+
+\noindent
+The tangent bundle is
+$$
+TM=\bigsqcup_{p\in M}T_pM.
+$$
+For every chart $(U,\varphi)$ there is a
+bijection
+$$
+\begin{aligned}
+U\times \mathbb R^n
+&\longrightarrow \pi^{-1}(U)\\
+(p,(v_1,\ldots,v_n))
+&\longmapsto
+\sum_{i=1}^n v_i
+\frac{\partial}{\partial x^i}\Big|_p.
+\end{aligned}
+$$
+Using these bijections one topologizes $TM$
+and gives it a smooth structure of dimension
+$2n$.  The same construction gives the
+cotangent bundle
+$$
+T^*M=\bigsqcup_{p\in M}T_p^*M.
+$$
+If $M$ is only $C^k$, then $TM$ is naturally
+$C^{k-1}$.
+
+\begin{definition}
+\label{definition-parallelizable}
+A smooth $n$-manifold $M$ is
+{\it parallelizable} if
+$$
+TM\cong M\times \mathbb R^n.
+$$
+\end{definition}
+
+\begin{example}
+\label{example-parallelizable-manifolds}
+The manifolds $\mathbb R^n$ and $S^1$ are
+parallelizable.  Every orientable
+3-manifold is also parallelizable, although
+that result is much deeper.
+\end{example}
+
+\section{Immersions, submersions, and embeddings}
+\label{section-immersions-submersions-embeddings}
+
+\begin{definition}
+\label{definition-differential-map}
+Let $f:M\to N$ be smooth.  The
+{\it derivative} or {\it differential} of
+$f$ at $p$ is the linear map
+$$
+Df_p:T_pM\to T_{f(p)}N.
+$$
+In the curve model of tangent vectors,
+$Df_p[\gamma]=[f\circ\gamma]$.  In the
+derivation model,
+$$
+(Df_pv)(g)=v(g\circ f),
+\qquad g\in C^\infty(N).
+$$
+\end{definition}
+
+\noindent
+In local coordinates $x^j$ on $M$ and $y^i$
+on $N$, this is represented by the Jacobian
+matrix:
+$$
+Df_p
+\left(\frac{\partial}{\partial x^j}\Big|_p
+\right)
+=
+\sum_i
+\frac{\partial f_i}{\partial x^j}(p)
+\frac{\partial}{\partial y^i}\Big|_{f(p)}.
+$$
+
+\begin{definition}
+\label{definition-immersion-submersion-embedding}
+Let $f:M\to N$ be smooth.
+\begin{enumerate}
+\item $f$ is an {\it immersion} at $p$ if
+$Df_p$ is injective.
+
+\item $f$ is a {\it submersion} at $p$ if
+$Df_p$ is surjective.
+
+\item $f$ is an {\it embedding} if it is an
+injective immersion and the inverse
+$f(M)\to M$ is continuous, where $f(M)$ has
+the subspace topology from $N$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+We often write
+$$
+M\rightlooparrow N,
+\qquad
+M\hookrightarrow N,
+\qquad
+M\twoheadrightarrow N
+$$
+for immersions, embeddings, and submersions.
+The continuity condition in the definition of
+embedding is necessary: an injective immersed
+curve may accumulate on itself in the target,
+so that the inverse from its image is not
+continuous.
+
+\begin{remark}
+\label{remark-embedding-submanifold}
+If $f:M\to N$ is an embedding, then $f(M)$
+inherits a unique smooth structure such that
+$f:M\to f(M)$ is a diffeomorphism.  Thus
+embeddings are precisely the maps whose
+images are honest submanifolds.
+\end{remark}
+
+\begin{exercise}
+\label{exercise-same-embedded-image}
+Let $N_1,N_2$ be manifolds and let
+$\varphi_i:N_i\to M$ be smooth embeddings.
+Suppose their images coincide.  Show that
+$N_1$ and $N_2$ are diffeomorphic.
+\end{exercise}
+
+\section{Regular values}
+\label{section-regular-values}
+
+\begin{definition}
+\label{definition-regular-value}
+Let $f:M\to N$ be smooth.  A point $y\in N$
+is a {\it regular value} of $f$ if $f$ is a
+submersion at every point of $f^{-1}(y)$.
+Equivalently, $Df_x$ is surjective for all
+$x\in f^{-1}(y)$.
+\end{definition}
+
+\begin{theorem}[Regular value theorem]
+\label{theorem-regular-value}
+If $y$ is a regular value of $f:M\to N$, then
+$f^{-1}(y)$ is a submanifold of $M$ of
+dimension
+$$
+\dim M-\dim N,
+$$
+provided the fiber is nonempty.
+\end{theorem}
+
+\begin{proof}
+This is the implicit function theorem.  Take
+charts around $x\in f^{-1}(y)$ and around
+$y$, both centered at the relevant points.
+In coordinates we get a map
+$\Phi:\mathbb R^m\to\mathbb R^n$ with
+surjective derivative at $0$.  After a local
+change of coordinates, $\Phi$ becomes the
+projection
+$$
+\mathbb R^n\times \mathbb R^{m-n}
+\longrightarrow \mathbb R^n.
+$$
+Hence $\Phi^{-1}(0)$ is locally
+$\{0\}\times \mathbb R^{m-n}$.
+\end{proof}
+
+\section{Vector bundles and sections}
+\label{section-vector-bundles-sections}
+
+\begin{definition}
+\label{definition-vector-bundle}
+Let $E$ and $M$ be manifolds and let
+$\pi:E\to M$ be a surjective submersion.
+We say that $\pi$ is a {\it vector bundle} of
+rank $r$ if every fiber
+$E_p=\pi^{-1}(p)$ is a vector space and for
+every $p\in M$ there is a neighborhood $U$
+and a diffeomorphism
+$$
+\varphi:\pi^{-1}(U)\to U\times\mathbb R^r
+$$
+which is linear on each fiber and commutes
+with the projections to $U$.
+\end{definition}
+
+\begin{example}
+\label{example-basic-vector-bundles}
+The tangent bundle, cotangent bundle, and the
+trivial bundle $M\times\mathbb R^r\to M$ are
+vector bundles.
+\end{example}
+
+\begin{definition}
+\label{definition-section-vector-bundle}
+A {\it section} of a vector bundle
+$\pi:E\to M$ is a smooth map
+$s:M\to E$ such that $\pi\circ s=\text{id}_M$.
+\end{definition}
+
+\noindent
+A vector field is a section of $TM$.  A
+1-form is a section of $T^*M$.  If a section
+is compactly supported, its support has
+compact closure.  Partitions of unity are the
+basic tool for producing global sections from
+local data.
+
+\section{Sard theorem}
+\label{section-sard-theorem}
+
+\begin{definition}
+\label{definition-critical-point}
+Let $f:X^m\to Y^n$ be smooth.  A point
+$x\in X$ is a {\it critical point} if
+$Df_x$ does not have maximal rank.  A point
+$y\in Y$ is a {\it critical value} if
+$y=f(x)$ for some critical point $x$.
+\end{definition}
+
+\begin{theorem}[Sard]
+\label{theorem-sard}
+Let $f:X\to Y$ be smooth.  The set of
+critical values of $f$ has measure zero in
+$Y$.  In particular, the regular values of
+$f$ are dense.
+\end{theorem}
+
+\begin{proof}
+We only record the structure of the proof.
+In Euclidean coordinates one considers the
+sets where all partial derivatives up to a
+certain order vanish.  Taylor's theorem shows
+that the image of each such set can be
+covered by boxes whose total volume is
+arbitrarily small.  The manifold case follows
+by covering the domain with countably many
+coordinate charts.
+\end{proof}
+
+\begin{remark}
+\label{remark-sard-finite-regularity}
+Sard's theorem also holds for $C^\ell$ maps
+provided
+$$
+\ell>\max(m-n,0).
+$$
+This regularity threshold is important in the
+full statement.
+\end{remark}
+
+\section{Jets}
+\label{section-jets}
+
+\begin{definition}
+\label{definition-jet-equivalence}
+Let $f,g:X\to Y$ be smooth maps.  We say
+that $f$ and $g$ have the same $k$-jet at
+$x\in X$ if, in local coordinates around $x$
+and around $f(x)=g(x)$, all partial
+derivatives up to order $k$ agree at $x$.
+The equivalence class is denoted $j_x^kf$.
+\end{definition}
+
+\begin{definition}
+\label{definition-jet-space}
+The {\it $k$-jet space} $J^k(X,Y)$ is the set
+of all $k$-jets $j_x^kf$ of smooth maps
+$X\to Y$.
+There are natural source and target maps
+$$
+\alpha:J^k(X,Y)\to X,
+\qquad
+\beta:J^k(X,Y)\to Y.
+$$
+\end{definition}
+
+\noindent
+The space $J^k(X,Y)$ is a smooth manifold.
+For $k=0$ one has $J^0(X,Y)=X\times Y$.
+For $k=1$, a point of $J^1(X,Y)$ consists of
+$x\in X$, $y\in Y$, and a linear map
+$T_xX\to T_yY$.
+Thus
+$$
+J^1(X,Y)
+\cong
+\operatorname{Hom}(TX,TY)
+$$
+in the appropriate fibered sense.
+
+\begin{definition}
+\label{definition-jet-extension}
+For a smooth map $f:X\to Y$, its
+{\it $k$-jet extension} is the map
+$$
+j^kf:X\to J^k(X,Y),
+\qquad
+x\longmapsto j_x^kf.
+$$
+\end{definition}
+
+\section{Whitney topologies}
+\label{section-whitney-topologies}
+
+\noindent
+The space $C^\infty(X,Y)$ admits several
+natural topologies.  The weak Whitney
+topology controls a map and finitely many
+of its derivatives on compact subsets.  The
+strong Whitney topology allows the control to
+vary over locally finite families of compact
+sets.  These topologies are designed so that
+statements such as ``transverse maps are
+dense'' become precise.
+
+\begin{definition}
+\label{definition-delta-ball}
+Let $\delta:X\to (0,\infty)$ and let
+$f\in C^\infty(X,Y)$, after choosing a
+metric on a jet bundle.  A $\delta$-ball
+around $f$ consists of those maps $g$ whose
+relevant jets stay within distance
+$\delta(x)$ from the jets of $f$ at every
+$x$.
+\end{definition}
+
+\begin{definition}
+\label{definition-baire-space}
+A topological space is a {\it Baire space} if
+a countable intersection of open dense sets
+is dense.
+\end{definition}
+
+\noindent
+The strong Whitney topology is a Baire
+topology on $C^\infty(X,Y)$ in the usual
+situations.  This is why genericity
+statements can be proved by intersecting
+countably many open dense conditions.
+
+\section{Parametric transversality}
+\label{section-parametric-transversality}
+
+\begin{theorem}[Parametric transversality]
+\label{theorem-parametric-transversality}
+Let $F:X\times B\to Y$ be smooth and let
+$W\subset Y$ be a submanifold.  If
+$F\pitchfork W$, then for almost every
+$b\in B$ the map
+$$
+F_b:X\to Y,
+\qquad
+F_b(x)=F(x,b),
+$$
+is transverse to $W$.
+\end{theorem}
+
+\begin{proof}
+Let $Q=F^{-1}(W)$.  Since $F\pitchfork W$,
+Theorem \ref{theorem-preimage-transverse}
+shows that $Q$ is a submanifold of
+$X\times B$.  Consider the projection
+$\pi:Q\to B$.  By Sard's theorem, almost
+every $b\in B$ is a regular value of $\pi$.
+For such $b$, the condition that $b$ be a
+regular value of $\pi$ is equivalent to
+$F_b\pitchfork W$.
+\end{proof}
+
+\begin{theorem}[Thom transversality]
+\label{theorem-thom-transversality}
+Let $X,Y$ be smooth manifolds and let
+$W\subset J^k(X,Y)$ be a submanifold.  Then
+$$
+\{f\in C^\infty(X,Y):j^kf\pitchfork W\}
+$$
+is residual in $C^\infty(X,Y)$, and in the
+strong Whitney topology it is dense.  If
+$W$ is closed, this set is also open.
+\end{theorem}
+
+\begin{proof}
+The proof reduces locally to the parametric
+transversality theorem.  One perturbs a map
+by adding polynomial terms in coordinate
+balls.  The finite-dimensional space of
+polynomial perturbations supplies the
+parameter space $B$, and the evaluation map
+from $X\times B$ to the jet space is made
+transverse to $W$.  A partition of unity and
+a Baire category argument globalize the
+construction.
+\end{proof}
+
+\section{Multijets and Whitney theorems}
+\label{section-multijets-whitney-theorems}
+
+\noindent
+Multijet spaces keep track of jets of a map
+at several distinct points at once.  They are
+used to impose conditions on pairs or tuples
+of points, for example to avoid double points
+or to control self-intersections.
+
+\begin{theorem}[Whitney immersion theorem]
+\label{theorem-whitney-immersion}
+Every smooth $n$-manifold admits an immersion
+into $\mathbb R^{2n-1}$.
+\end{theorem}
+
+\begin{proof}
+Start with an embedding into some
+$\mathbb R^N$.  Project generically to a
+lower-dimensional Euclidean space.  The bad
+projections are those for which the
+differential drops rank somewhere; this is a
+transversality condition on the 1-jet.  Thom
+transversality shows that a generic
+projection avoids the bad locus as long as
+the target has dimension at least $2n-1$.
+\end{proof}
+
+\begin{theorem}[Whitney embedding theorem]
+\label{theorem-whitney-embedding}
+Every smooth $n$-manifold admits an embedding
+into $\mathbb R^{2n}$.
+\end{theorem}
+
+\begin{proof}
+Again start from an embedding into
+$\mathbb R^N$ and project generically.  The
+immersion condition is controlled by the
+1-jet.  Injectivity is controlled by the
+2-point multijet: one must avoid the diagonal
+in $\mathbb R^{2n}\times\mathbb R^{2n}$ for
+pairs of distinct points.  The relevant bad
+sets have sufficiently large codimension for
+generic projections to avoid them.
+\end{proof}
+
+\section{Manifolds with boundary}
+\label{section-manifolds-with-boundary}
+
+\begin{definition}
+\label{definition-half-space}
+Let
+$$
+\mathbb H^n=\{(x_1,\ldots,x_n)\in
+\mathbb R^n:x_n\geq 0\}.
+$$
+A {\it smooth manifold with boundary} is a
+space locally modeled on open subsets of
+$\mathbb H^n$ with smooth transition maps.
+\end{definition}
+
+\noindent
+The boundary $\partial M$ consists of those
+points which in a half-space chart map to
+$x_n=0$.  The interior consists of the points
+which map to $x_n>0$.  This is independent
+of the chart.
+
+\begin{theorem}[Sard with boundary]
+\label{theorem-sard-boundary}
+Let $f:X\to Y$ be smooth, where $X$ is a
+manifold with boundary.  If $a\in Y$ is a
+regular value of both $f$ and
+$f|_{\partial X}$, then $f^{-1}(a)$ is a
+manifold with boundary and
+$$
+\partial(f^{-1}(a))=f^{-1}(a)\cap \partial X.
+$$
+\end{theorem}
+
+\begin{proof}
+Apply the regular value theorem in boundary
+charts.  In interior charts this is the usual
+argument.  In boundary charts the local model
+is the intersection of a regular level set
+with a half-space.
+\end{proof}
+
+\begin{theorem}[Thom transversality with boundary]
+\label{theorem-thom-boundary}
+Let $X$ be a manifold with boundary and let
+$W\subset Y$ be a submanifold.  Generically,
+a smooth map $f:X\to Y$ is transverse to
+$W$ and $f|_{\partial X}$ is also transverse
+to $W$.
+\end{theorem}
+
+\begin{proof}
+Apply the ordinary Thom transversality
+theorem simultaneously to $X$ and to
+$\partial X$.  The boundary condition is an
+extra transversality condition on the
+restriction.
+\end{proof}
+
+\section{Orientation}
+\label{section-orientation}
+
+\begin{definition}
+\label{definition-orientation-vector-space}
+An {\it orientation} of a finite-dimensional
+real vector space is a choice of one of the
+two connected components of the set of
+ordered bases.  Equivalently, two ordered
+bases define the same orientation if the
+change-of-basis determinant is positive.
+\end{definition}
+
+\begin{definition}
+\label{definition-orientation-manifold}
+An {\it orientation} of a smooth manifold
+$M$ is a smoothly varying choice of
+orientation on each tangent space $T_pM$.
+\end{definition}
+
+\noindent
+If $M$ is an oriented manifold with boundary,
+then $\partial M$ receives the boundary
+orientation by the ``outward normal first''
+rule: an ordered basis $(v_1,\ldots,v_{n-1})$
+of $T_p\partial M$ is positive if
+$(\nu,v_1,\ldots,v_{n-1})$ is a positive
+basis of $T_pM$, where $\nu$ is an outward
+normal vector.
+
+\section{Intersection theory}
+\label{section-intersection-theory}
+
+\begin{definition}
+\label{definition-intersection-number}
+Let $X^n$ and $Y^m$ be oriented manifolds,
+let $W^k\subset Y$ be an oriented
+submanifold, and let $f:X\to Y$ be smooth and
+transverse to $W$.  If
+$$
+\dim X+\dim W=\dim Y,
+$$
+then $f^{-1}(W)$ is a finite set when $X$ is
+compact.  The {\it intersection number}
+$I(f,W)$ is the signed count of this set.
+\end{definition}
+
+\noindent
+The sign at a point $x\in f^{-1}(W)$ is
+determined by comparing the orientation of
+$T_{f(x)}Y$ with the orientation obtained
+from
+$$
+df_x(T_xX)\oplus T_{f(x)}W.
+$$
+
+\begin{proposition}
+\label{proposition-intersection-homotopy}
+If $f_0,f_1:X\to Y$ are homotopic through
+maps transverse to $W$ at the ends, then
+$$
+I(f_0,W)=I(f_1,W).
+$$
+\end{proposition}
+
+\begin{proof}
+Let $F:X\times[0,1]\to Y$ be a homotopy
+between $f_0$ and $f_1$, perturbed relative
+to the boundary so that $F\pitchfork W$.
+Then $F^{-1}(W)$ is an oriented compact
+1-manifold whose boundary is
+$f_1^{-1}(W)-f_0^{-1}(W)$.  The signed number
+of boundary points of a compact oriented
+1-manifold is zero.
+\end{proof}
+
+\section{Degree}
+\label{section-degree}
+
+\begin{definition}
+\label{definition-degree-map}
+Let $X$ and $Y$ be compact oriented
+$n$-manifolds, with $Y$ connected.  For a
+smooth map $f:X\to Y$ and a regular value
+$y\in Y$, the {\it degree} of $f$ is
+$$
+\deg(f)=\sum_{x\in f^{-1}(y)}\operatorname{sign}
+(Df_x).
+$$
+\end{definition}
+
+\begin{proposition}
+\label{proposition-degree-well-defined}
+The degree is independent of the chosen
+regular value and invariant under homotopy.
+\end{proposition}
+
+\begin{proof}
+This is the intersection number of $f$ with
+the point $y\subset Y$.  Independence of $y$
+and homotopy invariance follow from the
+homotopy invariance of intersection number.
+\end{proof}
+
+\begin{example}
+\label{example-degree-circle}
+For maps $S^1\to S^1$, the degree is the
+winding number.  If $f:S^1\to S^1$ is given
+by $f(z)=z^d$, then $\deg(f)=d$.
+\end{example}
+
+\section{Fundamental theorem of algebra}
+\label{section-fundamental-theorem-algebra-degree}
+
+\begin{proposition}
+\label{proposition-fta-degree}
+Every nonconstant complex polynomial has a
+complex root.
+\end{proposition}
+
+\begin{proof}
+Let $p(z)$ be a polynomial of degree $d>0$.
+For $R$ large, the map
+$$
+S_R^1\to S^1,
+\qquad
+z\longmapsto \frac{p(z)}{|p(z)|}
+$$
+has the same degree as
+$z\mapsto z^d/|z|^d$, namely $d$.  If $p$ had
+no root in the disk, this boundary map would
+extend to the disk and hence would have
+degree zero.  This is impossible.
+\end{proof}
+
+\section{Winding number and Jordan--Brouwer}
+\label{section-winding-jordan-brouwer}
+
+\noindent
+For a smooth closed curve
+$\gamma:S^1\to \mathbb R^2\setminus\{p\}$,
+the winding number about $p$ is the degree of
+$$
+S^1\to S^1,
+\qquad
+z\longmapsto
+\frac{\gamma(z)-p}{\|\gamma(z)-p\|}.
+$$
+It is constant on connected components of the
+complement of the curve.
+
+\begin{theorem}[Jordan--Brouwer separation]
+\label{theorem-jordan-brouwer}
+If $M\subset S^n$ is a compact connected
+embedded hypersurface, then
+$S^n\setminus M$ has exactly two connected
+components, and $M$ is the boundary of each.
+\end{theorem}
+
+\begin{proof}
+We only record the idea from the course.  One
+uses degree or mod-two intersection number
+with paths crossing the hypersurface.  The
+intersection parity changes when crossing
+$M$, and this produces two complementary
+regions.  A local chart shows that there are
+at least two local sides, and the global
+intersection argument shows there are no more
+than two.
+\end{proof}
+
+\section{Borsuk--Ulam theorem}
+\label{section-borsuk-ulam}
+
+\begin{theorem}[Borsuk--Ulam]
+\label{theorem-borsuk-ulam}
+Every continuous map $f:S^n\to\mathbb R^n$
+identifies a pair of antipodal points: there
+exists $x\in S^n$ such that $f(x)=f(-x)$.
+\end{theorem}
+
+\begin{proof}
+The smooth case follows from degree theory by
+considering the odd map
+$g(x)=f(x)-f(-x)$.  If $g$ never vanished,
+then $g/\|g\|:S^n\to S^{n-1}$ would give an
+odd map to a lower-dimensional sphere, which
+contradicts the corresponding degree parity
+statement.  The continuous case follows by
+approximation.
+\end{proof}
+
+\section{Poincare--Hopf theorem}
 \label{section-Poincare-Hopf-theorem}
 
 \begin{definition}
 \label{definition-isolated-zero-vector-field}
-Let $x \in X$ such that $V(x)=0$ for some $V
-\in \mathfrak{X}(X)$. $x$ is an
-{\it isolated zero} of  $V$ is there is an
-open set $U \ni x$ such that for
-every $y \in U\setminus \{x\}$, $V(y) \neq
-0$.
+Let $V\in\mathfrak X(X)$ be a vector field.
+A point $x\in X$ with $V(x)=0$ is an
+{\it isolated zero} if there is a
+neighborhood $U$ of $x$ such that
+$V(y)\neq0$ for all $y\in U\setminus\{x\}$.
 \end{definition}
 
 \begin{definition}
-\label{definition-degree-zero-vector-field}
+\label{definition-index-vector-field}
+Let $x$ be an isolated zero of $V$ on an
+$n$-manifold.  Choose coordinates identifying
+a small ball around $x$ with $B_r(0)$.
+The {\it index} of $V$ at $x$ is
 $$
-\text{ind}(V,x)=\text{wind}(\tilde{V}
-|_{\partial
-B_r(0),0}=\overset{\text{def}}{=}
-\left(\frac{\tilde{V}}{\|\tilde{V}\|}
-\Big|_{\partial
-B_r(0)}\right)
+\operatorname{ind}(V,x)
+=
+\deg\left(
+\frac{\widetilde V}{\|\widetilde V\|}
+:\partial B_r(0)\to S^{n-1}
+\right).
 $$
 \end{definition}
 
-\begin{theorem}[Poincaré-Hopf]
+\begin{theorem}[Poincare--Hopf]
 \label{theorem-Poincare-Hopf}
 Let $X$ be a compact manifold without
-boundary and $V \in \mathfrak{X}(X)$ with
-isolated zeroes. Then
+boundary and let $V\in\mathfrak X(X)$ have
+isolated zeroes.  Then
 $$
-\sum_{x \in X}\text{ind}_x=\chi(X)
+\sum_{x\in Z(V)}\operatorname{ind}(V,x)
+=\chi(X).
 $$
 \end{theorem}
 
-\section{Hopf's theorem}
+\begin{proof}
+We give the course-level summary.  Choose a
+triangulation or a Morse function and build a
+vector field whose zeroes correspond to cells
+or critical points.  The local index at each
+zero gives the sign with which the cell
+contributes.  The sum of these signed local
+contributions is the Euler characteristic.
+A homotopy argument shows that the sum is
+independent of the chosen vector field.
+\end{proof}
+
+\section{Hopf theorem}
 \label{section-Hopf-theorem}
 
 \begin{theorem}[Hopf]
 \label{theorem-Hopf}
-Let $X$ be a compact, oriented and connected
-manifold (without boundary). Let
-$f,g:X \to S^n$. (Notice degree is
-well-defined because $X$ is compact and
-$S^n$ is connected.) Then
+Let $X$ be a compact, oriented, connected
+$n$-manifold without boundary.  Let
+$f,g:X\to S^n$ be smooth maps.  Then
 $$
-f \sim g \iff \text{deg}f=\text{deg}g
+f\sim g
+\quad\Longleftrightarrow\quad
+\deg(f)=\deg(g).
 $$
 \end{theorem}
 
-Which says that
+\begin{proof}
+One direction is homotopy invariance of the
+degree.  Conversely, choose a regular value
+$p\in S^n$ for both maps.  The preimages
+$f^{-1}(p)$ and $g^{-1}(p)$ are finite signed
+sets.  Equality of degrees says that these
+signed sets have the same algebraic count.
+Using paths and local modifications, one
+cancels pairs of opposite signs and moves the
+remaining points so that the two maps have
+matching inverse images of $p$.  Then the
+maps are homotopic on the complement of small
+balls and the local degree data fills in the
+balls.
+\end{proof}
+
+\section{Pontryagin--Thom construction}
+\label{section-pontryagin-thom}
+
+\noindent
+The Pontryagin--Thom idea is to convert a
+submanifold with framing data into a map to a
+sphere.  If $W^k\subset M^n$ has a framed
+normal bundle, choose a tubular neighborhood
+$\nu(W)\cong W\times\mathbb R^{n-k}$.  Collapse
+the complement of this neighborhood to the
+base point of $S^{n-k}$, and use the framing
+to map each normal disk radially to the
+sphere.  This produces a map
+$$
+M\to S^{n-k}.
+$$
+Cobordism of framed submanifolds corresponds
+to homotopy of the resulting maps.
+
+\section{Morse functions}
+\label{section-morse-functions}
+
+\begin{definition}
+\label{definition-morse-function}
+Let $M$ be a smooth manifold.  A smooth
+function $f:M\to\mathbb R$ is a
+{\it Morse function} if every critical point
+is nondegenerate, i.e. the Hessian at that
+point is a nondegenerate quadratic form.
+\end{definition}
+
+\begin{theorem}[Morse lemma]
+\label{theorem-morse-lemma}
+Let $p$ be a nondegenerate critical point of
+$f:M\to\mathbb R$.  Then there are local
+coordinates around $p$ in which
+$$
+f=f(p)-x_1^2-\cdots-x_\lambda^2
++x_{\lambda+1}^2+\cdots+x_n^2.
+$$
+The number $\lambda$ is the {\it Morse index}
+of $p$.
+\end{theorem}
+
+\begin{proof}
+The proof is a smooth diagonalization of the
+quadratic part of $f$ near the critical
+point.  After subtracting the constant
+$f(p)$, the first-order terms vanish.  The
+nondegenerate Hessian can be diagonalized,
+and the remaining higher-order terms are
+absorbed by a smooth change of coordinates.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-morse-functions-generic}
+Morse functions are generic in
+$C^\infty(M,\mathbb R)$.
+\end{theorem}
+
+\begin{proof}
+A function fails to be Morse when its 1-jet
+meets the zero section in a nontransverse way,
+or equivalently when the corresponding
+2-jet lies in the degenerate Hessian locus.
+This is a jet transversality condition, so
+Thom transversality gives the result.
+\end{proof}
+
+\section{Handle decomposition}
+\label{section-handle-decomposition}
+
+\noindent
+Morse theory describes the topology of a
+manifold by studying sublevel sets
+$$
+M^a=\{x\in M:f(x)\leq a\}.
+$$
+If there are no critical values in
+$[a,b]$, then $M^a$ and $M^b$ are
+diffeomorphic.  If one crosses a single
+critical point of index $\lambda$, then the
+sublevel set changes by attaching a
+$\lambda$-handle
+$$
+D^\lambda\times D^{n-\lambda}.
+$$
+
+\begin{theorem}
+\label{theorem-handle-attachment}
+Let $f:M\to\mathbb R$ be Morse and suppose
+$c$ is a critical value with one critical
+point of index $\lambda$.  For small
+$\varepsilon>0$, the sublevel set
+$M^{c+\varepsilon}$ is obtained from
+$M^{c-\varepsilon}$ by attaching a
+$\lambda$-handle.
+\end{theorem}
+
+\begin{proof}
+This is the local normal form from the Morse
+lemma together with the gradient flow.  The
+negative directions give the core
+$D^\lambda$, and the positive directions give
+the cocore $D^{n-\lambda}$.
+\end{proof}
+
+\section{Cancellation and four-manifolds}
+\label{section-cancellation-four-manifolds}
+
+\noindent
+Handle decompositions are not unique.  A
+central operation is cancellation: under the
+right incidence condition, a
+$\lambda$-handle and a $(\lambda+1)$-handle
+can cancel each other.  Geometrically, this
+corresponds to modifying the Morse function
+so that a pair of critical points disappears.
+
+\begin{theorem}[Cancellation principle]
+\label{theorem-cancellation-principle}
+If the attaching sphere of a
+$(\lambda+1)$-handle intersects the belt
+sphere of a $\lambda$-handle transversely in
+one point, then the two handles cancel.
+\end{theorem}
+
+\begin{proof}
+We only record the geometric idea.  The
+single transverse intersection means that the
+gradient trajectory between the two critical
+points is unique and has the correct
+orientation.  One can then change the Morse
+function in a neighborhood of this trajectory
+and remove the two critical points.
+\end{proof}
+
+\noindent
+The course ended by pointing toward the
+classification of 4-manifolds.  In dimension
+4, handle decompositions are especially rich:
+0-, 1-, 2-, 3-, and 4-handles interact with
+intersection forms, framings, and Kirby
+calculus.  This is the bridge from Morse
+theory and differential topology to the
+classification problems for smooth
+4-manifolds.
 
 \bibliography{my}
 \bibliographystyle{amsalpha}
 
 \end{document}
-
