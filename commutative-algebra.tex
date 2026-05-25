@@ -6493,6 +6493,654 @@ implies the surjectivity of $\varphi$,
 hence $\mathfrak{m}$ is a principal ideal.
 \end{proof}
 
+\section{Dedekind rings}
+\label{section-dedekind-rings}
+
+\noindent
+Dedekind rings are the coordinate algebras
+of normal curves, which, by the 
+previous section, are smooth.
+
+\medskip\noindent
+Historically, Dedekind and Kummer were
+trying to understand factorization in
+number rings where unique factorization
+of elements fails.
+Their idea was to replace elements by
+ideals, because ideals factor uniquely in
+the Dedekind setting, and this gives a
+manageable theory of arithmetic in
+number fields.
+Krull later abstracted this ideal-theoretic
+picture and studied it in dimension $1$,
+where the geometry is especially simple.
+
+\begin{definition}
+\label{definition-dedekind-ring}
+Let $R$ be a ring without zero
+divisors.
+Assume that all ideals $I\subset R$
+are invertible as fractional ideals.
+Then $R$ is called a Dedekind ring,
+or a Dedekind domain.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-free-ideal-principal}
+Let $\mathfrak{p}$ be an ideal in a
+ring $R$.
+Assume that $\mathfrak{p}$ is free as
+an $R$-module.
+Then $\mathfrak{p}$ is principal.
+\end{lemma}
+
+\begin{proof}
+Let $e_1,\ldots,e_n$ be a free basis of
+$\mathfrak{p}$.
+Then
+$$
+\mathfrak{p}
+=\bigoplus_i R e_i.
+$$
+However, $e_1e_2\in Re_1\cap Re_2$,
+which is impossible because
+$$
+Re_1\cap Re_2=0.
+$$
+Hence $n=1$, so $\mathfrak{p}$ is
+principal.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-dedekind-local-dvr}
+Let $\mathfrak{m}$ be a maximal ideal of a
+Dedekind ring $R$, and let $R_{\mathfrak{m}}$
+be its localization.
+Then $R_{\mathfrak{m}}$ is a discrete valuation
+ring.
+\end{proposition}
+
+\begin{proof}
+Every ideal of $R_{\mathfrak{m}}$ is the
+localization of an ideal of $R$.
+Localization of a projective module is
+projective, hence every ideal of
+$R_{\mathfrak{m}}$ is projective.
+Since $R_{\mathfrak{m}}$ is local, every
+projective module over it is free.
+Therefore, every ideal of $R_{\mathfrak{m}}$
+is free.
+
+By Lemma~\ref{lemma-free-ideal-principal},
+every free ideal is principal.
+Hence $R_{\mathfrak{m}}$ is a principal ideal
+ring, so it is a discrete valuation ring.
+\end{proof}
+
+\begin{lemma}[Corollary]
+\label{lemma-dedekind-krull-dim-one}
+A Dedekind ring $R$ has Krull dimension $1$.
+\end{lemma}
+
+\begin{proof}
+Let $\mathfrak{m}$ be a maximal ideal of
+$R$.
+By Proposition
+\ref{proposition-dedekind-local-dvr},
+$R_{\mathfrak{m}}$ is a discrete valuation
+ring.
+Hence $R_{\mathfrak{m}}$ has only two prime
+ideals.
+Therefore, every chain of prime ideals in $R$
+has length at most $1$, so $R$ has Krull
+dimension $1$.
+\end{proof}
+
+\noindent
+The upshot about the following lemma is:
+prime ideals correspond to points
+of the scheme $\Spec(R)$.
+Localizations at each prime are
+the functions on the scheme which
+are regular near the point.
+The functions which are regular
+near every point are just regular functions,
+which are the elements of $R$.
+
+\begin{lemma}
+\label{lemma-intersection-localizations}
+Let $R$ be a ring without zero divisors,
+and let $\mathfrak{p}$ range over the
+maximal ideals of $R$.
+Then
+$$
+\bigcap_{\mathfrak{p}} R_{\mathfrak{p}} = R.
+$$
+\end{lemma}
+
+\begin{proof}
+Let $x$ be an element of
+$\bigcap_{\mathfrak{p}} R_{\mathfrak{p}}$.
+Let $I$ be the set of all $y\in R$ such
+that $yx\in R$.
+We will prove that $I=R$, which implies
+that $x\in R$.
+
+Assume that $I\neq R$.
+Then there exists a maximal ideal
+$\mathfrak{m}\supset I$.
+For any $a\notin\mathfrak{m}$, we have
+$ax\notin R$ by the definition of $I$.
+On the other hand, since
+$x\in R_{\mathfrak{m}}$, there exists
+$a\notin\mathfrak{m}$ such that
+$ax\in R$, a contradiction.
+Therefore, $I=R$, and so $x\in R$.
+\end{proof}
+
+\noindent
+In the following lemma,
+Noetherianity follows from fractionality
+of the local rings
+and integral-closedness from
+DVR-ness
+of the local rings.
+
+\begin{lemma}
+\label{lemma-dedekind-noetherian-integrally-closed}
+Any Dedekind ring $R$ is Noetherian and
+integrally closed.
+\end{lemma}
+
+\begin{proof}
+Step 1. Any invertible ideal is fractional,
+hence finitely generated.
+Therefore, $R$ is Noetherian.
+
+Step 2. Let $\mathfrak{p}$ be a prime ideal
+of $R$.
+By Proposition
+\ref{proposition-dedekind-local-dvr},
+$R_{\mathfrak{p}}$ is a discrete valuation
+ring, hence integrally closed.
+Now let $x\in k(R)$ be integral over $R$.
+Then $x\in R_{\mathfrak{p}}$ for every
+prime ideal $\mathfrak{p}$, because
+$R_{\mathfrak{p}}$ is integrally closed.
+By Lemma
+\ref{lemma-intersection-localizations},
+$x\in R$.
+\end{proof}
+
+\noindent
+Conversely, we have:
+
+\begin{theorem}
+\label{theorem-noetherian-integrally-closed-dim1-dedekind}
+Any Noetherian integrally closed ring
+$R$ of Krull dimension $1$ is
+Dedekind.
+\end{theorem}
+
+\begin{proof}
+Step 1. Let $I\subset R$ be an ideal.
+If $II^{-1}\subset R$, then there
+exists a prime ideal $\mathfrak{p}$
+containing $II^{-1}$.
+The localization of $I$ at
+$\mathfrak{p}$ is a principal ideal,
+generated by some $x\in R$, because
+$R_{\mathfrak{p}}$ is a DVR.
+Let $b_1,\dots,b_n$ be generators of
+$I$.
+Then $b_i=xr_i/s_i$, where
+$s_i\notin\mathfrak{p}$.
+
+Step 2. Let $s=\prod s_i$.
+Then $sx^{-1}\in I^{-1}$, which gives
+$s\in II^{-1}$.
+This is a contradiction, because each
+$s_i\notin\mathfrak{p}$.
+Hence $II^{-1}=R$, so $I$ is
+invertible.
+\end{proof}
+
+\begin{remark}[AI-generated]
+\label{remark-dedekind-iff}
+If $R$ is a Dedekind ring which is not a
+field, then $R$ has Krull dimension $1$.
+A field is also Dedekind, but has Krull
+dimension $0$.
+\end{remark}
+
+\medskip\noindent
+In fact,
+Kummer and Dedekind only cared about
+the following examples:
+
+\begin{definition}
+\label{definition-number-field}
+Let $[K:\mathbb{Q}]$ be finite.
+Then $K$ is called an algebraic number
+field.
+\end{definition}
+
+\begin{example}
+\label{example-number-field-canonical}
+The ring of integers in an algebraic
+number field is Dedekind.
+$\mathbb{Z}[\sqrt{-1}],
+\mathbb{Z}\left[\frac{
+\sqrt{-3}+1}{2}\right],
+\mathbb{Z}[\sqrt{-2}]$.
+The algebraic closure of $\mathbb{Z}$
+in a number field $K$,
+denoted $\mathcal{O}_K$,
+is Dedekind.
+\end{example}
+
+\begin{theorem}
+\label{theorem-dedekind-equivalent-conditions}
+Let $R$ be a ring without zero divisors.
+Then the following are equivalent:
+\begin{itemize}
+\item[(i)] $R$ is Dedekind.
+\item[(ii)] $R$ is Noetherian and any
+localization of $R$ at a prime ideal is
+a DVR.
+\item[(iii)] Every non-zero ideal of $R$
+is equal to a unique product of maximal
+ideals.
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+Step 1: $(i)$ implies $(ii)$ by
+Proposition~\ref{proposition-dedekind-local-dvr},
+and $(ii)$ implies $(i)$ because
+$R=\bigcap_{\mathfrak{p}}R_{\mathfrak{p}}$,
+hence $(ii)$ implies that $R$ is
+integrally closed.
+
+Step 2: To deduce $(iii)$ from $(i)$, take
+any ideal $I\subset R$. If $I$ is maximal,
+we are done. If $I$ is not maximal, let
+$\mathfrak{m}$ be a maximal ideal strictly
+containing $I$. Since
+$\mathfrak{m}^{-1}\mathfrak{m}=R$ and
+$I\supset \mathfrak{m}$, the product
+$J:=\mathfrak{m}^{-1}I\subset R$ is an
+ideal. Then $I=\mathfrak{m}J$, and
+$J\supset I$. Repeating this procedure,
+we obtain an increasing chain of ideals
+$$
+I\subset \mathfrak{m}_1^{-1}I
+\subset \mathfrak{m}_1^{-1}\mathfrak{m}_2^{-1}I
+\subset \cdots
+$$
+which terminates because $R$ is
+Noetherian. Then
+$\mathfrak{m}_1^{-1}\mathfrak{m}_2^{-1}
+\cdots \mathfrak{m}_n^{-1}I=\mathfrak{m}$
+is maximal, giving
+$I=\mathfrak{m}_1\mathfrak{m}_2\cdots
+\mathfrak{m}_n\mathfrak{m}$.
+
+Step 3: Let $R_{\mathfrak{p}}$ be a
+localization of $R$ in $\mathfrak{p}$.
+Then every non-zero ideal of
+$R_{\mathfrak{p}}$ is a product of
+non-zero maximal ideals, hence the
+maximal ideal of $R_{\mathfrak{p}}$ is
+principal, and $R_{\mathfrak{p}}$ is DVR.
+We proved that $(iii)$ implies $(ii)$.
+\end{proof}
+
+\begin{lemma}[Corollary]
+\label{lemma-dedekind-factorial-iff-principal}
+A Dedekind ring $R$ is factorial if and
+only if all ideals in $R$ are principal.
+\end{lemma}
+
+\begin{proof}
+Step 1. A principal ideal ring is
+factorial if it is also Noetherian,
+because in a Noetherian ring every
+element can be represented as a product
+of irreducible ones.
+
+Step 2. Conversely, let $R$ be a
+factorial Dedekind ring,
+$\mathfrak{p}\subset R$ a prime ideal,
+and $a\in \mathfrak{p}$ a non-zero
+element.
+Then $\mathfrak{p}$ contains an
+irreducible factor $t$ of $a$.
+Since $R$ is factorial, the ideal $(t)$
+is prime.
+Since $R$ has Krull dimension $1$, the
+chain
+$0\subset \mathfrak{p}\subset (t)$
+has length $2$, unless
+$\mathfrak{p}=(t)$.
+Since every ideal is a product of
+maximal ideals, every ideal in $R$ is
+principal.
+\end{proof}
+
+\medskip\noindent
+Now we make a slight detour to prove the
+Chinese Reminder Theorem.
+
+\begin{definition}
+\label{definition-comaximal-ideals}
+Ideals $P_1,\dots,P_n\subset R$ are
+called {\it pairwise coprime}, or
+{\it comaximal},
+if $P_i+P_j=R$ whenever $i\neq j$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-coprime-ideals-intersection}
+If $P,Q\subset R$ are coprime ideals,
+then $PQ=P\cap Q$.
+\end{lemma}
+
+\begin{proof}
+If $x\in P\cap Q$ and $P+Q=R$, then
+$1=p+q$ with $p\in P$ and $q\in Q$.
+Hence
+$$
+x=x(p+q)\in PQ+QP\subset PQ,
+$$
+which shows that $P\cap Q\subset PQ$.
+The reverse inclusion is clear.
+\end{proof}
+
+\medskip\noindent
+Now we make a slight detour to prove the
+Chinese Reminder Theorem.
+
+\begin{definition}
+\label{definition-comaximal-ideals}
+Ideals $P_1,\dots,P_n\subset R$ are
+called {\it pairwise coprime}, or
+{\it comaximal},
+if $P_i+P_j=R$ whenever $i\neq j$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-coprime-ideals-intersection}
+If $P,Q\subset R$ are coprime ideals,
+then $PQ=P\cap Q$.
+\end{lemma}
+
+\begin{proof}
+If $x\in P\cap Q$ and $P+Q=R$, then
+$1=p+q$ with $p\in P$ and $q\in Q$.
+Hence
+$$
+x=x(p+q)\in PQ+QP\subset PQ,
+$$
+which shows that $P\cap Q\subset PQ$.
+The reverse inclusion is clear.
+\end{proof}
+
+\medskip\noindent
+The following theorem is the induction
+base for the proof of the Chinese Reminder
+Theorem.
+
+\begin{theorem}[Chinese reminder theorem]
+\label{theorem-chinese-remainder}
+Let $P_1,\dots,P_n$ be comaximal ideals
+in a ring $R$. Then
+$$
+\prod_i P_i=
+\bigcap_i P_i=P_1P_2\cdots P_n.
+$$
+Moreover, the natural map
+$$
+\chi:R\Big/\bigcap_i P_i\to
+\bigoplus_i R/P_i
+$$
+is an isomorphism.
+\end{theorem}
+
+\begin{proof}
+We already proved the base case of
+induction for $n=2$.
+By the induction assumption,
+$$
+\bigcap_{i=1}^{n-1}P_i=
+P_1P_2\cdots P_{n-1}
+$$
+and
+$$
+R\Big/\bigcap_{i=1}^{n-1}P_i=
+\bigoplus_{i=1}^{n-1}R/P_i.
+$$
+We start by showing that the ideals
+\[
+\bigcap_{i=1}^{n-1}P_i
+\quad\text{and}\quad P_n
+\]
+are comaximal. Indeed, one has
+$$
+1=\prod_{i=1}^{n-1}(P_i+P_n)
+\in \prod_{i=1}^{n-1}P_i+P_n
+\subset \bigcap_{i=1}^{n-1}P_i+P_n.
+$$
+Therefore,
+\[
+\bigcap_{i=1}^{n-1}P_i
+\text{ and }P_n
+\]
+are comaximal, and
+by the base case $n=2$ we get
+$$
+P_n\bigcap_{i=1}^{n-1}P_i=
+P_n\cap\bigcap_{i=1}^{n-1}P_i=
+\bigcap_{i=1}^nP_i.
+$$
+Also,
+$$
+R\Big/\Bigl(P_n\cap\bigcap_{i=1}^{n-1}P_i\Bigr)
+=R/P_n\oplus
+R\Big/\bigcap_{i=1}^{n-1}P_i
+=\bigoplus_i R/P_i.
+$$
+\end{proof}
+
+\medskip\noindent
+Back to Dedekind rings,
+we have the following result.
+According to AI:
+Geometrically, this says that on a
+Dedekind scheme every ideal sheaf is
+generated by two global sections.
+Equivalently, in dimension $1$ every
+closed subscheme is cut out by two
+functions.
+This does not mean that the scheme is
+two-dimensional.
+The point is that the statement is
+global: an ideal sheaf on a curve is
+locally principal, but a single global
+equation may fail to exist because of
+twisting.
+The theorem says that two global
+functions always suffice to generate
+the ideal. In other words, the ideal
+sheaf of any set of points with
+multiplicities is generated by two
+global functions.
+
+\begin{theorem}
+\label{theorem-dedekind-ideals-two-generators}
+Let $R$ be a Dedekind ring, and
+$I\subset R$ an ideal.
+Then for any ideal $J\supset I$, there
+exists $b\in R$ such that $J=I+(b)$.
+Moreover, $I$ can be generated by two
+elements of $R$.
+\end{theorem}
+
+\begin{proof}
+Step 1. Let $\mathfrak{p}_i$ be non-zero
+prime ideals, and
+$I=\prod_i \mathfrak{p}_i^{\alpha_i}$.
+Since $R$ has Krull dimension $1$, the
+ideals $\mathfrak{p}_1,\mathfrak{p}_2,\dots$
+are pairwise comaximal.
+Since $\sqrt{\mathfrak{p}_i^n}=\mathfrak{p}_i$,
+one can never have
+$\mathfrak{p}_i^n\subset \mathfrak{p}_j$.
+This implies that the ideals
+$\mathfrak{p}_i^{\alpha_n}$ are also
+pairwise comaximal.
+
+Step 2. Chinese Reminder Theorem implies
+that
+$$
+R/I=\bigoplus_i R/\mathfrak{p}_i^{\alpha_i}.
+$$
+Each of the factors
+$R/\mathfrak{p}_i^{\alpha_i}$ is a quotient
+of a DVR, hence any ideal in
+$R/\mathfrak{p}_i^{\alpha_i}$ and in $R/I$
+is principal.
+This implies that $J=I+(b)$.
+
+Step 3. If $a\in I$ is non-zero, we apply
+Step 2 to the ideals $(a)\subset I$, and
+find that $I=(a)+(b)$.
+\end{proof}
+
+\medskip\noindent
+This is exactly the point where Dedekind
+and Kummer were heading: elements may not
+factor uniquely, but ideals do.
+So the right replacement for unique
+factorization in arithmetic rings is
+unique factorization of prime ideals.
+The idea of the proof is to compare two
+prime decompositions of the same ideal
+and strip off any common prime factor.
+This reduces the number of factors, and
+eventually forces a contradiction unless
+the two decompositions agree up to order.
+The Chinese Reminder Theorem enters when
+we use pairwise comaximality to pass from
+the equality of the two decompositions to
+an equality of products of the
+corresponding ideals.
+
+\begin{theorem}
+\label{theorem-dedekind-prime-factorization-unique}
+Let $R$ be a Dedekind ring, $I\subset R$
+an ideal, $\mathfrak{p}_i$ non-zero prime
+ideals, and
+$I=\prod_i \mathfrak{p}_i^{\alpha_i}$
+its prime decomposition.
+Then this decomposition is unique, up to
+renumbering the prime factors.
+\end{theorem}
+
+\begin{proof}
+Let
+$I=\prod_j \mathfrak{q}_j^{\beta_j}$
+be another such decomposition.
+If there is a common factor, say,
+$\mathfrak{p}$, between
+$\mathfrak{p}_i$ and $\mathfrak{q}_j$,
+we can replace $I$ by
+$I\mathfrak{p}^{-1}$, and have two
+non-equivalent decompositions with fewer
+factors.
+Repeating this procedure, we obtain
+$$
+I=\prod_i \mathfrak{p}_i^{\alpha_i}
+=\prod_j \mathfrak{q}_j^{\beta_j}.
+$$
+However, the ideals
+$\mathfrak{q}_i^{\alpha_i}$ and
+$\mathfrak{q}_j^{\beta_j}$ are pairwise
+comaximal, which implies by the proof of
+the Chinese Reminder Theorem that
+$$
+I=\prod_i \mathfrak{p}_i^{\alpha_i}
+\cap \prod_j \mathfrak{q}_j^{\beta_j}
+=\prod_i \mathfrak{p}_i^{\alpha_i}
+\prod_j \mathfrak{q}_j^{\beta_j}
+=I^2,
+$$
+which is impossible by
+Lemma~\ref{lemma-nakayama-first},
+also called Krull lemma.
+\end{proof}
+
+\medskip\noindent
+This extends
+Theorem~
+\ref{theorem-dedekind-equivalent-conditions}:
+
+\begin{theorem}
+\label{theorem-dedekind-equivalent-conditions-full}
+Let $R$ be a ring without zero divisors.
+Then the following are equivalent:
+\begin{itemize}
+\item[(i)] $R$ is Dedekind.
+\item[(ii)] $R$ is Noetherian and any
+localization of $R$ at a prime ideal is
+a DVR.
+\item[(iii)] Every non-zero ideal in $R$
+is equal to a unique product of prime
+ideals.
+\item[(iv)] $R$ is integrally closed,
+Noetherian ring of Krull dimension $1$.
+\item[(v)] Every ideal in $R$ is
+projective as an $R$-module.
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+Step 1. The equivalence $(v)\Rightarrow(i)$
+is clear because finitely generated
+projective fractional ideals are the same
+as invertible ones.
+The implication $(i)\Rightarrow(ii)$ is
+also clear because invertibility of the
+ideal implies that it is finitely
+generated projective, and after passing
+to localizations, every finitely generated
+projective module is free, hence the
+localization is a principal ideal ring,
+therefore a DVR.
+
+Step 2. The implications $(ii)\Rightarrow(i)
+\Rightarrow(iii)$ and the equivalence
+$(iv)\Leftrightarrow(ii)$ were proven
+today.
+
+Step 3. It remains to show that
+$(iii)\Rightarrow(i)$.
+Theorem~\ref{theorem-dedekind-prime-factorization-unique}
+implies that any ring where each non-zero
+ideal is a product of maximal ideals is
+Dedekind.
+From the uniqueness of decomposition we
+obtain that $\mathfrak{p}\subset \mathfrak{q}$
+implies $\mathfrak{p}=\mathfrak{q}$ when
+both ideals are prime; indeed,
+$\mathfrak{p}\mathfrak{q}=\mathfrak{p}$.
+(Oops! There is a mistake here!
+It's probably $\mathfrak{p}^2$…
+or smaller than $\mathfrak{p}^2$.)
+Hence $R$ has Krull dimension $1$, and we
+can apply Theorem~
+\ref{theorem-noetherian-integrally-closed-dim1-dedekind}.
+\end{proof}
+
 
 \end{document}
-but what's that one?

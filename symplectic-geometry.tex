@@ -81,22 +81,135 @@ $$
 $$
 \end{proof}
 
+\medskip\noindent
+The linear algebra behind the dimension count
+is just the following. If $W \subseteq V$,
+then $\operatorname{Ann}(W)$ is the kernel of
+the restriction map
+$$
+V^* \longrightarrow W^*,
+\qquad
+\varphi \longmapsto \varphi|_W.
+$$
+This map is surjective, since every linear
+functional on $W$ extends to one on $V$ by
+extending a basis of $W$ to a basis of $V$.
+Hence rank-nullity gives
+$$
+\dim \operatorname{Ann}(W)
+=
+\dim V-\dim W.
+$$
+So, in the symplectic situation, once
+$\omega^\flat:V\to V^*$ identifies
+$W^\omega$ with $\operatorname{Ann}(W)$,
+the formula above is immediate.
+
 \begin{definition}
 \label{definition-symplectic-subspaces}
 Let $W \subseteq V$ be a subspace of a
 symplectic vector space $(V,\omega)$.
 \begin{itemize}
 \item $W$ is {\it isotropic} if
-$W \subseteq W^\omega$.
+$$
+\omega|_W=0,$$
+equivalently if
+$$
+W\subseteq W^\omega.
+$$
+
 \item $W$ is {\it coisotropic} if
-$W^\omega \subseteq W$.
-\item $W$ is {\it Lagrangian} if
-$W=W^\omega$.
+$$
+W^\omega\subseteq W.
+$$
+Equivalently, the quotient
+$W/W^\omega$ carries an induced symplectic
+form.
+
+\item $W$ is {\it Lagrangian} if $W$ is
+maximal isotropic. Equivalently, $W$ is
+isotropic and
+$$
+\dim W=\frac{1}{2}\dim V.
+$$
+Equivalently,
+$$
+W=W^\omega.
+$$
+
 \item $W$ is {\it symplectic} if
-$W \cap W^\omega=\{0\}$, equivalently
-$\omega|_W$ is nondegenerate.
+$\omega|_W$ is nondegenerate,
+i.e. $(W,\omega|_W)$
+is a symplectic vector space. Equivalently,
+$$
+W\cap W^\omega=\{0\}.
+$$
 \end{itemize}
 \end{definition}
+
+\medskip\noindent
+To prove the equivalences
+in the definitions above, the
+it might be convenient to use 
+Proposition 
+\ref{proposition-symplectic-basis}.
+Write
+$$
+V=\langle e_1,f_1,\ldots,e_n,f_n\rangle
+$$
+with
+$$
+\omega(e_i,f_i)=1
+$$
+and all other pairings between basis vectors
+zero, except those forced by skew-symmetry.
+Each pair $\langle e_i,f_i\rangle$ should be
+thought of as a symplectic plane.
+
+\medskip\noindent
+For example,
+$$
+W=\langle e_1\rangle\subset \mathbb R^4
+$$
+is isotropic. But
+$$
+W^\omega=\langle e_1,e_2,f_2\rangle,
+$$
+is not isotropic, since
+$$
+\omega(e_2,f_2)=1.
+$$
+Thus $W^\omega$ does not behave like an
+ordinary Euclidean orthogonal complement.
+It kills the symplectic partners of the
+vectors in $W$, but it keeps the unused
+symplectic planes.
+
+\begin{exercise}
+\label{exercise-equivalent-definitions-symplectic-subspaces}
+Prove that the equivalent formulations in
+Definition
+\ref{definition-symplectic-subspaces}
+are indeed equivalent. In particular, prove:
+\begin{enumerate}
+\item $\omega|_W=0$ if and only if
+$W\subseteq W^\omega$.
+
+\item If $W^\omega\subseteq W$, then
+$\omega|_W$ descends to a symplectic form on
+$W/W^\omega$.
+
+\item A subspace is maximal isotropic if and
+only if it is half-dimensional isotropic.
+
+\item A subspace is Lagrangian if and only if
+$W=W^\omega$.
+
+\item The restriction $\omega|_W$ is
+nondegenerate if and only if
+$W\cap W^\omega=\{0\}$.
+\end{enumerate}
+\end{exercise}
 
 \begin{remark}
 If $W$ is symplectic, then
@@ -111,9 +224,6 @@ If $W$ is coisotropic, then
 $$
 \dim W \geq \frac{1}{2}\dim V.
 $$
-In particular, $W$ is Lagrangian if and
-only if it is isotropic and
-\(\dim W=\frac{1}{2}\dim V\).
 \end{remark}
 
 \begin{exercise}
@@ -552,18 +662,689 @@ submanifolds are
 defined intrinsically in the sense that they
 can all
 be thought of as embedded in its own
-cotangent bundle.
-
-\begin{theorem}[Weinstein's Lagrangian
-submanifold theorem]
-\label{theorem-weins-lagra-subma}
-If $L \subset M$ is a Lagrangian submanifold,
+cotangent bundle:
+if $L \subset M$ is a Lagrangian submanifold,
 there is are neighbourhoods $L \subseteq U_0
 \subset M$
 and $L \subset U_1 \subset T^*L$
 and a symplectomorphism $\varphi:U_0 \to
 U_1$.
+
+Recall what it means to be a Lagrangian
+vector subspace: $W \subset V$ is 
+Lagrangian when $W = W^\omega$.
+The key fact we need from
+Lagrangian subspaces is this
+(Exercise 
+\ref{exercise-lagrangian-complement}):
+at the cost of choosing a metric
+and making the construction non-canonical,
+the symplectic orthogonal is in fact
+a direct sum complement of $W$.
+But more is true: the resulting
+complement turns out to be Lagrangian too,
+and it's identified with the dual space
+of the original Langrangian subspace,
+and, further, the splitting of the
+original vector space has a canonical
+symplectic form induced by this
+decomposition. 
+
+Showing those facts is the first step
+towards Weinstein Lagrangian
+submanifold theorem.
+Then we need to show the corresponding
+facts apply to submanifolds in a
+fiberwise version of the exercise
+(Lemma 
+\ref{lemma-lagrangian-complement-fiber}).
+After that we use a generalized
+version of Darboux theorem
+
+\begin{exercise}[Lagrangian complements]
+\label{exercise-lagrangian-complements}
+Let $(V,\omega)$ be a symplectic vector
+space, let $W\subset V$ be a subspace, and
+let $J$ be an $\omega$-compatible complex
+structure. Let
+$$
+g(u,v)=\omega(u,Jv)
+$$
+be the associated inner product. Then
+$$
+J(W^\omega)=W^{\perp_g}.
+$$
+Consequently, every coisotropic subspace
+has an isotropic complement. In particular,
+every Lagrangian subspace $L\subset V$ has
+a Lagrangian complement $L'$:
+$$
+V=L\oplus L'.
+$$
+Moreover, if $L'$ is any Lagrangian
+complement of $L$, then there is a natural
+identification
+$$
+L'\simeq L^*
+$$
+which induces a symplectomorphism
+$$
+V\simeq L\oplus L^*,
+$$
+where $L\oplus L^*$ is equipped with the
+canonical symplectic form
+$$
+\omega_{\operatorname{can}}
+((l,\alpha),(l',\alpha'))
+=
+\alpha(l')-\alpha'(l).
+$$
+\end{exercise}
+
+\begin{proof}
+The first part of the exercise
+is straightforward from the definitions.
+For the coisotropic subspace part
+we need to use that $(W^\omega)^\omega=W$,
+which follows from the dimension formula
+of the symplectic orthogonal
+(recall that while the symplectic
+orthogonal does not give
+direct sum decompositions,
+at least the sum of the dimensions
+add up to the dimension of the ambient space,
+a key tool in these matters of symplectic
+linear algebra; 
+Lemma
+\ref{lemma-symplectic-orthogonal-dimension}).
+
+\medskip\noindent
+I'll leave this AI-part for now:
+Now let $L'$ be any Lagrangian complement
+of a Lagrangian subspace $L$, so
+$$
+V=L\oplus L'.
+$$
+Define
+$$
+\kappa:L'\longrightarrow L^*
+$$
+by
+$$
+\kappa(x)=\omega(x,-)|_L.
+$$
+This map is injective. Indeed, if
+$\kappa(x)=0$, then
+$$
+\omega(x,l)=0
+\qquad
+\text{for all }l\in L.
+$$
+Hence $x\in L^\omega=L$. But also
+$x\in L'$, and $L\cap L'=\{0\}$. Thus
+$x=0$. Since
+$$
+\dim L'=\dim L^*,
+$$
+the map $\kappa$ is an isomorphism.
+
+\medskip\noindent
+Using $\kappa$, define
+$$
+F:V=L\oplus L'\longrightarrow L\oplus L^*
+$$
+by
+$$
+F(l+x)=(l,\kappa(x)).
+$$
+We now check that $F$ is symplectic. Since
+both $L$ and $L'$ are Lagrangian,
+$$
+\omega(l+x,l'+x')
+=
+\omega(l,x')+\omega(x,l').
+$$
+On the other hand,
+\begin{align*}
+\omega_{\operatorname{can}}
+(F(l+x),F(l'+x'))
+&=
+\omega_{\operatorname{can}}
+((l,\kappa(x)),(l',\kappa(x')))\\
+&=
+\kappa(x)(l')-\kappa(x')(l)\\
+&=
+\omega(x,l')-\omega(x',l)\\
+&=
+\omega(x,l')+\omega(l,x').
+\end{align*}
+Thus
+$$
+F^*\omega_{\operatorname{can}}=\omega.
+$$
+So
+$$
+V\simeq L\oplus L^*
+$$
+as symplectic vector spaces.
+\end{proof}
+
+
+\begin{lemma}[Lagrangian complements
+fiberwises]
+\label{lemma-lagrangian-complements-fiber}
+Let $L\subset (M,\omega)$ be a
+Lagrangian submanifold. Then there is an
+isomorphism of symplectic vector bundles
+over $L$
+$$
+TM|_L\simeq TL\oplus T^*L,
+$$
+where $TL\oplus T^*L$ is equipped with the
+canonical symplectic form
+$$
+\Omega((X,\alpha),(Y,\beta))
+=
+\beta(X)-\alpha(Y).
+$$
+Moreover, this isomorphism restricts to
+the identity on $TL$.
+\end{lemma}
+
+\begin{proof}
+Since $L$ is Lagrangian, $TL$ is a
+Lagrangian subbundle of the symplectic
+vector bundle $TM|_L$. Choose a Lagrangian
+complement $E$ to $TL$, so that
+$$
+TM|_L=TL\oplus E.
+$$
+Thus we have
+$$
+\xymatrix{
+& TM|_L \ar[d]\\
+& L
+}
+\qquad\text{with}\qquad
+TM|_L=TL\oplus E.
+$$
+
+\medskip\noindent
+The symplectic form identifies $E$ with
+$T^*L$. Indeed, define
+$$
+b:E\longrightarrow T^*L
+$$
+by
+$$
+b(e)=\omega(e,-)|_{TL}.
+$$
+This map is injective: if $b(e)=0$, then
+$e$ pairs trivially with $TL$. Since also
+$E$ is Lagrangian, $e$ pairs trivially with
+$E$. Hence $e$ pairs trivially with all of
+$$
+TM|_L=TL\oplus E,
+$$
+so $e=0$. Since $E$ and $T^*L$ have the
+same rank, $b$ is an isomorphism.
+
+\medskip\noindent
+Using $b$, we identify
+$$
+TM|_L=TL\oplus E
+\simeq
+TL\oplus T^*L.
+$$
+Under this identification, the symplectic
+form becomes
+$$
+\Omega((X,\alpha),(Y,\beta))
+=
+\beta(X)-\alpha(Y),
+$$
+up to the harmless sign convention in the
+definition of $b$. Choosing the sign as
+above gives the stated formula. The
+isomorphism is the identity on $TL$.
+\end{proof}
+
+\noindent
+The roadmap to the following generalization
+of Darboux theorem is as follows.
+First we show that if two symplectic
+forms on the same manifold agree
+along a submanifold $Q$,
+then there are symplectomorphic
+neighbourhoods of $Q$. That is,
+there is a diffeomorphism
+of a neighbourhood of $Q$ to another
+neighbourhood of $Q$ taking one symplectic
+form to another. Of course, this uses
+Moser's trick, which needs a non-local
+version of Poincaré lemma:
+
+\begin{lemma}[Relative Poincaré]
+\label{lemma-relative-poincare}
+Let $Q$ be an embedded submanifold of $M$
+and $i:Q \hookrightarrow M$ the inclusion.
+Let $\alpha \in \Omega^k(M)$ bet a closed
+form such that $i^*\alpha=0$.
+Then there is a neighbourhood
+$U \supset Q$ and $\eta \in \Omega^{k-1}(U)$
+such that $\alpha=d \eta$.
+\end{lemma}
+
+But the generalization of Darboux theorem
+can be stated slightly more generally than 
+that: we can allow the two symplectic 
+forms to live in two different manifolds.
+Then, instead of asking that the two
+forms agree along the submanifold $Q$,
+we simply require that there be
+an bundle isomorphism of the pullback
+bundles. In fact, we construct
+an diffeomorphism of neighbourhoods
+of $Q$ whose derivative is the given
+bundle isomorphism.
+
+\begin{theorem}[Relative Darboux theorem]
+\label{theorem-relative-darboux}
+Let $(M_0,\omega_0)$ and $(M_1,\omega_1)$
+be symplectic manifolds, and let
+$$
+i_0:Q\hookrightarrow M_0,
+\qquad
+i_1:Q\hookrightarrow M_1
+$$
+be embeddings. Suppose that there is an
+isomorphism of symplectic vector bundles
+$$
+\Phi:TM_0|_Q\longrightarrow TM_1|_Q
+$$
+such that
+$$
+\Phi|_{TQ}=\operatorname{id}_{TQ}.
+$$
+In other words,
+$$
+\xymatrix{
+TM_0|_Q \ar[rr]^-{\Phi} \ar[dr]
+&& TM_1|_Q \ar[dl]\\
+& Q &
+}
+$$
+commutes and $\Phi$ is the identity on
+$TQ$. Then there are neighborhoods $U_0$
+of $Q$ in $M_0$ and $U_1$ of $Q$ in
+$M_1$, and a symplectomorphism
+$$
+\varphi:(U_0,\omega_0)\longrightarrow
+(U_1,\omega_1)
+$$
+such that
+$$
+\varphi|_Q=\operatorname{id}_Q.
+$$
 \end{theorem}
+
+\begin{proof}
+By the tubular neighborhood theorem, after
+shrinking neighborhoods, the bundle map
+$\Phi$ is the derivative along $Q$ of a
+diffeomorphism
+$$
+\psi:U_0\longrightarrow U_1
+$$
+such that
+$$
+\psi|_Q=\operatorname{id}_Q,
+\qquad
+d\psi|_Q=\Phi.
+$$
+Thus
+$$
+\xymatrix{
+U_0 \ar[rr]^-{\psi}
+&& U_1\\
+& Q \ar[ul] \ar[ur] &
+}
+$$
+commutes.
+
+\medskip\noindent
+Since $\Phi$ is symplectic, the forms
+$$
+\omega_0
+\qquad\text{and}\qquad
+\psi^*\omega_1
+$$
+agree along $Q$. Put
+$$
+\eta=\psi^*\omega_1-\omega_0.
+$$
+Then $\eta$ is closed and vanishes along
+$Q$. By the relative Poincare lemma, after
+shrinking $U_0$, there is a $1$-form
+$\sigma$ such that
+$$
+\eta=d\sigma,
+\qquad
+\sigma|_Q=0.
+$$
+
+\medskip\noindent
+Consider
+$$
+\omega_t=\omega_0+t\eta.
+$$
+After shrinking $U_0$, all $\omega_t$ are
+symplectic. Define $X_t$ by
+$$
+\iota_{X_t}\omega_t=-\sigma.
+$$
+Since $\sigma|_Q=0$, we have
+$$
+X_t|_Q=0.
+$$
+Thus the flow $\rho_t$ of $X_t$ fixes $Q$.
+
+\medskip\noindent
+Moser's computation gives
+\begin{align*}
+\frac{d}{dt}\rho_t^*\omega_t
+&=
+\rho_t^*
+\left(
+\mathcal L_{X_t}\omega_t+\dot\omega_t
+\right)\\
+&=
+\rho_t^*
+\left(
+d(\iota_{X_t}\omega_t)+\eta
+\right)\\
+&=
+\rho_t^*(-d\sigma+d\sigma)\\
+&=0.
+\end{align*}
+Hence
+$$
+\rho_1^*(\psi^*\omega_1)=\omega_0.
+$$
+Therefore
+$$
+\varphi=\psi\circ \rho_1
+$$
+satisfies
+$$
+\varphi^*\omega_1=\omega_0.
+$$
+Since both $\psi$ and $\rho_1$ fix $Q$,
+the map $\varphi$ fixes $Q$.
+\end{proof}
+
+\begin{theorem}[Weinstein's Lagrangian
+neighborhood theorem]
+\label{theorem-weinstein-lagrangian}
+Let $L\subset (M,\omega)$ be an embedded
+Lagrangian submanifold. Then there are a
+neighborhood $U_0$ of the zero section in
+$T^*L$, a neighborhood $U_1$ of $L$ in
+$M$, and a symplectomorphism
+$$
+\varphi:(U_0,\omega_{\operatorname{can}})
+\longrightarrow (U_1,\omega)
+$$
+such that
+$$
+\varphi|_L=\operatorname{id}_L.
+$$
+Equivalently,
+$$
+\xymatrix{
+& L \ar[dl]_{0_L} \ar[dr]^-{i} &\\
+T^*L \ar@{-->}[rr]^-{\varphi}
+&& M
+}
+$$
+near $L$.
+\end{theorem}
+
+\begin{proof}
+Apply Lemma
+\ref{lemma-relative-darboux} to the two
+embeddings
+$$
+\xymatrix{
+& L \ar[dl]_{0_L} \ar[dr]^-{i} &\\
+T^*L && M .
+}
+$$
+Thus we take
+$$
+M_0=T^*L,
+\qquad
+M_1=M,
+\qquad
+Q=L.
+$$
+
+\medskip\noindent
+Along the zero section of $T^*L$ there is
+the canonical identification
+$$
+T(T^*L)|_L\simeq TL\oplus T^*L.
+$$
+The canonical symplectic form on this
+bundle is
+$$
+\Omega((X,\alpha),(Y,\beta))
+=
+\beta(X)-\alpha(Y).
+$$
+
+\medskip\noindent
+By Lemma
+\ref{lemma-lagrangian-linear-model},
+there is also an isomorphism of symplectic
+vector bundles
+$$
+TM|_L\simeq TL\oplus T^*L
+$$
+which is the identity on $TL$. Therefore
+we get an isomorphism
+$$
+\Phi:T(T^*L)|_L\longrightarrow TM|_L
+$$
+of symplectic vector bundles, covering the
+identity of $L$, and satisfying
+$$
+\Phi|_{TL}=\operatorname{id}_{TL}.
+$$
+In diagram form,
+$$
+\xymatrix{
+T(T^*L)|_L \ar[rr]^-{\Phi} \ar[dr]
+&& TM|_L \ar[dl]\\
+& L &
+}
+$$
+
+\medskip\noindent
+Now Lemma
+\ref{lemma-relative-darboux} gives
+neighborhoods
+$$
+U_0\subset T^*L,
+\qquad
+U_1\subset M,
+$$
+and a symplectomorphism
+$$
+\varphi:(U_0,\omega_{\operatorname{can}})
+\longrightarrow (U_1,\omega)
+$$
+such that
+$$
+\varphi|_L=\operatorname{id}_L.
+$$
+This is Weinstein's theorem.
+\end{proof}
+
+\medskip\noindent
+Here's an AI-generated application
+of this theorem concerning deformations
+of a Lagrangian submanifold 
+by Lagrangian submanifolds.
+
+Let $L_t\subset M$ be a smooth family of
+Lagrangian submanifolds with $L_0=L$.
+Choose parametrizations
+$$
+\iota_t:L\to M
+$$
+with image $L_t$, and set
+$$
+V=
+\frac{d}{dt}\bigg|_{t=0}\iota_t .
+$$
+Thus $V$ is a vector field along $L$.
+
+\medskip\noindent
+The tangential part of $V$ only
+reparametrizes $L$. Hence the true
+infinitesimal deformation is the class of
+$V$ in
+$$
+TM|_L/TL.
+$$
+Since $L$ is Lagrangian, the symplectic
+form gives a canonical identification
+$$
+TM|_L/TL\simeq T^*L.
+$$
+Explicitly, the class of $V$ is sent to
+the $1$-form
+$$
+\alpha_V\in\Omega^1(L)
+$$
+defined by
+$$
+\alpha_V(X)=\omega(V,X),
+\qquad X\in TL.
+$$
+This is well-defined because
+$\omega|_L=0$.
+
+\medskip\noindent
+Now use the Lagrangian condition. Since
+each $L_t$ is Lagrangian, we have
+$$
+\iota_t^*\omega=0
+$$
+for every $t$. Differentiating at $t=0$
+gives
+$$
+0=
+\frac{d}{dt}\bigg|_{t=0}\iota_t^*\omega
+=
+\iota_0^*(\mathcal L_V\omega).
+$$
+By Cartan's formula,
+$$
+\mathcal L_V\omega
+=
+d(\iota_V\omega)+\iota_Vd\omega.
+$$
+Since $d\omega=0$, this becomes
+$$
+0=d(\iota_0^*\iota_V\omega).
+$$
+But
+$$
+\iota_0^*\iota_V\omega=\alpha_V.
+$$
+Therefore
+$$
+d\alpha_V=0.
+$$
+Thus every infinitesimal Lagrangian
+deformation gives a closed $1$-form.
+
+\medskip\noindent
+So far Weinstein's theorem has not been
+used. The previous argument only gives a
+necessary condition. Weinstein's theorem
+gives the converse. It identifies a
+neighborhood of $L$ in $M$ with a
+neighborhood of the zero section in
+$T^*L$, by a symplectomorphism
+$$
+\varphi:U_0\to U_1
+$$
+where
+$$
+U_0\subset T^*L,
+\qquad
+U_1\subset M.
+$$
+Therefore a sufficiently small $1$-form
+$\alpha$ on $L$ determines a nearby
+submanifold of $M$, namely
+$$
+\varphi(\Gamma_\alpha).
+$$
+Here ``sufficiently small'' means that
+$$
+\Gamma_\alpha\subset U_0.
+$$
+
+\medskip\noindent
+In the cotangent model, the standard
+calculation says
+$$
+\Gamma_\alpha\text{ is Lagrangian}
+\quad\Longleftrightarrow\quad
+d\alpha=0.
+$$
+Since $\varphi$ is a symplectomorphism,
+this implies that every sufficiently small
+closed $1$-form gives an actual nearby
+Lagrangian submanifold of $M$. In
+particular, if $\alpha$ is closed, then
+$t\alpha$ gives such a deformation for
+$|t|$ small.
+
+\medskip\noindent
+Finally, Hamiltonian-trivial deformations
+correspond to exact $1$-forms. Indeed, if
+the family is generated by a Hamiltonian
+vector field $X_H$, then, up to sign
+convention,
+$$
+\iota_{X_H}\omega=dH.
+$$
+Restricting to $L$ gives
+$$
+\alpha_{X_H}=d(H|_L).
+$$
+Thus Hamiltonian-trivial infinitesimal
+deformations give exact $1$-forms.
+
+\medskip\noindent
+Consequently, modulo Hamiltonian-trivial
+deformations, the infinitesimal
+deformations of $L$ are measured by
+$$
+\frac{Z^1(L)}{B^1(L)}
+=
+H^1(L,\mathbb R).
+$$
+The role of Weinstein's theorem is to turn
+the infinitesimal calculation into a local
+classification: nearby Lagrangians are
+locally the same thing as small closed
+$1$-forms on $L$.
 
 \section{Coadjoint orbits and KKS theorem}
 \label{section-coadjoint-orbits}

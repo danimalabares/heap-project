@@ -27,6 +27,9 @@ Repository guidance for AI agents working in this repo.
   ```
 
 - Do not write inner products with raw angle brackets like `\left< X,Y \right>`. Use `\left\langle{} X,Y \right\rangle{}` instead.
+- Do not use `\subsetneq`; use `\subset` instead.
+- Do not use `\supsetneq`; use `\supset` instead.
+- In every `definition` environment, italicize the term being defined.
 - Never use capital letters in LaTeX labels. Use labels like
   `\label{theorem-rauch-clean}` instead of
   `\label{theorem-Rauch-clean}` or
