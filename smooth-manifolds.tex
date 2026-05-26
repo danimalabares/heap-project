@@ -204,6 +204,286 @@ $\tilde{X}=\sum
 a^i(\pi_M(\tilde{p}))\partial_i$.
 \end{proof}
 
+\section{Lie groups}
+\label{section-lie-groups}
+
+\begin{definition}
+\label{definition-lie-group}
+A {\it Lie group} is a smooth manifold $G$
+with a group structure such that the map
+$$
+G\times G\to G,\qquad
+(g,h)\mapsto gh^{-1}
+$$
+is smooth.
+Equivalently, multiplication and inversion
+are smooth.
+A {\it Lie group homomorphism} is a smooth
+group homomorphism.
+\end{definition}
+
+\medskip\noindent
+The basic examples are the additive groups
+$\mathbb{R}^n$ and $\mathbb{C}^n$, the
+multiplicative groups $\mathbb{R}^*$ and
+$\mathbb{C}^*$, the circle group
+$S^1\subset\mathbb{C}$, and the tori
+$$
+T^n=S^1\times\cdots\times S^1.
+$$
+The fundamental matrix examples are
+$$
+\operatorname{GL}(n,\mathbb{R}),\qquad
+\operatorname{GL}(n,\mathbb{C}),
+$$
+which are open subsets of the corresponding
+matrix vector spaces. Other standard examples
+are
+$$
+\operatorname{SL}(n,\mathbb{R}),\quad
+\operatorname{O}(n),\quad
+\operatorname{SO}(n),\quad
+\operatorname{U}(n),\quad
+\operatorname{SU}(n),\quad
+\operatorname{Sp}(2n,\mathbb{R}).
+$$
+Here
+$$
+\operatorname{Sp}(2n,\mathbb{R})=
+\{A\in \operatorname{GL}(2n,\mathbb{R}):
+A^TJA=J\},
+$$
+where
+$$
+J=\begin{pmatrix}0&-I_n\\ I_n&0\end{pmatrix}.
+$$
+
+\begin{theorem}
+\label{theorem-closed-subgroup}
+Every closed subgroup of a Lie group is an
+embedded Lie subgroup.
+In particular, every closed subgroup of
+$\operatorname{GL}(n,\mathbb{R})$ or
+$\operatorname{GL}(n,\mathbb{C})$ is a Lie
+group.
+\end{theorem}
+
+\medskip\noindent
+This theorem is the clean reason why the
+usual matrix groups above are Lie groups.
+For instance $\operatorname{O}(n)$ is the
+closed subgroup cut out by $A^TA=I$, while
+$\operatorname{SL}(n,\mathbb{R})$ is cut out
+by $\det A=1$.
+
+\begin{definition}
+\label{definition-lie-algebra}
+Let $G$ be a Lie group. Its {\it Lie algebra}
+is
+$$
+\mathfrak g=T_eG.
+$$
+If $u\in\mathfrak g$, there is a unique
+left-invariant vector field $U$ on $G$ with
+$U_e=u$. The bracket on $\mathfrak g$ is
+then defined by
+$$
+[u,v]=[U,V]_e.
+$$
+\end{definition}
+
+\medskip\noindent
+For a matrix Lie group $G\subset
+\operatorname{GL}(n,\mathbb{F})$, its Lie
+algebra can be computed as
+$$
+\mathfrak g=
+\{A\in M_n(\mathbb{F}):\exp(tA)\in G
+\text{ for all }t\in\mathbb{R}\}.
+$$
+This gives
+$$
+\mathfrak{gl}(n,\mathbb{F})=M_n(\mathbb{F}),
+\qquad
+\mathfrak{sl}(n,\mathbb{F})=
+\{A:\operatorname{tr}A=0\},
+$$
+$$
+\mathfrak{o}(n)=\{A:A^T+A=0\},
+\qquad
+\mathfrak{u}(n)=\{A:A^*+A=0\},
+$$
+$$
+\mathfrak{su}(n)=
+\{A:A^*+A=0,\operatorname{tr}A=0\},
+$$
+and
+$$
+\mathfrak{sp}(2n,\mathbb{R})=
+\{A:A^TJ+JA=0\}.
+$$
+For matrix groups, the Lie bracket is just
+the commutator
+$$
+[A,B]=AB-BA.
+$$
+
+\begin{definition}
+\label{definition-lie-exponential}
+Let $G$ be a Lie group and let
+$u\in\mathfrak g$. Let $U$ be the
+left-invariant vector field determined by
+$u$. The integral curve of $U$ through $e$
+is defined for all $t\in\mathbb{R}$ and is a
+one-parameter subgroup. We define
+$$
+\exp(u)=\gamma_u(1),
+$$
+or equivalently
+$$
+\exp(tu)=\gamma_u(t).
+$$
+\end{definition}
+
+\begin{proposition}
+\label{proposition-exponential-properties}
+The Lie group exponential map
+$\exp:\mathfrak g\to G$ satisfies:
+\begin{enumerate}
+\item $\exp(0)=e$.
+\item For each $u\in\mathfrak g$, the curve
+$t\mapsto \exp(tu)$ is a one-parameter
+subgroup of $G$.
+\item $d(\exp)_0:\mathfrak g\to\mathfrak g$
+is the identity. Hence $\exp$ is a local
+diffeomorphism from a neighborhood of
+$0\in\mathfrak g$ to a neighborhood of
+$e\in G$.
+\item If $F:G\to H$ is a Lie group
+homomorphism, then
+$$
+F(\exp_G u)=\exp_H(dF_e(u)).
+$$
+\item If $[u,v]=0$, then
+$$
+\exp(u+v)=\exp(u)\exp(v).
+$$
+\end{enumerate}
+\end{proposition}
+
+\medskip\noindent
+For a matrix Lie group the exponential is
+the usual matrix exponential:
+$$
+\exp(A)=e^A=
+\sum_{k=0}^\infty \frac{A^k}{k!}.
+$$
+In general $\exp$ need not be globally
+surjective and it does not usually satisfy
+$\exp(u+v)=\exp(u)\exp(v)$ unless $u$ and
+$v$ commute.
+
+\begin{definition}
+\label{definition-lie-group-action}
+A smooth left action of $G$ on a manifold
+$M$ is a smooth map
+$$
+G\times M\to M,\qquad (g,p)\mapsto g\cdot p,
+$$
+satisfying $e\cdot p=p$ and
+$(gh)\cdot p=g\cdot(h\cdot p)$.
+For $p\in M$, the {\it orbit map} is
+$$
+\Phi_p:G\to M,
+\qquad
+\Phi_p(g)=g\cdot p.
+$$
+The orbit is $G\cdot p=\Phi_p(G)$.
+The stabilizer is
+$$
+G_p=\{g\in G:g\cdot p=p\}.
+$$
+\end{definition}
+
+\begin{definition}
+\label{definition-fundamental-vector-field}
+For $u\in\mathfrak g$, the associated
+{\it fundamental vector field} on $M$ is
+$$
+u_M(p)=
+\left.\frac{d}{dt}\right|_{t=0}
+\exp(tu)\cdot p.
+$$
+\end{definition}
+
+\begin{theorem}
+\label{theorem-orbit-theorem-lie-actions}
+Let a Lie group $G$ act smoothly on a
+manifold $M$. Then every orbit $G\cdot p$ is
+an immersed submanifold of $M$ and the orbit
+map
+$$
+\Phi_p:G\to G\cdot p
+$$
+is a submersion. Moreover $G_p$ is a closed
+Lie subgroup of $G$, and the natural map
+$$
+G/G_p\to G\cdot p,
+\qquad
+[g]\mapsto g\cdot p
+$$
+is a diffeomorphism, where the orbit carries
+its immersed-submanifold smooth structure.
+\end{theorem}
+
+\medskip\noindent
+In particular, differentiating the orbit map
+at the identity gives
+$$
+T_p(G\cdot p)=\operatorname{Im}(d\Phi_p)_e
+=\{u_M(p):u\in\mathfrak g\}.
+$$
+The kernel of $(d\Phi_p)_e$ is the stabilizer
+algebra
+$$
+\mathfrak g_p=
+\{u\in\mathfrak g:u_M(p)=0\},
+$$
+so infinitesimally one has
+$$
+T_p(G\cdot p)\cong \mathfrak g/\mathfrak g_p.
+$$
+This is the precise sense in which an orbit
+is locally parametrized by $\mathfrak g$, but
+with stabilizer directions killed.
+
+\medskip\noindent
+For the coadjoint action on $\mathfrak g^*$,
+the convention
+$$
+\langle \operatorname{Ad}^*_g\xi,v\rangle
+=
+\langle \xi,\operatorname{Ad}_{g^{-1}}v\rangle
+$$
+gives
+$$
+u_{\mathfrak g^*}(\xi)=
+\left.\frac{d}{dt}\right|_{t=0}
+\operatorname{Ad}^*_{\exp(tu)}\xi.
+$$
+Hence, for the coadjoint orbit
+$\mathcal O_\xi$, the orbit theorem gives
+$$
+T_\xi\mathcal O_\xi=
+\{u_{\mathfrak g^*}(\xi):u\in\mathfrak g\}.
+$$
+The sign convention above implies
+$$
+\langle u_{\mathfrak g^*}(\xi),v\rangle
+=
+-\langle \xi,[u,v]\rangle.
+$$
+
 \section{Principal bundles}
 \label{section-principal-bundles}
 
