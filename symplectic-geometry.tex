@@ -676,7 +676,7 @@ Lagrangian when $W = W^\omega$.
 The key fact we need from
 Lagrangian subspaces is this
 (Exercise 
-\ref{exercise-lagrangian-complement}):
+\ref{exercise-lagrangian-complements}):
 at the cost of choosing a metric
 and making the construction non-canonical,
 the symplectic orthogonal is in fact
@@ -697,9 +697,13 @@ Then we need to show the corresponding
 facts apply to submanifolds in a
 fiberwise version of the exercise
 (Lemma 
-\ref{lemma-lagrangian-complement-fiber}).
+\ref{lemma-lagrangian-complements-fiber}).
 After that we use a generalized
-version of Darboux theorem
+version of Darboux theorem which essentially
+is the statement of Weinstein's theorem.
+The upshot is that the Lagrangian lemma
+gives us the condition we need
+to apply Generalized Darboux theorem.
 
 \begin{exercise}[Lagrangian complements]
 \label{exercise-lagrangian-complements}
@@ -831,7 +835,7 @@ as symplectic vector spaces.
 
 
 \begin{lemma}[Lagrangian complements
-fiberwises]
+fiberwise]
 \label{lemma-lagrangian-complements-fiber}
 Let $L\subset (M,\omega)$ be a
 Lagrangian submanifold. Then there is an
@@ -942,11 +946,19 @@ forms to live in two different manifolds.
 Then, instead of asking that the two
 forms agree along the submanifold $Q$,
 we simply require that there be
-an bundle isomorphism of the pullback
+a bundle isomorphism of the pullback
 bundles. In fact, we construct
 an diffeomorphism of neighbourhoods
 of $Q$ whose derivative is the given
 bundle isomorphism.
+
+Once again: the upshot about 
+Lemma 
+\ref{lemma-lagrangian-complements-fiber}
+is that it will provide us with the
+bundle isomorphism we need to apply
+Relative Darboux and obtain Weinstein's
+Theorem.
 
 \begin{theorem}[Relative Darboux theorem]
 \label{theorem-relative-darboux}
@@ -1102,22 +1114,22 @@ $$
 Equivalently,
 $$
 \xymatrix{
-& L \ar[dl]_{0_L} \ar[dr]^-{i} &\\
 T^*L \ar@{-->}[rr]^-{\varphi}
-&& M
+&& M\\
+& L \ar[ul]^{0_L} \ar[ur]_{i} &
 }
 $$
 near $L$.
 \end{theorem}
 
 \begin{proof}
-Apply Lemma
-\ref{lemma-relative-darboux} to the two
+Apply Theorem
+\ref{theorem-relative-darboux} to the two
 embeddings
 $$
 \xymatrix{
-& L \ar[dl]_{0_L} \ar[dr]^-{i} &\\
-T^*L && M .
+T^*L && M\\
+& L \ar[ul]^{0_L} \ar[ur]_{i} &
 }
 $$
 Thus we take
@@ -1145,7 +1157,7 @@ $$
 
 \medskip\noindent
 By Lemma
-\ref{lemma-lagrangian-linear-model},
+\ref{lemma-lagrangian-complements-fiber},
 there is also an isomorphism of symplectic
 vector bundles
 $$
@@ -1164,15 +1176,14 @@ $$
 In diagram form,
 $$
 \xymatrix{
-T(T^*L)|_L \ar[rr]^-{\Phi} \ar[dr]
-&& TM|_L \ar[dl]\\
-& L &
+T^*L && M\\
+& L \ar[ul]^{0_L} \ar[ur]_{i} &
 }
 $$
 
 \medskip\noindent
-Now Lemma
-\ref{lemma-relative-darboux} gives
+Now Theorem
+\ref{theorem-relative-darboux} gives
 neighborhoods
 $$
 U_0\subset T^*L,
@@ -1346,17 +1357,160 @@ classification: nearby Lagrangians are
 locally the same thing as small closed
 $1$-forms on $L$.
 
+\medskip\noindent
+Let us finish the section
+discussing why Weinstein's theorem is a
+useful local model in Misha's work.
+(AI-written passage.)
+
+\medskip\noindent
+The theorem says that if
+$L\subset (M,\omega)$ is Lagrangian, then a
+neighborhood of $L$ in $M$ is symplectomorphic
+to a neighborhood of the zero section in
+$T^*L$. In other words, near $L$ there is no
+extra ambient symplectic geometry:
+the local model is forced by $L$ itself.
+See \emph{Seminars}, Theorem
+\ref{theorem-weins-lagra-neigh}.
+
+\medskip\noindent
+This is exactly what is used in the
+Lagrangian blow-down construction. If
+$S\subset M$ is a Lagrangian sphere, then
+Weinstein identifies a neighborhood of $S$
+with a standard cotangent neighborhood.
+One can then remove this standard piece and
+glue in the corresponding orbifold piece.
+This gives the Lagrangian blow-down; see
+\emph{Seminars}, Definition
+\ref{definition-lagrangian-blow-down}.
+The inverse operation is the Lagrangian
+blow-up.
+
+\medskip\noindent
+Thus Weinstein is the local normal form
+which makes the surgery possible. The global
+arguments then use Moser's trick and Darboux
+coordinates to show that the construction is
+independent of choices; see
+\emph{Seminars}, Theorems
+\ref{theorem-lagrangian-blow-up-well-defined}
+and \ref{theorem-same-for-blow-down}.
+This is also why the Lagrangian
+Teichmüller space appears naturally: it keeps
+track of symplectic forms for which a fixed
+submanifold remains Lagrangian.
+
+\medskip\noindent
+There is a parallel global story for
+holomorphic Lagrangian fibrations. If
+$(M,\Omega)$ is holomorphically symplectic
+and
+$$
+\pi:M\to B
+$$
+is a holomorphic Lagrangian fibration, then
+the fibers are half-dimensional and
+$\Omega$ restricts to zero on them; see
+\emph{Complex Geometry}, Definition
+\ref{definition-holomorphic-lagrangian-fib}.
+By holomorphic Liouville, the smooth compact
+fibers are complex tori. Hence a Lagrangian
+fibration is a family of complex tori.
+
+\medskip\noindent
+In Misha's Shafarevich/isogeny picture, this
+torus structure is the key. Degenerate
+twistor deformations preserve the same
+Lagrangian fibration; see
+\emph{Complex Geometry}, Definition
+\ref{definition-degenerate-twistor-def}.
+Different members of the family can then be
+viewed as torsors over the same relative
+torus fibration. After a finite base change,
+these torsors acquire sections and become
+trivial; see \emph{Complex Geometry},
+Theorem \ref{theorem-degenerate-twistor-cover}.
+The graph of the resulting isomorphism
+produces the desired symplectic
+correspondence.
+
+\medskip\noindent
+So Weinstein's theorem explains the local
+reason why Lagrangian submanifolds are
+controlled by cotangent geometry:
+$$
+TM|_L/TL\simeq T^*L.
+$$
+Misha's work uses this local idea in global
+ways: for Lagrangian blow-up and blow-down,
+it gives the standard local model for
+surgery; for Lagrangian fibrations, the
+fibers become tori, and the global problem
+turns into one about torsors, finite covers,
+and correspondences.
+
 \section{Coadjoint orbits and KKS theorem}
 \label{section-coadjoint-orbits}
 
 \noindent
-The coadjoint action induces orbits in
-$\mathfrak{g}^*$. The tangent space at any
-point of a coadjoint orbit is given by
-infinitesimal vector fields, that is, $$
+There is an obvious way
+of defining the coadjoint action
+of a Lie group $G$ on the dual of its Lie
+algebra, $\mathfrak{g}^*$. This gives
+the coadjoint orbits:
+$$
+\mathcal{O}_\eta=
+\{\text{Ad}^*_g(\eta):g \in G\}
+$$
+for $\eta \in \mathfrak{g}^*$.
+
+As we show next,
+the tangent space at any
+point $\xi $of a coadjoint orbit is given by
+infinitesimal vector fields, that is, 
+$$
 T_{\xi}\mathcal{O}=\{u_{\mathfrak{g}^*}(\xi):
-\forall
-u \in \mathfrak{g}\}. $$
+u \in \mathfrak{g}\}.
+$$
+The reason for this expression
+is essentially that the orbit map
+$G \to \mathcal{O}$
+is in general a submersion, 
+and writing the definition
+of the differential of this map
+basically gives the definition
+of the infinitesimal vector fields
+$u_{\mathfrak{g}^*}$.
+
+More precisely
+By the general orbit theorem for smooth Lie
+group actions
+(Smooth Manifolds Theorem
+\ref{smooth-manifolds-theorem-orbit-theorem-lie-actions})
+, each orbit is an immersed
+submanifold and the orbit map
+$$
+\Phi_\xi:G\to \mathcal O_\xi,
+\qquad
+\Phi_\xi(g)=\operatorname{Ad}_g^*\xi
+$$
+is a submersion. Hence
+$$
+T_\xi\mathcal O_\xi
+=
+\operatorname{Im}(d\Phi_\xi)_e.
+$$
+But for $u\in\mathfrak g$,
+$$
+(d\Phi_\xi)_e(u)
+=
+\left.\frac{d}{dt}\right|_{t=0}
+\operatorname{Ad}_{\exp(tu)}^*\xi
+=
+u_{\mathfrak g^*}(\xi).
+$$
 
 \noindent
 We may introduce a symplectic form
