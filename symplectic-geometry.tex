@@ -1452,7 +1452,7 @@ turns into one about torsors, finite covers,
 and correspondences.
 
 \section{Coadjoint orbits and KKS theorem}
-\label{section-coadjoint-orbits}
+\label{section-kks}
 
 \noindent
 There is an obvious way
@@ -1513,22 +1513,25 @@ u_{\mathfrak g^*}(\xi).
 $$
 
 \noindent
-We may introduce a symplectic form
-$\omega \in \Lambda^{2}T^*_\xi\mathcal{O}$
-on the tangent space
-at some point of a
-coadjoint orbit by
+\begin{definition}
+\label{definition-kks}
+We define {\it Kostant--Kirillov--Souriau
+(KKS) form} pointwise
+on $T_\xi \mathcal{O}_\eta$ by
 $$
-\omega_\xi(X,Y):=\xi([u,v])
+\omega_\xi(u_{\mathfrak{g}^*}(\xi),
+v_{\mathfrak{g}^*}(\xi)):=\xi([u,v])
 =-u_{\mathfrak{g}^*}(\xi)v
-=v_{\mathfrak{g}^*}(\xi)(u)
+=v_{\mathfrak{g}^*}(\xi)(u).
 $$
-which does not depend on
-$u,v \in \mathfrak{g}$.
+\end{definition}
 
 \begin{theorem}[KKS]
-\label{theorem-KKS}
-$\xi \mapsto  \omega_\xi$ is symplectic on
+\label{theorem-kks}
+$\xi \mapsto  \omega_\xi$ is 
+a well-defined 
+(does not depend on the
+choice of $u,v$) symplectic on
 $\mathcal{O}$.
 \end{theorem}
 
@@ -1539,110 +1542,40 @@ Closedness follows from Jacobi identity.
 \end{proof}
 
 \begin{exercise}
-\label{exercise-rough-vector-field}
-Let $G$ be a Lie group.
-Let $X:G \to TG$ be a section
-of the projection $TG \to G$,
-not necessarily smooth.
-Show that if $X$ is left invariant
-(i.e. $dL_g(X)=X \circ L_g$
-for all $g \in G$, then $X$ is smooth.
+\label{exercise-kks-so3-sphere}
+Consider $G=\operatorname{SO}(3)$.
+Identify $\mathfrak{so}(3)$ with
+$\mathbb{R}^3$ by sending $u\in\mathbb{R}^3$
+to the matrix $\hat u$ such that
+$\hat u(v)=u\times v$.
+Using the Euclidean inner product, identify
+$\mathfrak{so}(3)^*$ with $\mathbb{R}^3$.
+
+Show that the coadjoint orbits are the
+spheres
+$$
+S_r^2=\{\xi\in\mathbb{R}^3:|\xi|=r\}.
+$$
+Then show that the KKS form on $S_r^2$ is
+$$
+\omega_\xi(u_{\mathfrak g^*}(\xi),
+v_{\mathfrak g^*}(\xi))
+=
+\xi\cdot(u\times v),
+$$
+where
+$$
+u_{\mathfrak g^*}(\xi)=u\times \xi.
+$$
+Finally, prove that
+$$
+\omega=\frac{1}{r}\operatorname{Area}_{S_r^2}.
+$$
+In particular,
+$$
+\int_{S_r^2}\omega=4\pi r.
+$$
 \end{exercise}
-
-\begin{proof}
-We have to show that
-$X(f)$ is a smooth function on $M$
-for any $f \in C^\infty(M)$.
-Indeed,
-$$
-\begin{aligned}
-X(f)g&=X_g(f)\\
-&=X_e \circ L_g(f)\\
-&=dL_g(X_e)(f)\\
-&=X_e(f \circ L_g),
-\end{aligned}
-$$
-
-\noindent
-which is smooth since $X_e$
-is not varying while
-$f \circ L_g$ is smooth.
-\end{proof}
-
-\begin{exercise}
-\label{exercise-killing-form}
-For a Lie algebra $\mathfrak{g}$,
-there is always a canonical bilinear form
-$k:\mathfrak{g}\times\mathfrak{g}
-\to \mathbb{R}$
-called the {\it Killing form}
-given by
-$$
-k(u,v)=\text{tr}(\text{ad}_u\text{ad}_v).
-$$
-\begin{enumerate}
-\item Note that $k$ is symmetric
-and check that it is Ad-invariant.
-\item A Lie algebra is called semisimple
-if $k$ is nondegenerate.
-Show that $\mathfrak{so}(3)$ is semisimple.
-\end{enumerate}
-\end{exercise}
-
-\begin{proof}
-\begin{enumerate}
-\item
-\item Let
-$$
-e_1=\begin{pmatrix}
-0&1&0\\
--1&0&0\\
-0&0&0\end{pmatrix},
-e_2=\begin{pmatrix}
-0&0&1\\
-0&0&0\\
--1&0&0\end{pmatrix},
-e_3=\begin{pmatrix}
-0&0&0\\
-0&0&1\\
-0&-1&0\end{pmatrix}
-$$
-be a basis of $\mathfrak{so}_3$.
-Then
-$$
-[e_1,e_2]=-e_3,\quad
-[e_1,e_3]=e_2,\quad
-[e_2,e_3]=-e_1.
-$$
-To compute the trace we use
-Euclidean dot product identifying
-$\mathfrak{so}_3=\mathbb{R}^3$.
-We obtain
-$$
-\begin{aligned}
-\kappa(e_1,e_2)&=
-\text{tr}\text{ad}_{e_1}\text{ad}_{e_2}
-&=\sum_i\left\langle{}[e_1,[e_2,e_i]],e_i\right\rangle{}\\
-&=\left\langle{}[e_1,[e_2,e_1]],e_1\right\rangle{}
-+\left\langle{}[e_1,[e_2,e_2]],e_2\right\rangle{}
-+\left\langle{}[e_1,[e_2,e_3]],e_3\right\rangle{}\\
-&=0,
-\end{aligned}
-$$
-
-\noindent
-and similarly
-$$
-\kappa(e_1,e_3)=1,\quad
-\kappa(e_2,e_1)=1,\quad
-\kappa(e_3,e_3)=-2.
-$$
-Ok, the computations are left to the reader,
-but $\kappa$ is should be a diagonal matrix
-and therefore nondegenerate.
-\end{enumerate}
-\end{proof}
-
 
 \section{Hamiltonian actions, moment map
 and symplectic reduction}

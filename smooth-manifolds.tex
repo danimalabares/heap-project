@@ -292,6 +292,38 @@ $$
 $$
 \end{definition}
 
+\begin{exercise}
+\label{exercise-rough-vector-field}
+Let $G$ be a Lie group.
+Let $X:G \to TG$ be a section
+of the projection $TG \to G$,
+not necessarily smooth.
+Show that if $X$ is left invariant
+(i.e. $dL_g(X)=X \circ L_g$
+for all $g \in G$, then $X$ is smooth.
+\end{exercise}
+
+\begin{proof}
+We have to show that
+$X(f)$ is a smooth function on $M$
+for any $f \in C^\infty(M)$.
+Indeed,
+$$
+\begin{aligned}
+X(f)g&=X_g(f)\\
+&=X_e \circ L_g(f)\\
+&=dL_g(X_e)(f)\\
+&=X_e(f \circ L_g),
+\end{aligned}
+$$
+
+\noindent
+which is smooth since $X_e$
+is not varying while
+$f \circ L_g$ is smooth.
+\end{proof}
+
+
 \medskip\noindent
 For a matrix Lie group $G\subset
 \operatorname{GL}(n,\mathbb{F})$, its Lie
@@ -482,6 +514,113 @@ $$
 =
 -\langle \xi,[u,v]\rangle.
 $$
+This is the KKS symplectic form
+on the coadjoint orbits,
+see Symplectic Geometry Section
+\ref{symplectic-geometry-section-kks}.
+
+\begin{exercise}
+\label{exercise-bursztyn-so3-adjoint-action}
+Consider the linear isomorphism
+$\mathbb{R}^3\to\mathfrak{so}(3)$, given by
+$$
+v=(x,y,z)\mapsto \hat v:=
+\begin{pmatrix}
+0&-z&y\\
+z&0&-x\\
+-y&x&0
+\end{pmatrix}
+$$
+
+\begin{enumerate}
+\item Describe the Lie bracket on $\mathbb{R}^3$
+induced by the commutator in $\mathfrak{so}(3)$,
+and the inner product in $\mathfrak{so}(3)$ that
+corresponds to the canonical inner product in
+$\mathbb{R}^3$.
+
+\item Describe the $\operatorname{SO}(3)$-action
+on $\mathbb{R}^3$ corresponding to the adjoint
+action, its orbits, as well as its infinitesimal
+generators. Find (without any calculation!) a
+description of the coadjoint action on
+$\mathbb{R}^3$ identified with $(\mathbb{R}^3)^*$
+through the canonical inner product.
+\end{enumerate}
+\end{exercise}
+
+\begin{proof}
+\begin{enumerate}
+\item Save doing the computations,
+the Lie bracket is the cross product
+and the innter product is proportional
+to the trace (not the determinant!).
+
+\item First we need to find
+$\text{Ad}_gu$ for
+$g \in \text{SO}_3$
+and $u \in \mathfrak{so}_3$.
+The first thing I do is track the definition.
+I get:
+$$
+\text{Ad}_gu
+=\frac{d}{dt}\Big|_{t=0}
+g^{-1}\text{exp}(tu)\cdot g
+=g^{-1}\frac{d}{dt}\Big|_{t=0}\text{exp}(tu)\cdot
+g=g^{-1}ug.
+$$
+But that's not good enough.
+While I would dare to go to coordinates
+and try to figure out some pattern…
+it might also be sort of clear
+that there's a way of using the
+identification in the first item.
+The answer is AI-crafted:
+To see that the adjoint action corresponds to
+the usual action of $\operatorname{SO}(3)$ on
+$\mathbb{R}^3$, let $R\in\operatorname{SO}(3)$.
+We claim that
+$$
+R\hat vR^{-1}=\widehat{Rv}.
+$$
+Indeed, both sides are linear maps
+$\mathbb{R}^3\to\mathbb{R}^3$, so it is
+enough to apply them to an arbitrary vector
+$w$ (this was basically my 
+argument above differentiating exp). We get
+$$
+(R\hat vR^{-1})(w)
+=
+R(\hat v(R^{-1}w))
+=
+R(v\times R^{-1}w).
+$$
+Since $R\in\operatorname{SO}(3)$ preserves
+the cross product,
+$$
+R(v\times R^{-1}w)
+=
+(Rv)\times(RR^{-1}w)
+=
+(Rv)\times w.
+$$
+But this is exactly
+$$
+\widehat{Rv}(w).
+$$
+Therefore
+$$
+R\hat vR^{-1}=\widehat{Rv}.
+$$
+The orbit of $u \in \mathfrak{so}_3$
+under the adjoint action is 
+$\mathcal{O}_u=\{\text{Ad}_gu:g \in
+\text{SO}(3)\}$. By the discussion
+so far we know these are spheres
+in $\mathbb{R}^3$.
+
+\end{enumerate}
+\end{proof}
 
 \section{Principal bundles}
 \label{section-principal-bundles}
