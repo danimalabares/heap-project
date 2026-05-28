@@ -6493,6 +6493,765 @@ implies the surjectivity of $\varphi$,
 hence $\mathfrak{m}$ is a principal ideal.
 \end{proof}
 
+\section{p-adic numbers}
+\label{section-p-adic-numbers}
+
+\begin{definition}
+\label{definition-norm-on-ring}
+A {\it norm} on a ring $A$ is a
+function
+$$
+A \to \mathbb R_{\geq 0},
+$$
+denoted $r \mapsto ||r||$, such that
+$$
+||x+y|| \leq ||x||+||y||,
+$$
+$$
+||xy||=||x||||y||
+$$
+and
+$$
+||x||=0 \Leftrightarrow x=0.
+$$
+\end{definition}
+
+\begin{remark}
+\label{remark-usual-absolute-value-norm}
+The usual absolute values on
+$\mathbb R$ and $\mathbb C$ are
+examples of norms.
+\end{remark}
+
+\begin{definition}
+\label{definition-discrete-valuation}
+A {\it discrete valuation} on a ring
+$A$ is a function
+$$
+\nu:A \to \mathbb Z \cup \{\infty\}
+$$
+such that
+$$
+\nu(ab)=\nu(a)+\nu(b),
+$$
+$$
+\nu(a+b)\geq \min(\nu(a),\nu(b)),
+$$
+and
+$$
+\nu(x)=\infty \Leftrightarrow x=0.
+$$
+\end{definition}
+
+\begin{remark}
+\label{remark-additive-valuation-convention}
+We use the additive convention for
+valuations. Thus products become sums.
+\end{remark}
+
+\begin{exercise}
+\label{exercise-norm-from-discrete-valuation}
+Let $\nu$ be a discrete valuation on
+a ring. Prove that
+$$
+x \mapsto u^{-\nu(x)}
+$$
+is a norm, for any
+$u \in \mathbb R_{>1}$.
+\end{exercise}
+
+\begin{proof}
+We use the convention $u^{-\infty}=0$.
+Define
+$$
+||x||=u^{-\nu(x)}.
+$$
+Then $||x||=0$ if and only if
+$\nu(x)=\infty$, which happens if and
+only if $x=0$.
+
+For the product property, we use
+additivity of the valuation:
+$$
+\begin{aligned}
+||xy||
+&=u^{-\nu(xy)}\\
+&=u^{-\nu(x)-\nu(y)}\\
+&=u^{-\nu(x)}u^{-\nu(y)}\\
+&=||x||||y||.
+\end{aligned}
+$$
+
+For the triangle inequality, the
+valuation inequality gives
+$$
+\nu(x+y)\geq \min(\nu(x),\nu(y)).
+$$
+Since $u>1$, this implies
+$$
+u^{-\nu(x+y)}
+\leq
+u^{-\min(\nu(x),\nu(y))}.
+$$
+Therefore
+$$
+||x+y||
+\leq
+u^{-\min(\nu(x),\nu(y))}.
+$$
+Now the minimum is one of the two
+numbers $\nu(x),\nu(y)$. If
+$$
+\min(\nu(x),\nu(y))=\nu(x),
+$$
+then
+$$
+u^{-\min(\nu(x),\nu(y))}
+=
+u^{-\nu(x)}
+\leq
+u^{-\nu(x)}+u^{-\nu(y)}.
+$$
+The other case is identical. Hence
+$$
+||x+y|| \leq ||x||+||y||.
+$$
+So $x \mapsto u^{-\nu(x)}$ is a norm.
+\end{proof}
+
+\begin{definition}
+\label{definition-p-adic-valuation}
+Let $n/m \in \mathbb Q$, where $n,m$
+are coprime integers. The {\it
+$p$-adic valuation} $\nu_p(n/m)$ is
+equal to $\alpha$ if
+$$
+n=p^\alpha n',
+$$
+where $\alpha>0$ and $n'$ is coprime
+with $p$; to $-\alpha$ if
+$$
+m=p^\alpha m',
+$$
+where $\alpha>0$ and $m'$ is coprime
+with $p$; to $0$ if $m$ and $n$ are
+coprime with $p$; and to $\infty$ if
+$n=0$.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-p-adic-valuation-discrete}
+Prove that the $p$-adic valuation is
+a discrete valuation.
+\end{exercise}
+
+\begin{proof}
+Let's consider cases.
+To prove the product rule, i.e.
+that $\nu\left(\frac{n}{m}
+\frac{n'}{m'}\right)
+=\nu\left(\frac{n}{m}\right)+
+\nu\frac{n'}{m'}$, consider:
+\begin{itemize}
+\item ($\nu
+\left(\frac{n}{m}\right)=\nu(n),
+\nu\left(\frac{n'}{m'}\right)=\nu(n')$.)
+Then $\nu$(product)=$\nu(n)+\nu(n')$.
+\item Similar cases give the result
+with no problems.
+\end{itemize}
+
+\noindent
+Now, the inequality property requires
+an observation. In the cases
+$\nu\left(\frac{n}{m}\right)=\nu(n),
+\nu\left(\frac{n'}{m'}\right)=\nu(n')$
+and $\nu\left(\frac{n}{m}\right)=-\nu(m),
+\nu\left(\frac{n'}{m'}\right)=-\nu(m')$
+we obtain equality
+(WRONG! if the valuations
+are the same we could 
+get something not equality 
+--- but the required inequality
+would hold still)
+$$
+\nu\left(\frac{n}{m}
++\frac{n'}{m'}\right)
+=\text{min}\left\{
+\nu\left(\frac{n}{m}\right),
+\nu\left(\frac{n'}{m'}\right)\right\}.
+$$
+This is because the
+exponent of $p$ factors through the minimum.
+Pending: look more carefully at the
+case where the two valuations coincide.
+
+Now consider the case
+$\nu\left(\frac{n}{m}\right)=\nu(n),
+\nu\left(\frac{n'}{m'}\right)=-\nu(m')$.
+Do simple sum:
+$$
+p^{\nu(n)}+p^{-\nu(m')}
+p^{\nu(n)}
+\frac{p^{\nu(m')}}{p^{\nu(m')}}
++\frac{1}{p^{\nu(m')}}
+=
+\frac{p^{\nu(n)+\nu(m')}+1}
+{p^{\nu(m')}},
+$$
+which shows that the valuation is
+$-\nu(m')$ since the numerator
+has no $p$-factor.
+Since both $\nu(n)$ and $\nu(m')$ 
+are positive number, the inequality follows.
+
+The last property of valuations 
+is verified trivially.
+
+
+\medskip\noindent
+AI-proof for inequality part:
+Assume $\nu_p(x)\leq \nu_p(y)$.
+Write
+$$
+x=p^r a,\qquad y=p^s b,
+$$
+where $r=\nu_p(x)$, $s=\nu_p(y)$,
+and $\nu_p(a)=\nu_p(b)=0$.
+Then
+$$
+x+y=p^r(a+p^{s-r}b).
+$$
+Since $s-r\geq 0$, the second factor
+has nonnegative valuation. Hence
+$$
+\nu_p(x+y)\geq r
+=
+\min(\nu_p(x),\nu_p(y)).
+$$
+\end{proof}
+
+\begin{remark}
+\label{remark-norm-defines-metric}
+The norm defines a metric on $R$ by
+$$
+d(x,y):=||x-y||.
+$$
+\end{remark}
+
+\begin{exercise}
+\label{exercise-ring-structure-completion}
+Let $R$ be a ring equipped with a norm.
+Construct the ring structure on its
+metric completion $\overline R$,
+compatible with the ring structure on
+$R$. Prove that $\overline R$ is
+equipped with a norm compatible with
+the norm on $R$.
+\end{exercise}
+
+\begin{definition}
+\label{definition-completion-normed-ring}
+The normed ring $\overline R$ is called
+the {\it completion} of $R$ with
+respect to the norm.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-completion-of-field}
+Let $R$ be a normed ring, and let
+$\overline R$ be its completion.
+Assume that $R$ is a field. Prove that
+$\overline R$ is also a field.
+\end{exercise}
+
+\begin{definition}
+\label{definition-completion-valuation}
+Let $\nu$ be a valuation on a ring
+$A$. The {\it completion of $A$ with
+respect to $\nu$} is its completion
+with respect to the norm
+$$
+x \mapsto u^{-\nu(x)}
+$$
+for some $u>1$.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-completion-independent-u}
+Prove that the completion is
+independent of
+$u \in \mathbb R_{>1}$.
+\end{exercise}
+
+\begin{definition}
+\label{definition-p-adic-integers-rationals}
+The completion of $\mathbb Z$ with
+respect to $\nu_p$ is called the
+{\it ring of $p$-adic integers},
+denoted $\mathbb Z_p$. The completion
+of $\mathbb Q$ with respect to $\nu_p$
+is called the {\it field of $p$-adic
+rationals}, denoted $\mathbb Q_p$.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-summable-distances-cauchy}
+Let $(X,d)$ be a metric space, and let
+$\{a_i\}$ be a sequence of points in
+$X$. Suppose that the series
+$$
+\sum_i d(a_i,a_{i-1})
+$$
+converges. Prove that $\{a_i\}$ is a
+Cauchy sequence. Is the converse true?
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-series-converges-zp}
+Prove that for any sequence of integers
+$a_k$, the series
+$$
+\sum_k a_kp^k
+$$
+converges in $\mathbb Z_p$.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-geometric-series-zp}
+Prove that
+$$
+(1-p)\left(\sum_{k=0}^{\infty}p^k\right)=1
+$$
+in $\mathbb Z_p$.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-prime-to-p-invertible-zp}
+Prove that every integer not divisible
+by $p$ is invertible in $\mathbb Z_p$.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-qp-element-fraction-zp}
+Let $x \in \mathbb Q_p$. Prove that
+$$
+x=\frac{x'}{p^k},
+$$
+where $x' \in \mathbb Z_p$.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-root-n-limit}
+Prove that
+$$
+\lim_{n \to \infty}\sqrt[n]{n}=1.
+$$
+Here the limit is taken in $\mathbb R$
+with the usual metric.
+\end{exercise}
+
+\begin{definition}
+\label{definition-non-archimedean-norm}
+A norm $\nu$ on a ring $R$ is called
+{\it non-Archimedean} if
+$$
+\nu(x+y)\leq \max(\nu(x),\nu(y))
+$$
+for all $x,y$. Otherwise, the norm is
+called {\it Archimedean}.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-non-archimedean-unit-ball}
+Let $\nu$ be a norm on $\mathbb Q$.
+Prove that $\nu$ is non-Archimedean if
+and only if $\mathbb Z$ is contained in
+the unit ball.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-non-archimedean-prime-ideal}
+Let $\nu$ be a non-Archimedean norm on
+$\mathbb Z$. Consider the set
+$$
+\mathfrak m \subset \mathbb Z
+$$
+consisting of all integers $n$ such
+that $\nu(n)<1$. Deduce from the
+non-Archimedean property that
+$\mathfrak m$ is an ideal in
+$\mathbb Z$. Prove that
+$\mathfrak m$ is prime.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-non-archimedean-powers}
+Let $\nu$ be a non-Archimedean norm on
+$\mathbb Q$, and let
+$$
+\mathfrak m=(p)
+=
+\{0,\pm p,\pm 2p,\pm 3p,\ldots\}
+$$
+be the ideal constructed above. Prove
+that there exists a real number
+$\lambda>1$ such that
+$$
+\nu(n)=\lambda^{-k}
+$$
+for every
+$$
+n=p^kr,
+$$
+where $r$ is coprime with $p$.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-norm-bound-by-log}
+Let $\nu$ be a norm on $\mathbb Q$ such
+that $\nu(2)\leq 1$. Prove that
+$$
+\nu(a)<\log_2(a)+1
+$$
+for every integer $a>0$.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-norm-two-less-than-one}
+Let $\nu$ be a norm on $\mathbb Q$ such
+that $\nu(2)\leq 1$. Prove that
+$$
+\nu(a)\leq 1
+$$
+for every integer $a>0$. In particular,
+$\nu$ is non-Archimedean.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-archimedean-cauchy-sequence}
+Let $a_i$ be a sequence of rational
+numbers of the form
+$$
+\frac{x}{2^n},
+$$
+which is Cauchy with respect to the
+usual Euclidean norm on $\mathbb R$.
+Suppose that the norm $\nu$ on
+$\mathbb Q$ is Archimedean. Prove that
+$\nu(a_i)$ is a Cauchy sequence.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-archimedean-norm-extension}
+Show that any Archimedean norm $\nu$ on
+$\mathbb Q$ extends to a continuous
+function on $\mathbb R$ satisfying
+$$
+\nu(xy)=\nu(x)\nu(y).
+$$
+Prove that $\nu$ is given by
+$$
+x \mapsto |x|^\lambda
+$$
+for some constant $\lambda>0$. Express
+$\lambda$ in terms of $\nu(2)$.
+\end{exercise}
+
+\begin{remark}
+\label{remark-ostrowski-theorem}
+The previous exercises give a complete
+classification of norms on
+$\mathbb Q$: every norm is either a
+power of a $p$-adic norm or a power of
+the usual absolute value. This
+classification is called
+{\it Ostrowski's theorem}.
+\end{remark}
+
+\begin{definition}
+\label{definition-inverse-limit}
+Let $\{C_i\}$ be a set of vector spaces
+or abelian groups associated with the
+vertices of a commutative diagram $C$.
+Let
+$$
+V \subset \prod_i C_i
+$$
+be the set of all collections
+$v_i \in C_i$ such that for any arrow
+$$
+\varphi_{ij}:C_i \to C_j
+$$
+in the diagram, one has
+$$
+\varphi_{ij}(v_i)=v_j.
+$$
+The space $V$ is called the
+{\it inverse limit} of the diagram
+$\{C_i\}$. The same notion is also
+called a {\it limit} or
+{\it projective limit}. It is denoted
+$$
+\varprojlim C_i.
+$$
+\end{definition}
+
+\begin{exercise}
+\label{exercise-inverse-limit-intersection}
+Let
+$$
+\cdots \to C_3 \to C_2 \to C_1
+$$
+be a diagram with all arrows injective.
+Prove that $\varprojlim C_i$ is an
+intersection of all $C_i$.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-inverse-limit-initial-object}
+Let
+$$
+C_1 \to C_2 \to C_3 \to \cdots \to C_n
+$$
+be a diagram. Prove that
+$$
+\varprojlim C_i=C_1.
+$$
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-nonzero-diagram-zero-limit}
+Find an example of a diagram
+$$
+\cdots \to C_1 \to C_2 \to C_3 \to
+\cdots
+$$
+where all spaces $C_i$ are non-zero,
+but the limit $\varprojlim C_i$
+vanishes.
+\end{exercise}
+
+\begin{definition}
+\label{definition-cofiltered-diagram}
+A diagram $C$ is called
+{\it cofiltered} if for any two
+vertices $C_i,C_j$, there exists a
+third vertex $C_k$ and sequences of
+arrows leading from $C_k$ to $C_i$
+and to $C_j$.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-inverse-limit-ring}
+Let $C$ be a commutative diagram of
+vector spaces $C_i$, with all $C_i$
+equipped with a ring structure, and all
+arrows ring homomorphisms. Suppose that
+the diagram $C$ is cofiltered. Prove
+that $\varprojlim C_i$ admits a
+structure of a ring, such that the
+natural maps
+$$
+\varprojlim C_i \to C_i
+$$
+are ring homomorphisms.
+\end{exercise}
+
+\begin{definition}
+\label{definition-completion-topological-group}
+Let $G$ be a topological group. A
+sequence $\{g_i\}\subset G$ is called
+a {\it Cauchy sequence} if for any
+neighborhood $U$ of the identity there
+exists $g \in G$ such that $gU$
+contains almost all elements of
+$\{g_i\}$. Cauchy sequences
+$\{a_i\},\{b_i\}\subset G$ are called
+{\it equivalent} if the sequence
+$$
+a_1,b_1,a_2,b_2,\ldots
+$$
+is Cauchy. The {\it completion} of
+$G$ is the set of all equivalence
+classes of Cauchy sequences.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-topological-group-completion}
+Define the following topology on the
+completion $\overline G$ of a
+topological group $G$. The base of open
+sets in $\overline G$ is obtained from
+the open sets $U \subset G$, with
+$\overline U \subset \overline G$
+defined as the set of all sequences
+$\{a_i\}$ such that almost all $a_i$
+belong to $U$. Define the
+multiplicative structure on
+$\overline G$ by
+$$
+\{a_i\}\{b_i\}=\{a_ib_i\}.
+$$
+Prove that the completion
+$\overline G$ of a topological group
+$G$ is a topological group.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-dense-map-to-completion}
+Consider the map from a topological
+group $G$ to its completion
+$\overline G$, taking $g \in G$ to the
+constant sequence
+$$
+g,g,g,g,\ldots .
+$$
+Prove that this defines a homomorphism
+$$
+G \to \overline G
+$$
+of topological groups, and that $G$ is
+dense in $\overline G$.
+\end{exercise}
+
+\begin{definition}
+\label{definition-i-adic-topology}
+Let $I \subset R$ be an ideal in a
+ring. The {\it $I$-adic topology} on
+$R$ is the topology with base of open
+sets given by
+$$
+a+I^k \subset R
+$$
+for all $a \in R$ and
+$k \in \mathbb Z_{>0}$. The
+{\it $I$-adic completion} of $R$ is
+the completion of
+$$
+R/\bigcap_{k>0}I^k
+$$
+in this topology.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-i-adic-completion-ring}
+Prove that the $I$-adic completion
+$\overline R$ of $R$ is equipped with
+a ring structure in such a way that
+the natural map
+$$
+R \to \overline R
+$$
+is a homomorphism. Prove that
+$\overline R$ is isomorphic to the
+inverse limit
+$$
+\varprojlim R/I^k.
+$$
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-p-adic-topology-completion}
+Define the $p$-adic norm on
+$\mathbb Z$ as the map
+$$
+\nu_p:\mathbb Z \to \mathbb Q
+$$
+taking $x \in \mathbb Z$ to $p^{-n}$,
+where $n$ is the maximal number such
+that $x$ is divisible by $p^n$ in
+$\mathbb Z$. Consider the topology
+associated with the ideal $(p)$, called
+the $p$-adic topology. Prove that the
+completion of $\mathbb Z$ with respect
+to the norm $\nu_p$ is equal to the
+completion of $\mathbb Z$ with respect
+to the $p$-adic topology.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-zp-as-inverse-limit}
+Let $p$ be a prime number. Define the
+ring $\mathbb Z_p$ of $p$-adic numbers
+as
+$$
+\varprojlim \mathbb Z/p^k\mathbb Z.
+$$
+
+\begin{enumerate}
+\item Prove that any power series
+$$
+\sum_{i=0}^{\infty}a_ip^i
+$$
+converges in $\mathbb Z_p$, for any
+$a_i \in \mathbb Z$. Prove that any
+element in $\mathbb Z_p$ can be
+obtained as a sum of such a series.
+
+\item Prove that $\mathbb Z_p$ is a
+local ring, and every
+$x \in \mathbb Z_p$ which is not
+divisible by $p$ is invertible in
+$\mathbb Z_p$.
+\end{enumerate}
+\end{exercise}
+
+\begin{definition}
+\label{definition-profinite-topology}
+Let $G$ be a group, and let $S$ be the
+set of all normal subgroups of finite
+index. The {\it profinite topology} on
+$G$ is the topology with base of open
+sets given by all
+$$
+gN,
+$$
+where $g \in G$ and $N \in S$. The
+{\it profinite completion} of $G$ is
+the completion of
+$$
+G/\bigcap_{N\in S}N
+$$
+with respect to this topology.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-profinite-completion-limit}
+Prove that the profinite completion of
+$G$ is
+$$
+\varprojlim G/N,
+$$
+where the limit is taken over all
+normal subgroups $N \subset G$ of
+finite index.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-profinite-completion-compact}
+Prove that the profinite completion of
+a group is compact and Hausdorff.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-profinite-completion-z}
+Prove that the profinite completion of
+$\mathbb Z$ is
+$$
+\prod_p \mathbb Z_p,
+$$
+where the product is taken over all
+prime numbers.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-equivalence-p-adic-definitions}
+Prove that this definition of
+$p$-adics is equivalent to the one
+given using metric completion.
+\end{exercise}
+
 \section{Dedekind rings}
 \label{section-dedekind-rings}
 

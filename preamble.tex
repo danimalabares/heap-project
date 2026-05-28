@@ -34,6 +34,14 @@
     \PackageWarning{stack}{Missing #2.aux; external references with prefix #1 unavailable}%
   }%
 }
+\let\externaldocumentorig\externaldocument
+\renewcommand{\externaldocument}[2][]{%
+  \IfFileExists{#2.aux}{%
+    \externaldocumentorig[#1]{#2}%
+  }{%
+    \PackageWarning{stack}{Missing #2.aux; external references with prefix #1 unavailable}%
+  }%
+}
 
 % Package for hypertext links:
 \usepackage{hyperref}
@@ -179,8 +187,8 @@
 \externaldocument[vertex-algebras-]{vertex-algebras}
 \externaldocument[springer-]{springer}
 \externaldocument[infty-categories-]{infty-categories}
-\externaldocument[seminars-]{seminars}
-\externaldocument[geometric-prequantization-]{geometric-prequantization}
+%\externaldocument[seminars-]{seminars}
+%\externaldocument[geometric-prequantization-]{geometric-prequantization}
 \externaldocument[surfaces-]{surfaces}
 \externaldocument[birational-maps-commutative-algebra-]{birational-maps-commutative-algebra}
 \externaldocument[cremona-transformations-]{cremona-transformations}

@@ -506,7 +506,34 @@ e_g\cdot e_h = e_{gh}.
 $$
 \end{definition}
 
+\noindent
+The basic property we need is, roughly:
+There is an equivalence of categories
+between representations of groups
+and representations of the group algebras.
 
+The AI-formulation of that is:
+\begin{theorem}
+\label{theorem-representations-group-algebra}
+Let $G$ be a group. The category of complex
+representations of $G$ is equivalent to the
+category of left $\mathbb{C}[G]$-modules.
+
+Under this equivalence, a representation
+$$
+\rho:G\to \operatorname{GL}(V)
+$$
+corresponds to the $\mathbb{C}[G]$-module
+structure on $V$ defined by
+$$
+\left(\sum_{g\in G} a_g e_g\right)v
+=
+\sum_{g\in G} a_g \rho(g)v.
+$$
+Conversely, a left $\mathbb{C}[G]$-module
+$V$ gives a representation of $G$ by letting
+$g$ act as multiplication by $e_g$.
+\end{theorem}
 
 \section{Representations of SL(2,C)}
 \label{section-sl2c}
@@ -926,6 +953,60 @@ Are the categories $C_1$ and $C_2$
 equivalent?
 \end{exercise}
 
+\begin{proof}
+The idea of the proof is to mimic
+the following argument. The
+category of all finite-dimensional
+vector spaces is equivalent
+to the category of finite-dimensional
+vector spaces over $\mathbb{C}$.
+The functor giving this equivalence
+is just given by choosing
+a basis of an arbitrary finite-dimensional
+vector space and mapping it
+to the corresponding $\mathbb{C}^n$.
+
+Somehow, we are supposed to do the same in
+this exercise. Here's the AI-answer,
+which in fact coincides with Misha's and
+Vanya's:
+
+Both categories are equivalent to the product
+category
+$$
+\operatorname{Vect}_{fd}(\mathbb{C})^4.
+$$
+For $\mathbb{Z}/2\mathbb{Z}\times
+\mathbb{Z}/2\mathbb{Z}$, a representation is
+given by two commuting involutions $A,B$.
+They are simultaneously diagonalizable, so
+the representation decomposes as
+$$
+V=
+V_{++}\oplus V_{+-}\oplus V_{-+}
+\oplus V_{--}.
+$$
+A morphism of representations preserves
+these four summands.
+
+For $\mathbb{Z}/4\mathbb{Z}$, a
+representation is given by an operator $T$
+with $T^4=I$. Since $x^4-1$ has four distinct
+roots over $\mathbb{C}$, the operator $T$ is
+diagonalizable and
+$$
+V=
+V_1\oplus V_{-1}\oplus V_i\oplus V_{-i}.
+$$
+Again, a morphism of representations
+preserves these four summands.
+
+Thus both categories are equivalent to the
+category of quadruples of finite-dimensional
+complex vector spaces. Hence they are
+equivalent as categories.
+\end{proof}
+
 \begin{exercise}
 \label{exercise-r-vs-c-vect}
 Let $C_1,C_2$ be the categories of
@@ -940,6 +1021,29 @@ Prove that the category of finite groups is
 not equivalent to the category of finite
 abelian groups.
 \end{exercise}
+
+\begin{proof}
+The key idea is that product and coproduct
+are the same object in the category of
+abelian groups! That's essentially by
+the universal property of coproduct
+of maps factoring through $A \coprod B$,
+by abelianess, the direct sum is
+also the coproduct, but this is not
+true for non-abelian groups.
+In the latter cases the coproduct
+is called {\it amalgam product}.
+
+An alternative strategy
+is to observe that simple objects in
+the category of abelian groups are
+$\mathbb{Z}/p$. Then we can find a simple
+group $A_5$, in the category
+of noncommutative groups,
+which has an automorphism group
+that cannot be
+the automorphism group a $\mathbb{Z}/p$.
+\end{proof}
 
 \section{Borel-Weil-Bott theorem}
 \label{section-Borel-Weil-Bott-thoerem}
