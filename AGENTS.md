@@ -30,6 +30,8 @@ Repository guidance for AI agents working in this repo.
 - Do not use `\subsetneq`; use `\subset` instead.
 - Do not use `\supsetneq`; use `\supset` instead.
 - In every `definition` environment, italicize the term being defined.
+- Put corollaries in a `lemma` environment with the optional title
+  `[Corollary]`.
 - Never use capital letters in LaTeX labels. Use labels like
   `\label{theorem-rauch-clean}` instead of
   `\label{theorem-Rauch-clean}` or
