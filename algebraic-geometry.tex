@@ -757,7 +757,7 @@ we are done.
 \end{proof}
 
 \section{Zariski tangent space, smooth
-points}
+ points}
 \label{section-multi-smoot-point-bezou}
 
 \noindent
@@ -1179,8 +1179,445 @@ d(d-1)&=d^*+2\delta+3\chi\\
 $$
 \end{theorem}
 
+
+\section{Smoothness exercises}
+\label{section-smoothness-exercises}
+
+\noindent
+This is the result of a study session.
+For now I'll leave it separate from the notes
+in the previous section --- task: merge
+the two sections.
+
+\medskip\noindent
+Let
+$$
+X=V(f_1,\dots,f_r)\subset \mathbb{A}^n.
+$$
+The Zariski tangent space at $p\in X$ is
+$$
+T_pX=\ker J(p),
+$$
+where
+$$
+J(p)=
+\left(\frac{\partial f_i}{\partial x_j}(p)\right).
+$$
+Thus
+$$
+\dim T_pX=n-\operatorname{rank}J(p).
+$$
+The point $p$ is smooth if and only if
+$$
+\dim T_pX=\dim_pX.
+$$
+Equivalently,
+$$
+\operatorname{rank}J(p)=n-\dim_pX,
+$$
+the local codimension of $X$ in the ambient affine
+space.
+
+\medskip\noindent
+For a hypersurface
+$$
+X=\{F=0\}\subset \mathbb{A}^n,
+$$
+a point $p\in X$ is smooth if and only if
+$$
+dF_p\neq 0.
+$$
+Equivalently, at least one partial derivative of $F$
+is nonzero at $p$. A point is singular if
+$$
+F(p)=0,
+\qquad
+F_{x_1}(p)=\cdots=F_{x_n}(p)=0.
+$$
+
+\medskip\noindent
+For a plane curve singularity at the origin, write
+$$
+f=f_m+f_{m+1}+\cdots+f_d,
+$$
+where each $f_i$ is homogeneous of degree $i$ and
+$f_m\neq 0$. Then
+$$
+\operatorname{mult}_0(f)=m,
+$$
+and the tangent cone is
+$$
+TC_0V(f)=V(f_m).
+$$
+The multiplicity is the degree of the tangent cone,
+counted with multiplicity. The number of distinct
+tangent directions may be smaller.
+
+\begin{exercise}
+\label{exercise-smoothness-node}
+Classify the singularity of
+$$
+C=\{y^2=x^2+x^3\}\subset \mathbb{A}^2
+$$
+at the origin using multiplicity and tangent cone.
+\end{exercise}
+
+\begin{proof}
+Write
+$$
+f=y^2-x^2-x^3.
+$$
+The lowest homogeneous part is
+$$
+f_2=y^2-x^2=(y-x)(y+x).
+$$
+Thus the multiplicity is $2$ and the tangent cone is
+$$
+TC_0C=\{y=x\}\cup \{y=-x\}.
+$$
+There are two distinct tangent directions, so the
+origin is a node.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-zariski-tangent-node}
+For
+$$
+C=\{y^2=x^2+x^3\},
+$$
+compute the Zariski tangent space at the origin and
+compare it with the tangent cone.
+\end{exercise}
+
+\begin{proof}
+The local ring is
+$$
+\mathcal{O}_{C,0}
+=
+\left(k[x,y]/(y^2-x^2-x^3)\right)_{(x,y)}.
+$$
+Let $\mathfrak m=(x,y)$. Since the defining equation
+has no linear part, it imposes no linear relation in
+$\mathfrak m/\mathfrak m^2$. Therefore
+$$
+\mathfrak m/\mathfrak m^2
+=\langle \bar x,\bar y\rangle_k,
+$$
+so
+$$
+\dim_k\mathfrak m/\mathfrak m^2=2.
+$$
+Equivalently, the Jacobian vanishes at the origin, so
+$$
+T_0C=\mathbb{A}^2.
+$$
+But the tangent cone is
+$$
+TC_0C=\{y^2-x^2=0\},
+$$
+a union of two lines inside $\mathbb{A}^2$.
+The tangent space sees only linear equations, while the
+tangent cone sees the first nonzero homogeneous part.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-cusp-local-ring-not-regular}
+Let
+$$
+C=\{y^2=x^3\}\subset \mathbb{A}^2.
+$$
+Show that $\mathcal{O}_{C,0}$ is not regular.
+Compare this with the normalization
+$$
+\mathbb{A}^1\to C,
+\qquad
+ t\mapsto (t^2,t^3).
+$$
+\end{exercise}
+
+\begin{proof}
+We have
+$$
+\mathcal{O}_{C,0}
+=
+\left(k[x,y]/(y^2-x^3)\right)_{(x,y)}.
+$$
+The maximal ideal is
+$$
+\mathfrak m=(x,y).
+$$
+The equation $y^2-x^3$ has no linear part, so it gives
+no relation in $\mathfrak m/\mathfrak m^2$. Therefore
+$$
+\mathfrak m/\mathfrak m^2
+=\langle \bar x,\bar y\rangle_k,
+\qquad
+\dim_k\mathfrak m/\mathfrak m^2=2.
+$$
+But $C$ is a curve, so
+$$
+\dim \mathcal{O}_{C,0}=1.
+$$
+Hence
+$$
+\dim_k\mathfrak m/\mathfrak m^2
+\neq
+\dim \mathcal{O}_{C,0},
+$$
+and the local ring is not regular.
+
+The parametrization induces
+$$
+k[x,y]/(y^2-x^3)\hookrightarrow k[t],
+\qquad
+x\mapsto t^2,
+\quad
+ y\mapsto t^3.
+$$
+Thus the coordinate ring is $k[t^2,t^3]\subset k[t]$.
+The element $t$ is integral over $k[t^2,t^3]$, since
+$$
+t^2-x=0,
+$$
+but $t\notin k[t^2,t^3]$. Thus the cusp is not normal,
+and its normalization is $\mathbb{A}^1$.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-node-xy-normalization}
+Let
+$$
+C=\{xy=0\}\subset \mathbb{A}^2.
+$$
+Compute $\dim_k\mathfrak m/\mathfrak m^2$ at the
+origin and describe the normalization geometrically.
+\end{exercise}
+
+\begin{proof}
+The local ring at the origin is
+$$
+\left(k[x,y]/(xy)\right)_{(x,y)}.
+$$
+The maximal ideal is $\mathfrak m=(x,y)$. Since $xy$
+has no linear part, it gives no relation in
+$\mathfrak m/\mathfrak m^2$. Hence
+$$
+\mathfrak m/\mathfrak m^2
+=\langle \bar x,\bar y\rangle_k,
+\qquad
+\dim_k\mathfrak m/\mathfrak m^2=2.
+$$
+The curve has dimension $1$, so the origin is not
+regular.
+
+Geometrically, $C$ is the union of the two coordinate
+axes. Its normalization separates the two branches:
+$$
+\widetilde C=\mathbb{A}^1\sqcup \mathbb{A}^1.
+$$
+On coordinate rings, the normalization map is
+$$
+k[x,y]/(xy)\longrightarrow k[x]\times k[y],
+$$
+where
+$$
+x\longmapsto (x,0),
+\qquad
+ y\longmapsto (0,y).
+$$
+The origin becomes two points, one on each component.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-projective-jacobian-criterion-plane-curve}
+Let
+$$
+Y=V(F)\subset \mathbb{P}^2
+$$
+be a plane curve, with $F$ homogeneous of degree $d$.
+Show that
+$$
+Y\text{ is singular at }[p]
+\iff
+F_X(p)=F_Y(p)=F_Z(p)=0.
+$$
+\end{exercise}
+
+\begin{proof}
+The condition is projectively well-defined because
+$F_X,F_Y,F_Z$ are homogeneous of degree $d-1$.
+Thus their vanishing does not depend on the choice of
+homogeneous representative.
+
+Work in the chart $Z\neq 0$ and write
+$$
+f(x,y)=F(x,y,1).
+$$
+Then $Y$ is singular at $[a:b:1]$ if and only if
+$$
+f_x(a,b)=f_y(a,b)=0.
+$$
+But
+$$
+f_x=F_X(x,y,1),
+\qquad
+f_y=F_Y(x,y,1).
+$$
+Thus singularity in the affine chart gives
+$$
+F_X(a,b,1)=F_Y(a,b,1)=0.
+$$
+Since $F$ is homogeneous, Euler's formula gives
+$$
+XF_X+YF_Y+ZF_Z=dF.
+$$
+At a point of $Y$ we have $F=0$. Since also
+$F_X=F_Y=0$ and $Z=1$, we get
+$$
+F_Z=0.
+$$
+The converse is immediate from the affine Jacobian
+criterion in the chart.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-cone-over-smooth-plane-curve-singularities}
+Let
+$$
+Y=\{F(X,Y,Z)=0\}\subset \mathbb{P}^2
+$$
+be a smooth plane curve of degree $d>1$. Let
+$$
+C(Y)=\{F(x,y,z)=0\}\subset \mathbb{A}^3
+$$
+be the affine cone. Show that
+$$
+\operatorname{Sing}C(Y)=\{0\}.
+$$
+\end{exercise}
+
+\begin{proof}
+The singular locus of the cone is
+$$
+\{F=F_x=F_y=F_z=0\}\subset \mathbb{A}^3.
+$$
+If $q=(a,b,c)\neq 0$ is singular, then $[q]$ is a
+point of $Y$. In an affine chart, the vanishing of all
+partials of $F$ implies the vanishing of the chart
+partials. Thus $[q]$ would be a singular point of
+$Y$, contradiction.
+
+At the origin, $F(0)=0$ because $F$ is homogeneous of
+positive degree. Since $d>1$, each partial derivative
+has degree $d-1\geq 1$, so all partials vanish at the
+origin. Thus the origin is singular.
+\end{proof}
+
+
 \section{Blow-up}
 \label{section-blow-up}
+
+\noindent
+The blow-up of the origin in $\mathbb{A}^2$ is
+$$
+\operatorname{Bl}_0\mathbb{A}^2
+=
+\{((x,y),[u:v])\in \mathbb{A}^2\times
+\mathbb{P}^1:xv=yu\}.
+$$
+The projection
+$$
+\pi:\operatorname{Bl}_0\mathbb{A}^2\to
+\mathbb{A}^2
+$$
+is the first projection. The exceptional divisor is
+$$
+E=\pi^{-1}(0)\cong \mathbb{P}^1.
+$$
+
+\medskip\noindent
+In the chart $u\neq 0$, write $[u:v]=[1:v]$.
+Then
+$$
+y=xv.
+$$
+In the chart $v\neq 0$, write $[u:v]=[u:1]$.
+Then
+$$
+x=uy.
+$$
+Thus the blow-up replaces the origin by the set of
+possible tangent directions.
+
+\medskip\noindent
+Let $C=\{f(x,y)=0\}\subset \mathbb{A}^2$ be a
+plane curve passing through the origin. The total
+transform is
+$$
+\pi^{-1}(C).
+$$
+The strict transform is
+$$
+\widetilde C=
+\overline{\pi^{-1}(C\setminus\{0\})}.
+$$
+In the chart $y=xv$, if
+$$
+f(x,xv)=x^m g(x,v),
+$$
+where $x$ does not divide $g$, then
+$$
+\widetilde C=\{g=0\}.
+$$
+Indeed, away from the exceptional divisor $x=0$, the
+factor $x^m$ is invertible, so the equation is just
+$g=0$. Taking the Zariski closure keeps the equation
+$g=0$ and allows $x=0$.
+
+\medskip\noindent
+For a plane curve the divisor formula is
+$$
+\pi^*C=\widetilde C+mE,
+$$
+where $m$ is the multiplicity of $C$ at the origin.
+Equivalently, $m$ is the multiplicity with which
+$E$ appears in the total transform.
+
+\begin{exercise}
+\label{exercise-blow-up-parabola}
+Blow up the origin and compute the strict transform
+of
+$$
+C=\{y=x^2\}\subset \mathbb{A}^2.
+$$
+\end{exercise}
+
+\begin{proof}
+Use the chart $y=xv$. Then
+$$
+y-x^2=xv-x^2=x(v-x).
+$$
+Thus
+$$
+\pi^*C=E+\widetilde C,
+$$
+where
+$$
+E=\{x=0\},
+\qquad
+\widetilde C=\{v=x\}.
+$$
+The strict transform meets $E$ at
+$$
+x=0,
+\qquad
+v=0.
+$$
+So it meets $E$ in one point. The strict transform is
+smooth, since it is the line $v=x$ in the chart.
+The original curve was already smooth; the blow-up
+only records its tangent direction.
+\end{proof}
 
 \begin{exercise}
 \label{exercise-cuspidal-curve-blow-up}
@@ -1188,14 +1625,406 @@ Let $Y$ be the cuspidal curve $y^2=x^3$ in
 $\mathbb{A}^2$.
 Blow up the point $O=(0,0)$, let $E$ be the
 exceptional curve,
-and let $\tilde{Y}$ be the strict transform
+and let $\widetilde Y$ be the strict transform
 of $Y$.
-Show that $E$ meets $\tilde{Y}$ in one point,
-and that $\tilde{Y} \cong \mathbb{A}^1$.
+Show that $E$ meets $\widetilde Y$ in one point,
+and that $\widetilde Y\cong \mathbb{A}^1$.
 \end{exercise}
 
+\begin{proof}
+Use the chart $y=xv$. Then
+$$
+y^2-x^3=x^2v^2-x^3=x^2(v^2-x).
+$$
+Therefore
+$$
+\pi^*Y=2E+\widetilde Y,
+\qquad
+\widetilde Y=\{v^2=x\}.
+$$
+The exceptional divisor is $E=\{x=0\}$, so
+$$
+E\cap \widetilde Y=\{x=0,v^2=0\}.
+$$
+This is one point, with multiplicity $2$.
+The strict transform is smooth because
+$$
+F=v^2-x
+$$
+has
+$$
+dF=2v\,dv-dx,
+$$
+which is nowhere zero on $F=0$.
+Moreover, the equation $x=v^2$ parametrizes
+$\widetilde Y$ by $v$, so
+$$
+\widetilde Y\cong \mathbb{A}^1.
+$$
+\end{proof}
 
+\begin{exercise}
+\label{exercise-blow-up-tacnode}
+Blow up the origin in
+$$
+C=\{y^2=x^4\}\subset \mathbb{A}^2.
+$$
+Show that the strict transform has a node.
+\end{exercise}
 
+\begin{proof}
+Again use $y=xv$. Then
+$$
+y^2-x^4=x^2(v^2-x^2).
+$$
+Thus
+$$
+\pi^*C=2E+\widetilde C,
+\qquad
+\widetilde C=\{v^2=x^2\}.
+$$
+The strict transform meets $E=\{x=0\}$ at
+$$
+v^2=0,
+$$
+so at one point. But
+$$
+v^2-x^2=(v-x)(v+x).
+$$
+Thus the strict transform has two distinct tangent
+lines at this point. Hence it has a node.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-blow-up-node}
+Blow up the origin in
+$$
+C=\{y^2=x^2+x^3\}\subset \mathbb{A}^2.
+$$
+Show that the strict transform meets the exceptional
+curve in two distinct smooth points.
+\end{exercise}
+
+\begin{proof}
+In the chart $y=xv$,
+$$
+y^2-x^2-x^3=x^2(v^2-1-x).
+$$
+Thus
+$$
+\pi^*C=2E+\widetilde C,
+\qquad
+\widetilde C=\{v^2-1-x=0\}.
+$$
+Intersecting with $E=\{x=0\}$ gives
+$$
+v^2-1=0.
+$$
+Thus the strict transform meets $E$ at the two points
+$$
+v=1,
+\qquad
+v=-1.
+$$
+The strict transform is smooth because
+$$
+F=v^2-1-x
+$$
+satisfies
+$$
+dF=2v\,dv-dx,
+$$
+which is nonzero at both points.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-blow-up-y3-x5}
+Blow up the origin in
+$$
+C=\{y^3=x^5\}\subset \mathbb{A}^2.
+$$
+Show that the exceptional divisor appears with
+multiplicity $3$, and that the strict transform has a
+cusp-type double point.
+\end{exercise}
+
+\begin{proof}
+Use $y=xv$. Then
+$$
+y^3-x^5=x^3(v^3-x^2).
+$$
+Thus
+$$
+\pi^*C=3E+\widetilde C,
+\qquad
+\widetilde C=\{v^3=x^2\}.
+$$
+The strict transform meets $E$ at $(x,v)=(0,0)$.
+At this point the lowest homogeneous part of
+$$
+F=v^3-x^2
+$$
+is
+$$
+F_2=-x^2.
+$$
+So the strict transform has multiplicity $2$ and one
+repeated tangent line. This is cusp-type, not a node.
+\end{proof}
+
+\medskip\noindent
+The blow-up of the origin in $\mathbb{A}^3$ is
+$$
+\operatorname{Bl}_0\mathbb{A}^3
+=
+\{((x,y,z),[u:v:w])\in \mathbb{A}^3\times
+\mathbb{P}^2:\operatorname{rank}
+\begin{pmatrix}
+x&y&z\\
+u&v&w
+\end{pmatrix}
+\leq 1\}.
+$$
+Equivalently, the $2\times 2$ minors vanish:
+$$
+xv-yu=0,
+\qquad
+xw-zu=0,
+\qquad
+yw-zv=0.
+$$
+The exceptional divisor is
+$$
+E\cong \mathbb{P}^2.
+$$
+
+\begin{exercise}
+\label{exercise-blow-up-ordinary-double-surface}
+Blow up the origin in the surface
+$$
+X=\{z^2=xy\}\subset \mathbb{A}^3.
+$$
+Compute the strict transform in the chart
+$y=xu$, $z=xv$.
+\end{exercise}
+
+\begin{proof}
+Substitution gives
+$$
+z^2-xy=x^2v^2-x^2u=x^2(v^2-u).
+$$
+Therefore
+$$
+\pi^*X=2E+\widetilde X,
+\qquad
+\widetilde X=\{v^2=u\}.
+$$
+This chart of the strict transform is smooth, since
+$$
+F=v^2-u
+$$
+has
+$$
+dF=2v\,dv-du,
+$$
+which is nowhere zero.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-blow-up-quadratic-cone}
+Blow up the origin in
+$$
+X=\{x^2+y^2+z^2=0\}\subset \mathbb{A}^3.
+$$
+Compute the strict transform in the chart
+$y=xv$, $z=xw$.
+\end{exercise}
+
+\begin{proof}
+We get
+$$
+x^2+y^2+z^2=x^2(1+v^2+w^2).
+$$
+Thus
+$$
+\pi^*X=2E+\widetilde X,
+\qquad
+\widetilde X=\{1+v^2+w^2=0\}.
+$$
+The intersection with $E=\{x=0\}$ is
+$$
+\{x=0,1+v^2+w^2=0\}.
+$$
+This is part of the projectivized tangent cone inside
+$E\cong \mathbb{P}^2$.
+The strict transform is smooth in this chart: the only
+possible critical point of $1+v^2+w^2$ would be
+$v=w=0$, but this point is not on the strict transform.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-cone-over-smooth-curve-blow-up}
+Let
+$$
+Y=\{F(X,Y,Z)=0\}\subset \mathbb{P}^2
+$$
+be a smooth plane curve of degree $d>1$.
+Let
+$$
+C(Y)=\{F(x,y,z)=0\}\subset \mathbb{A}^3
+$$
+be the affine cone over $Y$.
+Show that $C(Y)$ is singular only at the vertex, and
+that the blow-up of the vertex resolves this
+singularity. Show that the exceptional divisor of the
+strict transform is naturally isomorphic to $Y$.
+\end{exercise}
+
+\begin{proof}
+The singular locus of the cone is cut out by
+$$
+F=F_x=F_y=F_z=0.
+$$
+If $q=(a,b,c)\neq 0$ is a singular point of
+$C(Y)$, then $[q]=[a:b:c]$ is a point of $Y$.
+On an affine chart, say $Z\neq 0$, the equation is
+$f(x,y)=F(x,y,1)$, and
+$$
+f_x=F_X(x,y,1),
+\qquad
+f_y=F_Y(x,y,1).
+$$
+Thus the vanishing of the cone partial derivatives
+would make $[q]$ a singular point of $Y$, impossible.
+Therefore the only possible singular point is the
+origin.
+
+Since $F$ is homogeneous of degree $d>1$, all partial
+ derivatives are homogeneous of degree $d-1\geq 1$.
+Hence they vanish at the origin. Thus the vertex is
+singular.
+
+Now use the description
+$$
+\operatorname{Bl}_0\mathbb{A}^3
+=
+\{(p,[\ell])\in \mathbb{A}^3\times \mathbb{P}^2:
+ p\in \ell\}.
+$$
+If $p=t\ell$, then by homogeneity
+$$
+F(p)=t^dF(\ell).
+$$
+The total transform has the exceptional factor $t^d$.
+Removing it gives the strict transform
+$$
+\widetilde{C(Y)}
+=
+\{(p,[\ell]):p\in \ell, F(\ell)=0\}.
+$$
+Over the exceptional divisor $p=0$ this becomes
+$$
+\{0\}\times Y.
+$$
+So the exceptional divisor of the strict transform is
+naturally isomorphic to $Y$.
+
+Moreover, the strict transform is the total space of
+$$
+\mathcal{O}_{\mathbb{P}^2}(-1)|_Y.
+$$
+Indeed, over $[\ell]\in Y$, the fiber is the line
+$\ell$. Since $Y$ is smooth and a vector bundle over a
+smooth variety is smooth, the strict transform is
+smooth.
+\end{proof}
+
+\medskip\noindent
+Now consider the blow-up of a point in the projective
+plane. Let
+$$
+\pi:X=\operatorname{Bl}_p\mathbb{P}^2\to
+\mathbb{P}^2.
+$$
+For example, take $p=[1:0:0]$. Then
+$$
+X=
+\{([X:Y:Z],[U:V])\in \mathbb{P}^2\times
+\mathbb{P}^1:YV=ZU\}.
+$$
+The exceptional divisor is
+$$
+E=\pi^{-1}(p)\cong \mathbb{P}^1.
+$$
+It parametrizes tangent directions at $p$.
+
+\medskip\noindent
+Let $H$ be the pullback class of a line in
+$\mathbb{P}^2$:
+$$
+H=\pi^*[\text{line}].
+$$
+If $L$ is a line not passing through $p$, then its
+strict transform has class $H$ and is disjoint from
+$E$.
+Therefore
+$$
+H^2=1,
+\qquad
+H\cdot E=0.
+$$
+If $L$ is a line passing through $p$, then locally it
+has multiplicity $1$ at $p$, so
+$$
+\pi^*L=\widetilde L+E.
+$$
+Since $\pi^*L$ has class $H$, we get
+$$
+\widetilde L=H-E.
+$$
+Take two distinct lines $L,L'$ through $p$. Downstairs
+they meet only at $p$. Upstairs their strict transforms
+meet the exceptional curve at different points,
+because they have different tangent directions.
+Thus
+$$
+\widetilde L\cdot \widetilde L'=0.
+$$
+Since both have class $H-E$,
+$$
+0=(H-E)^2=H^2-2H\cdot E+E^2.
+$$
+Using $H^2=1$ and $H\cdot E=0$, we obtain
+$$
+E^2=-1.
+$$
+Thus
+$$
+H^2=1,
+\qquad
+H\cdot E=0,
+\qquad
+E^2=-1.
+$$
+
+\medskip\noindent
+A final sanity check is the blow-up of a smooth
+divisor. Blow up $\mathbb{A}^2$ along
+$$
+D=\{x=0\}.
+$$
+The ideal is principal, $I=(x)$. Blowing up a
+Cartier divisor is trivial. Indeed, the Rees algebra is
+$$
+\bigoplus_{n\geq 0}I^nt^n
+=
+k[x,y]\oplus (x)t\oplus (x^2)t^2\oplus\cdots
+=
+k[x,y][xt].
+$$
+There is only one normal direction, so the
+projectivized normal direction is $\mathbb{P}^0$ over
+each point. Hence no new exceptional geometry appears.
 
 \section{Rational maps}
 \label{section-rational-maps}
