@@ -4497,6 +4497,326 @@ and also prove that $\delta$
 always has sections…
 \end{proof}
 
+\section{Multi-valued functions and branched covers}
+\label{section-multi-valued-functions-and-branched-covers}
+
+\noindent
+The objective of this section is to
+show that every algebraic variety
+over $\mathbb{C}$ is smooth
+away from a divisor.
+That is, $X_{\text{sing}}$
+is a Zariski-closed set, an algebraic
+subvariety.
+In particular, this gives a stratification
+$X\supset X^1_{\text{sing}}
+\supset X^2_{\text{sing}}…$.
+
+\medskip\noindent
+An elliptic function is either a square root
+of a polynomial, or its antiderivative. This
+is not a well-defined global function. But
+locally it does make sense. This is what
+Riemann was working on when he defined
+manifolds.
+
+\begin{definition}
+\label{definition-multi-valued-function}
+{\it 
+The graph of 
+a multi-valued function} on $M$ is a closed,
+irreducible complex subvariety
+$Z \subset M \times \mathbb{C}$ such that
+the projection $Z \to M$ is locally a
+diffeomorphism outside of a closed, nowhere
+dense subset in $Z$.
+\end{definition}
+
+\noindent
+This is supposed to be reminiscent
+of Noether's Normalization lemma!!!
+
+\begin{example}
+The logarithm is a multi-valued function on
+$\mathbb{C}$. Indeed, let $Z$ be the graph of
+the exponent $y=e^x$ in $\mathbb{C}^2$. The
+projection to $x$ expresses all branches of
+logarithm $x=\log y$ as functions of $y$.
+
+The point is that the logarithm
+is a local diffeomorphism, it can be
+locally inverted, but not globally.
+\end{example}
+
+\begin{example}
+$y \mapsto \sqrt{y}$ is a multi-valued
+function. Indeed, the graph of $y=x^2$
+projected to $x$ gives both branches of
+$\sqrt{y}$.
+\end{example}
+
+\noindent
+The following theorem introduces
+finite coverings. Outside of the so-called
+branching locus they are a covering.
+Unfortunately I can't follow the proof
+(perhaps it has mistakes).
+I think it's just application of inverse
+function theorem to a hypersurface
+of $\mathbb{C}^n$.
+
+\begin{theorem}
+\label{theorem-monic-polynomial-multivalued}
+Consider a subvariety $Z \subset
+\mathbb{C}^{n+1}$ given by a monic
+polynomial equation $P(t)=0$, with
+$P(t)\in \mathcal{O}_{\mathbb{C}^n}[t]$.
+Assume that $P(t)$ is irreducible. Then $Z$
+is a graph of a multi-valued function.
+Moreover, the projection of $Z$ to
+$\mathbb{C}^n$ (to the first $n$
+coordinates) is a diffeomorphism at
+$(z,t)$ if and only if $P'(z)\neq 0$.
+\end{theorem}
+
+\begin{proof}
+Step 1: We shall represent points of
+$\mathbb{C}^{n+1}$ by pairs $(z,t)$, with
+$z=(z_1,\dots,z_n)$. Let $\pi:Z\to \mathbb{C}^n$
+be the standard projection along $t$. By
+the inverse function theorem, $Z \subset
+\mathbb{C}^{n+1}$ is a smooth submanifold in
+a neighbourhood of any point $(z,t)\in Z$
+with $dP(z,t)\neq 0$.
+
+Step 2: This implies that $Z$ is smooth
+outside of the set of all $(z,t)\in
+\mathbb{C}^{n+1}$ such that
+$dP(z,t)(\xi,\tau)=0$ for all
+$\xi \in \langle d/dz_1,\dots,d/dz_n\rangle$
+and $\tau \in \langle d/dt\rangle$.
+Let
+$$
+P(z,t)=t^k+\sum_{i=0}^{k-1} t^i a_i(z).
+$$
+Then
+$$
+dP(z,t)=kt^{k-1}dt
++ \sum_{i=0}^{k-1} t^i da_i(z)
++ \sum_{i=1}^{k-1} i t^{i-1} a_i(z) dt.
+$$
+For $|t|\gg 0$, the leading term
+$kt^{k-1}dt+t^{k-1}da_{k-1}(z)$ dominates
+the rest, and it is non-zero because its
+$dt$ component is non-zero.
+
+Step 3: Let $z \in Z$ be a smooth point,
+and $(\xi,\tau)\in T_zZ$. Then
+$\pi:W \to \mathbb{C}^n$ is invertible
+whenever $W$ does not contain a vector
+$(0,\tau)$, equivalently, when
+$dP(z,t)(0,\tau)\neq 0$. This is equivalent
+to
+$$
+\frac{dP(z,t)}{dt}\neq 0.
+$$
+
+Step 4: Let
+$P'(z,t):=\frac{dP(z,t)}{dt}$.
+To prove that $Z$ defines a multi-valued
+function, it remains to show that
+$P'(z,t)$ is not identically zero on $Z$.
+Since $P(z,t)$ is irreducible, and
+$\mathcal{O}_{\mathbb{C}^{n+1}}$ is
+factorial, the ring
+$\mathcal{O}_{\mathbb{C}^{n+1}}/(P)$ has no
+zero divisors. Then the Hilbert
+Nullstellensatz implies that any function
+$f \in \mathcal{O}_{\mathbb{C}^{n+1}}$
+which vanishes on $Z$ is divisible by
+$P(z,t)$. Therefore $P'(z,t)$ does not
+vanish on $Z$, because it is a polynomial
+of smaller degree.
+\end{proof}
+
+\medskip\noindent
+Now we make a detour
+to discuss
+symmetric polynomials and discriminant.
+
+\begin{definition}
+\label{definition-symmetric-polynomial}
+A symmetric polynomial
+$P(z_1,\dots,z_n)\in \mathbb{C}[z_1,\dots,z_n]$
+is a polynomial which is invariant under the
+symmetric group $\Sigma_n$ acting on
+$\mathbb{C}[z_1,\dots,z_n]$ in the usual
+way.
+\end{definition}
+
+\begin{definition}
+\label{definition-elementary-symmetric-polynomial}
+Consider the polynomial
+$$
+P(z_1,\dots,z_n,t):=\prod_{i=1}^n(t+z_i)
+=\sum e_it^i,
+$$
+with $e_i \in \mathbb{C}[z_1,\dots,z_n]$.
+Then $e_i$ are called elementary symmetric
+polynomials on $z_1,\dots,z_n$.
+\end{definition}
+
+\begin{theorem}
+\label{theorem-symmetric-polynomial-generated}
+Every symmetric polynomial on
+$z_1,\dots,z_n$ can be polynomially
+expressed through the elementary symmetric
+polynomials.
+\end{theorem}
+
+\medskip\noindent
+Proof left as an exercise.
+
+\begin{definition}
+\label{definition-discriminant}
+Consider the symmetric polynomial
+$$
+\prod_{i\neq j}(z_i-z_j).
+$$
+Discriminant of the polynomial
+$$
+P(z_1,\dots,z_n,t):=\prod_{i=1}^n(t-z_i)
+$$
+is $\prod_{i\neq j}(z_i-z_j)$ considered as
+a polynomial of its coefficients.
+\end{definition}
+
+\begin{example}
+The discriminant of the quadratic polynomial
+$t^2+bt+c$ is $b^2-4c$.
+\end{example}
+
+\begin{example}
+The discriminant of the cubic polynomial
+$t^3+bt^2+ct+d$ is
+$$
+b^2c^2-4c^3-4b^3d-27d^2+18bcd.
+$$
+\end{example}
+
+\begin{lemma}
+\label{lemma-polynomial-no-multiple-roots}
+A polynomial has no multiple roots if and
+only if its discriminant is non-zero.
+\end{lemma}
+
+\begin{lemma}[Corollary]
+\label{lemma-derivative-on-roots-and-discriminant}
+Let $P(t)\in k[t]$ be a polynomial over an
+algebraically closed field, and $D$ its
+discriminant. Then the derivative $P'(t)$
+does not vanish on all roots of $t$ if and
+only if $D\neq 0$.
+\end{lemma}
+
+\begin{proof}
+Let $\alpha$ be a root of $P$. Then
+$P(t)=P_\alpha(t)(t-\alpha)$, and
+$P'(t)=P'_\alpha(t)(t-\alpha)+P_\alpha(t)$.
+Therefore $P'(\alpha)=0$ if and only if
+$P_\alpha(t)=0$. This is equivalent to
+$P(t)$ being divisible by $(t-\alpha)^2$.
+\end{proof}
+
+\medskip\noindent
+We already knew much about this map,
+but the following theorem guarantees
+$\pi|_Z$ is a local diffeomorphism
+away from the branch locus.
+Recall: $P$ is a degree-$d$ polynomial,
+so every point has $d$ preimages,
+each of which is a root.
+
+\begin{theorem}
+\label{theorem-discriminant-ramified-covering}
+Consider a subvariety $Z \subset
+\mathbb{C}^{n+1}$ given by an irreducible
+monic polynomial equation $P(t)=0$ of
+degree $k$, with
+$P(t)\in \mathbb{C}[z_1,\dots,z_n][t]$,
+and let $\pi:Z \to \mathbb{C}^n$ be the
+projection to the coordinates
+$z_1,\dots,z_n$. Assume that $P(t)$ is
+irreducible. Denote by $D(z)$ the
+discriminant of $P(t)$, considered as a
+polynomial function on $(z_1,\dots,z_n)$,
+and let $U \subset \mathbb{C}^n$ be the set
+of all $z \in \mathbb{C}^n$ such that
+$D(z)\neq 0$. Then the intersection
+$Z \cap \pi^{-1}(U)$ is smooth and the
+projection
+$\pi:Z\cap \pi^{-1}(U)\to U$ is a $d$-sheeted
+covering.
+\end{theorem}
+
+\begin{proof}
+Step 1: Since $P(t)$ is irreducible, it has
+no common divisors with $P'(t)$. Since the
+polynomial ring is factorial,
+irreducibility implies that the ideal
+$(P(t))$ is prime, hence $P'(t)$ does not
+identically vanish on $Z$. Therefore $U$ is
+open and nowhere dense. By Corollary 1, for
+any $z \in U$, the polynomials $P(z,t)$ and
+$P'(z,t)$ have no common roots. Therefore
+$dP(z,t)/dt\neq 0$ on
+$Z \cap \pi^{-1}(U)$, and the set
+$Z=\{(z,t)\mid P(z,t)=0\}$ is smooth outside
+of zeros of $D(z)$.
+
+Step 2: Let $z \in Z\cap \pi^{-1}(U)$ and
+$(\xi,\tau)\in T_{(z,t)}Z$. Then
+$\pi:T_{(z,t)}Z\to \mathbb{C}^n$ is
+invertible whenever $T_{(z,t)}$ does not
+contain a vector $(0,\tau)$, equivalently,
+when $dP(z,t)(0,\tau)\neq 0$. This is
+equivalent to
+$dP(z,t)/dt\neq 0$.
+
+Step 3: The map
+$\pi:Z\cap\pi^{-1}(U)\to U$ is locally a
+diffeomorphism, and each point has precisely
+$d$ preimages. Therefore, it is a covering.
+\end{proof}
+
+\noindent
+Note that the theorem only applies
+to hypersurfaces --- and not every
+variety can be realised as a hypersurface.
+
+\begin{lemma}[Corollary]
+\label{lemma-birational-finite-map-to-covering}
+Let $X$ be an algebraic variety. Then there
+exists a birational, finite map
+$X \to Z$, a divisor $D \subset Z$, and a
+divisor $D_1 \subset \mathbb{C}^n$, such
+that $Z \setminus D$ is a $d$-sheeted
+covering of $\mathbb{C}^n \setminus D_1$.
+\end{lemma}
+
+\begin{lemma}[Corollary]
+\label{lemma-algebraic-variety-smooth-point}
+Every algebraic variety $X$ over $\mathbb{C}$
+has a smooth point. Moreover, non-smooth
+points of $X$ are contained in a proper
+algebraic subvariety of $X$.
+\end{lemma}
+
+\begin{proof}
+Indeed, every birational map is an
+isomorphism outside of a divisor.
+\end{proof}
+
 
 \section{Symplectic isogenies and
 Shafarevich}
