@@ -3846,6 +3846,10 @@ $\mathcal{O}_X[x_1,…,x_n]=\mathcal{O}_X
 \label{section-nakayama}
 
 \noindent
+``By Nakayama lemma,
+maximal ideal generates everything.''
+
+\medskip\noindent
 We would like to have an analaogue of
 the inverse function theorem,
 i.e. a function that is surjective
@@ -7901,5 +7905,590 @@ can apply Theorem~
 \ref{theorem-noetherian-integrally-closed-dim1-dedekind}.
 \end{proof}
 
+\section{Hilbert polynomial}
+\label{section-hilbert-polynomial}
+
+\noindent
+Let $A$ be a local ring.
+Think of it as the ring of
+germs of holomorphic functions at a point.
+There is an associated graded:
+$$
+\bigoplus \frac{\mathfrak{p}^k}{
+\mathfrak{p}^{k+1}}
+$$
+In this section we will show that the map
+$$
+k \mapsto \dim \frac{\mathfrak{p}^k}{
+\mathfrak{p}^{k+1}}
+$$
+is polynomial.
+
+\begin{definition}
+\label{definition-filtered-ring}
+Let $A$ be a ring.
+A {\it multiplicative filtration} on $A$ is
+a sequence
+$$
+A=F_0\supset F_1\supset F_2\supset \cdots
+$$
+such that each $F_i$ is closed under
+multiplication and
+$$
+F_iF_j\subset F_{i+j}.
+$$
+A ring equipped with a multiplicative
+filtration is called {\it filtered}.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-associated-graded-ring}
+Let $A=F_0\supset F_1\supset\cdots$
+be a filtered ring, and let
+$a_1,a_2\in F_i$ and $b_1,b_2\in F_j$.
+Assume that
+$$
+a_1=a_2 \mod F_{i+1}
+\qquad\text{and}\qquad
+b_1=b_2 \mod F_{j+1}.
+$$
+Then
+$$
+a_1b_1=a_2b_2 \mod
+F_{i+1}F_j+F_iF_{j+1}.
+$$
+\end{lemma}
+
+\begin{proof}
+We have
+$$
+\begin{aligned}
+a_1b_1-a_2b_2
+&=a_1(b_1-b_2)+(a_1-a_2)b_2.
+\end{aligned}
+$$
+The first term lies in $F_iF_{j+1}$ and the
+second lies in $F_{i+1}F_j$.
+\end{proof}
+
+\begin{remark}
+\label{remark-associated-graded-ring}
+Since
+$$
+F_{i+1}F_j+F_iF_{j+1}\subset F_{i+j+1},
+$$
+the product of classes in
+$F_i/F_{i+1}$ and $F_j/F_{j+1}$ is well
+defined in $F_{i+j}/F_{i+j+1}$.
+Therefore the associated graded object is a
+graded ring.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-graded-vs-cstar}
+The category of graded vector spaces over
+$\mathbb{C}$ is equivalent to the category of
+$\mathbb{C}^*$ representations.
+\end{lemma}
+
+\begin{proof}
+Let $V=\bigoplus_{n\in \mathbb{Z}}V_n$ be a
+graded $\mathbb{C}$-vector space.
+Define an action of $\mathbb{C}^*$ on $V$
+by letting $t\in \mathbb{C}^*$ act as
+$$
+t\cdot v=t^n v
+$$
+for $v\in V_n$.
+This preserves direct sums and graded maps,
+so we get a functor.
+
+Conversely, let $V$ be a
+$\mathbb{C}^*$-representation.
+Since $\mathbb{C}^*$ is diagonalizable, $V$
+decomposes as a direct sum of its weight
+spaces
+$$
+V=\bigoplus_{n\in \mathbb{Z}}V_n,
+$$
+where $t\in \mathbb{C}^*$ acts on $V_n$ by
+the character $t\mapsto t^n$.
+This gives a graded vector space, and the two
+constructions are inverse to one another.
+\end{proof}
+
+\begin{definition}
+\label{definition-ideal-filtration}
+Let $I\subset A$ be an ideal.
+Then
+$$
+A\supset I\supset I^2\supset \cdots
+$$
+is a multiplicative filtration.
+The corresponding associated graded ring is
+$$
+\bigoplus_{k=0}^\infty \frac{I^k}{I^{k+1}}.
+$$
+\end{definition}
+
+\noindent
+Recall from our work in Noether rings
+that the associated graded ring
+of a Noetherian local ring is finitely
+generated.
+
+\begin{definition}
+\label{definition-graded-module}
+Let
+$$
+A^\ast=\bigoplus_{i=0}^\infty A_i
+$$
+be a graded ring.
+A {\it graded module} over $A^\ast$ is a
+module
+$$
+M^\ast=\bigoplus_{i=0}^\infty M_i
+$$
+such that
+$$
+A_iM_j\subset M_{i+j}.
+$$
+\end{definition}
+\noindent
+In the following definition
+it is crucial that we use the definition
+of graded module starting from $i=0$.
+Indeed, we have problems of dimension
+with rings like
+$\mathbb{C}[z,z^{-1}] \otimes
+\mathbb{C}[t,t^{-1}]
+=\mathbb{C}[z^i t^j]$,
+which has infinite-dimensional components.
+
+\begin{lemma}
+\label{lemma-graded-module-finite-dim}
+Let $M^\ast$ be a finitely generated graded
+module over a graded ring $A^\ast$, with
+each $A_i$ finite-dimensional over a field
+$A_0=k$.
+Then
+$$
+\dim_k M_i<\infty
+$$
+for all $i$.
+\end{lemma}
+
+\begin{proof}
+Choose homogeneous generators of $M^\ast$.
+Each graded piece $M_i$ is then spanned by
+finitely many products of generators with
+elements of the finite-dimensional spaces
+$A_j$ whose degrees add up to $i$.
+Thus each $M_i$ is finite-dimensional over
+$k$.
+\end{proof}
+
+\begin{exercise}[Difference derivative]
+\label{exercise-hilbert-function-polynomial}
+Let $f:\mathbb{Z}_{\geq 0}\to \mathbb{Z}$
+be a function.
+Assume that
+$$
+D(n):=f(n+1)-f(n)
+$$
+is polynomial for $n\gg 0$.
+Prove that $f(n)$ is polynomial for
+$n\gg 0$.
+\end{exercise}
+
+\begin{proof}
+The idea is that this thing acts like a
+derivative. If $D(n)$ is a constant,
+then $f$ grows arithmetically. If
+$D(n)$ is of degree 1, then $f$ grows
+quadratically, and so on.
+To show this suppose $f(t)=t^k$.
+Then compute to find
+$$
+f(t) - f(t-1) = \sum \binom{1}{n}t^n
+$$
+and apply the case where $D(n)$ is constant.
+\end{proof}
+
+\begin{definition}
+\label{definition-hilbert-function}
+Let $M^\ast$ be a finitely generated graded
+module over a graded ring $A^\ast$, with
+$A_0=k$ a field.
+The {\it Hilbert function} of $M^\ast$ is
+$$
+h_M(n)=\dim_k M_n.
+$$
+\end{definition}
+
+\begin{theorem}
+\label{theorem-hilbert-function-polynomial}
+Let $M^\ast$ be a finitely generated graded
+module over a finitely generated graded ring
+$A^\ast$, with $A_0=k$ a field.
+Then the Hilbert function $h_M(n)$ is
+polynomial for $n\gg 0$.
+\end{theorem}
+
+\begin{proof}
+Step 1. Let
+$$
+0\to M_1^\ast\to M_2^\ast\to M_3^\ast\to 0
+$$
+be an exact sequence of finitely generated
+graded $A^\ast$-modules.
+Then
+$$
+h_{M_2}(n)=h_{M_1}(n)+h_{M_3}(n).
+$$
+Therefore the Hilbert function is polynomial
+for $M_2^\ast$ if it is polynomial for
+$M_1^\ast$ and $M_3^\ast$.
+
+Step 2. Let $A^\ast$ be a finitely
+generated graded ring, $M^\ast$ a torsion-
+free $A^\ast$-module, and $a\in A_k$.
+Denote by
+$$
+L_a:M^\ast\to M^\ast
+$$
+the multiplication map $m\mapsto ma$.
+Consider the exact sequence
+$$
+0\to \ker L_a\to M^\ast
+\xrightarrow{L_a} M^\ast
+\to M^\ast+aM^\ast\to 0.
+$$
+Let
+$$
+U:=M^\ast+aM^\ast.
+$$
+Suppose that the Hilbert function $h_U(n)$
+and $h_{\ker L_a}(n)$ are polynomial for
+$n\gg 0$.
+Since
+$$
+h_M(n+1)-h_M(n)=h_U(n)-h_{\ker L_a}(n),
+$$
+this implies that $h_M(n)$ is polynomial for
+$n\gg 0$.
+Exercise
+\ref{exercise-hilbert-function-polynomial}.
+
+Step 3. For any graded, finitely generated
+$k[t]$-module, the Hilbert function is
+constant for $n\gg 0$.
+This proves the theorem for $A^\ast=k[t]$.
+
+Step 4. Let $A^\ast$ be a graded ring
+generated by $d$ elements. We prove the
+Hilbert function $h_M(n)$ using induction in
+$d$. For $d=1$ it follows from Step 3.
+Using induction in $d$, we assume that for
+any graded ring $B^\ast$ generated by
+$d$ elements, and any finitely-generated
+$B^\ast$-module $U^\ast$, the Hilbert
+function $h_U(n)$ is polynomial for
+$n\gg 0$.
+
+Step 5. Let $a\in A_k$ be a generator of
+$A^\ast$, and
+$$
+0\to \ker L_a\to M^\ast
+\xrightarrow{L_a} M^\ast
+\to M^\ast/aM^\ast\to 0
+$$
+the exact sequence of Step 2.
+By the induction assumption, the Hilbert
+function of $A^\ast/aA^\ast$-modules is
+polynomial for $n\gg 0$. Since $\ker L_a$
+is a module over $A^\ast/aA^\ast$, the
+Hilbert function $h_{\ker L_a}(n)$ is
+polynomial. By Step 2, the Hilbert function
+$h_M(n)$ is also polynomial.
+\end{proof}
+
+\begin{lemma}[Corollary]
+\label{lemma-hilbert-degree-drop}
+Let $M^\ast$ be a graded $A^\ast$-module,
+and let $a\in A_k$ be such that the
+multiplication map
+$L_a:M^\ast\to M^\ast$ is injective.
+Denote by $N$ the module
+$$
+N=M^\ast/aM^\ast.
+$$
+Then
+$$
+\deg h_N(n)=\deg h_M(n)-1.
+$$
+\end{lemma}
+
+\medskip\noindent
+The following result is the main result of
+the section: that is, the key fact
+is that the degree of the Hilbert
+function is the Krull dimension of the
+underlying ring.
+
+Actually, this shows that the Hilbert
+scheme of points parametrizes 0-dimensional
+subschemes: it is defined by restricting
+the functor of flat maps to families
+with constant (degree 0!) Hilbert polynomial!
+
+\begin{theorem}
+\label{theorem-hilbert-polynomial-slide-7}
+Let $R$ be a Noetherian local ring without
+zero divisors, $m$ its maximal ideal,
+$$
+A:=\bigoplus_{i=0}^\infty \frac{m^i}{
+m^{i+1}}
+$$
+its associated graded ring, and $h_A(n):=
+\dim A_n$.
+Then the Hilbert function $h_A(n)$ is a
+polynomial for $n\gg 0$.
+Moreover, its degree is equal to the Krull
+dimension of $R$.
+\end{theorem}
+
+\begin{proof}
+Step 1. Let
+  $$
+  0\to M_1^\ast\to M_2^\ast\to M_3^\ast\to 0
+  $$
+  be an exact sequence of finitely generated
+  graded $A^\ast$-modules. Then
+  $$
+  h_{M_2}(n)=h_{M_1}(n)+h_{M_3}(n).
+  $$
+  So the Hilbert function is polynomial for
+  $M_2^\ast$ whenever it is polynomial for
+  $M_1^\ast$ and $M_3^\ast$.
+
+  Step 2. Let $A^\ast$ be a finitely
+  generated
+  graded ring, $M^\ast$ a torsion-free
+  $A^\ast$-module, and $a\in A_k$. Consider
+  multiplication by $a$:
+  $$
+  L_a:M^\ast\to M^\ast.
+  $$
+  There is an exact sequence
+  $$
+  0\to \ker L_a\to M^\ast
+  \xrightarrow{L_a} M^\ast
+  \to M^\ast+aM^\ast\to 0.
+  $$
+  Set
+  $$
+  U:=M^\ast+aM^\ast.
+  $$
+  If $h_U(n)$ and $h_{\ker L_a}(n)$ are
+  polynomial for $n\gg 0$, then
+  $$
+  h_M(n+1)-h_M(n)=h_U(n)-h_{\ker L_a}(n),
+  $$
+  so $h_M(n)$ is polynomial for $n\gg 0$
+.
+Step 2: Let $\tilde{R}$ be an integral
+closure of $R$. By Cohen-Seidenberg, the
+Krull dimension of $\tilde{R}$ is equal to
+the Krull dimension of $R$. Denote by
+$\tilde{A}$ the associated graded ring of
+$\tilde{R}$. Then deg $h_A(n)$ = deg
+$h_{\tilde{A}}(n)$, because $\tilde{A}$ is a
+finite extension of $A$. Replacing $R$ by
+$\tilde{R}$ if necessary, we may assume that
+$R$ is normal.
+
+Step 3: Let
+$$
+0\subset p_1\subset p_2\subset \cdots
+\subset p_n\subset R
+$$
+be a chain of prime ideals of maximal
+possible length. Since $R_{p_1}$ is a local
+integrally closed ring of Krull dimension
+1, it is a discrete valuation ring, and its
+maximal ideal is principal. Therefore, in
+the ring $R_{p_1}$ we have $p_1=(p)$, where
+$p\in p_1$.
+
+Step 4: The localization of $R/(p)$ in
+$p_1$ is a field, hence $p_1$ is a minimal
+prime ideal in $R/(p)$. Therefore the chain
+of prime ideals
+$$
+p_1\subset p_2\subset \cdots\subset p_n
+\subset R/(p)
+$$
+is maximal, and $R/(p)$ has Krull
+dimension $\dim R-1$.
+
+Step 5: Let $a\in A_1=m^1/m^2$ be the class
+represented by $p$. Using induction in
+$\dim R$, we may assume that
+$$
+\deg h_{A/(a)}(n)=\dim R/(p)=\dim R-1.
+$$
+By Theorem 1, Step 2, $\deg h_{A/(a)}(n)=
+\deg h_A(n)-1$. This gives
+$$
+\deg h_A(n)=\deg h_{A/(a)}(n)+1=\dim
+R/(p)+1=\dim R.
+$$
+\end{proof}
+
+\medskip\noindent
+Now we include the exercises corresponding
+with this lecture. They are intended
+to show that rational functions
+can be used instead of polynomials
+to derive the same results.
+
+\begin{exercise}
+\label{exercise-poincare-10-1}
+Let $n\mapsto H(n)$ be a polynomial of
+degree $d$, and $k$ a fixed integer number.
+Prove that
+$n\mapsto H(n)-H(n-k)$ is a polynomial of
+degree $d-1$.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-poincare-10-2}
+Let $p(t)=\sum a_i t^i$, and
+$q(t)=\sum t^{k_i}\cdot \sum a_i t^i
+=\sum b_i t^i$, for some fixed integer
+$k>0$.
+Assume that $a_i=h(i)$, where $h(i)$ for
+$i\gg 0$ is a polynomial of degree $d$.
+Prove that $h_1(i):=b_i$, is a polynomial of
+degree $d+1$ when $i\gg 0$.
+\end{exercise}
+
+\begin{proof}
+Hint. Use the previous exercise.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-poincare-10-3}
+Let $f(t)$ be a polynomial, $k_1, \dots,
+k_n\in \mathbb{Z}_{>0}$, and $p(t)$ a
+rational function
+$$
+p(t)=f(t)\prod_{i=1}^n(1-t^{k_i})^{-1}.
+$$
+Consider the Taylor series
+$$
+p(t)=\sum a_i t^i.
+$$
+Prove that there is a polynomial $H(i)$
+such that $a_i=H(i)$ for $i\gg 0$.
+\end{exercise}
+
+\begin{proof}
+Hint. Use the previous exercise
+\end{proof}
+
+\begin{definition}
+\label{definition-graded-modules-additive}
+Let $C$ be the category of finite generated
+graded $R$-modules, where $R$ is a graded
+ring.
+A function $P:C\to \mathbb{Z}[[t]]$ is
+called {\it additive} if for any exact
+sequence
+$$
+0\to M_1\to M_2\to M_3\to 0,
+$$
+we have
+$$
+P(M_1)+P(M_2)=P(M_3).
+$$
+\end{definition}
+
+\begin{exercise}
+\label{exercise-poincare-10-4}
+Let $P$ be an additive function on the
+category $C$ of finite generated graded
+modules over polynomials
+$R=\mathbb{C}[z_1,\dots,z_n]$.
+Assume that $P(M)$ is polynomial for any
+$R$-module of finite dimension over
+$\mathbb{C}$, and $P(M_d)=t^dP(M)$, where
+$M_d$ is obtained from $M$ by shifting the
+grading by $+d$.
+Prove that $P(M)$ is a rational function of
+form
+$$
+g(t)+f(t)\prod_{i=1}^n(1-t^{k_i})^{-1}
+$$
+for some polynomials $g(t),f(t)$.
+\end{exercise}
+
+\begin{proof}
+Hint. Use the previous exercise.
+\end{proof}
+
+\begin{definition}
+\label{definition-poincare-series}
+The {\it Poincar\'e series} of a graded
+module $M^\ast$ over polynomials is the
+function
+$$
+P(t):=\sum_{i=0}^\infty h_i t^i,
+$$
+where
+$$
+h_i:=\dim M_i.
+$$
+\end{definition}
+
+\begin{exercise}
+\label{exercise-poincare-10-5}
+Prove that the Poincar\'e series of
+$\mathbb{C}[x,y]$ is
+$$
+\frac{1}{(1-t)^2}.
+$$
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-poincare-10-6}
+Prove that the Poincar\'e series of
+$\mathbb{C}[x,y]/(x^2)$ is
+$$
+\frac{t+1}{1-t}.
+$$
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-poincare-10-7}
+Prove that the Poincar\'e series of the
+ideal $(x^2,y^3)\subset \mathbb{C}[x,y]$ is
+$$
+\frac{t^2+t^3-t^5}{(1-t)^2}.
+$$
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-poincare-10-8}
+(*). Let
+$$
+P(t):=\sum_{i=0}^\infty h_i t^i,
+$$
+where $i\mapsto h_i$ is a polynomial
+function.
+Prove that $P(t)$ is rational, or find a
+counterexample.
+\end{exercise}
 
 \end{document}
