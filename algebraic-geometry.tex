@@ -756,14 +756,19 @@ $Y$ by definition,
 we are done.
 \end{proof}
 
-\section{Zariski tangent space, smooth
- points}
-\label{section-multi-smoot-point-bezou}
+\section{Smooth points}
+\label{section-smooth-points}
 
 \noindent
-Let's discuss Zariski tangent space. The
-simplest notion of nonsingularity is what we
-expect:
+The notion of nonsingularity for affine
+varieties is what we usually call
+``the Jacobian criterion'',
+i.e. it's given by the vanishing
+of partial derivatives.
+We shall see how to translate
+that to commutative algebra,
+which allows for a definition applicable
+to non-affine varieties.
 
 \begin{definition}
 \label{definition-nonsingular-affine}
@@ -783,9 +788,7 @@ at every point.
 
 \noindent
 It can be checked that this definition is
-independent of the choice of generators. But
-we look for a criterion that is more
-algebraic.
+independent of the choice of generators.
 
 \begin{definition}
 \label{definition-residue-field}
@@ -844,7 +847,7 @@ space
 of linear parts of polynomials vanishing at
 $P$.
 
-\begin{theorem}
+\begin{theorem}[Jacobian criterion]
 \label{theorem-nonsi-jacob-iff-regul-local}
 Let $Y \subseteq \mathbb{A}^n$ be an affine
 variety.
@@ -891,16 +894,111 @@ if $\dim_k\mathfrak{m}/\mathfrak{m}^2=\dim
 \mathcal{O}_{P,Y}$.
 \end{definition}
 
-\medskip\noindent
-Now we discuss singularity theory for plane
-curves.
+\noindent
+Actually the Jacobian criterion
+also works for projective hypersurfaces
+(by simply looking at the what the
+differential of a homogeneous polynomial is):
 
+\begin{lemma}[Jacobian test for projective hypersurfaces]
+\label{lemma-projective-jacobian}
+Let
+$$
+  X=V(F)\subset \mathbb P^n
+$$
+be a projective hypersurface, where
+$F\in k[X_0,\ldots,X_n]$ is homogeneous.
+Let
+$$
+  p=[a_0:\cdots:a_n]\in X.
+$$
+Then $p$ is singular on $X$ iff
+$$
+  \frac{\partial F}{\partial X_0}(p)
+  =
+  \cdots
+  =
+  \frac{\partial F}{\partial X_n}(p)
+  =
+  0.
+$$
+Equivalently, $p$ is smooth iff at least
+one homogeneous partial derivative of
+$F$ does not vanish at $p$.
+\end{lemma}
+
+\begin{proof}
+Choose an affine chart containing $p$,
+say $X_0\neq 0$. Put
+$$
+  x_i=\frac{X_i}{X_0}
+  \qquad
+  i=1,\ldots,n.
+$$
+On this chart the hypersurface is defined
+by the dehomogenized equation
+$$
+  f(x_1,\ldots,x_n)
+  =
+  F(1,x_1,\ldots,x_n).
+$$
+By the affine Jacobian criterion, $p$ is
+singular iff
+$$
+  \frac{\partial f}{\partial x_i}(p)=0
+  \qquad
+  i=1,\ldots,n.
+$$
+But these partials are exactly the
+corresponding homogeneous partials
+$$
+  \frac{\partial F}{\partial X_i}(p),
+  \qquad
+  i=1,\ldots,n.
+$$
+
+It remains only to include the missing
+partial with respect to $X_0$. Since $F$
+is homogeneous, Euler's formula gives
+$$
+  \sum_{i=0}^n
+  X_i\frac{\partial F}{\partial X_i}
+  =
+  dF,
+$$
+where $d=\deg F$. At points of $X$ we
+have $F=0$. Hence
+$$
+  \sum_{i=0}^n
+  X_i\frac{\partial F}{\partial X_i}
+  =
+  0.
+$$
+If $X_0\neq 0$ and all the other partials
+vanish, then the $X_0$-partial vanishes
+too. Thus the affine chart criterion is
+equivalent to the vanishing of all
+homogeneous partial derivatives.
+\end{proof}
+
+
+\section{Smooth points of curves}
+\label{section-smooth-points-curves}
+
+\noindent
+Singularity theory for plane curves
+is particularly important for exam questions.
+It can also be developed slightly differently
+from the general construction so we put it
+in this separate section.
+
+\medskip\noindent
 Upshot: the multiplicity of a point
 is how many tangent lines there are at the
-point.
+point. A point is smooth if and only if
+it has multiplicity 1.
 
-Smooth points of a plane curve are those with
-multiplicity 1.
+\medskip\noindent
 The multiplicity of a plane curve $F$ at the
 origin
 is the degree of the lowest nonzero
@@ -1178,6 +1276,167 @@ d(d-1)&=d^*+2\delta+3\chi\\
 3d(d-2)&=i+6\delta+8\chi. \end{aligned}
 $$
 \end{theorem}
+
+
+\section{Zariski tangent space}
+\label{section-zariski-tangent-space}
+
+\noindent
+Upshot: the Zariski tangent space is the set
+of vectors killed simultaneously by the
+differentials of all the generators of the
+ideal.
+
+\medskip\noindent
+Let $X$ be an affine variety over $k$,
+and let $p\in X$ be a $k$-point.
+Let $\mathcal O_{X,p}$ be the local
+ring at $p$, and let $\mathfrak m_p$
+be its maximal ideal.
+
+\begin{definition}
+\label{definition-zariski-cotangent}
+The Zariski cotangent space of $X$
+at $p$ is
+$$
+  T_p^*X:=\mathfrak m_p/\mathfrak m_p^2.
+$$
+\end{definition}
+
+\begin{definition}
+\label{definition-zariski-tangent}
+The Zariski tangent space of $X$
+at $p$ is
+$$
+  T_pX
+  :=
+  \operatorname{Hom}_k
+  (\mathfrak m_p/\mathfrak m_p^2,k).
+$$
+\end{definition}
+
+The slogan is:
+$T_pX$ is the space of first-order
+directions at $p$ which preserve the
+equations of $X$.
+
+\begin{proposition}
+\label{proposition-jacobian-tangent}
+Let
+$$
+  X=V(f_1,\ldots,f_r)
+  \subset \mathbb A_k^n,
+$$
+and let $p=(p_1,\ldots,p_n)\in X$.
+Then, under the identification
+$T_p\mathbb A^n\simeq k^n$,
+$$
+  T_pX=\ker J(p),
+$$
+where
+$$
+  J(p)
+  =
+  \left(
+    \frac{\partial f_j}{\partial x_i}(p)
+  \right)_{j,i}.
+$$
+Equivalently, $v=(v_1,\ldots,v_n)$
+belongs to $T_pX$ iff
+$$
+  \sum_{i=1}^n
+  \frac{\partial f_j}{\partial x_i}(p)
+  v_i
+  =
+  0
+$$
+for every $j=1,\ldots,r$.
+\end{proposition}
+
+\begin{proof}
+A vector $v=(v_1,\ldots,v_n)\in k^n$
+defines a derivation at $p$
+$$
+  D_v:k[x_1,\ldots,x_n]\to k
+$$
+by
+$$
+  D_v(g)
+  =
+  \sum_{i=1}^n
+  \frac{\partial g}{\partial x_i}(p)
+  v_i.
+$$
+This is the algebraic version of
+evaluating $dg_p$ on $v$.
+
+For $v$ to be tangent to $X$, the
+equations defining $X$ must remain true
+to first order. Hence $D_v$ must vanish
+on the ideal $(f_1,\ldots,f_r)$.
+
+It is enough to impose this on the
+generators. Thus
+$$
+  D_v(f_j)=0
+$$
+for every $j$. But
+$$
+  D_v(f_j)
+  =
+  \sum_{i=1}^n
+  \frac{\partial f_j}{\partial x_i}(p)
+  v_i.
+$$
+Therefore $v\in T_pX$ exactly when
+it lies in the kernel of the Jacobian
+matrix evaluated at $p$.
+\end{proof}
+
+\begin{remark}
+\label{remark-residue-field}
+The definition
+$$
+  T_pX
+  =
+  \operatorname{Hom}_k
+  (\mathfrak m_p/\mathfrak m_p^2,k)
+$$
+assumes that $p$ is a $k$-point, i.e.
+that its residue field is
+$$
+  \kappa(p)=k.
+$$
+In general, the correct definition is
+$$
+  T_pX
+  =
+  \operatorname{Hom}_{\kappa(p)}
+  (\mathfrak m_p/\mathfrak m_p^2,\kappa(p)).
+$$
+
+Thus the only change is:
+replace $k$ by the residue field
+$\kappa(p)$.
+
+Over an algebraically closed field $k$,
+closed points are exactly $k$-points.
+So, for classical varieties 
+(zero-sets of ideals, affine or projective)
+over $\mathbb C$, one may safely write
+$$
+  T_pX
+  =
+  \operatorname{Hom}_{\mathbb C}
+  (\mathfrak m_p/\mathfrak m_p^2,\mathbb C).
+$$
+
+Scheme-theoretically there are also
+non-closed points, such as generic
+points. At such points, the residue
+field need not be $k$.
+\end{remark}
+
 
 
 \section{Smoothness exercises}
@@ -1512,6 +1771,7 @@ positive degree. Since $d>1$, each partial derivative
 has degree $d-1\geq 1$, so all partials vanish at the
 origin. Thus the origin is singular.
 \end{proof}
+
 
 
 \section{Blow-up}
@@ -2039,37 +2299,119 @@ with the arrows reversed.
 \label{section-normalization}
 
 \noindent
-All bounded meromorphic functions are
-holomorphic.
+``All bounded meromorphic functions are
+holomorphic''. For exam curves:
+find a parametrization of the rational curve.
 
-\begin{definition}
-\label{definition-integral-closure}
-Let $R$ be a domain.
-An element of the fraction field
-$\text{Frac}(R)$
-is {\it integral} if it is the root of a
-monic polyomial
-with coefficients in $R$.
+For the abstract definitions see
+Commutative Algebra Section
+\ref{commutative-algebra-section-normalization}.
+Here we explain how to
+parametrize rational curves
+and the compute normalizations of some
+varieties.
 
-$R$ is {\it integrally closed} if it
-coincides with its integral closure,
-that is, the set of
-elements of $\text{Frac}(R)$
-which are integrally closed over $R$.
-\end{definition}
+A curve $C$ is rational if its
+normalization is $\mathbb P^1$.
+A parametrization of $C$ is then the
+normalization map
+$$
+  \nu:\mathbb P^1\to C.
+$$
 
-\begin{definition}
-\label{definition-normal-variety}
-A variety is called {\it normal at $P$}
+In practice, for plane curves, one often
+finds this map using a pencil of lines.
+
+Suppose
+$$
+  C=V(f)\subset \mathbb A^2
+$$
+has a singular point at $p=(0,0)$.
+Consider the lines through $p$:
+$$
+  y=tx.
+$$
+Substitute this into the equation:
+$$
+  f(x,tx)=0.
+$$
+
+Since $p$ is singular, the factor $x=0$
+appears with multiplicity at least $2$.
+(See Definition
+\ref{definition-smoot-ordin-point-curve},
+which would match the regular local ring
+definition of smoothnes via
+the Jacobian criterion,
+Proposition
+\ref{proposition-jacobian-criterion}.)
+Remove this factor. The remaining
+equation gives the other intersection
+points of the line with $C$.
+
+If this remaining equation can be solved
+rationally for $x$ in terms of $t$, then
+one gets
+$$
+  x=x(t),
+  \qquad
+  y=tx(t).
+$$
+This gives a parametrization of $C$.
+
+For a singular plane cubic, this method
+usually works immediately: a line through
+the singular point meets the cubic with
+multiplicity $2$ at the singular point,
+so there is only one remaining point.
+
+Example: for
+$$
+  C: y^2=x^2+x^3,
+$$
+put $y=tx$. Then
+$$
+  t^2x^2=x^2+x^3.
+$$
+Thus
+$$
+  x^2(t^2-1-x)=0.
+$$
+Ignoring the factor $x^2$, which is the
+singular point, gives
+$$
+  x=t^2-1.
+$$
+Hence
+$$
+  y=t(t^2-1).
+$$
+So a parametrization is
+$$
+  t\mapsto (t^2-1,t(t^2-1)).
+$$
+
+Warning: guessing monomials
+$x=t^a$, $y=t^b$ is not a general
+method. It works for some cusps, but not
+for nodes.
+
+\medskip\noindent
+Now I include some
+Hartshorne/half-theoretical
+exercises I did before.
+
+Recall from commutative algebra
+that a (affine or projective) 
+variety is called {\it normal at $P$}
 is $\mathcal{O}_P$ is integrally closed.
 It is called {\it normal} if every point
 is normal.
-\end{definition}
 
 \begin{exercise}
 \label{exercise-normal-varieties}
 If $Y$ is an affine variety,
-$\mathcal{O}_P$ is intergrally closed
+$\mathcal{O}_P$ is integrally closed
 for all $P \in Y$ if and only if
 $\mathcal{O}_Y$ is integrally closed.
 \end{exercise}
@@ -2159,7 +2501,8 @@ is not normal.
 
 \begin{proof}
 \begin{enumerate}
-\item
+\item We need to show that every conic
+in $\mathbb{P}^2$ is rational.
 \item
 \item The element $x^2/y$ has a minimal
 polynomial in the local ring at the origin,
@@ -2170,7 +2513,7 @@ vanishes at $(0,0)$.
 \end{proof}
 
 \begin{exercise}
-\label{exercise-normalization}
+\label{exercise-universal-prop-normalization}
 Let $Y$ be an affine variety.
 Show that there is a normal affine
 variety $\tilde{Y}$, and a morphism
@@ -2609,6 +2952,152 @@ of degrees $d$ and $d'$ then
 $C_d.C_{d'}=dd'$.
 \end{exercise}
 
+\noindent
+One fun application of Bézout's theorem
+is the following method for computing
+degrees of line bundles in curves:
+
+\begin{lemma}
+\label{lemma-line-bundle-degree}
+Let $C\subset \mathbb P^n$ be a
+projective curve. Then
+$$
+  \deg \mathcal O_C(m)=m\deg C.
+$$
+In particular, if $C\subset \mathbb P^2$
+is a plane curve of degree $d$, then
+$$
+  \deg \mathcal O_C(m)=md.
+$$
+\end{lemma}
+
+\begin{proof}
+By definition, $\mathcal O_C(1)$ is the
+restriction of the hyperplane bundle
+$\mathcal O_{\mathbb P^n}(1)$ to $C$.
+
+A section of $\mathcal O_C(1)$ is obtained
+by restricting a hyperplane equation to
+$C$. For a general hyperplane $H$, the
+zero divisor of this section is
+$$
+  H\cap C.
+$$
+By definition, this divisor has degree
+$\deg C$. Hence
+$$
+  \deg \mathcal O_C(1)=\deg C.
+$$
+
+Now
+$$
+  \mathcal O_C(m)
+  =
+  \mathcal O_C(1)^{\otimes m}.
+$$
+Since degree is additive under tensor
+products of line bundles on curves, we get
+$$
+  \deg \mathcal O_C(m)
+  =
+  m\deg \mathcal O_C(1)
+  =
+  m\deg C.
+$$
+\end{proof}
+
+\medskip\noindent
+The Euler sequence on $\mathbb P^n$ is
+$$
+  0
+  \to
+  \mathcal O_{\mathbb P^n}
+  \to
+  \mathcal O_{\mathbb P^n}(1)^{\oplus n+1}
+  \to
+  T_{\mathbb P^n}
+  \to
+  0.
+$$
+
+The dual Euler sequence is
+$$
+  0
+  \to
+  \Omega^1_{\mathbb P^n}
+  \to
+  \mathcal O_{\mathbb P^n}(-1)^{\oplus n+1}
+  \to
+  \mathcal O_{\mathbb P^n}
+  \to
+  0.
+$$
+
+\begin{example}
+\label{example-canonical-projective-space}
+We compute the canonical bundle of
+$\mathbb P^n$.
+
+From the dual Euler sequence
+$$
+  0
+  \to
+  \Omega^1_{\mathbb P^n}
+  \to
+  \mathcal O_{\mathbb P^n}(-1)^{\oplus n+1}
+  \to
+  \mathcal O_{\mathbb P^n}
+  \to
+  0,
+$$
+we take determinants. Since
+$$
+  \omega_{\mathbb P^n}
+  =
+  \det \Omega^1_{\mathbb P^n},
+$$
+we get
+$$
+  \omega_{\mathbb P^n}
+  =
+  \det
+  \left(
+    \mathcal O_{\mathbb P^n}(-1)^{\oplus n+1}
+  \right)
+  \otimes
+  \det(\mathcal O_{\mathbb P^n})^{-1}.
+$$
+Hence
+$$
+  \omega_{\mathbb P^n}
+  =
+  \mathcal O_{\mathbb P^n}(-n-1).
+$$
+
+In particular,
+$$
+  \omega_{\mathbb P^2}
+  =
+  \mathcal O_{\mathbb P^2}(-3).
+$$
+
+Therefore, if
+$C\subset \mathbb P^2$ is a plane curve
+of degree $d$, adjunction gives
+$$
+  \omega_C
+  =
+  \left(
+    \omega_{\mathbb P^2}
+    \otimes
+    \mathcal O_{\mathbb P^2}(d)
+  \right)\big|_C
+  =
+  \mathcal O_C(d-3).
+$$
+\end{example}
+
+
 \begin{proof}
 Just notice that the line bundles associated
 to
@@ -2678,37 +3167,6 @@ $$
 |D|=\mathbb{P}H^0(\mathcal{O}(D)).
 $$
 
-\medskip\noindent
-Following \cite[Section 5.2]{Fulton}, let
-$P_1,…,P_n$ be points in $\mathbb{P}^2$.
-Define
-$$
-V(d,r_1P_1,…,r_nP_n):=
-\{\text{curves $F$ of degree $d$}:
-m_{P_i}F\geq r_i\forall i\}.
-$$
-This space has an interesting property:
-when we blow up the $n$ points, we obtain
-$$
-H^0(X,\mathcal{O}(dH-\sum r_iE_i))
-=
-\{f \in
-H^0(\mathbb{P}^2,\mathcal{O}(d)):m_{P_i}(f)
-\geq  r_i\}.
-$$
-
-Recall (proof?) that the canonical divisor of
-the blow up is
-$K_{Bl}=\pi^* K_{\mathbb{P}^2}+E_1+…+E_n=-3H
-+ \sum E_i$.
-And the projectivization of the sections of
-this canonical divisor
-are exactly $V(-3,P_1,…,P_n)$, which makes
-no sense because there are no curves of
-degree $-3$,
-that is the canonical divisor of the blow up
-has no sections.
-
 \begin{exercise}
 \label{exercise-hodge-numbers-blow-up-9pts}
 Let $C_1,C_2$ be two cubic curves in
@@ -2746,132 +3204,412 @@ $\text{Pic}=\mathbb{Z}H \oplus
 \end{itemize}
 \end{proof}
 
+\begin{exercise}
+\label{exercise-line-bundle-degree}
+Let $C\subset \mathbb P^n$ be a
+projective curve. Explain what
+$\mathcal O_C(1)$ means and compute its
+degree.
+\end{exercise}
+
+\begin{proof}
+By definition,
+$$
+  \mathcal O_C(1)
+  =
+  \mathcal O_{\mathbb P^n}(1)|_C.
+$$
+Thus $\mathcal O_C(1)$ is the hyperplane
+bundle restricted to $C$.
+
+A section of $\mathcal O_C(1)$ is obtained
+by restricting a hyperplane equation to
+$C$. Its zero divisor is
+$$
+  C\cap H,
+$$
+where $H\subset \mathbb P^n$ is a
+hyperplane.
+
+Therefore
+$$
+  \deg \mathcal O_C(1)=\deg C.
+$$
+More generally,
+$$
+  \deg \mathcal O_C(m)=m\deg C.
+$$
+This is Bezout in line-bundle language.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-plane-section-dimension}
+Let $C\subset \mathbb P^2$ be a plane
+curve not contained in any line. Compute
+$h^0(C,\mathcal O_C(1))$ and describe
+$|\mathcal O_C(1)|$.
+\end{exercise}
+
+\begin{proof}
+The global sections of
+$\mathcal O_{\mathbb P^2}(1)$ are the
+linear forms
+$$
+  aX+bY+cZ.
+$$
+Thus
+$$
+  H^0(\mathbb P^2,\mathcal O(1))
+  =
+  \langle X,Y,Z\rangle.
+$$
+
+Restricting to $C$, we get sections
+$$
+  X|_C,\quad Y|_C,\quad Z|_C
+$$
+of $\mathcal O_C(1)$.
+
+They are linearly independent. Indeed,
+if
+$$
+  aX+bY+cZ
+$$
+vanished on all of $C$, then $C$ would be
+contained in the line
+$$
+  aX+bY+cZ=0,
+$$
+contradicting the assumption.
+
+Hence
+$$
+  h^0(C,\mathcal O_C(1))=3.
+$$
+Therefore
+$$
+  |\mathcal O_C(1)|
+  =
+  \mathbb P(H^0(C,\mathcal O_C(1)))
+  \simeq
+  \mathbb P^2.
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-sections-map}
+Let $L$ be a line bundle on a variety $X$,
+and let $s_0,\ldots,s_N$ be global
+sections with no common zero. Describe
+the morphism induced by these sections.
+\end{exercise}
+
+\begin{proof}
+The sections define a morphism
+$$
+  \varphi:X\to \mathbb P^N
+$$
+by
+$$
+  p\mapsto [s_0(p):\cdots:s_N(p)].
+$$
+The condition that the sections have no
+common zero guarantees that this point of
+projective space is defined for every
+$p\in X$.
+
+In particular, for
+$C\subset \mathbb P^2$ and
+$L=\mathcal O_C(1)$, the sections
+$$
+  X|_C,\quad Y|_C,\quad Z|_C
+$$
+give the original embedding
+$$
+  C\hookrightarrow \mathbb P^2.
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-conic-pullback}
+Let
+$$
+  C=V(Y^2-XZ)\subset \mathbb P^2.
+$$
+Use the parametrization
+$$
+  \nu:\mathbb P^1\to C,
+  \qquad
+  [U:V]\mapsto [U^2:UV:V^2].
+$$
+Compute $\nu^*\mathcal O_C(1)$ and the
+pulled-back coordinate sections.
+\end{exercise}
+
+\begin{proof}
+The coordinate sections of
+$\mathcal O_C(1)$ are
+$$
+  X|_C,\quad Y|_C,\quad Z|_C.
+$$
+Pulling back by $\nu$ gives
+$$
+  \nu^*X=U^2,
+  \qquad
+  \nu^*Y=UV,
+  \qquad
+  \nu^*Z=V^2.
+$$
+These are homogeneous polynomials of
+degree $2$ on $\mathbb P^1$. Therefore
+$$
+  \nu^*\mathcal O_C(1)
+  \cong
+  \mathcal O_{\mathbb P^1}(2).
+$$
+
+Moreover,
+$$
+  H^0(C,\mathcal O_C(1))
+$$
+pulls back to the subspace
+$$
+  \langle U^2,UV,V^2\rangle
+  \subset
+  H^0(\mathbb P^1,\mathcal O(2)).
+$$
+This is all of
+$H^0(\mathbb P^1,\mathcal O(2))$.
+Hence
+$$
+  h^0(C,\mathcal O_C(1))=3.
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-twisted-cubic}
+Let $C\subset \mathbb P^3$ be the
+twisted cubic, parametrized by
+$$
+  \nu:\mathbb P^1\to C,
+  \qquad
+  [U:V]\mapsto
+  [U^3:U^2V:UV^2:V^3].
+$$
+Compute $\nu^*\mathcal O_C(1)$,
+$h^0(C,\mathcal O_C(1))$, and
+$|\mathcal O_C(1)|$.
+\end{exercise}
+
+\begin{proof}
+The coordinate sections pull back to
+$$
+  U^3,\quad U^2V,\quad UV^2,\quad V^3.
+$$
+These are homogeneous polynomials of
+degree $3$ on $\mathbb P^1$. Hence
+$$
+  \nu^*\mathcal O_C(1)
+  \cong
+  \mathcal O_{\mathbb P^1}(3).
+$$
+
+The four sections
+$$
+  U^3,\quad U^2V,\quad UV^2,\quad V^3
+$$
+form a basis of
+$$
+  H^0(\mathbb P^1,\mathcal O(3)).
+$$
+Therefore
+$$
+  h^0(C,\mathcal O_C(1))=4.
+$$
+Thus
+$$
+  |\mathcal O_C(1)|
+  \simeq
+  \mathbb P^3.
+$$
+The induced morphism is the original
+twisted cubic embedding
+$$
+  C\hookrightarrow \mathbb P^3.
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-nodal-cubic}
+Let $C$ be the nodal cubic
+$$
+  C: Y^2Z=X^2Z+X^3.
+$$
+Its normalization is
+$$
+  \nu:\mathbb P^1\to C,
+$$
+given by
+$$
+  [U:V]\mapsto
+  [V(U^2-V^2):U(U^2-V^2):V^3].
+$$
+Compute $\nu^*\mathcal O_C(1)$ and
+explain why
+$$
+  h^0(C,\mathcal O_C(1))=3.
+$$
+\end{exercise}
+
+\begin{proof}
+The coordinate sections pull back to
+$$
+  V(U^2-V^2),
+  \qquad
+  U(U^2-V^2),
+  \qquad
+  V^3.
+$$
+These are homogeneous polynomials of
+degree $3$ on $\mathbb P^1$. Hence
+$$
+  \nu^*\mathcal O_C(1)
+  \cong
+  \mathcal O_{\mathbb P^1}(3).
+$$
+
+However,
+$$
+  h^0(C,\mathcal O_C(1))
+$$
+is not equal to
+$$
+  h^0(\mathbb P^1,\mathcal O(3))=4.
+$$
+Only the sections on the normalization
+which descend to $C$ are allowed.
+
+The node has two preimages:
+$$
+  [1:1],
+  \qquad
+  [-1:1].
+$$
+A section descending to $C$ must take
+compatible values at these two points.
+
+The pulled-back coordinate sections span
+the $3$-dimensional subspace
+$$
+  \langle
+  V(U^2-V^2),
+  U(U^2-V^2),
+  V^3
+  \rangle
+  \subset
+  H^0(\mathbb P^1,\mathcal O(3)).
+$$
+Therefore
+$$
+  h^0(C,\mathcal O_C(1))=3.
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-cuspidal-cubic}
+Let $C$ be the cuspidal cubic
+$$
+  C: Y^2Z=X^3.
+$$
+Its normalization is
+$$
+  \nu:\mathbb P^1\to C,
+  \qquad
+  [U:V]\mapsto [U^2V:U^3:V^3].
+$$
+Compute $\nu^*\mathcal O_C(1)$ and
+$h^0(C,\mathcal O_C(1))$.
+\end{exercise}
+
+\begin{proof}
+The coordinate sections pull back to
+$$
+  U^2V,
+  \qquad
+  U^3,
+  \qquad
+  V^3.
+$$
+These are homogeneous polynomials of
+degree $3$. Hence
+$$
+  \nu^*\mathcal O_C(1)
+  \cong
+  \mathcal O_{\mathbb P^1}(3).
+$$
+
+The sections descending from $C$ are
+spanned by
+$$
+  U^2V,\quad U^3,\quad V^3.
+$$
+This is a $3$-dimensional subspace of
+$$
+  H^0(\mathbb P^1,\mathcal O(3)).
+$$
+Therefore
+$$
+  h^0(C,\mathcal O_C(1))=3.
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-plane-quartic-canonical}
+Let $C\subset \mathbb P^2$ be a smooth
+plane quartic. Compute $K_C$,
+$\deg K_C$, $h^0(K_C)$, and describe the
+canonical map.
+\end{exercise}
+
+\begin{proof}
+By adjunction for plane curves,
+$$
+  K_C=\mathcal O_C(d-3).
+$$
+Here $d=4$, so
+$$
+  K_C=\mathcal O_C(1).
+$$
+Since $C$ has degree $4$,
+$$
+  \deg K_C
+  =
+  \deg \mathcal O_C(1)
+  =
+  4.
+$$
+Also a smooth plane quartic has genus
+$$
+  g=\frac{(4-1)(4-2)}2=3.
+$$
+Thus
+$$
+  h^0(K_C)=g=3.
+$$
+The canonical linear system is
+$$
+  |K_C|=|\mathcal O_C(1)|.
+$$
+Therefore the canonical map is the given
+embedding
+$$
+  C\hookrightarrow \mathbb P^2.
+$$
+\end{proof}
+
 \section{Ample line bundles}
 \label{section-ample-line-bundles}
 
-First is this lemma that comes from
-modules.tex. I think these sets $X_s$ are
-the base points of the bundle. Because look:
-image of $s$ just means consider
-the section $s$ of the line bundle as a germ
-near $x$. Now a line bundle is a
-locally free rank-1 $\mathcal{O}_X$-module,
-so its sections, like $s$, may be
-multiplied by germs of functions in the
-maximal ring $\mathfrak{m}_x$, i.e. the
-functions that vanish at $x$. So $X_s$ is the
-vanishing locus of the section
-$s$. If $s(x)\neq 0$, obviously $s
-\not\in\mathfrak{m}_x\mathcal{L}_x$, so $x\in
-X_s$. Conversely, I would like to
-show that if $s(x)=0$ then
-$s\in\mathfrak{m}_x\mathcal{L}_x$ but I'm not
-sure
-how. It's like: a vector field with a zero
-can be multiplied by a function that
-vanishes at the point, sure, but what's this
-function?
-
-\begin{lemma}
-\label{lemma-s-open}
-From modules.tex.
-\begin{slogan}
-A (local) trivialisation of a linebundle
-is the same as a (local) nonvanishing
-section.
-\end{slogan}
-Let $X$ be a ringed space. Assume that each
-stalk $\mathcal{O}_{X, x}$
-is a local ring with maximal ideal $\mathfrak
-m_x$.
-Let $\mathcal{L}$ be an invertible
-$\mathcal{O}_X$-module.
-For any section $s \in \Gamma(X,
-\mathcal{L})$ the set
-$$
-X_s = \{x \in X \mid \text{image }s \not\in
-\mathfrak m_x\mathcal{L}_x\}
-$$
-is open in $X$. The map $s :
-\mathcal{O}_{X_s} \to \mathcal{L}|_{X_s}$
-is an isomorphism, and there exists a section
-$s'$
-of $\mathcal{L}^{\otimes -1}$ over $X_s$ such
-that $s' (s|_{X_s}) = 1$.
-\end{lemma}
-
-\begin{proof}
-Suppose $x \in X_s$.
-We have an isomorphism
-$$
-\mathcal{L}_x \otimes_{\mathcal{O}_{X, x}}
-(\mathcal{L}^{\otimes -1})_x
-\longrightarrow
-\mathcal{O}_{X, x}
-$$
-by Lemma
-\ref{lemma-constructions-invertible}.
-Both $\mathcal{L}_x$ and
-$(\mathcal{L}^{\otimes -1})_x$
-are free $\mathcal{O}_{X, x}$-modules of rank
-$1$. We conclude
-from Algebra, Nakayama's Lemma
-\ref{algebra-lemma-NAK} that
-$s_x$ is a basis for $\mathcal{L}_x$. Hence
-there exists
-a basis element $t_x \in
-(\mathcal{L}^{\otimes -1})_x$
-such that $s_x \otimes t_x$ maps to $1$.
-Choose an open neighbourhood $U$ of
-$x$ such that $t_x$ comes from a section $t$
-of $\mathcal{L}^{\otimes -1}$ over $U$ and
-such that
-$s \otimes t$ maps to $1 \in
-\mathcal{O}_X(U)$.
-Clearly, for every $x' \in U$ we see that $s$
-generates
-the module $\mathcal{L}_{x'}$. Hence $U
-\subset X_s$.
-This proves that $X_s$ is open. Moreover, the
-section
-$t$ constructed over $U$ above is unique, and
-hence
-these glue to give the section $s'$ of the
-lemma.
-\end{proof}
-
-Recall from Modules, Lemma
-\ref{modules-lemma-s-open}
-that given an invertible sheaf $\mathcal{L}$
-on a locally ringed
-space $X$, and given a global section $s$ of
-$\mathcal{L}$
-the set $X_s = \{x \in X \mid s \not \in
-\mathfrak m_x\mathcal{L}_x\}$
-is open. A general remark is that
-$X_s \cap X_{s'} = X_{ss'}$, where $ss'$
-denote
-the section $s \otimes s' \in \Gamma(X,
-\mathcal{L} \otimes \mathcal{L}')$.
-
-\begin{definition}
-\label{definition-ample}
-\begin{reference}
-\cite[II Definition 4.5.3]{EGA}
-\end{reference}
-Let $X$ be a scheme.
-Let $\mathcal{L}$ be an invertible
-$\mathcal{O}_X$-module.
-We say $\mathcal{L}$ is {\it ample} if
-\begin{enumerate}
-\item $X$ is quasi-compact, and
-\item for every $x \in X$ there exists an $n
-\geq 1$
-and $s \in \Gamma(X, \mathcal{L}^{\otimes
-n})$ such
-that $x \in X_s$ and $X_s$ is affine.
-\end{enumerate}
-\end{definition}
 
 \begin{exercise}
 \label{exercise-ample-bundle-on-K3}
@@ -2904,82 +3642,6 @@ ample}. (Interestingly, the notion
 very ampleness is defined in morphisms.tex.)
 \end{proof}
 
-Now we pass to the part where ampleness gives
-you an {\bf open immersion} to
-some projective space. Because, it's only
-very ampleness that gives an
-embedding, right? (Actually I think here in
-stacks project there are no
-embeddings but closed immersions.)
-
-\begin{definition}
-\label{definition-gamma-star}
-From modules.tex. Let $(X, \mathcal{O}_X)$ be
-a ringed space.
-Given an invertible sheaf $\mathcal{L}$ on
-$X$ we define
-the {\it associated graded ring} to be
-$$
-\Gamma_*(X, \mathcal{L})
-=
-\bigoplus\nolimits_{n \geq 0} \Gamma(X,
-\mathcal{L}^{\otimes n})
-$$
-Given a sheaf of $\mathcal{O}_X$-modules
-$\mathcal{F}$ we set
-$$
-\Gamma_*(X, \mathcal{L}, \mathcal{F})
-=
-\bigoplus\nolimits_{n \in \mathbf{Z}}
-\Gamma(X,
-\mathcal{F} \otimes_{\mathcal{O}_X}
-\mathcal{L}^{\otimes n})
-$$
-which we think of as a graded $\Gamma_*(X,
-\mathcal{L})$-module.
-\end{definition}
-
-\begin{lemma}
-\label{lemma-map-into-proj}
-Let $X$ be a scheme.
-Let $\mathcal{L}$ be an invertible
-$\mathcal{O}_X$-module.
-Set $S = \Gamma_*(X, \mathcal{L})$ as a
-graded ring.
-If every point of $X$ is contained in one of
-the
-open subschemes $X_s$, for some $s \in S_{+}$
-homogeneous, then
-there is a canonical morphism of schemes
-$$
-f : X \longrightarrow Y = \text{Proj}(S),
-$$
-to the homogeneous spectrum of $S$ (see
-Constructions, Section
-\ref{constructions-section-proj}).
-This morphism has the following properties
-\begin{enumerate}
-\item $f^{-1}(D_{+}(s)) = X_s$ for any $s \in
-S_{+}$ homogeneous,
-\item there are $\mathcal{O}_X$-module maps
-$f^*\mathcal{O}_Y(n) \to \mathcal{L}^{\otimes
-n}$
-compatible with multiplication maps, see
-Constructions, Equation
-(\ref{constructions-equation-multiply}),
-\item the composition
-$S_n \to \Gamma(Y, \mathcal{O}_Y(n)) \to
-\Gamma(X, \mathcal{L}^{\otimes n})$
-is the identity map, and
-\item for every $x \in X$ there is an integer
-$d \geq 1$
-and an open neighbourhood $U \subset X$ of
-$x$
-such that $f^*\mathcal{O}_Y(dn)|_U \to
-\mathcal{L}^{\otimes dn}|_U$
-is an isomorphism for all $n \in \mathbf{Z}$.
-\end{enumerate}
-\end{lemma}
 
 \section{Riemann-Roch theorem for curves}
 \label{section-riemann-roch}
@@ -3037,6 +3699,880 @@ the choice of $s$.
 Note that by Serre duality
 $h^1(D)=h^0(K-D)$.
 
+\medskip\noindent
+Here's the hands-on criterion for
+computing the genus of a plane curve:
+
+\begin{proposition}
+\label{proposition-plane-genus}
+Let $C\subset \mathbb P^2$ be a plane
+curve of degree $d$. Then its arithmetic
+genus is
+$$
+  p_a(C)=\frac{(d-1)(d-2)}{2}.
+$$
+\end{proposition}
+
+\begin{proof}
+By definition,
+$$
+  p_a(C)=1-\chi(\mathcal O_C).
+$$
+Since $C$ is cut out by one homogeneous
+polynomial of degree $d$, we have the
+exact sequence
+$$
+  0
+  \to
+  \mathcal O_{\mathbb P^2}(-d)
+  \to
+  \mathcal O_{\mathbb P^2}
+  \to
+  \mathcal O_C
+  \to
+  0.
+$$
+Taking Euler characteristics gives
+$$
+  \chi(\mathcal O_C)
+  =
+  \chi(\mathcal O_{\mathbb P^2})
+  -
+  \chi(\mathcal O_{\mathbb P^2}(-d)).
+$$
+We use the standard formula
+$$
+  \chi(\mathcal O_{\mathbb P^2}(m))
+  =
+  \binom{m+2}{2}.
+$$
+Thus
+$$
+  \chi(\mathcal O_{\mathbb P^2})=1
+$$
+and
+$$
+  \chi(\mathcal O_{\mathbb P^2}(-d))
+  =
+  \binom{2-d}{2}
+  =
+  \frac{(d-1)(d-2)}{2}.
+$$
+Therefore
+$$
+  \chi(\mathcal O_C)
+  =
+  1-\frac{(d-1)(d-2)}{2}.
+$$
+Hence
+$$
+  p_a(C)
+  =
+  1-\chi(\mathcal O_C)
+  =
+  \frac{(d-1)(d-2)}{2}.
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-riemann-roch-canonical}
+Apply Riemann-Roch to $D=K_C$.
+\end{exercise}
+
+\begin{proof}
+For $D=K_C$, Riemann-Roch gives
+$$
+  h^0(K_C)-h^0(0)
+  =
+  \deg K_C-g+1.
+$$
+We know
+$$
+  h^0(K_C)=g
+  \qquad
+  \text{and}
+  \qquad
+  h^0(0)=1.
+$$
+Hence
+$$
+  g-1=\deg K_C-g+1.
+$$
+Therefore
+$$
+  \deg K_C=2g-2.
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-high-degree-divisor}
+Let $D$ be a divisor on $C$ with
+$$
+  \deg D>2g-2.
+$$
+Compute $h^0(D)$.
+\end{exercise}
+
+\begin{proof}
+Since
+$$
+  \deg K_C=2g-2,
+$$
+we have
+$$
+  \deg(K_C-D)<0.
+$$
+A line bundle of negative degree has no
+nonzero global sections, so
+$$
+  h^0(K_C-D)=0.
+$$
+Thus Riemann-Roch gives
+$$
+  h^0(D)=\deg D-g+1.
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-p1-sections}
+Compute $h^0(\mathbb P^1,\mathcal O(d))$
+for $d\geq 0$.
+\end{exercise}
+
+\begin{proof}
+On $\mathbb P^1$, we have $g=0$.
+Also
+$$
+  \deg \mathcal O(d)=d.
+$$
+Since $d\geq 0>2g-2=-2$, Riemann-Roch
+gives
+$$
+  h^0(\mathcal O(d))
+  =
+  d-0+1
+  =
+  d+1.
+$$
+Therefore
+$$
+  h^0(\mathbb P^1,\mathcal O(d))=d+1.
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-elliptic-point}
+Let $E$ be an elliptic curve, and let
+$p\in E$. Compute
+$$
+  h^0(E,\mathcal O_E(p)).
+$$
+\end{exercise}
+
+\begin{proof}
+An elliptic curve has genus $1$, and
+$$
+  K_E\sim 0
+$$
+(because the standard top-degree
+holomorphic form $dz^1 \wedge…\wedge dz^n$
+descends to $\mathbb{C}^n/\mathbb{Z}^n$).
+
+Apply Riemann-Roch to $D=p$:
+$$
+  h^0(p)-h^0(K_E-p)
+  =
+  \deg p-1+1.
+$$
+Since $K_E\sim 0$, this becomes
+$$
+  h^0(p)-h^0(-p)=1.
+$$
+But
+$$
+  \deg(-p)<0,
+$$
+so
+$$
+  h^0(-p)=0.
+$$
+Therefore
+$$
+  h^0(E,\mathcal O_E(p))=1.
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-plane-quartic-genus}
+Let $C\subset \mathbb P^2$ be a smooth
+plane quartic. Compute $g(C)$,
+$K_C$, $\deg K_C$, and $h^0(K_C)$.
+\end{exercise}
+
+\begin{proof}
+For a smooth plane curve of degree $d$,
+$$
+  g(C)=\frac{(d-1)(d-2)}2.
+$$
+Here $d=4$, so
+$$
+  g(C)=\frac{3\cdot 2}{2}=3.
+$$
+
+By adjunction,
+$$
+  K_C=\mathcal O_C(d-3).
+$$
+Thus
+$$
+  K_C=\mathcal O_C(1).
+$$
+
+Since $C$ has degree $4$,
+$$
+  \deg \mathcal O_C(1)=4.
+$$
+Therefore
+$$
+  \deg K_C=4.
+$$
+
+Finally,
+$$
+  h^0(K_C)=g(C)=3.
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-plane-quintic}
+Let $C\subset \mathbb P^2$ be a smooth
+plane quintic. Compute:
+$$
+  g(C),\quad
+  K_C,\quad
+  \deg K_C,\quad
+  h^0(K_C),
+  \quad
+  h^0(\mathcal O_C(1)),
+$$
+$$
+  \deg \mathcal O_C(2),
+  \quad
+  h^0(\mathcal O_C(2)).
+$$
+Also describe the morphism induced by
+$|\mathcal O_C(1)|$.
+\end{exercise}
+
+\begin{proof}
+Since $d=5$,
+$$
+  g(C)
+  =
+  \frac{(5-1)(5-2)}2
+  =
+  6.
+$$
+
+By adjunction,
+$$
+  K_C=\mathcal O_C(5-3)
+  =
+  \mathcal O_C(2).
+$$
+
+Since
+$$
+  \deg \mathcal O_C(1)=5,
+$$
+we get
+$$
+  \deg K_C
+  =
+  \deg \mathcal O_C(2)
+  =
+  10.
+$$
+
+Also
+$$
+  h^0(K_C)=g(C)=6.
+$$
+
+The sections of $\mathcal O_C(1)$ are
+the restrictions of $X,Y,Z$, so
+$$
+  h^0(\mathcal O_C(1))=3.
+$$
+
+Finally,
+$$
+  h^0(\mathcal O_C(2))
+  =
+  h^0(K_C)
+  =
+  6.
+$$
+
+The linear system $|\mathcal O_C(1)|$
+induces the original embedding
+$$
+  C\hookrightarrow \mathbb P^2.
+$$
+\end{proof}
+
+\section{Surfaces, divisors, and blow-ups}
+
+Main example:
+
+$$
+  S=\operatorname{Bl}_p\mathbb P^2.
+$$
+
+Let
+
+$$
+  H=\pi^*(\text{line}),
+  \qquad
+  E=\text{exceptional divisor}.
+$$
+
+Then
+
+$$
+  \operatorname{Pic}(S)
+  =
+  \mathbb ZH\oplus \mathbb ZE.
+$$
+
+The intersection table is
+
+$$
+  H^2=1,
+  \qquad
+  H\cdot E=0,
+  \qquad
+  E^2=-1,
+$$
+where
+$H$ is the total transform of a line,
+$E\simeq \mathbb P^1$ is the exceptional
+  curve, and
+$E^2=-1$. To check that $E^2 = -1$,
+let $L$ be a line through $p$, and pull
+it back to the blow-up. We obtain:
+total transform = strict transform $+ E$,
+that is: $H = \tilde{L} + E$,
+which gives $1 = H^2 = L^2 + L\cdot E + E^2
+=1+1+E^2$, since the strict
+transform does intersect $E$.
+
+The canonical divisor is computed by
+$$
+K_S=\pi^*K_{\mathbb P^2}+E,
+$$
+which may be seen by pulling back
+a top form on $\mathbb{P}^2$,
+and when writing its coordinates
+at the blow up, like in the routine
+exercises, an extra term appears,
+i.e. something of the kind $x dx \wedge dy$
+(see Exercise
+\ref{exercise-canonical-blow-up}).
+
+Since
+$$
+K_{\mathbb P^2}=-3H,
+$$
+we get
+$$
+K_S=-3H+E.
+$$
+More generally, if we blow up points
+$p_1,\ldots,p_r$, then
+$$
+ K_S=-3H+E_1+\cdots+E_r.
+$$
+If $C\subset \mathbb P^2$ is a curve of
+degree $d$ and multiplicity $m$ at $p$,
+then its strict transform has class
+
+$$
+\widetilde C=dH-mE.
+$$
+
+For several blown-up points,
+
+$$
+\widetilde C
+=
+dH-m_1E_1-\cdots-m_rE_r.
+$$
+Slogan:
+
+blowing up adds an exceptional divisor
+$E$ with $E^2=-1$, and strict transforms
+are computed by subtracting the
+multiplicity times $E$.
+
+\begin{exercise}
+\label{exercise-canonical-blow-up}
+Explain locally why, for the blow-up of
+a point on a surface,
+$$
+  K_S=\pi^*K_X+E.
+$$
+\end{exercise}
+
+\begin{proof}
+Use local coordinates
+$$
+  \pi(x,u)=(x,y)=(x,xu).
+$$
+A local generator of the canonical bundle
+downstairs is
+$$
+  dx\wedge dy.
+$$
+Pull it back:
+$$
+  \pi^*(dx\wedge dy)
+  =
+  dx\wedge d(xu).
+$$
+Since
+$$
+  d(xu)=u\,dx+x\,du,
+$$
+we get
+$$
+  \pi^*(dx\wedge dy)
+  =
+  dx\wedge (u\,dx+x\,du)
+  =
+  x\,dx\wedge du.
+$$
+Thus the pulled-back volume form has one
+extra zero along
+$$
+  E=\{x=0\}.
+$$
+Zeros of top forms define the canonical
+divisor. Hence
+$$
+  K_S=\pi^*K_X+E.
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-blowup-strict-transform}
+Let $C\subset \mathbb P^2$ be a curve
+of degree $d$ with multiplicity $m$ at
+$p$. What is the class of the strict
+transform of $C$ in
+$\operatorname{Bl}_p\mathbb P^2$?
+\end{exercise}
+
+\begin{proof}
+The total transform has class $dH$.
+Since $C$ has multiplicity $m$ at $p$,
+the exceptional divisor appears with
+multiplicity $m$ in the total transform.
+Thus
+$$
+  \pi^*C=\widetilde C+mE.
+$$
+Therefore
+$$
+  \widetilde C=dH-mE.
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-blowup-line}
+On $S=\operatorname{Bl}_p\mathbb P^2$,
+compute the self-intersection of the
+strict transform of a line through $p$.
+\end{exercise}
+
+\begin{proof}
+A line through $p$ has degree $1$ and
+multiplicity $1$ at $p$. Hence its
+strict transform has class
+$$
+  H-E.
+$$
+Therefore
+$$
+  (H-E)^2
+  =
+  H^2-2H\cdot E+E^2.
+$$
+Using
+$$
+  H^2=1,
+  \qquad
+  H\cdot E=0,
+  \qquad
+  E^2=-1,
+$$
+we get
+$$
+  (H-E)^2=1-1=0.
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-blowup-conic}
+On $S=\operatorname{Bl}_p\mathbb P^2$,
+compute the self-intersection of the
+strict transform of a conic through $p$
+with multiplicity $2$.
+\end{exercise}
+
+\begin{proof}
+The conic has degree $2$ and multiplicity
+$2$ at $p$. Thus its strict transform has
+class
+$$
+  2H-2E.
+$$
+Hence
+$$
+  (2H-2E)^2
+  =
+  4H^2-8H\cdot E+4E^2.
+$$
+Using the intersection table, this gives
+$$
+  (2H-2E)^2=4-4=0.
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-two-point-blowup}
+Let
+$$
+  S=\operatorname{Bl}_{p,q}\mathbb P^2,
+$$
+where $p$ and $q$ are distinct points.
+Let $H=\pi^*(\text{line})$, and let
+$E_p,E_q$ be the exceptional divisors.
+Compute the intersection table and
+$K_S$.
+\end{exercise}
+
+\begin{proof}
+The Picard group is generated by
+$$
+  H,\quad E_p,\quad E_q.
+$$
+The intersection table is
+$$
+  H^2=1,
+  \qquad
+  E_p^2=E_q^2=-1,
+$$
+and
+$$
+  H\cdot E_p=H\cdot E_q=0,
+  \qquad
+  E_p\cdot E_q=0.
+$$
+The exceptional divisors are disjoint,
+so $E_p\cdot E_q=0$.
+
+The canonical divisor is
+$$
+  K_S=\pi^*K_{\mathbb P^2}+E_p+E_q.
+$$
+Since $K_{\mathbb P^2}=-3H$, we get
+$$
+  K_S=-3H+E_p+E_q.
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-two-point-curves}
+On
+$$
+  S=\operatorname{Bl}_{p,q}\mathbb P^2,
+$$
+compute the classes and self-intersections
+of the following curves:
+a line through $p$ but not $q$;
+the line through both $p$ and $q$;
+a conic through $p$ and $q$.
+\end{exercise}
+
+\begin{proof}
+A line through $p$ but not $q$ has class
+$$
+  H-E_p.
+$$
+Its self-intersection is
+$$
+  (H-E_p)^2=1-1=0.
+$$
+
+The line through both $p$ and $q$ has
+class
+$$
+  H-E_p-E_q.
+$$
+Its self-intersection is
+$$
+  (H-E_p-E_q)^2=1-1-1=-1.
+$$
+
+A conic through $p$ and $q$ has class
+$$
+  2H-E_p-E_q.
+$$
+Its self-intersection is
+$$
+  (2H-E_p-E_q)^2=4-1-1=2.
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-minus-one-curves}
+Find the basic $(-1)$-curves on
+$$
+  \operatorname{Bl}_{p,q}\mathbb P^2.
+$$
+\end{exercise}
+
+\begin{proof}
+The exceptional curves themselves have
+self-intersection $-1$:
+$$
+  E_p^2=E_q^2=-1.
+$$
+Also, the strict transform of the line
+through both points has class
+$$
+  H-E_p-E_q,
+$$
+and
+$$
+  (H-E_p-E_q)^2=-1.
+$$
+Thus the basic $(-1)$-curves are
+$$
+  E_p,\qquad E_q,\qquad H-E_p-E_q.
+$$
+\end{proof}
+
+
+\begin{exercise}
+\label{exercise-quartic-surface}
+Let $X\subset \mathbb P^3$ be a smooth
+quartic surface. Compute $\dim X$,
+$\deg X$, $K_X$, and $H^2$, where
+$H=\mathcal O_X(1)$. Classify $X$.
+\end{exercise}
+
+\begin{proof}
+Since $X$ is a hypersurface in
+$\mathbb P^3$, we have
+$$
+  \dim X=2.
+$$
+Its degree is
+$$
+  \deg X=4.
+$$
+By adjunction,
+$$
+  K_X
+  =
+  \mathcal O_X(4-3-1)
+  =
+  \mathcal O_X.
+$$
+Also
+$$
+  H^2=\deg X=4.
+$$
+Thus $X$ is a smooth surface with trivial
+canonical bundle. Moreover, smooth
+complete intersections in projective
+space satisfy $H^1(X,\mathcal O_X)=0$.
+Hence $X$ is a K3 surface.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-two-three-surface}
+Let
+$$
+  X=(2,3)\subset \mathbb P^4
+$$
+be a smooth complete intersection.
+Compute $\dim X$, $\deg X$, $K_X$,
+$H^2$, $K_X^2$, and
+$h^0(X,\mathcal O_X(1))$. Classify $X$.
+\end{exercise}
+
+\begin{proof}
+The codimension is $2$, hence
+$$
+  \dim X=4-2=2.
+$$
+The degree of a complete intersection is
+the product of the degrees:
+$$
+  \deg X=2\cdot 3=6.
+$$
+The normal bundle is
+$$
+  N_{X/\mathbb P^4}
+  =
+  \mathcal O_X(2)\oplus \mathcal O_X(3).
+$$
+Adjunction gives
+$$
+  K_X
+  =
+  \mathcal O_X(2+3-4-1)
+  =
+  \mathcal O_X.
+$$
+Thus
+$$
+  K_X^2=0.
+$$
+Also
+$$
+  H^2=\deg X=6.
+$$
+
+The global sections of $\mathcal O_X(1)$
+are the linear forms on $\mathbb P^4$
+restricted to $X$. No nonzero linear form
+vanishes on all of $X$, because the ideal
+of $X$ is generated in degrees $2$ and
+$3$. Therefore
+$$
+  h^0(X,\mathcal O_X(1))
+  =
+  h^0(\mathbb P^4,\mathcal O(1))
+  =
+  5.
+$$
+The linear system $|\mathcal O_X(1)|$
+gives the original embedding
+$$
+  X\hookrightarrow \mathbb P^4.
+$$
+
+Since $K_X\simeq \mathcal O_X$ and
+$H^1(X,\mathcal O_X)=0$, this is a
+complete-intersection K3 surface.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-two-two-two-surface}
+Let
+$$
+  X=(2,2,2)\subset \mathbb P^5
+$$
+be a smooth complete intersection.
+Compute $\dim X$, $\deg X$, $K_X$,
+$H^2$, $K_X^2$, and
+$h^0(X,\mathcal O_X(1))$. Classify $X$.
+\end{exercise}
+
+\begin{proof}
+The codimension is $3$, hence
+$$
+  \dim X=5-3=2.
+$$
+The degree is
+$$
+  \deg X=2\cdot 2\cdot 2=8.
+$$
+By adjunction,
+$$
+  K_X
+  =
+  \mathcal O_X(2+2+2-5-1)
+  =
+  \mathcal O_X.
+$$
+Hence
+$$
+  K_X^2=0.
+$$
+Also
+$$
+  H^2=\deg X=8.
+$$
+
+Again, no nonzero linear form vanishes
+on all of $X$, since the ideal is
+generated in degree $2$. Therefore
+$$
+  h^0(X,\mathcal O_X(1))
+  =
+  h^0(\mathbb P^5,\mathcal O(1))
+  =
+  6.
+$$
+The linear system $|\mathcal O_X(1)|$
+gives the original embedding
+$$
+  X\hookrightarrow \mathbb P^5.
+$$
+
+Thus $X$ is a complete-intersection
+K3 surface. (For some reason it turns out
+that complete intersections have
+$h^1(\mathcal{O}_X)=0$).
+\end{proof}
+
+\begin{exercise}
+\label{exercise-surface-intersection}
+Let $X\subset \mathbb P^n$ be a
+projective surface, and let
+$H=\mathcal O_X(1)$. Show that
+$$
+  H^2=\deg X.
+$$
+Deduce that
+$$
+  \mathcal O_X(a)\cdot\mathcal O_X(b)
+  =
+  ab\deg X.
+$$
+\end{exercise}
+
+\begin{proof}
+The class $H$ is the hyperplane class
+restricted to $X$. Thus $H^2$ is the
+intersection of $X$ with two general
+hyperplanes. By definition, this number
+is the degree of $X$. Hence
+$$
+  H^2=\deg X.
+$$
+Since
+$$
+  \mathcal O_X(a)=aH,
+  \qquad
+  \mathcal O_X(b)=bH,
+$$
+we get
+$$
+  \mathcal O_X(a)\cdot\mathcal O_X(b)
+  =
+  (aH)\cdot(bH)
+  =
+  abH^2
+  =
+  ab\deg X.
+$$
+\end{proof}
 
 \section{Schemes}
 \label{section-shemes}
@@ -5755,6 +7291,7 @@ $$
 \end{theorem}
 
 \begin{remark}
+\label{remark-wall-crossing-triples}
 Stable triples generalize rank $1$
 PT stable points.
 \end{remark}
@@ -6449,6 +7986,7 @@ as the farthest notion possible from being of
 general type.
 
 \begin{definition}[Campana]
+\label{definition-special-variety}
 $X$ complex projective.
 $X$ is \textit{special} if $\forall i \leq  p
 \leq \dim X$,
