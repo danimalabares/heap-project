@@ -538,8 +538,10 @@ $T^*M$ to fibers.
 \label{section-moser-trick}
 
 \noindent
-Moser's trick is an application of the
-following technical lemma:
+Moser's trick is an application of a
+technical formula concerning so-called
+time-dependent vector fields, which
+are 1-parameter families of vector fields.
 
 \begin{lemma}
 \label{lemma-lie-deriv-time-depen-vecto}
@@ -562,6 +564,47 @@ $$
 
 \begin{theorem}[Moser's trick]
 \label{theorem-moser-trick}
+Let $\omega_t$ be cohomologous
+symplectic forms on compact $M$,
+$0\leq t\leq 1$.
+There exists a diffeomorphism
+$\varphi$ such that $\varphi^*\omega_1
+=\omega_0$.
+\end{theorem}
+
+\begin{proof}
+Since $\omega_t$ are cohomologous,
+$$
+0=\frac{d}{dt}[\omega_t]
+=[\dot\omega_t]
+$$
+which says that $\dot\omega_t$ is exact,
+say $\dot\omega_t=d\eta_t$.
+Now define vector fields $X_t$
+such that
+$$
+i_{X_t}\omega_t=-\eta_t.
+$$
+We use compactness of $M$
+to make sure the flows of $X_t$
+exist in $[0,1]$
+The formula for 
+derivative of the time-dependent flows reads
+$$
+\frac{d}{dt}\varphi_t^*\omega_t
+=\varphi_t^* (L_{X_t}\omega_t+\dot \omega_t)
+=-d\eta_t+d\eta_t
+$$
+since $L_{X_t}\omega_t = di_{X_t}\omega_t=
+-d\eta_t$. At $t=0$ we get $\omega_0$,
+and since the derivative is zero,
+at $t=1$ we obtain 
+$\varphi_1^*\omega_1=\omega_0$.
+\end{proof}
+
+\begin{theorem}[Moser's trick for volume
+forms]
+\label{theorem-moser-trick-volume}
 Let $M$ be a smooth manifold and $V_1, V_0$
 two cohomologous volume forms.
 Then there exists a diffeomorphism $\varphi:M
@@ -643,7 +686,18 @@ procedure as in
 Moser's trick as follows.
 Let $\omega_t:=t
 \varphi^*\omega+(1-t)\omega_{\text{can}}$.
-Then $\omega_t$ is symplectic for all $t$.
+Then $\omega_t$ is symplectic for all $t$,
+which is not immediate:
+in general the middle points of such 
+a linear homotopy need not be nondegenerate.
+In this case it works because we are working
+locally: nondegeneracy is an open condition
+in the sense that if the determinant
+of a form is nonzero at a point,
+it will be nonzero at near-by points.
+Thus shrinking the domain if necessary
+we can safely assume that $\omega_t$ is
+nondegenerate.
 Assign to every $t$ the vector field
 $X_t:=\omega_t^\sharp(-\eta)$.
 Then apply Lemma
@@ -661,7 +715,7 @@ The following theorem says that Lagrangian
 submanifolds are
 defined intrinsically in the sense that they
 can all
-be thought of as embedded in its own
+be thought of as embedded in their own
 cotangent bundle:
 if $L \subset M$ is a Lagrangian submanifold,
 there is are neighbourhoods $L \subseteq U_0
