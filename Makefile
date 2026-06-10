@@ -1,10 +1,3 @@
-# List your source files (no extensions)
-LIJST = differential-geometry algebraic-geometry complex-geometry ringed-spaces book
-
-# Automatic file expansions
-PDFS = $(patsubst %,%.pdf,$(LIJST))
-AUXS = $(patsubst %,%.aux,$(LIJST))
-
 # Commands
 PDFLATEX = pdflatex
 BIBTEX = bibtex
@@ -16,6 +9,7 @@ GERBY_UPDATE_FLAGS ?=
 GERBY_ORDER ?= order-chapters.txt
 GERBY_FILES ?= basic-math.tex complex-analysis.tex functional-analysis.tex categories.tex commutative-algebra.tex ringed-spaces.tex homological-algebra.tex lie-algebras.tex representation-theory.tex smooth-manifolds.tex differential-topology.tex algebraic-topology.tex differential-geometry.tex algebraic-geometry.tex symplectic-geometry.tex complex-geometry.tex deformations.tex vertex-algebras.tex springer.tex infty-categories.tex seminars.tex geometric-prequantization.tex surfaces.tex birational-maps-commutative-algebra.tex cremona-transformations.tex derived-categories-of-sheaves.tex geometric-invariant-theory.tex geometric-stability-conditions-and-group-actions.tex moduli-spaces-of-sheaves.tex bridgeland-stability-general-theory.tex nakajima-heisenberg-hilbert-schemes.tex noncommutative-abelian-surfaces-and-kummer-type-hyperkahler-varieties.tex mumford-tate-groups-in-hodge-theory.tex hodge-birational-atoms-2026.tex
 GERBY_PORT ?= 5001
+PDFS = $(patsubst %.tex,%.pdf,$(GERBY_FILES)) book.pdf
 
 # Default target: build all PDFs
 .PHONY: all
@@ -37,8 +31,9 @@ all: $(PDFS)
 clean:
 	rm -f *.aux *.log *.out *.toc *.bbl *.blg *.pdf *.fdb_latexmk *.fls tmp/book.tex
 
-tmp/book.tex:
-	python3 scripts/make_book.py > tmp/book.tex
+tmp/book.tex: scripts/make_book.py preamble.tex order-chapters.txt $(GERBY_FILES)
+	mkdir -p tmp
+	$(PYTHON) scripts/make_book.py --order $(GERBY_ORDER) $(GERBY_FILES) > tmp/book.tex
 
 .PHONY: book
 book: book.pdf
@@ -49,7 +44,7 @@ book.pdf: tmp/book.tex
 	pdflatex tmp/book
 	pdflatex tmp/book
 
-.PHONY: gerby-book gerby-tags gerby-render gerby-import gerby-deploy-build gerby-serve gerby-serve-prod gerby-smoke
+.PHONY: gerby-book gerby-tags gerby-render gerby-import gerby-downloads gerby-deploy-build gerby-serve gerby-serve-prod gerby-smoke
 
 gerby-book:
 	mkdir -p gerby
@@ -66,7 +61,12 @@ gerby-render: gerby-tags
 gerby-import: gerby-render
 	cd gerby-website/gerby/tools && PYTHONPATH=../.. $(PYTHON) update.py $(GERBY_UPDATE_FLAGS)
 
-gerby-deploy-build: gerby-import
+gerby-downloads: book.pdf $(patsubst %.tex,%.pdf,$(GERBY_FILES))
+	mkdir -p gerby/downloads
+	cp book.pdf gerby/downloads/book.pdf
+	cp $(patsubst %.tex,%.pdf,$(GERBY_FILES)) gerby/downloads/
+
+gerby-deploy-build: gerby-import gerby-downloads
 
 gerby-serve:
 	cd gerby-website && PYTHONPATH=. FLASK_APP=gerby $(PYTHON) -m flask run --host 127.0.0.1 --port $(GERBY_PORT)

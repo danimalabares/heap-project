@@ -7,6 +7,7 @@ GERBY = ROOT / "gerby"
 # configuration for the website
 COMMENTS = str(GERBY / "comments.sqlite")
 DATABASE = str(GERBY / "stack.sqlite")
+DOWNLOADS = str(GERBY / "downloads")
 UNIT = "section"
 DEPTH = 0
 

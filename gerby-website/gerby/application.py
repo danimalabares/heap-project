@@ -5,7 +5,7 @@ import urllib.request
 import socket
 import feedparser
 import re
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, abort, render_template, request, send_from_directory
 #import flask_profiler
 
 from peewee import *
@@ -169,6 +169,13 @@ def show_chapters():
 @app.route("/robots.txt")
 def show_robots():
   return send_from_directory(app.static_folder, request.path[1:])
+
+
+@app.route("/download/<path:filename>")
+def show_download(filename):
+  if not filename.endswith(".pdf"):
+    abort(404)
+  return send_from_directory(DOWNLOADS, filename)
 
 
 app.jinja_env.add_extension('jinja2.ext.do')
