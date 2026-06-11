@@ -189,11 +189,7 @@ def preamble():
         "\\newcommand{\\underline}[1]{#1}\n",
         "\\newcommand{\\overline}[1]{#1}\n",
         "\\newcommand{\\widehat}[1]{#1}\n",
-        "\\newcommand{\\href}[2]{#2}\n",
-        "\\newcommand{\\hyperref}[2][]{#2}\n",
-        "\\newcommand{\\url}[1]{#1}\n",
-        "\\newcommand{\\texorpdfstring}[2]{#1}\n",
-        "\\newcommand{\\textcolor}[2]{#2}\n",
+        "\\newcommand{\\widetilde}[1]{#1}\n",
     ]
 
     skip_class = False
@@ -208,10 +204,6 @@ def preamble():
             continue
         if stripped.startswith("\\externaldocument"):
             continue
-        if stripped.startswith("\\usepackage{xcolor}"):
-            continue
-        if stripped.startswith("\\usepackage{hyperref}"):
-            continue
         out.append(line)
     return "".join(out)
 
@@ -222,21 +214,6 @@ def body_for(filename):
     content = path.read_text(encoding="utf-8")
     content = re.sub(r"\\mathbb\{([^{}]+)\}", r"\1", content)
     content = re.sub(r"\\text\{([^{}]+)\}", r"\1", content)
-    for macro in [
-        "tilde",
-        "hat",
-        "bar",
-        "vec",
-        "dot",
-        "ddot",
-        "underline",
-        "overline",
-        "widehat",
-        "partial",
-    ]:
-        content = re.sub(rf"\\{macro}\s*\{{([^{{}}]+)\}}", r"\1", content)
-        content = re.sub(rf"\\{macro}\s+([A-Za-z0-9])", r"\1", content)
-        content = re.sub(rf"\\{macro}\b", "", content)
     content = re.sub(r"\\label\{([^}]*)\}", lambda match: "\\label{" + " ".join(match.group(1).split()) + "}", content)
     lines = content.splitlines(True)
     title = chapter_title(lines, prefix)
