@@ -1,0 +1,3353 @@
+\documentclass{book}
+
+\usepackage[bookmarks,bookmarksopen,bookmarksdepth=3]{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[all,cmtip]{xy}
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor=blue,
+  linkcolor=magenta,
+  citecolor=blue,
+  filecolor=blue
+}
+
+\theoremstyle{definition}
+\renewcommand{\proofname}{Proof}
+\newenvironment{Proof}[1][Proof]
+{\proof[#1]\leftskip=1cm\rightskip=1cm}{\endproof}
+
+\newtheorem*{defn}{Definition}
+\newtheorem{defs}{Definitions}
+\newtheorem*{lema}{Lemma}
+\newtheorem*{obs}{Observation}
+\newtheorem*{teo}{Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{coro}{Corollary}
+\newtheorem*{ejer}{Exercise}
+\newtheorem*{ejem}{Example}
+\newtheorem*{ejems}{Examples}
+\newtheorem*{pregunta}{Question}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\K}{\mathbb{K}}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\img}{img}
+\DeclareMathOperator{\ran}{ran}
+\DeclareMathOperator{\Top}{Top}
+\DeclareMathOperator{\Grp}{Grp}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\Orb}{Orb}
+\DeclareMathOperator{\Int}{int}
+
+\title{Algebraic Topology Notes}
+\author{Prof. Luis Jorge S\'anchez Salda\~na\\
+Notes by Dani\\
+\href{https://github.com/danimalabares/top-alg}{github.com/danimalabares/top-alg}}
+
+\begin{document}
+\maketitle
+\phantomsection
+\addcontentsline{toc}{part}{Contents}
+\tableofcontents
+
+\part{Fundamental group}
+
+\chapter{The fundamental group}
+
+\section{Paths and homotopies}
+
+We denote by $I$ the unit interval $[0,1]$ and by
+$X$ an arbitrary topological space.
+
+\begin{defn}
+A \textbf{path} is a function $f:I\to X$.
+\end{defn}
+
+\begin{defn}
+A \textbf{homotopy of paths} in $X$ is a family
+$f_t:I\to X$, with $0\leq t\leq0$, such that the
+associated function
+$$
+\begin{aligned}
+F:I\times I&\to X\\
+(s,t)&\mapsto f_t(s)
+\end{aligned}
+$$
+is continuous.
+
+We say that the homotopy $F:I\times I\to X$ is
+\textbf{relative to the endpoints} if
+$$
+F(0,t)=x_0\qquad\forall t\in I
+\qquad
+F(0,t)=x_1\qquad\forall t\in I
+$$
+for $x_0,x_1\in X$.
+
+Finally, two paths $f_0$ and $f_1$ in $X$ such that
+$f_0(0)=f_1(0)$ and $f_0(1)=f_1(1)$ are
+\textbf{homotopic rel} $\mathbf{0,1}$ if there is a
+homotopy between them. This is denoted
+$f_0\simeq f_1\rel0,1$.
+\end{defn}
+
+\begin{teo}
+The relation
+$f_1\sim{}f_2\iff f_1\simeq f_2\rel0,1$ is an
+equivalence relation on the set of paths in $X$, which we
+will denote by $\Omega(X):=\{f:I\to X\}$.
+\end{teo}
+
+\section{Definition of the fundamental group}
+
+On our way to defining the fundamental group, we first
+define an operation between paths.
+
+We denote by $[f]$ the homotopy class rel $0,1$ of
+$f\in\Omega(X)$.
+
+\begin{defn}
+Given $f,g:I\to X$ such that $f(1)=g(0)$, we can define
+the \textbf{concatenation of paths}
+$$
+\begin{aligned}
+f&\cdot g:I\to X\\
+f\cdot g(s)&=\begin{cases}
+f(2s)\qquad s\in[0,1/2]\\
+g(2s-1)\qquad s\in[1/2,1].
+\end{cases}
+\end{aligned}
+$$
+\end{defn}
+
+\begin{obs}
+If $f\simeq f_1\rel0,1$ and $g\simeq g_1\rel0,1$, then
+$f\cdot g\simeq f_1\cdot g_1\rel0,1$.
+
+In other words, if $[f]=[f_1]$ and $[g]=[g_1]$, then
+$[f\cdot g]=[f_1\cdot g]$.
+\end{obs}
+
+\begin{defn}
+We say that $f:I\to X$ is a \textbf{loop based at}
+$x_0\in X$ if $f(0)=f(1)=x_0$. We denote by
+$$
+\Omega(X,x_0)=\{f:I\to X:f(0)=f(1)=x_0\}
+$$
+the set of such loops.
+\end{defn}
+
+The equivalence relation $\rel0,1$ restricts correctly to
+$\Omega(X,x_0)\subseteq\Omega(X)$, so we can finally define:
+
+\begin{defn}
+The \textbf{fundamental group} of $X$ based at $x_0$ is the
+set
+$$
+\pi_1(X,x_0)=\Omega(X,x_0)/\rel0,1.
+$$
+\end{defn}
+
+\begin{teo}
+The fundamental group is a group with the concatenation
+operation $[f][g]=[f\cdot g]$.
+\end{teo}
+
+\begin{proof}
+We have to check that:
+\begin{itemize}
+\item the product is well defined;
+\item there is an identity, the constant path
+$c_{x_0}:I\to X$ given by $c_{x_0}(t)=x_0$ for every
+$t\in I$;
+\item there are inverses;
+\item there is associativity.
+\end{itemize}
+\end{proof}
+
+\section{Change of base point}
+
+What happens when we change the base point? Does the
+fundamental group change? It is easy to note that if the
+points lie in different path-connected components, the
+fundamental groups may very well change. But what happens
+if they lie in the same path-connected component?
+
+\begin{teo}\label{teo:cambioptobase}
+If $x_0,x_1\in X$ can be connected by a path, then
+$\pi_1(X,x_0)\cong\pi_1(X,x_1)$.
+\end{teo}
+
+\section{The fundamental group of the circle}
+
+Let us think of $S^1=\{z\in\C:|z|=1\}$.
+
+\begin{teo}
+$\pi_1(S^1,x_0)\cong\Z$ for every $x_0\in S^1$.
+\end{teo}
+
+\section{Consequences of the fundamental group of the circle}
+
+\section{The fundamental theorem of algebra}
+
+\section{Brouwer's fixed point theorem in dimension 2}
+
+\begin{teo}
+Every function $f:D^2\to D^2$ has a fixed point.
+\end{teo}
+
+\section{The Borsuk--Ulam theorem in dimension 2}
+
+\begin{teo}
+For every continuous function $f:S^2\to\R^2$ there exists
+$x\in S^2$ such that $f(x)=f(-x)$.
+\end{teo}
+
+\section{The fundamental group of a product}
+
+\begin{teo}
+Let $X$ and $Y$ be topological spaces and let $x_0\in X$,
+$y_0\in Y$. Then
+$$
+\pi_1(X\times Y,(x_0,y_0))
+\cong
+\pi_1(X,x_0)\times\pi_1(Y,y_0).
+$$
+\end{teo}
+
+\section{Induced homomorphisms (functoriality)}
+
+First let us establish some notation. If $f:X\to Y$,
+$x_0\in X$, $y_0\in Y$, and $f(x_0)=y_0$, we write
+$f:(X,x_0)\to(Y,y_0)$.
+
+\begin{teo}[The fundamental group is a functor
+$\pi_1:\Top^*\to\Grp$]
+The function $f:(X,x_0)\to(Y,y_0)$ induces a homomorphism
+$$
+f_*:\pi_1(X,x_0)\to\pi_1(Y,y_0)
+$$
+such that
+\begin{enumerate}
+\item if $g:(Y,y_0)\to(Z,z_0)$, then
+$(g\circ f)_*=g_*\circ f_*$;
+\item $(Id_X)_*=Id_{\pi_1(X,x_0)}$.
+\end{enumerate}
+\end{teo}
+
+\section{The fundamental group of the $n$-sphere}
+
+\begin{prop}
+$\pi_1(S^n)=0$ if $n\geq2$.
+\end{prop}
+
+This is proved using the following lemma.
+
+\begin{lema}\label{lema:homotopia}
+Let $X=\bigcup_{\alpha\in I} A_\alpha$ be such that
+\begin{itemize}
+\item the $A_\alpha$ are open sets, i.e. they are an open
+cover;
+\item there exists $x_0\in\bigcap A_\alpha$;
+\item $A_\alpha$ is path connected;
+\item $A_\alpha\cap A_\beta$ is also path connected for all
+$\alpha,\beta$.
+\end{itemize}
+Then every loop $\gamma$ in $X$ is homotopic rel $0,1$ to a
+product, i.e. concatenation, of loops of the form
+$\gamma\cong\gamma_1\cdots\gamma_n$ such that each
+$\gamma_i$ is completely contained in some $A_\alpha$.
+\end{lema}
+
+\section{$\R^2$ is not homeomorphic to $\R^n$ if $n\neq2$}
+
+\begin{teo}
+$\R^2$ is not homeomorphic to $\R^n$ if $n\neq2$.
+\end{teo}
+
+\begin{obs}
+If $x\in\R^n$, then $\R^n-\{x\}$ is homeomorphic to
+$S^{n-1}\times\R$.
+\end{obs}
+
+\begin{teo}
+$\R^n\cong\R^m\iff n=m$.
+\end{teo}
+
+\section{Homotopy}
+\label{def:func-homot}
+
+Two functions $f,g:X\to Y$ are \textbf{homotopic} if there
+exists a function, which we call a \textbf{homotopy}, of the
+form $H:X\times I\to Y$ such that
+$$
+H(x,0)=f(x)\qquad\forall x\in X,
+\qquad
+H(x,1)=g(x)\qquad\forall x\in X,
+$$
+and this is denoted by $f\simeq g$.
+
+If we have $A\subseteq X$ and $B\subseteq Y$, and $f$ is
+such that $f(A)\subseteq B$, we write
+$$
+f:(X,A)\to(Y,B).
+$$
+A homotopy between functions of this kind is a function
+$H:X\times I\to Y$ such that all the functions obtained by
+changing the time parameter still send $A$ to $B$. That is,
+we have functions
+$$
+H(\_,t):(X,A)\to(Y,B)\qquad\forall t\in I
+$$
+such that
+$$
+H(x,0)=f(x)\qquad\forall x\in X,
+\qquad
+H(x,1)=g(x)\qquad\forall x\in X.
+$$
+
+In particular, if $A=\{x_0\}$ and $B=\{y_0\}$, just as
+before, we write
+$$
+f:(X,x_0)\to(Y,y_0).
+$$
+In this case, we say that a \textbf{base-point-preserving
+homotopy} is a function $H:X\times I\to Y$ such that
+$$
+H(x_0,t)=y_0\qquad\forall t\in I,
+$$
+$$
+H(x,0)=f(x)\qquad\forall x\in X,
+\qquad
+H(x,1)=g(x)\qquad\forall x\in X.
+$$
+We will simply say that $f$ and $g$ are homotopic,
+specifying when necessary that the homotopy preserves the
+base point.
+
+\begin{prop}
+If $f,g:(X,x_0)\to(Y,y_0)$ are homotopic, preserving the
+base point, then they induce the same homomorphism on
+fundamental groups, that is,
+$$
+f_*=g_*:\pi_1(X,x_0)\to\pi_1(Y,y_0).
+$$
+\end{prop}
+
+\begin{defn}
+Two spaces $X$ and $Y$ are \textbf{homotopy equivalent} if
+there exist two functions, called \textbf{homotopy
+equivalences}, $f:X\to Y$ and $g:Y\to X$ such that
+$g\circ f\simeq Id_X$ and $f\circ g\simeq Id_Y$. This is
+denoted by $X\simeq Y$.
+\end{defn}
+
+\begin{coro}\label{1.2.1}
+If $f:X\to Y$ is a homotopy equivalence, then the induced
+function $f_*:\pi_1(X,x_0)\to\pi_1(Y,y_0)$ is an
+isomorphism.
+\end{coro}
+
+\begin{proof}
+Suppose that $g:Y\to X$ is as in the preceding definition.
+It is enough to show that $f_*$ and $g_*$ are inverses of one
+another. And they are, because
+$Id_{\pi_1(X,x_0)}=(g f)_*=g_*f_*$ and similarly
+$Id_{\pi_1(Y,y_0)}=f_*g_*$.
+\end{proof}
+
+\begin{ejer}[Hatcher 0.11]\label{hatcher:0.11}
+\textit{One can use different functions to go and come
+back.} A function $f:X\to Y$ is a homotopy equivalence if
+there exist $g,h:Y\to X$ such that $fg\simeq Id_Y$ and
+$gf\simeq Id_X$. More generally, $f$ is a homotopy
+equivalence if $fg$ and $hf$ are homotopy equivalences.
+\end{ejer}
+
+We add one last property, for which we define two notions
+that are used throughout the text.
+
+\begin{defn}\label{def:retracto}
+A \textbf{retraction} of a space $X$ onto a subspace $A$ is a
+function $f:X\to A$ such that $f|_A=id_A$. A
+\textbf{deformation retract} of $X$ onto $A$ is a homotopy
+$f_t:X\to X$ such that $f_0=id_A$ and $f_1(X)=A$, and also
+$f_t|_A=id_A$ for every $t$.
+\end{defn}
+
+\begin{prop}
+If a space $X$ retracts onto a space $A$, then the
+homomorphism $i_*:\pi_1(A,x_0)\to\pi_1(X,x_0)$ induced by
+the inclusion $A\hookrightarrow X$ is injective. If $A$ is a
+deformation retract of $X$, then $i_*$ is an isomorphism.
+\end{prop}
+
+\chapter{The Van Kampen theorem}
+
+\section{Free groups}
+
+\section{Free products}
+
+In group theory, we normally define the direct product by
+thinking of something like
+$$
+\xymatrix{
+& G\times H \\
+G_\alpha \ar[ur] && H \ar[ul]
+}
+$$
+where the product is commutative, that is,
+$$
+(g,1)(1,h)=(1,h)(g,1).
+$$
+Now we define a product called the \textbf{free product}, in
+which the elements will not commute.
+
+\begin{defn}
+Let $\{G_\alpha\}_{\alpha\in I}$ be a collection of groups.
+As a set, the free product $\ast_{\alpha\in I}G_\alpha$
+consists of the words $g_1g_2\ldots g_m$, for
+$m\in\N\cup\{0\}$, where each $g_i$ lies in some
+$G_\alpha$. Also, $g_i\neq1$, and $g_i,g_{i+1}$ always
+belong to different $G_\alpha$, that is, $g_i\in G_\alpha$
+and $g_{i+1}\in G_\beta$ with $\alpha\neq\beta$. In this
+case, we say that $g_1\ldots g_m$ is a
+\textbf{reduced word}.
+
+The binary operation on $\ast_{\alpha\in I}$ is given by
+concatenation.
+\end{defn}
+
+\begin{obs}
+Each of the $G_\alpha$ is contained in
+$\ast_{\alpha\in I}G_\alpha$, since its elements appear as
+one-letter words. In symbols:
+$$
+\begin{aligned}
+G&\hookrightarrow\ast_{\alpha\in I}G_\alpha\\
+g&\mapsto g.
+\end{aligned}
+$$
+\end{obs}
+
+\begin{teo}[Universal property of the free product]
+Given homomorphisms $\varphi_\alpha:G_\alpha\to H$, there
+exists a unique homomorphism
+$\varphi:\ast_{\alpha\in I}G_\alpha\to H$ extending the
+$\varphi_\alpha$.
+\end{teo}
+
+\begin{ejem}
+If $F_n$ and $F_m$ are free groups generated by $n$ and $m$
+elements, then $F_n*F_m\approx F_{n+m}$.
+\end{ejem}
+
+\section{Normally generated subgroups}
+
+\section{The Van Kampen theorem}
+
+Imagine that we want to compute the fundamental group of a
+space but do not know how. This happens very often. But it
+turns out that we can view this space as the union of many
+subspaces whose fundamental groups we know. This is the
+setting of the Van Kampen theorem.
+
+Take a topological space $X$, a base point $x_0\in X$, and
+suppose that $X=\bigcup_{\alpha\in I}A_\alpha$ for certain
+spaces $A_\alpha$ such that $x_0\in A_\alpha$ for every
+$\alpha\in I$. Also suppose that the $A_\alpha$ are path
+connected.
+
+Since the $A_\alpha$ are subspaces, we can consider the
+inclusion $A_\alpha\hookrightarrow X$ and the induced
+homomorphisms on fundamental groups, denoted
+$j_\alpha:\pi_1(A_\alpha,x_0)\to\pi_1(X,x_0)$. Then, by the
+universal property of the free product, we have a
+homomorphism from the free product of these groups to the
+fundamental group of $X$:
+$$
+\ast_{\alpha\in I}\pi_1(A_\alpha,x_0)
+\to
+\pi_1(X,x_0).
+$$
+The theorem will tell us that this function is surjective.
+Intuitively, it says that every loop in $X$ is homotopic to
+another loop which is the concatenation of certain loops,
+each completely contained in one of the $A_\alpha$.
+
+Now think of a loop that lies in the intersection of two of
+the $A_\alpha$. We can think of the loop as lying in, say,
+$A_\alpha$, and its inverse as lying in $A_\beta$. Then, as
+an element of the free product
+$\ast_{\alpha\in I}\pi_1(A_\alpha,x_0)$, this loop is not the
+identity. But after pushing it to $\pi_1(X,x_0)$, it is the
+identity. All this is to say that the map we have built is
+not injective.
+
+Now suppose that for $\alpha,\beta\in I$ we have the
+inclusion $A_\alpha\cap A_\beta\hookrightarrow A_\alpha$,
+which induces a map
+$$
+i_{\alpha\beta}:\pi_1(A_\alpha\cap A_\beta)
+\to
+\pi_1(A_\alpha).
+$$
+The order of the subscripts is important, since the
+codomain is given by the first symbol in the subscript.
+
+Putting the preceding paragraphs together, the nontrivial
+loop
+$$
+1\neq i_{\alpha\beta}[f]i_{\beta\alpha}[\bar f]
+\in \ast_{\alpha\in I}A_\alpha
+$$
+can be pushed to $\pi_1(X,x_0)$. The Van Kampen theorem
+will tell us that the kernel of the homomorphism, which we
+already said is certainly not injective in general, is
+generated precisely by elements of this kind.
+
+Now we can state it.
+
+\begin{teo}[Van Kampen]
+If $X=\bigcup_{\alpha\in I}A_\alpha$, with each $A_\alpha$
+path connected, $x_0\in A_\alpha$, and also
+$A_\alpha\cap A_\beta$ path connected for all
+$\alpha,\beta\in I$, then the homomorphism
+$$
+\Phi:\ast_{\alpha\in I}\pi_1(A_\alpha,x_0)
+\to\pi_1(X,x_0)
+$$
+is surjective.
+
+If moreover $A_\alpha\cap A_\beta\cap A_\gamma$ is path
+connected for all $\alpha,\beta,\gamma\in I$, then
+$$
+\ker\Phi=
+\left\langle\left\langle
+ i_{\alpha\beta}(\omega)i_{\beta\alpha}(\omega)^{-1}
+ :\omega\in\pi_1(A_\alpha\cap A_\beta)
+\right\rangle\right\rangle.
+$$
+In particular,
+$$
+\pi_1(X,x_0)\cong
+\ast_{\alpha\in I}\pi_1(A_\alpha,x_0)/\ker\Phi.
+$$
+\end{teo}
+
+\section{The fundamental group of a wedge of spaces}
+\label{sec:grp-fund-cuña}
+
+\textcolor{red}{I did not find
+\href{https://www.youtube.com/watch?v=9P6n__Njlz8}{this video}
+on the course page.}
+
+Consider a collection of topological spaces $X_\alpha$ with
+$\alpha\in I$ and choose a point in each space, say
+$x_\alpha\in X_\alpha$. We define the \textbf{wedge} of these
+spaces by
+$$
+\bigvee_{\alpha\in I}X_\alpha
+:=
+\bigsqcup_{\alpha\in I}X_\alpha
+\Big/\{x_\alpha\sim{}x_\beta,\forall\alpha,\beta\in I\}.
+$$
+Assume also that each $x_\alpha$ is a deformation retract
+of some neighbourhood $U_\alpha\subseteq X_\alpha$.
+
+Then we have:
+
+\begin{teo}
+Under these hypotheses, the homomorphism appearing in the
+Van Kampen theorem,
+$$
+\Phi:\ast_{\alpha\in I}\pi_1(X_\alpha,x_0)
+\to
+\pi_1\left(\bigvee_{\alpha\in I}X_\alpha\right),
+$$
+is an isomorphism.
+\end{teo}
+
+\section{Every group is the fundamental group of some space}
+
+\section{Presentations of groups}
+
+Consider a group $G$ and a generating set $S\subseteq G$,
+that is, such that $\langle S\rangle=G$. This is equivalent
+to saying that every element of $G$ can be seen as a product
+of elements of $S$.
+
+Also consider the free group generated by $S$, say $F_S$,
+and use the universal property of free groups to see that
+there exists a unique surjective homomorphism from $F_S$ to
+$G$ extending the inclusion of $S$ in $G$.
+
+We have proved:
+
+\begin{teo}
+Given a group $G$, there exists a free group $F_S$ which
+surjects onto $G$. In particular, by the first isomorphism
+theorem, every group is a quotient of a free group.
+\end{teo}
+
+If in addition we have a set $R\subseteq\ker\varphi$ which
+normally generates the kernel, that is,
+$\langle\langle R\rangle\rangle=\ker\varphi$, then
+$$
+G\cong F_S/\ker\varphi
+\cong F_S/\langle\langle R\rangle\rangle,
+$$
+and we say that
+$$
+G=\langle S,R\rangle
+$$
+is a \textbf{presentation} of $G$.
+
+\begin{ejems}
+\begin{enumerate}
+\item S
+\end{enumerate}
+\end{ejems}
+
+\begin{prop}
+If $G=\langle S,R\rangle$ is a group presentation, $K$ is
+another group, and $f:S\to K$ is a function such that for
+any $s_1,\ldots,s_m\in R$, with $s_i\in S$,
+$$
+f(s_1)\ldots f(s_m)=1,
+$$
+then there exists a unique homomorphism $\bar f:G\to K$
+such that the corresponding diagram commutes.
+\end{prop}
+
+That is, to define a homomorphism out of a group given by a
+presentation, we only have to make sure that the relations
+are respected.
+
+\section{Every group is isomorphic to the fundamental group
+of some space}
+
+\begin{lema}
+Let $X$ be a topological space, let $x_0\in X$ be a base
+point, and let $f:S^1\to X$ be such that $f(1)=x_0$. For the
+adjunction space $Y=X\cup_f D^2$,
+$$
+\pi_1(Y,x_0)\cong
+\pi_1(X,x_0)\big/\langle\langle [f]\rangle\rangle,
+$$
+where we view $f$ as a loop in the fundamental group.
+\end{lema}
+
+This is called ``killing'' a loop.
+
+\begin{lema}
+Let $X$ be a topological space, let $x_0\in X$ be a base
+point, and let $f_\alpha:S^1\to X$, with $\alpha\in I$, be
+such that $f(1)=x_0$. For the adjunction space
+$Y=X\cup_{\{f_\alpha\}}\{D^2\}$,
+$$
+\pi_1(Y,x_0)\cong
+\pi_1(X,x_0)
+\big/
+\langle\langle [f_\alpha]:\alpha\in I\rangle\rangle,
+$$
+where we view $f$ as a loop in the fundamental group.
+\end{lema}
+
+And now:
+
+\begin{teo}
+For every group $G$ there exists a topological space $X$
+such that $\pi_1(X,x_0)\cong G$.
+\end{teo}
+
+\begin{proof}
+First take a presentation
+$G=\langle S,R\rangle=F_S/\langle\langle R\rangle\rangle$,
+and then take the wedge of as many circles as there are
+elements in $S$, say $X=\bigvee_{\alpha\in S}$. We know that
+$\pi_1(X,x_0)\approx *_{\alpha\in S}\Z\approx F_S$.
+
+Now we have to kill as many loops as there are relations. A
+relation is a word in the generators, say
+$r=s_1^{\varepsilon_1}s_2^{\varepsilon_2}\ldots
+s_m^{\varepsilon_m}$ with $s_i\in S$ and
+$\varepsilon_i=\pm1$. This word essentially determines a
+path in the wedge of circles, so we can glue in one disk for
+each relation, and by the preceding lemma we are done.
+\end{proof}
+
+\section{The fundamental group does not detect cells of
+higher dimension than 2}
+
+To formalize the title of this section, we need:
+\begin{itemize}
+\item a connected topological space $X$;
+\item a cell $e^n$ of dimension $n>2$, that is, a space
+homeomorphic to the closed $n$-disk;
+\item an attaching map $f:S^{n-1}\to X$;
+\item the adjunction space $Y\cup_f e^n$;
+\item a point $x_0\in\img(f)$.
+\end{itemize}
+Then we have:
+
+\begin{teo}
+The inclusion $i:X\hookleftarrow Y$ induces an isomorphism
+$i_*:\pi_1(X,x_0)\to\pi_1(Y,y_0)$.
+\end{teo}
+
+That is, when we glue a cell of dimension greater than 2 to
+a space, the fundamental group stays the same.
+
+\chapter{Exercises}
+
+\begin{ejer}
+For a path-connected space $X$, show that $\pi_1(X)$ is
+abelian if and only if the change-of-base-point
+homomorphisms $\beta_h$ depend only on the endpoint of $h$.
+\end{ejer}
+
+\begin{proof}[Solution]
+For the forward direction, take
+$[\gamma],[\delta]\in\pi_1(X,x_0)$. We know that for any
+paths $h,g$ ending at $x_0$, the homomorphisms $\beta_h$ and
+$\beta_g$ are equal, so
+$$
+[h\cdot \gamma\cdot\delta\cdot\bar h]
+=
+[g\cdot\gamma\cdot\delta\cdot\bar g].
+$$
+Take $h=\delta$ and $g=c_{x_0}$. Then
+$\delta\cdot\gamma\cdot\delta\cdot\bar\delta
+\simeq\gamma\cdot\delta$.
+
+For the converse, take two paths $h$ and $g$ ending at
+$x_0$, and take $[\gamma]\in\pi_1(X,x_0)$. Now note that
+$$
+[h\cdot\gamma\cdot\bar h]
+=[h\cdot\gamma\cdot \bar g\cdot g\cdot\bar h]
+=[h\cdot\gamma\cdot \bar g][g\cdot\bar h]
+=[\bar g\cdot\bar h][h\cdot\gamma\cdot \bar g]
+=[g\cdot\gamma\cdot \bar g].
+$$
+\end{proof}
+
+\begin{ejer}
+Suppose that $f_t:X\to X$ is a homotopy such that $f_0$ and
+$f_1$ are the identity. Show that for every $x_0\in X$, the
+loop $f_t(x_0)$ represents an element in the center of
+$\pi_1(X,x_0)$.
+\end{ejer}
+
+\begin{proof}[Solution]
+Let $[f]$ be the equivalence class of the loop $f_t(x_0)$,
+and let $[\gamma]$ be any element of $\pi_1(X,x_0)$. We want
+to prove that $f\cdot\gamma\simeq\gamma\cdot f$.
+
+One can think of loops like $f_t(x_0)$ but starting at any
+point of the space $X$. In particular we have the family of
+loops $f_t(\gamma(s))$. The omitted diagram represents the
+domain of this function. Of course
+$f_0(\gamma(s))=\gamma(s)=f_1(\gamma(s))$, and
+$f_t(\gamma(0))=f_t(x_0)=f_t(\gamma(1))$. Thus the left and
+top edges represent $f\cdot\gamma$, and the bottom and right
+edges represent $\gamma\cdot f$. Any path inside the square
+joining the lower-left corner to the upper-right corner
+represents a path homotopic to either of the above.
+\end{proof}
+
+\begin{ejer}
+Use Lemma \ref{lema:homotopia} to show that if $X$ is
+obtained from a path-connected space by adjoining a cell
+$e^n$ with $n\geq2$, then the inclusion $A\hookrightarrow X$
+induces a surjective function on $\pi_1$.
+\end{ejer}
+
+\begin{proof}[Solution]
+Lemma \ref{lema:homotopia} ensures that if we find two open
+sets $A_1$ and $A_2$ containing the base point such that
+their union is the whole space and their intersection is path
+connected, then every loop in the space can be seen as the
+product of two loops, each contained in some $A_i$.
+
+Take $A_1=e^n$ and $A_2=X-c$, where $c$ is a point in the
+interior of $e^n$. If we choose a base point $x_0$ also in
+the interior of $e^n$, we have the conditions for the lemma.
+Then every loop in $X$ can be seen as a loop only in $A_2$,
+since $e^n$ is contractible. Then we must use the
+change-of-base-point theorem to connect $x_0$ with a
+$\tilde{x}_0$ lying in $X\backslash e^n$. Finally, since $A$
+is a deformation retract of $A_2$, their fundamental groups
+are isomorphic, so we can think of our loop as lying in $A$.
+\end{proof}
+
+\part{Covering spaces}
+
+\chapter{Covering spaces}
+
+\section{Definition of covering space}
+
+In the proof of the fundamental group of the circle we had
+already used the idea of a covering space. Here is the
+general definition.
+
+\begin{defn}
+A \textbf{covering space} of $X$ is a space $\tilde X$
+together with a function
+$$
+p:\tilde X\to X
+$$
+such that each point $x\in X$ has an open neighbourhood
+$U\subseteq X$ such that $p^{-1}(U)$ is a disjoint union of
+open subsets of $\tilde X$, and each of these projects
+homeomorphically onto $U$ via $p$.
+\end{defn}
+
+% Covering-space illustration omitted.
+
+We introduce other terms:
+\begin{itemize}
+\item the function $p$ is called the \textbf{covering
+projection};
+\item $U$ is called an \textbf{evenly covered neighbourhood};
+\item the open subsets of $p^{-1}(U)$ which project
+homeomorphically to $U$ are called the \textbf{sheets} of
+$\tilde X$ over $U$;
+\item the set $p^{-1}(x)$ is called the \textbf{fiber} of
+$x$ under $p$.
+\end{itemize}
+
+\begin{obs}\leavevmode
+\begin{itemize}
+\item If $U$ is connected, then the sheets over $U$ are the
+connected components of $p^{-1}(U)$.
+\item The number of sheets over $U$ is equal to the
+cardinality of $p^{-1}(x)$.
+\item This number is \textit{locally constant}, that is, it
+is the same for any point.
+\end{itemize}
+\end{obs}
+
+\begin{ejems}\leavevmode
+\begin{enumerate}
+\item The identity $Id:X\to X$.
+\item The natural projection from the disjoint union of
+copies of a space, that is,
+$p:\bigsqcup_{\alpha\in I}X\to X$.
+\item For any two coverings $p:\tilde X\to X$ and
+$q:\hat X\to X$, the projection from the disjoint union
+$r:\tilde X\sqcup\hat X\to X$, defined in the natural way,
+is also a covering. This is to say that we are interested in
+coverings of connected spaces whose covering spaces are
+connected.
+\item $p:\R\to S^1$, as in the proof of the fundamental
+group of the circle.
+\item For $n\in\N$, the function $p:S^1\to S^1$ given by
+$p(z)=z^n$.
+\end{enumerate}
+\end{ejems}
+
+\section{Homotopy lifting for coverings}
+
+\begin{defn}
+A \textbf{lift} of a function $f:Y\to X$ with respect to a
+covering $p:\tilde X\to X$ is a function
+$\tilde f:Y\to\tilde X$ such that $p\tilde f=f$.
+Equivalently, the corresponding triangle commutes.
+\end{defn}
+
+\begin{teo}[Homotopy lifting property for coverings]
+\label{teo-lhc}
+Given a covering $p:\tilde X\to X$, a homotopy
+$h_t:Y\to X$, and a lift $\tilde f_0:Y\to\tilde X$ of
+$f_0$, there exists a unique homotopy
+$\tilde f_t:Y\to\tilde X$ lifting each of the $f_t$.
+\end{teo}
+
+\section{The induced homomorphism of the covering projection}
+
+Given a covering projection $p:\tilde X\to X$, what
+properties does the induced map
+$$
+p_*:\pi_1(\tilde X,\tilde x_0)\to (X,x_0)
+$$
+have, where $p(\tilde x_0)=x_0$? It will turn out to be
+injective.
+
+To prove this, we use the homotopy lifting property for
+coverings. First we look at a couple of simple cases of how
+this theorem is used.
+
+\begin{prop}[Path lifting property]
+A path has a unique lift once the image of its initial point
+has been defined. To see this, choose the case in which $Y$
+consists of a single point, so that a homotopy of
+$Y\times I$ is a path in $X$.
+\end{prop}
+
+\begin{obs}
+The lift of a constant path is a constant path.
+\end{obs}
+
+\begin{obs}
+If $Y=I$ and $H:I\times I$ is a homotopy rel $0,1$, then the
+lift $\tilde H$ is also a homotopy rel $0,1$.
+\end{obs}
+
+Now:
+
+\begin{prop}
+Given a covering projection $p:\tilde X\to X$, the induced
+map $p_*:\pi_1(\tilde X,\tilde x_0)\to (X,x_0)$ is
+injective. Moreover,
+$p_*(\pi_1(\tilde X,\tilde x_0))\leq\pi_1(X,x_0)$ consists
+of the loops based at $x_0$ which lift to loops in
+$\tilde X$ based at $\tilde x_0$.
+\end{prop}
+
+\section{The number of sheets of a covering and the
+fundamental group}
+
+\begin{prop}
+Let $p:\tilde X\to X$ be a covering with $\tilde X$ and $X$
+path connected. Then the number of sheets of the covering is
+equal to the index of $p_*(\pi_1(\tilde X,\tilde x_0))$ in
+$\pi_1(X,x_0)$.
+\end{prop}
+
+\section{The lifting criterion for functions}
+
+Consider a covering $p:\tilde X\to X$ and an arbitrary
+function $f:Y\to X$. Under what conditions is it possible to
+lift this function to the covering? We want the usual
+triangle to commute. Such functions do not always exist. To
+know when they do, first let us see:
+
+\begin{defn}
+We say that a topological space $Y$ is \textbf{locally path
+connected} if for every point $y\in Y$ and every
+neighbourhood $U$ of $y$, there exists
+$y\in V\subseteq U$ with $V$ path connected.
+\end{defn}
+
+\begin{prop}
+Let $p:(\tilde X,\tilde x_0)\to (X,x_0)$ be a covering and
+$f:(Y,y_0)\to (X,x_0)$ a function, with $Y$ path connected
+and locally path connected. Then there exists a lift
+$\tilde f:(Y,y_0)\to(\tilde X,x_0)$ if and only if
+$$
+f_*\pi_1(Y,y_0)\subseteq
+p_*\pi_1(\tilde X,\tilde x_0).
+$$
+\end{prop}
+
+\section{Uniqueness of lifts of functions}
+
+Under what conditions is a lift unique? When two lifts agree
+at one point, they have to be equal, provided the domain is
+path connected.
+
+\begin{prop}
+Let $p:\tilde X\to X$ be a covering and $f:Y\to X$ a
+function. If two lifts $\tilde f_1,\tilde f_2:Y\to\tilde X$
+of $f$ agree at one point and $Y$ is connected, then
+$\tilde f_1=\tilde f_2$.
+\end{prop}
+
+\section{The universal covering}
+
+In this section we try to classify all coverings a space can
+have. The first question we ask is in what cases a covering
+has a covering whose fundamental group is trivial. Such a
+covering will be called the \textbf{universal covering}; it
+is universal in the sense that it will cover any other
+covering.
+
+Suppose we have a space $X$ which
+\begin{itemize}
+\item is path connected;
+\item is locally path connected.
+\end{itemize}
+Now take a covering $p:\tilde X\to X$ as above, simply
+connected. When we take a point $p\in X$ and an evenly
+covered neighbourhood, any loop contained in that
+neighbourhood can be lifted to one of its preimages. Since
+the covering $\tilde X$ is simply connected, the lifted loop
+is contractible, and this homotopy projects to a homotopy
+from the original loop to the constant loop.
+
+\begin{defn}
+A space is \textbf{semilocally simply connected} if for every
+$x\in X$ there exists a neighbourhood $U$ such that every
+loop contained in $U$ retracts to the constant loop $c_x$ in
+$X$. Equivalently, the homomorphism induced by inclusion
+$\pi_1(U,x_0)\to(X,x_0)$ is constant.
+\end{defn}
+
+Thus we have already shown that if $X$ has a universal
+covering, then it is semilocally simply connected. Now we
+want to see that the converse is also true, when $X$ is also
+path connected and locally path connected.
+
+\begin{prop}
+A space $Y$ is simply connected if and only if for every
+$x,y\in Y$ there exists a unique homotopy class rel $0,1$ of
+paths joining $x$ to $y$.
+
+This implies that there is a bijection between the points of
+$Y$ and the equivalence classes of paths starting at $x_0$,
+that is,
+$$
+Y\leftrightarrow \{[\gamma]:\gamma(0)=x_0\}.
+$$
+
+Now consider a covering $p:\tilde X\to X$ with $\tilde X$
+simply connected and a point $\tilde x\in\tilde X$. Denote
+$p(\tilde x_0)=x_0\in X$. Then, by what was just said, the
+points in the covering space $\tilde X$ are in bijection with
+the paths starting at $\tilde x$, and projecting by $p$, we
+arrive at the paths starting at $x_0$. Using the homotopy
+lifting property, one verifies that this correspondence is
+bijective:
+$$
+\{[\gamma]:\gamma(0)=\tilde x_0\}
+\leftrightarrow
+\{[\beta]:\beta(0)=x_0\}.
+$$
+\end{prop}
+
+Now:
+
+\begin{teo}
+Suppose that $X$ is a path-connected, locally path-connected,
+and semilocally simply connected topological space, and take
+a base point $x_0\in X$. The space
+$$
+\tilde X:=\{[\gamma]:\gamma(0)=x_0\},
+$$
+together with the function
+$$
+\begin{aligned}
+p:\tilde X&\to X\\
+[\gamma]&\mapsto\gamma(1),
+\end{aligned}
+$$
+is a universal covering of $X$. That is:
+\begin{itemize}
+\item $\tilde X$ has a topology;
+\item $p$ is continuous;
+\item $p$ is a covering;
+\item $\tilde X$ is simply connected.
+\end{itemize}
+\end{teo}
+
+\section{The classification theorem for coverings}
+
+In this section we will see, roughly speaking, that there is
+a correspondence between universal coverings, up to
+isomorphism, and the subgroups of the fundamental group.
+
+\begin{prop}
+Let $X$ be path connected, locally path connected, and
+semilocally simply connected. Then for every
+$H\leq\pi_1(X,x_0)$ there exists a covering $p:X_H\to X$
+such that
+$$
+p_*\left(\pi_1(X_H,\tilde x_0)\right)=H.
+$$
+\end{prop}
+
+\begin{proof}
+Using the construction of the universal covering, take an
+equivalence relation on paths which identifies paths whose
+concatenation lies in $H$. The quotient gives the desired
+covering.
+\end{proof}
+
+\begin{defn}
+A covering $p:\tilde X\to X$ is \textbf{normal} if
+$p_*(\pi_1(\tilde X,\tilde x_0))$ is a normal subgroup of
+$\pi_1(X,x_0)$.
+\end{defn}
+
+\begin{prop}
+If $p:\tilde X\to X$ and $q:\hat X\to X$ are coverings of
+$X$, with all spaces path connected and locally path
+connected, then a lift $\tilde X\to\hat X$ over $X$ exists if
+and only if
+$$
+p_*\pi_1(\tilde X)\subseteq q_*\pi_1(\hat X).
+$$
+\end{prop}
+
+\begin{teo}[Classification of coverings]
+Let $X$ be path connected, locally path connected, and
+semilocally simply connected. There is a correspondence
+between isomorphism classes of path-connected coverings of
+$X$ and conjugacy classes of subgroups of $\pi_1(X,x_0)$.
+\end{teo}
+
+\begin{teo}
+The normal coverings correspond to the normal subgroups of
+$\pi_1(X,x_0)$.
+\end{teo}
+
+\section{Deck transformations}
+
+A \textbf{deck transformation} of a covering $p:\tilde X\to X$
+is a homeomorphism $h:\tilde X\to\tilde X$ such that
+$p\circ h=p$. In other words, it is an automorphism of the
+covering over $X$.
+
+The deck transformations form a group under composition.
+
+\section{Group actions and coverings}\label{sec:acciones}
+
+\begin{defn}
+An \textbf{action} of a group $G$ on a space $X$ is a
+homomorphism from $G$ to the group of homeomorphisms of $X$.
+We write $G\curvearrowright X$.
+
+The \textbf{orbit} of a point $x\in X$ is the set
+$\Orb\{g(x):g\in G\}$.
+\end{defn}
+
+Notice that the relation $x\sim{}y\iff y\in\Orb(x)$ is an
+equivalence relation, so we can think of the quotient space
+$X/\sim{}:=X/G$. We ask: given a group action
+$G\curvearrowright Y$, when is $Y/G$ a covering?
+
+\begin{defn}
+We say that $G\curvearrowright Y$ is a \textbf{covering
+action} if either of the following equivalent conditions
+holds:
+\begin{itemize}
+\item every point $y\in Y$ has a neighbourhood $U$ such that
+$(g_1U\cap g_2U)\neq\emptyset\implies g_1=g_2$;
+\item every point $y\in Y$ has a neighbourhood $U$ such that
+$gU\cap U\neq\emptyset\implies g=1_G$.
+\end{itemize}
+In particular, these conditions imply that the action is
+\textbf{free}, meaning that if $g(y)=y$ for any $g\in G$ and
+$y\in Y$, then $g=1_G$.
+\end{defn}
+
+\begin{prop}
+Given a covering action $G\curvearrowright Y$,
+\begin{enumerate}
+\item the quotient projection $p:Y\to Y/G$ given by
+$p(y)=Gy$ is a normal covering;
+\item if $Y$ is path connected, then $G$ is the group of deck
+transformations of $p$;
+\item if $Y$ is path connected and locally path connected,
+then
+$$
+G\cong\pi_1(Y/G,y_0)/p_*\pi_1(Y,\tilde y_0).
+$$
+\end{enumerate}
+\end{prop}
+
+\begin{coro}
+If moreover $Y$ is simply connected, then by (b) and (c),
+$G=G(\tilde Y)\cong\pi_1(Y/G,y_0)$.
+\end{coro}
+
+\chapter{Exercises}
+
+\begin{ejer}
+\textbf{Let $S$ be the 2-sphere and $T$ the 2-torus. Compute
+the fundamental group $G$ of $X:=S\vee T$, construct the
+universal covering $\widetilde X\to X$, and describe the
+action by deck transformations of $G$ on $\widetilde X$.}
+\begin{proof}[Solution]
+By the Van Kampen theorem,
+$\pi_1(S\vee T,x_0)=\Z\times\Z$. The universal covering is
+$\R^2$ with copies of $S^2$ glued at each point with integer
+coordinates, and the action by deck transformations is just
+the collection of translations by vectors with integer
+coordinates.
+\end{proof}
+\end{ejer}
+
+\begin{ejer}
+\textbf{Let $f:X\to Y$ be a covering. Show that if $Y$ is a
+CW complex, then so is $X$.}
+\end{ejer}
+
+\begin{proof}[Solution]
+First define $X^0:=f^{-1}(Y^0)$. The idea is to use the
+lifting theorem for functions on the attaching maps.
+However, this cannot be done to construct the 1-skeleton of
+$X$, because $S^0$ is not connected. What we can do is take
+the characteristic map, which lifts because $D^1_\alpha$ is
+contractible. With this we can define the attaching map
+$\tilde\varphi_\alpha:S^0\to X^0$ directly by
+$\tilde\varphi_\alpha(-1)=\tilde\Phi_\alpha(0)$ and
+$\tilde\varphi_\alpha(1)=\tilde\Phi_\alpha(1)$, which works
+because the characteristic map extends the attaching map.
+
+The same method works to construct the 2-skeleton, and the
+other attaching maps can be lifted directly because $S^n$ is
+simply connected for $n>1$.
+
+If $Y$ is finite-dimensional, we know that $Y=Y^n$.
+\textit{A little bit is missing.}
+\end{proof}
+
+\begin{ejer}
+\textbf{Show that for every $g\geq2$ there exists a covering
+$S_g\to S_2$, that is, every surface of genus 2 is covered
+by any surface of genus $g\geq2$. Also show that the torus is
+not covered by any closed surface of genus $g\geq2$.}
+\end{ejer}
+
+\begin{proof}
+Here we should visualize $S_g$ as a doughnut-flower with a
+hole in the center and $g-1$ petals. In this case, the cyclic
+group of order $g-1$ is a covering action on $S_g$, rotating
+around the central hole. The resulting quotient space is just
+$S_2$, since all the petals are identified.
+
+Suppose that there exists a covering $p:S_g\to T$ with
+$g\geq2$. We know that the induced homomorphism $p_*$ is
+injective, so $p_*\pi_1(S_g)\approx\pi_1(S_g)$, which by Van
+Kampen is of the form
+$$
+\langle a_1,b_1,\ldots,a_g,b_g
+\mid
+ a_1b_1a_1^{-1}b_1^{-1}\ldots
+ a_gb_ga_g^{-1}b_g^{-1}\rangle,
+$$
+which is not commutative. But every subgroup of
+$\pi_1(T)\approx\Z\times\Z$ is commutative.
+\end{proof}
+
+\begin{ejer}[Hatcher, 1.3.8]
+\textbf{Let $\tilde X$ and $\tilde Y$ be simply connected
+covering spaces of path-connected and simply connected
+spaces $X$ and $Y$. Show that if $X\simeq Y$, then
+$\tilde X\simeq\tilde Y$. Perhaps Exercise
+\ref{hatcher:0.11} is useful.}
+\end{ejer}
+
+\begin{proof}[Solution]
+Everything is in the corresponding commutative diagram. Here
+$f$ and $g$ are homotopy equivalences between $X$ and $Y$.
+The composition $pf$ lifts to a unique function $\tilde f$ by
+the connectivity hypotheses, and similarly we find
+$\tilde g$. Since everything commutes, $\tilde g\tilde f$ is
+a lift of $gfp$.
+
+Since $gf\simeq Id_X$, we have $gfp\simeq p$. This homotopy
+lifts uniquely to a homotopy
+$H:\tilde X\times I\to\tilde X$, since
+$H(\underline{\hspace{5pt}},0)=\tilde g\tilde f$. Thus
+$pH(\underline{\hspace{5pt}},1)=p$.
+
+So $H(\underline{\hspace{5pt}},1):=h$ is a lift of $p$, just
+like the identity. If we could see that they agree at one
+point, then by uniqueness of lifting functions we would have
+$h=Id_{\tilde X}$.
+
+But we are not certain this occurs. What we do know is that,
+since $\tilde X$ is simply connected, $p$ is a normal
+covering. Thus the group of deck transformations acts
+transitively on the fibers. Take a point $\xi\in\tilde X$. If
+$h$ does not fix it, no matter; there exists a deck
+transformation $u$ such that $u(h(\xi))=\xi$.
+
+Now by uniqueness of lifts, $uh=Id_{\tilde X}$. Hence
+$u\tilde g\tilde f\simeq Id_{\tilde X}$.
+
+Exercise \ref{hatcher:0.11} ensures that if we find two
+functions $\phi,\psi:\tilde X\to\tilde X$ such that
+$\phi\tilde f\simeq Id_{\tilde X}$ and
+$\tilde f\psi\simeq Id_{\tilde Y}$, then $\tilde f$ is a
+homotopy equivalence and we are done. We have already found
+$\phi$.
+
+To find $\psi$, do the same reasoning, now requiring a deck
+transformation $w$ such that
+$\tilde f\tilde g w\simeq Id_{\tilde Y}$. That is, here one
+must apply $w$ before the function obtained through the
+homotopy, say $\bar h$. This is legal: instead of moving
+$\bar h(\xi)$ back to $\xi$, beforehand we move $\xi$ by $w$
+to a point in the preimage of $\xi$ under $\bar h$. Although
+perhaps $\bar h$ is not surjective, it is enough to choose
+$\xi\in\img\bar h$.
+\end{proof}
+
+\begin{ejer}
+Show that if $X$ is path connected and locally path connected
+and $\pi_1(X)$ is finite, then every function $f:X\to S^1$ is
+homotopic to a constant.
+\end{ejer}
+
+\begin{proof}
+Since $\pi_1(X)$ is finite and $f_*\pi_1(X)$ is a subgroup of
+$\pi_1(S^1)\approx\Z$, and the only finite subgroup of $\Z$
+is the trivial one, we have $f_*\pi_1(X)\approx0$. Thus there
+exists a lift $\tilde f:X\to\R$ to the universal covering of
+the circle.
+
+Since $X$ is path connected, its image must be an interval,
+which is contractible. Thus
+$\img\tilde f\simeq\{\tilde x_0\}$ via a homotopy
+$h:\img\tilde f\times I\to\img\tilde f$ such that
+$h(x,0)=x$ and $h(x,1)=\tilde x_0$.
+
+The function $g=p\circ h\circ\tilde f$ is a homotopy between
+$f=p\circ\tilde f$ and the constant $x_0=p(\tilde x_0)$.
+\end{proof}
+
+\part{Homology}
+
+\chapter{Homological algebra}
+
+\section{Basic concepts}
+
+In this chapter $R$ denotes an associative ring with unit,
+not necessarily commutative. Usually we will think of one of
+$\Z,\Q,\R$.
+
+Recall that an $R$-module is basically a vector space, but
+with scalars in $R$.
+
+\begin{defn}
+An \textbf{$R$-chain complex} is a sequence of $R$-modules
+and homomorphisms
+$$
+\cdots \to C_p \xrightarrow{\partial_p} C_{p-1}
+\xrightarrow{\partial_{p-1}} C_{p-2}\to\cdots
+$$
+such that $\partial_{p-1}\partial_p=0$ for every
+$p\in\mathbb Z$, equivalently
+$\text{img }\partial_p\subseteq\ker\partial_{p-1}$.
+\end{defn}
+
+\begin{defn}
+A \textbf{morphism of $R$-chain complexes}
+$(C_\bullet,\partial)\to(D_\bullet,\delta)$ is a sequence of
+$R$-homomorphisms $C_p\xrightarrow[]{f_p}D_p$ such that the
+usual square with the boundary maps commutes, that is,
+$$
+f_{p-1}\partial_p=\delta_pf_p
+$$
+for every $p\in\mathbb Z$.
+\end{defn}
+
+\begin{defn}
+We say that $(D_\bullet,\delta)$ is a
+\textbf{sub-chain-complex} of $(C_\bullet,\partial)$ if
+$D_p\leq C_p$ for every $p\in\mathbb Z$ and
+$\partial|_{D_p}=\delta_p$. The quotient
+$(C_\bullet/D_\bullet,\partial)$ is the chain complex whose
+terms are $C_p/D_p$, with boundary maps
+$\partial_p/\delta_p([c])=[\partial_p(c)]$.
+\end{defn}
+
+\begin{defn}\leavevmode
+\begin{itemize}
+\item Elements of $C_p$ are called \textbf{$p$-dimensional
+chains}.
+\item Elements of $\ker\partial_p:=Z_p$ are called
+\textbf{$p$-dimensional cycles}.
+\item Elements of $\text{img }\partial_{p+1}:=F_p:=B_p$ are
+called \textbf{$p$-dimensional boundaries}.
+\end{itemize}
+\end{defn}
+
+\begin{defn}
+The \textbf{$p$-th homology group} of $(C_\bullet,d)$ is
+$$
+H_p(C_{\dot{}}):=Z_p/B_p
+=\ker\partial_p/\text{img }\partial_{p+1}.
+$$
+We say that two cycles $c$ and $c'$ are \textbf{homologous}
+if $[c]=[c']\in H_p(C_\bullet)$.
+\end{defn}
+
+% Figure of homologous cycles omitted.
+
+\begin{ejer}[Induced function]
+If $(C_\bullet,\partial)\xrightarrow f(C'_\bullet,\partial')$
+is a homomorphism, then $f(Z_p)\subseteq Z'_p$ and
+$f(B_p)\subseteq B'_p$, so the induced function
+$$
+\begin{aligned}
+\bar f_p:H_p(C_\bullet)&\to H_p(C_\bullet)\\
+a+B_p&\mapsto f_p(a)+B'_p
+\end{aligned}
+$$
+is well defined. If we also have a second homomorphism
+$(C'_\bullet,\partial')\xrightarrow g(C''_\bullet,\partial'')$,
+then $\overline{g\circ f}=\bar g\circ\bar f$. Finally,
+$\overline{Id}_{C_p}=Id_{H_p(C)}$.
+\end{ejer}
+
+With this exercise we begin to see the functorial properties
+of homology, although for now we will not go deeper into this
+language.
+
+\section{Exact sequences}
+
+\begin{defn}
+We say that the sequence
+$$
+\cdots \to C_p \xrightarrow{f_p} C_{p-1}
+\xrightarrow{f_{p-1}} C_{p-2}\to\cdots
+$$
+is \textbf{exact at $C_p$} if
+$\text{img }f_p=\ker f_{p-1}$. The sequence is
+\textbf{exact} if it is exact at every $C_p$. This happens if
+and only if $H_p(C_\bullet)=0$ for every $p\in\mathbb Z$.
+\end{defn}
+
+\begin{obs}\leavevmode
+\begin{itemize}
+\item The homology group measures how far the sequence is
+from being exact.
+\item The sequence may be ``finite'', that is, many modules
+may be zero.
+\end{itemize}
+\end{obs}
+
+\begin{defn}
+An exact sequence of the form
+$$
+0\to P\to Q\to R\to0
+$$
+is called a \textbf{short exact sequence}. Exact sequences
+infinite in both directions are called \textbf{long exact
+sequences}.
+\end{defn}
+
+\begin{prop}\label{sucex}\leavevmode
+\begin{enumerate}
+\item $0\to A\xrightarrow{\alpha}B$ is exact if and only if
+$\ker\alpha=0$, that is, $\alpha$ is injective.
+\item $A\xrightarrow{\alpha}B\to0$ is exact if and only if
+$\text{img }\alpha=B$, that is, $\alpha$ is surjective.
+\item $0\to A\xrightarrow{\alpha}B\to0$ is exact if and only
+if $\alpha$ is an isomorphism, by the two preceding items.
+\item $0\to A\xrightarrow{\alpha}B\xrightarrow{\beta}C\to0$
+is exact if and only if $\alpha$ is injective, $\beta$ is
+surjective, and $\ker\beta=\text{img }\alpha$, so that
+$\beta$ induces an isomorphism $C\cong B/\text{img }\alpha$.
+
+If we think of $\alpha$ as the inclusion of $A$ as a subgroup
+of $B$, we can write $C\cong B/A$.
+\end{enumerate}
+\end{prop}
+
+\begin{obs}[First isomorphism theorem]
+If $M'\subseteq M$, then
+$$
+0\to M'\to M\to M/M'\to0
+$$
+is an exact sequence.
+\end{obs}
+
+\section{Homotopy}
+
+\begin{defn}
+Two homomorphisms
+$$
+f,g:(C_\bullet,\partial)\to(C'_\bullet,\partial')
+$$
+are \textbf{homotopic} if there exist homomorphisms
+$H_p:C_p\to C'_{p+1}$ for every $p\in\Z$ such that
+$$
+f_p-g_p=\partial'_{p+1}H_p+H_{p-1}\partial_p.
+$$
+The omitted diagram visualizes these arrows. Thus the sum of
+the blue arrows is equal to the red arrow. We are not saying
+that the diagram is commutative.
+\end{defn}
+
+\begin{lema}
+With the notation above,
+$\bar f_p=\bar g_p:H_p(C_\bullet)\to H_p(C'_\bullet)$. That
+is, homotopic functions induce equal functions in homology.
+\end{lema}
+
+\section{The snake lemma}
+
+\begin{lema}[Snake lemma]
+Consider the commutative diagram of $R$-modules and suppose
+that its rows are exact. Then there exists a homomorphism
+$\delta_*:\ker\partial_3\to Z_1/\img\partial_1$ such that the
+usual snake-lemma sequence
+$$
+\ker\partial_1\to\ker\partial_2\to\ker\partial_3
+\xrightarrow{\delta_*}
+Z_1/\img\partial_1\to Z_2/\img\partial_2
+\to Z_3/\img\partial_3
+$$
+is exact, where the first maps are restrictions and the last
+maps are induced maps.
+\end{lema}
+
+\begin{obs}
+Intuitively, the cokernel gives us information about how far
+a homomorphism is from being surjective.
+\end{obs}
+
+\section{The fundamental theorem of homological algebra}
+
+First we introduce some notation.
+
+\begin{defn}
+We say that a sequence of chain complexes
+$$
+\cdots\to C_\bullet\xrightarrow fD_\bullet
+\xrightarrow gE_\bullet\to\cdots
+$$
+is exact at $D_\bullet$ if
+$$
+\cdots\to C_p\xrightarrow {f_p}D_p
+\xrightarrow {g_p}E_p\to\cdots
+$$
+is exact for every $p\in\Z$.
+\end{defn}
+
+\begin{teo}[Fundamental theorem of homological algebra]
+If
+$$
+\cdots\to A_\bullet\xrightarrow\phi B_\bullet
+\xrightarrow\psi C_\bullet\to\cdots
+$$
+is an exact sequence of chain complexes, then there exist
+homomorphisms
+$$
+\delta_{*p}:H_p(C_\bullet)\to H_{p-1}(A_\bullet)
+$$
+such that the sequence
+$$
+\cdots\to H_p(A_\bullet)\to H_p(B_\bullet)
+\to H_p(C_\bullet)\xrightarrow{\delta_{*p}}
+H_{p-1}(A_\bullet)\to H_{p-1}(B_\bullet)\to\cdots
+$$
+is exact.
+\end{teo}
+
+In the following commutative diagram one can see clearly what
+is happening. We explain a little how to define the connecting
+homomorphism by diagram chasing. Start with a cycle
+$c\in C_p(A)$. Since $j_p$ is surjective, there exists an
+$a\in B_p$ such that $j_p(a)=c$. Then
+$\partial_p(a)\in\ker j_{p-1}$, since the diagram commutes
+and $c$ is a cycle. Since the sequence is exact,
+$\ker j_{p-1}=\img i_{p-1}$, so there exists
+$a\in A_{p-1}$ such that $i_{p-1}(a)=\partial_p(b)$. This
+$a$ is a cycle, since the diagram commutes,
+$i_{p-2}(a)=\partial(\partial(b))=0$, and $i_{p-2}$ is
+injective by exactness. Thus we define $\delta_{*p}[c]=[a]$.
+
+\section{Naturality of the connecting homomorphism}
+
+\begin{teo}[Naturality of the connecting homomorphism]
+Given a commutative diagram of short exact sequences of chain
+complexes
+$$
+0\to A_\bullet\to B_\bullet\to C_\bullet\to0,
+\qquad
+0\to A'_\bullet\to B'_\bullet\to C'_\bullet\to0,
+$$
+with vertical maps $f,g,h$, the corresponding diagram of long
+exact homology sequences commutes.
+\end{teo}
+
+It seems that this is a property related to the functorial
+structure of homology.
+
+\section{The five lemma}
+
+\begin{lema}[Five lemma]
+Consider the commutative diagram with exact rows
+$$
+M_5\to M_4\to M_3\to M_2\to M_1,
+\qquad
+N_5\to N_4\to N_3\to N_2\to N_1.
+$$
+If $h_5,h_4,h_2$ and $h_1$ are isomorphisms, then $h_3$ is
+also an isomorphism.
+\end{lema}
+
+Where will this be used?
+
+\chapter{Singular homology}
+
+\section{Simplices}
+
+We begin by defining several new concepts. Fix an integer
+$n\geq0$. An \textbf{$n$-simplex} is the smallest convex set
+in $\R^m$ ($m>n$) containing $n+1$ points
+$v_0,\ldots,v_n$ which do not lie in a hyperplane of
+dimension less than $n$.
+
+% Pictures of simplices omitted.
+
+We denote it by $[v_0,\ldots,v_n]$ and say that
+$v_0,\ldots,v_n$ are its \textbf{vertices}. We can write it
+as
+$$
+[v_0,\ldots,v_n]
+=
+\{t_0v_0+\cdots+t_nv_n
+\mid t_i\geq0,\ t_0+\cdots+t_n=1\}.
+$$
+
+The \textbf{standard $n$-simplex} is
+$\Delta^n:=[e_1,\ldots,e_n]$, where $e_1,\ldots,e_n$ is the
+standard basis of $\R^{n+1}$.
+
+We observe that
+$$
+\Delta^n=
+\{(t_0,\ldots,t_n)\in\R^{n+1}
+\mid t_0+\cdots+t_n=1\}.
+$$
+For us the order of the vertices in $[v_0,\ldots,v_n]$ is
+important and should always be kept in mind.
+
+Given an $n$-simplex, we always have the function
+$$
+\begin{aligned}
+(v_0,\ldots,v_n):\Delta^n&\to[v_0,\ldots,v_n]\\
+(t_0+\cdots+t_n)&\mapsto t_0v_0+\cdots+t_nv_n.
+\end{aligned}
+$$
+We say that $(t_0,\ldots,t_n)$ are the
+\textbf{barycentric coordinates} of the point
+$t_0v_0+\cdots+t_nv_n\in[v_0,\ldots,v_n]$.
+
+A \textbf{face} of $[v_0,\ldots,v_n]$ is the subsimplex
+generated by any nonempty subset of $\{v_0,\ldots,v_n\}$. We
+will regard any 1-dimensional face $[v_i,v_j]$ with $i<j$ as
+oriented in increasing order.
+
+How are the 2-dimensional faces oriented?
+
+\section{The singular chain complex}
+
+Take a topological space $X$ and an associative ring with
+unit $R$. A \textbf{singular $n$-simplex} is a function
+$\sigma:\Delta^n\to X$.
+
+The word ``singular'' comes from the fact that no conditions
+are imposed on $\sigma$ except continuity. This means that a
+singular simplex may look quite different from what we first
+imagine.
+
+Define
+$$
+C_n(X):=\left\{
+\sum_{i=1}^m r_i\sigma_i
+\mid m\in\Z,
+ r_i\in R,
+ \sigma_i\text{ is a singular simplex}
+\right\}.
+$$
+This is the free $R$-module generated by the set of singular
+$n$-simplices. The elements of $C_n$ are called singular
+$n$-chains. We want to construct the sequence
+\begin{equation}\label{eq2.1}
+\cdots\to C_{n+1}(X)\xrightarrow{\partial_{n+1}}
+C_n(X)\xrightarrow{\partial_n}C_{n-1}(X)
+\to\cdots\xrightarrow{\partial_1}C_0(X).
+\end{equation}
+To do this it is enough to define
+$\partial_n:C_n(X)\to C_{n-1}(X)$ as follows: for a singular
+$n$-simplex $\sigma:\Delta^n=[v_0,\ldots,v_n]\to X$,
+$$
+\partial_n(\sigma)=
+\sum_{i=0}^n(-1)^i
+\sigma|[v_0,\ldots,\hat v_i,\ldots,v_n].
+$$
+Here $\sigma|[v_0,\ldots,\hat v_i,\ldots,v_n]$ is the
+following singular $(n-1)$-simplex: first take the
+$(n-1)$-face of $\Delta^n$ obtained by removing the vertex
+$v_i$, namely
+$$
+[v_0,\ldots,\hat v_i,\ldots,v_n]
+:=
+[v_0,\ldots,v_{i-1},v_{i+1},\ldots,v_n],
+$$
+and then simply compose with $\sigma$. The bottom arrow in
+the omitted diagram is the obvious map: it sends the vertices
+in order and skips the $i$-th one. Thus $\partial_n$ is
+defined on the basis of $C_n$, and we extend linearly to all
+of $C_n$.
+
+Now we see a proposition:
+
+\begin{prop}
+$\partial_{n-1}\circ\partial_n=0$.
+\end{prop}
+
+Thus the sequence \eqref{eq2.1} is a chain complex, which we
+call the \textbf{singular chain complex of $X$}, denoted
+$C_\bullet(X)$. We can now consider its homology groups and
+define
+$$
+H_n(X;R):=H_n(C_\bullet(X))
+$$
+as the \textbf{$n$-th singular homology group of $X$ with
+coefficients in $R$}.
+
+\section{First properties of homology}
+
+\section{Homology and path-connected components}
+
+\begin{prop}
+Let $X=\bigsqcup X_i$ be the decomposition of the topological
+space $X$ into path-connected components. Then
+$$
+H_n\left(\bigsqcup X_i,R\right)
+\cong
+\bigoplus H_n(X_i,R).
+$$
+\end{prop}
+
+\section{The zeroth homology group}
+
+\begin{prop}
+For any space $X$, $H_0(X;R)$ is a direct sum of copies of
+$R$, one for each path-connected component.
+\end{prop}
+
+\section{The homology of a point}
+
+\begin{prop}
+If $X$ consists of a single point, then
+$$
+H_n(X;R)=
+\begin{cases}
+R\qquad\text{if } n=0,\\
+0\qquad\text{if } n\neq0.
+\end{cases}
+$$
+\end{prop}
+
+For this to be fully intuitive: we would like the homology of
+this space to be zero in all dimensions. We will fix this in
+the next section.
+
+\section{Reduced homology}\label{sec:6.4}
+
+Reduced homology is a variant of singular homology useful for
+computations in low dimensions.
+
+\begin{defn}
+Let $X$ be a topological space and $R$ an associative ring
+with unit. The \textbf{reduced homology} groups of $X$ with
+coefficients in $R$, denoted $\tilde H(X;R)$, are the
+homology groups of the chain complex
+$$
+\cdots\to C_p(X)\xrightarrow{\partial_p}C_{p-1}(X)
+\to\cdots\to C_1(X)\xrightarrow{\partial_1}C_0(X)
+\xrightarrow{\varepsilon}R\to0,
+$$
+where
+$\varepsilon(\sum n_i\sigma_i)=\sum n_i$ is the
+\textbf{augmentation map}.
+\end{defn}
+
+\begin{obs}
+Since the chain complex is identical to the singular chain
+complex except at the rightmost terms, reduced homology can
+only differ from singular homology in dimension 0. That is,
+$\tilde H_n(X;R)=H_n(X;R)$ for every $n\geq1$.
+\end{obs}
+
+\begin{ejer}[Reduced homology of a one-point space]
+If $X=\{x\}$, then $\tilde H_0(X;R)=0$.
+\end{ejer}
+
+\begin{proof}
+Recall how we computed the zeroth singular homology of $X$.
+Since the last homomorphism in the singular chain complex is
+$X\xrightarrow{\partial_0}0$, the kernel is the whole group,
+so $H_0(X)=C_0(X)/\img(\partial_1)$. We showed using the
+augmentation map that this quotient is isomorphic to $R$.
+Thus
+$$
+0\to\img\partial_1\to C_0(X)\xrightarrow{\varepsilon}R\to0
+$$
+is a short exact sequence. Hence the reduced chain complex is
+exact in degree 0, that is,
+$\ker(\varepsilon)=\img(\partial_1)=0$, so
+$\tilde H_0(X;R)=0$.
+\end{proof}
+
+\begin{ejer}
+In general, $H_0(X;R)=\tilde H_0(X;R)\oplus R$.
+\end{ejer}
+
+\begin{proof}
+By the definition of $\varepsilon$, we know that
+$\varepsilon|_{\img\partial_1}=0$.
+
+Recall that, in general, a map out of a group descends to the
+quotient by a normal subgroup if its kernel contains that
+subgroup. This means that we have an induced map
+$$
+\bar\varepsilon:H_0(X;R)=C_0(X)/\img\partial_1\to R.
+$$
+This map is surjective, and its kernel is
+$\ker\varepsilon/\img\partial_1=\tilde H_0$. In the language
+we have developed, this is the same as saying that we have a
+short exact sequence
+$$
+0\to\tilde H_0(X;R)\to H_0(X;R)
+\xrightarrow{\bar\varepsilon}R\to0.
+$$
+At the end of the day,
+$H_0(X;R)/\tilde H_0(X;R)\cong R$. In fact this implies that
+$H_0(X;R)\cong\tilde H_0(X;R)\oplus R$. To see this, just
+notice that $\bar\varepsilon$ sends an element
+$g\in H_0(X;R)$ either to $0$, in which case it lies in
+$\tilde H_0(X;R)$, or to an element of $R$, which is the rest
+of its image. These two groups have trivial intersection and
+generate the direct sum $\tilde H_0(X;R)\oplus R$.
+\end{proof}
+
+\section{Functoriality}
+
+In this section we will prove that, in categorical language,
+the assignment sending each topological space to its chain
+complex is functorial. Also, the assignment sending each
+space to its $n$-th homology group is functorial.
+
+In other words, what we will see is that maps between
+topological spaces induce maps between singular chain
+complexes and therefore also maps between singular homology
+groups; moreover, compositions go to compositions and the
+identity goes to the identity.
+
+\section{Homotopy invariance}
+
+First recall Definition \ref{def:func-homot}.
+
+\begin{defn}
+Two functions $f,g:X\to Y$ are \textbf{homotopic} if there
+exists a function $H:X\times I\to Y$ such that
+$$
+H(x,0)=f(x)\qquad\forall x\in X,
+\qquad
+H(x,1)=g(x)\qquad\forall x\in X,
+$$
+and this is denoted by $f\simeq g$.
+\end{defn}
+
+\begin{defn}
+Two spaces $X$ and $Y$ are \textbf{homotopy equivalent} if
+there exist functions called \textbf{homotopy equivalences}
+$f:X\to Y$ and $g:Y\to X$ such that
+$g\circ f\simeq Id_X$ and $f\circ g\simeq Id_Y$. This is
+denoted by $X\simeq Y$.
+\end{defn}
+
+Now:
+
+\begin{teo}
+If two functions $f,g:X\to Y$ are homotopic, then they induce
+the same homomorphism on the $n$-th homology group,
+$f_*=g_*:H_n(X)\to H_n(Y)$, for every $n$.
+\end{teo}
+
+\begin{coro}
+If $f:X\to Y$ is a homotopy equivalence, then the induced map
+$f_*:H_n(X)\to H_n(Y)$ is an isomorphism for every $n$.
+\end{coro}
+
+\begin{proof}
+Using the theorem and the functoriality properties.
+\end{proof}
+
+\begin{ejem}
+If $X\simeq\{x_0\}$, that is, if $X$ is
+\textbf{contractible}, then
+$$
+H_n(X,R)=
+\begin{cases}
+R\qquad\text{if }n=0,\\
+0\qquad\text{if }n\neq0.
+\end{cases}
+$$
+\end{ejem}
+
+
+\section{Relative homology}
+
+\section{Construction}
+
+Relative homology is a kind of singular homology which
+generalizes reduced homology. The point will be to define the
+homology of the space while ``ignoring what happens inside
+the subspace.''
+
+Take topological spaces $A\subseteq X$. We say that $(X,A)$
+is a \textbf{pair}. Notice that $C_\bullet(A)$ is a
+subcomplex of $C_\bullet(X)$, so we can define the relative
+complex
+$$
+C_\bullet(X,A)=C_\bullet(X)/C_\bullet(A).
+$$
+This simply means that for every $n$,
+$$
+C_n(X,A)=C_n(X)/C_n(A),
+$$
+so chains in $A$ become trivial.
+
+It is clear that the $n$-th boundary operator restricted to
+$C_n(A)$ maps to $C_{n-1}(A)$, since the boundary of a chain
+in $A$ could not leave $A$. This means that the boundary map
+is well defined on the quotient, giving a chain complex
+$$
+\cdots\to C_{n+1}(X,A)\xrightarrow{\partial_{n+1}}
+C_n(X,A)\xrightarrow{\partial_n}C_{n-1}(X,A)\to\cdots.
+$$
+This induces the homology
+$$
+H_n(X,A)=\ker\partial_n/\text{img }\partial_{n-1}.
+$$
+
+The first thing that happens is that we have a short exact
+sequence to which we will apply the fundamental theorem of
+homological algebra:
+$$
+0\to C_\bullet(A)\xrightarrow{i}C_\bullet(X)
+\xrightarrow{j}C_\bullet(X,A)\to0.
+$$
+Thus we obtain the \textbf{long exact sequence of the pair}
+$$
+\cdots\to H_n(A)\xrightarrow{i_{*n}}H_n(X)
+\xrightarrow{j_{*n}}H_n(X,A)\xrightarrow{\delta_n}
+H_{n-1}(A)\xrightarrow{i_{*n-1}}H_{n-1}(X)\to\cdots.
+$$
+
+\begin{obs}
+If the homology groups of the pair $C_p(X,A)$ were trivial,
+we would automatically have that the map induced by the
+inclusion is an isomorphism. In fact, this is an if and only
+if. Thus the homology groups of the pair measure how
+different the homology groups of $A$ are from those of $X$.
+\end{obs}
+
+\begin{obs}
+We add that although the map $\delta$ used to complete the
+long exact sequence of the pair comes from the fundamental
+theorem of homological algebra, when we recall the proof of
+that theorem we see that this map acts exactly like the
+original boundary operator of $X$.
+\end{obs}
+
+\begin{obs}
+It is also possible to define the \textbf{reduced homology of
+the pair}; see Hatcher. In fact it turns out to be equal to
+the homology of the pair just defined, that is,
+$\tilde H_n(X,A)=H_n(X,A)$.
+\end{obs}
+
+\begin{ejer}
+$H_n(X,\{x_0\})=H_n(X)$.
+\begin{proof}[Solution]
+Using the first and third observations above, we know that
+there exists the long exact sequence of the pair in reduced
+homology. Since $\tilde H_n(\{x_0\})\cong0$ for every $n$, we
+obtain the desired isomorphism.
+
+\textcolor{red}{This proof is in Hatcher, p. 118. In the
+video this exercise appears before defining the long exact
+sequence of the pair and without the comment on reduced
+homology. Is it possible to prove it without these two
+things?}
+\end{proof}
+\end{ejer}
+
+\section{Induced functions}
+
+\begin{obs}
+A function between pairs $f:(X,A)\to(Y,B)$ induces a function
+$f_\#:C_\bullet(X,A)\to C_\bullet(Y,B)$ and therefore also a
+function $f_*:H_n(X,A)\to H_n(Y,B)$.
+\end{obs}
+
+\begin{prop}
+If two functions between pairs $f,g:(X,A)\to(Y,B)$ are
+homotopic through functions between pairs, then the induced
+maps $f_*$ and $g_*$ are equal.
+\end{prop}
+
+\section{Splitting lemma}\label{subsec:splitting}
+
+Take the case where there is a retraction $r:X\to A$, that
+is, $ri=id_A$, where $i$ is the inclusion. This implies that
+$(ri)_*=r_*i_*=id_{H_n(A)}$, so $r_*i_*$ is injective, and in
+fact we can break the exact sequence of the pair into short
+exact sequences of the form
+$$
+0\to H_n(A)\xrightarrow{i_*}H_n(X)
+\xrightarrow{j_*}H_n(X,A)\to0.
+$$
+But there is more.
+
+\begin{lema}[Splitting lemma]
+For any short exact sequence of abelian groups
+$$
+0\to A\xrightarrow{i}B\xrightarrow{j}C\to0,
+$$
+the following statements are equivalent:
+\begin{enumerate}
+\item[(a)] there exists a homomorphism $p:B\to A$ such that
+$pi=id_A$;
+\item[(b)] there exists a homomorphism $q:C\to B$ such that
+$qj=id_C$;
+\item[(c)] there exists an isomorphism $B\approx A\oplus C$
+which makes the corresponding diagram commute, with the
+obvious maps in the last row, $a\mapsto(a,0)$ and
+$(a,c)\mapsto c$.
+\end{enumerate}
+In this case we say that the sequence \textbf{splits}.
+\end{lema}
+
+\begin{obs}\leavevmode
+\begin{itemize}
+\item $C$ is free, even if it is not abelian, if and only if
+the sequence splits.
+\item A retraction $r:X\to A$ gives
+$H_n(X)\approx H_n(A)\oplus H_n(X,A)$.
+\end{itemize}
+\end{obs}
+
+\section{The long exact sequence of a triple}
+
+If $Z\subseteq Y\subseteq X$ are topological spaces, it is
+immediate from the definition that
+$$
+C_\bullet(Z)\leq C_\bullet(Y)\leq C_\bullet(X).
+$$
+Taking the quotient by $Z$, we obtain
+$$
+C_\bullet(Y,Z)\hookrightarrow C_\bullet(X,Z)
+\to
+\frac{C_\bullet(X,Z)}{C_\bullet(Y,Z)}=C_\bullet(X,Y).
+$$
+In the last equality we use an isomorphism theorem to see
+that
+$$
+\frac{C_\bullet(X)/C_\bullet(Z)}
+{C_\bullet(Y)/C_\bullet(Z)}
+=
+C_\bullet(X,Y).
+$$
+Applying the fundamental theorem of homological algebra gives
+the \textbf{long exact sequence of the triple}
+$$
+\cdots\to H_n(Y,Z)\xrightarrow{i_*}H_n(X,Z)
+\xrightarrow{j_*}H_n(X,Y)\xrightarrow{\delta}
+H_{n-1}(Y,Z)\xrightarrow{i_*}\cdots.
+$$
+
+\section{Excision}\label{sec:escisión}
+
+This result makes much more precise the idea that homology of
+a pair is the homology of the space while ``ignoring what
+happens in the subspace.''
+
+Let $Z\subseteq A\subseteq X$ be such that the closure of $Z$
+is contained in the interior of $A$. Then
+$$
+(X-Z,A-Z)\hookrightarrow (X,A)
+$$
+induces an isomorphism
+$$
+H_n(X-Z,A-Z)\to H_n(X,A)
+\qquad\forall n.
+$$
+Equivalently, for subspaces $A,B\subseteq X$ whose interiors
+cover $X$, the inclusion
+$$
+(B,A\cap B)\hookrightarrow (X,A)
+$$
+induces an isomorphism
+$$
+H_n(B,A\cap B)\to H_n(X,A)
+\qquad\forall n.
+$$
+
+\section{The homology of a quotient}
+
+Given a topological space $X$ and a subspace $A\subseteq X$,
+we can consider the space $X/A$, obtained by identifying all
+points of $A$. This space is like $X$ but ignoring everything
+that happens in $A$. This reminds us of homology of a pair,
+and the natural question arises: is there any relation
+between $H_n(X,A)$ and $H_n(X/A)$? We need some conditions.
+
+\begin{defn}
+We say that $(X,A)$ is a \textbf{good pair} if $A$ is closed
+and is a strong deformation retract of some neighbourhood in
+$X$.
+\end{defn}
+
+The Hawaiian earring with the attaching point is not a good
+pair because every neighbourhood of that point contains an
+entire circle, so it cannot be deformation retracted.
+
+\begin{teo}
+Let $(X,A)$ be a good pair. Then
+$$
+q:(X,A)\to(X/A,A/A)
+$$
+induces isomorphisms for every $n$ of the form
+$$
+q_*:H_n(X,A)\to H_n(X/A,A/A)
+\cong\tilde H_n(X/A),
+$$
+where the tilde denotes reduced homology.
+\end{teo}
+
+The proof uses the five lemma, homotopy invariance, etc.
+
+\begin{coro}
+Let $(X,A)$ be a good pair. Then we have the following long
+exact sequence:
+$$
+\cdots\to\tilde H_n(A)\to\tilde H_n(X)\to\tilde H_n(X/A)
+\to\tilde H_{n-1}(A)\to\tilde H_{n-1}(X)
+\to\tilde H_{n-1}(X/A)\to\cdots.
+$$
+\end{coro}
+
+\section{Homology of the sphere and applications}
+
+\begin{teo}[Homology of the sphere]
+$$
+\tilde H_i(S^n;R)=
+\begin{cases}
+R\qquad\text{if }n=i,\\
+0\qquad\text{if }n\neq i.
+\end{cases}
+$$
+\end{teo}
+
+\begin{teo}[Brouwer fixed point theorem]
+Let $n\geq2$ and $f:D^n\to D^n$. Then $f$ has a fixed point.
+\end{teo}
+
+\begin{teo}[Homology of the wedge]
+Consider a wedge of spaces $\bigvee_{\alpha\in I}X_\alpha$
+such that $(X_\alpha,x_\alpha)$ is a good pair for every
+$\alpha$, where $x_\alpha$ is the attaching point. Then the
+inclusions $i_\alpha:X_\alpha\hookrightarrow
+\bigvee_{\alpha\in I}$ induce an isomorphism
+$$
+\bigoplus i_{\alpha *}:
+\bigoplus_{\alpha\in I}\tilde H_n(X_\alpha)
+\to
+\tilde H_n\left(\bigvee_{\alpha\in I}\right).
+$$
+\end{teo}
+
+\begin{teo}[Invariance of dimension]
+Let $U\subseteq\R^n$ and $V\subseteq\R^m$ be open sets. If
+$U$ and $V$ are homeomorphic, then $n=m$.
+\end{teo}
+
+\section{The Mayer--Vietoris sequence}
+
+Let $X$ be a topological space and let $A,B\subseteq X$ be
+such that $X=\Int A\cup\Int B$. Then we have the following
+long exact sequence in reduced homology:
+$$
+\cdots\to H_n(A\cap B)\xrightarrow{\Phi}
+H_n(A)\oplus H_n(B)\xrightarrow{\Psi}H_n(X)
+\xrightarrow{\delta}H_{n-1}(A\cap B)\to\cdots.
+$$
+
+To understand where this sequence came from, we should look
+at the chain subgroups $C_n(A+B)$ formed by sums of chains in
+$A$ and chains in $B$. It is possible to construct a chain
+complex, since the boundary homomorphism of the whole space,
+$\partial:C_n(X)\to C_{n-1}(X)$, restricts correctly to
+$C_n(A+B)\to C_{n-1}(A+B)$. Using the machinery of the
+excision theorem, one proves that the inclusion
+$C_n(A+B)\hookrightarrow C_n(X)$ induces isomorphisms on
+homology. Then, for every $n$, we have the short exact
+sequence
+$$
+0\to C_n(A\cap B)\xrightarrow{\varphi}
+C_n(A)\oplus C_n(B)\xrightarrow{\psi}C_n(A+B)\to0,
+$$
+where $\varphi(x)=(x,-x)$ and $\psi(x,y)=x+y$.
+
+This way of defining the functions ensures that the sequence
+is exact. It is easy to see that $\psi\varphi=0$, so
+$\img\varphi\subseteq\ker\psi$. Also
+$\ker\psi\subseteq\img\varphi$: if
+$(x,y)\overset{\psi}{\mapsto}(0,0)$, then $x=-y$, so both
+$x$ and $y$ lie in $A$ and in $B$, that is,
+$(x,y)\in C_n(A\cap B)$; clearly it lies in the image of
+$\varphi$. It is also easy to see that $\ker\varphi=0$ and
+that $\img\psi=C_n(A+B)$.
+
+Applying the fundamental theorem of homological algebra to
+the short exact sequence of chain complexes induced by these
+short exact sequences in each degree gives the Mayer--Vietoris
+sequence.
+
+It is possible to say how the augmentation map acts. By what
+we said about excision, an element
+$[w]\in H_n(X)\cong H_n(A+B)$ is of the form $[a+b]$ for
+chains $a\in C_n(A)$ and $b\in C_n(B)$ whose sum $a+b$ is a
+cycle, that is, $\partial(a+b)=0$. Then
+$\partial(a)=-\partial(b)$ is a cycle in $H_{n-1}(A\cap B)$,
+so it is the perfect representative for the equivalence class
+to which we send $[w]$.
+
+Everything said so far is summarized by
+$$
+\begin{aligned}
+i:A\cap B&\hookrightarrow A,
+&j:A\cap B&\hookrightarrow B,\\
+\Phi(x)&=(i_*x,-j_*x),
+&\Psi(y,z)&=k_*y+\ell_*z,\\
+[w]=[a+b]&\overset{\delta}{\mapsto}[
+\partial(a)]=[-\partial(b)]
+& &\text{for }a\in C_n(A),\ b\in C_n(B).
+\end{aligned}
+$$
+
+\begin{ejem}
+It is possible to compute the homology of the torus using the
+Mayer--Vietoris sequence, although it is not enough to write
+down the exact sequence: one has to understand how the
+homomorphisms act.
+\end{ejem}
+
+\begin{obs}
+There is a version of this sequence for $X=A\cup B$ where
+$A$ and $B$ are deformation retracts of certain
+neighbourhoods $U$ and $V$ and where $U\cap V$ retracts onto
+$A\cap B$.
+
+In particular, if $X$ is a CW complex and $A,B\subseteq X$
+are CW subcomplexes, then it is possible to prove that such
+neighbourhoods exist, and we obtain the same Mayer--Vietoris
+sequence
+$$
+\cdots\to\tilde H_n(A\cap B)\to
+\tilde H_n(A)\oplus\tilde H_n(B)\to\tilde H_n(X)
+\to\tilde H_{n-1}(A\cap B)\to\cdots.
+$$
+Now $A$ and $B$ do not have to be open, and it does not have
+to be true that $\Int A\cup\Int B=X$.
+\end{obs}
+
+\begin{ejem}\label{ejem:toroCWMV}
+\textcolor{red}{In my class notes there is a way to compute
+$H_1$ and $H_0$ of the torus viewed as a CW complex with
+subcomplexes.}
+
+When we view the torus $S^1\times S^1$ as the quotient of a
+square with sides identified, we have a CW-complex structure
+with one 0-cell, two 1-cells, and one 2-cell. Here, we can
+take $A=D^2$ and $B=S^1\vee S^1$.
+
+Almost all homology groups become zero
+\textcolor{red}{I do not see why}; here one has to use that
+homology of a wedge is the sum of the homologies of the
+wedge summands, and that the homology of $S^1$ is zero when
+the subscript is greater than or equal to 2.
+
+Anyway, for $m>2$, $\tilde H_m(X)=0$. It is easy to see that
+$H_1(S^1\times S^1)\cong R\oplus R$. But for
+$H_2(S^1\times S^1)$ something is missing.
+\end{ejem}
+
+\section{Representatives of the homology of the sphere}
+
+In this section we use $R=\mathbb Z$.
+
+Our method will be to find generators for the relative
+homology $H_n(D^n,\partial D^n)$, since this should be
+isomorphic to $H_n(S^n)$. The first thing we do is replace
+that pair by the following one, to which it is also
+isomorphic: $(\Delta^n,\partial\Delta^n)$.
+
+\begin{prop}
+The identity map $Id:\Delta^n\to\Delta^n$ is a cycle which
+generates $H_n(\Delta^n,\partial\Delta^n)\cong\Z$.
+\begin{proof}
+First note that the identity is indeed a cycle in the
+relative homology group, since the kernel of the boundary map
+$C_n(\Delta^n)\xrightarrow{\partial_n}C_{n-1}(\Delta^n)$ is
+contained in the subgroup
+$C_n(\partial\Delta^n)\leq C_n(\Delta^n)$. A group
+homomorphism descends to a quotient if the kernel is contained
+in the normal subgroup.
+
+Now we do induction on $n$. (...)
+
+% If $n=0$, then $\Delta^0=\{e_0\}$ is a point and its
+% boundary is empty. Hence
+% $H_0(\Delta^0,\partial\Delta^0)=H_0(\Delta^0)=
+% \mathbb Z=\langle[e_0]\rangle$.
+% Now suppose the statement for $n$ and prove it for $n+1$.
+% Define $\Lambda$ as the union of all the $(n-1)$-faces in
+% the boundary except one. Then ...
+\end{proof}
+\end{prop}
+
+Now let us think of $S^n$ as the union of two standard
+simplices glued along their boundary, denoted
+$\Delta_1^n\cup_{\partial\Delta^n}\Delta_2^n$.
+
+\begin{prop}
+$\Delta^n_1-\Delta^n_2$ is a generator of $H_n(S^n)$ for
+$n>0$.
+\end{prop}
+
+\section{Degree of a map between spheres}
+
+Consider $f:S^n\to S^n$, which induces a function
+$$
+f_*:\tilde H_n(S^n)\cong\mathbb Z
+\to
+\tilde H_n(S^n)\cong\mathbb Z,
+$$
+so that $f_*$ has no choice but to be of the form
+$f_*(n\alpha)=dn\alpha$.
+
+\begin{defn}
+In the notation above, the \textbf{degree} of $f$ is $d$.
+\end{defn}
+
+\begin{prop}\leavevmode
+\begin{enumerate}
+\item $\deg Id=1$, by functoriality.
+\item If $f$ is not surjective, then $\deg(f)=0$. Since $f$
+is not surjective, choose a point $x\notin\text{img }f$.
+The relevant diagrams show that $f_*$ factors through
+$\tilde H_n(S^2-x)\cong0$, so $f_*$ is constant.
+\item If $f\simeq g$, then $\deg f=\deg g$. By homotopy
+invariance, the induced functions are equal.
+\item $\deg(fg)=\deg(f)\deg(g)$.
+\item If $f$ is a reflection interchanging the hemispheres,
+then $\deg(f)=-1$.
+
+This is because, as seen in the previous section, the
+$n$-sphere, viewed as the union of two standard simplices,
+$S^n=\Delta_1^n\cup_{\partial\Delta^n}\Delta_2^n$, has
+$n$-th homology generated by the chain
+$\Delta_1^n-\Delta_2^n$. The reflection interchanging these
+simplices sends the generator to its negative.
+\item The antipodal map $-Id:S^n\to S^n$ has degree
+$(-1)^{n+1}$. That is,
+$$
+\deg(-Id)=
+\begin{cases}
+1\qquad\text{if }n\text{ is odd},\\
+-1\qquad\text{if }n\text{ is even}.
+\end{cases}
+$$
+\item If $f$ has no fixed points, then
+$\deg(f)=(-1)^{n+1}$. Moreover, if $f$ has no fixed points,
+it is homotopic to the identity map.
+
+If $x\neq f(x)$, the line segment in $\R^{n+1}$ passing
+through $f(x)$ and $-x$, given by $(1-tf(x))-tx$, does not
+pass through the origin. This allows us to define a homotopy
+$(1-tf(x))-tx/|(1-tf(x))-tx|$ between $f$ and the antipodal
+map.
+\end{enumerate}
+\end{prop}
+
+\section{Local degree}\label{subsec:grloc}
+
+Following Hatcher:
+
+\begin{defn}
+Suppose that $f:S^n\to S^n$ is such that the inverse image of
+some $y\in S^n$ consists of finitely many points, say
+$f^{-1}(y)=\{x_1,\ldots,x_m\}$. Take a family of disjoint
+open sets $U_1,\ldots,U_m$ containing each $x_i$, and which
+map to a neighbourhood $V$ of $y$ under $f$. Through a
+commutative diagram, using excision and the long exact
+sequence, Hatcher argues that the homomorphism $f_*$
+originally defined as
+$$
+H_n(S^n,S^n-x_i)\xleftarrow{\cong}
+H_n(U_i,U_i-x_i)\xrightarrow{f_*}H_n(V,V-y)
+$$
+is of the form $f_*:\Z\to\Z$, multiplication by a number
+called the \textbf{local degree} of $f$, denoted
+$\deg f|x_i$.
+\end{defn}
+
+And then:
+
+\begin{teo}
+$\deg f=\sum_i\deg f|_{x_i}$.
+\end{teo}
+
+We add another proposition.
+
+\begin{prop}
+The degree of the suspension $Sf:S^{n+1}\to S^{n+1}$ of a
+function $f:S^n\to S^n$ is equal to the degree of $f$.
+\end{prop}
+
+\section{The hairy ball theorem}
+
+\begin{teo}[Hairy ball theorem]
+$S^n$ has a vector field which vanishes nowhere if and only
+if $n$ is odd.
+\end{teo}
+
+\section{Free actions on the sphere}
+
+\begin{teo}[Free actions on the sphere]
+$\Z/2\Z$ is the only nontrivial group which acts freely on
+$S^n$ if $n$ is even.
+\end{teo}
+
+\chapter{CW complexes}\label{chap:CCW}
+
+\section{Construction and basic properties}
+
+Let us establish some notation.
+\begin{itemize}
+\item $D^n=\{x\in\mathbb R^n:|x|\leq1\}$ is the closed
+$n$-disk.
+\item $S^n=\{x\in\mathbb R^n:|x|=1\}$ is the $n$-sphere.
+\item $e^n=\{x\in\mathbb R^n:|x|<1\}$ is the open $n$-cell,
+or simply the $n$-cell.
+\end{itemize}
+Thus
+\begin{itemize}
+\item $\partial D^n=S^{n-1}$;
+\item $D^n=e^n\cup S^{n-1}$ as sets, not using the disjoint
+union topology;
+\item and, well, it should be true that $e^0=\{pt\}$.
+\end{itemize}
+
+\begin{defn}
+A space $X$ is a CW complex if it can be constructed by the
+following procedure:
+\begin{enumerate}
+\item Start with a discrete space $X^0$, called the
+0-skeleton.
+\item Obtain the $n$-skeleton $X^n$ from the $(n-1)$-skeleton
+$X^{n-1}$ by gluing $n$-cells $e^n_\alpha$ via maps
+$\varphi_\alpha:S^{n-1}\to X^{n-1}$. Formally,
+$$
+X^n=X^{n-1}\bigsqcup_\alpha D^n_\alpha\Big/\sim,
+\qquad
+x\sim\varphi_\alpha(x)
+\quad\text{if }x\in\partial D^n_\alpha.
+$$
+\textit{The point is to take points and join them with lines,
+and then take lines and fill them with disks, etc.}
+\item We could stop after finitely many steps, say $m$, and
+obtain $X=X^m$, but we can also continue gluing cells of
+arbitrarily large dimension and obtain $X=\bigcup_nX^n$. In
+this case $X$ has the weak topology: $A\subseteq X^n$ is open
+(closed) iff $A\cap X^n$ is open (closed) for all $n$.
+\end{enumerate}
+\end{defn}
+
+\begin{defn}
+If $X=X^n$ for some $n\in\mathbb N$, we say that $X$ is
+finite-dimensional and define the dimension of $X$ as the
+dimension of the largest cell adjoined. Formally,
+$\dim X=\min\{n:X^n=X\}$.
+\end{defn}
+
+\begin{ejem}\leavevmode
+\begin{itemize}
+\item The 0-dimensional CW complexes are graphs.
+\item $S^n$ is a CW complex.
+\item Real projective space. Initially defined as
+$\R P^n=\R^{n+1}-\{0\}/x\sim\lambda x$ for $\lambda\neq0$,
+we can take representatives of the lines on the sphere to
+obtain $\R P^n=S^n/x\sim -x$.
+
+This is equivalent to taking either hemisphere of the sphere,
+$D^n$, and identifying the points of its boundary by the
+antipodal map. In turn, this is equivalent to taking the
+$(n-1)$-sphere, which is the boundary of the disk,
+identifying antipodal points, and adding the interior of the
+$n$-disk. And the $(n-1)$-sphere with that identification is
+precisely $\R P^{n-1}$.
+
+In summary, by induction,
+$$
+\begin{aligned}
+\R P^n
+&=\R^{n+1}-\{0\}/x\sim\lambda x,
+\qquad\lambda\neq0\\
+&=S^n/x\sim-x\\
+&=D^n/x\sim-x,
+\qquad x\in\partial D^n=S^{n-1}\\
+&=\R P^{n-1}\cup e^n\\
+&=\R P^{n-2}\cup e^{n-1}\cup e^n\\
+&=e^0\cup e^1\cup\ldots\cup e^n,
+\end{aligned}
+$$
+where the attaching maps are exactly the antipodal maps.
+\item Complex projective space. As in the real case, complex
+projective space, initially defined as
+$\C P^n=\C^{n+1}-\{0\}/x\sim\lambda x$ for $\lambda\neq0$,
+can be defined only on the sphere $S^{2n+1}$. Just like in
+the real case, it is possible to take a disk $D^{2n}$ and
+identify antipodal points on its boundary. For now we do not
+specify how, but it turns out that
+$$
+\C P^n=e^0\cup e^2\cup\ldots e^{2n}.
+$$
+\end{itemize}
+\end{ejem}
+
+\begin{ejer}
+Every CW complex is semilocally simply connected. That is,
+every CW complex has a universal covering.
+\end{ejer}
+
+\begin{defn}
+For each $n$-cell $e^n_\alpha$ of a CW complex, we have the
+\textbf{characteristic map}, which is of the form
+$\Phi_\alpha:D^n_\alpha\to X^n$ and extends the attaching map
+$\varphi_\alpha$. It is a homeomorphism from the interior of
+$D^n_\alpha$ onto $e^n_\alpha$.
+\end{defn}
+
+\begin{defn}
+Let $X$ be a CW complex. A \textbf{CW subcomplex} $Z$ is a
+closed subspace which is also a union of cells of $X$.
+\end{defn}
+
+\begin{obs}
+For a subcomplex $Z$,
+\begin{itemize}
+\item $Z\subseteq X$ is a good pair, meaning $Z$ is a
+deformation retract of a neighbourhood in $X$;
+\item $X/Z$, the space obtained by collapsing $Z$ to a point,
+is a CW complex.
+\end{itemize}
+\end{obs}
+
+\begin{obs}[Very important]
+Let $X$ be a CW complex. The quotient by the $(n-1)$-skeleton
+is a wedge of spheres, as many as there are cells in the
+$n$-skeleton. In symbols,
+$$
+X^n/X^{n-1}=\bigvee_{\alpha\in I_n}S^n,
+$$
+where $I_n$ is the set indexing the $n$-cells.
+\end{obs}
+
+\begin{teo}
+If $X$ and $Y$ are CW complexes with at most countably many
+cells, then $X\times Y$ is a CW complex.
+\end{teo}
+
+Here, the dimension of the product of two cells, say
+$e^1_\alpha\times e^2_\beta$, is the sum of the dimensions of
+each one. In this example, we have a 3-cell.
+
+\begin{defn}
+Let $X$ be a space. The \textbf{suspension} of $X$ is the
+space
+$$
+SX=X\times I/\sim,
+$$
+where the equivalence relation $\sim$ identifies the caps,
+that is,
+$$
+(x,1)\sim(y,1),
+\qquad
+(x,0)\sim(y,0)
+\quad\forall x,y\in X.
+$$
+
+The \textbf{cone} of $X$ is obtained by identifying only one
+cap:
+$$
+CX=X\times I/\sim,
+\qquad
+(x,1)\sim(y,1)
+\quad\forall x,y\in X.
+$$
+
+It is also possible to define the \textbf{suspension of a
+function} $f:X\to Y$, which is of the form
+$Sf:SX\to SY$, simply by taking the quotient of
+$f\times Id:X\times I\to Y\times I$.
+\end{defn}
+
+\begin{teo}
+The cone and suspension of a CW complex are CW complexes.
+\end{teo}
+
+\section{CW complexes according to Lee (extra)}
+
+Let us see how Lee defines CW complexes in his book
+\textit{Introduction to Topological Manifolds}.
+
+\begin{defn}
+If $X$ is a nonempty topological space, a \textbf{cellular
+decomposition} of $X$ is a partition $\mathcal E$ of $X$ into
+subspaces which are open cells, such that for each
+$e\in\mathcal E$ of dimension $n\geq1$ there exists a
+\textbf{characteristic map} $\phi$ from a closed $n$-cell $D$
+to $X$, restricting to a homeomorphism from $\text{Int}D$ to
+$e$, and sending $\partial D$ into the union of cells in
+$\mathcal E$ of dimension strictly less than $n$.
+
+A \textbf{cellular complex} is a Hausdorff space $X$ together
+with a cellular decomposition.
+\end{defn}
+
+\begin{obs}
+Although the cells are homeomorphic to open disks, they do
+not have to be open subsets of $X$.
+\end{obs}
+
+\begin{defn}
+A \textbf{CW complex} is a cellular complex $(X,\mathcal E)$
+such that:
+\begin{enumerate}
+\item[\textbf{C}] \textbf{Closure finiteness.} The closure of
+each cell intersects only finitely many cells of $X$.
+\item[\textbf{W}] \textbf{Weak topology.} The topology of $X$
+is coherent with the family of closed subspaces
+$\{\bar e:e\in\mathcal E\}$, that is, $U\subseteq X$ is closed
+in $X$ if and only if $U\cap\bar e$ is closed for every
+$e\in\mathcal E$.
+\end{enumerate}
+An equivalence between this definition and Hatcher's, when
+$X$ is Hausdorff, is in Hatcher's appendix.
+\end{defn}
+
+\section{The singular homology of a CW complex}
+
+\begin{lema}\leavevmode
+\begin{itemize}
+\item If the $n$-cells are indexed by the set $I_n$, then
+$$
+H_k(X^n,X^{n-1})=
+\begin{cases}
+0\qquad\text{if }k\neq n,\\
+\bigoplus_{\alpha\in I_n}R\qquad\text{if }k=n.
+\end{cases}
+$$
+\begin{proof}
+$H_k=\tilde H_k(X^n/X^{n-1})
+=\tilde H_k(\bigvee_{\alpha\in I_n}S^n)
+=\bigoplus_{\alpha\in I_n}H_k(S^n)$.
+\end{proof}
+\item $H_k(X^n)=0$ for every $k>n$.
+
+Again, homology sees only up to the dimension of the space.
+\item The inclusion $X^n\hookrightarrow X$ induces an
+isomorphism $H_k(X^n)\to H_k(X)$ for $k>n$.
+
+Here the idea is that attaching cells of dimension greater
+than the homology we are computing does not change homology.
+That is, for $n>k$ one has $H_k(X\cup D^n)=H_k(X)$.
+\end{itemize}
+\end{lema}
+
+\begin{proof}
+Look at $(X^n,X^{n-1})$. There is a short exact sequence of
+the pair:
+$$
+H_{k+1}(X^n,X^{n-1})\to H_k(X^{n-1})
+\to H_k(X^n)\to H_k(X^n,X^{n-1}).
+$$
+Using item 1, if $k\neq n,n-1$, then
+$H_k(X^{n-1})\cong H_k(X^n)$.
+
+To prove (2), we have $k>n$, and then, fixing $k$ and going
+down one by one, $H_k(X^n)\cong H_k(X^0)$, which is a
+discrete space, and homology in positive degree of discrete
+spaces is zero. This finishes (2).
+
+For (3), if $k<n<n+1<n+2<\cdots$, then simply
+$$
+H_k(X^n)\cong H_k(X^{n+1})\cong\cdots\cong H_k(X^{n+m}),
+$$
+and if $X$ is finite-dimensional, we eventually stop and we
+are done. The infinite-dimensional case is left for the
+future.
+\end{proof}
+
+\section{Cellular homology}
+
+Next we construct a new type of homology for CW complexes.
+
+\begin{defn}
+Consider the maps obtained from the long exact sequences of
+the pairs of skeleta. The horizontal maps $d_i$ satisfy
+$$
+d_{n+1}\circ d_n=0,
+$$
+so we may call the resulting complex the
+\textbf{cellular chain complex} $C_\bullet^{CW}(X,R)$. We
+then define \textbf{cellular homology} by
+$$
+H_n^{CW}(X;R)=H_n(C_\bullet^{CW}(X)).
+$$
+\end{defn}
+
+\begin{teo}
+$$
+H_n^{CW}(X;R)\cong H_n(X;R)
+\qquad\forall n\geq0.
+$$
+\end{teo}
+
+The first depends on the cellular structure of the space $X$,
+but the second does not. Thus the homology of a CW complex is
+independent of the cellular structure.
+
+\begin{obs}\label{obs1}
+These groups $H_n(X^n,X^{n-1})$ are direct sums of $R$, one
+for each $n$-cell of $X$.
+\end{obs}
+
+\begin{prop}[Consequences of the definition]
+Take $X$ a CW complex and $R=\Z$.
+\begin{enumerate}
+\item $H_n(X)=0$ if $X$ has no $n$-cells.
+\item Suppose $X$ has exactly $k$ $n$-cells. Then $H_n(X)$ is
+generated by at most $k$ elements, since
+$H_n(X^n,X^{n-1})$ is free abelian on $n$ elements, and so
+are the subgroup $\ker d_n$ and the quotient
+$\ker d_n/\img d_{n-1}=H_n(X)$.
+\item If $X$ has no cells in adjacent dimensions, then
+$H_n(X)$ is free for every $n$, with rank equal to the number
+of $n$-cells.
+\end{enumerate}
+\end{prop}
+
+\section{A formula for the boundary homomorphism}
+
+Now let us try to understand what $d$ is. Consider the usual
+map from the boundary sphere of an $n$-cell to
+$X^{n-1}$, followed by the quotient
+$X^{n-1}\to X^{n-1}/X^{n-2}=\bigvee_{\gamma\in I_n}S^{n-1}_\gamma$
+and projection to one sphere. The function obtained,
+$\varphi_{\alpha\beta}$, is a map between spheres and has a
+degree $d_{\alpha\beta}$.
+
+\begin{teo}
+For $n\geq2$, the homomorphism $d_n$ sends
+$$
+e^n_\alpha\mapsto\sum d_{\alpha\beta}e^{n-1}_\beta.
+$$
+\end{teo}
+
+
+\section{Examples}
+
+\begin{ejem}
+We compute the homology of
+$X=\bigvee_{\alpha\in I}S^1_\alpha$ in two different ways:
+first using directly that $H_0(X)=R$, and then using the
+preceding theorem. Since there is only one 0-cell, for every
+$\alpha$, $e^1_\alpha\mapsto x_0-x_0=0$, so in fact
+$d_1=0$. It follows that $H_1=\bigoplus_IR$.
+\end{ejem}
+
+In fact, this is true in general:
+
+\begin{lema}
+If $X$ is a complex with a single 0-cell, then $d_1=0$.
+\end{lema}
+
+\begin{ejem}[The torus]\label{ejem:toroCW}
+We know that the torus has a CW decomposition with one
+0-cell, two 1-cells, and one 2-cell. This gives the chain
+complex
+$$
+0\to\Z\xrightarrow{d_2}\Z\oplus\Z\xrightarrow{d_1=0}\Z\to0.
+$$
+We know $d_1=0$ because there is only one 0-cell. To discover
+how $d_2$ acts, look at the omitted square diagram.
+
+The boundary of the 2-cell, $S^1$, maps by the attaching map
+to the wedge of two circles, and \textbf{traverses each one
+twice and in opposite directions}. The quotient $X^1/X^0$
+does nothing, since $X^0$ was already just one point. In the
+last step, when choosing one of the two circles in the wedge,
+we realize that our map traverses it \textbf{out and then
+back}. This map is homotopic to a constant, so it has degree
+zero. Doing this for the two circles, we conclude that
+$d_2=0$. Hence $H_1(T^2)=\Z\oplus\Z$ and $H_2(T^2)=\Z$.
+\end{ejem}
+
+\begin{teo}[Extra]
+A compact connected surface can only be a sphere, a torus, a
+connected sum of tori, the projective plane, or a connected
+sum of projective planes.
+\end{teo}
+
+\begin{ejem}[The torus of genus $g$]
+It turns out that the double torus can be seen as the
+quotient of an octagon with identified edges. In general, the
+$g$-torus is the quotient of a $4g$-gon. The final result is
+$$
+H_0(S_g)=\Z,
+\qquad
+H_1(S_g)=\Z^{2g},
+\qquad
+H_2(S_g)=\Z.
+$$
+\end{ejem}
+
+\begin{ejem}[The projective plane]
+Recall the simplest decomposition of the projective plane,
+with one cell in each dimension. Here,
+$$
+0\to\Z\xrightarrow{d_2}\Z\xrightarrow{d_1=0}\Z\to0.
+$$
+Formally, to discover how the attaching map acts, we reason
+using local degree. The map in the drawing sends the northern
+hemisphere, without its boundary, to the circle on the right
+without the point. The restriction of the map to the northern
+hemisphere helps decompose the function in order to compute
+the degree. Since the restriction is a homeomorphism, the
+local degree here is 1.
+
+The same happens for the piece of the function on the
+southern hemisphere. The key observation is that each of
+these local functions is obtained from the other by composing
+with the antipodal map, which has degree $1$ on $S^1$. The
+degree of the whole function is the sum of the local degrees,
+so the degree is 2. Since there is only one cell in each
+dimension, $d_2=2$. Hence
+$$
+H_2(\R P^2)=0,
+\qquad
+H_1(\R P^2)=\Z/2.
+$$
+\end{ejem}
+
+\begin{ejem}[$\R P^n$]
+We only have to generalize the preceding example. The CW
+decomposition of $\R P^n$ is
+$$
+\R P^n=e_0\cup e_1\cup\cdots\cup e_n.
+$$
+The diagram above becomes the corresponding diagram involving
+$S^{k-1}$, $\mathbb RP^{k-1}$, and the quotient
+$\mathbb RP^{k-1}/\mathbb RP^{k-2}$.
+
+The attaching maps $\varphi_\alpha$ are the quotient
+projection by the antipodal map on the sphere, i.e. the
+covering of the projective plane. These maps are two-to-one,
+and this makes the northern hemisphere of $S^{k-1}$ map
+homeomorphically to $S^{k-1}$ minus one point, just as in
+dimension 2.
+
+As we said, the functions obtained by restricting
+$\bar\varphi$ to each hemisphere differ from each other by the
+antipodal map. When computing degree, we obtain the formula
+$$
+\deg(\bar\varphi)=1+(-1)^k.
+$$
+Therefore
+$$
+d_k=\begin{cases}
+2\quad\text{if }k\text{ is even},\\
+0\quad\text{if }k\text{ is odd}.
+\end{cases}
+$$
+This gives the corresponding cellular chain complexes for
+$n$ odd and $n$ even. Thus
+$$
+H_0(\R P^n)=\Z,
+$$
+$H_k(\R P^n)=\Z/2$ for odd $k<n$, and $H_n(\R P^n)$ is $0$
+if $n$ is even and $\Z$ if $n$ is odd.
+\end{ejem}
+
+\begin{ejem}[First example where things change if we change
+rings]
+Take $\R P^n$ and the ring $R=\Q$. Now the map
+multiplication by 2 sends $\Q$ onto all of $\Q$, something
+that did not happen with $\Z$. This makes the homology
+trivial, that is,
+$$
+H_n(\R P^n,\Q)=0
+\qquad\text{for every } n\geq1.
+$$
+\end{ejem}
+
+\begin{ejem}
+What if we take $R=\Z/2$? Multiplication by 2 is the zero map,
+so
+$$
+H_m(\R P^n,\Z/2)=\Z/2
+\qquad 0\leq m\leq n.
+$$
+\end{ejem}
+
+\begin{ejem}[The M\"obius band]
+Take the cellular decomposition of the M\"obius band from the
+omitted drawing. It corresponds to the chain complex
+$$
+0\to\Z\xrightarrow{d_2}\Z^3\xrightarrow{d_1}\Z^2\to0.
+$$
+In this case $d_1$ is not automatically zero because we have
+two 0-cells. However, we know that the band is connected, so
+$H_0\approx\Z$.
+
+We can compute $d_1$ explicitly, because we know that it
+behaves exactly like the boundary in simplicial homology.
+According to the names in the diagram, we can simply see that
+$$
+\begin{array}{c@{\hspace{1cm}}c@{\hspace{1cm}}c}
+d_1(e^1_1)=e^0_2-e^0_1&
+ d_1(e^1_2)=e^0_1-e^0_2&
+ d_1(e^1_3)=e^0_2-e^0_1.
+\end{array}
+$$
+Equivalently,
+$$
+\begin{array}{c@{\hspace{1cm}}c@{\hspace{1cm}}c}
+(1,0,0)\mapsto(-1,1)&
+(0,1,0)\mapsto(1,-1)&
+(0,0,1)\mapsto(-1,1).
+\end{array}
+$$
+Thus $\img d_1\approx\Z$, as expected, and
+$$
+\ker d_1\approx\langle(1,1,0),(0,1,1)\rangle
+\approx\Z\oplus\Z.
+$$
+
+To compute $d_2$, notice that the 2-cell is attached only
+along the edges $e^1_2$ and $e^1_3$. Collapsing the
+0-skeleton, we get a wedge of three circles, one for each
+edge. The functions induced in our commutative diagram have
+degree 0 for $e^1_1$ and degree 1 for $e^1_2$ and $e^1_3$.
+Thus
+$$
+d_2(e^2)=0\cdot e^1_1+e^1_2+e^1_3,
+$$
+or $1\overset{d_2}{\mapsto}(0,1,1)$. Hence
+$\img d_2\approx\Z$ and $\ker d_2\approx0$. Therefore
+$$
+H_1(M)\approx(\Z\oplus\Z)/\Z\approx\Z,
+\qquad
+H_2(M)\approx0.
+$$
+\end{ejem}
+
+
+\section{Euler characteristic}
+
+Let $Y$ be a finite CW complex, i.e. one with finitely many
+cells. In fact this property is equivalent to $Y$ being
+compact. We define the Euler characteristic by
+$$
+\begin{aligned}
+\chi(Y)&=(\#\text{ 0-cells})-(\#\text{ 1-cells})
+ +(\#\text{ 2-cells})-\cdots\\
+&=\sum_{i=0}^{\infty}(-1)^i
+(\#\text{ }i\text{-cells})\in\Z.
+\end{aligned}
+$$
+
+\begin{ejems}\leavevmode
+\begin{itemize}
+\item
+$\chi(S^n)=\begin{cases}
+0\qquad n\text{ odd},\\
+2\qquad n\text{ even};
+\end{cases}$
+\item
+$\chi(S^n)=\begin{cases}
+0\qquad n\text{ odd},\\
+2\qquad n\text{ even};
+\end{cases}$
+\item $\chi(\bigvee_{i=0}^nS^1)=1-n$;
+\item $\chi(S_g)=1-2g+1=2-2g$.
+\end{itemize}
+\end{ejems}
+
+\begin{teo}
+Let $X,Y$ be finite CW complexes. If $X\simeq Y$, then
+$\chi(X)=\chi(Y)$.
+\end{teo}
+
+\begin{prop}
+Let $Y$ be a finite CW complex. Then
+$$
+\chi(Y)=\sum_{i=0}^{\infty}(-1)^i\ran H_i(Y;\Z).
+$$
+To understand what $\ran H_i$ is, note that the chain complex
+is made of finitely generated abelian groups, since $Y$ is
+finite. In fact, the homology of $Y$ is an exact sequence of
+finite finitely generated groups. Then, by the classification
+theorem for finitely generated abelian groups, we can
+decompose a group in the form
+$$
+A=\underbrace{\bigoplus_{i=1}^r\Z}_{\text{torsion-free}}
+\oplus
+\underbrace{\text{finite}}_{\text{torsion}},
+$$
+where $r=\ran(A)$ is the rank of the group. This is the
+number appearing in the proposition.
+\end{prop}
+
+\begin{ejer}
+Let
+$$
+0\to A\to B\to C\to0
+$$
+be an exact sequence of finitely generated abelian groups.
+Then
+$$
+\text{ran }B=\text{ran }A+\text{ran }C.
+$$
+See the splitting lemma.
+\end{ejer}
+
+Now let us prove the proposition.
+
+\begin{proof}
+Take the cellular chain complex
+$$
+0\to C_k\xrightarrow{d_k}C_{k-1}\xrightarrow{d_{k-1}}
+\cdots\xrightarrow{d_2}C_1\xrightarrow{d_1}C_0\to0,
+$$
+and recall that $Z_n=\ker d_n$, $B_n=\text{img }d_{n+1}$,
+and $H_n=Z_n/B_n$. Thus we have the short exact sequences
+$$
+0\to Z_n\to C_n\xrightarrow{d_n}B_{n-1}\to0,
+\qquad
+0\to B_n\to Z_n\to H_n\to0.
+$$
+Using the exercise, we have
+$$
+\text{ran }C_n=\text{ran }Z_n+\text{ran }B_{n-1},
+\qquad
+\text{ran }Z_n=\text{ran }B_n+\text{ran }H_n.
+$$
+Now first by definition and then using the above,
+$$
+\begin{aligned}
+\chi(Y)
+&=\sum_{i=0}^{\infty}(-1)^i\text{ran }C_i\\
+&=\sum_{i=0}^{\infty}(-1)^i
+\big(\text{ran }B_i+\text{ran }H_i
++\text{ran }B_{i-1}\big)\\
+&=\sum_{i=0}^{\infty}(-1)^i\text{ran }H_i.
+\end{aligned}
+$$
+Just checking carefully what happens with $i=0$ for
+$\ran B_{i-1}$.
+\end{proof}
+
+And with this proposition the theorem above follows easily.
+
+\chapter{Homology and homotopy}
+
+\section{The Hurewicz homomorphism}
+
+We begin with some algebraic ideas.
+
+Let $G$ be a group and let $g,h\in G$. The commutator of
+these elements is
+$$
+[g,h]=ghg^{-1}h^{-1}.
+$$
+Two elements commute if and only if the commutator is trivial.
+The \textbf{derived subgroup}, or \textbf{commutator
+subgroup}, is
+$$
+G'=\langle[g,h]\mid g,h\in G\rangle\leq G.
+$$
+Now note that a homomorphism of $G$ restricts to a
+homomorphism of $G'$. That is, the restriction is an
+automorphism of $G'$. We say that $G'$ is a
+\textbf{characteristic subgroup}. This implies that it is a
+normal subgroup, so we take the quotient; the result will be
+an abelian group because everything that does not commute has
+been identified. This group is
+$G^{\text{ab}}:=G/G'$ and is called the \textbf{abelianization}
+of $G$.
+
+\begin{obs}
+Doing this with a simple group, whose normal subgroups are
+itself and the trivial subgroup, the quotient $G/G'$ is the
+trivial group. But, in general, the idea is to produce an
+abelian group from any group.
+\end{obs}
+
+\begin{prop}
+Let $G$ be a group and $A$ an abelian group. If
+$\varphi:G\to A$ is a homomorphism, then there exists a
+unique $\bar\varphi:G^{\text{ab}}\to A$ such that the
+corresponding diagram commutes.
+\end{prop}
+
+\begin{defn}
+The \textbf{Hurewicz homomorphism} is
+$$
+\begin{aligned}
+h:\pi_1(X,x_0)&\to H_1(X)\\
+[f]&\mapsto [f],
+\end{aligned}
+$$
+which is well defined because loops are indeed cycles, and it
+does not depend on the representative.
+\end{defn}
+
+\begin{teo}
+If $X$ is path connected, then $h$ is surjective and
+$\ker h=(\pi_1(X,x_0))'$. That is, the abelianization of the
+fundamental group is isomorphic to the first homology group
+of $X$.
+\end{teo}
+
+\begin{coro}\leavevmode
+\begin{itemize}
+\item $\Z\cong\pi_1(S^1,x_0)\cong H_1(S^1)$;
+\item $\Z\cong\pi_1(S^1,x_0)\cong H_1(S^1)$;
+\item one can also deduce for the torus that
+$H_1(T)\cong\Z^2$.
+\end{itemize}
+\end{coro}
+
+\section{Higher homotopy groups}
+
+Recall that the fundamental group was defined as
+$$
+\begin{aligned}
+\pi_1(X,x_0)
+&=\{f:I\to X:f(0)=f(1)=x_0\}
+\Big/\simeq\text{ rel }0,1\\
+&=\{f:(S^1,s_0)\to(X,x_0)\}
+\Big/\simeq\text{ rel }s_0.
+\end{aligned}
+$$
+In this second expression for the fundamental group, we can
+think of the group operation as being given by a function
+defined on the wedge of two circles, since we must:
+(1) traverse $S^1$ at double speed, and then (2) identify the
+base point with its antipode.
+
+Thus, for $n\geq2$, we can define
+$$
+\pi_n(X,x_0)=
+\{f:(S^n,s_0)\to(X,x_0)\}
+\Big/\simeq\text{ rel }s_0,
+$$
+where the group operation is defined on the wedge of two
+$n$-spheres.
+
+\begin{prop}
+For every $n\geq2$ and every pointed topological space
+$(X,x_0)$, $\pi_n(X,x_0)$ is abelian.
+\end{prop}
+
+\begin{obs}
+Each element of $\pi_0(X,x_0)$ represents a path-connected
+component of $X$. But $\pi_0(X,x_0)$ has no group structure!
+\end{obs}
+
+\begin{prop}
+$\pi_n:\Top^*\to\Grp$ is a functor for $n\geq1$. That is, it
+is well defined on objects and arrows, sends identities to
+identities, and is associative.
+\end{prop}
+
+\begin{prop}
+There is homotopy invariance here too: if
+$\varphi,\psi:(X,x_0)\to(Y,y_0)$ are homotopic, then the
+induced maps on homotopy groups are the same. In particular,
+if two spaces are homotopic through a base-point-preserving
+homotopy, then their homotopy groups are the same.
+\end{prop}
+
+The converse is not true. There are spaces with the same
+homotopy group which are not homotopy equivalent: $\R^2$ and
+$S^2$ have the same fundamental group, but their second
+homology groups are different.
+
+The converse is not true. There are spaces with the same
+homotopy group which are not homotopy equivalent: $\R^2$ and
+$S^2$ have the same fundamental group, but their second
+homology groups are different. Exercise \ref{ejer:homol-homot}
+gives another example.
+
+Now, if we ask that they have the same homotopy groups and
+the same homology groups, will they be homotopy equivalent?
+
+\begin{teo}[Whitehead]
+Let $X$ and $Y$ be CW complexes. Suppose that $f:X\to Y$ is
+such that
+$$
+f_*:\pi_n(X,x_0)\to\pi_n(Y,y_0)
+$$
+is an isomorphism for every $n\geq0$. Then $f$ is a homotopy
+equivalence.
+\end{teo}
+
+In fact, there are spaces whose homotopy groups are
+isomorphic but which are not homotopy equivalent; however, in
+these cases the isomorphism is not induced by a function
+between the spaces.
+
+\begin{teo}
+Let
+$$
+p:(\tilde X,\tilde x_0)\to(X,x_0)
+$$
+be a covering between connected spaces. Then
+$$
+p_*:\pi_n(\tilde X,\tilde x_0)\to\pi_n(X,x_0)
+$$
+is an isomorphism for $n\geq2$.
+\end{teo}
+
+\begin{proof}
+Take a loop $f:S^n\to X$ and know that it has a lift. This
+proves surjectivity. To see injectivity, take a loop in the
+covering whose projection is homotopic to zero. We can lift
+the homotopy and obtain that the loop upstairs is also
+homotopic to the constant loop.
+\end{proof}
+
+\begin{ejem}
+The homotopy groups of the torus for $n\geq2$ are trivial by
+its universal covering, $\R^2$, which is contractible. In
+general, any space which has a contractible covering has
+trivial higher homotopy groups.
+\end{ejem}
+
+\chapter{Exercises}
+
+\begin{ejer}
+Compute the homology groups in the examples from the cellular
+homology section.
+\end{ejer}
+
+\begin{proof}[Solution]
+The original notes contain computations using cellular chain
+complexes and Mayer--Vietoris. The pictures have been omitted
+in this translated version.
+\end{proof}
+
+\begin{ejer}\label{ejer:homol-homot}
+Show that $S^1\times S^1$ and $S^1\vee S^1\vee S^2$ have
+isomorphic homology groups with integer coefficients but are
+not homotopy equivalent.
+\end{ejer}
+
+\begin{proof}[Solution]
+Their homology groups agree, but their fundamental groups do
+not: one is $\Z\times\Z$ and the other is the free group on
+two generators.
+\end{proof}
+
+\begin{ejer}
+Compute the homology groups of the space obtained from
+$S^2$ by identifying the north pole and the south pole to a
+single point.
+\end{ejer}
+
+\begin{proof}[Solution]
+The simplest CW decomposition of this space has one 0-cell,
+two 1-cells, and two 2-cells. This gives the cellular chain
+complex
+$$
+0\to\Z^2\xrightarrow{d_2}\Z^2\xrightarrow{d_1}\Z\to0.
+$$
+Since there is only one 0-cell, $d_1=0$. The attaching maps
+of both 2-cells send their boundary around both 1-cells, so
+$$
+\begin{aligned}
+d_2:\Z^2&\to\Z^2\\
+(1,0)&\mapsto(1,1)\\
+(0,1)&\mapsto(1,1).
+\end{aligned}
+$$
+Thus $\img d_2\cong\Z$ and
+$\ker d_2\cong\langle(1,0)-(0,1)\rangle\cong\Z$, and hence
+$$
+H_2(X,\Z)\cong H_1(X,\Z)\cong H_0(X,\Z)\cong\Z,
+$$
+and $H_n(X,\Z)\cong0$ for $n\geq3$.
+\end{proof}
+
+\begin{ejer}
+Compute the homology groups of $S^1\times(S^1\vee S^1)$.
+\end{ejer}
+
+\begin{proof}[Solution]
+The cellular chain complex is
+$$
+0\to\Z^2\xrightarrow{d_2}\Z^3\xrightarrow{0}\Z\to0.
+$$
+By an argument analogous to the computation of the homology
+of the torus, $d_2=0$, and we conclude that
+$H_2(X)=\Z^2$, $H_1(X)=\Z^3$, and $H_0(X)=\Z$.
+\end{proof}
+
+\begin{ejer}
+Use the Mayer--Vietoris sequence to compute the homology
+groups of the space obtained by gluing a M\"obius band $M$ to
+the torus $S^1\times S^1$ by a homeomorphism from the
+boundary circle of $M$ to the equator $S^1\times\{0\}$ of
+the torus.
+\end{ejer}
+
+\begin{proof}[Solution]
+It is not obvious how to glue them at the cellular level,
+because the boundary circle of the M\"obius band is formed by
+two edges, which should be glued to a single edge of the
+torus. Thus it is technically inconvenient to use the
+Mayer--Vietoris sequence in its version for CW complexes.
+This is not a problem, because although neither the torus nor
+the band is open in our space, they are deformation retracts
+of suitable neighbourhoods.
+
+Using the Mayer--Vietoris sequence and the known homology of
+the spaces involved, we need the map
+$\Phi_1=(i_*,j_*)$ induced by the inclusions
+$i:T\cap M\hookrightarrow T$ and $j:T\cap M\hookrightarrow M$.
+The intersection of $T$ and $M$ is an equator of the torus and
+the boundary circle of the M\"obius band. Thus inclusion sends
+a generator of the intersection to one of the generators of
+the first homology of the torus, and to twice the generator of
+the first homology of the band. In symbols,
+$$
+\Phi_1(1)=(1,0,2).
+$$
+Thus $\ker\Phi_1=0$ and $\img\Phi_1\cong\Z$. Therefore
+$$
+\tilde H_2(X)\approx\Z,
+\qquad
+\tilde H_1(X)\approx\Z\oplus\Z,
+$$
+and of course $\tilde H_n(X)\approx0$ for $n=0$ and $n>2$.
+\end{proof}
+
+\end{document}

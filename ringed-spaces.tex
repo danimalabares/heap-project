@@ -8,10 +8,6 @@
 \phantomsection
 \label{section-phantom}
 
-\noindent
-So far
-this chapter is completely AI-generated.
-
 \tableofcontents
 
 \section{Motivation}
@@ -399,7 +395,9 @@ and is denoted $\coprod X_i$.
 
 \begin{exercise}
 \label{exercise-gluing-schemes}
+\begin{reference}
 \cite[Exercise II.2.12]{hart}.
+\end{reference}
 Let $\{X_i\}$ be a family of schemes
 (possibly infinite).
 For each $i \neq j$,
@@ -432,7 +430,7 @@ on $U_{ij}$.
 Step 1. Define the underlying topological 
 space:
 $$
-X = \coprod_{i} X_i/\sim
+X = (\coprod_{i} X_i)/\sim
 $$
 where $x_i \in X_i$ and $x_j \in X_j$
 are identified if $x_i \in U_{ij}$,
@@ -456,21 +454,53 @@ a presheaf that maps $U$ to
 $$
 \mathcal{O}_X(U)
 :=
-\coprod \mathcal{O}_{X_i}(U \cap X_i)
-\Big/\sim
+(\bigoplus \mathcal{O}_{X_i}(U \cap X_i))
+/\sim
 $$
+(since coproduct in the category
+of rings is direct sum, a fact
+I haven't proved yet)
 where two sections $s_i \in
 \mathcal{O}_{X_i}(U \cap \psi_i(X_i))$
 and $s_j \in \mathcal{O}_{X_j}(U \cap
-\psi_j(X_j)$ 
-are identified 
+\psi_j(X_j))$ 
+are identified… it's not clear yet
+why we need the identification.
 
+To show this is a sheaf suppose we have
+an inclusion $U \hookrightarrow V$.
+Then we have a restriction map
+$\rho_{U,V}:\mathcal{O}_X(V)
+\to \mathcal{O}_X(U)$
+given by the restrictions of
+every section obtained after projecting
+to each $\mathcal{O}_{X_i}(U 
+\cap \psi_i(X_i))$.
+This preserves compositions
+and maps the identity
+morphism to the identity morphism
+after projecting to each summand,
+and thus also on $X$.
+More explicitly: for the identity
+$\text{id}:U \to U$ we obtain a map
+of sections $\rho_{U,U}$ putting
+$(s_i) \mapsto (\rho^{X_i}_{U \cap X_i,
+U\cap X_i}s_i)$
+but the latter maps are the identity
+because each $\mathcal{O}_{X_i}$ is indeed
+a presheaf. Composition and the 
+glueing condition for sheaves are
+confirmed similarly.
 
+Step 3. The conditions (1) to (4)
+from the exercise are confirmed by
+construction.
 \end{proof}
 
 \noindent
 This section comes from Stacks Project
-tag 01JA. See also
+tag 
+\href{https://stacks.math.columbia.edu/tag/01JA}{01JA}. See also
 
 Let $I$ be a set.
 For each $i \in I$ let $(X_i, \mathcal{O}_i)$ be
