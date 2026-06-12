@@ -383,171 +383,57 @@ spaces whose induced maps on
 stalks are local homomorphisms.
 \end{definition}
 
-\section{Glueing ringed spaces}
-\label{section-glueing-ringed-spaces}
-
-\noindent
-This section comes from Stacks Project
-tag 01JA. See also
-\cite[Exercise II.2.12]{hart}.
-
-Let $I$ be a set.
-For each $i \in I$ let $(X_i, \mathcal{O}_i)$ be
-a locally ringed space. (Actually the construction that
-follows works equally well for ringed spaces.)
-For each pair $i, j \in I$ let $U_{ij} \subset X_i$
-be an open subspace.
-For each pair $i, j \in I$, let
-$$
-\varphi_{ij} : U_{ij} \to U_{ji}
-$$
-be an isomorphism of locally ringed spaces.
-For convenience we assume that $U_{ii} = X_i$.
-For each triple $i, j, k \in I$ assume that
-\begin{enumerate}
-\item we have
-$\varphi_{ij}^{-1}(U_{ji} \cap U_{jk}) =  U_{ij} \cap U_{ik}$, and
-\item the diagram
-$$
-\xymatrix{
-U_{ij} \cap U_{ik} \ar[rr]_{\varphi_{ik}} \ar[rd]_{\varphi_{ij}} & &
-U_{ki} \cap U_{kj} \\
-& U_{ji} \cap U_{jk} \ar[ru]_{\varphi_{jk}}
-}
-$$
-is commutative.
-\end{enumerate}
-(In particular, it follows that $\varphi_{ii} = \text{id}_{X_i}$.)
-Let us call a collection
-$(I, (X_i)_{i\in I}, (U_{ij})_{i, j\in I}, (\varphi_{ij})_{i, j\in I})$
-satisfying the conditions above a glueing data.
+\section{Gluing sheaves}
+\label{section-gluing-sheaves}
 
 \begin{lemma}
-\label{lemma-glue}
-\begin{slogan}
-If you have two locally ringed spaces, and a subspace of the first one
-is isomorphic to a subspace of the other, then you can glue them together
-into one big locally ringed space.
-\end{slogan}
-Given any glueing data of locally ringed spaces there
-exists a locally ringed space $X$ and open subspaces
-$U_i \subset X$ together with isomorphisms
-$\varphi_i : X_i \to U_i$ of locally ringed spaces such that
-\begin{enumerate}
-\item $X=\bigcup_{i\in I} U_i$,
-\item $\varphi_i(U_{ij}) = U_i \cap U_j$, and
-\item $\varphi_{ij} =
-\varphi_j^{-1}|_{U_i \cap U_j} \circ \varphi_i|_{U_{ij}}$.
-\end{enumerate}
-The locally ringed space $X$ is characterized by the following
-mapping properties: Given a locally ringed space $Y$ we have
-\begin{eqnarray*}
-\Mor(X, Y) & = & \{ (f_i)_{i\in I} \mid
-f_i : X_i \to Y, \ f_j \circ \varphi_{ij} = f_i|_{U_{ij}}\} \\
-f & \mapsto & (f|_{U_i} \circ \varphi_i)_{i \in I} \\
-\Mor(Y, X) & = &
-\left\{
-\begin{matrix}
-\text{open covering }Y = \bigcup\nolimits_{i \in I} V_i\text{ and }
-(g_i : V_i \to X_i)_{i \in I}
-\text{ such that}\\
-g_i^{-1}(U_{ij}) = V_i \cap V_j
-\text{ and }
-g_j|_{V_i \cap V_j} = \varphi_{ij} \circ g_i|_{V_i \cap V_j}
-\end{matrix}
-\right\} \\
-g & \mapsto &
-V_i = g^{-1}(U_i), \ g_i = \varphi_i^{-1} \circ g|_{V_i}
-\end{eqnarray*}
+\label{lemma-gluing-sheaves}
+Let $X=\bigcup U_i$ be an open
+cover.
+Suppose $\mathcal F_i$ are
+sheaves on $U_i$ and the
+restrictions to $U_i\cap U_j$
+are identified by isomorphisms
+satisfying the cocycle
+condition.
+Then there is a unique sheaf
+$\mathcal F$ on $X$ whose
+restriction to $U_i$ is
+$\mathcal F_i$.
 \end{lemma}
 
 \begin{proof}
-We construct $X$ in stages.
-As a set we take
-$$
-X = (\coprod X_i) / \sim.
-$$
-Here given $x \in X_i$ and $x' \in X_j$ we say
-$x \sim x'$ if and only if $x \in U_{ij}$, $x' \in U_{ji}$
-and $\varphi_{ij}(x) = x'$. This is an equivalence relation
-since if $x \in X_i$, $x' \in X_j$, $x'' \in X_k$, and $x \sim x'$ and
-$x' \sim x''$, then $x' \in U_{ji} \cap U_{jk}$, hence by condition (1) of
-a glueing data also $x \in U_{ij} \cap U_{ik}$ and
-$x'' \in U_{ki} \cap U_{kj}$ and by condition (2)
-we see that $\varphi_{ik}(x) = x''$. (Reflexivity and symmetry
-follows from our assumptions that $U_{ii} = X_i$ and
-$\varphi_{ii} = \text{id}_{X_i}$.)
-Denote $\varphi_i : X_i \to X$
-the natural maps. Denote $U_i = \varphi_i(X_i) \subset X$.
-Note that $\varphi_i : X_i \to U_i$ is a bijection.
-
-\medskip\noindent
-The topology on $X$ is defined by the rule that
-$U \subset X$ is open if and only if $\varphi_i^{-1}(U)$
-is open for all $i$. We leave it to the reader to verify
-that this does indeed define a topology.
-Note that in particular $U_i$ is open since $\varphi_j^{-1}(U_i)
-= U_{ji}$ which is open in $X_j$ for all $j$.
-Moreover, for any open set $W \subset X_i$ the image
-$\varphi_i(W) \subset U_i$ is open because
-$\varphi_j^{-1}(\varphi_i(W)) = \varphi_{ji}^{-1}(W \cap U_{ij})$.
-Therefore $\varphi_i : X_i \to U_i$ is a homeomorphism.
-
-\medskip\noindent
-To obtain a locally ringed space we have to construct the
-sheaf of rings $\mathcal{O}_X$. We do this by glueing the
-sheaves of rings $\mathcal{O}_{U_i} := \varphi_{i, *} \mathcal{O}_i$.
-Namely, in the commutative diagram
-$$
-\xymatrix{
-U_{ij} \ar[rr]_{\varphi_{ij}} \ar[rd]_{\varphi_i|_{U_{ij}}}
-& &
-U_{ji} \ar[ld]^{\varphi_j|_{U_{ji}}} \\
-& U_i \cap U_j &
-}
-$$
-the arrow on top is an isomorphism of ringed spaces,
-and hence we get unique isomorphisms of sheaves of rings
-$$
-\mathcal{O}_{U_i}|_{U_i \cap U_j}
-\longrightarrow
-\mathcal{O}_{U_j}|_{U_i \cap U_j}.
-$$
-These satisfy a cocycle condition as in Sheaves,
-Section \ref{sheaves-section-glueing-sheaves}.
-By the results of that section we obtain a sheaf of rings
-$\mathcal{O}_X$ on $X$ such that $\mathcal{O}_X|_{U_i}$
-is isomorphic to $\mathcal{O}_{U_i}$ compatibly with
-the glueing maps displayed above.
-In particular $(X, \mathcal{O}_X)$ is a locally ringed
-space since the stalks of $\mathcal{O}_X$ are equal
-to the stalks of $\mathcal{O}_i$ at corresponding
-points.
-
-\medskip\noindent
-The proof of the mapping properties is omitted.
+Define $\mathcal F(U)$ to be
+families of sections on the
+pieces $U\cap U_i$
+which agree on overlaps.
+The sheaf axioms follow from
+those of the $\mathcal F_i$.
+Uniqueness is built into the
+construction.
 \end{proof}
 
-\begin{lemma}
-\label{lemma-glue-schemes}
-\begin{slogan}
-Schemes can be glued to give new schemes.
-\end{slogan}
-In Lemma \ref{lemma-glue} above, assume that all
-$X_i$ are schemes. Then the resulting locally ringed
-space $X$ is a scheme.
-\end{lemma}
+\section{Gluing ringed spaces}
+\label{section-gluing-ringed-spaces}
 
-\begin{proof}
-This is clear since each of the $U_i$ is a scheme
-and hence every $x \in X$ has an affine neighbourhood.
-\end{proof}
+\medskip\noindent
+Ringed spaces can be glued by
+gluing both the underlying spaces
+and the structure sheaves.
+This is one of the basic ways to
+build global objects from local
+charts.
 
-\noindent
-It is customary to think of $X_i$ as an open subspace of
-$X$ via the isomorphisms $\varphi_i$. We will do this in
-the next two examples.
+\section{Affine schemes}
+\label{section-affine-schemes}
 
+\medskip\noindent
+Very briefly, $\Spec A$ carries a
+structure sheaf.
+For a basic open set $D(f)$,
+$$
+\mathcal O_{\Spec A}(D(f))=A_f.
+$$
 
 \section{Complex spaces}
 \label{section-complex-spaces}
