@@ -175,8 +175,6 @@ def preamble():
     lines = Path("preamble.tex").read_text(encoding="utf-8").splitlines(True)
     out = [
         "\\documentclass{report}\n",
-        "\\usepackage{amsmath}\n",
-        "\\usepackage{amssymb}\n",
         "\\usepackage{amsthm}\n",
         "\\def\\text#1{\\mbox{#1}}\n",
         "\\newcommand{\\mathbb}[1]{#1}\n",
