@@ -41,5 +41,6 @@ Repository guidance for AI agents working in this repo.
   remark labels.
 - Do not globally reformat existing TeX files. Preserve the repo's line wrapping and style.
 - Before committing TeX cleanup changes, check that no source `.tex` files contain `\begin{align*}`, `\end{align*}`, `\left<`, or `\right>` outside generated directories like `gerby/` and `tmp/`.
+- Do not use subsections or subsubsections.
 
 Generated files and directories such as `gerby/`, `tmp/`, `.venv/`, and build artifacts should not be committed.
