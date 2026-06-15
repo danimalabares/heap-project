@@ -1,0 +1,3181 @@
+\input{preamble}
+
+\begin{document}
+
+\title{Algebraic Topology}
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Covering spaces}
+\label{section-covering-spaces}
+ 
+\begin{proposition}[Unique lifting property]
+\label{proposition-unique-lifting-property}
+\cite{hat}, Proposition 1.34. Given a
+covering space $p:\tilde{X} \to X$ and a
+map $f:Y \to X$, if two lifts
+$\tilde{f}_1,\tilde{f}_2:Y \to \tilde{X}$ of
+$f$
+agree at one point of $Y$ and $Y$ is
+connected, then $\tilde{f}_1$ and
+$\tilde{f}_2$ agree on all of $Y$.
+\end{proposition}
+
+\begin{proof}
+We aim to show that the set of points where
+$\tilde{f}_1$ and $\tilde{f}_2$
+agree is both open and closed in $Y$. Let $y
+\in Y$ and consider an evenly
+covered neighbourhood $U$ of $f(y)$, so that
+$p^{-1}(U)$ is a disjoint union of
+sets, each of which is homeomorphic to $U$
+via $p$. Let $\tilde{U}_1$ and
+$\tilde{U}_2$ be the sheets containing
+$\tilde{f}_1(y)$ and $\tilde{f}_2(y)$,
+respectively. By continuity of $\tilde{f}_1$
+and $\tilde{f}_2$, the intersection
+$\tilde{f}^{-1}_1(\tilde{U}_1) \cap
+\tilde{f}_2^{-1}(\tilde{U}_2):=N$ is
+ an open neighbourhood of $y$.
+
+Since  $\tilde{U}_1$ and $\tilde{U}_2$ are
+mapped homeomorphically to the set
+$U \subset X$, we can only have that either
+$\tilde{U}_1$ coincides
+with $\tilde{U}_2$, or they are disjoint. If
+they are disjoint, then the
+neighbourhood $N$ shows that the set of
+points where $\tilde{f}_1$ and
+$\tilde{f}_2$ agree is closed; that's because
+in this case they don't agree at a
+point, so that we are on the complement of
+the set where they agree, and we have
+shown it's an open set (every point has a
+neighbourhood contained in the set).
+
+If, on the other hand, $\tilde{U}_1$ and
+$\tilde{U}_2$ are the same, which
+happens when $\tilde{f}_1(y)=\tilde{f}_2(y)$,
+then $\tilde{f}_1$ and
+$\tilde{f}_2$ agree throughout $N$, so that
+we have shown that the set where
+$\tilde{f}_1$ and $\tilde{f}_2$ coincide is
+open.
+\end{proof}
+
+\begin{definition}[Properly discontinuous
+action]
+\label{definition-prope-disco-actio}
+See \cite{hat} p. 72. The action of a group
+$G$ on a space $Y$ is called
+{\it properly discontinuous} or {\it covering
+space action} if each $y \in Y$
+has a neighbourhood $U$ such that $g_1(U)
+\cap g_2(U)\neq \emptyset$ for any
+$g_1,g_2 \in G$ implies $g_1=g_2$.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-deck-trans-act-prope}
+The action of deck transformations on a
+covering space is a properly
+discontinuous action.
+\end{proposition}
+
+\section{Basic notions}
+\label{sec:Basic notions}
+
+\section{Defintions in homotopy theory}
+\label{section-defin-homot-theor}
+
+This is taken from \cite{TomDieck}.
+
+\begin{itemize}
+\item Let $X$ and $Y$ be topological spaces
+and
+ $f,g:X\to Y$ continuous maps.
+An {\it homotopy} from $f$ to $g$ is a
+continuous map
+$$
+H:X\times[0,1]\to Y,\qquad(x,t)\mapsto
+H(x,t)=H_t(x)
+$$
+\noindent
+such that $f(x)=H(x,0)$ and $g(x)=H(x,1)$ for
+all $x\in X$.
+We denote this situation by $f\simeq g$.
+The homotopy relation $\simeq$ is an
+equivalence relation
+on the set of continuous maps $X\to Y$.
+A homotopy of maps $H_t:X\to Y$ is called
+{\it relative to $A\subset X$} if $H_t|_A$ is
+constant.
+
+
+\item Topological spaces and homotopy classes
+of maps form a quotient category
+of $\text{Top}$, the {\it homotopy category
+$\text{hTop}$}, where comoposition
+of homotopy classes is induced by composition
+of representing maps. If $f:X\to
+Y$ represents an isomorphism in
+$\text{hTop}$, then $f$ is called a
+{\it homotopy equivalence} or
+{\it $\text{h}$-equivalence}. In explicit
+termins this means $f:X\to
+Y$ is a homotopy equivalence if there exists
+$g:Y\to X$, a
+{\it homotopy inverse of $f$}, such that $gf$
+and $fg$ are both
+homotopic to the identity. Spaces $X$ and $Y$
+are called
+{\it homotopy equivalent} or of the same {\it
+homotopy
+type} if there exists a homotopy equivalence
+$X\to Y$. A space is
+{\it contractible} if it is homotopy
+equivalent to a point. A map
+$f:X\to Y$ is {\it null homotopic} if it is
+homotopic to a constant
+map.
+
+\end{itemize}
+
+\section{\texorpdfstring{$n$}{n}-th homotopy
+group of a pointed space}
+\label{section-n-th-homot-group-point-spac}
+
+\begin{definition}
+\label{definition-homotopy-group}
+Let $(X,x_0)$ be a pointed topological space
+and $s_0\in S^n$. The elements of
+the {\it $n$-th homotopy group} are homotopy
+classes of maps
+$(S^n,s_0)\to (X,x_0)$. Equivalently, they
+are homotopy classes of maps
+$(I^n,\partial I^n)\to (X,x_0)$. (Homotopies
+are required to preserve the base
+points, $s_0\mapsto x_0$ or $\partial
+I^n\mapsto x_0$.)
+
+Also,
+$$
+\pi_n(X,*)=[(I^n,\partial
+I^n),(X,\{*\})]\cong[I^n/\partial I^n,X]^0
+$$
+where $[X,Y]$ denotes the set of homotopy
+classes $[f]$ of maps $[f]:X\to Y$.
+\end{definition}
+
+\section{\texorpdfstring{$n$}{n}-th relative
+homotopy group of
+a pointed pair of spaces}
+\label{section-relative-homotopy-group}
+
+\noindent
+Let $A$ be a subspace of $X$ and $x_0\in A$.
+The elements of the {\it relative homotopy
+group $\pi_n(X,A,x_0)$}
+are homotopy classes of maps $(I^n,\partial
+I^n,J^{n-1})\to (X,A,x_0)$
+where $J^{n-1}$ is the union of all but one
+face of $I^n$.
+That is,
+$$
+\pi_{n+1}(X,A,*)=[(I^{n+1},\partial
+I^{n+1},J^n),(X,A,x_0)].
+$$
+
+The elements of such a group are homotopy
+classes of based maps
+$D^n\to X$ which carry the boundary $S^{n-1}$
+into $A$.
+Two maps $f,g$ are called {\it homotopic
+relative to $A$}
+if they are homotopic by a
+basepoint-preserving homotopy
+ $F:D_n\times[0,1]\to X$ such that, for each
+ $p$ in $S^{n-1}$ and $t$ in $[0,1]$,
+the element $F(p,t)$ is in $A$. Ordinary
+homotopy groups are
+recovered for the case in which $A=\{x_0\}$.
+
+\begin{remark}
+\label{remark-relative-homotopy}
+This construction is motivated by
+looking for the kernel of the
+induced map $i_*:\pi_n(A,x_0)\to\pi_n(X,x_0)$
+by the inclusion.
+This map is in general not injective,
+and the kernel consists of ?
+\end{remark}
+
+\section{Commutativty of higher homotopy
+groups}
+\label{section-commu-highe-homot-group}
+
+\begin{proposition}
+\label{proposition-commu-highe-homot-group}
+$\pi_n(X,x_0)$ is an abelian group for $n>1$.
+\end{proposition}
+
+\section{Action of fundamental groupoid
+\texorpdfstring{$\Pi_1(X)$}{Π₁(X)} of
+\texorpdfstring{$X$}{X} on
+\texorpdfstring{$\pi_{n}(X)$}{π₁(X)}}
+\label{section-actio-funda-group}
+
+\begin{itemize}
+\item A {\it groupoid} is a small category in
+which every morphism is an isomorphis.
+\item The {\it fundamental groupoid}
+$\Pi_{1}(X)$
+is the category whose objects
+are the points of  $X$ and
+morphisms are homotopy classes of paths
+joining two points.
+Composition is defined doubling the speed.
+\end{itemize}
+
+The fundamental groupoid acts on homotopy
+group functorially.
+
+\section{Homotopy groups of a product of
+spaces
+are products of homotopy groups of factors}
+\label{section-homot-group-produ-space}
+
+\section{Higher homotopy groups of a covering
+space
+are the same as those of a base space}
+\label{section-highe-homot-group-cover}
+
+\section{Long exact sequence of homotopy
+groups associated to a pair}
+\label{section-long-exact-seque-homot-grou}
+
+For any pair $(X,A,x)$ we have a long exact
+sequence
+$$
+\xymatrix@C=1.5em{
+\pi_n(A,x_0)\ar[r]^{i_*}
+& \pi_{n}(X,x_0)\ar[r]^{j_*}
+& \pi_{n-1}(X,A,x_0)\ar[r]^{\partial}
+& \pi_{n-1}(A,x_0)\ar[r]
+& \cdots\ar[r]
+& \pi_0(X,x_0)
+}
+$$
+where $i$ and $j$ are the inclusions
+$(A,x_0)\hookrightarrow(X,x_0)$ and
+$(X,x_0,x_0)\hookrightarrow(X,A,x_0)$. The
+map $\partial$ comes from restricting maps
+$(I^n,\partial I^n,J^{n-1})\to (X,A,x_0)$ to
+$I^{n-1}$, or by restricting maps
+$(D^n,S^{n-1},s_0)\to (X,A,x_0)$. The map,
+called the {\it boundary map}, is a
+homomorphism when $n>1$.
+
+\section{\texorpdfstring{$n$}{n}-connected
+space}
+\label{section-n-connected-space}
+
+A space $X$ with basepoint $x_0$ is called
+{\it $n$-connected} if $\pi_i(X,x_0)=0$ for
+$i\leq n$. Thus 0-connected means
+path-connected and 1 connected means
+simply-connected.
+
+\section{\texorpdfstring{$n$}{n}-connected
+pair}
+\label{section-n-connected-pair}
+
+A pair $(X,A)$ is {\it $n$-connected} if
+$\pi(X,A,x_0)=0$ for $i\leq n$.
+
+\section{n-equivalnce of spaces}
+\label{section-n-equivalence-of-spaces}
+
+A map $f:X\to Y$ is an {\it  $n$-equivalence}
+if the induced map on homotopy groups
+$f_{*}:\pi_{i}(X)\to \pi_{i}(Y)$ is an
+isomorphism for $i<n$ and a surjection for
+$i=n$.
+
+\begin{remark}
+\label{remark-what-i-picke-up-lectu-if}
+\begin{itemize}
+\item $(X,A)$ is $n$-connected if and only if
+$A\hookrightarrow X$ is an $n$-equivalence.
+\item $f:X\to Y$ is an $n$-equivalence if and
+only if when we replace $f$ by a cofibration
+$X\to M_{f}$, $(M_{f},X)$ is $n$-connected.
+\end{itemize}
+\end{remark}
+
+\section{Cartesian closed structure}
+\label{section-Cartesian-closed-structure}
+
+\section{Compactly generated spaces}
+\label{section-compactly-generated-spaces}
+
+(What I picked up from the lecture.) If $X$
+is compactly generated, then $X$ is
+weakly Hausdorff if the diagonal subset
+$\Delta_X\subset X\times X$ is
+$k$-closed.
+
+Now some other notes from the lectures:
+
+In $\text{CGWH}$, $\Hom(X,Y)$ is a space with
+the compact-open topology.
+This is a compactly generated space,
+$\mathbf{k}(\Hom(X,Y))$.
+
+(Also see
+\href{https://en.wikipedia.org/wiki/%
+Currying#Function_spaces}{wiki
+on currying})
+$$
+\begin{aligned}
+\text{Map}(X,Y):=\text{ the space of maps
+}X\to Y.\\
+\text{Map}(X\times
+Y,Z)\cong\text{Map}(X,\text{Map}(Y,Z))\\
+\Hom(X\times Y,Z)\cong
+\Hom(X,\text{Map}(Y,Z))
+\end{aligned}
+$$
+In the last line, product is product in
+$\text{CGWH}$, not in $\text{Top}$.
+The functor $-\times Y$ is left adjoint to
+$\text{Map}(Y,-)$.
+
+We don't care so much about $\text{Top}$. We
+care much more about $\text{CGWH}$,
+the full subcategory of $\mathit{Top}$ on
+ {\it compactly generated wakly Hausdorff}
+ spaces.
+
+\begin{definition}[Is this right?]
+\label{definition-is-this-right}
+$X$ is {\it compactly generated} if, for any
+subset $C\subset X$, and for all continuous
+maps $f:K\to X$ from compact Housdorff
+spaces, $$\text{if } f^{-1}(C) \text{is
+closed in }K\text{, then } C\text{ is
+closed}.$$
+\end{definition}
+{\bf Claim.}
+If $X$ is compactly generated, then $X$ is
+weakly Hausdorff if the diagonal subset
+$\Delta_X\subset X\times X$ is $k$-closed.
+
+
+{\bf Explanation from the book of May}
+The ordinary category of spaces
+allows pathology that obstructs a clean
+development of the foundations.
+The homotopy and homology groups of spaces
+are supported on compact subspaces, and
+it turns out that if one assumes a separation
+property
+that is a little weaker
+than the Hausdorff property,
+then one can refine the point-set topology of
+spaces to eliminate
+such pathology without changing these
+invariants.
+
+One major source of point-set level pathology
+can be passage to quotient spaces.
+Use of compactly generated topologies
+alleviates this.
+
+\begin{proposition}
+\label{proposition-if-x-compa-gener-x-y}
+If $X$ is compactly generated and $\pi:X\to
+Y$ is a quotient map,
+then $Y$ is compactly generated if and only
+if $(\pi\times \pi)^{-1}(\Delta Y)$
+ is closed in $X\times X$.
+\end{proposition}
+
+\noindent
+The interpretation is that a quotient space
+of a
+compactly generated space by a “closed
+equivalence relation”
+is compactly generated.
+
+\subsubsection{Weakly Housdorff space}
+\label{subsection-weakly-housdorff-space}
+
+\subsection{Cartesian closedness of the
+category $CGWH$}
+\label{subsection-carte-close-categ-cgwh}
+See "Compactly generated spaces" by Charles
+Rezk.
+
+\section{Wedge}
+\label{section-wedge}
+
+\section{Smash product of spaces, its
+associativity in
+\texorpdfstring{$\text{CGWH}$}{CGWH}}
+\label{section-smash-produ-space-its-assoc}
+
+The appropriate analogue of the Cartesian
+product in the category of based spaces is
+the {\it smash product} $X\wedge Y$ defined
+by
+$$X\wedge Y=X\times Y/X\vee Y.$$
+Here $X\vee Y$ is viewed as the subspace of
+$X\times Y$ consisting of those pairs $(x,y)$
+such that either $x$ is the basepoint of $X$
+or $y$ is the basepoint of $Y$.
+
+\begin{example}[Basic example]
+\label{example-basic-example}
+	The smash product of two circles is a
+	sphere, as may be seen by collapsing the
+	generating circles on a revolution torus
+	(see
+	\href{https://en.wikipedia.org/wiki/%
+	Smash_product#/media/File:
+	Visualization_of_the_smash_product_of_%
+	two_circles.gif}{Wikipedia}).
+\end{example}
+
+\section{Reduced and unreduced suspension}
+\label{section-reduc-unred-suspe}
+We also have the {\it suspension of pointed
+spaces}, which is like usual suspension but
+also collapsing the distinguished point,
+which has become an interval:
+$$\Sigma X=(I\times X)/(t,x)\sim (0,y)\sim
+(1,y)\;\forall y\in X.$$
+
+\section{Path and loop spaces of a pointed
+space}
+\label{section-path-loop-space-point-space}
+[This is defined in Hatcher close to the
+homotopy fiber construction--- it's related
+to Blakers-Massey, Freudenthal theorem.]
+
+\begin{definition}[Path fibration]
+\label{definition-path-fibration}
+An important case of the homotopy fiber
+construction
+is when the given function $f$ is the
+inclusion of the basepoint $b_0$ into $B$.
+Then $E_{f}$ is the space $PB$ of paths in
+$B$ starting at $b_{0}$,
+and $p:PB\to B$ sends each path to its
+endpoint.
+The fiber $p^{-1}(b_{0})$ is the loopspace
+$\Omega B$
+consisting of all loops in  $B$ based at
+$b_{0}$.
+Since $PB$ is contractible by progressively
+truncating paths,
+the long exact sequence of homotopy groups
+for the path
+fibration yields (another proof that)
+$$
+\pi_{n}(X,x_{0})\cong \pi_{n-1}(\Omega
+X,x_{0})\qquad \forall n.
+$$
+\end{definition}
+
+\section{For pointed spaces: smash with any
+\texorpdfstring{$Y$}{Y}
+is adjoint to
+\texorpdfstring{$\text{Map}(Y,-)$}{Map(Y,-)}}
+\label{section-point-space-smash-any-y}
+
+[From
+\href{https://en.wikipedia.org/wiki/%
+Smash_product#}{Wikipedia}]
+Adjoint functors make the analogy between the
+tensor product
+and the smash product more
+precise. In the category of $R$-modules over
+a commutative ring $R$, the tensor
+functor $(-\otimes_{A} A)$ is left adjoint to
+the internal Hom functor
+$\Hom(A,-)$, so that
+$$
+\Hom(X\otimes A,Y)\cong\Hom(X,\Hom(A,Y)).
+$$
+
+In the category of pointed spaces, the smash
+product plays the role the tensor product in
+this formula: if $A$, $X$ are compact
+Hausdorff then we have an adjunction
+$$\text{Maps}_{*}(X\wedge A,Y)\cong
+\text{Maps}_{*}(X,\text{Maps}_{*}(A,Y))$$
+where $\text{Maps}_{*}$ denotes continuous
+maps that send basepoint to basepoint, and
+$\text{Maps}_{*}(A,Y)$ carries the
+compact-open topology.
+
+\section{Adjointness of
+\texorpdfstring{$\Sigma$}{Σ} and
+\texorpdfstring{$\Omega$}{Ω}}
+\label{section-adjointness-of-and}
+In particular, taking $A$ to be the unit
+circle $S^{1}$, we see that the reduced
+suspension functor $\Sigma$ is left adjoint
+to the loop space functor $\Omega$:
+$$\text{Maps}_{*}(\Sigma X,Y)\cong
+\text{Maps}_{*}(X,\Omega Y).$$
+
+[From lectures:] Then we have
+$$\Hom_{\text{CGWH}_*}(\Sigma X,\Sigma
+X)\cong\Hom_{\text{CGWH}_*}(X,\Omega\Sigma
+X)$$
+where $\Sigma X=S\wedge X$ and $\Omega\Sigma
+X=\text{Map}(S^1,\Sigma X)$. That is,
+$S^1\wedge-$ is adjoint to
+$\text{Map}(S^1,-)$.
+
+\section{CW-complex, relative CW-complex}
+\label{section-cw-compl-relat-cw-compl}
+\section{Topology on product of CW-complexes
+is the same as product topology in $CGWH$}
+\label{section-topol-produ-cw-compl}
+
+\section{Hurewicz homomorphism}
+\label{section-Hurewicz-homomorphism}
+
+\begin{definition}[Hurewicz homomorphism]
+\label{definition-hurewicz-homomorphism}
+$$
+\begin{aligned}
+h: \pi_{n}(X) &\longrightarrow H_{n}(X) \\
+[f] &\longmapsto f_{*}(\alpha)
+.\end{aligned}
+$$
+\end{definition}
+where $\alpha$ is a generator of $
+H_{n}(S^{n})$.
+
+\section{Absolute and relative versions of
+Hurewicz theorem}
+\label{section-absol-relat-hurew-theor}
+
+\begin{theorem}[Hurewicz]
+\label{theorem-Hurewicz-absolute}
+If $X$ is $n$-connected for some $n \geq 2$,
+them $\tilde{H}_i(X)=0$ for $i<n$
+and $\pi_{n}(X)\cong H_n(X)$.
+\end{theorem}
+
+\begin{lemma}
+\label{lemma-hurew-homom-gives-homot-equiv}
+If $X$ and $Y$ are simply connected CW-spaces
+and  $f:X \to Y$ induces
+isomorphisms $H_n(X) \cong H_n(Y)$ for all
+$n$, then it is an homotopy
+equivalence.
+\end{lemma}
+
+\begin{theorem}[Hurewicz]
+\label{theorem-Hurewicz-relative}
+If $(X,A)$ is $(n-1)$-connected, i.e.
+$\pi_{n}(X,A)=0$ for $i \leq n-1$, for
+some $n\geq 2$ and $A$ is simply connected,
+then $H_i(X,A)=0$ for $i\leq n-1$
+and $\pi_{n}(X,A)\cong H_n(X,A)$.
+\end{theorem}
+Perhaps $X$ should be $(n-1)$-connected for
+the relative version too---
+they are stated together in Hatcher.
+
+\section{Weak factorization systems}
+\label{section-weak-factorization-systems}
+
+Here we follow \cite{Riehl}.
+
+\begin{definition}
+\label{definition-weak-factorization-system}
+A {\it weak factorization system
+$(\mathcal{L},\mathcal{R})$} on a category
+$\mathcal{M}$ is comprised of two clases of
+morphisms $\mathcal{L}$
+and $\mathcal{R}$ so that
+
+\begin{enumerate}
+\item Every morphism in $\mathcal{M}$ may be
+factored as a morphism in $\mathcal{L}$
+followed by a morphism in $\mathcal{R}$:
+$$
+\xymatrix{
+\bullet\ar[rr]^{f}\ar[rd]_{\mathcal{L}
+\ni\ell}
+&& \bullet\\
+& \bullet\ar[ru]_{r\in\mathcal{R}}
+}
+$$
+
+\item The maps in $\mathcal{L}$ have the {\it
+left lifting property} with respect to each
+map in $\mathcal{R}$ and equivalently the
+maps in $\mathcal{R}$ have the {\it right
+lifting property} with respect to each map in
+$\mathcal{L}$, that is, any commutative
+square
+$$
+\xymatrix{
+\bullet\ar[d]_{\mathcal{L}\ni\ell}\ar[r]
+& \bullet\ar[d]^{r\in\mathcal{R}}\\
+\bullet\ar@{-->}[ur]\ar[r]
+& \bullet
+}
+$$
+admits a diagonal filler as indicated making
+both triangles commute.
+When this lift is unique,
+we say the factorization system is {\it
+orthogonal}.
+
+\item The classes $\mathcal{L}$ and
+$\mathcal{R}$ are each closed under
+retracts in the arrow category:
+given a commutative diagram
+$$
+\xymatrix{
+\bullet\ar[r]\ar[d]_{t}\ar@/^1pc/@{-}[rr]
+\ar@/^2pc/@{-}[rr]
+& \bullet\ar[r]\ar[d]^{s}
+& \bullet\ar[d]^{t}\\
+\bullet\ar[r]\ar@/_1pc/@{-}[rr]\ar@/_2pc/@{-}
+[rr]
+& \bullet\ar[r]
+& \bullet
+}
+$$
+
+\noindent
+if $s$ is in that class then so is its
+retract $t$.
+\end{enumerate}
+\end{definition}
+
+\begin{exercise}[3.1.8, Rihel]
+\label{exercise-3-1-8-rihel}
+Verify that the class of morphisms
+$\mathcal{L}$ characterized
+by the left lifting property against a fixed
+class of morphisms $\mathcal{R}$ is closed
+under coproducts,
+closed under retracts, and contains the
+isomorphisms.
+\end{exercise}
+
+\section{Model category structure on a
+category}
+\label{section-model-category-structure}
+
+\begin{definition}[Lecture]
+\label{definition-lecture}
+A {\it model structure} on a category
+$\mathcal{A}$
+is a choice of subcategories
+$\mathcal{W},\mathcal{C},\mathcal{F}$
+called {\it weak-equivalences}, {\it
+cofibrations} and {\it fibrations}
+with the following properties:
+
+\begin{enumerate}
+\item[0.] All (finite) small limits an
+colimits.
+
+\item \textbf{(2 of 3)} Given
+$\bullet\overset{f}{\to}\bullet\overset{g}
+{\to}\bullet$,
+if either 2 out of 3 among $f,g,f\circ g$
+are in $\mathcal{W}$ then all of them are.
+
+\item
+$(\mathcal{C}\cap\mathcal{W},\mathcal{F})$
+and
+$(\mathcal{C},\mathcal{F}\cap\mathcal{W})$
+are both weak factorization systems.
+
+$(\mathcal{B},\mathcal{D})$ is a weak
+factorization system. That is,
+
+\begin{enumerate}
+\item Any morphism in $\mathcal{A}$ can be
+factored
+as a morphism in $\mathcal{B}$
+followed by a morphism in $\mathcal{D}$.
+
+\item Lifts:
+
+$$
+\xymatrix{
+\bullet\ar[d]_{f}\ar[r]&\bullet\ar[d]^{g}\\
+\bullet\ar@{-->}[ur]^{\exists}\ar[r]&\bullet
+}
+$$
+
+\item[(c')] Notice that the axiom of retracts
+is not necessary. $r'\in\mathcal{R}\iff$ it
+satisfies (b) for all $\ell\in\mathcal{L}$.
+\end{enumerate}
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+\label{definition-item}
+\begin{itemize}
+\item $X$ is {\it fibrant} if
+$X\to\text{pt}$.
+\item $X$ is {\it cofibrant} if
+$$
+\xymatrix{
+X\ar@{->>}[r]&X
+}
+$$
+\item $X$ is {\it bifibrant} if
+$$
+\xymatrix{
+0\ar@{^{(}->}[r]&X\ar@{->>}[r]&\text{pt}
+}
+$$
+\end{itemize}
+\end{definition}
+
+\medskip\noindent
+Two examples of model structures
+are Str\o m and Quillen model structures.
+
+\begin{example}[Two interesting model
+category structures on $\text{CGWH}$]
+\label{example-two-inter-model-categ-struc}
+\begin{enumerate}
+\item {\it Hurewicz-Str\o m model structure}.
+\begin{itemize}
+\item Cofibrations = Huerwicz cofibrations.
+\item Fibrations = Hurewicz fibrations.
+\item Weak equivalences = homotopy
+equivalences.
+\end{itemize}
+\item {\it Quillen model structure}. Defined
+on $\text{Top}$.
+\begin{itemize}
+\item Cofibrations = "retracts of relative
+cell complexes".
+\item Fibrations = Serre fibrations.
+\item Weak equivalences = weak homotopy
+equivalences.
+\end{itemize}
+\end{enumerate}
+\end{example}
+
+\subsection{Hurewicz fibrations and
+cofibrations}
+\label{subsection-hurew-fibra-cofib}
+
+\section{Fibrations}
+\label{section-fibrations}
+
+\begin{definition}[Hatcher]
+\label{definition-hatcher}
+A map $p:E\to B$ is said to have the {\it
+homotopy lifting property} with respect to a
+space $X$ if, given a homotopy $g_t:X\to B$
+and a map $\tilde{g}_0:X\to E$ lifting $g_0$,
+so $p\tilde{g}_0=g_0$, then there exists a
+homotopy $\tilde{g}_t:X\to E$ lifting $g_t$.
+
+The {\it lift extension property for a pair
+$(Z,A)$} asserts that every map $X\to B$ has
+a lift $Z\to E$ extending a given lift
+defined on the subspace $A\subset Z$. The
+case $(Z,A)=(X\times I,X\times\{0\})$ is the
+homotopy lifting property.
+
+A {\it fibration} is a map $p:E\to B$ having
+the homotopy property with respect to all
+spaces $X$.
+\end{definition}
+
+\begin{definition}[\href{https://ncatlab.org%
+/nlab/show/lift}{nLab}]
+\label{definition-https-ncatl-org-nlab}
+	A morphism $i$ has the {\it left lifting
+	property with respect to a morphism $p$} and
+	$p$ has the {\it right lifting property with
+	respect to $i$} if for each morphisms $f$
+	and $g$, if the outer square in the
+	following diagram commutes, there exists
+	$\phi$ (I think not necessarily unique)
+	completing the diagram:
+	$$
+	\xymatrix@R=2.5em{
+		A\ar[r]^{f}\ar[d]_{i}&X\ar[d]^{p}\\
+		B\ar[r]_{g}\ar@{-->}[ur]^{\phi}&Y
+	}
+	$$
+\end{definition}
+
+\begin{definition}[\href{https://ncatlab.org%
+/nlab/show/homotopy+lifting+property}{nLab}]
+Let $C$ be a category with products and with
+interval object $I$. A morphism $E\to B$ has
+the {\it homotopy lifting property} if it has
+the right lifting property with respect to
+all morphisms of the form $(\text{id},0):Y\to
+Y\times I$.
+\label{definition-homot-lifti-prope-nlab}
+
+	This means that for all commuting squares
+	$$
+	\xymatrix{
+		Y\ar[r]^{f}\ar[d]&E\ar[d]^{p}\\
+		Y\times I\ar[r]_{F}\ar@{-->}[ur]^{\sigma}&B
+	}
+	$$
+	there exists a morphism $\sigma:Y\times I\to
+	E$ such that both triangles in the former
+	diagram commute.
+
+	A {\it fibration} (also called {\it Hurewicz
+	fibration}) is a mapping $p:E\to B$
+	satisfying the homotopy lifting property for
+	all spaces $X$.
+\end{definition}
+
+\subsubsection{Cofibrations}
+\label{subsection-cofibrations}
+
+\begin{definition}[Hatcher]
+\label{definition-hatcher-2}
+	If in the definition of a fibration as a map
+	satisfying the homotopy lifting property we
+	reverse the direction of the arrows, we
+	obtain the dual notion of a {\it
+	cofibration}. This is a map $i:A\to B$
+	(which is $E\to B$ backwards) satisfying the
+	following property: (we used to have an
+	homotopy from some space $X$ into the base,
+	now we have:) given an homotopy $g_{t}:A\to
+	X$ and (a lift)  $\tilde{g}:B\to X$ such
+	that $\tilde{g}_{0}i=g_{0}$, there exists a
+	homotopy $\tilde{g}_{0}:B\to X$ such that
+	$\tilde{g}_{t}i=g_{t}$.
+
+	In the special case that $i$ is the
+	inclusion of a subspace, this is the
+	homotopy extension property, and the next
+	proposition says that this is indeed the
+	general case. So a cofibration is an
+	inclusion satisfying the homotopy extension
+	property.
+\end{definition}
+
+\begin{proposition}[4H.1]
+\label{proposition-4h-1}
+	If $i:A\to B$ is a cofibration, then $i$ is
+	injective, and in fact a homeomorphism onto
+	its image.
+\end{proposition}
+
+\begin{remark}[From Hatcher p. 461]
+\label{remark-from-hatcher-p-461}
+The duality between subobjects and quotient
+objects is clear for abelian groups,
+where subobjects are kernels and quotient
+objects cokernels. The strict
+topological analog of a kernel is a fiber of
+a fibration. Dually, the
+topological analog of a cokernel is the {\it
+cofiber} $B/A$ of a
+cofibration $A\hookrightarrow B$. If we make
+an arbitrary map  $f:A\to B$ into a
+cofibration $A\hookrightarrow M_{f}$, the
+cofiber is the mapping cone
+$C_{f}=M_{f}/(A\times {0}$.
+\end{remark}
+
+\begin{definition}[\href{https://%
+en.wikipedia.org/wiki/
+Homotopy_extension_property}{wiki}]
+\label{definition-https-en-wikip-org-wiki}
+	Let $X$ be a topological space and let
+	$A\subset X$. We say that the pair $(X,A)$
+	has the {\it homotopy extension property}
+	if, given a homotopy $f_\bullet:A\to Y^I$
+	and a map $\tilde{f}_0:X\to Y$ such that
+		$$\tilde{f}_0\circ\iota=f_0$$\
+		(so $\tilde{f}$ is the lift of $f_0:A\to
+		Y$) then there exists an {\it extension} of
+		$f_\bullet$ to a homotopy
+		$\tilde{f}_\bullet:X\to Y^I$ such that
+		$\tilde{f}_\bullet\circ\iota=f_\bullet$.
+
+		That is,
+		$$
+		\xymatrix{
+			A\ar[r]^{f_\bullet}\ar[d]_{\iota}
+			&Y^I\ar[d]^{\pi_0}\\
+			X\ar@{-->}[ur]^{\tilde{f}_\bullet}
+			\ar[r]_{\tilde{f}_0}&Y
+		}
+		$$
+		So there's some
+		\href{https://en.wikipedia.org/wiki/%
+		Currying#Function_spaces}{currying}
+		to make usual homotopies $f_\bullet:A\times
+		I\to Y$ look like $f_\bullet:A\to Y^I$. As
+		said in our lectures: ``a homotopy $X\times
+		I\to Y$ is the same as a map $X\to
+		\text{Map}(I,Y)$".
+
+	A map $\iota:A\to X$ is a {\it cofibration}
+	if it has the homotopy extension property
+	with respect to all topological spaces  $Y$.
+\end{definition}
+
+\subsubsection{Mapping cylinder}
+\label{subsection-mapping-cylinder}
+
+\begin{definition}[\href{https://ncatlab.org%
+/nlab/show/mapping+cylinder}{nLab}]
+\label{definition-https-ncatl-org-nlab-2}
+Given a continuous map $f:X\to Y$ of
+topological spaces, one can define its {\it
+mapping cylinder} as a pushout
+$$
+\xymatrix{
+		X\ar[r]^{f}\ar[d]&Y\ar[d]\\
+		X\times
+		I\ar[r]_{(\sigma_0)_*(f)}&\text{Cyl}(f)
+	}
+$$
+	in $\text{Top}$, where $I=[0,1]$ and
+	$\sigma:X\to X\times I$ is given by
+	$x\mapsto(x,0)$.
+
+	Set theoretically, the mapping cyllinder is
+	usually represented as que quotient space
+	$$\left(X\times I\coprod Y\right)\Big/\sim$$
+	where $\sim$ is the smallest equivalence
+	relation identifying $(x,0)\sim f(x)$ for
+	all $x\in X$.
+\end{definition}
+
+\begin{definition}[\href{https://%
+en.wikipedia.org/wiki/Mapping_cylinder}{wiki}
+]
+\label{definition-https-en-wikip-org-wik-2}
+The {\it mapping cylinder} of a function $f$
+between topological spaces $X$ and $Y$ is the
+quotient
+$$M_f=(([0,1]\times X)\amalg Y)\big/\sim$$
+where $\amalg$ denotes disjoint union, and
+$\sim$ is the equivalence relation generated
+by
+$$(0,x)\sim f(x)\text{ for each }x\in X.$$
+{\it That is, the mapping cylinder $M_f$ is
+obtained by gluing one end of $X\times[0,1]$
+to $Y$ via the map $f$.} Notice that the
+``top" of the cylinder $\{1\}\times X$ is
+homeomorphic to $X$, while the ``bottom" is
+the space $f(X)\subset Y$.
+
+Looks the mapping cylinder is just deforming
+$X$ to $Y$ putting $X$ inside $Y$ via $f$…
+\end{definition}
+
+\begin{definition}[From homework]
+\label{definition-from-homework}
+	Let $f:X\to Y$ be a map. Let
+	$M_f=X\times[0,1]\cup_fY$ be the {\it
+	mapping cylinder of $f$}, i.e. the pushout
+	of
+	$X\overset{\cong}{\to}X\times\{0\}
+	\hookrightarrow
+	X\times[0,1]$ and of $f:X\times Y$.
+\end{definition}
+
+\subsection{Serre fibrations}
+\label{subsection-serre-fibrations}
+
+\begin{definition}[Hatcher, p. 376]
+\label{definition-hatcher-p-376}
+		The map $p:E\to B$ is said to have the {\it
+		homotopy lifting property for a pair}
+		$(X,A)$ if each homotopy $f_t:X\to B$ lifts
+		to a homotopy $\tilde{g}_t:X\to E$ starting
+		with a given lift $\tilde{g}_0$ and
+		extending a given lift $\tilde{g}_t:A\to
+		E$. In other words, the homotopy lifting
+		property for $(X,A)$ is the lift extension
+		property for $(X\times I,X\times\{0\}\cup
+		A\times I)$.
+
+	The important observation here is that
+	homotopy lifting property for disks is
+	equivalent to the homotopy lifting property
+	for all CW pairs $(X,A)$. A map $p:E\to B$
+	satisfying the homotopy lifting property for
+	disks is sometimes called a {\it Serre
+	fibration}.
+\end{definition}
+
+\subsection{Fiber bundles}
+\label{subsection-fiber-bundles}
+
+Here I include some more notes of the
+discussion following Serre fibrations on
+Hatcher.
+
+	A {\it fiber bundle} structure on a space
+	$E$, with fiber $F$, consists of a
+	projection map $p:E\to B$ such that each
+	point $B$ has a neighbourhood $U$ for which
+	there is a homeomorphism $h:p^{-1}(U)\to
+	U\times F$ making the following diagram
+	commute
+	$$
+	\xymatrix{
+		p^{-1}(U)\ar[rr]^{h}\ar[dr]_{p}
+		&&U\times F\ar[dl]\\
+		&U
+	}
+	$$
+\begin{example}
+\label{example-proje-space-yield-inter}
+Projective spaces yield interesting fiber
+bundles. In the real case we have the
+familiar covering spaces $S^n\to\mathbb{R}
+P^n$ with fiber $S^0$. Over the complex
+numbers the analog of this is a fiber bundle
+$S^1\to S^{2n+1}\to\mathbb{C} P^n$. Here
+$S^{2n+1}$ is the unit sphere in
+$\mathbb{C}^{n+1}$ and $\mathbb{C} P^n$ is
+viewed as the quotient space of $S^{2n+1}$
+under the equivalence relation
+$(z_0,\ldots,z_n)\sim\lambda(z_0,\ldots,z_n)$
+for $\lambda\in S^1$. The projection
+$p:S^{2n+1}\to\mathbb{C} P^n$ sends
+$(z_0,\ldots,z_n)$ to its equivalence class
+$[z_0,\ldots,z_n]$.
+
+To see that the local triviality condition
+for fibre bundles is satisfied, …
+
+	The constructino of the bundle $S^1\to
+	S^{2n+1}\to\mathbb{C} P^n$ also works when
+	$n=\infty$, so there is a fiber bundle
+	$S^1\to S^{\infty}\to \mathbb{C} P^{\infty}$.
+
+	The case $n=1$ is particularly interesting
+	since $\mathbb{C} P^1=S^2$ and bundle
+	becomes $S^1\to S^3\to S^2$ with fiber,
+	total space, and base all speres. This is
+	known as the {\it Hopf bundle}. The
+	projection $S^3\to S^2$ can be taken to be
+	$(z_0,z_1)\mapsto
+	z_0/z_1\in\mathbb{C}\cup\{\infty\}=S^2$.
+	(That is, seeing $S^2$ as the one-point
+	compactification of $\mathbb{C}$.)
+
+	In polar coordinates we may see $S^3$ as the
+	union of several tori. Stereorgraphic
+	projection yields the following figure:
+	% Figure omitted: hopf-bundle.
+	The limiting cases $T_0$ and $T_{\infty}$
+	correspond to the unit circle in the
+	$xy$-plane and the $z$-axis under the
+	stereographic projection.	Each torus
+	$T_\rho$ is aunion of circle fibers. These
+	fiber circles have slope 1 on the torus,
+	winding around once longitudinally and once
+	meridionally. As $\rho$ goes to $0$ or
+	$\infty$ the fiber circles approach the
+	circles $T_0$ and $T_{\infty}$, which are also
+	fibers. The figure below shows four tori
+	decomposed into fibers:
+	% Figure omitted: hopf-bundle2.
+
+	Replacing the field $\mathbb{C}$ by the
+	quaternions $\mathbb{H}$, the same
+	constructions yield fiber bundles $S^3\to
+	S^{4n+3}\to\mathbb{H} P^{n}$ over
+	quaternionic projective spaces $\mathbb{H}
+	P^n$. Here the fiber $S^3$ is the unit
+	quaternions, and $S^{4n+3}$ is the unit
+	sphere in $\mathbb{H}^{n+1}$. Taking $n=1$
+	gives a second Hopf bundle $S^3\to S^7\to
+	S^4=\mathbb{H} P^1$.
+
+	Another Hopf bundle $S^7\to S^{15}\to S^8$…
+\end{example}
+
+\subsection{Homotopy equivalences and weak
+homotopy equivalences}
+\label{subsection-homot-equiv-weak-homot}
+
+\begin{definition}[Weak homotopy equivalence]
+\label{definition-weak-homotopy-equivalence}
+	Any map $f:X\to Y$ that induces isomorphisms
+	on all homotopy groups ( $\forall n\geq 0$
+	and all choices of basepoint in $X$).
+\end{definition}
+
+\subsection{Any Hurewicz fibration is Serre
+fibration}
+\label{subsection-any-hurew-fibra-serre}
+\subsection{Any relative CW-complex is a
+cofibration in Quillen model structure}
+\label{subsection-any-relat-cw-compl-cofib}
+\subsection{Any map can be replaced by…}
+\label{subsection-any-map-can-be-replaced-by}
+\subsubsection{an homotopy equivalence
+followed by Hurewicz fibration}
+\label{subsection-homot-equiv-follo-hurew}
+\subsubsection{a Hurewicz cofibration
+followed by homotopy equivalence}
+\label{subsection-hurew-cofib-follo-homot}
+\subsubsection{a Quillen cofibration followed
+by weak equivalence}
+\label{subsection-quill-cofib-follo-weak}
+This one follows from CW-approximation
+theorem
+
+\section{Homotopy theory  of spaces (B)}
+\label{section-homotopy-theory-of-spaces-b}
+
+\subsection{Blakers-Massey theorem}
+\label{subsection-blakers-massey-theorem}
+
+As in Hatcher and in terms of homotopy
+pullbacks and pushouts. (Be careful if you
+refer to REsk's paper for the latter version,
+since in his paper the $n$ in definition of
+$n$-connectiviy is shifted by $1$.
+\begin{theorem}[Blakers-Massey. Hatcher 4.23,
+Tom Dieck 6.4.1]
+\label{theorem-blake-masse-hatch-4-23-tom}
+	Let $X$ be a CW complex decomposed as the
+	union of subcomplexes $A$ and $B$ with
+	nonempty connected intersection $C=A\cap B$
+	(that is also a CW complex?). If $(A,C)$ is
+	$m$-connected and $(B,C)$ is $n$-connected,
+	$m,n\geq 0$, then the map
+	$$\pi_{i}(A,C)\to \pi_{i}(X,B)$$
+is an isomorphism for $i<m+n$ and a
+surjection for $i=m+n$.
+\end{theorem}
+
+\begin{proposition}[Quotient theorem.
+Hatcher, 4.28and Tom Dieck 6.10.2]
+\label{proposition-quoti-theor-hatch-4}
+	If a CW pair $(X,A)$ is $r$-connected and
+	$A$ is $r,s \geq 0$, then the map
+	$\pi_{i}(X,A)\to \pi_{n}(X/A)$ induced by
+	the quotient map $X\to X/A$ is an
+	isomorphism for $i\leq r+s$ and a surjection
+	for $i=r+s+1$.
+\end{proposition}
+\begin{proof}
+	Using cones.
+\end{proof}
+
+\subsection{Freudethal suspension theorem}
+\label{subsection-freud-suspe-theor}
+
+\begin{lemma}[Freudenthal suspension theorem,
+Hatcher 4.24]
+\label{lemma-freud-suspe-theor-hatch-4}
+	The suspension map $\pi_{i}(S^{n})\to
+	\pi_{i+1}(S^{n+1})$ is an isomorphism for
+	$i<2n-1$ and a surjection for $i=2n-1$. More
+	generally, this holds for the suspension
+	$\pi_{i}(X)\to \pi_{i+1}(SX)$ whenever $X$
+	is an $(n-1)$-connected CW complex.
+\end{lemma}
+\begin{theorem}[Freudenthal suspension
+theorem, lecture notes]
+\label{theorem-freud-suspe-theor-lectu}
+		Let $X$ be $\ell$-connected space. Then
+		$X\to\Omega\Sigma X$ is a
+		$(2\ell+1)$-equivalence, that is,
+	$$\pi_i(X)\to \pi_{i+1}(\Sigma X),$$
+	is a bijection for $i<2\ell+1$ and a
+	surjection for $i=2\ell+1$..
+\end{theorem}
+\begin{proof}[Proof 2 from lectures]
+	Consider
+	$$
+	\xymatrix{
+		X\ar[r]\ar[d]&CX\ar[d]\\
+		CX\ar[r]&\Sigma X
+	}
+	$$
+	Then we use relative homotopy long exact
+	sequence with $(X,CX)$ to get
+	$\pi_i(CX,X)\cong\pi_{i-i}(X)$, which is
+	zero for $0\leq i\leq \ell+1$. Then use
+	relative homotopy exact sequence for the
+	pair $(\Sigma X,CX)$. then we get that
+	$\pi_i(\Sigma X,CX)=\pi_i(\Sigma X)$. And
+	then if you use it for $(\Sigma X, X)$ and
+
+	But it also turns out that $\pi_i(\Sigma
+	X)=\pi_{i-1}(\Omega\Sigma X)$ because
+	$$
+\begin{aligned}
+		\pi_n(Z)&=\Hom_{\text{hTop},*}(S^n,Z)=
+		\Hom(S^1\wedge
+		S^{n-1},Z)=\text{Hom}(S^{n-1},\Omega
+		Z)=\pi_{n-1}(\Omega,Z)
+	\end{aligned}
+$$.
+	And then since $CX\hookrightarrow \Sigma X$
+	we get an arrow $\pi_i(CX,X)\to\pi_i(\Sigma
+	X,CX)$ which is isomorphism for $0\leq i
+	\leq 2\ell +1$ and surjective for
+	$i=2\ell+2$.
+
+	So apply Blakers-Massey an ell equalities to
+	get maps fro
+	$\pi_{i-1}(X)\to\pi_{i-1}(\Omega\Sigma X)$
+	for $i$ as desired.
+\end{proof}
+\begin{lemma}
+\label{lemma-if-x-conne-then-x-1-conne}
+	If $X$ is $\ell$-connected, then $\Sigma X$
+	is $(\ell+1)$-connected for $\ell\geq0$.
+\end{lemma}
+$$\begin{matrix}
+	\text{space}&&S^0&\Sigma
+	S^0=S^1&\Sigma^2S^0=S^2&\Sigma^3S^0=S^3&
+	\cdots&\Sigma^nS^0=S^n\\
+	\text{conectedness}&&-1&0&1&2&\cdots&(n-1)
+\end{matrix}$$
+
+\subsubsection{\texorpdfstring{$\pi_{i}(S^{n}
+)=0$}{πᵢ(Sⁿ)}
+for \texorpdfstring{$i<n$}{i<n}}
+\label{subsection-s-for-i-n}
+
+\begin{lemma}
+\label{lemma-s-n-is-n-1-connected}
+	$S^n$ is $(n-1)$-connected.
+\end{lemma}
+Back to Hopf fibration:
+$$S^1\hookrightarrow S^3\to S^2$$
+we get
+$$0=\pi_2(S^3)\to\pi_2(S^2)\overset{\cong}
+{\to}\pi_1(S^1)\to\pi_1(S^3)=0,$$
+so
+$$\mathbb{Z}=\pi_2(S^2).$$
+Now consider a map $S^n\to S^n$. We get a map
+$CS^n\to CS^n$ (in general, for $f:X\to Y$ we
+have $(t,x)\mapsto(t,f(x))$ in the cones). We
+also have $CS^n\to CS^n/S^n=S^{n+1}$.
+
+Now if we take $\text{id}:S^n\to S^n$ we
+shall get $\text{id}:S^{n+1}\to S^{n+1}$.
+Think about this like
+$\pi_1(S^1)\to\pi_2(S^2)$. Now from
+Freudenthal we get
+$\pi_{i-1}(X)\to\pi_i(\Sigma X)$ is
+surjective because $i=0$. From Hopf fibration
+we have $\pi_2(S^2)=\mathbb{Z}$. So we have a
+surjective map $\mathbb{Z}\to\mathbb{Z}$. So
+it's an isomorphism and we conclude that
+$\text{id}_{S^2}$ is a generator of
+$\pi_2(S^2)$.
+\begin{lemma}
+\label{lemma-since-s-n-n-1-conne-we-have}
+	Since $S^n$ is $(n-1)$-connected, we have
+	$$\pi_i(S^n)\to\pi_{i+1}(S^{n+1})$$
+	is isomorphism for $i\leq 2(n-1)=2n-1$ and
+	epimorphism form $i=2n-1$. (We just shift
+	the indices of the Freudenthal theorem by
+	one.)
+\end{lemma}
+\begin{lemma}
+\label{lemma-n-s-n-z-id-s-n-as-gener}
+	$\pi_n(S^n)=\mathbb{Z}$ with
+	$\text{id}_{S^n}$ as generator.
+\end{lemma}
+
+\subsubsection{$\pi_{n}(S^{n})=\mathbb{Z}$}
+\label{subsection-n-s-n-z}
+\begin{lemma}
+\label{lemma-n-k-s-n-n-k-1-s-n-1-isomo}
+	$\pi_{n+k}(S^n)\to\pi_{n+k+1}(S^{n+1})$ is
+	isomorphism for $k\leq n-1$ and epimorphism
+	for $k=n-1$.
+\end{lemma}
+So for example
+$$\pi_4(S^3)=\pi_5(S^4)=\pi_6(S^5).$$
+And in fact they are $\mathbb{Z}/2$. This is
+what are called the {\it $k$th stable
+homotopy groups of a sphere}. And more in
+general, we take any space and apply
+$\Omega\Sigma$ enough times, and the homotopy
+will start to stabilize.
+
+Or for example from
+$$S^1\hookrightarrow S^3\to S^2$$
+we get
+$$0=\pi_i(S^1)\to
+\pi_i(S^3)\overset{\cong}{\to}\pi_i(S^2)
+\to\pi_{i-1}(S^2)=0$$
+So $\pi_3(S^2)\cong\mathbb{Z}$ in case you
+were wondering.
+{\bf Claim.}[Serre]
+	$\pi_{4n-1}(S^{2n})\cong\mathbb{Z}
+	\oplus$finite
+	abelian. And $\pi_i(S^k)$ is finite abelian
+	in all other cases.
+
+\subsection{Whitehead theorem that weak
+equivalence between CW-complexes is a
+homotopy equivalence}
+\label{subsection-white-theor-weak-equiv}
+
+\begin{theorem}[Whitehead]
+\label{theorem-whitehead}
+	Weak homotopy equivalence for CW complexes
+	is homotopy equivalence.
+
+	An inclusion inducing isomorphism on all
+	homotopy groups is a deformation retract.
+\end{theorem}
+
+
+and related theorem that weak equivalence
+between bifibrant objects is a homotopy
+equivalence.
+\subsection{Celullar approximation theorem}
+\label{subsection-celul-appro-theor}
+
+\begin{definition}[Cellular map]
+\label{definition-cellular-map}
+	A map between CW complexes $f:X\to Y$ is
+	called {\it cellular} if $f(X^{n})\subset
+	Y^{n}$ for all $n$.
+\end{definition}
+\begin{theorem}
+\label{theorem-every-map-betwe-cw-compl}
+	Every map between CW complex is homotopic to
+	a cellular map.
+\end{theorem}
+\begin{theorem}[CW approximation]
+\label{theorem-cw-approximation}
+	Every space has a CW approximation, ie. it
+	is weakly equivalent to a CW-complex.
+	If $X$ is path-connected, the CW-complex can
+	be chosen to have a single 0-cell.
+
+	If $(X,A)$ is an $n$-connected CW-pair (so
+	$A$ is a sub-CW-complex of $X$, made up of
+	cells from $X$) there exists a CW-pair
+	$(Z,A)\simeq (X,A)\text{rel}A$ with cells in
+	$Z\setminus A$ of dimension greater than
+	$n$.
+\end{theorem}
+
+
+\section{Postnikov towers}
+\label{section-postnikov-towers}
+Let $X$ be a CW complex. There exist spaces
+$$
+\xymatrix{
+&\vdots\ar[d]\\
+&Y_2\ar[d]\\
+&Y_1\ar[d]\\
+X\ar[uur]\ar[ur]\ar[r]&Y_0
+}
+$$
+that are like the original space
+(I think this means that the arrows in the
+above diagram induce isomorphisms in
+homotopy groups for smaller indices)
+but with trivial homotopy groups for $k\geq
+n$.
+They are obtained by attaching to the
+previous one
+(or to $X$ itself?)
+cells of dimension $n+2$
+(because this kills the $n+1$-th homotopy
+group
+so that only the $n$-th homotopy group
+remains nontrivial).
+
+The inclusions
+$X\hookrightarrow Y_{n}\hookrightarrow
+Y_{n-1}\hookrightarrow
+\ldots\hookrightarrow Y_{1}=K(\pi_{1}(X),1)$
+ are converted to fibrations,
+and in fact the fiber of $Y_{k}\to Y_{k-1}$
+is a $K(\pi_{k}(X),k)$-space.
+
+\begin{remark}
+\label{remark-postn-tower-some-kind-facto}
+It looks like Postnikov towers posses an
+interesting property
+of being a factorization system for some
+category.
+See
+\url{https://ncatlab.org/nlab/show/Postnikov%
++system}.
+Recall that this means that the maps in that
+category
+will be factored through maps in the
+subcategories of right
+and left morphisms provided by the Postnikov
+tower.
+\end{remark}
+
+
+\section{Whitehead towers}
+\label{section-whitehead-towers}
+
+Now following Laurentium Maxim,
+"Lecture notes on homotopy theory and
+applications".
+
+\begin{definition}[\href{https://%
+people.math.wisc.edu/~lmaxim/754notes.pdf}
+{754notes.pdf}]
+\label{definition-https-peopl-math-wisc}
+A {\it Whitehead tower} of $X$ is a sequence
+of fibrations
+$$
+\xymatrix{
+\cdots\ar[r]&X_n\ar[r]&X_{n-1}\ar[r]&\cdots
+\ar[r]&X_0=X
+}
+$$
+such that
+\begin{itemize}
+\item $X_n$ is $n$-connected.
+\item $\pi_{q}(X_{n})=\pi_{q}(X)$ for $q\geq
+n+1$.
+\item The fiber of $X_n\to  X_{n-1}$ is a
+$K(\pi_{n}(X),n-1)$-space.
+\end{itemize}
+\end{definition}
+
+\begin{lemma}
+\label{lemma-white-tower-exist-cw-compl}
+Whitehead towers exist for CW complexes.
+\end{lemma}
+\begin{proof}
+	Consider
+	$$\text{hofib}\hookrightarrow X\to
+	\text{"$X$ without $\pi_{k}$, $k>n$}"$$
+	We immediately get that the second arrow
+	induces an isomorphism on $\pi_{i}$ for
+	$i\leq n$, while the first arrow induces
+	isomorphisms for $i>n$. Define $
+	X_{n}:=\text{hofib}$.
+
+	Now notice that $X_n$ and $X_{n+1}$ have
+	isomorphic homotopy groups except perhaps
+	the $(n+1)$-th, because for $X_{n}$ it is
+	already the same as that of $X$, but for
+	$X_{n+1}$ it is still zero. So, from the
+	fibration
+	$$\text{hofib} \hookrightarrow X_{n+1}\to
+	X_{n}$$
+	we get an isomorphism
+	$$
+	\xymatrix@C=.9em@R=.9em{
+		\cdots\ar[r]
+		&\pi_{n+2}(X_{n})\ar[r]\ar[d]_{\cong}
+		&\pi_{n+1}(\text{hofib} )\ar[d]^{=}\ar[r]
+		&\pi_{n+1}(X_{n+1})\ar[r]\ar[d]^{=}
+		&\pi_{n+1}(X_{n})\ar[r]\ar[d]_{\cong}
+		&\pi_{n}(\text{hofib} )\ar[r]
+		&\pi_{n}(X_{n+1})\ar[r]\ar[d]^{=}
+		&\cdots\\
+		&\pi_{n+2}(X)&0&0
+		&\pi_{n+1}(X)\ar[ur]_{\cong}
+		&&0&
+	}
+	$$
+	showing that the homotopy fiber of this
+	fibration is in fact $K(\pi_{n+1}(X),n)$.
+
+\end{proof}
+
+\subsection{How to kill higher homotopy
+groups without changing lower homotopy groups
+and lower homology}
+\label{subsection-how-kill-highe-homot}
+
+Looks like Blakers-Massey is needed for this.
+The following are lecture notes corresponding
+to post-Blakers-Massey and pre-Postnikow
+towers part our the course.
+
+Glue a disk to a space and what happens to
+homotopy groups?
+$$
+\xymatrix{
+	S^{n-1}\ar[r]^{(n-1)\text{-equiv}}\ar[d]
+	_{0\text{-equiv}}
+	&D^n\ar[d]\\
+	X\ar[r]&X\cup D^n\ar@{}[ul]|{\ulcorner}
+}
+$$
+Assume $X$ is connected. We get a map from
+the vertical arrows
+$$
+\xymatrix{
+	\pi_i(D^n,S^{n-1})\ar[r]&\pi_i(X\cup D^n,X)
+}
+$$
+which is $(n-1)$-equivalence by
+Blakers-Massey. So, by attaching $\sqcup D^n$
+we can kill $\pi_{n-1}(X)$, that is,
+$X\cup(\sqcup D^n)$ has trivial $\pi_{n-1}$.
+
+Now notice that
+
+% since $S^{n-1}\to D^n$ is an
+% $(n-1)$-equivalence, which is the case
+% since
+$$
+\xymatrix{
+	0=\pi_i(D^n)\ar[r]
+	&\pi_i(D^n,S^{n-1})\ar[r]^{\cong}
+	&\pi_{i-1}(S^{n-1})\ar[r]
+	&\pi_{i-1}(D^n)=0
+}
+$$
+that is, $\pi_i(D^n,S^{n-1})=0$ for $i\leq
+n-1$. This implies that $\pi_i(X\cup
+D^n,X)=0$ for $i\leq n-1$.
+
+Also by homotopy long exact sequence,
+$$\pi_{n-1}(X)\to \pi_i(X\cup D^n)\text{ is
+sujrective}$$
+$$\pi_i(X)\to \pi_{i}(X\cup D^n)\text{ is
+isomorphism for }i\leq n-2.$$
+So what we have thus far is
+$$
+\xymatrix{
+	\pi_n(X\cup D^n)\ar[r]
+	&\pi_{n-1}(X)\ar[r]
+	&\pi_{n-1}(X\cup D^n)\ar[r]
+	&0=\pi_{n-1}(X\cup D^n)
+}
+$$
+Notice that $\pi_n(X\cup D^n,X)$ is not
+ingeneral cyclic (counterexample $S^1\cup
+D^2$ taking unieversal cover which is real
+line with spheres on integers, homotopy
+equivalent to $\bigvee_\mathbb{Z} S^2$ which
+is not finitely generated).
+
+\begin{quote}
+	So basically attaching a disk via $f$ will
+	kill $[f]$ inside $\pi_n(X)$ this is called
+	{\it killing} an element of the homotopy
+	group.
+\end{quote}
+
+\begin{proposition}
+\label{proposition-any-cw-compl-x-x-x-equi}
+	For any CW-complex $X$, $X^\ell\to X$ is an
+	$\ell$-equivalence.
+\end{proposition}
+
+\begin{remark}
+\label{remark-we-have-used-x-long-exact}
+	We have used that for $A\hookrightarrow X$
+	from long exact sequence of relative
+	homotopy groups we get $\pi_n(X,A)=0$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-let-i-g-d-i-x-g-d-i-x-then}
+	Let $i\leq \ell$ and $g: D^i\to X$,
+	$g:\partial D^i\to X^\ell$. Then there is a
+	homotopy $\text{rel }\partial D^i$ to a map
+	with $\text{img}\subset X^\ell$.
+\end{lemma}
+
+\begin{theorem}[Cellular approximation
+theorem]
+\label{theorem-cellu-appro-theor}
+	Let $X$ and $Y$ be CW-complexes and
+	$\xi:Y\to X$ be any map. Then $\xi$ is
+	homotopic to a {\it cellular map}, that is,
+	a map $\psi:Y\to X$, such that for all
+	$\ell$, $\psi Y^0\subset X^\ell$.
+\end{theorem}
+
+We also have
+\begin{proposition}
+\label{proposition-let-n-2-then}
+Let $n\geq 2$. Then
+$$
+\pi_n\left(
+\bigvee_{k\in I}S^n\right)
+=\bigoplus_{k\in I}\pi_n(S^n)
+=\bigoplus_{k\in I}\mathbb{Z}=Z^{\oplus I}
+$$
+\end{proposition}
+
+\begin{proposition}
+\label{proposition-finite-i}
+First notice that for finite $I$,
+$$X^n=X^{n+1}=\vee_{k\in I}S^n$$
+by looking carefully. Then
+$$\pi_n(X,X^{n+1})=0=\pi_{n+1}(X,X^{n+1})$$
+so
+$$
+\bigoplus_{k\in I}\mathbb{Z}
+=\prod_{k\in I}\pi_n(S^n)
+=\pi_n(X)=\pi_n(X^{n+1})
+=\pi_n(X^n)=\pi_n\left(
+\vee_{k\in I}S^n\right)
+$$
+and for the infinite case it also works,
+using finite compactness of the CW complex.
+\end{proposition}
+
+\section{Homotopy theory of spaces (C)}
+\label{section-homotopy-theory-of-spaces-c}
+
+\subsection{Homotopy pushouts and pullbacks}
+\label{subsection-homot-pusho-pullb}
+The idea is simply to construct the homotopy
+version of pushouts and pullbacks. So let's
+remember that
+\begin{definition}
+\label{definition-item-2}
+	\begin{itemize}
+		\item A {\it pullback} of the morphisms $f$
+		and $g$ consists of an object $P$ and two
+		morphisms $p_1:P\to X$ and $p_2:P\to Y$
+		satisfying the following universal
+		property:
+		$$
+		\xymatrix{
+			Q\ar@/^1pc/[rrd]^{q_2}\ar@/_1pc/[ddr]
+			_{q_1}
+			\ar@{-->}[dr]^{\phi}\\
+			&P\ar[r]^{p_2}\ar@{}[rd]|{\lrcorner}
+			\ar[d]_{p_1}&Y\ar[d]^{g}\\
+			&X\ar[r]_{f}&Z
+		}
+		$$
+		\item A {\it pushout} of the morphisms $f$
+		and $g$ consists of an object $P$ and two
+		morphisms $i_1:P\to X$ and $i_2:P\to Y$
+		satisfying the following universal
+		property:
+		$$
+		\xymatrix{
+			Z\ar[r]^{g}\ar[d]_{f}
+			&Y\ar[d]^{i_2}\ar@/^1pc/[ddr]^{j_2}\\
+			X\ar[r]_{i_1}\ar@/_1pc/[drr]_{j_1}
+			&P\ar@{}[ul]|{\ulcorner}\ar@{-->}[dr]
+			^{\phi}\\
+			&&Q
+		}
+		$$
+	\end{itemize}
+\end{definition}
+\begin{remark}
+\label{remark-other-names-pusho-cofib-prod}
+Other names for the pushout are {\it
+cofibered product of $X$ and $Y$} (especially
+in algebraic categories when $i_1$ and $i_2$
+are monomorphisms), or {\it free product of
+$X$ and $Y$} with $Z$ {\it amalgamated sum},
+or more simply an {\it amalgamation} or {\it
+amalgam of $X$ and $Y$.}
+\end{remark}
+So basically
+\begin{definition}[Homotopy pullback and
+homotopy pushout]
+\label{definition-homot-pullb-homot-pusho}
+	We just ask that the diagrams above commute
+	up to homotopy?
+\end{definition}
+\begin{remark}[Concrete construction of
+homotopy pushout]
+\label{remark-concr-const-homot-pusho}
+	We also need to ask in our definition that
+	there is some sort of homotopy-naturality.
+	For the case of the homotopy pushout it
+	should look something like this:
+		$$
+		\xymatrix{
+			\bullet\ar[rr]\ar[dd]\ar[dr]
+			&&\bullet\ar[d]^{\simeq}\\
+			&A\ar[r]\ar[d]&B\ar[d]\ar@/^1pc/[ddr]\\
+			\bullet\ar[r]^{\simeq}
+			&C\ar[r]\ar@/_1pc/[drr]
+			&\bullet\ar@{}[ul]|{\ulcorner}\ar[dr]
+			^{\simeq}\\
+			&&&\bullet
+		}
+		$$
+	so everything is commuting up to homotopy.
+	What are the formal definitions? Probably
+	rather involved. But a concrete definition
+	of the {\it homotopy pushout} according to
+	the diagram above is
+	$$B\sqcup C\sqcup A\times
+	I\Big/\substack{A\times 0\sim B \\ A\times
+	I\sim C}$$
+\end{remark}
+\begin{remark}[From lecture notes]
+\label{remark-from-lecture-notes}
+		The pullback of
+	$$
+	\xymatrix{
+		&Z^I\times_ZY\ar[d]\\
+		X\ar[r]&Z
+	}
+	$$
+	is the homotopy pullback of
+	$$
+	\xymatrix{
+		&Y\ar[d]\\
+		X\ar[r]&Z
+	}
+	$$
+\end{remark}
+\begin{definition}[From lecture notes. Is
+this right?]
+\label{definition-lectu-notes-right}
+	The {\it homotopy pullback} of a diagram
+		$$
+		\xymatrix{
+			&Y\ar[d]\\
+			X\ar[r]&Z
+		}
+		$$
+		is
+		$$
+		\xymatrix{
+			X\times_{\text{ev}_0}Z^I\times_{\text{ev}
+			_1}Y
+			\ar[d]\ar[r]&Y\ar[d]\\
+			X\ar[r]&Z
+		}
+		$$
+		Intuitively, for any $x\in X$ and $y\in Y$
+		this object has the space of paths
+		connecting $x$ and $y$.
+\end{definition}
+
+\subsection{Homotopy fibers and cofibers}
+\label{subsection-homot-fiber-cofib}
+
+Before we go, what is a fiber? Perhaps it is
+the same as a kernel. And a cofiber may be
+the same as a cokernel. Recall:
+\begin{definition}[Kernel and cokernel]
+\label{definition-kernel-and-cokernel}
+	\begin{itemize}
+		\item The {\it kernel} of a morphism is
+		that part of its domain which is sent to
+		zero. Formally, in a category with an
+		initial object 0 and pullbacks, the {\it
+		kernel $\ker f$} of a morphism $f:A\to B$
+		is the pullback $\ker(f)\to A$ along $f$ of
+		the unique morphism $0\to B$
+
+		More explicitly, this characterizes the
+		object $\ker(f)$ as \textit{the} object
+		(unique up to isomorphism) that satisfies
+		the following universal property:
+		\begin{quote}
+			for every object $C$ and every morphism
+			$h:C\to A$ such that $f\circ h=0$ is the
+			zero morphism, there is a unique morphism
+			$\phi:C\to\ker(f)$ such that
+			$h=p\circ\phi$.
+		\end{quote}
+		$$
+		\xymatrix{
+			C\ar@{-->}[dr]^{\phi}\ar@/_1pc/[ddr]_{h}\\
+			&\ker(f)\ar[d]\ar[r]&0\ar[d]\\
+			&A\ar[r]_{f}&B\ar@{}[ul]|{\ulcorner}
+		}
+		$$
+		\item In a category with a terminal object
+		1, the {\it cokernel} of a morphism $f:A\to
+		B$ is the pushout (arrows $h$ and $\phi$
+		apply if terminal object is zero)
+		$$
+		\text{coker}(f):=1\sqcup_AB
+		\qquad\qquad
+		\xymatrix{
+			A\ar[r]^{f}\ar[d]\ar@{}[dr]|{\lrcorner}
+			&B\ar[d]\ar@/^1pc/[rdd]^{h}\\
+			1\ar[r]&\text{coker}(f)\ar@{-->}[dr]
+			^{\phi}\\
+			&&C
+		}
+		$$
+		In the case when the terminal object is in
+		fact zero object, one can, more explicitly,
+		characterize the object $\text{coker}(f)$
+		with the following universal property:
+		\begin{quote}
+			for every object $C$ and every morphism
+			$h:B\to C$ such that $h\circ f=0$ is the
+			zero morphism, there is a unique morphism
+			$\phi:\text{coker}(f)\to C$ such that
+			$h=\phi\circ i$.
+		\end{quote}
+\end{itemize}
+\end{definition}
+The {\it homotopy fiber} and the  {\it
+homotopy cofiber} are probably just the
+homotopic versions of the kernel and
+cokernel.
+
+\begin{definition}[From lecture notes, looks
+incomplete…]
+\label{definition-lectu-notes-looks-incom}
+	The {\it homotopy fiber} if $f:Y\to Z$ is
+	the pullback of
+		$$
+		\xymatrix{
+			&Y\ar[d]^{f}\\
+			pt\ar[r]&Z
+		}
+		$$
+		$F\subset Z^I\times_ZY\to Z$, where $F$ is
+		the space of paths starting at $x$ and
+		ending at the same point $f(y)$.
+\end{definition}
+
+\begin{definition}[Homotopy fiber, a concrete
+construction in Hatcher]
+\label{definition-homot-fiber-concr-const}
+	Given a map $f:A\to B$, let $E_f$ be the
+	space of pairs $(a,\gamma)$ where $a\in A$
+	and $\gamma:I\to B$ is a path in $B$ with
+	$\gamma(0)=f(a)$. So: take a point in $A$,
+	and map it to some point in $B$, say $f(a)$.
+	And then take any path in $B$ starting at $f
+	(a)$.
+\begin{proposition}
+\label{proposition-map-p-e-f-b-given-p}
+	The map $p:E_f\to B$ given by
+	$p(a,\gamma)=\gamma(1)$ is a fibration.
+\end{proposition}
+We can regard $A$ as a subspace of $E_{f}$
+consisting of pairs $(a,\gamma)$ with
+$\gamma$ the constant path at $f(a)$, and
+$E_f$ deformation retracts onto this subspace
+by restricting all the paths $\gamma$ to
+shorter and shorter initial segments. The map
+$p:E_f\to B$ restricts to $f$ on the subspace
+$A$, so we have factored the map $f:A\to B$
+as the composition $A\hookrightarrow E_f\to
+B$ of a homotopy equivalence and a fibration.
+
+We can also think of this construction as
+extending $f$ to a fibration $E_f\to B$ by
+enlarging its domain to a homotopy equivalent
+space.
+
+The fiber $F_f$ of $E_f\to B$ is called the
+{\it homotopy fiber} of $f$. It consists of
+the pairs $(a,\gamma)$ with $a\in A$ and
+$\gamma$ a path in $B$ from $f(a)$ to a
+basepoint $b_0\in B$.
+\end{definition}
+
+\subsection{Homotopy fiber of homotopy fiber}
+\label{subsection-homot-fiber-homot-fiber}
+
+It is interesting to see what happens when
+the process of forming homotopy fibers is
+iterated. Given a fibration $p:E\to B$ with
+fiber $F=p^{-1} (b_0)$, we know that the
+inclusion of $F$ into the homotopy fiber
+$F_{p}$ is a homotopy equivalence (because
+all fibers in homotopy fibrations are
+homotopy equivalent?) Well, beacause
+\begin{proposition}[4.66]
+\label{proposition-4-66}
+	If $p:E\to B$ is a fibration, then the
+	inclusion $E\hookrightarrow E_p$ is a fiber
+	homotopy equivalence (a fiber-preserving map
+	of the total spaces that has an "fiber
+	homotopy inverse" i.e. composition is
+	homotopic to the identity via
+	fiber-preserving maps). In particular, the
+	homotopy fibers are homotopy equivalent to
+	the actual fibers.
+\end{proposition}
+
+Recall that the homotopy fiber $F_p$ consists
+of pairs $(e,\gamma)$ with $e\in E$ and
+$\gamma$ a path in $B$ from $p(e)$ to $b_0$.
+The inclusion $F\hookrightarrow E$ extends to
+a map $i:F_{p}\to E$, $i(e,\gamma)=e$ and
+\textit{this map is obviously a fibration}.
+In fact it is the pullback via $p$ of the
+path fibration $PB\to B$… what could this
+mean? Maybe this:
+$$
+\xymatrix{
+	F_{p}\ar[r]^{i}\ar[d]\ar@{}[dr]|{\lrcorner}
+	&E\ar[d]^{p}\\
+	PB\ar[r]&B
+}
+$$
+Perhaps this justifies why, up to
+equivalence, the fiber of this map $i$ must
+be $\Omega B$. In the end we get the
+following sequence:
+$$
+\xymatrix@C=1.5em{
+	\cdots\ar[r]&\Omega^{2}B\ar[r]&\Omega
+	F\ar[r]
+	&\Omega E\ar[r]&\Omega
+	B\ar[r]&F\ar[r]&E\ar[r]&B
+}
+$$
+where any two consecutive maps form a
+fibration, up to homotopy equivalence, and
+all the maps to the left $\Omega B$ are
+obtained by applying the functor $\Omega$ to
+the later maps. The long exact sequence of
+homotopy groups for any fibration in the
+sequence coinincides with the long exact
+sequence for $F\hookrightarrow E\to B$.
+
+\subsection{Homotopy cofiber of homotopy
+cofiber}
+\label{subsection-homot-cofib-homot-cofib}
+
+The dual construction to the sequence above
+is
+$$
+\xymatrix@C=1.5em{
+	X\ar[r]&Y\ar[r]&M_{f}\ar[r]&\Sigma X\ar[r]
+	&\Sigma Y\ar[r]&\Sigma
+	M_{f}\ar[r]&\Sigma^{2}X\ar[r]
+	&\cdots
+}
+$$
+
+\subsection{The two Dold-Puppe sequences,
+their (co)-exactness}
+\label{subsection-two-dold-puppe-seque}
+
+\subsection{Fiber of a (Serre) Hurewicz
+fibration is a (weak) homotopy fiber}
+\label{subsection-fiber-serre-hurew-fibra}
+
+\subsection{Fiber bundles are Serre
+fibrations}
+\label{subsection-fiber-bundl-serre-fibra}
+We've been talking a lot about Hurewicz
+fibrations. Let's talk about Serre
+fibrations. Notice that H. fibration
+$\implies$ S. fibration. What is the most
+natural example of a Serre fibration?
+
+\begin{proposition}[Hatcher, 4.48]
+\label{proposition-hatcher-4-48}
+	Let $E$ be a fiber bundle with fiber $F$.
+	Then $f$ is a Serre fibration.
+\end{proposition}
+\begin{proof}
+	What sdoes it mean to be a Serre fibration?
+	It means that
+	$$
+	\xymatrix{
+		I^n\ar[r]\ar[d]&E\ar[d]\\
+		I^{n+1}=I^n\times I\ar[r]\ar@{-->}[ur]&B
+	}
+	$$
+	So if $\mathcal{U}$ is a covering of $B$
+	such that $f^{-1}U\cong U\times F$. By
+	Lebesgue lemma, there is a $\delta>0$ such
+	that for all $x\in I^{n+1}$, the ball
+	$B(x,\delta)$ lies in some $f^{-1}U$ for
+	some $U$.
+
+	Then we subdivide $I^{n+1}$ in smaller cubes
+	of the same size with diameter $<\delta$.
+	So, each the image of each cube lies in some
+	$U\in\mathcal{U}$.
+
+	Then
+	$$
+	\xymatrix{
+		I^n\ar[d]\ar[r]&F\times U\ar@{->>}[d]\\
+		I^{n+1}\ar[r]\ar@{-->}[ur]&U
+	}
+	$$
+	has a lift for every little square because
+	$$
+	\xymatrix{
+		X\ar[r]\ar[d]&U\ar[d]\\
+		X\times I\ar[r]\ar@{-->}[ur]&pt
+	}
+	$$
+	is always a fibration (think about this) and
+	because pullbacks of fibrations are
+	fibrations:
+	$$
+	\xymatrix{
+		U\times
+		F\ar@{->>}[r]\ar@{->>}[d]&U\ar@{->>}[d]&\\
+		F\ar@{->>}[r]&pt
+	}
+	$$.
+	Then we may just add up the squares because
+	$$
+	\xymatrix{
+		D^n\ar[d]\\
+		D^n\times I
+	}
+	$$
+	and we're done.
+\end{proof}
+
+\subsection{Long exact sequence of homotopy
+groups associated to Serre fibration}
+\label{subsection-long-exact-seque-homot}
+\begin{theorem}[Hatcher 4.41]
+\label{theorem-hatcher-4-41}
+	Suppose $p:E\to B$ is a Serre fibration.
+	Choose basepoints $b_{0}\in B$ and $x_{0}\in
+	F=p^{-1}(b_{0})$. Then the map
+	$p_{*}:\pi_{n}(E,F,x_{0})\to
+	\pi_{n}(B,b_{0})$ is an isomorphism for all
+	$n\geq 1$.
+
+	Hence, if $B$ is path connected, there is a
+	long exact sequence
+$$
+\xymatrix{
+	\cdots\ar[r]&\pi_n(F)\ar[r]&\pi_n(E)\ar[r]
+	&\pi_n(B)\ar[r]&\pi_{n-1}(F)\ar[r]
+	&\pi_{n-1}(E)\ar[r]&\cdots\\
+	\cdots\ar[r]&\pi_n(F)\ar[r]\ar[u]^{=}
+	&\pi_n(E)\ar[r]\ar[u]^{=}
+	&\pi_n(E,F)\ar[r]\ar[u]^{\cong}\ar[u]_{p_{*}
+	}
+	&\pi_{n-1}(F)\ar[r]\ar[u]^{=}
+	&\pi_{n-1}(E)\ar[r]\ar[u]^{=}&\cdots
+}
+$$
+\end{theorem}
+
+\subsection{Fiber bundles over manifolds are
+Hurewicz fibrations}
+\label{subsection-fiber-bundl-over-manif}
+
+\section{Homotopy theory of spaces (D)}
+\label{section-homotopy-theory-of-spaces-d}
+
+\subsection{Eilenberg-MacLane spaces}
+\label{subsection-eilenberg-maclane-spaces}
+A space $X$ having jut one nontrivial
+homotopy group $\pi_{n}(X)\cong G$ is called
+an {\it Eilenberg-MacLane space} $K(G,n)$. We
+can build a CW complex $K(G,n)$ by the
+familiar construction of attaching cells to a
+wedge of spheres, acounting for generators
+and relations, and then attaching further
+cells to kill higher homotopy groups.
+
+\begin{proposition}[4.30]
+\label{proposition-4-30}
+	The homotopy type of a CW complex $K(G,n)$
+	is uniquely determined by $G$ and $n$.
+\end{proposition}
+\begin{proof}[Idea of proof]
+	Attaching cells and Whithead theorem.
+\end{proof}
+
+\subsection{Representable functors and Yoneda
+lemma}
+\label{subsection-repre-funct-yoned-lemma}
+
+\begin{definition}[Representable functor]
+\label{definition-representable-functor}
+	Let $\mathcal{C}$ be a category. A functor
+	$F:\mathcal{C}^{\text{op}}\to \text{Sets}$
+	is called {\it representable} if there
+	exists an object $B=B_{F}$ in $\mathcal{C}$
+	with the property that there is a
+	\textit{natural} isomorphism of functors
+	$$\varphi:\mathcal{C}(-,B_{F})\to F$$
+	where $\mathcal{C}(-,B_{F})$ is the set of
+	arrows from $-$ to $B_{F}$.
+
+	One ussually expresses the naturality
+	condition for a map $f:X\to Y$ with the
+	following diagram:
+
+	$$
+	\xymatrix{
+		\mathcal{C}(X,B)\ar[r]^{\varphi_{X}}\ar[d]
+		_{f^{*}}
+		&F(X)\ar[d]^{f^{*}}\\
+		\mathcal{C}(Y,B)\ar[r]_{\varphi_{Y}}&F(Y)
+	}
+	$$
+\end{definition}
+
+\begin{remark}
+\label{remark-apply-b-ident-map-b-b-we}
+	By applying $\varphi_{B}$ to the identity
+	map  $B\to B$ we obtain a special element
+	$\gamma=\varphi_{B}(\text{id})\in F(B)$,
+	which is \textit{generic} in the sense that
+	any element $\xi \in F(X)$ can be obtained
+	as $\xi=f^{*} (\gamma)$, for a suitable
+	$f:X\to B$. Indeed, one can take
+	$f=\varphi^{-1}_{X}(\xi)$ and apply
+	naturality to check that
+	$\xi=f^{*}(\gamma)$.
+\end{remark}
+
+
+\begin{lemma}[Yoneda,
+\href{https://en.wikipedia.org/wiki/%
+Yoneda_lemma}{wiki}]
+\label{lemma-yoned-https-en-wikip-org-wiki}
+	Let $F$ be a functor from a locally small
+	category $\mathcal{C}$ to $\text{Set}$. Then
+	for each object $X$ of $\mathcal{C}$, the
+	natural transformations
+	$\text{Nat}(\Hom(X,-),F)$ are in one-to-one
+	correspondence with the elements of $F(X)$,
+	that is
+	$$\text{Nat}(\Hom(X,-), F)\cong F(X)$$
+Moreover, this isomorphism is natural in $A$
+and $F$ when both sides are regarded as
+functors from
+$\mathcal{C}\times\text{Set}^{\mathcal{C}}$
+to $\text{Set}$. ($\text{Set}^{\mathcal{C}}$
+denotes de category of functors from
+$\mathcal{C}$ to $\text{Set}$.)
+
+	There is a contravariant version of Yoneda
+	lemma asserting that if $F$ is a
+	contravariant functor from $\mathcal{C}$ to
+	$\text{Set}$,
+	$$\text{Nat}(\Hom(-,X), F)\cong F(X).$$
+\end{lemma}
+\begin{lemma}
+\label{lemma-nat-x-y-hom-x-y}
+	$\text{Nat}
+	(\Hom(-,X),\Hom(-,Y))\cong\text{Hom}(X,Y)$.
+\end{lemma}
+\begin{remark}
+\label{remark-corre-x-x-fully-faith-corre}
+	The correspondence $X\mapsto\Hom(-,X)$ is
+	fully faithful, that is, the correspondence
+	$\Hom(X,X')\to\text{Nat}(\text{Hom}(-,X),
+	\text{Hom}(-,X'))$
+	is injective and bijective.
+\end{remark}
+
+\subsection{Brown's representability theorem}
+\label{subsection-brown-s-repre-theor}
+
+\subsubsection{In lecture13.pdf}
+\label{subsection-in-lecture13-pdf}
+
+See
+\href{https://www.math.ru.nl/~gutierrez/%
+files/Lecture13.pdf}{Lecture
+13: Representable functors and the Brown
+Representability Theorem.pdf}
+
+Let us summarize the discussion so fat.
+Suppose that
+$$F:\text{Ho}(\text{Top}_*)^{\text{op}}\to
+\text{Sets}_{*}$$
+is a functor having the following two
+properties:
+\begin{enumerate}
+	\item[(i)] $F\left( \bigvee_{i\in I}X_{i}
+	\right) \to \prod_{i\in I}F(X_{i})$ is an
+	isomorphism for any family of pointed spaces
+	$\{X_{i}\} $.
+\item[(ii)] "Pushout where one of the arrows
+is a cofibration goes to weak pullback".
+$F(B\cup_{A}C)\to F(B)\times_{F(A)} F(C)$ is
+a surjection for any two cofibrations $A\to
+B$ and $A\to C$.
+\end{enumerate}
+
+Then we also have
+\begin{enumerate}
+	\item[(iii)] $F(*)=*$
+	\item[(iv)] If we have a pushout of pointed
+	spaces
+		$$
+		\xymatrix{
+			A\ar[r]\ar[d]&X\ar[d]\\
+			B\ar[r]&Y
+		}
+		$$
+		in which $i$ is a cofibration, then
+		$F(Y)\to F(B)\times_{F(A)}F(X)$ is a
+		sujrection.
+	\item[(v)] If
+	$\xymatrix@C=1.5em{A\ar@<.5ex>[r]\ar@<-
+	.5ex>[r]&B\ar[r]&C}$
+	is a coequalizer of pointed spaces in which
+	the two maps form a cofibration $A\vee A\to
+	B$, then $F(C)\to F(B)$ maps surjectively to
+	the equalizer of
+	$\xymatrix@C=1.5em{F(B)\ar@<.5ex>[r]\ar@<-
+	.5ex>[r]&F(A)}$.
+	\item[(vi)] If $X_{0}\to X_{1}\to X_{2}\to
+	\ldots$ is a sequence of cofibrations, then
+	$F(X)\to \lim_{\leftarrow}$ is a sujection.
+\end{enumerate}
+
+\begin{theorem}[Brown representability
+theorem]
+\label{theorem-brown-repre-theor}
+	Let $F$ be a contravariant functor from the
+	homotopy category of parallel connected
+	CW-complexes to pointed sets. If $F$
+	satisfies conditions (i) and (ii) above (for
+	any pointed connected CW-complexes $X_{i}$,
+	$A$, $B$, $C$), then $F$ is representable.
+\end{theorem}
+
+\begin{remark}[So what is a classifying
+space?]
+\label{remark-so-what-is-a-classifying-space}
+	The theorem says that there is a space
+	$B=B_{F}$ (itself a pointed CW-complex) for
+	which there is a natural isomorphism
+	$$\varphi :[X,B_{F}]_{*}\overset{\cong
+	}{\longrightarrow}F(X)$$
+	for any pointed CW-complex $X$. This space
+	$B_{F}$ is called a {\it classifying space}
+	for $F$. Recall also that when such
+	$\varphi$ exists, it is completely
+	determined by a \textit{generic} element
+	$\gamma\in F(B_{F})$.
+
+	The classifying space together with the
+	genereic element is unique up to homotopy.
+\end{remark}
+
+Now let's sketch how the proof of Brown
+representability theorem goes.
+
+\begin{definition}
+\label{definition-b-spher-class-space-f}
+	$(B,\gamma)$ is a {\it spherical classifying
+	space} for $F$ if $\gamma\in F(B)$ is an
+	element inducing an isomorphism
+	$$\gamma_{*}:[S^{n},B]_{*}\to
+	F(S^{n}),\qquad \gamma_{*}(f)=f^{*}
+	(\gamma)$$
+	for any sphere $S^{n}$, $n>0$.
+\end{definition}
+
+\begin{remark}
+\label{remark-if-b-1-1-b-2-2-two-such-sphe}
+	If $(B_{1},\gamma_{1})$ and
+	$(B_{2},\gamma_{2})$ are two such spherical
+	classifying spaces in the category
+	$\mathcal{C}$, and $f:B_{1}\to B_{2}$ is a
+	map with $f^{*} (\gamma_{2})=\gamma_{1}$,
+	then $f$ induces isomorphisms
+	$$\pi_{n}(B_{1})\to \pi_{n}(B_{2})$$
+	between the homotopy groups for each $n>0$.
+
+	Since $B_{1}$ and $B_{2}$ are pointed
+	connected CW-complexes, this means that $f$
+	is a weak homotopy equivalence, hence a
+	homotopy equivalence by Whitehead theorem.
+\end{remark}
+
+The proof of Brown representability theorem
+is based in the following two lemmas:
+
+\begin{lemma}
+\label{lemma-let-x-be-point-cw-compl-let}
+	Let $X$ be a pointed CW-complex and let $\xi
+	\in F(X)$. Then there exists a spherical
+	classifying space $(B,\gamma)$ for $F$ with
+	a cofibration  $f:X\to B$ with $f^{*}
+	(\gamma)=\xi$.
+\end{lemma}
+
+And in fact,
+
+\begin{lemma}
+\label{lemma-any-spher-class-space-b-f}
+	Any spherical classifying space $(B,\gamma)$
+	for $F$ is a classifying space.
+
+	(Thus, $\gamma_{*}:[X,B]_{*}\to F(X)$ is an
+	isomorphism for any pointed connected
+	CW-complex $X$, not just for spheres.
+\end{lemma}
+
+\subsubsection{In Hatcher}
+\label{subsection-in-hatcher}
+
+\begin{theorem}[4.57]
+\label{theorem-4-57}
+	There are natural bijections
+	$T:\left\langle{}X,K(G,n) \right\rangle{} \to H^{n}(X;G)$
+	for all CW complexes $X$ and all $n>0$, with
+	$G$ any abelian group. Such a $T$ has the
+	form $T([f])=f^{*}$ for a certain
+	distinguised class $\alpha\in
+	H^{n}(K(G,n);G)$.
+\end{theorem}
+
+\begin{definition}[Fundamental class]
+\label{definition-fundamental-class}
+	A class $\alpha\in H^{n}(K(G,n);G)$ with the
+	property stated in the theorem is called a
+	{\it fundamental class}.
+\end{definition}
+
+
+\begin{theorem}[4E.1]
+\label{theorem-4e-1}
+	Every reduced cohomology theory on the
+	category of basepointed CW complexes and
+	basepoint-preserving maps has the form
+	$h^{n} (X)=\left\langle{}X,K_{n} \right\rangle{} $ for some
+	$\Omega$-spectrum $\{K_{n}\} $.
+\end{theorem}
+
+
+\subsection{Representability of generalized
+cohomology theories}
+\label{subsection-repre-gener-cohom-theor}
+
+\subsection{$H^{n}(-,G)$ is represented by
+$K(G,n)$ together with a chosen element in
+$H^{n}(K(G,n),G)$}
+\label{subsection-h-n-g-repre-k-g-n-toget}
+
+Reduced cohomology is representable since
+
+\begin{enumerate}
+	\item[(i)]
+	$\widetilde{H}^{n}(\bigvee_{i}X_{i})=
+	\prod_{i}
+	\widetilde{H}_{n}(X_{i})$.
+	\item[(ii)] Also holds.
+\end{enumerate}
+
+What is the classifying space? Well, we have
+$$[S^{p},B]=H^{n}(S^{p})=\begin{cases}
+	0\qquad &p\neq n\\
+	\mathbb{Z}\qquad &p=n
+\end{cases}$$
+which means that $B\cong K(\mathbb{Z},n)$.
+More explicityly, we see that the homotopy
+groups of the classifying space must coincide
+with the reduced cohomology groups, which are
+zero in all but the $n$-th dimension.
+
+\subsection{Eilenberg-MacLane spaces can be
+construced from Moore spaces by killing
+higher homotopy groups}
+\label{subsection-eilen-macla-space-can}
+\subsection{Definition of $\Omega$-spectrum}
+\label{subsection-definition-of-spectrum}
+
+
+\subsection{Hurewicz homomorphism}
+\label{subsection-hurewicz-homomorphism}
+\begin{definition}[Hurewicz homomorphism]
+\label{definition-hurewicz-homomorphism-2}
+	$$
+\begin{aligned}
+		h: \pi_{n}(X) &\longrightarrow H_{n}(X) \\
+		[f] &\longmapsto f_{*}(\alpha)
+	.\end{aligned}
+$$
+\end{definition}
+where $\alpha$ is a generator of $
+H_{n}(S^{n})$.
+
+\subsection{Absolute and relative versions of
+Hurewicz theorem}
+\label{subsection-absol-relat-versi-hurew}
+\begin{theorem}[Hurewicz]
+\label{theorem-hurewicz}
+	If $X$ is $n$-connected for some $n\geq 2$,
+	then $\tilde{H}_{i}(X)=0$ for $i<n$ and
+	$\pi_{n}(X)\cong H_{n}(X)$.
+\end{theorem}
+\begin{lemma}
+\label{lemma-if-x-y-simpl-conne-cw-space}
+	If $X$ and $Y$ are simply connected
+	CW-spaces and $f:X\to Y$ induces
+	isomorphisms $H_{n}(X)\cong H_{n}(Y)$ for
+	all $n$, then it is an homotopy equivalence.
+\end{lemma}
+\begin{theorem}[Relative Hurewicz]
+\label{theorem-relative-hurewicz}
+	If $(X,A)$ is $(n-1)$-connected, so
+	$\pi_{n}(X,A)=0$ for $i\leq n-1$, for some
+	$n\geq 2$ and $A$ is simply connected, then
+	$H_{i}(X,A)=0$ for $i\leq n-1$ and
+	$\pi_{n}(X,A)\cong H_{n}(X,A)$.
+
+	\textit{Note. Perhaps $X$ should be
+	$(n-1)$-connected for the relative version
+	too---they are stated together in Hatcher.}
+\end{theorem}
+\begin{theorem}[Relative Hurewicz for general
+$A$]
+\label{theorem-relat-hurew-gener}
+	If $(X,A)$ is an $(n-1)$-connected pair of
+	path-connected spaces with $n\geq 2$ and
+	$A\neq \emptyset $, then
+	$h':\pi_{n}'(X,A,x_{0})\to H_{n}(X,A)$ is an
+	isomorphism and $H_{i}(X,A)=0$ for $i<n$.
+\end{theorem}
+
+
+
+\section{Exact couple. Spectral sequence of
+an exact couple.}
+\label{section-exact-coupl-spect-seque}
+
+These notes are based on S. Burkin lecture
+notes and Hatcher.
+
+\begin{enumerate}
+	\item Suppose a space $X$ is expressed a
+	union of a sequence of subspaces
+		$$\ldots\subset X_p\subset X_{p+1}\subset
+		\ldots X.$$
+		Such a sequence is called a {\it filtration
+		of $X$}. For example, $X$ could be a CW
+		complex and $X_p$ its $p$-skeleton.
+
+	\item Given such a filtration, for every $p$
+	we have a pair $(X_p,X_{p-1})$ that yields a
+	long exact sequence. All these long exact
+	sequences can be arranged in a staricase
+	fashion:
+$$
+\xymatrix@C=.7em@R=.8em{
+	H_{p+q}(X_p)\ar@<.5ex>[r]\ar[r]\ar[d]_{i}
+	&H_{p+q}(X_p/X_{p-1})\ar@<.5ex>[r]\ar[r]
+	\ar[d]
+	&H_{p+q-1}(X_{p-1})\ar[r]\ar[d]_{i}
+	&H_{p+q-1}(X_{p-1}/X_{p-2})\ar[d]\ar[r]
+	&\cdots\\
+	H_{p+q}(X_{p+1})\ar[r]\ar[d]_{i}
+	&H_{p+q}(X_{p+1}/X_{p})\ar[r]\ar[d]
+	&H_{p+q-1}(X_{p})\ar@<.5ex>[r]\ar[r]_{j}
+	\ar[d]_{i}
+	&H_{p+q-1}(X_{p}/X_{p-1})\ar@<.5ex>[r]\ar[d]
+	\ar[r]_{k}
+	&\cdots\\
+	\cdots&\cdots&\cdots&\cdots
+}
+$$
+	\item If you put all the absolute groups
+	$H_n(X_p)$ in a big $A=\bigoplus_{n,p\in
+	\mathbb{N}}H_n(X_p)$ and all the relative
+	$H_n(X_p,X_{p-1})$ in a big
+	$E=\bigoplus_{n,p\in
+	\mathbb{N}}H_n(X_p,X_{p-1})$, you can write
+	all those long exact sequences in a compact
+	triangle diagram called an {\it exact
+	couple} triangle diagram
+	$$
+	\xymatrix{
+		A\ar[rr]^{i}&&A\ar[dl]^{j}\\
+		&E\ar[ul]^{k}
+	}
+$$
+here the maps $i,j$ and $k$ are just the maps
+from the long exact sequences in the other
+big diagram (which makes the exact couple
+actually \textit{exact}).
+
+	\item There is a nice way to define new
+	groups $A'$ and $E'$ and maps between them
+	that yield a {\it derived couple}, which is
+	another exact couple.	Namely,
+		\begin{itemize}
+			\item $A^1_{n,p}:=H_n(X_p)$
+			\item $E^1_{n,p}:=H_n(X_p,X_{p-1})$.
+			\item $d:=jk$
+			\item $E':=\ker d/\text{img}d$, the
+			homology of $E$ respect to $d$.
+			\item $A':=i(A)\subset A$.
+			\item $i':=i|_{A'}$.
+			\item $j'(ia):=[ja]\in E'$.
+			\item $k'[e]:=ke$.
+		\end{itemize}
+	anyway, they are well defined and yield the
+	exact
+	$$
+	\xymatrix@C=1.5em@R=1em{
+		A'\ar[rr]^{i'}&&A'\ar[dl]^{j'}\\
+		&E'\ar[ul]^{k'}
+	}
+	$$
+
+	\item The sequence $E,E',\ldots$ is called a
+	{\it spectral sequence}.
+\end{enumerate}
+
+\section{First quadrant. Convergence}
+\label{section-first-quadrant-convergence}
+
+[Explanation that when the spectral sequence
+is defined only in the first quadrant it
+eventually stabilizes and $E_{\infty}$-page
+is well-defined.]
+
+\section{Filtration on an
+\texorpdfstring{$R$}{R}-module and its
+associated graded}
+\label{section-filtr-r-modul-its-assoc}
+
+\section{Homological and cohomological
+spectral sequences}
+\label{section-homol-cohom-spect-seque}
+
+[Subsection missing]
+
+\begin{remark}
+\label{remark-diffe-spect-seque-homol-go}
+	The differentials in the spectral sequence
+	for homology go up-left and for cohomology
+	they go right-down.
+\end{remark}
+
+\section{Serre spectral sequence}
+\label{section-serre-spectral-sequence}
+
+\section{Homological version}
+\label{section-homological-version}
+
+\begin{theorem}[Serre spectral sequence for
+homology]
+\label{theorem-serre-spect-seque-homol}
+	Let $F\to X\to B$ be a fibration with $B$
+	path-connected. If $\pi_1(B)$ acts trivially
+	on $H_*(F;G)$, then there is a spectral
+	sequence $\{E^r_{p,q},d_r\}$ with
+	\begin{itemize}
+		\item
+			$$d^r_{p,q}:E^r_{p,q}\to
+			E^r_{p-r,q+r-1}\qquad \text{and} \qquad
+			E^{r+1}_{p,q}=\ker d^r_{p,q}/\text{img
+			}d^r_{?}$$
+		\item The groups
+			$$F_pH_n:=\text{img}(H_n(X_p)\to H_n(X))$$
+		where the map $H_{n}(X_p)\to H_{n}(X)$ is
+		just the induced map by inclusion
+		$X_p\hookrightarrow X$, form a filtration
+			% \item Stable terms $E^{\infty}_{p,n-p}$
+			% are isomorphic to the successive
+			% quotients $F_n^p/F^{p-1}_n$ in a
+			% filtration
+		$$0\subset F_0H_n\subset \ldots\subset
+		F_nH_n=H_n(X;G)$$
+		of $H_n(X;G)$ such that
+		$$E^{\infty}_{p,n-p}\cong
+		F_pH_n/F_{p-1}H_n.$$
+		Another way to write this is
+		$$E_{p,q}^{\infty}=F_pH_{p+q}\Big/F_{p-1}
+		H_{p+q}.$$
+	\item $$E^2_{p,q}\cong H_p(B;H_q(F;G))$$
+\end{itemize}
+\end{theorem}
+
+\begin{remark}
+\label{remark-case-serre-fibra-p-n-map}
+	In the case of a Serre fibration, for $p\gg
+	n$ the map $H_{n}(X_p)\to H_{n}(X)$ is an
+	isomorphism. The group
+	$\bigoplus_{p}F^p_n/F^{p-1}_n$ is called the
+	{\it associated graded group of the filtered
+	group $H_n(X)$}.
+\end{remark}
+
+\begin{remark}[Quote from Hatcher]
+\label{remark-quote-from-hatcher}
+	If the coefficient group $G$ is a field then
+	$H_{n}(X;G)$ is the direct sum
+	$\bigoplus_{p} E^{\infty}_{p,n-p}$.
+\end{remark}
+
+\begin{remark}
+\label{remark-can-we-recov-h-n-e-gener}
+	Can we recover $H^{n}(E)$ in general? No.
+\end{remark}
+
+\section{Cohomological version}
+\label{section-cohomological-version}
+
+\begin{theorem}[Serre spectral sequence for
+cohomology]
+\label{theorem-serre-spect-seque-cohom}
+	Let $F\to X\to B$ be a Serre fibration with
+	$\pi_0(B)=0$ such that the action of
+	$\pi_1(B)$ on $H^*(F;G)$ is trivial.
+
+	Then there is a spectral sequence
+	$\{E_r^{p,q},d_r\}$ such that
+\begin{itemize}
+	\item $$d_r:E_r^{p,q}\to
+	E_r^{p+r,q-r+1}\qquad\text{and} \qquad
+	E_{r+1}^{p,q}=\ker d_r/\text{img }d_r.$$
+	\item The groups
+		$$F^pH^n:=\text{img} (F^pH^n\to
+		F^nH^n=H^n(X))$$
+	form a filtration
+	$$H^{n}(X)=F^0H^n\supset F^1H^n\supset
+	\ldots\supset F^nH^n\supset \emptyset $$
+
+	of $H^{n}(X,G)$ such that
+	$$E_{\infty}^{p,q}\cong
+	F^pH^{p+q}/F^{p+1}H^{p+q}.$$
+\item $$E^{p,q}_2\cong H^p(B,H^{q}(F,G)).$$
+\end{itemize}
+\end{theorem}
+
+\section{Product in cohomological Serre
+spectral sequence}
+\label{section-produ-cohom-serre-spect}
+Hatcher, Spectral sequences p. 543.
+
+The Serre spectral sequence for cohomology
+becomes much more powerful when cup products
+are brought into the picture. For this we
+need to consider cohomology with coefficients
+in a ring $R$ rather than just a group $G$.
+What we will show is that the spectral
+sequence can be provided with bilinear
+products
+$$E^{p,q}_{r}\times E^{s,t}_{r}\to
+E^{p+s,q+t}_{r}$$
+for $1\leq r\leq \infty$ satisfying the
+following properties
+\begin{itemize}
+	\item Each differential $d_{r}$ is a
+	derivation, satisfying
+		$$d(xy)=(dx)y+(-1)^{p+q} x(dy)\qquad
+		\forall x\in E^{p,q}_{r}$$
+	This implies that the product on page $r$
+	induces a product in page $r+1$, and the
+	product in page $\infty$ shall be the one
+	induced by previous products.
+	\item The product on the second page,
+	$E^{p,q}_{2}\times E^{s,t}_{2}\to
+	E^{p+s,q+t}_{2}$ is $(-1)^{qs}$ times the
+	standard (standard? because as I remember
+	cup product did not move the coeffients,
+	right?) cup product
+		$$H^{p}(B;H^{q}(F;R))\times
+		H^{s}(B;H^{t}(F;R))\to
+		H^{p+s}(B;H^{q+t}(F;R))$$
+		sending a pair of cocycles $(\phi,\psi)$ to
+		$\phi\smile \psi$ where coefficients are
+		multiplied via the cup product
+		$H^{q}(F;R)\times H^{t}(F;E)\to
+		H^{q+t}(F;R)$.
+	\item The cup product in $H^{*}(X;R)$
+	restricts to maps $F^{m}_{p}\times
+	F^{n}_{s}\to F^{m+n}_{p+s}$. These induce
+	quotient maps $F^{ m}/F^{m}_{p+1}\times
+	F^{n}_s/F^{n}_{p+s}\to
+	F^{m+n}_{p+s}/F^{m+n}_{p+s+1}$ that coincide
+	with the product $E^{p,m-p}_{\infty}\times
+	E^{s,n-s}_{\infty}\to
+	E^{p+s,m+n-p-s}_{\infty}$.
+\end{itemize}
+
+\section{Wang spectral sequence}
+\label{section-wang-spectral-sequence}
+
+Let's use lecture notes and
+\href{https://en.wikipedia.org/wiki/%
+Spectral_sequence#Wang_sequence}{wikipedia}
+to understand Wang spectral sequence.
+
+Consider a fibration over a sphere
+$F\hookrightarrow E\to B$. According to our
+theorem for Serre spectral sequences, we know
+that the $n$-th page looks as follows:
+\begin{align*}
+\begin{array}{c|cccccccc}
+	n&H_n(F)&&&&&&&H_{n}(F)\\
+	 &\vdots&&&&&&&\vdots\\
+	2&H_2(F)&&&&&&&H_2(F)\\
+	1&H_1(F)&&&&&&&H_1(F)\\
+	0&H_0(F)&&&&&&&H_0(F)\\
+	\hline\\
+	 &0&&&\ldots&&&&n
+\end{array}
+\end{align*}
+
+We can see there can be nontrivial
+differentials only on the $n$th page, so that
+$E^{n+1}=E^n$. Moreover, the differentials
+that don't vanish is are of the form
+$$
+\xymatrix{
+E^n_{n,q}\ar[r]^{d^n_{n,q}}&E^n_{0,q+n-1}
+}
+$$
+
+For $d_{n,q-n}^n$ we obtain
+$$
+\xymatrix{
+	0\ar[r]&\ker
+	d^n_{n,q-n}\ar@{^{(}->}[r]^{\text{inclusion}
+	}
+	&E^n_{n,q-n}\ar[r]^{d^n_{n,q-n}}
+	&E^n_{0,q-1}\ar@{->>}[r]^{\text{quotient}}
+	&\text{coker}d^n_{n,q-n}\ar[r]&0
+}
+$$
+But all that is just
+$$
+\xymatrix@R=1em{
+	0\ar[r]&\ker
+	d^n_{n,q-n}\ar@{^{(}->}[r]^{\text{inclusion}
+	}
+	\ar[d]^{=}
+	&E^n_{n,q-n}\ar[r]^{d^n_{n,q-n}}\ar[d]^{=}
+	&E^n_{0,q-1}\ar@{->>}[r]^{\text{quotient}}
+	\ar[d]^{=}
+	&\text{coker}d^n_{q-n}\ar[r]\ar[d]^{=}&0\\
+	0\ar[r]&\dfrac{\ker
+	d^n_{n,q-n}}{\underbrace{\text{img
+	}d^{n-1}_{n,q-n}}_{=0}}
+	\ar[r]\ar[d]^{=}
+	&E^2_{n,q-n}\ar[r]\ar[d]^{=}
+	&E^2_{0,q-1}\ar[r]\ar[d]^{=}
+	&\dfrac{E^n_{n,q-n}}{\text{img }d^n_{n,q-n}}
+	\ar[d]^{=}\ar[r]&0\\
+	0\ar[r]&E^{\infty}_{n,q-n}\ar[r]&H_{q-n}(F)
+	\ar[r]
+	&H_{q-1}(F)\ar[r]&E^{\infty}_{0,q-1}\ar[r]&0
+}
+$$
+This is the first "half" of the Wang
+sequence. For the other half recall that by
+the theorem of Serre spectral sequence for
+homology we know that
+$$E^{\infty}_{p,n-p}=F_pH_n/F_{p-1}H_n$$
+for a filtration on the $n$-th homology group
+of the total space
+$$\emptyset=F_{-1}\subset F_0 \subset
+F_1\subset \ldots\subset F_n=H_{n}(E).$$
+And recall that we may also write
+$$E^{\infty}_{p,q}=F_pH_{p+q}/F_{p-1}H_{p+q}.$$
+Then we can see that
+$$
+\xymatrix@R=1em{
+	0\ar[r]&E^{\infty}_{0,q}\ar[d]^{=}\ar[r]^{i^*}
+	&H_{q}(E)\ar[r]&E^{\infty}_{n,q-n}\ar[r]\ar[d]
+	^{=}
+	&0\\
+	&\dfrac{F_0H_{q}(F)}{\underbrace{F_{-1}H_{q}
+	(F)}_{=0}}
+	&&\dfrac{F_nH_{q}(E)}{F_{n-1}H_{q}(E)}
+}
+$$
+But
+$$E^{\infty}_{0,q}=\dfrac{F_0H_{q}(F)}
+{\underbrace{F_{-1}H_{q}(F)}_{=0}}\quad
+\overset{\text{why?}}{=}H_{q}(F)$$
+
+This is the other "half" of the Wang
+sequence. It only remains to put both halves
+together and conclude that
+$$
+\xymatrix@C=1.5em{
+	\cdots\ar[r]&H_{q}(F)\ar[r]^{i^*}&H_{q}(E)
+	\ar[r]
+	&E^{\infty}_{n,q-n}\ar[r]^{d^n_{n,q-n}}
+	&H_{q-n}(F)\ar[r]&H_{q-1}(F)\ar[r]
+	&E^{\infty}_{0,q-1}\ar[r]&\cdots
+}
+$$
+But we may remove the $E^{\infty}$ terms to get
+$$
+\xymatrix@C=1.5em{
+	\cdots\ar[r]&H_{q}(F)\ar[r]^{i^*}&H_{q}(E)
+	\ar[r]
+	&H_{q-n}(F)\ar[r]^{d^n_{n,q-n}}&H_{q-1}(F)
+	\ar[r]
+	&H_{q-1}(E)\ar[r]&H_{q-n-1}(F)\ar[r]&\cdots
+}
+$$
+
+\section{Extra: spectral sequences for chain
+complexes and the Fr\"olicher spectral
+sequence}
+\label{section-extra-spect-seque-chain}
+Let's follow Griffiths and Harris to
+construct a nice generalization of this
+theory.
+
+A {\it chain complex} $(K^\bullet,d)$ is a
+sequence of abelian groups (if working in the
+category $\text{ab}$)
+$$
+\xymatrix@C=1.5em{
+	K^{0}\ar[r]^{d}&K^{1}\ar[r]^{d}&K^2\ar[r]
+	^{d}&\cdots
+}
+$$
+such that the differential $d$ satisfies
+$d\circ d=0$. We have {\it cohomology groups}
+$$H^{p}(K^*)=\frac{\ker d:K^p\to
+K^{p+1}}{\text{img }d:K^{p-1}\to K^p}$$
+and the {\it cohomology ring}
+$$H^{*}(K^*)=\bigoplus_{p\geq 0}
+H^{p}(K^*).$$
+
+A {\it subcomplex} $(J^*,d)$ is given by
+subgroups $J^*\subset K^*$
+ with $dJ^*\subset J^*$.
+The {\it quotient complex} $(L^*,d)$ is also
+well-defined by $L^*=K^*/J^*$ and the obvious
+differential. this construction yields a {\it
+short exact sequence of complexes}
+$$
+\xymatrix{
+	0\ar[r]&J^*\ar[r]&K^*\ar[r]&L^*\ar[r]&0
+}
+$$
+and by the fundamental theorem of homological
+algebra, this yields
+$$
+\xymatrix{
+	\cdots\ar[r]&H^{p}(J^*)\ar[r]&H^{p}(K^*)
+	\ar[r]
+	&H^{p}(K^*)\ar[r]&H^{p+1}(J^*)\ar[r]&\cdots
+}
+$$
+
+Generalizing the notion of subcomplex, a {\it
+filtered complex} $(F^pK^*,d)$ is a
+decreasing sequence of subcomplexes
+$$K^*=F^0K^*\supset
+F^1K^*\supset\cdots\supset F^nK^*\supset
+F^{n+1}K^*=\{0\}$$
+and the spectral sequence will generalize the
+long exact sequence in cohomology.
+
+The {\it associated graded complex} to a
+filtered complex $ (F^pK^*)$ is the complex
+$$\text{Gr}K^*=\bigoplus_{p>0}
+F^pK^*/F^{p+1}K^* $$
+with the obvious differential. The filtration
+$F^pK^*$ on $K^*$ also induces a filtration
+$F^pH^*(K^*)$ on cohomology by (I think)
+$$F^pH^q(K^*)=\frac{\ker d:F^pK^q\to
+F^pK^{q+1}}{\text{img }d:F^pK^{q-1}\to
+F^pK^q}$$
+This means that the $F^pH^q(K^*)$ are
+subgroups of $H^{q}(K^*)$. This filtration in
+turn induces an {\it associated graded in
+cohomology}
+$$\text{Gr}H^*(K^*)=\bigoplus_{p,q}
+F^pH^q(K^*)\big/F^{p+1}H^q(K^*)
+$$
+
+\begin{definition}
+\label{definition-spect-seque-seque-e-r}
+	A {\it spectral sequence} is a sequence
+	$\{E_r,d_r\}$ with $r\geq 0$ of bigraded
+	groups
+	$$E_r=\bigoplus_{p,q\geq 0} E^{p,q}_r $$
+together with differentials
+$$d_r:E^{p,q}_r\to E^{p+r,q-r+1}_r,\qquad
+d^2_r=0$$
+such that
+$$H^{*}(E_r)=E_{r+1}$$
+I just wonder what is the cohomology of a
+bigraded group, right? there are several
+chain complexes and cohomologies, but ok…
+\end{definition}
+
+\begin{proposition}[existence and description
+of the chain complex spectral sequence]
+\label{proposition-exist-descr-chain-compl}
+	Let $K^*$ be a filtered complex. then there
+	exists a spectral sequence $\{E_r\}$ with
+	$$
+\begin{aligned}
+		E^{p,q}_0&=F^pK^{p+q}/F^{p+1}K^{p+q},\\
+		E^{p,q}_1&=H^{p+q}\left( F^pK^*/F^{p+1}K^*
+		\right)\\
+		E^{p,q}_{\infty}&=F^pH^{p+q}(K^*)\big/F^{p+1}
+		H^{p+q}(K^*)
+	\end{aligned}
+$$
+and we just say that the spectral sequence
+{\it abuts} to $H^{*}(K^*)$.
+\end{proposition}
+
+\paragraph{Explanation.} We have defined four
+objects:
+\begin{enumerate}
+	\item A filtered complex.
+	\item A graded complex associated to the
+	filtered complex whose entries are direct
+	sums of quotients of the filtered complex.
+	\item A filtration on the cohomology of the
+	complex given by the cohomologies of every
+	complex of the filtered complex.
+	\item A graded complex associated to the
+	filtration on the cohomology whose entries
+	are direct sums running over the cohomology
+	groups and the filtration entries.
+\end{enumerate}
+And the proposition says is that there is a
+spectral sequence such that
+\begin{enumerate}
+	\item The $(p,q)$-entry of the zero page is
+	the (first) graded at $p+q$.
+	\item The $(p,q)$-entry of the first page is
+	the $p+q$ cohomology of the graded.
+	\item The $(p,q)$-entry of the $\infty$-page
+	is the graded of the cohomology
+ (ie. the second graded).
+\end{enumerate}
+
+Now consider the following situation. A {\it
+double complex} is a bigraded group
+$$K^{*,*}=\bigoplus_{p,q\geq 0}  K^{p,q}$$
+equipped with two differentials
+$$d:K^{p,q}\to K^{p+1,q}$$
+$$\delta:K^{p,q}\to K^{p,q+1}$$
+satisfying $d^2=\delta^2=0$ and $d\delta
++\delta d=0$.
+
+There is an {\it associated single complex}
+$(K^*,d)$ defined by
+$$K^n=\bigoplus_{p+q=n} K^{p,q} $$
+with differential
+$$D=d+\delta.$$
+there two filtrations on the associated
+single complex:
+$$'F^pK^n=\bigoplus_{\substack{p'+q=n\\p'\geq
+p}}K^{p',q},$$
+	$$''F^qK^n=\bigoplus_{\substack{p+q''=
+	n\\q''\geq
+	q}}K^{p,q''}.$$
+each of this filtrations yields a spectral
+sequence according to our proposition, thus
+both abutting to the cohomology of the total
+space $H^{*}(K^*)$.
+
+Now we turn to Voisin:
+
+\begin{proposition}[Voisin, 8.25]
+\label{proposition-voisin-8-25}
+	Let $K^\cdot$ be the simple complex
+	associated to a double comples
+	$(K^{p,q},D_1,D_2)$. Then if
+	$F^pK^n=\bigoplus_{r\geq o,r+s=n} K^{r,s}$
+	is the filtration introduced in section
+	8.3.1, the spectral sequence associated to
+	$F$ has first terms given by
+	\begin{itemize}
+		\item $E^{p,q}_0=K^{p,q}$, $d_0=(-1)^pD_2$.
+		\item $E^{p,q}_1=H^{q}(K^{p,\cdot})$,
+	\end{itemize}
+	and the differential $d_1:H^{q}(K^{p,\cdot
+	})\to H^{q}(K^{p+1})$ is induced by the
+	morphism of complexes $D_1:K^p\to K^{p+1}$.
+
+\end{proposition}
+
+Now to the case that concerns us. Let's go
+back to Griffiths and Harris. Let $M$ be a
+complex manifold and define double complex
+$$K^{p,q}=A^{p,q}(M)$$
+with differentials $d$ and $\bar\partial$. I
+wonder why the first one is $ d$… it appears
+more intuitive to choose $\partial$.
+
+The associated single complex is just the de
+Rham complex since
+$$A^{n}=\bigoplus_{p+q=n} A^{p,q}.$$
+The de Rham differential $d$ satisfies
+$d=\partial+\bar\partial$, so I definitely
+would like to take $\partial$ instead of $d$
+as I said above… I guess I'm not certain
+wether $\partial$ induces a chain complex, or
+if
+$\partial\bar\partial+\bar\partial\partial$.
+Then the corresponding filtrations yield the
+{\it Fr\"olicher spectral sequences}, both of
+which abut to $H^{*}_{\text{dR}}(m)$.
+
+Now if $M$ is compact K\"ahler then every
+class $[a]\in 'E^{p,q}_1\cong
+H^{p,q}_{\bar\partial}(m)$ has a harmonic
+representative for the
+$\bar\partial$-laplacian (following
+Huybrechts,
+$\Delta_{\bar\partial}=
+\bar\partial^*\bar\partial+
+\bar\partial\bar\partial^*$).
+Shouldn't it be the \textit{second}
+filtration, $''E^{p,q}$, ie. the one
+associated to $\bar\partial$?
+
+Now recall one the K\"ahler identities (prop.
+3.1.12 in Huybrechts):
+$$2\Delta_{\bar\partial}=\Delta_d:=d^*d+dd^*,
+$$
+which implies that $da=0$. I would like to
+check why this holds, ie. why
+$\bar\partial$-harmonic $\implies$
+$d$-harmonic $\implies$ closed. This means
+that the differentials of the spectral
+sequence associated to the first
+differential, $d$, are all zero, so
+\textit{the spectral sequence degenerates in
+the first page}, that is
+$$'E_1\cong 'E_2\cong \ldots\cong
+'E_{\infty}.$$
+in this case the corresponding filtration is
+the {\it Hodge filtration}:
+$$
+\begin{aligned}
+	F^pH^{n}_{\text{dR}}(M)&\cong
+	H^{n,0}(m)\oplus\ldots\oplus H^{p,n-p}(M)\\
+				       &=\bigoplus_{\substack{p'+q=n \\
+				       p'\geq p}}  H^{p',q}(M)
+\end{aligned}
+$$
+\begin{remark}
+\label{remark-if-m-not-k-ahler-spect-seque}
+If $M$ is not K\"ahler the spectral sequence
+need not degenerate at the first page. the
+{\it Iwasawa manifold} given by a quotient of
+a lie group of complex matrices is an example
+where $'E_1\neq 'E_2$, but no example is
+known there ${'E_2\neq 'E_{\infty}}$
+\end{remark}
+
+\begin{remark}[Altan]
+\label{remark-altan}
+	It appears that we have only argued that the
+	differential on the first page of the
+	Fr\"olicher spectral sequence is zero. Other
+	spectral seqeunces like the Gysin spectral
+	sequence also have vanishing differentials
+	on the first pages, but this does not imply
+	that the first and the infinity page
+	coincide. How can we explain that this is
+	actually the case for the Fr\"olicher
+	spectral sequence?
+\end{remark}
+
+\paragraph{Answer}It looks to me like the
+proof reduces to Dolbeault´s theorem. Not
+only on the first page can we use that any
+form has a $\bar\partial$-harmonic
+representative so that the differential
+$d_1=\bar\partial$ (or $\partial$?) vanishes,
+but also on any other page since all the
+$E_{r}$ are just subquotients of some
+Dolbeault cohomology group---in the end we
+just gave take a representative (of the
+representative of the representative…) that
+is $\bar\partial$-harmonic. And this all just
+made me think:
+
+\begin{remark}[Dani]
+\label{remark-dani}
+	Then what was all that
+	$\bar\partial$-harmonic implies $d$-closed
+	discussion in Griffiths and Harris for?
+\end{remark}
+
+\paragraph{Atlan's answer to Altan's
+question} We have shown that
+$$E_1=\bigoplus_{p,q} H^{q}(X,\Omega^q)$$
+and we also know that
+$$E_{\infty}=\bigoplus_{p,q} E_{\infty}^{p,q} $$
+So we get an isorphism between these pages by
+the fact that the filtration on the de Rham
+complex is the Hodge filtration. Voisin
+justifies this via
+\begin{proposition}[Voisin, 7.5]
+\label{proposition-voisin-7-5}
+Let $F^p\mathcal{A}^k(X)$ be the set of
+complex differential forms which are sums of
+forms of type $(r,k-r)$ with $r\geq p$ at
+every point. Then
+$$F^pH^{k}(X,\mathbb{C})=\dfrac{\ker
+d:F^pA^k(X)\to F^pA^{k+1}(X) }{\text{img
+}d:F^pA^{k-1}(X)\to F^pA^k(X)}$$
+\end{proposition}
+
+\begin{remark}
+\label{remark-why-all-meani-voisi-claim}
+	Why is all of this meaningful? Voisin claims
+	that this this result is very nearly
+	equivalent to the Hodge theorem, which says
+	that
+\begin{equation*}\label{eq:hodge-decom}
+	 H^{k}(X,\mathbb{C})=\bigoplus_{p+q=k}
+	 H^{p,q}(X).
+\end{equation*}
+While this precise equation cannot be derived
+from the Fr\"olicher spectral sequence, what
+we \textit{did} obtain is
+$$\bigoplus_{p,q}F^pH^{p+q}(X,\mathbb{C})/
+F^{p+1}H^{p+q}(X,\mathbb{C})=E^{p,q}_{\infty}
+=E^{p,q}_{1}=H^q(X,\Omega^p).$$
+
+\paragraph{Question.}
+Why are Hodge theorem and the conclusion from
+the degeneration of the Fr\"olicher spectral
+sequence nearly equivalent?
+\end{remark}
+
+
+
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

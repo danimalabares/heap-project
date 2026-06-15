@@ -1,0 +1,880 @@
+\input{preamble}
+
+\begin{document}
+
+\title{Research Journal}
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Stanley-Raisner schemes}
+\label{section-sr}
+
+\noindent
+Here I follow \cite{luk1} for the basic definitions; these
+are consistent with other sources.
+
+Let $[n]:=\{0,\ldots,n\}$ be the set of all
+positive integers from 0 to $n$, and let
+$\Delta_n$ denote the power set of $[n]$. A
+subset $\mathcal{K} \subseteq \Delta_n$ is
+called a {\it simplicial complex} if for
+every $f \in \mathcal{K}$ all the subsets of
+$f$ are also in $\mathcal{K}$. Elements of
+$\mathcal{K}$ are called {\it faces}.
+
+Let $S=k[x_0,\ldots,x_n]$ be the polynomial ring in $n+1$ variables
+over an algebraically closed field $k$.
+If $a=\{i_1,\ldots,i_k\}\in \Delta_n$ we write $x_a \in S$ 
+for the square-free monomial $x_{i_1}\cdot\ldots\cdot x_{i_k}$.
+The {\it Stanley-Reisner} ideal
+of a simplicial complex $\mathcal{K}$ is
+$$
+I_{\mathcal{K}}=\left<x_p : p \in \Delta_n\setminus \mathcal{K}\right>
+\subseteq S.
+$$
+The {\it Stanley-Raisner ring} of $\mathcal{K}$ is
+$A_{\mathcal{K}}=S/I_{\mathcal{K}}$
+and the {\it Stanley-Raisner scheme} is $\text{Proj} A_{\mathcal{K}}$.
+
+\section{Stanley-Raisner scheme of Grünbaum sphere and a determinantal CY3}
+\label{section-grunbaum-sphere}
+
+\noindent
+A Gröbner basis for the Stanley-Raisner ideal
+of Grünbaum-Shreedharan's strange complex
+$\mathcal{M}$ is 
+$$
+\begin{aligned}
+x_6x_7x_8,
+x_4x_6x_8, x_3x_7x_8, x_3x_5x_7, x_3x_4x_8,
+x_2x_7x_8, \\ 
+x_2x_5x_7, x_2x_5x_6,
+x_2x_4x_7, x_2x_4x_6, x_1x_4x_6,\\ 
+x_1x_4x_5,
+x_1x_3x_8, x_1x_3x_6, x_1x_3x_5, x_1x_2x_5
+\end{aligned}
+$$
+as computed in gfan and also GAP, and also as
+shown in \cite{luk1}.
+
+\section{GN variety}
+\label{section-gn}
+
+\noindent
+There is a Calabi-Yau threefold in
+$\mathbb{P}^7$ of degree 20 that could be the
+smoothing of $\text{SR}(\mathcal{M})$. (As
+far as I know there could exist others,
+though they aren't very well-known.) It was
+first studied by Gulliksen-Neg\aa ard
+\cite{Gulliksen-Negard}. Among the papers I
+read often for this project, it is mentioned
+in \cite[Table 1 and last
+paragraph]{CGKK-Aritmethically-Gorenstein-CY-in-P7}
+and  \cite{cascade}. Additionally, this
+variety has been studied in mirror-symmetry
+context, see \cite{Jockers}.
+
+In trying to immitate the computations I did
+for the twisted cubic, I would like to find
+the equations of the GN variety. In
+\cite{cascade} we see its description as the
+``$3\times 3$ minors of $4\times 4$ matrix
+with linear forms''.
+
+Back in May 19, 2025 I computed what might be ideal of the GN variety.
+That is, as the $3 \times 3$ minors of the matrix
+\begin{equation}
+\label{equation-matrix}
+\begin{bmatrix}
+x_1 & x_2 & x_3 & x_4 \\
+x_5 & x_6 & x_7 & x_8 \\
+x_2 & x_3 & x_4 & x_5 \\
+x_6 & x_7 & x_8 & x_1
+\end{bmatrix}
+\end{equation}
+Those minors are
+\begin{align*}
+&x_3^2 x_5 - x_2 x_4 x_5 - x_2 x_3 x_6 + x_1 x_4 x_6 + x_2^2 x_7 - x_1 x_3 x_7, \\
+&-x_3 x_6^2 + x_3 x_5 x_7 + x_2 x_6 x_7 - x_1 x_7^2 - x_2 x_5 x_8 + x_1 x_6 x_8, \\
+&-x_3^2 x_6 + x_2 x_4 x_6 + x_2 x_3 x_7 - x_1 x_4 x_7 - x_2^2 x_8 + x_1 x_3 x_8, \\
+&x_4 x_6^2 - x_4 x_5 x_7 - x_3 x_6 x_7 + x_2 x_7^2 + x_3 x_5 x_8 - x_2 x_6 x_8, \\
+&x_3 x_4 x_5 - x_2 x_5^2 - x_2 x_4 x_6 + x_1 x_5 x_6 + x_2^2 x_8 - x_1 x_3 x_8, \\
+&-x_1 x_2 x_5 + x_1^2 x_6 - x_4 x_6^2 + x_4 x_5 x_7 + x_2 x_6 x_8 - x_1 x_7 x_8, \\
+&-x_1 x_2^2 + x_1^2 x_3 - x_3 x_4 x_6 + x_2 x_5 x_6 + x_2 x_4 x_7 - x_1 x_5 x_7, \\
+&x_1 x_3 x_5 - x_1 x_2 x_6 + x_5 x_6^2 - x_5^2 x_7 - x_3 x_6 x_8 + x_2 x_7 x_8, \\
+&x_4^2 x_5 - x_3 x_5^2 - x_2 x_4 x_7 + x_1 x_5 x_7 + x_2 x_3 x_8 - x_1 x_4 x_8, \\
+&-x_1 x_3 x_5 + x_1^2 x_7 - x_4 x_6 x_7 + x_4 x_5 x_8 + x_3 x_6 x_8 - x_1 x_8^2, \\
+&-x_1 x_2 x_3 + x_1^2 x_4 - x_4^2 x_6 + x_3 x_5 x_6 + x_2 x_4 x_8 - x_1 x_5 x_8, \\
+&x_1 x_4 x_5 - x_1 x_2 x_7 + x_5 x_6 x_7 - x_5^2 x_8 - x_4 x_6 x_8 + x_2 x_8^2, \\
+&x_4^2 x_6 - x_3 x_5 x_6 - x_3 x_4 x_7 + x_2 x_5 x_7 + x_3^2 x_8 - x_2 x_4 x_8, \\
+&-x_1 x_3 x_6 + x_1 x_2 x_7 - x_4 x_7^2 + x_4 x_6 x_8 + x_3 x_7 x_8 - x_2 x_8^2, \\
+&-x_1 x_3^2 + x_1 x_2 x_4 - x_4^2 x_7 + x_3 x_5 x_7 + x_3 x_4 x_8 - x_2 x_5 x_8, \\
+&x_1 x_4 x_6 - x_1 x_3 x_7 + x_5 x_7^2 - x_5 x_6 x_8 - x_4 x_7 x_8 + x_3 x_8^2
+\end{align*}
+Now in theory I would just do all I did for the twisted cubic,
+but now for GN, find a nice weight vector in for which the 
+initial ideal is the ideal of $\text{SR}(\mathcal{M})$, and win.
+
+But several problems arise:
+\begin{enumerate}
+\item First I have to double check that ideal for GN. I'm not
+sure if those $3 \times 3$ minors of the $4 \times 4$ matrix I used are
+good. {\bf Edit:} I think it's right. At least
+by skimming through my references on GN, which are:
+\cite{Jockers, Jockers2, Bertin, Gross-moduli-abelian}, I don't find
+a matrix exactly but the claim is that a ``generic'' matrix
+of $4 \times 4$ with linear forms in the entries should do the job.
+(So that ChatGPT matrix above has indeed linear forms as entries.)
+But most importantly \cite{Bertin} put a betti tally like
+the ones one computes in Macaulay2 and indeed it's the same
+as the one I get.
+
+\item Most importantly, and this is what happened that other time
+I tried to do this (when by the way I was being led by
+ChatGPT to do exactly what I'm doing now, only now I
+know a little more what's going on), is that the Gröbner fan
+of GN is not computable. It's too much data and there's no output.
+So it's not clear how to find the weight vector.
+\end{enumerate}
+
+One thing to try: obtain more freedom
+on the $4\times 4$ matrix, see if you can change
+that and still find the same good candidate.
+
+\medskip\noindent
+A breakthrough discovery:
+the minimal resolution of GN and $\text{SR}(\mathcal{M})$ is not the same.
+
+After this observation (and now knowing if
+minimal resolutions of fibres of flat maps are isomorphic),
+I'm not sure how to proceed. Possible ways are:
+
+\begin{itemize}
+\item Keep trying to prove/find out somehow 
+(maybe asking: Eduardo Esteves thinks it's not true,
+and recommended that I asked someone at URFJ)
+whether of not the minimal resolution claim is true.
+I may also look for other invariants on the fibers of a flat map,
+see Stacks Project 
+\href{https://stacks.math.columbia.edu/tag/02NM}{02NM}.
+
+\item Keep trying to find the smoothing,
+but I exhausted my computational attempts to find a perfect pairing
+between the sets of Gröbner bases,
+as well as my attempts to get around the size
+of the Gröbner fan and just compute it via gfan.
+\end{itemize}
+
+\medskip\noindent
+As a note, in \cite{luk2}, where the table
+where GN was found lies, it is claimed that
+there is  ``evidence'' that this table is
+complete. The table counts arithmetically
+Gorenstein CY3s. Adding up, either I find a
+smoothing that is not the table, or prove
+that it doesn't exist.
+
+
+\section{6-vertex triangulation of $\mathbb{R}P^2$}
+\label{section-6-vertex-triangulation-of-RP2}
+
+\noindent
+Here I read \cite{KuhnelBanchoff1983}.
+
+\medskip\noindent
+The icosahedron quotiented by antipodal
+map gives a triangulation of 6 vertices
+of $\mathbb{R}P^2$.
+This can be embedded in $\mathbb{R}^5$ 
+inside the 5-simplex $\Delta^5$,
+which has 6 vertices.
+This embedding has the properties
+of symmetry (icosahedral$/-\text{Id}$),
+duality (three vertices of $\Delta^5$ determine
+a triangle of $\mathbb{R}P^2_6$ if and only if
+the remaining do not),
+tightness (too complicated) and
+secant tangency (a chord joining
+two points of $\mathbb{R}P^2$ is contained
+in a boundary 4-simplex of $\Delta^5$.
+
+Then consider Veronesse embedding
+$[x_0:x_1:x_2]\mapsto [x_0^2:x_1^2:x_2^2:x_0x_1:x_0x_2:x_1x_2]$.
+Like $\mathbb{R}P^2_6$ is contained in the boundary of $\Delta^5$,
+this embedding is contained in $S^4$.
+It also satisfies properties of symmetry (of $\mathbb{R}^3$),
+duality, tightness and secant-tangency.
+
+Each of the third and fourth properties
+characterizes $\mathbb{R}P^2_v$ among
+the smooth embeddings of $\mathbb{R}P^2$
+in $\mathbb{R}^5$ not lying in an affine hyperplane.
+``Pohl and Kuipar have in fact shown that
+any {\it topological} embedding of the real
+projective plane into $\mathbb{R}^5$ not lying in 
+a hyperplane which has the tightness property
+alone must either be $\mathbb{R}P^2_v$ or $\mathbb{R}P^2_v$.''
+
+With respect to the complex projective plane,
+the situation has been less satisfactory.
+
+\section{9-vertex triangulation of $\mathbb{C}P^2$}
+\label{section-9-vertex-triangulation-of-CP2}
+
+
+
+\medskip\noindent
+{\bf September 25.}
+Summary of Calla's talk.
+The objective is to construct a deformation 
+of hyperkähler generalized Kummer fourfolds
+starting from a special fiber.
+The special fiber is the smoothing
+of a Stanley-Raisner variety.
+
+Proving this result would 
+``imply that a general hyperkähler generalized kummer
+fourfold with polarization of degree 2 and fixed divisibility
+is contained in 36 quartics''.
+
+\noindent
+{\bf Questions.}
+\begin{itemize}
+\item How did they know that this funny simplicial
+complex gives the special fiber of the degeneration
+upon smoothing??
+\item How does that result about being contained
+in 36 quadric follows?
+\item How come the special fiber of a degeneration
+of fourfolds is a surface?
+\end{itemize}
+
+\medskip\noindent
+Now let's go over the details of Calla's construction.
+In \cite{KuhnelBanchoff1983} it was shown that there is a 9-vertex
+triangulation $\Sigma$ of $\mathbb{C}P^2$.
+This triangulation has 36 4-simplices.
+Notice that the definition of SR scheme for Calla
+might be different from ours: the {\it Stanely-Raisner variety}
+of $\Sigma$ is the union of 36 copies of $\mathbb{P}^4$,
+one for each 4-simplex of $\Sigma$.
+Its ideal is generated by 36 quartics.
+
+Part 1. We denote by $\Sigma$ the
+9 vertex triangulation of  $\mathbb{P}^2$,
+and $\text{SR}_{36}$ its corresponding
+Stanley-Raisner scheme.
+
+\begin{enumerate}
+
+\item Blow up 9 coordinate points in $\mathbb{P}^8$ 
+$(1:0:\ldots:0),\ldots,(0:\ldots:0:1)$.
+(Recall that by the construction of the
+Stanley-Raisner scheme associated to
+a simplicial complex, in this case with 9
+vertices, the vertices of the SR scheme
+are precisely the coordinate points of $\mathbb{P}^8$.)
+This introduces 9 copies of $\mathbb{P}^7$.
+Proper transform of  $\text{SR}_{36}$
+intersects $\mathbb{P}^7$ in a union
+of  20 $\mathbb{P}^3$s, denoted $T_{20}$.
+This does not depend on which copy of $\mathbb{P}^7$ 
+we look at.
+
+As a note, recall that the proper
+transform of a subvariety $Y \subset X$ 
+is defined as the {\it closure} of
+$\pi^{-1}(Y\setminus Z)$ where
+the blow up occurs at $Z$. In this case
+$Z$ is the 9 vertices and $Y=\text{SR}_{36}$.
+Calla claims that
+that the closure of the proper
+transform of $\text{SR}_{36}$ 
+intersects each of the exceptional divisors
+(one $\mathbb{P}^7$ for every vertex)
+in a union of 20 $\mathbb{P}^3$ 
+regardless of which exceptional divisor we
+look at. We call that intersection $T_{20}$,
+and it is inside $\mathbb{P}^7$.
+
+\item Now we turn to modify $T_{20}$ 
+to satisfy Friedman conditions.
+Blow up 8 coordinate points in $\mathbb{P}^7$.
+The proper transform of $T_{20}$ intersects
+$\mathbb{P}^6$ in a union of 10 $\mathbb{P}^2$ s,
+which we call $S_{10}$.
+This {\bf does} depend on which copy of
+$\mathbb{P}^7$ and $\mathbb{P}^6$ 
+we are looking at!
+$S_{10}$ is a Stanley-Reisner variety
+and in fact is a triangulation of a sphere.
+(A polyhedron!?)
+
+\item Now we proceed to smooth $S_{10}$.
+It has seven vertices, which we blow up,
+introducing seven copies of $\mathbb{P}^5$.
+Each of the $\mathbb{P}^2$ s becomes
+a del Pezzo 6.
+Looking at the picture we
+see that there are vertices with
+different valency. For each vertex
+where $d$ $\mathbb{P}^2$s meet,
+we glue in a del Pezzo surface of 
+degree $d$. 
+We get $\tilde{S}_{10}$, which is a 
+simple normal crossing surface,
+with trivial canonical bundle
+and satisfies $d$-stability 
+Friedman conditions.
+
+Then there exists a Kulikov model
+of type III degenerations of K3s
+(of degree $10$ in $\mathbb{P}^7$)
+with special fiber $\tilde{S}_{10}$.
+(This is local smoothing over a
+small disc, does not give a projective
+family of K3s.)
+\end{enumerate}
+
+{\bf Key move.}
+$S_{10}$ is a triangulation of a sphere.
+Blow up the singularities and look
+how does the proper transform of $S_{10}$ 
+intersect the exceptional divisors.
+To produce a smoothing,
+we glue in del Pezzo surfaces
+at the exceptional divisors.
+
+Now we shall do the same for $T_{20}$.
+(Which is still not the blow up
+of $\text{SR}_{36}$, but the intersection
+of the proper transform of $\text{SR}_{36}$ 
+with any of the 9 exceptional divisors.)
+We will glue in our projecive degeneration of K3s.
+Notice that Friedman only gave us existence
+of local model, so we must find equations.
+
+For now let's just say that there's a bunch of procedures and
+the resulting $\tilde{T}_{20}$ is a normal crossing and 
+has trivial canonical bundle.
+Then we can run smoothing procedure and find equations of family
+of CY3s in $\mathbb{P}^7$ by noting that $T_{20} \subset 10 \mathbb{P}^4$s.
+We should find generators of the ideal of
+the variety $10\mathbb{P}^4$
+among minors of $3\times 5$ matrix, similarly to surface case.
+
+\medskip\noindent
+{\bf October 19.}
+It looks as if Calla was defining the SR variety of the triangulation
+in a different way to my definition in Section \ref{section-sr}.
+Today I checked that the ideal generated by 36 quartics
+(one for every facet in the triangulation)
+is not the same as the SR ideal.
+How to tell which definition is ``correct''?
+Correct for what? To answer I must get better understanding
+of the deformation process from the Kummer perspective,
+but it's not clear where this idea that the SR scheme
+corresponding to the 9-vertex triangulation
+would give the special fiber of a degeneration of
+Kummer fourfolds!
+
+I also noticed today that in \cite{KuhnelBanchoff1983}
+there is a mention of $\mathcal{M}$!
+I think $\mathcal{M}$ might be the vertex figure of $\mathbb{C}P^2_9$!
+
+
+\section{Calla's talk}
+\label{section-calla-talk}
+
+\noindent
+In this section I write literally Calla's talk.
+
+\medskip\noindent
+Aim: construct a type III
+degeneration of varieties of generalised Kummer type 4-folds
+with polarisation degree 2,
+by starting from a given special fibre and constructing a smoothing.
+
+Corollary. Proving this result will imply that a 
+general HK variety of this type with polarisation
+degree 2 (\& fixed divisibility) is contained
+in 36 quartics.
+(In particular, it is not contained in a cubic.)
+
+\medskip\noindent
+Reminder of what we mean by type III degen:
+
+Figure with three strings of text:
+\begin{itemize}
+\item "Moduli space of gen. Kum. type
+4-folds w/ fixed polarization" enclosed in a circle
+in the center,
+\item "Boundary of BB compactification
+is made up of 1 dim components 
+intersecting in dim 0" with an arrow
+pointing at to lines intersecting the circle
+of the last item, and
+\item "Type III degen has special fibre corresponding
+to this point", which has an arrow pointing
+at the point of intersection of the last item.
+\end{itemize}
+
+\medskip\noindent
+Method: 
+\begin{itemize}
+\item We give a candidate $\text{SR}_{36}$ for
+the special fibre of this degen.
+\item Since $\text{SR}_{36}$ is badly singular,
+we make some modifications,
+in order to be able to smoothe it.
+
+\end{itemize}
+\section{Moduli space of generalized Kummer type fourfolds}
+\label{section-moduli-kummer }
+
+\noindent
+According to Calla's talk,
+the whole point of constructing the smoothing
+of $\text{SR}(\mathcal{M})$ is that it
+should help us to smooth $\mathbb{C}P^2_9$,
+which in turn should lie in the boundary
+of the moduli space of generalized Kummer type fourfolds
+with polarization degree 2.
+
+Here's a quote from Calla's talk:
+``Aim: construct a type III
+degeneration of varieties of generalized
+Kummer type 4-folds with polarization degree 2,
+by starting from a given special fibre
+and constructing a smoothing.''
+
+\medskip\noindent
+Let's address the following question.
+Even if there exists a smoothing of $\text{SR}(\mathbb{C}P^2_9)$,
+why would it be a generalized Kummer variety?
+
+First we go over \cite[Theorem 0.2.1]{Fausk}:
+
+\begin{theorem}
+\label{theorem-fausk-021}
+A smoothing, if it exists, of the Stanley-Reisner scheme
+of a triangulation of the 3-sphere yields a Calabi-Yau 3-fold.
+\end{theorem}
+
+\begin{proof}
+Two key steps: show using \cite[Theorem 6.1]{Bayer-Eisenbud}
+that the canonical bundle of SR(sphere) is trivial.
+Then show using Hartshorne that triviality of
+canonical bundle stays the same under deformations.
+\end{proof}
+
+\noindent
+Sure, that says that if I smooth $\text{SR}(M)$ 
+then I have a CY 3fold. That's only the vertex-figure
+of $\mathbb{C}P^2_9$.
+Still, this looks far from saying that a smoothing
+{\it of $\mathbb{C}P^2_9$} is a generalized Kummer 4fold.
+
+
+\section{Dual complex, Hironaka theorem and Kummer type manifolds}
+\label{section-}
+
+\noindent
+These are notes from 
+\href{http://verbit.ru/MATH/TALKS/Dual-complex-ddc_IMPA-2026.pdf}{
+a seminar by Misha Verbitsky}
+on his work with Nikon K.
+
+\begin{definition}
+\label{definition-snc}
+Let $X \subset Y$ be a divisor in a smooth manifold.
+We say that $X$ has normal crossings if
+each of its components is smooth, and in a sufficiently
+small neighbourhood of every point of $X$ the manifold
+ $Y$ has coordinate system such that $X$ is identified with a union of
+coordinate hyperplanes.
+It has {\it simple normal crossings} if it has normal crossings and 
+for each collection of irreducible components of the divisor,
+their intersection is connected (possibly empty).
+\end{definition}
+
+\begin{theorem}[Hironaka resolution]
+\label{theorem-hironaka}
+Let $X$ be a complex variety.
+Then there is a sequence of blow-ups with
+smooth centers (=variety we are blowing up)
+which results in a smooth resolution
+$\pi:\tilde{X} \to X$ and the exceptional set of $\pi$ is SNC.
+\end{theorem}
+
+\begin{theorem}[Hironaka resolution of a pair]
+\label{theorem-hironaka-pair}
+Let $X$ be a complex variety and $Y \subset X$ a subvariety.
+Then there is a sequence of blow-ups with smooth centers
+which results in a smooth resultion
+and the exceptional set of $\pi$ is a SNC divisor
+and the preimage of $Y$ is also a SNC divisor.
+\end{theorem}
+
+\begin{definition}[Stepanov, 2004]
+\label{definition-dual-complex}
+Let $X \subset Y$ be a SNC divisor.
+The {\it dual complex} of $X$ is a simplicial complex
+whose vertices are the irreducible components $X_1,…X_n$,
+and the $k$-simplices correspond to
+intersections of $k+1$ of the irreducible components.
+A {\it boundary} of a $k$-simplex is a $k-1$-simplex
+obtained as the intersection of the divisors except one.
+\end{definition}
+
+\begin{theorem}[Stepanov]
+\label{theorem-stepanov}
+Let $x \in X$ be an isolated singularity
+and $\tilde{X}$ its smooth resolution such that
+the preimage of $x$ is a SNC divisor.
+Then the homotopy type of its dual complex is independent from
+the choice of a resolution.
+\end{theorem}
+
+\noindent
+Stepanov's theorem was generalized by
+Arapura-Bakhtary-Wlodarczyk.
+
+\begin{theorem}[ABW]
+\label{theorem-abw}
+Let $Y \subset X$ be a subvariety,
+and $\tilde{X} \xrightarrow{\pi}X$ the resolution of the pair
+$Y \subset X$.
+Let $D$ be the exceptional set of $\pi$ (which is a SNC)
+and $\tilde{Y}$ the set of all components
+$D' \subset D$ such that $\pi(D')\subset Y$.
+Then the homotopy type of the dual complex of $\tilde{Y}$
+is independent from the choice of resoution.
+\end{theorem}
+
+\begin{definition}
+\label{definition-kummer-type}
+We say that $Y \subset X$ is of {\it Kummer type} 
+if $b_1(C(X,Y))=0$ where $C(X,Y)$ is the dual complex
+of this pair, and $b_1$ the rational Betti number.
+\end{definition}
+
+\begin{theorem}
+\label{theorem-kummer-type}
+Let $X \subset M$ be a complex subvariety of Kummer type,
+and $G$ a finite group holomorphically acting on $M$
+and preserving $X$.
+Then $X/G \subset M/G$ is also Kummer type.
+\end{theorem}
+
+\medskip\noindent
+Now we discuss $dd^c$-lemma and the dual complex.
+
+\begin{theorem}
+\label{theorem-}
+Let $X \subset M$ be compact complex ($M$ is not necessarily compact).
+Assume that $X$ is Fujiki class C
+(i.e. bimeromorphic to Kähler) (normal) of Kummer type,
+that is, $b_1(S)=0$ where $S$ is the dual complex
+of the pair $X \subset M$.
+If $\eta$ is an exact $(1,1)$-form,
+then there exists a function $f$ defined
+in a neighbourhood of $X$ such that $\eta=dd^cf$.
+\end{theorem}
+
+\begin{remark}
+\label{remark-normality}
+Normality of $X$ may not be used.
+Recall that normal= when all meromorphic functions are bounded.
+\end{remark}
+
+\begin{proof}
+\noindent
+Step 1. Consider the resolution $\tilde{X} \subset \tilde{M}$
+With some extra blow ups we may assume that all the 
+components of $\tilde{X}$ are Kähler.
+Then we apply $dd^c$-lemma on any of the components.
+
+\medskip\noindent
+Step 2. $dd^cf=0$ means that it is a sum of holomorphic
+and antiholomorphic,
+which means that $\ker dd^c$ are
+constant functions. There's also maximum princple
+which implies that $f$ restricted to $\pi^{-1}(x)$ for any
+$x$ in $X$ is constant.
+
+\medskip\noindent
+Step 3. Choose a function $f_i$ which satisfies
+$dd^c f_i=\eta|_{D_i}$ on each of these components.
+Then we prove that this satisfies the cocycle condition,
+and we thus from $\eta$ we obtain a canonical element 
+$\mu_\eta \in H^1(S,\mathbb{C})$.
+[I think this cocycle condition is used
+to glue the $f_i$ to a global function].
+
+\medskip\noindent
+Step 4. Extending $f$ to a neighbourhood…
+\end{proof}
+
+\noindent
+Then there is a statement about the $dd^c$ lemma not
+holding if $X$ is not of Kummer type: there is a form
+that is not $dd^c$-exact:
+
+\begin{theorem}
+\label{theorem-ddc-counterexample}
+Let $X \subset M$be a compact, positive-dimensional
+subvariety of a manifold $M$, which is not of Kummer type.
+Assume that there exists a non-contractible path in the
+dual complex of the resolution of the pair, $S$,
+which visits a component $D_0 \subset \tilde{X}$
+only once, and the projection of $D_0$ to $M$
+is positive-dimensional.
+Assume $\dim M=2$.
+Then there exists an exact $(1,1)$-form $\eta$
+on a neighbourhood of $X$ such that $\eta \neq  dd^cf$ for any 
+function $f$ on $X$.
+\end{theorem}
+
+\medskip\noindent
+For the proof of ABW theorem we need the following results,
+which were proved in 2002 in D. Abramovish, K. Karu, K. Matsuky,
+J. Wlodarczyk, Torication and factorization of birational maps.
+
+\begin{theorem}[Weak factorization theorem]
+\label{theorem-weak-factorization-theorem}
+Let $\varphi: X \dashrightarrow X'$ be a bimeromorphic map
+of compact complex manifolds and $U \subset X$, $U' \subset X'$
+the complements to the exceptional sets.
+Then $\varphi$ can be decomposed 
+into a sequence of blow-ups and blow-downs with
+smooth centers.
+\end{theorem}
+
+\begin{remark}
+\label{remark-meromorphic}
+So what does it mean to be meromorphic? It means that there is
+$$
+\xymatrix{
+&  Z \subset X \times X'\ar[dl]\ar[dr]\\
+X & & X'
+}
+$$
+where projections are proper, dominant and 1-to-1. [Maybe something
+else I couldn't write down.
+\end{remark}
+
+\noindent
+We need a version with boundary:
+
+\begin{theorem}
+\label{theorem-weak-factorization-for-pairs}
+Let $\varphi:X \dashrightarrow X'$ be a bimeromorphic map
+of compact complex manifolds, and $U \subset X$, $U' \subset X'$
+be complements to the exceptional sets.
+Consider SNC divisors $D \subset X$, $D' \subset X'$
+and let $D_1,…, D_n$ and $D_1',…,D_n'$
+be their irreducible components.
+Assume that $\varphi$ takes $X\setminus D_i$
+to $X' \setminus D_i'$
+and this bimeromorphic map is proper
+(that is, the closure of its grap in 
+$X \setminus D_i \times X'\setminus D'$
+projects properly to the components $X \setminus D_i$
+and $X'\setminus D_i$).
+Then $\varphi$ can be decomposed into a sequence
+of blow-ups and blow-downs with smooth
+centers, and the exceptional sets of blow-ups
+have SNC with the proper preimages of $\cup  D_i$.
+\end{theorem}
+
+\noindent
+Now we can prove Theorem \ref{theorem-abw},
+which says that the homotopy type of the dual complex
+is independent from the resolution.
+
+\begin{proof}[Proof of Theorem \ref{theorem-abw}]
+\noindent
+Step 1. Take to resolutions of the pair.
+Then they are bimeromorphic.
+If we can show that the homotopy type of the dual
+complex stays the same in each of the steps of the 
+weak factorization theorem, then we are done.
+
+\medskip\noindent
+Step 2. We analyse the different possible cases of center in the 
+first step. The first case is easy: the dual complex remains the same.
+The second case I didn't understand.
+The third case boils down to gluing a simplex to the 
+original dual complex.
+\end{proof}
+
+\noindent
+Then there is a $G$-equivariant version of this theorem
+and of the weak factorization theorem.
+
+\medskip\noindent
+Finally we sketch Theorem \ref{theorem-kummer-type}.
+Using $G$-invariant Hironaka, we
+resolve, take quotient, take product, resolve, etc…
+This would give a sequence of dual complexes…
+
+\medskip\noindent
+Take Hilbert scheme of torus, projected to symmetric
+product of elliptic curve…
+$$
+\xymatrix{
+(T^n)^{[n]}\ar[d]\\ \text{Sym}E.
+}
+$$
+
+
+\section{Dual complex of a degeneration}
+\label{section-dual-complex}
+
+\noindent
+Here I review \cite{KLSV} to understand
+the relation between $\mathbb{C}P_9^2$ 
+and the moduli of generalized Kummer varieties.
+
+``It turns out that the right class of singularities
+that still allow the definition of a meaningful dual complex is dlt.
+In other words, the correct context for defining and intrincis
+dual complex associated to a degeneration is that of minimal dlt
+degeneration. The minimal dlt model $\mathcal{X}/\Delta$ 
+is not unique, but changing the model has no effect on $|\Sigma|$.''
+
+``Relevant for us is the fact that associated
+to a $K$-trivial [I guees, trivial canonical bundle]
+degenertion $\mathcal{X}/\Delta$ there is an intrinsic
+(depending only on $\mathcal{X}^* /\Delta^*$) topological space
+that we call (following [MN15]) {\it the essential skeleton} 
+$\text{Sk}(X)$ associated to the degeneration.
+For a minimal dlf degeneration of $K$-trivial varieties,
+the essential skeleton $\text{Sk}(\mathcal{X})$ 
+can be identified with the topological realization $|\Sigma|$
+of the dual complex (cf Nicaise-Xu).''
+
+``The purpose of this section is to make some remarks
+on the structure of the essential skeleton $\text{Sk}(\mathcal{X})$ 
+for a degeneration of hyper-Kähler manifolds''.
+
+``[…] we note that the $\text{Sk}(\mathcal{X})$ for a MUM degeneration
+of Calaby-Yau $n$-folds is predicted to be the sphere $S^n$.
+This is true in dimension 2 by Kulikov's theorem,
+and in dimensions 3 (unconditional)
+and 4 (assuming additionally that degeneration is normal crossings
+by Kollár-Xu.''
+
+``6.2.6. To conclude, mirror symmetry
+(via SYZ conjecture and Kontsevich-Soibelman)
+predicts that the essential skeleton $\text{Sk}(\mathcal{X})$
+for a MUM degeneration is $S^n$ and respectively
+$\mathbb{C}P^n$ for Calabi-Yau's and respectively
+hyper-Kähler's.
+The following result is a weaker version of this statement,
+saying that it holds in a cohomological sense.''
+
+\begin{theorem}
+\label{theorem-skeleton-cohomology}
+\begin{reference}
+\cite[Theorem 6.14]{KLSV}
+\end{reference}
+Let $\mathcal{X}/\Delta$ be a minimal dlt
+degeneration of $K$-trivial varieties.
+Assume that the general fiber $X_t$ 
+is a simply connected $K$-trivial variety.
+
+Assume that the degeneration is maximal unipotent.
+Then
+\begin{enumerate}
+\item $H^* (\text{Sk}(\mathcal{X}),\mathbb{Q})
+\cong \prod_iH^* (S^{k_i},\mathbb{Q})
+\times_jH^* (\mathbb{C}P^{l_j},\mathbb{Q}))$,
+where $k_i$ represent the dimensions
+of the Calabi-Yau factos and $2l_j$ 
+the dimensions of the hyper-Kähler factos
+in the Beauville-Bogomolov decomposition of the general fiber $X_t$.
+
+\item Conversely, the cohomology algebra
+of the skeleton $\text{Sk}(\mathcal{X})$ 
+determines the type of the Beauville-Bogomolov
+decomposition of $X_t$.
+\end{enumerate}
+\end{theorem}
+
+
+
+\section{Degenerations of Hilbert schemes (notes on Calla's thesis)}
+\label{section-degenerations-hilbert}
+
+\noindent
+Notes on Calla's thesis on
+degenerations of Hilbert schemes after
+\href{https://www.youtube.com/watch?v=Lf4NYTvnO9I&t=969s}
+{this video}.
+
+The aim is to construct ``good'' degenerations
+of Hilbert schemes of points over semistable
+degenerations of surfaces. This was motivated by
+the study of the Hilbert schemes of points
+on ``maximally degenerate K3 surfaces'',
+i.e. K3 surfaces that are on the boundary of
+the compactified moduli space of K3s.
+
+Basic setup: a flat projective family
+of surfaces $X \to C \cong \mathbb{A}^1$ over
+an algebraically closed field of characteristic 0.
+Consider Étale local model given by
+$\Spec k[x,y,z,t]/(xyz-t)$.
+The general fibers are smooth, and
+the special fibre $X_0$ over $0 \in C$ 
+has simple normal crossing singularity.
+We picture this as the three axes $x,y,z$ in $X_0$ 
+intersecting at the origin.
+
+Let $X^0= X\setminus X_0$ and $C^0=C\setminus \{0\}$.
+Consider the Hilbert scheme of each fiber.
+We have removed the limit over 0.
+The question is: how can we compactify the Hilbert scheme
+$\text{Hilb}^n(X^0/C^0)$ after we removed that fiber?
+How to add a ``good limit''?
+
+Starting from a ``big'' deformation space,
+namely a fiber product $X \times_{\mathbb{A}^1}\mathbb{A}^n$,
+Calla produces $X[n]$ after a sequence of blow-ups,
+and later takes a quotient using a group action.
+Thus produces a stack $\mathfrak{X}$
+that contains the modifications
+on the singular fiber
+as well as the original fibers.
+
+\begin{theorem}[Calla]
+\label{theorem-calla}
+The stack of Li-Wu stable length in 0-dimensional
+subschemes in $\mathfrak{X}$ is Deligne-Mumford
+and proper over $C$.
+\end{theorem}
+
+\noindent
+It turns out this is a specific example
+where things work out better than expected,
+essentially by the way $X[n]$ was constructed.
+The general case is not so ``nice''
+(see [Maulik-Ranganathan]).
+
+\medskip\noindent
+{\bf Note.} At some point the main focus
+of Calla's work turned to the Hilbert schemes.
+I wonder if the generalised Kummer fourfolds studied in the
+$\mathbb{C}P^2_9$ topic are actually examples
+of these Hilbert schemes, or if it is a genuine
+change of subject.
+
+
+\end{document}
