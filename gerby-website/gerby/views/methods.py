@@ -9,7 +9,7 @@ from gerby.database import *
 
 def pdfFilename(tag):
   if tag.type == "part":
-    return "part-" + tag.label.split("-part-")[1]
+    return tag.label.removeprefix("part-")
   if tag.type == "chapter":
     return tag.label.removeprefix("chapter-")
   return tag.label.split("-" + tag.type)[0]
