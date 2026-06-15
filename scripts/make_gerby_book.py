@@ -174,23 +174,14 @@ def is_sectioning_command(line):
 def preamble():
     lines = Path("preamble.tex").read_text(encoding="utf-8").splitlines(True)
     out = [
-        "\\documentclass{report}\n",
+        "\\documentclass{book}\n",
+        "\\usepackage{amsmath}\n",
+        "\\usepackage{amssymb}\n",
         "\\usepackage{amsthm}\n",
-        "\\def\\text#1{\\mbox{#1}}\n",
-        "\\newcommand{\\mathbb}[1]{#1}\n",
-        "\\newcommand{\\tilde}[1]{#1}\n",
-        "\\newcommand{\\hat}[1]{#1}\n",
-        "\\newcommand{\\bar}[1]{#1}\n",
-        "\\newcommand{\\vec}[1]{#1}\n",
-        "\\newcommand{\\dot}[1]{#1}\n",
-        "\\newcommand{\\ddot}[1]{#1}\n",
-        "\\newcommand{\\underline}[1]{#1}\n",
-        "\\newcommand{\\overline}[1]{#1}\n",
-        "\\newcommand{\\widehat}[1]{#1}\n",
-        "\\newcommand{\\widetilde}[1]{#1}\n",
     ]
 
     skip_class = False
+    skip_helper = False
     for line in lines:
         stripped = line.strip()
         if stripped.startswith("\\IfFileExists{stacks-project.cls}"):
@@ -200,7 +191,25 @@ def preamble():
             if stripped == "}":
                 skip_class = False
             continue
+        if not stripped or stripped.startswith("%"):
+            out.append(line)
+            continue
+        if stripped.startswith("\\usepackage{xr-hyper}"):
+            continue
+        if stripped.startswith("\\usepackage{multicol}"):
+            continue
+        if stripped.startswith("\\maybeexternaldocument"):
+            skip_helper = True
+            continue
+        if skip_helper:
+            if stripped == "}":
+                skip_helper = False
+            continue
         if stripped.startswith("\\externaldocument"):
+            continue
+        if stripped.startswith("\\let\\externaldocumentorig\\externaldocument"):
+            continue
+        if stripped.startswith("\\renewcommand{\\externaldocument}"):
             continue
         out.append(line)
     return "".join(out)

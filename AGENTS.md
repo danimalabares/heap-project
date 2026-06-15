@@ -26,6 +26,7 @@ Repository guidance for AI agents working in this repo.
   \end{equation}
   ```
 
+- Maximum linewidth is 45 characters.
 - Do not write inner products with raw angle brackets like `\left< X,Y \right>`. Use `\left\langle{} X,Y \right\rangle{}` instead.
 - Do not use `\subsetneq`; use `\subset` instead.
 - Do not use `\supsetneq`; use `\supset` instead.
