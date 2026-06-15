@@ -6,12 +6,125 @@
 \maketitle
 
 \phantomsection
-\label{section-phantom}
 
-\section{Springer theory}
-\label{section-springer-theory}
+\section{Introduction}
+\label{section-intro}
+
 
 \noindent
+Sections \ref{section-flag-variety}
+to \ref{section-affine-weyl-group}
+are AI-transcribed from a pdf written
+by Jethro.
+
+Summary of those sections:
+\begin{enumerate}
+\item $\mathcal{B}$ is the set of
+Borel subalgebras. It is a smooth
+variety with an action of $G$.
+In fact, the action is transitive,
+so $\mathcal{B} = G/\operatorname{Stab}$,
+and it turns out that
+$\operatorname{Stab} = B$ where
+$B$ is the Lie group whose Lie algebra
+is $\mathfrak{b}$.
+
+\item (Springer fibers.) They are the fibers
+of the projection $\mathcal{B} \to
+\mathfrak{g}$ in
+$$
+\xymatrix{
+&  \widetilde{\mathcal{B}}
+=\tilde{\mathfrak{g}}\ar[dl]^{\mu}\ar[dr]\\
+\mathfrak{g}&&\mathcal{B}.
+}
+$$
+
+\item (Kinds of Springer fibers.)
+\begin{enumerate}
+\item (Regular semisimple.) In this case
+the Springer fiber is finite of size
+$|W|$ and has an action
+of the Weyl group $W$ of $G$.
+
+\item (Regular but not semisimple.)
+These elements are nilpotent
+and lie in a single nilpotent
+orbit called the {\it principal orbit}.
+The Springer fibers are a single point.
+
+\item (Non-regular nilpotent elements.)
+The Springer fiber can be higher dimensional,
+like the fiber above zero.
+In general the Weyl group does 
+not act on these fibers.
+\end{enumerate}
+
+\item (Nilpotent Springer resolution.)
+$\mu^{-1}(\mathcal{N}):=\widetilde{\mathcal{N}}$,
+contained in $\widetilde{\mathcal{B}}$,
+is a resolution of $\mathcal{N}$.
+Further, $\widetilde{\mathcal{N}}
+=T^*\mathcal{B}$.
+
+\item (Steinberg variety.)
+$\widetilde{\mathcal{N}}\times_{\mathcal{N}}
+\widetilde{\mathcal{N}}$
+is the Steinberg variety,
+and here we consider correspondences.
+\end{enumerate}
+
+\medskip\noindent
+Here's the roadmap to understand the
+toy case of $\text{SL}_2$:
+
+\begin{enumerate}
+\item Set
+$G=\operatorname{SL}_2$ and
+$\mathfrak g=\mathfrak{sl}_2$.
+
+\item Identify the Weyl group:
+$W=S_2$.
+
+\item Identify the flag variety:
+$\mathcal B=\mathbb P^1$.
+
+\item Interpret points of $\mathcal B$
+as lines in $\mathbb C^2$.
+
+\item Interpret Springer fibres
+as invariant lines.
+
+\item Work out the regular semisimple
+Springer fibre.
+
+\item See the $S_2$-action on that fibre.
+
+\item Work out the regular nilpotent
+Springer fibre.
+
+\item Work out the zero Springer fibre.
+
+\item Compare the three fibres.
+
+\item Understand why
+$\widetilde{\mathcal N}=T^*\mathbb P^1$.
+
+\item Relate this example to the general
+Springer picture.
+\end{enumerate}
+
+
+\label{section-phantom}
+
+\section{Lecture February 2026}
+\label{section-lecture-feb}
+
+\noindent
+All varieties and algebras defined over the
+complex numbers.
+
+\medskip\noindent
 Simple Lie algebra $\mathfrak{g}$. Nilpotent
 cone $\mathcal{N} \subset
 \mathfrak{g}$,
@@ -552,6 +665,908 @@ sheaf which pushed downstairs becomes a
 perverse sheaf.
 $\pi_*\mathbb{Q}_{T^*\mathcal{B}}$.
 \end{itemize}
+\section{The flag variety and its friends
+and cousins}
+\label{section-flag-variety}
+
+\noindent
+Let $\mathfrak g$ be a simple Lie algebra and
+let $G$ be a connected algebraic
+group whose Lie algebra is $\mathfrak g$. For
+example if
+$\mathfrak g = \mathfrak{sl}_n$ we can take
+$G = \operatorname{SL}_n$ which
+happens to be simply connected. We might also
+take $G$ to be the `adjoint
+group', which in this case is the quotient of
+$\operatorname{SL}_n$ by its
+centre (isomorphic to $\mathbb Z/n$) which
+consists of $n$th roots of unity
+multiples of the identity matrix.
+
+\medskip\noindent
+Let $\mathcal B$ be the set of all Borel
+subalgebras (Boreis) in
+$\mathfrak g$. All Boreis have the same
+dimension
+$m = |\Delta^+| = (\dim(\mathfrak g) -
+\operatorname{Rank}(\mathfrak g))/2$,
+so $\mathcal B$ is contained in the
+Grassmannian variety
+$\operatorname{Gr}(\mathfrak g, m)$ of
+$m$-planes in the vector space
+$\mathfrak g$ (which is a projective
+variety). The condition on an $m$-plane
+of being a Borel is a collection of
+polynomial equations, so $\mathcal B$ is a
+closed subvariety. The group $G$ acts on
+$\mathcal B$, which quickly leads to
+a proof that $\mathcal B$ is a smooth
+variety. It is a non trivial fact that
+$G$ acts transitively on $\mathcal B$, so
+$\mathcal B$ is connected,
+furthermore $\mathcal B \cong
+G/\operatorname{Stab}_G(\mathfrak b)$ where
+$\mathfrak b$ is any fixed Borel and
+$\operatorname{Stab}_G(\mathfrak b)$
+denotes the stabiliser in $G$ of $\mathfrak
+b$.
+
+\medskip\noindent
+From the definition of a Borel, the
+stabiliser group of a Borel $\mathfrak b$
+coincides with the Lie subgroup $B \subset G$
+with Lie algebra $\mathfrak b$.
+So $\mathcal B \cong G/B$.
+
+\medskip\noindent
+We denote by $\widetilde{\mathfrak g}$ the
+total space of the tautological
+bundle of $\mathcal B$, i.e., the set of
+pairs $(x, \mathfrak b)$ where
+$x \in \mathfrak b$. Why do we denote it
+$\widetilde{\mathfrak g}$? Well,
+because we want to think of
+$\widetilde{\mathfrak g}$ as `lying over'
+$\mathfrak g$ via the projection
+$\mu : \widetilde{\mathfrak g} \to \mathfrak
+g$ defined by
+$(x, \mathfrak b) \mapsto x$. This map has
+some interesting geometry. For an
+element $x \in \mathfrak g$ we denote by
+$\mathcal B_x$ its preimage in
+$\widetilde{\mathfrak g}$. These preimages
+are called Springer fibres. Each
+Springer fibre $\mathcal B_x$ is a subset of
+$\mathcal B$ cut out by the
+closed condition $x \in \mathfrak b$, thus
+the Springer fibres are compact.
+Note that they need not be smooth since they
+do not inherit $G$-actions from
+$\mathcal B$.
+
+\medskip\noindent
+We recall the definition of an element $x \in
+\mathfrak g$ being `regular
+semisimple'. The characteristic polynomial
+$$
+\det(tI - \operatorname{ad}(x)) = t^N +
+c_{N-1}(x)t^{N-1} + \cdots + c_1(x)t + c_0(x)
+$$
+is divisible by $t^\ell$ where $\ell$ is the
+rank of $\mathfrak g$ (this is
+essentially the definition of the rank), and
+then $c_\ell(x)$ is some nonzero
+polynomial on $x \in \mathfrak g$ which is
+zero in some but not all points.
+The points where this polynomial is nonzero
+are the `regular semisimple'
+elements. Remark: In Kac's notes, such
+elements are simply called `regular',
+it is a fact that they are semisimple. In [1]
+(see Definition 3.1.3 there) the
+word regular is used in a different way, so
+be careful. In [1] an element $x$
+is said to be regular if the centraliser
+subalgebra $Z_{\mathfrak g}(x)$ has
+dimension equal to $\ell$. Rather weirdly it
+turns out that the set of regular
+elements is the union of the set of the set
+of regular semisimple elements,
+and the principal nilpotent orbit.
+
+\medskip\noindent
+If $x$ is regular semisimple then the
+Springer fibre $\mathcal B_x$ consists
+of a finite set of points, with cardinality
+equal to $|W|$ (the cardinality of
+the Weyl group). This is [1, Proposition
+3.1.36]. The geometric description of
+$W$ is used in a fundamental way: namely $W =
+N_G(T)/T$. Furthermore each of
+these finite Springer fibres carries a simply
+transitive action of $W$.
+
+\medskip\noindent
+In the case of $\mathfrak g =
+\mathfrak{sl}_n$ there is quite a nice way to
+understand this result. Recall that $\mathcal
+B$ is naturally isomorphic in
+this case to the `flag variety' consisting of
+flags
+$$
+0 = F_0 \subset F_1 \subset F_2 \subset
+\ldots \subset F_n = \mathbb C^n.
+$$
+(Such a flag $F$ gives a Borel $\mathfrak b$
+consisting of those endomorphisms
+of $\mathbb C^n$ that map each $F_i$ into
+itself). Now let
+$x \in \mathfrak{sl}_n$ be regular
+semisimple: Its action on $\mathbb C^n$ is
+by a collection of pairwise distinct
+eigenvalues, so it specifies an
+(unordered) collection of lines in $\mathbb
+C^n$. If we choose an order for
+these eigenspaces, and then set $F_i$ to be
+the sum of the first $i$ of them,
+then we get a flag whose corresponding Borel
+contains $x$ as a diagonal matrix
+(with its eigenvalues arranged in the chosen
+order). It turns out that the
+$n!$ choices of an order give the $n! =
+|S_n|$ points of $\mathcal B_x$.
+
+\medskip\noindent
+The next set of points we consider in
+$\mathfrak g$ are those which are
+regular but not semisimple. All of these
+elements are nilpotent and lie in a
+single adjoint orbit called the principal (or
+regular) nilpotent orbit. The
+Springer fibre $\mathcal B_x$ over a
+principal nilpotent element $x$ consists
+of a single point. (FIND THE STATEMENT in
+[1])
+
+\medskip\noindent
+The set of all nilpotent elements of
+$\mathfrak g$ is a subvariety
+$\mathcal N \subset \mathfrak g$. The adjoint
+action of $G$ on $\mathfrak g$
+preserves $\mathcal N$ and it splits into a
+disjoint union of nilpotent
+orbits, it turns out there are finitely many
+nilpotent orbits. The principal
+nilpotent elements constitute one orbit,
+which is dense in $\mathcal N$, i.e.,
+makes up most of $\mathcal N$. The remaining
+elements of $\mathcal N$ split
+into a disjoint union of a bunch of adjoint
+orbits of smaller dimension. The
+dimension of $\mathcal N$ (and of the
+principal orbit) is $2|\Delta^+|$ by the
+way.
+
+\medskip\noindent
+Although $\mathcal B_x$ is smaller for $x$
+principal nilpotent than for $x$
+regular semisimple, the pattern does not
+continue for $x$ in smaller nilpotent
+orbits. In fact for such $x$ the Springer
+fibre $\mathcal B_x$ can become a
+higher dimensional variety. In fact we can
+see that it must by passing to the
+extreme case of $x = 0$, then $\mathcal B_0$
+consists of all Boreis, and so is
+a copy of $\mathcal B$ itself. For $x \in
+\mathcal N$ the structure and
+dimension of $\mathcal B_x$ depends on the
+nilpotent orbit in which $x$ lies.
+
+\medskip\noindent
+The Weyl group $W$ does not act in a natural
+way on the non regular Springer
+fibres $\mathcal B_x$, but there is a way to
+use the action on the regular
+semisimple Springer fibres, and a sort of
+limit procedure, to induce a
+$W$-action on the Borel-Moore homology
+$H^{BM}_*(\mathcal B_x)$.
+
+\medskip\noindent
+The union of all the nilpotent Springer
+fibres is
+$\mu^{-1}(\mathcal N) \subset
+\widetilde{\mathfrak g}$, we denote this set
+$\widetilde{\mathcal N}$. Recall that we have
+a projection
+$\nu : \widetilde{\mathfrak g} \to \mathcal
+B$ with
+$\nu^{-1}([\mathfrak b]) = \mathfrak b$. It
+is not hard to show that $\nu$
+restricts to a projection
+$\widetilde{\mathcal N} \to \mathcal B$ under
+which
+the preimage of $\mathfrak b$ is $\mathfrak n
+= [\mathfrak b, \mathfrak b]$.
+So in fact $\widetilde{\mathcal N}$ is a
+vector bundle over $\mathcal B$.
+Furthermore $\widetilde{\mathcal N} \cong
+T^*\mathcal B$.
+
+\medskip\noindent
+We consider another variety, called the
+Steinberg variety and denoted $Z$. It
+is
+$$
+Z = \widetilde{\mathcal N} \times_{\mathcal
+N} \widetilde{\mathcal N} = \{(x, \mathfrak
+b_1, \mathfrak b_2) \mid x \in \mathcal
+N\text{ and }\mathfrak b_1, \mathfrak b_2 \in
+\mathcal B_x\}.
+$$
+Obviously it projects to $\mathcal N$ with
+fibre over $x$ being
+$\mathcal B_x \times \mathcal B_x$. Another
+way to view $Z$ is as a subset of
+$\widetilde{\mathcal N} \times
+\widetilde{\mathcal N} \cong T^*(\mathcal B
+\times \mathcal B)$.
+
+\medskip\noindent
+In fact $G$ acts on $\mathcal B$ and hence
+(via the diagonal action) on
+$\mathcal B \times \mathcal B$. It turns out
+that the diagonal $G$-orbits are
+in natural bijection with $B\backslash G/B$,
+which in turn is in bijection
+with $W$:
+$$
+N_G(T)/T \longleftrightarrow B\backslash B
+\longleftrightarrow (\mathcal B \times
+\mathcal B)/\Delta G.
+$$
+If we denote by $Y_w \subset \mathcal B
+\times \mathcal B$ the $G$-orbit
+corresponding to $w \in W$, and denote by
+$Z_w$ the conormal bundle
+$T^*_{Y_w}(\mathcal B \times \mathcal B)$ of
+$Y_w$ (or rather its total space)
+then it turns out $Z$ equals the union of the
+$Z_w$ [1, Proposition 3.3.4].
+Notice that the dimension of the fibres of a
+normal or conormal bundle equals
+the codimension of the subvariety in
+question. Thus the dimension of the total
+space $Z_w$ equals that of $\mathcal B \times
+\mathcal B$, i.e.,
+$2|\Delta^+|$, same as the dimension of
+$\mathcal N$.
+
+\medskip\noindent
+Let's return to thinking about $Z$ `over'
+$\mathcal N$. To fix notation, here
+is the diagram
+$$
+\xymatrix{
+& Z \ar[dl] \ar[dr]
+\ar[dd]^{\mu} & \\
+\widetilde{\mathcal N} \ar[dr]_{\pi} & &
+\widetilde{\mathcal N} \ar[dl] \\
+& \mathcal N &
+}
+$$
+For each nilpotent orbit $\mathbb{O} \subset \mathcal
+N$ we consider
+$\widetilde{\mathbb{O}} = \pi^{-1}(
+\mathbb{O})$ (this is a
+fibration over $\mathbb{O}$ with all fibres
+isomorphic to $\mathcal B_x$ for some
+representative $x \in \mathbb{O}$), and
+$Z_{\mathbb{O}} = \mu^{-1}(
+\mathbb{O})$ (which is similarly a
+fibration with fibres isomorphic to
+$\mathcal B_x \times \mathcal B_x$).
+
+\medskip\noindent
+Each subvariety $Z_w \subset Z$ `lies over' a
+uniquely defined nilpotent orbit
+$\mathbb{O} \subset \mathcal N$. This is stated in [1,
+Remark 3.3.22], but I didn't
+understand very well the reason for it. There
+is a $G$-action on $Z_w$
+compatible with that on $Y_w \subset \mathcal
+B \times \mathcal B$. By
+definition $Y_w$ is a single $G$-orbit, but I
+don't know if $Z_w$ is a single
+orbit or not. If it is, then it would be
+clear that $\mu(Z_w)$ could not be a
+union of more than one $G$-orbit $\mathbb{O}$ in
+$\mathcal N$.... Anyway this means
+there is a well defined function
+$$
+\Phi : W \to \{\text{nilpotent orbits}\}.
+$$
+This function should be compatible with
+adjoint action of $G$ (which induced
+the adjoint action of $W$ on the left hand
+side), so elements of $W$ in the
+same conjugacy class are sent to the same
+nilpotent orbit. We might wonder how
+far from a bijection is this function. For
+$\mathfrak g = E_8$ there are 70
+nilpotent orbits, but in the corresponding
+Weyl group there are 112 conjugacy
+classes. For $\mathfrak g = \mathfrak{sl}_n$
+we know that both the set of
+nilpotent orbits and the set of conjugacy
+classes in $W \cong S_n$ are
+parametrised in natural ways by partitions of
+the integer $n$. As I understand
+it, the function above is a bijection
+compatible with these parametrisations.
+
+\medskip\noindent
+The function $\Phi$ above should not be
+confused with the `Springer
+correspondence' which is a function from
+irreducible representations of $W$ to
+nilpotent orbits. Of course the number of
+irreducible representations of $W$
+is the same as that of conjugacy classes. For
+a general group one does not
+expect any natural bijection between
+conjugacy classes and irreducible
+representations, but $S_n$ is a famous
+exception.
+
+\medskip\noindent
+Indeed the Springer fibre $\mathcal B_x$
+carries an action of the stabiliser
+subgroup $G(x) = \{g \in G \mid gxg^{-1} =
+x\}$, and we have $\mathbb{O} \cong G/G(x)$
+and $\widetilde{\mathbb{O}} \cong G \times_{G(x)}
+\mathcal B_x$. Next $Z_{\mathbb{O}}$ is presented
+as
+$$
+Z_{\mathbb{O}} \cong G \times_{G(x)} (\mathcal B_x
+\times \mathcal B_x).
+$$
+The Springer fibres are known to be connected
+(this is not easy to prove, it
+seems) but are not irreducible. So we talk
+
+\section{Component groups}
+\label{section-component-groups}
+
+\noindent
+The [?, Proposition 3.3.27]
+
+\medskip\noindent
+Coll McG on the two (main) component
+groups....
+
+\medskip\noindent
+Remark: [1] on page 176 discuss the component
+group and why its action can be
+dispensed with in the type A case. See also
+p. 170.
+
+\section{Weyl group actions on homology of
+Springer fibres}
+\label{section-weyl-action}
+
+\noindent
+For regular semisimple $x \in \mathfrak g$
+there is a $W$-action on the
+Springer fibre $\mathcal B_x$.
+
+\medskip\noindent
+Let $Y$ be a set, then we consider subsets $X
+\subset Y \times Y$, and a
+`convolution operation':
+$$
+X \circ X' = \{(y_1, y_3) \mid \text{for some
+}y_2 \in Y\text{ both }(y_1, y_2) \in X\text{
+and }(y_2, y_3) \in X'\}.
+$$
+This can be done more generally, but let's
+try to keep things as simple as
+possible. Notice that this operation
+generalises composition of functions
+$f : Y \to Y$. Indeed any such function
+defines a subset
+$X_f = \{(y, f(y)) \mid y \in Y\}$, and then
+$X_f \circ X_g = X_{g \circ f}$.
+
+\medskip\noindent
+A slightly more general construction is to
+start with a surjection $Y \to N$
+and then consider composition of subsets of
+$Z = Y \times_N Y$. In Springer
+theory, this machinery is applied to the
+example in which $Y \to N$ is
+$\widetilde{\mathfrak g} \to \mathfrak g$ or
+$\widetilde{\mathcal N} \to \mathcal N$.
+
+\medskip\noindent
+Suppose, in the setting above, that the same
+element $(y_1, y_3)$ of the
+composition were obtained via two different
+$y_2$. Then one would like to keep
+track of this multiplicity somehow. We might
+define $C_{fin}[Y]$ to be the
+vector space of finite linear combinations of
+points of $Y$, and then extend
+the pointwise convolution
+$$
+(y_1, y_2) \circ (y'_2, y_3) = \delta_{y_2,
+y'_2}(y_1, y_3)
+$$
+linearly to $C_{fin}[Y]$ in the only natural
+way. Identifying $(y_1, y_2)$
+with an elementary matrix with 1 at
+coordinates $(y_1, y_2)$, this convolution
+is just matrix multiplication.
+
+\medskip\noindent
+For the applications to Springer theory it is
+not enough to only work with
+finite subsets of $Z$. Instead we work with
+some variant of homology. In fact
+we work with Borel-Moore homology, but the
+reason for this is not really clear
+at the outset.
+
+\medskip\noindent
+To do: work out what happens for usual
+homology, or if it works....
+
+\medskip\noindent
+A zero homology class is nothing but a finite
+collection of points, and one
+can interpret the convolution procedure of
+0-cycles as
+$$
+\alpha \circ \alpha' = (\pi_{13})_*
+(\pi^*_{12}(\alpha) \cap
+\pi^*_{23}(\alpha')).
+$$
+This looks like we have converted the
+convolution into operations in homology,
+but in fact we have not, not for ordinary
+homology at least! The pullback
+$\pi^*_{12}(\alpha)$ takes the form of a
+finite set of points (namely
+$\alpha$) times $Z$, and this is not a
+homology class since $Z$ is not
+compact!
+
+\medskip\noindent
+Recall, roughly, that the singular homology
+of a `reasonable' topological
+space $X$ is computed as follows: $C_i(X)$
+denotes the abelian group of finite
+formal linear combinations $\sum_k
+a_k\sigma_k$ of continuous maps
+$\sigma_k : \Delta_i \to X$. There are
+differentials $C_i(X) \to C_{i-1}(X)$
+and homology $H_i(X)$ is given by ker /im.
+
+\medskip\noindent
+The space of Borel-Moore chains is larger:
+$C^{BM}_i(X)$ consists of possibly
+infinite formal linear combinations $\sum_k
+a_k\sigma_k$ of continuous maps
+$\sigma_k : \Delta_i \to X$, subject to the
+restriction that for any fixed
+compact set $K \subset X$, the set of $k$ for
+which $\sigma_k$ meets $K$ and
+$a_k \neq 0$, is finite. Clearly if $X$ is
+compact then
+$C^{BM}_i(X) = C_i(X)$.
+
+\medskip\noindent
+Singular cohomology (with coefficients in
+$R$) is given by ker /im for the
+cochain complex $C^i(X) =
+\operatorname{Hom}(C_i(X), R)$. (I think it's
+enough
+for us to take all our homologies and
+cohomologies with coefficients in
+$R = \mathbb C$.) The last theory is
+cohomology with compact support:
+$C^i_c(X)$ consists of those cochains $\alpha
+\in C^i(X)$ for which there
+exists some compact $K \subset X$ such that
+$\alpha(\sigma) = 0$ for all
+chains $\sigma$ supported in $X\backslash K$.
+
+\medskip\noindent
+Poincare duality: For a smooth manifold (not
+necessarily compact) of real
+dimension $d$ there are natural isomorphisms
+$$
+H^{BM}_{d-i}(X) \cong H^i(X)
+\quad\text{and}\quad H_{d-i}(X) \cong
+H^i_c(X).
+$$
+A potential confusion: the first of these
+isomorphisms suggests that working
+with BM homology is essentially equivalent to
+working with ordinary
+cohomology, which is surely less exotic and
+thus preferable. Maybe this is
+true for smooth varieties, but the important
+thing to keep in mind is that our
+example the Steinberg variety is mildly
+non-smooth, and this makes a big
+difference. The non-smoothness is quite mild
+indeed: it is in the same sense
+that the complex algebraic variety $xy = 0$,
+which is a union of two
+intersecting complex lines, is non-smooth.
+But still, it means we can't rely
+on Poincare duality, at least not in the
+traditional sense.
+
+\medskip\noindent
+To get representations of the Weyl group from
+the Steinberg variety, the thing
+to do is to look at the top degree
+$$
+H^{BM}_{top}(Z) = H^{BM}_{4|\Delta^+|}(Z).
+$$
+(The top degree is equal to the real
+dimension of $Z$, which is twice the
+complex dimension of $Z$. The dimension of
+$Z$ equals that of $\mathcal N$.
+The complex dimension of $\mathcal N$ is
+$2|\Delta^+|$.)
+
+\medskip\noindent
+An interesting feature of BM homology is that
+it can detect irreducible
+components of a complex variety. The complex
+variety $X$ might well be
+connected, but if it is equidimensional with
+several irreducible components of
+complex dimension $n$, then the top degree BM
+homology is $H^{BM}_{2n}(X)$ and
+this one is of dimension equal to the number
+of irreducible components.
+
+\medskip\noindent
+This shocked me somewhat at first. It means,
+in particular, that BM homology
+is not homotopy invariant. Now, no one ever
+said that it was..., but it's the
+sort of thing I lazily assumed.
+
+\medskip\noindent
+There is a sort of excision result for BM
+homology, which implies in
+particular that the BM homology in top degree
+of $X$ equals that of $X$ minus
+the intersections of the irreducible
+components. Since the intersections have
+real codimension 2 (so here is where the
+complex variety structure enters),
+the remainder is smooth with each irreducible
+component contributing now a
+connected component. It is proven somewhere
+that the $|W|$ distinct conormal
+bundles that make up the Steinberg variety
+$Z$ are exactly its irreducible
+components. So $H^{BM}_{top}(Z) \cong
+\bigoplus_{w \in W} \mathbb C[w]$.
+
+\medskip\noindent
+It will turn out that the convolution algebra
+structure on $H^{BM}_*(Z)$ has
+$H^{BM}_{top}(Z)$ as a subalgebra. Sure
+enough, this algebra will turn out to
+be isomorphic to $\mathbb C[W]$. The homology
+$H^{BM}_*(\mathcal B_x)$ of any
+particular Springer fibre should now become a
+$\mathbb C[W]$-module in a
+natural way via this sort of construction.
+
+\medskip\noindent
+TO BE COMPLETED....
+
+\section{Slodowy's monodromy construction}
+\label{section-slodowy-monodromy}
+
+\noindent
+Let $x \in \mathcal N$ be a nilpotent element
+and $\mathbb{O} = G \cdot x$ its orbit.
+Recall the construction by Slodowy of a
+`transverse slice' $S$ to $\mathbb{O}$ at $x$,
+i.e., $T_x\mathfrak g = T_x\mathbb{O} \oplus T_xS$.
+Explicitly $S = x + \mathfrak g^y$,
+where we used an $\mathfrak{sl}_2$-triple. We
+recall the Springer resolution
+$\mu : \widetilde{\mathfrak g} \to \mathfrak
+g$ and we consider its
+restriction $\mu : \widetilde S \to S$.
+Slodowy proves $\widetilde S$ is
+smooth [?, 3.4]. The proof uses
+transversality of $S$ with $G$-orbits in a
+way
+I do not understand, but seems to be
+standard.
+
+\medskip\noindent
+We take a small closed ball $D \subset S$,
+centered on $x$. Set
+$K = \mu^{-1}(D) \subset \widetilde S$.
+Because $\mu$ is proper we have that
+$K$ is compact. Remember that $\mu$ is a
+$|W|$-to-1 finite map over the set of
+regular semisimple elements of $S$ (which is
+most elements). But there is in
+general a nontrivial intersection of $S$ with
+$\mathcal N$ (the exception is
+when $\mathbb{O}$ is the principal orbit, so that
+transversality of $S$ with $\mathbb{O}$ means
+transversality with $\mathcal N$ in fact).
+
+\medskip\noindent
+We also take a small open ball $H \subset
+\mathfrak h$ around 0, consider the
+preimage $\theta^{-1}(H)$ in $\widetilde S$
+under the map
+$\theta : \widetilde{\mathfrak g} \to
+\mathfrak h$, and intersect it with $K$.
+Notice that $\theta^{-1}(0) =
+\widetilde{\mathcal N}$. Recall\footnote{I
+haven't yet written out this part.}
+$$
+\theta : \widetilde{\mathfrak g} \to
+\mathfrak h
+$$
+is defined either with $\mathfrak h$ the
+`abstract Cartan subalgebra', or else
+as follows: we fix a choice of Borel
+$\mathfrak b_0$ and a Cartan in it
+$\mathfrak h_0$, our point in $\widetilde S$
+is a pair $(s, \mathfrak b)$
+where $s \in S$ and $\mathfrak b$ is some
+Borel containing $s$. We choose an
+element $g \in G$ that conjugates $\mathfrak
+b$ to $\mathfrak b_0$, and define
+$\theta(s)$ to be the projection of $g(s) \in
+\mathfrak b_0$ to
+$\mathfrak h_0$.
+
+\medskip\noindent
+My mental image: $K$ is a potato-like blob,
+consisting of a smooth surface
+together with its interior. There is a map
+$\theta : K \to \mathfrak h$ whose
+zero level set is the intersection of
+$\widetilde{\mathcal N}$ with $K$.
+Inside this level set sits the compact
+manifold $\mathcal B_x$. The preimage
+of $H$ I view as taking a slight fattening of
+$K \cap \theta^{-1}(0)$. The
+result of Slodowy (which is not visually
+obvious) is that all these fibres
+$\theta^{-1}(h) \cap K$ are homotopic
+manifolds with boundary.
+
+\medskip\noindent
+We intersect to get $\theta^{-1}(H) \cap K
+\to H$. There are two claims: (1)
+the boundary $\partial K$ is a manifold, and
+(2) the map above is a
+differentiable fibration with isomorphic
+fibres.
+
+\medskip\noindent
+The interior of $K$ is an open set in
+$\widetilde S$, so I guess it's
+obviously a manifold. Slodowy shows $\partial
+K$ is a manifold using a
+standard application of `transversality': the
+$\mathbb C^\times$-action allows
+one to show that $\partial K$ is transversal
+to $\mu$. The claim about the
+fibration follows from Ehresmann's lemma
+which says that a proper surjective
+submersion is a locally trivial fibration.
+Notice that Slodowy is applying a
+version of Ehresmann's lemma for `manifold
+with boundary'.
+
+\medskip\noindent
+The stated properties seem to be easily
+verified, except for the `zeroth
+property' which would be that the space up
+stairs is a manifold. We know $K$
+is a manifold with boundary, and we are
+intersecting with an open, but the
+result is supposed to have compact fibres. So
+what I need to understand is why
+the fibres are compact manifolds, not open
+manifolds nor manifolds with
+boundary. Apparently transversality with
+$\mathcal N$ is relevant. Maybe it's
+also like... a version of Ehresmann's lemma
+where submersion property is
+imposed in the interior and boundary of a
+compact set, INSIDE a larger
+manifold, surjecting to another.
+
+\medskip\noindent
+Idea (maybe misguided): Using differential
+topology to show a bunch of fibres
+are homotopic, and then getting a $W$-action
+on cohomology of the fibre from a
+geometric action on a larger space / related
+space / how exactly? Anyway, is
+this picture, perhaps, one of the motivations
+for people wanting to bring
+homotopical methods into representation
+theory? If so, where to look for this
+POV?
+
+
+\section{The Springer sheaf}
+\label{section-springer-sheaf}
+
+\noindent
+We consider the pushforward $\mu_*(\mathbb
+Q[\dim \widetilde{\mathcal N}])$ of
+the shift of the constant sheaf $\mathbb Q$,
+along
+$\mu : \widetilde{\mathcal N} \to \mathcal
+N$. We recall the fibres
+$\mathcal B_x$ are all projective varieties,
+so $\mu_* = \mu_!$ which is
+useful at some points. The inequality
+$$
+\dim(G \cdot x) + 2 \dim(\mathcal B_x) = \dim
+\widetilde{\mathcal N}
+$$
+quite easily proves that $\mu_*(\mathbb
+Q[\dim \widetilde{\mathcal N}])$ is a
+perverse sheaf. These are ubiquitous, so I
+imagine this is very important, but
+so far I do not know what this fact is used
+for.
+
+\medskip\noindent
+The dimension condition above generalises to
+the following notion: A proper
+morphism $f : X \to Y$ is called semismall if
+$Y$ can be given a
+stratification $\{Y_i\}$ such that $\dim Y_i
++ 2 \dim f^{-1}(y) \leq \dim X$
+for all $y \in Y_i$. Then [2, Corollary 2.2]
+semismallness of a proper map
+$f : X \to Y$ is equivalent to perversity of
+$f_*(\mathbb Q[\dim X])$.
+
+\medskip\noindent
+It is easy to think of examples of proper
+maps which are not semismall (I
+suppose, though correct me if I'm wrong, that
+the map $Z \to \mathcal N$ from
+the Steinberg variety is not semismall).
+Kaledin's theorem, though, says that
+a resolution $f : X \to Y$ by symplectic $X$
+is semismall. So the fact that
+$\widetilde{\mathcal N} \cong T^*\mathcal B$
+makes semismallness of the
+Springer resolution immediate.
+
+\section{The affine Weyl group}
+\label{section-affine-weyl-group}
+
+\noindent
+There is an algebra homomorphism
+$$
+\mathbb C[\widehat W] \cong K_G(Z)
+$$
+between the group algebra of the affine Weyl
+group $\widehat W$, and the
+$G$-equivariant $K$-theory of the Steinberg
+variety. ``The $K$-theory'' and
+``equivariant $K$-theory'' of a variety $X$
+are invariants distilled from the
+categories $\operatorname{Coh}(X)$ and
+$\operatorname{Coh}_G(X)$ respectively.
+Distilled in the sense that they are the
+Grothendieck groups thereof: i.e.,
+one mods out by the relation that an
+extension of two objects is set equal to
+their direct sum.
+
+\medskip\noindent
+I think I had my first inkling of why the
+affine Weyl group would appear in
+all this. This group or something related to
+it, arises as a homotopy group of
+a set of regular elements in $\mathfrak g$ or
+$\mathfrak h$ or somesuch thing.
+The reason I ask is that Ginzburg relates the
+affine Weyl group to equivariant
+$K$-theory of the Steinberg, while Slodowy's
+approach interprets Springer's
+$W$-reps as monogromy action of $W$
+interpreted as a fundamental group. In
+fact in Slodowy's approach the fundamental
+groups of $\mathfrak h'$ and
+$\mathfrak h'/W$ appear, but the objects
+under consideration are trivial
+upstairs, and so the reps, a priori of
+$\pi_1(\mathfrak h')$, actually factor
+to $W$. I could imagine some other object
+which does not trivialise upstairs,
+giving reps of the braid group. But then
+naturally I wonder if Ginzburg's
+construction can be thought of in these
+terms... but the idea is a non-starter
+unless there's actually some relationship
+between the affine Weyl group and
+the braid group.
+
+\medskip\noindent
+[See Orlik, Terao, `Arrangements of
+hyperplanes'.]
+
+\medskip\noindent
+Consider the complement $M \subset \mathbb
+C^\ell$ of the hyperplanes
+$z_i = z_j$. Better to picture this space as
+collections of $\ell$ distinct
+labeled points in $\mathbb C$. It is
+essentially clear that $\pi_1(M)$ is the
+pure braid group $PB_\ell$. The braid group
+$B_\ell$ is the group of all
+braids on $\ell$ labeled strands, it
+obviously surjects to $S_\ell$, and
+$PB_\ell$ is the kernel. This is the group of
+braids that start and end at the
+same configuration. The complement of
+hyperplanes in
+$\mathfrak h \subset \mathfrak{sl}_n$ is the
+intersection of $M$ with the
+locus $\sum z_i = 0$. This corresponds to
+sets of $\ell$ distinct points whose
+centre of gravity is fixed at 0. Clearly the
+homotopy group is unchanged by
+this modification.
+
+\medskip\noindent
+We can consider the quotient $M/S_\ell$,
+whose homotopy group should be
+$B_\ell$ I think, the full braid group.
+
+\medskip\noindent
+QUESTION: Is there a close relation between
+the full braid group $B_\ell$ and
+the affine Weyl group of $S_\ell$?
+
+\medskip\noindent
+Remark: there is a Wikipedia article on the
+``double affine braid group'',
+which is said (in type A) to be the
+fundamental group of the space of $n$
+distinct points in the 2-torus.
+
+\medskip\noindent
+I found some notes on the internet about the
+Coxeter-style presentation, and
+Bernstein presentation, of the affine Weyl
+group. I think by a student of
+Geordie Williamson. I seem not to have saved
+the note, so try to find it
+again. See whatsapp auto-convo.
+
 
 
 \end{document}
