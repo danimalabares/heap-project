@@ -1,8 +1,13 @@
 # AGENTS.md
 
-Repository guidance for AI agents working in this repo.
+Repository guidance for AI agents working in
+this repo. Follow this rules when
+editing any heap-project file!!!!
 
-## Gerby-safe LaTeX rules
+
+- Do not write text in equations.
+  Write in prose whatever you need to explain
+  and put only formulas in equations.
 
 - Do not use `align*`. For unnumbered aligned displays, use:
 
