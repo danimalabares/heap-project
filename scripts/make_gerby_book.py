@@ -32,6 +32,7 @@ KNOWN_CHAPTERS = {
     "seminars",
     "geometric-prequantization",
     "surfaces",
+    "stanley-reisner",
     "mumford-tate-groups-in-hodge-theory",
     "birational-maps-commutative-algebra",
     "cremona-transformations",
