@@ -21,6 +21,7 @@ KNOWN_CHAPTERS = {
     "complex-geometry",
     "k3",
     "ringed-spaces",
+    "schemes",
     "symplectic-geometry",
     "lie-algebras",
     "representation-theory",
