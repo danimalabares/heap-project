@@ -77,3 +77,19 @@ gerby-serve-prod:
 gerby-smoke:
 	curl -fsS http://127.0.0.1:$(GERBY_PORT)/tag/0000 >/dev/null
 	curl -fsS http://127.0.0.1:$(GERBY_PORT)/browse >/dev/null
+
+
+.PHONY: clean-aux
+
+clean-aux:
+	find . -type f \( \
+		-name '*.aux' -o \
+		-name '*.log' -o \
+		-name '*.out' -o \
+		-name '*.toc' -o \
+		-name '*.bbl' -o \
+		-name '*.blg' -o \
+		-name '*.fls' -o \
+		-name '*.fdb_latexmk' -o \
+		-name '*.synctex.gz' \
+	\) -delete

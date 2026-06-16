@@ -443,10 +443,58 @@ $$
 x_i \mapsto [x_i]
 $$
 which are just the inclusions followed
-by the quotient projections. In particular
-they are embeddings because the quotient
-identifications only pair points
-coming from different $X_i$.
+by the quotient projections.
+To prove $\psi_i$ is an embedding
+we must show it's a homeomorphism, which
+follows from it being bijective and open.
+For bijective we only need to prove
+injectivity. It might look immediate since
+$X_i \hookrightarrow \coprod_j X_j$ is an
+embedding, and projecting would only glue
+points of $X_i$ with points of other $X_j$.
+The nuance is that there could be
+``zigzags'': $x_i$ from $X_i$ glues to
+$x_j \in X_j$, which glues to $x_k \in X_k$
+and that one back to $x_i' \in X_i$,
+breaking injectivity.
+
+To fix this let's be more precise:
+$x_i$ being glued to $x_j$ means that
+$\varphi_{ij}(x_i) = x_j$.
+Similarly $\varphi_{j k}(x_j) = x_k$
+and $\varphi_{ki}(x_k)=x_i'$.
+But the cocycle condition says
+$\varphi_{ik}=\varphi_{jk}\varphi_{ij}$,
+which means that both $x_i'$ and $x_i$
+map to $x_k$. But $\varphi_{ik}$ is a
+homeomorphism, so it is injective, so
+$x_i'=x_i$.
+
+To conclude injectivity from this argument
+suppose that $x_i, x_i' \in X_i$
+are such that $\psi_i(x_i) = \psi_i(x_i')$.
+This means that there is a zigzag as above,
+involving possibly more than three maps,
+since no two points of $X_i$ are
+glued directly in the quotient.
+Then we would just apply the cocycle
+condition inductively and conclude as above.
+
+Having proved injectivity, it still
+remains to show that $\psi_i$ is an open map.
+So we pick an open set $V$ of
+$X_i$ and check that its image is open.
+Since $X$ has the quotient topology,
+this means that $\psi_i(V)$ is open
+if its preimage under the projection map
+$q$ is open in the coproduct $\coprod X_i$.
+The nuance is that such preimage
+may be spread over other $X_j$, 
+$j\neq i$. However, since $\varphi_{ij}$
+are homeomorphisms, the union of all
+the ``spread-over'' parts remains a union
+of (arbitrarily many) open sets, which is
+open.
 
 Step 2. Define the structure sheaf of $X$.
 Let $U$ be an open set of $X$. Define
@@ -454,12 +502,13 @@ a presheaf that maps $U$ to
 $$
 \mathcal{O}_X(U)
 :=
-(\bigoplus \mathcal{O}_{X_i}(U \cap X_i))
+(\bigotimes \mathcal{O}_{X_i}(U \cap X_i))
 /\sim
 $$
 (since coproduct in the category
-of rings is direct sum, a fact
-I haven't proved yet)
+of rings is direct sum
+by Exercise
+\ref{commutative-algebra-exercise-coproduct-in-rings})
 where two sections $s_i \in
 \mathcal{O}_{X_i}(U \cap \psi_i(X_i))$
 and $s_j \in \mathcal{O}_{X_j}(U \cap
@@ -766,6 +815,8 @@ then gives the claimed
 identification.
 \end{proof}
 
+\nocite{*}
 \bibliography{my}
 \bibliographystyle{amsalpha}
+
 \end{document}
