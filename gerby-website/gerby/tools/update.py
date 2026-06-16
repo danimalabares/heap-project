@@ -102,7 +102,15 @@ def importProofs(files):
     filename = filename[:-6]
     pieces = filename.split("-")
 
-    proof, created = Proof.get_or_create(tag=pieces[0], number=int(pieces[1]))
+    tag_id = pieces[0].upper()
+
+    try:
+      tag = Tag.get(Tag.tag == tag_id)
+    except Tag.DoesNotExist:
+      log.warning("  Skipping proof %s: tag %s does not exist", filename, tag_id)
+      continue
+
+    proof, created = Proof.get_or_create(tag=tag, number=int(pieces[1]))
 
     if created:
       log.info("  Tag %s: created proof #%s", proof.tag.tag, proof.number)
