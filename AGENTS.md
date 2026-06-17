@@ -4,7 +4,7 @@ Repository guidance for AI agents working in
 this repo. Follow this rules when
 editing any heap-project file!!!!
 
-
+- Do not use any macros at all.
 - Do not write text in equations.
   Write in prose whatever you need to explain
   and put only formulas in equations.
