@@ -32,20 +32,36 @@ editing any heap-project file!!!!
   ```
 
 - Maximum linewidth is 45 characters.
-- Do not write inner products with raw angle brackets like `\left< X,Y \right>`. Use `\left\langle{} X,Y \right\rangle{}` instead.
-- Do not use `\subsetneq`; use `\subset` instead.
-- Do not use `\supsetneq`; use `\supset` instead.
-- In every `definition` environment, italicize the term being defined.
-- Put corollaries in a `lemma` environment with the optional title
+- Do not write inner products with raw 
+  angle brackets like `\left< X,Y \right>`. 
+  Use `\left\langle{} X,Y \right\rangle{}` 
+  instead.
+- Do not use `\subsetneq`; use `\subset` 
+- instead.
+- Do not use `\supsetneq`; use `\supset` 
+  instead.
+- In every `definition` environment, 
+  italicize the term being defined.
+- Put corollaries in a `lemma` environment 
+  with the optional title
   `[Corollary]`.
 - Never use capital letters in LaTeX labels. Use labels like
   `\label{theorem-rauch-clean}` instead of
   `\label{theorem-Rauch-clean}` or
-  `\label{section-Hadamard}`. This applies to theorem, lemma,
-  proposition, definition, equation, exercise, section, and
-  remark labels.
-- Do not globally reformat existing TeX files. Preserve the repo's line wrapping and style.
-- Before committing TeX cleanup changes, check that no source `.tex` files contain `\begin{align*}`, `\end{align*}`, `\left<`, or `\right>` outside generated directories like `gerby/` and `tmp/`.
+  `\label{section-Hadamard}`. This applies 
+  to theorem, lemma,
+  proposition, definition, equation, 
+  exercise, section, and remark labels.
+- Do not globally reformat existing TeX 
+  files. Preserve the repo's line wrapping 
+  and style.
+- Before committing TeX cleanup changes, 
+  check that no source `.tex` files contain 
+  `\begin{align*}`, `\end{align*}`, 
+  `\left<`, or `\right>` outside generated 
+  directories like `gerby/` and `tmp/`.
 - Do not use subsections or subsubsections.
 
-Generated files and directories such as `gerby/`, `tmp/`, `.venv/`, and build artifacts should not be committed.
+Generated files and directories such as
+`gerby/`, `tmp/`, `.venv/`, and build
+artifacts should not be committed.
