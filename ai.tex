@@ -1,0 +1,105 @@
+\input{preamble}
+
+\begin{document}
+
+\title{}
+\maketitle
+
+\section{Can Machines Prove Theorems? 
+Two Case Studies in AI-Assisted Mathematics}
+\label{section-machines-prove-theorems}
+
+\noindent
+Ashvin Swaminathan, Harvard University.
+June 19, 2026. Centro Pi Seminar, IMPA.
+
+\medskip\noindent
+{\bf Abstract.} 
+Recent language models can do more than chat
+about mathematics: they can complete proofs,
+generate formal verifications, and
+occasionally settle open questions. I will
+examine what this means for research
+mathematics through two concrete case studies
+from my own work. The first is an old problem
+in classical invariant theory that sat
+unfinished in my notes for nearly a decade
+and was completed using Claude Code and
+Codex, with the key lemmas formally verified
+in Lean 4 via Harmonic's Aristotle prover.
+The second is even more striking: with
+minimal prompting, I got GPT-5.5 to prove the
+cubic analogue of a result of Laga and
+myself, showing that a positive proportion of
+hyperelliptic curves of large genus have no
+points over cubic number fields. In both
+cases, the AI contributed genuine
+mathematical ideas, and formal verification
+was essential to establishing that the
+resulting arguments were correct, catching
+errors in the process. I will use these
+examples to discuss where automated theorem
+proving and large language models are
+genuinely useful today, where they still
+fail, and why formalization is becoming more
+important, not less, as these systems grow
+more capable.
+
+\medskip\noindent
+Formal proof := every phrase can be computer
+checked.
+
+Proof assistant :=
+programming language precise enough
+to encode each proof step.
+
+Lean. Needs libraries. 
+Mathlib if a library of functions and
+deftinitions (formalizations)
+of mathematical concepts.
+Currently = 115L defs vs 232K thms.
+It's a language to write proofs that
+computer can check.
+Proof is written as code;
+trusted kernel checks it has no gaps.
+If it compiles, it's 100% correct.
+Created by Leonardo de Moura
+(from PUC-Rio!).
+
+Proof that addition is commutative:
+
+theorem add_comm( a b : Nat) : a+b=b+a:= by
+induction b with
+|zero => simp
+|succ n ih =>rw[Nat.add_succ,ih,Nat.succ_add]
+
+\medskip\noindent
+simp means simplifiy
+n+1 is denoted succ
+
+sorry := it's an axiom
+
+Proving := the agentic loop converges.
+
+Example: 14,500 lines of Lean, 25 files.
+Make the verifiable proof + check examples.
+
+Claude Code = creative
+Codex = more formal
+
+-> there is not a very big infrastructure
+for Lean these days!
+
+Idea: combine codex + Lean.
+This is what an "automated prover" does,
+e.g. Aritstotle: leverage LLM
+to create proofs in Lean.
+Also AxiomProver.
+
+
+Need to search mathlib to know what is already
+available! Probably there's more
+number theory/combinatorics than
+geometry/topology (as of today).
+
+\end{document}
