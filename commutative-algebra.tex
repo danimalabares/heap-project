@@ -2815,6 +2815,76 @@ is tensor product.
 \section{Flat maps}
 \label{section-flat-maps}
 
+\noindent
+Let $S=A\setminus \mathfrak p$. Then
+$$
+M_{\mathfrak p}=0
+$$
+means that for every $m\in M$,
+there exists $s\in S$ such that
+$$
+sm=0.
+$$
+In other words, every element of $M$
+is killed by one of the denominators
+allowed in the localization.
+
+If $A$ is a domain, this is the usual
+notion of torsion: a nonzero element
+$m\in M$ is torsion if there exists
+$0\neq a\in A$ such that
+$$
+am=0.
+$$
+This is the module analogue of a zero
+divisor in a ring.
+
+Flatness implies torsion-freeness over
+a domain. Indeed, let $0\neq a\in A$.
+Then multiplication by $a$ gives an
+injective map
+$$
+A \xrightarrow{\cdot a} A.
+$$
+If $M$ is flat, tensoring with $M$
+preserves injections, so we get an
+injective map
+$$
+A\otimes_A M
+\longrightarrow
+A\otimes_A M.
+$$
+Using the identification
+$$
+A\otimes_A M \cong M,
+\qquad
+x\otimes m \mapsto xm,
+$$
+this map is exactly
+$$
+M \xrightarrow{\cdot a} M.
+$$
+Therefore
+$$
+am=0
+\quad\Longrightarrow\quad
+m=0.
+$$
+Thus $M$ has no torsion elements.
+
+The converse is false in general:
+torsion-free does not imply flat.
+For example, over
+$$
+A=k[x,y],
+$$
+the ideal
+$$
+M=(x,y)
+$$
+is torsion-free, since it is contained
+in the domain $A$, but it is not flat.
+
 \begin{definition}
 \label{definition-flat-module}
 Let $R$ be a ring.
@@ -2879,6 +2949,26 @@ Prove that $M$ is flat.
 \end{exercise}
 
 \begin{proof}
+Let
+$$
+\xymatrix{
+0\ar[r]
+&M_1\ar[r]
+&M_2\ar[r]
+&M_3\ar[r]
+&0
+}
+$$
+be exact. Then consider
+$$
+\xymatrix{
+0\ar[r]
+&M_1 \otimes_A M\ar[r]^{\varphi}
+&M_2 \otimes_A M\ar[r]
+&M_3 \otimes_A M\ar[r]
+&0.
+}
+$$
 We need to show that the map
 $\varphi: M_1 \otimes_A M 
 \to M_2 \otimes_A M$ is injective.
@@ -2886,6 +2976,61 @@ So basically the claim is:
 if that map is injective
 over all localizations $A_{\mathfrak{p}}$
 then it is injective over $A$.
+
+So it's basically two steps:
+(1) show that
+$$
+(\Ker \varphi)_{\mathfrak{p}}
+=
+\Ker \varphi^{\mathfrak{p}}
+$$
+where $\varphi^{\mathfrak{p}}$
+is the induced map over $A_{\mathfrak{p}}$
+for any $\mathfrak{p} \subset A$
+prime. More precisely:
+$$
+\xymatrix{
+0\ar[r]
+&M_1 \otimes_{A_{\mathfrak{p}}}M\ar[r]^{
+\varphi^{\mathfrak{p}}}
+&M_2 \otimes_{A_{\mathfrak{p}}}M\ar[r]
+&M_3 \otimes_{A_{\mathfrak{p}}}M\ar[r]
+&0
+}
+$$
+And then, step (2) is:
+show that, in fact,
+$\Ker \varphi^{\mathfrak{p}}=0$.
+This is given.
+
+So the real step (2) is:
+show that if any $A$-module $K$
+is zero as an $A_{\mathfrak{p}}$-module
+for any $\mathfrak{p}\subset A$,
+then it is zero as an $A$-module.
+Here's AI's proof: consider the annihilator
+of an element $m \in M$, it's the
+set of scalars that kill it, i.e.
+$\operatorname{Ann}(m) =
+\{a \in A: am=0\}$. It's nonempty by
+hypothesis (yes, the fact that $m$ is
+zero over $A_{\mathfrak{p}}$ literally
+means that there is $a \not\in \mathfrak{p}$
+such that $a m =0$.
+This just says that $\operatorname{Ann}(m)
+\not\subset \mathfrak{p}$ for any
+$\mathfrak{p}$.
+But that's not true: any ideal is
+contained in some maximal (and thus prime)
+ideal. The reason for that is Zorn's lemma:
+the set of ideals containing
+$\operatorname{Ann}(m)$ is inductive
+(i.e. every chain is bounded, in this case
+by the union of the ideals), so it has
+a maximal element, and maximal ideals
+are prime because the quotient is a field,
+which is in particular a domain.
+ 
 \end{proof}
 
 \begin{exercise}
