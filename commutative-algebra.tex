@@ -160,6 +160,27 @@ degree in $x$, but $f \in \mathbb{C}[x]$,
 so it is a unit.
 \end{proof}
 
+\begin{exercise}
+\label{exercise-ring-of-plane-curve-is-pid}
+Let $P(x,y)$ be an irreducible polynomial
+and $R = \frac{\mathbb{C}[x,y]}{(P)}$.
+Prove that all ideals in $R$ are
+principal, or find a counterexample.
+\end{exercise}
+
+\begin{proof}
+This is false. Consider
+$R=\mathbb{C}[x,y]/(y-x^2)$
+and the ideal $(x,y) \subset
+\mathbb{C}[x,y]$.
+This ideal contains $y^3-x^2$,
+so it's an ideal of $R$,
+but it is not principal!
+Indeed, even after substituting $y^3=x^2$,
+there's no way to obtain $y$ from $x$
+or vice versa. [Proof can be improved]
+\end{proof}
+
 \section{Greatest common divisor and least
 common multiple}
 \label{section-gcd-and-lcm}
@@ -2812,8 +2833,8 @@ is tensor product.
 \end{exercise}
 
 
-\section{Flat maps}
-\label{section-flat-maps}
+\section{Flat modules}
+\label{section-flat-modules}
 
 \noindent
 Let $S=A\setminus \mathfrak p$. Then
@@ -2979,11 +3000,12 @@ then it is injective over $A$.
 
 So it's basically two steps:
 (1) show that
-$$
+\begin{equation}
+\label{equation-localized-varphi}
 (\Ker \varphi)_{\mathfrak{p}}
 =
 \Ker \varphi^{\mathfrak{p}}
-$$
+\end{equation}
 where $\varphi^{\mathfrak{p}}$
 is the induced map over $A_{\mathfrak{p}}$
 for any $\mathfrak{p} \subset A$
@@ -2991,19 +3013,50 @@ prime. More precisely:
 $$
 \xymatrix{
 0\ar[r]
-&M_1 \otimes_{A_{\mathfrak{p}}}M\ar[r]^{
+&(M_1)_{\mathfrak{p}} 
+\otimes_{A_{\mathfrak{p}}}M_{\mathfrak{p}}
+\ar[r]^{
 \varphi^{\mathfrak{p}}}
-&M_2 \otimes_{A_{\mathfrak{p}}}M\ar[r]
-&M_3 \otimes_{A_{\mathfrak{p}}}M\ar[r]
+&
+(M_2)_{\mathfrak{p}} 
+\otimes_{A_{\mathfrak{p}}}
+M_{\mathfrak{p}}\ar[r]
+&(M_3)_{\mathfrak{p}}
+\otimes_{A_{\mathfrak{p}}}
+M_{\mathfrak{p}}\ar[r]
 &0
 }
 $$
-And then, step (2) is:
-show that, in fact,
-$\Ker \varphi^{\mathfrak{p}}=0$.
-This is given.
+where the localizations of each module
+are given by tensoring with $A_{\mathfrak{p}}$
+over $A$, e.g. $M_{\mathfrak{p}} =
+A_{\mathfrak{p}} \otimes_A M$ by definition.
+Thus the above sequence is exactly
+$$
+\xymatrix{
+0\ar[r]
+&(M_1 \otimes_A M)_{\mathfrak{p}}\ar[r]
+^{\varphi^{\mathfrak{p}}}
+&(M_2 \otimes_A M)_{\mathfrak{p}}\ar[r]
+&(M_3 \otimes_A M)_{\mathfrak{p}}\ar[r]
+&0
+}
+$$
+and we see that
+Equation \ref{equation-localized-varphi}
+follows by definition.
+Indeed, both sets are barely
+$$
+\left\{
+\frac{a}{b}x:\varphi(x)=0,
+\frac{a}{b}\in A_{\mathfrak{p}}\right\}.
+$$
 
-So the real step (2) is:
+
+By the exercise's hypothesis, we know that
+$\Ker \varphi^{\mathfrak{p}}=0$.
+
+Then, step (2) is:
 show that if any $A$-module $K$
 is zero as an $A_{\mathfrak{p}}$-module
 for any $\mathfrak{p}\subset A$,
@@ -3016,7 +3069,7 @@ $\operatorname{Ann}(m) =
 hypothesis (yes, the fact that $m$ is
 zero over $A_{\mathfrak{p}}$ literally
 means that there is $a \not\in \mathfrak{p}$
-such that $a m =0$.
+such that $a m =0$).
 This just says that $\operatorname{Ann}(m)
 \not\subset \mathfrak{p}$ for any
 $\mathfrak{p}$.
@@ -3033,12 +3086,34 @@ which is in particular a domain.
  
 \end{proof}
 
+\begin{definition}
+\label{definition-boolean-ring}
+A {\it boolean ring} is a ring such
+that all its elements are idempotents,
+that is, satisfy $a^2=a$.
+\end{definition}
+
 \begin{exercise}
 \label{exercise-boolean-ring-flat}
 Prove that any finitely generated module
 over a Boolean ring is flat.
 \end{exercise}
 
+\begin{proof}
+The claim is false.
+Consider the boolean ring
+$\mathbb{Z}/2\mathbb{Z} \oplus
+\mathbb{Z}/2\mathbb{Z}$,
+equipped with the usual ring structure
+for direct sums which is given
+by applying the operations entry by entry.
+
+This module has torsion:
+$$
+([1],[0])([0],[1])=([0],[0]).
+$$
+Ah! But this ring is not a domain. Forget it.
+\end{proof}
 
 \section{Artinian algebras}
 \label{section-artinian-algebras}
