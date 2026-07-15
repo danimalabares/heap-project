@@ -184,8 +184,13 @@ def preamble():
     ]
 
     skip_class = False
+    skip_external = 0
     for line in lines:
         stripped = line.strip()
+        if skip_external:
+            skip_external += line.count("{")
+            skip_external -= line.count("}")
+            continue
         if stripped.startswith("\\IfFileExists{stacks-project.cls}"):
             skip_class = True
             continue
@@ -200,13 +205,20 @@ def preamble():
             continue
         if stripped.startswith("\\usepackage{multicol}"):
             continue
+        if stripped.startswith(
+            "\\newcommand{\\maybeexternaldocument}"
+        ) or stripped.startswith(
+            "\\renewcommand{\\externaldocument}"
+        ):
+            skip_external = line.count("{") - line.count("}")
+            continue
         if stripped.startswith("\\maybeexternaldocument"):
+            skip_external = line.count("{") - line.count("}")
             continue
         if stripped.startswith("\\externaldocument"):
+            skip_external = line.count("{") - line.count("}")
             continue
         if stripped.startswith("\\let\\externaldocumentorig\\externaldocument"):
-            continue
-        if stripped.startswith("\\renewcommand{\\externaldocument}"):
             continue
         out.append(line)
     return "".join(out)

@@ -5,6 +5,7 @@ import shutil
 import sys
 
 from plasTeX.Context import ContextItem
+from plasTeX.Renderers import Gerby
 
 try:
   import jinja2
@@ -34,12 +35,34 @@ def context_item_getitem(context, key):
   raise KeyError(key)
 
 
+def parts_list(document):
+  """Associate chapters with preceding parts."""
+  parts = {}
+  current = None
+  stack = list(reversed(document.childNodes))
+
+  while stack:
+    node = stack.pop()
+    if node.nodeName == "part":
+      current = node.ref.source
+      parts[current] = []
+    elif (
+      node.nodeName == "chapter"
+      and current is not None
+    ):
+      parts[current].append(node.ref.source)
+    stack.extend(reversed(node.childNodes))
+
+  return parts
+
+
 def main():
   plastex = shutil.which("plastex")
   if plastex is None:
     raise SystemExit("plastex executable not found")
 
   ContextItem.__getitem__ = context_item_getitem
+  Gerby.partsList = parts_list
   sys.argv[0] = plastex
   runpy.run_path(plastex, run_name="__main__")
 
