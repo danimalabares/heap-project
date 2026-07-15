@@ -243,7 +243,7 @@ unique, up to isotopy.
 \end{theorem}
 
 \medskip\noindent
-{\bf Next steps.}
+{\bf Next steps.} 
 Examples of compact 3-manifolds with
 toroidal boundary (baby steps).
 Defining and classifiying Seifert fibered
@@ -255,9 +255,109 @@ atoroidal manifolds (hardest part).
 Let $M = S^3$ and let $K$ be a knot
 in $S^3$ (an embedded closed curve).
 Take $N$ a tubular neighbourhood around $K$.
+So $P = S^3 \setminus N$ is a compact
+orientable 3-manifold with toroidal boundary
+(a not complement).
 
+But we could have also considered any link
+$L$ (a collection of disjoint knots),
+or even let $M$ be another 3-manifold.
 
+\begin{example}[Complement of the unknot]
+\label{example-complement-unknot}
+Let $S^1 \subset S^3$ be the unknot.
+Then $S^3 \setminus S^1 =
+\mathbb{R}^3\setminus\mathbb{R}=…=
+S^1\times \mathbb{D}$,
+the solid tours.
+\end{example}
 
+\begin{example}[Complement of Hopf link]
+\label{example-complement-hopf-link}
+$S^3\setminus L = T^2 \times I$.
+\end{example}
+
+\begin{example}[Guing examples along
+their boundaries]
+\label{example-gluing-examples}
+
+\end{example}
+
+\medskip\noindent
+{\bf Seifert fibered spaces.}
+
+\begin{remark}
+\label{remark-seifert}
+\begin{itemize}
+\item A Seifert fibered space will be a
+compact 3-manifold $M$ possibly with
+boundary which admits a foliation by
+circles.
+\item Studied by Herbert Seifert in the
+1930s, with the intention of getting closer
+to the topological classification of closed
+3-manifolds.
+\end{itemize}
+\end{remark}
+
+\noindent
+{\bf First step: fibrations of the solid
+torus.} For a pair of coprime  $p,q$,
+consider a $p,q$-curve in $\partial
+\mathbb{D}\times S^1$ and think of it as a
+curve in $\mathbb{D}\times S^1$.
+
+\begin{definition}
+\label{definition-seibert-fibered}
+A {\it Seifert fibered space} is a compact
+(possibly with boundary) 3-manifold
+that admits a decomposition into disjoint
+simple closed curves such that each of this
+fibers has a tubular neighbourhood made of
+fibers which is isomorphic to $T(p,q)$ for
+some pair $(p,q)$.
+\end{definition}
+
+\begin{example}[Hopf fibration]
+\label{example-hopf-fibration}
+\end{example}
+
+\begin{example}[Half turn flat manifold]
+\label{example-half-turn-flat-mfd}
+
+\end{example}
+
+\begin{theorem}[Seifert, 1933]
+\label{theorem-seifert33}
+Let $\pi:M \to X$ be a Seifert fibration
+with $M$ compact (possibly with boundary)
+and orientable. Then $\pi$ (and, in
+particular, $M$) can be obtained from the
+construction below:
+\begin{enumerate}
+\item Let $S$ be a surface.
+\item LEt $D_1,…,D_n$ be disjoint disks
+in $S$ and $S'=S\setminus(D_1 \cup  …
+\cup D_n)$.
+\item Let $N$ be the orientable $S^1$ bundle
+over $S'$. (If $S'$ is orienbtable,
+$N=S' \times S^1$, otherwise 
+$N=S' \tilde{\times}S^1$.)
+$N$ is orientable, compact and each
+component of $\partial N$ is a torus.
+\item Fill the toroidal boundaries using
+Dehn fillings.
+\end{enumerate}
+\end{theorem}
+
+\medskip\noindent
+{\bf Dehn fillings.} (Missing.)
+
+\medskip\noindent
+{\bf Summary so far.}
+Closed 3-manifolds $\to$ Prime factors
+$\to$ $S^2 \times S^1$ or Irreducible
+$\to$ JSJ composition… (missing ending).
 
 
 \section{AI Meets Geometry Workshop}
@@ -745,19 +845,251 @@ recently providing rigorous proofs.
 \end{itemize}
 
 
+\medskip\noindent
+\medskip\noindent
+{\bf Lecture 2: supervised learning ---
+representing and fitting geometric geometric
+structures.}
+
+\medskip\noindent
+{\bf Three topics:} 
+\begin{enumerate}
+\item Euler's formula for polytopes
+\item Ricci-flat CY metrics
+\item (some holonomy UNICAMP-related topic.)
+\end{enumerate}
+
+\medskip\noindent
+{\bf Neural network recap.}
+A neural network is a function
+$f_{\theta}:\mathbb{R}^n \to \mathbb{R}^m$.
+\begin{itemize}
+\item (Layers.) $v_k = \sigma(W_k v_{k-1}
++b_k)$, parameters $\theta=\{W_k,b_k\}$.
+We are looking for the parameters that best
+described the system.
+\item  $\sigma$ a nonlinearity (ReLU, GELU).
+\item $f_{\theta}=…$
+\item  Train by descent…
+\item Universal approximation…
+\end{itemize}
+
+\medskip\noindent
+This distinction organises the whole
+lecture:
+\begin{itemize}
+\item (A) Supervised learning: learn from
+labelled examples. Given pairs $(x,y)$,
+minimise $\|f_{\theta}(x)-y\|^2$.
+Both of todays labs: Euler's formula
+and CY metrics.
+
+\item (B) Self-supervised… (missing)
+\end{itemize}
+
+\medskip\noindent
+{\bf MNIST.} A collection of hand-written
+numbers to be classified. It's like the
+``hello-world''.
+As we said yesterday, geometry gives us
+better toy data: exact, cheap, unlimited,
+noiseless.
+
+\medskip\noindent
+{\bf Euler formula.}
+\begin{enumerate}
+\item Sample many random polytopes, record
+$(f_1,f_2,f_3)= (V,E,F)$.
+\item Do not tell the network the formula.
+\item Train by MSE the map
+$$
+f_\theta:(V,E) \mapsto F.
+$$
+\item Ask: what did we learn?
+\end{enumerate}
+
+\noindent
+A deliberately trivial target… (missing)
+
+\medskip\noindent
+{\bf What it learns --- and why we care.}
+\begin{itemize}
+\item It recovers $F=E-V+1:$
+weights $\approx (-1,+1)$, bias
+$\approx 2$. The network discovered Euler's
+formula.
+\item Noiseless data $\implies $
+we can check exactly that it got the maths.
+\item Template established: encode as
+vectors $\to$ pick a loss $\to$ train
+$\to$ verify.
+\end{itemize}
+
+\noindent
+{\bf The real version.}
+(The original project) Reflexive polytopes
+$\leftrightarrow$ CY3, Sasakian metrics..
+(incomplete)
+
+\medskip\noindent
+{\bf Scaling up: does it find Euler-Poincaré
+formula?} (Missing.)
+
+\medskip\noindent
+{\bf Workshop --- my own notes here.} 
+The Jupyter notebook does the following:
+\begin{enumerate}
+\item Create de data of 205 polytopes.
+represented by their
+  face numbers $(V,E,F)$.
+\item The learning task:  approximate
+$F$ given the data of $V,E$ for lots
+of polytopes.
+\item Training.
+\end{enumerate}
+
+\noindent
+The stochastic process here is
+gradient descent. At some point
+we deduce the formula.
+
+\medskip\noindent
+{\bf CY example.}
+We want to compute the Ricci-flat metric
+of a CY3. Recall that this metric 
+is a solution of Monge-Ampère
+equation: Ricci flat $\iff$
+$\omega^3 = c \Omega \wedge
+\overline{\Omega}$.
+
+We'll be working with Fermat's quintic.
+
+Since we are doing supervised learning
+we need to kinds of variables
+(``dogs and cats'').
+
+Donaldson in 2005 in {\it Some numerical
+results in complex differential geometry}
+he approximates the metric. Very 
+roghly, his algorithm is:
+
+\begin{enumerate}
+\item Pick a clever ansatz for the Kahler
+potential. This potential is obtained from
+sections of an ample line bundle on the
+threefold.
+
+\item He procduces a way to find sections of
+the line bundle having higher and higher
+degree, at infinity this sequence converges
+to a potential of a Ricci-flat metric.
+\end{enumerate}
+
+\noindent
+This procedure is super expensive.
+For degree 12 it takes about 50 hours
+of super-computing time. For degree-20
+it takes 35 years --- it's not feasible.
+
+\medskip\noindent
+Out approach:
+\begin{itemize}
+\item Input: encode rach point
+$p=(z_0,…,z_4)$.
+\item Target= the determinant of the metric
+(roughly)
+\item Train: a very small neural network.
+\item Learn from a SMALL sample.
+\end{itemize}
+
+\noindent
+Here we use the mean squared function.
+Then we need the evaluation method, which
+is this $W$.
+
+Own/AI notes:
+\begin{enumerate}
+\item Pick points in the quintic.
+\item At each point compute the determinant
+of the metric up to order 3 (cheap) and
+at order 4 (expensive, but ok).
+\item Ask the thing to estimate.
+How good is the estimate? We use mean
+squared error to measure how good/bad is the
+estimate.
+\item Improve the rule somehow.
+\item Apply the estimate to some points that
+were hidden during the training (but for
+which we also computed the determinants).
+\item Finally, ``check geometrically''
+whether the prdicted metric
+is close to the Ricci-flat ``using
+$\sigma$''.
+\end{enumerate}
+
+\noindent
+How good is the learned metric:
+we must measure its Ricci-flatness. 
+
+See Ashmore, He Ovrut: Machine Learning
+Calabi-Yau metrics.
+
+\begin{remark}
+\label{remark-not-standard}
+This is not the state-of-the-art way to compute
+Ricci-flat metrics. The state-of-the-art
+is without labels. It's
+``physics-informed neural network''.
+Find corrections to FS ambient metric based
+on some set of ansatz and a tailored loss
+function. Design an ad-hoc loss function
+that accounts for the Monge-Ampère failure,
+etc. This is what the team used
+to compute the $G_2$-holonomy metrics.
+\end{remark}
 
 
 
 
+\medskip\noindent
+{\bf $G_2$ metric computation.}
+Recall what a $G_2$-manifold is… (missing).
 
+Pipeline
+\begin{enumerate}
+\item cymetric $\implies $ Ricci-flat metric
+on the quintic base.
+\item lift it to the circle bundle
+\item Generate a lot of data point and train
+aa network.
+\end{enumerate}
 
+\noindent
+This is supervised approach.
+``First neural appoximation of a
+$G_2$-structure on a CY''.
 
+\medskip\noindent
+{\bf What's next?} Flows, construct 
+$G_2$-holonomy metrics.
 
+See Heyes, Hirst Sa Earp {\it Neural and
+numerical methods for $G_2$-structures on
+contact Calabi-Yau 7-manifolds}.
 
-
-
-
-
+\medskip\noindent
+{\bf Summary.}
+\begin{enumerate}
+\item Encode the structure as
+tensors/vectors.
+\item Choose a loss: (A) supervised (today's
+examples), (B) self-supervised.
+\item Train with autodiff on the chosen
+signal. (The glorified regression.)
+\item Verify with an independent check
+(Euler's coefficients, the
+$\sigma$-measure).
+\end{enumerate}
 
 
 \section{An Allen-Cahn approach to the
@@ -2180,7 +2512,7 @@ is a horocylinder.
 \begin{proposition}
 \label{proposition-cr01-2}
 Let $E$ be a poperly embedded $H=1$
-annular end with $\partial_\infty M \neq
+annular end with $\partial_\infty M \neq 
 S_{\infty}$, then $E$ is a regular end,
 i.e. $G$ extend meromorphically to the
 puncture.
@@ -2215,10 +2547,10 @@ $\mathbb{H}^2\times\mathbb{R}$.
 \end{theorem}
 
 \noindent
-Fernandez-Mira: finda  geometric Gauss map
+Fernandez-Mira: finda  geometric Gauss map 
 $G:\Sigma \to \mathbb{H}^2$.
 
-Examples: the rotational bowl
+Examples: the rotational bowl 
 and the hyperbolic bowl family.
 
 \medskip\noindent
@@ -2274,7 +2606,7 @@ X^* =(F^* ,h^* ):M \to \mathbb{H}^2 \times
 \mathbb{R}
 $$
 is a conformal immersion with CMC
-$H=\frac{1}{2}$ and
+$H=\frac{1}{2}$ and 
 $$
 X = (F,h):M \to Nil
 $$
@@ -2321,5 +2653,1546 @@ uniformly along $\gamma^*$ (embedded curve)
 then $\gamma^*$ again has exactly one point
 on the asymptotic boundary… (missing ending)
 .
+
+\section{From Gaussian to
+$Q$-curvature: a conformal viewpoint}
+\label{section-gaussian-q-curvature}
+
+\medskip\noindent
+Rayssa Caju,
+Universidad de Chile.
+
+\medskip\noindent
+{\bf Abstract.}
+Gaussian curvature is central to the local
+and global geometry of surfaces. Its
+transformation under conformal changes
+connects geometry with complex analysis
+and partial differential equations. This
+talk asks how that theory extends to higher
+dimensions and discusses curvature
+quantities arising in conformal geometry,
+culminating in $Q$-curvature. Originally
+introduced as a fourth-order analogue of
+Gaussian curvature in dimension four,
+$Q$-curvature also has higher-dimensional
+versions. The talk presents results for
+the associated equation in compact and
+noncompact settings, as well as open
+problems and directions for further work.
+
+
+\medskip\noindent
+{\bf Introduction.} This talk explains
+a 5-year programme in conformal geometry.
+
+\begin{definition}
+\label{definition-conformal-metrics}
+Two metrics on a manifold are conformal
+if they are related by a positve smooth
+function $f$:
+$\tilde{g}=fg$.
+\end{definition}
+
+\noindent
+This means the metrics have the same angles
+but not the same lengths.
+Conformal geometry studies quantities
+or operators that are invariant under
+conformal changes.
+
+\medskip\noindent
+{\bf 2-dimensions.}
+Let $(M^2,g)$ be compact and $K$ its
+Gaussian curvature.
+
+\noindent
+Question: given a surface, can we modify the
+metric conformally 
+so that we obtain something with a
+``nice shape'', i.e. homogeneous and with
+constant $K$.
+
+\noindent
+Question 2: why conformally? Because
+conformal changes are easiest in geometry.
+
+If $\tilde{g}=e^{2u}g$, then
+$$
+\tilde{K}=e^{-2u}(K-\Lambda_gu).
+$$
+
+\begin{theorem}[Uniformization]
+\label{theorem-uniformization-conformal}
+There is $\tilde{g} \in [g]$
+with constant Gaussian curvature.
+\end{theorem}
+
+\noindent
+Solving this problem is equivalent to
+solving a PDE:
+$$
+-\Lambda_g u + K
+=
+\tilde{K} e^{2u}
+$$
+on $M$.
+
+Integrating the equation Laplace dies,
+and then we use Gauss-Bonnet. Thus the sign
+of $\tilde{K}$ is directly related to the
+topology.
+
+Thus,
+$g \to \int K$ is a conformal invariant.
+
+We know that the uniformization theorem
+leads to the three plane geometries.
+This is a complete classification of simply
+connected surfaces in dimension 2,
+answering the question of Poincaré.
+
+\medskip\noindent
+{\bf Compactification.}
+Cohn-Vossen-Huber: a complete surface
+$(M^2,g)$ with Gauss curvature in $L^1$ has
+a conformal compactification $\bar{M} = 
+M \cup  \{ q_1,…,q_l\}$ as a compact Riemann
+surface and
+$$
+2\pi\chi(M)
+=
+\int_M K dA + \sum_{k=1}^l\nu_k
+$$
+where the $\nu_k$ are ``constants of
+compactification''.
+
+
+\medskip\noindent
+{\bf 3-dimensions (and higher).}
+Perhaps every person that works in conformal
+geometry is used to working with the Yamabe
+problem. Our main focus is to understand
+{\it another} curvature measure.
+
+Now consider a compact manifold $M^n,g$ with
+$n>2$, and let $R_g$ be the scalar
+curvature.
+
+Under a conformal change
+$\tilde{g} = u^{\frac{4}{n-2}}g$, then
+$$
+R_{\tilde{g}}=
+u^{-\frac{n+2}{n-2}}\left(-\frac{4(n-1)}{n-2}\Delta_g
+u + R_g u\right).
+$$
+
+{\bf Yamabe problem.} Finding a conformal
+metric
+$$
+\tilde{g} = u^{\frac{4}{n_02}}g
+$$
+with constant scalar curvature.
+
+Note that the exponent in the PDE above
+appears in the Sobolev immersion.
+
+\begin{itemize}
+\item The problem is variational.
+\item The sign of $R_{\tilde{g}}$ agrees
+with the sign of the {\it Yamabe invariant} 
+$$
+Y(M,g)=
+\operatorname{inf}_{\tilde{g} \in [g]}
+\frac{\int_M
+R_{\tilde{g}}dV_{\tilde{g}}}{(\operatorname{vol}\tilde{g})^{\frac{n-2}{n}}}
+$$
+\item Compacness conjecture: the set of
+solutions is compact up to dimension 2.
+\begin{itemize}
+\item Khuri, Marques and Shoen 09, Brendle
+08, and Brendle-Marques 09: figured out the
+set is compact up to dimension 24 (for some
+reason) and is not compact for dimension
+$\geq  25$.
+\end{itemize}
+\end{itemize}
+
+\medskip\noindent
+{\bf 4 dimensions: what is the
+$Q$-curvature.}
+\begin{itemize}
+\item $(M^4,g)$ = compact 4-dimensional
+manifold.
+\item Paneitz and Branson: fourth order
+operator --- $P_g$ and a ``new'' geometric
+quantity called the {\it Q-curvature}.
+\item $Q$-curvature is defined by
+$$
+Q_g = -\frac{1}{12}
+\left(\Delta_g R_g - R_g^2+3
+|\operatorname{Ric}_g|^2\right)
+$$
+where $R_g$ is the scalar curvature and
+$\operatorname{Ric}_g$ the Ricci curvature
+tensor (of $g$).
+
+\item In dimension 4, as an application of
+the Chern-Gauss-Bonnet theorem we verify:
+$$
+\int_M\left(Q_g + \frac{1}{8}|W_g|^2_g
+\right)d V_g
+= 4 \pi^2\chi(M).
+$$
+
+\item Analogy between $Q_g$ and Gaussian
+curvature of a surface!
+
+\item $|W_g|^2 dV_g$ is a {\it pointwise
+conformal} invariant. (The Weyl tensor
+is pointwise conformal invariant.)
+\item $g \to \int_M Q_g dv_g$
+is a {\it conformal invariant}.
+\end{itemize}
+
+\begin{example}
+\label{example-q-curvature}
+\begin{itemize}
+\item $S^4$: $Q_{g_{S^4}}=3$.
+\item $\mathbb{H}^4$:
+$Q_{g_{\mathbb{H}^4}}=3$.
+\item Einstein metric: $Q_g > 0$. Then, by
+Chern-Gauss-Bonnet, the manifold has
+positive Euler characteristic.
+Thus the full classification depending on
+this quantity (the $Q$-curvature) is not
+reasonable.
+\item Any Einstein 4-manifold must have
+nonnegative Euler characteristic.
+\item  The same holds for manifolds with
+positive $Q$-curvature.
+\end{itemize}
+\end{example}
+
+\medskip\noindent
+{\bf Paneitz operator.}
+This operator is actually why the notion of
+$Q$-curvature appeared. It's basically the
+Weyl Laplacian with lower order terms:
+$$
+P_gu= \Delta_g^2 + \operatorname{div}_g
+\left(\frac{2}{3}R_g g - 2
+\operatorname{Ric}_g\right)du.
+$$
+
+\begin{itemize}
+\item $\{\operatorname{constant
+functions}\}\subset \Ker P_g$.
+\item (Missing)
+\end{itemize}
+
+\noindent
+Question: can we generalize the
+uniformization theorem for higher
+dimensions? Try to find metrics with
+constant $Q$-curvature in 4 dimensions.
+
+\begin{theorem}[Gursky 99, Chang-Yang 95]
+\label{theorem-ggy}
+If the $P$ is positive and the kernel
+has only constant functions, and with a
+hypothesis and another reasonable condition,
+then $Q_g$ is constant.
+\end{theorem}
+
+\medskip\noindent
+{\bf Applications in dimension 4.}
+\begin{itemize}
+\item On a conformally flat 4-manifold,
+we have $\int_M Q= 4\pi^2\chi (M)$.
+\item Chang, Qing, Yang, 00:
+compactification of 4-dimensional locally
+conformally flat manifolds when $Q \in L^1$.
+\item See the survey ``What is
+$Q$-curvature?''.
+\end{itemize}
+
+\medskip\noindent
+{\bf In search of conformal invariants.}
+Between the 80s and 00 they were trying to
+generalize the Paneitz operator and
+$Q$-curvature to every dimension. See
+Feffer, Graham, Brenson (80s-00s).
+
+If $\tilde{g} =
+u^{\frac{4}{n-4}}g$…(missing)
+
+They managed to find a generalization:
+
+$$
+P_g = \Delta_g^2 + \operatorname{div}
+\left(\operatorname{something}\right)
++ \frac{n-4}{2}Q_g
+$$
+and the $Q$-curvature is given by
+$$
+Q_g=\operatorname{ugly}.
+$$
+
+\medskip\noindent
+{\bf $Q$-curvature problem: the compact
+case.}
+
+\noindent
+{\bf Q-curvature problem.} Given a manifold
+of sidimension $\geq 5$, can I find a
+conformal metric with constaant
+$Q$-curvature?
+
+Again we reduce the problem to a PDE (of
+fourth order):
+$$
+P_gu=\frac{n(n-4)}{\operatorname{missing}}…
+$$
+Being variational, it means that we can
+associate a function to the PDE and we try
+to minimize this function.
+Consider the {\it energy functional}
+associated to $Q$:
+$$
+\mathcal{E}_g(u) =
+\mathcal{E}\left(u^{\frac{4}{n-4}}g\right)
+=\frac{2}{n-4}\frac{\langle
+P_gu,u\rangle_{L^2}}{\|u\|^2L^{\frac{2n}{n-4}P_g}}
+$$
+
+\begin{itemize}
+\item Gursky, Hang and Lin 16: introduced
+another conformal invariant in the
+fourth-order context:
+$$
+Y_4(M,g)
+=
+\operatorname{inf} \{\mathcal{E}_g(u)
+: u \in H^2(M)\setminus \{0\}\}.
+$$
+\end{itemize}
+
+\noindent
+As in the Yamabe problem, there are many
+solution to the $Q$-curvature equation!
+
+\begin{itemize}
+\item If $(M,g)$ is conformal to the sphere,
+one has lots of solutions.
+Classicaly, in the negative case, we have
+only one solution.
+
+\item In the $Q$-curvature case, we get that
+even in the negative case, we have lots of
+solution --- we expect more solutions to
+appear (at expense of having more
+constrainsts):
+Bettiol, Piccione, Sirre 21: even
+nonisometric conformal metrics with the same
+constant negative curvature can exit.
+
+\item How many solutions can we
+find? 
+
+\item Wei and Zhao 09: conjecture false for
+$n \geq  25$.
+\item Li 19, Xiong 15 compacntess in some
+spacial casses.
+\end{itemize}
+
+\begin{remark}[Curious note]
+\label{remark-curious}
+The sixth-order case changes the threshold
+dimension: compacntess holds in $7 \leq n
+\leq  26$ blow-up examples (missing ending).
+\end{remark}
+
+\noindent
+We have the counter example for dimension
+higher than 24. Let's try to classify.
+
+If I have a fixed metric closed to the
+metric, I can find many metric with
+arbitrarily large energy, i.e. the conformal
+class has lots of high energy and high
+volume metrics. That is, we can find
+solutions with these properties. This shows
+that we have the non-compactness property
+for high-dimensional case.
+
+The way to solve these PDEs is via bubbles.
+We ``glue bubbles'' and obtain solutions
+that are counter examples to the compactness
+conjecture.
+
+The problem we have been working the most on
+is the noncompact setting. Consider a
+manifold. We want a conformal metric with
+constant Q-curvature. Remove a set: look for
+a conformal Q-constant manifold
+$M\setminus\Lambda$.
+
+Relevant quantities: sign of $R_g$, sign
+$Q_g$ and the dimension of $\Lambda$
+(the ``singular set'').
+
+The firs contribution in this problem was
+due Hyder and Sire 20, considering $\Lambda$
+has some sort of dimension. But we worked on
+the case where $\Lambda$ is a set of points.
+
+Near each of the singularities, I want to
+understand the local behaviour of the
+solution. They figured out the solutions
+would be assymptotic to what we called
+Delaunay solutions, i.e. this PDE has been
+solved, solutions are known.
+
+OK, if we understand the asympotics, we can
+produce solutions.
+Back in 2022, we considered a manifold with
+one singularity only. Let's try to glue a ``
+model'' (picture of double-bubble looking
+object). We deform the manifold with a ring
+function, producing a neck that we use to
+glue the double bubble.
+
+In the case of the sphere, Andrade, Wey, Ye
+24 did exactly this.
+
+Now that we understand that we have
+solutions for the singular problem, we can
+ask: how many solutions are there. We only
+can understand this because there is a
+theory for the sphere.
+
+In a subsequent work published last year,
+the speaker and collaborator understand all
+the moduli space of solutions. It's a real
+analytic variety with formal dimension $\#
+\Lambda \geq 3$.
+
+Can we understand this variety a little
+more? The speaker and collaborators tried an
+end-to-end construction. (Picture of
+multiple-bubble object + gluing.) We
+conclude that the moduli space is
+non-contractile, i.e. topologically
+nontrivial.
+
+All the inspiration for these results is due
+to the asymptotics. 
+
+\medskip\noindent
+{\bf Open problems}.
+
+\begin{itemize}
+\item Getting a full picture of the
+noncompactness phenomena. (With Rodrigo, and
+dos Santos.)
+
+\item Compact + noncompact case. Put the
+compacntess conjecture together with the
+noncompacntess case! the importance of the
+Weyl tensor is essential --- it allows us to
+do the gluing. Question: can we construct
+something that is non Delaunay for
+dimensions higher than 25?
+
+\item Negative case: $Q_g <0$, and $R_g<0$.
+\item Mixed cases: $Q_c>0$ and $R_g<0$.
+\item Is is possible to compute
+$Q$-curvature invariants? (Bray and Neves do
+this in $\mathbb{R}P^3$ and so on.)
+Can we do it in the same way here?
+But the theory of Yamabe invariant for
+$Q$-curvature is only set for dimensions
+greater than 6. This is not well-known yet,
+work in progress.
+\end{itemize}
+
+\noindent
+Special thanks to a collaborator of the
+speaker (a collaborator in {\it all} her
+works!). Speaker started in PDEs in Paraiba,
+and then did a sandwich with Fernando… and
+switched to the dark side of the force.
+
+They're putting a group together for
+geometry (PDEs and analysis) in Chile Is the same
+threshold for the compactness conjecture for
+the Y. See
+pilot 
+conference: geometric analysis in the Andes.
+
+
+
+
+\section{Nearly $G_2$-manifolds and
+$G_2$-Laplacian co-flows}
+\label{%
+section-nearly-g2-laplacian-coflows%
+}
+
+\medskip\noindent
+Jakob Stein,
+Universidade Estadual de Campinas.
+
+\medskip\noindent
+{\bf Short communication.}
+
+\medskip\noindent
+{\bf Abstract.}
+Nearly $G_2$-structures on compact
+$7$-manifolds define positive Einstein
+metrics and are critical points, up to
+scale, of geometric flows on co-closed
+$G_2$-structures. This talk studies their
+stability under suitably normalized
+$G_2$-Laplacian co-flows. The normalization
+accounts for rescaling, as normalized Ricci
+flow does for Einstein metrics. Despite
+this normalization, many nearly
+$G_2$-structures are unstable. In
+particular, those arising naturally from
+$3$-Sasakian geometry are unstable, and
+the standard nearly $G_2$-structure on the
+round $7$-sphere is an unstable critical
+point of high index. This is joint work
+with Jason Lotay.
+
+
+\medskip\noindent
+{\bf Geometric flows.}
+\begin{itemize}
+\item Want to find special geometric
+structures on manifolds.
+
+\item Stable critical points of a geometric
+flow (parabolic) PDE.
+
+\item Analytically like the heat equation
+$$
+\frac{\partial }{\partial t}u=-\Delta u
+$$
+and we want to find the stable points of the
+PDE. So which states converge to the stable
+point.
+\end{itemize}
+
+\begin{example}[Ricci flow]
+\label{example-ricci-flow}
+Start with a metric $g_0$,
+and a one-parameter family of metrics $g_t$,
+ evolve the metrics with
+the Ricci function:
+$$
+\frac{\partial }{\partial
+t}g=-2\operatorname{Ric}g.
+$$
+
+\begin{itemize}
+\item Feature: conformal scaling, we stay in
+the same conformal class.
+\item Eg. Einstein metric:
+$\operatorname{Ric}(g_0)=\kappa g_0$,
+$\kappa>0$:
+$$
+g_t= (1-2\kappa t) g_0.
+$$
+\item Finite-time singularity as $t \to
+\frac{1}{2 \kappa}$.
+\end{itemize}
+\end{example}
+
+\begin{example}[Ricci flow normalized]
+\label{example-ricci-flow-normalised}
+$$
+g_t= (1-2\kappa t) g_0 + 2\kappa g.
+$$
+\end{example}
+
+Higher dimensions?
+
+\medskip\noindent
+{\bf $G_2$-Laplacian co-flow} (Karigiannis,
+McKay, Tsui.) A positive closed family of
+4-forms on $M^7$ (determins a metric $g_t$)
+solving
+$$
+\frac{\partial }{\partial t}\psi 
+= \Delta_g \psi.
+$$
+
+Normalised version (this has to do with
+conformality):
+$$
+\frac{\partial }{\partial t}\psi 
+= \Delta_g \psi+ -\kappa^2 \psi.
+$$
+
+\begin{itemize}
+\item Critical points: $n G_2$-structure (n
+for nearly).
+\end{itemize}
+
+\medskip\noindent
+{\bf Nearly $G_2$-structure.}
+We have introduced:
+$$
+d(* \psi)=\kappa \psi.
+$$
+\begin{itemize}
+\item Assicated metric $g$ is positive
+Einstein.
+\item Metric cone $dr^2 + r^2g$ has holonomy
+$\subseteq \operatorname{Spin}(7)$.
+\item Admit Killing spinors.
+\end{itemize}
+
+\begin{example}[G2 structures]
+\label{example-g2-structures}
+\begin{itemize}
+\item $S^7 \subset \mathbb{R}^8$.
+\item 3-Sasaki metrics.
+
+Proper n$G_2$-structures: unique Killing
+spinor (up to orientation) associate to $g$.
+
+\item ``squashed '' Einstein metrics
+(Jensen)
+\item Aloff Wallach spaces
+$\operatorname{SU}(2)/\operatorname{U}(1)_{p,q}$
+
+\item Berger space
+$\operatorname{SO}(2)/\operatorname{SO}(3)$.
+
+Classified in homogeneous case by Friedrich,
+Kath, Moroianu, Semmelman 1997.
+\end{itemize}
+\end{example}
+
+\medskip\noindent
+{\bf Modified Laplacian Co-Flow.}
+\begin{itemize}
+\item Problem: LCF is non-parabolic, even up
+to diffeomorphisms (deTurk trick.
+\item No kown short-time
+existence/uniquecness via parabolic methods
+\item no Shi-type esitamtes i.e. a opriori
+bound on 2nd derivatives fives bound on
+higher derivatives.
+\end{itemize}
+
+\noindent
+{\bf Modified Laplacian co-flow (Grigorian).} 
+A positive closed family of 4-forms $\psi_t$
+on $M^7$ (determins a metric $g_t$) solving
+$$
+\frac{\partial }{\partial t}\psi
+=
+\Delta_g \psi + \frac{1}{2}d
+((5 \kappa \gamma - 7\tau_0) * \psi)
++ \frac{5}{2}(1-\gamma)\kappa^2\psi
+$$
+here the $\gamma$ and the $+\frac{5}{2}…$
+are the modification proposed by the speaker
+and collaborator. $\tau_0$ is ``scalar
+torsion'' of $\psi$, $\gamma$ constant,
+$1\gg  \gamma - 2>0$.
+
+\begin{itemize}
+\item Only equivarian modification of mLCF
+such that critical point n$G_2$, $d(*
+\psi)=\kappa \psi$ is stable under scaling
+(Bedulli-Vezzoni).
+\item Existence/uniqueness, estimates
+(Grigorian, Chen).
+\end{itemize}
+
+\medskip\noindent
+{\bf Main results (Lota-S.)}
+As I said, we want these things to be
+stable. We came up with a spectral condition
+such that some given nearly $G_2$ manifold
+is stable.
+
+\begin{itemize}
+\item  Let $\Omega_{27}^4$ be component of
+$\Omega^4(M)$ poinwise isometric to
+$\operatorname{Sym}^2_0$.
+\end{itemize}
+
+\begin{theorem}[Lotay-S]
+\label{theorem-lotays}
+nmLCF is linearly stable at the
+n$G_2$-structure only if the spectrum of the
+operator $d *$ is not contained in 
+$(-\kappa , -\frac{5}{2} (\gamma -
+1)\kappa)$.
+\end{theorem}
+
+
+\begin{itemize}
+\item Unstable conditions for flow.
+\item Compare instability range (missing..)
+\end{itemize}
+
+\begin{itemize}
+\item Index of critical point: dim of
+unstable subspace
+\end{itemize}
+
+\begin{theorem}[Lotay-S]
+\label{theorem-lotays2}
+The standard n$G_2$ structure on $S^7$ 
+for nmLCF, with index at least 7047.
+\end{theorem}
+
+
+\medskip\noindent
+{\bf Proof.}
+\begin{itemize}
+\item $S^7$ admits orientation-reversing
+involution, anit-commutes with $d *:
+\Omega^4 \to \Omega^4 \implies $ can compute
+spectral data on $\Omega^4$ using
+$O(7)$ rep. theory of Laplacian (Bär 19).
+\item Find lower bound on multiplicities
+using explicit decomposition of $d *
+$spectra on exact $\Omega^4$… (missing).
+\end{itemize}
+
+\medskip\noindent
+{\bf 3-Sasaki Ansatz.}
+\begin{itemize}
+\item Sasaki structure: is $M^7$ admits
+Sasaki structure, exists locally free action
+of $\operatorname{SU}(2)$ on $M$ with
+$N=M/\operatorname{SU}(2)$ an Riemmanian
+orbifold with submersion metric $g_N$.
+\item (missing)
+$$
+g=a_0^2g_N + a_1^2
+\eta_1^2+a_2^2\eta_2^2+a_3^2\eta_3^2.
+$$
+(missing other stuff)
+\end{itemize}
+
+\begin{theorem}[Lotay-S]
+\label{theorem-lotays3}
+In the family $\psi$ with $a_1=a_2$,
+given scale $\kappa >0$
+\begin{itemize}
+\item For any initial condition, nLCF
+exists and converges to $\psi_{\pm
+}^{\kappa}$.
+\item Given $\gamma> 2$, $\psi_{\pm }^\kappa$
+are unstable under nmLCG and have index one.
+\end{itemize}
+\end{theorem}
+
+\medskip\noindent
+{\bf Summary.}
+We've made the natural modification of a
+very primising family of flows which was
+though to be a replacement of Ricci flow in
+this scenario. Produces interesting class of
+metric with special holonomy. Doing the
+obvious thing, it fails quite drastically
+for a ver natural class of nearly $G_2$
+critical points that we now. We do that by
+some spectral estimates. Most of the
+examples are unstable. We conjecture the
+rest of the examples are also unstable. We
+have some preliminary work that suggests
+that. There appears to be other unstable
+points for this critical ansatz - ODE.
+More precisely:
+
+\medskip\noindent
+{\bf Open questions.}
+\begin{itemize}
+\item Conjecture all n$G_2$ are unstable for
+nmLCF.
+\item Appears to be other (unstable)
+critical points of nmLCF in the 3-Sasaki
+Ansatz.
+\item Dimensional reduction (hypersymplectic
+flow).
+\end{itemize}
+
+\section{Min-max widths associated with
+distance functions}
+\label{section-min-max-distance-widths}
+
+\medskip\noindent
+Rafael Montezuma,
+Universidade Federal do Cear\'a.
+
+\medskip\noindent
+{\bf Abstract.}
+Min-max theory for the area functional can
+be viewed as Morse theory on a space of
+hypersurfaces, with widths appearing as
+distinguished critical values. This talk
+introduces a min-max width associated with
+the distance between pairs of points on a
+smoothly embedded circle in a complete
+Riemannian manifold. The construction uses
+a Morse--Lusternik--Schnirelmann theory for
+the distance function and extends the
+classical width of plane curves. The talk
+also studies Riemannian analogues of plane
+curves of constant width, comparison
+inequalities with other geometric
+invariants, and rigidity in the equality
+cases.
+
+\medskip\noindent
+{\bf Sweepouts as movies of pairs of points
+(AI).}
+
+A sweepout can be thought of as a movie of
+two points moving continuously around the
+circle. Initially, the two points coincide.
+They then move apart, so that the arc between
+them grows from a single point, through
+larger and larger arcs, until it becomes the
+whole circle.
+
+At each time $t$, the endpoints determine a
+pair ${p_t,q_t}\subset\gamma$. The entire
+continuous family of such pairs is called a
+sweepout. For each sweepout, one considers
+the largest distance attained between its
+two points. The min--max width
+$\mathcal{S}_g(\gamma)$ is the smallest such
+maximum among all possible sweepouts.
+
+
+\medskip\noindent
+{\bf Introduction.} We started from the
+idea, a few years ago, that the numbers that
+come up in minmax theory for area functional
+can be viewed as nonlinear spectrum of the
+family.
+
+\medskip\noindent
+{\bf Two classical geometric quantities.}
+
+\medskip\noindent
+{\bf Birkoff invaiant.}
+
+\begin{theorem}[Birkhof, 1917]
+\label{theorem-birkof17}
+Every Riemannian sphere contains a closed
+geodesic.
+\end{theorem}
+
+\noindent
+He used what we are going to call
+the Birkhoff sweepout.
+He found a nice critical value of the
+length functional: for every sweepout (a
+function from sphere to manifold), for each
+one we  maximize the length and then
+minimize among sweepouts. This is a critical
+value of the length.
+This is (realized) by a curve in the
+manifold.
+
+\medskip\noindent
+{\bf Width of plane curves.}
+Even older than Birkhoff's. It's the
+following quantity: given a plane curve, for
+each vector consider the shortest distance
+between two parallel distance which contains
+the curve.
+
+\noindent
+Plane curves of constant width. These are
+the curves such that $w_v(\gamma) =
+w(\gamma)$ for all $v \in S^1$. They are
+interesting: the length of these curves is
+determined by this quantity!
+
+\medskip\noindent
+{\bf A new invariant related to the last
+two.}
+It's a generalization of the width of planar
+curves, and it's related to Birkhoff's
+invariant in a fun way.
+
+This invariant came up in a work 3 years ago
+with Lucas Ambrozio and R. Santos (now at
+King's College).
+\begin{itemize}
+\item width of embedded circles in
+Riemannian manifolds.
+\item Embedded circles of constant width.
+\end{itemize}
+
+\noindent
+The width is generalized as a min-max
+invariant.
+Which is a critical point of the distance
+function defined on the space of pairs of
+points of the curve $\gamma \subset M^n$:
+$$
+d(\{p,q\})…
+$$
+
+The min-max width of $\gamma \subset M$ is
+the number: the maximum distance of all
+sweepouts and the minimize, just as in the
+Birkhoff invariant.
+
+$$
+\mathcal{S}_g(\gamma)
+=\operatorname{min} \operatorname{max}
+$$
+
+
+The sweepouts are the pairs in the space of
+pairs of points of $\gamma$ if:
+\begin{itemize}
+\item the two pairs are the same at the
+beginning and at the end,
+\item maps parametrized by $t$ are
+continuous
+\item consider the arcs joining the two
+points. The first one is a point and the
+last one the whole curve.
+\end{itemize}
+
+\noindent
+``So those are the sweepouts.''
+
+\begin{theorem}[Ambrozio, Miranda, Montezuma]
+\label{theorem-amm}
+Every closed simple planar curve $\gamma
+\subset \mathbb{R}^2$ satisfies
+$$
+\mathcal{S}_g(\gamma) \leq  w (\gamma).
+$$
+\end{theorem}
+
+\begin{itemize}
+\item Equality holds for convex curves.
+\end{itemize}
+
+\begin{theorem}[Ambrozio, Miranda, Montezuma]
+\label{theorem-amm2}
+Let $(S^2,g)$ be a Riemannian sphere. For every
+embedded circle $\gamma$ in $S^2$,
+$$
+\mathcal{S}_g (\gamma) \leq 
+\frac{1}{2}w_B(S^2,g)
+$$
+\end{theorem}
+
+
+\begin{itemize}
+\item This inequality is sharp: the standard
+sphere attains it.
+\item If $\varphi:\gamma \to \gamma$
+is continuous without fixed points,
+then every sweepout by pairs of points has a
+point of the form $\{p , \varphi(p)\}$
+so we can estaimate: $\mathcal{S}_g \geq
+\operatorname{min}_{p \in \gamma} d_g(p ,
+\varphi(p))$.
+The theorem can be an effective tool to
+estimate the Birkhoff invariant.
+\end{itemize}
+
+\medskip\noindent
+{\bf Constructing sweepouts of a circle out
+of a given family of curves.}
+The first case says that the with of a plane
+curve is bounded from below by the minmax
+with.
+
+Estimate the number $\mathcal{S}(\gamma)$ from above by
+the vertical direction (figure).
+
+\medskip\noindent
+{\bf Sweepout by pairs of points of the
+circle induced by a Morse function.}
+
+The construction can be extended to:
+\begin{theorem}[Miranda, Ambrozio, M]
+\label{theorem-amm3}
+Let $s:S^1 \to \mathbb{R}$ be a Morse
+function such that all critical level sets
+contain a single critical point.
+Then there exists a sweepout of the circle
+such that both points belong to the level
+set, i.e. a sweepout $\{p_t,q_t\}$ such
+that…
+\end{theorem}
+
+\begin{proof}
+For this proof sketch assume that
+$\{\Sigma_s\}$ is a foliation…
+\end{proof}
+
+
+\medskip\noindent
+{\bf Non-compact surfaces with embedded
+circles of uniformly bounded widths
+(applications).}
+Once we understand that this number is tied
+with these other variational quantities.
+We are curious about these other things:
+what are the examples of noncompact spaces
+such that the width of embedded circles is
+not uniformly bounded.
+
+\begin{theorem}[Ambrozio, Mirand, M.]
+\label{theorem-amm4}
+Let $(M^n,g)$ be a complete non-compact
+Riemannian manifold. The following are
+equivalent:
+\begin{enumerate}
+\item $\operatorname{sup}
+\mathcal{S}(\gamma)$ for $\gamma$ embedded
+circle is finite.
+\item number of ends of $M$ is $\leq  $2 and
+there exists a finite graph $G$
+(1-dimensional CW-complex) and continuous
+$f:M \to G$ such that the supremum of the
+diameter $f^{-1}(g)$ for $g \in G$ is
+finite.
+\end{enumerate}
+\end{theorem}
+
+\noindent
+This geometric restriction here amounts to a
+macroscopic dimension in Urysohn's theory.
+
+Let's discuss three ingredients that we use
+in the proof of this theorem --
+characterization of noncompact spaces for
+which all curves have uniformly bounded
+width.
+
+\medskip\noindent
+{\bf Ruling out three ends.}
+Consider the map $\varphi:\gamma_n \to
+\gamma_n$ sdefined on the long three-legged
+starfish such that
+\begin{itemize}
+\item $\varphi$ maps one red component to
+the other.
+\item and similarly for the other colors
+(figure…).
+\item (missing…)
+\end{itemize}
+
+\noindent
+So this is how you rule out the space having
+three ends.
+
+A similar picture shows that you can also
+bound distance to rays in those spaces:
+
+\medskip\noindent
+{\bf Bounding distance to rays.}
+Let $\sigma$ be a ray, and $\gamma$ be an
+embedded circle whose sides are close to
+minimizing geodesics (one them --the base--
+contained in $\sigma$).
+
+\begin{enumerate}
+\item If $d$ and the base are long (figure)
+then $\mathcal{S}(\gamma)$ is large.
+
+The level sets of the Busemann function of
+the ray have uniformly bounded diameters.
+\end{enumerate}
+
+\medskip\noindent
+{\bf Constructing sweeputs (asuming 2).}
+``This proposition is vague:''
+
+\begin{proposition}
+\label{proposition-2-equiv}
+2 is equivalent to the existence of a
+continuous function $f:M \to \mathbb{R}$
+such that $\operatorname{diam}f^{-1}(t) \leq  C$ for all
+$t$, i.e. the diameters of levels are
+uniformly bounded.
+\end{proposition}
+
+\noindent
+If $\gamma $is nice in such way so that the
+composition of $f$ restricted to $\gamma$
+has a single critical point in each critical
+level set, our methods give a sweepout
+of $\gamma$ such that $f(p_t)=f(q_t)$.
+Then the hypothesis on $f$ yields
+$$
+\mathcal{S}(\gamma)\leq 
+\operatorname{max} \{d(p_t,q_t)\}\leq C.
+$$
+In general, an approximation argument
+on $(f \circ \gamma)$ is applied and we
+combine
+\begin{itemize}
+\item a sweepout such that $|f(p_t)-f(q_t)|$
+is small, and
+\item a compacness argument which yields
+(inequality involving diameter).
+\end{itemize}
+
+
+\medskip\noindent
+{\bf Noncompact-related section.}
+The systole is at least length of
+homotopical nontrivial curves. We prove that
+if $\sigma$ is a homotopically nontrivial
+curve of length
+$L_g(\sigma)=\operatorname{sys}(M,g)$ then
+its width is half of the systole,
+$$
+\mathcal{S}_g(\sigma) =
+\frac{1}{2}\operatorname{sys}(M,g).
+$$
+This follows from the fact that for any pair
+points of $\sigma$ at leas on of the arcs
+they determine is minimizing. Otherwise we
+obtain a contradiction with $\sigma$ being
+contractible.
+
+\begin{lemma}[Corollary, AMM]
+\label{lemma-amm7}
+Let $(M^n,g)$, $n \geq 2$ be a Riemannian
+manifold with $\pi_1(M) \neq 0$ suppose
+there exists a continuous function $f :M \to
+\mathbb{R}$ such that the supremum of
+lengths of level sets is bounded unofrmly by
+$C < \infty$. If there exists a nontrivial
+curve whose length equals the systole, then
+the systole is bounded by twice the
+constant:
+$$
+\operatorname{sys}(M,g) \leq  2 C.
+$$
+\end{lemma}
+
+\noindent
+Indeed
+$$
+C \geq  \mathcal{S}_g(\sigma)
+=
+\frac{1}{2}L_g(\sigma)=\frac{1}{2}\operatorname{sys}(M,g)
+$$
+for any geodesic (something) the systole.
+
+\medskip\noindent
+{\bf Rigidity results for Zoll spheres.}
+The inequality $\mathcal{S}(\gamma) \leq
+\frac{1}{2}w_B(S^2,g)$ is not rigid.
+E.g. metric in sphere with anitpodal
+isometry, then for some closed geodesic,
+there minmax number equals half the Birkhoff
+invariant.
+There are many examples where some embedded
+circle does this.
+
+But if we restrict ourselves to the class of
+Zoll spheres (i.e. all geodesics are closed
+and have the same lengths; a very large
+class of Riemannian spheres).
+In this settings, if there is a closed
+geodesics such that the minmax = half
+Birkhoff, then sphere must be round.
+
+\begin{theorem}[AMM]
+\label{theorem-amm8}
+Precisely that above.
+\end{theorem}
+
+\begin{theorem}[AMM]
+\label{theorem-amm9}
+Zoll, intrically rotationally symmetric
+and
+$$
+\operatorname{supp} \mathcal{S}(\gamma)
+$$
+for $\gamma$ embedded equals half
+$w_B(S^2,g)$ then $g$ is round.
+\end{theorem}
+
+\noindent
+For the proof of these rigidity results we
+use the following lemma, which says that in
+a Zoll sphere if we have equality of sup
+embedded and Birk then every closed geodesic
+contains a pair of points for which the
+distance equals half the Birkhoff invariant.
+Moreover, in this case,
+$\operatorname{diam}(S^2,g)=\frac{1}{2}w_B(S^2,g)$,
+i.e. the diameter equals half the Birkhoff
+invariant.
+
+\medskip\noindent
+{\bf Another minmax invariant.}
+Minmax distance width of a sphere (w/
+I.Ribeiro). $\mathbb{C}P^2$ case.
+A minmax number that is nontrivial critical
+value of the distnace functional in the
+space of…(missing).
+This number coincides with the classical
+width.
+
+\begin{theorem}[AMM]
+\label{theorem-amm10}
+Let $(S^2,g)$ be a Zoll sphere.
+Then
+$$
+w_B(S^2,g) \geq  2W_d(S^2,g)
+$$
+and equality holds if and only if
+$(S^2,g)$ has constant Gaussian curvature.
+\end{theorem}
+
+\section{Finite-index CMC hypersurfaces
+in low dimensions}
+\label{section-finite-index-cmc}
+
+\medskip\noindent
+Ivan Miranda,
+Instituto de Matem\'atica Pura e Aplicada.
+
+\medskip\noindent
+{\bf Short communication.}
+
+\medskip\noindent
+{\bf Abstract.}
+Let $X$ be a six-dimensional Riemannian
+manifold with nonnegative sectional
+curvature which splits as the product of a
+closed manifold and a Euclidean factor.
+Every complete, finite-index, nonminimal
+CMC hypersurface immersed in $X$ is
+compact. This answers a question of
+do Carmo for this class of ambient spaces
+and extends results in lower dimensions.
+As a consequence, the talk completes the
+classification of two-sided weakly stable
+CMC hypersurfaces in the round sphere
+$S^6$ and real projective space
+$\mathbb{R}P^6$.
+
+\medskip\noindent
+{\bf CMC hyoersurfaces} They are codimension
+one immersed submanifolds…
+
+\medskip\noindent
+{\bf Weak stability}. The notion of
+stability we are interested is closely
+related to the classical isoperimetric
+problem.
+
+We look by variations of hypersifaces.
+\begin{enumerate}
+\item The first variation is CMC.
+\item The second variation (formula with
+integrals, has Ric and $|A|^2$.
+
+Weakly stable CMC hypersurface, see Barbosa
+and do Carmo.
+
+One can define the notion of volume
+preserving variation ofor non-compact and
+immersed two-sided hypersurfaces. We search
+for hyupersurfaces that minimize are up to
+second order. Algebraic volume between
+$\Sigma_0 $ and $\Sigma_t$.
+
+Do Carmo-Barbosa noticed that if we take a
+piece of a cylinder of height $h$ is
+stable,a nd eventually becomes unstable.
+They compute threshold of stability.
+Physical exeriments with cylinders confirms
+it.
+
+\medskip\noindent
+{\bf Strong stability.}
+A CMC hypersurface is a critical point for
+the … 
+
+\begin{itemize}
+\item One can presicribe the mean curvature
+$H \in [0,+\infty)$ searching for critical
+points $\Sigma^{n-1}\subset X^n$ with area
+$A(\Sigma)$ and enclosing a volume
+$V(\Sigma)$ using the functional
+$F_H(\Sigma)=A(\Sigma) - H V(\Sigma)$.
+\item  The strong stability inequality.
+(another integral inequality with Ric and
+$|A|^2$.)
+\end{itemize}
+\end{enumerate}
+
+\medskip\noindent
+{\bf Applications.}
+\begin{itemize}
+\item The isoperimetric problem (Ritoré-Ros,
+Viana).
+\item Foliations by CMCs (Ilias-Nelli-Soret).
+\item Maximum principles at infinity
+(Ros-Rosenberg).
+\item Min-max existence for CMC
+hypersurfaces (Mazurowski-Zhou).
+\item Compacness arfuments
+(Rosenberg-Souam-Toubiana).
+\end{itemize}
+
+\medskip\noindent
+{\bf do Carmo's question.}
+Question: Are complete noncompact weakly
+stable CMC hypersurfaces immersed in
+Euclidean $(n+1)$-dimensional space
+necessarily minimal?
+
+Several works show this holds in low
+dimension. (Silviera for dimension 3,
+Elbert-N-L for 4,5. Recenlty Cheng-Hong-Li
+for 6.) The general question is open.
+
+\begin{itemize}
+\item Volume growth conditions (do
+Carmo-Alencar, do Camo-Zhou,
+Ilias-Nelli-Soret).
+\item In $\mathbb{R}^7$, a non-minimal
+example would have only one end (Fu-Li).
+\item C. Pontale, B. Nelh partially anwsers
+this question.
+\end{itemize}
+
+\medskip\noindent
+{\bf The weak index.}
+
+\begin{theorem}[M]
+\label{theorem-m}
+6-dimensional related.
+\end{theorem}
+
+\noindent
+This is related to:
+
+\begin{theorem}[Classification of CMC]
+\label{theorem-classification-cmc}
+A complete, two-sided weakly stable CMC
+imppersed in $\mathbb{R}^{n+1}$
+is either a round sphere or an affine
+hyperplane.
+
+Immersed in $S^{n+1}$ is a geodesic sphere
+if $n+1 \in \{ 3,4,5,6\}$.
+
+In $\mathbb{R}P^{n+1}$, geodesic sphere,
+Clifford hypersurface or… in dimensions…
+\end{theorem}
+
+\medskip\noindent
+{\bf Chodosh' question.} If $\Sigma$ is
+strongly stable CMC hypersurfaced immersed
+in hyperbolic space with mean curvature
+$|H|\geq  n$ must $\Sigma$ be a horosphere?
+
+Positive answer in $\mathbb{H}^3$, partial
+results in dimensions 4,5.
+
+\begin{theorem}[M]
+\label{theorem-m2}
+Partial results in dimension 6. Let
+$(X^6,g)$ be Riemannian with sectional
+curvature bounded from below by $-1$.
+Suppose tha ction of the isometry group on
+$X$ is cocompact. Then every complete,
+finite index CMC hypersurface immersed in
+$X$…
+\end{theorem}
+
+\noindent
+The proof relies on a reduction lemma, which
+states that for a cocompact action… In fact,
+this can be used for both theorems since
+both use cocompact actions. We want to prove
+compactness. We do it by contradiction,
+conclude that $M$ would have finite volume.
+
+Highlight: surve of B. Nelli on do Carmo's
+question.
+\section{Solitons for mean curvature flow
+in $H^2 \times \mathbb{R}$}
+\label{section-mcf-solitons-h2r}
+
+\medskip\noindent
+Jo\~ao Paulo dos Santos,
+Universidade de Bras\'ilia.
+
+\medskip\noindent
+{\bf Abstract.}
+Solitons for mean curvature flow are
+solutions which evolve through ambient
+isometries. This talk studies solitons in
+$H^2 \times \mathbb{R}$, with emphasis on
+vertical translators and rotators. It
+reviews rotational, parabolic and
+hyperbolic symmetric translators, then uses
+helicoidal symmetry to construct
+rotator-translators and relate them to
+vertical translators. It concludes with
+the asymptotic geometry of vertical
+translators and a description of the
+vertical and horizontal components of
+their boundary at infinity.
+
+\medskip\noindent
+{\bf Basic idea (AI).}
+
+A translator is a special solution of mean
+curvature flow which does not change shape.
+The whole surface moves rigidly in one fixed
+direction. (There's also rotators.)
+
+João studies such surfaces in
+$\mathbb{H}^2\times\mathbb{R}$. He imposes
+symmetries, such as rotational or helicoidal
+symmetry, in order to construct explicit
+examples. He then studies their global shape
+and how they behave near infinity.
+
+
+\medskip\noindent
+{\bf Mean curvature flow.}
+An immersion $f:M^n \to \tilde{M}^{n+1}$,
+and then $F:X \times I \to \tilde{M}$
+determined by a differential equation on the
+mean curvature.
+
+\begin{itemize}
+\item A soliton solution for the MCF is
+given by $F(p,t)=\Gamma_t(f(p))$ where
+$\Gamma_t$ is a one-parameter subgroup of
+the group of isometries of $\tilde{M}$.
+
+\item Result by Hungerbuhler-Smoczyk 00.
+(This gives a good way to produce nice
+solutions.)
+\end{itemize}
+
+\begin{example}[Euclidean space]
+\label{example-euclidean-space-soliton}
+\begin{itemize}
+\item Evolution by translations
+\item  In this case $\xi = e_3$ and $\Sigma$
+satisfying $H= \langle\xi,\eta\rangle$ is
+called a translator.
+\item Trivial examples: vertical planes.
+\end{itemize}
+\end{example}
+
+\noindent
+We wanted to leave euclidean space --- find
+other solutions. There's a lack of examples
+in hyperbolic space.
+
+\begin{itemize}
+\item Considered the upper-half plane model.
+\item Hyperbolic translations along the
+$x_3$-axis defined by…
+\item …
+\end{itemize}
+
+\noindent
+Produced at least two examples in hyperbolic
+space.
+
+\begin{itemize}
+\item Symmetric vertical tranlatos are built
+from foliations by circles, horocycles, and
+…
+\end{itemize}
+
+\medskip\noindent
+{\bf Rotators for the MCF in $\mathbb{H}^2
+\times \mathbb{R}$.}
+
+\begin{itemize}
+\item Goal: rotators with helicoidal
+symmetry.
+\end{itemize}
+
+\begin{theorem}[de Lima-Ramos-dS 25]
+\label{theorem-dlrds25}
+Let $\Sigma=X(\mathbb{R}^2)$ be a helicoidal
+surface of pitch $h>0$ in $\mathbb{H}^2
+\times \mathbb{R}$. Then $\Sigma$ is a
+rotator for the MCF if and only if…
+\end{theorem}
+
+\medskip\noindent
+{\bf Recap of translators.}
+Translators with rotational symmetry: the
+ball goes to infinity in height and
+horizontally, same for the catenoid. …
+
+\medskip\noindent
+{\bf Asymptotic boundary of vertical
+translators in $\mathbb{H}^2 \times
+\mathbb{R}$.}
+\begin{itemize}
+\item Goal: describe the vertical and
+horizontal asymptotic.
+\item Our approach is inspired by ideas and
+techniques developed to study the asymptotic
+boundary of minimal and CMC surfaces:
+Nelli-Sa Earp-Santos-Toubiana 08, Sa
+Earp-Toubiana 17, Kloeckner-Mazzeo 17.
+\item Key ingredient: tangency principle and
+symmetric vertical translators and barriers.
+\end{itemize}
+
+\noindent
+Idea: approach infinity, there are two
+ways:…
+
+
+\begin{theorem}[Pipoli-dS-Tinglia 25]
+\label{theorem-pdst25}
+Let $M$ be a properly immersed translator in
+$\mathbb{H}^2 \times \mathbb{R}$ with
+(possibly empty) compact boundary….
+\end{theorem}
+
+
+\medskip\noindent
+{\bf Work in progress.}
+
+\begin{itemize}
+\item Goal: understand the asymptotic value
+of the angle function $\nu =
+\langle\eta,\partial_h\rangle$ at the corner
+asymptotic boundary.
+\item Motivation: for symmetric examples,
+one has
+$$
+\nu \to \pm \frac{1}{\sqrt{2}}
+$$
+by Lima-Pipoli 25.
+\end{itemize}
 
 \end{document}
