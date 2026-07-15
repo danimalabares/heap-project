@@ -184,7 +184,6 @@ def preamble():
     ]
 
     skip_class = False
-    skip_helper = False
     for line in lines:
         stripped = line.strip()
         if stripped.startswith("\\IfFileExists{stacks-project.cls}"):
@@ -202,11 +201,6 @@ def preamble():
         if stripped.startswith("\\usepackage{multicol}"):
             continue
         if stripped.startswith("\\maybeexternaldocument"):
-            skip_helper = True
-            continue
-        if skip_helper:
-            if stripped == "}":
-                skip_helper = False
             continue
         if stripped.startswith("\\externaldocument"):
             continue
