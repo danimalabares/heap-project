@@ -1,33 +1,82 @@
 $(document).ready(function() {
-  $("article[id] .environment-identifier")
-    .each(function(index, element) {
-      var identifier = $(element);
-      var article = identifier.closest(
-        "article[id]"
-      );
-      var tag = article.attr("id");
+  var environments = [
+    "definition",
+    "example",
+    "exercise",
+    "lemma",
+    "proposition",
+    "remark",
+    "remarks",
+    "situation",
+    "theorem"
+  ];
+  var selector = environments.map(
+    function(environment) {
+      return "article.env-" + environment;
+    }
+  ).join(",");
 
-      if (!/^[0-9A-Z]{4}$/.test(tag)) {
-        return;
-      }
+  $(selector).each(function(index, element) {
+    var article = $(element);
+    var tagged = article.find("[data-tag]")
+      .first();
+    var tag = tagged.attr("data-tag")
+      || article.attr("id");
 
-      var href = "/tag/" + tag;
+    if (!/^[0-9A-Z]{4}$/.test(tag)) {
+      return;
+    }
 
+    var href = "/tag/" + tag;
+    var identifier = article.find(
+      ".environment-identifier"
+    ).first();
+
+    if (identifier.length) {
       if (identifier.is("a")) {
         identifier.attr("href", href);
         identifier.attr("data-tag", tag);
-        return;
+      } else {
+        identifier.wrap(
+          $("<a>", {
+            "class":
+              "environment-identifier",
+            "data-tag": tag,
+            "href": href
+          })
+        );
+        identifier.removeClass(
+          "environment-identifier"
+        );
       }
+    }
 
-      identifier.wrap(
-        $("<a>", {
-          "class": "environment-identifier",
-          "data-tag": tag,
-          "href": href
-        })
-      );
-      identifier.removeClass(
-        "environment-identifier"
-      );
-    });
+    article.attr(
+      "data-environment-href",
+      href
+    );
+  });
+
+  $(selector).on("click", function(event) {
+    var target = $(event.target);
+
+    if (target.closest(
+      "a, button, input, textarea, select"
+    ).length) {
+      return;
+    }
+
+    var selection = window.getSelection();
+    if (selection && selection.toString()) {
+      return;
+    }
+
+    var href = $(this).attr(
+      "data-environment-href"
+    );
+
+    if (href) {
+      window.location.assign(href);
+    }
+  });
 });
