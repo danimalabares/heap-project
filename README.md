@@ -1,9 +1,15 @@
 ## What is this
 
 This is a copy of the [Stacks Project repository](https://github.com/danimalabares/heap-project).
+
 There are some files with math notes.
-The site is currently up at
-heap-project.org.
+The website is available at
+[www.heap-project.org][website]
+and at the alternative URL
+[heap-project.up.railway.app][alternative].
+
+[website]: //www.heap-project.org
+[alternative]: //heap-project.up.railway.app
 
 ## How to use
 
