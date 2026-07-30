@@ -111,54 +111,6 @@ but this is a contradiction since $R$ is a
 domain and $a_n \neq 0$, $b_m \neq 0$.
 \end{proof}
 
-\begin{exercise}
-\label{exercise-rational-functions-irreducible}
-Let $k=\mathbb{C}(t)$ be the field of
-rational functions on $\mathbb{C}$.
-Prove that for any $n$ there exists
-an irreducible polynomial
-$P(t) \in k[t]$ of degree $n$.
-\end{exercise}
-
-\begin{proof}
-Let $P(x) \in k[x]=\mathbb{C}(t)[x]$
-be $P(x) = x^n-t$.
-This polynomial has no root in
-$k=\mathbb{C}[t]$,
-for if $(f/g)^n=t$ then 
-$n(\operatorname{deg}f-
-\operatorname{deg}g)=1$,
-which is impossible for $n>1$.
-But unfortunately this doesn't prove
-that it's irreducible: in $\mathbb{R}[x]$,
-the polynomial
-$(x^2 + 1)(x^2+2)=x^4+3x^2+2$
-is reducible and has no roots.
-\end{proof}
-
-\begin{exercise}
-\label{exercise-smooth-irreducible-plane}
-Prove that for any $d \in  \mathbb{Z}^{>0}$
-there exists an irreducible polynomial
-$P \in \mathbb{C}[x,y]$ such that
-$P(x,y)=0$ defines a smooth submanifold
-in $\mathbb{C}^2$.
-\end{exercise}
-
-\begin{proof}
-$x^n+y$ since $\partial_y =1$.
-This is an irreducible polynomial:
-if $x^n+y = fg$, then either of $f,g$
-must have no $y$ variable, say $f \in
-\mathbb{C}[x]$,
-and the other one must be degree 1 in $y$.
-Suppose $g = y f' + f''$ for $f',f'' \in
-\mathbb{C}[x]$. But then
-$x^n+y = fg = yff' + f f''$,
-which means that $f$ cannot have positive
-degree in $x$, but $f \in \mathbb{C}[x]$,
-so it is a unit.
-\end{proof}
 
 \begin{exercise}
 \label{exercise-ring-of-plane-curve-is-pid}
@@ -919,178 +871,101 @@ conclude that $f$ must be one of the
 or $q\in(f)$.
 \end{proof}
 
-\section{Unique factorization domains
-(alternative approach)}
-\label{section-UFD-alternative}
-
-
-\begin{lemma}
-\label{lemma-primi-part-uniqu-%
-up-unit}
-$\text{pp}(f)$ is unique up to multiplication
-by unit.
-\end{lemma}
+\begin{exercise}
+\label{exercise-rational-functions-irreducible}
+Let $k=\mathbb{C}(t)$ be the field of
+rational functions on $\mathbb{C}$.
+Prove that for any $n$ there exists
+an irreducible polynomial
+$P(t) \in k[t]$ of degree $n$.
+\end{exercise}
 
 \begin{proof}
-This follows from uniqueness up to units of
-gdc and lcm.
+Let $P(x) \in k[x]=\mathbb{C}(t)[x]$
+be $P(x) = x^n-t$.
+This polynomial has no root in
+$k=\mathbb{C}[t]$,
+for if $(f/g)^n=t$ then 
+$n(\operatorname{deg}f-
+\operatorname{deg}g)=1$,
+which is impossible for $n>1$.
+But unfortunately this doesn't prove
+that it's irreducible: in $\mathbb{R}[x]$,
+the polynomial
+$(x^2 + 1)(x^2+2)=x^4+3x^2+2$
+is reducible and has no roots.
+
+To prove $x^n + t$ is irreducible we shall
+use the Gauss lemma. Forget the above
+notation and suppose that
+$fg = x^n + t$, where
+$f,g \in \mathbb{C}(t)[x]$.
+We want to clear the denominators in
+the coefficients of $f$ and $g$,
+so we multiply by the product $D$ of all
+such denominators and obtain
+$$
+f_1g_1 = (x^n + t)D,
+$$
+where $D \in \mathbb{C}[t]$ and
+$f_1,g_1 \in \mathbb{C}[t][x]$.
+Now we apply Gauss lemma, that is, the
+content of the product is the product
+of the contents. Since $x^n +t$ is primitive
+(i.e. has content $1$), then the
+content of $f_1g_2$ equals the content
+of $D$, but $D$ is a constant
+(constants here are polynomials in
+$\mathbb{C}[t]$).
+We obtain
+$$
+FG = x^n + t
+$$
+where $F$ and $G$ are the principal parts
+of $f_1$ and $g_1$. This holds up to
+multiplication by a complex number.
+
+Now we reduce modulo $t$ and obtain
+$$
+[F][G] = [x^n],
+$$
+and conclude that…
 \end{proof}
 
-\begin{definition}
-\label{definition-primitive-%
-part}
-If $f\in F[x]$, define its {\it primitive
-part} to be a primitive polynomial
-$\text{pp}(f)$ such that $c\text{pp}(f)=df$
-where
-\begin{itemize}
-\item $d\in R$ is the minimum common
-factor of the denominators of the
-coefficients of $f$, which may be defined as
-the product of the least elements among all
-the factors (in their unique
-factorization) of the denominators such that
-$df \in R[x]$.
-\item $c\in R$ is the greatest common divisor
-of the coefficients of $df$, which
-may be defined as the product of the greatest
-number of common elements in the
-factorizations of each of the coefficients in
-$df$.
-\end{itemize}
-\end{definition}
-
-\begin{lemma}[Gauss]
-\label{lemma-true-gauss}
-Let $R$ be a ring and $F$ its field of
-fractions. A primitive polynomial $f\in
-R[x]$ is irreducible in $F[x]$ if and only if
-it is irreducible in $R[x]$.
-\end{lemma}
+\begin{exercise}
+\label{exercise-smooth-irreducible-plane}
+Prove that for any $d \in  \mathbb{Z}^{>0}$
+there exists an irreducible polynomial
+$P \in \mathbb{C}[x,y]$ such that
+$P(x,y)=0$ defines a smooth submanifold
+in $\mathbb{C}^2$.
+\end{exercise}
 
 \begin{proof}
-The direct implication is easy: suppose $f$
-is irreducible in $F[x]$ and let
-$f=gh$ for $g,h\in R[x]$. Then $g,h$ are also
-in $F[x]$ so that either of them
-must be a unit of $F$, i.e. a fraction. But
-since they are polynomials in
-$R[x]$, then it must be an element of $R$.
-But since $f$ is primitive we obtain
-a contradiction unless the number is a unit.
-
-For the converse, suppose that $f$ is
-irreducible in $R[x]$. To obtain a
-contradiction suppose that $f=gh$ in $F[x]$
-with $g,h$ not units in $F[x]$.
-Then
-$f=c\text{pp}(f)=c\text{pp}(g)\text{pp}(h)$
-by the True Gauss lemma.
-Notice that we cannot take primitive parts of
-$g$ and $h$ separately since this
-would give perhaps rational contents.
+$x^n+y$ since $\partial_y =1$.
+This is an irreducible polynomial:
+if $x^n+y = fg$, then either of $f,g$
+must have no $y$ variable, say $f \in
+\mathbb{C}[x]$,
+and the other one must be degree 1 in $y$.
+Suppose $g = y f' + f''$ for $f',f'' \in
+\mathbb{C}[x]$. But then
+$x^n+y = fg = yff' + f f''$,
+which means that $f$ cannot have positive
+degree in $x$, but $f \in \mathbb{C}[x]$,
+so it is a unit.
 \end{proof}
 
-\begin{lemma}
-\label{lemma-irred-fx-impli-%
-primi-part}
-If $f\in F[x]$ is irreducible (in $F[x]$),
-then its primitive part
-$\text{pp}(f)$ is irreducible in $R[x]$.
-\end{lemma}
 
-\begin{proof}
-Suppose that $\text{pp}(f)=gh$ for two
-non-unit polynomials $g,h\in F[x]$.
-Multiplying by $c$ as in Definition
-\ref{definition-%
-primitive-part}
-we obtain
-$c\text{pp}(f)=cgh \implies df=cgh \implies
-f=\frac{c}{d}gh$, a contradiction
-since $f$ is irreducible in $F[x]$. This
-shows that
-$\text{pp}(f)$ is irreducible in $F[x]$. By
-Gauss lemma, since $\text{pp}(f)$ is
-irreducible in $F[x]$ and primitive, it must
-be irreducible in $R[x]$.
-\end{proof}
-
-\noindent
-The following is also commonly referred to as
-the Gauss lemma:
-
-\begin{lemma}
-\label{lemma-gauss}
-If $R$ is a UFD then $R[x]$ is a UFD.
-\end{lemma}
-
-\begin{proof}
-Let $f\in R[x]$. Let $c$ be the greatest
-common divisor of the coefficients of
-$f$, so that $f=cf'$. Factor $f'$ in $F[x]$
-as $f'=f_1'\ldots f_k'$. Take
-primitive parts to write
-$f=c'\text{pp}(f_1')\ldots \text{pp}(f_k')$.
-By Lemma
-\ref{lemma-irred-fx-impli-%
-primi-part} each of
-the
-$\text{pp}(f_i')$ is primitive in $R[x]$. By
-the True Gauss lemma we get that
-$c'=c\in R$. Since $R$ is a UFD we also
-obtain that
-$c'$ may be factored into irreducible
-elements of $R$, which are also
-irreducible in $R[x]$.
-
-Uniqueness of the factorization follows from
-uniqueness of the factorization in
-$F[x]$ and Gauss lemma: suppose that $f$ may
-also be factored into irreducible
-elements of $R[x]$ as $g_1\ldots g_\ell$. We
-wish to show that this is a
-factorization in irreducible elements of
-$F[x]$, which we know to be unique up
-to multiplication by units of $F$. To show
-this we use the converse implication
-of Gauss lemma \ref{lemma-true-gauss}: after
-taking primitive parts to obtain
-$\text{pp}(g_i)$, which are irreducible and
-primitive elements of $R[x]$, which
-must be irreducible in $F[x]$. Then $i=\ell$,
-the constants coincide and
-$\text{pp}(g_i)=\text{pp}(f_i)$. Since taking
-primitive part is unique up to
-multiplication by unit, we are done.
-
-By induction on the degree of $f \in R[x]$.
-Write $f=cf'$ for
-$c=\text{gcd}(\text{coefficients of $f$})$.
-Then I claim that $f=cf'$ is a
-factorization of $f$ into irreducible
-elements. $f'$ is irreducible because it
-is linear and primitive; that is, writing
-$f'=c'f''$ is impossible because
-there is no way to factor a non-unit number
-from the coefficients of $f'$;
-indeed, in such case, $cc'$ would be a {\it
-larger} common factor of $f$. Here I
-define larger as follows using that $R$ is
-UFD: if $a=a_1\ldots a_k$ and
-$b=b_1\ldots b_\ell$ then the gdc is the
-product of all common factors of $a$
-and $b$.
-
-To conclude our induction now suppose that
-degree-$n$ elements have
-factorization and let $f$ be of degree $n+1$.
-If $f$ is irreducible we are done.
-Otherwise $f$ can be expressed as the product
-of two positive degree elements,
-each of which is expressed in a product of
-irreducibles.
-\end{proof}
+\begin{remark}
+\label{remark-alternative-approach}
+At some point of this notes,
+there was another write-up of the proof
+of the Gauss lemma. This may be found in
+the Git repository: look for a section
+called ``Unique factorization
+domains (alternative approach)''.
+\end{remark}
 
 \section{Modules}
 \label{section-modules}
@@ -1964,72 +1839,21 @@ and $M/N_2$ are Noetherian.
 Prove that $M$ is Noetherian.
 \end{exercise}
 
-\begin{proof}
-Two attempts so far:
-
-\medskip\noindent {\bf Attempt 1.} 
-\begin{quote}
-Let $I$ be an ideal of $M$ and $i\in I$.
-Consider the class of $i$ with respect to
-$N_1$, $[i]_{N_1}$. Since $M/N_1$ is
-Noetherian, $I/N_1$ is finitely generated.
-Thus
-$$
-[i]_{N_1}=\sum_j a_j[f_j]
-$$
-for some $f_j\notin N_1$ (otherwise they
-would be the trivial class). This says that
-there is $n_1\in N_1$ such that
-$$
-i-\sum_j a_jf_j=n_1.
-$$
-Now observe that $n_1$ is also in $N_2$
-(assuming further, with great cheating, that
-$M=N_1\oplus N_2$): for this we can just
-suppose that $i$ is in $N_2$, for otherwise
-we swap the roles of $N_1$ and $N_2$ in the
-whole argument; and also clearly
-$\sum_j a_j f_j$ is in $N_2$ since all the
-$f_j$ cannot be in $N_1$, as I explained
-above. In conclusion, $n_1$ is also in
-$N_2$, which makes it $0$. Then
-$$
-i=\sum_j a_jf_j.
-$$
-Any other $i'\in I$ would be either
-generated this way or similarly by some
-elements in $N_2$.
-\end{quote}
-
-\medskip\noindent
-{\bf Attempt 2.}
-\begin{quote}
-We get two equations:
-$$
-i=\sum_j a_jf_j+n_1
-=\sum_k b_kg_k+n_2.
-$$
-So initially I said, well OK, let's simplify
-things: suppose $i$ is in $N_1$, then we get
-$$
-i-\sum_k b_kg_k=n_2.
-$$
-Now, $i$ being in $N_1$ means it is not in
-$N_2$. And also $g_k$ cannot be in $N_2$
-because it is a nontrivial class in $M/N_2$,
-so I thought, wrong, because the sum of the
-$g_k$ \emph{could} be in $N_2$, that
-$i-\sum_k b_kg_k$ would be not in $N_2$,
-but being equal to $n_2$, we must have that
-$n_2=0$. This would conclude the argument
-but again, it is wrong.
-
-In the general case when $i$ is not in
-$N_1$ nor in $N_2$ I still struggle with the
-fact that the sum of elements of submodules
-can leave the submodules.
-\end{quote}
-
+\begin{proof}[Failed proof]
+Let $N$ be a submodule (=ideal) of $M$.
+Projecting $N$ to $M/N_1$
+we obtain a finitely generated module.
+Suppose the generators are
+$x_i + N_1$, where $x_i \in N$.
+The fact that they are generators means
+that for any $x \in N$ we have
+$x+N_1=\sum a_ix_i + N_1$,
+that is, $x-\sum a_ix_i \in N_1$.
+The same goes for $N_2$, say,
+$x - \sum b_i x_i' \in N_2$ for any
+$x \in N$. But then
+$\sum a_i x_i - \sum b_i x_i' \in N_1\cap
+N_2$, a contradiction (no…)
 \end{proof}
 
 \medskip\noindent
