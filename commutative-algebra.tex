@@ -663,13 +663,17 @@ not that they arr the same polynomial!).
 \end{remark}
 
 \medskip\noindent
-The true definition of content can be done in
+The definition of content can be done in
 three steps:
+
 \begin{definition}
 \label{definition-content}
 \begin{reference}
 \cite[p. 181]{Lang-algebra}
 \end{reference}
+Let $R$ be a factorial ring and
+$F$ its fraction field.
+
 \begin{enumerate}
 \item (Order of a fraction $a$ at a prime
 $p$.)
@@ -682,6 +686,7 @@ denominator. (To understand the point
 of the Gauss lemma, notice that the order
 can be a fraction, i.e. if $p$ is a factor of
 the denominator.)
+
 \item (Order of a polynomial $f \in F[x]$ at
 a prime $p$.)
 The {\it  order of $f\in F[x]$ at $p$} is the
@@ -692,10 +697,15 @@ minimum} ensures that the primitive part of
 $f$ (see below) has all coefficients
 in $R$. It also follows that the gcd of the
 coefficients of the primitive part is 1.)
-\item (Content of $f \in F[x]$) The {\it
+
+\item (Content of $f \in F[x]$.) The {\it
 content} of $f$ is the product
-of every irreducible factor $p$ of $f$ raised
-to its order.
+$$
+\prod p^{\operatorname{ord}_p(f)}
+$$
+over all primes $p$ such that
+$p^{\operatorname{ord}_p(f)}$ is nonzero.
+
 \item (Primitive polynomial.) A polynomial is
 called {\it primitive} if it has content 1.
 \end{enumerate}
@@ -884,7 +894,7 @@ $P(t) \in k[t]$ of degree $n$.
 Let $P(x) \in k[x]=\mathbb{C}(t)[x]$
 be $P(x) = x^n-t$.
 This polynomial has no root in
-$k=\mathbb{C}[t]$,
+$k=\mathbb{C}(t)$,
 for if $(f/g)^n=t$ then 
 $n(\operatorname{deg}f-
 \operatorname{deg}g)=1$,
@@ -913,7 +923,7 @@ Now we apply Gauss lemma, that is, the
 content of the product is the product
 of the contents. Since $x^n +t$ is primitive
 (i.e. has content $1$), then the
-content of $f_1g_2$ equals the content
+content of $f_1g_1$ equals the content
 of $D$, but $D$ is a constant
 (constants here are polynomials in
 $\mathbb{C}[t]$).
@@ -921,7 +931,7 @@ We obtain
 $$
 FG = x^n + t
 $$
-where $F$ and $G$ are the principal parts
+where $F$ and $G$ are the primitive parts
 of $f_1$ and $g_1$. This holds up to
 multiplication by a complex number.
 
@@ -929,7 +939,27 @@ Now we reduce modulo $t$ and obtain
 $$
 [F][G] = [x^n],
 $$
-and conclude that…
+and conclude that, as classes,
+$$
+[F]=[cx^m],\qquad 
+[G]=[c^{-1}x^{n-m}].
+$$
+Thus we see that each of $F,G$
+lost their constant term when we reduced,
+i.e. that their constant terms are divisible
+by $t$. This means that $t^2$ divides
+the constant term of the product $FG$.
+But this is impossible, since the constant
+term of $FG$ is $t$. 
+
+The only way
+this makes sense is if $m=0$ or $m=n$.
+To conclude we note that reduction modulo
+$t$ preserves the degree of both $F$, and 
+$G$ because their leading coefficients
+multiply to $1$. Thus $m=0$ or $m=n$
+imply that $F$ or $G$ is a unit, which
+in turn implies so for $f$ or $g$.
 \end{proof}
 
 \begin{exercise}
@@ -943,14 +973,16 @@ in $\mathbb{C}^2$.
 
 \begin{proof}
 $x^n+y$ since $\partial_y =1$.
-This is an irreducible polynomial:
+This is an irreducible polynomial
+because $y$ is irreducible
+More precisely,
 if $x^n+y = fg$, then either of $f,g$
 must have no $y$ variable, say $f \in
 \mathbb{C}[x]$,
 and the other one must be degree 1 in $y$.
-Suppose $g = y f' + f''$ for $f',f'' \in
+Suppose $g = y g' + g''$ for $g',g'' \in
 \mathbb{C}[x]$. But then
-$x^n+y = fg = yff' + f f''$,
+$x^n+y = fg = yfg' + f g''$,
 which means that $f$ cannot have positive
 degree in $x$, but $f \in \mathbb{C}[x]$,
 so it is a unit.
