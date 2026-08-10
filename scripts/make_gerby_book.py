@@ -19,6 +19,7 @@ KNOWN_CHAPTERS = {
     "infty-categories",
     "complex-analysis",
     "complex-geometry",
+    "hodge-theory",
     "k3",
     "ringed-spaces",
     "schemes",
