@@ -30,6 +30,7 @@ KNOWN_CHAPTERS = {
     "homological-algebra",
     "deformations",
     "physics",
+    "probability",
     "economy",
     "seminars",
     "geometric-prequantization",
