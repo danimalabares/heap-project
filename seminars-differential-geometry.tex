@@ -1,0 +1,4963 @@
+\input{preamble}
+
+
+
+\begin{document}
+
+
+
+\title{Seminars in Differential Geometry}
+
+\maketitle
+
+
+
+\phantomsection
+
+\label{section-phantom}
+
+
+
+\tableofcontents
+
+
+
+\section{A primer on symplectic groupoids}
+\label{section-prime-sympl-group}
+
+\noindent
+Camilo Angulo, Jilin University.
+Geometric Structures Seminar, IMPA.
+February 13, 2025.
+
+\medskip\noindent
+{\bf Abstract.}
+In the late 17th century, Simeon Denis
+Poisson discovered an operation that
+helped encoding and producing conserved
+quantities. This operation is what we
+now know as a Lie bracket, an infinitesimal
+symmetry, but what is its global
+counterpart? Symplectic groupoids are one
+possible answer to this question. In
+this talk, we will introduce all the basic
+concepts to define symplectic
+groupoids, and their role in Poisson
+geometry. We will discuss key examples, and
+applications. The talk will be accessible to
+those familiar with differential
+geometry, but no prior knowledge of groupoids
+will be assumed.
+
+
+\medskip\noindent
+{\bf Part 1. Poisson geometry.}
+
+Hamiltonian formalism. Recall that being a
+conserved quantity \(f \in
+C^\infty(X)\) is the same thing as
+\(\{H,f\}=0\).
+
+\begin{itemize} \item We have seen that it is
+always possible to take quotient
+of a symplectic manifold with a group action
+to obtain a  Poisson
+manifold.  \item Then we have found a way to
+produce a symplectic foliation
+from a 2-vector \(\pi \in
+\mathfrak{X}^2(M):=\Lambda^{2}(TM)\).  \item
+
+\begin{remark}
+\[\left\{ \text{Lie algebra on
+\(\mathfrak{g}\)}
+\right\} \xrightarrow{1-1}\left\{
+\text{Linear Poisson bracket on
+\(\mathfrak{g}^*\)}  \right\}  \]
+\end{remark}
+
+\item We saw very nice examples
+of foliation that have to do with Lie
+algebras. So \(\mathfrak{b}^*_3\) which
+gives the ``open book foliation", and
+\(\mathfrak{e}^*\) that gives a foliation
+by cylinders.
+\end{itemize}
+
+\medskip\noindent
+{\bf Part 2. Symplectic realizations.}
+
+Consider
+\[(\Sigma,\omega) \xrightarrow{\mu}(M,\pi)\]
+
+
+\iffalse\begin{tikzcd}
+	T_p\Sigma
+	\arrow[r,"d_p\mu"]\arrow[d,"\omega^\flat"]&
+	T_xM\\
+	T_p^*\Sigma &
+	T^*_pM\arrow[l,"(d\mu)^*",swap]\arrow[u,"\pi
+	^\sharp"]
+\end{tikzcd}\]\fi
+So that
+\[\pi ^\sharp=d_p\mu \circ \omega^{-1}
+\circ(d\mu)^*\]
+
+
+
+\begin{lemma}
+\(\dim (\Sigma) \geq  2 \dim (M) -
+\operatorname{rk}(\pi_x)\) for all \(x \in
+M\).
+\end{lemma}
+
+\begin{proof}
+Done in seminar.
+\end{proof}
+
+\begin{example}
+\((\mathbb{R}^2,0)\). So the map
+$$
+\begin{aligned}
+	(\mathbb{R}^4,dx \wedge du + dy \wedge dv)
+	&\longrightarrow  \mathbb{R}^2\\
+	(x,y,u,v) &\longmapsto (x,y)
+\end{aligned}
+$$
+
+\end{example}
+
+\begin{exercise}
+Find the symplectic realization \(\omega\) in
+\((\mathbb{R}^4, \omega )
+\xrightarrow{\mu}(\mathbb{R}^2,(x^2+y^2)
+\partial_x
+\wedge \partial_y\)
+
+$$
+\begin{aligned}
+	(\mathbb{R}^4, \omega) &\longrightarrow
+	(\mathbb{R}^2,(x^2+y^2) \partial_x \wedge
+	\partial _y) \\
+	(x,y,z,w) &\longmapsto (x,y)
+\end{aligned}
+$$
+
+Also find the symplectic realization of
+\(\operatorname{ a f f }^*\) with
+\(\{x,y\}=x\).
+\end{exercise}
+
+\medskip\noindent
+{\bf Part 3: Groupoids}
+
+\medskip\noindent
+{\bf Motivation}
+\begin{enumerate}
+\item Fundamental grupoid: objects are points
+in the manifold and arrows are paths.
+\item The action of \(S^1\) on \(S^2\) by
+rotation does not give a nice quotient
+because there are two singular points.
+Consider the groupoid  \(S^1 \times S^2\) of
+orbits. These are the arrows. The points are
+just the points of \(S^2\).
+\item Consider a foliation (like Möbius
+foliation of circles; where there is a
+singular circle, the soul). You can do the
+same thing as in fundamental groupid
+leafwise. Arrows then are equivalence classes
+of paths that live inside leaves. This is
+called monodromy of a foliation. Again
+objects are points.
+\item You can take a quotient of monodromy
+using a connection given by the foliation.
+This allows to identify certain paths between
+the leaves. This is called {\it holonomy (of
+a foliatiation)}. (So you can make this
+notion match the usual holonomy given by
+riemmanian connection.)
+
+{\bf Upshot.}
+	So the point is taking some sort of function
+	space on these groupoids you can gather the
+	information given by the non-smooth quotient
+	(like in the case of the sphere rotating).
+	So this groupoid motivation says how to get
+	some structure that resembles a non smooth
+	quotient.
+\item Last motivation: the grid of squares
+has a tone of symmetries. If you restrict to
+just a few squares you loose so many
+symmetries. But there's a grupoid hidden in
+there that tells you what you intuition knows
+about this finite grid of squares.
+\end{enumerate}
+
+\begin{definition}
+A {\it groupoid} is a category where all
+morphisms are invertible.
+\end{definition}
+
+So there is a kind of product among the
+objects, given by composition but:
+ not every two pair of objects can be
+ multiplied!---only those whose
+source and target match. So that's the lance
+about grupoids.
+
+Just so you make sure you understand: the
+groupoid \(G\) is the morphisms of the
+category. The objects are points (of a
+manifold).
+
+\begin{definition}
+{\it Lie grupoid} is when the following
+diagram is inside category of smooth
+manifolds and \(s,t\) (source and target
+maps) are submersions:
+$$
+\xymatrix{
+G^{(2)}\ar[r]^m& G\ar[r]^ s_t & M\ar[r]^u&G
+}
+$$
+\end{definition}
+
+\begin{proposition}[Properties of Lie
+groupoids]
+\begin{itemize}
+\item \(m\) is also a submersion.
+\item \(i\) (inversion) is a diffeomorphism.
+\item  \(u\) (unit=identity) is an embbeding.
+\end{itemize}
+\end{proposition}
+
+\begin{definition}
+Consider \(x \in M\) and the inverse image of
+source map: \(s^{-1}(x)=\{\text{arrows that
+start at \(x\)} \}\). Now if you act with
+\(t\) on this set you get {\it the orbit} of
+\(x\): \(\{\text{\(y \in M\) such that there
+is an arrow from \(x\) to \(y\)} \}\).
+
+And there also {\it an isotropy} \(G_x=\{g
+\in G: \text{\(g\) goes from \(x\) to \(x\)}
+\}\)
+\end{definition}
+
+\begin{example}
+\begin{enumerate}
+\item \(G=M\),  \(M=M\).
+ \item Lie groups.
+	\item Lie group bundles.
+\item \(G=M \times M\), \(M =M\).
+ \item Fundamental groupoid. Isotropy group
+ is fundamental group! And orbit
+ is…\clearpage universal cover!
+\item Subgroupoids.
+\item  Foliations.
+\item If you have a normal group action of
+\(G\) on \(M\) you construct a groupoid
+action with groupoid \(G \times M\) and
+objects \(M\), with product given on the
+group part of the product. Orbits are orbits.
+Isotropy group is isotropy group.
+ \item Principal bundles.
+\end{enumerate}
+\end{example}
+
+{\bf Back to Poisson.}
+
+There's also a notion of Lie algebroid. Which
+is strange. But the point is that to every
+Poisson manifold there is a Lie algebroid.
+
+So the question is whether there is a Lie
+groupoid associated to that Lie algebroid.
+Not always.
+
+\medskip\noindent
+{\bf Big question}[Fernandez and ?]
+When a symplectic manifold is integrable?
+
+
+(Remember that integrating means go from
+algebra(oid) to group(oid).
+
+And the point is that:
+
+\medskip\noindent
+When you {\it can} go back, you get a
+\textit{ symplectic groupoid}.
+
+\begin{remark}
+Look for Kontsevich's notes on Weinstein!
+\end{remark}
+
+\begin{remark}
+History: Weinstein did this intending to do
+quantization (geometric?) on Poisson
+manifolds. (That involves a \(C^*\)algebra
+coming from the symplectic groupoid.)
+\end{remark}
+
+\begin{definition}
+A {\it symplectic groupoid} is a groupoid
+\(G, M\) together with  \(\omega \in
+\Omega^2(M)\) such that \(\omega\) is
+symplectic and multiplicative, meaning that
+\(\partial  \omega =0\), that is, \(\iff
+m^*\omega=\operatorname{pr}_1^*\omega+
+\operatorname{pr}^*_2\omega\in
+\Omega^{2}(G^{(2)})\iff\) take two vectors \(
+X_k,Y_k \in TG\), and \(\omega(X_0 \star
+Y_0,X_1\star Y_1) =  \omega(X_0,Y_0) + \omega
+(X_1,Y_1)\)
+\end{definition}
+
+\begin{theorem}
+If \((G, \omega)\) is a symplectic groupoid,
+then
+\begin{enumerate}
+\item \(\exists !\) poisson structure on
+\(M\)
+\item for which \(t: G \to M\) is a
+symplectic realization,
+\item  Leaves are connected components of
+orbits,
+\item \(\mathsf{Lie}(G)\cong T^*M\) via \(X
+\mapsto -u ^*(i_X \omega\).
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}
+Look for Alejandro Cabrera, Kontsevich. There
+are two things one is de Rham and the other…
+from the future: simplicial?
+\end{remark}
+
+\medskip\noindent
+{\bf Upshot.} The obstruction to knowing when
+symplectic groupoid exists is ``variation of
+symplectic form \(\omega=(1+t^2)
+\omega_{S^2}\)". So how does the symplectic
+group vary from leaf to leaf. So there are
+two situations in which the thing doesn't
+work.
+
+\section{Spheres with minimal equators}
+\label{section-spheres-with-minimal-equators}
+
+\noindent
+Lucas Ambrozio, IMPA.
+Differential Geometry Seminar, IMPA.
+June 24, 2025.
+
+\medskip\noindent
+{\bf Abstract.} We will discuss the
+connection between Riemannian metrics on the
+sphere with respect to which all equators are
+minimal hypersurfaces, and
+algebraic curvature tensors with positive
+sectional curvatures.
+
+\bigskip\noindent
+
+\begin{definition}
+\label{definition-equator}
+An {\it $(n-k)$-equator} orthogonal to $\Pi$
+is
+$$
+\Sigma_\Pi:=\{p\in\mathbb{S}^n:\left\langle{}p,
+x\right\rangle{}=0\forall
+x\in\Pi\}
+$$
+for $\Pi$ a $k$-dimensional linear subspace
+of $\mathbb{R}^{n+1}$.
+\end{definition}
+
+\begin{remark}
+\label{remark-equat-total-geode-usual-metr}
+Equators are totally geodesic hypersurfaces
+with the usual sphere metric, which
+implies they are minimal hypersurfaces.
+\end{remark}
+
+{\bf Problem.} Characterize the set
+$\mathcal{M}_k(U)$ of metrics $g$ on an
+open set $U\subset\mathbb{S}^n$ such that all
+$k$-equators $\Sigma_\Pi$ with
+ $\Sigma\cap U\neq\emptyset$ yield are
+ minimal hypersurfaces $\Sigma\cap U$
+on $(U,g)$.
+
+\begin{remark}
+\label{remark-why-not-Rn}
+This problem can be thought of as a problem
+of finding metrics on $\mathbb{R}^n$
+such that $k$-planes are minimal. To see why
+project the $k$-equators to
+$T_p\mathbb{S}^n$ and pullback those metrics
+to the sphere.
+\end{remark}
+
+\medskip\noindent
+
+Let $g\in\mathcal{M}_k(U)$ for
+$U\subset\mathbb{S}^n$ open and $n\geq 2$.
+
+\begin{theorem}[Beltrami, Schäfli]
+\label{theorem-Beltrami-Schafli}
+If $k=1$ then $g$ has constant sectional
+curvature.
+\end{theorem}
+
+\begin{theorem}[Hongan]
+\label{theorem-Hongan}
+If $1<k<n-1$ then $g$ has constant sectional
+curvature.
+\end{theorem}
+
+Then Hongan also managed to produce a
+classification of these metrics for
+$k=n-1$.
+
+\begin{remark}
+\label{remark-linea-inver-prese-equat-mg}
+If $T\in \text{GL}(n+1,\mathbb{R})$, then
+$$
+\begin{aligned}
+\varphi: \mathbb{S}^n &\longrightarrow
+\mathbb{S}^n \\
+x &\longmapsto \frac{Tx}{|Tx|}
+\end{aligned}
+$$
+is a diffeomorphism that maps $k$-equators
+into $k$-equators. Thus if
+$g\in\mathcal{M}_k(\mathbb{S}^n)$ then so is
+$\varphi(T)^*g$.
+\end{remark}
+
+\begin{theorem}
+\label{theorem-equivariant-bijection}
+There exists a $\text{GL}(n+1,\mathbb{R})$
+equivariant bijection
+$$
+\mathcal{M}_{n-1}(\mathbb{S}^n)
+\leftrightarrow
+\text{Curv}_+(\mathbb{R}^{n+1})
+$$
+where the set on the right-hand-side is the
+set of algebraic curvature tensors
+(also called curvature-like, i.e. with the
+same symmetries as the Riemannian
+curvature tensor) on $\mathbb{R}^{n+1}$ with
+positive sectional curvature.
+
+The group action is given as follows for
+$T\in\text{GL}(n+1,\mathbb{R})$:
+$$
+(R\cdot
+T)(x,y,z,w)=\frac{1}{|\det(T)|^{\frac{1}{n+1}
+}}R(Tx,Ty,Tz,Tw)
+$$
+\end{theorem}
+
+The point is that
+$\text{Curv}_+(\mathbb{R}^{n+1})$ is an open
+cone on a linear
+space. Here are two simple corollaries:
+
+\begin{lemma}
+\label{lemma-corollaries}
+\begin{enumerate}
+\item $\mathcal{M}_{n+1}(\mathbb{S}^n)$ is in
+bijection with an open positive
+cone of an
+$\frac{n(n+2)(n+1)^2}{12}$-dimensional real
+vector space.
+\item Every metric on
+$\mathcal{M}_{n-1}(\mathbb{S}^n)$ is
+invariant by the
+antipodal map.
+\end{enumerate}
+\end{lemma}
+
+{\bf Algorithm.} From any $R\in
+\text{Curv}_p(\mathbb{R}^{n+1})$ we obtain a
+symmetric positive definite
+(positive-definitiness comes from the
+positiveness
+of the curvature of $R$) 2-tensor  $k_R$
+satisfying
+$$
+(k_R)_p(v,v)=R(pv,pv)>0
+$$
+Also, $k_R$ has the  {\it Killing property},
+i.e. that $\overline{\nabla}k(X,X,X)=0$ for
+all
+$X\in\mathfrak{X}(\mathbb{S}^n)$.
+
+Then we define a positive function on
+ $\mathbb{S}^n$ by
+\begin{equation}
+\label{equation-def-DR}
+D_R:=\left(\frac{d\text{Vol}_{k_R}}{dV_g}
+\right)^{\frac{4}{n-1}}
+\end{equation}
+and finally a Riemannian metric on
+$\mathbb{S}^n$ in
+$\mathcal{M}_{n-1}\mathbb{S}^n$ by
+$$
+g_R=\frac{1}{D_R}k_R
+$$
+And to go back, for $g \in
+\mathcal{M}_{n-1}(\mathbb{S}^n)$ define a
+positive
+function on $\mathbb{S}^n$
+$$
+F_g:=\left(\frac{dV_g}{dV_{\overline{g}}}
+\right)^{\frac{4}{n-1}}
+$$
+Then let $k_g:=\frac{1}{F_g}g>0$, which is a
+positive definite Killing 2-tensor,
+from which we may define
+$R_g\in\text{Curv}_+(\mathbb{R}^{n+1})$ with
+$R_g(pv,pv)=(k_g)_p(v,v)$ for all $p,v\in
+T\mathbb{S}^n$.
+
+More corollaries:
+\begin{lemma}
+\label{lemma-corollaries2}
+\begin{enumerate}
+\item $g\in\mathcal{M}_{n-1}(\mathbb{S}^n)$
+is analytic because it is a Killing
+tensor on $\mathbb{S}^n$, which are
+well-known.
+\item If $g$ is left-invatiant on
+$\mathbb{S}^3$, seen as unit quaternions,
+then
+$g\in\mathcal{M}_2(\mathbb{S}^3$. Moreover,
+for $a\geq b\geq c>0$,
+$$
+aL_i\odot L_i+bL_j\odot L_j+cL_k\odot L_k=k
+$$
+is Killing, $k>0$,  $D_k$ constant and thus
+$g=\frac{1}{\text{const.}}k
+\in\mathcal{M}_2(\mathbb{S}^3)$.
+\item $R$ curvature tensor of
+$(\mathbb{C}P^{2},g_{FS})$. We may not
+remember
+what's the curvature tensor, but we know the
+sectional curvature is $1\leq
+\text{sec}(R)\leq 4$,
+$$
+(k_R)_p(v,w)=\overline{g}(v,w)+3\overline{g}
+(Jp,v)\overline{g}(Jp,w)
+$$
+and $D_R=4^{\frac{4}{3-1}}=4$, so that by
+\ref{equation-def-DR} we obtain
+$g_R=\frac{1}{4}k_R$, which is a Berger
+metric on $\mathbb{S}^3$ with scalar
+curvature 0.
+\end{enumerate}
+\end{lemma}
+
+\bigskip
+Now define
+$$
+\Sigma_V=\{p\in\mathbb{S}^n:\left\langle{}p,v\right\rangle{}=
+0\}=V^{-1}(0)
+$$
+where $V(x):=\left\langle{}x,v\right\rangle{}$ for all
+$x\in\mathbb{S}^n$. Then the normal
+vector field is $\nabla V/|\nabla V|_g$, and
+the second fundamental form is
+given by
+$$
+A=\frac{1}{|\nabla V|_g}\text{Hess}_gV
+$$
+and its mean curvature by
+\begin{equation}
+\label{equation-mean-curva-level-sets-V}
+H=\frac{1}{|\nabla
+V|_g}\left(\Delta_gV-\text{Hess}
+_gV\left(\frac{\nabla
+V}{|\nabla V|},\frac{\nabla V}{|\nabla
+V|}\right)\right)
+\end{equation}
+For every $v \in \mathbb{S}^n$ and
+$p\in\Sigma_V$, we see that $H_{\Sigma_V}=0$
+iff
+$$
+|\nabla
+V|^2_g(p)\Delta_gV(p)-\text{Hess}_gV(\nabla
+V(p),\nabla V(p))=0
+$$
+And for $\overline{g}$,
+$$
+\text{Hess}_{\overline{g}}V+V\overline{g}=
+0\implies
+\text{Hess}_{\overline{g}}V(X,X)=0
+$$
+for all $X\in T_p\mathbb{S}^n$ and
+$p\in\Sigma_v$. Then
+$$
+J_g(X,Y,Z)=g(\nabla_XY-\overline{\nabla}_XY,
+Z)
+$$
+$$
+J_g(X,Y,\nabla
+V)=\text{Hess}_{\overline{g}}-\text{Hess}
+$$
+{\bf Problems.}
+\begin{enumerate}
+\item Similar story for
+$\mathbb{C}P^{n},\mathbb{H}P^n$?
+\item Complete metrics on $\mathbb{R}^n$ with
+minimal hyperplanes.
+\item Find geometric invariants of metrics on
+$\mathcal{M}_{n-1}(\mathbb{S}^n)$
+(may be useful to study $(M^n,g)$, $n\geq 4$,
+$\text{sec}>0$.
+\end{enumerate}
+
+\section{On wrapped Floer homology barcode
+entropy and hyperbolic sets}
+\label{section-wrapp-floer-homol-barco}
+
+\noindent
+Rafael Fernandes, UC Santa Cruz.
+Differential Geometry Seminar, IMPA.
+September 4, 2025.
+
+\medskip\noindent
+{\bf Abstract.} In this talk, we will discuss
+the interplay between the
+wrapped Floer homology barcode and
+topological entropy. The concept of barcode
+entropy was introduced by Çineli, Ginzburg,
+and Gürel and has been shown to be
+related to the topological entropy of the
+underlying dynamical system in various
+settings. Specifically, we will explore how,
+in the presence of a topologically
+transitive, locally maximal hyperbolic set
+for the Reeb flow on the boundary of
+a Liouville domain, barcode entropy is
+bounded below by the topological entropy
+restricted to the hyperbolic set.
+
+\medskip\noindent
+
+Let $M^n$ be a manifold.
+$\omega \in \Omega^2(M)$ is {\it symplectic}
+if $d \omega=0$ and it is
+nondegenerate.
+
+\begin{example}
+\label{example-Rn-is-symplectic}
+$\mathbb{R}^n$ is symplectic with canonical
+Darboux form.
+\end{example}
+
+Recall the definition of Hamiltonian vector
+field
+associated to a function $H \in C^\infty(M)$.
+
+\begin{definition}
+\label{definition-nonde-diffe}
+A diffeomorphism $\varphi:M \to M$ is called
+{\it non-degenerate} if
+$\Phi(\varphi)\cap\Delta \subset M\times M$
+(pitchfork, i.e. transversal intersection!).
+\end{definition}
+
+Let $M^{2n}$ be a closed symplectic manifold.
+Arnold's conjecture says
+\begin{enumerate}
+\item If $\varphi=\varphi_H$ (Hamiltonian
+flow) is nondegenerate, then
+$$
+\# \text{Fix}(\varphi_H) \geq
+\sum_{i=0}^{2n}\dim H_i(M,k)=\dim H_*(M,k)
+$$
+\item If $\varphi=\varphi_H$ is degenerate,
+then
+$$
+\# \text{Fix}(\varphi)\geq \text{Cl}(M)+1
+$$
+where $\text{Cl}(M)$ is the maximum number of
+homology classes
+we can add before getting to zero.
+\end{enumerate}
+
+Why do we care? Because
+$$
+\#
+\text{Fix}(\varphi_H)
+\leftrightarrow\{\text{1-periodic
+orbits of $X_H$}\}
+$$
+
+Idea by Floer. Construct an invariant that
+would
+say something about periodic orbits.
+
+\medskip\noindent
+{\bf Question.} Can Floer theory capture
+other ``dynamical information''?
+(Other than the periodic orbits.)
+
+\medskip\noindent
+A {\it persistence module} is a pair
+$(V,\Pi)$, where $V=\{V_t\}_{t \in
+\mathbb{R}}$ is a family of
+$\mathbb{F}$-vector spaces
+and $\Pi=\{\Pi_{st}\}_{s \leq  t}$ is a
+family of maps such that
+\begin{enumerate}
+\item $\Pi_{ss}=, \Pi_{ts}\circ
+\Pi_{rt}=\Pi_{rs}$.
+\item $\exists  s \subset \mathbb{R}$ such
+that
+$\Pi_{s t}$ is an isomorphism for $s,t$ in
+the same connected component of
+$R\setminus S$.
+\item $\Pi_{s t}$ have finite rank.
+\item $\exists s_0$ $V_s=\{0\}$, $s \leq
+s_0$.
+\item $V_t= \lim_{s \to t} V_s$ (lower
+limit!!)
+\end{enumerate}
+
+\begin{theorem}
+\label{theorem-persi-modul-sum-integ}
+Any persistence module is a sum of integral
+persistence modules,
+$$
+(V,\Pi) \cong \bigoplus_{I \in B(V)}F(I).
+$$
+\end{theorem}
+
+\begin{example}
+\label{example-hart-and-sphere}
+Heart and sphere. There is a noise in the
+persistence module
+of the heart due to an unnecessary critical
+point.
+\end{example}
+
+$(M^{2n},\omega)$ a {\it Liouville domain} is
+a compact
+symplectic manifold and $X \in
+\mathfrak{X}(M)$
+with $X \cap\partial M$ (pitchfork, i.e.
+transversal intersection!)
+pointing outwards
+and preserved by the symplectic form, i.e.
+$\mathcal{L}_X \omega=\omega$
+($\omega=d \alpha$).
+
+When we restrict $\omega$ to the boundary,
+we obtain a contact form and get some
+interesting dynamics.
+
+A Lagrangian $(L,\partial L) \subset
+(M,\partial M)$
+is {\it asympotically conical} if
+\begin{enumerate}
+\item $\partial L \subset \partial M$ is
+Legendrian.
+\item $L \cap [1-\varepsilon,1] \times
+\partial M=
+[1-\varepsilon,1] \times \partial L$.
+\end{enumerate}
+
+\begin{remark}
+\label{remark-Hamiltonian}
+Take a Hamiltonian $H: \hat{M}\to \mathbb{R}$
+such that
+$$
+\begin{cases}
+H(r,x)=h(r)\qquad &r=1 \\
+H(r,x)=rT-B\qquad &
+\end{cases}
+$$
+then $X_H=h'(r)R_\alpha$.
+
+For $L_0,L,A\subset$ Lagrangians, $H$ linear
+at infinite,
+then $A_{H}^{L_0 \to L_1}$,
+$$
+\begin{aligned}
+A_{H}^{L_0 \to L_1}: P_{L_0\to L_1}
+&\longrightarrow \mathbb{R} \\
+\gamma &\longmapsto \int_0^1 \gamma^* \alpha-
+\int_0^1H(x(t))dt
+\end{aligned}
+$$
+where $P_{L_0\to L} =\{\gamma:[0,1] \to
+\hat{M}:\gamma(0) \in L_0,
+\gamma(1) \in L_1\}
+$ is the set of chords.
+\end{remark}
+
+\begin{remark}
+\label{remark-1-chords-are-crticial-points}
+$\text{crit}(A_{H}^{L_0 \to
+L_1})=\{\text{1-chords of $X_H$ from
+ $L_0$ to $L_1$}\}$.
+\end{remark}
+
+Putting a metric on $P_{L_0 \to L_1}$ we can
+consider $\varphi:\mathbb{R} \times
+[0,1] \to \hat{M}$, solutions of some PDE
+which is some kind
+of generalization of a gradient, $- \nabla
+A_{H}^{L_0 \to L_1}$.
+These solutions can be put in a moduli space
+$$
+\tilde{\mathcal{M}}(x_-,x_+,H,J)=
+\{\varphi\text{
+solutions s.t. …}\}
+$$
+Then we define a boundary operator
+$\partial$.
+\begin{theorem}
+\label{theorem-homology}
+$\partial^2=0$
+\end{theorem}
+
+So that we have a homology, called {\it
+wrapped Floer homology}
+$HW^t(H,L_0,L_1,J)$
+
+\begin{remark}
+\label{remark-embedding}
+We have $H \leq  K \rightsquigarrow
+HW^t(H,L_0,L_1,J) \to
+HW^t(K,L_0,L_1,K)$.
+\end{remark}
+
+\begin{definition}
+\label{definition-direct-limit}
+For $t \geq 0$
+$$
+HW^t(M,L_0,L_1)=\underline{\lim }_H
+HW^t(H,L_0,L_1,J)
+$$
+\end{definition}
+
+(Where we have taken direct limit.)
+
+Taking direct limit of the homology,
+we make sure the homology theory is
+independent of the
+choice of objects (I think, complex structure
+and Hamiltonian)
+we used to construct it.
+
+
+\begin{proposition}
+\label{proposition-persistence-module}
+$t \to HW^t(M,L_0,L_1)$ is a peristence
+module $B(M,L_0,L_1).$
+\end{proposition}
+
+Finally we can define {\it barcode entropy}.
+Fix $\varepsilon>0$,
+$t \geq 0$,
+$$
+b_\varepsilon(M,L_0,L_1,t)=
+\# \{\text{ of bars in }B(M,L_0,L_1)
+\text{with length $\geq \varepsilon$
+and start before $t$}\}
+$$
+Then
+$$
+\bar{h}^{HW}(M_0,L_0,L_1)=
+\lim_{\varepsilon \to 0} \text{lim sup}_{t
+\to \infty}
+\frac{\text{log}^+(b_\varepsilon(M,L_0,L_1,t)
+}{t}
+$$
+
+\medskip\noindent
+Consider a contact manifold
+$(\Sigma,\lambda,L_0,L_1)$
+and $A$ the Lagrangians. (Example raising
+question of filling.)
+
+\begin{theorem}[M '24]
+\label{theorem-entro-indep-filli}
+$\bar{h}^{HW}$ is independent of the filling.
+\end{theorem}
+
+\begin{theorem}[M '24]
+\label{theorem-bound}
+$\bar{h}^{HW}(M,L_0,L_1) \leq
+h_{\text{top}}(\alpha)$.
+\end{theorem}
+
+\begin{theorem}[M '25]
+\label{theorem-restriction}
+Consider $(M,L_0,L_1)$.
+Let $K$ be a compact topologically transitive
+hyperbolic set
+for the Reeb flow $\alpha$. Assume $W_\delta
+^s (q) \subset \partial L_0$,
+$W_\delta^s(p) \subset \partial L_1$. Then
+$$
+\bar{h}^{HW}(M,L_0,L_1)\geq
+h_{\text{top}}(\alpha |_{K})>0.
+$$
+\end{theorem}
+Which says it captures dynamics beyond
+unconditional phenomena.
+In lower dimensions these tend to coincide,
+but in higher dimension we don't
+know. This is related to
+ ``the sup over hyperbolic sets […]''
+
+Here's a conjecture:
+$$
+\text{sup}_{L_0,L_1}\bar{h}^{HW}(M,L_0,L_1)=
+h_{\text{top}}(\alpha).
+$$
+\medskip\noindent
+{\bf Extra comments.}
+One of the aims is to describe topological
+entropy $h_\text{top}$
+using Floer theory. Theorems by
+Çineli-Ginzburg-Gürel show bounds
+of topological entropy and barcode entropy
+(one of which is for
+hyperbolic sets).
+
+There is a notion of  {\it admissible
+Hamiltonian and Reeb vector fields}
+which is related to some asymptotical
+behaviour  ``linear at infinity''.
+I understand that admissible vector fields
+give
+the interesting chords for the Floer homology
+construction.
+
+\section{Revisiting cotangent bundles}
+\label{section-revisiting-cotangent-bundles}
+
+\noindent
+Mieugel Cueca, KU Leuven.
+Symplectic Geometry Joint Seminar, IMPA.
+September 5, 2025.
+
+\medskip\noindent
+{\bf Abstract.} Cotangent bundles provide key
+examples of symplectic
+manifolds. On the other hand, one can think
+of Lie groupoids as generalizations
+of manifolds. In this context, Alan Weinstein
+constructed their cotangent
+bundles and proved that they are so-called
+symplectic groupoids. In this talk, I
+will recall this construction and explain
+what happens when one replaces a Lie
+groupoid with a Lie 2 (or n)-groupoid. If
+time permits, I will exhibit some of
+their main applications. This is joint work
+with Stefano Ronchi.
+
+\medskip\noindent
+
+Recall the basic properties of the cotangent
+bundle $T^*M$ for a symplectic manifold:
+\begin{enumerate}
+\item It's a vector bundle.
+\item $\left\langle{}\cdot,\cdot\right\rangle{}:TM \otimes
+T^*M \to \mathbb{R}_M$
+is the dual pairing.
+\item $\omega_{\text{can}}\in \Omega^2(T^*M)$
+is symplectic.
+\item $\mathcal{L}_\varepsilon
+\omega_{\text{can}}=\omega_{\text{can}}$,
+$\varepsilon$ Euler vector field.
+\end{enumerate}
+
+\medskip\noindent
+{\bf Main goal.} Reproduce the above for Lie
+$n$-groupoids.
+
+For $n=0$ we get the above situation. For
+$n=1$ [Duzud-Weinstein], [Prezun],
+for $n\geq 2$ ? and we care about $n=2$.
+
+\begin{definition}
+\label{definition-groupoid}
+A {\it Lie $n$-groupoid}
+$\mathcal{G}:\Delta^{\text{op}}\to
+\mathsf{Man}$
+such that
+$$
+P_{e,j}:\mathcal{G}_{\ell}\to \Lambda_j^\ell
+\mathcal{G}
+$$
+are surjective submersions $\forall  \ell,j$
+are differomorphisms for $\ell > n$.
+\end{definition}
+
+\begin{remark}
+\label{remark-generators}
+This sort of manifolds-valued presheaf
+category is generated by
+$$
+\begin{aligned}
+d_i^\ell:\mathcal{G}_\ell \to
+\mathcal{G}_{\ell-1}&\text{face maps}
+0 \leq  i,j \leq  \ell\\
+s_j^\ell:\mathcal{G}_\ell \to
+\mathcal{G}_{\ell+1}&  \qquad
+\text{degeneracies}
+\end{aligned}
+$$
+\end{remark}
+
+\medskip\noindent
+The tangent is a functor, it satisfies
+$$
+T_\bullet(\mathcal{G})=T_k(\mathcal{G})=
+T\mathcal{G}_k
+$$
+(It looks like $T$ preserves diagrams.)
+
+\medskip\noindent
+{\bf Dold-Kan.} The category $\mathsf{SVect}$
+of simplicial vector spaces
+has objects
+$$
+\xymatrix{
+\mathbb{V}_\bullet&
+\mathbb{V}_n\ar[r]&\cdots
+\ar[r]&\mathbb{V}_2\ar[r]^{\text{3 arrows}}&
+\mathbb{V}_1\ar[r]^{\text{2
+arrows}}&\mathbb{V}_0
+}
+$$
+where the $\mathbb{V}_i$ are vector spaces.
+
+There is a functor
+$$
+\mathsf{SVect}\overset{N}{\to}\{\text{chain
+complexes}\geq 0\}
+$$
+$$
+\mathbb{V}_{\bullet}\to N\mathbb{V}=
+\left(N_\ell \mathbb{V}\Ker
+P_{\ell,\ell},\partial=d_\ell\right)
+$$
+
+\begin{theorem}[Dold-Kan]
+\label{theorem-Dold-Kan}
+That's an equivalence of categories. [Confirm
+this!]
+\end{theorem}
+
+Those categories are monodial:
+$$
+(\mathsf{SVect},\otimes),\qquad
+(\mathbb{V}_\bullet \otimes \mathbb{W})_\ell
+=\mathbb{V}_\ell \otimes \mathbb{W}_\ell
+$$
+$$
+(\mathsf{ch}_{\geq 0},\otimes),\qquad (V
+\otimes W)_i=
+\bigoplus_{\ell +k=1}V_\ell \otimes W_k
+$$
+And $N$ is Lax monoidal with Lax structure
+given by the
+Eilenberg-Zilber map, though we won't explain
+the details of this.
+
+There are duals given by internal Hom:
+$$
+\begin{aligned}
+\mathbb{V}^{n*}&=\underline{\Hom}(\mathbb{V},
+B^n\mathbb{R})
+\end{aligned}
+$$
+Where the internal Hom is given by
+$$
+\underline{\Hom}(\mathbb{V},B^n\mathbb{R})
+_\ell
+=\Hom_{\mathsf{SVect}}(\mathbb{V}
+\otimes\Delta_n[\ell],B^n\mathbb{R})
+$$
+for an object
+$\Delta[\ell]=\mathbb{R}[\Delta[\ell]]$.
+
+
+\medskip\noindent
+{\bf Properties.}
+\begin{enumerate}
+\item $\mathbb{V}^{n*}$ isa simplicial vector
+bundle.
+\item $N(V^{n*})$ and $N(\mathbb{V})^*[n]$ is
+a quasi isomorphism.
+\item
+$\left\langle{}\cdot,\cdot\right\rangle{}:\mathbb{V}\otimes
+\mathbb{V}^{n*}\to
+B^n\mathbb{R}$ is non-degenerate on homology.
+\item $\mathbb{V}\hookrightarrow
+(\mathbb{V}^{n*})^{n*}$
+Mont. a eq.
+\end{enumerate}
+
+\medskip\noindent
+{\bf The vector bundle case.}
+$$
+\text{Maps}(\Delta[i],\mathcal{G})_k=
+\Hom_{\mathsf{SSet}}(\Delta[i]\times\Delta[k]
+,\mathcal{G})
+$$
+\begin{proposition}
+\label{proposition-on-an-n-Lie-groupoid}
+Let $\mathcal{G}$ be a Lie $n$-groupoid.
+\begin{enumerate}
+\item $\text{Maps}(\Delta[i],\mathcal{G})$
+Lie $n$-groupoids ME $\mathcal{G}$.
+\item
+$\text{Maps}(\Delta[i],\mathcal{G})_0=
+\mathcal{G}_i$.
+\item $\text{ev}:\Delta[i]\times
+\text{Maps}(\Delta[i],\mathcal{G})\to
+\mathcal{G}$.
+\end{enumerate}
+\end{proposition}
+
+[Staircase looking diagram.]
+
+\begin{definition}
+\label{definition-what-is-this}
+$\mathcal{G}_\bullet$.
+$$
+T_i^{n*}\mathcal{G}=\Hom_{\mathsf{SVect}}(1^*
+\Pi_{\Delta[i]}(T\mathcal{G}),
+B^n\mathbb{R}_{\mathcal{G}_i})
+$$
+$$
+(d_j,F)_{K|d_j\mathcal{G}}(x^a)=(F_k)
+|_{\mathcal{G}}(x^{\delta_ja}).
+$$
+\end{definition}
+
+\begin{proposition}
+\label{proposition-properties-of-that}
+$\mathcal{G}$ Lie $n$-groupoid, then
+$T^{n*}\mathcal{G}$ satisfy
+\begin{enumerate}
+\item is a vector bundle $n$-groupoid
+\item dual to $T\mathcal{G}$
+$$
+\left\langle{}\cdot,\cdot\right\rangle{}:T\mathcal{G} \otimes
+T^{n*}\mathcal{G}
+\to B^n\mathbb{R}_{\mathcal{G}}
+$$
+non-degenerate on homology.
+\item $n$-shifted symplectic
+$$
+T^{n*}_n\mathcal{G}\overset{p}{\to}
+T^*\mathcal{G}_n
+$$
+and $p^*\omega_{\text{can}}$.
+\end{enumerate}
+\end{proposition}
+
+[More computations I missed]
+
+\section{Holomorphic extensions of s-proper
+Lie groupoids}
+\label{section-holom-exten-s-prope-lie}
+
+\noindent
+Rui L. Fernandes, Instituto Superior Técnico
+(Lisboa)/University of Illinois
+at Urbana-Champaign.
+Symplectic Geometry Seminar, IMPA.
+September 17, 2025.
+
+\medskip\noindent
+{\bf Abstract.} Every smooth manifold admits
+a compatible analytic
+structure, and a classical result of
+Whitney–Bruhat states that any analytic
+manifold has a holomorphic extension. Lie
+groups also admit compatible analytic
+structures, and another classical result, due
+to C. Chevalley, shows that any
+compact Lie group has a holomorphic extension
+to a complex Lie group. D.
+Martínez Torres has shown that any proper Lie
+groupoid admits a compatible
+analytic structure. I will discuss an
+extension of the classical results of
+Whitney–Bruhat and Chevalley, establishing
+that any s-proper Lie groupoid has a
+holomorphic extension. This talk is based on
+recent joint work with Ning Jiang
+(arXiv:2508.18036).
+
+\medskip\noindent
+
+\begin{theorem}[Whitney-Beuhat]
+\label{theorem-Whitney-Beuhat}
+If $M$ is analytic there exists a complex
+manifold  $M_\mathbb{C}$
+together with an analytic map $i: M \to
+M_\mathbb{C}$
+which is totally real ($T_HM_{\mathbb{C}}=TM
+\oplus J(TM)$)
+and
+\begin{enumerate}
+\item For every complex manifold $X$ and
+every
+analytic map $\phi:N \to X$ there exists
+$\phi^*:U \to X$
+holomorphic contained open $M \subset U
+\subset M_\mathbb{C}$.
+\item If $\psi:V \to X$ holomorphic on $M
+\subset V \subset M_\mathbb{C}$ then
+$\psi=\phi^*$ where $\phi=\psi \circ i$ on a
+possibly
+smaller open contained in $U \cap V$.
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Chevalley]
+\label{theorem-Chevalley}
+If $G$ is a Lie group, there exists a complex
+Lie group $G_{\mathbb{C}}$ and a morphism
+$i:G \to G_\mathbb{C}$
+satisfying the following universal property.
+For every complex Lie group $H$ and morphism
+$\phi:G \to H$ there exists a unique
+holomorphic map $\phi^*:G_\mathbb{C} \to H$
+such that
+$\phi=\phi^* \circ i$.
+\end{theorem}
+
+Here's the construction of $G_\mathbb{C}$:
+
+$$
+\xymatrix{
+N\subset \tilde{G}\ar[r]\ar[d]&G^*\ar[d]\\
+\tilde{G}/N \simeq
+G\ar[r]_{i}&G_\mathbb{C}=G^* /\overline{i^*N}
+}
+$$
+where $\tilde{G}$ is the universal cover
+group of $G$,
+ $G^*$ is the group that integrates to
+the complexification of the Lie algebra of
+$G$,
+i.e.
+$\text{Lie}(G^*)=\mathfrak{g}_\mathbb{C}$
+and $\overline{i^*(N)}$ is the smallest
+closed
+normal complex Lie subgroup of $G^*$
+containing $i^*(N)$.
+
+\begin{example}
+\label{example-complexification-groupoid}
+$$
+\xymatrix{
+\widehat{\text{SL}_2(\mathbb{R})}\ar[d]
+\ar[dr]\\
+\text{SL}_2(\mathbb{R})\ar@{^{(}->}[r]&
+\text{SL}_2(\mathbb{C})
+}
+$$
+which is a simple case,
+but consider instead
+$\tilde{\text{SL}_2}(\mathbb{R})\times
+\mathbb{R}$
+and the normal subgroup
+$N=\left\langle{}a\right\rangle{}\times \left\langle{}\lambda\right\rangle{}$
+for irrational $\lambda$.
+Then we obtain
+$$
+\xymatrix{
+\widehat{\text{SL}_2(\mathbb{R})}
+\times\mathbb{R}\ar[r]\ar[d]
+&\text{SL}_2(\mathbb{C})\times\mathbb{C}
+\ar[d]\\
+\widehat{\text{SL}_2(\mathbb{R})}
+\times\mathbb{R}/N\simeq
+G\ar[r]&
+G_\mathbb{C}
+}
+$$
+and $G_\mathbb{C}$ is 3 complex dimensions!
+It is not
+$\text{SL}_2(\mathbb{C})\times\mathbb{C}$.
+\end{example}
+
+\section{Lagrangian blow-up and blow-down for
+4-dimensional symplectic manifolds
+}
+\label{section-blow-up-down}
+
+\noindent
+Misha Verbitsky, IMPA.
+Geoemtric Structures Seminar, IMPA.
+October 23, 2025.
+
+\medskip\noindent
+{\bf Abstract.} The usual (complex geometric)
+blow-up has a symplectic
+version, called the symplectic cut. I will
+introduce a variant of this
+construction, which is valid only in
+symplectic category, called ``Lagrangian
+blow-up'', and its inverse, called Lagrangian
+blow-down. Lagrangian blow-down
+takes a Lagrangian sphere in a 4-dimensional
+symplectic manifold and contracts
+it to a symplectic orbifold with a double
+point. Given a symplectic orbifold
+with a double point, Lagrangian blow-up
+produces a symplectic manifold, and this
+construction is inverse to the Lagrangian
+blow-down. I will explain why these
+constructions are functorial, that is,
+defined on the corresponding symplectic
+Teichmuller spaces. This is used to prove an
+orbifold counterexample to a famous
+conjecture, sometimes attributed to
+Donaldson, who asked whether any symplectic
+form on a K3 surface is compatible with a
+Kahler structure. I will prove that
+this is false for orbifolds: some K3
+orbifolds admit symplectic forms not
+compatible with any Kahler structure. The
+same argument is used to produce a
+countable family of Lagrangian spheres in a
+K3 surface which are not Lagrangian
+isotopic to special Lagrangian spheres. This
+is a joint work with Michael Entov.
+
+
+
+\medskip\noindent
+
+
+Consider the total space of the cotangent
+bundle of $\mathbb{C}P^1$.
+It's $\mathcal{O}(-2)$.
+Let $\gamma \in H^{0}(\mathcal{O}(2))$.
+$\gamma$ defines a fiberwise linear function
+on $T^*\mathbb{C}P$.
+
+The blow-up of $\mathbb{C}^2/\pm 1$, which is
+the orbifold $\mathbb{C}^2$ with
+ a doble point, is the cotangent bundle $T^*
+ \mathbb{C}P^1$.
+That is,
+$T^*\mathbb{C}P^1 \to \mathbb{C}^2/\pm 1$.
+This is called {\it crepant resolution}.
+Consider the $dx \wedge dy$, which is
+holomorphically symplectic
+on $\mathbb{C}^2$ and descends to the
+quotient $\mathbb{C}^2/\pm 1$
+as $\Omega_0$.
+
+\begin{proposition}
+\label{proposition-}
+$\pi:T^*\mathbb{C}P^1 \to \mathbb{C}^2/\pm
+1$.
+Then $\pi^*\Omega_0$ is holomorphically
+symplectic.
+\end{proposition}
+
+\begin{proof}
+Actually, it gives the standard symplectic
+form on $T^*\mathbb{C}^2$.
+\end{proof}
+
+\medskip\noindent
+Now we shall define the Langrangian blow-up.
+It's a procedure that starts with a
+symplectic manifold
+with double points and outputs a symplectic
+manifold
+without double points.
+
+\begin{definition}[Lagrangian blow up]
+\label{definition-lagrangian-blow-up}
+Let $(B,\omega)$ be the standard ball in
+$\mathbb{R}^n$,
+$dz_1 \wedge dz_2 +dz_3 \wedge dz_4$.
+Consider the symplectic orbifold
+$(B,\omega)/\pm 1$.
+Consider $M$ be a symplectic orbifold
+with double point singularities.
+Darboux coordinates in a neighbourhood of $0$
+with $(B,\omega)/\pm 1$ resolve
+singularities.
+\end{definition}
+
+This definition has the caveat that there ar
+e lots of choices involved.
+We shall later that these choices do not
+alter the result,
+namely Theorem
+\ref{theorem-lagrangian-blow-up-well-defined}
+.
+
+To define the Lagrangian blow-down we first
+recall
+
+\begin{theorem}[Weinstein's Lagrangian
+neighbourhood]
+\label{theorem-weins-lagra-neigh}
+Let $X \subset M$ be a compact Lagrangian
+submanifold in $(M,\omega)$.
+Then there exists a neighbourhood $U$ of $X
+\subset M$
+which is symplectomorphic to a neighbourhood
+of $X$
+in $X \subset T^*M$.
+\end{theorem}
+
+\noindent
+Let $S \subset M$ be a Lagrangian sphere
+(diffeomorphic to sphere
+and Lagrangian).
+
+\begin{definition}
+\label{definition-lagrangian-blow-down}
+The {\it Lagrangian blow-down} is obtained
+from $M$
+by removing $W \subset M$ and gluing $W_0$ in
+its place,
+where $W_0$ is such that
+
+$$
+\xymatrix{
+W
+\ar@{^{(}->}[r]\ar[d]&T^*\mathbb{C}P^1\ar[d]
+\\
+W_0\ar@{^{(}->}[r]&\mathbb{C}^2/\pm 1.
+}
+$$
+\end{definition}
+
+\medskip\noindent
+Now we recall Teichmüller spaces.
+
+Let $\Gamma(\Lambda^2M)$ be the space of all
+2-forms on a manifold $M$.
+The space of symplectic forms is a subspace
+of the closed 2-forms on $M$,
+which in turn is a subspace of
+$\Gamma(\Lambda^2M)$.
+Equip this space with the $C^\infty$
+topology.
+The {\it Teichmüller space} is
+$\text{Symp}/\text{Diff}_0$.
+
+Two symplectic structures are called {\it
+isotopic} if they lie
+in the same orbit of $\text{Diff}_0$.
+The {\it period map}
+$\text{Per}:\text{Teich}_s \to
+H^{2}(M,\mathbb{R})$
+maps a symplectic structure to its cohomology
+class.
+
+\begin{theorem}[Moser, 1965]
+\label{theorem-period-map-is-local-diffeo}
+The period map is a local diffeomorphism.
+\end{theorem}
+
+\noindent
+This implies that $\text{Teich}_s$ is smooth.
+
+\begin{theorem}[Moser's trick]
+\label{theorem-mosers-trick}
+Let $\omega_t$, $t \in S$ be a smooth family
+of symplectic
+structures, parametrized by a connected
+manifold $S$.
+Assume that the cohomology class
+$[\omega_t]$ is constant.
+Then all $\omega_t$ are diffeomorphic.
+\end{theorem}
+
+\noindent
+This means that the fibers of $\text{Symp}\to
+H^{2}(M)$
+are the orbits (of the action of
+$\text{Diff}_0$, I suppose).
+
+\medskip\noindent
+Consider a Lagrangian submanifold $L \subset
+(M,\omega)$.
+Let us assume for simplicity (though the
+results
+can also be obtained without this) that
+$b_1(L)=0$,
+i.e. first cohomology group is zero.
+
+Let $\text{Symp}_L$ be the set of symplectic
+forms vanishing on $L$,
+and $\text{Diff}_0^L$ the connected component
+of diffeomorphisms
+preserving $L$.
+Define
+$\text{Teich}_L=\text{Symp}_L/\text{Diff}
+_0^L$.
+
+\begin{theorem}
+\label{theorem-}
+Let $V \subset H^{2}(M,\mathbb{R})$ be the
+space of all
+cohomology classes on $M$ which vanish on
+$L$,
+and $\text{Per}_L:
+\text{Symp}_L/\text{Diff}^L_0 \to V$
+take $(M,\omega)$ to the cohomology class of
+$\omega$.
+Then Per is a local diffeomorphism.
+\end{theorem}
+
+\begin{proof}
+We used a version of Moser's trick: for
+$\omega_t$ a family
+of symplectic forms with $\omega_t|_{L}=0$,
+with $[\omega_t]$ constant, then $\omega_t$
+are $\text{Diff}_0^L$-isotropic.
+\end{proof}
+
+\noindent
+As a corollary we obtain that this
+Teichmüller space
+classifies Lagrangian submanifolds:
+
+\begin{lemma}
+\label{lemma-techm-class-lagra-subma}
+Assuma that $L$ and $L'$ are Lagrangian
+submanifolds in $(M,\omega)$,
+and $\varphi \in \text{Diff}_0(M)$ a smooth
+isotopy such that
+$\varphi(L)=L'$. Then $(\omega,L)$ and
+$(\varphi^*\omega,L)$
+represent the same point in $\text{Teich}_L$
+if and only if
+$L$ and $L'$ are Lagrangian isotopic in
+$(M,\omega)$.
+\end{lemma}
+
+\noindent
+Again: points of this Teichmüller space are
+isotopy classes
+of Lagrangian submanifolds.
+
+\medskip\noindent
+\begin{theorem}
+\label{theorem-blow-down-diffeomorphism}
+Let $L$ be a Lagrangian 2-sphere in a K3
+surface  $M$
+and $\hat{M}$ the Lagrangian blow-down of
+$M$.
+The blow-up/blow-down
+is a diffeomorphism $\text{Teich}_L(M) \to
+\text{Teich}(\hat{M})$.
+\end{theorem}
+
+\medskip\noindent
+Now we prove the theorem which asserts that
+the Lagrangian
+blow-up is independent of choices.
+
+\begin{theorem}
+\label{theorem-lagrangian-blow-up-well-defined}
+Let $(\hat{M},\hat{\omega})$ be a orbifold.
+Then its blow-up
+$(M,L)$ defines a point in $\text{Teich}_L$
+independent of the choices.
+\end{theorem}
+
+\begin{proof}
+By taking local Darboux coordinates, and then
+Moser's trick.
+\end{proof}
+
+\noindent
+Actually, the same happens for blow-downs
+
+\begin{theorem}
+\label{theorem-same-for-blow-down}
+Let $(M,L,\omega)$ be a 4-manifold with a
+Lagrangian sphere $L$, and
+$(\hat{M},\hat{\omega)}$ be its Lagrangian
+blow-down.
+
+Then the corresponding point in
+$\text{Teich}_{\hat{M}}$ is
+independent from the choices made.
+\end{theorem}
+
+\begin{proof}
+Similar.
+\end{proof}
+
+\medskip\noindent
+A conjecture by Donaldson ways that all
+symplectic structures on a K3
+surface are compatible with a Kähler
+structure. This conjecture
+(although it's commonly believed to be true)
+is still open.
+When trying to prove that this would hold for
+orbifolds,
+Misha and collaborators realised it's
+actually false.
+
+Note: Seiberg-Witten invariants may be used
+to tell whether a symplectic
+form is compatible with a complex structure.
+
+\begin{theorem}
+\label{theorem-conje-false-orbif}
+There exists an orbifold symplectic K3
+surface $M$ with a single
+double point not admitting an orbifold Kähler
+structures.
+\end{theorem}
+
+\begin{proof}
+\noindent
+Step 1. Consider
+$$
+\text{Teich}_{\text{Kähler-symplectic}}
+(\hat{M})
+=\{\eta \in H^{2}(\hat{M}):\eta^2>0\}.
+$$
+As follows from [Amerik-V., 2005], the
+Teichmüller space of symplectic structures
+compatible
+with a hyperkähler structure is Hausdorff and
+connected
+(the same argument works for Kähler K3
+orbifolds).
+
+Essentially, if there wasn't any orbifold
+as required, the Teichmüller space
+classifying
+Lagrangian submanifolds would be connected,
+which
+is impossible by [Seidel 2000].
+\end{proof}
+
+\noindent
+In fact, Seidel's result is essentially
+mirror symmetry.
+
+\medskip\noindent
+Now we discuss special Lagrangian
+submanifolds.
+
+\begin{definition}
+\label{definition-phase}
+Let $(M,I,\omega,\Omega)$ be a Calabi-Yau
+manifold, where
+$\Omega \in \Lambda^{n,0}_I(M)$ is
+nondegenerate and $\omega$ is Kähler.
+Let $L$ be a Lagrangian submanifold.
+Define the {\it phase} as
+$$
+\begin{aligned}
+\text{phase}: L &\longrightarrow \Lambda^nL
+\otimes \mathbb{C} \\
+x &\longmapsto \Omega|_{T_xL}.
+\end{aligned}
+$$
+\end{definition}
+
+\noindent
+A better definition is:
+$$
+\begin{aligned}
+\text{phase}: L &\longrightarrow
+S^1=\text{U}(1) \\
+x &\longmapsto \frac{\Omega|_{T_xL}}{|\Omega
+T_xL|}.
+\end{aligned}
+$$
+
+\begin{definition}
+\label{definition-special-lagrangian}
+A special Lagrangian submanifold is the phase
+is constant.
+\end{definition}
+
+\noindent
+Special Lagrangian submanifolds have
+deformation space of
+dimension 1, it's unobstructed. They are
+calibrated, so minimal.
+
+\begin{theorem}
+\label{theorem-lagrangians-of-k3}
+$L \subset$ K3 is Lagrangian is isotopic to a
+special Lagrangian
+if and only if its blow-down is Kähler type.
+\end{theorem}
+
+\medskip\noindent
+One of the basic results about special
+Lagrangian
+submanifolds is
+
+\begin{lemma}[Hitchin]
+\label{lemma-hitchin}
+If $(M,\Omega)$ is holomorphically symplectic
+and $X \subset M$
+is Lagrangian with respect to
+$\text{Re}\Omega$ and $\text{Im}\Omega$
+then $X$ is complex.
+\end{lemma}
+
+\noindent
+As corollaries:
+
+\begin{lemma}
+\label{lemma-corollary-hitchin}
+Let $(M,I,J,K,g)$ be a hyperkähler manifold
+of real dimension $4n$,
+considered as a Kähler manifold
+$(M,I,\omega_I)$ and $\phi:\Omega^n \in
+\Lambda^{2n,0}(M,I)$ the corresponding
+holomorphic volume form.
+Consider a Lagrangian submaniold $S \subset
+(M,\omega_I)$
+such that $a \omega_J + b\omega_K|_S=0$ for
+some nonzero real numbers
+$a,b \in \mathbb{R}$ such that $a^2+b^2=1$.
+Then $S$ is special Lagrangian, and,
+moreover,
+it is holomorphic with respect to the complex
+structure
+$-a K+b J$.
+\end{lemma}
+
+\begin{lemma}
+\label{lemma-corollary2-hitchin}
+Let $\omega_I,\omega_J$ and $\omega_K$ on
+$M$, with $\dim M=4$.
+Let $S \subset (M,\omega_I)$ be Lagrangian.
+Then $S$ is special Lagrangian if and only if
+$S$ is complex analytic
+on $a J + b K$ for two nonzero numbers  $a,b
+\in \mathbb{R}$ such that
+$a^2+b^2=1$.
+\end{lemma}
+
+\noindent
+Now an auxiliary claim:
+
+\begin{lemma}
+\label{lemma-k3-type}
+$\Omega$ is holomorphic symplectic
+\end{lemma}
+
+\begin{theorem}
+\label{theorem-}
+Let $S\subset M$ be a Lagrangian sphere in a
+K3 surface.
+Then  $S$ is isotropic to a special
+Lagrangian if and only if
+$M$ is of Kähler type.
+\end{theorem}
+
+\section{Systolic inequality for tori}
+\label{section-systolic-inequality}
+
+\noindent
+Dimitri Korshunov, IMPA.
+Minimal Surfaces end of course presentation.
+October 24, 2025.
+
+\medskip\noindent
+This is due to L. Guth.
+
+\begin{definition}
+\label{definition-systole}
+Given a Riemannian manifold,
+a {\it systole} $\text{Sys}(M,g)$ is the
+infimum of the lengths
+of noncontractible paths.
+\end{definition}
+
+\begin{theorem}[Gromov]
+\label{theorem-gromov}
+For any metric on a torus $T^n$,
+$$
+\text{Sys}(T^n,g) \leq C_n
+\text{Vol}(T^n,g)^{\frac{1}{n}},
+$$
+where $C_n$ is a constant depending only on
+the dimension
+of the torus $n$.
+\end{theorem}
+
+\noindent
+This also holds for $\mathbb{R}P^n$. We will
+use induction,
+for which we need the following stronger
+statement:
+given a number bounded by half the systole,
+there exists a ball
+which is {\it big}:
+
+\begin{theorem}[Guth]
+\label{theorem-guth}
+For $(T^n,g)$, given
+$R<\frac{1}{2}\text{Sys}(T^n,g)$,
+then there exists a point $p$ on $T^n$
+such that the volume of ball of radius $r$
+with center in $p$
+satisfies
+$$
+\text{Vol}B(p,R) \geq C_nR^n.
+$$
+\end{theorem}
+
+\noindent
+It was conjectured by Gromov that $C_n=1$.
+
+\medskip\noindent
+Before stating the theorem that we will
+prove, we introduce the
+following definition that will allow us to
+measure cohomological cycles:
+
+\begin{definition}
+\label{definition-measu-cohom-cycle}
+Let $\alpha \in H^{1}(M_g,\mathbb{Z}_2)$.
+$$
+L(\alpha)
+=\text{inf}\{|\lambda|:\lambda\text{
+1-cycles, }\alpha(\lambda)\neq 0\}.
+$$
+\end{definition}
+
+\noindent
+The theorem that we will prove, which implies
+Theorem \ref{theorem-guth}
+is the following
+
+\begin{theorem}
+\label{theorem-bound-classes}
+There exists a constant $\varepsilon_n>0$
+such that given a manifold $(M,g)$, and
+$\alpha_1,\ldots,\alpha_n \in
+H^1(M,\mathbb{Z}_2)$,
+\begin{enumerate}
+\item $L(\alpha_i)>2R$
+\label{item-positive}
+\item
+\label{item-cup} $\alpha_1 \cup  \alpha_2
+\cup \ldots \cup \alpha_n \neq 0 \in
+H^n(M,\mathbb{Z})$.
+\end{enumerate}
+
+\noindent
+Then there exists $p \in M$ such that
+$$
+\text{Vol}B(p,R) \geq \varepsilon_nR^n.
+$$
+\end{theorem}
+
+\noindent
+In particular $T^n$ and $\mathbb{R}P^n$
+satisfy (\ref{item-cup}).
+
+Before we proceed to the proof we need the
+following definition.
+Essentially we ask that the surface minimizes
+volume in its homology
+class up to some constant $\delta$.
+
+\begin{definition}
+\label{definition-delta-minimal-surface}
+A  {\it $\delta$-minimal surface} is an
+embedded hypersurface $Z$
+such that for any $Z'$ such that $[Z'-Z] = 0$
+in  $H_{n-1}(M,\mathbb{Z}_2)$,
+then  $\text{Vol}Z < \text{Vol}Z'+\delta$.
+\end{definition}
+
+\noindent
+Moreover, we need the following
+
+\begin{lemma}[Stability]
+\label{lemma-stability}
+Let $(M,g)$ de closed Riemannian manifold and
+$\alpha \in H^1(M,\mathbb{Z}_2)$.
+Suppose $Z$ is Poincaré dual to $\alpha$ and
+that $Z$ is $\delta$-minimal.
+If $R<\frac{1}{2}L(\alpha$) then the
+following
+holds for any $p \in M$:
+$$
+|Z \cap \text{Vol}B(p,\frac{R}{2}|\leq
+\frac{2}{R}|\text{Vol}B(p,R)|+\delta.
+$$
+\end{lemma}
+
+\begin{proof}[Proof of the stability lemma]
+\medskip\noindent
+Step 1. Using commas formula, namely
+$$
+\text{Vol}(B_R)=\int_0^R S_tdt,
+$$
+we see that there exists $t$ such that
+$\frac{R}{2}<t<R$ and
+$$
+|S(p,t)|_R< \frac{2}{R}|\text{Vol}B(p,R)|.
+$$
+
+\medskip\noindent
+Step 2. Consider
+$[Z \cap B(p,t)] \in
+H^{n-1}(B(p,t),S(p,t),\mathbb{Z})$.
+This can be interpreted geometrically since
+we are using relative homology.
+
+\medskip\noindent
+Step 3. We claim that $[Z \cap B(p,t)]=0$.
+By contradiction,
+if it weren't trivial, then there would exist
+a cycle $H_1(B,\mathbb{Z})$
+such that $Z' \cap \gamma \neq 0$ since
+Poincaré pairing is nondegenerate ---
+namely any cocycle that is not zero pairs
+nontrivially with some cycle.
+Then we will just split the cocycle in very
+small parts,
+and we will reach a contradiction with the
+fact that
+$R<\frac{1}{2}L(\alpha)$.
+
+We will state this as another lemma.
+Essentially it says that any
+cycle in homology can be decomposed as a sum
+of cycles
+with small lengths.
+
+\begin{lemma}[Curve factoring, Gromov]
+\label{lemma-curve-factoring-gromov}
+Let $(M,g)$ be a Riemannian manifold and
+$\gamma$ a cycle in $B(p,t)$.
+Then $[\gamma]=\sum \sigma_i$ is such that
+ $L(\sigma_i)<2t+a$ for all $i$.
+\end{lemma}
+
+\begin{proof}
+We spit a cycle (a curve) into some quantity
+of intervals
+such that each has length smaller than $a$,
+then add paths joining the center point of
+length $t$,
+so we count $t$ twice: to reach the point and
+to get away from it.
+\end{proof}
+
+\noindent
+We apply this to $\gamma$ and reach a
+contradiction
+with the hypothesis that
+$R<\frac{1}{2}L(\alpha)$ making $a$ smaller
+and
+smaller.
+
+\medskip\noindent
+Step 4. Finally we use the minimality of $Z$
+and the property
+derived from Commas lemma to arrive at a
+contradiction.
+\end{proof}
+
+\noindent
+Now we prove Theorem
+\ref{theorem-bound-classes}:
+
+\begin{proof}
+By induction. The case $n=1$ is trivial.
+Now take the last one of our classes,
+$\alpha_n$.
+Let $Z$ be Poincaré dual of $\alpha_n$ and
+$\delta$-minimal.
+Notice that $\alpha_1\cup \ldots \cup
+\alpha_{n-1}\neq 0$
+since if it were, then $\alpha_1\cup
+\ldots\cup \alpha_n$ would also vanish.
+
+By induction hypothesis we get a point $p \in
+Z$
+such that $\text{Vol} B_Z(p,\frac{R}{2}) >
+R^{n-1}$.
+This means that , $|Z \cap
+B(p,\frac{R}{2})|>\varepsilon_n(R/2)^{n-1}$.
+
+By the Stability Lemma \ref{lemma-stability},
+$$
+\begin{aligned}
+\frac{2}{R}|B(p,R)|&>\varepsilon_n\frac{R^{n-
+1}}{2^{n-1}}-\delta\\
+\implies
+|B(p,B)|&>\frac{\varepsilon_n}{2^n}R^n-
+\frac{\delta
+R}{2}
+> \frac{\varepsilon_n}{2^n}R^n.
+\end{aligned}
+$$
+\end{proof}
+
+\section{From higher Lie groupoids to higher
+Lie algebroids}
+\label{section-highe-group-highe-algeb}
+
+\noindent
+Matias del Hoyo, UFRJ.
+Symplectic Geometry Seminar, IMPA.
+October 29, 2025.
+
+\medskip\noindent
+{\bf Abstract.}
+This is a report of an ongoing collaboration
+with A. Cabrera, where we develop a
+higher Lie theory. Starting with simple,
+concrete examples, we present the
+differentiation functor in a geometric,
+explicit way, using simplicial methods
+and differential graded algebras. We describe
+how our construction extends the
+classical Lie functors, relate our project
+with previous works, and show a van
+Est theorem linking the cohomology at the
+global and infinitesimal levels.
+
+\medskip\noindent
+
+Upshot: Integration-differentiation relation
+between Lie groups and Lie algebras
+in higher versions. Groupoids are the
+counterparts of Poisson manifolds, and in
+the next level there are 2-groupoids and
+Courant algebroids. How to integrate a
+2-groupoid to a Courant algebroid? This is an
+open question which motivated this
+work. See arXiv
+\href{http://arxiv.org/abs/2309.14105}%
+{2309.14105}.
+
+\medskip\noindent
+Let $M$ be a smooth manifold.
+
+\begin{remark}
+\label{remark-smoot-funct-ring-fully-faith}
+$M \mapsto C^\infty M$ is fully faithful.
+\end{remark}
+
+\noindent
+Which allows us to think of manifolds as
+algebraic objects.
+Notice that
+$\Omega^kM=\{k\text{-forms}\}
+=\Lambda^k_{C^\infty M}\text{Der}(C^\infty
+M,C^\infty M)$,
+which is (algebraically) locally spanned
+by the exact 1-forms.
+
+Recall that the exterior differential is
+the only operator $d:\Omega^kM \to
+\Omega^{k+1}M$
+such that $d(\alpha \wedge \beta)=d\alpha
+\wedge \beta +
+(-1)^{|\alpha|}\alpha \wedge d\beta$
+and that $df(X)=Xf$.
+
+This makes $(\Omega M,\wedge,d)$ a
+differential graded algebra.
+Recall that $\text{dom}(X,Y)=X\omega(Y)-Y
+\omega(X)-\omega([X,Y])$.
+We also have de Rham cohomology.
+
+Consider a submanifold $S \subset M$. Recall
+that $\mathcal{I}_S/\mathcal{I}^2_S$ is
+essentially
+the sections of the normal bundle.
+In particular, for $M \subset M \times M$
+we can see that the embedding vanishes on the
+diagonal,
+so there is no linear part in the Taylor
+expansion,
+and the second term is in fact the de Rham
+differential
+$df=\pi_1^*f-\pi_2^*f \text{ mod
+}\mathcal{I}^2_{\Delta(M)}$.
+
+In fact, this construction can be extended to
+a simplicial manifold
+(which I think is just a presheaf valued on
+category of manifolds)
+using projections and diagonals,
+$$
+\xymatrix{
+\cdots & M\times M \times M
+\ar @< 3pt> [r]
+\ar @< 0pt> [r]
+\ar @<-3pt> [r] & M \times M \ar @< 2pt> [r]
+\ar @<-2pt> [r]& M.
+}
+$$
+To this we can apply the $C^\infty$ functor
+and obtain
+a cosimplicial ring (not a dga?).
+The idea here
+is that de Rham differential is an
+alternating sum of pullbacks;
+as other differentials will also be.
+
+\medskip\noindent
+Now observe that for a finite-dimensional
+vector space $V$,
+$$
+\left\{\substack{\text{Lie bracket} \\
+V \times V
+\xrightarrow{[\cdot,\cdot]}V}\right\}
+\leftrightarrow
+\left\{\substack{\text{differential on} \\
+\Lambda V^*}\right\},
+$$
+making $\Lambda V^*$ into a differential
+graded algebra.
+
+Recall that given a Lie algebra
+$\mathfrak{g}$,
+we have $(\Lambda^\bullet \mathfrak{g}^*
+,d)=\text{CE}(\mathfrak{g})$,
+the Chevalley Eilenberg algebra,
+which gives Lie algebra cohomology.
+
+\medskip\noindent
+[Missing part on Simplicial approach,
+exponential map,
+Simplicial manifold nerve]
+
+\medskip\noindent
+Lie algebroid: $\Delta \to M$ vector bundle
+with $[\cdot,\cdot]$ on $\Gamma A$,
+$A \xrightarrow{\rho}TM$ Leibniz.
+
+\begin{remark}
+\label{remark-lie-algebroids-differentials}
+$$
+\left\{\substack{\text{Lie algebroids on} \\
+E \to M}\right\}
+\leftrightarrow
+\left\{\substack{\text{differentials} \\
+\text{on }\Lambda\Gamma E^*}\right\}.
+$$
+\end{remark}
+
+\noindent
+This gives a differential graded algebra
+$$
+\xymatrix{
+\Delta\ar[r]&M\ar[r]&\text{CE}(A)
+}
+$$
+and
+$$
+\xymatrix{
+C^\infty M\ar[r]^{\tilde{\rho}}&\Gamma
+E^*\ar[r]^{\widetilde{[\cdot,\cdot]}}
+&\Gamma E^* \wedge \Gamma E^*\ar[r]&\cdots.
+}
+$$
+
+From Lie groupoids to Lie algebroids:
+Lie functor/differentiation.
+
+$$
+\Omega(G)=\Gamma \Lambda^\bullet
+\underbrace{\supset}
+_{\text{sub dga}}
+\Gamma \Lambda^\bullet T^s
+\xrightarrow{-/G}\text{CE}(A_G).
+$$
+There's the following ecosystem around Lie
+groupoids:
+$$
+\xymatrix{
+&\text{Lie groupoids}
+\ar[dl]\ar@{->>}[d]\ar[dr]^{\text{nerve}}\\
+\text{Lie algebroids}&
+\substack{\text{Differentiable stacks} \\
+\supset \text{orbifolds}}
+&\text{simplicial manifolds.}
+}
+$$
+
+\medskip\noindent
+Lie groupoids are models for stacks,
+which are geometric objects solving
+classification
+problems with objects identified up to
+isomorphism.
+Relaxing the identification to a weaker
+notion
+of equivalence we must introduce higher
+versions of stacks.
+
+Moving higher,
+$$
+\xymatrix{
+\text{Lie groupoid}\ar[r]\ar[d]_{\text{Lie}}
+&\text{Simplicial manifolds}\ar[d]^?\\
+\text{Lie
+algebroids}\ar[r]&\text{dg-manifolds}
+}
+$$
+dg algebra is a  dga $(A=\bigoplus_{k=1}^n
+A_k \to M,\wedge,d)$
+starting at $C^\infty M$, and continuing
+until you get to
+the sections, namely
+$$
+\xymatrix{
+C^\infty M \ar[r]_d & A_2 \ar[r]& \cdots &
+\cong \Gamma A.
+}
+$$
+[dH-Cabrera] provide the solution to this
+problem,
+namely what to put in the right vertical
+arrow:
+
+\begin{theorem}[dH-Cabrera]
+\label{theorem-dh-cabrera}
+$$
+\frac{(C^\infty_N(G),\cup,\sum(-1)A^*_i)}{J+
+\delta
+J}
+=\text{CE}(A_G)
+$$
+where $A_G$ is a higher Lie algebroid
+and $J$ is defined by: $f$ is in $J$ if it
+has higher vanishing.
+\end{theorem}
+
+
+Groupoids are the counterparts of Poisson
+manifolds,
+and in the next level there are 2-groupoids
+and Courant algebroids.
+How to integrate a 2-groupoid to a Courant
+algebroids?
+This is an open question which motivated this
+work.
+
+\section{Hyperbolic surfaces and Mirzakhani's
+curve counting}
+\label{section-hyper-surfa-mizak-curve}
+
+\noindent
+Viveka Erlandson, University of Bristol, UK.
+8th Brazilian School of Dynamical Systems,
+IMPA.
+November 4, 2025.
+
+\medskip\noindent
+{\bf Abstract.}
+It’s a classical problem to study the growth
+of the number of periodic orbits of
+bounded length $L$ under a geodesic flow on a
+manifold. When it comes to
+(closed) hyperbolic surfaces Huber proved
+that the number is asymptotic to $e^L
+L$ and this results has since been
+generalized in many directions, maybe most
+famously by Margulis to negatively curved
+manifolds as well as more general
+flows. However, a fundamentally different
+result is due to Mirzakhani who
+counted the subset of those closed geodesics
+on hyperbolic surfaces which have
+no self-intersections (or more generally,
+those inside a fixed mapping class
+group orbit) and showed that in this setting
+the growth is asymptotic to a
+polynomial in L of degree only depending on
+the topology of the surface. In this
+mini-course we will give the necessary
+background on hyperbolic surfaces to
+understand these results, give an idea of the
+proof of Mirzakhani’s theorem and
+introduce some tools used such as measured
+laminations and train tracks. Time
+allowing we present some generalizations (for
+example, to non-simple closed
+geodesics or to various metrics) and
+applications to the distribution of closed
+geodesics.
+
+\medskip\noindent
+Our goal is to count certain closed geodesics
+on hyperbolic surfaces.
+By ``certain'' we main, for example, simple
+or fixed topological type;
+we will define these properly. Also, we may
+treat more general
+types of curves than only hyperbolic, e.g.
+combinatorial, algebraic.
+As ``closed geodesics'', we mean free
+homotopy classes of curves.
+
+As historical note,
+results on coarse polynomial growth for
+simple curves
+were are due to Birman-Serres, Rees in the
+80's.
+In 2001, McShane-Runn studied asymptotic
+growth
+for simple curves on punctured torus.
+Asymptoric growth on any hyperbolic
+surface was proved by Mirzakhani for simple
+curves in 2008
+and then in 2016 for any topological type of
+curve.
+
+Here's an outline of this minicourse:
+\begin{itemize}
+\item Introduction, motivation.
+\item Measured laminations, train tracks,
+Thurston measure.
+\item  (Geodesic) currents.
+\item Curve counting theorem.
+\end{itemize}
+
+\medskip\noindent
+Throughout $S$ will be a topological
+(connected, orientable
+of finite type, i.e. finite genus). Let
+$g<\infty$ be the genus
+and $r< \infty$ the number of punctures.
+We assume that $\chi(S)=2-2g-r<0$,
+which is equivalent to saying that $S$
+admits hyperbolic metrics.
+We will not consider the pair of pants,
+since there's only three simple closed
+geodesics on it,
+making it uninteresting for our means.
+
+Let $X$ be a hyperbolic surface homeomorphic
+to $S$.
+Consider the universal cover
+$\tilde{X}=\mathbb{H}^2$ of $X$,
+and
+$\pi_1(X)=\Gamma\underbrace{<}
+_{\substack{\text{discrete}
+\\ \text{free}}}
+\text{PSL}(2,\mathbb{R})=\text{Isom}^+
+(\mathbb{H}^2)$.
+Recall that a $4g$-gon yields a genus $g$
+surface $S_g$ by
+adequate identification of its sides.
+
+For us, a {\it curve} $\gamma$ is a free
+homotopy class
+of a closed immersion $\mathbb{S}^1
+\hookrightarrow S$,
+which are closed $X$-geodesics.
+In turn, a {\it multi-curve}
+is a formal sum $\sum_{i=1}^na_i\gamma_i$
+for $\gamma_i$ distinct curves and $a_i>0$,
+$a_i \in \mathbb{Q}$.
+The {\it length} of a curve $\gamma$ is
+$\ell_X(\gamma)$ is the length of
+$X$-geodesic representing $\gamma$,
+and the length of a multi-curve is the sum of
+the lengths
+of the curves in the formal sum.
+
+We won't use this: we can think of $X$ as
+an element of Teichmüller space
+$\mathcal{T}(S)\cong \mathbb{R}^{6g-6+2r}$
+parametrizing complex structures on $S$.
+
+\medskip\noindent
+Notice that given $X \in\mathcal{T}(S)$,
+the number of curves with length bounded by a
+given number $L$,
+$\#\{\gamma|\ell_X(\gamma)\leq L\}$,
+is finite. This can be checked going to the
+universal cover.
+However, as $L \to \infty$, the number also
+tends to infinity.
+
+Huber, Hekhal (59' or later) showed that if
+$X$ is hyperbolic
+on $S_{g,r}$, then
+$\#\{\gamma|\ell_X(\gamma)\leq L\}\sim
+\frac{e^L}{L}$
+asymptotically, that is,
+$$
+\lim_{L\to \infty}\frac{\#
+\{\gamma|\ell_X(\gamma)\leq L\}}{e^L/L}=1.
+$$
+
+\medskip\noindent
+What is we restrict to a fixed topological
+type?
+
+Recall that the {\it mapping class group} of
+$S$ is
+$\text{Map}(S):=\text{Homeo}^+(S)/
+\text{homotopy}$.
+Then $\gamma$ and $\gamma_0$ are of the same
+(topological)
+type if $\gamma \in \text{Map}(S)\gamma_0$.
+
+We define the {\it (geometric) intersection}
+of $\alpha,\beta$
+distinct curves by
+$$
+i(\alpha,\beta)=\text{min}\{\#(\alpha' \cap
+\beta'|
+\substack{\alpha'\text{ homotopic to }\alpha
+\\
+\beta'\text{ homotopic to }\beta}\}.
+$$
+(In fact, this minimum is always realized by
+geodesics,
+but it's more a topological definition.)
+The {\it self-intersection} of a curve is
+$$
+i(\alpha,\alpha)=\frac{1}{2}\text{min}
+\{\#(\alpha' \cap
+\alpha''|\alpha',\alpha''\text{
+homotopic to }\alpha\}.
+$$
+
+We say $\gamma$ is {\it simple} if
+$i(\gamma,\gamma)=0$.
+
+It is known that $i(\cdot,\cdot)$ is
+$\text{Map}(S)$-invariant,
+and that $\{\gamma:i(\gamma,\gamma)=k\}$ is a
+finite union
+of topological types.
+
+\begin{theorem}[Mirzakhani, '08, '16]
+\label{theorem-mirzakhani}
+Let $X$ be a hyperbolic surface, $X \cong
+S_{g,r}$
+and $\gamma_0$ any (multi-)curve.
+Then
+$$
+\#\{\gamma\text{ type
+}\gamma_0|\ell_X(\gamma)\leq L\}
+\sim CL^{6g-6+2r},
+$$
+where $C>0$,
+$C=\frac{c(\gamma_0)}{b_\gamma}B(X)$.
+\end{theorem}
+
+\noindent
+As a corollary, we obtain
+$$
+\begin{aligned}
+\#\{\gamma\text{ simple}|\ell_X(\gamma)\leq
+L\}&
+\sim\text{const.}L^{6g-6+2r}\\
+\#\{\gamma|i(\gamma,\gamma)\leq
+k,\ell_X(\gamma)\leq L\}
+&\sim (\text{const. depending on
+$k$})L^{6g-6+2r}.
+\end{aligned}
+$$
+
+\medskip\noindent
+As an example, consider the torus with simple
+(multi-)curves.
+If we put a puncture it becomes a hyperbolic
+curve.
+Forgetting the puncture, we have an Euclidean
+flat torus,
+of which we know the geodesics: they are
+straight lines
+with rational slope in the plane (before
+quotienting).
+We see that the amount of geodesics of length
+bounded by $L$
+is $\frac{1}{2}\mathbb{Z}^2 \cap B((0,0),L)$,
+which is in
+fact $\sim \pi L^2$.
+A result by Mc-Shane-Rivn, 2001 shows that
+ $$
+\{\text{(primitive) simple curves}\}\sim
+\frac{\pi}{6}L^2.
+$$
+Where primitive (most likely) excludes
+counting
+a curve twice as a multicurve.
+
+
+\medskip\noindent
+Let us introduce a measure on $\mathbb{R}^2$.
+Let $L>0$. Then
+$$
+m^L=\frac{1}{L^2}\sum_{p \in
+\mathbb{Z}^2}\delta_{\frac{1}{L}p}
+\xrightarrow{L \to
+\infty}\text{Leb}_{\mathbb{R}^2}.
+$$
+For $p=(a,b)$,
+$\frac{1}{L}p=(\frac{1}{L}a,\frac{1}{L}b)$.
+$$
+\begin{aligned}
+U_{\mathbb{E}}&=\{x \in \mathbb{R}^2:|x|\leq
+1\}\\
+m^L(U_{\mathbb{E})}&=\frac{1}{L^2}\#\{p \in
+\mathbb{Z}^2
+\left|\frac{1}{L}p\right|\leq 1\}\\
+&=\frac{1}{L^2}\#\{p \in \mathbb{Z}^2:|p|\leq
+L\}\\
+&=\frac{1}{L^2}\#\mathbb{Z}^2 \cap
+B_{\mathbb{R}^2}((0,0),L)\\
+&\to\text{Leb}_{\mathbb{R}^2}(U_{\mathbb{E})}
+=\pi.
+\end{aligned}
+$$
+
+\medskip\noindent
+Let's go back to study the geodesics on a
+torus.
+First we recall a fact, which is that
+on any hyperbolic surface $S$ there exists a
+compact $K \subset S$ such that all
+simple closed geodesics stay in $K$.
+
+Now consider a geodesic given by a curve of
+irrational slope,
+which is dense in the torus. However,
+it is not dense on a hyperbolic torus
+$S_{1,1}$.
+We may approximate this geodesic by $q_n \in
+\mathbb{Q}$ with
+$q_n \to \alpha$. Each $q_n \rightsquigarrow
+\gamma_n$
+is a closed geodesic on $S_{1,1}$.
+The lamination in this case is the Hausdorff
+limit
+of the $\gamma_n$.
+
+\begin{definition}
+\label{definition-lamination}
+A {\it lamination} $L$ on a (hyperbolic)
+surface $S$
+is a compact subset of $S$ consisting of
+simple, pairwise
+disjoint complete geodesics.
+
+A {\it measured lamination} $\lambda$ is
+$\lambda=(L,\lambda)$ is a lamination $L$
+together with a {\it transverse measure}
+$\lambda$:
+a measure is assigned to each arc $I$
+transverse to $L$.
+
+We write $ML(S)$ for the space of all
+measured laminations on $S$.
+\end{definition}
+
+\noindent
+While the definition of lamination depends on
+a choice
+of hyperbolic metric on the surface, the
+different $ML(S)$
+that we obtain with different metrics are
+actually homeomorphic,
+and we thus do not distinguish between them.
+
+As an example, every simple multi-curve is a
+measured lamination.
+
+Morally we think of measured laminations as
+limits of simple multicurves:
+simple multi-curves are dense in $ML(S)$.
+
+\medskip\noindent
+Now we will discuss train tracks, which will
+give us a combinatorial model for measured
+laminations.
+
+\begin{definition}
+\label{definition-train-track}
+A {\it train track} $\tau$ on $S$ is an
+embedded (trivalent)
+graph such that at every vertex the three
+half edges
+meet with the same tangent line and such that
+the complementary region (cc. $S \setminus
+\tau$)
+are not disk
+(with a certain caveat: it can be a
+contractible
+region as long as the vertices cannot
+preserve
+it's smooth incidence structure
+along the homotopy),
+a cyllinder (ring) nor a punctured disk.
+
+A {\it set of weights} on $\tau$ is an
+assignment
+of a non-negative real number $w_e$
+to each edge $e$. They satisfy the {\it
+switch equations}
+if at every vertex we have $w_a=w_b+w_c$
+(where $b$ and $c$ ``stem'' from $a$).
+
+We denote $w(\tau)$ the solutions to the
+switch equations
+and $w_{\mathbb{Z}}(\tau)$ the integral
+solutions.
+
+We say a measured lamination $\lambda \in
+ML(S)$
+is {\it carried} by $\tau$ ($\lambda < \tau$)
+if its support can be homotopied into $\tau$.
+We denote
+$$
+\begin{aligned}
+ML(\tau)&=\{\lambda \in ML(S):\lambda <
+\tau\}\\
+ML_{\mathbb{Z}}(\tau)&=\{\lambda \in
+ML_{\mathbb{Z}}(S):\lambda <\tau\}\\
+ML_{\mathbb{Z}}(S)&=\{\lambda \in
+ML(S):\substack{\text{
+simple multi-curve} \\ \text{with integral
+coefficients}}\}.
+\end{aligned}
+$$
+\end{definition}
+
+\medskip\noindent
+Now we will explain the fact that there are
+one-to-one correspondences
+$$
+\begin{aligned}
+ML(\tau)&\xymatrix{\ar@{<->}[r]&}w(\tau)\\
+ML_{\mathbb{Z}}(\tau)&\xymatrix{\ar@{<->}[r]&
+}w_{\mathbb{Z}}(\tau).
+\end{aligned}
+$$
+
+\noindent
+In a simple case where we pick a multicurve
+$\lambda \in ML_{\mathbb{Z}}(\tau)$, the
+associated measure
+is just counting the intersection number
+of the curve with a perpendicular segment
+near
+the train track edge.
+
+The following argument appears to be a
+converse construction.
+Given a solution to the switch equations,
+i.e. an element in $\omega(\tau)$, we can
+produce
+a multicurve $\lambda \in
+ML_{\mathbb{Z}}(\tau)$.
+(The method is essentially putting as many
+strands
+as the weights say near the vertex;
+this yields formal sums of curves.)
+This also works for formal sums with rational
+coefficients.
+And for non-negative real coefficients, we
+take a thickening of $\tau$.
+
+\begin{theorem}[Thurston]
+\label{theorem-thurston-train-tracks}
+The weights on $\tau$ uniquely determine a
+transverse measure on $L$.
+\end{theorem}
+
+\medskip\noindent
+Facts:
+\begin{enumerate}
+\item Every $\lambda \in MS(S)$
+is carried by some train track $\tau$ and
+determines
+a unique point in $\omega(\tau)$.
+\item There are finitely many train tracks
+$\tau_i$ such that
+every $\lambda \in ML(S)$ is carried by at
+least $\tau_i$.
+From this it follows that we can write
+$ML(S)=ML(\tau_1)\cup  ML(\tau_2)\cup
+\ldots\cup ML(\tau_n)$
+and $ML(\tau)\approx \omega(\tau)\approx
+\mathbb{R}^{E-V}$
+(under very mild conditions on the train
+tracks).
+
+Here is an exercise: suppose $S$ is closed.
+Show that $E-V \leq  6g-6$, and
+$E-V=6g-6$ if $\tau$ is maximal (which means
+that all complementary
+regions are triangles).
+
+\item $ML(\tau_i)\cap ML(\tau_j)$ for $i \neq
+j$ has dimension
+$<6g-6$.
+\end{enumerate}
+
+Given those facts,
+$$
+\begin{aligned}
+ML(S)&=ML(\tau_1)\dot\cup \ldots \dot\cup
+ML(\tau_n)\\
+&=\omega(\tau_1)\dot\cup \ldots\dot\cup
+\omega(\tau_n).
+\end{aligned}
+$$
+
+\noindent
+In particular, $ML(S)\approx
+\mathcal{E}^{6g+6L+2r}$
+($\omega(\tau_1)\approx\mathbb{R}^{6g+6L-2r}
+$).
+We may now introduce a measure on the space
+of laminations:
+
+\begin{definition}
+\label{definition-thurston-measure}
+The {\it Thurston measure} on $ML(S)$ is
+$$
+\lim_{L\to\infty}\frac{1}{L^{6g-6+2r}}
+\sum_{\lambda
+\in ML_{\mathbb{Z}}(S)}
+\delta_{\frac{1}{L}\lambda}
+$$
+\end{definition}
+
+\noindent
+One checks that this is a Lebesgue measure
+(in the limit) as follows:
+$$
+\begin{aligned}
+ML_{\mathbb{Z}}(S)&=\bigcup_{i=1}
+^nML_{\mathbb{Z}}(\tau_i)\\
+&\frac{1}{L^{6g-6+2r}}\sum_{\lambda \in
+ML_{\mathbb{Z}}\tau_1}
+\delta_{\frac{1}{L}\lambda}\\
+&\frac{1}{L^{6g-6+2r}}\sum_{(\omega)\in
+\omega_{\mathbb{Z}}(\tau_i)}
+\delta_{\frac{1}{L}\omega}\\
+&\frac{1}{L^{6g-6+2r}}\sum_{p \in
+\mathbb{Z}^{6g-6+2r}}
+\delta_{\frac{1}{L}p}
+\end{aligned}
+$$
+
+\noindent
+on $\mathbb{R}^{6g-6+2r}$.
+
+Notice that there is an action of the mapping
+class group
+on the space of laminations: a multicurve is
+taken to another multicurve.
+
+The following theorem was used for proving
+the speaker's results:
+
+\begin{theorem}[Masur '85]
+\label{theorem-masur-85}
+$m_{Thu}$ is $\text{Map}(S)$-invariant
+and is ergodic with respect to
+$\text{Map}(S)$.
+\end{theorem}
+
+\medskip\noindent
+Now we discuss (geodesic) currents.
+Consider de space $\mathcal{G}(\tilde{S})$
+of unoriented geodesics on
+$\tilde{S}=\mathbb{H}^2$
+as $(S^1\times S^1\setminus\Delta)/(a,b)\sim
+(b,a)$.
+This  is well defined (even topologically,
+i.e.
+independently of the choice of metric)
+since two geodesics on Poincaré plane are
+determined by their endpoints.
+
+\begin{definition}
+\label{definition-geodesic-current}
+A {\it (geodesic) current} is a
+$\pi_1(S)$-invariant
+Radon measure on $\mathcal{G}(S)$.
+\end{definition}
+
+\begin{example}
+\label{example-multicurves-are-currents}
+Any (multi-)curve is a current.
+\end{example}
+
+\noindent
+We shall see that not only curves, but also
+measured laminations
+and in fact the Teichmüller space are
+contained in currents:
+$$
+\begin{aligned}
+\{\text{curves}\}&\subset C(S)\\
+ML(S)&\subset C(S)\\
+\mathcal{T}(S)&\subset C(S)
+\end{aligned}
+$$
+
+Let $X$ be a hyperbolic metric on $S$.
+Let $U=\{\lambda \in
+ML(S):\ell_X(\lambda)\leq 1\}$.
+If we let $m^L(U_X)=\frac{1}{L^{6g-6}}
+\#\{\gamma \in
+ML_{\mathbb{Z}}(S)|\ell_X(\gamma)\leq  L\}$,
+then $m^L(U_X) \to m_{\text{Thu}}(U_X):=B(X)$
+ as $L \to \infty$.
+
+\medskip\noindent
+In the following, we think os simple
+curves as measured laminations and currents.
+Recall that a measured lamination is
+a union of disjoint curves.
+$$
+\xymatrix@C=4em{
+ML_{\mathbb{Z}}(S)\ar@{^{(}->}[r]&\overline{
+\{\text{simple
+multicurves}\}}\ar@{^{(}->}[d]\ar@{^{(}->}[r]
+^-{\substack{\text{equality for} \\
+\text{closure only!}}}
+&ML(S)\ar@{^{(}->}[d]\\
+&\overline{\{\text{multi-curves}\}}\ar@{^{(}->}[r]^-{
+\substack{\text{equality for} \\
+\text{closure only!}}}
+&CS=\{\text{geodesic currents}\}.
+}
+$$
+
+\medskip\noindent
+Facts:
+\begin{enumerate}
+\item (Banahon.) The geometric intersection
+number of curves
+extends to
+$$
+i:C(S) \times C(S) \to \mathbb{R}_{\geq 0}
+$$
+continuously, bi-linear,
+$\text{Map}(S)$-invariant.
+
+\item $ML(S)=\{\mu \in
+C(S):i(\mu,\mu)=0\}\rightsquigarrow
+m_{\text{Thu}}$ measure on $C(S)$
+(supported on $ML(S)$).
+
+\item $C_{\text{fin}}(S)=\{\mu \in C(S):
+(\mu,\lambda)>0 \forall \lambda \in C(S)\},$
+the {\it filling currents}, is an open dense
+subset of $C(S)$.
+
+\item (Banahan.) For all $X$ hyperbolic
+metric on $S$,
+there exists a unique $\lambda_X \in C(S)$
+such that
+$i(\lambda_X,\gamma)=\ell_X(\gamma)$ for all
+curves $\lambda$
+(Liouville current) $\rightsquigarrow $
+$\mathcal{T}(S) \subset C(S)$.
+This way we have a notion of hyperbolic
+length of currents $\mu \in C(S)$:
+$\ell_X(\mu)=i(\lambda_X,\mu)$.
+\end{enumerate}
+
+\begin{definition}
+\label{definition-nice-length-function}
+A length function on curves on $S$
+is {\it nice} if it extends to a function
+$F:C(S) \to \mathbb{R}_{\geq 0}$ wich is
+continuous, homogeneous
+($F(c\cdot\mu)=cF(\mu)\;\forall c>0$,
+positive ($F(\mu)>0\;\forall \mu\neq 0$.
+\end{definition}
+
+\begin{example}
+\label{example-nice-length-functions}
+Following are examples of nice length
+functions:
+\begin{itemize}
+\item Hyperbolic length.
+\item (Otal.) Negatively curved Riemannian
+metric.
+\item (E-Parlier-Souto.) (Singular)
+Riemannian metric.
+\item (Duchen-Leinhein-Rafi.) Euclidean cone
+surface.
+\item (Banachan.) $\sigma \in C_{fill}(S)$,
+$\ell_{\sigma}=(\sigma,M)$.
+\item Word length w.r.t. finite generating
+set $\pi_1(S)$.
+\end{itemize}
+\end{example}
+
+\medskip\noindent
+Let us go back to our original problem
+of counting curves of a specific type.
+Fix $\gamma_0$ a (multi-)curve (not
+necessarily simple).
+$\gamma$ is of type $\gamma_0$ if
+$\gamma \in \text{Map}(S)\cdot \gamma_0$.
+
+We want asymptotics of
+$\#\{\gamma\text{ type
+}\gamma_0:\ell_X(\gamma)\leq L\}$.
+Fix $\gamma_0$ and $L>0$. Consider
+$m^L_{\gamma_0}=\frac{1}{L^{6g-6}}
+\sum_{\gamma\text{ type
+}\gamma_0}\delta_{\frac{1}{L}\gamma}$
+measure on $C(\gamma)$.
+
+Note that $m^L_{\gamma_0}(U_X)=
+\frac{1}{L^{6g-6}}\#
+\{\gamma\text{ type
+}\gamma_0:\ell_X(\gamma)\leq L\}$.
+
+We are ready to state the main theorem:
+
+\begin{theorem}[Mirzakhani '08, E-Souto '22]
+\label{theorem-mirzakhani-e-souto}
+For any $\gamma_0$ on $S=S_g$
+$$
+m^L_{\gamma_0}\to\frac{c(\gamma_0)}{b_g}
+m_{\text{Thu}},\qquad
+L\to \infty.
+$$
+\end{theorem}
+
+\noindent
+Mirzakhani proved it for simple curves,
+while we now presented a general version
+using currents.
+We write the constants as
+$$
+\begin{aligned}
+c(\gamma_0)&=m_{\text{Thu}}(\{\lambda \in
+ML(S)/\text{Stab}(\gamma_0)
+|i(\lambda,\gamma_0)\leq 1\},\\
+b_g&=\sum_{\alpha_0 \in
+ML_\mathbb{Z}/\text{Map}(S)}c(\alpha_0).
+\end{aligned}
+$$
+
+\noindent
+Mirzakhani used another expression.
+This one has the virtue of being purely
+combinatorial.
+
+Mirzakhani showed the following example.
+Consider the genus 2 surface $S_2$.
+Then
+$$
+\lim_{L \to \infty}
+\frac{\#\{\text{non-separating
+}\gamma|\ell_X(\gamma)\leq L\}}{
+\#\{\text{separating
+}\gamma|\ell_X(\gamma)\leq L\}}
+=48.
+$$
+This may be interpreted by saying that when
+taking a closed simple geodesic,
+the probability of it being separating is
+$\frac{1}{48}$.
+
+\section{The unstable flow of a partially 
+hyperbolic diffeomorphism with an 
+application to measure rigidity}
+\label{section-unstable-flow-hyp-dyn}
+
+\noindent
+Bruno Santiago (UFF?)
+
+Qui 21 mai 2026, 15:30
+
+\medskip\noindent
+{\bf Abstract.}
+Let $f$ be a partially hyperbolic
+diffeomorphism preserving a splitting
+$
+TM = E^s \oplus E^c \oplus E^u,
+$
+where the unstable bundle $E^u$ is
+one-dimensional.
+When $f$ is homogeneous, like the time-one
+map of the geodesic flow on a surface of
+constant negative curvature or a linear
+automorphism of the torus, the unstable
+foliation admits a natural parametrization
+that makes invariant measures with
+absolutely continuous conditionals
+(the so-called $u$-Gibbs measures)
+correspond exactly to invariant measures
+of this flow.
+How can this picture be generalized when
+$f$ is not homogeneous?
+In this talk, I will explain a construction
+of a suitable suspension flow of $f$ for
+which the unstable foliation becomes the
+orbit foliation of a new flow, called the
+unstable flow.
+Ergodic $u$-Gibbs measures are in
+one-to-one correspondence with measures
+simultaneously invariant under both flows
+and ergodic for the suspension.
+As an application, I will deduce the
+following measure rigidity statement:
+if $E^c$ is expanding and the bundle
+$E^s \oplus E^u$ is integrable, then any
+$u$-Gibbs measure whose entropy exceeds its
+unstable entropy is necessarily an SRB
+measure.
+This is joint work with Sébastien
+Alvarez, Sylvain Crovisier, Martin
+Leguil, and Davi Obata.
+
+\begin{remark}[AI-generated overview]
+\label{remark-ai-overview-seminar-unstable-flow}
+The talk was about translating a geometric
+object into a dynamical one. We start with a
+partially hyperbolic diffeomorphism
+$$
+f:M\to M.
+$$
+This means that there is a $Df$-invariant
+splitting
+$$
+TM=E^s\oplus E^c\oplus E^u.
+$$
+Here $Df$-invariant means that
+$$
+Df_x(E_x^s)=E_{f(x)}^s,\qquad
+Df_x(E_x^c)=E_{f(x)}^c,\qquad
+Df_x(E_x^u)=E_{f(x)}^u.
+$$
+Thus $f$ moves points, while $Df$ moves the
+corresponding tangent directions in a way
+compatible with the splitting.
+
+\medskip\noindent
+The key simplifying hypothesis is that
+$E^u$ is one-dimensional. Hence the unstable
+distribution integrates to curves
+$$
+W^u(x),
+$$
+called unstable leaves. The first geometric
+idea is that these leaves should not merely
+be thought of as a foliation, but as the
+orbits of a flow. Thus one wants to construct
+an unstable flow $\varphi_t^u$ whose orbit
+through $x$ is exactly $W^u(x)$.
+
+\medskip\noindent
+The nontrivial point is the choice of
+parametrization
+[because the passage from the orbits
+to a vector field is not integration,
+but differentiation, which in principle
+is easy --- once you have
+the right parametrization!]. 
+A one-dimensional leaf can
+be parametrized in many different ways, and
+the dynamics of $f$ selects a preferred one.
+If $x$ and $y$ lie on the same unstable leaf,
+the function
+$$
+\rho_x^u(y)
+$$
+compares the expansion of $Df^n$ in the
+unstable direction at $x$ and at $y$. Thus
+$\rho_x^u$ is a dynamical density along
+$W^u(x)$.
+
+\medskip\noindent
+This density defines a coordinate on the
+unstable leaf:
+$$
+H_x^u(y)
+=
+\int_x^y
+\rho_x^u(z)\,d\operatorname{Leb}_x^u(z).
+$$
+The inverse map
+$$
+\Phi_x^u=(H_x^u)^{-1}
+$$
+then gives the natural parametrization of the
+unstable leaf. This is the geometric heart of
+the construction.
+
+\medskip\noindent
+The measure-theoretic part enters because in
+dynamics one studies not only where an orbit
+goes, but also its long-time statistical
+distribution. For a point $x$, the empirical
+measures
+$$
+\mu_{n,x}
+=
+\frac{1}{n}
+\sum_{j=0}^{n-1}
+\delta_{f^j(x)}
+$$
+record the proportion of time the orbit of
+$x$ spends in different regions of $M$.
+Equivalently, for a measurable subset
+$A\subset M$, one has
+$$
+\mu_{n,x}(A)
+=
+\frac{1}{n}
+\#\{0\leq j<n:f^j(x)\in A\}.
+$$
+Thus $\mu_{n,x}(A)$ is the proportion of
+time, up to time $n$, that the orbit of $x$
+spends inside $A$. This is where time enters:
+we are not measuring the size of $A$ itself,
+but rather how frequently the forward orbit
+$$
+x,\ f(x),\ f^2(x),\ldots
+$$
+visits $A$.
+
+\medskip\noindent
+A $u$-Gibbs measure is an invariant measure
+which is smooth in the unstable direction.
+More precisely, if
+$$
+\{\mu_x^u\}
+$$
+is the disintegration of $\mu$ along unstable
+leaves, then
+$$
+\mu_x^u\ll \operatorname{Leb}_x^u.
+$$
+So the measure may be globally complicated,
+but leaf-by-leaf along $W^u$ it has a density
+with respect to ordinary leafwise length.
+
+\medskip\noindent
+The main theorem of the talk says that such
+$u$-Gibbs measures can be characterized after
+passing to a suspension space. The original
+map $f$ is discrete-time, while the suspension
+turns it into a continuous-time flow
+$\psi_t$. The theorem identifies $u$-Gibbs
+measures with lifted measures which are
+invariant both under the suspension flow
+$\psi_t$ and under the unstable flow
+$\varphi_t^u$.
+
+\medskip\noindent
+Finally, the application concerns SRB
+measures. An SRB measure is stronger than a
+$u$-Gibbs measure: it is meant to describe
+the statistics seen by a positive-Lebesgue
+set of initial conditions. In the theorem
+from the end of the talk, if the center
+direction is expanding and a $u$-Gibbs measure
+has more entropy than what is accounted for
+only by the unstable direction, namely
+$$
+h_\mu(f)>
+\int_M \log \lambda_x^u\,d\mu(x),
+$$
+then the measure must be SRB.
+
+\medskip\noindent
+In the language of the Heap Project, this is
+not like constructing a scheme from equations;
+it is more like extracting an invariant
+object from asymptotic data. Just as a Hilbert
+polynomial records asymptotic information
+about graded pieces, an invariant measure
+records asymptotic information about the
+distribution of an orbit. The slogan of the
+talk is therefore:
+$$
+\text{unstable expansion}
+\quad\leadsto\quad
+\text{dynamical density}
+\quad\leadsto\quad
+\text{unstable flow}
+\quad\leadsto\quad
+\text{measure rigidity}.
+$$
+\end{remark}
+
+\noindent
+Let $S:M \to M$ be a $C^r(M)$ map.
+Let $V$ be a vector field
+inducing a foliation
+whose leaves form a $C^r$ foliation
+on $M$.
+The idea is
+that this dimension-1 
+foliation is dilated by the
+diffeomorphism.
+
+\begin{example}
+\label{example-sl3-spectrum}
+\begin{itemize}
+\item $A \in \text{SL}_3(\mathbb{Z})$,
+with spectrum
+$\text{spec}(A)
+= \{0<\lambda_A^s<1<
+\lambda^c_A
+<\lambda^u_A\}$.
+$W_A^u
+= $ folitation with orbits
+of irrational flux $\varphi_t$
+of $f_A:\mathbb{T}^3 \to \mathbb{T}^3$.
+\end{itemize}
+\end{example}
+
+\begin{definition}[AI]
+\label{definition-u-gibbs-measure}
+Let $f:M \to M$ be a partially hyperbolic
+diffeomorphism, and let
+$\mathcal F^u$ be its unstable foliation.
+A measure
+$$
+\mu \in \mathcal P_f^{\operatorname{reg}}(u)
+$$
+is called a $u$-Gibbs measure if its
+conditional measures along unstable leaves
+are absolutely continuous with respect to
+Lebesgue measure on the leaves.
+
+More precisely, if
+$$
+\{\mu_x^u\}_{x \in M}
+$$
+denotes the disintegration of $\mu$ along
+the unstable foliation, then
+$$
+\mu_x^u \ll \operatorname{Leb}_x^u
+$$
+for $\mu$-almost every $x \in M$.
+\end{definition}
+
+\begin{remark}
+\label{remark-stable-directions-dyn}
+$$
+TM = E^s \oplus E^c \oplus E^u.
+$$
+\end{remark}
+
+\begin{remark}
+\label{remark-leb-ae-ai}
+For Lebesgue almost everywhere,
+$x \in M$, $n_k \to \infty$,
+$$
+\mu_{n_k,x}
+:=
+1 \sum_{n_k=0}^{n_k-1}
+\delta_{f_k} \to \mu
+$$
+which implies that $\mu \in 
+\text{Leb}^u$.
+\end{remark}
+
+\noindent
+I'm very lost, here's AI-corrected
+above remark:
+
+\begin{remark}
+\label{remark-lebesgue-ae}
+The phrase ``Lebesgue almost every $x$''
+means almost every point with respect to
+the Riemannian volume measure on $M$.
+
+Given $x \in M$, its empirical measures are
+$$
+\mu_{n,x}
+:=
+\frac{1}{n}
+\sum_{j=0}^{n-1}
+\delta_{f^j(x)}.
+$$
+A measure $\mu$ is called physical if its
+basin
+$$
+B(\mu)
+:=
+\left\{
+x \in M :
+\mu_{n,x} \to \mu
+\right\}
+$$
+has positive Lebesgue measure, where the
+convergence is weak-$*$ convergence of
+probability measures.
+\end{remark}
+
+\begin{lemma}[Ledrappier density]
+\label{lemma-ledrappier}
+$$
+\frac{d\mu^u_x}{
+d\text{Leb}_x^u}
+=c(X)\rho_x^u
+$$
+where $\rho_x^u:w^u(x)\to \mathbb{R}$,
+$$
+\rho_x^u(y)
+=
+\lim_{n \to \infty} 
+\frac{\|D\bar{f}^n(y)V^u\|}{
+D\bar{f}^n(x) V^u}
+$$
+is the dynamic density function.
+\end{lemma}
+\begin{lemma}[Ledrappier density, AI]
+\label{lemma-ledrappier-density}
+Let $\mu$ be a $u$-Gibbs measure. Then the
+conditional measure $\mu_x^u$ is absolutely
+continuous with respect to $\operatorname{Leb}_x^u$,
+and its density is of the form
+$$
+\frac{d\mu_x^u}{d\operatorname{Leb}_x^u}(y)
+=
+c(x)\rho_x^u(y),
+$$
+where $c(x)>0$ is a normalizing constant and
+$$
+\rho_x^u:W^u(x)\to \mathbb R
+$$
+is given by
+$$
+\rho_x^u(y)
+=
+\lim_{n\to\infty}
+\frac{
+\|D\bar f^{-n}(y)|_{E_y^u}\|
+}{
+\|D\bar f^{-n}(x)|_{E_x^u}\|
+}.
+$$
+Equivalently, in the one-dimensional unstable
+case,
+$$
+\rho_x^u(y)
+=
+\lim_{n\to\infty}
+\frac{
+\|D\bar f^n(x)v_x^u\|
+}{
+\|D\bar f^n(y)v_y^u\|
+},
+$$
+where $v_x^u\in E_x^u$ and $v_y^u\in E_y^u$
+are unit vectors.
+\end{lemma}
+
+\medskip\noindent
+{\bf Properties of EDD.}
+\begin{itemize}
+\item 
+$$
+\rho_y^(u)
+=\frac{j}{\rho^u_x(y)}
+$$
+\item 
+$$
+z,y \in W^u(x)
+\implies 
+\rho^u_x(z)
+=\rho_x^u(y)\rho_y^u(z)
+$$
+\item 
+$$
+\rho^u_{f(x)}(f(y))
+=\frac{\lambda_x^u}{\lambda_y^u}
+\rho_x^u(y).
+$$
+\end{itemize}
+
+\medskip\noindent
+{\bf Affine structure.} 
+$$
+H_x^u:W^u(x) \to \mathbb{R}
+$$
+$$
+H_x^u(y)
+=\int_x^y \rho_x^u(z)
+d\text{Leb}_x^u(z)
+$$
+$$
+\Phi_x^\mu
+:=(H_x^u)^{-1}
+:\mathbb{R} \to W^u(x).
+$$
+
+Change of coordinates:
+$$
+H_y^u \circ\Phi_x^u(t)
+=\rho_y^u(x)H
++H_y^u(x).
+$$
+\begin{definition}[Unstable flux]
+\label{definition-unstable-flux}
+$$
+\begin{aligned}
+\tilde{\varphi}_t:
+M \times \mathbb{R} &\longrightarrow 
+M \times \mathbb{R} \\
+(x,\alpha) &\longmapsto 
+(\Phi^u_x(e^{-x}t),
+\alpha
++\text{log}\rho_x^u\Phi_t^u(e^{-\alpha}t))
+\end{aligned}
+$$
+\end{definition}
+
+\noindent
+Let's check why this, in fact,
+defines a flux:
+
+\begin{lemma}
+\label{lemma-defines-a-flux}
+$$
+\tilde{\varphi}_t \circ \tilde{\varphi}_s
+(x,\alpha)=\tilde{\varphi}_{t+s}(x,\alpha)
+$$
+\end{lemma}
+
+\begin{proof}
+Provided
+\end{proof}
+
+\begin{theorem}
+\label{theorem-gibbs-measure}
+$\mu \in \text{Gibbs}_{\text{reg}}^u(f)$,
+then there exists a unique
+$$
+\hat{\mu} 
+\in \mathcal{P}_{\psi}^{\text{reg}}
+(\hat{\mu}) \cap
+\mathcal{P}_\varphi(\hat{\mu})
+$$
+\end{theorem}
+
+$$
+D(f)
+=\{(x,\alpha):0\leq \alpha<\lambda_x^u\}
+\subset\hat{\mu}
+$$
+$$
+\hat{\mu}
+=\frac{1}{
+\int_M \text{log} \lambda_x^u
+d\mu(x)}\mu\otimes\text{Leb}_{\mathbb{R}}
+(\mathbb{T}^{-x}(A)).
+$$
+
+\medskip\noindent
+{\bf Applications of Theorem
+\ref{theorem-gibbs-measure}}
+
+\noindent
+Back to the totally partially hyperbolic
+context, suppose there is a decomposition
+$$
+TM^3 = E^s \oplus E^c \oplus E^u
+$$
+such that
+$$
+0 \leq \|Df(x)|_{E^s}\|
+<I<\|Df(x)|_{E^c}\|
+<\|Df(x)|_{E^u}\|.
+$$
+Then $f$ is Anosov partially hyperbolic.
+Thus, there exist foliations
+$W^s,W^c,W^u$ such that
+$E^s,E^c$ and $W^u$ and
+$W^{cs}, W^{du}$
+$$
+F^s \oplus E^c \oplus E^c \oplus E^u.
+$$
+
+\begin{definition}
+\label{definition-}
+$\mu \in \mathcal{P}_f(u)$
+is SRB if all the conditionals
+$$
+\{\mu_x^{c\mu}\}_{x \in M}
+$$
+along $W^{c\mu}(\alpha)$
+satisfy
+$$
+\mu_x^{c\mu}\ll \text{Leb}_x^{c\mu}.
+$$
+\end{definition}
+
+\begin{theorem}[Sinoi-Rulh-Bouso]
+\label{theorem-srb}
+There exists a unique SRB measure
+$\mu$.
+\end{theorem}
+
+\noindent
+Conjecture (ALOS, Katz): 
+if $E^s \oplus E^u$
+are not integrable then any
+$$
+\mu \in \text{Gibbs}_{\text{reg}}^{\mu}(f)
+$$
+is SRB.
+
+\begin{theorem}[B]
+\label{theorem-gibbs-b}
+If $E^s \oplus E^u$ is integrable
+and
+$$
+\mu \in \text{Gibbs}_{\text{reg}}^u(u)
+$$
+satisfies
+$$
+h_\mu(f)
+> \int \text{log}\lambda_x^u d\mu(x),
+$$
+then $\mu$ is SRB.
+\end{theorem}
+
+\medskip\noindent
+{\bf Some ideas.}
+
+ \noindent
+$x \in M \mapsto \text{log}\lambda_x^u$
+is $C^{1+\alpha}$.
+
+Descição das $W^*$
+$$
+\widetilde{W}^s(x,\alpha)
+=\{(x,\alpha+\theta_x^{s}(y)
+:y \in W^s(x)\}
+$$
+where
+$\theta(\alpha)=\text{log}\lambda_x^u$
+and
+$\theta_x^s(y)
+=\sum_{\ell=0}^{\infty}
+\theta(f^\ell y)
+-\theta(f^\ell x)$.
+
+\section{Weil--Petersson homeomorphisms 
+and maximal surfaces in anti-de Sitter space}
+\label{section-weil-petersson}
+
+\noindent
+Graham Smith
+
+May 21, 2026.
+
+\medskip\noindent
+{\bf Abstract.}
+A classe de Weil--Petersson é uma classe
+notável de homeomorfismos do círculo que se
+encontra na fronteira de vários campos da
+matemática contemporânea, incluindo a teoria
+de Teichm\"uller, a teoria de
+Schramm--Loewner, a geometria hiperbólica e
+assim por diante.
+Neste trabalho, apresentamos uma nova
+perspectiva, estudando essa classe do ponto
+de vista da geometria anti-de Sitter.
+Mostramos que um homeomorfismo do círculo é
+Weil--Petersson se e somente se seu gráfico
+limitar uma superfície máxima completa,
+semelhante ao espaço, em
+$\mathrm{AdS}^{2,1}$ de área finita
+renormalizada.
+
+Este é um trabalho conjunto com F. Diaf,
+A. Moriani, R. Smai e E. Trebeschi.
+2604.17804.
+
+\medskip\noindent
+We are interested in Weil-Petersson
+Teichmüller space $\mathcal{T}_0$
+This is a very interesting object
+that intersects several branches of 
+mathematics:
+\begin{itemize}
+\item Renormalized area of minimal surfaces
+in $\mathbb{H}^3$.
+\item Stochastic Loewner evolution.
+\item Geometric computer vision.
+\item Berezin Quantization and Bott-Virasoro
+group.
+\item Planar Coulomb gasses.
+\end{itemize}
+
+\medskip\noindent
+{\bf Loewner transport.}
+Let  $\Omega \subset \hat{\mathbb{C}}$
+be a Jordan domain (interior of Jordan
+curve).
+Let $p,q \in \Omega$.
+For example, $\Omega=\mathbb{H}^2$,
+$p=0$ and $q=\infty$.
+Let $\gamma:[0,1]\hookrightarrow
+\overline{\mathbb{H}^+}$
+with $\gamma(0)=0$ and $\gamma(t) \in
+\mathbb{H}^+$ for all $t>0$.
+
+For all $t$ define
+$$
+\Omega_t:\mathbb{H}^+\setminus
+\gamma([0,t])
+$$
+$$
+g_t:\mathbb{H}^t \to \Omega_t
+$$
+be the unique uniform map
+$$
+g_t(z)
+=z + \frac{2\varphi(t)}{z}
++ o \left(\frac{1}{z}\right)
+$$
+where $\varphi$ is real valued and
+increasing. Parametrize $\gamma$
+by $\varphi$:
+$$
+g_t(z)=z+ \frac{2t}{z}
++o \left(\frac{1}{z}\right).
+$$
+Caratheory:
+$$
+W(t)=g^{-1}_t(\gamma(t))
+$$
+$$
+W:\underbrace{[0,L]}_{\text{domain of }
+\gamma} \to \mathbb{R}.
+$$
+
+The {\it Lowener transform} (1923)
+is the map
+$$
+\gamma \mapsto W
+$$
+and $W$ is the {\it driving function},
+invertible.
+
+\begin{remark}
+\label{remark-brownian-loewner}
+If $W$ is Brownian we obtain a 
+stochastic loewner evolution.
+Yilin Wane.
+\end{remark}
+
+\medskip\noindent
+{\it Loewner energy:}
+$$
+I(\gamma)
+:= \frac{1}{2}
+\int_0^L W'(t)^2 dt
+$$
+\begin{remark}
+\label{remark-loewner-energy-independent}
+Jordan curves have a well-defined
+Loewner enery
+[some remark I didn't understand concerning
+$\Gamma$ Jordan curve, $p,q \in \Gamma$…]
+\end{remark}
+
+\noindent
+In this talk we shall take this
+as a definition:
+
+\begin{theorem}[Wang]
+\label{theorem-wang}
+If $\Gamma \subseteq \hat{ \mathbb{C}}$
+is a Jordan curve then
+$I(\Gamma) < \infty$ if and only if
+$\Gamma$ is in $\mathcal{T}_0$,
+the {\it Weil-Petersson Teichmüller space}.
+\end{theorem}
+
+\medskip\noindent
+{\bf Universal Teichmüller space.}
+Let
+$B_1^{\infty}$ be the open unit ball in
+$L^\infty(\mathbb{H}^+)$.
+Let $\mu \in B_1^\infty$,
+$$
+\mu_0(z)=
+\begin{cases}
+\mu(z)\qquad &\text{ in }\mathbb{H}^+ \\
+0\qquad &\text{ in }\mathbb{H}^-.
+\end{cases}
+$$
+
+The upshot of the following theorem
+is that these functions behave
+like holomorphic functions:
+
+\begin{theorem}[Measurable Riemann Mapping
+Theorem]
+\label{theorem-measurable-rmt}
+There exists a unique $f_\mu:\hat{\mathbb{C}}
+\to \hat{\mathbb{C}}$ such that
+\begin{enumerate}
+\item $f_\mu(0)$, $f_\mu(1)=1$,
+ $f_\mu(\infty)=\infty$.
+\item 
+$$
+\frac{f_{\mu,\bar{z}}}{
+f_{\mu z}}=\mu_0.
+$$
+\end{enumerate}
+\end{theorem}
+
+\noindent
+Recall:
+
+\begin{definition}
+\label{definition-quasiconformal-map}
+$f:\Omega(\subseteq\mathbb{C})
+\to \mathbb{C}$
+is {\it quasiconformal} if
+\begin{enumerate}
+\item $f$ is a local homeomorphism,
+\item $f$ has locally $L^2$ 
+dist. derivatives.
+\item There exists an $L^\infty$
+function $\mu$ such that
+$\|\mu\|_{L^\infty}<1$ such that
+$$
+f_{\bar{z}}=f_z\cdot \mu
+$$
+and $\mu$ is the {\it Beltrami differential} 
+of $f$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+$\mu_0$ is the ``extension by $0$''.
+There's also:
+$$
+\mu_s(z)
+=\begin{cases}
+\mu(z)\qquad &z \in \mathbb{H}^+ \\
+\overline{\mu(\bar{z})}\qquad &
+z \in \mathbb{H}^-
+\end{cases}
+$$
+and by the Measurable Riemann Mapping 
+Theorem, there exists a unique
+$f^u:\hat{\mathbb{C}} \to \hat{\mathbb{C}}$
+such that $\sim$
+$$
+f_{\bar{z}}^\mu
+=\mu_s f^\mu.
+$$
+
+[Picture which I think
+says $f_\mu$ maps the upper half plane
+to a Jordan region]
+
+\begin{definition}
+\label{definition-quasicircle}
+A Jordan curve $\Gamma$ is a
+{\it quasicircle} whenever
+$$
+\Gamma=f_\mu(\hat{\mathbb{R}})
+$$
+\end{definition}
+
+\noindent
+Symmetry:
+[Picture showing $f^\mu$
+putting the upper half plane
+to the whole plane.]
+
+$f^\mu$ restricts to a homeomorphism
+of $\hat{\mathbb{R}}$,
+$$
+\varphi:\hat{\mathbb{R}}
+\to \hat{\mathbb{R}}
+$$
+is quasisymmetic whenever
+$$
+\varphi=f^\mu|_{\hat{\mathbb{R}}}
+$$
+for some $\mu$.
+
+$$
+\xymatrix{
+& B_1\subseteq L^\infty
+(\mathbb{H}^+)\ar[dl]\ar[dr]\\
+\text{Quasicircles}
+\ar[rr]_{\text{Homeo}}
+&&
+\text{Quasisymmetries}
+}
+$$
+where the labelled homeomorpihsm
+is the {\it conformal Welding}.
+If $\mu_1, \mu_2 \in B_1$, then
+$$
+\text{Im}(f_{\mu_1})
+= \text{Im}(f_{\mu_2})
+\iff
+f^{\mu_1}|_{\hat{\mathbb{R}}}
+=f^{\mu_2}|_{\hat{\mathbb{R}}}
+$$
+
+Bers was very interested in this triangle,
+and introduced what he called
+``universal Teichmüller space''.
+
+$$
+\begin{aligned}
+\mathcal{T}&=\text{QCirc}/
+\text{PSL}(2,\mathbb{C})\\
+&=\text{QSymm}/\text{PSL}(2,\mathbb{R})
+\times \text{PSL}(2,\mathbb{R})\\
+&=B^\infty_1/\sim.
+\end{aligned}
+$$
+
+Bers showed that
+\begin{itemize}
+\item $\mathcal{T}$ is a Banach
+manifold.
+\item Every $TM$ space embeds smoothly
+in $\mathcal{T}$.
+\end{itemize}
+
+\noindent
+Every Teichmüller space has a 
+Weil-Petersson metric. Does $\mathcal{T}$
+carry a metric which is induced
+by a Weil-Petersson metric? No.
+
+Takhtajan-Teo ($\sim$2004):
+$\mathcal{T}$ carries a Hilbert
+manifold structure $\mathcal{T}_1$,
+it has $\mathbb{R}$ connected components,
+contains every Teichmüller space
+and its metric (induced by the
+Hilbert manifold structure)
+induces a Weil-Petersson
+metric.
+
+\begin{definition}
+\label{definition-wp-teichmuller}
+$\mathcal{T}_0 \subseteq T_1$
+is the connected component of $I_0$.
+\end{definition}
+
+\medskip\noindent
+{\bf Properties.}
+
+\begin{itemize}
+\item $\mathcal{T}_0$ has a
+unique homogeneous Kähler metric.
+\item Kähler potential is $I$.
+\item Among the dozens
+of characterizations of this space,
+we have:
+$\Gamma$ is $\mathcal{T}$
+if and only if $\Gamma$
+is chord arch and arc-length
+parametrization is $H^{3/2}$,
+there exists $c$ such that
+$$
+d_{\text{ext}}(p,q)
+\leq  d_{\text{int}}(p,q)
+\leq cd_{\text{ext}}(p,q).
+$$
+\end{itemize}
+
+\noindent
+Here's another characterization 
+of this space:
+
+\begin{theorem}[Bishop]
+\label{theorem-bishop-teichmmuller}
+$\Phi \in \mathcal{T}_0$ if and only if
+$\Gamma$ bounds a minimal surface
+$\Sigma$ in $\mathbb{H}^3$
+of finite topology and finite
+renormalized area, which
+is the integral of the determinant
+of the second fundamental form
+(and can be infinite).
+\end{theorem}
+
+\medskip\noindent
+{\bf Reminder on anti de Sitter space.}
+
+$$
+\text{AdS}^{2,1}
+=
+\{(x_1,…,x_4)
+: x_1^2+x_2^2-x_3^2-x_4^2=-1\}
+/\{\pm  1\}.
+$$
+Also, define for any $M$
+$$
+\text{Det}(M):=
+-\frac{1}{2}
+\text{Tr}(J_0M J_0M^t)
+$$
+for
+$$
+J_0=
+\begin{pmatrix}0&-1\\ 
+1&0\end{pmatrix}.
+$$
+Then
+$$
+\begin{aligned}
+\text{AdS}^{2,1}&=
+\{M : \text{Det}M=0, M\neq 0\}
+/\{\pm I_0\}
+\end{aligned}
+$$
+
+\noindent
+and
+$$
+\begin{aligned}
+\delta_{\infty}\text{AdS}^{2,1}&=
+\{M: \text{Det}(M)=0,M \neq 0\}\\
+&=\{M:\text{rk}M=1\}/\mathbb{R}^*\\
+&=\underbrace{\mathbb{R}P^1}_{\text{image}} 
+\times \underbrace{\mathbb{R}P^1}
+_{\text{kernel}}.
+\end{aligned}
+$$
+
+\noindent
+A homeomorphism 
+$\varphi:\mathbb{R}P^1 \to \mathbb{R}P^1$
+gives a graph $\Lambda_\varphi
+\subset \partial_{\infty}\text{AdS}
+^{2,1}$ which is spacelike.
+
+Anti de Sitter space is a lot nicer
+than hyperbolic space:
+
+\begin{theorem}[Labourie-Toul-Wolf]
+\label{theorem-lab-tou-wol}
+Every spacelike curve $\Lambda$
+in $\partial_{\infty}\text{AdS}^{2,1}$
+bounds a unique complete maximal disk.
+\end{theorem}
+
+\begin{theorem}[Graham-et al.]
+\label{theorem-graham-teich}
+$\varphi$ is WP if and only if
+$D_\varphi$ has finite renormalized area.
+\end{theorem}
+
+\section{On multiplicities in length spectra of semi-arithmetic surfaces}
+\label{section-multiplicities-length-spectra-semi-arithmetic-surfaces}
+
+\noindent
+Misha Belolipetsky.
+
+Ter 26 mai 2026, 15:30.
+
+SALA 236.
+
+\medskip\noindent 
+{\bf Abstract.} Mostramos
+que determinadas superfícies semi-aritméticas
+de Riemann têm um crescimento exponencial das
+multiplicidades médias em seu espectro de
+comprimento. Anteriormente, o crescimento
+exponencial das multiplicidades médias era
+conhecido apenas para superfícies
+aritméticas, embora os resultados
+experimentais que indicavam a possibilidade
+de exemplos não aritméticos já estivessem
+disponíveis. Explicarei alguns detalhes
+interessantes de nossa prova e indicarei
+algumas questões em aberto relacionadas. A
+palestra é baseada em um trabalho conjunto
+recente com Gregory Cosac, Cayo Dória e
+Gisele Teixeira Paula.
+
+\medskip\noindent
+Zoll metrics $\leftrightarrow$
+systole has large mutiplicity.
+
+\medskip\noindent
+Our case $\leftrightarrow$
+``large geodesics have
+very large multiplicity''.
+
+\medskip\noindent
+Plan of the talk:
+\begin{enumerate}
+\item Introduction to semiarithmetic
+surfaces.
+\item 
+\end{enumerate}
+
+
+\medskip\noindent
+Let $S=\mathbb{H}^2/\Gamma$
+be a Riemann surface, i.e.
+the hyperbolic plane modulo a 
+Fuschian group, which is a finite discrete
+subgroup of $\text{PSL}(2,\mathbb{R})$
+of finite coarea.
+We introduce the number $\mathcal{N}(\ell)$,
+the number of closed geodesics on $S$
+of length $\leq \ell$.
+
+\begin{theorem}[Huber, Selberg]
+\label{theorem-huber-selberg}
+$\mathcal{N}(\ell)
+\sim \frac{\text{exp}\ell}{\ell}$.
+\end{theorem}
+
+\noindent
+This number is well-defined: i.e.
+there are only finitely many closed
+geodesics in a hyperbolic surface.
+
+\begin{remark}
+\label{remark-nlog}
+$\mathcal{N}(\text{log} x)
+\sim \frac{x}{\text{log} x}$.
+\end{remark}
+
+\noindent
+The length set is
+$$
+\{0<\ell_1<\ell_2<…\}
+$$
+Also we denote
+$$
+\mathcal{N}'(\ell)
+=\#\{n : \ell_n <\ell\}
+$$
+and $g(\ell)$ is the multiplicity of
+$\ell_n$.
+
+\begin{definition}
+\label{definition-mean-multiplicity}
+The {\it mean multiplicity} 
+$\langle g(\ell)\rangle$ is a continuous
+monotone function
+$$
+\mathcal{N}(\ell)
+=\sum_{\ell_n<\ell}g(\ell_n)
+\sim
+\sum_{\ell_n \leq  \ell}
+\langle f(\ell)\rangle
+$$
+\end{definition}
+
+$$
+\langle g(\ell)\rangle
+\sim
+\frac{\mathcal{N}(\ell)}{\mathcal{N}'
+(\ell)}.
+$$
+\medskip\noindent
+In a hyperbolic surface
+$S = \mathbb{H}^2/\Gamma$,
+closed geodesics correspond to
+hyperbolic elements $\gamma \in \Gamma$,
+$|\text{tr}\gamma|>2$.
+Similarly, lengths correspond to traces.
+We have
+$$
+\ell(\gamma)
+=2 \text{arcosh}
+\left(\frac{|\text{tr}\gamma|}{2}\right).
+$$
+$$
+\mathcal{L}(\Gamma)
+=\{|\text{tr}(\gamma)|:\gamma \in \Gamma,
+\gamma\text{ hyp.}\}
+$$
+\begin{example}
+\label{example-modular-group}
+$\Gamma = \text{PSL}_2(\mathbb{Z})$,
+$\mathcal{L}(\Gamma) \subset \mathbb{N}$
+(in particular, discrete in $\mathbb{R}$).
+\end{example}
+
+$$
+\#(\mathcal{L}(\Gamma)
+\cap[2,T])<T.
+$$
+Each length $\ell$
+produces a unique trace
+$\leq  2 \text{cosh}\left(\frac{\ell}{2}
+\right)$.
+$$
+\mathcal{N}'(\ell)
+\leq 2 \text{cosh}(\ell/2)\leq 2e^{\ell/2},
+$$
+$$
+\langle g(\ell)\rangle
+\sim\frac{\mathcal{N}(\ell)}{
+\mathcal{N}'(\ell)}
+\geq \frac{\text{exp}(\ell/2)}{2\ell}
+$$
+
+\begin{theorem}[Luo-Sernak (1994)]
+\label{theorem-luo-sarnak}
+Instead of discretness
+of $\mathcal{L}(\Gamma)$ in $\mathbb{R}$,
+it is enough
+$$
+\# (\mathcal{L}(\Gamma)
+\cap [N-1,N]
+\leq \text{const.}
+$$
+for any $N \in \mathbb{N}$.
+\end{theorem}
+
+\noindent
+This is called the
+{\it bounded clustering property (BC)}.
+
+\begin{example}
+\label{example-triangle24oo}
+$\Gamma=\Delta(2,4,\infty)$.
+It is well-known this group is generated
+by
+$$
+\begin{pmatrix}0&1\\ -1&0\end{pmatrix},
+\qquad 
+\begin{pmatrix}1&\sqrt{2}\\ 0&1\end{pmatrix}.
+$$
+$\mathcal{L}(\Gamma) \supset 2 \mathbb{N}
+\cup \sqrt{2}\mathbb{N}$.
+Non discrete in $\mathbb{R}$,
+but satisfies B. C.
+\end{example}
+
+\begin{remark}
+\label{remark-bc-holds}
+BC holds for ``some''
+arithmetic groups.
+\end{remark}
+
+\begin{itemize}
+\item BC $\implies $ exponential group
+of $\langle g(\ell)\rangle$.
+\item All arithmetic Fuchsian groups have 
+BC.
+\item Conjecture: BC iff group is $\Gamma$
+is arithmetic.
+\item Non-compact case: Gerinska-Leuzinger
+(2008).
+\item Open in general.
+\end{itemize}
+
+\medskip\noindent
+Let's try to define arithmetic 
+and semi-arithmatic groups.
+
+Let $\Gamma \subset \text{SL}_2(\mathbb{R})$
+be a Fuschian group.
+Consider the {\it invariant trace field}.
+It's the field generated by the traces
+of the elements in the group:
+$$
+K:=\mathbb{Q}\bigl(\{\text{tr}(\gamma^2):
+\gamma \in \Gamma\}\bigr).
+$$
+
+Recall that a totally real field
+is such that all complex embeddings are real.
+More precisely:
+
+\begin{definition}
+\label{definition-totally-real-field}
+A number field $K$ is {\it totally real} if 
+every field embedding
+$K \hookrightarrow \mathbb{C}$ has image 
+contained in $\mathbb{R}$.
+\end{definition}
+
+\begin{definition}
+\label{definition-semiarithmetic}
+Let $\Gamma$ be a Fuchsian group
+of finite covolume. $\Gamma$ is called
+{\it semiarithmetic} is $K$ is totally
+real and
+$\text{tr}(\gamma) \in \mathcal{O}_K$
+--- the integers of $K$.
+\end{definition}
+
+$$
+\Gamma^{(2)}
+\subset \text{SL}_2(\mathcal{O}_K)
+\underbrace{\subset}_{\text{lattice}}
+\text{SL}_2(K \otimes_\mathbb{Q}\mathbb{R})
+=\text{SL}_2(\mathbb{R})^2
+\times 
+\underbrace{\text{SO}(3)^{[K:\mathbb{Q}]-r}}_{
+\text{compact}}
+$$
+That is $\text{SL}_2(\mathbb{R})^r$
+is a noncompact semisimple piece,
+and $\text{SO}(3)^{[K:\mathbb{Q}]-r}$
+is compact. Then we take projection,
+which ammounts to ``modding out the
+noncompact part''.
+
+  $$
+  \xymatrix{
+  \mathrm{SL}_2(K \otimes_{\mathbb{Q}}
+  \mathbb{R}) \ar[r]^-{\pi_{\infty_1}}
+  \ar[dr]_{\pi_{\infty_2}} &
+  \mathrm{SL}_2(\mathbb{R})^r
+\times\text{SO}(3)^{[K:\mathbb{Q}]-r} \\
+  & \mathrm{SL}_2(\mathbb{R})
+  }
+  $$
+
+Now for $r = 1$ corresponds with 
+$\Gamma$ being arithmetic.
+For  $r>1$, is semi-arithmetic,
+$r$ is the arithmetic dimension.
+More precisely,
+
+\begin{definition}
+\label{definition-arithmetic-group}
+Let $\Gamma$ be a Fuchsian group of finite
+covolume, and let $K$ be its invariant trace
+field. We say that $\Gamma$ is
+{\it arithmetic} if $\Gamma^{(2)}$ is
+commensurable with $\mathrm{SL}_2(\mathcal{O}_K)$.
+\end{definition}
+
+What is happening here is that one starts
+with a group of matrices over the number
+field $K$ and then views it inside the much
+larger real Lie group
+$\mathrm{SL}_2(K \otimes_\mathbb{Q}\mathbb{R})$.
+After extending scalars, this ambient group
+splits into one or more noncompact
+$\mathrm{SL}_2(\mathbb{R})$ factors and a
+product of compact factors. The projection
+diagram is the way of choosing the real
+factor that gives the actual action on the
+hyperbolic plane, while the other factors are
+auxiliary arithmetic data. In the case
+$r=1$, there is only one noncompact factor,
+and that is exactly the arithmetic case;
+when $r>1$, the same construction gives the
+semi-arithmetic situation.
+
+\medskip\noindent
+Now,
+$$
+\xymatrix{
+\{|\text{tr}\gamma|:\gamma \in \Gamma^{(2)}\}
+\ar[r]^{\sigma_i}\ar[dr]&  \text{unbounded}\\
+&C[0,2]
+}
+$$
+satisfies BC by the pigeon hole.
+
+\begin{example}[Golden triangle]
+\label{example-golden-triangle}
+$$
+\Gamma = \Delta(2,5,\infty)
+=\langle \begin{pmatrix}0&-1\\
+-1&0\end{pmatrix},
+\begin{pmatrix}1&\gamma\\ 0&1\end{pmatrix}
+\rangle,
+$$
+where $\gamma=\frac{1+\sqrt{5}}{2}$.
+Then
+$$
+\Gamma\underbrace{\subset}_{\text{thin}}
+\text{SL}_2(\mathbb{Z}[\sqrt{5}])
+\underbrace{\subset}_{\text{arithm.}}
+\text{SL}_2(\mathbb{R})^2.
+$$
+Here $K=\mathbb{Q}(\sqrt{5})$,
+$\sigma_1=\text{id}:K \hookrightarrow 
+\mathbb{R}$,
+$\sigma_2:\sqrt{5} \to -\sqrt{5}$.
+$\sigma_1(\Gamma) = \Gamma
+\subset\text{SL}_2(\mathbb{R})$ - Fuschian
+subgroup.
+$\sigma_2(\Gamma)\subset
+\text{SL}_2(\mathbb{R})$ - not discrete.
+\end{example}
+
+\noindent
+And that's it! Since this was particularly
+difficult to grasp, let us
+include an AI-summary:
+
+\medskip\noindent
+{\bf On multiplicities in length spectra of
+semiarithmetic surfaces.}
+This was a talk by Misha Belolipetsky on
+joint work with Gregory Cosac, Cayo Dória
+and Gisele Teixeira Paula. The main result
+is that certain semiarithmetic Riemann
+surfaces have exponential growth of the
+mean multiplicities in their length spectra.
+Previously this phenomenon was known for
+arithmetic surfaces; the point of the talk
+was that it also occurs in some genuinely
+semiarithmetic examples.
+
+\medskip\noindent
+The geometric object is a hyperbolic surface
+$$
+S=\mathbb{H}^2/\Gamma,
+$$
+where $\Gamma$ is a Fuchsian group, i.e. a
+discrete subgroup of
+$\operatorname{PSL}_2(\mathbb{R})$ of finite
+coarea. We write $\mathcal{N}(\ell)$ for the
+number of closed geodesics on $S$ of length
+at most $\ell$. The Huber--Selberg theorem
+says
+$$
+\mathcal{N}(\ell)\sim \frac{e^\ell}{\ell}.
+$$
+Thus the total number of closed geodesics
+grows exponentially. The question of the talk
+is subtler: if we list only the distinct
+lengths
+$$
+0<\ell_1<\ell_2<\cdots,
+$$
+and write
+$$
+\mathcal{N}'(\ell)=\#\{n:\ell_n<\ell\},
+$$
+then how large is the average multiplicity
+of a length? If $g(\ell_n)$ denotes the
+number of closed geodesics with length
+$\ell_n$, then morally
+$$
+\langle g(\ell)\rangle
+\sim
+\frac{\mathcal{N}(\ell)}{\mathcal{N}'(\ell)}.
+$$
+So the problem becomes: there are very many
+closed geodesics, but how many different
+lengths do they produce?
+
+\medskip\noindent
+The bridge from geometry to arithmetic is
+given by traces. Closed geodesics correspond
+to hyperbolic conjugacy classes in
+$\Gamma$. If $\gamma\in\Gamma$ is
+hyperbolic, then $|\operatorname{tr}\gamma|>2$
+and
+$$
+\ell(\gamma)
+=
+2\operatorname{arccosh}
+\left(\frac{|\operatorname{tr}\gamma|}{2}\right).
+$$
+Thus length is controlled by trace. In
+particular, many different conjugacy classes
+can have the same trace, hence the same
+length. For example, in the modular group
+$\operatorname{PSL}_2(\mathbb{Z})$, traces
+are integers. Therefore the number of
+possible trace values up to size
+$2\cosh(\ell/2)$ is at most on the order of
+$e^{\ell/2}$. Combining this with
+Huber--Selberg gives
+$$
+\langle g(\ell)\rangle
+\geq
+\frac{e^\ell/\ell}{e^{\ell/2}}
+=
+\frac{e^{\ell/2}}{\ell}.
+$$
+This is the basic mechanism: if arithmetic
+forces the trace set to be sparse, then many
+geodesics must share the same length.
+
+\medskip\noindent
+Luo and Sarnak observed that one does not
+need the trace set to be literally discrete
+in $\mathbb{R}$. It is enough to have the
+bounded clustering property:
+$$
+\#(\mathcal{L}(\Gamma)\cap[N-1,N])
+\leq C
+$$
+for all integers $N$. Here
+$\mathcal{L}(\Gamma)$ is the set of absolute
+trace values of hyperbolic elements of
+$\Gamma$. This condition says that traces
+may cluster, but only in a uniformly bounded
+way. Bounded clustering is enough to force
+exponential growth of the average
+multiplicity.
+
+\medskip\noindent
+This is where the commutative algebra enters.
+Given a Fuchsian group $\Gamma$, its invariant
+trace field is
+$$
+K=
+\mathbb{Q}
+\bigl(\{\operatorname{tr}(\gamma^2):
+\gamma\in\Gamma\}\bigr).
+$$
+The semiarithmetic condition says that $K$ is
+totally real and that the traces are
+``integers'' in $K$, meaning
+$$
+\operatorname{tr}(\gamma)\in\mathcal{O}_K.
+$$
+Here $\mathcal{O}_K$ is the ring of integers
+of the number field $K$. This is exactly the
+notion of integrality from commutative
+algebra: an element is integral over a ring
+if it satisfies a monic polynomial with
+coefficients in that ring. Thus
+$$
+\mathcal{O}_K
+=
+\{x\in K:
+x\text{ satisfies a monic polynomial in }
+\mathbb{Z}[t]\}.
+$$
+Equivalently, $\mathcal{O}_K$ is the
+integral closure of $\mathbb{Z}$ inside
+$K$. This was the important conceptual point:
+these are not ordinary integers, but they
+are the elements of $K$ that behave like
+integers relative to $\mathbb{Z}$.
+
+\medskip\noindent
+The reason this helps is that algebraic
+integers in a fixed number field form a
+lattice-like object. Since $K$ is totally
+real, it has several real embeddings
+$$
+\sigma_i:K\hookrightarrow\mathbb{R}.
+$$
+So one trace has several real shadows
+$\sigma_i(\operatorname{tr}\gamma)$. One of
+these embeddings gives the actual Fuchsian
+group acting on $\mathbb{H}^2$, while the
+other embeddings provide arithmetic
+constraints. In the arithmetic case there is
+only one noncompact real factor. In the
+semiarithmetic case there may be more than
+one noncompact factor, and this number is
+called the arithmetic dimension. The proof
+uses the fact that the traces lie in
+$\mathcal{O}_K$ and that their conjugates are
+controlled. By a pigeonhole/lattice-counting
+argument this gives bounded clustering of
+trace values.
+
+\medskip\noindent
+A guiding example is the golden triangle
+group
+$$
+\Gamma=\Delta(2,5,\infty).
+$$
+Its trace field is
+$$
+K=\mathbb{Q}(\sqrt{5}),
+$$
+with two real embeddings:
+$$
+\sigma_1(\sqrt{5})=\sqrt{5},
+\qquad
+\sigma_2(\sqrt{5})=-\sqrt{5}.
+$$
+The first embedding gives the actual
+Fuchsian group. The second embedding gives
+another real realization, which is not
+discrete. This is typical of the
+semiarithmetic situation: the group still has
+arithmetic trace data, but it is not
+arithmetic in the classical sense.
+
+\medskip\noindent
+The main story of the talk can therefore be
+summarized as follows. Hyperbolic geometry
+turns closed geodesics into conjugacy classes.
+The length of a closed geodesic is determined
+by a trace. If the traces live inside the
+integer ring $\mathcal{O}_K$ of a number
+field, commutative algebra gives arithmetic
+control over how those traces can be
+distributed. This control implies bounded
+clustering, and bounded clustering forces
+large average multiplicities in the length
+spectrum. The new theorem says that this
+mechanism works not only for arithmetic
+surfaces, but also for certain
+semiarithmetic surfaces.
+
+\section{Widths, index, intersection
+and isospectrality}
+\label{section-widths-index-intersection}
+
+\noindent
+Jared Marx-Kuo, June 16, 2026,
+IMPA, Differential Geometry Seminar.
+
+\medskip\noindent
+{\bf Abstract}
+In this talk, I will discuss a series of
+works on Gromov's $p$-widths,
+$\{\omega_p\}$, on surfaces.
+For ambient dimensions larger than $2$,
+$\omega_p$ morally realizes the area of
+an embedded minimal hypersurface of
+index $p$. Historically, this was used
+to prove the existence of infinitely
+many minimal hypersurfaces in closed
+Riemannian manifolds.
+In ambient dimension $2$, the width
+$\omega_p$ realizes the length of a
+finite union of possibly immersed
+closed geodesics:
+$$
+\omega_p
+=
+\sum_i m_i \ell(\gamma_i).
+$$
+Heuristically, one expects
+$$
+p
+=
+\sum_i \operatorname{Ind}(\gamma_i)
++
+\#\{\text{vertices}\},
+$$
+where the vertices are the intersection
+points of the union of geodesics.
+Jointly with Lorenzo Sarnataro and
+Douglas Stryker, we prove upper bounds
+for the index and for the number of
+vertices, making progress towards this
+heuristic. Along the way, we prove a
+generic regularity statement for
+immersed geodesics.
+If time allows, we will also discuss
+the isospectral problem for the
+$p$-widths, and explain how surfaces
+provide a convenient setting to
+investigate it.
+
+
+
+\begin{definition}
+\label{definition-minimal-hypersurface}
+$Y^n$ is {\it minimal} if it's critical
+for area, i.e. $\{Y_t\}$ with $Y_0=Y$,
+$\frac{d}{dt}\Big|_{t=0}\operatorname{Area}
+Y_t=0$, which is related to mean curvature,
+$\leftrightarrow H_Y \equiv0$.
+\end{definition}
+
+\noindent
+Applications:
+
+\begin{itemize}
+\item Inverse problems: how can we
+relate the areas of the fibers of a
+foliation with the ambient Riemannian
+metric?
+
+\item Physics: energy $\leftrightarrow$ area.
+\end{itemize}
+
+\noindent
+The 1-dimensional version is geodesics.
+We're interested in finding the curve
+of minimal length in its homology class.
+
+\medskip\noindent
+{\bf Sweepouts.}
+ $(M^{n+1},g)$ closed Riemannian manifold.
+$$
+\Phi:X^p \to Z_n(M)
+$$
+where we think of $Z_n(M)$ as the 
+``space of hypersurfaces''.
+
+\begin{example}
+\label{example-1-sweepout}
+$\Phi:[-1,1] \to Z_1(S^2)$ given by
+$\Phi(t) = \{x = t\} \cap\{x^2+y^2+z^2=1\}$.
+This is a foliation of $S^2$ by parallel
+circles. For every point in the space,
+there is a point in the domain
+the interval, whose image is a fiber passing
+through the given point.
+\end{example}
+
+\noindent
+The full definition generalizes this
+to $p$ points: if $\forall \{q_1,…,q_p\}$
+there is $x \in X$ such that $\Phi(x)
+\supseteq \{q_1,…,q_p\}$.
+
+\begin{example}
+\label{example-rp2-sweepout}
+$\Phi:\mathbb{R}P^2 \to Z_1(S^2)$,
+$\Phi[a:b:c] = \{ax+by+cz=0\}\cap S^2$.
+is a 2-sweepout.
+\end{example}
+
+\noindent
+Now consider
+$$
+P_p = \{\Phi:X^p \to Z_n(M):
+\Phi \operatorname{sweepout}\}
+$$
+\begin{definition}
+\label{definition-gromov-p-width}
+Let $p$ be a positive integer.
+The {\it Gromov $p$-width} is
+$$
+\omega_p(M,g) = \text{inf}_{\Phi \in P_p}
+\text{sup}_{x \in \operatorname{Dom}(\Phi)}
+\operatorname{Area}(\Phi(x)).
+$$
+\end{definition}
+
+\noindent
+Which Gromov explained is some sort
+of ``non-linear spectrum of area
+functional''.
+It is positive and, $\omega_p \leq W_{p+1}$.
+
+\begin{theorem}
+\label{theorem-weyl-sweepouts}
+$$
+\lim_{p \to \infty}\lambda_p
+p^{\frac{-2}{n+1}}
+= \frac{\alpha_{n+1}}{\text{Vol}(M,g)}.
+$$
+\end{theorem}
+
+\begin{theorem}[GGLMN]
+\label{theorem-gglm}
+$$
+\lim_{p \to \infty}\omega_p
+p^{\frac{-1}{n+1}}
+=B_{n+1}\text{Vol}(M,g)^{\frac{n}{n+1}.}
+$$
+$\omega_p$ give existence of minimal surfaces.
+
+\end{theorem}
+
+\noindent
+The idea is to see how this number
+grows as $p$ varies.
+The upshot is that this connects
+with minimal surfaces!
+
+\begin{theorem}[M-Neves-Z]
+\label{theorem-mnz}
+$(M^{n+1},g)$, $3 \leq  n+1 \leq  ?$,
+$g$ ``generic'', then
+$$
+\omega_p(M,g)
+=\operatorname{Area}(\Sigma_p),
+$$
+$\Sigma_p$ minimal embedded with multiplicity
+1.
+\end{theorem}
+
+\begin{lemma}[Corollary, Yau's conjecture]
+\label{lemma-yau-conjecture-minimal-surfaces}
+Every closed $(M^{n+1},g)$,
+$3 \leq  n+1 \leq ?$
+has infinitely minimal surfaces.
+\end{lemma}
+
+\noindent
+Other results:
+\begin{itemize}
+\item Existence of many CMCs (D,M-Z).
+\item Existence of many PMCs (G-MK).
+\end{itemize}
+
+\noindent
+We look for objects realising the $p$-widths.
+
+\noindent
+Questions:
+\begin{enumerate}
+\item What about $1=2$?
+\item Can we compute $\omega_p$ for nice
+$(M,g)$?
+\item When does $\{\omega_p(M,g)\}_{p=1}^\infty$
+determine $(M,g)$?
+Can we hear the shape of a drum?
+\end{enumerate}
+
+\begin{theorem}[C-M]
+\label{theorem-cm1}
+$(M^2,g)$
+closed smooth. $\forall  p$ there exists
+$\{\gamma_p\}_{p=1}^{N_p}$
+closed immersed geodesics
+$\{m_p\}_{p=1}^{N_p}\subset \mathbb{Z}^+$
+such that
+$$
+\omega_p(M^2,g)
+=\sum_{i=1}^{N_p}m_{i,p}\ell(\gamma_{i,p}.
+$$
+\end{theorem}
+
+\begin{theorem}[C-M]
+\label{theorem-cm2}
+$$
+\omega_p(S^2,g_{\operatorname{round}})
+=2\pi \operatorname{floor}(\sqrt{p}).
+$$
+\end{theorem}
+
+\noindent
+Contrast:
+\begin{theorem}[Ambrosio-M-N]
+\label{theorem-amn}
+$(\mathbb{R}P^2,g_{\operatorname{round}})$
+is $\omega_p$-spectrally rigid, that is,
+if $(M^{n+1},g)$ is such that
+$\omega_p(M^{n+1},g)=\omega_p(\mathbb{R}P^2,g_{\operatorname{round}})$
+for all $p$ then
+$(M^{n+1},g)$ is isometric to
+$(\mathbb{R}P^2,g_{\operatorname{round}})$.
+\end{theorem}
+
+\medskip\noindent
+{\bf Zoll metrics.}
+
+ \begin{definition}
+\label{definition-zoll-metric}
+A {\it Zoll metric} is such
+that all geodesics are simple 
+(they do not autointersect) and of the
+same length.
+\end{definition}
+
+\noindent
+There is a Zoll metric on $S^2$ which is
+not the round metric, found by Zoll
+solving a very particular ODE.
+
+\begin{theorem}[G-F]
+\label{theorem-gf-moduli}
+For a fixed positive number $\ell_0$
+there is an infinite-dimensional moduli
+space of Zoll metrics on $S^2$, $Z$
+with
+$$
+T_{g_{\operatorname{round}}}Z
+\cong
+\{f:S^2 \to \mathbb{R}:
+f(-x) = -f(x)\}.
+$$
+\end{theorem}
+
+\medskip\noindent
+{\bf Index and intersection on surfaces.}
+Recall that for $3 \leq  n+1 \leq  ?$,
+$$
+\omega_p = \operatorname{Area}(\Sigma_p)
+$$
+and
+$$
+p = \operatorname{Ind}(\Sigma_p).
+$$
+
+Note that the latter condition about
+the index cannot be true for $n=2$.
+
+The idea is that points of intersection
+amog $\bigcup_{i=1}^{N_p}\gamma_{i,p}$
+constribute to ``generalized index'' $=p$.
+
+Conjecture: if $m_{i,p}=1$,
+$$
+p=\sum_{i=1}^{N_p}\operatorname{Ind}(\gamma_{i,p}+
+\alpha
+$$
+where $\alpha$ is the number of vertices
+(i.e. intersections)
+of $\bigcup_{i=1}^{N_p}\gamma_{i,p}$.
+
+\begin{theorem}[MK-S-S]
+\label{theorem-mkss}
+If $\omega_p =
+\sum_{i=1}^{N_p}m_{i,p}(\gamma_{i,p})$
+with $\gamma_{i,p}$ immersed geodesics,
+then
+$$
+\sum_{i=1}^{N_p}\operatorname{Ind}(\gamma_{i,p})
+\leq p,
+$$
+$$
+\alpha \leq  p,
+$$
+where $\alpha$ is as above.
+\end{theorem}
+
+\begin{theorem}
+\label{theorem-geodesics-intersect}
+For generic $g$ on $M^2$,
+any finite union of geodesics has
+intersections
+whcih look like 2 lines at a point.
+\end{theorem}
+
+\section{Singular Riemannian Foliations,
+Variational Problems and Principles of
+Symmetric Criticalities}
+\label{section-singular-riemannian-foliations}
+
+\medskip\noindent
+{\bf Conference information.}
+
+\href{%
+https://sites.google.com/view/%
+60thanniversary-dmat-puc-rio/Home
+}{International Conference Celebrating
+the 60th Anniversary of the Department
+of Mathematics at PUC-Rio}
+
+August 12--14, 2026,
+RDC Auditorium, PUC-Rio,
+Rio de Janeiro.
+
+\medskip\noindent
+{\bf Speaker.}
+
+Marcos Alexandrino, USP.
+
+\medskip\noindent
+{\bf Date and time.}
+
+August 13, 2026, 13:30--14:30.
+
+\medskip\noindent
+{\bf Title.}
+
+Singular Riemannian Foliations,
+Variational Problems and Principles of
+Symmetric Criticalities.
+
+\medskip\noindent
+{\bf Abstract.}
+
+A singular foliation on a complete
+Riemannian manifold $M$ is called a
+singular Riemannian foliation if its
+leaves are locally equidistant. An example
+is the partition of $M$ into the orbits of
+an isometric action. The talk investigates
+problems in the calculus of variations on
+compact Riemannian manifolds equipped with
+singular Riemannian foliations having
+special properties. The examples under
+consideration include isoparametric
+foliations, singular Riemannian foliations
+on Euclidean fiber bundles, and partitions
+into the orbits of Lie groups acting by
+isometries. This is joint work with
+Leonardo F. Cavenaghi, Diego Corro, and
+Marcelo K. Inagaki. The talk is intended
+for a general audience interested in
+differential geometry and analysis.
+
+
+\medskip\noindent
+{\bf Main goals.}
+
+\begin{enumerate}
+\item[(I)] Present the new class of
+singular foliations adapted to
+variational problems (AVP). This class
+should include homogeneous foliations,
+as well as nonhomogeneous examples such
+as isoparametric foliations and SRF on
+Euclidean fiber bundles.
+
+\item[(II)] Define the new concept of
+$\mathcal F$-symmetric criticality in
+order to include interesting operators
+$J:W^{1,p}(M)\to\mathbb R$, such as
+$$
+\begin{aligned}
+J_\lambda(f)
+&=
+\mathcal M(\|f\|^p)
+\int_M
+\mathcal L(
+|\nabla f|^2,f,x)\,\mathrm{vol}
+\\
+&\quad
+-\frac{\lambda}{a}
+\left(
+\int_M F(f,x)\,\mathrm{vol}
+\right)^{r+1}.
+\end{aligned}
+$$
+We also aim to establish
+$\mathcal F$-principles of symmetric
+criticality.
+
+\item[(III)] Apply the
+$\mathcal F$-principles to find
+infinitely many weak solutions
+$\{u_i\}_{i=1}^{\infty}$ of the
+variational problem
+$$
+dJ_\lambda(u_i)=0.
+$$
+\end{enumerate}
+
+\end{document}

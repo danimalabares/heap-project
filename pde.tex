@@ -1,0 +1,777 @@
+\input{preamble}
+
+\begin{document}
+
+\title{Partial Differential Equations}
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+These notes develop the theory of partial
+differential equations.
+
+Given the material elsewhere in the Heap
+Project, the basic things to learn are:
+
+\begin{enumerate}
+\item The model elliptic, parabolic, and
+hyperbolic equations: the Laplace, heat,
+and wave equations.
+
+\item How characteristic curves explain
+first-order equations, transport, and the
+formation of singularities.
+
+\item The fundamental solutions and Green
+functions of the model equations, together
+with the maximum principle and mean-value
+property.
+
+\item Fourier-series and Fourier-transform
+methods, separation of variables, and the
+role of distributions.
+
+\item Sobolev spaces, weak derivatives,
+embeddings, compactness, and trace
+theorems.
+
+\item Weak formulations and the main
+existence mechanisms: energy estimates,
+the Lax--Milgram theorem, compactness, and
+the calculus of variations.
+
+\item Elliptic regularity: when a weak
+solution becomes smooth, and how the
+regularity of the data controls that of
+the solution.
+
+\item Energy and semigroup methods for
+evolution equations, including existence,
+uniqueness, stability, and long-time
+behavior.
+
+\item The distinction between classical,
+weak, distributional, and viscosity
+solutions, and why different equations
+require different notions of solution.
+
+\item How differential operators fit the
+geometric language already developed in
+the project: symbols, ellipticity, the
+Laplace--Beltrami operator, and de Rham
+and Hodge Laplacians.
+
+\item The first nonlinear phenomena:
+conservation laws, shocks, blow-up,
+scaling, and critical exponents.
+\end{enumerate}
+
+\section{Some Problems in Hamiltonian
+Geometry of PDEs}
+\label{section-hamiltonian-geometry-pdes}
+
+\medskip\noindent
+{\bf Speaker.}
+
+Raffaele Vitolo,
+Universit\`a del Salento.
+
+\medskip\noindent
+{\bf Seminar information.}
+
+Semin\'ario das Sextas, PUC-Rio,
+September 27, 2024. The talk was also
+presented in the Geometric Structures on
+Manifolds Seminar at IMPA on
+December 5, 2024.
+
+\medskip\noindent
+{\bf Abstract.}
+
+The Hamiltonian formulation of partial
+differential equations is one of the
+cornerstones of the theory of integrable
+systems. It is modeled on finite-dimensional
+Hamiltonian systems and has an intrinsic
+geometric nature. The talk reviews
+differential-geometric aspects of the
+Hamiltonian theory of PDEs and discusses
+projective-geometric properties of
+integrable systems that have emerged in
+recent years.
+
+\medskip\noindent
+{\bf Hamiltonian evolutionary equations.}
+
+Consider an evolutionary system
+$$
+u_t^i=f^i(t,x,u^j,u_x^j,u_{xx}^j,\ldots).
+$$
+A local functional has the form
+$$
+\mathcal{H}=\int h\,dx.
+$$
+Its variational derivative is
+$$
+\frac{\delta\mathcal{H}}{\delta u^i}
+=
+\sum_\sigma(-D)_\sigma
+\frac{\partial h}{\partial u^i_\sigma}.
+$$
+
+\begin{definition}
+\label{definition-hamiltonian-pde}
+The system has a \textit{Hamiltonian
+formulation} if there is a differential
+operator $A$ and a local functional
+$\mathcal{H}$ such that
+$$
+u_t^i=A^{ij}
+\frac{\delta\mathcal{H}}{\delta u^j}.
+$$
+\end{definition}
+
+The operator $A$ plays the role of a
+Poisson tensor. It sends the differential
+of a Hamiltonian functional to the
+corresponding evolutionary vector field.
+
+\begin{definition}
+\label{definition-hamiltonian-operator}
+A differential operator $A$ is a
+\textit{Hamiltonian operator} if
+$$
+\{\mathcal{F},\mathcal{G}\}_A
+=
+\int
+\frac{\delta\mathcal{F}}{\delta u^i}
+A^{ij}
+\frac{\delta\mathcal{G}}{\delta u^j}
+\,dx
+$$
+defines a Poisson bracket on local
+functionals.
+\end{definition}
+
+Thus $A$ must be formally skew-adjoint and
+must satisfy the differential analogue of
+the Jacobi identity.
+
+There is also a purely algebraic definition
+of differential operators. Let $R$ be a
+ring, let $P,Q$ be $R$-modules, and let
+$\Delta:P\to Q$ be additive. For $a\in R$,
+write
+$$
+\delta_a\Delta=a\Delta-\Delta a.
+$$
+The operator $\Delta$ has order at most
+$k$ if
+$$
+\delta_{a_0}\delta_{a_1}\cdots
+\delta_{a_k}\Delta=0
+$$
+for all $a_0,\ldots,a_k\in R$. This is the
+Grothendieck definition of a differential
+operator.
+
+\medskip\noindent
+{\bf The KdV equation.}
+
+\begin{example}
+\label{example-kdv-bihamiltonian}
+Consider the Korteweg--de Vries equation
+$$
+u_t=uu_x+u_{xxx}.
+$$
+It admits two Hamiltonian descriptions.
+Set
+$$
+A_1=D_x
+$$
+and
+$$
+A_2=D_x^3+\frac{2}{3}uD_x
++\frac{1}{3}u_x.
+$$
+For the Hamiltonians
+$$
+\mathcal{H}_1=
+\int\left(
+\frac{u^3}{6}-\frac{u_x^2}{2}
+\right)dx
+$$
+and
+$$
+\mathcal{H}_2=\int\frac{u^2}{2}\,dx,
+$$
+one has
+$$
+u_t=A_1
+\frac{\delta\mathcal{H}_1}{\delta u}
+=A_2
+\frac{\delta\mathcal{H}_2}{\delta u}.
+$$
+\end{example}
+
+This is the model for a bi-Hamiltonian
+system.
+
+\begin{definition}
+\label{definition-compatible-hamiltonian}
+Two Hamiltonian operators $A_1,A_2$ are
+\textit{compatible} if every linear
+combination of them is again Hamiltonian.
+A system admitting such a pair is
+\textit{bi-Hamiltonian}.
+\end{definition}
+
+\medskip\noindent
+{\bf The Magri scheme.}
+
+A Hamiltonian operator sends conservation
+laws to symmetries. Given compatible
+Hamiltonian operators, the Magri recursion
+seeks functionals $\mathcal{H}_r$ satisfying
+$$
+A_1
+\frac{\delta\mathcal{H}_{r+1}}{\delta u}
+=
+A_2
+\frac{\delta\mathcal{H}_r}{\delta u}.
+$$
+Under suitable hypotheses, this produces
+an infinite hierarchy of commuting flows
+and conserved Hamiltonians in involution:
+$$
+\{\mathcal{H}_r,\mathcal{H}_s\}=0.
+$$
+
+This motivates one notion of integrability
+for PDEs: the existence of infinitely many
+commuting symmetries or conservation laws.
+There is no direct infinite-dimensional
+version of the Liouville theorem that
+settles the theory, but the hierarchy may
+lead to suitable coordinates or to an
+inverse-scattering construction.
+
+\medskip\noindent
+{\bf Dubrovin--Novikov operators.}
+
+A first-order homogeneous operator has the
+form
+$$
+A^{ij}=g^{ij}(u)D_x
++b^{ij}_k(u)u_x^k.
+$$
+The conditions for $A$ to be Hamiltonian
+have a differential-geometric meaning.
+Formal skew-adjointness forces $g^{ij}$ to
+be symmetric and relates $b^{ij}_k$ to a
+metric connection. The Jacobi identity
+then forces that connection to be
+torsion-free and the metric to be flat,
+when the metric is nondegenerate.
+
+Thus the classification of these
+Hamiltonian operators becomes a problem
+in the geometry of flat metrics. The
+classification of compatible pairs is
+more rigid and encodes whole hierarchies
+of conservation laws.
+
+\medskip\noindent
+{\bf Projective classification.}
+
+The talk described a classification program
+using projective reciprocal
+transformations. Such transformations can
+preserve the order and Hamiltonian nature
+of an operator while changing its
+coefficients. One first fixes a
+higher-order operator and then classifies
+compatible lower-order operators modulo
+this group.
+
+In the cases discussed in the talk,
+second-order homogeneous Hamiltonian
+operators are related to linear line
+congruences, while third-order operators
+and compatible first-order operators lead
+to line complexes. Pl\"ucker coordinates
+place these objects inside
+$$
+\mathbb{P}(\Lambda^2V).
+$$
+Compatibility of Hamiltonian operators is
+thereby translated into compatibility of
+projective varieties.
+
+The broad point is that many familiar
+integrable systems carry algebraic
+varieties that organize their Hamiltonian
+structures. Conversely, suitable
+projective data can be used to construct
+integrable systems. The Kaup--Broer system
+was mentioned as an example arising from
+this mechanism.
+
+\section{PDE Without Tears for Geometry
+Students}
+\label{section-pde-without-tears}
+
+\medskip\noindent
+{\bf Speaker.}
+
+Raffaele Vitolo,
+Universit\`a del Salento.
+
+\medskip\noindent
+{\bf Seminar information.}
+
+Semin\'ario das Sextas, PUC-Rio,
+November 29, 2024.
+
+The geometric study of differential
+equations goes back to Lie and was put
+into its modern form by Ehresmann. Its
+basic idea is to regard derivatives as
+coordinates on a larger space.
+
+Let $N$ have dimension $n$ and let $M$
+have dimension $m$. A field is a map
+$$
+u:U\longrightarrow M,
+\qquad U\subset N.
+$$
+Locally it has independent coordinates
+$x^1,\ldots,x^n$ and dependent
+coordinates $u^1,\ldots,u^m$. It can
+equivalently be regarded as the section
+$$
+s:N\longrightarrow N\times M,
+\qquad s(x)=(x,u(x)).
+$$
+
+\medskip\noindent
+{\bf Contact and jet spaces.}
+
+\begin{definition}
+\label{definition-contact-order}
+Two local sections $s_1$ and $s_2$ have
+\textit{contact of order $r$} at $x$ if
+their derivatives at $x$ agree through
+order $r$.
+\end{definition}
+
+Thus contact of order zero means that the
+sections have the same value. Contact of
+order one means in addition that their
+graphs have the same tangent space.
+
+More generally, let $E$ be a manifold of
+dimension $n+m$, and let $L_1,L_2\subset E$
+be submanifolds of dimension $n$ through
+$z$. After expressing both as graphs in a
+common chart, one can compare their
+derivatives. The resulting notion of
+contact is independent of the chart.
+
+\begin{definition}
+\label{definition-jet-space}
+The \textit{$r$-jet} of $L$ at $z$ is its
+equivalence class under contact of order
+$r$, denoted by $[L]^r_z$. The
+\textit{jet space} is
+$$
+J^r(E,n)=
+\bigcup_{z\in E}
+\left\{[L]^r_z\right\}.
+$$
+\end{definition}
+
+There are natural projections
+$$
+\cdots\longrightarrow J^2(E,n)
+\longrightarrow J^1(E,n)
+\longrightarrow E.
+$$
+The first jet space records tangent
+$n$-planes and is therefore a
+Grassmannian bundle. Higher jet spaces
+record higher-order Taylor data.
+
+Suppose now that $E\to N$ is a bundle. A
+local section has coordinates
+$$
+(x^\lambda,u^i),
+$$
+and its $r$-jet has coordinates
+$$
+(x^\lambda,u^i,u^i_\sigma),
+\qquad |\sigma|\leq r.
+$$
+Here $\sigma$ is a multi-index and
+$u^i_\sigma$ represents the corresponding
+partial derivative of $u^i$.
+
+\begin{definition}
+\label{definition-pde-jet-space}
+A \textit{partial differential equation of
+order $r$} is a submanifold
+$$
+\mathcal{E}\subset J^r(E,n).
+$$
+\end{definition}
+
+A system given locally by equations
+$$
+F^a(x^\lambda,u^i,u^i_\sigma)=0
+$$
+defines such a submanifold whenever the
+usual regularity conditions hold.
+
+\begin{definition}
+\label{definition-prolongation-section}
+The \textit{$r$-th prolongation} of a
+section $s$ is
+$$
+j^rs:N\longrightarrow J^r(E,n),
+\qquad x\longmapsto[s(N)]^r_{s(x)}.
+$$
+The section is a \textit{solution} of
+$\mathcal{E}$ if
+$$
+j^rs(N)\subset\mathcal{E}.
+$$
+\end{definition}
+
+\begin{example}
+\label{example-first-derivative-one}
+For $n=m=1$, the equation
+$$
+u_x=1
+$$
+is a surface in $J^1(\mathbb{R}^2,1)$.
+Its solutions are
+$$
+u(x)=x+c.
+$$
+Their first prolongations lie in that
+surface.
+\end{example}
+
+\medskip\noindent
+{\bf The inviscid Burgers equation.}
+
+\begin{example}
+\label{example-inviscid-burgers}
+The Riemann, Hopf, or inviscid Burgers
+equation is
+$$
+u_t+uu_x=0.
+$$
+Along a characteristic curve one has
+$$
+\frac{d}{dt}u(t,x(t))=0,
+\qquad
+\frac{dx}{dt}=u.
+$$
+Consequently, if the initial condition is
+$$
+u(0,x)=f(x),
+$$
+then the solution is determined implicitly
+by
+$$
+u(t,x)=f(x-tu(t,x)).
+$$
+
+Set
+$$
+\xi=x-tu,
+\qquad
+v(t,\xi)=u(t,x).
+$$
+Away from points where the coordinate
+change is singular, Burgers' equation
+becomes
+$$
+v_t=0.
+$$
+The singularity occurs when
+$$
+1+tf'(\xi)=0.
+$$
+Thus characteristics can intersect and a
+smooth solution can develop a shock in
+finite time.
+\end{example}
+
+This example suggests a general strategy:
+find symmetries and conservation laws, and
+then seek a change of variables that
+simplifies or linearizes the equation.
+
+\medskip\noindent
+{\bf The Cartan distribution.}
+
+The images of prolonged sections determine
+distinguished tangent directions on a jet
+space. These directions form the geometric
+structure that must be preserved by any
+transformation of differential equations.
+
+\begin{definition}
+\label{definition-cartan-distribution}
+The \textit{Cartan distribution} on
+$J^r(E,n)$ is the distribution spanned by
+tangent spaces to prolonged submanifolds,
+together with the vertical directions of
+the projection to $J^{r-1}(E,n)$.
+\end{definition}
+
+For a bundle $E\to N$, introduce the total
+derivatives
+$$
+D_\lambda=
+\frac{\partial}{\partial x^\lambda}
++
+\sum_{i,|\sigma|<r}
+u^i_{\sigma+\lambda}
+\frac{\partial}{\partial u^i_\sigma}.
+$$
+The Cartan distribution is locally spanned
+by the $D_\lambda$ and by
+$$
+\frac{\partial}{\partial u^i_\tau},
+\qquad |\tau|=r.
+$$
+The total derivatives commute:
+$$
+[D_\lambda,D_\mu]=0.
+$$
+They differentiate functions on jet space
+as if all jet coordinates arose from an
+actual section.
+
+\medskip\noindent
+{\bf Contact transformations and
+symmetries.}
+
+\begin{definition}
+\label{definition-contact-transformation}
+A \textit{contact transformation} of a jet
+space is a local diffeomorphism preserving
+the Cartan distribution.
+\end{definition}
+
+When there is more than one dependent
+variable, the Lie--B\"acklund theorem says
+that every contact transformation of a
+finite-order jet space is the prolongation
+of a transformation of $E$. With one
+dependent variable, genuine contact
+transformations already occur on
+$J^1(E,n)$.
+
+Contact transformations can sometimes
+linearize nonlinear equations. A model
+case is the Monge--Amp\`ere equation
+$$
+u_{xx}u_{yy}-u_{xy}^2=1,
+$$
+which may be studied using a Legendre
+transformation.
+
+\begin{definition}
+\label{definition-symmetry-pde}
+A \textit{symmetry} of a differential
+equation $\mathcal{E}$ is a contact
+transformation preserving $\mathcal{E}$.
+An infinitesimal symmetry is a vector field
+tangent to $\mathcal{E}$ whose flow
+preserves the restricted Cartan
+distribution.
+\end{definition}
+
+The bracket of two infinitesimal symmetries
+is again an infinitesimal symmetry. For an
+ordinary differential equation, the
+Lie--Bianchi theorem says that a sufficiently
+large solvable Lie algebra of symmetries
+allows the equation to be solved by
+quadratures. For PDEs, symmetries can reduce
+the number of variables or turn a PDE into
+an ODE.
+
+\medskip\noindent
+{\bf Prolongations and linearization.}
+
+Let
+$$
+X=\xi^\lambda
+\frac{\partial}{\partial x^\lambda}
++\phi^i\frac{\partial}{\partial u^i}
+$$
+be a vector field on $E$. Its characteristic
+is
+$$
+Q^i=\phi^i-u^i_\lambda\xi^\lambda.
+$$
+Its prolongation to the infinite jet space
+can be written as
+$$
+X^{(\infty)}=
+\xi^\lambda D_\lambda
++
+\sum_{i,\sigma}D_\sigma(Q^i)
+\frac{\partial}{\partial u^i_\sigma}.
+$$
+This separates the motion along the base
+from the evolutionary, or vertical, part.
+
+Suppose the equation is defined by
+$$
+F^a(x^\lambda,u^i,u^i_\sigma)=0.
+$$
+Its linearization is the differential
+operator
+$$
+\ell_F(Q)^a=
+\sum_{i,\sigma}
+\frac{\partial F^a}
+{\partial u^i_\sigma}D_\sigma(Q^i).
+$$
+A generalized symmetry has characteristic
+$Q$ satisfying
+$$
+\ell_F(Q)=0
+$$
+on the equation and all its differential
+consequences.
+
+\begin{example}
+\label{example-kdv-linearization}
+For the Korteweg--de Vries equation
+$$
+F=u_t+uu_x+u_{xxx}=0,
+$$
+the linearization is
+$$
+\ell_F(Q)=
+D_tQ+uD_xQ+u_xQ+D_x^3Q.
+$$
+Time translation is a symmetry, represented
+by the characteristic $Q=u_t$. Verifying
+this means substituting the equation and
+its total derivatives into
+$\ell_F(u_t)$.
+\end{example}
+
+\medskip\noindent
+{\bf Conservation laws.}
+
+\begin{definition}
+\label{definition-conservation-law}
+For an equation in variables $t$ and $x$,
+a \textit{conservation law} is a pair of
+differential functions $\rho$ and $J$ such
+that
+$$
+D_t\rho+D_xJ=0
+$$
+on every solution. The function $\rho$ is
+the \textit{density}, and $J$ is the
+\textit{flux}.
+\end{definition}
+
+Under suitable boundary conditions,
+integration gives
+$$
+\frac{d}{dt}\int_a^b\rho\,dx
+=-J(t,b)+J(t,a).
+$$
+If the boundary flux vanishes, the integral
+of the density is constant in time.
+
+Geometrically, conservation laws are
+horizontal differential forms that become
+closed after restriction to the equation.
+They are the PDE analogue of first
+integrals in ordinary differential
+equations and are closely tied to
+symmetries and Hamiltonian structures.
+
+\section{Regularity Phenomena in
+Nonlocal Equations}
+\label{section-regularity-nonlocal}
+
+\medskip\noindent
+{\bf Conference information.}
+
+\href{%
+https://sites.google.com/view/%
+60thanniversary-dmat-puc-rio/Home
+}{International Conference Celebrating
+the 60th Anniversary of the Department
+of Mathematics at PUC-Rio}
+
+August 12--14, 2026,
+RDC Auditorium, PUC-Rio,
+Rio de Janeiro.
+
+\medskip\noindent
+{\bf Speaker.}
+
+Makson Santos,
+Universidade de Lisboa.
+
+\medskip\noindent
+{\bf Date and time.}
+
+August 13, 2026, 10:30--11:30.
+
+\medskip\noindent
+{\bf Title.}
+
+Regularity Phenomena in Nonlocal
+Equations.
+
+\medskip\noindent
+{\bf Abstract.}
+
+The talk studies regularity for solutions
+of fully nonlinear nonlocal equations in
+elliptic and degenerate settings. In the
+elliptic case, the goal is optimal
+regularity for equations whose right-hand
+side lies in $L^p$, with the regularity
+space determined by $p$. In the degenerate
+case, one obtains at least one viscosity
+solution in
+$C^{1,\alpha}_{\mathrm{loc}}$ for some
+$\alpha\in(0,1)$. When the order of the
+operator is sufficiently close to $2$,
+one also obtains H\"older estimates for
+the gradient of every viscosity solution.
+
+\medskip\noindent
+{\bf Notes.} Once we have a (weak) solution
+of a PDE, we study what differentiability 
+properties does the function have only
+because it solves the given PDE.
+
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}
