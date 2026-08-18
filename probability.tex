@@ -119,6 +119,10 @@ for the random-walk part of the paper. In
 that setting the distribution of $X$ is
 specified by its probability mass function
 $$
+p:E\longrightarrow[0,1].
+$$
+For every $v\in E$, its value is
+$$
 p(v)=\mathbb P(X=v).
 $$
 Thus
@@ -137,7 +141,7 @@ The \emph{support} of a discrete law $p$
 is
 $$
 \operatorname{Supp}(p)
-=\{v:p(v)>0\}.
+=\{v\in E:p(v)>0\}.
 $$
 The law has \emph{finite range} if its
 support is finite.
@@ -182,17 +186,52 @@ and identically distributed.
 
 \begin{definition}
 \label{definition-lattice-random-walk}
-Let $L$ be a lattice and let
-$X_1,X_2,\ldots$ be i.i.d. random
-variables with values in $L$ and law $p$.
-The \emph{lattice random walk} with step
-law $p$, started at $s\in L$, is
+Let $L$ be a lattice. A \emph{step law}
+on $L$ is a function
 $$
-S_0=s,
+p:L\longrightarrow[0,1]
+$$
+satisfying
+$$
+\sum_{v\in L}p(v)=1.
+$$
+Let $(\Omega,\mathcal F,\mathbb P)$ be a
+probability space carrying i.i.d. random
+variables
+$$
+X_j:\Omega\longrightarrow L
+$$
+whose common probability mass function is
+$p$. Explicitly, for every $j\geq 1$ and
+$v\in L$,
+$$
+\mathbb P(X_j=v)=p(v).
+$$
+Fix $s\in L$. The \emph{lattice random
+walk} with step law $p$, started at $s$,
+is the sequence of random variables
+$$
+S_m:\Omega\longrightarrow L
+$$
+defined, for every $\omega\in\Omega$, by
+$$
+S_0(\omega)=s,
 \qquad
-S_m=s+\sum_{j=1}^mX_j.
+S_m(\omega)
+=s+\sum_{j=1}^mX_j(\omega).
 $$
 \end{definition}
+
+Thus $\Omega$ is the sample space and $L$
+is the state space. The point $s$ is a
+fixed element of $L$, not an element of
+$\Omega$. Each $X_j$ is the random
+$j$th increment, each $S_m$ is the random
+position at time $m$, and the entire
+sequence $(S_m)_{m\geq 0}$ is the random
+walk. Such a sequence of random variables
+is also called a discrete-time stochastic
+process.
 
 The next position depends on the past only
 through the present position. More
