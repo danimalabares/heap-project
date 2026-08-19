@@ -32,6 +32,10 @@ editing any heap-project file!!!!
   ```
 
 - Maximum linewidth is 45 characters.
+- Use `\mathbb{Z}`, `\mathbb{R}`, and
+  `\mathbb{C}` for the integers, real
+  numbers, and complex numbers,
+  respectively.
 - Do not write inner products with raw 
   angle brackets like `\left< X,Y \right>`. 
   Use `\left\langle{} X,Y \right\rangle{}` 
