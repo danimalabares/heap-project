@@ -309,7 +309,8 @@ deformation when $S=\Spec
 
 
 \section{The deformation functor
-\texorpdfstring{$\operatorname{Def}_X$}{Def X}}
+\texorpdfstring
+{$\operatorname{Def}_X$}{Def X}}
 \label{section-deformation-functor}
 
 \noindent
@@ -320,10 +321,11 @@ functor, not a scheme.
 Fix a field $k$ and a $k$-scheme $X$. Let
 $\mathbf{Art}_k$ denote the category of
 local Artinian $k$-algebras whose residue
-field is $k$.
+field is $k$. Its morphisms are local
+$k$-algebra homomorphisms.
 
 \begin{definition}
-\label{definition-deformation-over-artin-ring}
+\label{definition-deformation-artin}
 Let $A\in\mathbf{Art}_k$. A
 \emph{deformation of $X$ over $A$} is a
 flat morphism
@@ -334,7 +336,8 @@ $$
 together with an isomorphism, called the
 marking of the special fiber,
 $$
-\iota:\mathcal{X}_A\times_{\operatorname{Spec}A}
+\iota:\mathcal{X}_A
+\times_{\operatorname{Spec}A}
 \operatorname{Spec}k\xrightarrow{\sim}X.
 $$
 An isomorphism between two such deformations
@@ -345,17 +348,23 @@ with their markings.
 \begin{definition}
 \label{definition-def-x}
 The \emph{deformation functor of $X$} is
+defined as follows. For each
+$A\in\mathbf{Art}_k$, let $\mathcal{D}_X(A)$
+be the set of pairs $(\pi,\iota)$ in the
+previous definition. Its value at $A$ is
+$$
+\operatorname{Def}_X(A)
+=
+\mathcal{D}_X(A)/{\cong}.
+$$
+These sets form the functor
 $$
 \begin{aligned}
 \operatorname{Def}_X:
 \mathbf{Art}_k&\longrightarrow
 \mathbf{Sets},\\
 A&\longmapsto
-\left\{
-\begin{array}{c}
-\text{deformations of $X$ over $A$}
-\end{array}
-\right\}\big/\text{isomorphism}.
+\operatorname{Def}_X(A).
 \end{aligned}
 $$
 If $A\to B$ is a homomorphism, the
@@ -371,15 +380,13 @@ $$
 \end{definition}
 
 \noindent
-More honestly,
-$\operatorname{Def}_X(A)$ should be the
+A richer version assigns to $A$ the
 \emph{groupoid} of deformations and their
-isomorphisms, rather than merely the set of
-isomorphism classes. Passing to a set forgets
-the automorphisms of each deformation. Those
-automorphisms are one of the principal
-reasons why $\operatorname{Def}_X$ need not
-be representable.
+isomorphisms. Passing to the set of
+isomorphism classes forgets the automorphisms
+of each deformation. Infinitesimal
+automorphisms can prevent the resulting
+set-valued functor from being representable.
 
 \medskip\noindent
 \textbf{Comparison with the Hilbert
@@ -408,22 +415,27 @@ In our Stanley--Reisner problem, perturbing
 the homogeneous generators of
 $I_X\subset k[x_0,\ldots,x_7]$ initially
 studies embedded deformations of
-$X\subset\mathbb{P}^7$. It therefore belongs
-first to the local Hilbert problem, although
+$X\subset \mathbb{P}^7$. It belongs first
+to the local Hilbert problem, although
 one can subsequently forget the embedding
 and obtain an abstract deformation.
 
-\subsection{Universal and miniversal formal
-deformations}
-\label{subsection-miniversal-deformations}
+\medskip
+\noindent
+\textbf{Universal and miniversal formal
+deformations.}
 
 \noindent
 Let $R$ be a complete local Noetherian
 $k$-algebra with residue field $k$. It
-defines a functor
+defines a functor. Let $\mathbf{C}_k$ denote
+the category of such algebras and local
+$k$-algebra homomorphisms. We regard every
+object of $\mathbf{Art}_k$ as an object of
+$\mathbf{C}_k$. Then
 $$
-h_R(A)=\operatorname{Hom}_{\text{local}
-k\text{-alg}}(R,A).
+h_R(A)=\operatorname{Hom}_{\mathbf{C}_k}
+(R,A).
 $$
 Geometrically, this is the functor associated
 to the formal scheme $\operatorname{Spf}R$.
@@ -447,10 +459,9 @@ h_R\longrightarrow\operatorname{Def}_X
 $$
 which is formally smooth and induces an
 isomorphism on tangent spaces. Formal
-smoothness means that deformations can be
-lifted through small extensions whenever
-the compatible lifting problem has a
-solution in $\operatorname{Def}_X$.
+smoothness means that compatible data over
+the two rings in a small extension can be
+lifted to $h_R$ over the larger ring.
 Concretely, for every small extension
 $B\longrightarrow A$, the map
 $$
@@ -487,14 +498,11 @@ a \emph{hull} of $\operatorname{Def}_X$.
 \end{definition}
 
 \noindent
-The crucial distinction is therefore
-$$
-\boxed{
-\operatorname{Def}_X
-\text{ is the functor, whereas }
-\operatorname{Spf}R
-\text{ is a miniversal space for it.}}
-$$
+The crucial distinction is that
+$\operatorname{Def}_X$ is the functor,
+whereas $\operatorname{Spf}R$, together
+with the natural transformation above, is
+a miniversal space for it.
 A miniversal family contains all
 infinitesimal deformation directions and has
 no redundant tangent parameters, but the map
@@ -506,16 +514,17 @@ functor would be prorepresentable.
 Schlessinger's theorem gives conditions under
 which a functor on $\mathbf{Art}_k$ has such
 a hull, and stronger conditions under which
-it is prorepresentable. Proper schemes over
-a field satisfy the finiteness conditions
-which usually ensure the existence of a
-miniversal formal deformation. Infinitesimal
-automorphisms are the typical obstruction to
-upgrading it to a universal one.
+it is prorepresentable. Once its lifting
+conditions hold, finite-dimensionality of
+the tangent space is the key finiteness
+condition for the existence of a hull.
+Proper schemes in standard finite-type
+settings have this finiteness. Infinitesimal
+automorphisms can prevent a hull from being
+universal.
 
-For sufficiently well-behaved schemes the
-tangent and obstruction spaces can be written
-in terms of the cotangent complex:
+The cotangent complex gives the standard
+tangent and obstruction spaces
 $$
 T^1_X=\operatorname{Ext}^1
 (\mathbb{L}_{X/k},\mathcal{O}_X),
@@ -523,16 +532,27 @@ T^1_X=\operatorname{Ext}^1
 T^2_X=\operatorname{Ext}^2
 (\mathbb{L}_{X/k},\mathcal{O}_X).
 $$
-Morally, a miniversal base has the form
+The second group is an obstruction space:
+obstructions to lifting lie in it, although
+not every element must occur as an
+obstruction.
+
+Suppose that $T^1_X$ is finite-dimensional
+and that a hull exists. A minimal
+presentation of its complete local ring has
+the form
 $$
-\operatorname{Spf}
-\frac{k[[t_1,\ldots,t_r]]}
-{\text{obstruction equations}},
-\qquad r=\dim_kT^1_X.
+R\cong k[[t_1,\ldots,t_r]]/J,
+\qquad
+J\subset (t_1,\ldots,t_r)^2,
+\qquad
+r=\dim_kT^1_X.
 $$
-The equations of the base record which
-first-order directions survive the
-obstructions in $T^2_X$.
+The ideal $J$ records the higher-order
+lifting conditions detected by the
+obstruction theory. Its lack of linear terms
+expresses the tangent-space minimality of the
+presentation.
 
 Finally, a formal one-parameter deformation
 is only a formal arc in this miniversal
@@ -543,9 +563,12 @@ $$
 \operatorname{Spf}R.
 $$
 In our problem the Maurer--Cartan
-construction seeks such an arc whose generic
-fiber is smooth. It does not construct the
-whole miniversal deformation space.
+construction seeks a compatible deformation
+along such an arc. If that formal deformation
+is algebraized, one can then ask whether its
+generic fiber is smooth. The construction
+does not by itself produce the whole
+miniversal deformation space.
 
 \section{Kodaira-Spencer map}
 \label{section-kodaira-spencer-map}
