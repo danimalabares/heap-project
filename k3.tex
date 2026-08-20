@@ -9,93 +9,44 @@
 \label{section-phantom}
 \tableofcontents
 
-\section{Morse theory and cohomology}
-\label{section-morse-theory-and-cohomology}
-
-\noindent
-A Morse function is a smooth
-function with nondegenerate
-critical points.
-
-\begin{definition}
-Let $f:M\to \mathbb{R}$ be smooth.
-It is \textit{Morse} if all
-critical points are
-nondegenerate.
-\end{definition}
-
-\begin{remark}
-A Morse function gives a handle
-decomposition of $M$.
-The $k$-handles are attached at
-points of Morse index $k$.
-\end{remark}
-
-\begin{proposition}
-The number of critical points of
-index $k$ bounds the rank of
-$H^k(M,\mathbb{R})$.
-\end{proposition}
-
-\begin{remark}
-This is the basic relation with
-cohomology.
-The critical points determine a
-cell structure, and that cell
-structure computes the
-cohomology.
-\end{remark}
-
-\begin{theorem}
-If $M$ is a compact K3 surface
-and $f$ is a Morse function on
-it, then
-\[
-\chi(M)=\sum_k(-1)^km_k,
-\]
-where $m_k$ is the number of
-index $k$ critical points.
-\end{theorem}
-
-\begin{remark}
-For a K3 surface,
-\[
-H^0(M,\mathbb{R})\cong \mathbb{R},
-\qquad
-H^1(M,\mathbb{R})=0,
-\qquad
-H^2(M,\mathbb{R})\cong
-\mathbb{R}^{22}.
-\]
-So the Betti numbers sum to $24$.
-\end{remark}
-
-\begin{proposition}
-A holomorphic Morse function is
-not the main tool for K3
-surfaces.
-The useful input is usually a
-strictly plurisubharmonic
-function on the complement of a
-hyperplane section.
-\end{proposition}
-
-\begin{remark}
-This is the bridge used in
-Lefschetz type arguments.
-Morse theory on the open part
-gives the topology of the
-hyperplane complement.
-Then one recovers cohomology of
-the compact surface.
-\end{remark}
-
 \section{K3 surfaces}
 \label{section-k3-surfaces}
 
-\begin{definition}
-A K3 surface is a compact
-complex surface $M$ with
+\begin{reference}
+\cite[Definition 1.1]{huc-k3}
+\end{reference}
+
+\begin{definition}[Huybrechts]
+\label{definition-k3-huybrechts}
+\textit{A K3 surface over $k$} is a complete
+non-singular variety $X$ of dimension two
+such that
+$$
+\Omega^2_{X/k}\simeq\mathcal{O}_X.
+$$
+and
+$$
+H^1(X,\mathcal{O}_X)=0.
+$$
+\end{definition}
+
+\noindent
+By definition, a variety over a field $k$ is
+complete if the morphism
+$X\to\operatorname{Spec}(k)$ is proper.
+The variety $X$ over $k$ is non-singular if
+the cotangent sheaf $\Omega_{X/k}$ is locally
+free of rank $\dim(X)$. This is equivalent
+to
+$X_{\overline{k}}=X\times_k\overline{k}$
+being regular; see, for example, [375,
+Proposition 6.2.2].
+
+\begin{definition}[Misha]
+\label{definition-k3-misha}
+\textit{A K3 surface} is a compact complex
+surface $M$
+with
 $b_1(M)=0$ and
 $c_1(M,\mathbb{Z})=0$.
 \end{definition}
@@ -193,7 +144,7 @@ In fact, there exist nontrivial meromorphic
 functions such as the Weierstrass
 something function.
 Being nontrivial, it has positive
-transcendence degree for no nonconstant
+transcendence degree, for no nonconstant
 function can be constructed from 
 complex numbers.
 
@@ -202,12 +153,14 @@ I aim to show that $E \times E$ is not
 projective. By Huybrechts HK paper,
 it's enough to show that the intersection
 form is negative semidefinite, i.e. that
-$L^2 \leq 0$ for any $L \in
+$L^2 \leq 0$ for all $L \in
 \operatorname{Pic}_{E \times E}$,
-since $E \times E$ is hyperkähler.
+which is a criterion that works for
+hyperkähler manifolds such as the K3
+surface $E \times E$.
 
 I still need to use (and prove)
-strongly the criterion that
+the criterion that
 projective iff $a(X)=2$.
 So probably: if projective,
 restrict $\mathcal{M}(\mathbb{P}^K)=
@@ -217,6 +170,11 @@ But $a(X)$ cannot be greater than 2
 if $X$ is a surface.
 So: not projective, not 2; surface, not
 $\geq 2$. Elliptic: $a(X) \geq 1$.
+
+\medskip\noindent
+{\bf Day 3.} Maybe I should just
+try to prove that $a(E\times E)<2$
+somehow…
 \end{proof}
 
 \section{Curves on K3 surfaces}
@@ -425,6 +383,80 @@ $$
 \label{section-period-domain}
 
 \begin{definition}
+\label{definition-k3-lattice}
+The {\it K3 lattice} is the even
+unimodular lattice
+$$
+\Lambda_{K3}
+=
+U^{\oplus 3}\oplus E_8(-1)^{\oplus 2}
+$$
+of signature $(3,19)$, where $U$ is the
+hyperbolic plane with intersection matrix
+$$
+\begin{pmatrix}
+0&1\\
+1&0
+\end{pmatrix},
+$$
+and $E_8(-1)$ is the negative-definite
+$E_8$ lattice.
+For every K3 surface $X$, the lattice
+$H^2(X,\mathbb{Z})$ equipped with its
+intersection pairing is isomorphic to
+$\Lambda_{K3}$.
+\end{definition}
+
+\begin{definition}
+\label{definition-period-k3-surface}
+Let $X$ be a K3 surface.
+The {\it period} of $X$ is the
+weight-two integral Hodge structure
+$$
+H^2(X,\mathbb{C})
+=
+H^{2,0}(X)\oplus H^{1,1}(X)
+\oplus H^{0,2}(X)
+$$
+on $H^2(X,\mathbb{Z})$, together with
+the intersection pairing
+$$
+(\alpha,\beta)=\int_X\alpha\wedge\beta.
+$$
+Equivalently, after choosing a {\it
+marking}, i.e. a lattice isomorphism
+$\phi:H^2(X,\mathbb{Z})\to\Lambda_{K3}$,
+the period is the line
+$$
+\phi_{\mathbb{C}}(H^{2,0}(X))
+\subset\Lambda_{K3}\otimes\mathbb{C}.
+$$
+\end{definition}
+
+\begin{definition}
+\label{definition-period-domain-k3-surfaces}
+Let $\Lambda_{K3}$ be the K3 lattice.
+The {\it period domain} of marked K3
+surfaces is
+$$
+\Omega_{\Lambda_{K3}}
+=
+\left\{
+[\sigma]\in
+\mathbb{P}(\Lambda_{K3}\otimes\mathbb{C})
+\ \middle|\
+(\sigma,\sigma)=0,\quad
+(\sigma,\overline{\sigma})>0
+\right\}.
+$$
+Thus $\Omega_{\Lambda_{K3}}$ parametrizes
+the weight-two Hodge structures on
+$\Lambda_{K3}$ which are compatible with
+its intersection pairing and have
+one-dimensional $(2,0)$-part.
+\end{definition}
+
+\begin{definition}[Misha]
 Let $V=H^2(M,\mathbb{R})$ with the
 intersection form.
 The \textit{period domain} is
@@ -442,7 +474,7 @@ The positivity condition chooses
 the correct connected component.
 \end{remark}
 
-\begin{proposition}
+\begin{proposition}[Misha]
 The period point of a K3 surface
 is the line $H^{2,0}(M)$.
 \end{proposition}
@@ -458,6 +490,29 @@ positive oriented planes.
 
 \section{Local Torelli}
 \label{section-local-torelli}
+
+\begin{definition}[Misha]
+\label{definition-period-map-misha}
+Let $\mathrm{Comp}$ be the space of complex
+structures $I$ on $M$ for which $(M,I)$ is
+a K3 surface, and let $\mathrm{Diff}_0(M)$
+be the connected component of the identity
+in the diffeomorphism group of $M$.
+Set
+$$
+\mathrm{Teich}
+=
+\mathrm{Comp}/\mathrm{Diff}_0(M).
+$$
+The \textit{period map} is
+$$
+\begin{aligned}
+\mathrm{Per}:\mathrm{Teich}
+&\longrightarrow \mathbb{P}\mathrm{er},\\
+I&\longmapsto H^{2,0}(M,I).
+\end{aligned}
+$$
+\end{definition}
 
 \begin{proposition}
 The period map for K3 surfaces is
