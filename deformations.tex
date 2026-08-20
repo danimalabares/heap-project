@@ -57,6 +57,139 @@ possible to a universal property.''
 \end{quote}
 
 
+\section{A short history of deformation theory}
+\label{section-history-deformation-theory}
+
+\noindent
+The following chronology explains where the
+Hilbert scheme, deformation functors and
+miniversal deformation spaces enter the
+story.
+
+\begin{enumerate}
+\item From 1949 to 1954 Grothendieck worked
+mainly in functional analysis: topological
+tensor products, nuclear spaces and the
+theory of Banach spaces. By the end of 1954
+he had decided to leave this subject. In
+1955 his interests shifted first to
+homological algebra and then increasingly to
+algebraic geometry. See the
+\href{https://research-portal.uu.nl/ws/portalfiles/portal/254168358/Life_and_Work_of_Alexander_Grothendieck.pdf}
+{biographical account of Chai and Oort}.
+
+\item In 1957 he obtained the
+Grothendieck--Riemann--Roch theorem. At the
+1958 International Congress of
+Mathematicians he announced his program for
+the cohomology of abstract algebraic
+varieties. Thus his dream of a general
+cohomological framework was already present
+before the construction of the Hilbert
+scheme. See
+\href{https://webusers.imj-prg.fr/~leila.schneps/grothendieckcircle/CohomologyVarieties.pdf}
+{Grothendieck's 1958 ICM paper}.
+
+\item In 1960 the first volume of EGA,
+\emph{Le langage des sch\'emas}, appeared.
+Algebraic geometry was of course already an
+old subject; what Grothendieck was creating
+was its modern scheme-theoretic language.
+
+\item In May 1961 Grothendieck proved the
+representability of the Hilbert functor. More
+precisely, if $X\to S$ is projective and a
+Hilbert polynomial $P$ is fixed, then the
+functor of flat families of closed
+subschemes of $X$ with Hilbert polynomial
+$P$ is represented by a projective
+$S$-scheme $\operatorname{Hilb}^P_{X/S}$.
+See
+\href{https://www.numdam.org/item/SB_1960-1961__6__249_0/}
+{Grothendieck's Bourbaki expos\'e 221}.
+
+This result belonged to his wider program of
+\emph{construction theorems}: formulate a
+geometric classification problem as a
+functor, and then prove that the functor is
+represented by a scheme. Hilbert schemes,
+Quot schemes and Picard schemes are central
+examples of this philosophy.
+
+\item There was simultaneously an analytic
+line of development. Kodaira and Spencer
+developed the deformation theory of compact
+complex manifolds in 1958, and in 1962
+Kuranishi constructed locally complete, or
+miniversal, analytic families.
+
+\item In 1968 Schlessinger's
+\emph{Functors of Artin Rings} gave precise
+criteria for an infinitesimal deformation
+functor to be prorepresentable, or at least
+to possess a hull. The hull is precisely the
+formal miniversal deformation space that we
+shall define below. See
+\href{https://doi.org/10.1090/S0002-9947-1968-0217093-3}
+{Schlessinger's original paper}.
+
+\item In 1969 Michael Artin proved his
+approximation and algebraization theorems.
+These results form a bridge from formal
+moduli problems to actual algebraic
+families. See
+\href{https://www.numdam.org/articles/10.1007/BF02684596/}
+{Artin's 1969 approximation paper}.
+\end{enumerate}
+
+\noindent
+After 1961 Grothendieck continued developing
+the EGA and SGA machinery: formal geometry,
+topoi, descent, the \`etale fundamental
+group and \`etale cohomology. The last of
+these supplied the main cohomological
+machinery for the Weil conjectures. His more
+ambitious vision was the theory of
+\emph{motives}: a universal geometric source
+from which the different reasonable
+cohomology theories should arise. This
+program was not completed. In particular,
+Grothendieck's standard conjectures on
+algebraic cycles remain open. He left the
+IH\'ES in 1970, and Deligne proved the final
+Weil conjecture in 1974 by a different
+route.
+
+\begin{remark}[Algebraization in the
+Gr\"unbaum paper]
+Two related results must not be conflated.
+Grothendieck's existence theorem, developed
+in EGA III in 1961, gives effectivity and
+algebraization results over a complete local
+base in the proper or projective setting.
+Artin's later approximation and
+algebraization theorems allow one, under
+suitable hypotheses, to pass from a formal
+versal deformation to an algebraic family
+of finite type. See
+\href{https://www.numdam.org/item/?id=PMIHES_1961__11__5_0}
+{EGA III} and the
+\href{https://stacks.math.columbia.edu/tag/04UW}
+{Stacks Project's historical summary}.
+
+Consequently, the sentence in our current
+handout saying that properness and
+``Grothendieck's Existence Theorem'' turn a
+formal family directly into a family over
+an algebraic curve is probably too quick.
+The passage from a formal family over
+$\operatorname{Spf}k[[s]]$ to a family over
+an algebraic curve generally involves Artin
+approximation or algebraization. This step
+must be stated carefully in the paper.
+\end{remark}
+
+
 
 \section{Extensions}
 \label{section-extensions}
@@ -136,30 +269,9 @@ cotangent module of a SR ring…)
 \label{section-deformations-of-schemes}
 
 \noindent
-The following definitions come from
-the introduction of
-\cite{Sernesi-deformations}.
-Here Sernesi explains the main idea:
-``The approach of Grothendieck to this
-problem was to formalize the method
-of Kodair and Spencer, which consists
-in a formal construction
-followed by a proof of convergence''.
-
-Thus the following definitions explain
-the general pipeline we use in deformation
-theory: start with the more manageable 
-finite-order infinitesimal deformations
-and produce a ``formal deformation'',
-which is an object encoding the information
-of all finite lifts.
- 
-It remains to pass from this formal
-deformation to an actual deformation, which
-``is the analogous of the convergence step
-in the Kodaira-Spencer theory, and is a very
-difficult problem, the {\it algebraization
-problem}''.
+The following definition is from
+[lucas-defos], which in turn comes from
+\cite{Sernesi-deformations}
 
 \begin{definition}
 \label{definition-deformation}
@@ -177,52 +289,263 @@ where $\pi$ is a flat surjective morphism of
 algebraic $\mathbb{C}$-schemes and
 $S$ is connected. (Recall that flatness
 accounts for ``continuity''.)
-
 \item A {\it local deformation} of $X$ is a
 deformation $\xi$ where
-$S=\Spec A$ for $A$ a Noetherian local
+$S=\Spec A$ for $A$ a noetherian local
 $\mathbb{C}$ algebra with residue
 field $\mathbb{C}$.
-
 \item An {\it infinitesimal deformation of
 $X$} is a local deformation with $A$
-an Artinian local $\mathbb{C}$-algebra with
+an artinian local $\mathbb{C}$-algebra with
 residue field $\mathbb{C}$. $X$ is
 called {\it rigid} if all infinitesimal
 deformations are trivial.
-
 \item An {\it inifinitesimal deformation of
 order $n$} is an infinitesimal
 deformation when $S=\Spec
-(\mathbb{C}[t]/(t^{n+1}))$.
-
-\item Let $(R,\mathfrak m)$ be a complete
-Noetherian local $\mathbb C$-algebra with
-residue field $\mathbb C$. A {\it formal
-deformation} of $X$ over $R$ is a compatible
-sequence
-$$
-{\xi_n}*{n\geq 0},
-$$
-where $\xi_n$ is an infinitesimal deformation
-of $X$ over
-$$
-\Spec(R/\mathfrak m^{n+1}),
-$$
-and $\xi_n$ induces $\xi*{n-1}$ by base
-change under the quotient map
-$$
-R/\mathfrak m^{n+1}\longrightarrow
-R/\mathfrak m^n.
-$$
-Equivalently, it may be viewed as a flat
-morphism of formal schemes
-$$
-\mathfrak X\longrightarrow
-\operatorname{Spf}R.
-$$
+(\mathbb{C}[t]/(t^{n+1})$.
 \end{enumerate}
 \end{definition}
+
+
+\section{The deformation functor
+\texorpdfstring{$\operatorname{Def}_X$}{Def X}}
+\label{section-deformation-functor}
+
+\noindent
+The correct object parametrizing abstract
+infinitesimal deformations is initially a
+functor, not a scheme.
+
+Fix a field $k$ and a $k$-scheme $X$. Let
+$\mathbf{Art}_k$ denote the category of
+local Artinian $k$-algebras whose residue
+field is $k$.
+
+\begin{definition}
+\label{definition-deformation-over-artin-ring}
+Let $A\in\mathbf{Art}_k$. A
+\emph{deformation of $X$ over $A$} is a
+flat morphism
+$$
+\pi:\mathcal{X}_A\longrightarrow
+\operatorname{Spec}A
+$$
+together with an isomorphism, called the
+marking of the special fiber,
+$$
+\iota:\mathcal{X}_A\times_{\operatorname{Spec}A}
+\operatorname{Spec}k\xrightarrow{\sim}X.
+$$
+An isomorphism between two such deformations
+is an isomorphism of $A$-schemes compatible
+with their markings.
+\end{definition}
+
+\begin{definition}
+\label{definition-def-x}
+The \emph{deformation functor of $X$} is
+$$
+\begin{aligned}
+\operatorname{Def}_X:
+\mathbf{Art}_k&\longrightarrow
+\mathbf{Sets},\\
+A&\longmapsto
+\left\{
+\begin{array}{c}
+\text{deformations of $X$ over $A$}
+\end{array}
+\right\}\big/\text{isomorphism}.
+\end{aligned}
+$$
+If $A\to B$ is a homomorphism, the
+corresponding map
+$\operatorname{Def}_X(A)\to
+\operatorname{Def}_X(B)$ is given by base
+change:
+$$
+\mathcal{X}_A\longmapsto
+\mathcal{X}_A\times_{\operatorname{Spec}A}
+\operatorname{Spec}B.
+$$
+\end{definition}
+
+\noindent
+More honestly,
+$\operatorname{Def}_X(A)$ should be the
+\emph{groupoid} of deformations and their
+isomorphisms, rather than merely the set of
+isomorphism classes. Passing to a set forgets
+the automorphisms of each deformation. Those
+automorphisms are one of the principal
+reasons why $\operatorname{Def}_X$ need not
+be representable.
+
+\medskip\noindent
+\textbf{Comparison with the Hilbert
+functor.}
+If $X\subset Y$ is a fixed embedding, the
+local Hilbert functor parametrizes flat
+deformations
+$$
+\mathcal{X}_A\subset Y\times
+\operatorname{Spec}A
+$$
+of $X$ \emph{inside the fixed ambient
+scheme $Y$}. There is a natural
+transformation
+$$
+\operatorname{Def}_{X\subset Y}
+\longrightarrow
+\operatorname{Def}_X
+$$
+which forgets the embedding. The functor on
+the left describes embedded deformations;
+the one on the right describes abstract
+deformations.
+
+In our Stanley--Reisner problem, perturbing
+the homogeneous generators of
+$I_X\subset k[x_0,\ldots,x_7]$ initially
+studies embedded deformations of
+$X\subset\mathbb{P}^7$. It therefore belongs
+first to the local Hilbert problem, although
+one can subsequently forget the embedding
+and obtain an abstract deformation.
+
+\subsection{Universal and miniversal formal
+deformations}
+\label{subsection-miniversal-deformations}
+
+\noindent
+Let $R$ be a complete local Noetherian
+$k$-algebra with residue field $k$. It
+defines a functor
+$$
+h_R(A)=\operatorname{Hom}_{\text{local}
+k\text{-alg}}(R,A).
+$$
+Geometrically, this is the functor associated
+to the formal scheme $\operatorname{Spf}R$.
+
+If there is a natural isomorphism
+$$
+h_R\xrightarrow{\sim}
+\operatorname{Def}_X,
+$$
+then $\operatorname{Def}_X$ is
+\emph{prorepresentable}. Equivalently,
+$\operatorname{Spf}R$ carries a universal
+formal deformation: every infinitesimal
+deformation is obtained by pullback along a
+unique homomorphism $R\to A$.
+
+In general this is too much to expect. One
+therefore asks for a natural transformation
+$$
+h_R\longrightarrow\operatorname{Def}_X
+$$
+which is formally smooth and induces an
+isomorphism on tangent spaces. Formal
+smoothness means that deformations can be
+lifted through small extensions whenever
+the compatible lifting problem has a
+solution in $\operatorname{Def}_X$.
+Concretely, for every small extension
+$B\longrightarrow A$, the map
+$$
+h_R(B)\longrightarrow
+h_R(A)\times_{\operatorname{Def}_X(A)}
+\operatorname{Def}_X(B)
+$$
+is required to be surjective.
+
+The tangent space of the deformation functor
+is
+$$
+T\operatorname{Def}_X=
+\operatorname{Def}_X
+\big(k[\varepsilon]/(\varepsilon^2)\big).
+$$
+Thus the minimality condition says that
+$$
+T_o\operatorname{Spf}R
+\xrightarrow{\sim}
+T\operatorname{Def}_X.
+$$
+
+\begin{definition}
+\label{definition-miniversal-deformation}
+A formal deformation over
+$\operatorname{Spf}R$ satisfying the two
+conditions above is called a
+\emph{miniversal deformation}. The formal
+scheme $\operatorname{Spf}R$ is called a
+\emph{miniversal deformation space}, a
+\emph{semiuniversal deformation space}, or
+a \emph{hull} of $\operatorname{Def}_X$.
+\end{definition}
+
+\noindent
+The crucial distinction is therefore
+$$
+\boxed{
+\operatorname{Def}_X
+\text{ is the functor, whereas }
+\operatorname{Spf}R
+\text{ is a miniversal space for it.}}
+$$
+A miniversal family contains all
+infinitesimal deformation directions and has
+no redundant tangent parameters, but the map
+producing a given deformation need not be
+unique. If it were unique for every Artinian
+base, the family would be universal and the
+functor would be prorepresentable.
+
+Schlessinger's theorem gives conditions under
+which a functor on $\mathbf{Art}_k$ has such
+a hull, and stronger conditions under which
+it is prorepresentable. Proper schemes over
+a field satisfy the finiteness conditions
+which usually ensure the existence of a
+miniversal formal deformation. Infinitesimal
+automorphisms are the typical obstruction to
+upgrading it to a universal one.
+
+For sufficiently well-behaved schemes the
+tangent and obstruction spaces can be written
+in terms of the cotangent complex:
+$$
+T^1_X=\operatorname{Ext}^1
+(\mathbb{L}_{X/k},\mathcal{O}_X),
+\qquad
+T^2_X=\operatorname{Ext}^2
+(\mathbb{L}_{X/k},\mathcal{O}_X).
+$$
+Morally, a miniversal base has the form
+$$
+\operatorname{Spf}
+\frac{k[[t_1,\ldots,t_r]]}
+{\text{obstruction equations}},
+\qquad r=\dim_kT^1_X.
+$$
+The equations of the base record which
+first-order directions survive the
+obstructions in $T^2_X$.
+
+Finally, a formal one-parameter deformation
+is only a formal arc in this miniversal
+space:
+$$
+\operatorname{Spf}k[[s]]
+\longrightarrow
+\operatorname{Spf}R.
+$$
+In our problem the Maurer--Cartan
+construction seeks such an arc whose generic
+fiber is smooth. It does not construct the
+whole miniversal deformation space.
 
 \section{Kodaira-Spencer map}
 \label{section-kodaira-spencer-map}
@@ -971,128 +1294,6 @@ $S^{16}\to S$, and the map we had before $S
 S/I$.
 
 
-\section{The second-order lifting equation}
-\label{section-second-order-lifting}
-
-\noindent
-Let
-$$
-A=A_{\mathcal{M}}=S/I,
-\qquad
-I=(f_1,\ldots,f_{16}),
-$$
-where the generators $f_i$ are cubic.
-Choose representatives
-$\phi_1,\ldots,\phi_{53}$ of a basis of
-$T^1_{A,0}$ and write
-$$
-g(y)=\sum_{j=1}^{53}y_j\phi_j.
-$$
-Thus the corresponding first-order
-perturbations of the generators are
-$$
-f_i+t g_i(y).
-$$
-
-Let
-$$
-\sum_i s_{ri}f_i=0
-$$
-be one of the original first syzygies.
-Since $g(y)$ is a first-order deformation,
-we can also lift the coefficients of this
-syzygy. Therefore we choose
-$\alpha_{ri}(y)$, linear in $y$, such that
-$$
-\sum_i s_{ri}g_i(y)
-+
-\sum_i\alpha_{ri}(y)f_i
-=0.
-$$
-Equivalently,
-$$
-\sum_i
-\bigl(s_{ri}+t\alpha_{ri}(y)\bigr)
-\bigl(f_i+t g_i(y)\bigr)
-=0
-\pmod{t^2}.
-$$
-
-We now try to extend the deformation to
-second order:
-$$
-f_i+t g_i(y)+t^2h_i.
-$$
-The syzygies must also be extended to the
-form
-$$
-s_{ri}+t\alpha_{ri}(y)+t^2\beta_{ri}.
-$$
-The coefficient of $t^2$ in the resulting
-syzygy equation is
-$$
-\sum_i s_{ri}h_i
-+
-\sum_i\alpha_{ri}(y)g_i(y)
-+
-\sum_i\beta_{ri}f_i.
-$$
-After passing to $A=S/I$, the last term
-vanishes. Hence the second-order equation is
-$$
-\sum_i s_{ri}h_i
-+
-\sum_i\alpha_{ri}(y)g_i(y)
-=0
-\qquad\text{in }A.
-$$
-
-Collecting these equations for all the
-original first syzygies defines the linear
-map
-$$
-B(h)=
-\left(
-\sum_i s_{ri}h_i\pmod I
-\right)_r.
-$$
-Thus $B$ measures the syzygy errors that can
-be removed by choosing the second-order
-correction $h$.
-
-Both $\alpha(y)$ and $g(y)$ are linear in
-$y$. Their product is therefore quadratic.
-Let
-$$
-q(y)=(y_i y_j)_{1\leq i\leq j\leq53}.
-$$
-The vector $q(y)$ has
-$$
-\binom{54}{2}=1431
-$$
-entries. After choosing bases, there is a
-matrix $Q_0$ such that
-$$
-Q_0q(y)=
-\left(
-\sum_i\alpha_{ri}(y)g_i(y)\pmod I
-\right)_r.
-$$
-The second-order lifting equation is therefore
-$$
-Bh+Q_0q(y)=0.
-$$
-
-Consequently, the first-order deformation
-$g(y)$ lifts to second order precisely when
-$$
-Q_0q(y)\in\operatorname{im}B.
-$$
-
-The target of $B$ is a raw space of
-coefficients of syzygy errors. It contains
-many redundant directions and is not itself
-the obstruction space $T^2_{A,0}$.
 
 \section{Artin's criterion for flatness}
 \label{section-artins-criterion}
@@ -1248,22 +1449,5 @@ Look for the ``Perfect obstruction theory''.
 This is used by Bruzzo for deformations of
 (super)stacks,
 work with E. Paiva and ---.
-
-\section{Extra notes}
-\label{section-extra}
-
-\noindent
-I'll put some notes here trying to explain
-the theory behind the computations that
-I'm currently doing in codex.
-
-\medskip\noindent
-Let
-$$
-M=\mathbb{C}[t,x_0,…,x_7]/J
-$$
-be the coordinate ring of our deformation.
-(Yes, for some reason there's only
-one deformation paramter.)
 
 \end{document}
