@@ -1112,7 +1112,62 @@ implies (1), and then
 (2) follows by duality.
 \end{proof}
 
-\begin{lemma}
+\noindent
+(From Jethro's lecture.)
+The point of the snake lemma is the
+existence of the connecting morphism.
+In particular, this allows us to
+construct the long exact sequence in
+cohomology from a short exact sequence;
+that is, not only do we get induced
+morphisms but also the weird connecting
+morphism.
+
+\begin{lemma}[Snake lemma, Jethro's version]
+\label{lemma-snake-jethro}
+In an abelian category $\mathcal{C}$,
+let the following diagram be given,
+with exact rows:
+$$
+\xymatrix{
+& A \ar[r]^f \ar[d]^\alpha &
+B \ar[r]^g \ar[d]^\beta &
+C \ar[r] \ar[d]^\gamma &
+0 \\
+0 \ar[r] & A' \ar[r]^k & B' \ar[r]^l & C'
+}
+$$
+then there is an exact sequence
+$$
+\xymatrix{
+\ker(f)\ar[r]
+&\ker(\alpha) \ar[r]
+&\ker(\beta)\ar[r]
+&\ker(\gamma)\ar[lld]\\
+&\operatorname{coker}(\alpha)\ar[r]
+&\operatorname{coker}(\beta)\ar[r]
+&\operatorname{coker}(\gamma)\ar[r]
+&\operatorname{coker}(g').
+}
+$$
+\end{lemma}
+
+\begin{proof}
+Mostly routine, but exhausting.
+For instance, one can check from
+universal properties, why there
+exists a morphism […]
+
+The most interesting part is the 
+morphism
+$$
+\ker(\gamma)\xrightarrow{\delta}
+\operatorname{coker}(\alpha).
+$$
+Let's construct it. […]
+\end{proof}
+
+\begin{lemma}[Snake lemma, Stacks Project]
 \label{lemma-snake}
 Let $\mathcal{A}$ be an abelian category. Let
 $$
@@ -1428,13 +1483,236 @@ Immediate consequence of
 Lemma \ref{lemma-four-lemma}.
 \end{proof}
 
+\medskip\noindent
+From Jethro's lecture:
 
+\begin{example}[Non-abelian categories]
+\label{example-non-abelian-categories}
+\begin{enumerate}
+\item Fix $M$ a smooth manifold,
+and consider the category of finite
+dimensional vector bundles.
+This is not abelian.
+Let $f$ be a map of the total spaces
+of two vector bundles which is linear
+on every fiber, i.e.
+$$
+\xymatrix{
+E_1\ar[rr]^{f}\ar[dr]_{p_1}
+&&E_2\ar[dl]^{p_2}\\
+&M
+}
+$$
+then ker and coker don't exist in general,
+because the dimension of the fibers
+might jump.
 
+\item $M=\mathbb{R}$, $E=\mathbb{R}\times
+V$,
+$V=\mathbb{C}$ (so one-dimensional).
 
+Let
+$$
+\xymatrix{
+E \ar[dr]\ar[rr]&& E \ar[dl]\\
+& \mathbb{R}
+}
+$$
+with $f(v)=zv$, $z $ coordinate on
+$\mathbb{R}$.
+Then $\ker(f)=(\mathbb{R}\setminus 0)
+\times \coprod 0 \times \mathbb{C}$.
 
+The notion of coherent sheaf
+is motivated by this example.
 
+\item Other silly examples like the category
+of all free abelian groups:
+$\mathbb{Z} \xrightarrow{3}\mathbb{Z}$
+has no cokernel.
+\end{enumerate}
+\end{example}
 
+\medskip\noindent
+We finish with the example of filtered
+vector spaces mentioned in the lecture
+(this was done by Jethro but the following
+notes are AI-written).
 
+\begin{definition}
+\label{definition-filtered}
+Let $k$ be a field. A {\it decreasing
+filtration} on a vector space $V$ over $k$
+is a collection of vector subspaces $F^pV$,
+indexed by $p \in \mathbb{Z}$, such that
+$$
+F^{p + 1}V \subset F^pV
+$$
+for every $p$. A {\it filtered vector space}
+is a pair $(V, F)$ consisting of a vector
+space and a decreasing filtration on it.
+A {\it morphism of filtered vector spaces}
+from $(V, F)$ to $(W, G)$ is a linear map
+$f : V \to W$ such that
+$$
+f(F^pV) \subset G^pW
+$$
+for every $p$. Such a morphism is called
+{\it strict} if
+$$
+f(F^pV)=f(V)\cap G^pW
+$$
+for every $p$. We denote the resulting
+category by $\mathit{Fil}(\mathit{Vec}_k)$.
+No boundedness, exhaustiveness, or
+separatedness condition is imposed on the
+filtrations.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-filtered-vector-spaces}
+The category $\mathit{Fil}(\mathit{Vec}_k)$
+is additive and has all kernels and
+cokernels. More precisely, let
+$f : (V, F) \to (W, G)$ be a morphism, and
+let $K = \Ker(f)$ and $Q = \Coker(f)$ be
+the kernel and cokernel of the underlying
+linear map. Their filtrations are
+$$
+F^pK=K\cap F^pV
+$$
+and
+$$
+G^pQ=(G^pW+f(V))/f(V).
+$$
+The canonical morphism
+$$
+\Coim(f)\longrightarrow\Im(f)
+$$
+is an isomorphism if and only if $f$ is
+strict. Consequently,
+$\mathit{Fil}(\mathit{Vec}_k)$ is not an
+abelian category.
+\end{lemma}
+
+\begin{proof}
+Addition of morphisms is inherited from
+linear maps, and composition is bilinear.
+The zero vector space with its unique
+filtration is a zero object. Direct sums
+are formed with the filtration
+$$
+H^p(V\oplus W)=F^pV\oplus G^pW.
+$$
+Hence the category is additive. The usual
+kernel map is
+filtration preserving for the filtration on
+$K$ displayed above. If a morphism of
+filtered vector spaces has zero composition
+with $f$, its factorization through $K$ is
+filtration preserving. Thus this is the
+kernel in $\mathit{Fil}(\mathit{Vec}_k)$.
+
+The filtration on $Q$ is the image of
+$G^pW$ under the quotient map $W \to Q$.
+The usual factorization through $Q$ of a
+filtration preserving map that annihilates
+$f(V)$ is again filtration preserving. Thus
+this is the cokernel.
+
+The filtration on the coimage corresponds,
+under the usual vector space isomorphism
+from the coimage to $f(V)$, to the subspaces
+$f(F^pV)$. The filtration on the image is
+given by the subspaces
+$$
+f(V)\cap G^pW.
+$$
+Hence the canonical morphism from the
+coimage to the image is an isomorphism
+exactly when $f$ is strict. The morphism in
+Example \ref{example-not-abelian} is not
+strict, so the category is not abelian.
+\end{proof}
+
+\section{Tensor product}
+\label{section-tensor-product}
+
+If the direct sum $A \oplus B$
+'categorifies' $+$, surely what
+categorifies $\cdot$ is $\otimes$,
+the tensor product. Recall
+that for vector spaces $U, V$
+with bases $\{u_i\}, \{v_j\}$,
+then $U \otimes V$ has basis
+$\{u_i \otimes v_j\}$
+(and has dimension $\dim(U \otimes V)
+=\dim(U)\dim(V)$).
+
+Universal property? The idea is that
+a morphism $A \otimes B \to X$
+is the same as a bilinear map
+$A \times B \to X$.
+
+$A \otimes B$ is caracterized by
+the existence of a bijection
+$\tilde{f} \leftrightarrow f$
+of $\tilde{f}:A \otimes B \to X$,
+and $f \in \operatorname{Bil}_{A,B}(X)$
+such that… (exercise: such that what?).
+
+\medskip\noindent
+Another perspective is: for $T=A \otimes B$
+fixed, we want the functos
+$$
+\Hom_{\underline{\operatorname{Ab}}}
+(T,-):\underline{\operatorname{Ab}}
+\to \underline{\operatorname{Set}}
+$$
+and
+$$
+\operatorname{Bil}_{A,B}(-):
+\underline{\operatorname{Ab}}
+\to \underline{\operatorname{Set}}
+$$
+to be isomorphic, i.e. that there exists
+an natural isomorphism (i.e. invertible
+natural transformation) between them.
+That is:
+
+\begin{definition}
+\label{definition-tensor-product-categorical}
+A tensor product of $A,B \in \underline{\operatorname{Ab}}$
+is an object $T \in \underline{\operatorname{Ab}}$
+and a natural isomorphism
+$\theta:\Hom_{\operatorname{Ab}}(T,-)
+\to \operatorname{Bil}_{A,B}(-)$
+of functors $\underline{\operatorname{Ab}}
+\to \underline{\operatorname{Set}}$.
+\end{definition}
+
+\noindent
+If you decode the fancy categorical
+language, it's the usual universal
+property of $A \otimes B$.
+
+\begin{lemma}
+\label{lemma-tensor-product-uniqueness}
+Two tensor products are naturally
+isomorphic.
+\end{lemma}
+
+\noindent
+Does a $\otimes$ exist in
+$\underline{\operatorname{Ab}}$? Yes.
+Let $A,B \in \underline{\operatorname{Ab}}$.
+Consider $\mathbb{Z}[A \times B]$,
+the free Abelian group on Cartesian
+product. Let $J \subset \mathbb{Z}[A\times
+B]$ be the submodule generated
+by [distributivity of operations],
+then $A \otimes B=\mathbb{Z}[A\times B]/J$
+is a tensor product of $A$ and $B$.
 \section{Extensions}
 \label{section-extensions}
 
