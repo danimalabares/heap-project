@@ -3,6 +3,8 @@
 \begin{document}
 
 \title{Hodge Theory}
+\author{Misha Verbitsky}
+\date{IMPA, 2026}
 \maketitle
 
 \phantomsection
@@ -10,14 +12,2467 @@
 
 \tableofcontents
 
-\section{Introduction}
-\label{section-introduction}
+These notes follow the slides for Misha
+Verbitsky's 2026 course at IMPA. The
+course materials are available on the
+\href{%
+http://verbit.ru/IMPA/Kahler-2026/%
+}{course page}.
+
+\section{Lecture 1: complex manifolds}
+\label{section-lecture-one-complex}
 
 \noindent
-These notes develop Hodge theory and its
-applications to complex geometry.
+This lecture was given on August 10,
+2026. Erich K\"ahler described his work
+as a golden thread leading into the
+palpitating heart of mathematics.
 
-\bibliography{my}
-\bibliographystyle{amsalpha}
+\medskip\noindent
+{\bf Complex structures.}
+
+\begin{definition}
+\label{definition-complex-operator}
+Let $V$ be a real vector space. A
+{\it complex structure operator} on $V$
+is an automorphism
+$$
+I:V\longrightarrow V
+$$
+satisfying
+$$
+I^2=-\operatorname{Id}_V.
+$$
+\end{definition}
+
+The action of $I$ extends
+multiplicatively to every tensor space
+built from $V$ and $V^*$. Thus, for
+example,
+$$
+\begin{aligned}
+I(&v_1\otimes\cdots\otimes v_k
+\otimes w_1\otimes\cdots\otimes w_l)
+\\
+&=I(v_1)\otimes\cdots\otimes I(v_k)
+\otimes I(w_1)\otimes\cdots\otimes
+I(w_l).
+\end{aligned}
+$$
+
+The following elementary facts will be
+used repeatedly.
+
+\begin{enumerate}
+\item The eigenvalues of $I$ are
+$\sqrt{-1}$ and $-\sqrt{-1}$.
+
+\item There is an $I$-invariant positive
+definite scalar product on $V$. Indeed,
+starting with $g_0$, one may take
+$$
+g(x,y)=g_0(x,y)+g_0(Ix,Iy).
+$$
+
+\item The operator $I$ is orthogonal for
+this scalar product, since
+$$
+g(Ix,Iy)=g(x,y).
+$$
+
+\item The operator $I$ is diagonalizable
+over $\mathbb{C}$.
+
+\item The two eigenvalues occur with the
+same multiplicity.
+\end{enumerate}
+
+In a suitable complex basis of
+$V\otimes_{\mathbb{R}}\mathbb{C}$, the
+matrix of $I$ is
+$$
+\begin{bmatrix}
+\sqrt{-1}\operatorname{Id}&0\\
+0&-\sqrt{-1}\operatorname{Id}
+\end{bmatrix}.
+$$
+In a suitable real basis it is block
+diagonal, with every block equal to
+$$
+\begin{bmatrix}
+0&-1\\
+1&0
+\end{bmatrix}.
+$$
+
+\begin{definition}
+\label{definition-vector-hodge}
+Let $(V,I)$ be a real vector space with a
+complex structure. Its
+{\it Hodge decomposition} is
+$$
+V\otimes_{\mathbb{R}}\mathbb{C}
+=V^{1,0}\oplus V^{0,1},
+$$
+where $V^{1,0}$ and $V^{0,1}$ are the
+$\sqrt{-1}$ and $-\sqrt{-1}$
+eigenspaces of $I$, respectively.
+\end{definition}
+
+The dual space has the analogous Hodge
+decomposition. Moreover, $V^{1,0}$
+determines $I$: the operator acts by
+$\sqrt{-1}$ on $V^{1,0}$ and by
+$-\sqrt{-1}$ on its conjugate. We thus
+obtain a bijection between complex
+structures on $V$ and subspaces
+$$
+W\subset V\otimes_{\mathbb{R}}\mathbb{C}
+$$
+such that
+$$
+\dim_{\mathbb{C}}W
+=\frac{1}{2}\dim_{\mathbb{R}}V,
+\qquad
+W\cap\overline{W}=0.
+$$
+
+\begin{definition}
+\label{definition-hermitian-metric-vector}
+An $I$-invariant positive definite scalar
+product $g$ on $(V,I)$ is a
+{\it Hermitian metric}. The triple
+$(V,I,g)$ is a {\it Hermitian space}.
+\end{definition}
+
+If $g$ is Hermitian, the bilinear form
+$$
+\omega(x,y)=g(x,Iy)
+$$
+is skew-symmetric. Indeed,
+$$
+\begin{aligned}
+\omega(x,y)
+&=g(x,Iy)\\
+&=g(Ix,I^2y)\\
+&=-g(Ix,y)\\
+&=-\omega(y,x).
+\end{aligned}
+$$
+
+\begin{definition}
+\label{definition-hermitian-form-vector}
+The skew-symmetric form $\omega$ above is
+the {\it Hermitian form} of $(V,I,g)$.
+\end{definition}
+
+Any two members of the triple
+$(I,g,\omega)$ determine the third.
+
+\medskip\noindent
+{\bf Almost complex manifolds.}
+
+\begin{definition}
+\label{definition-almost-complex}
+An {\it almost complex structure} on a
+manifold $M$ is an endomorphism
+$$
+I:TM\longrightarrow TM
+$$
+such that
+$$
+I^2=-\operatorname{Id}_{TM}.
+$$
+The pair $(M,I)$ is an
+{\it almost complex manifold}.
+\end{definition}
+
+On $\mathbb{C}^n$, write
+$$
+z_j=x_j+\sqrt{-1}y_j.
+$$
+The standard almost complex structure is
+given by
+$$
+I\left(\frac{\partial}{\partial x_j}\right)
+=\frac{\partial}{\partial y_j},
+\qquad
+I\left(\frac{\partial}{\partial y_j}\right)
+=-\frac{\partial}{\partial x_j}.
+$$
+
+In real dimension two, an almost complex
+structure is equivalent to an oriented
+conformal structure.
+
+\begin{exercise}
+\label{exercise-almost-complex-conformal}
+Prove this equivalence.
+\end{exercise}
+
+\begin{definition}
+\label{definition-holomorphic-function-ac}
+A function
+$$
+f:M\longrightarrow\mathbb{C}
+$$
+on an almost complex manifold is
+{\it holomorphic} if
+$$
+df\in\Lambda^{1,0}(M).
+$$
+\end{definition}
+
+Some almost complex manifolds have no
+nonconstant holomorphic functions even
+locally. A standard example is $S^6$ with
+its $G_2$-invariant almost complex
+structure.
+
+\begin{theorem}
+\label{theorem-holomorphic-equivalences}
+Let $U\subset\mathbb{C}^n$ be open and let
+$$
+f:U\longrightarrow\mathbb{C}
+$$
+be differentiable. The following
+conditions are equivalent.
+
+\begin{enumerate}
+\item The function $f$ is holomorphic.
+
+\item At every point, the differential
+$$
+df:T_xU\longrightarrow\mathbb{C}
+$$
+is complex linear.
+
+\item The restriction of $f$ to every
+complex affine line is holomorphic as a
+function of one complex variable.
+
+\item Near every point, $f$ is represented
+by a convergent complex Taylor series.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The first two conditions are equivalent by
+definition. A $(1,0)$-form restricts to a
+$(1,0)$-form on every complex line. The
+converse follows from the elementary fact
+that a complex-valued linear form on
+$(V,I)$ has type $(1,0)$ if and only if its
+restriction to every $I$-invariant real
+two-plane has type $(1,0)$. This proves the
+equivalence with the third condition. A
+convergent complex Taylor series is
+holomorphic, while the converse follows
+from the Cauchy formula.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-line-restrictions}
+Prove the linear-algebraic fact used in the
+proof of Theorem
+\ref{theorem-holomorphic-equivalences}.
+\end{exercise}
+
+{\bf Sheaves and ringed spaces.}
+
+\begin{definition}
+\label{definition-presheaf-functions}
+A {\it presheaf of functions} on a
+topological space $M$ assigns a subring
+$$
+\mathcal{F}(U)\subset C(U)
+$$
+to every open set $U\subset M$, in such a
+way that restriction from $U$ to any open
+subset $U_1$ maps $\mathcal{F}(U)$ into
+$\mathcal{F}(U_1)$.
+\end{definition}
+
+\begin{definition}
+\label{definition-sheaf-functions}
+A presheaf $\mathcal{F}$ is a
+{\it sheaf of functions} if it also has the
+following local-to-global property. Given
+an open cover $U=\bigcup_iU_i$, a function
+on $U$ belongs to $\mathcal{F}(U)$ whenever
+its restriction to every $U_i$ belongs to
+$\mathcal{F}(U_i)$.
+\end{definition}
+
+Continuous, smooth, and real analytic
+functions form sheaves. Constant functions
+and bounded functions form presheaves that
+are not sheaves.
+
+\begin{exercise}
+\label{exercise-presheaves-not-sheaves}
+Explain why constant functions and bounded
+functions fail the sheaf condition.
+\end{exercise}
+
+\begin{definition}
+\label{definition-ringed-space-course}
+A {\it ringed space} $(M,\mathcal{F})$ is a
+topological space with a sheaf of functions.
+A {\it morphism of ringed spaces}
+$$
+\Psi:(M,\mathcal{F})
+\longrightarrow(N,\mathcal{F}')
+$$
+is a continuous map such that, for every
+open $U\subset N$ and every
+$f\in\mathcal{F}'(U)$,
+$$
+\Psi^*f=f\circ\Psi
+\in\mathcal{F}(\Psi^{-1}(U)).
+$$
+An {\it isomorphism of ringed spaces} is a
+homeomorphism for which both directions are
+morphisms.
+\end{definition}
+
+If $M$ is a $C^i$ manifold, the sheaf
+$C^i$ makes $(M,C^i)$ a ringed space. Every
+$C^i$ map induces a morphism between the
+corresponding ringed spaces.
+
+\begin{proposition}
+\label{proposition-smooth-ringed-maps}
+Morphisms between the ringed spaces
+$(M,C^i)$ and $(N,C^i)$ are precisely the
+$C^i$ maps from $M$ to $N$.
+\end{proposition}
+
+\begin{proof}
+One implication follows because a
+composition of $C^i$ functions is $C^i$.
+Conversely, work in charts. A map between
+open subsets of $\mathbb{R}^n$ is $C^i$ if
+the pullback of every $C^i$ function is
+$C^i$, since this condition applies in
+particular to the coordinate functions.
+\end{proof}
+
+\begin{definition}
+\label{definition-smooth-ringed-manifold}
+A {\it smooth manifold of class $C^i$} is a
+topological manifold with a sheaf of
+functions which is locally isomorphic, as a
+ringed space, to an open subset of
+$(\mathbb{R}^n,C^i)$.
+\end{definition}
+
+\begin{definition}
+\label{definition-chart-ringed}
+A {\it chart}, or
+{\it coordinate system}, on an open subset
+of such a manifold is an isomorphism with
+an open subset of $(\mathbb{R}^n,C^i)$.
+\end{definition}
+
+\begin{definition}
+\label{definition-diffeomorphism-ringed}
+A {\it diffeomorphism} is a homeomorphism
+which induces an isomorphism of the
+corresponding ringed spaces.
+\end{definition}
+
+These definitions agree with the usual
+definitions in terms of atlases.
+
+\begin{definition}
+\label{definition-holomorphic-function-cn}
+A {\it holomorphic function} on
+$\mathbb{C}^n$ is a function whose
+differential is complex linear, or
+equivalently has type $(1,0)$.
+\end{definition}
+
+Holomorphic functions form a sheaf.
+
+\begin{definition}
+\label{definition-complex-manifold-ringed}
+A {\it complex manifold} is a ringed space
+locally isomorphic to an open ball in
+$\mathbb{C}^n$ with its sheaf of
+holomorphic functions.
+\end{definition}
+
+Equivalently, it is a manifold covered by
+complex coordinate balls whose transition
+functions are holomorphic.
+
+\begin{definition}
+\label{definition-holomorphic-ac-map}
+A map
+$$
+\Psi:(M,I)\longrightarrow(N,J)
+$$
+of almost complex manifolds is
+{\it holomorphic} if
+$$
+\Psi^*\Lambda^{1,0}(N)
+\subset\Lambda^{1,0}(M).
+$$
+Equivalently, $d\Psi$ is complex linear.
+\end{definition}
+
+For the standard almost complex structures,
+this is equivalent to holomorphicity of all
+coordinate components of $\Psi$.
+
+\begin{definition}
+\label{definition-integrable-ac}
+An almost complex structure $I$ on $M$ is
+{\it integrable} if every point has a
+neighborhood diffeomorphic to an open set
+in $\mathbb{C}^n$ under a diffeomorphism
+which identifies $I$ with the standard
+almost complex structure.
+\end{definition}
+
+An integrable almost complex structure
+defines a sheaf $\mathcal{O}_M$ of
+holomorphic functions and makes
+$(M,\mathcal{O}_M)$ a complex manifold.
+Conversely, a complex manifold determines
+an integrable almost complex structure. In
+fact, its sheaf of holomorphic functions
+determines the subbundle
+$$
+d\mathcal{O}_M
+=\Lambda^{1,0}(M)
+\subset\Lambda^1(M,\mathbb{C}),
+$$
+and this subbundle determines $I$.
+
+\section{Assignment 1: complex structures}
+\label{section-assignment-one-complex}
+
+\noindent
+This assignment was issued on August 10,
+2026. Written solutions were requested for
+the following Monday, with class discussion
+on the Wednesday after that.
+
+\begin{exercise}
+\label{exercise-assignment-one-gl}
+Prove that the group
+$\operatorname{GL}(n,\mathbb{C})$ is
+connected.
+\end{exercise}
+
+\begin{definition}
+\label{definition-assignment-complex}
+A {\it complex structure} on a real vector
+space $V$ is an operator
+$I\in\operatorname{End}(V)$ satisfying
+$I^2=-\operatorname{Id}$.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-orthogonal-complex-four}
+Let $V$ be a four-dimensional real vector
+space with a Euclidean metric, and let $S$
+be the space of orthogonal complex
+structures on $V$. Prove that $S$ is a
+disconnected union of two two-dimensional
+spheres.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-all-complex-components}
+Let $V$ be an even-dimensional real vector
+space, and let $S$ be the space of complex
+structures on $V$. Prove that $S$ has two
+connected components.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-orthogonal-components}
+Let $V$ be an even-dimensional real vector
+space with a Euclidean metric $g$, and let
+$S_g$ be the space of orthogonal complex
+structures on $V$. Prove that $S_g$ has two
+connected components.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-two-forms-complex}
+Let $V$ be a four-dimensional real vector
+space, and let $U$ be the space of
+skew-symmetric two-forms $\Omega$ on
+$V\otimes_{\mathbb{R}}\mathbb{C}$ such that
+$$
+\Omega\wedge\Omega=0,
+\qquad
+\Omega\wedge\overline{\Omega}\ne0.
+$$
+Let $\mathbb{P}U$ be the projectivization
+of $U$, namely the quotient of
+$U\setminus\{0\}$ by the standard
+$\mathbb{C}^*$-action. Construct a
+$\operatorname{GL}(V)$-invariant bijection
+between $\mathbb{P}U$ and the space of
+complex structures on $V$.
+\end{exercise}
+
+\begin{definition}
+\label{definition-conformal-structure}
+Two Riemannian metrics $g_1$ and $g_2$ on a
+smooth manifold are {\it conformal}, or
+{\it conformally equivalent}, if there is a
+smooth positive function $\lambda$ such that
+$$
+g_1=\lambda g_2.
+$$
+A {\it conformal structure} is a metric up
+to conformal equivalence.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-surface-conformal}
+Let
+$$
+f:M\longrightarrow N
+$$
+be an orientation-preserving diffeomorphism
+between almost Hermitian manifolds of real
+dimension two. Prove that $f$ is
+holomorphic if and only if it preserves the
+conformal structures.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-no-almost-complex}
+Construct an oriented even-dimensional
+manifold which admits no almost complex
+structure.
+\end{exercise}
+\section{Lecture 2: real analytic
+manifolds}
+\label{section-lecture-two-real-analytic}
+
+\noindent
+This lecture was given on August 14, 2026.
+
+\begin{definition}
+\label{definition-real-analytic-function}
+A {\it real analytic function} on an open
+set $U\subset\mathbb{R}^n$ is a function
+which has a convergent Taylor expansion near
+every point. Thus, locally,
+$$
+\begin{aligned}
+f(z_1+t_1,&\ldots,z_n+t_n)\\
+&=\sum_{i_1,\ldots,i_n}
+a_{i_1,\ldots,i_n}
+t_1^{i_1}\cdots t_n^{i_n}.
+\end{aligned}
+$$
+The real parameters $t_j$ are sufficiently
+small for the expansion under consideration.
+\end{definition}
+
+Real analytic functions form a sheaf.
+
+\begin{definition}
+\label{definition-real-analytic-manifold}
+A {\it real analytic manifold} is a ringed
+space locally isomorphic to an open ball in
+$\mathbb{R}^n$ equipped with its sheaf of
+real analytic functions.
+\end{definition}
+
+Grauert's description of real analytic
+manifolds in terms of complexifications is
+developed below.
+
+\medskip\noindent
+{\bf Involutions and fixed points.}
+
+\begin{definition}
+\label{definition-involution}
+An {\it involution} on $M$ is a map
+$$
+\iota:M\longrightarrow M
+$$
+satisfying
+$$
+\iota^2=\operatorname{Id}_M.
+$$
+\end{definition}
+
+\begin{exercise}
+\label{exercise-linear-involution}
+Prove that every linear involution on a real
+vector space is diagonalizable with
+eigenvalues $1$ and $-1$.
+\end{exercise}
+
+\begin{theorem}
+\label{theorem-fixed-set-smooth}
+Let $M$ be a smooth manifold and let $\iota$
+be a smooth involution. The fixed point set
+of $\iota$ is a smooth submanifold.
+\end{theorem}
+
+\begin{proof}
+Fix a point $m$ in the fixed point set. By
+the inverse function theorem, $k$ functions
+whose differentials are linearly independent
+at $m$ define coordinates near $m$.
+
+Suppose that $d\iota_m$ has $k$
+eigenvalues equal to $1$ and $n-k$ equal to
+$-1$. Choose coordinates $x_1,\ldots,x_n$
+such that the first $k$ covectors at $m$ are
+invariant and the remaining covectors are
+anti-invariant. Set
+$$
+y_j=x_j+\iota^*x_j
+$$
+for $j\leq k$, and set
+$$
+y_j=x_j-\iota^*x_j
+$$
+for $j>k$. Up to harmless constant factors,
+the $dy_j$ remain linearly independent at
+$m$. They therefore give invariant local
+coordinates, and the fixed point set is
+locally cut out by
+$$
+y_{k+1}=\cdots=y_n=0.
+$$
+\end{proof}
+
+\medskip\noindent
+{\bf Real structures.}
+
+\begin{definition}
+\label{definition-real-structure-vector}
+A {\it real structure} on a complex vector
+space $V$ is an $\mathbb{R}$-linear
+involution $\iota$ such that
+$$
+\iota(\lambda x)
+=\overline{\lambda}\iota(x).
+$$
+\end{definition}
+
+\begin{proposition}
+\label{proposition-fixed-real-form}
+Let $V^\iota$ be the fixed subspace of a
+complex vector space with a real structure.
+Then
+$$
+\dim_{\mathbb{R}}V^\iota
+=\dim_{\mathbb{C}}V,
+\qquad
+V=V^\iota\otimes_{\mathbb{R}}\mathbb{C}.
+$$
+\end{proposition}
+
+\begin{proof}
+Suppose that $x_1,\ldots,x_n$ are linearly
+independent in $V^\iota$ over $\mathbb{R}$.
+Applying $\iota$ to a complex linear
+relation among them and averaging shows that
+the real parts of all coefficients vanish.
+Applying the same argument after multiplying
+the relation by $\sqrt{-1}$ shows that their
+imaginary parts vanish. Hence the natural map
+$$
+V^\iota\otimes_{\mathbb{R}}\mathbb{C}
+\longrightarrow V
+$$
+is injective.
+
+It is also surjective. For $v\in V$, both
+$$
+\frac{v+\iota(v)}{2}
+$$
+and
+$$
+\frac{v-\iota(v)}{2\sqrt{-1}}
+$$
+belong to $V^\iota$, and together they
+recover $v$ by complex linear combination.
+\end{proof}
+
+Let $\mathcal{C}_\iota$ be the category of
+complex vector spaces with real structures,
+where morphisms are complex linear maps
+commuting with the involutions. Let
+$\mathcal{C}_{\mathbb{R}}$ be the category
+of real vector spaces.
+
+\begin{theorem}
+\label{theorem-real-structure-category}
+The functor
+$$
+\begin{aligned}
+\mathcal{C}_\iota
+&\longrightarrow\mathcal{C}_{\mathbb{R}},\\
+(V,\iota)&\longmapsto V^\iota
+\end{aligned}
+$$
+is an equivalence of categories.
+\end{theorem}
+
+\begin{proof}
+A quasi-inverse sends a real vector space
+$W$ to
+$$
+W\otimes_{\mathbb{R}}\mathbb{C}
+$$
+with the involution
+$$
+w\otimes\lambda
+\longmapsto
+w\otimes\overline{\lambda}.
+$$
+The two composites are naturally isomorphic
+to the identity by Proposition
+\ref{proposition-fixed-real-form}.
+\end{proof}
+
+\begin{definition}
+\label{definition-antiholomorphic-map}
+A smooth map
+$$
+\Psi:(M,I)\longrightarrow(N,J)
+$$
+is {\it antiholomorphic} if
+$$
+d\Psi\circ I=-J\circ d\Psi.
+$$
+A complex-valued function is
+{\it antiholomorphic} if its conjugate is
+holomorphic.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-antiholomorphic-function}
+Prove that an antiholomorphic function on
+$M$ defines an antiholomorphic map from $M$
+to $\mathbb{C}$.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-antiholomorphic-pullback}
+Prove that $\Psi$ is antiholomorphic if and
+only if
+$$
+\Psi^*\Lambda^{0,1}(N)
+\subset\Lambda^{1,0}(M).
+$$
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-antiholomorphic-functions}
+Let $\iota$ be a smooth self-map of a
+complex manifold. Prove that $\iota$ is
+antiholomorphic if and only if it pulls
+every locally defined holomorphic function
+back to an antiholomorphic one.
+\end{exercise}
+
+\begin{definition}
+\label{definition-real-structure-manifold}
+A {\it real structure} on a complex
+manifold $M$ is an antiholomorphic
+involution
+$$
+\iota:M\longrightarrow M.
+$$
+\end{definition}
+
+\begin{proposition}
+\label{proposition-real-local-coordinates}
+Let $M$ be a complex manifold with a real
+structure $\iota$. For every
+$x\in M^\iota$, there is an
+$\iota$-invariant coordinate neighborhood
+with holomorphic coordinates
+$z_1,\ldots,z_n$ such that
+$$
+\iota^*z_j=\overline{z_j}.
+$$
+\end{proposition}
+
+\begin{proof}
+Any basis of $\Lambda_x^{1,0}(M)$ occurs as
+the differentials at $x$ of suitable
+holomorphic coordinates: start from an
+arbitrary chart and apply a complex linear
+change of coordinates.
+
+The differential $d\iota_x$ is a real
+structure. A real basis of the cotangent
+space to $M^\iota$ therefore determines a
+complex basis of $T_x^*M$. Choose
+holomorphic coordinates $u_1,\ldots,u_n$
+with these prescribed differentials. The
+functions
+$$
+z_j=u_j+\iota^*\overline{u_j}
+$$
+are holomorphic and satisfy the required
+identity. After shrinking the neighborhood,
+they form a coordinate system.
+\end{proof}
+
+\begin{definition}
+\label{definition-compatible-real-atlas}
+An atlas is {\it compatible with the real
+structure} if every chart which meets the
+fixed point set has the form given by
+Proposition
+\ref{proposition-real-local-coordinates}.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-fixed-real-analytic}
+Let $M^\iota$ be the fixed point set of a
+real structure on a complex manifold $M$.
+A complex atlas compatible with the real
+structure restricts to a real analytic
+atlas on $M^\iota$.
+\end{proposition}
+
+\begin{proof}
+The transition maps between compatible
+charts commute with conjugation. They
+therefore preserve the real locus and
+restrict there to real-valued real analytic
+maps.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-all-real-fixed-loci}
+Every real analytic manifold arises as the
+fixed point set of a real structure on a
+complex manifold.
+\end{proposition}
+
+\begin{proof}
+Take a locally finite real analytic atlas by
+relatively compact balls $U_i$ with
+transition maps $\Psi_{ij}$. For sufficiently
+small $\varepsilon>0$, their convergent
+Taylor series extend the transition maps to
+complex neighborhoods
+$$
+\widetilde{U}_i
+=U_i\times B_\varepsilon
+\subset\mathbb{C}^n,
+$$
+where the second factor lies in the
+imaginary directions. These complexified
+transition maps glue the neighborhoods to a
+complex manifold $M_{\mathbb{C}}$. Complex
+conjugation is compatible with the gluing
+and gives a real structure whose fixed point
+set is the original manifold.
+\end{proof}
+
+\begin{definition}
+\label{definition-complexification}
+Let $M_{\mathbb{R}}$ be a real analytic
+manifold. A {\it complexification} of
+$M_{\mathbb{R}}$ is a complex manifold
+$M_{\mathbb{C}}$ with a real structure whose
+fixed point set is $M_{\mathbb{R}}$.
+\end{definition}
+
+There are several complexifications of the
+circle. They include
+$$
+\mathbb{C}/\mathbb{Z}^2
+$$
+with $z\mapsto\overline z$, the space
+$\mathbb{C}^*$ with
+$$
+z\longmapsto\overline z^{-1},
+$$
+and $\mathbb{C}P^1$ with
+$$
+[x:y]\longmapsto
+[\overline{x}:\overline{y}].
+$$
+Their fixed loci are respectively
+$\mathbb{R}/\mathbb{Z}$, the unit circle,
+and $\mathbb{R}P^1$.
+
+\begin{definition}
+\label{definition-real-analytic-tensor}
+A tensor on a real analytic manifold is
+{\it real analytic} if, in real analytic
+coordinates, it is a sum of coordinate
+tensor monomials with real analytic
+coefficients.
+\end{definition}
+
+\begin{definition}
+\label{definition-same-germ}
+Let $K\subset M$ and $K_1\subset M_1$ be
+identified closed subsets of complex
+manifolds. The manifolds $M$ and $M_1$
+{\it have the same germ along $K$} if there
+are neighborhoods $U$ and $U_1$ of the
+identified set and a biholomorphism
+$$
+U\longrightarrow U_1
+$$
+which is the identity on $K$.
+\end{definition}
+
+\begin{definition}
+\label{definition-germ-manifold}
+The {\it germ of $M$ along $K$} is the
+equivalence class of neighborhoods of $K$
+under the relation in Definition
+\ref{definition-same-germ}.
+\end{definition}
+
+Let $\mathcal{C}$ be the category of complex
+manifolds with real structures and
+holomorphic maps commuting with those
+structures.
+
+\begin{theorem}[Grauert]
+\label{theorem-grauert-real-analytic}
+The category of real analytic manifolds is
+equivalent to the category of germs of
+objects $(M,\iota)$ of $\mathcal{C}$ along
+their fixed point sets $M^\iota$.
+\end{theorem}
+
+\begin{exercise}
+\label{exercise-grauert-equivalence}
+Prove Theorem
+\ref{theorem-grauert-real-analytic}.
+\end{exercise}
+
+The theorem is associated with Hans Grauert,
+who lived from 1930 to 2011.
+
+\begin{definition}
+\label{definition-antiholomorphic-tensor}
+An {\it antiholomorphic tensor} on $(M,I)$
+is a holomorphic tensor on $(M,-I)$.
+\end{definition}
+
+A function is holomorphic on $(M,I)$ if and
+only if it is antiholomorphic on $(M,-I)$.
+Complex conjugation identifies the sheaves
+of holomorphic and antiholomorphic
+functions. If $\iota$ is a real structure,
+then $\iota^*$ sends holomorphic functions
+and tensors to antiholomorphic ones.
+
+\begin{theorem}
+\label{theorem-extend-analytic-tensors}
+Let $M_{\mathbb{C}}$ be a complexification
+of $M_{\mathbb{R}}$. Every real analytic
+tensor $\psi_{\mathbb{R}}$ extends to a
+holomorphic tensor $\psi_{\mathbb{C}}$ on a
+neighborhood of $M_{\mathbb{R}}$ such that
+$$
+\iota^*\psi_{\mathbb{C}}
+=\overline{\psi_{\mathbb{C}}}.
+$$
+Conversely, every holomorphic tensor near
+$M_{\mathbb{R}}$ satisfying this identity
+restricts to a real analytic real tensor on
+$M_{\mathbb{R}}$.
+\end{theorem}
+
+\begin{proof}
+A holomorphic tensor restricts to a real
+analytic tensor. The displayed identity
+makes the restriction real. Conversely,
+write a real analytic tensor in local
+coordinates and replace the convergent real
+Taylor series of its coefficients by their
+complexifications. After shrinking the
+neighborhoods, the resulting holomorphic
+tensors agree on overlaps and glue.
+\end{proof}
+
+\medskip\noindent
+\section{Lecture 2 bis: Frobenius theorem}
+\label{section-lecture-two-bis-frobenius}
+
+\noindent
+This lecture was given on August 17, 2026.
+
+\begin{definition}
+\label{definition-distribution}
+A {\it distribution}, or
+{\it Pfaffian system}, on a manifold is a
+subbundle
+$$
+B\subset TM.
+$$
+\end{definition}
+
+Let
+$$
+\Pi:TM\longrightarrow TM/B
+$$
+be the quotient map. If $X$ and $Y$ are
+sections of $B$, then
+$$
+[fX,Y]=f[X,Y]-Y(f)X.
+$$
+It follows that $\Pi([X,Y])$ is
+$C^\infty(M)$-linear in both $X$ and $Y$.
+
+\begin{definition}
+\label{definition-frobenius-form}
+The resulting bundle map
+$$
+\Lambda^2B\longrightarrow TM/B
+$$
+is the {\it Frobenius bracket}, or
+{\it Frobenius form}, of $B$.
+\end{definition}
+
+\begin{definition}
+\label{definition-involutive-distribution}
+A distribution is {\it holonomic},
+{\it involutive}, or {\it integrable} if
+its Frobenius form vanishes.
+\end{definition}
+
+\medskip\noindent
+{\bf Submersions and foliations.}
+
+\begin{definition}
+\label{definition-submersion-immersion}
+A smooth map
+$$
+\pi:M\longrightarrow M'
+$$
+is a {\it submersion} if $d\pi$ is
+surjective at every point, and an
+{\it immersion} if $d\pi$ is injective at
+every point.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-submersion-local-form}
+Let $\pi:M\longrightarrow M'$ be a
+submersion. Every point of $M$ has a
+neighborhood $U$ isomorphic to a product
+$V\times W$ in such a way that
+$$
+\pi|_U:V\times W\longrightarrow W
+$$
+is the second projection.
+\end{proposition}
+
+\begin{proof}
+This is the local form supplied by the
+inverse function theorem.
+\end{proof}
+
+\begin{definition}
+\label{definition-vertical-tangent}
+The {\it vertical tangent bundle} of a
+submersion $\pi:M\longrightarrow M'$ is
+$$
+T_\pi M=\ker d\pi.
+$$
+\end{definition}
+
+\begin{theorem}[Ehresmann]
+\label{theorem-ehresmann-fibration}
+A smooth proper submersion is a locally
+trivial smooth fibration. In particular,
+this holds for a smooth submersion between
+compact manifolds.
+\end{theorem}
+
+\begin{theorem}[Frobenius]
+\label{theorem-frobenius}
+Let $B\subset TM$ be a subbundle. It is
+involutive if and only if every point has a
+neighborhood $U$ and a smooth submersion
+$$
+\pi:U\longrightarrow V
+$$
+such that
+$$
+B|_U=T_\pi U.
+$$
+\end{theorem}
+
+One implication is immediate from the local
+normal form for a submersion. The fibers of
+$\pi$ are the local integral submanifolds of
+$B$.
+
+\begin{definition}
+\label{definition-leaf-foliation}
+A {\it leaf} of $B$ is a maximal connected
+immersed submanifold tangent to $B$ at every
+point. If $B$ is integrable, its collection
+of leaves is the {\it foliation} associated
+with $B$.
+\end{definition}
+
+Leaves need not be closed. To prove the
+Frobenius theorem, it is enough to find an
+integral submanifold through every point;
+locally, the required submersion is then the
+projection to the leaf space.
+
+The problem was known as Pfaff's problem
+before Cartan used the name Frobenius theorem
+in 1922. Jacobi obtained an early weaker
+result in 1837, Deahna supplied an important
+technical argument in 1844, Clebsch treated
+the generic case in 1866, and Frobenius gave
+the general reformulation and solution in
+1877. A historical account appears in
+Thomas Hawkins's book on Frobenius in
+context. The mathematicians highlighted in
+the slides were Carl Gustav Jacobi
+(1804--1851), Alfred Clebsch (1833--1872),
+and Ferdinand Georg Frobenius (1849--1917).
+
+\medskip\noindent
+{\bf Ehresmann connections.}
+
+\begin{definition}
+\label{definition-ehresmann-connection}
+Let $\pi:M\longrightarrow Z$ be a smooth
+submersion. An {\it Ehresmann connection}
+is a subbundle $T_{\rm hor}M\subset TM$
+such that
+$$
+TM=T_{\rm hor}M\oplus T_\pi M.
+$$
+\end{definition}
+
+Given a path
+$$
+\gamma:[0,a]\longrightarrow Z,
+$$
+parallel transport for an Ehresmann
+connection is a smoothly varying family of
+diffeomorphisms
+$$
+V_t:\pi^{-1}(\gamma(0))
+\longrightarrow\pi^{-1}(\gamma(t))
+$$
+whose trajectories are tangent to
+$T_{\rm hor}M$.
+
+\begin{proposition}
+\label{proposition-ehresmann-transport}
+If $\pi$ is proper, parallel transport
+exists along every compact path.
+\end{proposition}
+
+\begin{proof}
+The horizontal lift is the solution of an
+ordinary differential equation. Compactness
+of the inverse image of the path prevents
+the solution from escaping in finite time.
+\end{proof}
+
+This also gives the standard proof of
+Theorem \ref{theorem-ehresmann-fibration}:
+parallel transport along short radial paths
+in a coordinate ball trivializes the
+submersion over that ball.
+
+\medskip\noindent
+{\bf Proof of the Frobenius theorem.}
+
+Suppose first that a Lie group $G$ acts on
+$M$ and its infinitesimal vector fields span
+a subbundle $B\subset TM$. The $G$-orbits
+are integral submanifolds, so $B$ is
+integrable. Also, if $X$ and $Y$ commute,
+their local flows commute. This can be seen
+in coordinates for which $X$ is a coordinate
+vector field.
+
+\begin{exercise}
+\label{exercise-commuting-flows}
+Prove that commuting vector fields have
+commuting local flows.
+\end{exercise}
+
+Thus it is enough to construct locally a
+basis of commuting vector fields for an
+involutive distribution $B$. Fix a point
+and choose a local submersion
+$$
+\sigma:M\longrightarrow M_1
+$$
+whose fibers are transverse to $B$. More
+explicitly, in local coordinates take a
+linear map to
+$\mathbb{R}^{\operatorname{rank}B}$ whose
+differential restricts to an isomorphism on
+$B$ at the chosen point. After shrinking,
+$$
+d\sigma|_{B_x}:B_x
+\longrightarrow T_{\sigma(x)}M_1
+$$
+is an isomorphism at every nearby point.
+
+A vector field $X$ is projectable under
+$\sigma$ if $d\sigma(X)$ is constant along
+the fibers of $\sigma$. Projectable vector
+fields are closed under the Lie bracket,
+and
+$$
+d\sigma([X,Y])
+=[d\sigma(X),d\sigma(Y)].
+$$
+Equivalently, if $\underline{X}$ is the
+projected vector field, then
+$$
+\mathcal{L}_X(\sigma^*f)
+=\sigma^*\mathcal{L}_{\underline{X}}f
+$$
+for every $f\in C^\infty(M_1)$.
+
+Let $\zeta_1,\ldots,\zeta_k$ be coordinate
+vector fields on $M_1$. There are unique
+fields $\xi_1,\ldots,\xi_k$ in $B$ with
+$$
+d\sigma(\xi_i)=\zeta_i.
+$$
+They form a local basis of $B$. Since $B$
+is involutive,
+$$
+[\xi_i,\xi_j]\in B.
+$$
+On the other hand,
+$$
+d\sigma([\xi_i,\xi_j])
+=[\zeta_i,\zeta_j]=0.
+$$
+The restriction of $d\sigma$ to $B$ is
+injective, so all these brackets vanish.
+The commuting flows define a local action
+whose orbits are the integral manifolds of
+$B$, proving the theorem.
+
+\section{Assignment 2: Frobenius form}
+\label{section-assignment-two-frobenius}
+
+\noindent
+This assignment was issued on August 17,
+2026, with the same submission and
+discussion rules as Assignment 1.
+
+\begin{exercise}
+\label{exercise-dense-torus-flow}
+Find a vector field on the two-dimensional
+torus $T^2$ such that every orbit of its
+flow is dense.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-bracket-growth}
+Construct a four-manifold $M$ and a rank
+two distribution $B\subset TM$ such that
+$[B,B]$ has rank three and $[[B,B],B]$ has
+rank four.
+\end{exercise}
+
+\begin{definition}
+\label{definition-contact-structure}
+A {\it contact structure} on a
+$(2n+1)$-dimensional manifold $M$ is a rank
+$2n$ distribution $B\subset TM$ for which
+$TM/B$ is a trivial line bundle and the
+Frobenius form
+$$
+\Lambda^2B\longrightarrow TM/B
+$$
+is nondegenerate.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-rescale-contact-form}
+Let $\theta$ be a one-form on a
+$(2n+1)$-dimensional manifold such that
+$$
+\theta\wedge(d\theta)^n
+$$
+is nondegenerate. Let $f$ be a nowhere
+vanishing smooth function and set
+$\theta'=f\theta$. Prove that
+$$
+\theta'\wedge(d\theta')^n
+$$
+is nondegenerate.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-kernel-contact}
+Let $\theta$ be a one-form on a
+$(2n+1)$-dimensional manifold such that
+$\theta\wedge(d\theta)^n$ is nondegenerate.
+Prove that
+$$
+\ker\theta\subset TM
+$$
+is a contact distribution.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-contact-defining-form}
+Let $M$ be an odd-dimensional manifold and
+let $B\subset TM$ be a contact distribution.
+Prove that there is a one-form $\theta$ such
+that
+$$
+B=\ker\theta
+$$
+and $\theta\wedge(d\theta)^n$ is
+nondegenerate.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-contact-sphere}
+Construct a contact structure on
+$S^{2n+1}$ for every positive integer $n$.
+\end{exercise}
+
+\section{Lecture 3: the
+Newlander--Nirenberg theorem}
+\label{section-lecture-three-newlander}
+
+\noindent
+This lecture was given on August 17, 2026.
+It begins with the real analytic manifolds,
+real structures, compatible coordinates,
+and complexifications constructed in
+Lecture 2.
+
+\begin{lemma}
+\label{lemma-holomorphic-real-locus}
+Let $X\subset\mathbb{C}^n$ be an open ball
+invariant under conjugation, and let
+$$
+X_{\mathbb{R}}=X\cap\mathbb{R}^n.
+$$
+A holomorphic tensor on $X$ which vanishes
+on $X_{\mathbb{R}}$ vanishes identically.
+\end{lemma}
+
+\begin{proof}
+Every holomorphic coefficient which vanishes
+on the real locus has all derivatives zero
+there. Its Taylor series therefore vanishes,
+and analytic continuation gives the result.
+\end{proof}
+
+\begin{definition}
+\label{definition-real-analytic-ac}
+An almost complex structure is
+{\it real analytic} if its defining
+endomorphism of $TM$ is a real analytic
+tensor.
+\end{definition}
+
+\begin{lemma}[Corollary]
+\label{lemma-complexified-ac-square}
+Let $(M,I)$ be a real analytic almost
+complex manifold. If $I_{\mathbb{C}}$ is
+the holomorphic extension of $I$ to a
+complexification, then
+$$
+I_{\mathbb{C}}^2
+=-\operatorname{Id}.
+$$
+\end{lemma}
+
+\begin{proof}
+The holomorphic tensor
+$$
+I_{\mathbb{C}}^2+
+\operatorname{Id}
+$$
+vanishes on the real locus, so Lemma
+\ref{lemma-holomorphic-real-locus} applies.
+\end{proof}
+
+\medskip\noindent
+{\bf The underlying real analytic
+manifold.}
+
+A holomorphic map between open subsets of
+$\mathbb{C}^n$ is real analytic when viewed
+as a map between open subsets of
+$\mathbb{R}^{2n}$. Indeed, its real and
+imaginary parts have convergent Taylor
+series in the real variables.
+
+\begin{definition}
+\label{definition-underlying-real-analytic}
+The {\it underlying real analytic manifold}
+$M_{\mathbb{R}}$ of a complex manifold $M$
+is the same manifold with its holomorphic
+transition functions viewed as real analytic
+maps.
+\end{definition}
+
+The real analytic functions on
+$M_{\mathbb{R}}$ are the convergent power
+series generated locally by holomorphic and
+antiholomorphic functions. In holomorphic
+coordinates, this is the same as taking
+convergent power series in the real and
+imaginary parts of the coordinates.
+
+\begin{definition}
+\label{definition-conjugate-manifold}
+The {\it complex conjugate manifold}
+$\overline{M}$ of $(M,I)$ is the same real
+manifold equipped with $-I$. Its holomorphic
+functions are the antiholomorphic functions
+on $M$.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-product-complexification}
+Let $M$ be a complex manifold. A
+complexification of its underlying real
+analytic manifold is
+$$
+M_{\mathbb{C}}=M\times\overline{M},
+$$
+with the real structure
+$$
+\tau(x,y)=(y,x).
+$$
+\end{proposition}
+
+\begin{proof}
+The fixed point set is the diagonal and is
+naturally identified with
+$M_{\mathbb{R}}$. Holomorphic functions from
+the first factor and antiholomorphic
+functions from the second restrict to the
+corresponding functions on the diagonal.
+Their convergent power series generate its
+sheaf of real analytic functions.
+\end{proof}
+
+\medskip\noindent
+{\bf Formal integrability.}
+
+Recall that a complex manifold and an
+integrable almost complex manifold are
+equivalent notions, as explained after
+Definition \ref{definition-integrable-ac}.
+
+\begin{definition}
+\label{definition-formally-integrable}
+Let
+$$
+TM\otimes_{\mathbb{R}}\mathbb{C}
+=T^{1,0}M\oplus T^{0,1}M
+$$
+be the Hodge decomposition of the
+complexified tangent bundle. The almost
+complex structure is
+{\it formally integrable} if
+$$
+[T^{1,0}M,T^{1,0}M]
+\subset T^{1,0}M.
+$$
+\end{definition}
+
+\begin{definition}
+\label{definition-nijenhuis-tensor}
+The Frobenius form of $T^{1,0}M$, viewed as
+a tensor measuring the component of
+$[T^{1,0}M,T^{1,0}M]$ in $T^{0,1}M$, is the
+{\it Nijenhuis tensor}.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-integrable-formal}
+Every integrable almost complex structure is
+formally integrable.
+\end{proposition}
+
+\begin{proof}
+In holomorphic coordinates,
+$T^{1,0}M$ is generated by the commuting
+fields
+$$
+\frac{\partial}{\partial z_1},\ldots,
+\frac{\partial}{\partial z_n}.
+$$
+Its Frobenius form therefore vanishes.
+\end{proof}
+
+\begin{theorem}[Newlander--Nirenberg]
+\label{theorem-newlander-nirenberg}
+An almost complex structure is integrable
+if and only if it is formally integrable.
+\end{theorem}
+
+The name Nijenhuis tensor originates in a
+1955 paper of Jan Schouten and Kentaro Yano
+on the geometric meaning of its vanishing.
+The slides also highlighted Albert Nijenhuis.
+The real analytic version of the theorem was
+proved in 1951 by Beno Eckmann and Alfred
+Fr\"olicher. The latter surname is often
+incorrectly written with an additional
+letter.
+
+The smooth theorem appeared in the sole
+paper of August Newlander, written jointly
+with Louis Nirenberg and published in 1957.
+In a later interview Nirenberg recalled that
+Andr\'e Weil and Shiing-Shen Chern drew his
+attention to the problem. The task was to
+recognize Cauchy--Riemann operators in
+arbitrary coordinates. The first approach
+removed error terms one at a time and worked
+in complex dimension two, but failed in
+higher dimensions. The eventual proof used
+a fully nonlinear change of variables to
+remove all error terms simultaneously.
+
+\medskip\noindent
+{\bf The real analytic case.}
+
+Let $(M,I)$ be real analytic and formally
+integrable. Extend $I$ holomorphically to a
+complexification $M_{\mathbb{C}}$. After
+shrinking, Lemma
+\ref{lemma-complexified-ac-square} gives a
+holomorphic decomposition
+$$
+TM_{\mathbb{C}}
+=T^{1,0}M_{\mathbb{C}}
+\oplus T^{0,1}M_{\mathbb{C}}.
+$$
+Formal integrability on the real locus and
+Lemma \ref{lemma-holomorphic-real-locus}
+show that both distributions are involutive
+near that locus. The Frobenius theorem gives
+their $(1,0)$ and $(0,1)$ foliations.
+
+When $I$ is already integrable, one may use
+the complexification
+$$
+M_{\mathbb{C}}=M\times\overline{M}.
+$$
+If $\pi$ and $\overline{\pi}$ are the two
+projections, the fibers of
+$\overline{\pi}$ are the $(1,0)$ leaves and
+the fibers of $\pi$ are the $(0,1)$ leaves.
+Along the diagonal, this splitting is the
+usual Hodge splitting. It follows in
+particular that an integrable almost complex
+structure is real analytic with respect to
+its underlying real analytic atlas.
+
+Holomorphic functions on
+$M_{\mathbb{C}}$ which are constant along
+the $(0,1)$ leaves restrict to holomorphic
+functions on $(M,I)$, because their
+differentials vanish in every $(0,1)$
+direction.
+
+\begin{theorem}
+\label{theorem-real-analytic-newlander}
+Every real analytic, formally integrable
+almost complex structure is integrable.
+\end{theorem}
+
+\begin{proof}
+The two foliations above are transverse.
+Consequently, the complexification is
+locally a product of their leaf spaces,
+say
+$$
+M_{\mathbb{C}}=M'\times M''.
+$$
+Functions on $M'$ lift to functions on the
+product which are constant along the
+$(0,1)$ leaves. Choose
+$$
+n=\frac{1}{2}\dim_{\mathbb{R}}M
+$$
+such functions $f_1,\ldots,f_n$ whose
+differentials are linearly independent at a
+given point. Their restrictions to $M$ are
+holomorphic. The inverse function theorem
+shows that they form local complex
+coordinates, and their transition functions
+are holomorphic by construction.
+\end{proof}
+
+\section{Lecture 4: K\"ahler manifolds}
+\label{section-lecture-four-kahler}
+
+\noindent
+Note: in this lecture we proved
+the existence on Fubini-Study metric
+on $\mathbb{C}P^n$ (and apparently also
+in any symmetric space)
+using $U(n+1)$-invariance.
+Namely, a theorem states that there
+is a bijection between $G$-invariant
+metrics on $M$ and
+$\operatorname{St}_x(G)$-invariant
+metrics on $T_xM$.
+
+For symmetric spaces, there are no
+odd invariant tensors,
+but $d \omega$ would be such.
+And thus $\omega$ is closed.
+
+We also proved that a complex
+submanifold of a Kähler manifold is also
+Kähler.
+
+\medskip\noindent
+{\bf }This lecture was given on August 21, 2026.
+
+\medskip\noindent
+{\bf Homogeneous spaces.}
+
+\begin{definition}
+\label{definition-lie-group-action}
+A {\it Lie group} is a smooth manifold with
+a group structure for which multiplication
+and inversion are smooth. A
+{\it smooth action} of a Lie group $G$ on a
+manifold $M$ is a smooth map
+$$
+G\times M\longrightarrow M
+$$
+which is a group action.
+\end{definition}
+
+\begin{definition}
+\label{definition-homogeneous-space}
+A $G$-manifold $M$ is a
+{\it homogeneous space} if the action is
+transitive. For $x\in M$, the
+{\it stabilizer}, or
+{\it isotropy subgroup}, is
+$$
+\operatorname{Stab}_x(G)
+=\{g\in G\mid g(x)=x\}.
+$$
+\end{definition}
+
+\begin{proposition}
+\label{proposition-homogeneous-quotient}
+If $G$ acts transitively on $M$, then
+$$
+M\cong G/H,
+$$
+where $H=\operatorname{Stab}_x(G)$ for any
+chosen point $x\in M$.
+\end{proposition}
+
+\begin{proof}
+The surjective orbit map
+$$
+G\longrightarrow M,
+\qquad
+g\longmapsto g(x),
+$$
+has fibers equal to the left cosets of $H$.
+\end{proof}
+
+If $g(x)=y$, the stabilizers of $x$ and $y$
+are conjugate.
+
+\begin{definition}
+\label{definition-isotropy-representation}
+The {\it isotropy representation} at
+$x\in G/H$ is the natural action of
+$\operatorname{Stab}_x(G)$ on $T_xM$.
+\end{definition}
+
+\begin{definition}
+\label{definition-invariant-tensor}
+A tensor on a homogeneous space $G/H$ is
+{\it invariant} if it is preserved by the
+diffeomorphisms induced by all elements of
+$G$.
+\end{definition}
+
+An isotropy-invariant tensor $\Phi_x$ on
+$T_xM$ can be transported to any
+$y=g(x)$ by the action of $g$. This is
+independent of the choice of $g$, because
+two choices differ by an element of the
+stabilizer.
+
+\begin{theorem}
+\label{theorem-invariant-isotropy-tensors}
+For a homogeneous space $M=G/H$, invariant
+tensors on $M$ are in bijection with
+isotropy-invariant tensors on $T_xM$.
+\end{theorem}
+
+\medskip\noindent
+{\bf Hermitian and K\"ahler manifolds.}
+
+\begin{definition}
+\label{definition-hermitian-metric-manifold}
+A Riemannian metric $g$ on an almost complex
+manifold is {\it Hermitian} if
+$$
+g(IX,IY)=g(X,Y).
+$$
+\end{definition}
+
+Every Riemannian metric $g$ produces a
+Hermitian metric
+$$
+h(X,Y)=g(X,Y)+g(IX,IY).
+$$
+
+\begin{definition}
+\label{definition-hermitian-form-manifold}
+The {\it Hermitian form} of an almost
+Hermitian manifold $(M,I,g)$ is
+$$
+\omega(X,Y)=g(X,IY).
+$$
+\end{definition}
+
+The Hermitian form is skew-symmetric and
+has Hodge type $(1,1)$. As in the vector
+space case, any two members of
+$(I,g,\omega)$ determine the third.
+
+\begin{definition}
+\label{definition-kahler-manifold}
+A complex Hermitian manifold $(M,I,g)$ is
+{\it K\"ahler} if its Hermitian form is
+closed. In this case $\omega$ is the
+{\it K\"ahler form}, and
+$$
+[\omega]\in H^2(M,\mathbb{R})
+$$
+is its {\it K\"ahler class}.
+\end{definition}
+
+The slides recalled Erich K\"ahler
+(1906--2000) and Andr\'e Weil
+(1906--1998), including a childhood
+photograph of Andr\'e with Simone Weil.
+
+\medskip\noindent
+{\bf Invariant metrics.}
+
+\begin{theorem}
+\label{theorem-transitive-sphere-form}
+Let $G$ act linearly on $V$ and transitively
+on the unit sphere of a positive definite
+quadratic form $g$. Every $G$-invariant
+symmetric bilinear form on $V$ is a scalar
+multiple of $g$.
+\end{theorem}
+
+\begin{proof}
+The form $g$ is invariant because $G$
+preserves its unit sphere. If $g'$ is
+another invariant quadratic form, then
+$$
+x\longmapsto\frac{g'(x,x)}{g(x,x)}
+$$
+is constant on the unit sphere by
+transitivity and invariant under nonzero
+real scaling. It is therefore constant on
+$V\setminus\{0\}$.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-transitive-irreducible}
+Let $V$ be a representation of $G$. Suppose
+that $G$ acts transitively on a sphere in
+$V$. Prove that $V$ is irreducible.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-real-schur-form}
+Prove the following real form of Schur's
+lemma. If $V$ is an irreducible real
+representation of $G$ and $g$ is an
+invariant positive definite symmetric
+bilinear form, then every invariant
+symmetric bilinear form is proportional to
+$g$.
+\end{exercise}
+
+\medskip\noindent
+{\bf The Fubini--Study metric.}
+
+The unitary group $U(n+1)$ acts transitively
+on $\mathbb{C}P^n$, and the stabilizer of a
+point is $U(n)\times U(1)$.
+
+\begin{theorem}
+\label{theorem-fubini-study}
+There is a $U(n+1)$-invariant Riemannian
+metric on $\mathbb{C}P^n$. It is unique up
+to a positive scalar and is K\"ahler.
+\end{theorem}
+
+\begin{proof}
+At a point, the tangent space is the standard
+representation of $U(n)$. Its standard
+positive form is isotropy invariant and
+therefore extends to an invariant metric by
+Theorem
+\ref{theorem-invariant-isotropy-tensors}.
+The isotropy group acts transitively on the
+unit sphere, so uniqueness follows from
+Theorem \ref{theorem-transitive-sphere-form}.
+
+Let $\omega$ be the Hermitian form of this
+metric. The three-form $d\omega$ is
+isotropy invariant. Since the isotropy group
+contains $-\operatorname{Id}$, every
+invariant tensor of odd covariant degree
+vanishes. Thus $d\omega=0$.
+\end{proof}
+
+\begin{definition}
+\label{definition-fubini-study}
+The invariant metric in Theorem
+\ref{theorem-fubini-study} is the
+{\it Fubini--Study metric}; its Hermitian
+form is the {\it Fubini--Study form}.
+\end{definition}
+
+\medskip\noindent
+{\bf Projective manifolds.}
+
+\begin{definition}
+\label{definition-complex-submanifold}
+A smooth submanifold $X\subset M$ of a
+complex manifold is a
+{\it complex submanifold} if
+$$
+I(TX)\subset TX.
+$$
+The inclusion is then a
+{\it complex embedding}.
+\end{definition}
+
+\begin{definition}
+\label{definition-projective-manifold}
+A complex manifold is {\it projective} if
+it admits a complex embedding into some
+$\mathbb{C}P^n$.
+\end{definition}
+
+A complex submanifold of a K\"ahler manifold
+is K\"ahler: restrict both the Hermitian
+metric and its closed Hermitian form. Hence
+every projective manifold is K\"ahler.
+
+\begin{definition}
+\label{definition-projective-algebraic}
+A subvariety of $\mathbb{C}P^n$ is
+{\it complex algebraic} if it is the common
+zero locus of homogeneous polynomials.
+\end{definition}
+
+\begin{theorem}[Chow]
+\label{theorem-chow-projective}
+Every complex submanifold of
+$\mathbb{C}P^n$ is complex algebraic.
+\end{theorem}
+
+\begin{definition}
+\label{definition-integral-kahler-class}
+A K\"ahler manifold has an
+{\it integral K\"ahler class} if its K\"ahler
+class lies in the image of
+$$
+H^2(M,\mathbb{Z})
+\longrightarrow H^2(M,\mathbb{R}).
+$$
+\end{definition}
+
+Since
+$$
+H^2(\mathbb{C}P^n,\mathbb{R})
+\cong\mathbb{R},
+$$
+the Fubini--Study form can be scaled to
+have integral cohomology class. Its
+restriction shows that every projective
+manifold has a K\"ahler metric with integral
+K\"ahler class.
+
+\begin{theorem}[Kodaira embedding]
+\label{theorem-kodaira-embedding}
+Every compact K\"ahler manifold with an
+integral K\"ahler class is projective.
+\end{theorem}
+
+The slides conclude with the hierarchy of
+classes of almost complex manifolds. Every
+projective manifold is both K\"ahler and
+Moishezon. Every K\"ahler manifold is both
+complex and symplectic. Every Moishezon
+manifold is complex. Finally, complex and
+symplectic manifolds both carry almost
+complex structures. The slides refer to
+Moishezon manifolds as algebraic spaces.
+
+\section{Lecture 5: the Levi--Civita
+connection}
+\label{section-lecture-five-levi-civita}
+
+\noindent
+This lecture was given on August 21, 2026.
+
+\medskip\noindent
+{\bf Connections and parallel transport.}
+
+\begin{definition}
+\label{definition-vector-bundle-connection}
+A {\it connection} on a vector bundle $B$
+over $M$ is an operator
+$$
+\nabla:\Gamma(B)
+\longrightarrow
+\Gamma(B\otimes\Lambda^1M)
+$$
+satisfying
+$$
+\nabla(fb)=b\otimes df+f\nabla b.
+$$
+For a vector field $X$, contraction with
+$X$ gives the covariant derivative
+$\nabla_Xb$.
+\end{definition}
+
+A connection on $B$ induces a connection on
+$B^*$, characterized by
+$$
+\begin{aligned}
+d\left\langle{}b,\beta\right\rangle{}
+&=\left\langle{}\nabla b,
+\beta\right\rangle{}\\
+&\quad+
+\left\langle{}b,
+\nabla\beta\right\rangle{}.
+\end{aligned}
+$$
+The same symbol $\nabla$ is conventionally
+used for both. The Leibniz rule
+$$
+\begin{aligned}
+\nabla(b_1\otimes b_2)
+&=(\nabla b_1)\otimes b_2\\
+&\quad+b_1\otimes\nabla b_2
+\end{aligned}
+$$
+then defines connections on all tensor
+bundles built from $B$ and $B^*$.
+
+\begin{theorem}
+\label{theorem-parallel-section-line}
+Let $B$ be a vector bundle with connection
+over the real line. For each $x$ and each
+$b_x\in B_x$, there is a unique parallel
+section $b$ satisfying
+$$
+\nabla b=0,
+\qquad
+b|_x=b_x.
+$$
+\end{theorem}
+
+\begin{proof}
+In a trivialization this is the existence
+and uniqueness theorem for the ordinary
+differential equation
+$$
+\frac{db}{dt}+A(t)b=0.
+$$
+\end{proof}
+
+\begin{definition}
+\label{definition-parallel-transport}
+Let
+$$
+\gamma:[0,1]\longrightarrow M
+$$
+be a smooth path from $x$ to $y$. The
+{\it parallel transport} of $b_x\in B_x$
+along $\gamma$ is the vector $b_y\in B_y$
+obtained by solving
+$$
+\nabla_{\dot\gamma}b=0,
+\qquad
+b(0)=b_x,
+$$
+and taking $b_y=b(1)$.
+\end{definition}
+
+\begin{definition}
+\label{definition-holonomy-group}
+The {\it holonomy group} of a connection at
+$x$ is the group of automorphisms of $B_x$
+obtained by parallel transport around all
+loops based at $x$.
+\end{definition}
+
+\medskip\noindent
+{\bf Lie algebras and tensors.}
+
+If $V$ is a representation of a Lie algebra
+$\mathfrak{g}$, then $V^*$ becomes a
+representation by
+$$
+\left\langle{}a(x),\lambda
+\right\rangle{}
+=-
+\left\langle{}x,a(\lambda)
+\right\rangle{}.
+$$
+Tensor products become representations by
+the Leibniz rule
+$$
+a(x\otimes y)
+=a(x)\otimes y+x\otimes a(y).
+$$
+Thus $\mathfrak{g}$ acts on all tensor
+powers of $V$ and $V^*$.
+
+\begin{definition}
+\label{definition-lie-preserves-tensor}
+The Lie algebra $\mathfrak{g}$
+{\it preserves a tensor} $\Phi$ if
+$$
+a(\Phi)=0
+$$
+for every $a\in\mathfrak{g}$.
+\end{definition}
+
+\begin{definition}
+\label{definition-orthogonal-lie-algebra}
+Let $h$ be a nondegenerate symmetric
+bilinear form on $V$. The
+{\it orthogonal Lie algebra}
+$\mathfrak{so}(V,h)$ consists of the
+endomorphisms $a$ satisfying
+$$
+h(a(x),y)=-h(x,a(y)).
+$$
+\end{definition}
+
+In an $h$-orthonormal basis these are the
+skew-symmetric matrices.
+
+\begin{proposition}
+\label{proposition-two-forms-so}
+Use $h$ to identify $V$ with $V^*$ and let
+$$
+\tau:V^*\otimes V^*
+\longrightarrow V^*\otimes V
+$$
+be the resulting isomorphism. Then
+$$
+\tau(\Lambda^2V^*)
+=\mathfrak{so}(V,h).
+$$
+\end{proposition}
+
+\begin{proof}
+The bilinear form corresponding to
+$a\in\operatorname{End}(V)$ is
+$$
+(x,y)\longmapsto h(a(x),y).
+$$
+It is skew-symmetric precisely when $a$
+satisfies the defining identity for
+$\mathfrak{so}(V,h)$.
+\end{proof}
+
+\begin{definition}
+\label{definition-parallel-tensor}
+A tensor $\Psi$ built from a vector bundle
+$B$ and its dual is {\it parallel}, or
+{\it preserved by $\nabla$}, if
+$$
+\nabla\Psi=0.
+$$
+\end{definition}
+
+This condition holds if and only if every
+parallel transport preserves $\Psi$.
+
+\begin{lemma}[Corollary]
+\label{lemma-parallel-holonomy}
+A tensor is parallel if and only if it is
+invariant under the holonomy group.
+\end{lemma}
+
+\begin{definition}
+\label{definition-orthogonal-connection}
+Let $h$ be a positive definite form on $B$.
+A connection is {\it orthogonal} if
+$$
+\nabla h=0.
+$$
+\end{definition}
+
+\begin{definition}
+\label{definition-unitary-connection}
+Let $(B,I,h)$ be a Hermitian vector bundle.
+A connection is {\it unitary}, or
+{\it Hermitian}, if
+$$
+\nabla I=0,
+\qquad
+\nabla h=0.
+$$
+\end{definition}
+
+\medskip\noindent
+{\bf Torsors and affine spaces.}
+
+\begin{definition}
+\label{definition-torsor}
+A {\it torsor} over a group $G$ is a set
+$X$ with a free and transitive $G$-action.
+\end{definition}
+
+\begin{definition}
+\label{definition-torsor-morphism}
+A {\it morphism of torsors} from
+$(X,G,\rho)$ to $(X',G',\rho')$ is a pair
+of maps
+$$
+\Psi_X:X\longrightarrow X',
+\qquad
+\Psi_G:G\longrightarrow G',
+$$
+where $\Psi_G$ is a homomorphism and
+$$
+\Psi_X(\rho(g,x))
+=\rho'(\Psi_G(g),\Psi_X(x)).
+$$
+\end{definition}
+
+These objects and morphisms form the
+category of torsors.
+
+\begin{definition}
+\label{definition-affine-space}
+An {\it affine space} is a torsor over a
+vector space $V$. The vector space $V$ is
+its {\it linearization}.
+\end{definition}
+
+If $\nabla$ and $\nabla_1$ are connections
+on $B$, their difference is an
+$\operatorname{End}(B)$-valued one-form.
+Conversely, adding any
+$$
+A\in\Lambda^1M\otimes
+\operatorname{End}(B)
+$$
+to a connection produces another
+connection. Hence the space of connections
+on $B$ is an affine space over
+$$
+\Lambda^1M\otimes\operatorname{End}(B).
+$$
+
+\begin{proposition}
+\label{proposition-affine-orthogonal}
+Let $B$ carry a scalar product. The space of
+orthogonal connections on $B$ is an affine
+space over
+$$
+\Lambda^1M\otimes\mathfrak{so}(B).
+$$
+\end{proposition}
+
+\begin{proof}
+The difference $A$ of two connections acts
+on a bilinear form $h$ by
+$$
+\begin{aligned}
+(A(h))(x,y)
+&=-h(A(x),y)\\
+&\quad-h(x,A(y)).
+\end{aligned}
+$$
+Thus two orthogonal connections differ by a
+one-form with values in
+$\mathfrak{so}(B)$, and every such change
+preserves orthogonality.
+\end{proof}
+
+More generally, let $B$ carry a tensor
+$\Phi$ and let
+$$
+\mathfrak{g}\subset\operatorname{End}(B)
+$$
+be the Lie algebra preserving $\Phi$. The
+space of connections preserving $\Phi$ is
+an affine space over
+$$
+\Lambda^1M\otimes\mathfrak{g}.
+$$
+
+\medskip\noindent
+{\bf The de Rham differential.}
+
+\begin{definition}
+\label{definition-de-rham-algebra-course}
+The {\it de Rham algebra} of $M$ is the
+graded algebra
+$$
+\Lambda^*M
+=\Gamma(\Lambda^*T^*M)
+$$
+with the wedge product. Its degree $i$
+elements are the
+{\it differential $i$-forms}.
+\end{definition}
+
+In degree zero one has
+$$
+\Lambda^0M=C^\infty(M).
+$$
+
+\begin{theorem}
+\label{theorem-de-rham-characterization}
+There is a unique sequence of operators
+$$
+C^\infty(M)\xrightarrow{d}\Lambda^1M
+\xrightarrow{d}\Lambda^2M
+\xrightarrow{d}\cdots
+$$
+such that $d$ is the ordinary differential
+on functions, $d^2=0$, and, for a form
+$\eta$ of degree $p$,
+$$
+d(\eta\wedge\xi)
+=d\eta\wedge\xi
++(-1)^p\eta\wedge d\xi.
+$$
+\end{theorem}
+
+\begin{definition}
+\label{definition-de-rham-differential}
+The operator $d$ in Theorem
+\ref{theorem-de-rham-characterization} is
+the {\it de Rham differential}.
+\end{definition}
+
+\begin{proposition}[Cartan formula]
+\label{proposition-cartan-one-form}
+For a one-form $\eta$ and vector fields
+$X,Y$, one has
+$$
+\begin{aligned}
+d\eta(X,Y)
+&=\mathcal{L}_X(\eta(Y))\\
+&\quad-\mathcal{L}_Y(\eta(X))\\
+&\quad-\eta([X,Y]).
+\end{aligned}
+$$
+\end{proposition}
+
+\begin{proof}
+The right hand side is alternating and
+satisfies the Leibniz rule in $\eta$. It
+vanishes when $\eta=df$, because
+$$
+\mathcal{L}_{[X,Y]}f
+=\mathcal{L}_X\mathcal{L}_Yf
+-\mathcal{L}_Y\mathcal{L}_Xf.
+$$
+These properties identify it with the de
+Rham differential on one-forms.
+\end{proof}
+
+\medskip\noindent
+{\bf Torsion.}
+
+\begin{definition}
+\label{definition-torsion-vector}
+Let $\nabla$ be a connection on $TM$. Its
+{\it torsion} is the tensor
+$$
+T_\nabla(X,Y)
+=\nabla_XY-\nabla_YX-[X,Y].
+$$
+\end{definition}
+
+The induced connection on $T^*M$ gives a
+bundle map
+$$
+\operatorname{Alt}\circ\nabla:
+\Lambda^1M\longrightarrow\Lambda^2M.
+$$
+Cartan's formula gives
+$$
+\begin{aligned}
+(d\eta-&\operatorname{Alt}
+\circ\nabla\eta)(X,Y)\\
+&=\eta(T_\nabla(X,Y)).
+\end{aligned}
+$$
+Thus the operator
+$$
+d-\operatorname{Alt}\circ\nabla
+$$
+on one-forms is dual to the usual
+vector-valued torsion tensor. In particular,
+it is $C^\infty(M)$-linear.
+
+\begin{definition}
+\label{definition-levi-civita}
+Let $(M,g)$ be a Riemannian manifold. A
+connection on $TM$ is
+{\it Levi--Civita} if it is orthogonal and
+torsion-free.
+\end{definition}
+
+\begin{theorem}
+\label{theorem-fundamental-riemannian}
+Every Riemannian manifold has a unique
+Levi--Civita connection.
+\end{theorem}
+
+The slides recalled Gregorio
+Ricci-Curbastro (1853--1925) and his former
+student Tullio Levi-Civita (1873--1941).
+Their joint work pioneered tensor calculus.
+Ricci-Curbastro signed that publication with
+the shortened surname Ricci, a convention
+which has caused some later confusion.
+
+\medskip\noindent
+{\bf Linearized torsion.}
+
+The space of all connections is affine, and
+torsion is an affine map from this space to
+$$
+\Lambda^2M\otimes TM.
+$$
+If a connection is changed by
+$$
+A\in\Lambda^1M\otimes
+\operatorname{End}(TM),
+$$
+its torsion changes by the
+antisymmetrization
+$$
+\begin{aligned}
+\operatorname{Alt}_{12}(A)(X,Y)
+&=A(X)Y-A(Y)X.
+\end{aligned}
+$$
+
+\begin{definition}
+\label{definition-linearized-torsion}
+The {\it linearized torsion} is the map
+$$
+\begin{aligned}
+T_{\rm lin}:\Lambda^1M\otimes
+\operatorname{End}(TM)
+&\longrightarrow
+\Lambda^2M\otimes TM,\\
+A&\longmapsto
+\operatorname{Alt}_{12}(A).
+\end{aligned}
+$$
+\end{definition}
+
+\begin{proposition}
+\label{proposition-orthogonal-exists}
+Every vector bundle with a scalar product
+admits an orthogonal connection.
+\end{proposition}
+
+\begin{proof}
+Choose a trivializing cover with local
+orthonormal frames, and on each member choose
+a connection preserving its frame. A
+partition of unity gives an affine
+combination of these local connections. The
+result is a global orthogonal connection.
+\end{proof}
+
+\begin{proof}[Proof of Theorem
+\ref{theorem-fundamental-riemannian}]
+Choose an orthogonal connection $\nabla_0$.
+By Proposition
+\ref{proposition-affine-orthogonal}, the
+space of orthogonal connections is affine
+over
+$$
+\Lambda^1M\otimes\mathfrak{so}(TM).
+$$
+The metric identifies this bundle with
+$$
+\Lambda^1M\otimes\Lambda^2M.
+$$
+On this affine subspace, the linearized
+torsion is
+$$
+\begin{aligned}
+T_{\rm lin}:\Lambda^1M\otimes\Lambda^2M
+&\longrightarrow
+\Lambda^2M\otimes\Lambda^1M,\\
+A&\longmapsto
+\operatorname{Alt}_{12}(A).
+\end{aligned}
+$$
+It is an isomorphism. The two bundles have
+the same rank, so it is enough to prove
+injectivity. In covariant form, an element
+of the kernel is symmetric in its first two
+arguments and skew-symmetric in its last
+two. Successive exchanges of adjacent
+arguments show that it equals its own
+negative, so it vanishes.
+
+It follows that an orthogonal connection is
+uniquely determined by its torsion. In
+particular,
+$$
+\nabla
+=\nabla_0
+-T_{\rm lin}^{-1}(T_{\nabla_0})
+$$
+is the unique orthogonal connection with
+zero torsion.
+\end{proof}
 
 \end{document}
