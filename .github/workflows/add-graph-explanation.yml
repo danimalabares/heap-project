@@ -10,7 +10,6 @@ permissions:
 
 jobs:
   edit-notes:
-    if: github.event.head_commit.message == 'Add graph explanation edit workflow'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,10 +29,10 @@ T^{0,1}_\phi
 =\{v+\phi(v):v\in T^{0,1}X\}.
 $$
 '''
+          if r'projection $\pi_W:E\longrightarrow W$' in text:
+              raise SystemExit(0)
           if marker not in text:
               raise SystemExit('Insertion marker not found')
-          if r'projection $\pi_W:E\to W$' in text:
-              raise SystemExit('Graph explanation already present')
 
           addition = r'''
 Why does such a map really describe a deformation of the
@@ -99,5 +98,3 @@ relative to the original splitting.
           git diff --cached --quiet && exit 0
           git commit -m "Explain graph model for complex deformations"
           git push
-
-# trigger: second push after workflow installation
