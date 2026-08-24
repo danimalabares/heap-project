@@ -1,0 +1,84 @@
+name: Add Maurer-Cartan family clarification
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  edit-notes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Insert family clarification
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('deformations.tex')
+          text = path.read_text()
+
+          marker = r'''The deformation-theoretic meaning is particularly clear
+for a one-parameter deformation
+$$
+\phi(t)=t\phi_1+t^2\phi_2+t^3\phi_3+\cdots.
+$$
+'''
+
+          if r'Up to this point, $\phi$ has represented one single' in text:
+              raise SystemExit(0)
+          if marker not in text:
+              raise SystemExit('Insertion marker not found')
+
+          replacement = r'''Up to this point, $\phi$ has represented one single
+nearby complex structure: its graph is the deformed
+subbundle $T^{0,1}_\phi$. There has been no deformation
+parameter $t$ yet.
+
+To discuss first order, second order and lifting, we now
+make an additional choice: consider a one-parameter family
+of deformations passing through the original complex
+structure,
+$$
+t\longmapsto \phi_t,
+\qquad
+\phi_0=0.
+$$
+Thus we regard the family as a curve with values in the
+vector space
+$$
+A^{0,1}(T^{1,0}X)
+=\Gamma\!\left(\operatorname{Hom}
+(T^{0,1}X,T^{1,0}X)\right).
+$$
+If this family depends analytically on $t$, we may Taylor
+expand it at $t=0$. Absorbing the usual factorials into the
+coefficients, we write
+$$
+\phi(t)=t\phi_1+t^2\phi_2+t^3\phi_3+\cdots.
+$$
+In formal deformation theory we instead take such a formal
+power series as the object from the start. The condition
+$\phi(0)=0$ explains why there is no constant term: at
+$t=0$ we recover the original complex structure.
+
+The deformation-theoretic meaning is now particularly clear.
+'''
+
+          path.write_text(text.replace(marker, replacement, 1))
+          PY
+
+      - name: Commit the notes
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add deformations.tex
+          git diff --cached --quiet && exit 0
+          git commit -m "Clarify passage to one-parameter deformations"
+          git push
