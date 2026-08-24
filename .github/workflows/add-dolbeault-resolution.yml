@@ -1,18 +1,20 @@
 name: Add Dolbeault resolution explanation
 
 on:
-  push:
-    branches:
-      - main
+  issues:
+    types: [opened]
 
 permissions:
   contents: write
 
 jobs:
   edit-notes:
+    if: github.event.issue.title == 'TRIGGER DOLBEAULT NOTES EDIT'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Insert Dolbeault resolution explanation
         shell: bash
@@ -100,4 +102,4 @@ sheaf cohomology group $H^1(X,T_X)$.
           git add deformations.tex
           git diff --cached --quiet && exit 0
           git commit -m "Explain Dolbeault resolution for deformation classes"
-          git push
+          git push origin main
