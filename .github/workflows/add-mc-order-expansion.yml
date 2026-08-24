@@ -1,0 +1,118 @@
+name: Add Maurer-Cartan order expansion
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  edit-notes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Insert order-by-order expansion
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('deformations.tex')
+          text = path.read_text()
+
+          if r'\text{order }t:\quad \bar\partial\phi_1=0' in text:
+              raise SystemExit(0)
+
+          marker = r'''The deformation-theoretic meaning is particularly clear
+for a one-parameter deformation
+$$
+\phi(t)=t\phi_1+t^2\phi_2+t^3\phi_3+\cdots.
+$$
+Substitution into the Maurer--Cartan equation gives at
+first order
+$$
+\bar\partial\phi_1=0,
+$$
+while at second order it gives
+$$
+\bar\partial\phi_2
+=-\frac12[\phi_1,\phi_1].
+$$
+'''
+          if marker not in text:
+              raise SystemExit('Insertion marker not found')
+
+          replacement = r'''The deformation-theoretic meaning is particularly clear
+for a one-parameter deformation
+$$
+\phi(t)=t\phi_1+t^2\phi_2+t^3\phi_3+\cdots.
+$$
+Here ``first order'' means the coefficient of $t^1$ after
+expanding the Maurer--Cartan equation as a formal power
+series in $t$. Indeed,
+$$
+\bar\partial\phi(t)
+=t\bar\partial\phi_1+t^2\bar\partial\phi_2+\cdots,
+$$
+while bilinearity of the bracket gives
+$$
+[\phi(t),\phi(t)]
+=t^2[\phi_1,\phi_1]
++2t^3[\phi_1,\phi_2]+\cdots.
+$$
+Thus
+$$
+t\bar\partial\phi_1
++t^2\left(
+\bar\partial\phi_2+\frac12[\phi_1,\phi_1]
+\right)
++\cdots=0.
+$$
+A formal power series is zero if and only if each of its
+coefficients is zero. Hence
+$$
+\boxed{\text{order }t:\quad \bar\partial\phi_1=0}
+$$
+and
+$$
+\boxed{
+\text{order }t^2:\quad
+\bar\partial\phi_2+\frac12[\phi_1,\phi_1]=0.
+}
+$$
+Equivalently, working to first order means working modulo
+$t^2$. Then
+$$
+\phi(t)\equiv t\phi_1\pmod{t^2},
+$$
+and the bracket term disappears because it is already of
+order $t^2$. This is why first-order deformation theory is
+linear, whereas the first obstruction appears at second
+order.
+
+In particular, at first order
+$$
+\bar\partial\phi_1=0,
+$$
+while at second order
+$$
+\bar\partial\phi_2
+=-\frac12[\phi_1,\phi_1].
+$$
+'''
+
+          path.write_text(text.replace(marker, replacement, 1))
+          PY
+
+      - name: Commit the notes
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add deformations.tex
+          git diff --cached --quiet && exit 0
+          git commit -m "Explain order-by-order Maurer-Cartan expansion"
+          git push
