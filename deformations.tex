@@ -190,79 +190,228 @@ must be stated carefully in the paper.
 \end{remark}
 
 
-
-\section{Extensions}
-\label{section-extensions}
+\section{Structures over the dual numbers}
+\label{section-structures-dual-numbers}
 
 \noindent
-In this section I discuss extensions of rings
-and their geometric counterpart.
+Other than the contents of
+\cite[Chapter 1, Section 2]
+{Hartshorne-deformation}, which
+is most of the content of this section,
+let us recall from Ariel's
+lecture that he proved a proposition
+with 4 equivalent conditions
+for flatness over the dual numbers:
+being a free module, having
+$\operatorname{Tor}^1=0$, and two more
+involving annihilators.
 
 \begin{definition}
-\label{definition-extension}
-\begin{reference}
-\cite[p.7]{Sernesi-deformations}
-\end{reference}
-Let $A \to R$ be a ring homomorphism
-(i.e. $R$ is an $A$-algebra).
-An {\it $A$-extension of $R$ by $I$} is a
-short exact sequence
+\label{definition-dual-numbers-first-order}
+Let $k$ be a field. The \emph{ring of dual
+numbers over $k$} is
 $$
-\xymatrix{
-0\ar[r]
-&I\ar[r]
-&E\ar[r]^\varphi
-&R\ar[r]
-&0.
-}
+D=k[t]/(t^2).
 $$
-where $E$ is an $R'$-algebra
-and $\varphi$ is a morphism of $A$-algebras
-whose kernel is $I$.
-We also require that $I^2=(0)$;
-this condition implies that $I$ has the
-sturcture of $R$-module.
+A \emph{first-order deformation} of a
+structure over $k$ is a flat extension of
+that structure over $\operatorname{Spec}D$
+whose special fiber is the original
+structure.
 \end{definition}
 
-\begin{example}
-\label{example-dual-numbers-extension}
+\begin{lemma}
+\label{lemma-flatness-tor}
+Let $A$ be a noetherian ring and let $M$ be
+an $A$-module. Then $M$ is flat over $A$ if
+and only if
 $$
-\xymatrix{
-0\ar[r]
-&(\varepsilon)\ar[r]
-&A[\varepsilon]\ar[r]
-&A\ar[r]
-&0
-}
+\operatorname{Tor}^A_1(M,A/\mathfrak{p})=0
 $$
-where $A[\varepsilon]$ is the algebra of dual
-numbers over $A$.
-\end{example}
+for every prime ideal
+$\mathfrak{p}\subset A$.
+\end{lemma}
 
-\noindent
-Without explaining details,
-let me for now just say that there are
-notions of
-morphism of extensions, pushforward,
-pullbacks,
-and even a sum with makes the category of
-extensions of $A$-algebras $R$ by $I$,
-denoted by
-$\text{Ex}_A(R,I)$, an $R$-module. More
-precisely:
+\begin{lemma}
+\label{lemma-square-zero-flatness}
+Let $A'\to A$ be a surjective homomorphism
+of noetherian rings with square-zero kernel
+$J$. Let $M'$ be an $A'$-module and set
+$$
+M=M'\otimes_{A'}A.
+$$
+Then $M'$ is flat over $A'$ if and only if
+$M$ is flat over $A$ and the natural map
+$$
+M\otimes_AJ\longrightarrow M'
+$$
+is injective.
+\end{lemma}
 
-\begin{proposition}
-\label{proposition-extensions-are-module}
-\cite[Proposition
-1.1.4]{Sernesi-deformations}.
-\end{proposition}
+\begin{lemma}[Corollary]
+\label{lemma-dual-numbers-flatness}
+Let $M'$ be a $D$-module and set
+$M_0=M'/tM'$. Then $M'$ is flat over $D$
+if and only if the sequence
+$$
+0\longrightarrow M_0
+\xrightarrow{t}M'
+\longrightarrow M_0
+\longrightarrow 0
+$$
+is exact.
+\end{lemma}
 
-\noindent
-Next in line: define the first cotangent
-module
-(so that I may understand the grading of the
-first
-cotangent module of a SR ring…)
+\begin{definition}
+\label{definition-embedded-first-order}
+Let $X$ be a scheme over $k$ and let
+$Y\subset X$ be a closed subscheme. Set
+$$
+X'=X\times_k\operatorname{Spec}D.
+$$
+An \emph{embedded first-order deformation
+of $Y$ in $X$} is a closed subscheme
+$Y'\subset X'$ that is flat over $D$ and
+satisfies
+$$
+Y'\times_D k=Y.
+$$
+\end{definition}
+
+\begin{theorem}
+\label{theorem-affine-embedded-first-order}
+Let $X=\operatorname{Spec}B$, and suppose
+that $Y$ is defined by an ideal $I\subset B$.
+The embedded first-order deformations of
+$Y$ in $X$ are naturally classified by
+$$
+\operatorname{Hom}_B(I,B/I).
+$$
+The zero element corresponds to the trivial
+deformation defined by
+$$
+I'=I\oplus tI.
+$$
+\end{theorem}
+
+\begin{definition}
+\label{definition-normal-sheaf}
+Let $Y\subset X$ have ideal sheaf
+$\mathcal{I}$. The \emph{normal sheaf of
+$Y$ in $X$} is
+$$
+\mathcal{N}_{Y/X}
+=
+\mathcal{H}om_{\mathcal{O}_Y}
+(\mathcal{I}/\mathcal{I}^2,
+\mathcal{O}_Y).
+$$
+If $X$ is nonsingular and $Y$ is a local
+complete intersection, this locally free
+sheaf is the \emph{normal bundle of $Y$ in
+$X$}.
+\end{definition}
+
+\begin{theorem}
+\label{theorem-embedded-first-order}
+Let $X$ be a scheme over $k$, and let
+$Y\subset X$ be a closed subscheme. The
+embedded first-order deformations of $Y$ in
+$X$ are naturally classified by
+$$
+H^0(Y,\mathcal{N}_{Y/X}).
+$$
+The zero element corresponds to the trivial
+deformation.
+\end{theorem}
+
+\begin{lemma}[Corollary]
+\label{lemma-hilbert-tangent-first-order}
+Let $Y\subset\mathbb{P}^n_k$ be a closed
+subscheme, and let $y$ be the corresponding
+point of the Hilbert scheme. Then
+$$
+T_y\operatorname{Hilb}(\mathbb{P}^n_k)
+\cong
+H^0(Y,\mathcal{N}_{Y/\mathbb{P}^n_k}).
+$$
+\end{lemma}
+
+\begin{definition}
+\label{definition-line-bundle-first-order}
+Let $L$ be an invertible sheaf on $X$. A
+\emph{first-order deformation of $L$} is an
+invertible sheaf $L'$ on
+$$
+X'=X\times_k\operatorname{Spec}D
+$$
+whose restriction to $X$ is isomorphic to
+$L$.
+\end{definition}
+
+\begin{theorem}
+\label{theorem-line-bundle-first-order}
+The isomorphism classes of first-order
+deformations of an invertible sheaf $L$ on
+$X$ are naturally classified by
+$$
+H^1(X,\mathcal{O}_X).
+$$
+The zero element corresponds to the trivial
+deformation.
+\end{theorem}
+
+\begin{definition}
+\label{definition-coherent-first-order}
+Let $F$ be a coherent sheaf on $X$. A
+\emph{first-order deformation of $F$} is a
+coherent sheaf $F'$ on
+$$
+X'=X\times_k\operatorname{Spec}D
+$$
+that is flat over $D$, together with a map
+$F'\to F$ inducing an isomorphism
+$$
+F'\otimes_D k\xrightarrow{\sim}F.
+$$
+Two deformations are \emph{equivalent} if
+there is an isomorphism between them that is
+compatible with the maps to $F$.
+\end{definition}
+
+\begin{theorem}
+\label{theorem-coherent-first-order}
+The equivalence classes of first-order
+deformations of a coherent sheaf $F$ on
+$X$ are naturally classified by
+$$
+\operatorname{Ext}^1_X(F,F).
+$$
+The zero element corresponds to the trivial
+deformation.
+\end{theorem}
+
+\begin{theorem}
+\label{theorem-unmarked-coherent-first-order}
+If the identification of the special fiber
+with $F$ is not specified, the isomorphism
+classes of first-order deformations are the
+orbits of $\operatorname{Ext}^1_X(F,F)$
+under the action of $\operatorname{Aut}F$.
+\end{theorem}
+
+\begin{lemma}[Corollary]
+\label{lemma-vector-bundle-first-order}
+Let $E$ be a vector bundle on $X$. Its
+first-order deformations are naturally
+classified by
+$$
+H^1(X,\mathcal{E}nd E).
+$$
+The zero element corresponds to the trivial
+deformation.
+\end{lemma}
+
 
 
 \section{Deformations of schemes}
@@ -1821,5 +1970,8 @@ Look for the ``Perfect obstruction theory''.
 This is used by Bruzzo for deformations of
 (super)stacks,
 work with E. Paiva and ---.
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
 
 \end{document}
