@@ -44,6 +44,7 @@ KNOWN_CHAPTERS = {
     "birational-maps-commutative-algebra",
     "cremona-transformations",
     "linguistics",
+    "16th-alga-meeting-2026",
 }
 
 
