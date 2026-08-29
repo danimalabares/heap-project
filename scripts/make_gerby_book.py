@@ -43,6 +43,7 @@ KNOWN_CHAPTERS = {
     "mumford-tate-groups-in-hodge-theory",
     "birational-maps-commutative-algebra",
     "cremona-transformations",
+    "linguistics",
 }
 
 
