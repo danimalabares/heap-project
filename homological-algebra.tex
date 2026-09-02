@@ -2753,10 +2753,519 @@ Example: $I = \mathbb{Q}$.
 \section{Projectives}
 \label{section-projectives}
 
+\noindent
+Projective objects have a lifting property
+dual to the extension property of injective
+objects. A morphism from a projective
+object to a quotient lifts to the object
+being quotiented. The lift need not be
+unique.
+
 \begin{definition}
 \label{definition-projective}
-
+Let $\mathcal{A}$ be an abelian category.
+An object $P$ of $\mathcal{A}$ is called
+{\it projective} if, for every epimorphism
+$f:A\to B$ and every morphism
+$\alpha:P\to B$, there is a morphism
+$\beta:P\to A$ such that
+$$
+\alpha=f\circ\beta.
+$$
+Thus there is a commutative diagram
+$$
+\xymatrix{
+A \ar[r]^f & B \ar[r] & 0 \\
+P \ar[u]^{\beta} \ar[ur]_{\alpha} &
+}
+$$
+for every such $f$ and $\alpha$.
 \end{definition}
+
+\begin{definition}
+\label{definition-projection-module}
+Let $R$ be a ring and let $F$ be an
+$R$-module. A {\it projection on $F$} is
+an endomorphism $\pi:F\to F$ satisfying
+$$
+\pi^2=\pi.
+$$
+\end{definition}
+
+\begin{lemma}
+\label{lemma-projection-decomposition}
+Let $\pi:F\to F$ be a projection on an
+$R$-module. Then
+$$
+F\cong\Ker(\pi)\oplus\Im(\pi).
+$$
+\end{lemma}
+
+\begin{proof}
+Set $K=\Ker(\pi)$ and $I=\Im(\pi)$.
+If $x\in K\cap I$, then $x=\pi(y)$ for
+some $y\in F$, and hence
+$$
+x=\pi(y)=\pi^2(y)=\pi(x)=0.
+$$
+On the other hand, every $x\in F$ has the
+decomposition
+$$
+x=\pi(x)+(x-\pi(x)),
+$$
+where the first summand belongs to $I$ and
+the second belongs to $K$.
+\end{proof}
+
+\begin{definition}
+\label{definition-projective-direct-summand}
+Let $R$ be a ring. A {\it projective
+$R$-module} is an $R$-module $P$ for which
+there are an $R$-module $C$, a free
+$R$-module $F$, and an isomorphism
+$$
+F\cong P\oplus C.
+$$
+\end{definition}
+
+\begin{lemma}[Corollary]
+\label{lemma-projection-projective}
+The kernel and image of a projection on a
+free $R$-module are projective
+$R$-modules.
+\end{lemma}
+
+\begin{proof}
+This follows from Lemma
+\ref{lemma-projection-decomposition}.
+\end{proof}
+
+\begin{example}
+\label{example-moebius-projective}
+Consider the ring
+$$
+R=
+\mathbb{R}[x,y]/(x^2+y^2-1)
+$$
+and the endomorphism of $R^2$ given by
+$$
+\pi
+=
+\frac{1}{2}
+\begin{pmatrix}
+1+x & y \\
+y & 1-x
+\end{pmatrix}.
+$$
+The relation in $R$ gives $\pi^2=\pi$.
+Consequently, $\Im(\pi)$ is a projective
+$R$-module.
+
+Geometrically, $R$ is the ring of
+polynomial functions on the real unit
+circle. At the point
+$$
+p(\theta)
+=
+(\cos(\theta),\sin(\theta)),
+$$
+the image of $\pi$ is the line spanned by
+$$
+(\cos(\theta/2),\sin(\theta/2)).
+$$
+As the point goes once around the circle,
+this line makes a half turn. Thus the
+module describes the sections of the
+Möbius line bundle.
+\end{example}
+
+\begin{lemma}
+\label{lemma-projective-module-object}
+An object of $\mathit{Mod}_R$ is projective
+in the sense of Definition
+\ref{definition-projective} if and only if
+it is a projective $R$-module in the sense
+of Definition
+\ref{definition-projective-direct-summand}.
+\end{lemma}
+
+\begin{proof}
+Suppose first that $P$ is projective as an
+object of $\mathit{Mod}_R$. Choose a free
+$R$-module $F$ with an epimorphism
+$f:F\to P$. The identity of $P$ lifts to
+a morphism $s:P\to F$ satisfying
+$$
+f\circ s=\operatorname{id}_P.
+$$
+In particular, $s$ is injective. If
+$K=\Ker(f)$, every $x\in F$ can be written
+uniquely as
+$$
+x=(x-s(f(x)))+s(f(x)),
+$$
+with the first summand in $K$ and the
+second in $s(P)$. Moreover,
+$K\cap s(P)=0$. Thus
+$$
+F\cong K\oplus P.
+$$
+
+Conversely, suppose that
+$F\cong P\oplus K$ for a free module $F$.
+Let $f:A\to B$ be an epimorphism and let
+$\alpha:P\to B$ be a morphism. Extend
+$\alpha$ to a morphism $F\to B$ by making
+it zero on $K$. A map from a free module
+lifts across every epimorphism: choose a
+basis of $F$ and a preimage in $A$ of the
+image of each basis element. Restricting
+such a lift $F\to A$ to $P$ gives the
+required lift of $\alpha$.
+\end{proof}
+
+\begin{definition}
+\label{definition-enough-projectives}
+An abelian category $\mathcal{A}$ has
+{\it enough projectives} if every object
+$A$ admits an epimorphism $P\to A$ from a
+projective object $P$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-modules-enough-projectives}
+For every ring $R$, the category
+$\mathit{Mod}_R$ has enough projectives.
+\end{lemma}
+
+\begin{proof}
+Every $R$-module is the quotient of a free
+$R$-module. Every free $R$-module is
+projective by Lemma
+\ref{lemma-projective-module-object}.
+\end{proof}
+
+\begin{definition}
+\label{definition-projective-resolution}
+Let $\mathcal{A}$ be an abelian category
+and let $A$ be an object of $\mathcal{A}$.
+A {\it projective resolution of $A$} is a
+chain complex $P_\bullet$ together with an
+augmentation $P_0\to A$ such that:
+\begin{enumerate}
+\item We have $P_n=0$ for $n<0$.
+\item Every $P_n$ is projective.
+\item The augmented complex
+$$
+\ldots\to P_2\to P_1\to P_0
+\to A\to 0
+$$
+is exact.
+\end{enumerate}
+Equivalently, $P_\bullet\to A[0]$ is a
+quasi-isomorphism.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-projective-resolutions-exist}
+If an abelian category $\mathcal{A}$ has
+enough projectives, then every object of
+$\mathcal{A}$ has a projective resolution.
+In particular, every $R$-module has a
+projective resolution.
+\end{lemma}
+
+\begin{proof}
+Choose an epimorphism $P_0\to A$ with
+$P_0$ projective. Next choose an
+epimorphism
+$$
+P_1\to\Ker(P_0\to A)
+$$
+with $P_1$ projective, and compose it with
+the inclusion into $P_0$. Continuing with
+the kernel at each stage produces an exact
+augmented complex
+$$
+\ldots\to P_2\to P_1\to P_0
+\to A\to 0.
+$$
+The last assertion follows from Lemma
+\ref{lemma-modules-enough-projectives}.
+\end{proof}
+
+\noindent
+Projective resolutions are the dual input
+to injective resolutions. If a right exact
+functor admits left derived functors, they
+are computed by applying the functor to a
+projective resolution and taking homology.
+
+\section{Group cohomology}
+\label{section-group-cohomology}
+
+\noindent
+We have considered the category
+$G$-mod $\sim$ $\mathbb{Z}G$-mod and the
+functor of $G$-invariants
+$$
+(-)^G : G\operatorname{-mod}
+\to
+\underline{\operatorname{Ab}}.
+$$
+this functor is left exact, and
+$\mathbb{Z}G$-mod has enough injectives,
+so we can construct right derived functors
+$$
+R^n(-)^G: G\operatorname{-mod}
+\to \underline{\operatorname{Ab}}.
+$$
+More generally, if $R$ is a ring and
+$M$ an $R$-module,
+$\Hom_R(M,-):R\operatorname{-mod}
+\to \underline{ \operatorname{Ab}}$,
+and 
+$[R^n\Hom_R(M,-)](A)$
+is called $\operatorname{Ext}^n_R(M,A)$.
+
+\begin{remark}
+\label{remark-hom-functor-contravariant}
+Fixing an $R$-module $N$,
+the functor
+$$
+\Hom_R(-,N):R\operatorname{-mod}
+\to \underline{\operatorname{Ab}}
+$$
+is a left exact (and contravariant)
+functor.
+\end{remark}
+
+\noindent
+So if $R$-mod has enough projectives
+(which it does) we can define left
+derived functors
+$$
+[L^n\Hom_R(-,N)](M).
+$$
+
+\begin{theorem}[Balancing]
+\label{theorem-balancing}
+$$
+[R^n\Hom_R(M,-)](N)
+\simeq
+[L^n\Hom_R(-,N)](M)
+$$
+and both equal
+$$
+\operatorname{Ext}^n_R(M,N).
+$$
+\end{theorem}
+
+\noindent
+We shall prove this theorem later.
+
+\medskip\noindent
+Back to group cohomology,
+$$
+R^n(-)^G](M)
+=
+\operatorname{Ext}^n_{\mathbb{Z} G}
+(\mathbb{Z},M).
+$$
+We can compute it by forming an injective
+resolution of $M$… OR (!)
+a projective resolution of $\mathbb{Z}$
+(which is better).
+
+
+
+\medskip\noindent
+{\bf The bar complex.}
+The projective resolution of $\mathbb{Z}$
+will be
+$$
+… \xrightarrow{d}P_2
+\xrightarrow{d}P_1
+\xrightarrow{d}P_0
+\xrightarrow{\varepsilon}
+\mathbb{Z}\to 0
+$$
+with $P_n=\mathbb{Z}G^{n+1}$
+as abelian group (free $\mathbb{Z}$-module).
+
+$G$-action on $\mathbb{Z}G^{n+1}$ is
+$$
+g(g_0,g_1,…,g_n)
+=
+(gg_0, g g_1,…,g g_n),
+$$
+extended $\mathbb{Z}$-linearly.
+
+The differential
+$$
+\mathbb{Z}G^{n+1}
+\xrightarrow{d}
+\mathbb{Z}G^n,
+$$
+$$
+d((g_0,g_1,…,g_n))
+=
+\sum_{i=0}^n
+(-1)^i(g_0,g_1,…,\widehat{g_i},…,g_n).
+$$
+So for example
+$$
+\begin{aligned}
+\mathbb{Z}G^2 &\longrightarrow \mathbb{Z}G \\
+(g_0,g_1) &\longmapsto g_1-g_0,
+\end{aligned}
+$$
+and
+$$
+\begin{aligned}
+\mathbb{Z}G^3 &\longrightarrow \mathbb{Z}G \\
+(g_0,g_1,g_2) &\longmapsto 
+(g_1,g_2)-(g_0,g_2)+(g_0,g_1).
+\end{aligned}
+$$
+The ``accumulation'' is
+$$
+\varepsilon:\mathbb{Z}G \to \mathbb{Z},
+\qquad 
+\varepsilon(g)=1 \quad \forall g \in G.
+$$
+\begin{exercise}
+\label{exercise-bar-complex}
+$d \circ d=0$.
+\end{exercise}
+
+\begin{remark}
+\label{remark-bar}
+Every $P_n$ is a free $\mathbb{Z}G$-module,
+and free modules are projective.
+Why is $\tilde{P}_\bullet$
+acyclic? We'll see soon.
+\end{remark}
+
+\noindent
+This leads to the following
+definition/theorem.
+
+\begin{definition}
+\label{definition-group-cohomology}
+Let $A$ be a $G$-module.
+We define
+$$
+C^n(G,A)
+=
+\{\varphi:G^n\to A\}
+$$
+(no restrictions whatsoever, the $\varphi$
+are just functions of sets).
+$C^n$ is an abelian group (by the addition
+of $A$). Let $C^n = C^n(G,A)$.
+Differentials
+$$
+0\to C^0
+\xrightarrow{d} C^1
+\xrightarrow{d} C^2
+\xrightarrow{d}…
+$$
+If $\varphi \in C^n$,
+$$
+[d\varphi](g_0,g_1,…,g_n)
+=
+g_0\varphi(g_1,g_2,…,g_n)
+-
+\sum_{i=a}^{n-1}
+(-1)^i
+\varphi(g_0|g_1|…g_{i-1}|g_ig_{i+1}|
+g_{i+2}|…g_n)
++(-1)^{n+1}\varphi(g_0|g_1|…|g_{n-1}).
+$$
+Let $Z^n=\ker d$,
+$B^n=\operatorname{Im}(d)$, since
+$d^2=0$,  $B^n \subset Z^n$.
+The group cohomology is
+$$
+H^n(G,A) = Z^n/B^n.
+$$
+\end{definition}
+
+\begin{exercise}
+\label{exercise-hom-group-cohom}
+$$
+\Hom_{\mathbb{Z}G}(P_n,A)
+=
+C^n(G,A).
+$$
+\end{exercise}
+
+\begin{theorem}
+\label{theorem-ext-group-cohom}
+$$
+\operatorname{Ext}^n_{\mathbb{Z}A}(\mathbb{Z},A)
+=
+H^n(G,A).
+$$
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item Resolve $\mathbb{Z}$ by 
+$P_{\bullet}$ (balancing says this is
+legit).
+
+\item Exercise says
+$$
+\operatorname{Ext}^n_{\mathbb{Z}G}(\mathbb{Z},A)
+=
+[L^n\Hom_{\mathbb{Z}G}(Z,-)](A)
+=
+\Hom_{\mathbb{Z}G}(P_n,A)
+=
+C^n(G,A).
+$$
+\item Remains to prove
+$$
+\tilde{P}_\bullet=P_\bullet
+\to \mathbb{Z}
+\xrightarrow{\varepsilon}0
+$$
+is acyclic. [Proof continued.]
+\end{enumerate}
+\end{proof}
+
+\noindent
+Unwrapping definitions we see that
+$$
+H^0(G,A) = A^G,
+$$
+$$
+H^1(G,A)
+=
+\frac{\{\varphi:G \to A:
+g\varphi(h)-\varphi(gh)
++\varphi(g)=0\}}{
+\varphi \operatorname{da}
+\operatorname{forma}
+\varphi(g)=ga-a}.
+$$
+The bar resolution is very big, its
+advantage is it works for all $G$.
+If I'm intersete in a specific $G$,
+maybe there exists a smaller resolution…
+
+\begin{example}
+\label{example-group-cohom-cyclic}
+Let $G = C_m \simeq \mathbb{Z}/m$
+be the cylcic group…
+\end{example}
+
+
+\noindent
+Anything else in this lecture?
+
 
 \section{Extensions}
 \label{section-extensions}
