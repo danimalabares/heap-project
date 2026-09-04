@@ -3509,8 +3509,712 @@ or pullback of the given short exact
 sequence.
 \end{proof}
 
+\section{Example: Group cohomology 4-sept}
+\label{section-group-cohomology-4-sept}
+
+\noindent
+What one would like to do is apply the LES of
+group cohomology to deduce vanishing of
+higher cohomology directly from exactness of
+$(-)^G$.
+Indeed if $V$ is a representation of $G$ one
+could consider an embedding $V \to I$ into an
+injective object in the category
+$\operatorname{Rep}_F(G)$ and corresponding
+quotient $Q=I/V$. The LES
+$$
+\xymatrix{
+H^1(G,V) \ar[r] & H^1(G,I)=0 \\
+0 \ar[r] & V^G \ar[r] & I^G \ar[r] & Q^G
+\ar@{-->}[ulll]^0
+}
+$$
+gives us the desired conclusion.
+
+\noindent
+This suggests two issues. Does
+$\operatorname{Rep}(G)$
+have enough injectives?
+Do the derived functors of $(-)^G$ computed
+within $\operatorname{Rep}(G)$ coincide with
+those computed in $G$-mod? A better version
+of
+the second question is whether an object of
+$\operatorname{Rep}(G)$ can be resolved by
+injectives in $\operatorname{Rep}(G)$
+which are
+also injective in $G$-mod.
+
+\noindent
+This is a good excuse to introduce a bit of
+abstract nonsense.
+
+\begin{proposition}
+\label{proposition-forgetful-4-sept}
+The forgetful functor
+$\operatorname{Rep}(G)\to\operatorname{Vec}$
+has a right adjoint.
+\end{proposition}
+
+\begin{proof}
+The right adjoint, explicitly, is the
+following
+so-called coinduction:
+$$
+\operatorname{Coind}(W)
+=
+\operatorname{Hom}_F(FG,W).
+$$
+The $G$-action is inherited from that on the
+first factor. More precisely, if
+$\varphi:FG\to W$, then $g\varphi$ is by
+definition the function $FG\to W$ defined by
+$$
+x\longmapsto\varphi(xg)
+$$
+for all $x\in FG$.
+
+\noindent
+Let
+$$
+f\in
+\operatorname{Hom}_{\operatorname{Rep}(G)}
+(M,\operatorname{Hom}_F(FG,W)),
+$$
+and denote $f(m)$ by $\varphi_m$. Then by
+evaluating $\varphi_m$ on $e\in FG$ we get an
+element $\varphi_m(e)\in W$, and this gives
+us
+a function $\overline{f}:M\to W$. In this way
+we have set up a function
+$$
+\operatorname{Hom}_{\operatorname{Rep}(G)}
+(M,\operatorname{Hom}_F(FG,W))
+\longrightarrow
+\operatorname{Hom}_F(M,W)
+$$
+by $f\longmapsto\overline{f}$. Note that
+$\overline{f}$, while linear in $m\in M$, is
+not necessarily compatible with the
+$G$-actions,
+so it lies in $\operatorname{Hom}_F(M,W)$
+rather than in
+$\operatorname{Hom}_{\operatorname{Rep}(G)}
+(M,W)$. Or even more precisely, it lies in
+$\operatorname{Hom}_{\operatorname{Rep}(G)}
+(F(M),W)$ where $F$ denotes the forgetful
+functor
+$$
+F:\operatorname{Rep}(G)\longrightarrow
+\operatorname{Vec}.
+$$
+
+\noindent
+To show that $\operatorname{Coind}$ is right
+adjoint to $F$ we have to show that the
+association set up above is an isomorphism,
+that is, that any linear map
+$\overline{f}:M\to W$ yields an
+$m\longmapsto\varphi_m$ as above. The
+construction is going to be
+$$
+\varphi_m(g)=\overline{f}(gm).
+$$
+\end{proof}
+
+\begin{proposition}
+\label{proposition-adjoint-exact-4-sept}
+An additive functor which is a right adjoint
+is
+left exact.
+\end{proposition}
+
+\begin{proof}
+Exercise.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-monos-4-sept}
+A left exact functor sends monomorphisms to
+monomorphisms.
+\end{proposition}
+
+\begin{proof}
+Exercise.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-adjoint-injective-4-sept}
+The right adjoint to an exact functor sends
+injective objects to injective objects.
+\end{proposition}
+
+\begin{proof}
+Exercise.
+\end{proof}
+
+\begin{lemma}[Corollary]
+\label{lemma-adjoint-injectives-4-sept}
+If $A\to B$ is an exact functor which has a
+right adjoint, and if $B$ has enough
+injectives,
+then $A$ has enough injectives.
+\end{lemma}
+
+\noindent
+Proof of Lemma 3.4.4. The following paragraph
+essentially replicates the proof of the
+corollary above. Let
+$$
+\operatorname{Coind}:\operatorname{Vec}
+\longrightarrow\operatorname{Rep}(G)
+$$
+denote the right adjoint to the forgetful
+functor
+$$
+\operatorname{Rep}(G)\longrightarrow
+\operatorname{Vec}.
+$$
+Here all vector spaces are over $F$, which we
+omit from the notation. Let
+$V\in\operatorname{Rep}(G)$ and consider its
+image in $\operatorname{Vec}$. We want to map
+it to some injective
+$I'\in\operatorname{Vec}$.
+Now, in $\operatorname{Vec}$ all objects are
+injective, so $I'=V$ will do. Now define
+$$
+I=\operatorname{Coind}(I'),
+$$
+which by the adjunction receives a morphism
+$V\to I$. The morphism is a monomorphism by
+Proposition \ref{proposition-monos-4-sept}.
+
+\noindent
+The next question is whether the injective
+$I$
+in $\operatorname{Rep}(G)$ is injective in
+$G$-mod. This is the content of the following
+proposition.
+
+\begin{proposition}
+\label{proposition-coind-injective-4-sept}
+Assume that $\operatorname{char}(F)=0$. For
+every $F$-vector space $W$, the module
+$$
+\operatorname{Coind}(W)
+=
+\operatorname{Hom}_F(FG,W)
+$$
+is injective in $G$-mod.
+\end{proposition}
+
+\begin{proof}
+We show that
+$$
+\operatorname{Hom}_{\mathbb{Z}G}
+(-,\operatorname{Coind}(W))
+$$
+is exact as a functor from $G$-mod to
+$\operatorname{Ab}$. By Exercise 3.2.5 this
+suffices.
+
+\noindent
+For any $M\in G$-mod we consider
+$$
+\beta_M:
+\operatorname{Hom}_{\mathbb{Z}G}
+(M,\operatorname{Hom}_F(FG,W))
+\longrightarrow
+\operatorname{Hom}_{\mathbb{Z}}(M,W)
+$$
+defined by
+$$
+\varphi\longmapsto
+\bigl[m\longmapsto\varphi(m)(1_{FG})\bigr].
+$$
+For its inverse we start with
+$$
+\operatorname{Hom}_{\mathbb{Z}G}
+(M,\operatorname{Hom}_{\mathbb{Z}}
+(\mathbb{Z}G,W))
+\longleftarrow
+\operatorname{Hom}_{\mathbb{Z}}(M,W)
+$$
+and the assignment
+$$
+\bigl[m\longmapsto
+\bigl[x\longmapsto
+\psi(x\mathbin{\cdot}m)\bigr]\bigr]
+\longleftarrow\psi.
+$$
+Since $W$ is a vector space, any
+$\mathbb{Z}$-linear map $\mathbb{Z}G\to W$
+extends in a unique way to an $F$-linear map
+$FG\to W$. So this inverse lands in the right
+place, and a simple calculation confirms it
+really is an inverse. Thus
+$$
+\operatorname{Hom}_{\mathbb{Z}G}
+(-,\operatorname{Coind}(W))
+\simeq
+\operatorname{Hom}_{\mathbb{Z}}(-,W).
+$$
+In more sophisticated language, $\beta$
+establishes a natural isomorphism between
+these
+two functors.
+
+\noindent
+But $\operatorname{Hom}_{\mathbb{Z}}(-,W)$ is
+exact because $W$, being a vector space over
+a
+field of characteristic zero, is a divisible
+abelian group, hence injective in
+$\operatorname{Ab}$. This proves that
+$\operatorname{Coind}(W)$ is injective in
+$G$-mod.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-vec-unnecessary-4-sept}
+The introduction of $\operatorname{Vec}$ in
+addition to $\operatorname{Rep}(G)$ and
+$G$-mod might seem unnecessary. Indeed let
+$$
+F:\operatorname{Rep}(G)\longrightarrow
+G\operatorname{-mod}
+$$
+be the forgetful functor, and let
+$$
+G=\operatorname{Hom}_{\mathbb{Z}G}(FG,-).
+$$
+Is $G$ right adjoint to $F$? If so, then we
+can
+produce injective resolutions of
+$V\in\operatorname{Rep}(G)$ by the corollary
+above. Now the question is whether such
+objects
+are injective in $G$-mod.
+\end{exercise}
+
+\begin{exercise}
+\label{exercise-adjoints-injective-4-sept}
+Let $F:\mathcal{A}\to\mathcal{B}$ be an exact
+functor, and let
+$G:\mathcal{B}\to\mathcal{A}$
+be a right adjoint to $F$. Is it true that
+for
+$I\in\mathcal{B}$ injective, the object
+$F(G(I))\in\mathcal{B}$ is injective? The
+answer is no, and a counterexample is given
+by
+the categories of modules over the rings
+$\mathbb{C}[x]/(x^2)$ and $\mathbb{C}$.
+\end{exercise}
+
+\noindent
+Find somewhere to discuss $i^*$ and its two
+adjoints $i_*$ and $i_!$.
+
+\begin{example}
+\label{example-cohomology-c-c-star-4-sept}
+Consider the short exact sequence of
+$G$-modules
+$$
+0\longrightarrow\mathbb{Z}
+\longrightarrow\mathbb{C}
+\longrightarrow\mathbb{C}^{\times}
+\longrightarrow0,
+$$
+where the first map is inclusion and the
+second
+is the exponential
+$$
+a\longmapsto e^{2\pi ia}.
+$$
+Applying Proposition 3.2.1, we obtain a long
+exact sequence
+$$
+\cdots\longrightarrow
+H^{n-1}(G;\mathbb{C}^{\times})
+\longrightarrow H^n(G;\mathbb{Z})
+\longrightarrow H^n(G;\mathbb{C})
+\longrightarrow H^n(G;\mathbb{C}^{\times})
+\longrightarrow H^{n+1}(G;\mathbb{Z})
+\longrightarrow\cdots.
+$$
+By Lemma 3.4.4, $H^n(G;\mathbb{C})=0$ for
+$n\geq1$. Therefore
+$$
+H^{n+1}(G;\mathbb{Z})
+\simeq
+H^n(G;\mathbb{C}^{\times})
+$$
+for all $n\geq1$.
+\end{example}
+
+\begin{exercise}
+\label{exercise-cyclic-c-c-star-4-sept}
+Confirm these isomorphisms in the case
+$G=C_m$ using the general computation above,
+applied to $A=\mathbb{Z}$ and
+$A=\mathbb{C}^{\times}$.
+\end{exercise}
+
+\section{Example: Hilbert's theorem 90
+4-sept}
+\label{section-hilberts-theorem-90-4-sept}
+
+\noindent
+Recall that a finite field extension $L/K$ is
+called Galois if $L^G=K$, where $G$ is the
+Galois group
+$$
+\operatorname{Gal}(L/K)
+=
+\{f\in\operatorname{Aut}(L)mid f|_K
+=\operatorname{Id}_K\}.
+$$
+The degree $[L:K]$ of the extension is the
+dimension of $L$ as a vector space over $K$,
+and it is a theorem that
+$\#\operatorname{Gal}(L/K)$ equals the
+degree.
+Since $L$ is a finite dimensional vector
+space
+over $K$ we can consider, for each
+$\alpha\in L$, the $K$-linear endomorphism
+$L\to L$ of multiplication by $\alpha$ as an
+element $m_\alpha\in\operatorname{GL}_K(L)$.
+Then we define the norm of $\alpha$ to be
+$$
+N(\alpha)=\det(m_\alpha).
+$$
+It is a theorem that if $L/K$ is Galois then
+$$
+N(\alpha)=\prod_{g\in G}g(\alpha).
+$$
+We discuss the following result of Noether,
+which is often called Hilbert 90.
+
+\begin{theorem}[Noether]
+\label{theorem-noether-hilbert-90-4-sept}
+Let $L/K$ be a Galois extension, and let
+$G=\operatorname{Gal}(L/K)$. Then $G$ acts on
+$L$, and on $L^{\times}$, so that
+$L^{\times}$ is a $G$-module. One has
+$$
+H^1(G,L^{\times})=0.
+$$
+\end{theorem}
+
+\noindent
+Hilbert only stated the theorem in the case
+$G\simeq\mathbb{Z}/n$ is cyclic. The
+statement is given as follows.
+
+\begin{theorem}
+\label{theorem-hilbert-90-cyclic-4-sept}
+Let $L/K$ be a Galois extension, and suppose
+that
+$$
+G=\left\langle{}\sigma\right\rangle{}
+\simeq\mathbb{Z}/n.
+$$
+Then for every $\alpha\in L$ of norm
+$N(\alpha)=1$, there exists $\beta\in L$ such
+that
+$$
+\alpha=\sigma(\beta)/\beta.
+$$
+\end{theorem}
+
+\noindent
+We will give an elementary proof of Hilbert's
+version first.
+
+\begin{proof}
+Let $\alpha\in L^{\times}$ with
+$N(\alpha)=1$. Let $y\in L^{\times}$ and
+consider
+$$
+d_0=\alpha y,
+\qquad
+d_{j+1}=\alpha\sigma(d_j),
+\qquad
+j=0,1,2,\ldots.
+$$
+Equivalently,
+$$
+d_j=
+\bigl(\alpha\sigma(\alpha)\cdots
+\sigma^j(\alpha)\bigr)\sigma^j(y).
+$$
+We note that
+$$
+d_{n-1}=N(\alpha)\sigma^{n-1}(y)
+=\sigma^{n-1}(y).
+$$
+Let
+$$
+\beta=d_0+d_1+\cdots+d_{n-1}.
+$$
+We claim that there exists a choice of $y$
+such
+that $\beta\ne0$. For if there were not, we
+would have
+$$
+\sum_{i=0}^{n-1}m_i\sigma^i(y)=0
+$$
+for all $y\in L^{\times}$. Thus there would
+be
+a linear dependence among the $\sigma^i(y)$
+for
+every $y\in L$. But by a certain theorem in
+Galois theory we can choose a generator $y$,
+that is, $L=K(y)$. Then the $n=[L:K]$ images
+$$
+\{\sigma^i(y)\mid\sigma^i\in G\}
+$$
+must form a basis, a contradiction.
+
+\noindent
+All right, so $\beta\ne0$. But then
+$$
+\begin{aligned}
+\frac{\sigma(\beta)}{\beta}
+&=
+\frac{\sigma(d_0)+\cdots+\sigma(d_{n-1})}
+{d_0+\cdots+d_{n-1}} \\
+&=
+\frac{d_1/\alpha+d_2/\alpha+\cdots+
+d_{n-1}/\alpha+d_0/\alpha}
+{d_0+d_1+\cdots+d_{n-1}} \\
+&=\alpha^{-1}.
+\end{aligned}
+$$
+Therefore
+$$
+\frac{\sigma(\beta^{-1})}{\beta^{-1}}
+=
+\frac{\beta}{\sigma(\beta)}
+=\alpha.
+$$
+\end{proof}
+
+\begin{exercise}
+\label{exercise-hilbert-90-cyclic-4-sept}
+Compare the statement for cyclic extensions
+with the convenient complex for cohomology
+of a
+cyclic group, to understand why Hilbert's
+theorem is a special case of the
+cohomological
+version of Noether's theorem.
+\end{exercise}
+
+\noindent
+To prove Noether's theorem, we first need a
+lemma. This proof, which I found on Noam
+Elkies's website [2], is essentially from
+Jacobson's book, though there it appears as
+[?], more or less buried in the proof of
+the lemma on page 236.
+
+\begin{lemma}[Artin's lemma]
+\label{lemma-artin-4-sept}
+Let $L/K$ be a Galois extension of degree $n$
+with Galois group
+$G=\operatorname{Gal}(L/K)$. Denote by
+$$
+\rho:G\longrightarrow\operatorname{GL}_K(L)
+$$
+the canonical inclusion. If
+$$
+\sum_{g\in G}c_g\rho(g)=0
+$$
+for constants $c_g\in L$, then $c_g=0$ for
+all $g$.
+\end{lemma}
+
+\noindent
+Notice that $\operatorname{GL}_K(L)$ is a
+$K$-vector space, so the lemma says the
+$\rho(g)$ are linearly independent in this
+vector space, but it says more: the
+coefficients can be in $L$.
+
+\begin{proof}
+Let $\{x_1,\ldots,x_n\}$ be a $K$-linear
+basis of $L$, and let $g_1,\ldots,g_n$ be the
+elements of $G$ in some order. Consider the
+matrix
+$$
+M\in\operatorname{Mat}_{n\times n}(L)
+$$
+defined by
+$$
+M_{ij}=g_i(x_j).
+$$
+Then the relation in the statement says
+$cM=0$, where $c$ is the row vector
+$$
+(c_1,\ldots,c_n).
+$$
+This means $M$ must be a degenerate matrix,
+so
+there exist nonzero column vectors
+$$
+v=(v_1,\ldots,v_n)^T
+$$
+such that $Mv=0$. Clearly the set of all such
+column vectors, denoted $V\subset L^n$, is an
+$L$-vector space. For each $g\in G$ and
+$v\in V$, the relation
+$$
+\sum_i v_i g(x_i)=0
+$$
+holds.
+
+\noindent
+We observe that $V$ is invariant under the
+entry-wise action of $G$. Indeed if $v\in V$,
+then
+$$
+\sum_i v_i h(x_i)=0
+$$
+for all $h\in G$, and hence
+$$
+g\left(\sum_i v_i g^{-1}h(x_i)\right)
+=
+\sum_i g(v_i)h(x_i)=0
+$$
+for all $g\in G$ too.
+
+\noindent
+We claim there exists such a $v\in V$ with
+all
+entries in $K$. Let $v\in V$ be nonzero with
+a
+a minimal number of nonzero entries. Without
+loss
+of generality $v_1=1$. Now if we apply some
+$g$
+to all entries we get another element of $V$,
+and subtracting gives a vector
+$$
+w=v-g\ast v
+$$
+with first entry zero. By minimality of $v$
+we
+have $w=0$. But this means $g(v_i)=v_i$ for
+each $g\in G$. Hence each $v_i\in L^G=K$.
+
+\noindent
+But with such a vector $v$ in hand, we set
+$g=e$ to conclude that
+$$
+\sum_i v_ix_i=0,
+$$
+meaning the basis $\{x_1,\ldots,x_n\}$ would
+not be a basis. This contradiction proves the
+lemma.
+\end{proof}
+
+\noindent
+The following proof of Noether's theorem can
+be
+found in [16, page 150].
+
+\begin{proof}
+Let $\alpha$ be a nonzero $1$-cocycle. Thus
+$\alpha:G\to L^{\times}$ satisfies
+$$
+\alpha(gh)=\alpha(g)g(\alpha(h)),
+$$
+while a $1$-coboundary is such an $\alpha$
+which is of the form
+$$
+\alpha(g)=\beta/g(\beta).
+$$
+We wish to show that every $1$-cocycle is a
+$1$-coboundary.
+
+\noindent
+Consider
+$$
+\sum_{g\in G}\alpha(g)\rho(g).
+$$
+Since it is nonzero by Lemma
+\ref{lemma-artin-4-sept}, there exists
+$\theta\in L^{\times}$ such that
+$$
+\sum_{g\in G}\alpha(g)g(\theta)\ne0.
+$$
+Take $\beta$ to be this element. Then we
+claim
+that
+$$
+\alpha(g)=\beta/g(\beta),
+$$
+so we are done.
+\end{proof}
+
+\section{Example: Weyl's complete
+reducibility theorem 4-sept}
+\label{section-weyl-4-sept}
+
+\noindent
+We discuss cohomology of Lie algebras.
+Although
+some familiarity with Lie algebras would be
+helpful, I think this discussion should be
+comprehensible even to those without previous
+exposure to the subject.
+
+\begin{definition}
+\label{definition-lie-algebra-4-sept}
+A {\it Lie algebra} over a field $F$ is an
+$F$-vector space $\mathfrak{g}$ equipped
+with a
+bilinear operation
+$$
+[\mathbin{\cdot},\mathbin{\cdot}]:
+\mathfrak{g}\times\mathfrak{g}
+\longrightarrow\mathfrak{g}
+$$
+satisfying
+\begin{enumerate}
+\item $[b,a]=-[a,b]$,
+\item
+$$
+[a,[x,y]]=[[a,x],y]+[x,[a,y]].
+$$
+\end{enumerate}
+\end{definition}
+
+\noindent
+A simple example of a Lie algebra, denoted
+$\mathfrak{gl}(V)$, is
+$\operatorname{End}(V)$ with
+$$
+[A,B]=AB-BA.
+$$
+Another is the set $\operatorname{Der}(R)$ of
+derivations of a commutative $F$-algebra $R$.
+A derivation is an $F$-linear map $D:R\to R$
+satisfying
+$$
+D(ab)=D(a)b+aD(b).
+$$
+The Lie bracket is again
+$$
+[D_1,D_2]=D_1D_2-D_2D_1.
+$$
 
 
+codex resume 01a06df8-835b-7e23-b0a4-d2ecaba3a558
 
 \bibliography{my}
 \bibliographystyle{amsalpha}

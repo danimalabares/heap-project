@@ -277,6 +277,22 @@ satisfies $I\cdot\gamma(v,w)=-\gamma(v,w)$
 in an analogous computation.
 \end{proof}
 
+\begin{remark}
+\label{remark-1-0-vectors}
+By simply applying the complex structure,
+one can check that a standard $1,0$ vector
+is
+$$
+X-i JX
+$$
+where $X \in T_p M$. Similarly, a
+$0,1$-vector is
+$$
+X+i J X.
+$$
+ 
+\end{remark}
+
 \noindent
 In particular this implies that $\omega$,
 the fundamental form of the Riemannian metric
@@ -333,6 +349,7 @@ $e_{i_1}\wedge…\wedge e_{i_k}$ with
 $i_1<…<i_k$
 are an orthonormal basis for
 $\Lambda^k(V^\vee)$.
+
 
 \begin{exercise}
 \label{exercise-hodge-star-existence}
@@ -1021,6 +1038,45 @@ complex structures,
 we have the operators $L,\Lambda,*$ defined
 on the
 cotangent spaces of a complex manifold.
+
+\begin{remark}
+\label{remark-lefschetz-operator-trace}
+If $\alpha$ is a 2-form, we have
+$$
+\Lambda \alpha
+=
+\operatorname{tr}_{\omega}\alpha
+=
+g(\alpha,\omega).
+$$
+More generally, there is an expression
+for $\Lambda$ in terms of contractions:
+$$
+\Lambda \alpha = \frac{1}{2}
+\sum_i J e_i \bullet (e_i \bullet \alpha)
+$$
+where $\bullet$ denotes contraction 
+(in lack of a better symbol at this time).
+\end{remark}
+
+\begin{proposition}
+\label{proposition-contractions-commutators}
+The following relations hold, where $\bullet$
+denotes contraction:
+\begin{enumerate}
+\item $[X \bullet,\Lambda]=0$.
+\item $[X \bullet,L]=JX^\flat \wedge$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+\item Exercise.
+\item Uses that $\bullet$ is a derivation.
+\end{enumerate}
+\end{proof}
+
+\noindent
 As a corollary we have that Lefschetz
 decomposition
 passes to exterior algebra
@@ -1085,25 +1141,65 @@ $$
 \bar\partial^*+\bar\partial^*\bar\partial.
 \end{aligned}
 $$
+ 
 
-\begin{proposition}[Kähler identities]
-\label{proposition-kahler-identities}
-Let $X$ be a complex manifold endowed with a
-Kähler metric $g$. Then
+\medskip\noindent
+Here's the baby version
+of the Kähler identities as
+explained by Beatricce, maybe based in
+A. Moroianu's notes. First,
+a definition of $d^c$ which {\bf applies
+only for Kähler manifolds}:
+$$
+d^c \alpha
+=
+\sum_i J e^i \wedge \nabla_{e_i}\alpha,
+$$
+which uses a definition of Levi-Civita
+on forms using permutations.
+
+\begin{lemma}[Baby Kähler identities]
+\label{lemma-baby-kahler-identities}
 \begin{enumerate}
-\item $[\bar\partial,L]=[\partial,L]=0$,
-$[\bar\partial^*,\Lambda]=[\partial^*,
-\Lambda]=0$.
-\item  Etc.
-\item
-$\Delta_\partial=\Delta_{\bar\partial}=
-\frac{1}{2}\Delta$.
-\item $\Delta$ commutes with
-$*,\partial,\bar\partial,\partial^*,
-\bar\partial^*,L$
-and $\Lambda$.
+\item $[L,d^*]=d^c$.
+\item $[L,d]=0$.
 \end{enumerate}
-\end{proposition}
+
+\noindent
+Which, applying adjoints
+(adjoint of contraction is wedge!), 
+easily yield
+\begin{enumerate}
+\item $[\Lambda,d]=-(d^c)^*$.
+\item $[\Lambda,d^*]=0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For the second one, use that
+$$
+\nabla_X (\Lambda\alpha)=L \nabla_X\alpha.
+$$
+
+\end{proof}
+
+
+The most important Kähler identity is:
+
+\begin{theorem}[Kähler identity]
+\label{theorem-kaher-identity}
+$$
+\Lambda=2 \Lambda_{\bar\partial}
+=2\Lambda_{\partial}.
+$$
+\end{theorem}
+
+
+
+\medskip\noindent
+The general definition of $d^c$ is
+of course not the one above,
+but the following.
 
 \begin{definition}
 \label{definition-dc}
@@ -1126,6 +1222,28 @@ $$
 {d^c}^*:=-* \circ d^c \circ *.
 $$
 
+\noindent
+Let us put the book's version
+of the Kähler identities for completeness:
+
+\begin{proposition}[Kähler identities]
+\label{proposition-kahler-identities}
+Let $X$ be a complex manifold endowed with a
+Kähler metric $g$. Then
+\begin{enumerate}
+\item $[\bar\partial,L]=[\partial,L]=0$,
+$[\bar\partial^*,\Lambda]=[\partial^*,
+\Lambda]=0$.
+\item  Etc.
+\item
+$\Delta_\partial=\Delta_{\bar\partial}=
+\frac{1}{2}\Delta$.
+\item $\Delta$ commutes with
+$*,\partial,\bar\partial,\partial^*,
+\bar\partial^*,L$
+and $\Lambda$.
+\end{enumerate}
+\end{proposition}
 
 
 
@@ -1836,6 +1954,16 @@ i.e. $dd^c$-exact.
 \end{enumerate}
 \end{proof}
 
+\begin{remark}
+\label{remark-ddbar-importance}
+$d\bar\partial$ lemma makes
+the different cohomologies 
+(Aeppli, Bott-Chern, Dolbeault)
+be isomorphic. Though, to Beatricce it's
+not clear that it gives a Hodge decomposition
+in a nonKähler manifold.
+\end{remark}
+
 \noindent
 That's all the ingredients for a
 (very rough) idea on why the Hodge theorem
@@ -1906,6 +2034,48 @@ The next step is to check
 that most results we've developed so far for
 complex vector spaces and complex manifolds
 descend to cohomology in Kähler manifolds.
+
+\medskip\noindent
+{\bf Beatricce's explanation.}
+Let's put this alternative route as well.
+From the most important Kähler identity,
+explained a while ago, we get:
+
+\begin{lemma}[Corollary of the most
+important Kähler identity]
+\label{lemma-hodge-kahler-important}
+Any cohomology class can be represented
+as the sum of Dolbeault classes,
+giving the decomposition
+$$
+H^i
+=
+\bigoplus_{p+q=i}H^{p,q}_{\bar\partial},
+\qquad
+\overline{H^{p,q}}=H^{q,p}.
+$$
+\end{lemma}
+
+\begin{proof}
+We use harmonic representatives
+from Hodge theorem:
+$$
+0=\Delta \alpha =
+\sum \Delta \alpha_{p,q}
+=
+2 \sum \Delta_{\bar\partial}\alpha_{p,q},
+$$
+and $\Delta \bar{\alpha}=\overline{\Delta
+\alpha}$.
+\end{proof}
+
+\noindent
+It also follows that
+\begin{enumerate}
+\item Odd Betti numbers are even.
+\item Even Betti numbers are $\geq 1$.
+\end{enumerate}
+
 
 
 \medskip\noindent
