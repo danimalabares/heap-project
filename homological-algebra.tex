@@ -4058,7 +4058,8 @@ earlier in the lecture.
 \end{remark}
 
 
-\section{g-modules}
+\section{Split sequences and Lie algebra
+cohomology}
 \label{section-g-modules}
 
 \noindent
@@ -4216,8 +4217,33 @@ $$
 
 Check: $d \circ d =0$.
 
+
 \begin{definition}
 \label{definition-lie-algebra-cohomology}
+The {\it Chevalley-Eilenberg complex} is
+$$
+C^p(\mathfrak{g},M)
+=
+\Hom_{\mathbb{F}}
+(\Lambda^p\mathfrak{g},M)
+$$
+for $p=0,1,\dots$, and
+$$
+\begin{aligned}
+d: C^p &\longrightarrow C^{p+1} \\
+[d\varphi](x_1 \wedge\dots\wedge x_{p+1} &=
+\sum_{i=1}^{p+1}(-1)^{i+1}
+x_i \varphi(x_1 \wedge\dots \widehat{x_i}
+\wedge\dots \wedge x_{p+1}
+\\ &+ \sum_{i<j}(-1)^{i+j}
+\varphi([x_i,x_j]\wedge x_1 \wedge\dots
+\wedge \widehat{x_i} \wedge\dots
+\wedge \widehat{x_j}\wedge
+\dots \wedge x_{p+1}).
+\end{aligned}
+$$
+
+\noindent
 {\it Lie algebra cohomology} is
 $$
 H^n(\mathfrak{g},M)
@@ -4257,10 +4283,554 @@ Show Lie algebra cohomology does not
 depend on the choice of $s$.
 \end{exercise}
 
+\begin{exercise}
+\label{exercise-homca}
+Check that $\Hom(C,A)$…
+\end{exercise}
+
+\begin{remark}
+\label{remark-tensor-g-modules}
+If $M,N$ are $\mathfrak{g}$-modules
+so is $M \otimes_{\mathbb{F}} N$
+and $M^*$.
+\end{remark}
+
+\noindent
+Now, in the setting of
+Equation \ref{equation-ses-gmod},
+$$
+\Hom_{\mathbb{F}}(C,A)
+\simeq
+C^* \otimes A,
+$$
+check (exercise) that with this
+$\mathfrak{g}$-mod structure on $\Hom(C,A)=M
+$, $\xi \in
+\Hom(\mathfrak{g},M)=C^1(\mathfrak{g},M)$
+lies in $Z^1(\mathfrak{g},M)=\ker(d)$.
+
+The point is that given an extension (split
+sequence), we find a cohomology class!
+That is, there is a corresponcence
+$$
+\begin{aligned}
+\{\operatorname{extensions}
+\operatorname{of}C
+\operatorname{by} A\}
+&\leftrightarrow
+H^1(\mathfrak{g},\Hom(C,A))\\
+0\to A\to B \to C \to 0
+&\mapsto [\xi] \in Z^1/B^1.
+\end{aligned}
+$$
+\noindent
+Let $s'$ be another splitting, i.e.,
+$p \circ s = p \circ s' =
+\operatorname{id}_c$.
+Define
+$$
+\xi'(x) = (c \mapsto xs'c-s'xc).
+$$
+
+Consider
+$$
+\xi' - \xi \in
+Z^1(\mathfrak{g},\Hom(C,A))
+$$
+We want to show
+$\xi'-\xi \in B^1$,i.e. $\exists m \in M$
+such that $\xi'-\xi = dm$ (exercise, hints
+were provided).
+
+Recall that $\operatorname{Ext}(C,A)$ is
+the set (category) of extensions modulo 
+isomorphism. The above argument shows that
+$$
+\operatorname{Ext}(C,A)
+\to H^1(\mathfrak{g},\Hom(C,A))
+$$
+is well-defined.
+
+\begin{theorem}
+\label{theorem-extensions-cohomology}
+$\psi$ is a bijection
+$\operatorname{Ext}(C,A) \to
+H^1(\mathfrak{g},\Hom(C,A))$.
+\end{theorem}
+
+\begin{proof}
+(Start.) If $E: 0 \to A \to B \to C \to 0$
+is an extension such that $\psi(E) = 0$,
+then $E$ was split.
+\end{proof}
+
+\noindent
+Now we recall a few facts from Lie theory.
+
+\begin{theorem}[Whitehead]
+\label{theorem-whitehead}
+Let $\mathfrak{g}$ be semisimple over
+$\mathbb{C}$, and $M$ a finite dimensional
+$\mathfrak{g}$-module. Then
+$$
+H^1(\mathfrak{g},M)=0.
+$$
+\end{theorem}
+
+\begin{lemma}[Corollary]
+\label{lemma-g-modules-ses-split}
+If $\mathfrak{g}$ is semisimple, any short
+exact sequence 
+$0 \to A \to B \to C \to 0$
+of finite-dimensional
+$\mathfrak{g}$-modules is split. That is,
+if $A \subset B$ is a
+$\mathfrak{g}$-submodule,
+there exists a complement $C \subset B$
+such that $A \cap C = 0$,
+$B = A + C$.
+\end{lemma}
+
+\section{Spectral sequences}
+\label{section-spectral-sequences}
+
+\noindent
+[Large detour on Lie theory and universal
+enveloping algebra.]
+The following problem shall motivate
+our discussion on spectral sequences.
+We define
+$$
+V_n
+=
+U(\mathfrak{g}) \otimes
+\Lambda^n\mathfrak{g},
+$$
+\begin{equation}
+\label{equation-differential-spectral}
+\begin{aligned}
+d(u \otimes \xi_1 \wedge \dots \wedge
+\xi_n)&=
+\sum_{i=1}^n(-1)^{i+1}
+(u\xi_i) \otimes \xi_i
+\wedge\dots\wedge \widehat{\xi_i}
+\wedge\dots \widehat{\xi_j}\wedge
+\dots\wedge\xi_n\\
+&+\sum_{i<j}(-1)^{i+1}
+u \otimes[\xi_i,\xi_j]
+\wedge\xi_1\wedge\dots\wedge
+\widehat{\xi_i}\wedge\dots\wedge
+\widehat{\xi_j}\wedge\dots\wedge\xi_n.
+\end{aligned}
+\end{equation}
 
 
+\begin{lemma}
+\label{lemma-chevalley-eilenberg-acyclic}
+The (augmented) complex
+$$
+\xymatrix{
+0&\ar[l]\mathbb{F}&
+\ar[l]_{\varepsilon}V_0
+&\ar[l]_{d}V_1
+&\ar[l]_d V_2&
+\ar[l]\cdots
+}
+$$
+is acyclic.
+\end{lemma}
+
+\noindent
+To prove this we shall use filtrations.
+The PBW filtration is:
+$$
+F_pV_n
+=\dots
+$$
+
+A spectral sequence $\{E^r_{p,n}\}$
+is a collection of pages indexed
+by $r \in \mathbb{Z}_{\geq 0}$
+$$
+E^0_{\bullet,\bullet},
+E^1_{\bullet,\bullet},\dots
+$$
+Here $p,n \in \mathbb{Z}$,
+and each $E_{p,n}^r$ is an
+abelian group, $R$-module, vector space
+(this is our current case), etc.
+
+Our filtration $F_pV_n$
+is compatible with differentials, meaning
+$$
+d(F_pV_n) \subset F_pV_{n-1}.
+$$
+
+\medskip\noindent
+{\bf Claim.} A complex with a compatible filtration gives
+a spectral sequence.
+
+Page 0 is:
+$$
+E^0_{p,n}
+=
+\operatorname{gr}_pV_n
+=
+\frac{F_pV_n}{F_{p-1}V_n}
+$$
+plus some differentials
+$$
+d:F_pV_n \to F_pV_{n-1},
+$$
+which, since $F_{p-1}V_n \subset F_pV_n$
+and $F_{p-1}V_{n-1}\subset F_p V_{n-1}$,
+descends to
+$$
+d:\operatorname{gr}_pV_n
+\to \operatorname{gr}_pV_{n-1}.
+$$
+
+Now
+$$
+E^1_{p,n}
+=
+H^\bullet(E^0_{p,n})
+$$
+(or perhaps homology instead of
+cohomology…).
+The {\bf first nontrivial construction} 
+is to define the differentials in 
+$E^1_{\bullet,\bullet}$.
+This uses the long exact sequence in
+homology. It looks like a diagram-chasing
+type of argument.
+
+Now
+$$
+E^2_{p,n}
+=
+H^\bullet(E^1_{p,n}),
+$$
+$E^2_{\bullet,\bullet}$ acquires a
+differential too, and it goes like
+[diagram with diagonal arrows, similar as
+the above argument].
+
+This continues forever,
+$$
+E^r_{p,n}
+=
+H^\bullet(E^{r-1}_{p,n}),
+$$
+acquires a differential
+of bidigree
+$$
+(\alpha_r,\beta_r)
+=
+(\alpha_0,\beta_0)
++r(\alpha,\beta).
+$$
+So in $E_0$ the bidegree is $(0,-1)$,
+which means $d$ looks like vertical arrows
+in the $E^0$ page. Then for $E^1$
+it has bidegree $(-1,-1)$,
+and $E^r$ has bidigree $(-r,-1)$.
 
 
+\begin{theorem}
+\label{theorem-spectral-sequence}
+$H_n(V_\bullet)$ is computed by
+$$
+\bigoplus_{k \in \mathbb{Z}}
+E^{\infty}_{(0,n)+k(\alpha,\beta)}
+$$
+\end{theorem}
+
+\begin{remark}
+\label{remark-spectral-sequence}
+\begin{enumerate}
+\item You never really go to $E^\infty$.
+In practice, usually $d$ becomes
+$d=0$ on $E^1$ or $E^2$ already.
+So then $E^N_{p,n}=E^{N+1}_{p,n}
+=E^{N+2}_{p,n}=\dots=E^{\infty}_{p,n}$.
+We say the spectral sequence 
+``collapses'' at page $N$.
+
+\item The precise statement of th etheorem.
+Note that $F_pV_n \subset V_n$
+induces a subspace
+$$
+\frac{Z_n \cap F_p}{B_n \cap F_p}
+\subset
+\frac{Z_n}{B_n} = H_n(V_\bullet).
+$$
+Denote this
+$$
+G_p H_n(V_\bullet)
+$$
+(to not confuse with $F_p$).
+$$
+G_0H^0 \subset G_1H^0 \subset\dots
+$$
+so we have $\operatorname{gr}_p H_n$.
+The theorem really says
+$$
+\operatorname{gr}_pH_n(V_\bullet)
+=
+E^\infty_{p,n}.
+$$
+
+\item The power of spectral sequence
+usually comes from observing
+$$
+E^2_{p,n} = 0 \qquad \forall n\geq 1,
+$$
+or something similar (the point is that,
+in practice, most entries in $E^2$ are
+zero), and deducing
+$$
+H_n=0\qquad \forall n \geq n
+$$
+from this.
+\end{enumerate}
+\end{remark}
+
+\section{Koszul complex}
+\label{section-koszul-complex}
+
+\noindent
+Let us return to our Lie algebra
+question which motivated the previous
+section, namely
+Lemma
+\ref{lemma-chevalley-eilenberg-acyclic}.
+
+We have, for Chevalley-Eilenberg,
+an $E^0$ page
+$$
+E^0_{p,n}
+=
+\operatorname{gr}_pV_n = 0
+$$
+whenever $n>p$ because…
+
+In the computation, at some point of
+computing the entries to obtain polynomial
+rings:
+$$
+\operatorname{gr}_pV_0
+=
+\operatorname{gr}_pU(\mathfrak{g})
+=
+S_p(\mathfrak{g})
+\simeq
+\mathbb{C}[x^1,\dots,x^N],
+$$
+where $x^1,\dots,x^N$ is a basis of
+$\mathfrak{g}$.
+Then we compute the differential
+as defined in
+Equation
+\ref{equation-differential-spectral}.
+We note that the last summand, i.e.
+the sum indexed by $i<j$,
+lies in $F_{p-1}$ and thus is killed in the
+quotient.
+
+In fact,
+$$
+E^1_{p,q}
+=
+S_p(\mathfrak{g})
+\otimes \Lambda^n\mathfrak{g}
+$$
+and
+$$
+d(u \otimes \xi_1\wedge\dots\wedge \xi_n)
+=
+\sum_{i=1}^n(-1)^{i=1}
+(u\xi_i) \otimes \xi_1 \wedge\dots\wedge
+\widehat{\xi_i}\wedge\dots\wedge \xi_n.
+$$
+In particular, on column \#1,
+$\mathfrak{g} \to \mathfrak{g}$, it is
+\begin{equation}
+\label{equation-differential-koszul}
+\begin{aligned}
+1 \otimes\xi &\longrightarrow \xi \otimes 1 \\
+\mathfrak{g}\otimes\mathbb{F} &\longmapsto 
+\mathbb{F}\otimes \mathfrak{g}.
+\end{aligned}
+\end{equation}
+
+In row \#1 to row \#0,
+$$
+u \otimes \xi \to u\xi \otimes 1
+$$
+for $u \in S_p(\mathfrak{g})$ for all
+$p \geq 1$.
+
+If we sum all the columns together, we get
+the {\it Koszul complex}
+$$
+K_n:= S(\mathfrak{g}) \otimes
+\Lambda^n\mathfrak{g},
+$$
+with differential given by
+Equation \ref{equation-differential-koszul}.
+
+\medskip\noindent
+Now we explain the Koszul complex.
+Let $R$ be a commutative ring
+($R = S(\mathfrak{g})$),
+and $\{x_1,\dots,x_N\}$
+a set of elements in $R$
+(a basis of $\mathfrak{g} \subset
+S(\mathfrak{g})$
+in our case).
+Let $L$ be the free $R$-module
+on basis
+$\{x_1,\dots,x_N\}$ 
+(write generators as $dx_i$
+to distinguish them).
+Set
+$$
+K_n = \Lambda^n_R L
+$$
+and
+$$
+\begin{aligned}
+d: K_n &\longrightarrow K_{n-1} \\
+d(u \otimes dx_{i_1}
+\wedge\dots dx_{i_n} &=
+\sum_{i=1}^n
+(-1)^i (ux_i)
+\otimes dx_1 \dots
+\widehat{dx_i}\wedge\dots dx_n.
+\end{aligned}
+$$
+\begin{definition}
+\label{definition-regular-sequence}
+A sequence $x_1,\dots,x_N$
+in $R$ is called {\it regular} 
+if $x_i$ is not a zero divisor in
+$$
+\frac{R}{(x_1,\dots,x_{i-1}}
+$$
+for all $i$.
+\end{definition}
+
+\begin{theorem}
+\label{theorem-koszul-homology}
+If $x_1,\dots,x_N$ is a regular sequence
+in $R$. Then
+$$
+H_n(K_\bullet)
+=
+\begin{cases}
+R/(x_1,\dots,x_N)\qquad &n=0 \\
+0\qquad &n \geq 1
+\end{cases}
+$$
+\end{theorem}
+
+\begin{proof}
+Proved in lecture for the case we need only.
+\end{proof}
+
+\noindent
+For $R = S(\mathfrak{g}) =
+\mathbb{C}[x_1,\dots x_N]$
+and $x_1,\dots,x_N$ a basis of
+$\mathfrak{g}$. Certainly $x_1,\dots,x_N$
+is regular.
+
+We have shown that
+$$
+E^1_{p,n}
+=
+S_p(\mathfrak{g}) \otimes
+\Lambda^n\mathfrak{g},
+$$
+$$
+\bigoplus_p E^n_{p,n}
+=
+S(\mathfrak{g}) \otimes
+\Lambda^n\mathfrak{g},
+$$
+and 
+$$
+d = d_{\operatorname{Koszul}}.
+$$
+Thus, the $E^2_{p,q}$ of our problem is
+zero except in the $(0,0)$ entry, where it
+is $\mathbb{F}$, and we conclude that
+$$
+H_\bullet(V_\bullet)
+=
+\begin{cases}
+\mathbb{F}\qquad &n=0 \\
+0\qquad &n\neq 0
+\end{cases}
+$$
+as claimed in
+Lemma
+\ref{lemma-chevalley-eilenberg-acyclic}.
+
+\medskip\noindent
+Let $C_\bullet$ and $D_\bullet$
+
+be two complexes, say,
+$$
+d:C_n \to C_{n-1},
+\qquad 
+d:D_n \to D_{n-1}.
+$$
+We define $C_\bullet \otimes D_\bullet$
+to be the complex
+$$
+(C_\bullet \otimes D_\bullet)_n
+=
+\bigoplus_{p+q=n}
+C_p \otimes D_q.
+$$
+If $c \in C_p$, $e \in D_q$,
+$$
+d(c \otimes e)
+=
+d c \otimes e +
+(-1)^p c \otimes de.
+$$
+This called ``Koszul rule of signs''.
+Then $d \circ d=0$.
+
+\begin{proposition}
+\label{proposition-homology-tensor-koszul}
+$H_n(C_\bullet \otimes D_\bullet)
+\simeq
+(H_\bullet(C_\bullet)
+\otimes H_\bullet(D_\bullet))_n$.
+\end{proposition}
+
+\begin{proposition}
+\label{proposition-koszul-polynomials}
+$K_\bullet(\mathbb{F}[x_1,\dots,x_N])
+\simeq
+K(\mathbb{F}[x_1]) \otimes
+K(\mathbb{F}[x_2]) \otimes\dots
+\otimes K(\mathbb{F}[x_N])$.
+\end{proposition}
+
+\begin{lemma}[Corollary]
+\label{lemma-homology-koszul-polynomials}
+$H_n(K(\mathbb{F}[x_1,\dots,x_N])
+=
+\begin{cases}
+F\qquad &n=0 \\
+0\qquad &n \neq 0.
+\end{cases}$
+\end{lemma}
 
 
 \bibliography{my}
