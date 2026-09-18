@@ -6070,5 +6070,412 @@ and that the orthogonal projection $P_M$ is a
 self-adjoint operator of norm 1.
 \end{exercise}
 
+
+\subsection{Translated course exercise appendix}
+\label{subsection-translated-course-exercises}
+
+The following exercises were placed inside an
+\verb|\iffalse| block in the Portuguese
+source. We record them here because they are
+part of that notes file. When the source
+proof is incomplete or incorrect, this is
+stated explicitly.
+
+\begin{exercise}
+\label{exercise-ck-banach-course}
+Let $K$ be compact Hausdorff. Prove that
+$C(K)$ with
+$
+\|f\|_\infty=\sup_{x\in K}|f(x)|
+$
+is a Banach space.
+\end{exercise}
+
+\begin{proof}
+Let $(f_n)$ be Cauchy in the uniform norm.
+For each $x\in K$, $(f_n(x))$ is Cauchy in
+$\mathbb K$, so define
+$
+f(x)=\lim_n f_n(x).
+$
+Given $\varepsilon>0$, choose $N$ such that
+$
+\|f_n-f_m\|_\infty<\varepsilon
+\qquad(n,m\geq N).
+$
+Letting $m\to\infty$ pointwise gives
+$
+|f_n(x)-f(x)|\leq\varepsilon
+\qquad
+(n\geq N,\ x\in K),
+$
+hence $f_n\to f$ uniformly. Therefore $f$ is
+continuous and
+$
+\|f_n-f\|_\infty\to0.
+$
+
+The Portuguese source proves the same
+uniform estimate, but its intermediate
+continuity argument is written sequentially;
+the uniform convergence established there is
+the point that yields continuity on a general
+compact Hausdorff space.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-linfty-banach-course}
+Prove that
+$
+\ell_\infty
+=
+\{(x_n):\sup_n|x_n|<\infty\}
+$
+is Banach for the supremum norm.
+\end{exercise}
+
+\begin{proof}
+Let $(x^j)_j$ be Cauchy in $\ell_\infty$,
+where
+$x^j=(x_n^j)_n$. For every fixed $n$,
+$
+|x_n^j-x_n^k|
+\leq
+\|x^j-x^k\|_\infty,
+$
+so $(x_n^j)_j$ is Cauchy in $\mathbb K$.
+Define
+$
+x_n=\lim_jx_n^j.
+$
+A Cauchy sequence is bounded, so there is
+$M>0$ with
+$\|x^j\|_\infty\leq M$ for all $j$.
+Therefore
+$|x_n|\leq M$ for all $n$, hence
+$x\in\ell_\infty$.
+
+Finally, if
+$\|x^j-x^k\|_\infty<\varepsilon$ for
+$j,k\geq N$, then letting $k\to\infty$ in
+each coordinate gives
+$
+|x_n^j-x_n|\leq\varepsilon
+\qquad
+(j\geq N,\ n\in\mathbb N).
+$
+Thus
+$\|x^j-x\|_\infty\leq\varepsilon$.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-finite-dimensional-target-closed-kernel}
+Let $T:X\to Y$ be linear, with
+$\dim Y<\infty$ and $\ker T$ closed. Prove
+that $T$ is continuous.
+\end{exercise}
+
+\begin{remark}
+\label{remark-finite-dimensional-target-source-incomplete}
+The Portuguese appendix begins an inductive
+proof of this exercise but leaves the key
+closed-kernel step incomplete. The result
+also follows from the quotient-space
+identification
+$X/\ker T\to\operatorname{Im}T$ together
+with finite-dimensional norm equivalence,
+but that completion is not written out in
+the source.
+\end{remark}
+
+\begin{exercise}
+\label{exercise-operator-space-banach-course}
+Let $X,Y$ be normed spaces and suppose $Y$
+is Banach. Prove that
+$\mathcal L(X,Y)$ is Banach for the operator
+norm.
+\end{exercise}
+
+\begin{proof}
+Let $(T_n)$ be Cauchy in operator norm. For
+every $x\in X$,
+$
+\|T_nx-T_mx\|
+\leq
+\|T_n-T_m\|\,\|x\|,
+$
+so $(T_nx)$ is Cauchy in $Y$. Define
+$
+Tx=\lim_nT_nx.
+$
+Linearity follows by passing to the limit.
+
+Since $(T_n)$ is Cauchy, it is bounded:
+$\sup_n\|T_n\|\leq C$. Hence
+$
+\|Tx\|
+=
+\lim_n\|T_nx\|
+\leq C\|x\|,
+$
+so $T\in\mathcal L(X,Y)$.
+
+Given $\varepsilon>0$, choose $N$ such that
+$\|T_n-T_m\|<\varepsilon$ for
+$n,m\geq N$. For $x\in B_X$ and $n\geq N$,
+letting $m\to\infty$ gives
+$
+\|T_nx-Tx\|\leq\varepsilon.
+$
+Taking the supremum over $x\in B_X$ yields
+$\|T_n-T\|\leq\varepsilon$.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-distance-closed-subspace-not-attained}
+Find a Banach space $X$, a closed subspace
+$Y\subseteq X$, and
+$x\in X\setminus Y$ such that
+$
+d(x,Y)<\|x-y\|
+\qquad
+\text{for every }y\in Y.
+$
+Show that this cannot happen when
+$\dim Y<\infty$.
+\end{exercise}
+
+\begin{remark}
+\label{remark-distance-source-proof-error}
+The source proposes
+$
+X=\{f\in C[0,1]:f(0)=0\},
+\qquad
+Tf=\int_0^1f,
+\qquad
+Y=\ker T,
+$
+and takes $f(t)=2t$. The intended example is
+the standard non-attainment phenomenon for a
+hyperplane, and the finite-dimensional part
+is proved by minimizing the continuous
+distance function on a compact bounded
+subset of $Y$.
+
+However, one line of the source proof uses
+the constant function $1$ as an element of
+$X$, although $1(0)\neq0$. Thus the displayed
+source proof of the exact value of the
+distance has a gap, and we do not silently
+repair it here.
+\end{remark}
+
+\begin{exercise}
+\label{exercise-finite-dimensional-surjection-open-course}
+Let $X,Y$ be normed spaces with
+$\dim Y<\infty$. The source asks to prove
+that every surjective linear map
+$T:X\to Y$ is open.
+\end{exercise}
+
+\begin{remark}
+\label{remark-finite-dimensional-surjection-source-gap}
+The source argument factors $T$ through
+$X/\ker T$ and uses the quotient norm. That
+argument requires $\ker T$ to be closed,
+which is automatic only after continuity has
+been established. Thus the proof in the
+source has a missing hypothesis or a gap as
+written.
+\end{remark}
+
+\begin{exercise}
+\label{exercise-annihilator-quotient-duals-course}
+Let $Y\subseteq X$ be a closed subspace and
+$
+Y^\perp
+=
+\{f\in X^*:f|_Y=0\}.
+$
+Show that:
+\begin{enumerate}
+\item $Y^\perp$ is linearly isometric to
+$(X/Y)^*$;
+\item $Y^*$ is linearly isometric to
+$X^*/Y^\perp$.
+\end{enumerate}
+\end{exercise}
+
+\begin{remark}
+\label{remark-annihilator-source-proof-error}
+For (1), the source points to the adjoint of
+the quotient map
+$Q:X\to X/Y$, which is the correct
+construction.
+
+For (2), the source attempts to extend
+$f\in Y^*$ by setting it equal to zero
+outside $Y$. Such an extension is not
+generally linear. The correct construction
+requires Hahn--Banach, but that repair is not
+the proof written in the source, so the
+source error is recorded rather than hidden.
+\end{remark}
+
+\begin{exercise}
+\label{exercise-basic-tail-independent-course}
+Let $X$ be infinite-dimensional. Prove that
+there is a sequence $(x_n)$ in $X$ such that
+$
+x_n
+\notin
+\overline{\operatorname{span}}
+\{x_k:k>n\}
+\qquad
+\text{for every }n.
+$
+\end{exercise}
+
+\begin{proof}
+Choose $x_1\neq0$. By Hahn--Banach choose
+$f_1\in X^*$ with $f_1(x_1)\neq0$, and put
+$Y_1=\ker f_1$. Choose
+$x_2\in Y_1\setminus\{0\}$, then choose
+$f_2\in X^*$ with $f_2(x_2)\neq0$, and put
+$Y_2=\ker f_2$. Continue inductively,
+choosing
+$
+x_{n+1}
+\in
+Y_1\cap\cdots\cap Y_n
+\setminus\{0\}
+$
+and then $f_{n+1}$ with
+$f_{n+1}(x_{n+1})\neq0$.
+
+The process does not terminate because an
+intersection of finitely many kernels in an
+infinite-dimensional space is nonzero.
+For $k>n$,
+$
+x_k\in Y_n=\ker f_n,
+$
+so
+$
+\overline{\operatorname{span}}
+\{x_k:k>n\}
+\subseteq\ker f_n.
+$
+But $f_n(x_n)\neq0$, hence $x_n$ does not
+belong to that closed span.
+
+The last sentence of the Portuguese proof
+accidentally reverses this inclusion; the
+preceding construction makes the intended
+direction explicit.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-nonequivalent-complete-norm-course}
+The Portuguese appendix asks: given a normed
+space $(X,\|\cdot\|_1)$, construct another
+norm $\|\cdot\|_2$ that is not equivalent to
+$\|\cdot\|_1$, and ask what happens if
+$(X,\|\cdot\|_1)$ is Banach.
+\end{exercise}
+
+\begin{remark}
+\label{remark-nonequivalent-norm-source-gap}
+As written, the exercise is false in finite
+dimension, because all norms are equivalent.
+The source proof assumes, without proving,
+the existence of a discontinuous linear
+bijection
+$
+T:X\to X
+$
+and defines
+$
+\|x\|_2=\|Tx\|_1.
+$
+Under that additional assumption,
+$\|\cdot\|_2$ is a norm; if
+$(X,\|\cdot\|_1)$ is Banach, then
+$(X,\|\cdot\|_2)$ is also Banach, while the
+two norms cannot be equivalent because that
+would make $T$ continuous.
+\end{remark}
+
+\begin{exercise}
+\label{exercise-diagonal-linfty-l2-operator-course}
+Define
+$
+T:\ell^\infty\longrightarrow
+\mathcal L(\ell^2,\ell^2)
+$
+by
+$
+(Tx)(y)=(x_ny_n).
+$
+Prove that $T$ is a linear isometry.
+\end{exercise}
+
+\begin{proof}
+For $x\in\ell^\infty$ and $y\in\ell^2$,
+$
+\|(Tx)(y)\|_{\ell^2}^2
+=
+\sum_n|x_ny_n|^2
+\leq
+\|x\|_\infty^2\|y\|_{\ell^2}^2.
+$
+Hence
+$\|Tx\|\leq\|x\|_\infty$.
+
+Given $\varepsilon>0$, choose $n_0$ such
+that
+$
+|x_{n_0}|>\|x\|_\infty-\varepsilon.
+$
+Then $\|e_{n_0}\|_2=1$ and
+$
+\|(Tx)e_{n_0}\|_2
+=
+|x_{n_0}|
+>
+\|x\|_\infty-\varepsilon.
+$
+Letting $\varepsilon\downarrow0$ gives
+$\|Tx\|\geq\|x\|_\infty$.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-reflexive-nearest-point-course}
+Let $X$ be reflexive and let
+$Y\subseteq X$ be closed. Prove that for
+every $x\in X\setminus Y$ there is
+$y\in Y$ such that
+$
+d(x,Y)=\|x-y\|.
+$
+\end{exercise}
+
+\begin{proof}
+For every $\varepsilon>d(x,Y)$, put
+$
+K_\varepsilon
+=
+\overline{B(x,\varepsilon)}\cap Y.
+$
+Each $K_\varepsilon$ is nonempty. Since $X$
+is reflexive, closed bounded balls are weakly
+compact. Since a convex norm-closed set is
+weakly closed, $Y$ is weakly closed, so each
+$K_\varepsilon$ is weakly compact. The family
+is nested as $\varepsilon\downarrow d(x,Y)$,
+hence has nonempty intersection. Any point
+in the intersection realizes the distance.
+\end{proof}
+
 \end{document}
 
