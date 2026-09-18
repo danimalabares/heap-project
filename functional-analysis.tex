@@ -2471,6 +2471,99 @@ The subspace $c_0$ is not complemented in
 $\ell_\infty$.
 \end{theorem}
 
+\begin{definition}
+\label{definition-almost-disjoint-family}
+A family $(A_i)_{i\in I}$ of subsets of
+$\mathbb N$ is {\it almost disjoint} if
+$
+|A_i\cap A_j|<\infty
+\qquad(i\neq j).
+$
+\end{definition}
+
+\begin{proposition}
+\label{proposition-uncountable-almost-disjoint-family}
+There exists an almost-disjoint family of
+infinite subsets of $\mathbb N$ of
+cardinality $2^{\aleph_0}$.
+\end{proposition}
+
+\begin{proof}
+For every irrational $r$, choose a sequence
+of distinct rationals converging to $r$.
+After fixing a bijection
+$\mathbb Q\to\mathbb N$, take the image of
+each such sequence. Two of the resulting
+sets can have only finitely many common
+terms, since their corresponding rational
+sequences converge to distinct limits.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-operator-vanishing-c0-vanishes-large-linfty}
+Let $T:\ell_\infty\to\ell_\infty$ be bounded
+and suppose $T|_{c_0}=0$. Then there is an
+infinite $A\subseteq\mathbb N$ such that
+$
+T|_{\ell_\infty(A)}=0,
+$
+where $\ell_\infty(A)$ is extended by zero
+outside $A$.
+\end{proposition}
+
+\begin{proof}
+Let $(A_i)_{i\in I}$ be an almost-disjoint
+family as above. If the conclusion were
+false, choose
+$x_i\in S_{\ell_\infty(A_i)}$ with
+$Tx_i\neq0$. Since $|I|=2^{\aleph_0}$,
+there are a coordinate $n$, a number
+$\delta>0$, and an uncountable
+$J\subseteq I$ such that, after replacing
+$x_i$ by $-x_i$ when necessary,
+$
+e_n^*(Tx_i)>\delta
+\qquad(i\in J).
+$
+For finite $F\subseteq J$,
+$
+\left\|
+T\left(\sum_{i\in F}x_i\right)
+\right\|
+\geq |F|\delta.
+$
+Almost-disjointness lets us write
+$
+\sum_{i\in F}x_i=u+v,
+$
+where $u$ has finite support and
+$\|v\|_\infty\leq1$. Since $Tu=0$,
+$
+|F|\delta
+\leq\|Tv\|
+\leq\|T\|,
+$
+a contradiction for large finite $F$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem
+\ref{theorem-c0-not-complemented}]
+If a bounded projection
+$P:\ell_\infty\to c_0$ existed, then
+$
+(I-P)|_{c_0}=0.
+$
+By Proposition
+\ref{proposition-operator-vanishing-c0-vanishes-large-linfty},
+there would be an infinite
+$A\subseteq\mathbb N$ such that
+$(I-P)|_{\ell_\infty(A)}=0$. Thus
+$P$ would be the identity on
+$\ell_\infty(A)$, forcing
+$\ell_\infty(A)\subseteq c_0$, a
+contradiction.
+\end{proof}
+
 
 \begin{definition}
 \label{definition-compact-operator}
@@ -3344,12 +3437,41 @@ $$
 \begin{theorem}[Cauchy--Schwarz]
 \label{theorem-cauchy-schwarz}
 For all $x,y\in H$,
-$$
+$
 |\langle x,y\rangle|\leq \|x\|\|y\|.
-$$
+$
 Equality holds if and only if $x,y$ are
 linearly dependent.
 \end{theorem}
+
+\begin{proof}
+Assume $y\neq0$. The vector
+$
+x-\frac{\langle x,y\rangle}
+{\langle y,y\rangle}y
+$
+is orthogonal to $y$. By Pythagoras,
+\begin{align*}
+\|x\|^2
+&=
+\left\|
+x-\frac{\langle x,y\rangle}
+{\langle y,y\rangle}y
+\right\|^2
++
+\left\|
+\frac{\langle x,y\rangle}
+{\langle y,y\rangle}y
+\right\|^2\\
+&\geq
+\frac{|\langle x,y\rangle|^2}{\|y\|^2}.
+\end{align*}
+Thus
+$|\langle x,y\rangle|\leq\|x\|\|y\|$.
+Equality holds exactly when the orthogonal
+remainder is zero, i.e. when $x$ and $y$ are
+linearly dependent.
+\end{proof}
 
 \begin{definition}
 \label{definition-hilbert-space}
@@ -3374,6 +3496,93 @@ A subset $S\subset H$ is {\it orthonormal} if
 $\|s\|=1$ for all $s\in S$ and $\langle
 s,t\rangle=0$ for $s\neq t$.
 \end{definition}
+
+
+\begin{proposition}
+\label{proposition-maximal-orthonormal-extension}
+Every orthonormal subset of an inner product
+space is contained in a maximal orthonormal
+subset.
+\end{proposition}
+
+\begin{proof}
+Order the family of orthonormal subsets
+containing the given set by inclusion. The
+union of a chain is again orthonormal, so
+Zorn's lemma gives a maximal element.
+\end{proof}
+
+\begin{remark}
+\label{remark-maximal-orthonormal-characterization}
+An orthonormal set $S$ is maximal if and only
+if
+$$
+x\perp S\quad\Longrightarrow\quad x=0.
+$$
+\end{remark}
+
+\begin{definition}
+\label{definition-summable-family}
+Let $(x_i)_{i\in I}$ be a family in a normed
+space $X$. We say that it is {\it summable
+to $x$} and write
+$$
+\sum_{i\in I}x_i=x
+$$
+if for every $\varepsilon>0$ there is a
+finite $I_0\subseteq I$ such that, for every
+finite $J\supseteq I_0$,
+$$
+\left\|
+x-\sum_{i\in J}x_i
+\right\|<\varepsilon.
+$$
+Equivalently, the net of finite partial sums
+converges to $x$.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-summable-family-countable-support}
+If $(x_i)_{i\in I}$ is summable, then
+$$
+\{i\in I:x_i\neq0\}
+$$
+is at most countable.
+\end{proposition}
+
+\begin{proof}
+For every $\varepsilon>0$, the set
+$$
+I_\varepsilon=
+\{i\in I:\|x_i\|>\varepsilon\}
+$$
+is finite. Indeed, if
+$x=\sum_{i\in I}x_i$, choose finite
+$I_0\subseteq I$ such that all finite partial
+sums containing $I_0$ are within
+$\varepsilon/2$ of $x$. If $i\notin I_0$,
+then
+\begin{align*}
+\|x_i\|
+&\leq
+\left\|
+x-\sum_{j\in I_0\cup\{i\}}x_j
+\right\|
++
+\left\|
+x-\sum_{j\in I_0}x_j
+\right\|\\
+&<\varepsilon.
+\end{align*}
+Hence
+$$
+\{i:x_i\neq0\}
+=
+\bigcup_{n=1}^\infty
+\{i:\|x_i\|>1/n\}
+$$
+is countable.
+\end{proof}
 
 \begin{theorem}[Bessel inequality]
 \label{theorem-bessel}
@@ -3544,22 +3753,144 @@ isomorphic to $\ell^2(S)$ for some set $S$.
 \label{theorem-riesz-representation-hilbert}
 Let $H$ be a Hilbert space. For every $f\in
 H^*$ there is a unique $y\in H$ such that
-$$
+$
 f(x)=\langle x,y\rangle
-$$
+$
 for all $x\in H$. Moreover $\|f\|=\|y\|$.
 \end{theorem}
+
+\begin{proof}
+Let $S\subseteq H$ be a maximal orthonormal
+set. Formally define
+$
+y=
+\sum_{s\in S}\overline{f(s)}\,s.
+$
+We first check that this family is summable.
+For every finite $F\subseteq S$,
+\begin{align*}
+\|f\|
+&\geq
+\left|
+f\left(
+\frac{\sum_{s\in F}\overline{f(s)}s}
+{\left\|\sum_{s\in F}\overline{f(s)}s\right\|}
+\right)
+\right|\\
+&=
+\left(
+\sum_{s\in F}|f(s)|^2
+\right)^{1/2}.
+\end{align*}
+Thus the nonnegative family
+$(|f(s)|^2)_{s\in S}$ is summable, and
+Pythagoras gives convergence of the vector
+series defining $y$.
+
+For $z\in H$, Parseval gives
+$
+z=\sum_{s\in S}\langle z,s\rangle s.
+$
+Therefore
+\begin{align*}
+\langle z,y\rangle
+&=
+\sum_{s\in S}
+f(s)\langle z,s\rangle\\
+&=
+f\left(
+\sum_{s\in S}\langle z,s\rangle s
+\right)
+=f(z).
+\end{align*}
+Cauchy--Schwarz gives $\|f\|\leq\|y\|$, and
+evaluating at $y/\|y\|$ gives the reverse
+inequality when $y\neq0$. Uniqueness follows
+because
+$
+\langle z,y_1-y_2\rangle=0
+\quad\text{for every }z
+$
+implies $y_1=y_2$.
+\end{proof}
+
+\begin{corollary}
+\label{corollary-hilbert-dual-hilbert}
+The dual of a Hilbert space is again a
+Hilbert space.
+\end{corollary}
+
+\begin{corollary}
+\label{corollary-hilbert-reflexive}
+Every Hilbert space is reflexive.
+\end{corollary}
+
+\begin{proof}
+The Riesz isometry identifies
+$\overline H$ with $H^*$ and
+$\overline{H^*}$ with $H^{**}$. Under these
+identifications the canonical embedding
+$J:H\to H^{**}$ is onto: if
+$f=\langle\cdot,y\rangle_H$, then the
+functional corresponding to $x\in H$
+evaluates $f$ as
+$
+\langle x,y\rangle_H=f(x)=Jx(f).
+$
+\end{proof}
 
 \begin{theorem}[Projection theorem]
 \label{theorem-projection-hilbert}
 Let $H$ be a Hilbert space and let $M\subset
 H$ be a closed linear subspace. For every
 $x\in H$ there is a unique $m\in M$ such that
-$$
+$
 \|x-m\|=d(x,M).
-$$
+$
 Moreover $x-m\perp M$.
 \end{theorem}
+
+\begin{proof}
+Existence follows from the reflexive-space
+minimization argument in the course notes:
+for every $\varepsilon>d(x,M)$, the set
+$
+\overline{B(x,\varepsilon)}\cap M
+$
+is nonempty and weakly compact. These sets
+are nested, so compactness gives a point
+$m\in M$ with
+$\|x-m\|=d(x,M)$.
+
+Uniqueness follows from strict convexity of a
+Hilbert space. If $m\neq m'$ both realize the
+distance, the parallelogram law gives
+$
+\left\|
+x-\frac{m+m'}2
+\right\|
+<d(x,M),
+$
+a contradiction.
+
+Finally, suppose $h\in M$ and
+$\langle x-m,h\rangle\neq0$. Choosing a
+scalar $\lambda$ of sufficiently small
+magnitude and opposite phase to
+$\langle x-m,h\rangle$ gives
+$
+\|x-m+\lambda h\|^2
+=
+\|x-m\|^2
++2\operatorname{Re}
+\langle x-m,\lambda h\rangle
++|\lambda|^2\|h\|^2
+<
+\|x-m\|^2,
+$
+contradicting minimality. Hence
+$x-m\perp M$.
+\end{proof}
 
 \begin{definition}
 \label{definition-orthogonal-projection}
