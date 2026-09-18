@@ -2816,12 +2816,44 @@ p \leq \infty$, then $X \cong Y$.
 \end{theorem}
 
 \begin{proof}
-(1) Let $X \cong Y \oplus E$ and $Y \cong X
-\oplus F$. Then $X \cong Y \oplus E \cong (Y
-\oplus Y) \oplus E \cong Y \oplus (Y \oplus
-E) \cong Y \oplus X$. Symmetrically, $Y \cong
-X \oplus Y$. Thus $X \cong Y$.
-\end{proof}
+Choose closed spaces $E,F$ such that
+$
+X\cong Y\oplus E,
+\qquad
+Y\cong X\oplus F.
+$
+For (1), using
+$X\cong X\oplus X$ and
+$Y\cong Y\oplus Y$,
+\begin{align*}
+X
+&\cong Y\oplus E\\
+&\cong Y\oplus Y\oplus E\\
+&\cong X\oplus F\oplus Y\oplus E\\
+&\cong X\oplus F\oplus X\\
+&\cong X\oplus F\\
+&\cong Y.
+\end{align*}
+
+For (2), suppose $X\cong\ell_p(X)$. First,
+\begin{align*}
+Y
+&\cong X\oplus F\\
+&\cong X\oplus\ell_p(X)\oplus F\\
+&\cong Y\oplus X.
+\end{align*}
+Then
+\begin{align*}
+X
+&\cong\ell_p(X)\\
+&\cong\ell_p(Y\oplus E)\\
+&\cong\ell_p(Y)\oplus\ell_p(E)\\
+&\cong Y\oplus\ell_p(Y)\oplus\ell_p(E)\\
+&\cong Y.
+\end{align*}
+The same argument is recorded in the source
+for $c_0(X)$.
+\end{proof>
 
 
 
@@ -4006,6 +4038,447 @@ $
 almost everywhere, we conclude that $f=0$.
 Thus $S$ is maximal.
 \end{proof}
+
+
+\section{Schauder bases}
+\label{section-schauder-bases}
+
+\begin{definition}
+\label{definition-schauder-basis}
+Let $X$ be a Banach space. A sequence
+$(x_n)\subseteq X$ is a {\it Schauder basis}
+of $X$ if for every $x\in X$ there exists a
+unique scalar sequence $(\alpha_n)$ such that
+$
+x=\sum_{n=1}^\infty\alpha_nx_n.
+$
+\end{definition}
+
+\begin{example}
+\label{example-schauder-bases}
+\begin{enumerate}
+\item The canonical sequence $(e_n)$ is a
+Schauder basis of $\ell_p$ for
+$1\leq p<\infty$, and of $c_0$.
+\item The space $\ell_\infty$ has no Schauder
+basis, since every Banach space with a
+Schauder basis is separable.
+\item The course notes record Enflo's 1973
+example of a separable Banach space without a
+Schauder basis.
+\end{enumerate}
+\end{example}
+
+\begin{theorem}
+\label{theorem-schauder-basis-coordinate-functionals}
+Let $X$ be a Banach space and
+$(x_n)\subseteq X$. The following are
+equivalent.
+\begin{enumerate}
+\item $(x_n)$ is a Schauder basis of $X$.
+\item There exist functionals
+$(x_n^*)\subseteq X^*$ such that
+$
+x_n^*(x_m)=\delta_{nm}
+$
+and
+$
+x=\sum_{n=1}^\infty x_n^*(x)x_n
+\qquad\text{for every }x\in X.
+$
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Assume (2). If
+$
+\sum_n\alpha_nx_n=\sum_n\beta_nx_n,
+$
+applying $x_k^*$ gives
+$\alpha_k=\beta_k$ for every $k$, so the
+representation is unique.
+
+Now assume (1). Uniqueness gives algebraic
+coordinate functionals $x_n^*$ satisfying
+$
+x=\sum_nx_n^*(x)x_n.
+$
+Let
+$
+S_Nx=\sum_{n=1}^Nx_n^*(x)x_n.
+$
+Since
+$
+x_n^*(x)x_n=S_nx-S_{n-1}x,
+$
+it is enough to show every $S_N$ is
+continuous.
+
+Following the course notes, define
+$
+\|x\|'=\sup_N\|S_Nx\|.
+$
+The supremum is finite because $S_Nx\to x$,
+and
+$
+\|x\|\leq\|x\|'.
+$
+The notes prove that $(X,\|\cdot\|')$ is
+complete by taking a $\|\cdot\|'$-Cauchy
+sequence $(y_m)$, first taking its limit in
+the original norm, and then using the
+finite-dimensional ranges of the $S_N$ to
+show convergence in $\|\cdot\|'$ as well.
+Consequently the identity map
+$
+(X,\|\cdot\|')\longrightarrow(X,\|\cdot\|)
+$
+is a continuous bijection between Banach
+spaces. By the bounded inverse theorem, the
+two norms are equivalent. Since
+$
+\|S_Nx\|\leq\|x\|',
+$
+each $S_N$ is continuous in the original
+norm, and hence so is each $x_n^*$.
+
+The Portuguese source contains several index
+typos inside the Cauchy-sequence computation;
+the argument above records its stated
+construction and conclusion.
+\end{proof}
+
+\begin{definition}
+\label{definition-basis-constant}
+For a Schauder basis $(x_n)$ with partial-sum
+operators $S_n$, the number
+$
+K=\sup_n\|S_n\|
+$
+is its {\it basis constant}. The basis is
+{\it monotone} if $K=1$.
+\end{definition}
+
+\begin{definition}
+\label{definition-basic-sequence}
+A sequence $(x_n)$ in a Banach space $X$ is
+{\it basic} if it is a Schauder basis of
+$
+\overline{\operatorname{span}}\{x_n:n\in
+\mathbb N\}.
+$
+\end{definition}
+
+\begin{proposition}
+\label{proposition-basic-sequence-characterization}
+A sequence
+$(x_n)\subseteq X\setminus\{0\}$ is basic if
+and only if there is $L\geq1$ such that
+$
+\left\|
+\sum_{n=1}^m\alpha_nx_n
+\right\|
+\leq
+L
+\left\|
+\sum_{n=1}^k\alpha_nx_n
+\right\|
+$
+for every $k\geq m$ and every choice of
+scalars $\alpha_1,\ldots,\alpha_k$.
+\end{proposition}
+
+\begin{proof}
+If $(x_n)$ is basic, the inequality follows
+from uniform boundedness of the partial-sum
+operators.
+
+Conversely, let
+$
+Y=\operatorname{span}\{x_n:n\in\mathbb N\}
+$
+and define on $Y$
+$
+S_m\left(\sum_{n=1}^k\alpha_nx_n\right)
+=
+\sum_{n=1}^{\min\{m,k\}}\alpha_nx_n.
+$
+The hypothesis gives $\|S_m\|\leq L$, so each
+$S_m$ extends continuously to $\overline Y$.
+Moreover,
+$
+S_mS_k=S_kS_m=S_{\min\{m,k\}},
+$
+the range of $S_m$ is
+$\operatorname{span}\{x_1,\ldots,x_m\}$, and
+$S_mx\to x$ first on $Y$ and then, by the
+uniform bound, on $\overline Y$. These facts
+give the unique Schauder expansion on
+$\overline Y$.
+\end{proof}
+
+\begin{definition}
+\label{definition-biorthogonal-functionals}
+For a basic sequence $(x_n)$, the coordinate
+functionals $(x_n^*)$ are called its
+{\it biorthogonal functionals}.
+\end{definition}
+
+\begin{theorem}
+\label{theorem-equivalent-basic-sequences}
+Let $(x_n)\subset X$ and $(y_n)\subset Y$ be
+basic sequences. The following are
+equivalent.
+\begin{enumerate}
+\item For every scalar sequence $(\alpha_n)$,
+the series $\sum\alpha_nx_n$ converges if and
+only if $\sum\alpha_ny_n$ converges.
+\item There is an isomorphism
+$
+T:
+\overline{\operatorname{span}}\{x_n\}
+\longrightarrow
+\overline{\operatorname{span}}\{y_n\}
+$
+such that $Tx_n=y_n$ for every $n$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The implication (2)$\Rightarrow$(1) is
+immediate. Assume (1). Define $T$ by
+$
+T\left(\sum_n\alpha_nx_n\right)
+=
+\sum_n\alpha_ny_n.
+$
+Condition (1) makes $T$ a well-defined
+bijection. To prove continuity, the course
+notes use the closed graph theorem. If
+$z_m\to z$ and $Tz_m\to w$, then for every
+$j$,
+$
+y_j^*(w)
+=
+\lim_m y_j^*(Tz_m)
+=
+\lim_m x_j^*(z_m)
+=
+x_j^*(z)
+=
+y_j^*(Tz).
+$
+Uniqueness of Schauder coefficients gives
+$w=Tz$. Thus $T$ has closed graph and is
+bounded; the same argument applies to
+$T^{-1}$.
+\end{proof}
+
+\begin{corollary}
+\label{corollary-equivalent-basic-sequence-estimate}
+Under the equivalent conditions above, there
+is $L\geq1$ such that for every $n$ and every
+$\alpha_1,\ldots,\alpha_n$,
+$
+\frac1L
+\left\|\sum_{i=1}^n\alpha_ix_i\right\|
+\leq
+\left\|\sum_{i=1}^n\alpha_iy_i\right\|
+\leq
+L
+\left\|\sum_{i=1}^n\alpha_ix_i\right\|.
+$
+\end{corollary}
+
+\subsection{Constructing basic sequences}
+\label{subsection-constructing-basic-sequences}
+
+\begin{theorem}
+\label{theorem-weak-closure-basic-sequence}
+Let $S\subseteq X$ satisfy
+$
+0\notin\overline S^{\,\|\cdot\|}
+\qquad\text{and}\qquad
+0\in\overline S^{\,w}.
+$
+Then $S$ contains a basic sequence.
+\end{theorem}
+
+\begin{lemma}
+\label{lemma-basic-sequence-finite-dimensional-step}
+Let $E\subseteq X^*$ be finite-dimensional
+and let
+$S\subseteq X^*$ satisfy
+$
+0\notin\overline S^{\,\|\cdot\|},
+\qquad
+0\in\overline S^{\,w}.
+$
+For every $\varepsilon>0$ there exists
+$x^*\in S$ such that
+$
+\|e^*+\lambda x^*\|
+\geq
+(1-\varepsilon)\|e^*\|
+$
+for every $e^*\in E$ and every real
+$\lambda$.
+\end{lemma}
+
+\begin{proof}
+Fix $\varepsilon>0$. Choose $\delta>0$.
+Since $S_E$ is compact, choose
+$e_1^*,\ldots,e_N^*\in S_E$ forming a
+$\delta$-net. For every $i$, choose
+$e_i\in S_X$ with
+$
+e_i^*(e_i)>1-\delta.
+$
+Since $0\in\overline S^{\,w}$, choose
+$x^*\in S$ such that
+$
+|x^*(e_i)|<\delta
+\qquad(i=1,\ldots,N).
+$
+Set
+$
+\alpha=\inf_{y^*\in\overline S}\|y^*\|>0.
+$
+For $e^*\in S_E$, choose $e_i^*$ within
+$\delta$ of $e^*$.
+
+The source splits into the two cases
+$|\lambda|>2/\alpha$ and
+$|\lambda|\leq2/\alpha$; the second condition
+is printed there a second time as
+$|\lambda|>2/\alpha$. In the first case,
+$
+\|e^*+\lambda x^*\|
+\geq|\lambda|\,\|x^*\|-1\geq1.
+$
+In the second,
+\begin{align*}
+\|e^*+\lambda x^*\|
+&\geq
+|(e^*+\lambda x^*)(e_i)|\\
+&\geq
+1-2\delta-\frac{2\delta}{\alpha}.
+\end{align*}
+Choosing $\delta$ so that the last expression
+is at least $1-\varepsilon$ proves the lemma;
+homogeneity gives the general $e^*\in E$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem
+\ref{theorem-weak-closure-basic-sequence}]
+View $X$ canonically in $X^{**}$. Choose
+positive numbers $(\delta_n)$ such that
+$
+\prod_n(1-\delta_n)>\frac1{1+\varepsilon}.
+$
+Iterating Lemma
+\ref{lemma-basic-sequence-finite-dimensional-step}
+produces $(x_n)\subseteq S$ such that for
+every $m$ and scalars
+$a_1,\ldots,a_{m+1}$,
+$
+(1-\delta_m)
+\left\|
+\sum_{n=1}^m a_nx_n
+\right\|
+\leq
+\left\|
+\sum_{n=1}^{m+1}a_nx_n
+\right\|.
+$
+Iterating this estimate gives, for
+$m\leq k$,
+$
+\left\|
+\sum_{n=1}^m a_nx_n
+\right\|
+\leq
+(1+\varepsilon)
+\left\|
+\sum_{n=1}^k a_nx_n
+\right\|.
+$
+Proposition
+\ref{proposition-basic-sequence-characterization}
+shows that $(x_n)$ is basic.
+
+The Portuguese source has several index
+typos in this iteration; the displayed
+product estimate is the one it explicitly
+states as the goal of the construction.
+\end{proof}
+
+\begin{corollary}
+\label{corollary-weak-null-basic-subsequence}
+If $(x_n)\subseteq X$ converges weakly to
+zero and
+$
+\inf_n\|x_n\|>0,
+$
+then $(x_n)$ has a basic subsequence.
+\end{corollary}
+
+\begin{theorem}
+\label{theorem-infinite-dimensional-basic-sequence}
+Every infinite-dimensional Banach space
+contains a basic sequence.
+\end{theorem}
+
+\begin{proof}
+Apply Theorem
+\ref{theorem-weak-closure-basic-sequence}
+to $S=S_X$. Clearly
+$0\notin\overline{S_X}^{\,\|\cdot\|}$.
+If $0\notin\overline{S_X}^{\,w}$, there
+would be
+$f_1,\ldots,f_n\in X^*$ and
+$\varepsilon>0$ such that
+$
+\{x:|f_i(x)|<\varepsilon\text{ for all }i\}
+\cap S_X
+=\varnothing.
+$
+But in an infinite-dimensional space
+$
+\bigcap_{i=1}^n\ker f_i
+$
+contains a nonzero vector; after
+normalizing it we obtain a point of the
+displayed intersection, a contradiction.
+\end{proof}
+
+\begin{definition}
+\label{definition-vector-valued-lp-c0}
+Let $X$ be a Banach space. For
+$1\leq p<\infty$, define
+$
+\ell_p(X)
+=
+\left\{(x_n)\in X^{\mathbb N}:
+\sum_n\|x_n\|^p<\infty
+\right\}
+$
+with
+$
+\|(x_n)\|
+=
+\left(\sum_n\|x_n\|^p\right)^{1/p}.
+$
+Also define
+$
+c_0(X)
+=
+\left\{(x_n)\in\ell_\infty(X):
+\|x_n\|\to0
+\right\}
+$
+with the supremum norm.
+\end{definition}
 
 \section{Banach algebras}
 \label{section-banach-algebras}
