@@ -5515,6 +5515,86 @@ point is $0$.
 \end{proof}
 
 
+\begin{definition}
+\label{definition-hilbert-adjoint-selfadjoint}
+For $T\in\mathcal L(H)$, the Hilbert adjoint
+$T^*\in\mathcal L(H)$ is determined by
+$$
+\langle Ty,x\rangle
+=
+\langle y,T^*x\rangle
+\qquad(x,y\in H).
+$$
+The operator is self-adjoint if $T=T^*$.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-selfadjoint-eigenvalues-orthogonal}
+Let $T\in\mathcal L(H)$ be self-adjoint.
+Then:
+\begin{enumerate}
+\item every eigenvalue of $T$ is real;
+\item eigenvectors belonging to distinct
+eigenvalues are orthogonal.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+If $Tx=\lambda x$, then
+$$
+\lambda\|x\|^2
+=
+\langle Tx,x\rangle
+=
+\langle x,Tx\rangle
+=
+\overline{\lambda}\|x\|^2,
+$$
+so $\lambda\in\mathbb R$.
+
+If $Tx=\lambda x$ and $Ty=\mu y$, then
+$$
+\lambda\langle x,y\rangle
+=
+\langle Tx,y\rangle
+=
+\langle x,Ty\rangle
+=
+\mu\langle x,y\rangle.
+$$
+For $\lambda\neq\mu$, this gives $x\perp y$.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-selfadjoint-spectral-radius-norm}
+If $T$ is self-adjoint, then
+$$
+r(T)=\|T\|.
+$$
+\end{proposition}
+
+\begin{proof}
+For operators on a Hilbert space,
+$$
+\|T^*T\|=\|T\|^2.
+$$
+If $T=T^*$, this gives
+$$
+\|T^2\|=\|T\|^2.
+$$
+Iterating,
+$$
+\|T^{2^n}\|=\|T\|^{2^n}.
+$$
+Applying the spectral-radius formula along
+this subsequence gives $r(T)=\|T\|$.
+
+This is the argument intended in the
+Portuguese notes; their displayed computation
+contains transcription errors in the powers
+of $T$.
+\end{proof}
+
 \begin{theorem}
 [Spectral theorem for compact self-adjoint
 operators]
@@ -5530,6 +5610,61 @@ Tx = \sum_n \lambda_n \langle x, e_n \rangle
 e_n.
 $$
 \end{theorem}
+
+\begin{proof}
+For every $\lambda\in\sigma(T)$, let
+$$
+H_\lambda=\ker(T-\lambda I).
+$$
+For $\lambda\neq0$, $H_\lambda$ is
+finite-dimensional. Distinct eigenspaces are
+orthogonal, and the spectrum is countable.
+
+Let
+$$
+H'
+=
+\overline{
+\bigoplus_{\lambda\in\sigma(T)}H_\lambda
+}.
+$$
+The space $H'$ is $T$-invariant. Since $T$ is
+self-adjoint, $(H')^\perp$ is also
+$T$-invariant: if $y\in(H')^\perp$ and
+$x\in H'$, then
+$$
+\langle Ty,x\rangle
+=
+\langle y,Tx\rangle=0.
+$$
+The restriction
+$$
+T_0=T|_{(H')^\perp}
+$$
+is compact and self-adjoint. It has no
+nonzero eigenvalue, because any such
+eigenvector would already belong to $H'$.
+By the compact spectral theorem,
+$$
+\sigma(T_0)=\{0\}.
+$$
+Proposition
+\ref{proposition-selfadjoint-spectral-radius-norm}
+therefore gives $T_0=0$. Hence
+$$
+(H')^\perp\subseteq\ker T=H_0\subseteq H',
+$$
+so $(H')^\perp=0$ and $H'=H$.
+
+Choose an orthonormal basis in each
+eigenspace. Their union is a maximal
+orthonormal set of eigenvectors. Parseval
+then yields
+$$
+Tx=
+\sum_n\lambda_n\langle x,e_n\rangle e_n.
+$$
+\end{proof}
 
 \section
 {Special topics and advanced examples}
