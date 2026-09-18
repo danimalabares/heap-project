@@ -2731,6 +2731,589 @@ X \oplus Y$. Thus $X \cong Y$.
 \end{proof}
 
 
+
+\section{Representation of functionals on $C(K)$}
+\label{section-riesz-markov-course}
+
+Let $X$ be a compact metric space and let
+$\mathcal B_X$ be its Borel $\sigma$-algebra.
+
+\begin{definition}
+\label{definition-signed-borel-measure-total-variation}
+A finite Borel measure allowed to take
+positive and negative values is called a
+{\it signed measure}. Its {\it total
+variation} is
+$
+|\mu|(B)
+=
+\sup
+\left\{
+\sum_{n=1}^\infty|\mu(B_n)|:
+B=\bigsqcup_{n=1}^\infty B_n,\ 
+B_n\in\mathcal B_X
+\right\}.
+$
+Write
+$
+M(X)
+=
+\{\mu:\mu\text{ is a finite signed Borel
+measure on }X\}
+$
+and
+$
+\|\mu\|_M=|\mu|(X).
+$
+\end{definition}
+
+\begin{definition}
+\label{definition-positive-functional-cx}
+A functional $\varphi\in C(X)^*$ is
+{\it positive} if
+$
+f\geq0\quad\Longrightarrow\quad
+\varphi(f)\geq0.
+$
+\end{definition}
+
+\begin{remark}
+\label{remark-positive-functional-norm}
+If $\varphi$ is positive, then
+$
+\|\varphi\|=\varphi(1).
+$
+Indeed, for $f\in C(X)$,
+$
+\|f\|_\infty\pm f\geq0,
+$
+so
+$
+|\varphi(f)|
+\leq
+\varphi(1)\|f\|_\infty.
+$
+Equality in norm follows by evaluating at
+the constant function $1$.
+\end{remark}
+
+\begin{theorem}
+\label{theorem-positive-riesz-representation-course}
+Let $X$ be a compact metric space and let
+$\varphi\in C(X)^*$ be positive. Then there
+is a unique finite positive Borel measure
+$\mu$ on $X$ such that
+$
+\varphi(f)=\int_X f\,d\mu
+\qquad\text{for all }f\in C(X).
+$
+\end{theorem}
+
+\begin{proof}
+For an open set $A\subseteq X$, define
+$
+r_\varphi(A)
+=
+\sup
+\left\{
+\varphi(f):
+\operatorname{supp}f\subseteq A,\ 
+0\leq f\leq1
+\right\}.
+$
+For an arbitrary $B\subseteq X$, define
+$
+\mu^*(B)
+=
+\inf
+\{r_\varphi(A):B\subseteq A,\ A\text{
+open}\}.
+$
+The course notes construct the representing
+measure from this outer measure.
+
+Clearly $\mu^*(\varnothing)=0$, and
+monotonicity follows directly from the
+definition. To prove countable subadditivity,
+first let $B=\bigcup_iB_i$ be a union of open
+sets and let $f\in C(X)$ satisfy
+$\operatorname{supp}f\subseteq B$ and
+$0\leq f\leq1$. Compactness of
+$\operatorname{supp}f$ gives a finite
+subcover $B_1,\ldots,B_N$. Choose a
+partition of unity
+$\eta_1,\ldots,\eta_N$ subordinate to this
+finite cover. Then
+$
+f=\sum_{i=1}^N f\eta_i,
+$
+with
+$\operatorname{supp}(f\eta_i)\subseteq B_i$
+and $0\leq f\eta_i\leq1$, so
+$
+\varphi(f)
+\leq
+\sum_{i=1}^Nr_\varphi(B_i).
+$
+Taking the supremum over $f$ gives
+$
+r_\varphi(B)
+\leq
+\sum_i r_\varphi(B_i).
+$
+
+For arbitrary sets $E_i$, choose open
+$B_i\supseteq E_i$ with
+$
+r_\varphi(B_i)
+\leq
+\mu^*(E_i)+\varepsilon2^{-i}.
+$
+Then
+$
+\mu^*\left(\bigcup_iE_i\right)
+\leq
+\sum_i\mu^*(E_i)+\varepsilon.
+$
+Letting $\varepsilon\downarrow0$ proves
+countable subadditivity.
+
+The notes next verify that $\mu^*$ is a
+metric outer measure: if
+$d(E_1,E_2)>0$, choose disjoint open
+neighborhoods of $E_1,E_2$ and obtain
+$
+\mu^*(E_1\cup E_2)
+=
+\mu^*(E_1)+\mu^*(E_2).
+$
+Therefore the restriction of $\mu^*$ to the
+Borel sets is a finite Borel measure $\mu$.
+Moreover,
+$
+\mu(X)=\mu^*(X)=\varphi(1).
+$
+
+It remains to show that $\mu$ represents
+$\varphi$. By linearity it is enough to
+consider $0\leq f\leq1$. The notes divide the
+range of $f$ into $N$ intervals and construct
+continuous functions $f_1,\ldots,f_N$ such
+that
+$
+f=\sum_{n=1}^N f_n,
+$
+each $Nf_n$ is between $0$ and $1$, equals
+$1$ on a slightly smaller superlevel set,
+and is supported in a slightly larger
+superlevel set. From the definition of
+$r_\varphi$ one obtains upper and lower
+Riemann-sum bounds for both
+$\varphi(f)$ and $\int f\,d\mu$. The
+difference is bounded by
+$
+\frac{2\mu(X)}N.
+$
+Letting $N\to\infty$ gives
+$
+\varphi(f)=\int_Xf\,d\mu.
+$
+
+For uniqueness, suppose $\mu'$ is another
+positive finite Borel measure representing
+$\varphi$. If $B$ is open and
+$0\leq f\leq1$ has
+$\operatorname{supp}f\subseteq B$, then
+$
+\varphi(f)=\int_Bf\,d\mu'\leq\mu'(B).
+$
+Taking the supremum over such $f$ gives
+$\mu(B)\leq\mu'(B)$. Conversely, regularity
+of $\mu'$ lets one choose compact
+$K\subseteq B$ with
+$\mu'(B)\leq\mu'(K)+\varepsilon$ and a
+continuous $f$ with
+$f|_K=1$, $0\leq f\leq1$, and
+$\operatorname{supp}f\subseteq B$. Then
+$
+\mu'(B)
+\leq
+\varphi(f)+\varepsilon
+\leq
+\mu(B)+\varepsilon.
+$
+Thus the measures agree on open sets, hence
+on all Borel sets.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-functional-positive-negative-parts}
+Let $\varphi\in C(X)^*$. There are positive
+functionals $\varphi^+,\varphi^-\in C(X)^*$
+such that
+$
+\varphi=\varphi^+-\varphi^-,
+\qquad
+\|\varphi\|
+=
+\varphi^+(1)+\varphi^-(1).
+$
+\end{proposition}
+
+\begin{theorem}[Riesz representation]
+\label{theorem-riesz-representation-ck}
+Let $X$ be a compact metric space. For every
+$\varphi\in C(X)^*$ there is a unique
+$\mu\in M(X)$ such that
+$
+\varphi(f)=\int_Xf\,d\mu
+\qquad
+\text{for all }f\in C(X),
+$
+and
+$
+\|\varphi\|=|\mu|(X)=\|\mu\|_M.
+$
+Thus
+$
+C(X)^*\cong M(X)
+$
+isometrically.
+\end{theorem}
+
+\begin{proof}
+Write
+$
+\varphi=\varphi^+-\varphi^-
+$
+as in Proposition
+\ref{proposition-functional-positive-negative-parts}.
+By Theorem
+\ref{theorem-positive-riesz-representation-course}
+there are positive measures
+$\mu_+,\mu_-$ representing
+$\varphi^+,\varphi^-$. Put
+$
+\mu=\mu_+-\mu_-.
+$
+Then $\mu$ represents $\varphi$, and
+\begin{align*}
+|\varphi(f)|
+&=
+\left|\int_Xf\,d\mu\right|\\
+&\leq
+\int_X|f|\,d|\mu|\\
+&\leq
+\|f\|_\infty|\mu|(X),
+\end{align*}
+so
+$\|\varphi\|\leq|\mu|(X)$. The decomposition
+also gives
+$
+|\mu|(X)
+\leq
+\mu_+(X)+\mu_-(X)
+=
+\varphi^+(1)+\varphi^-(1)
+=
+\|\varphi\|,
+$
+hence equality.
+
+If $\mu'$ also represents $\varphi$, then
+$\nu=\mu-\mu'$ integrates every continuous
+function to zero. Writing
+$
+\nu=\nu^+-\nu^-,
+\qquad
+\nu^\pm=\frac12(|\nu|\pm\nu),
+$
+the positive measures $\nu^+$ and $\nu^-$
+define the same positive functional.
+Uniqueness in the positive case gives
+$\nu^+=\nu^-$, hence $\nu=0$.
+\end{proof}
+
+
+\section{Lyapunov convexity and fixed points}
+\label{section-lyapunov-convexity}
+
+\begin{definition}
+\label{definition-nonatomic-signed-measure}
+A signed measure $\mu$ is {\it nonatomic} if
+whenever $|\mu|(A)>0$, there exists a
+measurable $B\subseteq A$ such that
+$
+0<|\mu|(B)<|\mu|(A).
+$
+\end{definition}
+
+\begin{theorem}[Lyapunov convexity theorem]
+\label{theorem-lyapunov-convexity}
+Let $\mu_1,\ldots,\mu_n$ be finite nonatomic
+signed measures on the same measurable
+space. Then the range of the vector measure
+$
+\mu(A)=
+(\mu_1(A),\ldots,\mu_n(A))
+$
+is a compact convex subset of $\mathbb R^n$.
+\end{theorem}
+
+\begin{proof}
+Put
+$
+\nu=|\mu_1|+\cdots+|\mu_n|.
+$
+Define
+$
+\Lambda:L^\infty(\nu)\longrightarrow
+\mathbb R^n,
+\qquad
+\Lambda(f)=
+\left(
+\int f\,d\mu_1,\ldots,
+\int f\,d\mu_n
+\right).
+$
+By Radon--Nikodym, for each $i$ there is
+$g_i\in L^1(\nu)$ such that
+$
+\int f\,d\mu_i
+=
+\int fg_i\,d\nu.
+$
+Hence $\Lambda$ is weak-star continuous on
+$L^\infty(\nu)=(L^1(\nu))^*$.
+
+Consider
+$
+K=
+\{f\in L^\infty(\nu):0\leq f\leq1\}.
+$
+The notes record that $K$ is weak-star
+closed. By Banach--Alaoglu it is weak-star
+compact, and it is convex. Therefore
+$\Lambda(K)$ is compact and convex.
+
+Every value of the vector measure belongs to
+$\Lambda(K)$ because
+$
+\mu(A)=\Lambda(\chi_A).
+$
+Conversely, fix $\xi\in\Lambda(K)$ and set
+$
+K_\xi=
+\Lambda^{-1}(\{\xi\})\cap K.
+$
+This is nonempty, convex, and weak-star
+compact. By Krein--Milman it has an extreme
+point $f$.
+
+We claim that $f$ is a characteristic
+function. Otherwise there are a measurable
+set $A$ of positive $\nu$-measure and
+$r>0$ such that
+$
+r\leq f\leq1-r
+\qquad\text{on }A.
+$
+Because $\nu$ is nonatomic,
+$L^\infty(A,\nu)$ is infinite-dimensional,
+whereas $\ker\Lambda$ has finite codimension.
+Thus there is a nonzero
+$
+g\in L^\infty(A,\nu)\cap\ker\Lambda
+$
+with $\|g\|_\infty<r$. Then
+$f\pm g\in K_\xi$ and
+$
+f=\frac12(f+g)+\frac12(f-g),
+$
+contradicting extremality. Hence
+$f=\chi_A$ for some measurable $A$, and
+$\xi=\mu(A)$.
+\end{proof}
+
+\begin{theorem}[Markov--Kakutani]
+\label{theorem-markov-kakutani}
+Let $X$ be a Banach space and
+$K\subseteq X$ a nonempty convex weakly
+compact set. Let $\mathcal T$ be a commuting
+family of weakly continuous affine maps
+$T:K\to K$. Then there exists $x\in K$ such
+that
+$
+Tx=x
+\qquad\text{for every }T\in\mathcal T.
+$
+\end{theorem}
+
+\begin{proof}
+First consider one map $T$. Define
+$
+A=\{(x,x):x\in K\},
+\qquad
+B=\{(x,Tx):x\in K\}
+$
+inside $X\times X$. If $T$ had no fixed
+point, $A$ and $B$ would be disjoint compact
+convex sets. Geometric Hahn--Banach would
+give $F\in(X\times X)^*$ and
+$\alpha<\beta$ such that
+$
+F(x,x)<\alpha<\beta<F(x,Tx)
+\qquad(x\in K).
+$
+Hence
+$
+F(0,Tx)-F(0,x)>\beta-\alpha.
+$
+Applying this to
+$x,T x,\ldots,T^{n-1}x$ and summing
+telescopically gives
+$
+F(0,T^nx)-F(0,x)>n(\beta-\alpha),
+$
+contradicting boundedness of the continuous
+functional $F$ on the compact set
+$\{0\}\times K$. Thus every $T$ has a fixed
+point.
+
+For each $T\in\mathcal T$, let
+$
+K_T=\{x\in K:Tx=x\}.
+$
+Each $K_T$ is nonempty compact and convex.
+For a finite family
+$T_1,\ldots,T_n$, commutativity implies
+$T_j$ preserves the common fixed-point set
+of $T_1,\ldots,T_{j-1}$. Applying the
+one-map case inductively shows
+$
+K_{T_1}\cap\cdots\cap K_{T_n}\neq\varnothing.
+$
+Compactness and the finite intersection
+property give
+$
+\bigcap_{T\in\mathcal T}K_T\neq\varnothing.
+$
+\end{proof}
+
+
+\section{Amenable groups}
+\label{section-amenable-groups}
+
+\begin{definition}
+\label{definition-mean-set}
+A {\it mean} on a set $X$ is a positive
+functional
+$
+m\in\ell_\infty(X)^*
+$
+with $\|m\|=1$.
+\end{definition}
+
+\begin{remark}
+\label{remark-mean-finitely-additive-probability}
+A mean can be viewed as a finitely additive
+probability measure on $X$.
+\end{remark}
+
+\begin{definition}
+\label{definition-amenable-group}
+Let $G$ be a group. It acts on
+$\ell_\infty(G)$ by
+$
+(g\cdot a)(h)=a(g^{-1}h).
+$
+A mean $m$ is {\it invariant} if
+$
+m(g\cdot a)=m(a)
+\qquad
+\text{for all }a\in\ell_\infty(G),\ g\in G.
+$
+The group $G$ is {\it amenable} if it admits
+an invariant mean.
+\end{definition}
+
+\begin{example}
+\label{example-amenable-groups}
+\begin{enumerate}
+\item Finite groups are amenable, using
+normalized counting measure.
+\item The free group $\mathbb F_n$ is not
+amenable for $n>1$.
+\item The course notes record
+$\mathbb Z$ as amenable.
+\end{enumerate}
+\end{example}
+
+\begin{proof}
+[Why $\mathbb F_2$ is not amenable]
+Write
+$
+\mathbb F_2=\langle a,b\rangle
+$
+and, for
+$c\in\{a,b,a^{-1},b^{-1}\}$, let
+$\mathbb F_2^c$ be the set of reduced words
+beginning with $c$. Then
+$
+a^{-1}\mathbb F_2^a
+=
+\mathbb F_2^a
+\sqcup
+\mathbb F_2^b
+\sqcup
+\mathbb F_2^{b^{-1}}
+\sqcup\{e\}.
+$
+If an invariant mean $m$ existed, invariance
+and finite additivity would force
+$
+m(\mathbb F_2^b
+\sqcup\mathbb F_2^{b^{-1}}\sqcup\{e\})=0.
+$
+The analogous identity with $b$ forces the
+remaining two first-letter pieces to have
+total mean zero. Hence
+$m(\mathbb F_2)=0$, contradicting
+$m(1)=1$.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-abelian-groups-amenable}
+Every abelian group is amenable.
+\end{theorem}
+
+\begin{proof}
+Let
+$
+M(G)\subseteq\ell_\infty(G)^*
+$
+be the set of means. The course notes leave
+as an exercise the verification that $M(G)$
+is convex and weak-star compact.
+
+For $g\in G$, define
+$
+T_g:M(G)\to M(G),
+\qquad
+(T_gm)(a)=m(g\cdot a).
+$
+Each $T_g$ is affine and weak-star
+continuous. Since $G$ is abelian, the maps
+$T_g$ commute. Markov--Kakutani gives a mean
+$m\in M(G)$ with
+$
+T_gm=m
+\qquad\text{for every }g\in G.
+$
+This is exactly invariance of the mean.
+\end{proof}
+
+
 \section{Hilbert spaces}
 \label{section-hilbert-spaces}
 
