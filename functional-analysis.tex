@@ -1812,6 +1812,338 @@ compact.
 \end{theorem}
 
 
+
+\subsection{Reflexivity and weak-star continuous functionals}
+\label{subsection-reflexivity-course}
+
+\begin{proposition}
+\label{proposition-canonical-embedding-isometry}
+The canonical map
+$
+J:X\longrightarrow X^{**},
+\qquad
+(Jx)(f)=f(x),
+$
+is an isometry.
+\end{proposition}
+
+\begin{proof}
+For $x\in X$,
+$
+\|Jx\|
+=
+\sup_{f\in B_{X^*}}|f(x)|
+\leq\|x\|.
+$
+If $x\neq0$, Hahn--Banach gives
+$f\in X^*$ with $\|f\|=1$ and
+$f(x)=\|x\|$. Hence
+$
+\|Jx\|\geq|(Jx)(f)|=\|x\|.
+$
+\end{proof}
+
+\begin{proposition}
+\label{proposition-closed-subspace-reflexive}
+If $X$ is reflexive and $Y\subseteq X$ is a
+closed linear subspace, then $Y$ is
+reflexive.
+\end{proposition}
+
+\begin{proof}
+Let $\xi\in Y^{**}$. Define
+$\bar\xi\in X^{**}$ by
+$
+\bar\xi(f)=\xi(f|_Y),
+\qquad f\in X^*.
+$
+Since $X$ is reflexive, there is $x\in X$
+such that $J_Xx=\bar\xi$.
+
+We claim $x\in Y$. Otherwise Hahn--Banach
+gives $f\in X^*$ with $f|_Y=0$ but
+$f(x)\neq0$. Then
+$
+0=\xi(f|_Y)=\bar\xi(f)=(J_Xx)(f)=f(x),
+$
+a contradiction.
+
+Now let $g\in Y^*$. Extend $g$ by
+Hahn--Banach to $\bar g\in X^*$. Then
+\begin{align*}
+(J_Yx)(g)
+&=g(x)=\bar g(x)\\
+&=(J_Xx)(\bar g)
+=\bar\xi(\bar g)
+=\xi(g).
+\end{align*}
+Thus $J_Yx=\xi$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-kernel-intersection-span-functionals}
+Let $f,f_1,\ldots,f_n:X\to\mathbb R$ be
+linear. If
+$
+\bigcap_{i=1}^n\ker f_i\subseteq\ker f,
+$
+then
+$
+f\in\operatorname{span}\{f_1,\ldots,f_n\}.
+$
+\end{lemma}
+
+\begin{proof}
+Define
+$
+L:X\longrightarrow\mathbb R^n,
+\qquad
+L(x)=(f_1(x),\ldots,f_n(x)).
+$
+The kernel hypothesis implies that $f$
+factors through $L$: there is a linear
+$g:\operatorname{Im}L\to\mathbb R$ such that
+$f=g\circ L$. Extend $g$ linearly to
+$\mathbb R^n$. Thus
+$
+g(t_1,\ldots,t_n)=
+\sum_{i=1}^n\lambda_it_i
+$
+for some scalars $\lambda_i$, and therefore
+$f=\sum_i\lambda_if_i$.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-weakstar-continuous-bidual-is-evaluation}
+Let $\xi\in X^{**}$. If
+$\xi:X^*\to\mathbb K$ is continuous for the
+weak-star topology $\sigma(X^*,X)$, then
+$\xi=Jx$ for some $x\in X$.
+\end{proposition}
+
+\begin{proof}
+Continuity at zero gives
+$x_1,\ldots,x_n\in X$ and $\varepsilon>0$
+such that
+$
+\bigcap_{i=1}^n
+\{f\in X^*:|f(x_i)|<\varepsilon\}
+\subseteq
+\xi^{-1}(B(0,1)).
+$
+By linearity, this implies
+$
+\bigcap_{i=1}^n\ker(Jx_i)\subseteq\ker\xi.
+$
+Lemma
+\ref{lemma-kernel-intersection-span-functionals}
+gives
+$
+\xi=\sum_{i=1}^n\lambda_iJx_i
+=
+J\left(\sum_{i=1}^n\lambda_ix_i\right).
+$
+\end{proof}
+
+\begin{theorem}
+\label{theorem-reflexive-iff-weak-weakstar-dual}
+A normed space $X$ is reflexive if and only
+if
+$
+\sigma(X^*,X)=\sigma(X^*,X^{**}).
+$
+\end{theorem}
+
+\begin{proof}
+If $X$ is reflexive, $J(X)=X^{**}$ and the
+two topologies are the same.
+
+Conversely, suppose the two topologies agree.
+Every $\xi\in X^{**}$ is continuous for
+$\sigma(X^*,X^{**})$, hence for
+$\sigma(X^*,X)$. By Proposition
+\ref{proposition-weakstar-continuous-bidual-is-evaluation},
+$\xi\in J(X)$. Thus $J$ is onto.
+\end{proof}
+
+\subsection{Minkowski functionals and geometric Hahn--Banach}
+\label{subsection-minkowski-geometric-hahn-banach}
+
+\begin{definition}
+\label{definition-topological-vector-space}
+A {\it topological vector space} is a vector
+space $X$ with a topology for which addition
+and scalar multiplication are continuous and
+points are closed.
+\end{definition}
+
+\begin{definition}
+\label{definition-minkowski-functional}
+Let $A\subseteq X$. Its {\it Minkowski
+functional} is
+$
+\mu_A(x)
+=
+\inf\left\{t>0:\frac xt\in A\right\}.
+$
+A set $A$ is {\it absorbing} if for every
+$x\in X$ there is $t>0$ with $x/t\in A$.
+It is {\it balanced} if
+$\lambda x\in A$ whenever $x\in A$ and
+$|\lambda|\leq1$.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-minkowski-unit-ball}
+For the unit ball
+$A=B_X$ of a normed space,
+$A$ is convex, balanced, and absorbing, and
+$
+\mu_A(x)=\|x\|.
+$
+\end{proposition}
+
+\begin{proof}
+If $t>\|x\|$, then $x/t\in A$, so
+$\mu_A(x)\leq\|x\|$. If
+$0<t<\|x\|$, then $x/t\notin A$, hence
+$t\leq\mu_A(x)$. Therefore
+$\mu_A(x)=\|x\|$.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-minkowski-convex-absorbing}
+Let $A$ be convex and absorbing. Then
+$\mu_A$ is sublinear and
+$
+\{x:\mu_A(x)<1\}\subseteq A
+\subseteq\{x:\mu_A(x)\leq1\}.
+$
+If $A$ is balanced, then
+$\mu_A(\lambda x)=|\lambda|\mu_A(x)$.
+\end{proposition}
+
+\begin{proof}
+Let $t>\mu_A(x)$ and $s>\mu_A(y)$. Then
+$x/t,y/s\in A$, and convexity gives
+$
+\frac{x+y}{t+s}
+=
+\frac{t}{t+s}\frac xt+
+\frac{s}{t+s}\frac ys
+\in A.
+$
+Hence
+$\mu_A(x+y)\leq t+s$, and letting
+$t\downarrow\mu_A(x)$ and
+$s\downarrow\mu_A(y)$ proves
+subadditivity. Positive homogeneity follows
+directly from the definition, and balancedness
+extends it to all scalars by absolute value.
+The two inclusions follow from convexity and
+the definition of the infimum.
+\end{proof}
+
+\begin{proof}
+[Proof of Theorem
+\ref{theorem-hahn-banach-geometric-1}]
+Choose $a\in A$, $b\in B$, put
+$x_0=a-b$, and define
+$
+C=-x_0+A-B.
+$
+Then $C$ is open, convex, absorbing, and
+contains $0$, while $x_0\notin C$ after the
+corresponding translation convention.
+On $E=\operatorname{span}\{x_0\}$ define
+$f(\alpha x_0)=\alpha$. The Minkowski
+functional $\mu_C$ dominates $f$ on $E$.
+By Hahn--Banach, $f$ extends to
+$\widetilde f:X\to\mathbb R$ with
+$\widetilde f\leq\mu_C$.
+
+Since $\widetilde f$ is bounded on the open
+set $C\cap(-C)$, it is continuous. Applying
+the inequality to translated points of
+$A-B$ gives
+$
+\widetilde f(a)<\widetilde f(b)
+\qquad(a\in A,\ b\in B).
+$
+With
+$
+\alpha=\inf_{b\in B}\widetilde f(b),
+$
+one obtains
+$
+\widetilde f(a)<\alpha\leq\widetilde f(b).
+$
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compact-closed-separated-neighborhoods}
+Let $A,B$ be disjoint subsets of a
+topological vector space, with $A$ compact
+and $B$ closed. There is an open neighborhood
+$V$ of $0$ such that
+$
+(A+V)\cap(B+V)=\varnothing.
+$
+\end{lemma}
+
+\begin{proof}
+For every $x\in A\subset B^c$, continuity of
+addition gives a symmetric neighborhood
+$V_x$ of $0$ such that
+$
+x+V_x+V_x+V_x\subseteq B^c.
+$
+Compactness gives
+$x_1,\ldots,x_n\in A$ with
+$
+A\subseteq\bigcup_{i=1}^n(x_i+V_{x_i}).
+$
+Set $V=\bigcap_iV_{x_i}$. If a point belonged
+to both $A+V$ and $B+V$, it would force some
+$x_i+V_{x_i}+V_{x_i}+V_{x_i}$ to meet $B$,
+contrary to the choice of $V_{x_i}$.
+\end{proof}
+
+\begin{remark}
+\label{remark-geometric-hb-second-source}
+The Portuguese course notes state the second
+geometric Hahn--Banach theorem in the compact
+versus closed case and prove the preceding
+neighborhood-separation lemma; they leave the
+final deduction of the theorem as an
+exercise.
+\end{remark}
+
+\begin{corollary}
+\label{corollary-convex-weak-norm-closure}
+If $C$ is convex in a normed space $X$, then
+$
+\overline C^{\,\|\cdot\|}
+=
+\overline C^{\,w}.
+$
+\end{corollary}
+
+\begin{proof}
+Since the weak topology is coarser than the
+norm topology,
+$\overline C^{\,\|\cdot\|}
+\subseteq\overline C^{\,w}$.
+If
+$x\notin\overline C^{\,\|\cdot\|}$, apply
+geometric Hahn--Banach to the point
+$\{x\}$ and the closed convex set
+$\overline C^{\,\|\cdot\|}$. There is
+$f\in X^*$ separating them. Hence a weak
+open neighborhood of $x$ misses $C$, so
+$x\notin\overline C^{\,w}$.
+\end{proof}
+
 \section
 {Baire category and Banach--Steinhaus}
 \label{section-baire-banach-steinhaus}
@@ -1938,6 +2270,79 @@ weak* compact and would have extreme points
 by Krein-Milman).
 \end{lemma}
 
+
+\begin{proof}
+[Proof of Theorem \ref{theorem-krein-milman}]
+The inclusion
+$\overline{\operatorname{conv}}E(K)\subseteq
+K$ is immediate because $K$ is closed and
+convex.
+
+Let $\mathbb P$ be the family of nonempty
+extreme subsets of $K$, ordered by reverse
+inclusion. For a fixed $L\in\mathbb P$,
+Zorn's lemma gives a minimal extreme subset
+$S\subseteq L$: chains have lower bounds
+given by intersection, which is nonempty by
+compactness.
+
+We claim $S$ is a singleton. If it contained
+two distinct points, geometric Hahn--Banach
+would give $f\in X^*$ nonconstant on $S$.
+Since $S$ is compact,
+$
+\mu=\max_{x\in S}f(x)
+$
+exists, and
+$
+S_f=\{x\in S:f(x)=\mu\}
+$
+is a nonempty proper subset of $S$. Moreover
+$S_f$ is extreme in $K$: if
+$\lambda x+(1-\lambda)y\in S_f$ with
+$x,y\in K$, extremality of $S$ first gives
+$x,y\in S$, and maximality of $f$ on $S$
+then forces $f(x)=f(y)=\mu$. This contradicts
+minimality of $S$. Hence every nonempty
+extreme subset contains an extreme point of
+$K$.
+
+Suppose now that
+$x_0\in K\setminus
+\overline{\operatorname{conv}}E(K)$.
+Geometric Hahn--Banach gives
+$f\in X^*$ such that
+$
+\sup_{\overline{\operatorname{conv}}E(K)}f
+<
+f(x_0).
+$
+The set
+$
+K_f=
+\left\{x\in K:
+f(x)=\max_{z\in K}f(z)\right\}
+$
+is a nonempty extreme subset of $K$, hence
+contains some $y\in E(K)$. But then
+$
+f(y)
+\leq
+\sup_{E(K)}f
+<
+f(x_0)
+\leq
+f(y),
+$
+a contradiction.
+\end{proof}
+
+\begin{corollary}
+\label{corollary-dual-ball-extreme-point}
+If $X$ is a Banach space, then
+$E(B_{X^*})\neq\varnothing$.
+\end{corollary}
+
 \section
 {Open mapping and closed graph theorems}
 \label{section-open-mapping-closed-graph}
@@ -1949,14 +2354,70 @@ Let $X, Y$ be Banach spaces and let $T \in
 an open map.
 \end{theorem}
 
-\begin{proof}[Proof sketch]
-One shows that $0 \in
-\operatorname{int}(\overline{T(B_X)})$ using
-Baire's theorem (since $Y = \bigcup_n T(n
-B_X)$). Then, using the completeness of $X$,
-one proves $\overline{T(B_X)} \subseteq T(2
-B_X)$ by constructing a convergent series in
-$X$ for any $y \in \overline{T(B_X)}$.
+\begin{proof}
+It is enough to show that
+$
+0\in\operatorname{int}T(rB_X)
+\qquad\text{for every }r>0.
+$
+Since
+$
+Y=T(X)=\bigcup_{n=1}^\infty T(nB_X),
+$
+Baire's theorem gives
+$
+\operatorname{int}\overline{T(rB_X)}
+\neq\varnothing
+$
+for every $r>0$ after rescaling.
+
+Next,
+$
+\overline{T(rB_X/2)}
+-
+\overline{T(rB_X/2)}
+\subseteq
+\overline{T(rB_X)}.
+$
+If $U$ is a nonempty open subset of
+$\overline{T(rB_X/2)}$, then
+$0\in U-U$, hence
+$
+0\in\operatorname{int}\overline{T(rB_X)}.
+$
+
+Finally we prove
+$
+\overline{T(rB_X/2)}
+\subseteq T(rB_X).
+$
+Fix
+$y_1=y\in\overline{T(rB_X/2)}$. Construct
+$x_n\in (r/2^n)B_X$ and
+$y_n\in\overline{T((r/2^n)B_X)}$ so that
+$
+y_{n+1}=y_n-Tx_n.
+$
+This is possible because
+$0$ is an interior point of the relevant
+closures. Since
+$\sum_n\|x_n\|<r$, the series
+$x=\sum_nx_n$ converges in $X$ and belongs
+to $rB_X$. Moreover
+$
+\sum_{n=1}^NTx_n
+=
+y_1-y_{N+1}
+\longrightarrow y,
+$
+because $y_n\to0$. Thus $Tx=y$.
+
+Therefore $0$ is an interior point of
+$T(rB_X)$ for every $r>0$. If $U\subset X$
+is open and $x\in U$, choose
+$x+rB_X\subset U$. A neighborhood of zero in
+$T(rB_X)$ translates to a neighborhood of
+$Tx$ contained in $T(U)$, so $T(U)$ is open.
 \end{proof}
 
 \begin{proposition}[Bounded inverse theorem]
@@ -2068,6 +2529,118 @@ X^*)$. Moreover, $(ST)^* = T^*S^*$.
 \end{proposition}
 
 
+
+\begin{definition}
+\label{definition-projection-banach}
+A bounded operator $P:X\to X$ is a
+{\it projection} if $P^2=P$.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-complemented-iff-projection}
+A closed subspace $Y$ of a Banach space $X$
+is complemented if and only if
+$
+Y=\operatorname{Im}P
+$
+for some bounded projection $P:X\to X$.
+\end{proposition}
+
+\begin{proof}
+If $P$ is a projection, then
+$
+Y=\operatorname{Im}P=\ker(I-P),
+\qquad
+Z=\operatorname{Im}(I-P)=\ker P
+$
+are closed and $X=Y\oplus Z$.
+
+Conversely, let $X=Y\oplus Z$ with $Y,Z$
+closed. Algebraically define
+$P(y+z)=y$. Let
+$
+\pi:X\to X/Z
+$
+be the quotient map. The restriction
+$\pi|_Y:Y\to X/Z$ is a bounded bijection
+between Banach spaces, so the bounded inverse
+theorem gives continuity of its inverse.
+Since
+$
+P=(\pi|_Y)^{-1}\circ\pi,
+$
+$P$ is bounded.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-finite-dimensional-complemented}
+Every finite-dimensional subspace of a
+Banach space is complemented.
+\end{proposition}
+
+\begin{proof}
+Let $y_1,\ldots,y_n$ be a basis of $Y$, and
+let $\widetilde y_i^*\in Y^*$ be the
+coordinate functionals. Extend them by
+Hahn--Banach to $y_i^*\in X^*$ and put
+$
+Z=\bigcap_{i=1}^n\ker y_i^*.
+$
+Then $Z$ is closed and
+$
+x=
+\sum_{i=1}^ny_i^*(x)y_i+
+\left(
+x-\sum_{i=1}^ny_i^*(x)y_i
+\right)
+$
+gives $X=Y\oplus Z$.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-weakstar-continuous-operators-are-adjoints}
+Let $X,Y$ be Banach spaces and let
+$S:Y^*\to X^*$ be linear. Then $S$ is
+weak-star continuous if and only if there is
+$T\in\mathcal L(X,Y)$ such that
+$
+S=T^*.
+$
+\end{proposition}
+
+\begin{proof}
+If $S=T^*$, weak-star continuity follows
+from
+$
+(T^*f)(x)=f(Tx).
+$
+
+Conversely, suppose $S$ is weak-star
+continuous. For each $x\in X$ define
+$
+\xi_x:Y^*\to\mathbb K,
+\qquad
+\xi_x(f)=(Sf)(x).
+$
+Then $\xi_x$ is weak-star continuous, so by
+Proposition
+\ref{proposition-weakstar-continuous-bidual-is-evaluation}
+there is a unique $y\in Y$ with
+$\xi_x=Jy$. Define $Tx=y$. The injectivity
+of $J_Y$ shows $T$ is linear. Moreover
+$
+\|Tx\|=\|\xi_x\|\leq\|S\|\,\|x\|,
+$
+so $T$ is bounded. Finally,
+$
+(T^*f)(x)=f(Tx)
+=(J_YTx)(f)
+=\xi_x(f)
+=(Sf)(x),
+$
+hence $S=T^*$.
+\end{proof}
+
 \section{Universal Banach spaces}
 \label{section-universal-banach-spaces}
 
@@ -2097,6 +2670,43 @@ f_n(\|x\|x_n) < f_n(x) + \varepsilon \leq
 Every separable Banach space is isometrically
 isomorphic to a subspace of $C[0,1]$.
 \end{theorem}
+
+\begin{proof}
+The course notes use the Cantor space
+$
+\Delta=\{0,1\}^{\mathbb N}.
+$
+By Banach--Alaoglu,
+$B_{X^*}$ is weak-star compact. Since $X$ is
+separable, this compact space is metrizable.
+For $x\in X$, define
+$
+(\varphi x)(f)=f(x),
+\qquad f\in B_{X^*}.
+$
+Then
+$
+\varphi:X\to C(B_{X^*})
+$
+is a linear isometry.
+
+Every compact metric space is a continuous
+image of $\Delta$, so choose a continuous
+surjection
+$
+\alpha:\Delta\to B_{X^*}.
+$
+Composition with $\alpha$ gives an isometry
+$
+\psi:C(B_{X^*})\to C(\Delta),
+\qquad
+(\psi h)(t)=h(\alpha(t)).
+$
+Thus $\psi\circ\varphi$ embeds $X$
+isometrically in $C(\Delta)$. The usual
+identification of $C(\Delta)$ with a
+subspace of $C[0,1]$ yields the stated form.
+\end{proof}
 
 \begin{theorem}
 [Pe\l{}czy\'{n}ski decomposition]
