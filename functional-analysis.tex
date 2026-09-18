@@ -5248,6 +5248,205 @@ $
 {Spectral theory for compact operators}
 \label{section-spectral-compact}
 
+
+\begin{example}
+\label{example-compact-integral-operator}
+Let $k\in C([0,1]^2)$ and define
+$
+(T_kf)(x)
+=
+\int_0^1k(x,t)f(t)\,dt.
+$
+Then
+$T_k:C[0,1]\to C[0,1]$ is compact. Uniform
+continuity of $k$ gives equicontinuity of
+$T_k(B_{C[0,1]})$, while
+$
+|(T_kf)(x)|
+\leq
+\|f\|_\infty
+\sup_{x,t}|k(x,t)|.
+$
+Arzelà--Ascoli gives relative compactness.
+\end{example}
+
+\begin{proposition}
+\label{proposition-compact-nonzero-lambda-kernel-range}
+Let $T\in K(X)$ and
+$\lambda\in\mathbb C\setminus\{0\}$. Then:
+\begin{enumerate}
+\item $\ker(T-\lambda I)$ is
+finite-dimensional;
+\item $\operatorname{Im}(T-\lambda I)$ is
+closed, and
+$
+\operatorname{codim}
+\operatorname{Im}(T-\lambda I)
+=
+\dim\ker(T^*-\lambda I).
+$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+On
+$Z=\ker(T-\lambda I)$,
+$
+T|_Z=\lambda I_Z.
+$
+Since $T|_Z$ is compact and
+$\lambda\neq0$, the identity on $Z$ is
+compact. Hence $Z$ is finite-dimensional.
+
+Choose a closed complement $Y$ with
+$X=Z\oplus Y$. We claim that
+$T-\lambda I$ is bounded below on $Y$.
+Otherwise there is a sequence
+$(x_n)\subset S_Y$ with
+$
+(T-\lambda I)x_n\to0.
+$
+By compactness, after passing to a
+subsequence, $(Tx_n)$ is Cauchy. Since
+$
+x_n=
+\lambda^{-1}
+\left(
+Tx_n-(T-\lambda I)x_n
+\right),
+$
+$(x_n)$ is Cauchy and converges to some
+$x\in S_Y$. The limit satisfies
+$(T-\lambda I)x=0$, so $x\in Z\cap Y=\{0\}$,
+a contradiction. Thus the range is closed.
+
+Let
+$
+\pi:
+X\to X/\operatorname{Im}(T-\lambda I).
+$
+Then
+$
+\operatorname{Im}\pi^*
+=
+\ker(T^*-\lambda I).
+$
+Indeed, functionals coming from the quotient
+vanish on the range, and conversely every
+functional annihilating the range factors
+through the quotient. Since $\pi^*$ is
+injective,
+$
+\operatorname{codim}
+\operatorname{Im}(T-\lambda I)
+=
+\dim\ker(T^*-\lambda I).
+$
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compact-kernel-range-stabilize}
+Let $T\in K(X)$ and $\lambda\neq0$. Then the
+ascending chain
+$
+\ker(T-\lambda I)^n
+$
+and the descending chain
+$
+\operatorname{Im}(T-\lambda I)^n
+$
+eventually stabilize.
+\end{lemma}
+
+\begin{proof}
+The source proves the kernel statement.
+Suppose
+$
+\ker(T-\lambda I)^n
+\subsetneq
+\ker(T-\lambda I)^{n+1}
+$
+for every $n$. By Riesz's lemma choose
+$x_n\in S_X$ such that
+$
+x_n\in\ker(T-\lambda I)^n
+$
+and
+$
+d\left(
+x_{n+1},
+\ker(T-\lambda I)^n
+\right)>\frac12.
+$
+For $n>m$,
+\begin{align*}
+Tx_n-Tx_m
+&=
+\lambda x_n+
+(T-\lambda I)x_n
+-(T-\lambda I)x_m
+-\lambda x_m.
+\end{align*}
+The last three terms belong to
+$\ker(T-\lambda I)^{n-1}$, so
+$
+\|Tx_n-Tx_m\|>\frac{|\lambda|}{2}.
+$
+Thus $(Tx_n)$ has no convergent subsequence,
+contradicting compactness.
+
+The Portuguese source leaves stabilization
+of the ranges as an exercise.
+\end{proof}
+
+\begin{proposition}[Fredholm alternative]
+\label{proposition-fredholm-alternative-compact}
+Let $T\in K(X)$ and $\lambda\neq0$. Then
+$
+\operatorname{ind}(T-\lambda I)=0.
+$
+Consequently
+$T-\lambda I$ is injective if and only if it
+is surjective. Moreover, if $n$ is the first
+index at which the kernels stabilize, then
+$
+X=
+\ker(T-\lambda I)^n
+\oplus
+\operatorname{Im}(T-\lambda I)^n.
+$
+\end{proposition}
+
+\begin{proof}
+Choose indices beyond the stabilization
+points of the kernel and range. Then two
+different powers
+$(T-\lambda I)^i$ and
+$(T-\lambda I)^j$ have the same kernel and
+range, hence the same Fredholm index.
+By Corollary \ref{corollary-index-power},
+$
+i\,\operatorname{ind}(T-\lambda I)
+=
+j\,\operatorname{ind}(T-\lambda I),
+$
+so the index is zero. The injective/surjective
+equivalence follows immediately.
+
+For the decomposition, if
+$
+x=(T-\lambda I)^ny
+$
+and
+$(T-\lambda I)^nx=0$, then
+$(T-\lambda I)^{2n}y=0$. Stabilization gives
+$(T-\lambda I)^ny=0$, hence $x=0$. Thus the
+stabilized kernel and range have trivial
+intersection. Since the index of the $n$th
+power is zero, dimension and codimension
+agree, so their direct sum is all of $X$.
+\end{proof}
+
 \begin{theorem}
 \label{theorem-spectral-compact-ops}
 Let $X$ be a Banach space and $T \in
@@ -5262,6 +5461,59 @@ multiplicity.
 for all $\lambda \neq 0$.
 \end{enumerate}
 \end{theorem}
+\begin{proof}
+Let $\lambda\in\sigma(T)\setminus\{0\}$.
+If $T-\lambda I$ were injective, the
+Fredholm alternative would make it
+surjective. The open mapping theorem would
+then make its inverse bounded, contradicting
+$\lambda\in\sigma(T)$. Thus $\lambda$ is an
+eigenvalue, and Proposition
+\ref{proposition-compact-nonzero-lambda-kernel-range}
+shows its eigenspace is finite-dimensional.
+
+For isolation, choose $n$ such that
+$
+X=
+Y\oplus Z,
+\qquad
+Y=\ker(T-\lambda I)^n,
+\quad
+Z=\operatorname{Im}(T-\lambda I)^n.
+$
+Both spaces are $T$-invariant. On $Y$,
+$
+(T|_Y-\lambda I)^n=0,
+$
+so polynomial spectral mapping gives
+$
+\sigma(T|_Y)=\{\lambda\}.
+$
+On $Z$, the operator
+$T|_Z-\lambda I$ is invertible. Hence
+$\lambda\notin\sigma(T|_Z)$. Since the
+spectrum of the block diagonal operator is
+the union of the spectra of the two blocks,
+$\lambda$ is isolated in $\sigma(T)$.
+
+Finally, for each $m$ the compact set
+$
+\sigma(T)\setminus B_{1/m}(0)
+$
+consists only of isolated points and is
+therefore finite. Thus
+$
+\sigma(T)\setminus\{0\}
+=
+\bigcup_{m=1}^\infty
+\left(
+\sigma(T)\setminus B_{1/m}(0)
+\right)
+$
+is countable. The only possible accumulation
+point is $0$.
+\end{proof}
+
 
 \begin{theorem}
 [Spectral theorem for compact self-adjoint
