@@ -4504,6 +4504,43 @@ that $a1 = 1a = a$, $A$ is a {\it unital
 Banach algebra}.
 \end{definition}
 
+\begin{definition}
+\label{definition-normed-algebra-ideal-homomorphism}
+Let $A$ be an algebra.
+\begin{enumerate}
+\item A vector subspace $I\subseteq A$ is a
+{\it right ideal} if $ab\in I$ whenever
+$a\in A$ and $b\in I$.
+\item It is a {\it left ideal} if $ab\in I$
+whenever $a\in I$ and $b\in A$.
+\item It is a {\it two-sided ideal} if both
+conditions hold.
+\item A linear map $T:A\to B$ between
+algebras is a {\it homomorphism} if
+$
+T(ab)=T(a)T(b).
+$
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+\label{example-banach-algebra-ideals}
+\begin{enumerate}
+\item For $x_0\in K$,
+$
+I_{x_0}=\{f\in C(K):f(x_0)=0\}
+$
+is an ideal of $C(K)$.
+\item $K(X)$ is an ideal of
+$\mathcal L(X)$.
+\item $c_0$ is an ideal of $\ell_\infty$.
+\item The evaluation map
+$f\mapsto f(x_0)$ on $C(K)$ is an algebra
+homomorphism.
+\end{enumerate}
+Kernels of algebra homomorphisms are ideals.
+\end{example}
+
 \begin{example}
 \label{example-banach-algebras}
 \begin{enumerate}
@@ -4525,18 +4562,185 @@ ideal, then $A/I$ is a Banach algebra with
 the quotient norm.
 \end{proposition}
 
+\begin{proof}
+The product is
+$
+(a+I)(b+I)=ab+I.
+$
+It is well defined: if $a-a'\in I$ and
+$b-b'\in I$, then
+$
+ab-a'b'
+=
+a(b-b')+(a-a')b'
+\in I.
+$
+For the quotient norm, for arbitrary
+$a',b'\in I$,
+$
+ab+ab'+a'b+a'b'=(a+a')(b+b'),
+$
+so
+\begin{align*}
+\|ab+I\|
+&\leq
+\inf_{a',b'\in I}
+\|(a+a')(b+b')\|\\
+&\leq
+\left(\inf_{a'\in I}\|a+a'\|\right)
+\left(\inf_{b'\in I}\|b+b'\|\right)\\
+&=
+\|a+I\|\,\|b+I\|.
+\end{align*}
+Completeness follows from completeness of
+the quotient of a Banach space by a closed
+subspace.
+\end{proof}
+
 \begin{definition}
 \label{definition-spectrum-algebra}
 Let $A$ be a unital Banach algebra and $a \in
 A$. The {\it spectrum} of $a$ is
-$$
+$
 \sigma(a) = \{ \lambda \in \mathbb{C} : a -
 \lambda 1 \text{ is not invertible in } A \}.
-$$
+$
 The {\it spectral radius} of $a$ is $r(a) =
 \sup \{ |\lambda| : \lambda \in \sigma(a)
 \}$.
 \end{definition}
+
+\begin{proposition}[Polynomial spectral mapping]
+\label{proposition-polynomial-spectral-mapping}
+Let $a\in A$ and let $p\in\mathbb C[z]$. Then
+$
+p(\sigma(a))=\sigma(p(a)).
+$
+\end{proposition}
+
+\begin{proof}
+The constant case is immediate. Otherwise,
+for $\lambda\in\mathbb C$ factor
+$
+p(z)-\lambda
+=
+c(z-\lambda_1)\cdots(z-\lambda_n),
+\qquad c\neq0.
+$
+Then
+$
+p(a)-\lambda
+=
+c(a-\lambda_1)\cdots(a-\lambda_n).
+$
+The factors commute. A product of commuting
+elements is invertible if and only if every
+factor is invertible. Hence
+$
+\lambda\in\sigma(p(a))
+\iff
+\lambda_i\in\sigma(a)
+\text{ for some }i
+\iff
+\lambda\in p(\sigma(a)).
+$
+\end{proof}
+
+\begin{proposition}[Neumann series]
+\label{proposition-neumann-series-banach-algebra}
+If $\|a\|<1$, then $1-a$ is invertible and
+$
+(1-a)^{-1}=\sum_{n=0}^\infty a^n.
+$
+\end{proposition}
+
+\begin{proof}
+The series converges because
+$
+\sum_{n=0}^\infty\|a^n\|
+\leq
+\sum_{n=0}^\infty\|a\|^n<\infty.
+$
+If
+$b=\sum_{n=0}^\infty a^n$, then
+\begin{align*}
+(1-a)b
+&=
+\lim_{N\to\infty}
+(1-a)(1+a+\cdots+a^N)\\
+&=
+\lim_{N\to\infty}(1-a^{N+1})
+=1,
+\end{align*}
+and similarly $b(1-a)=1$.
+\end{proof}
+
+\begin{corollary}
+\label{corollary-invertibles-open-banach-algebra}
+The group of invertible elements
+$\operatorname{Inv}(A)$ is open in $A$.
+\end{corollary}
+
+\begin{proof}
+If $a$ is invertible and
+$
+\|a-b\|<\|a^{-1}\|^{-1},
+$
+then
+$
+\|1-ba^{-1}\|
+=
+\|(a-b)a^{-1}\|<1.
+$
+Thus $ba^{-1}$ is invertible by the Neumann
+series, and therefore so is $b$.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-inversion-differentiable-banach-algebra}
+The inversion map
+$
+\operatorname{Inv}(A)\longrightarrow
+\operatorname{Inv}(A),
+\qquad a\longmapsto a^{-1},
+$
+is differentiable, with
+$
+D(a\mapsto a^{-1})_a(b)
+=
+-a^{-1}ba^{-1}.
+$
+\end{theorem}
+
+\begin{proof}
+For $\|a^{-1}b\|<1/2$,
+\begin{align*}
+(a+b)^{-1}
+&=
+(1+a^{-1}b)^{-1}a^{-1}\\
+&=
+\left(
+1-a^{-1}b+
+\sum_{n=2}^\infty(-a^{-1}b)^n
+\right)a^{-1}.
+\end{align*}
+Hence
+\begin{align*}
+\|(a+b)^{-1}-a^{-1}+a^{-1}ba^{-1}\|
+&\leq
+\sum_{n=2}^\infty
+\|a^{-1}b\|^n\|a^{-1}\|\\
+&\leq
+2\|a^{-1}\|^3\|b\|^2.
+\end{align*}
+Dividing by $\|b\|$ and letting $b\to0$
+proves the formula.
+
+The Portuguese notes state the derivative
+once with the opposite sign, but their
+remainder computation is exactly the one
+above and therefore yields the negative sign.
+\end{proof}
 
 \begin{theorem}[Gelfand]
 \label{theorem-spectrum-nonempty}
@@ -4546,11 +4750,268 @@ $\sigma(a) \subseteq \{ z \in \mathbb{C} :
 |z| \leq \|a\| \}$.
 \end{theorem}
 
+\begin{proof}
+If $|\lambda|>\|a\|$, then
+$\|\lambda^{-1}a\|<1$, so
+$1-\lambda^{-1}a$ is invertible by the
+Neumann series. Thus $a-\lambda$ is
+invertible and
+$
+\sigma(a)\subseteq
+\{\lambda:|\lambda|\leq\|a\|\}.
+$
+Since $\operatorname{Inv}(A)$ is open,
+$\mathbb C\setminus\sigma(a)$ is open, so
+$\sigma(a)$ is closed and therefore compact.
+
+Suppose $\sigma(a)=\varnothing$. Then
+$
+\Phi(\lambda)=(a-\lambda)^{-1}
+$
+is defined on all of $\mathbb C$. For every
+$f\in A^*$, the scalar function
+$f\circ\Phi$ is entire. For
+$|\lambda|>2\|a\|$,
+\begin{align*}
+\|(a-\lambda)^{-1}\|
+&=
+|\lambda|^{-1}
+\|(1-\lambda^{-1}a)^{-1}\|\\
+&\leq
+\frac{2}{|\lambda|}.
+\end{align*}
+On the remaining compact disk, continuity of
+the inverse map makes $\Phi$ bounded. Thus
+$f\circ\Phi$ is bounded and hence constant
+by Liouville. Since this holds for every
+$f\in A^*$, Hahn--Banach forces
+$\Phi$ itself to be constant, which is
+impossible. Therefore $\sigma(a)$ is
+nonempty.
+\end{proof}
+
+\begin{corollary}
+\label{corollary-complex-banach-division-algebra}
+If $A$ is a complex unital Banach algebra and
+every nonzero element is invertible, then
+$
+A\cong\mathbb C.
+$
+\end{corollary}
+
+\begin{proof}
+For $a\in A$, choose
+$\lambda\in\sigma(a)$. Then
+$a-\lambda1$ is not invertible, so by
+hypothesis it is zero. Thus every
+$a\in A$ is a scalar multiple of the unit.
+\end{proof}
+
 \begin{theorem}[Spectral radius formula]
 \label{theorem-spectral-radius-formula}
 For any $a \in A$, $r(a) = \lim_{n \to
 \infty} \|a^n\|^{1/n}$.
 \end{theorem}
+
+\begin{remark}
+\label{remark-spectral-radius-source-proof-gap}
+The Portuguese course notes begin a proof by
+first observing, from polynomial spectral
+mapping, that
+$
+r(a)\leq\inf_n\|a^n\|^{1/n}.
+$
+For the reverse inequality they consider
+the resolvent power series
+$
+(1-\lambda a)^{-1}
+$
+and use Banach--Steinhaus to bound
+$(\lambda^na^n)_n$. The source has an
+unresolved marked gap at the point where the
+domain of this analytic power series is
+identified, and later interchanges
+$\lambda$ and $\lambda^{-1}$. We therefore
+retain the theorem here but do not silently
+replace the source's incomplete proof by a
+different proof.
+\end{remark}
+
+\begin{example}
+\label{example-spectral-radius-strictly-less-norm}
+Let
+$
+A=
+\{f\in C[0,1]:f\text{ is }C^1\}
+$
+with
+$
+\|f\|=\|f\|_\infty+\|f'\|_\infty.
+$
+For the function $z(t)=t$,
+$
+\|z^n\|=1+n,
+$
+so
+$
+r(z)=\lim_n(1+n)^{1/n}=1<2=\|z\|.
+$
+\end{example}
+
+\begin{theorem}
+\label{theorem-spectrum-closed-subalgebra}
+Let $A$ be a unital Banach algebra and
+$B\subseteq A$ a closed subalgebra containing
+$1_A$. Then:
+\begin{enumerate}
+\item $\operatorname{Inv}(B)$ is both open
+and closed in
+$B\cap\operatorname{Inv}(A)$.
+\item For $b\in B$,
+$
+\sigma_A(b)\subseteq\sigma_B(b),
+\qquad
+\partial\sigma_B(b)
+\subseteq
+\partial\sigma_A(b).
+$
+\item If
+$\mathbb C\setminus\sigma_A(b)$ is connected,
+then
+$
+\sigma_A(b)=\sigma_B(b).
+$
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The first set is open because invertibles are
+open in every Banach algebra. To prove it is
+closed in
+$B\cap\operatorname{Inv}(A)$, let
+$b_n\in\operatorname{Inv}(B)$ with
+$b_n\to b\in B\cap\operatorname{Inv}(A)$.
+Continuity of inversion in $A$ gives
+$b_n^{-1}\to b^{-1}$, and closedness of $B$
+implies $b^{-1}\in B$.
+
+Since
+$\operatorname{Inv}(B)\subseteq
+\operatorname{Inv}(A)$,
+one gets
+$\sigma_A(b)\subseteq\sigma_B(b)$.
+If
+$\lambda\in\partial\sigma_B(b)$, take
+$\lambda_n\notin\sigma_B(b)$ with
+$\lambda_n\to\lambda$. If
+$\lambda\notin\sigma_A(b)$, then
+$b-\lambda_n$ converges inside
+$B\cap\operatorname{Inv}(A)$ to
+$b-\lambda$, and part (1) would force
+$b-\lambda\in\operatorname{Inv}(B)$, a
+contradiction. This proves the boundary
+inclusion.
+
+Finally,
+$\mathbb C\setminus\sigma_B(b)$ is both open
+and closed in the connected set
+$\mathbb C\setminus\sigma_A(b)$, so the two
+resolvent sets coincide.
+\end{proof}
+
+\begin{example}
+\label{example-disk-algebra-spectrum}
+Let $A$ be the disk algebra and let $B$ be
+its image under restriction to
+$\partial\mathbb D$. The source records
+$
+\sigma_{C(\partial\mathbb D)}(z)
+=
+\partial\mathbb D,
+\qquad
+\sigma_A(z)=\sigma_B(z)=\mathbb D.
+$
+\end{example}
+
+\subsection{Exponentials in Banach algebras}
+\label{subsection-exponential-banach-algebra}
+
+\begin{definition}
+\label{definition-exponential-banach-algebra}
+For $a$ in a unital Banach algebra, define
+$
+e^a=
+\sum_{n=0}^\infty\frac{a^n}{n!}.
+$
+\end{definition}
+
+\begin{theorem}
+\label{theorem-exponential-banach-algebra}
+Let $A$ be a unital Banach algebra.
+\begin{enumerate}
+\item If $f:\mathbb R\to A$ satisfies
+$f(0)=1$ and
+$f'(t)=af(t)$, then
+$
+f(t)=e^{ta}.
+$
+\item $e^a$ is invertible and
+$
+(e^a)^{-1}=e^{-a}.
+$
+\item If $ab=ba$, then
+$
+e^{a+b}=e^ae^b.
+$
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The exponential series converges uniformly
+on bounded $t$-intervals and may be
+differentiated term by term, so
+$g(t)=e^{ta}$ satisfies
+$
+g(0)=1,\qquad g'(t)=ag(t).
+$
+If $f$ is another solution, put
+$
+h(t)=e^{-ta}f(t).
+$
+Using the product rule and commutation of
+$a$ with its powers,
+$
+h'(t)
+=
+-ae^{-ta}f(t)+e^{-ta}af(t)=0.
+$
+Thus $h(t)=1$ and
+$f(t)=e^{ta}$. Taking $f(t)=e^{ta}$ and
+$t=\pm1$ gives
+$e^ae^{-a}=1$.
+
+If $ab=ba$, set
+$
+g(t)=e^{ta}e^{tb}.
+$
+Then
+$
+g'(t)
+=
+(a+b)g(t),
+\qquad
+g(0)=1.
+$
+Part (1) gives
+$g(t)=e^{t(a+b)}$, and $t=1$ yields the
+claim.
+
+The Portuguese source has several typos in
+this proof (including writing the same
+exponential twice in the last part); the
+ODE argument above is the argument it
+records.
+\end{proof}
 
 \section
 {Fredholm operators and the Calkin algebra}
