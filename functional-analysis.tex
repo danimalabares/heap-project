@@ -825,6 +825,374 @@ finite support is dense in $\ell_p$ for $p <
 \end{remark}
 
 
+
+\subsection{Equivalent norms, embeddings, and duals}
+\label{subsection-equivalent-norms-embeddings-duals}
+
+\begin{definition}
+\label{definition-equivalent-norms}
+Let $X$ be a vector space and let
+$\|\cdot\|$ and $\vertiii{\cdot}$ be norms on
+$X$. They are {\it equivalent} if there is
+$L>0$ such that
+$
+\frac1L\vertiii{x}\leq \|x\|\leq
+L\vertiii{x}
+\qquad\text{for every }x\in X.
+$
+\end{definition}
+
+\begin{remark}
+\label{remark-finite-dimensional-norms-equivalent}
+On a finite-dimensional vector space all
+norms are equivalent.
+\end{remark}
+
+\begin{definition}
+\label{definition-isomorphism-isomorphic-embedding}
+Let $X,Y$ be normed spaces.
+\begin{enumerate}
+\item A bijective linear map $T:X\to Y$ is an
+{\it isomorphism} if $T$ and $T^{-1}$ are
+continuous.
+\item A linear map $T:X\to Y$ is an
+{\it isomorphic embedding} if
+$T:X\to T(X)$ is an isomorphism.
+\end{enumerate}
+Equivalently, $T$ is an isomorphic embedding
+if there exists $L>0$ such that
+$
+\frac1L\|x\|_X\leq\|Tx\|_Y\leq L\|x\|_X
+\qquad\text{for every }x\in X.
+$
+\end{definition}
+
+\begin{proof}[Proof of Lemma \ref{lemma-riesz}]
+Choose $x\in X\setminus Y$. Since
+$d(x,Y)/a>d(x,Y)$, there exists $y\in Y$ such
+that
+$
+\|x-y\|\leq \frac{d(x,Y)}a.
+$
+Put
+$
+z=\frac{x-y}{\|x-y\|}.
+$
+Then $\|z\|=1$. For every $w\in Y$,
+\begin{align*}
+\|w-z\|
+&=
+\frac1{\|x-y\|}
+\left\|\|x-y\|w+y-x\right\|\\
+&\geq \frac{d(x,Y)}{\|x-y\|}\\
+&\geq a,
+\end{align*}
+because $\|x-y\|w+y\in Y$. Hence
+$d(z,Y)\geq a$.
+\end{proof}
+
+\begin{proof}
+[Proof of Theorem
+\ref{theorem-finite-dimensional-operators-%
+continuous}]
+We argue by induction on $\dim X$. The
+zero-dimensional case is immediate. Assume
+the result for dimension $n$ and let
+$\dim X=n+1$. Choose an $n$-dimensional
+subspace $Y\subset X$ and $x\in X\setminus
+Y$. By the induction hypothesis, linear maps
+restricted to $Y$ are continuous. Writing
+each vector uniquely as $y+\lambda x$, the
+problem reduces to controlling the scalar
+coefficient $\lambda$. Riesz's lemma gives a
+positive lower bound for the distance from
+the unit vector in the $x$-direction to $Y$,
+and therefore bounds $|\lambda|$ by a
+constant multiple of $\|y+\lambda x\|$.
+Consequently every linear map on $X$ is
+bounded.
+
+The Portuguese course notes present this
+inductive argument but mark the corresponding
+proof that finite-dimensional spaces are
+Banach as incomplete.
+\end{proof}
+
+\begin{proof}
+[Proof of Theorem
+\ref{theorem-unit-ball-compact-finite-dim}]
+If $\dim X=n$, choose an algebraic
+isomorphism $T:\mathbb K^n\to X$. By
+Theorem
+\ref{theorem-finite-dimensional-operators-%
+continuous},
+$T$ and $T^{-1}$ are continuous. Hence
+$B_X$ is homeomorphic to a closed bounded
+subset of $\mathbb K^n$, and is compact.
+
+Conversely, suppose $X$ is infinite
+dimensional. By Riesz's lemma, inductively
+choose $x_n\in S_X$ such that
+$
+d\left(x_n,
+\operatorname{span}\{x_1,\ldots,x_{n-1}\}
+\right)>\frac12.
+$
+Then $\|x_n-x_m\|>1/2$ whenever $n\neq m$.
+Thus $(x_n)$ has no convergent subsequence,
+so $B_X$ is not compact.
+\end{proof}
+
+\begin{definition}
+\label{definition-topological-dual}
+The {\it topological dual} of a normed space
+$X$ is
+$
+X^*=\mathcal L(X,\mathbb K).
+$
+\end{definition}
+
+\begin{theorem}
+\label{theorem-dual-lp-lq-course}
+Let $1<p,q<\infty$ and
+$1/p+1/q=1$. Then
+$
+\ell_p^*\cong \ell_q
+$
+isometrically.
+\end{theorem}
+
+\begin{proof}
+For $y=(y_n)\in\ell_q$, define
+$
+\phi(y)(x)=\sum_{n=1}^\infty x_ny_n,
+\qquad x=(x_n)\in\ell_p.
+$
+Hölder's inequality shows that the series is
+absolutely convergent and
+$
+\|\phi(y)\|\leq\|y\|_q.
+$
+To obtain the reverse inequality, for
+$y\neq0$ choose
+$
+x_n=
+\operatorname{sign}(y_n)
+\frac{|y_n|^{q-1}}
+{\|y\|_q^{q/p}}.
+$
+Since $(q-1)p=q$, one has $\|x\|_p=1$, and
+$
+\phi(y)(x)=\|y\|_q.
+$
+Thus $\phi$ is an isometry.
+
+To prove surjectivity, let $f\in\ell_p^*$ and
+put $y_n=f(e_n)$. For each $k$, set
+$
+x_n=
+\begin{cases}
+\operatorname{sign}(y_n)|y_n|^{q-1},
+&n\leq k,\\
+0,&n>k.
+\end{cases}
+$
+Then
+\begin{align*}
+\sum_{n=1}^k|y_n|^q
+&=
+f\left(\sum_{n=1}^k x_ne_n\right)\\
+&\leq
+\|f\|
+\left(\sum_{n=1}^k |y_n|^{(q-1)p}\right)^{1/p}\\
+&=
+\|f\|
+\left(\sum_{n=1}^k |y_n|^q\right)^{1/p}.
+\end{align*}
+Hence the partial $\ell_q$-norms of $y$ are
+bounded by $\|f\|$, so $y\in\ell_q$.
+On finitely supported vectors,
+$f=\phi(y)$, and density of $c_{00}$ in
+$\ell_p$ gives equality on all of $\ell_p$.
+\end{proof}
+
+\begin{example}
+\label{example-duals-c0-l1-linfty}
+The course notes also record
+$
+c_0^*\cong\ell_1,\qquad
+\ell_1^*\cong\ell_\infty,
+$
+and point out that the analogous naive
+argument does not give
+$\ell_\infty^*\cong\ell_1$.
+\end{example}
+
+\begin{definition}
+\label{definition-weak-convergence-sequence}
+A sequence $(x_n)$ in a normed space $X$
+{\it converges weakly} to $x\in X$ if
+$
+f(x_n)\longrightarrow f(x)
+\qquad\text{for every }f\in X^*.
+$
+We write $x_n\rightharpoonup x$.
+\end{definition}
+
+\begin{example}
+\label{example-en-weak-lp}
+For $1<p<\infty$, the canonical sequence
+$(e_n)$ in $\ell_p$ converges weakly to zero.
+Indeed, every $f\in\ell_p^*$ is represented
+by some $y\in\ell_q$, and
+$f(e_n)=y_n\to0$.
+\end{example}
+
+\begin{proposition}
+\label{proposition-bounded-operators-preserve-weak-convergence}
+If $T:X\to Y$ is bounded and
+$x_n\rightharpoonup x$ in $X$, then
+$Tx_n\rightharpoonup Tx$ in $Y$.
+\end{proposition}
+
+\begin{proof}
+Let $f\in Y^*$. Then $T^*f=f\circ T\in X^*$,
+and therefore
+$
+f(Tx_n)=(T^*f)(x_n)\longrightarrow
+(T^*f)(x)=f(Tx).
+$
+\end{proof}
+
+\begin{theorem}[Pitt]
+\label{theorem-pitt-lp-no-embedding}
+Let $1<p,q<\infty$ with $p\neq q$. There is
+no isomorphic embedding
+$\ell_p\hookrightarrow\ell_q$.
+\end{theorem}
+
+\begin{proof}[Proof sketch from the course notes]
+The notes treat the case $p>q$. Suppose
+$T:\ell_p\to\ell_q$ is an isomorphic
+embedding. Since $e_n\rightharpoonup0$ in
+$\ell_p$, one has $T(e_n)\rightharpoonup0$
+in $\ell_q$. Passing to a subsequence and
+using a gliding-hump argument, the notes say
+that one may arrange the vectors $T(e_n)$ to
+have essentially disjoint supports. The
+epsilon details of this choice are explicitly
+left to the reader in the source.
+
+For such a subsequence there is $L\geq1$
+such that
+$
+\left\|\sum_{n=1}^kT(e_n)\right\|_q
+\geq
+\frac1L
+\left(\sum_{n=1}^k\|T(e_n)\|_q^q\right)^{1/q}
+\geq \frac aL k^{1/q},
+$
+where
+$a=\inf_n\|T(e_n)\|_q>0$ because $T$ is an
+isomorphic embedding. On the other hand,
+$
+\left\|\sum_{n=1}^kT(e_n)\right\|_q
+=
+\left\|T\left(\sum_{n=1}^ke_n\right)\right\|_q
+\leq
+\|T\|k^{1/p}.
+$
+Thus
+$
+\frac aL k^{1/q}\leq\|T\|k^{1/p}
+\qquad\text{for all }k,
+$
+which is impossible when $p>q$.
+\end{proof}
+
+\subsection{Completions}
+\label{subsection-completions}
+
+\begin{definition}
+\label{definition-completion-normed-space}
+A Banach space $\widetilde X$ is a
+{\it completion} of a normed space $X$ if
+$X$ is isometrically embedded as a dense
+subspace of $\widetilde X$.
+\end{definition}
+
+\begin{theorem}
+\label{theorem-completion-existence-uniqueness}
+Every normed space has a completion, unique
+up to an isometric isomorphism fixing the
+original space.
+\end{theorem}
+
+\begin{proof}
+Let
+$
+\widetilde{\widetilde X}
+=
+\{(x_n)\in X^{\mathbb N}:(x_n)
+\text{ is Cauchy}\}.
+$
+Define
+$
+(x_n)\sim(y_n)
+\quad\Longleftrightarrow\quad
+\lim_n\|x_n-y_n\|=0
+$
+and put
+$
+\widetilde X=
+\widetilde{\widetilde X}/\sim.
+$
+Vector operations are defined termwise and
+$
+\left\|[(x_n)]\right\|
+=
+\lim_n\|x_n\|.
+$
+The map
+$
+X\longrightarrow\widetilde X,
+\qquad
+x\longmapsto[(x,x,\ldots)]
+$
+is a linear isometry.
+
+To see density, fix $[(x_n)]\in\widetilde X$.
+Since $(x_n)$ is Cauchy, the constant
+sequences $[(x_m,x_m,\ldots)]$ converge to
+$[(x_n)]$.
+
+For completeness, let
+$([(x_n^k)])_k$ be Cauchy in $\widetilde X$.
+After passing to a subsequence, choose
+$x^k\in X$ with
+$
+\left\|[(x_n^m)]-[(x^k,x^k,\ldots)]\right\|
+<\frac1k
+\qquad(m\geq k).
+$
+Then $(x^k)$ is Cauchy in $X$, since for
+$m\geq k$,
+$
+\|x^k-x^m\|
+\leq\frac1k+\frac1m.
+$
+Hence $[(x^k)]\in\widetilde X$, and the
+original Cauchy sequence converges to this
+class. The source leaves uniqueness as an
+exercise.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-hamel-basis-banach-uncountable}
+An infinite-dimensional Banach space cannot
+have a countable Hamel basis.
+\end{proposition}
+
 \section{Quotient spaces}
 \label{section-quotient-spaces}
 
@@ -918,6 +1286,69 @@ reverse inequality $\|T\| \leq
 \|\widehat{T}\|\|Q\| \leq \|\widehat{T}\|$ is
 immediate.
 \end{proof}
+
+
+\begin{theorem}
+\label{theorem-separable-banach-quotient-l1}
+Every separable Banach space $X$ is
+isometrically isomorphic to a quotient
+$\ell_1/Y$ for some closed subspace
+$Y\subseteq\ell_1$.
+\end{theorem}
+
+\begin{proof}
+Choose a dense sequence $(x_n)$ in $B_X$ and
+define
+$
+T:\ell_1\longrightarrow X,
+\qquad
+T((\lambda_n))=
+\sum_{n=1}^\infty\lambda_nx_n.
+$
+The series converges absolutely and
+$\|T\|\leq1$.
+
+Fix $x\in B_X$ and $\varepsilon\in(0,1)$.
+Using density, choose $y_1\in B_{\ell_1}$
+with
+$
+\|x-Ty_1\|<\varepsilon.
+$
+Inductively choose $y_n$ so that
+$
+\|y_n\|\leq\varepsilon^{n-1},
+\qquad
+\left\|x-
+T(y_1+\cdots+y_n)\right\|<\varepsilon^n.
+$
+Then $y=\sum_ny_n$ exists in $\ell_1$ and,
+by continuity of $T$, $Ty=x$. Thus $T$ is
+surjective.
+
+The first isomorphism theorem gives a
+bijection
+$
+T':\ell_1/\ker T\longrightarrow X.
+$
+The estimates above show that every
+$x\in B_X$ has preimages with norm at most
+$1/(1-\varepsilon)$. Letting
+$\varepsilon\downarrow0$ yields
+$\|(T')^{-1}\|\leq1$, while
+$\|T'\|=\|T\|\leq1$. Therefore $T'$ is an
+isometry.
+\end{proof}
+
+\begin{remark}
+\label{remark-linfty-not-separable}
+The space $\ell_\infty$ is not separable.
+Indeed, for every $A\subseteq\mathbb N$ let
+$\chi_A\in\ell_\infty$ be its characteristic
+sequence. If $A\neq B$, then
+$\|\chi_A-\chi_B\|_\infty=1$, so the balls
+$B(\chi_A,1/2)$ form an uncountable pairwise
+disjoint family of open sets.
+\end{remark}
 
 \section{Linear maps and bounded operators}
 \label{section-bounded-operators}
@@ -1042,6 +1473,83 @@ extending $g$ such that $f(x)\leq p(x)$ for
 all $x\in E$.
 \end{theorem}
 
+
+\begin{lemma}
+\label{lemma-hahn-banach-one-dimensional-extension}
+Under the hypotheses of the real
+Hahn--Banach theorem, if
+$x_0\in E\setminus G$, then $g$ extends to
+$\widetilde g$ on
+$\operatorname{span}(G\cup\{x_0\})$ with
+$\widetilde g\leq p$.
+\end{lemma}
+
+\begin{proof}
+Any such extension must have the form
+$
+\widetilde g(y+\alpha x_0)
+=
+g(y)+\alpha c.
+$
+For $\alpha=1$, the inequality
+$\widetilde g\leq p$ requires
+$
+c\leq p(y+x_0)-g(y)
+\qquad(y\in G).
+$
+Set
+$
+c=\inf_{y\in G}\{p(y+x_0)-g(y)\}.
+$
+This infimum is finite: for
+$y_1,y_2\in G$,
+\begin{align*}
+g(y_1)-g(y_2)
+&=g(y_1-y_2)\\
+&\leq p(y_1-y_2)\\
+&\leq p(y_1+x_0)+p(-y_2-x_0),
+\end{align*}
+so
+$
+-p(-y_2-x_0)-g(y_2)
+\leq c
+\leq p(y_1+x_0)-g(y_1).
+$
+
+For $\alpha>0$, use
+$y_1=y/\alpha$ in the upper bound for $c$:
+$
+\widetilde g(y+\alpha x_0)
+\leq p(y+\alpha x_0).
+$
+For $\alpha<0$, use the lower bound for $c$
+and the same calculation with $|\alpha|$.
+Thus $\widetilde g\leq p$ on the enlarged
+subspace.
+\end{proof}
+
+\begin{proof}
+[Proof of Theorem \ref{theorem-hahn-banach-real}]
+Let $\mathbb P$ be the set of pairs $(F,h)$
+such that
+$
+G\subseteq F\subseteq E,
+$
+$h:F\to\mathbb R$ is linear,
+$h|_G=g$, and $h\leq p$ on $F$. Order
+$\mathbb P$ by extension. A chain has an
+upper bound obtained by taking the union of
+the compatible functionals in the chain.
+Hence Zorn's lemma gives a maximal element
+$(F,h)$.
+
+If $F\neq E$, choose $x_0\in E\setminus F$.
+Lemma
+\ref{lemma-hahn-banach-one-dimensional-extension}
+extends $h$ to a strictly larger subspace,
+contradicting maximality. Thus $F=E$.
+\end{proof}
+
 \begin{theorem}
 [Hahn--Banach, complex analytic form]
 \label{theorem-hahn-banach-complex}
@@ -1124,6 +1632,81 @@ $$
 for all $a \in A, b \in B$.
 \end{theorem}
 
+
+
+\begin{proposition}
+\label{proposition-hahn-banach-separate-point-subspace}
+Let $X$ be a normed space, let
+$Y\subseteq X$ be a closed linear subspace,
+and let $x_0\notin Y$. Then there exists
+$f\in X^*$ such that
+$
+f|_Y=0,\qquad
+f(x_0)=d(x_0,Y),\qquad
+\|f\|=1.
+$
+\end{proposition}
+
+\begin{proof}
+On
+$F=\operatorname{span}(Y\cup\{x_0\})$ define
+$
+g(y+\alpha x_0)=
+\alpha\,d(x_0,Y).
+$
+For $\alpha\neq0$,
+\begin{align*}
+|g(y+\alpha x_0)|
+&=
+|\alpha|d(x_0,Y)\\
+&\leq
+|\alpha|
+\left\|x_0+\frac y\alpha\right\|\\
+&=
+\|y+\alpha x_0\|.
+\end{align*}
+Thus $\|g\|\leq1$. Choosing a sequence
+$y_n\in Y$ with
+$\|x_0-y_n\|\to d(x_0,Y)$ shows
+$\|g\|\geq1$. Hahn--Banach extends $g$ to
+the required $f$.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-dual-separable-implies-space-separable}
+If $X$ is a Banach space and $X^*$ is
+separable, then $X$ is separable.
+\end{theorem}
+
+\begin{proof}
+Choose a dense sequence
+$(f_n)\subset S_{X^*}$. For each $n$, choose
+$x_n\in S_X$ such that
+$
+|f_n(x_n)|>1-\frac1n.
+$
+Put
+$
+Y=\overline{\operatorname{span}}\{x_n:n\in
+\mathbb N\}.
+$
+If $Y\neq X$, choose $x\notin Y$. By
+Proposition
+\ref{proposition-hahn-banach-separate-point-subspace},
+there is $f\in S_{X^*}$ with $f|_Y=0$.
+Choose a subsequence $f_{n_k}\to f$ in norm.
+Then
+$
+|f(x_{n_k})|
+\geq
+|f_{n_k}(x_{n_k})|
+-\|f_{n_k}-f\|,
+$
+and the right-hand side tends to $1$.
+But $x_{n_k}\in Y$ and $f|_Y=0$, a
+contradiction. Thus $Y=X$, so $X$ is
+separable.
+\end{proof}
 
 \section{Weak and weak star topologies}
 \label{section-weak-topologies}
