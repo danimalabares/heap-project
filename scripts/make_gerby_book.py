@@ -48,6 +48,7 @@ KNOWN_CHAPTERS = {
     "historia-do-brasil",
     "16th-alga-meeting-2026",
     "reading-the-masters",
+    "real-analysis",
 }
 
 
