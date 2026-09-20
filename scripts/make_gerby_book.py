@@ -49,6 +49,7 @@ KNOWN_CHAPTERS = {
     "16th-alga-meeting-2026",
     "reading-the-masters",
     "real-analysis",
+    "crystal",
 }
 
 
