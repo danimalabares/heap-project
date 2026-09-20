@@ -10,7 +10,131 @@
 
 \tableofcontents
 
+\section{Differentiation of series}
+\label{section-differentiation-series}
 
+The following is the open-domain form of
+\cite[Section 16.3.5, Corollary 5,
+pp.~389--390]{zo2}.
+
+\begin{theorem}[Differentiation of series]
+\label{theorem-differentiation-series}
+Let $E$ be a real or complex normed vector
+space and let $U\subset E$ be nonempty,
+open, bounded and convex. Suppose that
+$f_n:U\to\mathbb{C}$ are differentiable,
+that $\sum_{n=1}^{\infty}f_n(x_0)$
+converges at some $x_0\in U$, and that
+$\sum_{n=1}^{\infty}Df_n$ converges
+uniformly on $U$ in the operator norm.
+Then $\sum_{n=1}^{\infty}f_n$ converges
+uniformly on $U$ to a differentiable
+function $f$, and
+$$
+Df(x)=\sum_{n=1}^{\infty}Df_n(x).
+$$
+Here $Df_n(x)$ is the derivative as a
+bounded linear map. Its operator norm is
+$$
+\|Df_n(x)\|
+=\sup_{\|v\|\leq1}|Df_n(x)v|.
+$$
+\end{theorem}
+
+\begin{proof}
+Write $S_N=\sum_{n=1}^N f_n$ and let $G$
+be the uniform limit of $DS_N$. Choose
+$R>0$ with $\|x-x_0\|\leq R$ for every
+$x\in U$. The mean value inequality along
+the segment from $x_0$ to $x$ gives
+$$
+\begin{aligned}
+|S_N(x)-S_M(x)|
+&\leq |S_N(x_0)-S_M(x_0)|\\
+&\quad+R\sup_{y\in U}
+\|DS_N(y)-DS_M(y)\|.
+\end{aligned}
+$$
+Thus $(S_N)$ is uniformly Cauchy and has a
+uniform limit $f$.
+
+Fix $x\in U$ and $\varepsilon>0$. Choose
+$N$ so that, for every $M\geq N$,
+$$
+\sup_{y\in U}\|DS_M(y)-DS_N(y)\|
+\leq\varepsilon,
+\qquad
+\|G(x)-DS_N(x)\|\leq\varepsilon.
+$$
+Apply the same mean value inequality to
+$S_M-S_N$ between $x$ and $x+h$ in $U$.
+Letting $M\to\infty$ gives
+$$
+|(f-S_N)(x+h)-(f-S_N)(x)|
+\leq\varepsilon\|h\|.
+$$
+Consequently, for $h\ne0$,
+$$
+\begin{aligned}
+\frac{|f(x+h)-f(x)-G(x)h|}{\|h\|}
+&\leq 2\varepsilon\\
+&\quad+
+\frac{|S_N(x+h)-S_N(x)-DS_N(x)h|}
+{\|h\|}.
+\end{aligned}
+$$
+The last quotient tends to zero as
+$h\to0$, since $S_N$ is differentiable.
+As $\varepsilon$ is arbitrary, $Df(x)=G(x)$.
+\end{proof}
+
+\begin{remark}
+\label{remark-continuous-derivatives-series}
+Continuity of the derivatives is not needed
+in the theorem. If each $f_n$ is $C^1$,
+then $Df$ is continuous as a uniform limit
+of continuous functions, so $f$ is $C^1$.
+\end{remark}
+
+\begin{lemma}[Corollary]
+\label{lemma-differentiation-series-interval}
+Let $a<b$ and $f_n\in C^1([a,b],\mathbb{C})$.
+If $\sum_n f_n$ converges at one point of
+$[a,b]$ and $\sum_n f_n'$ converges uniformly
+on $[a,b]$, then $\sum_n f_n$ converges
+uniformly to a $C^1$ function $f$, with
+$$
+f'=\sum_{n=1}^{\infty}f_n'.
+$$
+Derivatives at the endpoints are one-sided.
+\end{lemma}
+
+\begin{proof}
+Let $S_N=\sum_{n=1}^N f_n$, let $g$ be the
+uniform limit of $S_N'$, and choose $x_0$
+where $S_N(x_0)$ converges to $c$. Since
+$$
+S_N(x)=S_N(x_0)+\int_{x_0}^x S_N'(t)\,dt,
+$$
+uniform convergence of the derivatives
+gives uniform convergence to
+$$
+f(x)=c+\int_{x_0}^x g(t)\,dt.
+$$
+The function $g$ is continuous, so the
+fundamental theorem of calculus gives
+$f\in C^1([a,b])$ and $f'=g$.
+\end{proof}
+
+\begin{remark}
+\label{remark-smooth-series}
+For smooth summands on $[a,b]$, if the
+original series converges at one point and
+the series of $k$th derivatives converges
+uniformly for every $k\geq1$, repeated
+application of the corollary gives a smooth
+sum with every derivative computed termwise.
+\end{remark}
 
 \bibliography{my}
 \bibliographystyle{amsalpha}
