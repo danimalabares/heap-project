@@ -562,6 +562,956 @@ $p+q\leq n$.
 \end{theorem}
 
 \medskip\noindent
+
+\section{$\bar\partial$-Poincaré lemma,
+Dolbeault and Hartogs theorems}
+\label{section-dbar-poincare-dolbeault-hartogs}
+
+\noindent
+We first explain why the
+$\bar\partial$-Poincaré lemma is the local
+statement needed for Dolbeault's theorem.
+Fix $p$ on a complex manifold $M$.
+For each open set $U\subset M$, let
+$\Omega^p_M(U)$ be the holomorphic
+$p$-forms on $U$, and let
+$\mathcal A^{p,q}_M(U)$ be the smooth
+$(p,q)$-forms on $U$.
+A differential form is a section of a
+bundle of exterior powers of the cotangent
+bundle. Assigning these sections to every
+open $U$, with restriction maps, gives the
+corresponding sheaf of sections.
+
+Taking global sections means evaluating the
+sheaf on $M$:
+$$
+\Gamma(M,\mathcal A^{p,q}_M)
+=
+\mathcal A^{p,q}_M(M).
+$$
+Dolbeault's theorem identifies sheaf
+cohomology with the cohomology of the global
+smooth-form complex:
+$$
+H^q(M,\Omega^p_M)
+\cong
+H^{p,q}_{\bar\partial}(M).
+$$
+
+\noindent
+Recall that the stalk $\mathcal F_x$
+consists of germs $[s]_x$ of sections near
+$x$. Two sections have the same germ if they
+agree on some smaller neighbourhood of $x$.
+In particular,
+$$
+[s]_x=0
+$$
+if and only if $s$ vanishes on some
+neighbourhood of $x$.
+
+A complex of sheaves is exact precisely when
+it is exact on every stalk. Thus a section
+in a kernel only needs to lift locally near
+each point. Different neighbourhoods may
+have different lifts.
+
+For a sheaf map
+$\varphi:\mathcal F\to\mathcal G$, the image
+presheaf may fail the gluing axiom. Its
+sheafification is the image sheaf. A section
+$s\in\mathcal G(U)$ belongs to this image
+sheaf precisely when some open cover
+$U=\bigcup_i U_i$ admits local lifts
+$t_i\in\mathcal F(U_i)$ with
+$$
+\varphi(t_i)=s|_{U_i}.
+$$
+The images agree on overlaps, but the lifts
+need not glue. Thus a surjective sheaf map
+guarantees local lifts. The global-sections
+functor asks for a lift on all of $M$, which
+may not exist. This is why global sections
+can lose right exactness.
+
+\begin{theorem}[$\bar\partial$-Poincaré lemma]
+\label{theorem-dbar-poincare}
+Let $\eta$ be a smooth $(p,q)$-form with
+$q>0$ on a neighbourhood of a point $x$ in
+a complex manifold. If
+$\bar\partial\eta=0$, then there is a smaller
+neighbourhood $V$ of $x$ and a smooth
+$(p,q-1)$-form $\beta$ on $V$ such that
+$$
+\eta|_V=\bar\partial\beta.
+$$
+\end{theorem}
+
+\noindent
+The theorem gives exactness on stalks.
+Indeed, take
+$$
+[\alpha]_x
+\in
+\ker\left(
+\bar\partial:
+\mathcal A^{p,q}_{M,x}
+\to
+\mathcal A^{p,q+1}_{M,x}
+\right).
+$$
+Choose a representative $\alpha$ on a
+neighbourhood of $x$. The equality
+$[\bar\partial\alpha]_x=0$ lets us shrink
+until $\bar\partial\alpha=0$. The
+$\bar\partial$-Poincaré lemma then gives a
+smaller neighbourhood and a form $\beta$
+such that
+$$
+\alpha=\bar\partial\beta.
+$$
+Therefore
+$$
+[\alpha]_x=\bar\partial[\beta]_x.
+$$
+The reverse inclusion follows from
+$\bar\partial^2=0$.
+
+In degree zero,
+$\bar\partial\alpha=0$ means that the
+coefficients of the $(p,0)$-form are
+holomorphic. Hence
+$$
+0\longrightarrow\Omega^p_M
+\longrightarrow\mathcal A^{p,0}_M
+\xrightarrow{\bar\partial}
+\mathcal A^{p,1}_M
+\xrightarrow{\bar\partial}\cdots
+$$
+is exact. This is the Dolbeault resolution
+of $\Omega^p_M$.
+
+Applying global sections gives
+$$
+\mathcal A^{p,0}_M(M)
+\xrightarrow{\bar\partial}
+\mathcal A^{p,1}_M(M)
+\xrightarrow{\bar\partial}
+\mathcal A^{p,2}_M(M)
+\longrightarrow\cdots.
+$$
+Its cohomology is, by definition,
+$H^{p,q}_{\bar\partial}(M)$.
+Local primitives need not agree on overlaps,
+so the cohomology of global sections can be
+nonzero even though the sheaf sequence is
+exact.
+
+Every sheaf admits an injective resolution.
+Sheaf cohomology is defined by taking global
+sections of an injective resolution and then
+taking cohomology. On the other hand, the
+sheaves $\mathcal A^{p,q}_M$ are fine,
+because they are modules over smooth
+functions and partitions of unity act by
+multiplication. Fine sheaves are acyclic.
+
+Therefore the Dolbeault resolution is an
+acyclic resolution of $\Omega^p_M$. The
+general comparison theorem for acyclic
+resolutions gives
+$$
+H^q(M,\Omega^p_M)
+\cong
+H^q\left(
+\Gamma(M,\mathcal A^{p,\bullet}_M)
+\right)
+=
+H^{p,q}_{\bar\partial}(M).
+$$
+This is Dolbeault's theorem.
+
+In degree one the mechanism is especially
+transparent. Let
+$$
+\mathcal Z^1
+=
+\ker\left(
+\bar\partial:
+\mathcal A^{p,1}_M
+\to
+\mathcal A^{p,2}_M
+\right).
+$$
+The $\bar\partial$-Poincaré lemma gives a
+short exact sequence
+$$
+0\longrightarrow\Omega^p_M
+\longrightarrow\mathcal A^{p,0}_M
+\xrightarrow{\bar\partial}
+\mathcal Z^1
+\longrightarrow0.
+$$
+The long exact sequence contains
+$$
+\Gamma(M,\mathcal A^{p,0}_M)
+\xrightarrow{\bar\partial}
+\Gamma(M,\mathcal Z^1)
+\longrightarrow
+H^1(M,\Omega^p_M)
+\longrightarrow
+H^1(M,\mathcal A^{p,0}_M).
+$$
+The last group vanishes by fineness, so
+$$
+H^1(M,\Omega^p_M)
+\cong
+\frac{\Gamma(M,\mathcal Z^1)}
+{\bar\partial\Gamma(M,\mathcal A^{p,0}_M)}
+=
+H^{p,1}_{\bar\partial}(M).
+$$
+Repeating this with the successive kernel
+sheaves gives the comparison in every
+degree.
+
+\medskip\noindent
+We now prove the
+$\bar\partial$-Poincaré lemma first in one
+complex variable.
+
+\begin{lemma}[One-dimensional
+$\bar\partial$-Poincaré lemma]
+\label{lemma-dbar-poincare-one-variable}
+Let $\eta$ be a smooth $(0,1)$-form on a
+neighbourhood of a closed disk
+$\overline D\subset\mathbb C$. Then there is
+a smooth function $u$ on $D$ such that
+$$
+\bar\partial u=\eta.
+$$
+\end{lemma}
+
+\begin{proof}
+Write $z=x+iy$ and
+$$
+\eta=g\,d\bar z.
+$$
+For a smooth function $u$,
+$$
+\bar\partial u
+=
+\frac12(u_x+i u_y)d\bar z.
+$$
+Every $(0,1)$-form in complex dimension one
+is automatically $\bar\partial$-closed.
+
+The proof has three steps. First we expand
+on a torus in Fourier modes. Second, every
+nonconstant closed Fourier mode is
+$\bar\partial$-exact. Third, we embed the
+disk in a large elliptic curve, extend the
+form with a bump function, solve there, and
+restrict back to the disk.
+
+We recall the Fourier input. In
+$L^2(0,2\pi]$, the functions
+$$
+\frac{e^{int}}{\sqrt{2\pi}},
+\qquad n\in\mathbb Z,
+$$
+form an orthonormal system. To prove that
+they form a Hilbert basis, put
+$$
+A
+=
+\operatorname{span}
+\left\{
+e^{int}:n\in\mathbb Z
+\right\}
+\subset C(S^1,\mathbb C).
+$$
+The algebra $A$ contains constants, is
+closed under conjugation, and separates
+points. Stone--Weierstrass therefore gives
+$$
+\overline A^{\|\cdot\|_\infty}
+=
+C(S^1,\mathbb C).
+$$
+On $(0,2\pi]$ we have
+$$
+\|f-g\|_2
+\leq
+\sqrt{2\pi}\|f-g\|_\infty.
+$$
+Thus uniform approximation implies
+$L^2$ approximation. Continuous functions
+are dense in $L^2(S^1)$, so
+$$
+\overline A^{L^2}=L^2(S^1).
+$$
+Hence every $L^2$ function has a Fourier
+expansion
+$$
+f(t)=\sum_{n\in\mathbb Z}a_ne^{int},
+$$
+where
+$$
+a_n
+=
+\frac1{2\pi}
+\int_0^{2\pi}
+f(t)e^{-int}\,dt.
+$$
+
+Now take the elliptic curve
+$$
+E
+=
+\mathbb C/
+(2\pi\mathbb Z+2\pi i\mathbb Z).
+$$
+Its Fourier modes are
+$$
+e_{n,m}(x,y)=e^{inx+imy},
+\qquad
+(n,m)\in\mathbb Z^2.
+$$
+Their span is again a
+conjugation-closed algebra containing
+constants and separating points.
+Stone--Weierstrass and density of continuous
+functions in $L^2(E)$ show that these modes
+form a Hilbert basis.
+
+Every smooth function on $E$ has an
+expansion
+$$
+g
+=
+\sum_{n,m\in\mathbb Z}
+a_{n,m}e_{n,m}.
+$$
+The coefficients are
+$$
+a_{n,m}
+=
+\frac1{(2\pi)^2}
+\int_E
+g(x,y)e^{-inx-imy}\,dx\,dy.
+$$
+A differential form is expanded by expanding
+its coefficients. Thus
+$$
+\eta
+=
+\sum_{n,m}
+a_{n,m}e_{n,m}\,d\bar z.
+$$
+
+The Dolbeault operator preserves Fourier
+frequency. Indeed,
+$$
+\bar\partial e_{n,m}
+=
+\frac{in-m}{2}
+e_{n,m}\,d\bar z.
+$$
+Therefore every nonzero mode is exact. More
+precisely, if $(n,m)\neq(0,0)$, then
+$$
+a_{n,m}e_{n,m}\,d\bar z
+=
+\bar\partial
+\left(
+\frac{2a_{n,m}}{in-m}e_{n,m}
+\right).
+$$
+Separate the constant coefficient
+$$
+c=a_{0,0}.
+$$
+Define
+$$
+f
+=
+\sum_{(n,m)\neq(0,0)}
+\frac{2a_{n,m}}{in-m}e_{n,m}.
+$$
+Then
+$$
+\bar\partial f
+=
+(g-c)d\bar z,
+$$
+and consequently
+$$
+\eta=c\,d\bar z+\bar\partial f.
+$$
+
+For completeness, smoothness of the Fourier
+series justifies termwise differentiation.
+Repeated integration by parts gives rapid
+decay of the coefficients. In the more
+elementary estimate used in the lecture,
+bounded fourth derivatives give
+$$
+|a_{n,m}|
+\leq
+\frac{C_x}{|n|^4}
+$$
+for $n\neq0$, and
+$$
+|a_{n,m}|
+\leq
+\frac{C_y}{|m|^4}
+$$
+for $m\neq0$. Put
+$$
+k=\max(|n|,|m|).
+$$
+With $C=\max(C_x,C_y)$,
+$$
+|a_{n,m}|
+\leq
+\frac{C}{k^4}.
+$$
+The set of lattice points with
+$\max(|n|,|m|)=k$ is the boundary of a
+square and has $8k$ points. Hence the
+Fourier series is absolutely and uniformly
+convergent. After one derivative each term
+gains at most one factor $k$, so the
+corresponding shell is bounded by
+$$
+\frac{8C}{k^2}.
+$$
+The Weierstrass M-test gives uniform
+convergence of the derivative series, and
+the termwise differentiation criterion
+applies.
+
+It remains to pass from the torus back to
+the disk. Choose $L$ large enough that
+$\overline D$ lies in the interior of the
+square
+$$
+[-L/2,L/2]\times[-L/2,L/2].
+$$
+The quotient by
+$L\mathbb Z+iL\mathbb Z$ gives an elliptic
+curve in which the disk embeds without
+identifying its points.
+
+Choose a smooth bump function $\chi$,
+supported in the given neighbourhood of
+$\overline D$, and equal to one near
+$\overline D$. Extend
+$$
+\widetilde\eta=\chi\eta
+$$
+by zero and periodically to the elliptic
+curve. The form $\widetilde\eta$ agrees with
+$\eta$ on $D$ and is automatically
+$\bar\partial$-closed in complex dimension
+one. The torus calculation gives
+$$
+\widetilde\eta
+=
+c\,d\bar z+\bar\partial f.
+$$
+On the disk, $\bar z$ is a well-defined
+function and
+$$
+d\bar z=\bar\partial\bar z.
+$$
+Therefore
+$$
+\eta
+=
+\bar\partial
+\left(
+c\bar z+f|_D
+\right).
+$$
+This is the required primitive.
+\end{proof}
+
+\begin{remark}
+\label{remark-dbar-poincare-boundary}
+The closed-disk hypothesis means that the
+form is smooth on a neighbourhood of the
+closed disk, while the primitive is produced
+on the interior. The local
+$\bar\partial$-Poincaré lemma follows by
+choosing a smaller disk around the point.
+The stronger statement on an arbitrary open
+disk, without extension across the boundary,
+is a separate result.
+\end{remark}
+
+\medskip\noindent
+We now repeat the construction in several
+variables. The important point is that the
+one-variable solution operator can be
+applied in one coordinate while treating
+the remaining coordinates as parameters.
+
+Let $T_i$ denote the one-variable primitive
+operator in the coordinate $z_i$. Thus
+$$
+\partial_{\bar z_i}(T_i g)=g.
+$$
+The same bump function is used for every
+value of the other parameters. Therefore,
+for $j\neq i$,
+$$
+\partial_{\bar z_j}(T_i g)
+=
+T_i(\partial_{\bar z_j}g).
+$$
+In particular, solving in one variable
+preserves holomorphic dependence on the
+other variables.
+
+We first see the mechanism in two variables.
+Let
+$$
+\alpha
+=
+a\,d\bar z_1+b\,d\bar z_2
+$$
+be a smooth $(0,1)$-form with
+$\bar\partial\alpha=0$. We want a function
+$u$ such that
+$$
+\partial_{\bar z_1}u=a,
+\qquad
+\partial_{\bar z_2}u=b.
+$$
+Construct $u=u_1+u_2$. First set
+$$
+u_1=T_1a.
+$$
+Then
+$$
+\partial_{\bar z_1}u_1=a.
+$$
+Subtract its full Dolbeault derivative:
+$$
+\alpha-\bar\partial u_1
+=
+r\,d\bar z_2,
+$$
+where
+$$
+r
+=
+b-\partial_{\bar z_2}u_1.
+$$
+To keep the first equation solved when we
+add the second correction, we need
+$$
+\partial_{\bar z_1}u_2=0.
+$$
+We therefore check that the remainder is
+holomorphic in $z_1$. Using commutativity of
+mixed derivatives,
+$$
+\partial_{\bar z_1}r
+=
+\partial_{\bar z_1}b
+-
+\partial_{\bar z_2}a.
+$$
+On the other hand,
+$\bar\partial\alpha=0$ is equivalent to
+$$
+\partial_{\bar z_1}b
+=
+\partial_{\bar z_2}a.
+$$
+Thus
+$$
+\partial_{\bar z_1}r=0.
+$$
+Now set
+$$
+u_2=T_2r.
+$$
+Then
+$$
+\partial_{\bar z_2}u_2=r
+$$
+and, because $T_2$ preserves holomorphic
+dependence on $z_1$,
+$$
+\partial_{\bar z_1}u_2=0.
+$$
+Hence
+$$
+\alpha=\bar\partial(u_1+u_2).
+$$
+
+The same correction procedure works in
+$n$ variables. Let
+$$
+\alpha
+=
+\sum_{j=1}^n a_j\,d\bar z_j.
+$$
+Finding $u$ with
+$\bar\partial u=\alpha$ means solving the
+$n$ equations
+$$
+\partial_{\bar z_j}u=a_j.
+$$
+Suppose the first $k-1$ equations have
+already been solved. Write the remainder as
+$$
+R_{k-1}
+=
+\alpha
+-
+\bar\partial
+(u_1+\cdots+u_{k-1})
+=
+\sum_{j=k}^n
+r_j\,d\bar z_j.
+$$
+At the $k$th step we want a correction
+$u_k$ satisfying
+$$
+\partial_{\bar z_k}u_k=r_k
+$$
+and, for every $i<k$,
+$$
+\partial_{\bar z_i}u_k=0.
+$$
+The latter conditions mean exactly that the
+correction keeps all previous equations
+solved.
+
+The remainder is still closed:
+$$
+\bar\partial R_{k-1}=0.
+$$
+For a general $(0,1)$-form
+$$
+R
+=
+\sum_{\ell=1}^n
+c_\ell\,d\bar z_\ell,
+$$
+closedness gives the compatibility equations
+$$
+\partial_{\bar z_i}c_j
+=
+\partial_{\bar z_j}c_i.
+$$
+In $R_{k-1}$ the coefficient of
+$d\bar z_i$ is zero for every $i<k$.
+Thus, for $i<k$ and $j\geq k$,
+$$
+\partial_{\bar z_i}r_j=0.
+$$
+Every remaining coefficient is holomorphic
+in every variable whose equation has already
+been solved.
+
+Set
+$$
+u_k=T_kr_k.
+$$
+Then
+$$
+\partial_{\bar z_k}u_k=r_k
+$$
+and, for $i<k$,
+$$
+\partial_{\bar z_i}u_k=0.
+$$
+Define
+$$
+R_k
+=
+R_{k-1}
+-
+\bar\partial u_k.
+$$
+There is now no term involving
+$d\bar z_1,\ldots,d\bar z_k$. The remainder
+is still closed, and the same compatibility
+argument prepares the next step. After $n$
+corrections,
+$$
+R_n=0.
+$$
+Therefore
+$$
+\alpha
+=
+\bar\partial
+(u_1+\cdots+u_n).
+$$
+
+For a general $(0,q)$-form the same
+induction works coefficientwise. Suppose
+that after the first $k-1$ corrections the
+closed remainder $R_{k-1}$ has no factor
+$d\bar z_1,\ldots,d\bar z_{k-1}$ and its
+coefficients are holomorphic in
+$z_1,\ldots,z_{k-1}$. Separate the terms
+containing $d\bar z_k$:
+$$
+R_{k-1}
+=
+d\bar z_k\wedge B+C.
+$$
+Write
+$$
+B
+=
+\sum_J b_J\,d\bar z_J.
+$$
+Define the correction by applying $T_k$ to
+each coefficient:
+$$
+\beta_k
+=
+\sum_J
+(T_kb_J)\,d\bar z_J.
+$$
+Differentiating gives
+$$
+\begin{aligned}
+\bar\partial\beta_k
+&=
+\sum_J\sum_{i=1}^n
+\partial_{\bar z_i}(T_kb_J)
+\,d\bar z_i\wedge d\bar z_J\\
+&=
+d\bar z_k\wedge B
++
+\sum_J\sum_{i\neq k}
+\partial_{\bar z_i}(T_kb_J)
+\,d\bar z_i\wedge d\bar z_J.
+\end{aligned}
+$$
+The first term removes precisely the
+$d\bar z_k$ part. For $i<k$, the induction
+hypothesis gives
+$$
+\partial_{\bar z_i}(T_kb_J)=0.
+$$
+Thus no earlier factor is reintroduced.
+Define
+$$
+R_k
+=
+R_{k-1}
+-
+\bar\partial\beta_k.
+$$
+Then $R_k$ has no factor
+$d\bar z_1,\ldots,d\bar z_k$ and remains
+closed. Closedness implies that every
+remaining coefficient $r_J$ satisfies
+$$
+\partial_{\bar z_i}r_J=0
+$$
+for $i\leq k$. Hence $R_k$ satisfies the
+same induction hypothesis with $k$ in place
+of $k-1$.
+
+After the last correction, no
+$d\bar z_j$ factor is available. Since
+$q>0$, every term of a $(0,q)$-form needs at
+least one such factor. Therefore
+$$
+R_n=0.
+$$
+Adding the corrections gives a
+$(0,q-1)$-form $\beta$ satisfying
+$$
+\alpha=\bar\partial\beta.
+$$
+
+Finally, for a general $(p,q)$-form, write
+$$
+\eta
+=
+\sum_I dz_I\wedge\alpha_I,
+$$
+where each $\alpha_I$ is a $(0,q)$-form.
+Since $\bar\partial dz_I=0$, the equality
+$\bar\partial\eta=0$ implies
+$$
+\bar\partial\alpha_I=0
+$$
+for every $I$. Solve
+$$
+\bar\partial\gamma_I=\alpha_I
+$$
+for each $I$ and put
+$$
+\beta
+=
+(-1)^p
+\sum_I
+dz_I\wedge\gamma_I.
+$$
+Then
+$$
+\bar\partial\beta=\eta.
+$$
+This proves the
+$\bar\partial$-Poincaré lemma in all
+bidegrees.
+
+\medskip\noindent
+We finish with Hartogs' extension theorem.
+
+\begin{theorem}[Hartogs extension theorem]
+\label{theorem-hartogs-extension}
+Let $n\geq2$ and let
+$K\subset\mathbb C^n$ be compact, with
+$\mathbb C^n\setminus K$ connected. Every
+holomorphic function on
+$\mathbb C^n\setminus K$ extends uniquely to
+a holomorphic function on $\mathbb C^n$.
+\end{theorem}
+
+\begin{proof}
+The idea is to repair a smooth extension.
+Choose a smooth function
+$\widetilde f$ on all of $\mathbb C^n$
+which agrees with $f$ outside a compact set.
+Its error is
+$$
+\alpha=\bar\partial\widetilde f.
+$$
+This is a smooth, compactly supported,
+$\bar\partial$-closed $(0,1)$-form.
+
+Using the standard affine embedding
+$\mathbb C^n\subset\mathbb P^n$, regard
+$\alpha$ as a smooth $(0,1)$-form on
+$\mathbb P^n$ by extending it by zero across
+the hyperplane at infinity. We need a global
+smooth function $\varphi$ satisfying
+$$
+\bar\partial\varphi=\alpha.
+$$
+
+There are two ways to justify this step.
+
+The first uses Hodge theory. Projective space
+is compact Kähler and
+$$
+H^1_{\mathrm{dR}}
+(\mathbb P^n,\mathbb C)=0.
+$$
+Hodge decomposition gives
+$$
+H^1_{\mathrm{dR}}
+(\mathbb P^n,\mathbb C)
+\cong
+H^{1,0}_{\bar\partial}(\mathbb P^n)
+\oplus
+H^{0,1}_{\bar\partial}(\mathbb P^n).
+$$
+Therefore
+$$
+H^{0,1}_{\bar\partial}(\mathbb P^n)=0.
+$$
+Since $\alpha$ is
+$\bar\partial$-closed, it is
+$\bar\partial$-exact.
+
+The second proof makes the role of the
+$\bar\partial$-Poincaré lemma explicit.
+Cover $\mathbb P^n$ by small polydisks
+$U_i$. On every $U_i$ the
+$\bar\partial$-Poincaré lemma gives a local
+function $\varphi_i$ such that
+$$
+\bar\partial\varphi_i=\alpha|_{U_i}.
+$$
+On overlaps,
+$$
+\bar\partial(\varphi_i-\varphi_j)=0,
+$$
+so
+$$
+g_{ij}=\varphi_i-\varphi_j
+$$
+is holomorphic. The functions $g_{ij}$ form
+a Čech one-cocycle with values in
+$\mathcal O_{\mathbb P^n}$. Using the
+standard vanishing
+$$
+H^1(\mathbb P^n,\mathcal O_{\mathbb P^n})
+=
+0,
+$$
+this cocycle is a coboundary. Thus there are
+holomorphic functions $h_i$ with
+$$
+g_{ij}=h_i-h_j.
+$$
+The corrected local primitives
+$\varphi_i-h_i$ agree on overlaps and glue
+to a global smooth function $\varphi$ with
+$$
+\bar\partial\varphi=\alpha.
+$$
+
+Because $\mathbb P^n$ is compact,
+$\varphi$ is bounded on $\mathbb C^n$.
+Outside the compact support of $\alpha$,
+$$
+\bar\partial\varphi=0,
+$$
+so $\varphi$ is holomorphic there.
+
+The geometric point where $n\geq2$ enters is
+that through a point outside a sufficiently
+large ball one can choose a complex affine
+line in an extra direction which stays
+outside the ball. Restrict $\varphi$ to such
+a line. It is a bounded entire function of
+one complex variable, so Liouville's theorem
+makes it constant.
+
+The union of affine complex lines which miss
+the compact set contains the complement of
+another compact set. Hence $\varphi$ is
+constant outside a compact set. Subtracting
+this constant, we may assume that $\varphi$
+has compact support.
+
+Now set
+$$
+F=\widetilde f-\varphi.
+$$
+Then
+$$
+\bar\partial F=0,
+$$
+so $F$ is holomorphic on all of
+$\mathbb C^n$. Outside a compact set,
+$\widetilde f=f$ and $\varphi=0$, so
+$F=f$ there. Since
+$\mathbb C^n\setminus K$ is connected, the
+identity theorem gives equality on the whole
+original domain. Uniqueness follows from the
+same identity theorem.
+\end{proof}
+
+\medskip\noindent
 Now let's discuss the local theory on complex
 manifolds,
 which is rather just analysis on an open set
