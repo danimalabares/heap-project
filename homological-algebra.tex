@@ -4833,6 +4833,388 @@ F\qquad &n=0 \\
 \end{lemma}
 
 
+\section{The cone construction}
+\label{section-cone-construction}
+
+\noindent
+(Motivated by algebraic topology).
+
+\begin{definition}
+\label{definition-cone}
+Let $A^\bullet,B^\bullet \in
+\operatorname{CoCh}$ (cochain complexes
+of abelian groups, or whatever abelian
+category) and $f: A^\bullet \to B^\bullet$ 
+a morphism. The {\it cone of $f$} 
+$C(f)$ is the cochain complex
+$$
+C(f)^n=A^{n+1}\oplus B^n,
+$$
+$$
+d(a,b) = (-d_A(s),d_B(b)+f(a)).
+$$
+\end{definition}
+
+\noindent
+{\bf Notation.} 
+\begin{itemize}
+\item $A^\bullet[1]$ means the complex.
+\item $A[1]^n = A^{n+1}$,
+$d_{A[1]}=(-1)^kd_A$,
+\item $A[k]^n=A^{n+k}$,
+$d_{A[k]}=(-1)^kd_A$.
+\end{itemize}
+
+\noindent
+Observe that
+$$
+B^\bullet \hookrightarrow C(f)^\bullet.
+$$
+Indeed $C(f)^n=A^{n+1}\oplus B^n$,
+so $B^n \hookrightarrow C(f)^n$
+and the differential
+$$
+d_{C(f)}:B^n \to B^n.
+$$
+(There is {\bf not} an embedding
+$A^\bullet \hookrightarrow C(f)$
+unless $f=0$.)
+
+Consider $C(f)^\bullet/B^\bullet$.
+We have $C(f)^\bullet/B^\bullet \simeq
+A[1]$.
+So we have proved
+
+\begin{proposition}
+\label{proposition-ses-complexes-cone}
+There is a short exact sequence of complexes
+$$
+\xymatrix{
+0\ar[r]
+&B^\bullet\ar[r]
+&C(f)\ar[r]
+&A[1]\ar[r]
+&0
+}
+$$
+\end{proposition}
+
+\medskip\noindent
+{\bf Proof of balancing.}
+Recall Theorem \ref{theorem-balancing}.
+One of the uses of balancing is that
+we may compute $\operatorname{Ext}^n(A,B)$
+``by resolving either $A$ projectively,
+or $B$ injectively'' (whatever's best for
+the in-practice situation). That is,
+$$
+H^n\Hom(P^\bullet,B)
+\cong
+\operatorname{Ext}^n(A,B)
+\cong
+H^n\Hom(A,I^\bullet).
+$$
+
+Let's prove balancing for Ext:
+
+\begin{proof}
+(Proof of balancing for Ext.)
+Fix $A,B \in R$-mod. Choose an
+injective resolution
+$0 \to B \to I^\bullet$
+and projective resolution
+$P^\bullet \to A \to 0$.
+
+To compare 
+$$
+R^n\Hom_R(A,-)(B)
+=
+H^n(\Hom_R(A,I^\bullet))
+$$
+with
+$$
+L^n\Hom_R(-,B)(A)
+=
+H^n(\Hom_R(P^\bullet,B)),
+$$
+let's consider
+$$
+\Hom_R(P^m,I^n)
+:=
+C^{m,n} \in \underline{\operatorname{Ab}}.
+$$
+These naturally form a bicomplex
+$$
+\operatorname{[diagram]}
+$$
+$\widetilde{C}$ is the ``augmented'' version
+of $C$, using the map $P^0
+\xrightarrow{\varepsilon} A$.
+
+What's a bicomplex? It is a collection of
+$C^{m,n} \in \underline{\operatorname{Ab}}$,
+$m,n \in \mathbb{Z}$, morphisms 
+$$
+d^h:C^{m,n}\to C^{m+1,n}
+$$
+$$
+d^v:C^{m,n} \to C^{m,n+1}
+$$
+such that
+$$
+d^h \circ d^h =0,
+\quad 
+d^b \circ d^v =0
+\quad 
+d^h \circ d^v = -d^v \circ d^h.
+$$
+The {\it total
+complex} $\operatorname{Tot}(C)$ of a bicomplex $C$
+is
+$$
+\operatorname{Tot}(C)_n
+=
+\bigoplus_{p+q=n}C^{p,q}
+$$
+with
+$$
+d=d^h + d^v.
+$$
+
+\noindent
+Exercise:
+$\operatorname{Tot}(\widetilde{C})$
+is a complex.
+
+(I think the proof now pauses because we
+need the following lemma.)
+\end{proof}
+
+\begin{lemma}[Acyclic assembly lemma]
+\label{lemma-assembly}
+$\operatorname{Tot}(\widetilde{C})$
+is acyclic.
+\end{lemma}
+
+\noindent
+How does it help prove balancing?
+We interpret $\operatorname{Tot}(\tilde{C})$
+as a cone. The morphism
+$P^\bullet.$
+$\Hom(A,I^\bullet)$ is a complex,
+and $\operatorname{Tot}(C)$is a complex,
+and
+$$
+\omega:\Hom(A,I)
+\to \operatorname{Tot}(C)
+$$
+of complexes.
+
+$$
+[\operatorname{diagram}]
+$$
+
+We convince ourselves that
+$$
+C(\omega)
+\cong
+\operatorname{Tot}(\widetilde{C}),
+$$
+so we have a short exact sequence
+$$
+\xymatrix{
+0\ar[r]
+&\operatorname{Tot}(C)\ar[r]
+&\operatorname{Tot}(\widetilde{C})\ar[r]
+&\Hom(A,I^\bullet)[1]\ar[r]
+&0
+}
+$$
+which yields a long exact sequence in
+cohomology. [Diagram.]
+
+Consequently,
+$$
+[R^n\Hom_R(A,-)
+\simeq
+H^n(\operatorname{Tot}(C)).
+$$
+We could, instead, use
+$$
+B \xrightarrow{\eta} I^0
+$$
+to add one extra {\bf row} 
+to the bottom of $C$,
+and do a similar argument to conclude that
+$$
+H^n(\operatorname{Tot}(C))
+\simeq
+[L^n\Hom_R(-,B)](A).
+$$
+That's how acyclic assembly
+(the two augmented $\widetilde{C}$
+bicomplexes are both
+acyclic) implies balancing.
+
+\begin{lemma}[Acyclic assembly lemma,
+homological version]
+\label{lemma-assembly-homological}
+If $C$ is a bicomplex with
+$d^h:C_{p,q} \to C_{p-1,q}$,
+$d^v:C_{p,q}\to C_{p,q-1}$,
+and $C_{p,q}=0$ for $p<0$ or $q<0$.
+If the columns of $C$ are acyclic,
+then $\operatorname{Tot}(C)$ is acyclic.
+\end{lemma}
+
+\begin{proof}
+(Done in lecture.)
+\end{proof}
+
+\begin{remark}
+\label{remark-rows-acyclic}
+By symmetry, acyclic rows also implies
+$\operatorname{Tot}(C)$ acyclic.
+\end{remark}
+
+\begin{exercise}
+\label{exercise-balancing-cohomology}
+Do the cohomology version.
+\end{exercise}
+
+\noindent
+Finally, why does the lemma apply to our
+$\widetilde{C}$? [Explanation including
+diagram.]
+
+\section{Resolution by acyclic objects}
+\label{section-resolution-by-acyclic}
+
+\noindent Upshot: sometimes it can be
+painful to compute injective resolutions.
+But if you care about (co)homology, it
+suffices to find an acyclic resolution.
+(This is how to prove de Rham/Dolbeault
+theorems.)
+
+\medskip\noindent
+For $F$ left exact, we defined $R^nF(A)$ to 
+be $H^n(F(I^\bullet))$ where
+$$
+\xymatrix{
+0 \ar[r] & I^0 \ar[r]& I^1 \ar[r]& I^2
+\ar[r]&\cdots\\
+&A \ar[u]
+}
+$$
+In particular, if $I$ is injective, then
+$$
+R^nF(I)
+=
+\begin{cases}
+F(I)\qquad &\operatorname{if} n=0 \\
+0\qquad &\operatorname{if} n>0.
+\end{cases}
+$$
+\begin{definition}
+\label{definition-f-acyclic}
+$X \in \mathcal{A}$ is {\it $F$-acyclic} 
+if
+$$
+R^nF(X)
+=
+\begin{cases}
+F(X)\qquad &\operatorname{if}n=0 \\
+0\qquad &\operatorname{if} n>0.
+\end{cases}
+$$
+\end{definition}
+
+\begin{proposition}[4.32, Voisin]
+\label{proposition-432-acyclic}
+Let $F:\mathcal{A} \to \mathcal{B}$
+be left exact, $\mathcal{A}$ with enough
+injectives and $0 \to X \to A^\bullet$
+a resolution of $X$ by $A^n$,
+$F$-acyclic objects. Then
+$$
+R^nF(X) \simeq H^nF(A^\bullet)).
+$$
+\end{proposition}
+
+\begin{proof}
+Let $K^n=\ker(d:A^n \to A^{n+1})
+\subset A^n$.
+We obtain short exact sequences
+$$
+\xymatrix{
+0\ar[r]
+&X\ar[r]
+&A^0\ar[r]
+&K^1\ar[r]
+&0
+}
+$$
+and
+$$
+\xymatrix{
+0\ar[r]
+&K^n\ar[r]
+&A^n\ar[r]^d
+&K^{n+1}\ar[r]
+&0.
+}
+$$
+Now look at the corresponding long
+exact sequences:
+$$
+\xymatrix{
+&R^2F(X)\ar[r]&0\ar[r]&R^2F(K^1)\\
+&R^1F(X)\ar[r]&0\ar[r]&R^1F(K^1)
+\ar[llu]^{\simeq}\\
+0\ar[r]&F(X)\ar[r]&F(A^0)\ar[r]&F(K^1)
+\ar[llu]
+}
+$$
+and
+$$
+\xymatrix{
+&R^2F(K^2)\ar[r]&0\ar[r]&R^2F(K^{i+2})\\
+&R^1F(K^1)\ar[r]&0\ar[r]
+&R^1F(K^{i+1})\ar[llu]^{\simeq}\\
+0\ar[r]&F(K^2)\ar[r]&F(A^2)\ar[r]&
+F(K^{i+1})\ar[ull]
+}
+$$
+for all $i$.
+Thus
+$$
+R^nF(X) \simeq R^{n-1}F(K^1)
+\simeq R^{n-2}F(K^2) \simeq\dots
+\simeq R^1F(K^{n-1}),
+$$
+$$
+R^1F(K^{n-1}) \xrightarrow{\simeq}
+F(K^n)/\operatorname{Im}(F(A^{n-1})
+\xrightarrow{F(d)}F(K^n))
+\xrightarrow{\simeq}
+\frac{\ker(F(A^n) \to F(A^{n+1})}{
+\operatorname{Im}(F(A^{n-1}) \to
+F(A^n)}
+$$
+But $F$ is left exact, so the second arrow
+in
+$$
+0 \to F(K^n) \to F(A^n) \to F(A^{n+1})
+$$
+is injective, so
+$$
+\ker(F(A^n)\to F(A^{n+1}))=F(K^n).
+$$
+
+
+
+\end{proof}
 \bibliography{my}
 \bibliographystyle{amsalpha}
 
