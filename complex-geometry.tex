@@ -566,6 +566,185 @@ $p+q\leq n$.
 \section{$\bar\partial$-Poincaré lemma,
 Dolbeault and Hartogs theorems}
 \label{section-dbar-poincare}
+\noindent
+We start by defining $\partial$ and
+$\bar\partial$.
+Take a real-valued smooth function
+$f\in C^\infty(V,\mathbb{R})$.
+The de Rham differential is given in local
+coordinates $x,y$ by
+$$
+df=\partial_xf\,dx+\partial_yf\,dy.
+$$
+On the complexified exterior algebra define
+$$
+\partial_z
+=
+\frac{1}{2}(\partial_x-i\partial_y),
+\qquad
+\partial_{\bar z}
+=
+\frac{1}{2}(\partial_x+i\partial_y),
+$$
+and
+$$
+dz=dx+i\,dy,
+\qquad
+d\bar z=dx-i\,dy.
+$$
+Then
+$$
+\begin{aligned}
+\partial_zf\,dz
++\partial_{\bar z}f\,d\bar z
+&=
+\frac{1}{2}
+(\partial_xf-i\partial_yf)(dx+i\,dy)\\
+&\quad+
+\frac{1}{2}
+(\partial_xf+i\partial_yf)(dx-i\,dy)\\
+&=
+\partial_xf\,dx+\partial_yf\,dy\\
+&=df.
+\end{aligned}
+$$
+
+\begin{definition}
+\label{definition-dbar}
+Let $X$ be an almost complex manifold.
+If
+$$
+d:
+\mathcal A^k_{X,\mathbb C}
+\longrightarrow
+\mathcal A^{k+1}_{X,\mathbb C}
+$$
+is the $\mathbb C$-linear extension of the
+exterior differential, define
+$$
+\partial
+=
+\Pi^{p+1,q}\circ d
+$$
+on $\mathcal A^{p,q}_X$, and define
+$$
+\bar\partial
+=
+\Pi^{p,q+1}\circ d
+$$
+on $\mathcal A^{p,q}_X$, where
+$\Pi^{p,q}$ is the projection onto type
+$(p,q)$.
+\end{definition}
+
+For a real or complex-valued function $f$,
+$$
+\partial f=\partial_zf\,dz,
+\qquad
+\bar\partial f
+=
+\partial_{\bar z}f\,d\bar z.
+$$
+If $f=u+iv$, the condition
+$\bar\partial f=0$ is the Cauchy--Riemann
+equation. Thus a complex-valued function is
+holomorphic if and only if
+$\bar\partial f=0$.
+
+We shall need the basic relations between
+these operators. First, here is the original
+coordinate computation.
+
+\begin{proof}
+Since real partial derivatives commute,
+$$
+\begin{aligned}
+\partial_z \partial_{\bar{z}}
+&=\left(\frac{1}{2}(\partial_x - i
+\partial_y)\right)
+\left(\frac{1}{2}(\partial_x+i
+\partial_y)\right)\\
+&=\frac{1}{4}(\partial_x^2
++i \partial_x\partial_y-i\partial_y\partial_x
+-i^2 \partial_y^2)\\
+&=\frac{1}{4}(\partial_x^2+\partial_y^2)\\
+&=\frac{1}{4}(\partial_x^2
+-i \partial_x\partial_y+i\partial_y\partial_x
+-i^2 \partial_y^2)\\
+&=\left(\frac{1}{2}(\partial_x + i
+\partial_y)\right)
+\left(\frac{1}{2}(\partial_x-i
+\partial_y)\right)\\
+&=\partial_{\bar{z}}\partial_z.
+\end{aligned}
+$$
+
+\noindent
+so that
+$$
+\begin{aligned}
+\partial \bar\partial f
+&=\partial(\partial_{\bar{z}}f d\bar{z})\\
+&=\partial_z \partial_{\bar{z}}f dz \wedge
+d\bar{z}.
+\end{aligned}
+$$
+
+\noindent
+And similarly,
+
+$$
+\begin{aligned}
+\bar\partial \partial f
+&=\partial_{\bar{z}}(\partial_z f dz)\\
+&=\partial_{\bar{z}}\partial_zf d\bar{z}
+\wedge dz\\
+&=-\partial_z\partial_{\bar{z}}fdz\wedge
+d\bar{z}
+\end{aligned}
+$$
+
+\noindent
+and thus
+$$
+\partial\bar\partial=-\bar\partial \partial
+$$
+on functions.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-leibniz-for-del}
+For a $(p,q)$-form $\alpha$,
+$$
+\partial^2=0,
+\qquad
+\bar\partial^2=0,
+\qquad
+\partial\bar\partial
+=
+-\bar\partial\partial.
+$$
+Moreover,
+$$
+\partial(\alpha\wedge\beta)
+=
+\partial\alpha\wedge\beta
++
+(-1)^{p+q}
+\alpha\wedge\partial\beta,
+$$
+and
+$$
+\bar\partial(\alpha\wedge\beta)
+=
+\bar\partial\alpha\wedge\beta
++
+(-1)^{p+q}
+\alpha\wedge\bar\partial\beta.
+$$
+\end{proposition}
+
+\medskip\noindent
 
 \noindent
 We first explain why the
@@ -1520,259 +1699,6 @@ same identity theorem.
 \end{proof}
 
 \medskip\noindent
-Now let's discuss the local theory on complex
-manifolds,
-which is rather just analysis on an open set
-of the complex numbers.
-We start defining $\partial,\bar\partial$
-and aim at proving Dolbeault theorem,
-which is proved exactly in the same way as de
-Rham's theorem.
-
-\medskip\noindent
-Upshot. We recall by sheaf theory
-that the existence of an acyclic resolution
-of a sheaf
-implies that the cohomology of the resolution
-equals the cohomology of the sheaf (see next
-paragraph).
-de Rham's complex is an acylic resolution
-of the constant sheaf
-$\underline{\mathbb{R}}$;
-acyclicity is due to Poincaré lemma - a local
-property.
-There some way of viewing the complex of
-singular cochains
-as an acyclic resolution of the constant
-sheaf $\underline{\mathbb{R}}$.
-Thus both de Rham cohomology and singular
-cohomology
-are isomorphic to the cohomology of the
-constant sheaf $\underline{\mathbb{R}}$.
-
-The derived functors assign a resolution to
-every object
-in the abelian category if it has enough
-injectives.
-An acylcic resolution is such that the
-derived functors
-of all objects in the resolution vanish.
-The cohomology of a sheaf is defined
-as the resolution given by its exact
-functors.
-
-Dolbeault theorem is exactly the same:
-Dolbeault's complex is acylcic by
-$\bar\partial$-Poincaré lemma,
-making it a resolution of the sheaf
-$\Omega^p$.
-
-There is an interesting relationship between
-the two results,
-which we anticipated since $\bar\partial$
-appears to act on a ``piece'' of the exterior
-algebra,
-fixing another piece.
-
-\medskip\noindent
-Let us start by defining $\partial$ and
-$\bar\partial$.
-Take a real-valued smooth function $f \in
-C^\infty(V,\mathbb{R})$.
-We know that the de Rham differential is
-given
-in local coordinates $x^i,y^j$ of our $2n$
-real-dimensional manifold by
-$$
-df=\partial_{x^i}fdx^i + \partial_{y^j}fdy^j.
-$$
-When we complexify the exterior algebra we
-obtain
-$\Lambda_{\mathbb{C}}^\bullet(V)
-= \Lambda^\bullet(V)
-\otimes_\mathbb{R}\mathbb{C}
-= \Lambda^\bullet(T^*V
-\otimes_\mathbb{R}\mathbb{C})$.
-Here we can multiply by complex numbers,
-so we can define
-$$
-\partial_z:= \frac{1}{2}(\partial_x  - i
-\partial_y ),\qquad
-\partial_{\bar{z}}:=\frac{1}{2}(\partial_x +
-i \partial_y)
-$$
-and obtain
-$$
-dz=dx+idy,\qquad  d\bar{z}=dx - i dy.
-$$
-
-We see that
-$$
-\begin{aligned}
-\partial_zfdz+\partial_{\bar{z}} fd\bar{z}
-&=\frac{1}{2}(\partial_xf-i\partial_y
-f)(dx+idy)\\
-&+\frac{1}{2}(\partial_x f+i \partial_y
-f)(dx- i dy)\\
-&=\partial_x f dx + \partial_y f dy\\
-&=df.
-\end{aligned}
-$$
-
-\noindent
-\begin{definition}
-\label{definition-dbar}
-\begin{reference}
-\cite[Definition 1.3.5]{huc}
-\end{reference}
-Let $X$ be an almost complex manifold.
-(Or vector space! The following
-objects may be defined over $V_{\mathbb{C}}$;
-we put almost complex manifold since the
-definition
-for almost complex manifolds shall be
-identical)
-
-If  $d:\mathcal{A}^k_{X,\mathbb{C}}\to
-\mathcal{A}^{k+1}_{X,\mathbb{C}}$
-is the $\mathbb{C}$-linear extension of the
-exterior differential, then one defines
-$$
-\partial:=\Pi^{p+1,q} \circ d
-:\mathcal{A}^{p,q}_X \to
-\mathcal{A}^{p+1,q}_X,
-\qquad
-\bar{\partial}:=\Pi^{p,q+1} \circ d
-:\mathcal{A}^{p,q}_X \to A^{p,q+1}_X
-$$
-where $\Pi^{p,q}$ is the projection.
-\end{definition}
-
-\noindent
-From this definition we see that
-$$
-\partial f = \partial_z fdz,\qquad
-\bar\partial f = \partial_{\bar{z}}fd\bar{z}
-$$
-for $f$ real or complex-valued.
-
-If we take $f$ complex-valued
-and put $f=u+iv$,
-the condition $\bar\partial f =0$
-becomes the Cauchy-Riemann equations.
-Thus a complex-valued function is holomorphic
-if and only if
-$\bar\partial f=0$, which means that its
-complexified de Rham differential is a
-$(1,0)$-form,
-i.e. a multiple of $dz$ only.
-
-This way we see that since real partial
-derivatives commute,
-$$
-\begin{aligned}
-\partial_z \partial_{\bar{z}}
-&=\left(\frac{1}{2}(\partial_x - i
-\partial_y)\right)
-\left(\frac{1}{2}(\partial_x+i
-\partial_y)\right)\\
-&=\frac{1}{4}(\partial_x^2
-+i \partial_x\partial_y-i\partial_y\partial_x
--i^2 \partial_y^2)\\
-&=\frac{1}{4}(\partial_x^2+\partial_y^2)\\
-&=\frac{1}{4}(\partial_x^2
--i \partial_x\partial_y+i\partial_y\partial_x
--i^2 \partial_y^2)\\
-&=\left(\frac{1}{2}(\partial_x + i
-\partial_y)\right)
-\left(\frac{1}{2}(\partial_x-i
-\partial_y)\right)\\
-&=\partial_{\bar{z}}\partial_z,
-\end{aligned}
-$$
-
-\noindent
-so that
-$$
-\begin{aligned}
-\partial \bar\partial f
-&=\partial(\partial_{\bar{z}}f d\bar{z})\\
-&=\partial_z \partial_{\bar{z}}f dz \wedge
-d\bar{z}.
-\end{aligned}
-$$
-
-\noindent
-And similarly,
-
-$$
-\begin{aligned}
-\bar\partial \partial f
-&=\partial_{\bar{z}}(\partial_z f dz)\\
-&=\partial_{\bar{z}}\partial_zf d\bar{z}
-\wedge dz\\
-&=-\partial_z\partial_{\bar{z}}fdz\wedge
-d\bar{z}
-\end{aligned}
-$$
-
-\noindent
-and thus
-$$
-\partial\bar\partial=-\bar\partial \partial
-$$
-on functions.
-
-For an arbitrary $(p,q)$-form
-$$
-\alpha=f_{I,J}dz^I \wedge d\bar{z}^J,\qquad
-|I|=p,|J|=q,
-$$
-we shall also have
-$\partial\bar\partial=\bar\partial\partial$.
-
-
-
-\medskip\noindent
-We have the following local result:
-\begin{lemma}[$\bar\partial$-Poincaré lemma
-on the open disc]
-\label{lemma-poincare-dbar-local-lemma}
-\begin{reference}
-\cite[Corollary 1.3.9]{huc}
-\end{reference}
-If $\alpha \in \mathcal{A}^{p,q}(B)$
-is $\bar\partial$ closed, then there exists
-$\beta \in \mathcal{A}^{p,q-1}$ such that
-$\alpha=\bar\partial \beta$.
-\end{lemma}
-
-\begin{proof}
-Looks like this is a consequence of complex
-analysis.
-\end{proof}
-
-\begin{proposition}
-\label{proposition-leibniz-for-del}
-$$
-\begin{aligned}
-\partial(\alpha\wedge\beta)&=
-\partial\alpha\wedge\beta
-+(-1)^{p+q}\alpha\wedge\partial\beta\\
-\bar\partial(\alpha\wedge\beta)
-&=\partial\alpha\wedge\beta+(-1)^{p+q}
-\alpha\wedge\bar\partial\beta.
-\end{aligned}
-$$
-Also,
-$$
-\partial^2=\bar\partial^2=0,\qquad \partial
-\bar\partial=-\bar\partial \partial.
-$$
-
-\end{proposition}
-
-
 \section{Complex manifolds}
 \label{section-complex-manifolds}
 
