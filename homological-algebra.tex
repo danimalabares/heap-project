@@ -5211,10 +5211,349 @@ is injective, so
 $$
 \ker(F(A^n)\to F(A^{n+1}))=F(K^n).
 $$
-
-
-
 \end{proof}
+
+\section{Simplicial homology}
+\label{section-simplicial-homology}
+
+\begin{definition}
+\label{definition-n-simplex}
+The {\it $n$-simplex} $\Delta^1$ is the set
+of points in $\mathbb{R}^{n+1}$ whose
+coordinates add to 1.
+A nonempty subset of vertices determines
+(by taking convex hull) a {\it face} 
+of $\Delta^n$. Often by ``face''
+we mean only the $(n-1)$-dimensional
+faces; there are $n+1$ of these.
+\end{definition}
+
+\noindent
+The idea is that we decompose a topological
+space as a union of simplices ``glued''
+along faces.
+
+\begin{definition}
+\label{definition-abstract-simplicial-cx}
+An {\it abstract simplicial complex (ASC)} 
+$K$ is a set $\operatorname{Vert}(K)$
+and a set $K$ of subsets of
+$\operatorname{Vert}(K)$ such that
+if $A \in K$ and $B \subset A$,
+then $B \in K$.
+\end{definition}
+
+\noindent
+Think of $\operatorname{Vert}(K)$
+as th vertices, and $A \in K$ means
+the simplex with its vertices is part of our
+space. We write $K_n$ for
+$\{A \in K|\# A = n+1\}$
+and call these the $n$-simplices of $K$.
+
+The ASCs form a category
+$\underline{\operatorname{ASC}}$,
+where a morphism $f:K \to K'$
+is a function
+$f:\operatorname{Vert}(K) \to
+\operatorname{Vert}(K')$
+such that $f(A) \in K'$ for all
+$A \in K'$.
+
+\begin{example}
+\label{example-triangulate-s1}
+Triangulate $S^1$ by 1-simplices.
+[Figure of circle with three points…]
+\end{example}
+
+\begin{definition}
+\label{definition-geometric-realization}
+Let $K$ be an ASC.
+The {\it geometric realisation} of $K$
+is the topological space
+$$
+\coprod_n K_n \times \Delta^n/ \sim
+$$
+where, for $A \in K_n$ and
+$B \in K_r$, a face of $A$
+$(B,x) \sim (A,y)$
+means identify the vertex set of $\Delta^r$
+with $B$, and of $\Delta^n$
+with $A$.
+If $x \in \Delta^r$ and we are given a map
+$B \to A$,
+then $x$ is mapped to a point $y \in
+\Delta^n$.
+Then $(B,x) \sim (A,y)$.
+\end{definition}
+
+\noindent At least morally, the above
+definition (which is modified from the book
+definition in that we removed the choice of
+order in the vertices), we use the
+induced topology of $\Delta^n$ as
+the geometric $n$-simplex, and the
+identification is just gluing the
+common sub-simplices of pairs of faces,
+like two 2-faces sharing an edge.
+
+\begin{definition}
+\label{definition-asc-n-simplex}
+The {\it  $n$-simplex as an object of 
+$\underline{\operatorname{ASC}}$}
+is an $(n+1)$-element set with all
+$2^{n+1}$ of its subsets as simplices.
+\end{definition}
+
+\medskip\noindent
+{\bf Homology complex.} Let $K \in
+\underline{\operatorname{ASC}}$.
+Choose an order on $\operatorname{Vert}(K)$.
+Now for $\alpha \in K_n$,
+denote by $\partial_i \alpha \in K_{n-1}$
+the subset obtained by deleting the $i$-th
+element of $\alpha$.
+
+Define 
+$$
+C_n(K) = \mathbb{Z}K_n
+= \bigoplus_{\alpha \in
+K_n}\mathbb{Z}[\alpha],
+$$
+$$
+\begin{aligned}
+d: C_n &\longrightarrow C_{n-1} \\
+d[\alpha] &= \sum_{i=0}^n
+(-1)^i[\partial_i\alpha].
+\end{aligned}
+$$
+\begin{exercise}
+\label{exercise-d2=0}
+$d \circ d =0$.
+\end{exercise}
+
+\begin{definition}
+\label{definition-simplicial-homology}
+The {\it homology} of $K$ is
+$$
+H_n(K) = \frac{Z_n}{B_n}
+$$
+where $Z_n = \ker d \subset C_n$
+and $B_n = \operatorname{Im}(d) \subset
+C_n$.
+\end{definition}
+
+\medskip\noindent
+{\bf Delta sets.}
+Recall from Infinity Categories
+that the simplex category, now denoted
+$\hat{\Delta}$, has for objects the
+ordered sets
+$[n] = \{0,1,\dots,n\}$,
+$n \in \mathbb{Z}_{\geq 0/}$ and morphisms are
+strictly
+increasing functions.
+
+\begin{definition}
+\label{definition-delta-set}
+A {\it delta set} is a functor
+$$
+S : \hat{\Delta}^{\mathrm{op}}
+\to \underline{\operatorname{Set}}.
+$$
+\end{definition}
+
+\noindent
+More explicitly, such $S$ consists
+of:
+\begin{itemize}
+\item for each $n \geq 0$,
+a set $S_n$, i.e. $S([n])$,
+\item functions
+$$
+\partial_n S_n \to S_{n-1}
+$$
+for $i = 0,\dots,n$, i.e. $\partial_i =
+S(\varepsilon_i)$. [We introduced $\varepsilon$
+in an example I didn't copy.]
+\end{itemize}
+
+\begin{remark}
+\label{remark-delta-sets-vs-simplicial-sets}
+This is closely related to the simplicial sets
+introduced in Infinity Categories, but slightly
+more particular. There we used the full simplex
+category $\Delta$, with all order-preserving
+maps, so a simplicial set
+
+$$
+S:\Delta^{\operatorname{op}}
+\to \underline{\operatorname{Set}}
+$$
+
+has both face maps and degeneracy maps.
+
+Here we only use the subcategory
+$\Delta_{\mathrm{inj}}\subset\Delta$ with the
+same objects and only strictly increasing maps.
+Thus a delta set
+
+$$
+S:\Delta_{\mathrm{inj}}^{\operatorname{op}}
+\to \underline{\operatorname{Set}}
+$$
+
+has face maps but no degeneracy maps. An
+ordered abstract simplicial complex gives such
+an object by taking $S_n=K_n$.
+
+The point of the more particular notion is
+simplicity: face maps are already enough to
+define
+
+$$
+d=\sum_i(-1)^id_i
+$$
+
+and hence simplicial homology. Passing to full
+simplicial sets adds degeneracies, which are
+needed for the richer categorical and
+homotopical constructions used in Infinity
+Categories, such as nerves, Kan complexes and
+$\infty$-categories.
+\end{remark}
+
+
+\noindent
+Now our more general triangulations
+can be modelled as $\Delta$-sets.
+
+
+\begin{definition}
+\label{definition-homology-complex}
+If $S: \hat{\Delta}^{\mathrm{op}}
+\to \underline{\operatorname{Set}}$
+is a $\Delta$-set, then its {\it homology
+complex} is
+$$
+C_n(S) = \mathbb{Z} S_n,
+$$
+$$
+\begin{aligned}
+\partial: C_n &\longrightarrow C_{n-1} \\
+\partial[\alpha] &=
+\sum_{i=0}^n (-1)^i[\partial_i\alpha].
+\end{aligned}
+$$
+\end{definition}
+
+\noindent
+For every $K \in \underline{\operatorname{ASC}}$
+and choice of order of
+$\operatorname{Vert}(K)$, it's possible
+to construct a $\Delta$-set, via
+$$
+S_n=K_n,
+$$
+and for $A = \{v_{j_0},v_{j_1},\dots,
+v_{j_n}\}$ and $\partial_iA 
+=
+\{v_{j_0},\dots,\widehat{v_{j_i}},\dots\}$.
+
+This is not a functor.
+Indeed, the morphism […]
+
+There {\it is} a way to go from
+$\underline{\operatorname{ASC}}$
+to chain complexes without choosing
+an order on $\operatorname{Vert}(K)$. The
+following definition is just a clever way to
+do this (no order, but same data):
+
+\begin{definition}
+\label{definition-chain-cx-asc}
+Let $K \in \underline{\operatorname{ASC}}$.
+For $p \geq 0$ define 
+$$
+C^{\operatorname{ori}}_p(K)
+$$
+to be the free abelian group
+on the symbols $\langle
+v_0,v_1,\dots,v_p\rangle$,
+where $v_i$ are elements of a single
+$p$-simplex, modulo relations
+$$
+\langle v_{\sigma(0)},
+v_{\sigma(1)},\dots,
+v_{\sigma(p)}\rangle
+=
+\varepsilon(\sigma)
+\langle v_0,v_1,\dots,v_p\rangle,
+$$
+for $\sigma \in S_{p+1}$,
+and
+$$
+\delta \langlev_0,\dots,v_p\rangle
+=
+\sum_{i=0}^p (-1)^i
+\langle
+v_0,\dots,\widehat{v_i},\dots,v_p\rangle.
+$$
+\end{definition}
+
+Where ori stands for oriented.
+
+In fact, $K \mapsto
+C_\bullet^{\operatorname{ori}}(K)$
+defines a functor
+$$
+\underline{\operatorname{ASC}} 
+\to \operatorname{Ch}_{\geq 0}.
+$$
+
+\begin{definition}
+\label{definition-big-delta-set}
+The {\it (big) $\Delta$-set} associated
+with an ASC is $S^k$ defined by
+$$
+S_n^k
+$$
+which is defined as the set of
+$f:[n] \to \operatorname{Vert}(K)$
+such that the image of $f$ lies in
+a single simplex of $K$.
+
+Notice that $S^k$ is indeed big,
+$$
+S_n^k \neq  \{\}
+$$
+for all $n$. There are many non-injective
+functions $f : [n] \to
+\operatorname{Vert}(K)$,
+these are called {\it degenerate simplices}.
+
+\end{definition}
+
+
+\begin{remark}
+\label{remark-big-delta-set-simplicial-set}
+The big $\Delta$-set is very close to the
+simplicial sets from Infinity Categories.
+Its non-injective maps $[n]\to
+\operatorname{Vert}(K)$ are precisely the
+degenerate simplices. If we let all
+order-preserving maps in the full simplex
+category $\Delta$ act by precomposition, then
+we obtain an actual simplicial set
+
+$$
+S^K:\Delta^{\operatorname{op}}
+\to \underline{\operatorname{Set}}.
+$$
+
+\end{remark}
+
+
 \bibliography{my}
 \bibliographystyle{amsalpha}
 
