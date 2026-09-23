@@ -1,12 +1,13 @@
 ---
 name: heap-project-conference-chapter
-description: Create and register a new Heap Project conference chapter from an official conference URL, prepopulating Part II with conference metadata and one section per scheduled talk or minicourse. Use when starting a new HP conference notebook; do not use merely to add notes to an existing chapter or for a single seminar talk.
+description: Create and register a new Heap Project conference chapter from an official conference URL, prepopulating the appropriate subject Part with conference metadata and one section per scheduled talk or minicourse. Use when starting a new HP conference notebook; do not use merely to add notes to an existing chapter or for a single seminar talk.
 ---
 
 # Heap Project conference chapter
 
 Turn the conference's official website into
-a ready-to-use HP notebook in Part II.
+a ready-to-use HP notebook in the appropriate
+subject Part.
 
 ## Prepare
 
@@ -22,10 +23,12 @@ a ready-to-use HP notebook in Part II.
    Do not commit or push unless the user
    explicitly requests it.
 4. Require the official conference URL.
-   Resolve an unused lowercase kebab-case
-   slug and unused two-letter HP code. Infer
-   them when unambiguous; ask only if there
-   is a collision or a consequential choice.
+   Resolve the subject Part where the event
+   belongs, an unused lowercase kebab-case
+   slug, and an unused two-letter HP code.
+   Infer them when unambiguous; ask only if
+   there is a collision or a consequential
+   choice.
 
 ## Research the official programme
 
@@ -82,8 +85,7 @@ python3 \
   --title "OFFICIAL CONFERENCE TITLE" \
   --slug "SLUG" \
   --code "CODE" \
-  --part-title \
-    "seminars, conferences, minicourses, workshops"
+  --part-title "SUBJECT PART TITLE"
 ```
 
 Use `--config` only when the config file is
@@ -131,8 +133,8 @@ git -C ~/github/config diff --check
 ```
 
 Confirm that `gerby/book.tex` places the
-chapter in Part II and that `hp_file CODE`
-prints exactly the slug. Do not commit
+chapter in the chosen subject Part and that
+`hp_file CODE` prints exactly the slug. Do not commit
 generated files or build products.
 
 Report the official sources used, the item

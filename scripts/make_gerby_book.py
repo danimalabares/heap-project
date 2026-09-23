@@ -8,8 +8,9 @@ from pathlib import Path
 
 DEFAULT_FILES = ["complex-geometry.tex"]
 KNOWN_CHAPTERS = {
-    "basic-math",
     "algebra",
+    "linear-algebra",
+    "optimal-transport",
     "commutative-algebra",
     "differential-geometry",
     "differential-topology",
@@ -44,6 +45,7 @@ KNOWN_CHAPTERS = {
     "birational-maps-commutative-algebra",
     "cremona-transformations",
     "linguistics",
+    "genealogia-familiar",
     "arte-moderna-brasileira",
     "historia-do-brasil",
     "16th-alga-meeting-2026",
