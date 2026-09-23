@@ -1,0 +1,417 @@
+\chapter{Computing systems}
+\label{chapter-computing-systems}
+
+\section{What I am trying to learn}
+\label{section-computing-systems-goal}
+
+The immediate goal is not to become a
+computer engineer.  It is to understand
+enough about computers to make good
+choices about my own machines.
+
+In particular, when buying a computer I
+want to be able to answer:
+
+\begin{itemize}
+\item What work is limited by the CPU?
+\item How much RAM do I actually need?
+\item When does a GPU matter?
+\item What is VRAM, and why does it matter
+for local AI?
+\item Which parts of the machine can I
+replace or upgrade?
+\item Which restrictions come from the
+hardware, and which come from the
+operating system?
+\item What does it mean for a computer to
+be open?
+\item How much of my work can remain local
+and private?
+\end{itemize}
+
+For my present situation there is one more
+constraint: I move around a lot.  So the
+main machine has to be a laptop.  A large
+desktop workstation may make sense later,
+but it is not the present problem.
+
+\section{The basic hardware}
+\label{section-computing-systems-hardware}
+
+A computer has several components doing
+very different jobs.
+
+\medskip\noindent
+{\bf CPU.}
+The central processing unit executes most
+ordinary programs.  Compiling code,
+running a computer algebra system, and
+many mathematical computations are
+primarily CPU jobs.
+
+A CPU has several cores.  More cores help
+when a program can divide its work into
+parallel tasks.  A fast individual core is
+still important because many programs
+cannot parallelize everything.
+
+\medskip\noindent
+{\bf RAM.}
+RAM is the computer's short-term working
+memory.  Programs and data being actively
+used live there.
+
+Running out of RAM does not merely mean
+that no more files can be stored.  The
+operating system starts moving data
+between RAM and the much slower SSD.  This
+can make a machine feel dramatically
+slower.
+
+For my work, RAM is particularly important
+because I may simultaneously have a
+browser, editor, TeX compiler, terminals,
+computer algebra systems, and AI tools
+open.
+
+\medskip\noindent
+{\bf Storage and SSD.}
+The SSD is long-term storage.  It contains
+the operating system, programs, source
+files, papers, datasets, and models.
+
+An SSD is much slower than RAM but much
+faster than an old mechanical hard drive.
+Capacity and replaceability are separate
+questions: a large soldered SSD can still
+be less useful in the long run than a
+standard replaceable one.
+
+\medskip\noindent
+{\bf GPU.}
+The graphics processing unit was designed
+for massively parallel graphics
+computations.  The same kind of
+parallelism is extremely useful in machine
+learning.
+
+For ordinary LaTeX, browsing, Git, and
+most programming, a powerful GPU is not
+very important.  For training or running
+many AI models it can become one of the
+most important components.
+
+\medskip\noindent
+{\bf VRAM.}
+A discrete GPU normally has its own memory,
+called VRAM.  A model being run on the GPU
+has to fit, at least to a large extent,
+inside this memory.
+
+Thus, for local AI, it is not enough to
+ask whether a machine has a fast GPU.  The
+amount of memory available to the GPU can
+be the decisive limitation.
+
+Some architectures instead use a common
+pool of memory shared by the CPU and GPU.
+This is called unified memory.  It changes
+the comparison because a model may have
+access to a much larger memory pool than
+on a laptop GPU with a small fixed amount
+of VRAM.
+
+\medskip\noindent
+{\bf Cooling and power.}
+A fast chip produces heat.  A computer can
+only sustain high performance if it can
+remove that heat and supply enough power.
+
+This is one reason laptop performance
+cannot be judged from the processor name
+alone.  The same chip can behave
+differently in two machines with different
+cooling systems and power limits.
+
+\section{The software stack}
+\label{section-computing-systems-software}
+
+The hardware is only the bottom layer.
+
+Very roughly, the stack is
+
+$$
+\begin{aligned}
+&\text{applications}\\
+&\text{operating system}\\
+&\text{drivers and kernel}\\
+&\text{firmware}\\
+&\text{hardware}.
+\end{aligned}
+$$
+
+The operating system manages files,
+memory, processes, devices, networking,
+permissions, and the interface between
+applications and hardware.
+
+The kernel is the central part of the
+operating system.  Drivers teach the
+kernel how to communicate with particular
+hardware.
+
+Firmware is software stored very close to
+the hardware itself.  For example, a
+laptop contains firmware controlling parts
+of the boot process and many devices.
+
+This distinction matters because
+installing Linux changes a large part
+of the software stack, but it does not
+change the physical machine.  Linux cannot
+make soldered RAM replaceable.
+
+\section{What openness means}
+\label{section-computing-systems-openness}
+
+I should avoid using the word open as if
+it meant only one thing.  There are
+several different freedoms.
+
+\begin{itemize}
+\item {\bf Software freedom:} can I run,
+inspect, modify, and replace the software?
+\item {\bf Operating-system freedom:} can
+I install another operating system?
+\item {\bf Hardware freedom:} can I open
+the machine and replace components?
+\item {\bf Repair freedom:} can I obtain
+parts and repair the machine without the
+manufacturer's permission?
+\item {\bf Data freedom:} are my files in
+portable formats that I can move elsewhere?
+\item {\bf Service independence:} does my
+workflow continue to work if I stop using
+a particular company's cloud services?
+\end{itemize}
+
+These freedoms are related but not
+identical.  A machine can run open-source
+software while having soldered hardware.
+A repairable laptop can still run
+proprietary software.  A Linux computer
+can still depend heavily on cloud services.
+
+\section{Local AI and privacy}
+\label{section-computing-systems-local-ai}
+
+One reason I care about hardware now is
+local AI.
+
+A local model runs on my own machine.
+This can improve privacy because the model
+does not inherently require sending the
+prompt and documents to an external
+server.
+
+But a local model does not by itself prove
+that the whole workflow is private.  The
+surrounding application may still use
+telemetry, cloud synchronization, web
+search, or remote APIs.
+
+So the privacy question should always be:
+
+\begin{quote}
+Which data leave my machine, through which
+program, and for what reason?
+\end{quote}
+
+For local AI I should learn to distinguish:
+
+\begin{itemize}
+\item model size;
+\item numerical precision and
+quantization;
+\item system RAM;
+\item GPU memory or unified memory;
+\item CPU inference and GPU inference;
+\item local applications and cloud APIs.
+\end{itemize}
+
+A powerful laptop can run useful local
+models, but a laptop is constrained by
+weight, battery, heat, and power.  I should
+not expect a portable machine to be a
+permanent substitute for a future
+workstation.
+
+\section{The Apple question}
+\label{section-computing-systems-apple}
+
+My worry about Apple should also be stated
+precisely.
+
+The concern is not simply that macOS is
+proprietary.  I am worried about becoming
+dependent on a system in which the same
+company controls the hardware, operating
+system, account ecosystem, cloud services,
+and an increasing number of AI features.
+
+There are several separate questions.
+
+\medskip\noindent
+{\bf Can I install my own software?}
+On macOS I can already install a great deal
+of software outside Apple's App Store.
+For mathematical and programming work this
+includes most of the ordinary Unix-style
+toolchain.
+
+So saying that Apple simply prevents me
+from installing software is too crude a
+description of the problem.
+
+\medskip\noindent
+{\bf Can I replace the operating system?}
+This depends on the particular Mac and on
+the state of Linux support for its
+hardware.  Even when Linux can run, not all
+hardware features necessarily work equally
+well.
+
+Thus I should never buy a particular Mac
+on the assumption that it will later
+become an ideal Linux laptop without first
+checking that exact model.
+
+\medskip\noindent
+{\bf Can I upgrade the machine?}
+This is a much clearer limitation.
+Modern Mac laptops integrate many
+components very tightly.  RAM and storage
+are generally not ordinary user-upgradable
+modules.
+
+That means I must buy enough memory and
+storage at the beginning, and hardware
+obsolescence can force replacement of more
+of the machine than I would like.
+
+\medskip\noindent
+{\bf Can Apple force me to use its AI?}
+No general principle forces my computing
+workflow to use Apple's AI services.  I
+can use third-party software and local
+models.
+
+The more serious strategic worry is
+ecosystem dependence: if my files,
+workflows, devices, authentication, and
+services become tightly tied to one
+vendor, leaving becomes expensive even if
+no single restriction prevents me from
+leaving.
+
+\medskip\noindent
+{\bf Privacy.}
+Privacy is not the same as openness.
+Closed software may have strong privacy
+properties, and open-source software may
+still send data to remote services if it
+is configured to do so.
+
+The robust habit is therefore not to trust
+a brand-level slogan.  I should understand
+where my data live, what is synchronized,
+which services receive it, and which parts
+of my workflow can work completely
+offline.
+
+\section{Mac versus Linux for a laptop}
+\label{section-computing-systems-mac-linux}
+
+The choice is not good hardware versus bad
+hardware.
+
+A Mac laptop may give an unusually strong
+combination of battery life, performance,
+screen, trackpad, speakers, compactness,
+and quiet operation.  Those are real
+advantages for a person whose entire
+computer has to travel in a backpack.
+
+A Linux laptop can give much more control
+over the operating system and, depending
+on the machine, much better repairability
+and upgradeability.
+
+Linux also gives direct experience with
+the environment used by a huge amount of
+scientific computing, servers, and AI
+infrastructure.
+
+Therefore the question for my next laptop
+is not which platform is morally better.
+It is which compromises matter during the
+period in which this laptop has to be my
+entire computing system.
+
+\section{What I should compare before buying}
+\label{section-computing-systems-buying}
+
+For every serious candidate, I should make
+the same checklist.
+
+\begin{enumerate}
+\item CPU performance for sustained work.
+\item Amount of RAM and maximum RAM.
+\item Whether RAM is replaceable.
+\item SSD capacity and replaceability.
+\item GPU and memory available to the GPU.
+\item Quality of Linux support.
+\item Battery life under real workloads.
+\item Weight including the charger.
+\item Cooling and fan noise.
+\item Screen, keyboard, and trackpad.
+\item Availability of replacement parts.
+\item Ease of battery replacement.
+\item Expected operating-system support.
+\item Ability to run useful local AI.
+\item Total price with enough RAM and
+storage for several years.
+\end{enumerate}
+
+The right comparison is between complete
+machines configured for my actual needs,
+not between the cheapest advertised
+versions.
+
+\section{What I should learn next}
+\label{section-computing-systems-next}
+
+A sensible learning order is:
+
+\begin{enumerate}
+\item CPU, RAM, SSD, GPU, and VRAM.
+\item Processes, filesystems, and memory.
+\item The shell and the Unix filesystem.
+\item Package managers.
+\item Permissions and users.
+\item Processes and services.
+\item SSH and remote computing.
+\item Partitions and filesystems.
+\item Booting, UEFI, and firmware.
+\item Drivers and the Linux kernel.
+\item Backups and disk encryption.
+\item Containers and virtual machines.
+\item Local AI runtimes and model formats.
+\end{enumerate}
+
+I do not need to master all of this before
+buying a computer.  The point is to stop
+treating the machine as a mysterious
+sealed object and gradually understand
+each layer well enough to control my own
+workflow.
