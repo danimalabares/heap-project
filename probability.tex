@@ -1269,6 +1269,203 @@ $\mathcal{C}_2$.
 
 There is a solution to this classical
 problem using spectral methods.
+
+Here $p$ is the probability of connecting
+two vertices in the same community, while
+$q$ is the probability of connecting two
+vertices in different communities.
+
+The basic quantitative question is how
+separated $p$ and $q$ must be in order to
+recover the communities. Equivalently, how
+small can $p-q$ be before the community
+structure becomes statistically invisible?
+
+\medskip\noindent
+{\bf Some classical thresholds.}
+Yun and Prouti\`ere (2014) use the sparse
+parametrization
+$
+p=\frac{a_N}{N},
+\qquad
+q=\frac{b_N}{N}.
+$
+Take a vertex $v\in\mathcal{C}_1$.
+Since $|\mathcal{C}_1|=N/2$, the expected
+number of its neighbours inside
+$\mathcal{C}_1$ is approximately
+$
+|\mathcal{C}_1|p
+=\frac{N}{2}\frac{a_N}{N}
+=\frac{a_N}{2}.
+$
+Likewise, the expected number of
+neighbours of $v$ in $\mathcal{C}_2$ is
+$
+|\mathcal{C}_2|q=\frac{b_N}{2}.
+$
+Thus $a_N-b_N$ measures the separation
+between the two expected degree profiles.
+
+Abbe, Bandeira and Hall (2016) consider
+$
+p=\frac{a\log N}{N},
+\qquad
+q=\frac{b\log N}{N}.
+$
+They obtain a sharp threshold for exact
+recovery. Above
+$
+\frac{a+b}{2}-\sqrt{ab}>1
+$
+exact recovery is possible with
+probability tending to one; below the
+corresponding strict inequality it is
+impossible. Equivalently, the threshold is
+$
+(\sqrt a-\sqrt b)^2=2.
+$
+
+\medskip\noindent
+{\bf From observing the graph to observing
+binary data.}
+The problem of interest in this talk is
+harder: the graph itself is not observed.
+The motivating example comes from
+neuroscience and spike-train data. A
+``spike'' is an action potential, i.e. an
+event in which a neuron fires.
+
+Discretize time into windows and record
+$1$ if neuron $i$ fires during a window
+and $0$ otherwise. At each time $t$ this
+gives a binary state
+$
+X_t\in\{0,1\}^N.
+$
+Over $T$ time windows one therefore
+observes a binary data matrix. The hidden
+question is whether one can reconstruct
+the excitatory and inhibitory communities
+from these data alone. This is the
+community detection problem from binary
+data.
+
+\medskip\noindent
+{\bf Ingredients.}
+\begin{itemize}
+\item
+An unobserved graph $\theta$, possibly
+random, directed, and with block
+structure.
+
+\item
+A probability law $\mathbb{P}_\theta$ on
+trajectories of binary network states.
+
+\item
+An observed sample
+$
+(X_1,\ldots,X_T)\sim\mathbb{P}_\theta,
+$
+from which we want to recover the
+communities.
+\end{itemize}
+
+\medskip\noindent
+{\bf IA-remark.}
+Morally, a trajectory is just the movie of
+the network through time. Each frame
+$X_t\in\{0,1\}^N$ records which of the
+$N$ neurons fired in the $t$th time
+window. Thus
+$
+(X_1,\ldots,X_T)
+$
+is one complete observed history of the
+network. A probability law on trajectories
+says how likely the different possible
+movies are.
+
+\medskip\noindent
+{\bf Independent benchmark.}
+In an i.i.d. model one would have
+$
+\mathbb{P}_\theta
+=\bigotimes_{t=1}^T P_\theta,
+$
+where $P_\theta$ is a probability measure
+on $\{0,1\}^N$. A famous example is the
+Ising blockmodel of Berthet, Rigollet and
+Srivastava (2019), where independent
+binary observations are used to recover
+an underlying block structure.
+
+\medskip\noindent
+{\bf The speaker's model.}
+The model goes beyond the i.i.d.
+assumption. The vectors
+$
+X_1,\ldots,X_T\in\{0,1\}^N
+$
+are dependent under
+$\mathbb{P}_\theta$. The random graph has
+directed interactions and a block
+structure. A connection emanating from an
+excitatory neuron has positive weight.
+
+Under $\mathbb{P}_\theta$, the process
+$
+(X_t)_{1\leq t\leq T}
+$
+is a stationary Markov chain.
+
+The statistical problem is: from the
+sample $X_1,\ldots,X_T$, recover the
+partition
+$
+(\mathcal{P}_+,\mathcal{P}_-).
+$
+The model parameters $\mu$, $\lambda$ and
+$\theta$ are unknown. The community sizes
+have the form
+$
+|\mathcal{P}_+|=Nr_+,
+\qquad
+|\mathcal{P}_-|=Nr_-,
+$
+where
+$
+0<r_+,r_-<1,
+\qquad
+r_++r_-=1,
+$
+and $r_+$ and $r_-$ are also unknown.
+
+\medskip\noindent
+{\bf AI-reference check.}
+Chevallier and Ost's paper
+``Community detection for binary graphical
+models in high dimension'' studies this
+dependent-data problem. Their exact
+recovery probability tends to one in the
+regime
+$
+\frac{N}{\sqrt{T}}\log(NT)\longrightarrow0.
+$
+
+\medskip\noindent
+{\bf AI-speaker profile.}
+Guilherme Ost is a professor at UFRJ who
+works in probability and stochastic
+processes. His research repeatedly studies
+how hidden structure can be inferred from
+dependent stochastic observations. Topics
+include neuronal interaction graphs from
+spike trains, high-dimensional binary
+graphical models, and random walks on
+random graphs. In 2026 he is also teaching
+High-Dimensional Statistics at IMPA.
 \bibliography{my}
 \bibliographystyle{amsalpha}
 
