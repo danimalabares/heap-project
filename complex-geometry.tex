@@ -3974,13 +3974,38 @@ structure alone does not suffice.
 \begin{proof}
 Choose a holomorphic local frame.
 We already know that $\theta$ has type
-$(1,0)$. Metric compatibility gives
+$(1,0)$. Put $h_{ij}=h(e_i,e_j)$.
+Metric compatibility says
+$$
+dh_{ij}
+=h(\nabla e_i,e_j)+h(e_i,\nabla e_j).
+$$
+Substitute
+$\nabla e_j=\sum_k\theta_{kj}\otimes e_k$.
+Conjugate linearity in the first
+argument gives
+$$
+dh_{ij}
+=\sum_k\overline{\theta_{ki}}h_{kj}
++\sum_k h_{ik}\theta_{kj}.
+$$
+In matrix notation this is
 $$
 dh=\overline{\theta}^{\,t}h+h\theta.
 $$
-Taking its $(1,0)$ part yields
-$\partial h=h\theta$, hence
-$\theta=h^{-1}\partial h$.
+Since $\theta$ has type $(1,0)$,
+$\overline{\theta}^{\,t}h$ has type
+$(0,1)$, while $h\theta$ has type
+$(1,0)$. Thus the $(1,0)$ part is
+$$
+\partial h=h\theta.
+$$
+The positive definite matrix $h$ is
+invertible. Multiplying on the left
+by $h^{-1}$ therefore gives
+$$
+\theta=h^{-1}\partial h.
+$$
 Differentiating $h^{-1}h=I$ gives
 $$
 \partial(h^{-1})
@@ -4008,6 +4033,99 @@ A change of frame conjugates $\Theta$
 by a matrix of functions, so its type
 does not depend on the frame.
 \end{proof}
+
+\begin{lemma}
+\label{lemma-curvature-trace-closed}
+The trace $\operatorname{tr}\Theta$ of
+the curvature form is a global closed
+two-form. In particular, for a line
+bundle, $\Theta$ itself is a global
+closed two-form.
+\end{lemma}
+
+\begin{proof}
+Under a change of frame by $g$, the
+curvature matrix becomes
+$g^{-1}\Theta g$, so its trace is
+unchanged.
+Moreover,
+$$
+\operatorname{tr}(\theta\wedge\theta)
+=\sum_{i,j}\theta_{ij}\wedge\theta_{ji}
+=0,
+$$
+because terms with reversed indices
+cancel and diagonal terms vanish.
+Thus, in each local frame,
+$$
+\operatorname{tr}\Theta
+=d(\operatorname{tr}\theta),
+$$
+and $d^2=0$ proves closedness.
+For a line bundle, the matrix has one
+entry, so $\operatorname{tr}\Theta=\Theta$.
+In this case $\theta\wedge\theta=0$,
+and more explicitly,
+$$
+\Theta=d\theta,\qquad d\Theta=0.
+$$
+The local forms $\theta$ need not glue
+to a global one-form, so this does not
+say that $\Theta$ is globally exact.
+\end{proof}
+
+\noindent
+In higher rank, $\Theta$ itself need
+not be closed entry by entry.
+Also, type $(1,1)$ alone does not imply
+closedness.
+
+\begin{definition}
+\label{definition-first-chern-form}
+Let $(E,h)$ be a holomorphic hermitian
+vector bundle, and let $\Theta$ be the
+curvature matrix of its Chern connection.
+Its {\it first Chern form} is
+$$
+c_1(E,h)=\frac{i}{2\pi}
+\operatorname{tr}\Theta.
+$$
+Its {\it real first Chern class} is
+the de Rham cohomology class
+$$
+c_1(E)_{\mathbb{R}}
+=\left[\frac{i}{2\pi}
+\operatorname{tr}\Theta\right]
+\in H^2_{\mathrm{dR}}(M,\mathbb{R}).
+$$
+For a line bundle $L$, this becomes
+$$
+c_1(L)_{\mathbb{R}}
+=\left[\frac{i}{2\pi}\Theta\right].
+$$
+This is the real image of the integral
+first Chern class; differential forms
+do not detect its torsion part.
+\end{definition}
+
+\noindent
+These forms are real because a hermitian
+connection has skew-hermitian curvature
+on real tangent vectors, so
+$\operatorname{tr}\Theta$ is purely
+imaginary. Closedness was proved above.
+The class is independent of the metric:
+for two connections, their difference
+$A=\nabla'-\nabla$ is a global
+endomorphism-valued one-form, and locally
+$A=\theta'-\theta$. Consequently,
+$$
+\operatorname{tr}\Theta'
+-\operatorname{tr}\Theta
+=d(\operatorname{tr}A),
+$$
+so their first Chern forms differ by
+an exact form.
 
 \section{Line bundles on $\mathbb{P}^n$}
 \label{section-line-bundles-on-pn}
