@@ -8,6 +8,7 @@ from pathlib import Path
 
 DEFAULT_FILES = ["complex-geometry.tex"]
 KNOWN_CHAPTERS = {
+    "hilbert-scheme",
     "algebra",
     "linear-algebra",
     "optimal-transport",
