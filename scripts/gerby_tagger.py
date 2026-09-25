@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import json
 import re
 from pathlib import Path
 
@@ -26,6 +27,8 @@ def toint(tag):
 
 
 def existing_tags(path):
+    migration_path = Path(__file__).with_name("gerby_label_migrations.json")
+    migrations = json.loads(migration_path.read_text()) if migration_path.exists() else {}
     tags = {}
     labels = {}
     inactive = []
@@ -41,6 +44,7 @@ def existing_tags(path):
                 inactive.append(pieces[0])
             continue
         tag, label = line.split(",", 1)
+        label = migrations.get(label, label)
         tags[tag] = label
         labels[label] = tag
     return tags, labels, inactive
