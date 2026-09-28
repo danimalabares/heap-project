@@ -8,6 +8,11 @@ editing any heap-project file!!!!
 - Do not write text in equations.
   Write in prose whatever you need to explain
   and put only formulas in equations.
+- Put standalone formulas and diagrams in
+  display math, using `$$ ... $$` or an
+  equation environment. Single-dollar math
+  stays inline even on separate source lines.
+  Keep short symbols within sentences inline.
 
 - Do not use `align*`. For unnumbered aligned displays, use:
 
