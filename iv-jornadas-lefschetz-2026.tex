@@ -24,17 +24,30 @@ Unannounced titles are marked explicitly.
 \section{Introduction}
 \label{section-introduction}
 
-\noindent
 These notes start from Daniel's notes of
 the introductory discussion on
 September 28, 2026.
-The conventions and qualifications below
-make the geometric motivation precise.
-The HP starting points are
-\emph{Complex Geometry},
-``Lefschetz theorems'', and
-\emph{Commutative Algebra},
-``Artinian algebras''.
+The HP starting points are the Lefschetz
+theorems in \emph{Complex Geometry}
+and Artinian algebras in
+\emph{Commutative Algebra}.
+
+\medskip\noindent
+\textbf{Motivational question.}
+Quais propriedades deve satisfazer uma
+álgebra para ser candidata a ser a
+cohomologia de uma variedade?
+
+For a connected smooth complex projective
+variety, rational cohomology is
+finite-dimensional and graded-commutative,
+with a unit and $H^0=\mathbb{Q}$.
+It satisfies Poincaré duality and Hard
+Lefschetz, and carries further
+Hodge-theoretic structure.
+We start with Hard Lefschetz, explain
+its meaning in projective geometry,
+and then extract algebraic rank conditions.
 
 \begin{theorem}[Hard Lefschetz]
 \label{theorem-hard-lefschetz}
@@ -44,14 +57,14 @@ $\omega$.
 Define the Lefschetz operator by
 $$
 \begin{aligned}
-L:H^j(X,\mathbb{R})
+\mathcal{L}:H^j(X,\mathbb{R})
 &\longrightarrow H^{j+2}(X,\mathbb{R}),\\
 \alpha&\longmapsto[\omega]\smile\alpha.
 \end{aligned}
 $$
 For every $0\leq j\leq n$, the map
 $$
-L^{n-j}:H^j(X,\mathbb{R})
+\mathcal{L}^{n-j}:H^j(X,\mathbb{R})
 \longrightarrow H^{2n-j}(X,\mathbb{R})
 $$
 is an isomorphism.
@@ -61,64 +74,71 @@ ample line bundle and use rational
 coefficients.
 \end{theorem}
 
-\begin{remark}[Geometric meaning]
-\label{remark-geometric-meaning}
-The point of Lefschetz properties is to
-control the ranks of intersection maps.
-Let $X$ be a smooth complex projective
-variety and $L$ an ample line bundle.
-Some power $M=L^{\otimes m}$ is very
-ample. Choose a basis
-$s_0,\ldots,s_N$ of $H^0(X,M)$.
-On a local trivialization with frame $e$,
-write $s_j=f_j e$. The embedding is
+\begin{definition}[Very ample and ample]
+\label{definition-ample-line-bundle}
+A holomorphic line bundle $M$ on a compact
+complex manifold $X$ is \emph{very ample}
+if its global sections have no common
+zero and the map defined by a basis
+$s_0,\ldots,s_N$ of $H^0(X,M)$ is an
+embedding. To write this map, choose
+a local frame $e$ and write $s_j=f_j e$.
+Then
 $$
-i:X\hookrightarrow\mathbb{P}^N,
-\qquad
-i(x)=[f_0(x):\cdots:f_N(x)].
-$$
-The sections have no common zero.
-Changing the frame multiplies all the
-$f_j$ by the same nowhere-zero function,
-so the projective point is unchanged.
-
-Here is what pullback means.
-For a map $f:X\longrightarrow Y$ and a
-line bundle $p:E\longrightarrow Y$, the
-\emph{pullback line bundle} is
-$
 \begin{aligned}
-f^*E
-&=\{(x,v)\in X\times E:p(v)=f(x)\},\\
+i:X&\hookrightarrow\mathbb{P}^N,\\
+x&\longmapsto[f_0(x):\cdots:f_N(x)].
+\end{aligned}
+$$
+Changing the frame rescales all
+coordinates by the same nowhere-zero
+function, so this map is well-defined.
+A line bundle $L$ is \emph{ample} if
+$L^{\otimes m}$ is very ample for some
+positive integer $m$.
+\end{definition}
+
+To connect this embedding with
+hyperplanes, we first recall pullback.
+
+\begin{definition}[Pullback]
+\label{definition-pullback-line-bundle}
+Let $f:X\longrightarrow Y$ be a
+holomorphic map and let
+$p:E\longrightarrow Y$ be a holomorphic
+line bundle. The \emph{pullback bundle}
+is
+$$
+f^*E=\{(x,v)\in X\times E:p(v)=f(x)\},
+$$
+with projection
+$$
+\begin{aligned}
+f^*E&\longrightarrow X,\\
 (x,v)&\longmapsto x.
 \end{aligned}
-$
-Its fibre at $x$ is $E_{f(x)}$: we place
-over $x$ the fibre originally over $f(x)$.
-A section $t$ of $E$ pulls back to
-$
+$$
+Its fibre over $x$ is naturally
+$E_{f(x)}$: place over $x$ the fibre
+originally over $f(x)$.
+The \emph{pullback section} of a section
+$t$ of $E$ is
+$$
 (f^*t)(x)=(x,t(f(x))).
-$
-For a function, pullback is simply
-composition with $f$.
+$$
+For a function $u$ on $Y$, its
+\emph{pullback} is simply composition:
+$$
+f^*u=u\circ f.
+$$
+\end{definition}
 
-For a hyperplane $H$, its inverse image
-as a set is
-$
-i^{-1}(H)=\{x\in X:i(x)\in H\}.
-$
-The divisor pullback $i^*H$ also retains
-vanishing multiplicities: locally,
-compose a defining equation of $H$
-with $i$ and take its zero divisor.
-We use this when no component of $X$
-lies in $H$.
-In particular, $i^*\mathcal{O}(1)$ is a
-line bundle on $X$, whereas $i^*H$ is
-the divisor cut out by its pulled-back
-hyperplane section.
-
-Now take a hyperplane
+\begin{remark}[Hyperplanes and sections]
+\label{remark-hyperplanes-and-sections}
+Let $L$ be ample and put
+$M=L^{\otimes m}$, with $M$ very ample.
+Use the embedding and coordinates above.
+A hyperplane has an equation
 $$
 H=\{a_0z_0+\cdots+a_Nz_N=0\}.
 $$
@@ -133,151 +153,84 @@ i(x)\in H
 \sum_{j=0}^N a_j s_j(x)=0.
 \end{aligned}
 $$
-Thus the hyperplane pulls back to the
-zero divisor of the global section
+Thus the inverse image
+$$
+i^{-1}(H)=\{x\in X:i(x)\in H\}
+$$
+is the zero set of the global section
 $$
 s=\sum_{j=0}^N a_j s_j\in H^0(X,M).
 $$
-This is the link between hyperplanes and
-the original line bundle: the pulled-back
-hyperplane divisor has associated line
-bundle $M$. Hence
+When no component of $X$ lies in $H$,
+the divisor pullback $i^*H$ is this
+zero divisor, including multiplicities.
+Locally, pull back a defining equation
+of $H$ and record its orders of vanishing.
+
+The associated line bundle is $M$:
 $$
 i^*\mathcal{O}_{\mathbb{P}^N}(1)
 \cong M=L^{\otimes m}.
 $$
-Since the first Chern class turns tensor
-products into sums, the hyperplane class
-on $X$ is
-$
-c_1(M)=m\,c_1(L).
-$
-Consequently, multiplication by $c_1(L)$
-means, up to a positive scalar,
-intersection with a hyperplane section.
-
-Hard Lefschetz says that suitable powers
-of this multiplication give isomorphisms
-between complementary cohomology degrees.
-It therefore controls intersection maps
-and constrains cohomology dimensions.
-An arbitrary divisor class need not
-have this property.
-A compact Kähler manifold need not have
-an ample line bundle; if it does,
-the resulting embedding makes it
-projective.
-
-The algebraic WLP and SLP ask whether
-some degree-one element has analogous
-maximal-rank multiplication maps,
-without requiring a geometric origin.
-For a degeneration with toric components,
-Hard Lefschetz applies to the components
-that are smooth and projective.
-This helps understand their intersection
-theory, but does not by itself determine
-their gluing or the smoothability of the
-whole special fibre.
-\end{remark}
-
-\medskip\noindent
-\textbf{Motivational question.}
-Quais propriedades deve satisfazer uma
-álgebra para ser candidata a ser a
-cohomologia de uma variedade?
-
-For a connected smooth complex projective
-variety, its rational cohomology is
-finite-dimensional and graded-commutative,
-with a unit and $H^0=\mathbb{Q}$.
-It satisfies Poincaré duality and Hard
-Lefschetz for an ample class, and carries
-further Hodge-theoretic structure.
-These are necessary conditions; we are not
-claiming that they are sufficient.
-
-\begin{remark}[Which grading?]
-\label{remark-grading}
-Multiplication by a Kähler class raises
-cohomological degree by two.
-To compare with commutative algebra, put
+One can see this directly from frames.
+On the projective chart where $z_k\ne0$,
+the section $z_k$ frames $\mathcal{O}(1)$.
+On its inverse image, $s_k$ frames $M$.
+The identifications match on overlaps
+because
 $$
-A_k=H^{2k}(X,\mathbb{Q}).
+i^*(z_j/z_k)=f_j/f_k=s_j/s_k.
 $$
-The ample class now has degree one.
-The even cohomology is commutative, but
-need not be generated by $A_1$.
-Moreover, odd cohomology can be nonzero:
-the entire cohomology algebra is generally
-only graded-commutative.
-Thus a standard graded commutative algebra
-is a more restrictive model than the
-cohomology algebra of an arbitrary variety.
-\end{remark}
+Here the ratio of sections means the
+ratio of their coefficients in a frame.
 
-\begin{example}[Products of projective
-spaces]
-\label{example-projective-products}
-Let $a_0,\ldots,a_r$ be positive integers
-and put
-$$
-X=\prod_{i=0}^{r}\mathbb{P}^{a_i-1}.
-$$
-If $x_i$ denotes the pullback of the
-hyperplane class from the $i$th factor,
+The first Chern class turns tensor
+products into sums. If $h$ denotes
+$c_1(\mathcal{O}_{\mathbb{P}^N}(1))$,
 then
 $$
-H^*(X,\mathbb{Q})\cong
-\frac{\mathbb{Q}[x_0,\ldots,x_r]}
-{(x_0^{a_0},\ldots,x_r^{a_r})}.
+\begin{aligned}
+i^*h
+&=c_1(i^*\mathcal{O}_{\mathbb{P}^N}(1))\\
+&=c_1(L^{\otimes m})\\
+&=m\,c_1(L).
+\end{aligned}
 $$
-Each $x_i$ has cohomological degree two;
-after regrading, it has algebra degree one.
-The class
-$$
-\ell=x_0+\cdots+x_r
-$$
-is ample, and its Lefschetz operator is
-multiplication by $\ell$.
-Writing $N=\sum_{i=0}^{r}(a_i-1)$, Hard
-Lefschetz gives isomorphisms
-$$
-\times\ell^{N-2k}:A_k\longrightarrow A_{N-k}
-$$
-for $0\leq k\leq N/2$.
-The Lefschetz decomposition then gives
-maximal rank for every power between any
-two graded pieces.
-\end{example}
+Here $i^*h$ is the cohomology class
+of the hyperplane section of $X$.
+Thus multiplication by $c_1(L)$ means,
+up to a positive scalar, intersection
+with a hyperplane section.
+\end{remark}
 
-For instance, for
-$X=\mathbb{P}^1\times\mathbb{P}^1$,
-$$
-A=\mathbb{Q}[x,y]/(x^2,y^2),
-\qquad \ell=x+y.
-$$
-The graded dimensions are $(1,2,1)$.
-Multiplication sends $1$ to $x+y$,
-sends both $x$ and $y$ to $xy$, and
-$$
-\ell^2=2xy.
-$$
-Thus $A_0\longrightarrow A_1$ is
-injective, $A_1\longrightarrow A_2$ is
-surjective, and
-$\times\ell^2:A_0\longrightarrow A_2$
-is an isomorphism.
+\begin{remark}[Geometric meaning]
+\label{remark-geometric-meaning}
+Hard Lefschetz controls the ranks of
+intersection maps: suitable powers of
+an ample class give isomorphisms between
+complementary cohomology degrees.
+This also constrains the dimensions
+of the cohomology groups.
+An arbitrary divisor class need not
+have these properties.
 
-\medskip\noindent
-\textbf{Realization question.}
-Which graded algebras can be realized as
-the rational cohomology algebra of a
-smooth complex projective variety?
-This is a broad realization problem,
-not a criterion supplied by SLP alone.
-One must specify the class of varieties,
-coefficients, and grading when asking it.
+The Kähler formulation is more general.
+A compact Kähler manifold need not
+have an ample line bundle; if it does,
+the resulting embedding makes it
+projective. For an ample $L$, the form
+$$
+\omega=\frac{1}{m}i^*\omega_{\mathrm{FS}}
+$$
+is Kähler and represents $c_1(L)$.
+Here the Fubini--Study form is normalized
+to represent $h$.
+This explains why an ample class can be
+used in Hard Lefschetz.
+\end{remark}
+
+We now translate this geometric theorem
+into the language of graded algebras.
 
 \begin{definition}[Standard graded algebra]
 \label{definition-standard-graded}
@@ -298,6 +251,54 @@ the HP notes.
 For standard graded algebras this agrees
 with the descending-chain definition.
 \end{definition}
+
+\begin{remark}[Why Artinian algebras?]
+\label{remark-why-artinian}
+Estudamos álgebras artinianas pensando
+em anéis de cohomologia de variedades.
+
+Daniel's question: então toda álgebra de
+cohomologia é artiniana?
+For a compact smooth manifold, the total
+cohomology over a field is
+finite-dimensional.
+The same finiteness holds for complex
+algebraic varieties of finite type.
+So the finite-dimensional part of the
+intuition is correct in these settings.
+It is not true for arbitrary topological
+spaces.
+
+The full cohomology is graded-commutative.
+Its even part is a commutative
+finite-dimensional algebra, hence Artinian
+in the HP sense.
+When odd cohomology vanishes, this
+qualification disappears for the full ring.
+Standard generation in degree one after
+regrading is an additional condition.
+\end{remark}
+
+\begin{remark}[Which grading?]
+\label{remark-grading}
+Return to a smooth projective $X$ and
+an ample class $\ell=c_1(L)$.
+Multiplication by $\ell$ raises
+cohomological degree by two.
+To compare with commutative algebra, put
+$$
+A_k=H^{2k}(X,\mathbb{Q}).
+$$
+The ample class now has degree one.
+The even cohomology is commutative, but
+need not be generated by $A_1$.
+Moreover, odd cohomology can be nonzero:
+the entire cohomology algebra is generally
+only graded-commutative.
+Thus a standard graded commutative algebra
+is a more restrictive model than the
+cohomology algebra of an arbitrary variety.
+\end{remark}
 
 \begin{definition}[Maximal rank]
 \label{definition-maximal-rank}
@@ -328,6 +329,20 @@ degree, which need not be powers of a
 linear form.
 \end{remark}
 
+\begin{definition}[Weak Lefschetz property]
+\label{definition-wlp}
+An Artinian standard graded algebra $A$
+has the \emph{Weak Lefschetz Property}
+(WLP) if there is a single
+$\ell\in A_1$ such that
+$$
+\times\ell:A_k\longrightarrow A_{k+1}
+$$
+has maximal rank for every $k\geq0$.
+Such an $\ell$ is a \emph{weak Lefschetz
+element}.
+\end{definition}
+
 \begin{definition}[Strong Lefschetz
 property]
 \label{definition-slp}
@@ -344,55 +359,118 @@ Such an $\ell$ is a \emph{strong Lefschetz
 element}.
 \end{definition}
 
-\medskip\noindent
-\textbf{Question.}
-Can we characterize all Artinian standard
-graded algebras having SLP?
-
-\begin{remark}[Why Artinian algebras?]
-\label{remark-why-artinian}
-Estudamos álgebras artinianas pensando
-em anéis de cohomologia de variedades.
-
-Daniel's question: então toda álgebra de
-cohomologia é artiniana?
-For a compact smooth manifold, the total
-cohomology over a field is
-finite-dimensional.
-The same finiteness holds for complex
-algebraic varieties of finite type.
-So the finite-dimensional part of the
-intuition is correct in these settings.
-It is not true for arbitrary topological
-spaces.
-
-There is still a commutativity qualification:
-the full cohomology is graded-commutative.
-Its even part is a commutative
-finite-dimensional algebra, hence Artinian
-in the HP sense.
-When odd cohomology vanishes, this
-qualification disappears for the full ring.
-Standard generation in degree one after
-regrading is an additional condition.
-\end{remark}
-
-\begin{definition}[Weak Lefschetz property]
-\label{definition-wlp}
-An Artinian standard graded algebra $A$
-has the \emph{Weak Lefschetz Property}
-(WLP) if there is a single
-$\ell\in A_1$ such that
-$$
-\times\ell:A_k\longrightarrow A_{k+1}
-$$
-has maximal rank for every $k\geq0$.
-Such an $\ell$ is a \emph{weak Lefschetz
-element}.
-\end{definition}
+These definitions retain the rank
+conditions supplied by geometry,
+without assuming that $A$ is a
+cohomology algebra or that $\ell$
+comes from an ample line bundle.
 
 SLP implies WLP, by taking $t=1$.
 The converse does not hold in general.
+
+\begin{example}[Products of projective
+spaces]
+\label{example-projective-products}
+Let $a_0,\ldots,a_r$ be positive integers
+and put
+$$
+X=\prod_{i=0}^{r}\mathbb{P}^{a_i-1}.
+$$
+If $x_i$ denotes the pullback of the
+hyperplane class from the $i$th factor,
+then
+$$
+H^*(X,\mathbb{Q})\cong
+\frac{\mathbb{Q}[x_0,\ldots,x_r]}
+{(x_0^{a_0},\ldots,x_r^{a_r})}.
+$$
+Each $x_i$ has cohomological degree two;
+after regrading, it has algebra degree one.
+The class
+$$
+\ell=x_0+\cdots+x_r
+$$
+is ample, and its Lefschetz operator is
+multiplication by $\ell$.
+Put
+$$
+N=\sum_{i=0}^{r}(a_i-1).
+$$
+Hard Lefschetz gives isomorphisms
+$$
+\times\ell^{N-2k}:A_k\longrightarrow A_{N-k}
+$$
+for $0\leq k\leq N/2$.
+The Lefschetz decomposition then gives
+maximal rank for every power between any
+two graded pieces.
+\end{example}
+
+For instance, for
+$X=\mathbb{P}^1\times\mathbb{P}^1$,
+$$
+A=\mathbb{Q}[x,y]/(x^2,y^2),
+\qquad \ell=x+y.
+$$
+The graded dimensions are $(1,2,1)$.
+Multiplication sends $1$ to $x+y$,
+sends both $x$ and $y$ to $xy$, and
+$$
+\ell^2=2xy.
+$$
+The maps
+$$
+\times\ell:A_0\longrightarrow A_1,
+\qquad
+\times\ell:A_1\longrightarrow A_2
+$$
+are injective and surjective,
+respectively, and
+$$
+\times\ell^2:A_0\longrightarrow A_2
+$$
+is an isomorphism.
+By contrast, $x^2=0$, so $x$ is not
+a strong Lefschetz element.
+The choice of the multiplying class
+matters.
+
+\medskip\noindent
+\textbf{Realization question.}
+Which graded algebras can be realized as
+the rational cohomology algebra of a
+smooth complex projective variety?
+One must specify the coefficients and
+grading. After halving even degrees,
+Hard Lefschetz supplies the maximal-rank
+conditions of SLP on even cohomology.
+Having SLP alone
+does not guarantee geometric realization:
+Poincaré duality and Hodge-theoretic
+conditions must also be satisfied.
+
+\begin{remark}[Toric degenerations]
+\label{remark-toric-degeneration-limits}
+For a degeneration with toric components,
+Hard Lefschetz applies to the components
+that are smooth and projective.
+This helps understand their intersection
+theory, but does not by itself determine
+their gluing or the smoothability of the
+whole special fibre.
+A quotient of a Cox ring or a
+Stanley--Reisner ring is not automatically
+a cohomology ring; such an identification
+would need a separate justification.
+\end{remark}
+
+\medskip\noindent
+\textbf{Algebraic question.}
+Can we characterize all Artinian standard
+graded algebras having WLP or SLP?
+Products of projective spaces supply
+one family of examples. We next use
+them to study complete intersections.
 
 \begin{lemma}[Change of variables]
 \label{lemma-change-of-variables}
@@ -402,8 +480,11 @@ invertible linear changes of variables.
 \end{lemma}
 
 \begin{proof}
-If $\varphi:A\longrightarrow B$ is a
-graded algebra isomorphism, then
+Let
+$$
+\varphi:A\longrightarrow B
+$$
+be a graded algebra isomorphism. Then
 $$
 \varphi(\ell^t a)=\varphi(\ell)^t\varphi(a).
 $$
@@ -426,15 +507,17 @@ has SLP in characteristic zero.
 
 \begin{proof}
 The invertible substitution
-$X_i\longmapsto\ell_i$ identifies this
-algebra with the monomial complete
-intersection
+$$
+X_i\longmapsto\ell_i
+$$
+identifies this algebra with the
+monomial complete intersection
 $$
 Q/(X_0^{a_0},\ldots,X_r^{a_r}).
 $$
 Over $\mathbb{Q}$, its SLP follows from the
 product-of-projective-spaces example.
-The multiplication matrices for the element
+The multiplication matrices for
 $X_0+\cdots+X_r$ have integer entries.
 Their nonzero maximal minors stay nonzero
 over every field of characteristic zero.
@@ -612,33 +695,33 @@ declaring that polynomial to be zero in
 the quotient. For example, take a graph
 with two vertices joined by one edge.
 Its edge ideal is $(xy)$, so we start with
-$
+$$
 R=\mathbb{K}[x,y]/(xy).
-$
+$$
 Here $xy=0$: a monomial using both
 vertices is forbidden. But this does not
 say that $x^2=0$ or $y^2=0$.
 We can repeat either vertex indefinitely.
 A vector-space basis of $R$ is
-$
+$$
 1,x,y,x^2,y^2,x^3,y^3,\ldots.
-$
+$$
 There are infinitely many basis elements,
 so $R$ is infinite-dimensional.
 
 Now add the squares:
-$
+$$
 A=\mathbb{K}[x,y]/(xy,x^2,y^2).
-$
+$$
 We have imposed two new rules,
 $x^2=0$ and $y^2=0$. All higher powers
 also vanish, since, for example,
 $x^3=x\,x^2=0$.
 Every element of $A$ can now be written
 uniquely as
-$
+$$
 a+bx+cy,\qquad a,b,c\in\mathbb{K}.
-$
+$$
 Thus $A$ has basis $1,x,y$ and dimension
 three. Its only nonzero graded pieces are
 $A_0$ and $A_1$.
@@ -936,9 +1019,9 @@ of toric varieties.
 In the definition recorded in the talk,
 a \emph{toric variety} is an irreducible
 variety $X$ containing a torus
-$
+$$
 T\cong(\mathbb{C}^{*})^d
-$
+$$
 as a Zariski-open subset, such that
 the action of $T$ on itself extends
 to an action on $X$.
@@ -955,11 +1038,11 @@ direct sum. The full direct-sum formula
 was not captured in the live notes.
 For $X=\mathbb{P}_{\Sigma}$, the
 description recorded was
-$
+$$
 \operatorname{Cox}(X)
 =\mathbb{K}[x_{\eta}\mid
 \eta\in\Sigma(1)].
-$
+$$
 There is one variable for each ray of
 the fan. The grading group is the
 finitely generated abelian group
@@ -970,9 +1053,9 @@ Here $\Sigma(1)$ denotes the rays.
 \textbf{Cox--Gorenstein and duality.}
 Let $G$ be a finitely generated abelian
 group and let
-$
+$$
 A=\bigoplus_{g\in G}A_g
-$
+$$
 be an Artinian $G$-graded algebra of
 finite type.
 
@@ -981,11 +1064,11 @@ finite type.
 The algebra $A$ is
 \emph{Cox--Gorenstein} if there is
 $\rho\in G$ such that
-$
+$$
 \operatorname{Soc}(A)
 =(0:\mathfrak{m})=A_{\rho}
 \cong\mathbb{K}.
-$
+$$
 The \emph{socle} consists of elements
 annihilated by $\mathfrak{m}$.
 \end{definition}
@@ -1000,10 +1083,10 @@ The talk's formulation asks for a
 maximal degree $\rho\in G$ with
 $A_{\rho}\cong\mathbb{K}$ and perfect
 multiplication pairings
-$
+$$
 A_g\times A_{\rho-g}
 \longrightarrow A_{\rho}.
-$
+$$
 A pairing is perfect if it identifies
 each factor with the vector-space
 dual of the other.
@@ -1012,6 +1095,7 @@ was not recorded.
 
 \medskip\noindent
 \textbf{Theorem stated in the talk.}
+\par\nopagebreak\noindent
 Under the speaker's hypotheses,
 $A$ is Cox--Gorenstein if and only if
 it has Poincaré duality.
@@ -1020,15 +1104,16 @@ must be supplied for a full statement.
 
 \medskip\noindent
 \textbf{Toric Macaulay--Matlis duality.}
+\par\nopagebreak\noindent
 A bijection was presented between
 $G$-homogeneous ideals $I\subseteq Q$
 and $G$-graded $Q$-submodules
 $M\subseteq S$, where
-$
+$$
 S=\mathbb{K}[x_1,\ldots,x_s],
 \qquad
 Q=\mathbb{K}[X_1,\ldots,X_s].
-$
+$$
 The module action, grading conventions,
 and full hypotheses were not captured.
 
@@ -1037,10 +1122,10 @@ and full hypotheses were not captured.
 degree.}
 Let $X$ be a complete simplicial toric
 variety. The notes record
-$
+$$
 f_0,\ldots,f_n\in B(\Sigma),
 \qquad \deg(f_i)=\alpha_i,
-$
+$$
 with no common zero on $X$, and
 $\beta$ the anticanonical class.
 The formula for the critical degree
@@ -1053,13 +1138,13 @@ codimension-one conjecture.
 \medskip\noindent
 \textbf{Toric Lefschetz properties.}
 The setup recorded was
-$
+$$
 A=Q/I=\bigoplus_{g\in G}A_g,
 \qquad
 L=\langle X_1,\ldots,X_n\rangle
 \subseteq A,
 \qquad L_g=L\cap A_g.
-$
+$$
 Here the brackets denote the linear
 span of the images of the variables.
 The speaker introduced the toric strong
@@ -1075,21 +1160,24 @@ monomial algebras.}
 The classical starting point is that
 Artinian Gorenstein monomial algebras
 are complete intersections of the form
-$
+$$
 A=\frac{\mathbb{K}[x_1,\ldots,x_n]}
 {(x_1^{a_1},\ldots,x_n^{a_n})}.
-$
+$$
 With the standard grading, these have
 SLP in characteristic zero.
 
 Assume $\operatorname{char}\mathbb{K}=0$,
 let $G$ be finitely generated abelian,
-and give $S=\mathbb{K}[x_1,\ldots,x_n]$
+and give
+$$
+S=\mathbb{K}[x_1,\ldots,x_n]
+$$
 a $G$-grading.
 Does
-$
+$$
 A=S/(x_1^{a_1},\ldots,x_n^{a_n})
-$
+$$
 have TSLP or TWLP?
 
 \medskip\noindent
@@ -1111,11 +1199,12 @@ Jordan types.
 \medskip\noindent
 \textbf{Problem 4: artinization in the
 critical degree.}
+\par\nopagebreak\noindent
 In the Cattani--Cox--Dickenstein
 setting, let
-$
+$$
 A=S/(f_0,\ldots,f_n).
-$
+$$
 Assume that the codimension-one
 conjecture holds for $A$.
 Let $B$ be the natural artinization
