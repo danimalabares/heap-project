@@ -1664,8 +1664,345 @@ Thiago Holleben (Max Planck Institute).
 Segunda 28/09, 14:30.
 
 \medskip\noindent
-\textbf{Notes.}
-To be added during the talk.
+\textbf{History and motivation.}
+Stanley's work around 1980 connects
+Lefschetz properties with inequalities
+for Hilbert functions and face numbers.
+For a standard graded Artinian algebra,
+WLP implies a unimodal Hilbert function:
+it increases weakly and then decreases
+weakly. SLP imposes stronger conditions.
+
+The historical list follows the talk;
+dates and attributions not checked
+against the slides remain provisional.
+\begin{enumerate}
+\item Watanabe (1987, as recorded).
+The guiding mantra is
+\emph{tudo tem Lefschetz}.
+Lefschetz rank conditions are open in
+families with fixed Hilbert function.
+Failure is closed in that setting.
+An open locus is dense on an irreducible
+component if it is nonempty there.
+Thus openness alone does not prove that
+most Gorenstein algebras have SLP.
+
+The basic characteristic-zero example is
+$
+\mathbb{Q}[x_1,\ldots,x_n]/
+(x_1^{a_1},\ldots,x_n^{a_n}),
+$
+which has SLP.
+\item Reid--Roberts--Roitman (1991,
+as recorded).
+Does every Artinian complete intersection
+in characteristic zero have WLP or SLP?
+\item Migliore--Miró-Roig (2003,
+as recorded).
+For a polynomial ring of dimension $n$,
+how many generators can an Artinian ideal
+have while SLP is still guaranteed?
+The notes called the threshold $A(n)$.
+The intended extremum and hypotheses
+need checking: \emph{smallest} with
+\emph{at most} does not express a sharp
+threshold without more conditions.
+\item Not recorded.
+\item Not recorded.
+\item For an Artinian monomial algebra,
+it suffices to test
+$
+L=x_1+\cdots+x_n
+$
+for WLP or SLP over an infinite field.
+The precise paper attribution is missing.
+Diagonal changes of variables identify
+linear forms with all coefficients
+nonzero, and preserve a monomial ideal.
+\end{enumerate}
+
+\medskip\noindent
+\textbf{Three roles for WLP.}
+\begin{itemize}
+\item Algebra: a tool for other questions,
+including regularity.
+\item Geometry: failure often accompanies
+interesting phenomena, such as Togliatti
+systems, Perazzo forms and unexpected
+hypersurfaces.
+\item Combinatorics: existence translates
+into inequalities for sequences, often
+unknown beforehand. Examples include
+$g$-theorems and Kähler packages.
+\end{itemize}
+
+The main question of the talk is:
+\emph{What is the combinatorial meaning
+of failure of WLP?}
+Two guiding questions:
+\begin{enumerate}
+\item Should failure be expected in a
+combinatorial setting?
+\item What unexpected combinatorial
+behaviour does failure explain?
+\end{enumerate}
+
+\medskip\noindent
+\textbf{Question 1: probability.}
+Nagel (2023, as recorded): given a
+probability space $\mathcal P$ of
+monomial algebras, what is the probability
+that an algebra fails WLP?
+The passage quoted during the talk:
+\begin{quote}
+Although the WLP appears to be present
+with high probability most of the time,
+we propose in Conjecture 3.9 that there
+is one scenario where the produced
+algebras fail to have the WLP with
+high probability.
+\end{quote}
+The precise reference and probability
+model should be added from the slides.
+
+\medskip\noindent
+\textbf{Question 1: simplicial complexes.}
+Let $\Delta$ have vertex set $[n]$.
+Its \emph{Stanley--Reisner ideal} is
+$
+I_\Delta=(x_F:F\notin\Delta),
+\qquad
+x_F=\prod_{i\in F}x_i.
+$
+Its \emph{face numbers} are
+$
+f_i=\#\{F\in\Delta:|F|=i+1\}.
+$
+
+\begin{theorem}[Holleben, 2026]
+\label{theorem-holleben-homology-wlp}
+Suppose $\dim\Delta=d>0$ and
+$
+\widetilde H_d(\Delta;\mathbb K)\ne0,
+\qquad f_{d-1}\geq f_d.
+$
+Then the Artinian algebra
+$
+A_\Delta=
+\frac{\mathbb K[x_1,\ldots,x_n]}
+{I_\Delta+
+(x_1^{d+2},\ldots,x_n^{d+2})}
+$
+fails WLP.
+\end{theorem}
+
+The live transcription used a strict
+inequality. Theorem 1.2 of
+\href{%
+https://arxiv.org/abs/2501.12108%
+}{Coinvariant stresses, Lefschetz
+properties and random complexes}
+allows equality.
+Since $d>0$, ordinary and reduced
+homology agree in degree $d$.
+
+For the boundary of a simplex,
+$n=d+2$, and the algebra is
+$
+\frac{\mathbb K[x_1,\ldots,x_n]}
+{(x_1\cdots x_n,x_1^n,\ldots,x_n^n)}.
+$
+This recovers the known failure for
+this family of monomial almost complete
+intersections; it is not a claim about
+every monomial almost complete
+intersection.
+
+\begin{remark}[Why add the powers?]
+\label{remark-holleben-talk-powers}
+The Stanley--Reisner relations forbid
+certain combinations of vertices.
+They usually leave arbitrarily high
+powers of each individual variable.
+Adding $x_i^{d+2}=0$ puts a ceiling on
+each exponent: surviving monomials have
+every exponent at most $d+1$.
+Only finitely many monomials remain.
+The quotient is therefore Artinian,
+so the usual Artinian WLP question
+applies. The particular exponent $d+2$
+is part of this theorem; merely making
+the algebra finite does not force
+failure of WLP.
+\end{remark}
+
+\medskip\noindent
+\textbf{Random topology saves the day.}
+The probability model is
+\emph{Linial--Meshulam}:
+$Y_d(n,p)$ contains the full
+$(d-1)$-skeleton, and each possible
+$d$-face is included independently
+with probability $p$.
+
+For every fixed $d>0$, there is
+$
+c_d<d+1
+$
+such that, whenever
+$
+c_d<c<d+1,\qquad p=c/n,
+$
+the probability that $A_\Delta$
+fails WLP tends to one as $n$ tends
+to infinity, for
+$\Delta\in Y_d(n,c/n)$.
+This is Theorem 1.4(2) of the paper above.
+Write $\mathcal F_{n,d}$ for the event
+of failure. Then
+$
+\lim_{n\to\infty}
+\mathbb P(\mathcal F_{n,d})=1.
+$
+
+The talk reports numerical experiments
+placing $c_d$ in a very narrow interval.
+The numerical bounds were not recorded.
+
+\medskip\noindent
+\textbf{The everything-fails conjecture.}
+The talk suggests a much broader
+asymptotic predominance of failure when
+the number of variables and relevant
+degrees become large.
+The proposed ratio has the schematic
+form
+$
+\frac{\#\mathcal F_{n,D}}
+{\#\mathcal A_{n,D}}
+\longrightarrow1.
+$
+Here $\mathcal A_{n,D}$ would be a
+specified finite family of Artinian
+monomial algebras, and
+$\mathcal F_{n,D}$ its failing members.
+These symbols are placeholders:
+the counting family, degree bounds and
+order of limits were not recorded.
+There is no uniform counting probability
+on all Artinian monomial algebras
+without specifying such a model.
+This conjecture must be distinguished
+from the proved random-complex theorem.
+
+\medskip\noindent
+\textbf{Question 2: inverse systems.}
+For clarity, use characteristic zero
+and the differential convention.
+Let
+$
+R=\mathbb K[x_1,\ldots,x_n],
+\qquad S=\mathbb K[y_1,\ldots,y_n].
+$
+The action is
+$
+f\circ F=
+f(\partial_{y_1},\ldots,\partial_{y_n})F.
+$
+The \emph{inverse system} of $I\subset R$
+is the $R$-submodule
+$
+I^\perp=
+\{F\in S:f\circ F=0
+\ \forall f\in I\}.
+$
+Conversely, for an $R$-submodule
+$M\subset S$, its annihilator is
+$
+\operatorname{Ann}_R(M)=
+\{f\in R:f\circ F=0
+\ \forall F\in M\}.
+$
+Thus the inverse system lives in $S$;
+its annihilator is an ideal of $R$.
+The speaker's exact action convention
+was not transcribed.
+
+\medskip\noindent
+\textbf{Unexpected hypersurfaces.}
+Let $X\subset\mathbb P^N$ be a finite
+set of points and let $P$ be general.
+A degree-$q$ hypersurface through $X$
+with multiplicity at least $m$ at $P$
+is \emph{unexpected} when
+$
+\begin{aligned}
+\dim_{\mathbb K}(I_X\cap I_P^m)_q
+&>\max\left\{0,\,
+\dim_{\mathbb K}(I_X)_q
+-\binom{N+m-1}{N}\right\}.
+\end{aligned}
+$
+The binomial coefficient is the expected
+number of conditions at the fat point.
+Unexpectedness means more solutions
+than this count predicts; equality
+would be the expected behaviour.
+
+\medskip\noindent
+\textbf{Spheres and Gorenstein rings.}
+A triangulation of a sphere has a
+Gorenstein Stanley--Reisner ring.
+Quotienting by a homogeneous system
+of parameters gives an Artinian
+Gorenstein algebra.
+This does not assert that adjoining
+all the individual variable powers
+preserves the Gorenstein property.
+
+\medskip\noindent
+\textbf{Unexpected parameters and
+balanced spheres.}
+A $d$-dimensional complex is
+\emph{balanced} if its graph admits
+a proper coloring with $d+1$ colors.
+
+\begin{theorem}[Holleben, 2026]
+\label{theorem-holleben-balanced-sop}
+Let $\Delta$ be a simplicial sphere
+of dimension $d>0$, over a field
+of characteristic zero.
+It admits a $2$-unexpected system of
+parameters if and only if it is balanced.
+Every such system is linear and gives
+the same ideal, together with
+$I_\Delta$, as the colored system
+of parameters.
+\end{theorem}
+
+For a proper coloring
+$
+\rho:[n]\longrightarrow[d+1],
+$
+the \emph{colored system of parameters}
+is given, for $1\leq j\leq d+1$, by
+$
+\theta_j=\sum_{\rho(v)=j}x_v.
+$
+Uniqueness here means equality of ideals,
+not equality of ordered lists of forms.
+The technical definition of
+$2$-unexpected remains to be transcribed.
+
+The sphere hypothesis and the formulation
+of uniqueness are supplied from
+Theorem 4.5 and Corollary 4.6 of
+\href{%
+https://arxiv.org/abs/2510.10884%
+}{From points to complexes:
+A concept of unexpectedness for
+simplicial complexes}.
 
 \section{Milnor Algebras, Higher Jacobians
 and
