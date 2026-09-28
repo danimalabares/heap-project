@@ -1061,6 +1061,423 @@ The exact truncation defining $B$ and
 the conjecture's full statement remain
 to be supplied from the slides.
 
+\section{Marcos Jardim: linkage problems}
+\label{section-jardim-problems}
+
+September 28, 2026, morning.
+Notes from Jardim's problem presentation.
+Recall Claudia Polini's ALGA talk,
+\emph{New Results on Linkage and Licci
+Ideals}, in HP's
+\emph{16th ALGA Meeting 2026}.
+There, linkage replaces a curve by its
+residual curve in a complete intersection.
+Here the emphasis is on vector bundles
+and their quotient sheaves.
+
+\medskip\noindent
+\textbf{Setup and saturated sections.}
+Let $k$ be algebraically closed and put
+$
+R=k[x_0,x_1,x_2,x_3],
+\qquad X=\mathbb{P}^3_k
+=\operatorname{Proj}R.
+$
+Write $\mathcal{O}(a)=\mathcal{O}_X(a)$
+and $E(a)=E\otimes\mathcal{O}(a)$.
+For a rank-two vector bundle $E$, let
+$d$ be the integer determined by
+$
+\det E\cong\mathcal{O}(d).
+$
+This is the meaning of $\deg E$ here.
+A section $\sigma\in H^0(X,E(a))$
+is equivalently a morphism
+$
+\sigma:\mathcal{O}(-a)\longrightarrow E.
+$
+Its image is called \emph{saturated}
+when the quotient is torsion-free.
+Assume its zero scheme is nonempty
+of pure codimension two.
+Then it is a locally complete
+intersection curve $C=Z(\sigma)$, and
+$
+0\longrightarrow\mathcal{O}(-a)
+\xrightarrow{\sigma}E
+\longrightarrow\mathcal{I}_C(d+a)
+\longrightarrow0.
+$
+Locally, the section is a pair $(f,g)$
+and $C$ is cut out by $f=g=0$.
+The twist of the quotient follows by
+taking determinants away from $C$.
+
+Given two such sections
+$\sigma_i\in H^0(X,E(a_i))$, we have,
+for $i=1,2$,
+$
+0\longrightarrow\mathcal{O}(-a_i)
+\xrightarrow{\sigma_i}E
+\longrightarrow\mathcal{I}_{C_i}(d+a_i)
+\longrightarrow0.
+$
+
+\medskip\noindent
+\textbf{First question.}
+Given curves $C_1,C_2\subset X$, when
+can both be obtained this way from
+twists of one rank-two bundle $E$?
+
+\begin{definition}[Rao module]
+\label{definition-jardim-rao}
+For a locally Cohen--Macaulay curve
+$C\subset X$, its \emph{Rao module} is
+$
+M_C=H^1_*(\mathcal{I}_C)
+=\bigoplus_{t\in\mathbb{Z}}
+H^1(X,\mathcal{I}_C(t)).
+$
+It is a finite-length graded $R$-module.
+For any graded module $N$, use the
+\emph{grading shift} convention
+$
+N[e]_t=N_{t+e}.
+$
+\end{definition}
+
+Multiplication by a homogeneous
+polynomial $f\in R_s$ induces
+$
+H^1(X,\mathcal{I}_C(t))
+\xrightarrow{\times f}
+H^1(X,\mathcal{I}_C(t+s)).
+$
+This defines the module structure.
+There is no natural algebra structure
+on $M_C$ in this discussion.
+For $t\geq0$, the exact sequence of
+$\mathcal{I}_C(t)$ identifies this group
+with the cokernel of restriction
+$
+R_t\longrightarrow
+H^0(C,\mathcal{O}_C(t)).
+$
+Thus it measures sections on the curve
+which do not extend to ambient
+homogeneous polynomials of that degree.
+
+\begin{lemma}[The easy implication]
+\label{lemma-jardim-common-bundle}
+For the two rank-two sequences above,
+$
+M_{C_1}[d+a_1]\cong M_{C_2}[d+a_2].
+$
+Equivalently,
+$
+M_{C_1}\cong M_{C_2}[a_2-a_1].
+$
+These are isomorphisms of graded
+$R$-modules.
+\end{lemma}
+
+\begin{proof}
+Line bundles on $\mathbb{P}^3$ satisfy
+$
+H^1(X,\mathcal{O}(m))
+=H^2(X,\mathcal{O}(m))=0
+$
+for every integer $m$.
+Twisting either sequence by
+$\mathcal{O}(t)$ and taking cohomology
+therefore gives
+$
+H^1(X,E(t))\cong
+H^1(X,\mathcal{I}_{C_i}(t+d+a_i)).
+$
+These maps commute with multiplication
+by homogeneous polynomials.
+\end{proof}
+
+\begin{theorem}[Rao's classification]
+\label{theorem-jardim-rao}
+Two locally Cohen--Macaulay curves
+in $\mathbb{P}^3$ belong to the same
+even liaison class if and only if
+their Rao modules are isomorphic
+up to a grading shift.
+\end{theorem}
+
+Even liaison means equivalence under
+a chain of an even number of
+complete-intersection links.
+The theorem is recalled in Hartshorne,
+\href{%
+https://arxiv.org/abs/math/0302078%
+}{On Rao's Theorems and the
+Lazarsfeld--Rao Property}, Section 3.
+
+\begin{remark}[The theorem to distinguish]
+\label{remark-jardim-rao-caution}
+The live notes called this
+Lazarsfeld--Rao and recorded an
+equivalence with using one bundle $E$.
+Rao's classification gives even
+liaison, not that exact assertion
+about a common rank-two bundle.
+The Lazarsfeld--Rao property concerns
+building curves from minimal members
+of their liaison class.
+
+The classical bundle correspondence
+uses presentations
+$
+0\longrightarrow P\longrightarrow N
+\longrightarrow\mathcal{I}_C
+\longrightarrow0,
+$
+where $P$ is a sum of line bundles,
+$N$ is locally free, and $H^2_*(N)=0$.
+Bundles are considered up to twists
+and adding sums of line bundles.
+See Hartshorne,
+\href{%
+https://www.mate.polimi.it/%
+smf/vol67/hartshorne.pdf%
+}{Coherent Functors and Families of
+Space Curves}, Theorem 4.1.
+This is a different formulation from
+prescribing rank two and one section.
+\end{remark}
+
+\medskip\noindent
+\textbf{Higher rank: curves from
+several sections.}
+Let $E$ have rank $r$ and determinant
+$\mathcal{O}(d)$.
+Let $V_{r-1}$ and $W_{r-1}$ be vector
+spaces of dimension $r-1$.
+Set
+$
+\begin{aligned}
+P_1&=V_{r-1}\otimes\mathcal{O}(-a_1),\\
+P_2&=W_{r-1}\otimes\mathcal{O}(-a_2),\\
+b_i&=d+(r-1)a_i.
+\end{aligned}
+$
+Suppose, for $i=1,2$, there are exact
+sequences
+$
+0\longrightarrow P_i
+\xrightarrow{\sigma_i}E
+\longrightarrow\mathcal{I}_{C_i}(b_i)
+\longrightarrow0.
+$
+Here $\sigma_i$ is a collection of
+$r-1$ sections.
+The curve is their degeneracy locus:
+the locus where their values cease
+to be linearly independent.
+Its equations are the maximal minors
+of the local $r$ by $r-1$ matrix.
+Assume this locus has codimension two.
+For $r=2$ this is the usual zero
+scheme of one section.
+
+The same vanishing argument gives,
+for every integer $t$,
+$
+\begin{aligned}
+H^1(X,\mathcal{I}_{C_1}(t+b_1))
+&\cong H^1(X,E(t))\\
+&\cong
+H^1(X,\mathcal{I}_{C_2}(t+b_2)).
+\end{aligned}
+$
+Consequently,
+$
+M_{C_1}\cong M_{C_2}[b_2-b_1],
+\qquad b_2-b_1=(r-1)(a_2-a_1).
+$
+
+\medskip\noindent
+\textbf{Converse question.}
+Does an isomorphism of shifted Rao
+modules yield presentations of this
+specific form with a common $E$?
+The rank and the requirement that
+each kernel use just one twist must
+be specified.
+The stable correspondence above
+allows sums of different twists;
+it does not directly settle this
+more restrictive formulation.
+
+\medskip\noindent
+\textbf{Second idea: higher-rank
+quotients from one section.}
+Instead of removing $r-1$ sections
+to obtain an ideal sheaf, remove
+one section and retain a quotient
+$Q_i$ of rank $r-1$.
+Put $A_i=\mathcal{O}(-a_i)$.
+The diagram is
+$
+\xymatrix{
+&A_1\ar@{^{(}->}[d]^{\sigma_1}&\\
+A_2\ar@{^{(}->}[r]^{\sigma_2}
+&E\ar@{->>}[r]\ar@{->>}[d]&Q_2\\
+&Q_1&
+}
+$
+with exact sequences
+$
+0\longrightarrow A_i
+\xrightarrow{\sigma_i}E
+\longrightarrow Q_i\longrightarrow0.
+$
+The sections are saturated, so $Q_i$
+is torsion-free; it need not be
+locally free.
+Taking cohomology gives
+$
+H^1_*(Q_1)\cong H^1_*(E)
+\cong H^1_*(Q_2).
+$
+In this diagram the shift is zero.
+A shift appears if the quotient
+sheaves themselves are retwisted,
+as with $\mathcal{I}_{C_i}(b_i)$.
+
+\begin{remark}[What is being generalized?]
+\label{remark-jardim-quotients}
+For rank two, each quotient is
+a twisted ideal sheaf of a curve.
+For larger rank, the quotient has
+more than one direction in its
+generic fibre.
+Jardim asks whether the cohomological
+signature of a shared parent bundle
+can still recognize such a relation:
+does an isomorphism of $H^1_*$,
+allowing twists, suffice to construct
+a common bundle and the two
+line-sheaf kernels?
+This is recorded as a question;
+the elementary cohomology argument
+only proves the forward implication.
+\end{remark}
+
+\medskip\noindent
+\textbf{Graded-module version.}
+Let $M$ be a finitely generated graded
+$R$-module of rank $r$.
+Consider homogeneous injections and
+their cokernels:
+$
+\xymatrix{
+&R[-a_1]\ar@{^{(}->}[d]^{\sigma_1}&\\
+R[-a_2]\ar@{^{(}->}[r]^{\sigma_2}
+&M\ar@{->>}[r]\ar@{->>}[d]&Q_2\\
+&Q_1&
+}
+$
+Then $Q_i$ has rank $r-1$.
+Sheafification gives the analogous
+diagram on $X$; local freeness of
+$\widetilde M$ and saturation of
+the images are extra conditions.
+The note $C_i=Z(\sigma_i)$ asks when
+this algebraic construction recovers
+geometric curves.
+A single section of rank $r$ has
+expected zero-locus codimension $r$.
+Thus the curve interpretation above
+uses rank two, or the $r-1$-section
+degeneracy construction.
+
+\medskip\noindent
+\textbf{Completing the quotient diagram.}
+Let $Q$ be the quotient of $E$ by the
+sum of the two images:
+$
+Q=E/
+(\sigma_1(A_1)+\sigma_2(A_2)).
+$
+The induced maps give
+$
+\xymatrix{
+&A_1\ar@{=}[r]
+\ar@{^{(}->}[d]^{\sigma_1}
+&A_1\ar[d]^{\bar{\sigma}_1}\\
+A_2\ar@{=}[d]
+\ar@{^{(}->}[r]^{\sigma_2}
+&E\ar@{->>}[r]\ar@{->>}[d]
+&Q_2\ar@{->>}[d]\\
+A_2\ar[r]_{\bar{\sigma}_2}
+&Q_1\ar@{->>}[r]&Q
+}
+$
+The bottom row and right column
+are right exact, with a terminal
+zero understood.
+If the two sections are independent
+over the function field, the induced
+maps $\bar{\sigma}_i$ are nonzero
+and injective as sheaf maps.
+This supplies the nonzero condition
+marked in the live diagram.
+Independence is an additional
+condition, not a consequence of
+having two sections.
+
+Quotienting by both images gives
+the same $Q$ in either order.
+Its generic rank is $r-2$ under
+independence, but it can have torsion.
+For rank two, the determinant
+$\sigma_1\wedge\sigma_2$ is a section
+of $\mathcal{O}(d+a_1+a_2)$.
+Where nonzero, the two sections
+span $E$ and $Q$ vanishes.
+Thus $Q$ is supported on the
+determinant's zero locus, rather
+than being another curve ideal.
+The same quotient construction
+works for the graded-module diagram.
+
+\medskip\noindent
+\textbf{Finally: Lefschetz properties.}
+For a finite-length graded module $N$,
+the module version of WLP asks for
+one $\ell\in R_1$ such that
+$
+\times\ell:N_t\longrightarrow N_{t+1}
+$
+has maximal rank for every $t$.
+SLP asks that the same $\ell$ give
+maximal rank for
+$
+\times\ell^s:N_t\longrightarrow N_{t+s}
+$
+for every $t$ and every $s\geq1$.
+Apply these definitions to $N=M_C$.
+Jardim's final question is:
+which curves have Rao modules
+with WLP or SLP?
+For characteristic-zero Lefschetz
+questions, assume $\operatorname{char}k=0$.
+
+Both properties survive graded
+module isomorphisms and shifts:
+these identify multiplication maps
+and merely relabel their degrees.
+Hence they are invariants of the
+even liaison class.
+For arithmetically Cohen--Macaulay
+curves, $M_C=0$, and both properties
+hold vacuously.
+
 \section{Compressed Artinian Gorenstein
 algebras}
 \label{section-lenin-bezerra}
