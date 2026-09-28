@@ -1,0 +1,351 @@
+\input{preamble}
+\begin{document}
+
+\title{Homological mirror symmetry}
+\maketitle
+\tableofcontents
+
+\section{Starting point}
+\label{section-starting-point}
+
+\noindent
+Started on 28 September 2026 after
+Sergey Galkin's message about quantum
+tori and matrix factorizations.
+These introductory notes were drafted by
+ChatGPT. Research questions below are
+not established results.
+
+The relevant background in HP is
+symplectic geometry (Poisson brackets),
+geometric prequantization (commutators),
+homological algebra (complexes), and
+derived categories of sheaves.
+
+\section{Where this sits}
+\label{section-where-this-sits}
+
+\noindent
+Homological mirror symmetry relates
+categories from symplectic geometry
+to categories from algebraic geometry.
+On the symplectic side, Fukaya categories
+involve Lagrangian submanifolds and
+Floer theory; these require further study.
+On the algebraic side, one encounters
+derived categories of coherent sheaves
+and categories of matrix factorizations.
+
+\begin{definition}
+\label{definition-lg-model}
+A \textit{Landau--Ginzburg model}, in
+the setting used here, is a complex
+manifold or smooth algebraic variety
+$Y$ equipped with a holomorphic or
+regular function
+$$
+W:Y\longrightarrow\mathbb{C}.
+$$
+The function $W$ is its
+\textit{superpotential}.
+\end{definition}
+
+\noindent
+A Fano mirror may be a Landau--Ginzburg
+model. A del Pezzo surface is a smooth
+projective surface with ample
+anticanonical bundle.
+There are two directions to distinguish:
+coherent sheaves on the Fano side relate
+to a symplectic category of its mirror;
+the Fukaya category of the Fano relates
+to matrix factorizations on the mirror,
+with suitable choices and hypotheses.
+This is an orientation, not a theorem
+asserted in this generality.
+
+Quantum cohomology modifies the cup
+product using counts of rational curves.
+Deformation quantization modifies
+multiplication of functions into a
+noncommutative product. These are
+different constructions, even though
+mirror symmetry relates their settings.
+
+\section{Tori and Mumford degenerations}
+\label{section-tori-and-mumford}
+
+\begin{definition}
+\label{definition-algebraic-torus}
+The \textit{algebraic torus} of
+dimension $n$ over $\mathbb{C}$ is
+$$
+T=(\mathbb{C}^{*})^n.
+$$
+Its coordinate algebra is
+$$
+\mathcal{O}(T)=
+\mathbb{C}[x_1^{\pm1},\ldots,x_n^{\pm1}].
+$$
+\end{definition}
+
+\noindent
+In toric geometry one embeds this torus
+as a dense open subset of a variety,
+with an extending torus action.
+Fans describe normal toric varieties.
+Toric geometry supplies building blocks
+for Mumford degenerations of abelian
+varieties.
+
+A quantum torus instead deforms the
+multiplication of the Laurent algebra.
+Thus the common starting point is the
+algebraic torus, but the constructions
+are different. A degeneration parameter
+in Mumford's construction is not
+automatically a quantization parameter.
+
+\begin{definition}
+\label{definition-quantum-torus}
+For $q\in\mathbb{C}^{*}$, the
+two-dimensional \textit{quantum torus}
+is the algebra
+$$
+A_q=
+\mathbb{C}\langle x^{\pm1},y^{\pm1}\rangle
+/(xy-qyx).
+$$
+\end{definition}
+
+\noindent
+At $q=1$ this is the ordinary
+commutative Laurent algebra.
+For general $q$ it is an algebra,
+not the coordinate ring of an ordinary
+commutative affine variety.
+
+\section{First quantum calculation}
+\label{section-first-quantum-calculation}
+
+\noindent
+Work formally with $q=e^\hbar$.
+The relation gives
+$$
+xy-yx=(e^\hbar-1)yx.
+$$
+Dividing by $\hbar$ and reducing
+modulo $\hbar$ yields
+$$
+\{x,y\}=xy.
+$$
+Here the bracket is defined by the
+first-order commutator of lifts.
+This convention uses the commutator
+without a factor of $i$.
+Compare the Dirac rule in the
+prequantization notebook, where a
+different normalization is used.
+
+\begin{exercise}
+\label{exercise-laurent-bracket}
+Use the Leibniz rule to show that
+$$
+\{x^a y^b,x^c y^d\}
+=(ad-bc)x^{a+c}y^{b+d}
+$$
+for integers $a,b,c,d$.
+\end{exercise}
+
+\section{Matrix factorizations}
+\label{section-matrix-factorizations}
+
+\begin{definition}
+\label{definition-matrix-factorization}
+Let $R$ be a commutative ring and
+$W\in R$. A finite free
+\textit{matrix factorization} of $W$
+consists of finite free modules
+$E^0,E^1$ and maps
+$$
+d_0:E^0\longrightarrow E^1,
+\qquad
+d_1:E^1\longrightarrow E^0
+$$
+such that
+$$
+d_1d_0=W I_{E^0},
+\qquad
+d_0d_1=W I_{E^1}.
+$$
+Equivalently, an odd endomorphism $D$
+of $E^0\oplus E^1$ satisfies
+$$
+D^2=W I.
+$$
+\end{definition}
+
+\noindent
+Compare a complex, whose differential
+squares to zero. Reducing the maps
+modulo $W$ gives a two-periodic complex
+over $R/(W)$.
+Defining the morphism complexes and the
+homotopy category is a next step.
+
+\begin{example}
+\label{example-xy-factorization}
+Over $R=\mathbb{C}[x,y]$, take
+$$
+D=\begin{pmatrix}0&x\\y&0\end{pmatrix}.
+$$
+Then
+$$
+D^2=\begin{pmatrix}xy&0\\0&xy\end{pmatrix}.
+$$
+Over the quantum algebra, the same
+matrix multiplication gives instead
+$$
+D^2=\begin{pmatrix}xy&0\\0&yx\end{pmatrix}.
+$$
+This shows why the naive construction
+does not transfer unchanged.
+The commutative example is on the
+affine plane, not on the torus:
+on the torus $xy$ is a unit and
+this factorization is contractible.
+\end{example}
+
+\noindent
+For a left module over a noncommutative
+algebra, multiplication by $W$ need
+not be module-linear. Centrality of
+$W$ guarantees linearity.
+Failure of centrality obstructs the
+ordinary definition; it does not prove
+that every generalized version is
+impossible.
+
+\section{Galkin's question}
+\label{section-galkin-question}
+
+\noindent
+On 28 September 2026, Sergey proposed:
+\begin{enumerate}
+\item Check whether Brown--Wemyss
+normal-form methods can be applied
+to elements of a quantum torus.
+\item Investigate a $q$-deformation
+of the mirror matrix factorization
+category, provisionally denoted
+$\operatorname{MF}(W_q)$.
+\item If such a category can be
+defined, seek its interpretation
+in symplectic geometry of del Pezzo
+surfaces.
+\end{enumerate}
+
+\noindent
+Brown--Wemyss work with completed free
+algebras and cyclic derivatives.
+A quantum torus already imposes
+relations and invertibility, so their
+results do not apply automatically.
+Their paper is a possible source of
+methods, not a construction of the
+category requested here.
+
+First tasks: understand one ordinary
+potential and its matrix factorizations;
+choose an explicit $W_q$; check its
+centrality; specify what category and
+classical limit are intended.
+
+\section{People and papers to follow}
+\label{section-people-and-papers}
+
+\noindent
+Status checked on 28 September 2026.
+These are reading records, not claims
+that the papers have been understood.
+
+\begin{itemize}
+\item Victor: Daniel identifies his
+PhD topic as matrix factorizations.
+The likely full-name match is
+Victor Ibrahim Santos El Adji,
+Galkin's student working on graph
+potentials. No matching arXiv paper
+was located in this check.
+This does not establish that none exists.
+Confirm the exact title or arXiv link.
+
+\item Alex Junior Gomez Saltachin:
+\textit{Exceptional collections for
+canonical stacks of log del Pezzo
+surfaces with $\frac13(1,1)$
+singularities},
+\href{https://arxiv.org/abs/2606.18238}
+{arXiv:2606.18238}.
+The arXiv page checked lists version 4,
+30 August 2026. His website uses the
+title \textit{Derived categories and
+Brauer groups of log del Pezzo surfaces
+with 1/3(1,1) singularities} for the
+same identifier; do not count these as
+two different papers.
+
+\item Alex's website also lists
+\textit{Categorical genus for log del
+Pezzo surfaces with cyclic quotient
+singularities},
+\href{https://arxiv.org/abs/2609.13102}
+{arXiv:2609.13102}.
+The listing was verified on his
+\href{https://alequisgs.github.io/}
+{personal website}; direct retrieval of
+this arXiv page failed in this check.
+\end{itemize}
+
+\section{Initial reading}
+\label{section-initial-reading}
+
+\begin{itemize}
+\item V. I. Arnold,
+\textit{Local Normal Forms of Functions},
+Inventiones mathematicae 35 (1976),
+87--109.
+\href{https://webhomes.maths.ed.ac.uk/%
+~v1ranick/papers/arnold15.pdf}{PDF}.
+Classical local singularity theory.
+
+\item Gavin Brown and Michael Wemyss,
+\textit{Local Normal Forms of
+Noncommutative Functions},
+\href{https://arxiv.org/abs/2111.05900}
+{arXiv:2111.05900}.
+Noncommutative normal forms.
+
+\item Denis Auroux, Ludmil Katzarkov,
+and Dmitri Orlov,
+\textit{Mirror symmetry for Del Pezzo
+surfaces: Vanishing cycles and
+coherent sheaves}.
+\par
+\href{https://arxiv.org/abs/math/0506166}
+{arXiv:math/0506166}.
+A reference for the classical
+del Pezzo mirror framework, not a
+solution of Galkin's quantum question.
+
+\item Denis Auroux,
+\textit{Mirror symmetry and T-duality
+in the complement of an anticanonical
+divisor},
+\href{https://arxiv.org/abs/0706.3207}
+{arXiv:0706.3207}.
+Geometric motivation for mirror
+potentials.
+\end{itemize}
+
+\end{document}
