@@ -51,6 +51,9 @@ editing any heap-project file!!!!
   instead.
 - In every `definition` environment, 
   italicize the term being defined.
+- Write recalled definitions as prose, not in
+  a `definition` environment. Reserve that
+  environment for definitions introduced here.
 - Put corollaries in a `lemma` environment 
   with the optional title
   `[Corollary]`.
