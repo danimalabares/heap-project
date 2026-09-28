@@ -50,6 +50,7 @@ KNOWN_CHAPTERS = {
     "arte-moderna-brasileira",
     "historia-do-brasil",
     "16th-alga-meeting-2026",
+    "iv-jornadas-lefschetz-2026",
     "reading-the-masters",
     "real-analysis",
 }
