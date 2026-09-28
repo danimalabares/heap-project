@@ -9346,6 +9346,618 @@ $\operatorname{Der}_k(R,V)$ is an
 $R$-module, with a natural $R$-action.
 \end{remark}
 
+\section{Gorenstein properties}
+\label{section-gorenstein-properties}
+
+The goal is to understand what the adjective
+``arithmetically Gorenstein'' says about a
+projective variety. The route is through
+regular sequences, Cohen--Macaulay rings,
+and duality. The general structural results
+below are stated without proof; elementary
+examples and consequences are worked out.
+All rings in this section are commutative
+and Noetherian.
+
+\medskip\noindent
+{\bf Regular sequences and depth.}
+Recall the regular local rings of Section
+\ref{section-regular-rings}.
+A regular sequence is a different notion:
+it describes equations that remain
+non-zero-divisors when imposed successively.
+
+\begin{definition}
+\label{definition-regular-sequence}
+A sequence $f_1,\ldots,f_r$ in a ring $R$
+is a {\it regular sequence} if
+$R/(f_1,\ldots,f_r)\ne0$ and multiplication
+by $f_i$ is injective on
+$R/(f_1,\ldots,f_{i-1})$ for each $i$.
+\end{definition}
+
+For example, $x,y$ is regular in $k[x,y]$.
+The sequence $x,xy$ is not: after setting
+$x=0$, the second element is zero.
+Thus counting equations alone does not
+recognize a complete intersection.
+
+\begin{definition}
+\label{definition-depth-cm}
+For a local ring $(R,\mathfrak m)$, its
+{\it depth} is the maximum length of a
+regular sequence contained in $\mathfrak m$.
+It is {\it Cohen--Macaulay} if
+$$
+\operatorname{depth}R=\dim R.
+$$
+A ring is Cohen--Macaulay if its
+localizations at all prime ideals are.
+\end{definition}
+
+Depth is at most Krull dimension.
+Geometrically, the Cohen--Macaulay condition
+allows a full set of parameters to cut down
+dimension without creating zero divisors at
+any intermediate step. Every Artinian local
+ring is Cohen--Macaulay: both numbers are
+zero. Thus Cohen--Macaulay does not mean
+smooth, reduced, or irreducible.
+
+\medskip\noindent
+{\bf A concrete local Gorenstein criterion.}
+A {\it system of parameters} of a local
+ring of dimension $d$ is a sequence of $d$
+elements of its maximal ideal whose quotient
+is Artinian. In a Cohen--Macaulay local ring,
+every such sequence is regular.
+
+\begin{definition}
+\label{definition-socle}
+For an Artinian local ring
+$(B,\mathfrak n,\kappa)$, its {\it socle} is
+$$
+\operatorname{Soc}(B)
+=\{b\in B:\mathfrak n b=0\}.
+$$
+This is a vector space over the residue
+field $\kappa=B/\mathfrak n$.
+\end{definition}
+
+\begin{definition}
+\label{definition-gorenstein-local}
+A local ring $R$ is {\it Gorenstein} if it
+is Cohen--Macaulay and, after quotienting by
+a system of parameters, the resulting
+Artinian local ring has one-dimensional
+socle over its residue field.
+A ring is {\it Gorenstein} if all its
+localizations at prime ideals are.
+\end{definition}
+
+This criterion is independent of the chosen
+parameters. It is equivalent to the usual
+homological definition that $R$ has finite
+injective dimension as an $R$-module.
+We use the socle criterion as our entry
+point, without developing injective
+resolutions here.
+
+\begin{example}
+\label{example-gorenstein-socles}
+For $B=k[x,y]/(x^2,y^2)$ a basis is
+$1,x,y,xy$. Its maximal ideal is $(x,y)$,
+and its socle is $kxy$, so $B$ is
+Gorenstein. In contrast, for
+$C=k[x,y]/(x,y)^2$ a basis is $1,x,y$,
+and the socle is $kx\oplus ky$.
+Thus $C$ is Cohen--Macaulay but not
+Gorenstein.
+\end{example}
+
+\begin{theorem}
+\label{theorem-gorenstein-ci}
+Regular local rings are Gorenstein.
+If $f$ is a non-zero-divisor in the maximal
+ideal of a local ring $R$, then $R$ is
+Gorenstein if and only if $R/(f)$ is.
+Consequently a quotient of a regular local
+ring by a regular sequence is Gorenstein.
+Such a quotient is called a
+{\it complete intersection local ring}.
+\end{theorem}
+
+The implications are: regular implies
+complete intersection, which implies
+Gorenstein, which implies Cohen--Macaulay.
+They do not reverse in general.
+For example, the local ring of the nodal
+curve $xy=0$ at the origin is a hypersurface,
+hence Gorenstein, but is not regular.
+
+\medskip\noindent
+{\bf Grading and the canonical module.}
+Let $S=k[x_0,\ldots,x_N]$, with each
+variable of degree one, and let $R=S/I$
+for a proper homogeneous ideal $I$.
+Put $d=\dim R$ and $c=N+1-d$.
+Here $c$ is the codimension of the ring.
+The irrelevant maximal ideal is
+$\mathfrak m=R_{>0}$; in this setting the
+Cohen--Macaulay and Gorenstein properties
+can be tested at $\mathfrak m$.
+
+The shift convention is
+$$
+M(a)_j=M_{a+j}.
+$$
+In particular, the generator of $S(-b)$
+has degree $b$.
+
+\begin{definition}
+\label{definition-canonical-module-graded}
+If $R$ is Cohen--Macaulay, its graded
+{\it canonical module} is
+$$
+\omega_R
+=\operatorname{Ext}^{c}_S(R,S(-N-1)).
+$$
+\end{definition}
+
+Concretely, take a graded free resolution of
+$R$, apply $\operatorname{Hom}_S(-,S(-N-1))$,
+and take cohomology in degree $c$.
+This describes how to compute the displayed
+Ext module. The canonical module packages
+algebraic duality; its associated sheaf on
+$\operatorname{Proj}(R)$ is the dualizing
+sheaf. On a smooth $n$-dimensional variety,
+the latter is the canonical line bundle
+$\bigwedge^n\Omega^1_X$.
+
+\begin{theorem}
+\label{theorem-graded-gorenstein}
+A Cohen--Macaulay standard graded
+$k$-algebra $R$ is Gorenstein if and only if
+there is an integer $a$ such that
+$$
+\omega_R\cong R(a)
+$$
+as graded modules.
+This integer is its {\it $a$-invariant}.
+\end{theorem}
+
+The extra condition is therefore that the
+canonical module is free of rank one, with
+one possible change of grading. It does not
+say that the shift is zero.
+
+\medskip\noindent
+{\bf What ``arithmetically'' means.}
+
+\begin{definition}
+\label{definition-arithmetically-gorenstein}
+Let $X\subset\mathbb P^N_k$ be a nonempty
+projective scheme, with saturated homogeneous
+ideal $I_X$ and coordinate ring $R=S/I_X$.
+It is {\it arithmetically Cohen--Macaulay}
+if $R$ is Cohen--Macaulay, and
+{\it arithmetically Gorenstein} if $R$ is
+Gorenstein.
+\end{definition}
+
+These are properties of the embedding:
+$R$ is the ring of the affine cone over $X$,
+not the ring of global regular functions
+on $X$. In particular,
+$$
+\dim R=\dim X+1.
+$$
+The cone vertex matters. Smoothness of $X$
+makes its local rings Gorenstein, but does
+not by itself make its homogeneous
+coordinate ring Gorenstein.
+
+\begin{theorem}
+\label{theorem-ag-subcanonical}
+Let $X\subset\mathbb P^N_k$ have positive
+dimension. Then $X$ is arithmetically
+Gorenstein if and only if it is
+arithmetically Cohen--Macaulay and
+$$
+\omega_X\cong\mathcal O_X(a)
+$$
+for some integer $a$.
+The latter condition is called
+{\it subcanonical}.
+\end{theorem}
+
+Here $\omega_X$ is the dualizing sheaf,
+so the statement also applies to singular
+schemes. For an arithmetically
+Cohen--Macaulay scheme of positive dimension,
+one recovers the canonical module from all
+twisted sections of this sheaf; this explains
+why the sheaf condition gives the module
+condition above.
+
+For a positive-dimensional $X$, the ACM
+condition is equivalent to the following
+two requirements: the restriction maps
+$$
+H^0(\mathbb P^N,\mathcal O(t))
+\longrightarrow H^0(X,\mathcal O_X(t))
+$$
+are surjective for every integer $t$, and
+$H^i(X,\mathcal O_X(t))=0$ for every $t$
+and every $0<i<\dim X$.
+Thus being subcanonical alone is not enough.
+
+\begin{example}
+\label{example-ag-complete-intersection}
+Suppose $I=(f_1,\ldots,f_c)$ is generated
+by a homogeneous regular sequence with
+$\deg f_i=e_i$. The Koszul resolution gives
+$$
+\omega_{S/I}\cong
+(S/I)(e_1+\cdots+e_c-N-1).
+$$
+Hence a projective complete intersection is
+arithmetically Gorenstein. Its canonical
+sheaf is trivial when the degrees sum to
+$N+1$. Examples are a quintic in
+$\mathbb P^4$, an intersection of degrees
+$(2,2,3)$ in $\mathbb P^6$, and four
+quadrics in $\mathbb P^7$.
+Smoothness still has to be checked.
+\end{example}
+
+\medskip\noindent
+{\bf The Calabi--Yau connection.}
+For a smooth projective complex threefold
+with $\omega_X\cong\mathcal O_X$ and
+$H^1(X,\mathcal O_X)=0$, Serre duality also
+gives $H^2(X,\mathcal O_X)=0$.
+For positive twists, Kodaira vanishing
+kills higher cohomology; for negative twists,
+Serre duality gives the required vanishing
+of $H^1$ and $H^2$.
+Consequently, if its embedding is
+projectively normal, it is ACM and hence
+arithmetically Gorenstein with $a=0$.
+Here projective normality means that the
+homogeneous coordinate ring is integrally
+closed; for a smooth variety this amounts
+to surjectivity of the restriction maps
+above in nonnegative degrees.
+
+An arbitrary Gorenstein ring need not have
+$a=0$, and an arithmetically Gorenstein
+scheme need not be smooth. Neither word
+alone asserts that we have a Calabi--Yau
+manifold.
+
+\medskip\noindent
+{\bf Reading the free resolution.}
+For a Cohen--Macaulay quotient $R=S/I$,
+its minimal graded free resolution has
+length $c$:
+$$
+0\longrightarrow F_c\longrightarrow\cdots
+\longrightarrow F_1\longrightarrow S
+\longrightarrow R\longrightarrow0.
+$$
+Minimal means that the differential matrices
+have entries in $(x_0,\ldots,x_N)$.
+The summands $S(-b)$ of $F_1$ record the
+degrees of minimal generators of $I$;
+$F_2$ records their minimal relations,
+also called syzygies.
+
+\begin{theorem}
+\label{theorem-gorenstein-resolution}
+For such a Cohen--Macaulay quotient,
+$R$ is Gorenstein if and only if $F_c$ has
+rank one. If $\omega_R=R(a)$ and
+$b=N+1+a$, then
+$$
+F_c=S(-b),\qquad
+F_i\cong
+\operatorname{Hom}_S(F_{c-i},S(-b)).
+$$
+Thus the resolution is self-dual, with a
+shift. In particular its ranks are symmetric.
+\end{theorem}
+
+Symmetric ranks alone are not a proof of
+Gorensteinness: exactness, minimality and
+the Cohen--Macaulay hypothesis matter.
+For an aG Calabi--Yau threefold in
+$\mathbb P^7$, we have $c=4$ and $b=8$.
+The familiar rank pattern
+$(1,16,30,16,1)$ fits this duality.
+The numbers alone do not establish a
+smoothing or determine Hodge numbers.
+
+In codimension two, Gorenstein ideals in a
+polynomial ring are complete intersections.
+In codimension three, the
+Buchsbaum--Eisenbud theorem describes them
+by maximal Pfaffians of an odd-sized
+alternating matrix. A Pfaffian is the
+polynomial whose square is the determinant
+of an even-sized alternating matrix;
+``maximal'' here means deleting one row and
+the corresponding column first.
+Codimension four is the next substantially
+harder case, directly relevant to threefolds
+in $\mathbb P^7$.
+
+\medskip\noindent
+{\bf Artinian reduction and Lefschetz.}
+Over an infinite field, a standard graded
+Cohen--Macaulay ring $R$ of dimension $d$
+admits $d$ linear parameters forming a
+regular sequence. Set
+$$
+A=R/(\ell_1,\ldots,\ell_d).
+$$
+Then $A$ is finite-dimensional, and $R$ is
+Gorenstein if and only if $A$ is Gorenstein.
+If $\omega_R=R(a)$, its socle is concentrated
+in degree $s=a+d$.
+In this case multiplication gives perfect
+pairings
+$$
+A_i\times A_{s-i}\longrightarrow A_s
+\cong k.
+$$
+In particular, $\dim_k A_i=\dim_k A_{s-i}$.
+
+To see the nondegeneracy, take a nonzero
+homogeneous $u\in A_i$. The ideal $uA$
+meets the socle: multiply until the next
+multiplication by the maximal ideal is
+zero. Since the entire socle is $A_s$,
+some $v\in A_{s-i}$ has $uv\ne0$.
+
+This is reminiscent of Poincar\'e duality.
+The Lefschetz property asks for more:
+isomorphisms given by powers of one fixed
+linear element. Perfect multiplication
+pairings do not supply such an element.
+For the strong Lefschetz condition in this
+Gorenstein setting, one asks for
+$\ell\in A_1$
+so that
+$$
+\ell^{s-2i}:A_i\longrightarrow A_{s-i}
+$$
+is an isomorphism for every
+$0\leq i\leq s/2$.
+
+For an aG Calabi--Yau threefold, $d=4$
+and $a=0$, so the Artinian reduction has
+socle degree four. This is why quartic
+Artinian Gorenstein algebras enter the
+study of these projective threefolds.
+The Hilbert series satisfy
+$$
+H_R(t)=\frac{H_A(t)}{(1-t)^d},\qquad
+H_A(t)=\sum_i(\dim_k A_i)t^i.
+$$
+In particular $\deg X=\dim_k A$.
+Passing to $A$ preserves this numerical
+information, but recovering a smooth
+projective variety from $A$ is a separate
+problem.
+
+\medskip\noindent
+{\bf Why this is useful for Kapustka.}
+Coughlan, Go\l\k{e}biowski, G.~Kapustka and
+M.~Kapustka study aG Calabi--Yau threefolds
+in $\mathbb P^7$. Their 2016 paper gives
+examples and a conjectural complete list,
+not a proof of completeness.
+It uses bilinkage and unprojection among
+its construction methods. The point for
+us is that equations and their syzygies
+encode the canonical sheaf, and allow one
+to seek Calabi--Yau varieties beyond
+complete intersections.
+
+In the Stanley--Reisner direction, the
+face ring of a triangulated sphere is
+Gorenstein with $a=0$. Thus the sphere
+condition supplies algebraic duality before
+any smoothing is constructed. For a
+triangulated $3$-sphere this gives a
+projective three-dimensional scheme with
+trivial dualizing sheaf. It does not prove
+that this singular scheme is smoothable.
+
+\medskip\noindent
+{\bf Cox--Gorenstein algebras.}
+The same socle idea works with several
+degrees. We use the connected, positive
+setup: $G$ is a finitely generated abelian
+group with a translation-invariant partial
+order, $A_0=k$, and $A_g=0$ unless $g\geq0$.
+Assume $A$ is finite-dimensional over $k$.
+Then
+$$
+\mathfrak m=\bigoplus_{g\ne0}A_g
+$$
+is its unique maximal ideal.
+
+\begin{definition}
+\label{definition-cox-gorenstein}
+Such a $G$-graded algebra is
+{\it Cox--Gorenstein} if, for some
+$\rho\in G$,
+$$
+\operatorname{Soc}(A)=A_\rho\cong k.
+$$
+The element $\rho$ is its
+{\it socle degree}.
+\end{definition}
+
+This is the Artinian Gorenstein condition
+with the group grading retained.
+It is equivalent to perfect multiplication
+pairings
+$$
+A_g\times A_{\rho-g}\longrightarrow A_\rho.
+$$
+Here a zero piece has a zero partner.
+Every nonzero degree satisfies $g\leq\rho$:
+$\rho$ is a greatest degree, not merely
+one of several incomparable maximal degrees.
+
+Indeed, any nonzero homogeneous principal
+ideal meets the socle, by nilpotence of
+$\mathfrak m$. Thus for $0\ne u\in A_g$
+there is $v\in A_{\rho-g}$ with $uv\ne0$.
+This proves nondegeneracy in both factors.
+Conversely, such perfect pairings rule out
+socle elements in any other degree, since
+those elements annihilate their partners.
+
+The Cox terminology comes from toric
+homogeneous coordinates: for a complete
+normal toric variety $Y$, its Cox ring is
+polynomial, with one variable for each fan
+ray, graded by the divisor class group
+$\operatorname{Cl}(Y)$.
+This group consists of Weil divisors modulo
+principal divisors. A variable has the class
+of its corresponding invariant divisor.
+
+\begin{example}
+\label{example-cox-bigraded}
+For $Y=\mathbb P^1\times\mathbb P^1$,
+$$
+S=k[x_0,x_1,y_0,y_1],
+$$
+with $\deg x_i=(1,0)$ and
+$\deg y_i=(0,1)$.
+The piece $S_{(a,b)}$ consists of
+polynomials homogeneous of degree $a$ in
+$x_0,x_1$ and degree $b$ in $y_0,y_1$.
+It describes sections of
+$\mathcal O_Y(a,b)$.
+
+Consider the homogeneous quotient
+$$
+A=S/(x_0^2,x_1^2,y_0^2,y_1^2).
+$$
+Its basis consists of the sixteen squarefree
+monomials. A monomial is killed by all four
+variables exactly when it contains all four.
+Hence
+$$
+\operatorname{Soc}(A)
+=kx_0x_1y_0y_1=A_{(2,2)}.
+$$
+So $A$ is Cox--Gorenstein with
+$\rho=(2,2)$. The complementary monomial
+pairs each basis monomial with the socle
+monomial. Its bigraded Hilbert series is
+$$
+H_A(u,v)=(1+u)^2(1+v)^2.
+$$
+Thus its symmetry reflects
+$(a,b)\mapsto(2-a,2-b)$.
+\end{example}
+
+This example also separates the objects:
+$Y$ is the toric variety, $S$ its Cox ring,
+and $A$ an Artinian quotient of that ring.
+The ring $S$ is itself Gorenstein because
+it is polynomial, but it is not Artinian.
+The quotient $A$ is not automatically the
+cohomology ring of $Y$: here their total
+vector-space dimensions are sixteen and
+four, respectively.
+
+Nor does $A$ define a nonempty subscheme of
+$Y$ by these equations: all four homogeneous
+coordinates would have to vanish.
+Artinian quotients can encode duality
+without being coordinate rings of nonempty
+projective subvarieties.
+
+\medskip\noindent
+{\bf Multiplication in different directions.}
+For homogeneous $L\in A_\lambda$, powers
+of $L$ give maps
+$$
+L^r:A_g\longrightarrow A_{g+r\lambda}.
+$$
+To reach the dual degree requires
+$g+r\lambda=\rho-g$.
+Unlike the integer-graded case, several
+independent degree directions can occur.
+For example, in the quotient above,
+$x_0+x_1$ is homogeneous of degree $(1,0)$,
+whereas $x_0+y_0$ is not homogeneous for
+the bigrading. Forcing total degree loses
+this distinction.
+
+In characteristic zero, multiplication by
+$(x_0+x_1)^2=2x_0x_1$ identifies
+$A_{(0,b)}$ with $A_{(2,b)}$ for
+$b=0,1,2$. This is a concrete Lefschetz-type
+map in one degree direction. The socle
+pairing alone does not assert maximal rank
+for every proposed multiplication map.
+
+For the precise toric Lefschetz definitions,
+see Definition 5.1 of
+\href{https://arxiv.org/abs/2407.17811}%
+{Bruzzo--Gondim--Holanda--Montoya,
+\textit{Cox--Gorenstein algebras}}.
+The socle definition and duality equivalence
+are Definition 4.3 and Theorem 4.6 in
+version 4. This is the multigraded bridge
+from the local algebra above to the toric
+lecture; it is distinct from imposing an
+arithmetically Gorenstein embedding in
+ordinary projective space.
+
+\medskip\noindent
+{\bf References and next steps.}
+For regular sequences and the local theory,
+see Bruns--Herzog,
+{\it Cohen--Macaulay Rings},
+Chapters 1 and 3, and the Stacks Project,
+Tags \href{https://stacks.math.columbia.edu/%
+tag/00N7}{00N7} and
+\href{https://stacks.math.columbia.edu/%
+tag/0DW6}{0DW6}.
+For sphere face rings, see Stanley,
+{\it Combinatorics and Commutative Algebra},
+the chapter on Stanley--Reisner rings.
+For the geometric motivation, start with
+Sections 1--2 of
+\href{https://arxiv.org/abs/1609.01195}%
+{Coughlan--Go\l\k{e}biowski--Kapustka--%
+Kapustka,
+\textit{Arithmetically Gorenstein
+Calabi--Yau threefolds in projective
+seven-space}}.
+A useful algebraic follow-up is Section 1.1
+of \href{https://arxiv.org/abs/2011.10871}%
+{\textit{Calabi--Yau threefolds in projective
+space and Gorenstein rings}}.
+
+A first exercise is to calculate the socles
+in the two examples above, then derive the
+canonical shift of a complete intersection
+from its Koszul resolution. These are the
+smallest concrete computations behind the
+terminology in the geometry papers.
+
 \section{Kähler differentials}
 \label{section-kahler-differentials}
 
