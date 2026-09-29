@@ -9958,6 +9958,193 @@ from its Koszul resolution. These are the
 smallest concrete computations behind the
 terminology in the geometry papers.
 
+\section{Colon ideals and saturation}
+\label{section-colon-ideals-saturation}
+
+Let $R$ be a commutative Noetherian ring,
+and let $I,J\subseteq R$ be ideals.
+
+\begin{definition}
+\label{definition-colon-ideal}
+The \textit{colon ideal}, or
+\textit{ideal quotient}, is
+$$
+I:J=\{r\in R:rJ\subseteq I\}.
+$$
+For $J=(f)$, write $I:f$.
+This is an ideal of $R$, whereas $R/I$
+is a quotient ring.
+\end{definition}
+
+If $J=(g_1,\ldots,g_s)$, then $r\in I:J$
+means that every product $rg_i$ lies in
+$I$. In particular,
+$$
+I:J=\bigcap_{i=1}^s(I:g_i).
+$$
+
+\begin{example}
+\label{example-colon-two-lines}
+In $k[x,y]$,
+$$
+(xy):(x)=(y).
+$$
+Indeed, $fx$ is divisible by $xy$ exactly
+when $f$ is divisible by $y$.
+The union $V(xy)$ consists of two axes;
+taking this colon ideal leaves the axis
+residual to $V(x)$.
+\end{example}
+
+\begin{definition}
+\label{definition-ideal-saturation}
+The \textit{saturation of $I$ with
+respect to $J$} is
+$$
+I:J^\infty=\bigcup_{m\geq1}(I:J^m).
+$$
+We say that $I$ is \textit{$J$-saturated}
+if $I:J^\infty=I$.
+\end{definition}
+
+Thus membership allows multiplication
+by a sufficiently high power of the
+whole ideal $J$. The ascending chain
+$$
+I:J\subseteq I:J^2\subseteq\cdots
+$$
+stabilizes because $R$ is Noetherian.
+For instance,
+$$
+(x^2y):(x)=(xy),
+\qquad
+(x^2y):(x)^\infty=(y).
+$$
+A single colon removes one factor of
+$x$ here; saturation removes all of them.
+These operations therefore need not agree.
+
+For ideals in a polynomial ring over an
+algebraically closed field, the geometric
+interpretation on underlying closed sets
+is
+$$
+V(I:J^\infty)
+=\overline{V(I)\setminus V(J)}.
+$$
+Saturation takes the closure of the part
+outside $V(J)$; it need not make the
+remaining scheme reduced.
+
+\begin{definition}
+\label{definition-projective-saturation}
+For a homogeneous ideal
+$I\subseteq S=k[x_0,\ldots,x_n]$, put
+$\mathfrak m=(x_0,\ldots,x_n)$.
+Its \textit{projective saturation} is
+$$
+I^{\mathrm{sat}}=I:\mathfrak m^\infty.
+$$
+\end{definition}
+
+The ideals $I$ and $I^{\mathrm{sat}}$
+define the same closed subscheme of
+$\mathbb{P}^n$. This saturation removes
+information supported only at the vertex
+of the affine cone. In linkage, the
+residual ideal is instead obtained by
+taking a colon with the ideal of the
+chosen component.
+
+\section{Linkage}
+\label{section-linkage}
+
+\begin{definition}[Direct linkage]
+\label{definition-direct-linkage}
+For reduced $U,V$ without common
+components in an arithmetically
+Gorenstein $G\subset\mathbb{P}^n$,
+\cite[Section 2.2]{luk2} states:
+\begin{quote}
+``We say that $U$ and $V$ are
+\textit{directly linked} if their union
+is a complete intersection $F$ in $G$''
+\end{quote}
+Scheme-theoretically, using ideals in $G$:
+$$
+\begin{aligned}
+\mathcal{I}_F:\mathcal{I}_U
+&=\mathcal{I}_V,\\
+\mathcal{I}_F:\mathcal{I}_V
+&=\mathcal{I}_U.
+\end{aligned}
+$$
+Locally, $J:K$ consists of functions $f$
+satisfying $fK\subseteq J$.
+Thus each scheme is the residual
+to the other inside $F$.
+Two successive links give a
+\textit{bilinkage}.
+\end{definition}
+
+\begin{example}[From projective space
+to a Calabi--Yau threefold]
+\label{example-bilinkage-degree-seventeen}
+The construction in
+\cite[Section 4.4]{luk2} starts with
+a linear $\Pi\cong\mathbb{P}^3$:
+$$
+\Pi\subset Y=V(q_1,q_2,q_3)
+\subset\mathbb{P}^7,
+\qquad \deg Y=2^3=8.
+$$
+Choose general quadrics $q_i$ through
+$\Pi$, then a general hyperplane
+$H=V(h)$ through $\Pi$.
+The fourfold $Y$ has dimension $7-3=4$.
+Intersecting with $H$ lowers the dimension
+to three, allowing $\Pi$ to be an
+irreducible component.
+
+Its residual threefold $D$ satisfies
+$$
+\begin{aligned}
+Y\cap H&=\Pi\cup D,\\
+I_D&=(q_1,q_2,q_3,h):I_\Pi,\\
+\deg D&=8-1=7.
+\end{aligned}
+$$
+The resolution of $I_D$ supplies
+a cubic $c$ containing $D$ but not $\Pi$.
+Take the residual again:
+$$
+\begin{aligned}
+Y\cap V(c)&=D\cup X,\\
+I_X&=(q_1,q_2,q_3,c):I_D,\\
+\deg X&=3\cdot8-7=17.
+\end{aligned}
+$$
+The paper computes a resolution proving
+that $X$ is arithmetically Gorenstein,
+with
+$$
+\omega_X\cong\mathcal{O}_X,
+\qquad H^1(X,\mathcal{O}_X)=0.
+$$
+It verifies smoothness for an example;
+general choices therefore yield
+Calabi--Yau threefolds.
+Lemma 4.3 establishes that this
+construction reaches general members
+of their deformation family.
+\end{example}
+
+\noindent
+This constructs Calabi--Yau threefolds
+from the rational variety $\mathbb{P}^3$.
+Linkage does not imply birational
+equivalence.
+
 \section{Kähler differentials}
 \label{section-kahler-differentials}
 
@@ -10691,5 +10878,8 @@ construct a finite map $X \to \mathbf{C}^n$,
 and the previous corollary then yields
 smooth points on $X$.
 \end{proof}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
 
 \end{document}
