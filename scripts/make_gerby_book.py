@@ -53,6 +53,7 @@ KNOWN_CHAPTERS = {
     "iv-jornadas-lefschetz-2026",
     "reading-the-masters",
     "real-analysis",
+    "history",
 }
 
 
