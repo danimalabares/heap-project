@@ -15,6 +15,7 @@ RUN apt-get update \
     texlive-fonts-recommended \
     texlive-latex-base \
     texlive-latex-extra \
+    texlive-lang-greek \
     texlive-luatex \
     dvipng \
     ghostscript \

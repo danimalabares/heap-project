@@ -1,5 +1,7 @@
 # Commands
 PDFLATEX = pdflatex
+PDFLATEXFLAGS = -interaction=nonstopmode \
+	-halt-on-error -file-line-error
 BIBTEX = bibtex
 PYTHON ?= python3
 PLASTEX ?= $(PYTHON) scripts/plastex_gerby.py
@@ -16,15 +18,15 @@ PDFS = $(patsubst %.tex,%.pdf,$(GERBY_FILES)) book.pdf
 all: $(PDFS)
 
 # Rule to build a PDF from a .tex + .bib
-%.pdf: %.tex %.aux
-	$(PDFLATEX) $*
+%.pdf: %.tex %.aux preamble.tex my.bib
+	$(PDFLATEX) $(PDFLATEXFLAGS) $*
 	-$(BIBTEX) $*
-	$(PDFLATEX) $*
-	$(PDFLATEX) $*
+	$(PDFLATEX) $(PDFLATEXFLAGS) $*
+	$(PDFLATEX) $(PDFLATEXFLAGS) $*
 
 # Generate .aux (used by bibtex)
 %.aux: %.tex
-	$(PDFLATEX) $*
+	$(PDFLATEX) $(PDFLATEXFLAGS) $*
 
 # Clean up all intermediate files
 .PHONY: clean
@@ -38,11 +40,11 @@ tmp/book.tex: scripts/make_book.py preamble.tex order-chapters.txt $(GERBY_FILES
 .PHONY: book
 book: book.pdf
 
-book.pdf: tmp/book.tex
-	pdflatex tmp/book
-	bibtex book
-	pdflatex tmp/book
-	pdflatex tmp/book
+book.pdf: tmp/book.tex my.bib
+	$(PDFLATEX) $(PDFLATEXFLAGS) tmp/book
+	$(BIBTEX) book
+	$(PDFLATEX) $(PDFLATEXFLAGS) tmp/book
+	$(PDFLATEX) $(PDFLATEXFLAGS) tmp/book
 
 .PHONY: gerby-book gerby-tags gerby-render gerby-import gerby-downloads gerby-deploy-build gerby-serve gerby-serve-prod gerby-smoke
 
