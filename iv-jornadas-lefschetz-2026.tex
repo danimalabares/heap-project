@@ -3714,7 +3714,267 @@ Quinta 01/10, 11:40.
 
 \medskip\noindent
 \textbf{Notes.}
-To be added during the talk.
+There are two constructions generalizing
+the Mayer--Vietoris sequence for two
+ideals of a commutative ring $R$:
+$\mathbb{P}$ uses products and
+$\mathbb{S}$ uses sums.
+They are complexes; their exactness
+requires hypotheses.
+
+The statements below are checked against
+Banerjee--Chardin--Holanda (2026),
+\href{https://arxiv.org/abs/2604.20646}{%
+\emph{Multiple Tor modules: rigidity and
+Mayer--Vietoris spectral sequences}}
+(BCH26). They supplement these partial
+talk notes; the theorem numbering is
+that of the paper.
+
+\medskip\noindent
+\textbf{From two ideals to several.}
+Recall the exact sequence
+$$
+\begin{gathered}
+0\longrightarrow R/(I_1\cap I_2)
+\longrightarrow R/I_1\oplus R/I_2\\
+\longrightarrow R/(I_1+I_2)
+\longrightarrow0.
+\end{gathered}
+$$
+Replacing the intersection by the product
+can destroy injectivity on the left:
+$$
+\operatorname{Tor}_1^R(R/I_1,R/I_2)
+\cong (I_1\cap I_2)/(I_1I_2).
+$$
+This is already a link between Tor
+vanishing and Mayer--Vietoris exactness.
+
+For $I_1,\ldots,I_n$, set
+$\mathbb{S}^0=R/(I_1\cdots I_n)$ and
+$\mathbb{P}_0=0$. For $1\leq p\leq n$,
+$$
+\begin{aligned}
+\mathbb{S}^p
+&=\bigoplus_{i_1<\cdots<i_p}
+R/(I_{i_1}+\cdots+I_{i_p}),\\
+\mathbb{P}_p
+&=\bigoplus_{i_1<\cdots<i_p}
+R/(I_{i_1}\cdots I_{i_p}).
+\end{aligned}
+$$
+The differentials are alternating sums
+of the natural quotient maps: increasing
+$p$ for $\mathbb{S}$ and decreasing $p$
+for $\mathbb{P}$.
+
+\medskip\noindent
+\textbf{Canonical free resolutions.}
+Rafael uses canonical free resolutions,
+rather than minimal ones, to define
+multiple Tor. One standard construction
+starts with
+$$
+F(M)=\bigoplus_{m\in M}Re_m,
+\qquad e_m\longmapsto m.
+$$
+Take the free module on every element
+of the kernel, then repeat.
+No generating set needs to be chosen,
+but the resulting resolution can be
+enormous and impractical to compute.
+This explains the existence-versus-use
+point from the talk; the paper does not
+spell out the canonical construction.
+
+Choose free resolutions
+$F^{(a)}_\bullet\longrightarrow M_a$.
+The multiple Tor modules are
+$$
+\operatorname{Tor}_i^R(M_1,\ldots,M_s)
+=H_i\!\left(\operatorname{Tot}
+\left(\bigotimes_{a=1}^s
+F^{(a)}_\bullet\right)\right).
+$$
+Here the total complex groups together
+tensor terms whose homological degrees
+sum to the same integer.
+One may use any flat resolutions.
+The modules are independent of this
+choice and symmetric in the entries.
+In degree zero they give
+$$
+\operatorname{Tor}_0^R(M_1,\ldots,M_s)
+\cong M_1\otimes_R\cdots\otimes_R M_s.
+$$
+The background is EGA III, part I,
+Section 6. For example, flat base change
+$R\longrightarrow A$ gives
+$$
+\begin{aligned}
+&\operatorname{Tor}_i^A
+(M_1\otimes_R A,\ldots,M_s\otimes_R A)\\
+&\qquad\cong
+\operatorname{Tor}_i^R(M_1,\ldots,M_s)
+\otimes_R A.
+\end{aligned}
+$$
+See BCH26, Section 2, especially
+Proposition 2.4, citing EGA III, 6.9.2.
+
+\medskip\noindent
+\textbf{Question about flatness.}
+Wouldn't flat mean that Tor vanishes for
+all degrees? Yes, for ordinary Tor:
+$M$ is flat precisely when
+$$
+\operatorname{Tor}_i^R(M,N)=0
+$$
+for every $R$-module $N$ and every $i>0$.
+It suffices to check $i=1$ for every $N$.
+Degree zero is the tensor product.
+Tensoring a resolution with a flat module
+preserves exactness, which explains the
+positive-degree vanishing.
+
+For multiple Tor, one flat entry alone
+does not suffice. For example,
+$$
+\operatorname{Tor}_i^R(R,M,N)
+\cong\operatorname{Tor}_i^R(M,N),
+$$
+which can be nonzero. Flat terms in the
+chosen resolutions do not mean that
+the modules being resolved are flat.
+
+\begin{theorem}[BCH26, Theorem 1.1]
+\label{theorem-rafael-rigidity}
+Suppose $R$ is local and regular and
+contains a field. Take nonzero finitely
+generated modules $M_1,\ldots,M_s$ and put
+$$
+T_i=\operatorname{Tor}_i^R
+(M_1,\ldots,M_s),\qquad
+M=M_1\otimes_R\cdots\otimes_R M_s.
+$$
+For $i>0$, $T_i=0$ implies $T_j=0$ for
+every $j\geq i$. It also implies
+$$
+\operatorname{Tor}_i^R
+(M_1,\ldots,M_t)=0
+$$
+for every $t<s$, in any ordering.
+
+Moreover, these conditions are equivalent:
+\begin{enumerate}
+\item $T_1=0$ and $M$ is Cohen--Macaulay.
+\item The following equality holds:
+$$
+\operatorname{codim}_R M
+=\sum_{a=1}^s\operatorname{pd}_R M_a.
+$$
+\item Each $M_a$ is Cohen--Macaulay and
+their intersection is proper, meaning
+$$
+\operatorname{codim}_R M
+=\sum_{a=1}^s\operatorname{codim}_R M_a.
+$$
+\end{enumerate}
+Here codimension means $\dim R-\dim M$,
+and $\operatorname{pd}_R$ denotes
+projective dimension.
+\end{theorem}
+
+Unlike the flatness criterion, rigidity
+tests vanishing for one fixed collection
+of modules. It does not assert that
+those modules are flat.
+
+\medskip\noindent
+\textbf{Tor independence.}
+The ideals are called Tor-independent
+when
+$$
+\operatorname{Tor}_i^R
+(R/I_1,\ldots,R/I_n)=0
+$$
+for every $i>0$. Strong Tor independence
+requires this for every subcollection.
+
+\begin{proposition}[BCH26, Proposition 1.4]
+\label{proposition-rafael-spectral}
+Assume strong Tor independence of
+$I_1,\ldots,I_n$. For any $R$-module $N$
+there are two spectral sequences, with
+$1\leq p\leq n$ and $q\geq0$:
+$$
+\begin{aligned}
+E^1_{p,q}
+&=\bigoplus_{i_1<\cdots<i_p}
+\operatorname{Tor}_q^R\!\left(
+N,\frac{R}{I_{i_1}+\cdots+I_{i_p}}
+\right)\\
+&\Longrightarrow
+\operatorname{Tor}_{q-p+1}^R\!\left(
+N,\frac{R}{I_1\cdots I_n}\right),
+\end{aligned}
+$$
+and
+$$
+\begin{aligned}
+{}'E^1_{p,q}
+&=\bigoplus_{i_1<\cdots<i_p}
+\operatorname{Tor}_q^R\!\left(
+N,\frac{R}{I_{i_1}\cdots I_{i_p}}
+\right)\\
+&\Longrightarrow
+\operatorname{Tor}_{q+p-1}^R\!\left(
+N,\frac{R}{I_1+\cdots+I_n}\right).
+\end{aligned}
+$$
+\end{proposition}
+
+The first passes from sums to the product;
+the second passes from products to the sum.
+These are Corollaries 4.7 and 4.11 in
+the body of the paper.
+
+Another result relates Tor independence
+to exactness of the complexes above.
+Under strong Tor independence both
+$$
+0\longrightarrow\mathbb{S}^0
+\longrightarrow\mathbb{S}^1
+\longrightarrow\cdots
+\longrightarrow\mathbb{S}^n
+\longrightarrow0
+$$
+and
+$$
+\begin{gathered}
+0\longrightarrow\mathbb{P}_n
+\longrightarrow\cdots
+\longrightarrow\mathbb{P}_1\\
+\longrightarrow R/(I_1+\cdots+I_n)
+\longrightarrow0
+\end{gathered}
+$$
+are exact (BCH26, Theorem 1.3).
+
+\medskip\noindent
+\textbf{Final result: Noetherian setting.}
+Daniel recalls a final BCH26 result
+requiring the ring to be Noetherian,
+possibly the most important result
+of the talk. Its precise statement
+still needs to be recovered from the
+slides or from Rafael.
+The rigidity theorem above assumes
+regularity, locality and containment of
+a field; Noetherianity alone is not its
+hypothesis. These notes do not identify
+it with the final result from memory.
 
 \section{Hessians, curvature and lightlike
 hypersurfaces}
