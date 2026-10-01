@@ -4996,6 +4996,335 @@ rest of the curve in at least three points.
 We may study the moduli of $k$-stable curves,
 or the space of $k$-gonal structures.
 
+\section{Sheaf primer for Jardim}
+\label{section-sheaf-primer-jardim}
+
+Background for the linkage exercises at
+the Lefschetz workshop, September 2026.
+Unless stated otherwise, $X$ is a smooth
+integral variety over $\mathbb{C}$ and
+the sheaves are coherent.
+
+\medskip\noindent
+\textbf{Coherent, locally free, bundle.}
+A coherent sheaf is locally described by
+finitely many generators and relations.
+On an affine open $\operatorname{Spec}R$
+it corresponds to a finite $R$-module.
+It is \emph{locally free of rank $r$} if
+each point has a neighbourhood $U$ with
+$$
+\mathcal{F}|_U\cong\mathcal{O}_U^{\oplus r}.
+$$
+These are exactly the sheaves of sections
+of algebraic vector bundles of rank $r$.
+A line bundle has rank one; its sheaf is
+also called \emph{invertible}.
+The rank of a coherent sheaf is its
+dimension over the function field at the
+generic point. Rank $r$ alone does not
+imply local freeness.
+
+\medskip\noindent
+\textbf{Torsion is about multiplication.}
+Over a domain $R$, an element $m$ of an
+$R$-module $M$ is torsion if $fm=0$ for
+some nonzero $f\in R$.
+The module is \emph{torsion-free} if
+only $m=0$ can satisfy this condition.
+It is a \emph{torsion module} if every
+element is torsion. A sheaf has these
+properties when its stalks do.
+
+For example, take
+$$
+R=\mathbb{C}[x],\qquad M=R/(x).
+$$
+Then $x\overline{1}=0$ although
+$x\ne0$ in $R$ and $\overline{1}\ne0$
+in $M$. All elements of $M$ are scalar
+multiples of $\overline{1}$; this is not
+the only nonzero element.
+Moreover $M\cong\mathbb{C}$ as a ring,
+so there are no nonzero nilpotents.
+Torsion concerns the action of $R$ on
+$M$; nilpotence concerns powers inside
+a ring. They are different notions.
+
+For a proper closed subscheme $Z$ of $X$,
+$\mathcal{O}_Z$, viewed on $X$, is torsion.
+In contrast $\mathcal{I}_Z$ is
+torsion-free, since it is a subsheaf of
+$\mathcal{O}_X$. The sequence is
+$$
+0\longrightarrow\mathcal{I}_Z
+\longrightarrow\mathcal{O}_X
+\longrightarrow\mathcal{O}_Z
+\longrightarrow0.
+$$
+The ideal sheaf of a curve in
+$\mathbb{P}^3$ need not be locally free.
+
+\medskip\noindent
+\textbf{Dual, evaluation, reflexive.}
+For modules, put
+$$
+M^*=\operatorname{Hom}_R(M,R),\qquad
+M^{**}=\operatorname{Hom}_R(M^*,R).
+$$
+An element $m$ defines a functional on
+$M^*$ by evaluating functionals at $m$:
+$$
+\begin{aligned}
+\operatorname{ev}:M&\longrightarrow M^{**},\\
+\operatorname{ev}(m)(\varphi)&=\varphi(m).
+\end{aligned}
+$$
+This construction requires no basis.
+It is natural: for $u:M\to N$,
+$$
+u^{**}\operatorname{ev}_M
+=\operatorname{ev}_N u.
+$$
+Thus the familiar finite-dimensional
+isomorphism $V\cong V^{**}$ comes with
+a distinguished map. Reflexivity asks
+whether this particular map remains an
+isomorphism for modules and sheaves.
+
+For sheaves, use the sheaf of local
+homomorphisms:
+$$
+\mathcal{F}^*
+=\mathcal{H}om_{\mathcal{O}_X}
+(\mathcal{F},\mathcal{O}_X).
+$$
+The sheaf is \emph{reflexive} if its
+evaluation map to $\mathcal{F}^{**}$ is
+an isomorphism. For coherent sheaves
+on an integral Noetherian scheme,
+torsion-freeness means this map is
+injective; reflexivity also requires
+surjectivity.
+
+Here is the proof that reflexive implies
+torsion-free. If $fm=0$ with $f\ne0$,
+then for every $\varphi\in M^*$,
+$$
+f\varphi(m)=\varphi(fm)=0.
+$$
+Since $R$ is a domain, $\varphi(m)=0$.
+Thus $\operatorname{ev}(m)=0$, so the
+injectivity of evaluation gives $m=0$.
+Locally free sheaves are reflexive,
+because finite free modules equal their
+double duals by evaluation.
+
+The converses fail in general.
+For a line $L\subset\mathbb{P}^3$,
+$$
+\mathcal{I}_L^{**}\cong\mathcal{O},
+\qquad \mathcal{I}_L\ne\mathcal{O}.
+$$
+Thus $\mathcal{I}_L$ is torsion-free
+but not reflexive.
+On a smooth surface, reflexive sheaves
+are locally free. On a smooth threefold,
+they are locally free outside a subset
+of codimension at least three, so on
+$\mathbb{P}^3$ only finitely many points
+can fail local freeness.
+See the Stacks Project,
+\href{%
+https://stacks.math.columbia.edu/tag/0AV0%
+}{Tag 0AV0} and
+\href{%
+https://stacks.math.columbia.edu/tag/0AVT%
+}{Tag 0AVT}.
+
+\medskip\noindent
+\textbf{Twists and sections.}
+On projective space, the parentheses
+denote tensoring with a line bundle:
+$$
+\begin{aligned}
+\mathcal{F}(a)&=
+\mathcal{F}\otimes\mathcal{O}(a),\\
+\mathcal{F}(a)(b)&=\mathcal{F}(a+b),\\
+\mathcal{O}(a)^*&=\mathcal{O}(-a).
+\end{aligned}
+$$
+Tensoring with $\mathcal{O}(a)$ is exact
+and does not change the rank. Moreover
+$$
+\operatorname{Hom}(\mathcal{O}(-a),E)
+\cong H^0(E(a)).
+$$
+This is why a section of $E(a)$ becomes
+an arrow $\mathcal{O}(-a)\to E$.
+The image is \emph{saturated} if the
+quotient is torsion-free. Injectivity
+alone does not guarantee this.
+
+\medskip\noindent
+\textbf{Chern classes and the integers.}
+Over $\mathbb{C}$, these are the same
+characteristic classes encountered in
+differential geometry:
+$$
+c_i(E)\in H^{2i}(X,\mathbb{Z}).
+$$
+Algebraically they also have cycle-class
+versions. On $\mathbb{P}^3$, put
+$H=c_1(\mathcal{O}(1))$ and write
+$$
+c_1(E)=cH,\qquad c_2(E)=eH^2.
+$$
+The blackboard often writes $c_1,c_2$
+for the integers $c,e$.
+For rank two, twisting gives
+$$
+\begin{aligned}
+c_1(E(a))&=(c+2a)H,\\
+c_2(E(a))&=(e+ac+a^2)H^2.
+\end{aligned}
+$$
+One can remember this by adding $aH$
+to each of the two formal Chern roots.
+If a section of $E(a)$ has a regular
+curve as zero scheme $C$, then
+$$
+[C]=c_2(E(a)),\qquad
+\deg C=e+ac+a^2.
+$$
+This explains why $c_2$ appears in the
+line/conic exercise.
+Taking determinants in its exact
+sequence gives the quotient twist:
+$$
+0\longrightarrow\mathcal{O}(-a)
+\longrightarrow E
+\longrightarrow\mathcal{I}_C(c+a)
+\longrightarrow0.
+$$
+Indeed the first Chern classes add as
+$-a+(c+a)=c$.
+
+Chern classes of a coherent sheaf on
+smooth projective space are defined
+using a finite resolution by bundles.
+A rank-two vector bundle has $c_3=0$.
+A rank-two reflexive sheaf need not:
+its higher Chern classes can retain
+information about its singularities.
+
+\medskip\noindent
+\textbf{Why Ext enters an exact sequence.}
+An element of $\operatorname{Ext}^1(B,A)$
+classifies an extension, with the end
+terms fixed,
+$$
+0\longrightarrow A\longrightarrow E
+\longrightarrow B\longrightarrow0.
+$$
+Zero is the split extension $A\oplus B$.
+Nonzero means nonsplit, not that $E$ is
+locally free. Applying either Hom functor
+to a short exact sequence produces a
+long exact sequence. For example,
+$$
+\begin{aligned}
+0&\longrightarrow\operatorname{Hom}(B,A)\\
+&\longrightarrow\operatorname{Hom}(E,A)\\
+&\longrightarrow\operatorname{Hom}(A,A)\\
+&\xrightarrow{\delta}
+\operatorname{Ext}^1(B,A)\\
+&\longrightarrow\operatorname{Ext}^1(E,A)
+\longrightarrow\cdots.
+\end{aligned}
+$$
+The image $\delta(1_A)$ is the extension
+class, with the usual Yoneda convention.
+It vanishes exactly when the sequence
+splits.
+
+Over a ring, Ext can be computed by a
+projective resolution of the first
+argument or an injective resolution of
+the second. These compute the same
+bifunctor: for resolutions $P_\bullet$
+and $I^\bullet$, the two computations
+are compared by the double complex
+$$
+\operatorname{Hom}(P_\bullet,I^\bullet).
+$$
+For sheaves, a locally free resolution
+computes sheaf Hom complexes, whose
+hypercohomology gives global Ext.
+Locally free sheaves are not in general
+projective objects for global Hom.
+In particular, if $E$ is locally free,
+$$
+\operatorname{Ext}^i(E,A)
+\cong H^i(X,E^*\otimes A).
+$$
+Global Ext is a vector space; sheaf Ext
+is a sheaf. They should not be confused.
+
+\medskip\noindent
+\textbf{The vanishing actually used.}
+For every integer $m$,
+$$
+H^i(\mathbb{P}^n,\mathcal{O}(m))=0
+\qquad(0<i<n).
+$$
+This is not a vanishing theorem for
+arbitrary coherent sheaves, nor for top
+cohomology. For example,
+$$
+H^n(\mathbb{P}^n,\mathcal{O}(-n-1))
+\cong\mathbb{C}.
+$$
+On $\mathbb{P}^3$ the intermediate
+vanishing of line bundles is what
+identifies the $H^1_*$ of a bundle and
+its quotient by a line sheaf.
+
+\medskip\noindent
+\textbf{Serre duality in the exercise.}
+For coherent $F,G$ on a smooth projective
+$n$-fold, Serre duality gives
+$$
+\operatorname{Ext}^i(F,G)
+\cong\operatorname{Ext}^{n-i}
+(G,F\otimes\omega_X)^\vee.
+$$
+Here $\vee$ denotes the vector-space
+dual. In particular, on $\mathbb{P}^3$,
+$$
+\begin{aligned}
+&\operatorname{Ext}^1
+(\mathcal{I}_C(c+a),\mathcal{O}(-a))\\
+&\quad\cong\operatorname{Ext}^2
+(\mathcal{O}(-a),\mathcal{I}_C(c+a-4))^\vee
+\\
+&\quad\cong H^2
+(\mathbb{P}^3,\mathcal{I}_C(c+2a-4))^\vee.
+\end{aligned}
+$$
+The $-4$ comes from
+$\omega_{\mathbb{P}^3}=\mathcal{O}(-4)$;
+the second $a$ comes from dualizing
+$\mathcal{O}(-a)$ in the first argument.
+Finally the ideal sequence and the
+vanishing just recalled give
+$$
+H^2(\mathbb{P}^3,\mathcal{I}_C(m))
+\cong H^1(C,\mathcal{O}_C(m)).
+$$
+Thus extension spaces can be computed
+from cohomology on the curve.
+
 \section{Reduced schemes}
 \label{section-reduced}
 
