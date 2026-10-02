@@ -250,8 +250,6 @@ def body_for(filename):
     path = Path(filename)
     prefix = path.stem
     content = path.read_text(encoding="utf-8")
-    content = re.sub(r"\\mathbb\{([^{}]+)\}", r"\1", content)
-    content = re.sub(r"\\text\{([^{}]+)\}", r"\1", content)
     content = re.sub(r"\\label\{([^}]*)\}", lambda match: "\\label{" + " ".join(match.group(1).split()) + "}", content)
     lines = content.splitlines(True)
     title = chapter_title(lines, prefix)
