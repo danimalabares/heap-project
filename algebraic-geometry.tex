@@ -4996,11 +4996,9 @@ rest of the curve in at least three points.
 We may study the moduli of $k$-stable curves,
 or the space of $k$-gonal structures.
 
-\section{Sheaf primer for Jardim}
-\label{section-sheaf-primer-jardim}
+\section{Coherent and reflexive sheaves}
+\label{section-coherent-reflexive-sheaves}
 
-Background for the linkage exercises at
-the Lefschetz workshop, September 2026.
 Unless stated otherwise, $X$ is a smooth
 integral variety over $\mathbb{C}$ and
 the sheaves are coherent.
@@ -5092,20 +5090,47 @@ a distinguished map. Reflexivity asks
 whether this particular map remains an
 isomorphism for modules and sheaves.
 
-For sheaves, use the sheaf of local
-homomorphisms:
+\begin{definition}
+\label{definition-reflexive}
+Let $X$ be an integral locally Noetherian
+scheme. Let $\mathcal{F}$
+be a coherent $\mathcal{O}_X$-module.
+The {\it reflexive hull}
+of $\mathcal{F}$ is the
+$\mathcal{O}_X$-module
 $$
-\mathcal{F}^*
-=\mathcal{H}om_{\mathcal{O}_X}
-(\mathcal{F},\mathcal{O}_X).
+\mathcal{F}^{**}
+=\mathcal{H}om_{\mathcal{O}_X}(
+\mathcal{H}om_{\mathcal{O}_X}(\mathcal{F},
+\mathcal{O}_X), \mathcal{O}_X)
 $$
-The sheaf is \emph{reflexive} if its
-evaluation map to $\mathcal{F}^{**}$ is
-an isomorphism. For coherent sheaves
-on an integral Noetherian scheme,
-torsion-freeness means this map is
-injective; reflexivity also requires
-surjectivity.
+We say $\mathcal{F}$ is {\it reflexive}
+if the natural map
+$j : \mathcal{F} \longrightarrow
+\mathcal{F}^{**}$
+is an isomorphism.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-reflexive-torsion-free}
+Let $X$ be an integral locally Noetherian
+scheme. Let $\mathcal{F}$
+be a coherent $\mathcal{O}_X$-module.
+\begin{enumerate}
+\item If $\mathcal{F}$ is reflexive, then
+$\mathcal{F}$
+is torsion free.
+\item The map $j : \mathcal{F}
+\longrightarrow \mathcal{F}^{**}$
+is injective if and only if $\mathcal{F}$
+is torsion free.
+\end{enumerate}
+\end{lemma}
+
+The evaluation map above is the natural
+map in the definition. Torsion-freeness
+requires injectivity; reflexivity also
+requires surjectivity.
 
 Here is the proof that reflexive implies
 torsion-free. If $fm=0$ with $f\ne0$,
@@ -5154,8 +5179,14 @@ $$
 \mathcal{O}(a)^*&=\mathcal{O}(-a).
 \end{aligned}
 $$
-Tensoring with $\mathcal{O}(a)$ is exact
-and does not change the rank. Moreover
+Locally free sheaves are flat: on each
+trivializing open set, tensoring makes
+copies of the original exact sequence.
+See Commutative Algebra, Lemma
+\ref{commutative-algebra-%
+lemma-free-tensor-copies}.
+Thus tensoring with $\mathcal{O}(a)$ is
+exact and does not change rank. Moreover
 $$
 \operatorname{Hom}(\mathcal{O}(-a),E)
 \cong H^0(E(a)).
@@ -5166,8 +5197,38 @@ The image is \emph{saturated} if the
 quotient is torsion-free. Injectivity
 alone does not guarantee this.
 
-\medskip\noindent
-\textbf{Chern classes and the integers.}
+For example, multiplication by the
+equation of a hyperplane $H$ gives an
+injection $\mathcal{O}(-1)\to\mathcal{O}$.
+It is not saturated: the quotient
+$\mathcal{O}_H$ is torsion on the
+ambient projective space.
+
+\begin{lemma}
+\label{lemma-line-to-torsion-free}
+On an integral variety, a map from a
+line bundle to a torsion-free coherent
+sheaf is either zero or injective.
+\end{lemma}
+
+\begin{proof}
+A nonzero map is nonzero at the generic
+point, since its target has no torsion.
+There it is a nonzero map out of a
+one-dimensional vector space, hence
+injective. Its kernel would therefore
+be torsion, but a line bundle has none.
+
+Locally, the argument is just this:
+a map $R\to M$ sends $1$ to some $m$.
+If a nonzero $f$ is in its kernel, then
+$fm=0$. Torsion-freeness forces $m=0$,
+so the map is zero.
+\end{proof}
+
+\section{Chern classes of coherent sheaves}
+\label{section-chern-coherent-sheaves}
+
 Over $\mathbb{C}$, these are the same
 characteristic classes encountered in
 differential geometry:
@@ -5180,8 +5241,8 @@ $H=c_1(\mathcal{O}(1))$ and write
 $$
 c_1(E)=cH,\qquad c_2(E)=eH^2.
 $$
-The blackboard often writes $c_1,c_2$
-for the integers $c,e$.
+We often identify a Chern class with
+its integer coefficient in this basis.
 For rank two, twisting gives
 $$
 \begin{aligned}
@@ -5191,24 +5252,15 @@ c_2(E(a))&=(e+ac+a^2)H^2.
 $$
 One can remember this by adding $aH$
 to each of the two formal Chern roots.
-If a section of $E(a)$ has a regular
-curve as zero scheme $C$, then
+If a section of $E(a)$ has zero scheme
+$C$ of pure codimension two, then
 $$
 [C]=c_2(E(a)),\qquad
 \deg C=e+ac+a^2.
 $$
-This explains why $c_2$ appears in the
-line/conic exercise.
-Taking determinants in its exact
-sequence gives the quotient twist:
-$$
-0\longrightarrow\mathcal{O}(-a)
-\longrightarrow E
-\longrightarrow\mathcal{I}_C(c+a)
-\longrightarrow0.
-$$
-Indeed the first Chern classes add as
-$-a+(c+a)=c$.
+Thus the second Chern class computes
+the degree of the zero curve; see
+Section \ref{section-sections-zero-schemes}.
 
 Chern classes of a coherent sheaf on
 smooth projective space are defined
@@ -5218,63 +5270,57 @@ A rank-two reflexive sheaf need not:
 its higher Chern classes can retain
 information about its singularities.
 
-\medskip\noindent
-\textbf{Why Ext enters an exact sequence.}
-An element of $\operatorname{Ext}^1(B,A)$
-classifies an extension, with the end
-terms fixed,
+More explicitly, a locally free resolution
+$V_\bullet\to F$ gives
 $$
-0\longrightarrow A\longrightarrow E
-\longrightarrow B\longrightarrow0.
+c(F)=\prod_i c(V_i)^{(-1)^i}.
 $$
-Zero is the split extension $A\oplus B$.
-Nonzero means nonsplit, not that $E$ is
-locally free. Applying either Hom functor
-to a short exact sequence produces a
-long exact sequence. For example,
+For an exact sequence
+$0\to A\to B\to C\to0$, this yields
 $$
-\begin{aligned}
-0&\longrightarrow\operatorname{Hom}(B,A)\\
-&\longrightarrow\operatorname{Hom}(E,A)\\
-&\longrightarrow\operatorname{Hom}(A,A)\\
-&\xrightarrow{\delta}
-\operatorname{Ext}^1(B,A)\\
-&\longrightarrow\operatorname{Ext}^1(E,A)
-\longrightarrow\cdots.
-\end{aligned}
+c(B)=c(A)c(C).
 $$
-The image $\delta(1_A)$ is the extension
-class, with the usual Yoneda convention.
-It vanishes exactly when the sequence
-splits.
+On $\mathbb{P}^3$ the calculation takes
+place in $\mathbb{Z}[H]/(H^4)$.
+This makes resolutions a practical way
+to compare possible middle sheaves;
+see Example \ref{example-common-plane}.
 
-Over a ring, Ext can be computed by a
-projective resolution of the first
-argument or an injective resolution of
-the second. These compute the same
-bifunctor: for resolutions $P_\bullet$
-and $I^\bullet$, the two computations
-are compared by the double complex
-$$
-\operatorname{Hom}(P_\bullet,I^\bullet).
-$$
+\section{Sheaf Ext and duality}
+\label{section-sheaf-ext-duality}
+
+Global $\operatorname{Ext}^1(B,A)$
+classifies extensions with fixed end
+terms. Zero is the split extension;
+a nonzero class need not have a locally
+free middle sheaf. See Homological
+Algebra, Section
+\ref{homological-algebra-section-extensions}
+and Lemma
+\ref{homological-algebra-%
+lemma-extension-class-retraction}.
+
 For sheaves, a locally free resolution
-computes sheaf Hom complexes, whose
+computes a sheaf Hom complex, whose
 hypercohomology gives global Ext.
-Locally free sheaves are not in general
+Locally free sheaves need not be
 projective objects for global Hom.
-In particular, if $E$ is locally free,
+If $E$ is locally free, then
 $$
 \operatorname{Ext}^i(E,A)
 \cong H^i(X,E^*\otimes A).
 $$
-Global Ext is a vector space; sheaf Ext
-is a sheaf. They should not be confused.
+For example, on $\mathbb{P}^3$,
+$$
+\operatorname{Ext}^3
+(\mathcal{O},\mathcal{O}(-4))
+\cong\mathbb{C},
+$$
+although all the positive sheaf Exts
+of $\mathcal{O}$ vanish.
 
 \medskip\noindent
-\textbf{Charles's explanation: sheaf Ext
-detects local freeness and reflexivity.}
-From the October 1 blackboard photos.
+\textbf{Local freeness and reflexivity.}
 The sheaf $\mathcal{E}xt^i(F,G)$ is the
 sheafification of the presheaf
 $$
@@ -5295,8 +5341,8 @@ $$
 Thus it records a local obstruction,
 rather than one global extension space.
 
-Here are the precise hypotheses for
-the equivalences on the board.
+\begin{proposition}
+\label{proposition-threefold-sheaf-ext}
 Let $X$ be a smooth projective threefold
 and $F$ a coherent torsion-free sheaf.
 Put
@@ -5315,6 +5361,7 @@ is a finite set of points, possibly
 empty. For a reflexive $F$, this becomes:
 $F$ is locally free if and only if
 $\mathcal{E}^1=0$.
+\end{proposition}
 
 More generally, if a torsion-free $F$
 locally has a resolution of length one,
@@ -5328,9 +5375,9 @@ setting the two tests are particularly
 simple: vanishing of $\mathcal{E}^1$
 means locally free, and finite support
 of $\mathcal{E}^1$ means reflexive.
-This applies to the middle sheaves in
-Jardim's extensions by ideal sheaves of
-locally complete intersection curves.
+This applies to extensions of ideal
+sheaves of locally complete intersection
+curves by line bundles.
 
 Why does this work? At a point of a
 smooth threefold the local ring is
@@ -5388,7 +5435,8 @@ On a threefold, a support of codimension
 at least four must be empty.
 
 \medskip\noindent
-\textbf{The vanishing actually used.}
+\textbf{Line-bundle cohomology.}
+\label{paragraph-projective-line-cohomology}
 For every integer $m$,
 $$
 H^i(\mathbb{P}^n,\mathcal{O}(m))=0
@@ -5407,7 +5455,8 @@ identifies the $H^1_*$ of a bundle and
 its quotient by a line sheaf.
 
 \medskip\noindent
-\textbf{Serre duality in the exercise.}
+\textbf{Computing extension spaces.}
+\label{paragraph-curve-extension-duality}
 For coherent $F,G$ on a smooth projective
 $n$-fold, Serre duality gives
 $$
@@ -5440,6 +5489,628 @@ H^2(\mathbb{P}^3,\mathcal{I}_C(m))
 $$
 Thus extension spaces can be computed
 from cohomology on the curve.
+
+\section{Sections and zero schemes}
+\label{section-sections-zero-schemes}
+
+Let $X=\mathbb{P}^3_{\mathbb{C}}$ and
+let $E$ be a rank-two bundle with
+$\det E=\mathcal{O}(c)$.
+A section $s\in H^0(E(a))$ is a map
+$\mathcal{O}\to E(a)$. Twisting gives
+$s:\mathcal{O}(-a)\to E$.
+If its zero scheme $C$ has pure
+codimension two, there is an exact
+sequence
+\begin{equation}
+\label{equation-section-ideal-sequence}
+0\longrightarrow\mathcal{O}(-a)
+\xrightarrow{s}E
+\longrightarrow\mathcal{I}_C(c+a)
+\longrightarrow0.
+\end{equation}
+
+Locally, write $s=(f,g)$, so
+$\mathcal{I}_C=(f,g)$.
+Two equations cutting codimension two
+in a regular local ring form a regular
+sequence. Thus $C$ is locally a complete
+intersection. The ring-theoretic fact
+is the Cohen--Macaulay criterion in
+\href{%
+https://stacks.math.columbia.edu/tag/02JN%
+}{Stacks, Tag 02JN}.
+The map
+$$
+(u,v)\longmapsto fv-gu
+$$
+has image $(f,g)$ and kernel generated
+by $(f,g)$. This explains the quotient
+in \eqref{equation-section-ideal-sequence}.
+Globally the map is wedge product with
+$s$, and its target is
+$\det E\otimes\mathcal{O}(a)$; this
+gives the twist $c+a$.
+Since an ideal sheaf is torsion-free,
+the inclusion of the line sheaf is
+saturated.
+
+\begin{theorem}[Hartshorne--Serre]
+\label{theorem-serre-rank-two-curves}
+A curve $C\subset\mathbb{P}^3$ is the
+zero scheme of a section of a rank-two
+bundle if and only if it is locally
+a complete intersection and
+\emph{subcanonical}: for some integer
+$m$, its dualizing sheaf satisfies
+$$
+\omega_C\cong\mathcal{O}_C(m).
+$$
+In \eqref{equation-section-ideal-sequence},
+adjunction gives
+$$
+\omega_C\cong\mathcal{O}_C(c+2a-4).
+$$
+\end{theorem}
+
+See Arrondo,
+\href{https://arxiv.org/abs/math/0610015}
+{A home-made Hartshorne--Serre
+correspondence}, Theorem 1.
+The converse uses
+$H^2(\mathbb{P}^3,\mathcal{O}(n))=0$.
+This does not cover every smooth curve:
+for a twisted cubic,
+$\deg\omega_C=-2$ while
+$\deg\mathcal{O}_C(m)=3m$.
+
+For two curves, coming from twists of
+one common bundle is stronger than
+belonging to the same even liaison
+class. The cohomological implication
+is proved in Commutative Algebra,
+Lemma \ref{commutative-algebra-%
+lemma-common-bundle-rao}; a line and
+a conic show the converse fails in
+Example \ref{example-line-conic-bundle}.
+
+\medskip\noindent
+\textbf{Higher rank and degeneracy loci.}
+For a rank-$r$ bundle, one section has
+expected zero-locus codimension $r$.
+To obtain a curve in $\mathbb{P}^3$,
+instead consider $r-1$ sections:
+$$
+\mathcal{O}(-a)^{\oplus(r-1)}
+\longrightarrow E.
+$$
+Their dependence locus is defined by
+the maximal minors of the local
+$r$ by $r-1$ matrix. When it has
+codimension two, the corresponding
+exact sequence is
+$$
+0\longrightarrow
+\mathcal{O}(-a)^{\oplus(r-1)}
+\longrightarrow E
+\longrightarrow\mathcal{I}_C(b)
+\longrightarrow0,
+\qquad b=c+(r-1)a.
+$$
+At rank two this is the zero scheme
+of a single section.
+
+\section{Common extensions of sheaves}
+\label{section-common-extensions}
+
+Work on $\mathbb{P}^3$ and suppose
+$$
+0\longrightarrow A_i\xrightarrow{s_i}E
+\longrightarrow Q_i\longrightarrow0,
+\qquad A_i=\mathcal{O}(-a_i),
+$$
+where $Q_i$ is torsion-free, for
+$i=1,2$. The middle sheaf need not be
+locally free. Can prescribed $Q_1,Q_2$
+occur with one common $E$?
+
+Write $H^1_*(F)=\bigoplus_t H^1(F(t))$.
+Line-bundle cohomology gives the
+necessary condition
+$$
+H^1_*(Q_1)\cong H^1_*(E)\cong H^1_*(Q_2).
+$$
+Example
+\ref{example-cohomology-chern-obstruction}
+shows that it is not sufficient.
+
+\textbf{Quotienting in either order.}
+Identify $A_i$ with its image and set
+$T=E/(A_1+A_2)$. If the two sections
+are independent at the generic point,
+the induced maps give
+$$
+\xymatrix{
+&A_1\ar@{=}[r]\ar[d]^{s_1}
+&A_1\ar[d]^{\varphi_1}\\
+A_2\ar@{=}[d]\ar[r]^{s_2}
+&E\ar[r]\ar[d]&Q_2\ar[d]\\
+A_2\ar[r]_{\varphi_2}
+&Q_1\ar[r]&T
+}
+$$
+with short exact rows and columns.
+In particular, $Q_1/A_2\cong T\cong Q_2/A_1$.
+Conversely, surjections $Q_i\to T$
+with these kernels reconstruct
+$E=Q_1\times_TQ_2$; see Homological
+Algebra, Lemma
+\ref{homological-algebra-%
+lemma-common-quotient-fibre-product}.
+Local freeness and reflexivity still
+require their own checks.
+
+\begin{lemma}
+\label{lemma-negative-twist-composite}
+If $a_1<a_2$, the composite
+$\varphi_1:A_1\to E\to Q_2$ is nonzero
+and injective.
+\end{lemma}
+
+\begin{proof}
+If $\varphi_1=0$, exactness would factor
+$s_1$ through $A_2$. But
+$$
+\operatorname{Hom}(A_1,A_2)
+=H^0(\mathcal{O}(a_1-a_2))=0:
+$$
+there are no homogeneous polynomials
+of negative degree. This would force
+$s_1=0$, contradicting the injection.
+Now apply Lemma
+\ref{lemma-line-to-torsion-free}.
+\end{proof}
+
+Thus strict inequality also guarantees
+generic independence. At equal twists,
+proportional sections must be excluded.
+
+The same diagram exists for graded
+modules, using maps $R[-a_i]\to M$.
+Sheafification produces the displayed
+diagram, but local freeness and
+saturation are additional conditions.
+For rank greater than two, each
+$Q_i$ has rank $r-1$, rather than being
+the ideal sheaf of a curve.
+
+\medskip\noindent
+\textbf{Extension spaces are only a start.}
+For fixed end terms, possible middle
+sheaves are classified by
+$$
+\operatorname{Ext}^1
+(Q_i,\mathcal{O}(-a_i))
+\cong H^2(Q_i(a_i-4))^\vee.
+$$
+An isomorphism of these vector spaces
+does not identify the resulting middle
+sheaves. Likewise, an isomorphism of
+$H^1_*(Q_i)$ does not supply one of
+these $H^2$ groups or a common quotient.
+
+\begin{example}[A line and a conic]
+\label{example-line-conic-bundle}
+Let $L$ be a line and $Q$ a smooth plane
+conic in $\mathbb{P}^3$.
+Write $M_C=H^1_*(\mathcal{I}_C)$ for its
+Rao module; see Commutative Algebra,
+Theorem \ref{commutative-algebra-%
+theorem-rao-space-curves}.
+Their complete-intersection resolutions
+are
+$$
+\begin{aligned}
+0&\longrightarrow\mathcal{O}(-2)
+\longrightarrow\mathcal{O}(-1)^{\oplus2}
+\longrightarrow\mathcal{I}_L
+\longrightarrow0,\\
+0&\longrightarrow\mathcal{O}(-3)
+\longrightarrow
+\mathcal{O}(-1)\oplus\mathcal{O}(-2)
+\longrightarrow\mathcal{I}_Q
+\longrightarrow0.
+\end{aligned}
+$$
+Consequently $M_L=M_Q=0$.
+We ask whether this gives a common
+rank-two middle sheaf.
+
+Write $\det E=\mathcal{O}(c)$.
+For either curve $C$, the candidate
+extension space is
+$$
+\begin{aligned}
+&\operatorname{Ext}^1
+(\mathcal{I}_C(c+a),\mathcal{O}(-a))\\
+&\quad\cong H^2
+(\mathcal{I}_C(c+2a-4))^\vee\\
+&\quad\cong H^1
+(\mathcal{O}_C(c+2a-4))^\vee.
+\end{aligned}
+$$
+The last step uses the ideal sequence
+and $H^1(\mathcal{O}(m))=
+H^2(\mathcal{O}(m))=0$ on $\mathbb{P}^3$.
+
+For $L\cong\mathbb{P}^1$, one has
+$$
+H^1(L,\mathcal{O}_L(m))^\vee
+\cong H^0(\mathbb{P}^1,\mathcal{O}(-m-2)).
+$$
+For $Q\cong\mathbb{P}^1$, remember that
+$\mathcal{O}_Q(1)$ pulls back to
+$\mathcal{O}_{\mathbb{P}^1}(2)$, so
+$$
+H^1(Q,\mathcal{O}_Q(m))^\vee
+\cong H^0(\mathbb{P}^1,\mathcal{O}(-2m-2)).
+$$
+Therefore the extension spaces are
+nonzero precisely under the respective
+inequalities
+$$
+c+2a_1\leq2,\qquad c+2a_2\leq3.
+$$
+Their dimensions, when nonzero, are
+$3-c-2a_1$ and $7-2c-4a_2$.
+Some trial values are
+$$
+\begin{array}{c|cc}
+c&a_1&a_2\\\hline
+0&1&1\\
+-1&1&1\\
+-1&1&2\\
+-2&1&2
+\end{array}
+$$
+These are candidates for extensions,
+not a proof of a common vector bundle.
+
+\medskip\noindent
+\textbf{A common bundle is impossible.}
+A common locally free rank-two $E$
+cannot have a line and a smooth conic
+as zero schemes of sections of its
+twists. Indeed, adjunction would give
+$$
+\omega_C\cong\mathcal{O}_C(c+2a-4).
+$$
+For a line this forces $c+2a_1=2$;
+for a conic it forces $c+2a_2=3$.
+Subtracting gives
+$$
+2(a_2-a_1)=1,
+$$
+which is impossible for integers.
+Thus the equality of Rao modules does
+not assert this common-bundle property.
+The extension calculation can still
+produce middle sheaves that are not
+locally free; reflexivity must also be
+checked, not assumed from a nonzero
+extension class.
+
+\end{example}
+
+\begin{example}[A common plane]
+\label{example-common-plane}
+Suppose a rank-two reflexive sheaf $E$
+fits into the exact sequences
+$$
+\begin{aligned}
+0&\longrightarrow\mathcal{O}(-a_1)
+\xrightarrow{s_1}E
+\longrightarrow\mathcal{I}_L(c+a_1)
+\longrightarrow0,\\
+0&\longrightarrow\mathcal{O}(-a_2)
+\xrightarrow{s_2}E
+\longrightarrow\mathcal{I}_Q(c+a_2)
+\longrightarrow0.
+\end{aligned}
+$$
+Here $L$ is a line, $Q$ a smooth conic,
+and $\det E=\mathcal{O}(c)$.
+Write $h=c_1(\mathcal{O}(1))$, reserving
+$H$ for the geometric plane.
+The resolutions of $L$ and $Q$ give
+$$
+\begin{aligned}
+c(\mathcal{I}_L(t))
+&=\frac{(1+(t-1)h)^2}{1+(t-2)h}\\
+&=1+th+h^2+(2-t)h^3,\\
+c(\mathcal{I}_Q(t))
+&=\frac{(1+(t-1)h)(1+(t-2)h)}
+{1+(t-3)h}\\
+&=1+th+2h^2+(6-2t)h^3.
+\end{aligned}
+$$
+These equalities are in
+$\mathbb{Z}[h]/(h^4)$.
+Multiplying by $1-a_i h$ in each
+sequence and comparing $c_2(E)$ gives
+$$
+1-a_1(c+a_1)=2-a_2(c+a_2).
+$$
+Factoring the difference gives
+$$
+1=(a_2-a_1)(c+a_1+a_2).
+$$
+
+The sections determine a determinant
+section. For a reflexive sheaf the
+determinant means
+$$
+\det E=(\mathop{\bigwedge}\nolimits^2E)^{**}.
+$$
+Consequently
+$$
+s_1\wedge s_2\in
+H^0(\mathbb{P}^3,\mathcal{O}(d)),
+\qquad d=c+a_1+a_2.
+$$
+This section is nonzero. Otherwise the
+two images would be the same line over
+the function field. Both images are
+saturated, so they would agree as
+subsheaves of $E$. This would force
+$a_1=a_2$, contradicting this
+equation. Thus $d\geq0$, and the integer
+equation forces
+$$
+d=1,\qquad a_2-a_1=1.
+$$
+The zero divisor is therefore a plane:
+$$
+H=Z(s_1\wedge s_2)\subset\mathbb{P}^3.
+$$
+
+Why does this plane contain both
+curves? On the locally free locus,
+$s_1\wedge s_2$ is the determinant of
+the two column vectors. It vanishes
+where either section vanishes.
+Globally, composing $s_2$ with the
+first quotient map gives a section
+of $\mathcal{I}_L(d)$, and composing
+$s_1$ with the second gives a section
+of $\mathcal{I}_Q(d)$. Under the
+determinant identifications these are
+the same determinant section, up to
+sign. Hence its linear equation lies
+in both ideals, and
+$$
+L\cup Q\subset H.
+$$
+This proves that the line and conic
+must lie in the \emph{same} plane,
+not merely that the conic is planar.
+
+The numerical consequences also explain
+the trial $c=-2,a_1=1,a_2=2$:
+$$
+c=-2a_1,\qquad c_2(E)=(1+a_1^2)h^2.
+$$
+The coefficient of $h^3$ in either
+expression for $c(E)$ gives
+$$
+c_3(E)=(2-c-2a_1)h^3=2h^3.
+$$
+So a common middle sheaf of this kind
+cannot be locally free, consistently
+with the earlier adjunction argument.
+The plane condition is a necessary
+condition; the argument does not yet
+construct $E$.
+
+\end{example}
+
+\medskip\noindent
+\textbf{Recovering the common quotient.}
+For a coplanar line and smooth conic,
+put $X=Q$ and consider
+$$
+c=-2,\qquad a_1=1,\qquad a_2=2,
+$$
+with candidate sequences
+$$
+\begin{aligned}
+0&\longrightarrow\mathcal{O}(-1)
+\longrightarrow E
+\longrightarrow\mathcal{I}_L(-1)
+\longrightarrow0,\\
+0&\longrightarrow\mathcal{O}(-2)
+\longrightarrow E
+\longrightarrow\mathcal{I}_X
+\longrightarrow0.
+\end{aligned}
+$$
+Identifying Chern classes with their
+integer coefficients, the computation is
+$$
+\begin{aligned}
+1&=\deg L=c_2(E(1))\\
+ &=c_2(E)+c_1(E)+1,\\
+c_2(E)&=2,\\
+\deg X&=c_2(E(2))\\
+ &=2+2(-2)+4=2.
+\end{aligned}
+$$
+For a coherent middle sheaf, the same
+identities follow from the exact
+sequences in $K$-theory; they do not
+establish local freeness or existence.
+Both extension spaces in this candidate
+have dimension three.
+
+The induced nonzero map
+$\mathcal{O}(-1)\to\mathcal{I}_X$
+gives $H^0(\mathcal{I}_X(1))\ne0$,
+so $X$ lies in a plane.
+More generally, for $k\geq1$, a nonzero
+section of $\mathcal{I}_X(k)$ is a
+homogeneous polynomial $f$ of degree
+$k$ vanishing on $X$. Thus $X$ lies
+in the hypersurface $V(f)$.
+This follows by taking sections of
+$$
+0\longrightarrow\mathcal{I}_X(k)
+\longrightarrow\mathcal{O}(k)
+\longrightarrow\mathcal{O}_X(k)
+\longrightarrow0.
+$$
+It also explains the question about
+finding hypersurfaces containing the
+Stanley--Reisner fibre or a smoothing.
+
+The other induced map is
+$$
+\mathcal{O}(-2)
+\xrightarrow{\ell}\mathcal{I}_L(-1).
+$$
+Here $\ell\in H^0(\mathcal{I}_L(1))$
+defines a plane $H$ containing $L$.
+For $i:H\hookrightarrow\mathbb{P}^3$,
+its cokernel is
+$$
+T\cong i_*\mathcal{I}_{L/H}(-1)
+\cong i_*\mathcal{O}_H(-2).
+$$
+Indeed $L$ is a divisor of degree one
+in $H$, so
+$\mathcal{I}_{L/H}=\mathcal{O}_H(-1)$.
+Also $\mathcal{I}_{Q/H}=\mathcal{O}_H(-2)$,
+since $Q$ is a quadratic divisor on $H$.
+Thus both cross-maps have this common
+cokernel, allowing the fibre-product
+construction of the middle sheaf.
+The completed diagram is
+$$
+\xymatrix{
+&\mathcal{O}(-1)\ar@{=}[r]\ar[d]
+&\mathcal{O}(-1)\ar[d]\\
+\mathcal{O}(-2)\ar@{=}[d]\ar[r]
+&E\ar[r]\ar[d]&\mathcal{I}_X\ar[d]\\
+\mathcal{O}(-2)\ar[r]_{\ell}
+&\mathcal{I}_L(-1)\ar[r]&T
+}
+$$
+with zeros at the ends of the four
+short exact rows and columns.
+
+For comparison, the union of a line
+and a conic in a plane satisfies
+$$
+\begin{aligned}
+Q&=V(\ell,q),\\
+L&=V(\ell,\ell'),\\
+Q\cup L&=V(\ell,\ell'q),
+\end{aligned}
+$$
+where $q$ is quadratic and $\ell'$ is
+linear, with no common component in
+the plane. This union has degree three.
+It must not be identified with the
+degree-two $X$ in the preceding
+calculation. These are different
+constructions.
+
+\medskip\noindent
+\textbf{Locating the singularities of $E$.}
+For $C=L$ or $Q$ put $t=c+a$ and
+dualize its extension by the sheaf
+Hom functor. Since
+$\mathcal{I}_C(t)^*=\mathcal{O}(-t)$,
+the resulting exact sequence is
+$$
+\begin{aligned}
+0&\longrightarrow\mathcal{O}(-t)
+\longrightarrow E^*
+\longrightarrow\mathcal{O}(a)\\
+&\longrightarrow\mathcal{E}xt^1
+(\mathcal{I}_C(t),\mathcal{O})\\
+&\longrightarrow\mathcal{E}xt^1
+(E,\mathcal{O})\longrightarrow0.
+\end{aligned}
+$$
+The terminal zero comes from
+$\mathcal{E}xt^1(\mathcal{O}(-a),
+\mathcal{O})=0$.
+Here sheaf Ext appears, rather than
+the global extension vector space.
+The curve resolutions identify
+$$
+\begin{aligned}
+\mathcal{E}xt^1
+(\mathcal{I}_L(t),\mathcal{O})
+&\cong\mathcal{O}_L(2-t),\\
+\mathcal{E}xt^1
+(\mathcal{I}_Q(t),\mathcal{O})
+&\cong\mathcal{O}_Q(3-t).
+\end{aligned}
+$$
+Thus, if both sequences exist, the
+support of $\mathcal{E}xt^1(E,\mathcal{O})$
+is contained in $L\cap Q$.
+For reflexive $E$, this support is
+exactly the non-locally-free locus,
+by Proposition
+\ref{proposition-threefold-sheaf-ext}.
+
+\begin{example}[Equal cohomology does not
+determine a common extension]
+\label{example-cohomology-chern-obstruction}
+For a common $E$ in sequences with
+quotients $Q_i$ and kernels
+$\mathcal{O}(-a_i)$, one must have
+$$
+c(E)=(1-a_1h)c(Q_1)
+=(1-a_2h)c(Q_2).
+$$
+Take $F=\Omega^1_{\mathbb{P}^3}$, whose
+Euler sequence gives $c(F)=(1-h)^4$,
+and compare
+$$
+\begin{aligned}
+Q_1&=F\oplus\mathcal{O}^{\oplus2},\\
+Q_2&=F\oplus\mathcal{O}(1)
+\oplus\mathcal{O}(-1),\\
+c(F)&=1-4h+6h^2-4h^3.
+\end{aligned}
+$$
+Then
+$$
+\begin{aligned}
+c(Q_1)&=1-4h+6h^2-4h^3,\\
+c(Q_2)&=c(F)(1+h)(1-h)\\
+&=1-4h+5h^2.
+\end{aligned}
+$$
+The line-bundle summands have zero
+$H^1_*$, so
+$$
+H^1_*(Q_1)\cong H^1_*(F)
+\cong H^1_*(Q_2).
+$$
+Nevertheless, their first Chern classes
+force $a_1=a_2$ if such a common $E$
+exists. Their different second Chern
+classes then contradict equality of
+the two expressions for $c(E)$.
+Thus equality of $H^1_*$ does not
+suffice for this common-middle-sheaf
+construction with line-bundle kernels.
+
+\end{example}
 
 \section{Reduced schemes}
 \label{section-reduced}
@@ -7200,6 +7871,9 @@ $\mathcal{B}(-1,6)$ has $\geq 4$ components.
 
 \medskip\noindent
 Now let's discuss Serre correspondence.
+For the precise hypotheses and the
+zero-scheme construction, see Theorem
+\ref{theorem-serre-rank-two-curves}.
 
 How can we describe these spaces?
 Let $E$ be a vector bundle of rank 2
@@ -8239,41 +8913,11 @@ Reflexive sheaves
 are vector bundles except for a small
 locus.
 
-\begin{definition}
-\label{definition-reflexive}
-Let $X$ be an integral locally Noetherian
-scheme. Let $\mathcal{F}$
-be a coherent $\mathcal{O}_X$-module.
-The {\it reflexive hull}
-of $\mathcal{F}$ is the
-$\mathcal{O}_X$-module
-$$
-\mathcal{F}^{**} = \SheafHom_{\mathcal{O}_X}(
-\SheafHom_{\mathcal{O}_X}(\mathcal{F},
-\mathcal{O}_X), \mathcal{O}_X)
-$$
-We say $\mathcal{F}$ is {\it reflexive}
-if the natural map
-$j : \mathcal{F} \longrightarrow
-\mathcal{F}^{**}$
-is an isomorphism.
-\end{definition}
-
-\begin{lemma}
-\label{lemma-reflexive-torsion-free}
-Let $X$ be an integral locally Noetherian
-scheme. Let $\mathcal{F}$
-be a coherent $\mathcal{O}_X$-module.
-\begin{enumerate}
-\item If $\mathcal{F}$ is reflexive, then
-$\mathcal{F}$
-is torsion free.
-\item The map $j : \mathcal{F}
-\longrightarrow \mathcal{F}^{**}$
-is injective if and only if $\mathcal{F}$
-is torsion free.
-\end{enumerate}
-\end{lemma}
+For the definition and basic properties,
+see Definition \ref{definition-reflexive}
+and Lemma \ref{lemma-reflexive-torsion-free}
+in Section
+\ref{section-coherent-reflexive-sheaves}.
 
 \begin{remark}[Talk at IMPA, 11 June]
 \label{remark-reflexive-talk}

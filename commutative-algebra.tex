@@ -2876,6 +2876,45 @@ $$
 is exact.
 \end{definition}
 
+\begin{lemma}
+\label{lemma-free-tensor-copies}
+For every $R$-module $N$,
+$$
+N\otimes_R R^{\oplus r}\cong N^{\oplus r}.
+$$
+Consequently finite free modules are flat.
+\end{lemma}
+
+\begin{proof}
+If $e_1,\ldots,e_r$ is the standard
+basis, the maps are
+$$
+\begin{aligned}
+n\otimes(b_1,\ldots,b_r)
+&\longmapsto(b_1n,\ldots,b_rn),\\
+(n_1,\ldots,n_r)
+&\longmapsto\sum_i n_i\otimes e_i.
+\end{aligned}
+$$
+They are inverse by bilinearity.
+Tensoring with $R^{\oplus r}$ therefore
+makes $r$ copies of a short exact
+sequence, which remains exact.
+The right-hand side is a direct sum,
+not a tensor power of $N$.
+\end{proof}
+
+Tensoring is always right exact; flatness
+is what also preserves the first
+injection. For instance, tensor
+$0\to R\xrightarrow{x}R\to R/(x)\to0$
+over $R=\mathbb{C}[x]$ with $R/(x)$.
+The first map becomes multiplication by
+$x$ on $R/(x)$, hence the zero map.
+It is no longer injective.
+Tensoring individual maps is always
+defined, regardless of flatness.
+
 \begin{definition}
 \label{definition-torsion-module}
 Let $A$ be a ring without zero divisors,
@@ -10498,6 +10537,8 @@ H^1(\mathbb{P}^3,\mathcal{I}_C(t)).
 $$
 Multiplication by homogeneous polynomials
 defines the graded module structure.
+These are finite-length graded modules
+over $k[x_0,x_1,x_2,x_3]$.
 Then $C$ and $C'$ belong to the same
 even CI-liaison class if and only if
 their Rao modules are isomorphic up to
@@ -10527,6 +10568,186 @@ H^0(C,\mathcal{O}_C(t))\bigr).
 $$
 In particular, $M_C=0$ precisely when
 $C$ is arithmetically Cohen--Macaulay.
+The polynomial ring acts on $M_C$;
+no algebra structure on $M_C$ itself
+is part of this construction.
+
+\begin{lemma}[The common-bundle implication]
+\label{lemma-common-bundle-rao}
+Suppose curves $C_i\subset\mathbb{P}^3$
+occur in exact sequences
+$$
+0\longrightarrow\mathcal{O}(-a_i)
+\longrightarrow E
+\longrightarrow\mathcal{I}_{C_i}(c+a_i)
+\longrightarrow0
+$$
+with a common rank-two bundle $E$ and
+$\det E=\mathcal{O}(c)$. Then
+$$
+M_{C_1}[c+a_1]\cong H^1_*(E)
+\cong M_{C_2}[c+a_2].
+$$
+In particular the curves are evenly
+linked.
+\end{lemma}
+
+\begin{proof}
+Twist by $\mathcal{O}(t)$ and take
+cohomology. The groups
+$H^1(\mathcal{O}(t-a_i))$ and
+$H^2(\mathcal{O}(t-a_i))$ vanish, so
+$$
+H^1(E(t))\cong
+H^1(\mathcal{I}_{C_i}(t+c+a_i)).
+$$
+These isomorphisms commute with
+multiplication by homogeneous polynomials,
+so they assemble to graded module
+isomorphisms. Apply Rao's theorem.
+\end{proof}
+
+The same argument works when the kernel
+is a sum of line bundles. In particular,
+for a rank-$r$ bundle of determinant
+$\mathcal{O}(c)$ and presentations
+$$
+0\longrightarrow
+\mathcal{O}(-a_i)^{\oplus(r-1)}
+\longrightarrow E
+\longrightarrow\mathcal{I}_{C_i}(b_i)
+\longrightarrow0,
+$$
+where $b_i=c+(r-1)a_i$, it gives
+$$
+M_{C_1}[b_1]\cong M_{C_2}[b_2].
+$$
+The geometry of these degeneracy loci
+is in Algebraic Geometry, Section
+\ref{algebraic-geometry-%
+section-sections-zero-schemes}.
+
+\begin{remark}
+\label{remark-rao-common-bundle-distinction}
+Rao's theorem applies to all locally
+Cohen--Macaulay space curves, not only
+zero schemes of rank-two sections.
+It classifies the existence of an even
+chain of links; the number of links
+has nothing to do with the rank of a
+bundle. It does not reverse Lemma
+\ref{lemma-common-bundle-rao}.
+A line and a smooth conic have zero
+Rao module but cannot come from twists
+of one rank-two bundle; see Algebraic
+Geometry, Example
+\ref{algebraic-geometry-%
+example-line-conic-bundle}.
+
+The classical bundle correspondence
+uses presentations
+$$
+0\longrightarrow P\longrightarrow N
+\longrightarrow\mathcal{I}_C
+\longrightarrow0,
+$$
+where $P$ is a sum of line bundles,
+$N$ is locally free, and $H^2_*(N)=0$.
+It considers $N$ up to twists and
+\emph{stable equivalence}: adding sums
+of line bundles on both sides.
+It does not prescribe rank two or a
+kernel with one fixed twist.
+See Hartshorne,
+\href{%
+https://www.mate.polimi.it/%
+smf/vol67/hartshorne.pdf%
+}{Coherent Functors and Families of
+Space Curves}, Theorem 4.1.
+The Lazarsfeld--Rao property instead
+describes how to build a class from
+its minimal members.
+\end{remark}
+
+\medskip\noindent
+\textbf{From two sections to two links.}
+Assume the two sections in Lemma
+\ref{lemma-common-bundle-rao} are
+independent at the generic point.
+Put $A_i=\mathcal{O}(-a_i)$ and
+$T=E/(A_1+A_2)$. Their wedge defines
+a surface containing both curves:
+$$
+S=Z(s_1\wedge s_2),\qquad
+s_1\wedge s_2\in
+H^0(\mathcal{O}(c+a_1+a_2)).
+$$
+Quotienting in either order, as in
+Algebraic Geometry, Section
+\ref{algebraic-geometry-%
+section-common-extensions}, gives
+$$
+\mathcal{I}_{C_1/S}(c+a_1)
+\cong T\cong
+\mathcal{I}_{C_2/S}(c+a_2),
+$$
+where sheaves on $S$ are viewed on
+$\mathbb{P}^3$ by pushforward.
+If $S$ is smooth, the curves are
+Cartier divisors on $S$, and hence
+$$
+C_2\sim C_1+(a_2-a_1)H_S.
+$$
+Choose a general effective divisor
+$D\sim mH_S-C_1$ for $m$ large,
+avoiding components of either curve.
+Then
+$$
+\begin{aligned}
+C_1+D&\sim mH_S,\\
+C_2+D&\sim(m+a_2-a_1)H_S.
+\end{aligned}
+$$
+Both divisors are cut out by ambient
+hypersurfaces: restriction from
+$\mathbb{P}^3$ to a hypersurface $S$
+is surjective on global sections of
+$\mathcal{O}(n)$ because
+$H^1(\mathcal{O}(n-\deg S))=0$.
+Thus $C_1\leftrightarrow D
+\leftrightarrow C_2$ is a chain of
+two complete-intersection links.
+This is the geometric information
+supplied by common sections beyond
+the cohomological existence criterion.
+For the generalized-divisor formulation,
+see Hartshorne's paper on Rao's theorems,
+Proposition 2.5.
+
+\medskip\noindent
+\textbf{Lefschetz properties of Rao modules.}
+For a finite-length graded module $M$,
+the weak Lefschetz property requires
+one linear form $\ell$ such that
+$$
+\times\ell:M_t\longrightarrow M_{t+1}
+$$
+has maximal rank for every $t$.
+The strong property requires the same
+for every power of that one form:
+$$
+\times\ell^s:M_t\longrightarrow M_{t+s},
+\qquad s\geq1.
+$$
+Maximal rank means the smaller of the
+source and target dimensions.
+Which curves have Rao modules with
+these properties? Graded isomorphisms
+and shifts preserve the multiplication
+maps, so both properties are invariants
+of an even liaison class. They hold
+vacuously for ACM curves, whose Rao
+module is zero.
 
 \begin{remark}[The codimension-four case]
 \label{remark-rao-codimension-four}
@@ -10646,6 +10867,18 @@ of their deformation family.
 \end{example}
 
 \noindent
+The divisor calculation on $Y$ is
+$$
+\Pi+D\sim H,\qquad D+X\sim3H,
+\qquad X\sim\Pi+2H.
+$$
+It is the same two-link mechanism as
+the surface construction above, with
+a fourfold as common ambient variety.
+The degree here is seventeen; this
+does not construct a linkage for the
+degree-twenty Stanley--Reisner smoothing.
+
 This constructs Calabi--Yau threefolds
 from the rational variety $\mathbb{P}^3$.
 Linkage does not imply birational
