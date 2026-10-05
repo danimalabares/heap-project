@@ -1772,26 +1772,11 @@ to be supplied from the slides.
 
 September 28--October 1, 2026.
 
-The general sheaf primer is in
-Algebraic Geometry, Sections
-\ref{algebraic-geometry-%
-section-coherent-reflexive-sheaves},
-\ref{algebraic-geometry-%
-section-chern-coherent-sheaves} and
-\ref{algebraic-geometry-%
-section-sheaf-ext-duality}.
-For tensor exactness, see Commutative
-Algebra, Lemma \ref{commutative-algebra-%
-lemma-free-tensor-copies}; for extensions,
-see Homological Algebra, Section
-\ref{homological-algebra-%
-section-extensions}.
-
 \medskip\noindent
 \phantomsection
 \label{paragraph-jardim-sections}
 \textbf{Sections, Rao modules and linkage}
-
+\par\nopagebreak\noindent
 Can two curves be joined by a chain
 of links? The exercises ask for more:
 can they come from sections of twists
@@ -1907,7 +1892,7 @@ $I_D=(F,G):I_{C_1}$.
 \phantomsection
 \label{paragraph-jardim-line-conic}
 \textbf{A line and a smooth conic}
-
+\par\nopagebreak\noindent
 Let $L$ be a line and $Q$ a smooth conic.
 Their ideal resolutions are
 $$
@@ -1971,12 +1956,26 @@ $$
 s_1\wedge s_2\in H^0(\mathcal{O}(d)),
 \qquad d=c+a_1+a_2.
 $$
-This is nonzero: otherwise the two
-saturated images would be the same
-generic line, hence the same subsheaf,
-forcing $a_1=a_2$. Thus $d\geq0$,
-and the integer equation above forces
-$d=1$ and $a_2-a_1=1$.
+\textbf{The determinant is nonzero.}
+The integer equation gives $a_1\ne a_2$;
+choose $i,j$ with $a_i<a_j$.
+If $s_1\wedge s_2=0$, the composite
+$\mathcal{O}(-a_i)\to E\to
+\mathcal{I}_{C_j}(c+a_j)$, with
+$C_1=L$, $C_2=Q$, vanishes generically,
+hence everywhere because its target
+is torsion-free. Thus $s_i$ factors
+through $\mathcal{O}(-a_j)$. But
+$$
+\operatorname{Hom}(\mathcal{O}(-a_i),
+\mathcal{O}(-a_j))
+=H^0(\mathcal{O}(a_i-a_j))=0:
+$$
+there are no polynomials of negative
+degree. This would force $s_i=0$,
+a contradiction.
+Thus $d\geq0$, and the integer equation
+forces $d=1$ and $a_2-a_1=1$.
 Composing either section with the other
 quotient gives this same determinant
 in $H^0(\mathcal{I}_L(1))$ and
@@ -1993,10 +1992,9 @@ necessary conditions, not an existence
 proof for the common sheaf.
 
 \textbf{How many extensions are available?}
-For $C=L,Q$, the Serre-duality
-calculation in Algebraic Geometry,
-Section \ref{algebraic-geometry-%
-section-sheaf-ext-duality}, gives
+For $C=L,Q$, the
+\hyperref[paragraph-jardim-sheaves]
+{reminder below} gives
 $$
 \operatorname{Ext}^1
 (\mathcal{I}_C(c+a),\mathcal{O}(-a))
@@ -2014,141 +2012,114 @@ locally free middle sheaves.
 
 \medskip\noindent
 \phantomsection
-\label{paragraph-jardim-maps}
-\textbf{Making the maps work}
+\label{paragraph-jardim-sheaves}
+\textbf{Reminder on sheaves and Ext}
+\par\nopagebreak\noindent
+All sheaves below are coherent.
+Rank and torsion are taken over an
+integral variety. A sheaf is
+\emph{locally free} if locally it is
+$\mathcal{O}^{\oplus r}$; these are
+exactly sheaves of sections of vector
+bundles. Rank is dimension at the
+generic point, and alone says nothing
+about local freeness everywhere.
 
-\textbf{Why is the induced map injective?}
-A map $\varphi:A\to Q$ from a line
-bundle to a torsion-free sheaf on an
-integral variety is either zero or
-injective. The local argument is short:
-a map $R\to M$ sends $1$ to some $m$.
-A nonzero kernel element $f$ would give
-$fm=0$. Torsion-freeness forces $m=0$,
-so the map is zero.
-
-Apply this to the composite
-$\varphi_1:A_1\xrightarrow{s_1}E\to Q_2$,
-where $A_i=\mathcal{O}(-a_i)$ and
-$Q_i=E/s_i(A_i)$ is torsion-free.
-If $a_1<a_2$ and $\varphi_1=0$, then
-$s_1$ factors through $A_2$, but
+\textbf{Torsion and reflexivity.}
+Over a domain, $m$ is torsion if
+$fm=0$ for some nonzero scalar $f$.
+Torsion-free means this forces $m=0$.
+For instance $R/(x)$ has torsion over
+$R=\mathbb{C}[x]$, although it has no
+nonzero nilpotents.
+Write $F^*=\mathcal{H}om(F,\mathcal{O}_X)$.
+The canonical evaluation map is
 $$
-\operatorname{Hom}(A_1,A_2)
-=H^0(\mathcal{O}(a_1-a_2))=0.
+F\longrightarrow F^{**},\qquad
+s\longmapsto(\varphi\mapsto\varphi(s)).
 $$
-There are no polynomials of negative degree.
-This would force $s_1=0$, a contradiction.
-Thus $\varphi_1$ is injective.
-For equal twists, proportional sections
-must be excluded.
+It is injective precisely when $F$ is
+torsion-free, and an isomorphism
+precisely when $F$ is \emph{reflexive}
+\hyperref[item-jardim-stacks]{[4]}.
+Locally free implies reflexive, which
+implies torsion-free. For example,
+$\mathcal{I}_L^{**}=\mathcal{O}\ne
+\mathcal{I}_L$ for a line in
+$\mathbb{P}^3$.
 
-\textbf{Can we build the common sheaf?}
-For $a_1=1$, $a_2=2$, $c=-2$, the
-proposed sequences are
+\textbf{Twisting and exactness.}
+We have $F(a)(b)=F(a+b)$ and
+$\operatorname{Hom}(\mathcal{O}(-a),F)
+=H^0(F(a))$.
+Tensoring preserves every short exact
+sequence precisely for a \emph{flat}
+sheaf. Locally free sheaves are flat:
+if $F\cong\mathcal{O}^{\oplus r}$, then
+$$
+A\otimes F\cong A^{\oplus r},\qquad
+a\otimes e_i\longmapsto
+(0,\ldots,a,\ldots,0).
+$$
+Thus tensoring locally makes $r$ copies
+of the sequence. In particular, twisting
+by a line bundle is exact.
+For arbitrary $F$, tensoring is only
+right exact: the first injection may
+be lost.
+
+\textbf{Global Ext.}
+$\operatorname{Ext}^1(B,A)$ classifies
+sequences $0\to A\to E\to B\to0$
+with end terms fixed; zero is the split
+extension. Serre duality on
+$\mathbb{P}^3$ gives
 $$
 \begin{aligned}
-0&\to\mathcal{O}(-1)\to E
-\to\mathcal{I}_L(-1)\to0,\\
-0&\to\mathcal{O}(-2)\to E
-\to\mathcal{I}_Q\to0.
+\operatorname{Ext}^1
+(\mathcal{I}_C(c+a),\mathcal{O}(-a))
+&\cong\operatorname{Ext}^2
+(\mathcal{O}(-a),\mathcal{I}_C(c+a-4))^\vee\\
+&\cong H^2(\mathcal{I}_C(c+2a-4))^\vee\\
+&\cong H^1(\mathcal{O}_C(c+2a-4))^\vee.
 \end{aligned}
 $$
-Both extension spaces have dimension
-three. Multiplication by the plane
-equation gives the cross-maps
-$\mathcal{O}(-1)\to\mathcal{I}_Q$ and
-$\mathcal{O}(-2)\to\mathcal{I}_L(-1)$,
-with common cokernel on $H$:
-$$
-\mathcal{I}_{L/H}(-1)
-\cong\mathcal{O}_H(-2)
-\cong\mathcal{I}_{Q/H}.
-$$
-Recover $E$ as the fibre product
-$Q_1\times_TQ_2$: pairs $(q_1,q_2)$
-with the same image in $T$.
-Its projections have kernels $A_1,A_2$,
-giving the two sequences. Reflexivity
-still requires a check.
+The second step uses the locally free
+first argument; the last uses the ideal
+sequence and intermediate vanishing
+for $\mathcal{O}(m)$.
 
-\textbf{Where can $E$ fail to be a bundle?}
-The ideal resolutions yield
+\textbf{Sheaf Ext: local freeness and
+reflexivity.}
+Unlike global Ext, sheaf Ext records
+local modules:
 $$
-\begin{aligned}
-\mathcal{E}xt^1(\mathcal{I}_L(t),\mathcal{O})
-&\cong\mathcal{O}_L(2-t),\\
-\mathcal{E}xt^1(\mathcal{I}_Q(t),\mathcal{O})
-&\cong\mathcal{O}_Q(3-t).
-\end{aligned}
+\mathcal{E}xt^i(F,\mathcal{O})_x
+\cong\operatorname{Ext}^i_{\mathcal{O}_{X,x}}
+(F_x,\mathcal{O}_{X,x}).
 $$
-Dualizing the two sequences makes
-$\mathcal{E}xt^1(E,\mathcal{O})$ a
-quotient of sheaves supported on $L$
-and on $Q$. Its support therefore lies
-in $L\cap Q$. For reflexive $E$, that
-support is exactly its non-locally-free
-locus; see Algebraic Geometry,
-Proposition \ref{algebraic-geometry-%
-proposition-threefold-sheaf-ext}.
-
-\textbf{Does equal cohomology suffice?}
-Here is a higher-rank obstruction.
-Take $F=\Omega^1_X$ and
-$$
-Q_1=F\oplus\mathcal{O}^{\oplus2},
-\qquad
-Q_2=F\oplus\mathcal{O}(1)
-\oplus\mathcal{O}(-1).
-$$
-They have the same $H^1_*$, because
-line bundles contribute nothing to it.
-The Euler sequence gives $c(F)=(1-h)^4$.
-Thus $c_1(Q_1)=c_1(Q_2)=-4h$, while
-$c_2(Q_1)=6h^2$ and $c_2(Q_2)=5h^2$.
-If both were quotients of the same $E$
-with kernels $\mathcal{O}(-a_i)$,
-comparison of $c_1(E)$ would force
-$a_1=a_2$, and comparison of $c_2(E)$
-would then be impossible.
-
-\textbf{How might we build a bundle
-from $M$?}
-For a finite-length graded module $M$,
-choose a free presentation
-$L_1\xrightarrow{\beta}L_0\to M\to0$.
-Since $\widetilde M=0$, the kernel
-$K=\ker\widetilde\beta$ is a bundle
-with $H^1_*(K)\cong M$.
-If one can additionally find a subbundle
-inclusion $\alpha:\widetilde L_0^*\to K$,
-then
-$$
-\widetilde L_0^*
-\xrightarrow{\alpha}\widetilde L_1
-\xrightarrow{\widetilde\beta}
-\widetilde L_0
-$$
-is a monad with bundle cohomology
-$E=K/\operatorname{im}\alpha$ and
-$H^1_*(E)\cong M$.
-Finding $\alpha$ is the missing step:
-dualizing $\beta$ does not produce it.
-Also $c_1(E)=c_1(\widetilde L_1)$,
-so $c_1(E)=0$ is not automatic.
-
-\textbf{Lefschetz question.}
-Which curves have Rao modules with WLP
-or SLP? For a finite-length graded
-module $N$, WLP requires one linear form
-$\ell$ such that $\times\ell:N_t\to N_{t+1}$
-has maximal rank for every $t$.
-SLP requires the same for
-$\times\ell^s:N_t\to N_{t+s}$ for all
-$s\geq1$. Both properties are unchanged
-by grading shifts, hence are invariants
-of the even liaison class. They hold
-vacuously when the Rao module is zero.
+For torsion-free $F$ on a smooth
+projective threefold, put
+$\mathcal{E}^i=\mathcal{E}xt^i
+(F,\mathcal{O})$.
+Then \hyperref[item-jardim-hl]
+{[3, Section 1.1]}:
+\begin{itemize}
+\item $F$ is locally free exactly when
+$\mathcal{E}^1=\mathcal{E}^2=0$.
+\item $F$ is reflexive exactly when
+$\mathcal{E}^2=0$ and $\mathcal{E}^1$
+has finite support.
+\end{itemize}
+Thus for reflexive $F$, vanishing of
+$\mathcal{E}^1$ tests local freeness.
+For a general torsion-free sheaf one
+must also check second Ext:
+$\mathcal{E}xt^1
+(\mathcal{I}_p,\mathcal{O})=0$
+but
+$\mathcal{E}xt^2(\mathcal{I}_p,\mathcal{O})
+\cong\mathcal{O}_p$.
 
 \medskip\noindent
 \textbf{References.}
@@ -2166,6 +2137,16 @@ R. Hartshorne,
 Lazarsfeld--Rao Property},
 \href{https://arxiv.org/abs/math/0302078}
 {arXiv:math/0302078}.
+\item\label{item-jardim-hl}
+D. Huybrechts and M. Lehn,
+\emph{The Geometry of Moduli Spaces
+of Sheaves}, Section 1.1.
+\item\label{item-jardim-stacks}
+The Stacks Project,
+\href{%
+https://stacks.math.columbia.edu/tag/0AVT%
+}
+{Tag 0AVT}: reflexive sheaves.
 \end{enumerate}
 
 \section{Compressed Artinian Gorenstein
