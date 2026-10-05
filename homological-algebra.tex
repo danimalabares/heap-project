@@ -5592,6 +5592,408 @@ $$
 \end{remark}
 
 
+
+\section{Simplicial approximation and homotopy}
+\label{section-simplicial-approximation-homotopy}
+
+\noindent
+The following reconstructs the lectures from the
+blackboard notes and the notes shared by colleagues.
+
+\begin{definition}
+\label{definition-simplicial-map}
+Let $K,L$ be abstract simplicial complexes.
+A map
+\[
+f:\operatorname{Vert}(K)\longrightarrow
+\operatorname{Vert}(L)
+\]
+is a {\it simplicial map} if the image of every
+simplex of $K$ is contained in a simplex of $L$.
+It induces a continuous map
+\[
+|f|:|K|\longrightarrow |L|
+\]
+which is affine on each simplex.
+\end{definition}
+
+\begin{definition}
+\label{definition-star-of-simplex}
+For a simplex $\sigma$ of $K$, its (open) star is
+the union of the interiors of simplices containing
+$\sigma$.
+\end{definition}
+
+\begin{definition}
+\label{definition-simplicial-approximation}
+Let $h:|K|\to |L|$ be continuous. A simplicial map
+$f:K\to L$ is a {\it simplicial approximation} to
+$h$ if, for every vertex $v$ of $K$,
+\[
+h(\operatorname{St}(v))
+\subset
+\operatorname{St}(f(v)).
+\]
+\end{definition}
+
+\begin{theorem}[Simplicial approximation theorem]
+\label{theorem-simplicial-approximation}
+After sufficiently many subdivisions of $K$, every
+continuous map
+\[
+h:|K|\longrightarrow |L|
+\]
+admits a simplicial approximation.
+\end{theorem}
+
+\noindent
+The point is that continuous maps can therefore be
+replaced, up to homotopy, by combinatorial maps.
+
+\begin{definition}
+\label{definition-contiguous-simplicial-maps}
+Two simplicial maps $f,g:K\to L$ are
+{\it contiguous} if, for every simplex
+$\sigma\subset K$, the union
+\[
+f(\sigma)\cup g(\sigma)
+\]
+is contained in a simplex of $L$.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-contiguous-chain-homotopic}
+Contiguous simplicial maps induce chain-homotopic
+maps on simplicial chains, and hence the same map
+on homology.
+\end{proposition}
+
+\section{Acyclic carriers}
+\label{section-acyclic-carriers}
+
+\begin{definition}
+\label{definition-acyclic-chain-complex}
+A chain complex $C_\bullet$ is {\it acyclic} if
+\[
+H_n(C_\bullet)=0
+\]
+in positive degrees (with the usual augmentation
+understood in degree $0$ when working with reduced
+homology).
+\end{definition}
+
+\begin{definition}
+\label{definition-acyclic-carrier}
+Let $C_\bullet,D_\bullet$ be chain complexes with
+chosen bases. An {\it acyclic carrier} $\Phi$
+assigns to each basis element $\sigma$ of $C$ an
+acyclic subcomplex
+\[
+\Phi(\sigma)\subset D_\bullet
+\]
+compatibly with faces: if $\tau$ is a face of
+$\sigma$, then
+\[
+\Phi(\tau)\subset \Phi(\sigma).
+\]
+A chain map $f:C_\bullet\to D_\bullet$ is
+{\it carried by $\Phi$} if
+\[
+f(\sigma)\in \Phi(\sigma)
+\]
+for every basis element $\sigma$.
+\end{definition}
+
+\begin{theorem}[Acyclic carrier theorem]
+\label{theorem-acyclic-carrier}
+Two augmentation-preserving chain maps carried by
+the same acyclic carrier are chain homotopic.
+\end{theorem}
+
+\noindent
+This is the general mechanism behind the preceding
+statement about contiguous simplicial maps: both
+maps land, simplex by simplex, in the chain complex
+of one common simplex, and that complex is acyclic.
+
+\section{Singular homology}
+\label{section-singular-homology}
+
+\begin{definition}
+\label{definition-singular-simplex}
+Let $X$ be a topological space. A {\it singular
+$n$-simplex} in $X$ is a continuous map
+\[
+\sigma:\Delta^n\longrightarrow X.
+\]
+The singular chain group is the free abelian group
+\[
+C_n^{\operatorname{sing}}(X)
+=
+\mathbb Z\{\sigma:\Delta^n\to X\}.
+\]
+\end{definition}
+
+\noindent
+If $\delta_i:\Delta^{n-1}\to\Delta^n$ is the
+inclusion of the $i$-th face, define
+\[
+\partial\sigma
+=
+\sum_{i=0}^n(-1)^i\,\sigma\circ\delta_i.
+\]
+Then $\partial^2=0$, so
+$C_\bullet^{\operatorname{sing}}(X)$ is a chain
+complex.
+
+\begin{definition}
+\label{definition-singular-homology}
+The {\it singular homology} of $X$ is
+\[
+H_n^{\operatorname{sing}}(X)
+=
+H_n(C_\bullet^{\operatorname{sing}}(X)).
+\]
+\end{definition}
+
+\begin{proposition}
+\label{proposition-singular-homology-functor}
+A continuous map $f:X\to Y$ induces a chain map
+\[
+f_\#:C_\bullet^{\operatorname{sing}}(X)
+\longrightarrow
+C_\bullet^{\operatorname{sing}}(Y),
+\qquad
+f_\#(\sigma)=f\circ\sigma,
+\]
+and hence maps
+\[
+f_*:H_n^{\operatorname{sing}}(X)
+\longrightarrow H_n^{\operatorname{sing}}(Y).
+\]
+Thus singular homology is functorial.
+\end{proposition}
+
+\section{Homotopy invariance of singular homology}
+\label{section-homotopy-invariance-singular}
+
+\begin{definition}
+\label{definition-homotopy-maps}
+Two continuous maps $f,g:X\to Y$ are homotopic if
+there exists
+\[
+H:X\times I\longrightarrow Y
+\]
+with $H(-,0)=f$ and $H(-,1)=g$.
+\end{definition}
+
+\begin{theorem}[Homotopy invariance]
+\label{theorem-homotopy-invariance-singular}
+If $f\simeq g:X\to Y$, then
+\[
+f_*=g_*:
+H_n^{\operatorname{sing}}(X)
+\longrightarrow
+H_n^{\operatorname{sing}}(Y)
+\]
+for every $n$.
+\end{theorem}
+
+\noindent
+The proof constructs a {\it prism operator}
+\[
+P:C_n^{\operatorname{sing}}(X)
+\longrightarrow
+C_{n+1}^{\operatorname{sing}}(Y)
+\]
+from a triangulation of
+$\Delta^n\times I$ and checks
+\[
+\partial P+P\partial=g_\#-f_\#.
+\]
+Thus $f_\#$ and $g_\#$ are chain homotopic.
+
+\section{Simplicial versus singular homology}
+\label{section-simplicial-versus-singular}
+
+\begin{theorem}
+\label{theorem-simplicial-singular-agree}
+If $K$ is an abstract simplicial complex, then
+\[
+H_n^{\operatorname{simp}}(K)
+\cong
+H_n^{\operatorname{sing}}(|K|)
+\]
+naturally in $K$.
+\end{theorem}
+
+\noindent
+The lecture proof compares the simplicial and
+singular chain complexes using simplicial
+approximation together with the acyclic-carrier
+argument. The important point is that simplicial
+homology depends on a triangulation in its
+definition, while singular homology is defined
+directly from the topological space, and the
+theorem says that they compute the same invariant
+for a triangulated space.
+
+\section{Homology and cohomology with coefficients}
+\label{section-homology-cohomology-coefficients}
+
+\begin{definition}
+\label{definition-singular-homology-coefficients}
+For an abelian group (or ring) $R$, define
+\[
+C_n^{\operatorname{sing}}(X;R)
+=
+C_n^{\operatorname{sing}}(X)\otimes_{\mathbb Z}R.
+\]
+Its homology is denoted
+\[
+H_n^{\operatorname{sing}}(X;R).
+\]
+\end{definition}
+
+\begin{definition}
+\label{definition-singular-cochains}
+The singular cochain complex with coefficients in
+$R$ is
+\[
+C^n_{\operatorname{sing}}(X;R)
+=
+\operatorname{Hom}_{R}
+(C_n^{\operatorname{sing}}(X;R),R),
+\]
+with coboundary induced by the boundary on chains.
+Its cohomology is
+\[
+H^n_{\operatorname{sing}}(X;R).
+\]
+\end{definition}
+
+\section{Universal coefficient theorem}
+\label{section-universal-coefficient-theorem}
+
+\noindent
+Write
+\[
+Z_n=\ker(\partial:C_n\to C_{n-1}),
+\qquad
+B_n=\operatorname{Im}(\partial:C_{n+1}\to C_n).
+\]
+Then
+\[
+0\longrightarrow B_n\longrightarrow Z_n
+\longrightarrow H_n\longrightarrow0
+\]
+is exact. Since the singular chain groups are
+free, the lecture chooses a free resolution of
+$H_n$ and applies $\operatorname{Hom}_R(-,R)$.
+The resulting long exact sequence identifies the
+two pieces which occur in cohomology.
+
+\begin{theorem}[Universal coefficient theorem for cohomology]
+\label{theorem-universal-coefficient-cohomology}
+For singular chains with coefficients in $R$,
+there is a natural short exact sequence
+\[
+0\longrightarrow
+\operatorname{Ext}^1_R(H_{n-1}(X;R),R)
+\longrightarrow
+H^n(X;R)
+\longrightarrow
+\operatorname{Hom}_R(H_n(X;R),R)
+\longrightarrow0.
+\]
+\end{theorem}
+
+\noindent
+The blackboard proof is precisely the
+homological-algebra construction behind this
+statement: use the exact sequences containing
+$B_n,Z_n,C_n$, apply $\operatorname{Hom}_R(-,R)$,
+and identify the kernel and cokernel of the
+connecting maps.
+
+\section{Presheaves, stalks and sheaves}
+\label{section-presheaves-stalks-sheaves}
+
+\begin{definition}
+\label{definition-presheaf}
+Let $X$ be a topological space and $\mathcal C$ a
+category. A {\it presheaf} $\mathcal F$ on $X$
+with values in $\mathcal C$ assigns an object
+$\mathcal F(U)$ to every open set $U\subset X$
+and, whenever $V\subset U$, a restriction map
+\[
+\operatorname{res}_{U,V}:
+\mathcal F(U)\longrightarrow\mathcal F(V),
+\]
+such that
+\[
+\operatorname{res}_{U,U}=\operatorname{id},
+\qquad
+\operatorname{res}_{U,W}
+=
+\operatorname{res}_{V,W}\circ
+\operatorname{res}_{U,V}
+\]
+whenever $W\subset V\subset U$.
+\end{definition}
+
+\begin{example}[Constant presheaf]
+\label{example-constant-presheaf}
+For an object $A\in\mathcal C$, the constant
+presheaf $\underline A$ is given by
+\[
+\underline A(U)=A
+\]
+for every open $U$, with identity restriction maps.
+\end{example}
+
+\begin{example}
+\label{example-smooth-functions-presheaf}
+If $X$ is a smooth manifold, then
+\[
+U\longmapsto C^\infty(U)
+\]
+with ordinary restriction of functions is a
+presheaf, denoted $C_X^\infty$.
+\end{example}
+
+\begin{definition}
+\label{definition-stalk}
+Let $p\in X$. The {\it stalk} of a presheaf
+$\mathcal F$ at $p$ is the colimit
+\[
+\mathcal F_p
+=
+\varinjlim_{p\in U}\mathcal F(U),
+\]
+taken over the open neighbourhoods $U$ of $p$.
+\end{definition}
+
+\noindent
+Concretely, an element of $\mathcal F_p$ is a
+germ: two sections defined near $p$ represent the
+same germ if they agree after restriction to some
+smaller neighbourhood of $p$.
+
+\begin{definition}
+\label{definition-sheaf}
+A presheaf $\mathcal F$ is a {\it sheaf} if
+sections which agree on overlaps glue uniquely:
+for every open cover $U=\bigcup_iU_i$ and sections
+$s_i\in\mathcal F(U_i)$ satisfying
+\[
+s_i|_{U_i\cap U_j}=s_j|_{U_i\cap U_j},
+\]
+there exists a unique $s\in\mathcal F(U)$ with
+$s|_{U_i}=s_i$ for all $i$.
+\end{definition}
+
+
 \bibliography{my}
 \bibliographystyle{amsalpha}
 
