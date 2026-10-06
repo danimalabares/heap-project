@@ -3270,285 +3270,118 @@ Anything else in this lecture?
 \section{Extensions}
 \label{section-extensions}
 
+\noindent
+For our purposes, the point of extensions is to understand concretely why the first derived functor $\operatorname{Ext}^1$ classifies short exact sequences.
+
 \begin{definition}
 \label{definition-extension}
-Let $\mathcal{A}$ be an abelian category.
-Let $A, B \in \Ob(\mathcal{A})$.
-An {\it extension $E$ of $B$ by $A$} is a
-short
-exact sequence
+Let $A$ and $B$ be $R$-modules. An \emph{extension of $B$ by $A$} is a short exact sequence
 $$
-0 \to A \to E \to B \to 0.
+0\longrightarrow A\longrightarrow E\longrightarrow B\longrightarrow0.
 $$
-A {\it morphism of extensions} between two
-extensions $0 \to A \to E \to B \to 0$ and
-$0 \to A \to F \to B \to 0$ means a morphism
-$f : E \to F$ in $\mathcal{A}$ making the
-diagram
+Two extensions are \emph{equivalent} if there is an isomorphism between their middle terms making the diagram
 $$
 \xymatrix{
-0 \ar[r] &
-A \ar[r] \ar[d]^{\text{id}} &
-E \ar[r] \ar[d]^f &
-B \ar[r] \ar[d]^{\text{id}} &
-0 \\
-0 \ar[r] &
-A \ar[r] &
-F \ar[r] &
-B \ar[r] &
-0
+0\ar[r]&A\ar[r]\ar[d]^{\mathrm{id}}&E\ar[r]\ar[d]^{\sim}&B\ar[r]\ar[d]^{\mathrm{id}}&0\\
+0\ar[r]&A\ar[r]&E'\ar[r]&B\ar[r]&0
 }
 $$
-commutative.
-Thus, the extensions of $B$ by $A$ form a
-category.
+commute.
 \end{definition}
-
-\noindent
-By abuse of language we often omit mention of
-the
-morphisms $A \to E$ and $E \to B$, although
-they are
-definitively part of the structure of an
-extension.
 
 \begin{definition}
-\label{definition-ext-group}
-Let $\mathcal{A}$ be an abelian category.
-Let $A, B \in \Ob(\mathcal{A})$.
-The set of isomorphism classes of extensions
-of $B$ by $A$ is denoted
+\label{definition-split-extension}
+An extension is \emph{split} if the surjection $E\to B$ admits a section $B\to E$. Equivalently,
 $$
-\Ext_\mathcal{A}(B, A).
+E\cong A\oplus B
 $$
-This is called the {\it $\Ext$-group}.
+compatibly with the extension maps.
 \end{definition}
 
-\noindent
-This definition works, because by our
-conventions
-$\Ob(\mathcal{A})$ is a set, and hence
-$\Ext_\mathcal{A}(B, A)$ is a set.
-In any of the cases of ``big'' abelian
-categories
-listed in Categories, Remark
-\ref{categories-remark-big-categories}
-one can check by hand that
-$\Ext_\mathcal{A}(B, A)$
-is a set as well. Also, we will see later
-that this is
-always the case when $\mathcal{A}$ has either
-enough projectives
-or enough injectives. Insert future reference
-here.
-
 \medskip\noindent
-Actually we can turn $\Ext_\mathcal{A}(-, -)$
-into a
-functor
+\textbf{From an extension to a derived $\operatorname{Ext}^1$ class.}
+Choose a projective resolution of $B$ and look at its beginning:
 $$
-\mathcal{A} \times \mathcal{A}^{opp}
-\longrightarrow \textit{Sets}, \quad
-(A, B) \longmapsto \Ext_\mathcal{A}(B, A)
+\cdots\longrightarrow P_2\xrightarrow{d_2}P_1\xrightarrow{d_1}P_0\xrightarrow{p}B\longrightarrow0.
 $$
-as follows:
-\begin{enumerate}
-\item Given a morphism $B' \to B$ and an
-extension
-$E$ of $B$ by $A$ we define $E' = E \times_B
-B'$.
-By Lemma \ref{lemma-cartesian-kernel} we have
-the following
-commutative diagram of short exact sequences
+In particular,
 $$
-\xymatrix{
-0 \ar[r] & A \ar[r] \ar[d] & E' \ar[r] \ar[d]
-& B' \ar[r] \ar[d] & 0 \\
-0 \ar[r] & A \ar[r] & E \ar[r] & B \ar[r] & 0
-}
+P_1\xrightarrow{d_1}P_0\xrightarrow{p}B\longrightarrow0
 $$
-The extension $E'$ is called the {\it
-pullback of $E$ via
-$B' \to B$}.
-\item Given a morphism $A \to A'$ and an
-extension
-$E$ of $B$ by $A$ we define $E' = A' \amalg_A
-E$.
-By Lemma \ref{lemma-cartesian-cocartesian}
-we have the following commutative diagram
-of short exact sequences
+is a projective presentation of $B$. Such a presentation always exists for $R$-modules because $R$-modules have enough projectives.
+
+Now let
 $$
-\xymatrix{
-0 \ar[r] & A \ar[r] \ar[d] & E \ar[r] \ar[d]
-& B \ar[r] \ar[d] & 0 \\
-0 \ar[r] & A' \ar[r] & E' \ar[r] & B \ar[r] &
-0
-}
+0\longrightarrow A\longrightarrow E\xrightarrow{q}B\longrightarrow0
 $$
-The extension $E'$ is called the {\it pushout
-of $E$ via
-$A \to A'$}.
-\end{enumerate}
-To see that this defines a functor as
-indicated above
-there are several things to verify. First of
-all
-functoriality in the variable $B$ requires
-that
-$(E \times_B B') \times_{B'} B'' = E \times_B
-B''$
-which is a general property of fibre
-products.
-Dually one deals with functoriality in the
-variable $A$. Finally, given $A \to A'$ and
-$B' \to B$ we have to show that
+be an extension. Since $P_0$ is projective and $q$ is surjective, the map $p:P_0\to B$ lifts to a map
 $$
-A' \amalg_A (E \times_B B')
+\widetilde p:P_0\longrightarrow E
+$$
+such that
+$$
+q\widetilde p=p.
+$$
+This is exactly the lifting property in the definition of a projective module.
+
+Consider the composite
+$$
+P_1\xrightarrow{d_1}P_0\xrightarrow{\widetilde p}E.
+$$
+Its image lies in $A$. Indeed, after composing with $q:E\to B$ we obtain
+$$
+q\widetilde p d_1=pd_1=0,
+$$
+because the projective resolution is a complex. Since
+$$
+A=\ker(q),
+$$
+the composite factors uniquely through a map
+$$
+\phi:P_1\longrightarrow A.
+$$
+
+If we choose a different lift $\widetilde p$, the resulting $\phi$ changes by an element coming from
+$$
+\operatorname{Hom}_R(P_0,A)\longrightarrow\operatorname{Hom}_R(P_1,A).
+$$
+Moreover, since $d_1d_2=0$, the map $\phi$ lies in the kernel of
+$$
+\operatorname{Hom}_R(P_1,A)\longrightarrow\operatorname{Hom}_R(P_2,A).
+$$
+Thus the extension determines a well-defined class
+$$
+[\phi]\in
+\frac{\ker\bigl(\operatorname{Hom}_R(P_1,A)\to\operatorname{Hom}_R(P_2,A)\bigr)}
+{\operatorname{im}\bigl(\operatorname{Hom}_R(P_0,A)\to\operatorname{Hom}_R(P_1,A)\bigr)}.
+$$
+But this quotient is exactly
+$$
+H^1\bigl(\operatorname{Hom}_R(P_\bullet,A)\bigr),
+$$
+which by definition of the derived functor is
+$$
+\operatorname{Ext}^1_R(B,A).
+$$
+
+\begin{theorem}
+\label{theorem-ext1-classifies-extensions}
+The construction above gives a natural bijection
+$$
+\left\{
+\begin{array}{c}
+\text{equivalence classes of extensions}\\
+0\to A\to E\to B\to0
+\end{array}
+\right\}
 \cong
-(A' \amalg_A E)\times_B B'
+\operatorname{Ext}^1_R(B,A).
 $$
-as extensions of $B'$ by $A'$. Recall that
-$A' \amalg_A E$
-is a quotient of $A' \oplus E$.
-Thus the right hand side is a quotient of
-$A' \oplus E \times_B B'$, and it is
-straightforward to see that
-the kernel is exactly what you need in order
-to
-get the left hand side.
+Under this bijection the split extension corresponds to $0$.
+\end{theorem}
 
-\medskip\noindent
-Note that if $E_1$ and $E_2$ are extensions
-of
-$B$ by $A$, then $E_1\oplus E_2$ is an
-extension
-of $B \oplus B$ by $A\oplus A$. We
-push out by the sum map $A \oplus A \to A$
-and we
-pull back by the diagonal map $B \to B \oplus
-B$ to get
-an extension $E_1 + E_2$ of $B$ by $A$.
-$$
-\xymatrix{
-0 \ar[r] &
-A \oplus A \ar[r] \ar[d]_\Sigma &
-E_1 \oplus E_2 \ar[r] \ar[d] &
-B \oplus B \ar[r] \ar[d] &
-0 \\
-0 \ar[r] &
-A \ar[r] &
-E' \ar[r] &
-B \oplus B \ar[r] &
-0\\
-0 \ar[r] &
-A \ar[r] \ar[u] &
-E_1 + E_2 \ar[r] \ar[u] &
-B \ar[r] \ar[u]^\Delta &
-0
-}
-$$
-The extension $E_1 + E_2$ is called the {\it
-Baer sum} of the
-given extensions.
-
-\begin{lemma}
-\label{lemma-baer-sum}
-The construction $(E_1, E_2) \mapsto E_1 +
-E_2$
-above defines a commutative group
-law on $\Ext_\mathcal{A}(B, A)$ which is
-functorial in both variables.
-\end{lemma}
-
-\begin{proof}
-Omitted.
-\end{proof}
-
-\begin{lemma}
-\label{lemma-six-term-sequence-ext}
-Let $\mathcal{A}$ be an abelian category.
-Let $0 \to M_1 \to M_2 \to M_3 \to 0$ be a
-short exact sequence
-in $\mathcal{A}$.
-\begin{enumerate}
-\item There is a canonical six term exact
-sequence of abelian groups
-$$
-\xymatrix{
-0 \ar[r] &
-\Hom_\mathcal{A}(M_3, N) \ar[r] &
-\Hom_\mathcal{A}(M_2, N) \ar[r] &
-\Hom_\mathcal{A}(M_1, N) \ar[lld] \\
-& \Ext_\mathcal{A}(M_3, N) \ar[r] &
-\Ext_\mathcal{A}(M_2, N) \ar[r] &
-\Ext_\mathcal{A}(M_1, N)
-}
-$$
-for all objects $N$ of $\mathcal{A}$, and
-\item there is a canonical six term exact
-sequence of abelian groups
-$$
-\xymatrix{
-0 \ar[r] &
-\Hom_\mathcal{A}(N, M_1) \ar[r] &
-\Hom_\mathcal{A}(N, M_2) \ar[r] &
-\Hom_\mathcal{A}(N, M_3) \ar[lld] \\
-& \Ext_\mathcal{A}(N, M_1) \ar[r] &
-\Ext_\mathcal{A}(N, M_2) \ar[r] &
-\Ext_\mathcal{A}(N, M_3)
-}
-$$
-for all objects $N$ of $\mathcal{A}$.
-\end{enumerate}
-\end{lemma}
-
-\begin{proof}
-Omitted. Hint: The boundary maps are defined
-using either the pushout
-or pullback of the given short exact
-sequence.
-\end{proof}
-
-
-
-
-\begin{lemma}
-\label{lemma-extension-class-retraction}
-For an extension $0\to A\xrightarrow{i}E
-\to B\to0$, the connecting map sends
-$1_A$ to its class in
-$\operatorname{Ext}^1(B,A)$.
-This class is zero exactly when $i$
-has a retraction, hence exactly when
-the extension splits.
-\end{lemma}
-
-\begin{proof}
-The connecting map is pushout of the
-extension along $A\to A$; pushing out
-along $1_A$ gives the original extension.
-The exact sequence contains
-$$
-\operatorname{Hom}(E,A)
-\longrightarrow\operatorname{Hom}(A,A)
-\xrightarrow{\delta}
-\operatorname{Ext}^1(B,A).
-$$
-Thus $\delta(1_A)=0$ precisely when
-$1_A$ extends to a map $r:E\to A$.
-This says $ri=1_A$, giving the splitting.
-\end{proof}
-
-Over a ring, Ext may be computed by a
-projective resolution of its first
-argument or an injective resolution
-of its second. The double complex
-$\operatorname{Hom}(P_\bullet,I^\bullet)$
-compares the two computations.
-For sheaf Ext and its distinction from
-global Ext, see Algebraic Geometry,
-Section \ref{algebraic-geometry-%
-section-sheaf-ext-duality}.
+\noindent
+The set of extension classes has a natural addition, the \emph{Baer sum}. Under the theorem this addition agrees with the abelian-group structure on $\operatorname{Ext}^1_R(B,A)$. This is the extension viewpoint used in Jethro's course; we will not need the explicit pullback--pushout construction of the Baer sum for the deformation-theory application below.
 
 \section{AI: background for September 4}
 \label{section-ai-background-sept-four}
