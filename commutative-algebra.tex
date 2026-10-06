@@ -11419,102 +11419,111 @@ $$
 by simply putting its cokernel.
 
 \noindent
-The aim is to read the formula
-$$
-T^i_0=
-\operatorname{Ext}^i_R(L_{R/A},R)_0.
-$$
-Here $A\to R$ is a ring map: $A$ is the
-coefficient ring, which stays fixed.
-For the Gr\"unbaum paper,
-$A=\mathbb{Z}_{(101)}$ and
-$R=A[a,b,c,d,e,f,g,h]/I$.
-There are two different degrees in this
-formula; we separate them below.
+The exact sequence above explains why
+$\Omega^1_R$ is not enough for deformation
+theory. By taking the cokernel we keep the
+resulting differentials, but forget the map
+that produced the relations among them.
+The cotangent complex keeps this relation
+data, and also higher relations among
+relations.
 
-\medskip\noindent
-\textbf{Why pass from $\Omega_{R/A}$ to $L_{R/A}$?}
-The conormal sequence already shows the
-issue. If $R=P/I$, then $\Omega_{R/A}$ is
-the cokernel of
-$
+\begin{remark}[Polynomial resolution]
+\label{remark-polynomial-resolution-cotangent}
+The general construction does not continue
+the sequence
+$$
 I/I^2\longrightarrow
-\Omega_{P/A}\otimes_P R.
-$
-Taking only this cokernel remembers the
-resulting differentials, but forgets the
-map that produced their relations. The
-cotangent complex keeps this relation data,
-and then also the higher relations among
-relations. Its degree-zero cohomology will
-recover $\Omega_{R/A}$.
+\Omega^1_P\otimes_P R
+$$
+arbitrarily to the left. Instead, one goes
+back and first resolves the $A$-algebra
+$R$ itself by polynomial $A$-algebras.
+There is a standard simplicial polynomial
+resolution
+$$
+P_\bullet\longrightarrow R,
+$$
+which may be pictured schematically as
+$$
+\cdots P_2
+\rightrightarrows P_1
+\rightrightarrows P_0
+\longrightarrow R.
+$$
+Here $P_0$ is a free polynomial
+$A$-algebra mapping onto $R$; the next
+levels encode relations, relations among
+relations, and so on. Simplicial means
+that at level $n$ there are several
+compatible face maps
+$$
+d_i:P_n\longrightarrow P_{n-1},
+\qquad 0\leq i\leq n.
+$$
+Such a polynomial resolution exists. For
+the standard construction, let $F(B)$ be
+the free polynomial $A$-algebra with one
+variable $[b]$ for every element $b\in B$
+and iterate:
+$$
+P_n=F^{n+1}(R).
+$$
+Evaluation gives the face maps. See
+\href{https://stacks.math.columbia.edu/%
+tag/08PL}{Stacks, Tag 08PL}.
+\end{remark}
 
-\medskip\noindent
-\textbf{What is $L_{R/A}$?}
-The clean general definition is obtained
-by replacing $R$ by a simplicial polynomial
-$A$-algebra resolution and taking K\"ahler
-differentials level by level.
-
-For an $A$-algebra $B$, let $F(B)$ be the
-polynomial $A$-algebra with one formal
-variable $[b]$ for each element $b\in B$.
-Evaluation gives an algebra map
+\noindent
+Now take K\"ahler differentials at every
+level,
 $$
-\epsilon_B:F(B)\longrightarrow B,
-\qquad [b]\longmapsto b.
+\Omega^1_{P_n/A},
 $$
-Repeat this free-algebra construction:
+and change coefficients from $P_n$ to $R$:
 $$
-P_n=F^{n+1}(R),\qquad n\geq0.
+\Omega^1_{P_n/A}\otimes_{P_n}R.
 $$
-For $n\geq1$ there are $n+1$ maps
-$P_n\to P_{n-1}$, obtained by applying
-evaluation at each possible level of the
-nested expression.
-These are the face maps of the standard
-simplicial resolution. They encode
-compatibility among relations.
+The face maps induce maps between these
+$R$-modules. Taking their alternating sums
+turns them into an ordinary complex.
 
 \begin{definition}
 \label{definition-cotangent-complex-primer}
 The \emph{cotangent complex} $L_{R/A}$ is
-the complex of $R$-modules with terms
+the resulting complex of $R$-modules:
 $$
-L^{-n}_{R/A}
-=\Omega_{P_n/A}\otimes_{P_n}R
-\qquad(n\geq0),
+\cdots\longrightarrow
+\Omega^1_{P_2/A}\otimes_{P_2}R
+\longrightarrow
+\Omega^1_{P_1/A}\otimes_{P_1}R
+\longrightarrow
+\Omega^1_{P_0/A}\otimes_{P_0}R
+\longrightarrow0.
 $$
-and zero terms in positive degrees.
-The tensor product uses evaluation
-$P_n\to R$. Its differential is the
-alternating sum of the maps induced by
-the face maps.
+Equivalently,
+$$
+L^{-n}_{R/A}=\Omega^1_{P_n/A}\otimes_{P_n}R,
+\qquad n\geq0.
+$$
 \end{definition}
 
 \noindent
-The face-map identities make the
-differential square to zero. Thus we have
-an ordinary complex
+Thus the construction is
 $$
-\cdots\longrightarrow L^{-2}
-\longrightarrow L^{-1}
-\longrightarrow L^0\longrightarrow0.
+R\xleftarrow{\text{resolve}}P_\bullet
+\xrightarrow{\Omega^1_{-/A}}\Omega^1_{P_\bullet/A}
+\xrightarrow{\text{change coefficients to }R}L_{R/A}.
 $$
-Each term is free over $R$, since $P_n$
-is polynomial. We resolved $R$ as an
-\emph{algebra}, then took differentials;
-this is not an ordinary module resolution
-of $\Omega_{R/A}$. In fact
+In particular,
 $$
-H^0(L_{R/A})=\Omega_{R/A},
+H^0(L_{R/A})\cong\Omega^1_{R/A},
 $$
-but negative cohomology can survive.
-See \href{https://stacks.math.columbia.edu/%
-tag/08PL}{Stacks, Tag 08PL} for the
-construction and
+while the negative degrees retain the
+additional relation data discarded by
+$\Omega^1_{R/A}$. See
 \href{https://stacks.math.columbia.edu/%
-tag/08QF}{Tag 08QF} for this equality.
+tag/08QF}{Stacks, Tag 08QF}.
 
 \medskip\noindent
 \textbf{What does Ext mean here?}
