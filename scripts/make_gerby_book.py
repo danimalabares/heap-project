@@ -46,6 +46,7 @@ KNOWN_CHAPTERS = {
     "birational-maps-commutative-algebra",
     "cremona-transformations",
     "linguistics",
+    "religion",
     "genealogia-familiar",
     "arte-moderna-brasileira",
     "historia-do-brasil",
