@@ -5991,68 +5991,85 @@ globally a constant sheaf.
 
 
 
-\section{The local singular chain complex}
-\label{section-local-singular-chain-complex}
+\section{The sheaf of singular cochains}
+\label{section-sheaf-singular-cochains}
 
 \noindent
-Following the lecture, let $\mathcal C_p$ denote the
-local object whose sections on an open set $U\subset X$
-are the singular $p$-chains
+For an open set $U\subset X$, let
 \[
-\mathcal C_p(U):=C_p(U)
-=
-\mathbb Z\{\sigma:\Delta^p\to U\}.
+C^p_{\mathrm{sing}}(U;\mathbb Z)
+:=
+\operatorname{Hom}_{\mathbb Z}
+\bigl(C_p^{\mathrm{sing}}(U),\mathbb Z\bigr).
 \]
-(The precise sheaf/cosheaf variance in this notation
-should be clarified later.)
-
-The singular boundary maps give a complex
+If $V\subset U$, the inclusion
+$C_p^{\mathrm{sing}}(V)\to C_p^{\mathrm{sing}}(U)$
+induces a restriction map
 \[
-\cdots\longrightarrow
-\mathcal C_2\longrightarrow
-\mathcal C_1\longrightarrow
-\mathcal C_0.
+C^p_{\mathrm{sing}}(U;\mathbb Z)
+\longrightarrow
+C^p_{\mathrm{sing}}(V;\mathbb Z),
 \]
-
-There is an augmentation
+so these groups form a presheaf. Denote its
+sheafification by $\mathcal C^p_{\mathrm{sing}}$.
+The singular coboundary gives morphisms
 \[
-\mathcal C_0\longrightarrow \underline{\mathbb Z},
-\]
-sending a $0$-simplex to $1$. Thus we obtain
-\[
-\cdots\longrightarrow
-\mathcal C_2\longrightarrow
-\mathcal C_1\longrightarrow
-\mathcal C_0\longrightarrow
-\underline{\mathbb Z}\longrightarrow0.
+\delta:\mathcal C^p_{\mathrm{sing}}
+\longrightarrow
+\mathcal C^{p+1}_{\mathrm{sing}}.
 \]
 
-\noindent
-Why is this exact? Exactness of a sequence of sheaves
-can be checked on stalks. Around a point $x\in X$, take
-a sufficiently small contractible neighbourhood $U$.
-Then
+\begin{proposition}
+\label{proposition-singular-cochains-resolve-constant-sheaf}
+Let $X$ be a smooth manifold. Then the augmented
+complex
 \[
-H_p(U;\mathbb Z)=0\qquad(p>0),
+0\longrightarrow \underline{\mathbb Z}_X
+\longrightarrow \mathcal C^0_{\mathrm{sing}}
+\xrightarrow{\delta}\mathcal C^1_{\mathrm{sing}}
+\xrightarrow{\delta}\mathcal C^2_{\mathrm{sing}}
+\longrightarrow\cdots
 \]
-and
-\[
-H_0(U;\mathbb Z)\cong \mathbb Z.
-\]
-Therefore the stalk complex has no homology in positive
-degrees and has $\mathbb Z$ in degree $0$. Hence the
-augmented complex above is exact on stalks.
+is exact. Equivalently,
+$\mathcal C^\bullet_{\mathrm{sing}}$ is a resolution
+of the constant sheaf $\underline{\mathbb Z}_X$
+in $\operatorname{Sh}(X)$.
+\end{proposition}
 
-\medskip\noindent
-So, in the sense used in the lecture,
+\begin{proof}
+Exactness of a complex of sheaves can be checked on
+stalks. For $x\in X$,
 \[
-\boxed{
-\cdots\to\mathcal C_2\to\mathcal C_1\to
-\mathcal C_0\to\underline{\mathbb Z}\to0
-}
+(\mathcal C^p_{\mathrm{sing}})_x
+\cong
+\varinjlim_{x\in U}
+C^p_{\mathrm{sing}}(U;\mathbb Z).
 \]
-is a resolution of the constant sheaf
-$\underline{\mathbb Z}$.
+Filtered colimits are exact in $\mathbf{Ab}$, hence
+\[
+H^p\bigl((\mathcal C^\bullet_{\mathrm{sing}})_x\bigr)
+\cong
+\varinjlim_{x\in U}
+H^p_{\mathrm{sing}}(U;\mathbb Z).
+\]
+A smooth manifold has a neighbourhood basis at $x$
+consisting of contractible open sets. For such $U$,
+\[
+H^p_{\mathrm{sing}}(U;\mathbb Z)=0
+\quad (p>0),
+\qquad
+H^0_{\mathrm{sing}}(U;\mathbb Z)\cong\mathbb Z.
+\]
+Thus the stalk complex has zero cohomology in positive
+degrees and $\mathbb Z$ in degree $0$. The map
+$\underline{\mathbb Z}_X\to\mathcal C^0_{\mathrm{sing}}$
+sends a locally constant integer-valued function to
+the corresponding constant singular $0$-cochain, so
+it identifies $\underline{\mathbb Z}_{X,x}\cong\mathbb Z$
+with this degree-$0$ cohomology. Hence the augmented
+complex is exact at every stalk, and therefore exact
+as a complex of sheaves.
+\end{proof}
 
 
 \bibliography{my}
