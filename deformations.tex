@@ -396,11 +396,76 @@ up to the corresponding sign convention for $h$.
 \end{exercise}
 
 \noindent
-Thus a deformation is not represented intrinsically by one particular $\mu$. The ring axioms impose a cocycle condition on $\mu$, while changing the arbitrary section changes $\mu$ by a coboundary. The actual first-order deformation data therefore lives in a cohomology class: cocycles modulo coboundaries. The cotangent complex packages this construction intrinsically, without choosing a section, and its first cotangent cohomology is the resulting deformation space.
+Thus a deformation is not represented intrinsically by one particular $\mu$. The ring axioms impose a cocycle condition on $\mu$, while changing the arbitrary section changes $\mu$ by a coboundary.
+
+\begin{remark}[Relation with Hochschild cohomology]
+This is literally a cohomology calculation. Put
+$$
+C^1=\operatorname{Hom}_k(R,R),\qquad
+C^2=\operatorname{Hom}_k(R\otimes_kR,R),\qquad
+C^3=\operatorname{Hom}_k(R^{\otimes3},R).
+$$
+The relevant differentials are
+$$
+(dh)(a,b)=a\,h(b)-h(ab)+h(a)b
+$$
+and
+$$
+(d\mu)(a,b,c)
+=a\mu(b,c)-\mu(ab,c)+\mu(a,bc)-\mu(a,b)c.
+$$
+Hence associativity says $d\mu=0$, while changing the section changes $\mu$ by $dh$. These are the Hochschild differentials, so for associative algebra deformations this quotient is $HH^2(R,R)$. Our algebras are commutative, so $\mu$ must also respect commutativity; the cotangent complex gives the intrinsic cohomology theory appropriate to commutative algebra deformations.
+\end{remark}
+
+\subsection{Cotangent cohomology}
 
 \noindent
-The cotangent complex $L_{R/k}$ was constructed in \emph{Commutative Algebra}. Our goal in this section is to understand, rather than simply quote, why $L_{R/k}$ controls this deformation problem and how $T^1$ arises from it.
+We have just seen by hand that deformation theory must remember how the algebra structure of $R$ is assembled, rather than only its underlying module. Recall from the cotangent-complex section of \emph{Commutative Algebra} that if
+$$
+R=P/I,
+$$
+then
+$$
+I/I^2\longrightarrow
+\Omega^1_{P/k}\otimes_P R
+\longrightarrow
+\Omega^1_{R/k}\longrightarrow0.
+$$
+Passing to the cokernel gives $\Omega^1_{R/k}$ but forgets relation data. The cotangent complex keeps this information and its higher analogues. In the general construction one resolves $R$ by polynomial $k$-algebras
+$$
+P_\bullet\longrightarrow R
+$$
+and sets
+$$
+L_{R/k}
+=
+\Omega^1_{P_\bullet/k}\otimes_{P_\bullet}R.
+$$
+Thus $L_{R/k}$ remembers infinitesimally the generators, relations, relations among relations, and so on. This is exactly the sort of algebra-structure information that can vary in a deformation.
 
+\begin{definition}
+\label{definition-cotangent-cohomology}
+The \emph{cotangent cohomology} of the $k$-algebra $R$ is
+$$
+T^i_{R/k}
+:=
+\operatorname{Ext}^i_R(L_{R/k},R).
+$$
+In particular,
+$$
+T^1_{R/k}
+=
+\operatorname{Ext}^1_R(L_{R/k},R).
+$$
+\end{definition}
+
+\noindent
+The fundamental deformation-theoretic statement is that $T^1_{R/k}$ classifies first-order deformations of $R$ up to equivalence. The discussion above explains why an Ext group of the cotangent complex, rather than $\operatorname{Ext}^1_R(R,R)$, is the natural object: the latter only sees module extensions, while $L_{R/k}$ retains the algebra relations whose infinitesimal variation produces genuinely different algebra structures.
+
+\noindent
+The construction of $L_{R/k}$ is given in Definition
+\ref{commutative-algebra-definition-cotangent-complex-primer}
+in \emph{Commutative Algebra}.
 \section{Structures over the Dual Numbers}
 \label{section-structures-dual-numbers}
 
