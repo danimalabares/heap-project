@@ -28,6 +28,11 @@
 \usepackage{textalpha}
 
 % For cross-file-references
+% We prefer the snapshot tmp/xref/#2.aux,
+% which latexmkrc replaces atomically, so
+% that documents compiled simultaneously
+% never read a half-written .aux file.
+% The last argument keeps links to #2.pdf.
 \usepackage{xr-hyper}
 \newcommand{\maybeexternaldocument}[2]{%
   \IfFileExists{#2.aux}{%
@@ -38,10 +43,14 @@
 }
 \let\externaldocumentorig\externaldocument
 \renewcommand{\externaldocument}[2][]{%
+  \IfFileExists{tmp/xref/#2.aux}{%
+    \externaldocumentorig[#1]{tmp/xref/#2}[#2.pdf]%
+  }{%
   \IfFileExists{#2.aux}{%
     \externaldocumentorig[#1]{#2}%
   }{%
     \PackageWarning{stack}{Missing #2.aux; external references with prefix #1 unavailable}%
+  }%
   }%
 }
 
