@@ -4,6 +4,9 @@ Results Daniel currently accepts without
 having worked through their proofs.
 This is a learning log, not a claim that
 the notes already contain complete proofs.
+Every entry must link to its supporting
+HP or daniel development and record its
+current state, even if only a title exists.
 
 ## 2026-10-09 — Deformation theory
 
@@ -27,8 +30,9 @@ that identification.
 **Use:** interpret a T¹ class as an
 infinitesimal deformation direction.
 
-**Notes:** [deformations.tex](deformations.tex),
-label:
+**Development:** [Why T¹ parametrizes first-order deformations](https://github.com/danimalabares/heap-project/blob/main/deformations.tex#L500).
+Partial development; the proof is unfinished.
+Stable LaTeX label:
 section-first-order-algebra-deformations.
 
 ### 2. T² contains obstruction classes
@@ -66,8 +70,9 @@ an obstruction class. This does not say
 that every T² class occurs as an
 obstruction, or that a lift is unique.
 
-**Notes:** [deformations.tex](deformations.tex),
-label: section-obstruction-classes.
+**Development:** [Why T² contains obstruction classes](https://github.com/danimalabares/heap-project/blob/main/deformations.tex#L769).
+Currently a section title only.
+Stable LaTeX label: section-obstruction-classes.
 
 ### 3. AC multigrading is the torus weight decomposition
 
@@ -122,9 +127,18 @@ $$
 \bigoplus_{\sum_i\alpha_i=0}T^2_\alpha.
 $$
 
-**Notes:** [HP section 09EL](https://www.heap-project.org/tag/09EL)
-in [deformations.tex](deformations.tex),
-label: section-torus-action-ac-multidegrees.
+**Developments:**
+
+- [Weight decomposition for algebraic tori](https://github.com/danimalabares/heap-project/blob/main/representation-theory.tex#L482): definition, decomposition theorem (proof postponed), and differentiation bridge to Lie algebra weights. Labels: section-torus-weights and theorem-torus-weights.
+- [Lie algebra weight spaces](https://github.com/danimalabares/heap-project/blob/main/lie-algebras.tex#L401): the familiar simultaneous-eigenvector definition. Label: definition-weight-space.
+- [Torus action and AC multidegrees](https://www.heap-project.org/tag/09EL): application to T² and explanation of permutation compatibility. Label: section-torus-action-ac-multidegrees.
+
+The general decomposition is standard
+representation theory. AC's contribution
+is the combinatorial computation of the
+cotangent cohomology pieces; those
+formulas have not yet been developed in
+this HP section.
 
 The descent of rescaling to a monomial
 quotient is already proved there.
