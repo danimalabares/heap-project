@@ -129,7 +129,7 @@ $$
 
 **Developments:**
 
-- [Weight decomposition for algebraic tori](https://github.com/danimalabares/heap-project/blob/main/representation-theory.tex#L482): definition, decomposition theorem (proof postponed), and differentiation bridge to Lie algebra weights. Labels: section-torus-weights and theorem-torus-weights.
+- [Weight decomposition for algebraic tori](https://github.com/danimalabares/heap-project/blob/main/representation-theory.tex): definition, decomposition theorem (proof postponed), and differentiation bridge to Lie algebra weights. Labels: section-torus-weights and theorem-torus-weights.
 - [Lie algebra weight spaces](https://github.com/danimalabares/heap-project/blob/main/lie-algebras.tex#L401): the familiar simultaneous-eigenvector definition. Label: definition-weight-space.
 - [Torus action and AC multidegrees](https://www.heap-project.org/tag/09EL): application to T² and explanation of permutation compatibility. Label: section-torus-action-ac-multidegrees.
 
@@ -145,3 +145,15 @@ quotient is already proved there.
 These accepted facts do not themselves
 prove invariant obstruction vanishing,
 equivariant lifting, or smoothness.
+
+### Source for the accepted torus theorem
+
+J. S. Milne, [Algebraic Groups (2022)](https://www.jmilne.org/math/Books/iAG2022.pdf),
+Theorem 12.12, printed pages 234–235,
+proves the weight decomposition, including
+infinite-dimensional algebraic representations.
+Corollary 4.8 gives local finiteness;
+Section 4g develops characters and eigenspaces.
+These references support the general torus
+statement, not the construction of the
+induced action on cotangent cohomology.
