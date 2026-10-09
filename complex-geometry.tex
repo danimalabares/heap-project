@@ -5637,16 +5637,22 @@ A line bundle $L \to M$ is {\it positive}
 if there exists a metric on $L$ with
 curvature form $\Theta$
 such that $(\sqrt{-1}/2\pi)\Theta$ is a
-positive $(1,1)$-form
+strictly positive $(1,1)$-form
 (Definition
-\ref{definition-positive-11form}).
+\ref{definition-positive-11form}); here
+strict positivity means
+$
+\frac{i}{2\pi}\Theta(v,Iv)>0
+$
+for every nonzero real tangent vector $v$.
 \end{definition}
 
 \begin{theorem}[Kodaira-Nakano Vanishing
 Theorem]
 \label{theorem-kodaira-nakano-vanishing}
 \begin{reference}
-\cite[p. 154]{gri}
+\cite[p. 154]{gri};
+\cite[Proposition 5.2.2]{huc}
 \end{reference}
 [Let $M$ be a compact Kähler manifold of
 complex dimension $n$.]
@@ -5657,6 +5663,83 @@ H^q(M,\Omega^p(L)) = 0,\qquad
 p+q>n=\dim_\mathbb{C} M.
 $$
 \end{theorem}
+
+\begin{proof}
+See \cite[Proposition 5.2.2]{huc} and
+\cite[p. 154]{gri}.
+The idea is to show that an $L$-valued
+harmonic $(p,q)$-form must vanish when
+$p+q>n$.
+
+Choose a Hermitian metric on $L$ whose
+Chern curvature $\Theta$ is strictly
+positive after multiplication by $i$.
+Set
+$$
+\omega=i\Theta.
+$$
+This is a real, closed, strictly positive
+$(1,1)$-form, hence a Kähler form.
+We use its Kähler metric on $M$.
+This choice is allowed because the
+cohomology group does not depend on the
+metric used to find harmonic
+representatives.
+
+To avoid confusing the line bundle $L$
+with a Lefschetz operator, write
+$$
+L_\omega(\alpha)=\omega\wedge\alpha,
+\qquad
+\Lambda=L_\omega^*.
+$$
+The curvature operator $i\Theta$ acts
+on forms by wedge multiplication, so it
+is exactly $L_\omega$. The Lefschetz
+commutator from Proposition
+\ref{proposition-sl2-relat-exter-algeb}
+therefore gives, on $(p,q)$-forms,
+$$
+[i\Theta,\Lambda]
+=[L_\omega,\Lambda]
+=(p+q-n)\operatorname{id}.
+$$
+Thus the Nakano identity
+(Theorem \ref{theorem-nakano-identities})
+becomes
+$$
+\Delta_{\bar\partial_L}
+=
+\Delta_{\partial_L}
++(p+q-n)\operatorname{id}.
+$$
+
+By Dolbeault's theorem and the
+bundle-valued Hodge theorem
+(Theorem \ref{theorem-bundle-valued-hodge}),
+every class in $H^q(M,\Omega^p(L))$
+has a harmonic representative $\alpha$.
+In particular,
+$\Delta_{\bar\partial_L}\alpha=0$.
+Taking the global $L^2$ inner product
+with $\alpha$ yields
+$$
+\begin{aligned}
+0
+&=\left\langle{}
+\Delta_{\bar\partial_L}\alpha,\alpha
+\right\rangle{}_{L^2}\\
+&=\|\partial_L\alpha\|_{L^2}^2
++\|\partial_L^*\alpha\|_{L^2}^2\\
+&\quad +(p+q-n)\|\alpha\|_{L^2}^2.
+\end{aligned}
+$$
+The first two terms are nonnegative.
+If $p+q>n$, the coefficient in the last
+term is strictly positive, so
+$\alpha=0$. Hence every cohomology
+class is zero.
+\end{proof}
 
 \noindent
 Here's the same result as it appears in
