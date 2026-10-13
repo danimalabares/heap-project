@@ -5555,148 +5555,17 @@ hence not nilpotent. Hence $f$ is not
 nilpotent in $\mathcal{O}_{X, x}$.
 \end{proof}
 
-\section{Flat morphisms}
-\label{section-flat-morphisms}
+\section{Fibres and specialization}
+\label{section-fibres-specialization}
 
 \noindent
-The essential technical property
-for for defining flatness
-is the preservation of exact sequences.
-Right-exactness is true in general;
-it follows from currying in category
-of commutative rings.
-But the functor $-\otimes_R N$ does not
-preserve injectivity of maps---
-that's the point of flatness.
-
-\begin{lemma}[Internal Hom for R-modules]
-\label{lemma-hom-from-tensor-product}
-For any three $R$-modules $M, N, P$,
-$$
-\Hom_R(M \otimes_R N, P) \cong \Hom_R(M,
-\Hom_R(N, P))
-$$
-\end{lemma}
-
-\begin{proof}
-An $R$-linear map $\hat{f}\in \Hom_R(M
-\otimes_R N, P)$ corresponds to an
-$R$-bilinear map $f : M \times N \to P$. For
-each $x\in M$ the mapping $y\mapsto f(x, y)$
-is $R$-linear by the universal
-property. Thus $f$ corresponds to a
-map $\phi_f : M \to \Hom_R(N, P)$. This map
-is $R$-linear since
-$$
-\phi_f(ax + y)(z) =
-f(ax + y, z) = af(x, z)+f(y, z) =
-(a\phi_f(x)+\phi_f(y))(z),
-$$
-for all $a \in R$, $x \in M$, $y \in M$ and
-$z \in N$. Conversely, any
-$f \in \Hom_R(M, \Hom_R(N, P))$ defines an
-$R$-bilinear
-map $M \times N \to P$, namely $(x, y)\mapsto
-f(x)(y)$.
-So this is a natural one-to-one
-correspondence between the
-two modules
-$\Hom_R(M \otimes_R N, P)$ and $\Hom_R(M,
-\Hom_R(N, P))$.
-\end{proof}
-
-\begin{lemma}[Tensor product is right exact]
-\label{lemma-tensor-product-exact}
-Let
-$$
-\begin{aligned}
-M_1\xrightarrow{f} M_2\xrightarrow{g} M_3 \to
-0
-\end{aligned}
-$$
-be an exact sequence of $R$-modules and
-homomorphisms, and let $N$ be any
-$R$-module. Then the sequence
-\begin{equation}
-\label{equation-2ndex}
-M_1\otimes N\xrightarrow{f \otimes 1}
-M_2\otimes N \xrightarrow{g \otimes 1}
-M_3\otimes N \to 0
-\end{equation}
-is exact. In other words, the functor $-
-\otimes_R N$ is
-{\it right exact}, in the sense that
-tensoring
-each term in the original right exact
-sequence preserves the exactness.
-\end{lemma}
-
-\begin{proof}
-For every $R$-module $P$
-we apply the functor $\Hom(-, \Hom(N, P))$ to
-the first exact
-sequence. We obtain
-$$
-0 \to
-\Hom(M_3, \Hom(N, P)) \to
-\Hom(M_2, \Hom(N, P)) \to
-\Hom(M_1, \Hom(N, P))
-$$
-which is exact by Lemma \ref{lemma-hom-exact}
-(1).
-By Lemma \ref{lemma-hom-from-tensor-product}
-this becomes the sequence
-$$
-0 \to \Hom(M_3 \otimes N, P) \to
-\Hom(M_2 \otimes N, P) \to \Hom(M_1 \otimes
-N, P)
-$$
-which is therefore also exact. Then using
-Lemma \ref{lemma-hom-exact} (1) again, we
-arrive at the desired exact sequence.
-\end{proof}
-
-\begin{remark}
-\label{remark-tensor-product-not-exact}
-However, tensor product does NOT preserve
-exact sequences in general.
-In other words, if $M_1 \to M_2 \to M_3$ is
-exact, then it is not necessarily true that
-$M_1 \otimes N \to M_2 \otimes N \to M_3
-\otimes N$
-is exact for arbitrary $R$-module $N$.
-\end{remark}
-
-\begin{example}
-\label{example-tensor-product-not-exact}
-Consider the injective map $2 : \mathbf{Z}\to
-\mathbf{Z}$
-viewed as a map of $\mathbf{Z}$-modules.
-Let $N = \mathbf{Z}/2$. Then the induced map
-$\mathbf{Z} \otimes \mathbf{Z}/2 \to
-\mathbf{Z} \otimes \mathbf{Z}/2$
-is NOT injective. This is because for
-$x \otimes y\in \mathbf{Z} \otimes
-\mathbf{Z}/2$,
-$$
-(2 \otimes 1)(x \otimes y) = 2x \otimes y = x
-\otimes 2y = x \otimes 0 = 0
-$$
-Therefore the induced map is the zero map
-while $\mathbf{Z} \otimes N\neq 0$.
-\end{example}
-
-\begin{definition}
-\label{definition-flat-module}
-For $R$-modules $N$, if the
-functor $-\otimes_R N$ is exact, i.e.
-tensoring
-with $N$ preserves all exact
-sequences, then $N$ is said to be {\it flat}
-$R$-module.
-We will discuss this later in Section
-\ref{section-flat}.
-\end{definition}
+For flatness of modules, see
+Commutative Algebra, Section
+\ref{commutative-algebra-%
+section-flat-modules}.
+Here we study the fibres of a family
+and how a point on its generic fibre
+can specialize to its special fibre.
 
 \medskip\noindent
 Epiphany:
@@ -5716,10 +5585,10 @@ of the deformation space).
 \begin{example}
 \label{example-two-point-base}
 Let
-$
+$$
 R=\mathbb{C}[[t]],\qquad
 K=\mathbb{C}((t)).
-$
+$$
 Strictly speaking, the base
 $\operatorname{Spec}R$ has two points;
 a family over it has a fibre over each.
@@ -5736,30 +5605,30 @@ then $n>0$ and primality forces it to
 contain $t$. Since $R/(t)=\mathbb{C}$,
 the ideal $(t)$ is maximal.
 Thus the only prime ideals are
-$
+$$
 \eta=(0),\qquad s=(t).
-$
+$$
 The point $\eta$ is generic: its closure
 is the whole base. The point $s$ is
 closed. Their residue fields are
-$
+$$
 \kappa(\eta)=K,\qquad
 \kappa(s)=\mathbb{C}.
-$
+$$
 
 For an affine family
-$
+$$
 \mathcal{X}=\operatorname{Spec}A
 \longrightarrow\operatorname{Spec}R,
-$
+$$
 the two fibres are
-$
+$$
 \mathcal{X}_{\eta}
 =\operatorname{Spec}(A\otimes_R K),
 \qquad
 \mathcal{X}_s
 =\operatorname{Spec}(A/tA).
-$
+$$
 The first makes $t$ invertible; the
 second sets $t=0$. The generic fibre
 does not mean setting $t$ equal to
@@ -5773,10 +5642,10 @@ Stacks Project, Definition 26.18.4,
 \begin{exercise}
 \label{exercise-follow-point-to-fibre}
 With $R$ and $K$ as above, consider
-$
+$$
 \mathcal{X}
 =\operatorname{Spec}(R[x,y]/(xy-t)).
-$
+$$
 This exercise illustrates specialization
 by a direct calculation.
 \begin{enumerate}
@@ -5786,9 +5655,9 @@ $K$-point of the generic fibre.
 \item Inside the total space impose
 $x=t$ and $y=1$, obtaining a closed
 subscheme $Z$. Show that
-$
+$$
 R[x,y]/(xy-t,x-t,y-1)\cong R.
-$
+$$
 \item Thus $Z$ has two points. Identify
 its generic point with $P$. Find the
 coordinates of its closed point by
@@ -5806,48 +5675,6 @@ a specialization in the total space.
 No singularity assumption is needed
 for this exercise.
 \end{exercise}
-
-There is a lot of information on Stacks
-Project about flatness.
-It looks like the heart of the concept is
-captured in the commutative-algebraic notion
-of preserving
-exact sequences:
-
-\begin{definition}
-\label{definition-flat}
-Let $R$ be a ring.
-\begin{enumerate}
-\item An $R$-module $M$ is called {\it flat}
-if whenever
-$N_1 \to N_2 \to N_3$ is an exact sequence of
-$R$-modules
-the sequence $M \otimes_R N_1 \to M \otimes_R
-N_2 \to M \otimes_R N_3$
-is exact as well.
-\item An $R$-module $M$ is called {\it
-faithfully flat} if the
-complex of $R$-modules
-$N_1 \to N_2 \to N_3$ is exact if and only if
-the sequence $M \otimes_R N_1 \to M \otimes_R
-N_2 \to M \otimes_R N_3$
-is exact.
-\item A ring map $R \to S$ is called {\it
-flat} if
-$S$ is flat as an $R$-module.
-\item A ring map $R \to S$ is called {\it
-faithfully flat} if
-$S$ is faithfully flat as an $R$-module.
-\end{enumerate}
-\end{definition}
-
-\medskip\noindent
-Recall that a module $M$ over a ring $R$ is
-{\it flat} if the functor
-$-\otimes_R M : \text{Mod}_R \to
-\text{Mod}_R$ is exact. A ring map
-$R \to A$ is said to be {\it flat} if $A$ is
-flat as an $R$-module.
 
 \section{Hilbert polynomial}
 \label{section-Hilbert-polynomial}
