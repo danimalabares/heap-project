@@ -5818,6 +5818,137 @@ sheaves, restriction and local systems, the
 singular-cochain resolution of the constant sheaf,
 and direct and inverse image functors.
 
+\section{Flabby sheaves and cohomology}
+\label{section-flabby-sheaves}
+
+\noindent
+{\bf Upshot.} Flabby sheaves have enough
+extendable sections to eliminate higher
+sheaf cohomology. Resolving a sheaf by them
+therefore computes its cohomology, by
+Section \ref{section-resolution-by-acyclic}.
+
+\medskip\noindent
+{\bf Lecture reconstruction, 14 October
+2026.} The corollary recorded from the
+board matches the argument in Jethro van
+Ekeren's
+\href{https://w3.impa.br/~jethro/%
+2026-2/ah-current.pdf}{course notes},
+Section 6.1, Definition 6.1.4 and
+Proposition 6.1.4(2), pp.~117--118.
+This identifies the topic, but does not
+verify the full contents of today's class.
+Sheaf basics remain in Ringed Spaces.
+
+\begin{definition}
+\label{definition-flabby}
+A sheaf $\mathcal{F}$ of abelian groups
+on $X$ is {\it flabby}, or {\it flasque},
+if every restriction map
+$
+\mathcal{F}(U)\longrightarrow\mathcal{F}(V)
+$
+is surjective for open $V\subset U$.
+\end{definition}
+
+\noindent
+For example, arbitrary integer-valued
+functions form a flabby sheaf: extend by
+zero. Continuous functions need not be
+flabby: $1/x$ on $(0,1)$ cannot extend
+continuously to $\mathbb{R}$.
+
+\begin{lemma}
+\label{lemma-flabby-kernel-sections}
+Suppose
+$
+0\to\mathcal{A}\to\mathcal{B}
+\to\mathcal{C}\to0
+$
+is exact and $\mathcal{A}$ is flabby.
+For every open $U$, the map
+$
+\mathcal{B}(U)\to\mathcal{C}(U)
+$
+is surjective.
+\end{lemma}
+
+\begin{proof}
+A section of $\mathcal{C}$ lifts locally.
+Two lifts differ on their overlap by an
+$\mathcal{A}$-section. Extend this difference
+using flabbiness, subtract it from one
+lift, and glue. Zorn's lemma gives a
+maximal lift; the same correction enlarges
+its domain unless it already covers $U$.
+See the proof of Stacks Project,
+\href{https://stacks.math.columbia.edu/%
+tag/09SV}{Lemma 20.12.3}.
+\end{proof}
+
+\begin{lemma}[Corollary]
+\label{lemma-flabby-quotient}
+In the preceding exact sequence, if
+$\mathcal{A}$ and $\mathcal{B}$ are flabby,
+then $\mathcal{C}$ is flabby.
+\end{lemma}
+
+\begin{proof}
+Given $V\subset U$ and
+$c\in\mathcal{C}(V)$, lift $c$ to
+$b\in\mathcal{B}(V)$ using
+Lemma \ref{lemma-flabby-kernel-sections}.
+Extend $b$ to $U$ using flabbiness of
+$\mathcal{B}$. Its image extends $c$.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-flabby-acyclic}
+If $\mathcal{F}$ is flabby, then
+$
+H^q(X,\mathcal{F})=0
+$
+for every $q>0$.
+\end{proposition}
+
+\begin{proof}
+Embed $\mathcal{F}$ into an injective
+$\mathcal{I}$ and write
+$\mathcal{Q}=\mathcal{I}/\mathcal{F}$.
+Injective sheaves are flabby, so the
+corollary makes $\mathcal{Q}$ flabby.
+The preceding lemma and the long exact
+cohomology sequence give
+$
+H^1(X,\mathcal{F})=0,\qquad
+H^{q+1}(X,\mathcal{F})
+\cong H^q(X,\mathcal{Q})
+$
+for $q\geq1$. Induction proves the claim.
+References: \cite[III, Lemma 2.4 and
+Proposition 2.5]{hart}; Stacks Project,
+\href{https://stacks.math.columbia.edu/%
+tag/09SV}{Lemmas 20.12.2--20.12.3}.
+\end{proof}
+
+\medskip\noindent
+{\bf Why the board corollary matters.}
+It keeps the quotient flabby, allowing
+dimension shifting to continue.
+Consequently a flabby resolution
+$
+0\to\mathcal{F}\to\mathcal{G}^0
+\to\mathcal{G}^1\to\cdots
+$
+computes
+$
+H^q(X,\mathcal{F})
+\cong H^q(\Gamma(X,\mathcal{G}^{\bullet})).
+$
+This applies the acyclic-resolution
+principle already in these notes.
+
 \bibliography{my}
 \bibliographystyle{amsalpha}
 
