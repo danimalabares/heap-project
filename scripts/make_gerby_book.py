@@ -22,6 +22,8 @@ KNOWN_CHAPTERS = {
     "complex-analysis",
     "complex-geometry",
     "hodge-theory",
+    "variations-of-hodge-structures",
+    "homological-mirror-symmetry",
     "k3",
     "ringed-spaces",
     "schemes",
