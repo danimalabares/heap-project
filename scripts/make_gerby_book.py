@@ -55,6 +55,7 @@ KNOWN_CHAPTERS = {
     "reading-the-masters",
     "real-analysis",
     "history",
+    "seiberg-witten",
 }
 
 
