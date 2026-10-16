@@ -12,6 +12,7 @@ from gerby_registry import (
     atomic_write,
     labels_in,
     render,
+    record,
     serialize,
     verified,
     RegistryError,
@@ -71,7 +72,12 @@ def main():
         )
         text = serialize(result)
         if args.allocate:
-            atomic_write(source, text)
+            record(
+                source,
+                Path(args.history),
+                Path(args.root),
+                result,
+            )
         if args.output:
             atomic_write(args.output, text)
         elif not args.allocate:

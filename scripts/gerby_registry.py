@@ -223,9 +223,9 @@ def history_issues(
     )
     changed = sorted(
         t
-        for t, labels in observed.items()
-        if t in rows
-        and rows[t][0] not in labels
+        for t, (label, _) in rows.items()
+        if label
+        not in observed.get(t, set())
     )
     return {
         "conflicts": conflicts,
@@ -321,6 +321,47 @@ def atomic_write(path, text):
     finally:
         if os.path.exists(temporary):
             os.unlink(temporary)
+
+
+def record(source, history, root, rows):
+    """Persist history before source."""
+    text = serialize(rows)
+    data = text.encode()
+    digest = hashlib.sha256(data).hexdigest()
+    history = Path(history)
+    directory = history.parent / "snapshots"
+    snapshot = directory / (digest + ".tags")
+    relative = (
+        snapshot.resolve().relative_to(
+            Path(root).resolve()
+        )
+    )
+    manifest = read_json(history)
+    entry = {
+        "path": str(relative),
+        "sha256": digest,
+    }
+    directory.mkdir(exist_ok=True)
+    try:
+        with snapshot.open("xb") as stream:
+            stream.write(data)
+            stream.flush()
+            os.fsync(stream.fileno())
+    except FileExistsError:
+        if snapshot.read_bytes() != data:
+            raise RegistryError(
+                "Allocation snapshot changed"
+            )
+    if entry not in manifest["snapshots"]:
+        manifest["snapshots"].append(entry)
+        atomic_write(
+            history,
+            json.dumps(manifest, indent=2)
+            + "\n",
+        )
+    # Interrupted writes block later builds.
+    # history already reserves the new IDs.
+    atomic_write(source, text)
 
 
 def check_rendered(rows, directory):

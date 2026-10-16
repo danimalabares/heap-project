@@ -298,6 +298,15 @@ space exhaustion fails without partial
 output.
 Normal builds never allocate new IDs.
 
+Each explicit allocation first saves an
+immutable checksummed registry snapshot and
+adds it to history.json. Only then is the
+source registry replaced. An interruption
+between these writes makes the next build
+fail. Source entries without matching history
+also fail. New assignments therefore acquire
+the same protection as the recovered ones.
+
 Git history checks compare the candidate with
 the PR base and prohibit
 deletion/reassignment

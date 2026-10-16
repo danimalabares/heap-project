@@ -464,6 +464,66 @@ class RegistryTests(unittest.TestCase):
             rows["0000"], ("alpha", False)
         )
 
+    def test_new_allocation_enters_history(
+        self,
+    ):
+        result = self.cli(
+            ["alpha", "new"], "--allocate"
+        )
+        self.assertEqual(
+            result.returncode, 0
+        )
+        rows = self.verified()
+        self.assertEqual(
+            rows["0002"][0], "new"
+        )
+        del rows["0002"]
+        self.source.write_text(
+            r.serialize(rows)
+        )
+        with self.assertRaises(
+            r.RegistryError
+        ):
+            self.verified()
+
+    def test_interrupted_allocation_blocks(
+        self,
+    ):
+        rows = r.render(
+            self.verified(), ["new"], True
+        )
+        original = r.atomic_write
+
+        def interrupted(path, text):
+            if Path(path) == self.source:
+                raise OSError("interrupted")
+            original(path, text)
+
+        with patch.object(
+            r,
+            "atomic_write",
+            side_effect=interrupted,
+        ):
+            with self.assertRaises(OSError):
+                r.record(
+                    self.source,
+                    self.history,
+                    self.root,
+                    rows,
+                )
+        with self.assertRaises(
+            r.RegistryError
+        ):
+            self.verified()
+
+    def test_unrecorded_mapping_fails(self):
+        with self.source.open("a") as stream:
+            stream.write("0002,unrecorded\n")
+        with self.assertRaises(
+            r.RegistryError
+        ):
+            self.verified()
+
 
 if __name__ == "__main__":
     unittest.main()

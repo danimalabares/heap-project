@@ -88,6 +88,12 @@ resolved.
 
    Review registry additions and migrations.
    Commit them BEFORE building any image.
+   Include the new registry/snapshots files
+   and history.json updates emitted by the
+   allocator. Do not remove those snapshots.
+   If allocation is interrupted after history
+   is saved, recover the source from that
+   verified snapshot; retain the reserved IDs.
    Repeat the base-history check against the
    latest deployment branch before merging.
       Concurrent branches must rebase and
@@ -203,3 +209,12 @@ https://docs.railway.com/cli/ssh
 The current SSH documentation describes the
 new key transport. The older token transport
 was verified directly during this recovery.
+
+Local CLI repair completed
+
+The verified v5.70.0 native binary was
+restored into the matching installed npm
+package. The normal railway command works.
+Automatic updates were disabled locally to
+prevent the observed npm replacement failure.
+This changed no production configuration.
