@@ -65,7 +65,8 @@ Older replays remain inferred evidence.
 PASS: git diff --check.
 
 EXPECTED FAILURE: make gerby-registry-check.
-Also checked make gerby-deploy-build: it stops
+Also checked make gerby-deploy-build: it
+stops
 at that gate. Registry and generated-book
 checksums are unchanged after the failure.
   conflicts=5130
@@ -107,3 +108,15 @@ branch. Production was not deployed,
 restarted,
 rolled back, or modified. PR #9 was not
 merged.
+
+The normal npm railway command was restored
+and verified at v5.70.0. Its automatic
+updater
+is disabled, addressing the observed cause of
+the disappearing native binary.
+
+GitHub initially lacked TeX for the pipeline
+test. A minimal install also lacked dvipng
+and LaTeX package data. The workflow now
+installs the same TeX and image packages as
+the Dockerfile.
