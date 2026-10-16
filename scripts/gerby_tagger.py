@@ -41,10 +41,17 @@ def existing_tags(path):
         if line.startswith("#"):
             pieces = line[1:].split(",", 1)
             if len(pieces) == 2 and len(pieces[0]) == 4:
-                inactive.append(pieces[0])
+                tag, label = pieces
+                label = migrations.get(label, label)
+                if tag in tags or label in labels:
+                    raise ValueError(f"Conflicting historical tag mapping: {tag},{label}")
+                inactive.append((tag, label))
+                labels[label] = tag
             continue
         tag, label = line.split(",", 1)
         label = migrations.get(label, label)
+        if tag in tags or label in labels:
+            raise ValueError(f"Duplicate tag or label: {tag},{label}")
         tags[tag] = label
         labels[label] = tag
     return tags, labels, inactive
@@ -64,7 +71,7 @@ def main():
     tags_path = Path(args.tags)
     tags, labels, inactive = existing_tags(tags_path)
     try:
-        current = toint(sorted(list(tags.keys()) + inactive)[-1]) + 1
+        current = max(toint(tag) for tag in list(tags.keys()) + [tag for tag, _ in inactive]) + 1
     except IndexError:
         current = 0
 
@@ -82,7 +89,7 @@ def main():
         emitted.add(tag)
         print(f"{tag},{label}")
 
-    for tag, label in sorted(tags.items()):
+    for tag, label in sorted(list(tags.items()) + inactive):
         if tag not in emitted:
             print(f"#{tag},{label}")
 
