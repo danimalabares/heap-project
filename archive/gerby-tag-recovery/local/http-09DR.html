@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<meta name="theme-color" content="#d9d8d1">
+
+<title>Section 36.22 (09DR): Fibres and specialization&mdash;The Heap Project</title>
+
+<meta name="description" content="an open source textbook and reference work on algebraic geometry">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+<link rel="stylesheet" type="text/css" href="/static/css/print.css">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ['tex2jax.js'],
+    jax: ['input/TeX','output/HTML-CSS'],
+    TeX: {
+      extensions: ['AMSmath.js', 'AMSsymbols.js', '/static/XyJax/extensions/TeX/xypic.js'],
+      Macros: {
+        linebreak: ["", 1, ""],
+        },
+      TagSide: 'left'
+    },
+    tex2jax: {
+      inlineMath: [['$','$']],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    },
+    'HTML-CSS': {
+      scale: 100,
+      availableFonts: [],
+    }
+  });
+</script>
+
+<script type="text/javascript" src="/static/MathJax/MathJax.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" type="text/css" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" integrity="sha384-yBEPaZw444dClEfen526Q6x4nwuzGO6PreKpbRVSLFCci3oYGE5DnD1pNsubCxYW" crossorigin="anonymous">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js" integrity="sha384-cd07Jx5KAMCf7qM+DveFKIzHXeCSYUrai+VWCPIXbYL7JraHMFL/IXaCKbLtsxyB" crossorigin="anonymous"></script>
+
+<link rel="icon" type="image/vnd.microsoft.icon" href="/static/stacks.ico">
+<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/static/stacks.ico">
+
+
+  <script type="text/javascript" src="/static/js/toggle.js"></script>
+  <script type="text/javascript" src="/static/js/comments.js"></script>
+  <script type="text/javascript"
+    src="/static/js/environment-links.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/easymde@2.0.1/dist/easymde.min.css" integrity="sha384-IRbzB9px0sfIx90vkN+geaX3F4LVcg/M+k5vmVkfjs5TnRX3MIhGS8Ma06ALKVYp" crossorigin="anonymous">
+  <script src="https://unpkg.com/easymde@2.0.1/dist/easymde.min.js" integrity="sha384-v06sb0t0ToY1YRtVlfD/GCGpIZ/QHYyeH2Gzjvr0ZJI62/50DIzT8XRgQ6JvptVu" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jquery-bonsai@2.1.2/jquery.bonsai.css" integrity="sha384-U1uEPfU2/stCtBJ6oZS4XLX35g0MD+BZTTskUun0Vhv64RLEaTUXtcpxGScTbkUP" crossorigin="anonymous">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-bonsai@2.1.2/jquery.bonsai.min.js" integrity="sha384-ZKch/OmPYYZT/9GpxSgMqUIDdBjwYYuJ3+CfQytRQElwdBsCMJkEmcsynJlFlsCS" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+<div class="container-fluid bounded">
+  <div id="first-bar" class="row topbar inner-top top">
+    <header class="col">
+      <h1><a href="/">The Heap Project</a></h1>
+    </header>
+
+    <nav id="header">
+      <ul id="quicklinks">
+        <li><a href="/bibliography">bibliography</a>
+        <li><a href="https://www.math.columbia.edu/~dejong/wordpress/">blog</a>
+      </ul>
+
+      <form id="quicksearch" action="/search">
+        <span id="search-icon"><img src="/static/images/search.svg"></span>
+        <input type="search" name="query" size="16" placeholder="keywords or a tag" value="">
+      </form>
+    </nav>
+  </div>
+
+  <nav id="second-bar" class="row topbar sticky-top">
+    
+      <ul class="col-11 col-sm-11 col-md-11 col-lg-12 col-xl-12" id="crumbs">
+        <li><a href="/browse">Table of contents</a></li>
+        
+  
+  
+    <li>Part <a href="/tag/090V" data-tag="090V">5</a>: Algebraic Geometry
+    
+  
+    <li>Chapter <a href="/tag/05X5" data-tag="05X5">36</a>: Algebraic Geometry
+    
+  
+    <li class="active">Section <a href="/tag/09DR" data-tag="09DR">36.22</a>: Fibres and specialization
+    <span id="citation">(<a href="/tag/09DR/cite">cite</a>)</span>
+  
+
+
+      </ul>
+    
+
+    
+      <div class="col-1 col-sm-1 col-md-1" id="burger">
+        <input type="checkbox" id="burger-input"></input>
+
+        <label id="burger-icon" for="burger-input">
+          <span id="top-bun"></span>
+          <span id="meat"></span>
+          <span id="bottom-bun"></span>
+        </label>
+
+        <div id="burger-content">
+          
+  
+  <div class="interaction">
+    
+  
+
+  <ul class="neighbours">
+  
+    <li class="left"><a href="/tag/05ZT">previous section</a>
+  
+  
+    <li class="right"><a href="/tag/0603">next section</a>
+  
+  </ul>
+  <br style="clear:both">
+
+  </div>
+
+  
+
+
+        </div>
+      </div>
+    
+
+    
+  </nav>
+
+  <div class="row" id="content">
+    <section id="main" class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+      
+<div class="html" id="tag">
+  
+
+  
+
+  
+
+  <h2 id="algebraic-geometry-section-fibres-specialization" class="tex-section"><span data-tag="09DR">36.22</span> Fibres and specialization</h2>
+
+<p>
+For flatness of modules, see Commutative Algebra, Section <a href="/tag/08DT" data-tag="08DT">12.16</a>. Here we study the fibres of a family and how a point on its generic fibre can specialize to its special fibre. 
+</p>
+<p>
+Epiphany: in the category of commutative rings pushout is tensor product. So think of $\mathop{\mathrm{Spec}}$ as a functor from $\mathit{CRing}^{\text{op}}$ to $\mathit{Sch}$, then pushout goes to pullback, and what's an example of a pullback? Fibre! So, the coordinate ring of a fiber is essentially given by the residue field at the point that parametrizes it! (tensored with the coordinate ring of the deformation space). See Commutative Algebra, Proposition <a href="/tag/05AU" data-tag="05AU">12.15.24</a> and Remark <a href="/tag/05AV" data-tag="05AV">12.15.25</a>. There we take the reduced fibre of affine varieties; for scheme-theoretic fibres we keep the tensor product, without removing its nilpotents. 
+</p>
+<p>
+<strong>Remark&#160;36.22.1. </strong> A formal power series 
+</p>
+<div class="equation">
+  \[  f=a_0+a_1s+a_2s^2+\cdots \in \mathbb {C}[[s]]  \]
+</div>
+<p>
+ is a unit if and only if $a_0\neq 0$. It need not be constant: its inverse may itself be an infinite formal series. 
+</p>
+<p>
+If $fg=1$, comparison of constant terms forces $a_0g(0)=1$, so $a_0\neq 0$. Conversely, write $f=a_0(1+w)$ with $w\in s\mathbb {C}[[s]]$. Then 
+</p>
+<div class="equation">
+  \[  f^{-1}=\frac{1}{a_0} \sum _{n=0}^{\infty }(-w)^ n.  \]
+</div>
+<p>
+ Each coefficient is a finite sum, since $w^ n$ is divisible by $s^ n$. This is the geometric-series argument; no analytic convergence is needed. 
+</p>
+<p>
+See Atiyah–Macdonald, <em>Introduction to Commutative Algebra</em>, Chapter 1, Exercise 5(i). Over a general commutative coefficient ring, the constant term must be a unit, rather than merely nonzero. 
+</p>
+
+<p>
+<strong>Exercise&#160;36.22.2 (The two fibres of a formal family). </strong>  Let 
+</p>
+<div class="equation">
+  \[  R=\mathbb {C}[[t]],\qquad K=\mathbb {C}((t)).  \]
+</div>
+<ol>
+  <li><p>
+Show that $\operatorname {Spec}R$ has exactly two points: $\eta =(0)$ and $s=(t)$. 
+</p>
+</li><li><p>
+Show that $\eta $ is generic and $s$ is closed. 
+</p>
+</li><li><p>
+Compute their residue fields. 
+</p>
+</li><li><p>
+For an affine family $\operatorname {Spec}A\to \operatorname {Spec}R$, describe its generic and special fibres using these residue fields. 
+</p>
+</li>
+</ol>
+<p>
+ The base has two points; a family over it has a fibre over each. 
+</p>
+
+<article class="env-proof">
+    <p>
+      <strong>Proof.</strong>
+      <ol>
+  <li><p>
+By definition, points of $\operatorname {Spec}R$ are prime ideals of $R$, not elements of $R$. We determine all of them. 
+</p>
+<p>
+First, $(0)$ is prime because $R$ is a domain: the product of two nonzero power series has a nonzero leading term. 
+</p>
+<p>
+Now let $\mathfrak {p}$ be a nonzero prime ideal and choose $0\neq f\in \mathfrak {p}$. Write 
+</p>
+<div class="equation">
+  \[  f=a_ nt^ n+a_{n+1}t^{n+1}+\cdots =t^ n u, \qquad a_ n\neq 0.  \]
+</div>
+<p>
+ The series $u$ has nonzero constant term $a_ n$, so it is a unit by Remark <a href="/tag/09DS" data-tag="09DS">36.22.1</a>. This is the valuation picture from Commutative Algebra, Example <a href="/tag/07R5" data-tag="07R5">12.28.6</a>. 
+</p>
+<p>
+Since a proper ideal cannot contain a unit, $n>0$ and $u\notin \mathfrak {p}$. As $t^ n u=f\in \mathfrak {p}$ and $\mathfrak {p}$ is prime, we obtain $t^ n\in \mathfrak {p}$. Applying primality again gives $t\in \mathfrak {p}$, so $(t)\subset \mathfrak {p}$. But evaluation at zero gives 
+</p>
+<div class="equation">
+  \[  R/(t)\cong \mathbb {C}.  \]
+</div>
+<p>
+ Hence $(t)$ is maximal, and necessarily $\mathfrak {p}=(t)$. It is itself prime because its quotient is a field. Therefore there are exactly two prime ideals, hence two points: 
+</p>
+<div class="equation">
+  \[  \eta =(0),\qquad s=(t).  \]
+</div>
+</li><li><p>
+Recall that in the Zariski topology, 
+</p>
+<div class="equation">
+  \[  \overline{\{ \mathfrak {p}\} } =V(\mathfrak {p}) =\{ \mathfrak {q}\in \operatorname {Spec}R: \mathfrak {p}\subseteq \mathfrak {q}\} .  \]
+</div>
+<p>
+ Indeed, a closed set $V(I)$ contains $\mathfrak {p}$ precisely when $I\subseteq \mathfrak {p}$; it then contains every prime containing $\mathfrak {p}$. Thus $V(\mathfrak {p})$ is the smallest closed set containing that point. 
+</p>
+<p>
+Every prime ideal contains $(0)$, so 
+</p>
+<div class="equation">
+  \[  \overline{\{ \eta \} }=\operatorname {Spec}R.  \]
+</div>
+<p>
+ This is why $\eta $ is called generic. Since $(t)$ is maximal, the only prime containing it is itself, so $\overline{\{ s\} }=\{ s\} $: the point $s$ is closed. 
+</p>
+</li><li><p>
+Their residue fields are 
+</p>
+<div class="equation">
+  \[  \kappa (\eta )=K,\qquad \kappa (s)=\mathbb {C}.  \]
+</div>
+<p>
+ To check the first equality, recall that the residue field is the local ring modulo its maximal ideal: 
+</p>
+<div class="equation">
+  \[  \kappa (\eta )=R_{(0)}/(0)R_{(0)}.  \]
+</div>
+<p>
+ Localizing at $(0)$ inverts every element outside $(0)$, hence every nonzero element of $R$. Therefore 
+</p>
+<div class="equation">
+  \[  R_{(0)}=\operatorname {Frac}(R)=K.  \]
+</div>
+<p>
+ Its maximal ideal is $(0)$, so 
+</p>
+<div class="equation">
+  \[  \kappa (\eta )=K/(0)=K.  \]
+</div>
+<p>
+ We quotient the local ring $R_{(0)}$, not $R$ itself. 
+</p>
+</li><li><p>
+For an affine family 
+</p>
+<div class="equation">
+  \[  \mathcal{X}=\operatorname {Spec}A \longrightarrow \operatorname {Spec}R,  \]
+</div>
+<p>
+ the two fibres are 
+</p>
+<div class="equation">
+  \[  \mathcal{X}_{\eta } =\operatorname {Spec}(A\otimes _ R K), \qquad \mathcal{X}_ s =\operatorname {Spec}(A/tA).  \]
+</div>
+<p>
+ The first makes $t$ invertible; the second sets $t=0$. The generic fibre does not mean setting $t$ equal to a particular nonzero complex number. For the definition of a fibre, see Stacks Project, Definition 26.18.4, <a href="https://stacks.math.columbia.edu/tag/% 01K0">Tag 01K0</a>. 
+</p>
+</li>
+</ol>
+      <span class="qed">$\square$</span>
+    </p>
+</article>
+<p>
+<strong>Exercise&#160;36.22.3 (A generic-fibre point specializes by taking its closure). </strong>  With $R$ and $K$ as above, consider 
+</p>
+<div class="equation">
+  \[  \mathcal{X} =\operatorname {Spec}(R[x,y]/(xy-t)).  \]
+</div>
+<p>
+ This exercise illustrates specialization by a direct calculation. 
+</p>
+<ol>
+  <li><p>
+Write down its generic and special fibres. Check that $P=(t,1)$ is a $K$-point of the generic fibre. 
+</p>
+</li><li><p>
+Inside the total space impose $x=t$ and $y=1$, obtaining a closed subscheme $Z$. Show that 
+</p>
+<div class="equation">
+  \[  R[x,y]/(xy-t,x-t,y-1)\cong R.  \]
+</div>
+</li><li><p>
+Thus $Z$ has two points. Identify its generic point with $P$. Find the coordinates of its closed point by reducing modulo $t$. 
+</p>
+</li><li><p>
+Check that this closed point satisfies the special-fibre equation. 
+</p>
+</li><li><p>
+Show that $Z$ is the closure of $P$ in the total space: use that the generic point of $\operatorname {Spec}R$ is dense and that $Z$ is closed. 
+</p>
+</li>
+</ol>
+<p>
+ The goal is to see how a point that is closed in the generic fibre can acquire a specialization in the total space. No singularity assumption is needed for this exercise. 
+</p>
+
+<article class="env-proof">
+    <p>
+      <strong>Proof.</strong>
+      <ol>
+  <li><p>
+Put 
+</p>
+<div class="equation">
+  \[  A=R[x,y]/(xy-t).  \]
+</div>
+<p>
+ We compute fibres by tensoring over $R$ with the residue field of the base point, as in Exercise <a href="/tag/09DT" data-tag="09DT">36.22.2</a> and Stacks Project, Definition 26.18.4, <a href="https://stacks.math.columbia.edu/tag/% 01K0">Tag 01K0</a>. 
+</p>
+<p>
+For the special point, the residue field is $\mathbb {C}=R/(t)$. Hence 
+</p>
+<div class="equation">
+  \[  A\otimes _ R\mathbb {C} \cong A/tA \cong \mathbb {C}[x,y]/(xy).  \]
+</div>
+<p>
+ Tensoring with $\mathbb {C}$ here does not leave $A$ unchanged: the tensor product is over $R$, not over $\mathbb {C}$. In the tensor product, 
+</p>
+<div class="equation">
+  \[  t\otimes 1=1\otimes (t\cdot 1)=0,  \]
+</div>
+<p>
+ because $t$ acts as zero on $R/(t)$. Thus the relation $xy=t$ becomes $xy=0$. The special fibre is 
+</p>
+<div class="equation">
+  \[  \mathcal{X}_ s =\operatorname {Spec} (\mathbb {C}[x,y]/(xy)).  \]
+</div>
+<p>
+For the generic point, the residue field is $K=\mathbb {C}((t))$. Thus 
+</p>
+<div class="equation">
+  \[  B:=A\otimes _ R K \cong K[x,y]/(xy-t),  \]
+</div>
+<p>
+ and the generic fibre is $\mathcal{X}_{\eta }=\operatorname {Spec}B$. Here $t$ becomes invertible, not equal to $1$. We can nevertheless set $z=y/t$, obtaining 
+</p>
+<div class="equation">
+  \[  B\cong K[x,z]/(xz-1).  \]
+</div>
+<p>
+ This is a change of coordinates over $K$, not the substitution $t=1$. 
+</p>
+<p>
+The notation $P=(t,1)$ specifies coordinates in the affine plane over $K$. It does not denote the ideal $(t,1)$, which contains $1$ and is therefore the whole ring. Since $t\cdot 1=t$, these coordinates satisfy the generic-fibre equation. Evaluation gives a surjective map 
+</p>
+<div class="equation">
+  \[  B\longrightarrow K,\qquad f\longmapsto f(t,1).  \]
+</div>
+<p>
+ Its kernel is 
+</p>
+<div class="equation">
+  \[  \mathfrak {m}_ P=(x-t,y-1).  \]
+</div>
+<p>
+ Indeed, quotienting by these relations replaces $x$ by $t$ and $y$ by $1$, leaving exactly $K$. Consequently 
+</p>
+<div class="equation">
+  \[  B/\mathfrak {m}_ P\cong K.  \]
+</div>
+<p>
+To connect this with the definition of the residue field, localizing at $P$ inverts every $g\notin \mathfrak {m}_ P$, that is, every $g$ with $g(t,1)\neq 0$. Evaluation therefore extends to 
+</p>
+<div class="equation">
+  \[  B_{\mathfrak {m}_ P}\longrightarrow K, \qquad \frac{f}{g}\longmapsto \frac{f(t,1)}{g(t,1)}.  \]
+</div>
+<p>
+ This map is surjective, since constants already give all of $K$. Its value is zero exactly when $f(t,1)=0$, or $f\in \mathfrak {m}_ P$. Its kernel is therefore $\mathfrak {m}_ P B_{\mathfrak {m}_ P}$. Thus 
+</p>
+<div class="equation">
+  \[  \begin{aligned}  \kappa (P) & =B_{\mathfrak {m}_ P}/ \mathfrak {m}_ P B_{\mathfrak {m}_ P}\\ & \cong B/\mathfrak {m}_ P \cong K. \end{aligned}  \]
+</div>
+<p>
+ Localizing can change the ring, but does not change this quotient: the denominators already become nonzero, hence invertible, elements of the field $K$. 
+</p>
+</li>
+</ol>
+      <span class="qed">$\square$</span>
+    </p>
+</article>
+<p>
+<strong>Exercise&#160;36.22.4 (A unit cannot be cancelled by higher-order terms). </strong>  Work in 
+</p>
+<div class="equation">
+  \[  V=\mathbb {C}[[s]],\qquad \mathfrak {m}=(s).  \]
+</div>
+<p>
+ For a nonzero series, let $\nu $ be its smallest exponent, as in Commutative Algebra, Example <a href="/tag/07R5" data-tag="07R5">12.28.6</a>. 
+</p>
+<ol>
+  <li><p>
+For 
+</p>
+<div class="equation">
+  \[  x=s^3(2+s),\qquad y=5+s^2,  \]
+</div>
+<p>
+ find their reductions modulo $(s)$, their valuations, and which is a unit. 
+</p>
+</li><li><p>
+Set $t=s^2$. Express $x^2$ as a power of $t$ times a unit of $V$. Compare $\nu (x^2)$ with $\nu (t^2)$. 
+</p>
+</li><li><p>
+Suppose $u,r\in V$, with $u$ a unit. Show that 
+</p>
+<div class="equation">
+  \[  0=t^2u+t^3r  \]
+</div>
+<p>
+ is impossible. Hint: divide by $t^2$, then reduce modulo $(s)$. 
+</p>
+</li>
+</ol>
+<p>
+ The last item illustrates how orders of vanishing can give a contradiction: a higher-order term cannot cancel a lower-order term with unit coefficient. 
+</p>
+
+<article class="env-proof">
+    <p>
+      <strong>Proof.</strong>
+      <ol>
+  <li><p>
+Reduction modulo $(s)$ keeps only the constant term, so 
+</p>
+<div class="equation">
+  \[  \overline{x}=0,\qquad \overline{y}=5.  \]
+</div>
+<p>
+ The valuation is the smallest exponent with nonzero coefficient. Since 
+</p>
+<div class="equation">
+  \[  x=2s^3+s^4,\qquad y=5s^0+s^2,  \]
+</div>
+<p>
+ we obtain 
+</p>
+<div class="equation">
+  \[  \nu (x)=3,\qquad \nu (y)=0.  \]
+</div>
+<p>
+ The constant term counts as exponent zero. 
+</p>
+<p>
+By Remark <a href="/tag/09DS" data-tag="09DS">36.22.1</a>, $y$ is a unit in $V$ because its constant term is $5\neq 0$. In contrast, $x$ is not a unit because its constant term is zero. The reduction $\overline{y}=5$ is also a unit in the residue field, whereas $\overline{x}=0$ is not. 
+</p>
+</li><li><p>
+Since $t=s^2$, we have 
+</p>
+<div class="equation">
+  \[  x^2=s^6(2+s)^2=t^3(4+4s+t).  \]
+</div>
+<p>
+ The factor $4+4s+t=4+4s+s^2$ has nonzero constant term $4$, so it is a unit in $V$ by Remark <a href="/tag/09DS" data-tag="09DS">36.22.1</a>. Moreover, 
+</p>
+<div class="equation">
+  \[  \nu (t^2)=\nu (s^4)=4,\qquad \nu (x^2)=6.  \]
+</div>
+<p>
+ Thus $\nu (x^2)>\nu (t^2)$. 
+</p>
+</li><li><p>
+Suppose 
+</p>
+<div class="equation">
+  \[  0=t^2u+t^3r=t^2(u+tr).  \]
+</div>
+<p>
+ Since $V$ is a domain and $t^2\neq 0$, cancelling $t^2$ gives $u=-tr$. As $t=s^2$, reduction modulo $(s)$ then gives 
+</p>
+<div class="equation">
+  \[  \overline{u}=0.  \]
+</div>
+<p>
+ But $u$ is a unit, so reducing $uu^{-1}=1$ gives 
+</p>
+<div class="equation">
+  \[  \overline{u}\, \overline{u^{-1}}=1  \]
+</div>
+<p>
+ in $V/(s)=\mathbb {C}$. Thus $\overline{u}$ cannot be zero. This is the contradiction. 
+</p>
+</li>
+</ol>
+      <span class="qed">$\square$</span>
+    </p>
+</article>
+<p>
+<strong>Exercise&#160;36.22.5 (Singularity forces an impossible reduction). </strong>  This model exercise combines specialization with the DVR contradiction. It is not a calculation from the Grunbaum draft. 
+</p>
+<p>
+Let $R=\mathbb {C}[[t]]$ and fix any polynomial $Q\in \mathbb {C}[X,Y,Z]$. Consider the family 
+</p>
+<div class="equation">
+  \[  \mathcal{Y}=\operatorname {Spec} (R[X,Y,Z]/(F)),  \]
+</div>
+<p>
+ where 
+</p>
+<div class="equation">
+  \[  F=XY-t^2Z+t^3Q(X,Y,Z).  \]
+</div>
+<p>
+ Let $V=\mathbb {C}[[s]]$, $L=\mathbb {C}((s))$, and $t=s^ e$ for an integer $e\geq 1$. 
+</p>
+<p>
+Suppose a point on the generic fibre after extending scalars to $L$ has coordinates 
+</p>
+<div class="equation">
+  \[  P=(a(s),b(s),c(s)),\qquad a,b,c\in V,  \]
+</div>
+<p>
+ with 
+</p>
+<div class="equation">
+  \[  \overline{a}=\overline{b}=0,\qquad \overline{c}\neq 0.  \]
+</div>
+<p>
+ Here $X,Y,Z$ are variables in the equations; $a,b,c$ are the series obtained by evaluating them at $P$. Assume this extension over $V$ has already been supplied. The goal is to show that $P$ cannot be singular. 
+</p>
+<ol>
+  <li><p>
+Explain why these coordinates give a map $\operatorname {Spec}V\to \mathcal{Y}$ over $R$. Identify the image $P_0$ of the closed point by reducing the coordinates. Check that $P_0$ lies on the special fibre $XY=0$. Which of $a,b,c$ are units in $V$? 
+</p>
+</li><li><p>
+Suppose $P$ is singular. The hypersurface Jacobian criterion requires $F_ X(P)=F_ Y(P)=F_ Z(P)=0$. We will only need the first two. Differentiate in $X,Y$, holding $t$ fixed, and substitute $a,b,c$. Explain why the resulting equalities are equalities in $V$, even though singularity is tested over $L$. 
+</p>
+</li><li><p>
+Use those two equalities to show that $a,b\in t^3V$. Write 
+</p>
+<div class="equation">
+  \[  a=t^3\alpha ,\qquad b=t^3\beta , \qquad \alpha ,\beta \in V.  \]
+</div>
+<p>
+ This is stronger than merely knowing that $a,b$ reduce to zero. 
+</p>
+</li><li><p>
+Substitute into $F(P)=0$, cancel $t^2$, and reduce modulo $(s)$. Show that the resulting equality contradicts the fact that $c$ is a unit. You should not need to know the coefficients of $Q$. 
+</p>
+</li><li><p>
+Identify the role of each assumption: having a specialization, knowing its nonzero coordinate, lying on the family, and being singular. Which step supplied the extra divisibility that made the contradiction possible? 
+</p>
+</li>
+</ol>
+
+
+
+  <script type="text/javascript">
+$(document).ready(function() {
+  // move extras from parent element to after environment name and number
+  $("article a[data-toggle]").each(function(index, element) {
+    $(element).insertAfter(($(element).parent().find("a.environment-identifier")));
+  });
+
+  $('article a[data-toggle="popover"]').popover()
+
+  // render mathematics in popovers
+  $("[data-toggle=popover]").on('shown.bs.popover', function () {
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, $("div.popover-body").html()]);
+  });
+});
+  </script>
+
+  
+
+  
+</div>
+
+
+<hr>
+
+<section id="comments">
+  <h2>Comments (0)</h2>
+
+  
+
+  
+</section>
+
+<hr>
+
+<section id="post-comment">
+  <h2>Post a comment</h2>
+  <p>Your email address will not be published. Required fields are marked.
+  <p>In your comment you can use <a href="/markdown">Markdown</a> and LaTeX style mathematics (enclose it like <code>$\pi$</code>). A preview option is available if you wish to see how it works out (just click on the eye in the toolbar).
+  <noscript><p>Unfortunately JavaScript is disabled in your browser, so the comment preview function will not work.</p></noscript>
+
+  <p>All contributions are licensed under the <a href="https://github.com/danimalabares/heap-project/blob/master/COPYING">GNU Free Documentation License</a>.
+
+  <form name="comment" id="comment-form" action="/post-comment" method="post">
+    <label for="name">Name<sup>*</sup>:</label>
+    <input type="text" name="name" id="name" required><br>
+
+    <label for="mail">E-mail<sup>*</sup>:</label>
+    <input type="email" name="mail" id="mail" required><br>
+
+    <label for="site">Site:</label>
+    <input type="url" name="site" id="site"><br>
+
+    <label>Comment:</label>
+    <textarea name="comment" id="comment-textarea" cols="80" rows="10" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+    <script type="text/javascript">
+var easymde = new EasyMDE({
+  autosave: {
+    enabled: true,
+    delay: 1000,
+    uniqueId: "comment-09DR",
+  },
+  element: $("#comment")[0],
+  forceSync: true,
+  insertTexts: { link: ["\\ref{", "}"], table: ["$", "$"], image: ["\\begin{equation}\n", "\n\\end{equation}\n"] }, // we hack into these insertion methods, I couldn't figure out how to write your own...
+  placeholder: "You can type your comment here, use the preview option to see what it will look like.",
+  previewRender: function(plaintext, preview) {
+    // deal with references
+    plaintext = plaintext.replace(/\\ref\{([0-9A-Z]{4})\}/g, "<span class=\"tag\">[$1](/tag/$1)</span>");
+    // deal with \[\] getting replaced to []
+    plaintext = plaintext.replace(/\\\[/g, "\\begin{equation}");
+    plaintext = plaintext.replace(/\\\]/g, "\\end{equation}");
+
+    output = this.parent.markdown(plaintext);
+
+    setTimeout(function() {
+      preview.innerHTML = output;
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }, 0);
+
+    return "";
+  },
+  spellChecker: false,
+  status: false,
+  toolbar: [
+    "link", {name: "inline", action: EasyMDE.drawTable, className: "fa fa-usd"}, {name: "block", action: EasyMDE.drawImage, className: "fa fa-square"}, "|",
+    "bold", "italic", "|",
+    "ordered-list", "unordered-list", "|",
+    "preview"
+  ],
+});
+
+// make sure to show tags, not numbers
+var tagToggleHappened = false; // only do this once to not annoy the user too much
+easymde.codemirror.on("change", function() {
+  // if data-tag elements do not have tag attribute we need to make tags visible
+  if (!$("*[data-tag]").hasClass("tag") && !tagToggleHappened)
+    $("section#meta input.toggle").bootstrapToggle("toggle");
+  tagToggleHappened = true;
+});
+
+// prevent form submit when the captcha isn't correct
+// it's a bit silly to use HTML5 validation for this, as bots can figure that out
+// also save the author information to localStorage
+easymde.element.form.addEventListener("submit", function(event) {
+  if ($("#check").val() != $("#hidden-tag").val()) {
+    // explain captcha
+    $("#captcha-message").toggle();
+
+    // stop submit
+    event.preventDefault();
+    return false;
+  }
+
+  // save author information
+  localStorage.setItem("name", $("input#name").val());
+  localStorage.setItem("mail", $("input#mail").val());
+  localStorage.setItem("site", $("input#site").val());
+});
+    </script>
+
+    <p>In order to prevent bots from posting comments, we would like you to prove that you are human. You can do this by <em>filling in the name of the current tag</em> in the following input field. As a reminder, this is tag <span class="tag">09DR</span>. Beware of the difference between the letter&nbsp;'<span class="tag">O</span>' and the digit&nbsp;'<span class="tag">0</span>'.</p>
+    <!--<p>This <abbr title="Completely Automated Public Turing test to tell Computers and Humans Apart">captcha</abbr> seems more appropriate than the usual illegible gibberish, right?<br>-->
+    <label for="check">Tag:</label>
+    <input type="text" name="check" id="check" required autocomplete="off">
+    <button type="submit" class="btn btn-primary">Post comment</button>
+    <input type="hidden" name="tag" id="hidden-tag" value="09DR"><br>
+
+    <p id="captcha-message" style="display: none" class="alert alert-warning" role="alert">The tag you filled in for the captcha is wrong. You need to write <span class="tag">09DR</span>, in case you are confused.</p>
+
+    <script type="text/javascript">
+// enter in captcha fields causes \ref to appear (?!)
+$("input#check").on("keypress", function(e) {
+  if (e.which == 13) {
+    // always stop the event
+    e.preventDefault();
+
+    // perform clientside check as for actual submit
+    if ($("#check").val() != $("#hidden-tag").val()) {
+      // explain captcha
+      $("#captcha-message").toggle();
+    }
+    else {
+      $("form#comment-form").submit();
+    }
+  }
+});
+    </script>
+  </form>
+</section>
+
+
+
+
+    </section>
+	  <div class="col-lg-4 col-xl-4">
+	    <section id="meta" class="row topbar sticky-top">
+        
+  
+  <div class="interaction">
+    
+  
+
+  <ul class="neighbours">
+  
+    <li class="left"><a href="/tag/05ZT">previous section</a>
+  
+  
+    <li class="right"><a href="/tag/0603">next section</a>
+  
+  </ul>
+  <br style="clear:both">
+
+  </div>
+
+  <hr>
+  
+    <a href="/download/algebraic-geometry.pdf#nameddest=09DR">View Section <span data-tag="09DR">36.22</span> as pdf</a>
+  
+
+  
+
+
+      </section>
+    </div>
+  </div>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js" integrity="sha384-3ziFidFTgxJXHMDttyPJKDuTlmxJlwbSkojudK/CkRqKDOmeSbN6KLrGdrBQnT2n" crossorigin="anonymous"></script>
+</div>
+</body>
+</html>
