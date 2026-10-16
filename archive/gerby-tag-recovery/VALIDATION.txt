@@ -1,0 +1,109 @@
+Validation executed on 2026-10-16
+
+PASS: 30 automated tests, 49.709 seconds.
+Used a clean Python 3.11 environment created
+under /private/tmp/heap-gerby-test-env and
+installed requirements-gerby.txt unchanged.
+
+Command, with that environment activated:
+  python -m unittest discover -s scripts
+
+Coverage includes:
+
+* Repeated removal and reintroduction.
+* Keeping the highest tombstone reserved.
+* Empty/missing registry refusal.
+* All active/inactive duplicate-ID orders.
+* Duplicate canonical labels and migrations.
+* Migration chains, cycles and collisions.
+* Invalid IDs, malformed rows, exhaustion.
+* Missing/corrupt/conflicting history.
+* Lost or reassigned historical mappings.
+* Explicit allocation vs immutable builds.
+* Duplicate source labels and comment labels.
+* Atomic output failure and source
+protection.
+* Rendered and database identity mismatches.
+* Read-only database failure behavior.
+* Legacy three-column historical tombstones.
+* Actual HTTP 410/404 without guessed
+redirects.
+* Existing mathematical conversion
+regression.
+* Complete isolated make gerby-import builds,
+  real plasTeX output, SQLite import and WSGI
+  startup across deletion and reintroduction.
+* The integration test also proves that an
+  unregistered label aborts before database
+    mutation, and that explicit allocation
+  skips
+  the highest historical tombstone.
+
+PASS: check_registry_history.py against
+origin/main, including the fetched latest
+main revision acc0b9b1c. All prior latest-Git
+assignments remain in the candidate.
+
+PASS: all 4,918 current live identities are
+preserved in registry/tags. Existing label
+migrations account for 60 renames relative to
+the last checked-in file. No new migrations
+were introduced by this repair.
+
+PASS: immutable backup byte count and SHA-256
+rechecked against production-20261016.json.
+Every archived registry matches the manifest.
+The full reconciliation report was recomputed
+and matches reconciliation-issues.json
+exactly.
+
+PASS: 111 historical registry replays. The
+current deployment reproduces BOTH recovered
+book and registry SHA-256 values exactly.
+Older replays remain inferred evidence.
+
+PASS: git diff --check.
+
+EXPECTED FAILURE: make gerby-registry-check.
+Also checked make gerby-deploy-build: it stops
+at that gate. Registry and generated-book
+checksums are unchanged after the failure.
+  conflicts=5130
+  missing=5769
+  changed=0
+
+This is also the intended result for the
+GitHub history job and any production image
+build until reconciliation is completed.
+Do not treat the passing regression suite as
+permission to deploy contradictory history.
+
+PR #9's unmodified original tests were run
+separately: one passed, one errored. The
+first
+allocation hits max(empty), whose ValueError
+is not caught by its IndexError handler.
+
+An initial miniature render/import attempt
+with the preexisting system Python failed:
+its installed plasTeX did not load the book
+package correctly. The same fixture passed
+with a clean installation of the repository's
+declared requirements. The automated pipeline
+test passed in that clean environment too.
+No global Python packages were changed.
+
+A full current-book/PDF build was not run:
+the real history guard correctly rejects the
+candidate before generation. Docker is not
+installed on this Mac, so no Docker image
+was built. Those release checks remain
+mandatory after historical reconciliation.
+
+Railway checks were read-only. The service
+was linked to main and PR previews were
+confirmed disabled before publishing a repair
+branch. Production was not deployed,
+restarted,
+rolled back, or modified. PR #9 was not
+merged.

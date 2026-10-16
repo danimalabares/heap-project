@@ -1,0 +1,42 @@
+name: Gerby permanent tags
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: >-
+          pip install
+          -r requirements-gerby.txt
+      - run: >-
+          python -m unittest discover
+          -s scripts -p 'test_*.py'
+  history:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Preserve base assignments
+        working-directory: scripts
+        if: >-
+          github.event_name == 'pull_request'
+        env:
+          BASE: >-
+            ${{ github.base_ref }}
+        run: >-
+          python check_registry_history.py
+          --base "origin/$BASE"
+      - name: Require reconciled history
+        run: make gerby-registry-check

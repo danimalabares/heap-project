@@ -1,0 +1,205 @@
+Safe deployment procedure
+
+Current state: DO NOT DEPLOY.
+
+No production-changing step below has been
+executed. The new history gate intentionally
+fails until historical conflicts are
+resolved.
+
+1. Preserve evidence and freeze publication.
+
+   Arrange a separate, authorized pause of
+      automatic deployment before
+   reconciliation.
+   Do not merge PR #9 as an interim fix.
+      Do not restart the currently running
+   image.
+   The current backup is immutable evidence.
+
+      Immediately before any eventual
+   deployment,
+   query the active deployment again and take
+   another read-only registry backup. Compare
+      its checksum with
+   production-20261016.json.
+      If it differs, add the new immutable
+   snapshot
+      and reconcile every added assignment
+   first.
+
+2. Resolve historical ambiguity explicitly.
+
+   Use reconciliation-issues.json and the
+   exact archived files. Recover any retained
+   old image registries without starting or
+   replacing production. Deployment replays
+   can guide investigation but are not actual
+   recovered registries.
+
+      For each of the 5,769 missing IDs,
+   preserve
+   every verified assignment or reservation.
+      Never fill an unknown referent by
+   guessing.
+   Multiple tags for one mathematical object
+   need explicit aliases and tested routes;
+      the current strict registry rejects
+   merges.
+
+   For each genuinely conflicting URL, one
+   referent cannot preserve both histories.
+   An explicit editorial policy is required:
+   recover which history was published, or
+   serve an ambiguity/archive page listing
+      the verified meanings. Do not silently
+   pick
+   a winner or encode false label migrations.
+   That routing policy needs a follow-up code
+      change and regression tests before
+   clearing
+   the gate. This repair includes no bypass.
+
+      Resolve duplicate source labels with
+   stable
+   explicit labels and evidenced migrations.
+   The converter now refuses occurrence-based
+   renumbering. Determine intended paragraph
+   routing for active labels without pages,
+   including 09DP, without guessed redirects.
+
+3. Establish the complete source registry.
+
+   The proposed registry/tags preserves every
+      current live mapping and the last
+   committed
+   tombstones. It is a candidate, not an
+   approved complete historical registry.
+
+   Retain all snapshots and their hashes.
+   Extend validated history with future live
+   recoveries; never replace old evidence.
+   Do not edit raw production backups.
+
+   After reconciliation, run:
+
+     make gerby-registry-check
+     make gerby-register
+
+   Review registry additions and migrations.
+   Commit them BEFORE building any image.
+   Repeat the base-history check against the
+   latest deployment branch before merging.
+      Concurrent branches must rebase and
+   resolve
+      ID conflicts before allocation is
+   accepted.
+
+4. Require tests and release checks.
+
+   Run the regression suite and enforce both
+   GitHub workflow jobs as required checks.
+   The history job is currently expected to
+   fail; tests passing alone is insufficient.
+
+     python3 -m unittest discover -s scripts
+
+      Run a clean full Gerby/PDF image build
+   only
+   after the preflight succeeds. Test WSGI
+      startup, active tags, retired tags and
+   every
+      affected historical URL against that
+   image.
+   Verify no database label differs from the
+   committed registry and that no new ID was
+   allocated during the image build.
+
+   Inspect the actual Docker build context;
+      .dockerignore excludes local Gerby
+   databases
+      and generated output. registry/ and
+   archived
+   registry evidence must remain present.
+
+5. Obtain explicit deployment authorization.
+
+      Deploy only the reviewed image and
+   registry
+      commit after the complete
+   reconciliation and
+   tests pass. Never bypass a failed history
+   check by deleting a snapshot or resetting
+      the registry. Verify the live checksum
+   after
+   publication and archive its deployment ID.
+
+      Old images contain the broken allocator
+   and
+      incomplete registries. A rollback to
+   them is
+   not a safe automatic recovery procedure.
+      Any rollback needs the same registry
+   checks.
+
+Long-term operating model
+
+The canonical registry lives in Git. Images
+contain only assignments committed before the
+build. This removes the dependency on a
+runtime
+volume for tag identity. A persistent volume
+alone would not repair Docker-build
+allocation,
+since build-time files are not runtime
+mounts.
+Comments and other runtime data have separate
+persistence needs outside this tag repair.
+
+CLI bypass used on Monterey
+
+The installed npm package had its postinstall
+script blocked by npm allowScripts. Railway's
+auto-update replaced the package and removed
+the downloaded native binary. The local npm
+update log confirms this sequence.
+
+Official pinned macOS x86_64 binaries were
+fetched from railwayapp/cli GitHub releases.
+Both v5.70.0 and v4.6.0 run on this Mac.
+No Homebrew was used.
+
+For every invocation, automatic updates were
+disabled with RAILWAY_NO_AUTO_UPDATE=1.
+v5.70.0 queried deployment metadata. Its SSH
+path required a registered key. v4.6.0's
+token
+SSH transport worked using the existing
+accessToken passed privately as
+RAILWAY_API_TOKEN. No key was registered and
+no login or account change was needed.
+
+The working binaries are in temporary
+folders:
+  /private/tmp/heap-railway-cli/railway
+  /private/tmp/heap-railway-cli-v4/railway
+
+For repeat read-only recovery, use
+scripts/recover_gerby_registry.py with --cli
+pointing to v4.6.0, --instance set from a
+fresh
+read-only status query, and --output pointing
+to a NEW archive filename. It preserves exact
+bytes with base64 transport, checks SHA-256,
+and refuses to overwrite an existing backup.
+It reads credentials without printing them.
+An expired token requires the normal Railway
+authentication flow before recovery can work.
+
+Official documentation:
+https://docs.railway.com/cli
+https://docs.railway.com/cli/ssh
+
+The current SSH documentation describes the
+new key transport. The older token transport
+was verified directly during this recovery.
