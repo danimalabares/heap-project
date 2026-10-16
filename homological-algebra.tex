@@ -5950,6 +5950,24 @@ This applies the acyclic-resolution
 principle already in these notes.
 
 
+\subsection{Godement envelopes and enough injectives}
+\label{subsection-godement-envelopes}
+For a sheaf $\mathcal F$ on $X$, the Godement envelope is
+$G(\mathcal F)(U)=\prod_{x\in U}\mathcal F_x$.
+The map $\mathcal F\to G(\mathcal F)$ sending sections to germs
+is a monomorphism.  The envelope is flabby, since families of
+germs can be extended by zero.  For sheaves of abelian groups,
+choose an embedding $\mathcal F_x\hookrightarrow I_x$ into an
+injective abelian group at each point and define
+$\mathcal I(U)=\prod_{x\in U}I_x$.
+This is injective as a sheaf: maps into $\mathcal I$ correspond
+to maps into $I_x$ on each stalk, and those extend across
+monomorphisms by injectivity of $I_x$.  Thus the category of
+sheaves of abelian groups has enough injectives.
+Reference: Jethro van Ekeren, \emph{Homological Algebra},
+Section 6.1, Theorem 6.1.1, pp.~115--116.
+
+
 \section{\v{C}ech cohomology}
 \label{section-cech-cohomology-jethro-2026}
 
@@ -5959,6 +5977,9 @@ Lecture notes, 16 October 2026. Reference: Jethro van Ekeren,
 {Homological Algebra}, Section 6.2.1, p.~118.
 The following is the student's first chunk, preserved verbatim
 in wording (with mathematical notation typeset in LaTeX).
+
+\subsection{Definition and elementary properties}
+\label{subsection-cech-definition-elementary}
 
 \medskip
 Convenient tool for computing sheaf cohomology. Uses a choice of open cover
@@ -6028,26 +6049,10 @@ cohomology. These are logically distinct steps: a resolution
 alone does not yet prove the global comparison.
 
 
-\subsection{Godement envelopes and enough injectives}
-\label{subsection-godement-envelopes}
-For a sheaf $\mathcal F$ on $X$, the Godement envelope is
-$G(\mathcal F)(U)=\prod_{x\in U}\mathcal F_x$.
-The map $\mathcal F\to G(\mathcal F)$ sending sections to germs
-is a monomorphism.  The envelope is flabby, since families of
-germs can be extended by zero.  For sheaves of abelian groups,
-choose an embedding $\mathcal F_x\hookrightarrow I_x$ into an
-injective abelian group at each point and define
-$\mathcal I(U)=\prod_{x\in U}I_x$.
-This is injective as a sheaf: maps into $\mathcal I$ correspond
-to maps into $I_x$ on each stalk, and those extend across
-monomorphisms by injectivity of $I_x$.  Thus the category of
-sheaves of abelian groups has enough injectives.
-Reference: Jethro van Ekeren, \emph{Homological Algebra},
-Section 6.1, Theorem 6.1.1, pp.~115--116.
 
-\subsection{The \v{C}ech differential and Leray's theorem}
+\subsection{The Leray theorem}
 \label{subsection-cech-leray}
-Continuing the lecture notes above, choose an ordering
+Recalling the definition and elementary properties of the previous subsection, choose an ordering
 of the cover indices and define
 \[
 (d\alpha)_{i_0\ldots i_{p+1}}=
@@ -6085,7 +6090,44 @@ Reference: Jethro van Ekeren, Section 6.2.2,
 Theorem 6.2.7, pp.~121--122; \cite[III, Section 4]{hart}.
 
 
-\subsection{Fine sheaves, partitions of unity, and de Rham cohomology}
+
+\subsection{Example: Sheaf cohomology on the elliptic curve}
+\label{subsection-cech-elliptic-curve}
+Let $E$ be a smooth complex elliptic curve, and choose
+distinct points $p,q\in E$. In the algebraic setting,
+$U=E\setminus\{p\}$, $V=E\setminus\{q\}$ and their
+intersection are affine. They are $\mathcal O_E$-acyclic,
+so Leray identifies sheaf cohomology with the two-term
+\v{C}ech complex
+\[
+0\to\mathcal O_E(U)\oplus\mathcal O_E(V)
+\xrightarrow{\delta}\mathcal O_E(U\cap V)\to0,
+\qquad\delta(f,g)=g|_{U\cap V}-f|_{U\cap V}.
+\]
+The kernel is the space of global regular functions,
+hence $H^0(E,\mathcal O_E)=\mathbb C$.
+The cokernel is one-dimensional, and there are no
+higher terms:
+\[
+H^1(E,\mathcal O_E)\cong\mathbb C,\qquad
+H^k(E,\mathcal O_E)=0\quad(k>1).
+\]
+For example the dimension of $H^1$ also follows from
+Riemann--Roch for genus one.
+Jethro's explicit calculation in Section 6.2.3,
+pp.~123--124, uses the Weierstrass $\wp$-function
+and the difference
+$\zeta(z-p)-\zeta(z-q)$ as an elliptic meromorphic
+function with opposite residues at $p$ and $q$.
+A caution about that presentation: holomorphic
+functions on punctured compact curves can have
+essential singularities, so the claimed spanning
+sets should be interpreted in the meromorphic/
+algebraic context, not as spanning all analytic
+holomorphic sections on the punctured curve.
+
+
+\subsection{Fine sheaves and the de Rham theorem}
 \label{subsection-fine-sheaves-and-de-rham}
 \noindent
 {\bf Upshot.} On a paracompact smooth manifold, partitions of
@@ -6120,41 +6162,6 @@ Combining with the comparison to singular cohomology,
 $H^k_{\mathrm{dR}}(X)\cong H^k_{\mathrm{sing}}(X;\mathbb R)$.
 Reference: Jethro van Ekeren, Sections 6.2.4--6.2.7,
 pp.~125--129 (including Proposition 6.2.10).
-
-\subsection{\v{C}ech cohomology on an elliptic curve}
-\label{subsection-cech-elliptic-curve}
-Let $E$ be a smooth complex elliptic curve, and choose
-distinct points $p,q\in E$. In the algebraic setting,
-$U=E\setminus\{p\}$, $V=E\setminus\{q\}$ and their
-intersection are affine. They are $\mathcal O_E$-acyclic,
-so Leray identifies sheaf cohomology with the two-term
-\v{C}ech complex
-\[
-0\to\mathcal O_E(U)\oplus\mathcal O_E(V)
-\xrightarrow{\delta}\mathcal O_E(U\cap V)\to0,
-\qquad\delta(f,g)=g|_{U\cap V}-f|_{U\cap V}.
-\]
-The kernel is the space of global regular functions,
-hence $H^0(E,\mathcal O_E)=\mathbb C$.
-The cokernel is one-dimensional, and there are no
-higher terms:
-\[
-H^1(E,\mathcal O_E)\cong\mathbb C,\qquad
-H^k(E,\mathcal O_E)=0\quad(k>1).
-\]
-For example the dimension of $H^1$ also follows from
-Riemann--Roch for genus one.
-Jethro's explicit calculation in Section 6.2.3,
-pp.~123--124, uses the Weierstrass $\wp$-function
-and the difference
-$\zeta(z-p)-\zeta(z-q)$ as an elliptic meromorphic
-function with opposite residues at $p$ and $q$.
-A caution about that presentation: holomorphic
-functions on punctured compact curves can have
-essential singularities, so the claimed spanning
-sets should be interpreted in the meromorphic/
-algebraic context, not as spanning all analytic
-holomorphic sections on the punctured curve.
 
 \bibliography{my}
 \bibliographystyle{amsalpha}
