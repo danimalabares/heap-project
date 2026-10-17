@@ -3,79 +3,124 @@
 import argparse
 import json
 import subprocess
-from pathlib import Path
 
 from gerby_registry import (
     ROOT,
-    SOURCE,
     RegistryError,
+    number,
     parse,
     preserve,
     read,
+    read_json,
     read_migrations,
 )
 
 
-def git_file(base, path):
+def git_file(root, base, path):
     return subprocess.check_output(
         ["git", "show", base + ":" + path],
-        cwd=ROOT,
+        cwd=root,
         stderr=subprocess.DEVNULL,
     )
 
 
-def check(base):
-    migrations = read_migrations()
-    try:
-        old = git_file(base, "registry/tags")
-    except subprocess.CalledProcessError:
-        old = git_file(base, "gerby/tags")
-    preserve(
-        parse(old.decode(), migrations),
-        read(SOURCE, migrations),
+def git_files(root, base, directory):
+    return subprocess.check_output(
+        [
+            "git",
+            "ls-tree",
+            "--name-only",
+            base,
+            directory + "/",
+        ],
+        cwd=root,
+        text=True,
+    ).split()
+
+
+def check(base, root=ROOT):
+    """Merged history is append-only."""
+    migrations = read_migrations(
+        root
+        / "scripts"
+        / "gerby_label_migrations.json"
     )
     try:
-        old_manifest = git_file(
-            base, "registry/history.json"
+        old = git_file(
+            root, base, "registry/tags"
+        )
+    except subprocess.CalledProcessError:
+        old = git_file(
+            root, base, "gerby/tags"
+        )
+    preserve(
+        parse(old.decode(), migrations),
+        read(
+            root / "registry/tags",
+            migrations,
+        ),
+    )
+    current = read_json(
+        root / "registry/history.json"
+    )
+    try:
+        manifest = json.loads(
+            git_file(
+                root,
+                base,
+                "registry/history.json",
+            )
         )
     except subprocess.CalledProcessError:
         # Retain the first repair input.
-        manifest = json.loads(
-            (
-                ROOT
-                / "registry/history.json"
-            ).read_text()
-        )
         if not any(
-            (ROOT / s["path"]).read_bytes()
+            (root / s["path"]).read_bytes()
             == old
-            for s in manifest["snapshots"]
+            for s in current["snapshots"]
         ):
             raise RegistryError(
                 "Missing original evidence"
             )
         return
-    manifest = json.loads(old_manifest)
-    current = json.loads(
-        (
-            ROOT / "registry/history.json"
-        ).read_text()
-    )
+    if number(
+        current["allocation_floor"]
+    ) < number(
+        manifest.get(
+            "allocation_floor", "0000"
+        )
+    ):
+        raise RegistryError(
+            "Lowered allocation floor"
+        )
+    paths = {
+        s["path"]: s
+        for s in current["snapshots"]
+    }
     for snapshot in manifest["snapshots"]:
-        if (
-            snapshot
-            not in current["snapshots"]
+        new = paths.get(snapshot["path"])
+        if new is None or any(
+            new.get(key) != snapshot.get(key)
+            for key in ("sha256", "role")
         ):
             raise RegistryError(
-                "Removed historical snapshot"
+                "Changed historical snapshot: "
+                + snapshot["path"]
             )
-        path = snapshot["path"]
+    paths = [
+        s["path"] for s in manifest["snapshots"]
+    ] + git_files(
+        root, base, "registry/snapshots"
+    )
+    for path in paths:
+        file = root / path
         if (
-            git_file(base, path)
-            != (ROOT / path).read_bytes()
+            not file.exists()
+            or git_file(root, base, path)
+            != file.read_bytes()
         ):
             raise RegistryError(
-                "Changed historical snapshot"
+                "Changed historical snapshot: "
+                + path
             )
 
 

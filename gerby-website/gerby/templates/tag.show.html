@@ -25,6 +25,13 @@
 
 {% block body %}
 <div class="html" id="tag">
+  {% if provenance and provenance.conflicting %}
+    <p class="alert alert-secondary">Earlier
+    versions of this website used tag
+    {{ tag.tag }} for other items.
+    <a href="/tag/{{ tag.tag }}/provenance">See
+    its recorded assignments</a>.</p>
+  {% endif %}
   {% if tag.slogan %}
     <p class="slogan alert alert-primary"><strong>{{ tag.slogan.html | safe }}</strong>
   {% endif %}

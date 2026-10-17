@@ -48,16 +48,24 @@ book.pdf: tmp/book.tex my.bib
 
 .PHONY: gerby-book gerby-tags gerby-render gerby-import gerby-downloads gerby-deploy-build gerby-serve gerby-serve-prod gerby-smoke
 
-.PHONY: gerby-registry-check gerby-register
+.PHONY: gerby-registry-check gerby-register gerby-book-source gerby-explain
 
 gerby-registry-check:
 	$(PYTHON) scripts/gerby_tagger.py --check
 
-gerby-register: gerby-book
+# The only target that allocates new tags.
+# It also restores interrupted allocations.
+gerby-register: gerby-book-source
 	$(PYTHON) scripts/gerby_tagger.py \
 		--allocate
 
-gerby-book: gerby-registry-check
+gerby-explain:
+	$(PYTHON) scripts/gerby_tagger.py \
+		--explain $(TAG)
+
+gerby-book: gerby-registry-check gerby-book-source
+
+gerby-book-source:
 	mkdir -p gerby
 	$(PYTHON) scripts/make_gerby_book.py --order $(GERBY_ORDER) $(GERBY_FILES) > gerby/book.tex
 

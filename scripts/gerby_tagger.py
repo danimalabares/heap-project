@@ -3,6 +3,7 @@
 
 import argparse
 import fcntl
+import json
 from pathlib import Path
 
 from gerby_registry import (
@@ -10,11 +11,13 @@ from gerby_registry import (
     ROOT,
     SOURCE,
     atomic_write,
+    check,
     labels_in,
+    provenance,
     render,
     record,
     serialize,
-    verified,
+    summary,
     RegistryError,
 )
 
@@ -42,6 +45,9 @@ def main():
     parser.add_argument(
         "--check", action="store_true"
     )
+    parser.add_argument(
+        "--explain", metavar="TAG"
+    )
     args = parser.parse_args()
     source = Path(args.tags)
     if args.output:
@@ -55,29 +61,47 @@ def main():
     lock = source.with_name(".registry.lock")
     with lock.open("a") as stream:
         fcntl.flock(stream, fcntl.LOCK_EX)
-        rows = verified(
+        rows, evidence = check(
             source,
             Path(args.history),
             Path(args.root),
+            restore=args.allocate,
         )
         if args.check:
+            print(summary(rows, evidence))
+            return
+        if args.explain:
             print(
-                "Registry history verified"
+                json.dumps(
+                    provenance(
+                        args.explain,
+                        rows,
+                        evidence,
+                    ),
+                    indent=2,
+                )
             )
             return
         result = render(
             rows,
             labels_in(args.texfile),
             allocate=args.allocate,
+            evidence=evidence,
         )
         text = serialize(result)
         if args.allocate:
-            record(
+            added = record(
                 source,
                 Path(args.history),
-                Path(args.root),
                 result,
+                rows,
             )
+            for tag, (label, _) in sorted(
+                added.items()
+            ):
+                print(
+                    "Allocated " + tag + " " + label
+                )
         if args.output:
             atomic_write(args.output, text)
         elif not args.allocate:

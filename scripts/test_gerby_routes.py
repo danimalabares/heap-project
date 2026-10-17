@@ -1,5 +1,7 @@
 """Exercise missing-tag HTTP behavior."""
 
+import hashlib
+import json
 import sys
 import tempfile
 import unittest
@@ -19,7 +21,9 @@ from gerby.database import (
     Tag,
     db,
 )
+import gerby.registry as registry
 import gerby.views.tag as view
+from gerby_registry import Evidence
 
 
 class MissingTagTests(unittest.TestCase):
@@ -36,6 +40,56 @@ class MissingTagTests(unittest.TestCase):
             "0001,chapter-paragraph\n"
             "0002,chapter-new\n"
         )
+        root = Path(self.tmp.name)
+        snapshots = []
+        for name, role, text in [
+            (
+                "base.tags",
+                "canonical",
+                self.tags.read_text(),
+            ),
+            (
+                "old.tags",
+                "legacy",
+                "0002,chapter-older\n"
+                "0003,chapter-gone\n"
+                "0004,chapter-a\n",
+            ),
+            (
+                "older.tags",
+                "legacy",
+                "0004,chapter-b\n",
+            ),
+        ]:
+            (root / name).write_text(text)
+            snapshots.append(
+                {
+                    "path": name,
+                    "role": role,
+                    "sha256": hashlib.sha256(
+                        text.encode()
+                    ).hexdigest(),
+                }
+            )
+        history = root / "history.json"
+        history.write_text(
+            json.dumps(
+                {
+                    "version": 2,
+                    "allocation_floor": "0100",
+                    "snapshots": snapshots,
+                }
+            )
+        )
+        patcher = patch.object(
+            registry,
+            "evidence",
+            return_value=Evidence(
+                history, root, {}
+            ),
+        )
+        patcher.start()
+        self.addCleanup(patcher.stop)
         db.init(":memory:")
         db.connect()
         db.create_tables(
@@ -117,8 +171,63 @@ class MissingTagTests(unittest.TestCase):
         )
 
     def test_unknown_returns_404(self):
+        for tag in ["ZZZZ", "0050"]:
+            response = self.client.get(
+                "/tag/" + tag
+            )
+            self.assertEqual(
+                response.status_code, 404
+            )
+
+    def test_historical_tags_are_gone(
+        self,
+    ):
+        # One or several old meanings:
+        # never a redirect or a guess.
+        for tag in ["0003", "0004"]:
+            response = self.client.get(
+                "/tag/" + tag
+            )
+            self.assertEqual(
+                response.status_code, 410
+            )
+            self.assertNotIn(
+                "Location", response.headers
+            )
+
+    def test_provenance_page(self):
+        for tag, status in [
+            ("0002", "active"),
+            ("0000", "retired"),
+            ("0003", "historical"),
+            ("0004", "ambiguous"),
+            ("0050", "reserved"),
+            ("ZZZZ", "unknown"),
+        ]:
+            with patch.object(
+                view,
+                "render_template",
+                return_value="page",
+            ) as render:
+                response = self.client.get(
+                    "/tag/" + tag + "/provenance"
+                )
+            self.assertEqual(
+                response.status_code, 200
+            )
+            info = render.call_args.kwargs[
+                "info"
+            ]
+            self.assertEqual(
+                info["status"], status
+            )
+        self.assertTrue(
+            registry.describe(
+                "0002", str(self.tags)
+            )["conflicting"]
+        )
         response = self.client.get(
-            "/tag/ZZZZ"
+            "/tag/O0O0/provenance"
         )
         self.assertEqual(
             response.status_code, 404

@@ -12,6 +12,7 @@ CHARS = "0123456789ABCDEFGHJKLMNPQRSTUVWXYZ"
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "registry" / "tags"
 HISTORY = ROOT / "registry" / "history.json"
+ROLES = ("legacy", "canonical")
 MIGRATIONS = (
     ROOT
     / "scripts"
@@ -180,58 +181,243 @@ def preserve(previous, current):
             )
 
 
-def history_issues(
-    rows, history, root, migrations
-):
-    manifest = read_json(history)
-    if manifest.get("version") != 1:
+def checked_bytes(path, digest):
+    data = Path(path).read_bytes()
+    actual = hashlib.sha256(data).hexdigest()
+    if actual != digest:
         raise RegistryError(
-            "Unknown history format"
+            "History checksum mismatch: "
+            + str(path)
         )
-    if not manifest.get("snapshots"):
-        raise RegistryError(
-            "Missing registry history"
-        )
-    observed = {}
-    for snapshot in manifest["snapshots"]:
-        path = root / snapshot["path"]
-        data = path.read_bytes()
-        digest = hashlib.sha256(
-            data
-        ).hexdigest()
-        if digest != snapshot["sha256"]:
+    return data
+
+
+class Evidence:
+    """Checksummed registry history.
+
+    Legacy snapshots are frozen pre-repair
+    observations. They may contradict each
+    other; their IDs are only reserved.
+    Canonical snapshots and allocation
+    deltas define registry/tags exactly.
+    """
+
+    def __init__(self, history, root, migrations):
+        manifest = read_json(history)
+        if manifest.get("version") != 2:
             raise RegistryError(
-                "History checksum mismatch: "
-                + snapshot["path"]
+                "Unknown history format"
             )
-        old = parse(
-            data.decode(),
-            migrations,
-            unique_labels=False,
-            legacy=True,
+        if not manifest.get("snapshots"):
+            raise RegistryError(
+                "Missing registry history"
+            )
+        self.floor = number(
+            manifest["allocation_floor"]
         )
-        for tag, (label, _) in old.items():
-            observed.setdefault(tag, set())
-            observed[tag].add(label)
-    conflicts = {
-        t: sorted(labels)
-        for t, labels in observed.items()
-        if len(labels) > 1
-    }
-    missing = sorted(
-        observed.keys() - rows.keys()
+        # (source, role, rows)
+        self.snapshots = []
+        for entry in manifest["snapshots"]:
+            role = entry.get("role")
+            if role not in ROLES:
+                raise RegistryError(
+                    "Unknown snapshot role: "
+                    + entry["path"]
+                )
+            data = checked_bytes(
+                Path(root) / entry["path"],
+                entry["sha256"],
+            )
+            rows = parse(
+                data.decode(),
+                migrations,
+                unique_labels=False,
+                legacy=role == "legacy",
+            )
+            self.snapshots.append(
+                (
+                    entry.get(
+                        "description",
+                        entry["path"],
+                    ),
+                    role,
+                    rows,
+                )
+            )
+        if not any(
+            role == "canonical"
+            for _, role, _ in self.snapshots
+        ):
+            raise RegistryError(
+                "Missing canonical history"
+            )
+        # Deltas are named by their checksum.
+        directory = (
+            Path(history).parent / "snapshots"
+        )
+        for path in sorted(
+            directory.glob("*.tags")
+        ):
+            data = checked_bytes(
+                path, path.stem
+            )
+            self.snapshots.append(
+                (
+                    "allocation "
+                    + path.stem[:12],
+                    "allocation",
+                    parse(
+                        data.decode(),
+                        migrations,
+                    ),
+                )
+            )
+        # Deterministic replays of old builds.
+        self.builds = []
+        for entry in manifest.get(
+            "observations", []
+        ):
+            data = checked_bytes(
+                Path(root) / entry["path"],
+                entry["sha256"],
+            )
+            for build in json.loads(data):
+                targets = {}
+                for tag, label in build[
+                    "targets"
+                ].items():
+                    number(tag)
+                    if label:
+                        targets[tag] = canonical(
+                            label, migrations
+                        )
+                self.builds.append(
+                    (
+                        "reconstructed build "
+                        + build["commit"][:9]
+                        + " ("
+                        + build["date"][:10]
+                        + ")",
+                        targets,
+                    )
+                )
+        self.observed = {}
+        for source, role, rows in self.snapshots:
+            for tag, (label, _) in rows.items():
+                self.observed.setdefault(
+                    tag, []
+                ).append((label, source, role))
+        for source, targets in self.builds:
+            for tag, label in targets.items():
+                self.observed.setdefault(
+                    tag, []
+                ).append(
+                    (
+                        label,
+                        source,
+                        "reconstructed",
+                    )
+                )
+
+    def historical(self):
+        """Labels observed before allocation."""
+        result = {}
+        for tag, items in self.observed.items():
+            labels = {
+                label
+                for label, _, role in items
+                if role != "allocation"
+            }
+            if labels:
+                result[tag] = labels
+        return result
+
+    def canonical(self):
+        result = {}
+        for _, role, rows in self.snapshots:
+            if role == "legacy":
+                continue
+            for tag, (label, _) in rows.items():
+                if (
+                    result.setdefault(tag, label)
+                    != label
+                ):
+                    raise RegistryError(
+                        "Conflicting canonical "
+                        "tag: " + tag
+                    )
+        return result
+
+    def check_allocations(self):
+        historical = self.historical()
+        for _, role, rows in self.snapshots:
+            if role != "allocation":
+                continue
+            for tag, (label, _) in rows.items():
+                known = historical.get(tag)
+                # Recovering an identity is fine.
+                if known == {label}:
+                    continue
+                if (
+                    known
+                    or number(tag) < self.floor
+                ):
+                    raise RegistryError(
+                        "Allocation reuses "
+                        "historical tag: " + tag
+                    )
+
+    def next_number(self, rows):
+        used = set(rows) | set(self.observed)
+        return max(
+            self.floor,
+            max(map(number, used)) + 1,
+        )
+
+
+def check(
+    source=SOURCE,
+    history=HISTORY,
+    root=ROOT,
+    migrations=None,
+    restore=False,
+):
+    """Return verified rows and evidence.
+
+    registry/tags must map exactly the tags
+    of canonical and allocation snapshots.
+    With restore, canonical rows missing
+    after an interrupted allocation are
+    reinstated as tombstones.
+    """
+    if migrations is None:
+        migrations = read_migrations()
+    rows = read(source, migrations)
+    evidence = Evidence(
+        history, root, migrations
     )
-    changed = sorted(
-        t
-        for t, (label, _) in rows.items()
-        if label
-        not in observed.get(t, set())
+    evidence.check_allocations()
+    expected = evidence.canonical()
+    for tag, label in expected.items():
+        if tag not in rows and restore:
+            rows[tag] = (label, False)
+        elif tag not in rows:
+            raise RegistryError(
+                "Lost historical tag: " + tag
+            )
+        elif rows[tag][0] != label:
+            raise RegistryError(
+                "Reassigned tag: " + tag
+            )
+    unrecorded = sorted(
+        rows.keys() - expected.keys()
     )
-    return {
-        "conflicts": conflicts,
-        "missing": missing,
-        "changed": changed,
-    }
+    if unrecorded:
+        raise RegistryError(
+            "Unrecorded assignment: "
+            + unrecorded[0]
+        )
+    return parse(serialize(rows)), evidence
 
 
 def verified(
@@ -240,22 +426,84 @@ def verified(
     root=ROOT,
     migrations=None,
 ):
-    if migrations is None:
-        migrations = read_migrations()
-    rows = read(source, migrations)
-    issues = history_issues(
-        rows, history, root, migrations
+    return check(
+        source, history, root, migrations
+    )[0]
+
+
+def summary(rows, evidence):
+    historical = evidence.historical()
+    reserved = historical.keys() - rows.keys()
+    conflicts = [
+        tag
+        for tag, labels in historical.items()
+        if len(labels) > 1
+    ]
+    active = sum(a for _, a in rows.values())
+    return (
+        f"Registry verified: {len(rows)} "
+        f"assignments, {active} active.\n"
+        f"Historical IDs: {len(historical)}; "
+        f"{len(conflicts)} conflicting; "
+        f"{len(reserved)} reserved outside "
+        f"the registry.\n"
+        f"Allocation floor "
+        f"{tag_for(evidence.floor)}; next "
+        f"{tag_for(evidence.next_number(rows))}."
     )
-    if any(issues.values()):
-        counts = ", ".join(
-            f"{key}={len(value)}"
-            for key, value in issues.items()
+
+
+def provenance(tag, rows, evidence):
+    """Describe what is known about a tag."""
+    tag = tag.upper()
+    try:
+        value = number(tag)
+    except RegistryError:
+        return {"tag": tag, "status": "invalid"}
+    items = evidence.observed.get(tag, [])
+    labels = {}
+    for label, source, role in items:
+        labels.setdefault(label, []).append(
+            (source, role)
         )
-        raise RegistryError(
-            "Unreconciled registry history: "
-            + counts
+    current = rows.get(tag)
+    if current:
+        status = (
+            "active" if current[1] else "retired"
         )
-    return rows
+    elif len(labels) == 1:
+        status = "historical"
+    elif labels:
+        status = "ambiguous"
+    elif value < evidence.floor:
+        status = "reserved"
+    else:
+        status = "unknown"
+    location = {
+        label: other
+        for other, (label, active) in rows.items()
+        if active
+    }
+    return {
+        "tag": tag,
+        "status": status,
+        "label": current[0] if current else None,
+        "conflicting": bool(
+            set(labels) - {current[0]}
+            if current
+            else len(labels) > 1
+        ),
+        "evidence": [
+            {
+                "label": label,
+                "current": location.get(label),
+                "sources": sources,
+            }
+            for label, sources in sorted(
+                labels.items()
+            )
+        ],
+    }
 
 
 def labels_in(path):
@@ -274,7 +522,9 @@ def labels_in(path):
     return labels
 
 
-def render(rows, labels, allocate=False):
+def render(
+    rows, labels, allocate=False, evidence=None
+):
     if len(labels) != len(set(labels)):
         raise RegistryError(
             "Duplicate source label"
@@ -292,15 +542,33 @@ def render(rows, labels, allocate=False):
             + ", ".join(missing[:5])
             + "; run make gerby-register"
         )
-    current = max(map(number, rows)) + 1
     result = {
         t: (l, False)
         for t, (l, _) in rows.items()
     }
+    recover = {}
+    if missing:
+        if evidence is None:
+            raise RegistryError(
+                "Allocation needs history"
+            )
+        current = evidence.next_number(rows)
+        # Unambiguous retired identities.
+        for tag, known in (
+            evidence.historical().items()
+        ):
+            if tag not in rows and len(known) == 1:
+                recover.setdefault(
+                    next(iter(known)), []
+                ).append(tag)
     for label in labels:
         if label not in lookup:
-            lookup[label] = tag_for(current)
-            current += 1
+            old = recover.get(label, [])
+            if len(old) == 1:
+                lookup[label] = old[0]
+            else:
+                lookup[label] = tag_for(current)
+                current += 1
         result[lookup[label]] = (label, True)
     # Validate before writing any output.
     return parse(serialize(result))
@@ -323,45 +591,40 @@ def atomic_write(path, text):
             os.unlink(temporary)
 
 
-def record(source, history, root, rows):
-    """Persist history before source."""
-    text = serialize(rows)
-    data = text.encode()
-    digest = hashlib.sha256(data).hexdigest()
-    history = Path(history)
-    directory = history.parent / "snapshots"
-    snapshot = directory / (digest + ".tags")
-    relative = (
-        snapshot.resolve().relative_to(
-            Path(root).resolve()
-        )
-    )
-    manifest = read_json(history)
-    entry = {
-        "path": str(relative),
-        "sha256": digest,
+def record(source, history, rows, previous):
+    """Persist new tags before the source."""
+    added = {
+        tag: row
+        for tag, row in rows.items()
+        if tag not in previous
     }
-    directory.mkdir(exist_ok=True)
-    try:
-        with snapshot.open("xb") as stream:
-            stream.write(data)
-            stream.flush()
-            os.fsync(stream.fileno())
-    except FileExistsError:
-        if snapshot.read_bytes() != data:
-            raise RegistryError(
-                "Allocation snapshot changed"
-            )
-    if entry not in manifest["snapshots"]:
-        manifest["snapshots"].append(entry)
-        atomic_write(
-            history,
-            json.dumps(manifest, indent=2)
-            + "\n",
+    if added:
+        data = serialize(added).encode()
+        digest = hashlib.sha256(
+            data
+        ).hexdigest()
+        directory = (
+            Path(history).parent / "snapshots"
         )
-    # Interrupted writes block later builds.
-    # history already reserves the new IDs.
-    atomic_write(source, text)
+        directory.mkdir(exist_ok=True)
+        snapshot = directory / (
+            digest + ".tags"
+        )
+        try:
+            with snapshot.open("xb") as stream:
+                stream.write(data)
+                stream.flush()
+                os.fsync(stream.fileno())
+        except FileExistsError:
+            if snapshot.read_bytes() != data:
+                raise RegistryError(
+                    "Allocation snapshot changed"
+                )
+    # An interruption here leaves a delta
+    # without source rows. Builds then fail;
+    # make gerby-register restores them.
+    atomic_write(source, serialize(rows))
+    return added
 
 
 def check_rendered(rows, directory):

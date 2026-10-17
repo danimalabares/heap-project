@@ -7,7 +7,7 @@ from gerby.database import *
 from gerby.views.methods import *
 
 import gerby.configuration
-from gerby.registry import retired
+from gerby.registry import describe
 
 import re
 
@@ -19,6 +19,13 @@ extras = {"slogan": Slogan, "history": History, "reference": Reference}
 TAGS_PATTERN = re.compile("^[0-9a-zA-Z]{4}")
 
 # validate whether something is (potentially) a tag
+# Known identities that are not served.
+GONE = {
+    "retired": 410,
+    "historical": 410,
+    "ambiguous": 410,
+}
+
 def isTag(string):
   return TAGS_PATTERN.match(string) is not None and len(string) == 4
 
@@ -130,12 +137,14 @@ def show_tag(tag):
                 .get())
 
   except Tag.DoesNotExist:
-    # Numbering cannot establish identity.
-    if retired(tag, gerby.configuration.TAGS):
-      return render_template(
-          "tag.retired.html", tag=tag), 410
+    # Never guess a replacement referent.
+    info = describe(
+        tag, gerby.configuration.TAGS)
     return render_template(
-        "tag.notfound.html", tag=tag), 404
+        "tag.provenance.html",
+        info=info,
+        page=False,
+    ), GONE.get(info["status"], 404)
 
   html = ""
   breadcrumb = getBreadcrumb(tag)
@@ -247,9 +256,12 @@ def show_tag(tag):
         parentComments.append([parent, count])
 
   filename = pdfFilename(tag)
+  provenance = describe(
+      tag.tag, gerby.configuration.TAGS)
 
   return render_template("tag.show.html",
                          tag=tag,
+                         provenance=provenance,
                          breadcrumb=breadcrumb,
                          neighbours=neighbours,
                          html=html,
@@ -261,6 +273,24 @@ def show_tag(tag):
                          filename=filename,
                          parentComments=parentComments,
                          depth=gerby.configuration.DEPTH)
+
+@app.route("/tag/<string:tag>/provenance")
+def show_provenance(tag):
+  info = describe(
+      tag, gerby.configuration.TAGS)
+  if info["status"] == "invalid":
+    return render_template(
+        "tag.invalid.html", tag=tag), 404
+  page = (
+      info["status"] == "active"
+      and Tag.select().where(
+          Tag.tag == info["tag"],
+          Tag.active == True).exists())
+  return render_template(
+      "tag.provenance.html",
+      info=info,
+      page=page)
+
 
 @app.route("/tag/<string:tag>/cite")
 def show_citation(tag):

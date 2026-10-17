@@ -44,6 +44,13 @@ class PipelineTests(unittest.TestCase):
                     shutil.copy2(
                         file, target
                     )
+            templates = (
+                "gerby-website/gerby/templates"
+            )
+            shutil.copytree(
+                ROOT / templates,
+                root / templates,
+            )
             for name in [
                 "Makefile",
                 "preamble.tex",
@@ -68,31 +75,36 @@ class PipelineTests(unittest.TestCase):
                 "0003,sample-lemma-first\n"
                 "#0004,sample-deleted\n"
             )
-            for name in [
-                "tags",
-                "baseline.tags",
+            (
+                root / "registry/tags"
+            ).write_text(baseline)
+            # 0005 was used by an old build.
+            legacy = "0005,sample-ancient\n"
+            snapshots = []
+            for name, role, text in [
+                ("baseline", "canonical", baseline),
+                ("legacy", "legacy", legacy),
             ]:
-                (
-                    root / "registry" / name
-                ).write_text(baseline)
-            snapshot = {
-                "path": (
-                    "registry/baseline.tags"
-                ),
-                "sha256": hashlib.sha256(
-                    baseline.encode()
-                ).hexdigest(),
-            }
+                path = "registry/" + name + ".tags"
+                (root / path).write_text(text)
+                snapshots.append(
+                    {
+                        "path": path,
+                        "role": role,
+                        "sha256": hashlib.sha256(
+                            text.encode()
+                        ).hexdigest(),
+                    }
+                )
             (
                 root
                 / "registry/history.json"
             ).write_text(
                 json.dumps(
                     {
-                        "version": 1,
-                        "snapshots": [
-                            snapshot
-                        ],
+                        "version": 2,
+                        "allocation_floor": "0000",
+                        "snapshots": snapshots,
                     }
                 )
             )
@@ -126,9 +138,17 @@ class PipelineTests(unittest.TestCase):
                 self.identities()["0003"][1],
                 0,
             )
+            # The reserved 0005 is skipped.
             self.assertEqual(
-                self.identities()["0005"],
+                self.identities()["0006"],
                 ("sample-lemma-new", 1),
+            )
+            self.assertEqual(
+                self.http(
+                    "0006", "0003", "0004",
+                    "0005", "0007", "0003/provenance",
+                ),
+                [200, 410, 410, 410, 404, 200],
             )
             self.source("first")
             self.make("gerby-import")
@@ -136,6 +156,10 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual(
                 self.identities()["0003"],
                 ("sample-lemma-first", 1),
+            )
+            self.assertEqual(
+                self.http("0003", "0006"),
+                [200, 410],
             )
 
     def source(self, label):
@@ -195,6 +219,27 @@ class PipelineTests(unittest.TestCase):
                 t: (label, active)
                 for t, label, active in rows
             }
+
+    def http(self, *paths):
+        code = (
+            "import json, sys, wsgi\n"
+            "c = wsgi.application.test_client()\n"
+            "print(json.dumps([c.get('/tag/' + p)"
+            ".status_code for p in sys.argv[1:]]))"
+        )
+        result = subprocess.run(
+            [sys.executable, "-c", code, *paths],
+            cwd=self.root / "gerby-website",
+            capture_output=True,
+            text=True,
+            timeout=60,
+        )
+        self.assertEqual(
+            result.returncode, 0, result.stderr
+        )
+        return json.loads(
+            result.stdout.splitlines()[-1]
+        )
 
     def startup(self):
         result = subprocess.run(

@@ -1,16 +1,20 @@
 """Registry checks for import and web."""
 
 import sys
+from functools import lru_cache
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from gerby_registry import (
+    HISTORY,
+    Evidence,
     RegistryError,
     check_database,
     check_rendered,
     labels_in,
+    provenance,
     read,
     read_migrations,
     render,
@@ -41,6 +45,20 @@ def import_preflight():
         )
 
 
-def retired(tag, path):
-    row = read(path).get(tag)
-    return row is not None and not row[1]
+@lru_cache(maxsize=4)
+def evidence(history=HISTORY, root=ROOT):
+    return Evidence(
+        history, root, read_migrations()
+    )
+
+
+@lru_cache(maxsize=4)
+def rendered(path):
+    return read(path)
+
+
+def describe(tag, path):
+    """Provenance without guessed referents."""
+    return provenance(
+        tag, rendered(path), evidence()
+    )

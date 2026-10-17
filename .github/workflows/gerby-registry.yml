@@ -52,5 +52,22 @@ jobs:
         run: >-
           python check_registry_history.py
           --base "origin/$BASE"
-      - name: Require reconciled history
+      - name: Preserve pushed assignments
+        working-directory: scripts
+        if: >-
+          github.event_name == 'push'
+          && github.event.before
+          != '0000000000000000000000000000000000000000'
+        env:
+          BEFORE: >-
+            ${{ github.event.before }}
+        run: >-
+          python check_registry_history.py
+          --base "$BEFORE"
+      - name: Verify registry invariants
         run: make gerby-registry-check
+      - name: Require registered labels
+        run: >-
+          make gerby-book
+          && python scripts/gerby_tagger.py
+          --output /tmp/tags
