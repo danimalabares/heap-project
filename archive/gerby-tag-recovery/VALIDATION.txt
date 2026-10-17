@@ -1,125 +1,146 @@
-Validation executed on 2026-10-16
+Validation, second pass, 2026-10-16
 
-PASS: 33 automated tests, 47.655 seconds.
-Used a clean Python 3.11 environment created
-under /private/tmp/heap-gerby-test-env and
-installed requirements-gerby.txt unchanged.
+Environment: macOS 12, Python 3.11 venv
+from the unchanged requirements-gerby.txt,
+MacTeX pdflatex. Docker is not installed
+on this Mac, so no image was built. The
+Dockerfile commands were run directly.
 
-Command, with that environment activated:
+Branch head includes main up to 2c448a8ee.
+
+PASS: 47 automated tests
   python -m unittest discover -s scripts
+  Covers everything listed for the first
+  pass, plus:
+  * legacy conflicts tolerated, every
+    legacy ID reserved;
+  * allocation floor; no reuse of any
+    historical ID;
+  * recovery of an unambiguous legacy
+    identity; ambiguous IDs never reused;
+  * concurrent branches allocating the
+    same ID fail after merge;
+  * interrupted allocation fails closed,
+    and make gerby-register restores it;
+  * corrupt or deleted allocation deltas;
+  * append-only Git history in a real
+    temporary repository: deltas, roles,
+    floor, mappings;
+  * provenance status of every tag class;
+  * HTTP 200/404/410 and no redirects,
+    both on fixtures and after a real
+    plasTeX build, SQLite import and WSGI
+    startup in the pipeline test;
+  * fancyvrb macro options through real
+    plasTeX. The test fails without the
+    fix.
 
-Coverage includes:
-
-* Repeated removal and reintroduction.
-* Keeping the highest tombstone reserved.
-* Empty/missing registry refusal.
-* All active/inactive duplicate-ID orders.
-* Duplicate canonical labels and migrations.
-* Migration chains, cycles and collisions.
-* Invalid IDs, malformed rows, exhaustion.
-* Missing/corrupt/conflicting history.
-* Lost or reassigned historical mappings.
-* Explicit allocation vs immutable builds.
-* Duplicate source labels and comment labels.
-* Snapshot history for new allocations.
-* Interrupted allocation fails closed.
-* Unrecorded source assignments fail.
-* Atomic output failure and source
-protection.
-* Rendered and database identity mismatches.
-* Read-only database failure behavior.
-* Legacy three-column historical tombstones.
-* Actual HTTP 410/404 without guessed
-redirects.
-* Existing mathematical conversion
-regression.
-* Complete isolated make gerby-import builds,
-  real plasTeX output, SQLite import and WSGI
-  startup across deletion and reintroduction.
-* The integration test also proves that an
-  unregistered label aborts before database
-    mutation, and that explicit allocation
-  skips
-  the highest historical tombstone.
+PASS: make gerby-registry-check
+  5,280 assignments, 4,874 active.
+  11,037 historical IDs, 5,133 conflicting,
+  5,769 reserved outside the registry.
+  Floor 0G00; next ID 0G0C.
 
 PASS: check_registry_history.py against
-origin/main, including the fetched latest
-main revision acc0b9b1c. All prior latest-Git
-assignments remain in the candidate.
+  origin/main.
 
-PASS: all 4,918 current live identities are
-preserved in registry/tags. Existing label
-migrations account for 60 renames relative to
-the last checked-in file. No new migrations
-were introduced by this repair.
+PASS: complete Gerby build
+  make gerby-import on all 63 chapters:
+  book generation, tags, plasTeX render
+  (4,918 tag files), SQLite import. The
+  Dockerfile sequence, gerby_tagger.py
+  --check then make gerby-deploy-build,
+  was rerun on the committed code after
+  make clean and with an empty gerby/
+  directory. Exit 0 in 15 minutes: Gerby
+  site, all 64 downloadable PDFs, WSGI
+  startup, Lost 0, Reassigned 0.
 
-PASS: immutable backup byte count and SHA-256
-rechecked against production-20261016.json.
-Every archived registry matches the manifest.
-The full reconciliation report was recomputed
-and matches reconciliation-issues.json
-exactly.
+PASS: WSGI startup on the real build
+  check_runtime verified the history, the
+  rendered registry, the rendered files
+  and the database's active set.
 
-PASS: 111 historical registry replays. The
-current deployment reproduces BOTH recovered
-book and registry SHA-256 values exactly.
-Older replays remain inferred evidence.
+PASS: complete PDF build
+  Clean serial make gerby-downloads: all
+  63 chapter PDFs and book.pdf. An earlier
+  make -j2 attempt failed only because
+  parallel jobs read each other's
+  half-written .aux files. Docker builds
+  serially.
 
-PASS: git diff --check.
+PASS: production identities
+  compare_production_registry.py on the
+  recovered live registry: 4,918 live
+  tags, Lost 0, Reassigned 0. Retired by
+  main's own source changes: 06X3, 09AJ,
+  09AT, 09AU, 09AV. Newly served:
+  0G00-0G0B.
 
-EXPECTED FAILURE: make gerby-registry-check.
-Also checked make gerby-deploy-build: it
-stops
-at that gate. Registry and generated-book
-checksums are unchanged after the failure.
-  conflicts=5130
-  missing=5769
-  changed=0
+  Against the 4,848 live database pages:
+  4,844 have identical tag, label and
+  type. 0 labels changed and 0 types
+  changed. The 4 missing are 09AJ and
+  09AT-09AV. 485 pages keep their tag
+  but changed printed number, because
+  the new Torelli chapter shifts
+  numbering. 0 dangling /tag links remain
+  in the rendered HTML, so cross
+  references are preserved.
 
-This is also the intended result for the
-GitHub history job and any production image
-build until reconciliation is completed.
-Do not treat the passing regression suite as
-permission to deploy contradictory history.
+PASS: HTTP on the real build (Flask test
+  client against wsgi.application)
+  09DN  200 Proposition 36.20.1, the live
+        referent; history notice shown.
+  09DR  200 Section 36.22, the live
+        referent; history notice shown.
+  09DP  404 explanatory page. The label
+        is on bold run-in text, so it has
+        no Gerby node. Same as production.
+  09AT, 09AJ, 06X3  410 retired.
+  01CG  410 historical, one label.
+  0000  410 ambiguous, several labels.
+  0FZZ  404 reserved (below the floor).
+  0Z00, O0O0  404.
+  /tag/09DN/provenance 200; lists all 20
+  labels from reconstructed builds, for
+  example the Lefschetz Cox-Gorenstein
+  definition, with current tags.
+  No response carried a Location header.
 
-PR #9's unmodified original tests were run
-separately: one passed, one errored. The
-first
-allocation hits max(empty), whose ValueError
-is not caught by its IndexError handler.
+PASS: duplicate-label conversion
+  gerby/book.tex from the explicit labels
+  is byte-identical to the legacy
+  converter's output, except the one
+  lowercased label.
 
-An initial miniature render/import attempt
-with the preexisting system Python failed:
-its installed plasTeX did not load the book
-package correctly. The same fixture passed
-with a clean installation of the repository's
-declared requirements. The automated pipeline
-test passed in that clean environment too.
-No global Python packages were changed.
+PASS: PR #11 risk simulation
+  The archived production allocator, on
+  current main's book and checked-in
+  registry, reassigns 275 live tags,
+  including 09DN, 09DP and 09DR.
 
-A full current-book/PDF build was not run:
-the real history guard correctly rejects the
-candidate before generation. Docker is not
-installed on this Mac, so no Docker image
-was built. Those release checks remain
-mandatory after historical reconciliation.
+PASS: GitHub CI on the pushed branch
+  Jobs "tests" and "history" both pass.
 
-Railway checks were read-only. The service
-was linked to main and PR previews were
-confirmed disabled before publishing a repair
-branch. Production was not deployed,
-restarted,
-rolled back, or modified. PR #9 was not
-merged.
+Pre-existing plasTeX warnings, unchanged
+from production: package "book" is not
+loadable, and two ArrayRow files (09DQ,
+09F6) are not written. Neither tag had a
+production page.
 
-The normal npm railway command was restored
-and verified at v5.70.0. Its automatic
-updater
-is disabled, addressing the observed cause of
-the disappearing native binary.
+Pre-existing local hazard, not a blocker:
+if book.bbl from an earlier PDF build sits
+in the checkout, plasTeX reads it and stops
+on {\'\i} in castro1981lingua. Docker
+renders BEFORE it builds PDFs, so images
+never see the file. Locally, run make clean
+before make gerby-deploy-build.
 
-GitHub initially lacked TeX for the pipeline
-test. A minimal install also lacked dvipng
-and LaTeX package data. The workflow now
-installs the same TeX and image packages as
-the Dockerfile.
+NOT DONE
+* Docker image build: Docker is not
+  installed here. The Railway build after
+  the merge is the first image build.
+* Production was not touched. The
+  pre-deployment live comparison in
+  DEPLOYMENT.txt step 2 must still be run.

@@ -81,3 +81,20 @@ artifacts should not be committed.
 ## Commit provenance
 
 Every commit containing AI-generated or AI-edited content must make the AI involvement explicit in the commit message. Name the AI/tool responsible (for example, `ChatGPT:` or `Claude:`) and briefly describe what it changed. For substantial automation, make the extent of the automated work clear enough for later debugging and provenance tracking.
+
+## Permanent Gerby tags
+
+- After adding or renaming a `\label` in a
+  Gerby chapter, run `make gerby-register`.
+  Commit `registry/tags` and any new
+  `registry/snapshots/*.tags` with the
+  change. Builds never allocate tags.
+- Labels within a chapter must be unique.
+- Never edit, delete, or regenerate
+  `registry/history.json`, the files it
+  lists, or `registry/snapshots/`.
+- To keep a tag across a label rename, add
+  the old-to-new pair to
+  `scripts/gerby_label_migrations.json`
+  before registering, and only if both
+  labels denote the same object.

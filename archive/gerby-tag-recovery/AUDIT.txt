@@ -3,18 +3,24 @@ Gerby permanent-tag recovery
 
 STATUS
 
-The current production registry was recovered
-before changing any tag code. Production was
-only queried. No deployment, restart,
-rollback,
-merge, or production data write was
-performed.
+Second pass, 2026-10-16. The recovered
+production registry is now the canonical
+baseline. The history gate checks explicit
+invariants (see PERMANENT IDENTITY POLICY)
+instead of demanding that contradictory
+historical registries agree, which was
+impossible. That gate now passes, and so
+does the complete Gerby build. Deployment
+still needs Daniel's authorization: see
+DEPLOYMENT.txt.
 
-The code repair is prepared. Historical URL
-reconciliation is NOT complete. Deployment
-builds deliberately fail while the recovered
-history is contradictory. This is a safety
-result, not a successful production build.
+Production was only queried. No deployment,
+restart, rollback, merge, or production
+data write was performed.
+
+The first pass is preserved below. Where it
+says that builds must fail on historical
+conflicts, the policy below supersedes it.
 
 RECOVERED EVIDENCE
 
@@ -271,78 +277,172 @@ registries. Existing projects cannot
 bootstrap
 an empty registry during a deployment.
 
+PERMANENT IDENTITY POLICY
+
+Evidence has three kinds, all checksummed
+in registry/history.json (format 2).
+
+* Canonical: the 2026-10-16 production
+  registry, and the repair baseline (that
+  file plus the 350 tombstones of the last
+  checked-in registry). Every assignment
+  in them is permanent.
+* Allocation: registry/snapshots/<sha>.tags,
+  one file per explicit allocation. It
+  holds only the new rows and is named by
+  its SHA-256.
+* Legacy: the 15 old checked-in
+  registries, plus the 111 reconstructed
+  build observations. They may contradict
+  each other. They serve only as
+  reservations and as public provenance.
+
+Invariants. Every build, import and WSGI
+startup checks the first five, and fails
+closed if any is violated.
+
+I1 registry/tags is well formed: valid IDs,
+   no duplicate tag, no duplicate label
+   after migrations.
+I2 Every evidence file matches its
+   checksum, and at least one canonical
+   snapshot exists.
+I3 The tag-to-label map of registry/tags
+   EQUALS the union of the canonical and
+   allocation snapshots. Nothing is lost,
+   reassigned or unrecorded. Two snapshots
+   that disagree fail ("Conflicting
+   canonical tag"). This is also how
+   concurrent branches that allocated the
+   same ID are caught.
+I4 An allocated ID is at least the floor
+   0G00 and was never observed in legacy
+   evidence. The one exception is
+   recovering the single legacy meaning of
+   that same label.
+I5 The rendered registry is exactly the
+   committed registry, with active flags
+   taken from the source. Builds never
+   allocate.
+I6 In Git, history is append-only: base
+   snapshots, roles, allocation files and
+   mappings cannot be removed or changed,
+   and the floor cannot drop. GitHub
+   checks this on pull requests and pushes.
+
+Allocation floor. Every old build
+allocated sequentially above the maximum
+of its checked-in registry, one ID per
+unregistered label. Over all 653
+recoverable deployment commits, that
+maximum plus every \label and file count
+is at most 0EMB (16,909). The one
+unrecoverable commit is a FAILED build.
+Current main gives the same bound. 0G00
+(18,496) leaves about 1,600 IDs of margin.
+So no new tag can collide with an ID that
+any past or interim old-allocator build
+could have served, even an unrecovered
+one.
+
+Tag classes and HTTP behavior:
+
+  active, rendered       200 page
+  active, no page        404, explains
+                         (09DP)
+  retired tombstone      410
+  historical, 1 label    410, label shown
+  ambiguous, 2+ labels   410, all shown
+  reserved, below 0G00   404, reserved
+  unknown or invalid     404
+
+Nothing redirects. /tag/<tag>/provenance
+lists every recorded label with its
+sources. Where such a label still exists,
+it shows that label's CURRENT tag as a
+plain link. An active tag with
+contradictory history serves its current
+referent and shows a notice linking to its
+provenance.
+
+Current counts: 11,037 historical IDs;
+5,133 with conflicting labels (the 5,130
+of the first pass, plus 09DN, 09DP and
+09DR from reconstructed builds); 5,769
+reserved outside the registry.
+
+09DN, 09DP, 09DR keep their verified
+production referents. Each also lists the
+20 labels that reconstructed builds
+assigned to it between September 30 and
+October 16.
+
 IMPLEMENTED SAFEGUARDS
 
-registry/tags is reviewed source data outside
-the generated gerby directory. The old
-tracked
-gerby/tags is removed from Git tracking;
-local
-render output remains ignored. Builds derive
-an active/tombstone view from the source
-file.
+New tags exist only after make
+gerby-register, which takes a file lock.
+It writes the allocation delta durably
+BEFORE replacing registry/tags. If it is
+interrupted, the next check fails ("Lost
+historical tag"). Rerunning make
+gerby-register restores the reserved rows.
+Docker and make gerby-import only render.
 
-Every build checks all checksummed registry
-snapshots. Conflicting assignments, missing
-IDs, changed identities, invalid rows,
-duplicate IDs/labels, migration cycles,
-missing evidence and changed evidence fail
-before registry output or database mutation.
+Duplicate source labels. The converter
+refuses them. The 52 occurrences that
+production had numbered '-duplicate-N'
+by position are now explicit in the
+source. Only the \label argument changed.
+gerby/book.tex is byte-identical to the
+legacy converter's output, except for one
+label lowercased for AGENTS.md. A
+migration keeps that label's tag, 05FZ.
+No \ref pointed to any of these labels,
+so PDFs are unaffected.
 
-New tags require an explicit local allocation
-step, make gerby-register, followed by review
-and commit. Allocation holds an OS file lock,
-writes atomically and starts above ALL IDs
-in the validated registry. Four-character
-space exhaustion fails without partial
-output.
-Normal builds never allocate new IDs.
+Rendering. plasTeX's fancyvrb called
+strip() on macro values such as
+\footnotesize. scripts/plastex_gerby.py
+now passes their macro names instead. This
+fixes the current Railway failure without
+editing homological-algebra.tex, and
+supersedes PR #11.
 
-Each explicit allocation first saves an
-immutable checksummed registry snapshot and
-adds it to history.json. Only then is the
-source registry replaced. An interruption
-between these writes makes the next build
-fail. Source entries without matching history
-also fail. New assignments therefore acquire
-the same protection as the recovered ones.
+PR #11 alone is unsafe. Running the
+archived production allocator on current
+main reassigns 275 live tags, including
+09DN, 09DP and 09DR.
 
-Git history checks compare the candidate with
-the PR base and prohibit
-deletion/reassignment
-of previously committed mappings or
-alteration
-of old evidence. Required CI and review must
-be configured before deployment. Checksummed
-files are an integrity check, not protection
-against someone deliberately changing code
-and its checks together.
+Changes on main since production. Main
+deleted or relabeled four rendered items
+after commit f968b17dd: 09AJ (section
+removed in acc0b9b1c), 09AT, 09AU and
+09AV. In faa301d16, the paraphrased Cech
+subsections were replaced by
+transcriptions under new labels
+subsection-jethro-cech-N. Under the
+label rule these retire (HTTP 410) and
+the new labels get new tags. Whether a
+migration should keep 09AT-09AV is an
+editorial decision for the author. The
+decision must be made before the merge.
+06X3 also retires: its \label is
+commented out, and it never had a page.
 
-Import checks validate rendered tag
-identities
-and any existing database before any writes.
-WSGI startup validates registry history,
-rendered output and active database
-membership.
-This also covers Railway's start-command
-configuration override.
+09DP. Its label is attached to bold
+run-in text, not to an environment or a
+sectioning command. Gerby therefore has
+no node to tag. It has never had a page.
+Wrapping the text in an environment
+would make 09DP render under the same
+ID. That is an editorial change.
 
-Retired tags return HTTP 410. Unknown or
-unrendered tags return HTTP 404. Neither path
-guesses another mathematical referent.
-A tombstone reserves an identity; it does not
-reconstruct deleted mathematical content.
-
-No code can infer whether an author reused a
-label for a different mathematical statement.
-Source-label reuse and explicit migrations
-still require mathematical/editorial review.
+No code can tell whether an author reused
+a label for a different mathematical
+statement. Migrations need editorial
+review.
 
 VALIDATION AND DEPLOYMENT
 
 See VALIDATION.txt for executed checks and
-DEPLOYMENT.txt for the gated deployment plan.
-The repair must not be deployed while the
-registry preflight is failing. PR #9 remains
-unmerged. The contradictory history cannot be
-made truthful merely by marking CI green.
+DEPLOYMENT.txt for the merge procedure.
