@@ -214,17 +214,44 @@ folders:
   /private/tmp/heap-railway-cli/railway
   /private/tmp/heap-railway-cli-v4/railway
 
-For repeat read-only recovery, use
-scripts/recover_gerby_registry.py with --cli
-pointing to v4.6.0, --instance set from a
-fresh
-read-only status query, and --output pointing
-to a NEW archive filename. It preserves exact
-bytes with base64 transport, checks SHA-256,
-and refuses to overwrite an existing backup.
-It reads credentials without printing them.
-An expired token requires the normal Railway
-authentication flow before recovery can work.
+Those temporary binaries are gone. Since
+2026-10-17, recovery uses the supported
+CLI v5 key transport (see below).
+
+Repeat read-only recovery (CLI v5)
+
+The local key ~/.ssh/id_ed25519.pub, the
+same key as on GitHub, is registered with
+Railway as "heap-gerby-recovery"
+(railway ssh keys add; the GitHub import
+needs the Railway GitHub integration).
+No instance ID is needed. Get the target:
+
+  RAILWAY_NO_AUTO_UPDATE=1 railway ssh \
+    config --dry-run \
+    -p 4eb2afc6-f384-45e1-8d36-51b742ec150a \
+    -e edd6b1ad-4a5e-4cba-aa12-6ea7e6b9226f \
+    -s 3ad9e6a2-deb0-46ff-a418-32d6af5e67d7
+
+and use User@HostName from it. Railway
+publishes no host key fingerprint. The key
+pinned on 2026-10-17 was
+  ssh.railway.com ED25519
+  SHA256:+S1xg92FrnHz6pY3bpkmh1OGtWQGNANXilPzlxA7B1g
+Put it in a scratch known_hosts file
+(ssh-keyscan -t ed25519 ssh.railway.com),
+check the fingerprint, then run
+
+  python3 scripts/recover_gerby_registry.py \
+    --target USER@ssh.railway.com \
+    --known-hosts SCRATCH/known_hosts \
+    --output archive/gerby-tag-recovery/\
+production-YYYYMMDD.tags
+
+It preserves exact bytes with base64
+transport, checks SHA-256, records the
+deployment, instance and commit, and refuses
+to overwrite an existing backup.
 
 Official documentation:
 https://docs.railway.com/cli
