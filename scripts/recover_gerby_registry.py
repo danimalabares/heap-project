@@ -47,8 +47,13 @@ def recover(cli, instance, output):
         ],
         env=env,
         capture_output=True,
-        check=True,
     )
+    if result.returncode:
+        # The CLI never echoes the token.
+        raise SystemExit(
+            result.stderr.decode(errors="replace")
+            or "Railway SSH failed"
+        )
     # v4 SSH adds CRLF to stdout.
     payload = json.loads(
         base64.b64decode(
