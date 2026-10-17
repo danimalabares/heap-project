@@ -48,13 +48,30 @@ book.pdf: tmp/book.tex my.bib
 
 .PHONY: gerby-book gerby-tags gerby-render gerby-import gerby-downloads gerby-deploy-build gerby-serve gerby-serve-prod gerby-smoke
 
-gerby-book:
+.PHONY: gerby-registry-check gerby-register gerby-book-source gerby-explain
+
+gerby-registry-check:
+	$(PYTHON) scripts/gerby_tagger.py --check
+
+# The only target that allocates new tags.
+# It also restores interrupted allocations.
+gerby-register: gerby-book-source
+	$(PYTHON) scripts/gerby_tagger.py \
+		--allocate
+
+gerby-explain:
+	$(PYTHON) scripts/gerby_tagger.py \
+		--explain $(TAG)
+
+gerby-book: gerby-registry-check gerby-book-source
+
+gerby-book-source:
 	mkdir -p gerby
 	$(PYTHON) scripts/make_gerby_book.py --order $(GERBY_ORDER) $(GERBY_FILES) > gerby/book.tex
 
 gerby-tags: gerby-book
-	$(PYTHON) scripts/gerby_tagger.py gerby/book.tex --tags gerby/tags > gerby/tags.tmp
-	mv gerby/tags.tmp gerby/tags
+	$(PYTHON) scripts/gerby_tagger.py \
+		--output gerby/tags
 
 gerby-render: gerby-tags
 	rm -rf gerby/document
@@ -63,7 +80,7 @@ gerby-render: gerby-tags
 gerby-import: gerby-render
 	cd gerby-website/gerby/tools && PYTHONPATH=../.. $(PYTHON) update.py $(GERBY_UPDATE_FLAGS)
 
-gerby-downloads: book.pdf $(patsubst %.tex,%.pdf,$(GERBY_FILES))
+gerby-downloads: gerby-registry-check $(PDFS)
 	mkdir -p gerby/downloads
 	cp book.pdf gerby/downloads/book.pdf
 	cp $(patsubst %.tex,%.pdf,$(GERBY_FILES)) gerby/downloads/

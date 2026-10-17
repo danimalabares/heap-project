@@ -1,0 +1,244 @@
+Safe merge and deployment procedure
+Updated 2026-10-16 (second pass)
+
+Merging PR #10 into main IS a production
+deployment: Railway builds main on every
+push. Every step below that merges, pushes
+to main, or touches Railway needs explicit
+authorization from Daniel.
+
+0. Hold points before the merge
+
+   * Do not merge PR #11 on its own. Main
+     still has the old allocator. The first
+     successful main build would reassign
+     build-time tags, including 09DN, 09DP
+     and 09DR. PR #10 already contains a
+     plasTeX fix that makes PR #11
+     unnecessary. Close PR #11 as superseded
+     after PR #10 is deployed.
+   * Until PR #10 is deployed, do not fix
+     the fancyvrb failure on main by other
+     means. Those failing builds are what
+     currently keep production unchanged.
+   * Do not merge PR #9.
+   * Do not roll back to an image older
+     than this repair. Old images allocate
+     tags during the build.
+
+1. Bring the branch up to date
+
+   Work in ~/github/heap-gerby-repair.
+
+     git fetch origin
+     git merge origin/main
+     make gerby-register
+
+   gerby-register prints one line per new
+   tag. Review them. A renamed label gets a
+   NEW tag and its old tag is retired,
+   unless a migration is added to
+   scripts/gerby_label_migrations.json
+   BEFORE registering. Add a migration only
+   if you, as author, judge the two labels
+   to be the same mathematical object.
+
+   Duplicate labels in a chapter now stop
+   the build. Give each one a unique label.
+
+   Commit registry/tags together with any
+   new registry/snapshots/*.tags file.
+
+2. Compare against the live registry
+
+   Production may have changed. Take a
+   fresh read-only copy of /app/gerby/tags
+   with scripts/recover_gerby_registry.py
+   (see "CLI bypass" below), into a NEW
+   file such as
+   archive/gerby-tag-recovery/
+   production-YYYYMMDD.tags.
+   Then run:
+
+     python3 scripts/\
+       compare_production_registry.py \
+       archive/gerby-tag-recovery/\
+       production-YYYYMMDD.tags \
+       --candidate registry/tags
+
+   Required result:
+     Lost: 0
+     Reassigned: 0
+     Live checksum matches the 2026-10-16
+     recovery.
+
+   Check the "Retired by source changes"
+   list. Each entry must be a label that
+   was really deleted or renamed in main.
+
+   If the checksum DIFFERS, production was
+   redeployed in the meantime. STOP. Add
+   the new file to registry/history.json as
+   a "canonical" snapshot with a
+   description. Do not edit or replace the
+   old ones. Then run make gerby-register.
+   If that reports "Conflicting canonical
+   tag", a deployment already reassigned
+   identities. That needs Daniel's
+   explicit decision; never resolve it by
+   deleting evidence.
+
+3. Validate
+
+     make gerby-registry-check
+     python3 -m unittest discover \
+       -s scripts -p 'test_*.py'
+     make gerby-import
+     cd gerby-website && python3 -c \
+       'import wsgi'
+
+   Push the branch. Both GitHub jobs,
+   tests and history, must pass. Making
+   them required checks for main in the
+   branch protection settings is
+   recommended.
+
+4. Merge (= deploy), with authorization
+
+   Merge PR #10 into main. Railway then
+   builds main. The Docker build runs
+   gerby_tagger.py --check, then
+   make gerby-deploy-build, which renders
+   with the committed registry and never
+   allocates.
+
+   If main received new labels between
+   step 1 and the merge, the image build
+   fails with "Unregistered source labels".
+   Production keeps serving the previous
+   image. Run make gerby-register on main,
+   commit and push.
+
+5. After deployment
+
+   * Take another read-only copy of
+     /app/gerby/tags and run the comparison
+     with --candidate gerby/tags from a
+     local build of the deployed commit.
+     Expect Lost 0 and Reassigned 0.
+   * Check by HTTP:
+       /tag/09DN           200
+       /tag/09DR           200
+       /tag/09DP           404, explained
+       /tag/09DN/provenance 200
+       /tag/09AT           410
+       /tag/0G0A           200
+   * Commit the new live copy as a
+     "canonical" history snapshot.
+   * Close PR #11 and PR #9 as superseded.
+
+Daily publishing after the merge
+
+   Edit notes as usual. Before pushing any
+   change that adds labels, run
+
+     make gerby-register
+
+   and commit registry/tags and the new
+   registry/snapshots/*.tags with the
+   notes. Deleting labels needs no action.
+   The tag becomes a tombstone (HTTP 410).
+   A deleted label that comes back gets its
+   old tag again.
+
+   If you forget, the GitHub job "Require
+   registered labels" fails and the Railway
+   build fails. Production keeps the
+   previous version until you register and
+   push.
+
+   Branches: allocation happens per branch.
+   If two branches allocate the same ID,
+   merging the second fails ("Reassigned
+   tag" or "Conflicting canonical tag").
+   Redo the second branch's allocation:
+
+     git checkout origin/main -- \
+       registry/tags
+     git diff --name-only \
+       --diff-filter=A origin/main -- \
+       registry/snapshots | xargs git rm
+     make gerby-register
+
+   This drops only allocations that never
+   reached main.
+
+   Inspect any tag:
+
+     make gerby-explain TAG=09DN
+
+Long-term operating model
+
+   The canonical registry lives in Git.
+   Images contain only assignments that
+   were committed before the build. No
+   runtime volume is needed for tag
+   identity. Comments and other runtime
+   data have separate persistence needs.
+
+CLI bypass used on Monterey
+
+The installed npm package had its postinstall
+script blocked by npm allowScripts. Railway's
+auto-update replaced the package and removed
+the downloaded native binary. The local npm
+update log confirms this sequence.
+
+Official pinned macOS x86_64 binaries were
+fetched from railwayapp/cli GitHub releases.
+Both v5.70.0 and v4.6.0 run on this Mac.
+No Homebrew was used.
+
+For every invocation, automatic updates were
+disabled with RAILWAY_NO_AUTO_UPDATE=1.
+v5.70.0 queried deployment metadata. Its SSH
+path required a registered key. v4.6.0's
+token
+SSH transport worked using the existing
+accessToken passed privately as
+RAILWAY_API_TOKEN. No key was registered and
+no login or account change was needed.
+
+The working binaries are in temporary
+folders:
+  /private/tmp/heap-railway-cli/railway
+  /private/tmp/heap-railway-cli-v4/railway
+
+For repeat read-only recovery, use
+scripts/recover_gerby_registry.py with --cli
+pointing to v4.6.0, --instance set from a
+fresh
+read-only status query, and --output pointing
+to a NEW archive filename. It preserves exact
+bytes with base64 transport, checks SHA-256,
+and refuses to overwrite an existing backup.
+It reads credentials without printing them.
+An expired token requires the normal Railway
+authentication flow before recovery can work.
+
+Official documentation:
+https://docs.railway.com/cli
+https://docs.railway.com/cli/ssh
+
+The current SSH documentation describes the
+new key transport. The older token transport
+was verified directly during this recovery.
+
+Local CLI repair completed
+
+The verified v5.70.0 native binary was
+restored into the matching installed npm
+package. The normal railway command works.
+Automatic updates were disabled locally to
+prevent the observed npm replacement failure.
+This changed no production configuration.

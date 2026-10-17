@@ -176,7 +176,10 @@ def prefix_labels_and_refs(line, prefix, label_counts):
             label = safe_label(raw_label)
         label_counts[label] = label_counts.get(label, 0) + 1
         if label_counts[label] > 1:
-            label = f"{label}-duplicate-{label_counts[label]}"
+            raise ValueError(
+                "Duplicate Gerby label: "
+                + label
+            )
         return f"\\label{{{label}}}"
 
     line = re.sub(r"\\label\{([^}]*)\}", label_repl, line)

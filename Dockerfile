@@ -26,6 +26,7 @@ RUN pip install --no-cache-dir -r requirements-gerby.txt
 
 COPY . /app
 
+RUN python scripts/gerby_tagger.py --check
 RUN rm -f gerby/stack.sqlite gerby/comments.sqlite
 RUN make gerby-deploy-build
 
