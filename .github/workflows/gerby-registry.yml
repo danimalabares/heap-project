@@ -1,0 +1,73 @@
+name: Gerby permanent tags
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install TeX runtime
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            --no-install-recommends \
+            texlive-base \
+            texlive-bibtex-extra \
+            texlive-fonts-recommended \
+            texlive-latex-base \
+            texlive-latex-extra \
+            texlive-lang-greek \
+            texlive-luatex \
+            dvipng \
+            ghostscript
+      - run: >-
+          pip install
+          -r requirements-gerby.txt
+      - run: >-
+          python -m unittest discover
+          -s scripts -p 'test_*.py'
+  history:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Preserve base assignments
+        working-directory: scripts
+        if: >-
+          github.event_name == 'pull_request'
+        env:
+          BASE: >-
+            ${{ github.base_ref }}
+        run: >-
+          python check_registry_history.py
+          --base "origin/$BASE"
+      - name: Preserve pushed assignments
+        working-directory: scripts
+        if: >-
+          github.event_name == 'push'
+          && github.event.before
+          != '0000000000000000000000000000000000000000'
+        env:
+          BEFORE: >-
+            ${{ github.event.before }}
+        run: >-
+          python check_registry_history.py
+          --base "$BEFORE"
+      - name: Verify registry invariants
+        run: make gerby-registry-check
+      - name: Require registered labels
+        run: >-
+          make gerby-book
+          && python scripts/gerby_tagger.py
+          --output /tmp/tags

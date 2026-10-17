@@ -16,6 +16,7 @@ except ImportError:
 
 from gerby.database import *
 import gerby.configuration
+from gerby.registry import import_preflight
 
 
 # helper function
@@ -439,6 +440,9 @@ if __name__ == "__main__":
   logging.basicConfig(stream=sys.stdout)
   log = logging.getLogger(__name__)
   log.setLevel(logging.INFO)
+
+  # Validate before any database write.
+  import_preflight()
 
   # create database if it doesn't exist already
   if not os.path.isfile(gerby.configuration.DATABASE):

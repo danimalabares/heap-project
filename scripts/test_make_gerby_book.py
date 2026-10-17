@@ -29,5 +29,21 @@ class MathPreservationTests(unittest.TestCase):
                 self.assertIn(formula, rendered)
 
 
+class LabelIdentityTests(unittest.TestCase):
+    def test_duplicate_labels_fail(self):
+        from make_gerby_book import (
+            prefix_labels_and_refs,
+        )
+
+        counts = {}
+        prefix_labels_and_refs(
+            r'\label{same}', 'chapter', counts
+        )
+        with self.assertRaises(ValueError):
+            prefix_labels_and_refs(
+                r'\label{same}', 'chapter', counts
+            )
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -7,6 +7,7 @@ from gerby.database import *
 from gerby.views.methods import *
 
 import gerby.configuration
+from gerby.registry import describe
 
 import re
 
@@ -18,26 +19,15 @@ extras = {"slogan": Slogan, "history": History, "reference": Reference}
 TAGS_PATTERN = re.compile("^[0-9a-zA-Z]{4}")
 
 # validate whether something is (potentially) a tag
+# Known identities that are not served.
+GONE = {
+    "retired": 410,
+    "historical": 410,
+    "ambiguous": 410,
+}
+
 def isTag(string):
   return TAGS_PATTERN.match(string) is not None and len(string) == 4
-
-def chapter_tag_for_missing_tag(tag):
-  try:
-    with open(gerby.configuration.TAGS) as f:
-      for line in f:
-        line = line.strip()
-        if not line or line.startswith("#"):
-          continue
-        pieces = line.split(",", 1)
-        if len(pieces) != 2 or pieces[0].upper() != tag:
-          continue
-        prefix = pieces[1].split("-", 1)[0]
-        return Tag.get(
-            Tag.label == "chapter-" + prefix,
-            Tag.active == True)
-  except Exception:
-    return None
-  return None
 
 # turn a flat list into a tree based on tag.ref length
 def combine(tags):
@@ -147,19 +137,14 @@ def show_tag(tag):
                 .get())
 
   except Tag.DoesNotExist:
-    try:
-      inactive = Tag.get(Tag.tag == tag.upper(), Tag.active == False)
-      replacement = Tag.get(
-          Tag.ref == inactive.ref,
-          Tag.type == inactive.type,
-          Tag.active == True)
-      return redirect("/tag/" + replacement.tag, code=302)
-    except Tag.DoesNotExist:
-      pass
-    replacement = chapter_tag_for_missing_tag(tag)
-    if replacement is not None:
-      return redirect("/tag/" + replacement.tag, code=302)
-    return render_template("tag.notfound.html", tag=tag), 404
+    # Never guess a replacement referent.
+    info = describe(
+        tag, gerby.configuration.TAGS)
+    return render_template(
+        "tag.provenance.html",
+        info=info,
+        page=False,
+    ), GONE.get(info["status"], 404)
 
   html = ""
   breadcrumb = getBreadcrumb(tag)
@@ -271,9 +256,12 @@ def show_tag(tag):
         parentComments.append([parent, count])
 
   filename = pdfFilename(tag)
+  provenance = describe(
+      tag.tag, gerby.configuration.TAGS)
 
   return render_template("tag.show.html",
                          tag=tag,
+                         provenance=provenance,
                          breadcrumb=breadcrumb,
                          neighbours=neighbours,
                          html=html,
@@ -285,6 +273,24 @@ def show_tag(tag):
                          filename=filename,
                          parentComments=parentComments,
                          depth=gerby.configuration.DEPTH)
+
+@app.route("/tag/<string:tag>/provenance")
+def show_provenance(tag):
+  info = describe(
+      tag, gerby.configuration.TAGS)
+  if info["status"] == "invalid":
+    return render_template(
+        "tag.invalid.html", tag=tag), 404
+  page = (
+      info["status"] == "active"
+      and Tag.select().where(
+          Tag.tag == info["tag"],
+          Tag.active == True).exists())
+  return render_template(
+      "tag.provenance.html",
+      info=info,
+      page=page)
+
 
 @app.route("/tag/<string:tag>/cite")
 def show_citation(tag):
