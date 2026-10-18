@@ -5290,6 +5290,1926 @@ with addition induced by disjoint union and
 multiplication induced by Cartesian product.
 \end{definition}
 
+
+\section{Poincare conjectures and
+homotopy recognition}
+\label{section-poincare-recognition}
+
+Closed manifolds are completely understood
+in the first two dimensions.  The only
+connected closed one-manifold is the circle,
+and a connected closed surface is determined
+by its orientability and genus.  In dimension
+three there is already an abundance of
+examples: the sphere, the three-torus,
+connected sums of three-tori, and products of
+a circle with a surface, among many others.
+
+Poincare first asked whether a closed
+three-manifold with the homology of a sphere
+must be homeomorphic to the sphere.  His own
+homology sphere showed that the answer is no.
+The construction identifies faces of a
+dodecahedron and can be described as a
+quotient of $S^3$ by the binary icosahedral
+group $2I$.  Thus
+$$
+\pi _1(S^3/(2I))\cong 2I,
+\qquad |2I|=120,
+$$
+although the quotient has the integral
+homology of $S^3$.
+
+\begin{remark}[Question]
+\label{at-question-manifold-homotopy-type}
+If two connected closed manifolds are
+homotopy equivalent, must they be
+homeomorphic?
+\end{remark}
+
+The answer is no, even in dimension three.
+The lens spaces $L_{1/7}$ and $L_{2/7}$ are
+homotopy equivalent but not homeomorphic
+\cite[Example 2.43]{hat}.
+
+In dimensions at most two the classification
+and homology of surfaces give a positive
+answer.  For example, the orientable surface
+of genus $g$ has first homology
+$\mathbb{Z}^{2g}$.  Poincare's conjecture is
+instead the special case in which one of the
+manifolds is $S^3$.
+
+\begin{remark}[Poincare conjecture]
+\label{at-question-poincare-homotopy}
+If a closed three-manifold $M$ satisfies
+$M\simeq S^3$, must $M$ be homeomorphic to
+$S^3$?
+\end{remark}
+
+Equivalently, one can ask the following.
+
+\begin{remark}[Poincare conjecture]
+\label{at-question-poincare-simply-connected}
+If a closed three-manifold is simply
+connected, must it be homeomorphic to $S^3$?
+\end{remark}
+
+This is now a theorem.  The
+homotopy-theoretic
+part of the assertion is much easier.
+
+\begin{proposition}
+\label{at-proposition-three-manifold-sphere}
+Every closed, simply connected
+three-manifold is homotopy equivalent to
+$S^3$.
+\end{proposition}
+
+\begin{exercise}
+Show that a closed simply connected
+$3$-manifold is homotopy equivalent to
+$S^3$.
+\end{exercise}
+
+\begin{proof}
+Let $M$ be a closed simply connected
+three-manifold.  It is orientable, and
+Poincare duality and universal coefficients
+give
+$$
+H_i(M;\mathbb{Z})\cong
+\begin{cases}
+\mathbb{Z}&i=0,3,\\
+0&i=1,2.
+\end{cases}
+$$
+Indeed, $H_1(M;\mathbb{Z})$ is the
+abelianization of $\pi_1(M)$, and
+$$
+H_2(M;\mathbb{Z})
+\cong H^1(M;\mathbb{Z})=0.
+$$
+Hurewicz first gives $\pi_2(M)=0$, and then
+identifies $\pi_3(M)$ with
+$H_3(M;\mathbb{Z})$.  Choose
+$$
+f:S^3\longrightarrow M
+$$
+whose homotopy class maps to a generator of
+$H_3(M;\mathbb{Z})$.  The map $f$ is a
+homology isomorphism in every degree, so
+homological Whitehead finishes the proof.
+\end{proof}
+
+\begin{remark}
+\label{at-remark-four-manifold-example}
+Simple connectivity alone does not recognize
+a sphere in dimension four.  For example,
+$S^2\times S^2$ is simply connected but has
+$$
+H_2(S^2\times S^2;\mathbb{Z})
+\cong\mathbb{Z}\oplus\mathbb{Z}.
+$$
+\end{remark}
+
+The high-dimensional version motivated the
+rest of these lectures.
+
+\begin{theorem}[Smale]
+\label{at-theorem-smale-poincare}
+If $M^n$ is a smooth closed manifold,
+$n\geq6$, and $M\simeq S^n$, then $M$ is
+homeomorphic to $S^n$.
+\end{theorem}
+
+\begin{theorem}[Stallings--Newman]
+\label{at-theorem-stallings-newman}
+If $M^n$ is a closed manifold, $n\geq5$,
+and $M\simeq S^n$, then $M$ is homeomorphic
+to $S^n$.
+\end{theorem}
+
+The smooth statement is subtler.
+
+\begin{remark}[Question]
+\label{at-question-smooth-poincare}
+If a smooth closed manifold $M^n$ is
+homotopy equivalent to $S^n$, must it be
+diffeomorphic to $S^n$?
+\end{remark}
+
+Milnor's exotic seven-spheres show that the
+answer is no.  They are homeomorphic but not
+diffeomorphic to the standard sphere.
+Characteristic classes and cobordism supply
+some of the invariants that detect smooth
+phenomena of this kind.
+\section{Cobordisms and the
+h-cobordism theorem}
+\label{section-h-cobordism}
+
+\begin{definition}
+\label{at-definition-cobordism}
+An $n$-dimensional \emph{cobordism} from
+$M_-$ to $M_+$ is a compact smooth
+$n$-manifold $W$ together with a
+decomposition
+$$
+\partial W=\partial_-W\sqcup\partial_+W,
+\qquad
+\partial_-W=M_-,\quad
+\partial_+W=M_+.
+$$
+The manifolds $M_-$ and $M_+$ are then
+\emph{cobordant}.
+\end{definition}
+
+The following picture is the nontrivial
+figure from the original notes.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.48\linewidth]{%
+algebraic-topology-assets/cobordism.pdf}
+\caption{A cobordism with three boundary
+components.}
+\label{at-figure-cobordism}
+\end{figure}
+
+\begin{example}
+\label{at-example-trivial-cobordism}
+The \emph{trivial cobordism} on $M$ is
+$M\times I$, with the two boundary copies of
+$M$ distinguished as incoming and outgoing.
+\end{example}
+
+\begin{definition}
+\label{at-definition-h-cobordism}
+A cobordism $W$ is an
+\emph{$h$-cobordism} when both boundary
+inclusions in
+$$
+\xymatrix@C=15pt@R=8pt{
+\partial_-W\ar[dr]^{\lhook}&&\\
+&W&\\
+\partial_+W\ar[ur]^{\lhook}&&
+}
+$$
+are homotopy equivalences.
+\end{definition}
+
+\begin{example}
+\label{at-example-non-h-cobordisms}
+The pair of pants is not an $h$-cobordism:
+one end has two circle components and the
+other has one.  A cylinder is an
+$h$-cobordism.  A cylinder with a handle is
+not one, since its fundamental group is
+nonabelian free whereas an end has
+fundamental
+group $\mathbb{Z}$.
+\end{example}
+
+\begin{theorem}[Smooth h-cobordism theorem]
+\label{at-theorem-h-cobordism}
+Let $W^m$ be a compact, simply connected
+$h$-cobordism of dimension $m\geq6$.  Then
+$$
+W\cong\partial_-W\times I
+$$
+diffeomorphically, relative to
+$\partial_-W$.
+\end{theorem}
+
+Here is why this theorem implies Smale's
+result.  The argument is worth retaining
+because it ties together Mayer--Vietoris,
+duality, van Kampen, and Whitehead.
+
+\begin{theorem}[Smale]
+\label{at-theorem-smale-from-h-cobordism}
+If $M^n$ is a smooth closed manifold,
+$n\geq6$, and $M\simeq S^n$, then $M$ is
+homeomorphic to $S^n$.
+\end{theorem}
+
+\begin{proof}
+Remove the interiors of two disjoint smooth
+$n$-disks $D_-$ and $D_+$ from $M$, and set
+$$
+W=M-\bigl(
+\mathop{\rm int}(D_-)
+\cup\mathop{\rm int}(D_+)
+\bigr).
+$$
+Its boundary components are spheres.  Cap one
+end at a time:
+$$
+V_-=W\cup_{\partial_+W}D_+,
+\qquad
+V_+=W\cup_{\partial_-W}D_-.
+$$
+
+\begin{lemma}
+\label{at-lemma-punctured-sphere-h-cobordism}
+The manifold $W$ is a simply connected
+$h$-cobordism.
+\end{lemma}
+
+\begin{proof}
+Apply reduced Mayer--Vietoris to
+$M=V_-\cup_{\partial_-W}D_-$.  It contains
+the exact segment
+$$
+\xymatrix@C=13pt{
+\cdots\ar[r]&
+\widetilde H_i(\partial_-W)\ar[r]&
+\widetilde H_i(V_-)\oplus
+\widetilde H_i(D_-)\ar[r]&
+\widetilde H_i(M)\ar[r]&
+\widetilde H_{i-1}(\partial_-W)
+\ar[r]&\cdots .
+}
+$$
+It follows that the reduced homology of
+$V_-$ can be nonzero only in degrees $n$ and
+$n-1$.  Poincare--Lefschetz duality gives
+$$
+H_i(V_-;\mathbb{Z})
+\cong H^{n-i}(V_-,\partial_-W;
+\mathbb{Z}).
+$$
+The beginning of the cohomology sequence is
+$$
+\xymatrix@C=14pt{
+0\ar[r]&H^0(V_-,\partial_-W)\ar[r]&
+H^0(V_-)\ar[r]&H^0(\partial_-W).
+}
+$$
+The last map is an isomorphism
+$\mathbb{Z}\longrightarrow\mathbb{Z}$.
+Continuing the sequence gives
+$$
+\xymatrix@C=10pt{
+0\ar[r]&H^0(V_-,\partial_-W)\ar[r]&
+H^0(V_-)\ar[r]&H^0(\partial_-W)
+\ar[r]&H^1(V_-,\partial_-W)\ar[r]&
+H^1(V_-)\ar[r]&\cdots .
+}
+$$
+Thus both relative groups displayed here
+vanish.  Duality eliminates the two possible
+exceptional homology groups, so $V_-$ is
+acyclic.  The same argument applies to $V_+$.
+
+Van Kampen applied to the same decompositions
+shows that $V_-$, $V_+$, and $W$ are simply
+connected.  Finally, Mayer--Vietoris for
+$V_-=W\cup_{\partial_+W}D_+$ contains
+$$
+\xymatrix@C=13pt{
+0\ar[r]&H_i(\partial_+W)\ar[r]&
+H_i(W)\oplus H_i(D_+)\ar[r]&
+H_i(V_-)\ar[r]&\cdots .
+}
+$$
+In reduced positive degrees the last two disk
+and capped-manifold terms vanish, and degree
+zero is immediate.  Hence
+$\partial_+W\longrightarrow W$ is a homology
+isomorphism.  Homological Whitehead makes it
+a homotopy equivalence.  The other end is
+identical.
+\end{proof}
+
+The h-cobordism theorem now identifies $W$
+with $S^{n-1}\times I$.  Capping its two ends
+produces a homeomorphism $M\cong S^n$.
+\end{proof}
+
+\begin{remark}
+\label{at-remark-exotic-capping-map}
+The final homeomorphism need not be a
+diffeomorphism, exactly as exotic spheres
+warn us.  It can nevertheless be chosen to
+be a diffeomorphism away from one point.
+\end{remark}
+
+We recall three smooth notions needed for
+the handle argument.
+
+\begin{definition}
+\label{at-definition-immersion-embedding}
+A smooth map $f:M\longrightarrow N$ is an
+\emph{immersion} if
+$$
+df_x:T_xM\longrightarrow T_{f(x)}N
+$$
+is injective for every $x$.  It is an
+\emph{embedding} if it is an immersion and
+$M\longrightarrow f(M)$ is a homeomorphism.
+An \emph{isotopy} of embeddings is a smooth
+map
+$$
+F:M\times I\longrightarrow N
+$$
+for which $F_t=F(-,t)$ is an embedding for
+every $t$.
+\end{definition}
+
+\begin{theorem}[Isotopy extension]
+\label{at-theorem-isotopy-extension}
+Let $f_t:M\longrightarrow N$ be a smooth
+isotopy, with $M$ compact, or more generally
+with the isotopy proper.  There is an ambient
+isotopy
+$$
+\Phi_t:N\longrightarrow N
+$$
+such that $\Phi_0$ is the identity and
+$f_t=\Phi_t\circ f_0$.
+\end{theorem}
+\section{Handles and cancellation}
+\label{section-handles}
+
+\begin{definition}
+\label{at-definition-handle}
+An $n$-dimensional \emph{handle of index
+$i$}, where $0\leq i\leq n$, is
+$$
+h=D^i\times D^{n-i}.
+$$
+Its incoming and outgoing boundary pieces are
+$$
+\partial^-h=S^{i-1}\times D^{n-i},
+\qquad
+\partial^+h=D^i\times S^{n-i-1}.
+$$
+\end{definition}
+
+\begin{proposition}
+\label{at-proposition-handle-boundary}
+The boundary of an index-$i$ handle is
+$$
+\begin{aligned}
+\partial h
+&=(\partial D^i)\times D^{n-i}
+\mathbin{\cup}
+D^i\times\partial D^{n-i}\\
+&=\partial^-h\cup\partial^+h.
+\end{aligned}
+$$
+\end{proposition}
+
+\begin{example}
+\label{at-example-three-dimensional-handles}
+In dimension three the four handles are
+$$
+\begin{matrix}
+i&0&1&2&3\\
+h&D^0\times D^3&D^1\times D^2&
+D^2\times D^1&D^3\times D^0.
+\end{matrix}
+$$
+They are all three-balls as manifolds, but
+their incoming and outgoing boundary pieces
+play different roles.
+\end{example}
+
+If $M^n$ has boundary and
+$f:\partial^-h\longrightarrow\partial M$ is
+an embedding, the result of attaching $h$ is
+$$
+M+_fh=M\cup_f(D^i\times D^{n-i}).
+$$
+The smooth structure uses collars of the
+boundary.
+
+\begin{theorem}
+\label{at-theorem-closed-handle-decomp}
+Every closed smooth manifold admits an
+ordered handle decomposition
+$$
+M\cong h_1+h_2+\cdots+h_r,
+\qquad I(h_j)\leq I(h_{j+1}).
+$$
+\end{theorem}
+
+\begin{remark}
+\label{at-remark-handle-sum-order}
+Handle attachment is neither a commutative
+nor a formally associative operation.  The
+attaching data at each stage are part of the
+decomposition.
+\end{remark}
+
+\begin{theorem}
+\label{at-theorem-relative-handles}
+Every smooth cobordism $W^n$ has a relative
+handle decomposition
+$$
+W=\partial_-W\times I+h_1+\cdots+h_m
+$$
+in which no attaching map meets the lower
+boundary $\partial_-W\times\{0\}$.
+\end{theorem}
+
+The remaining problem is geometric algebra:
+find conditions under which handles can be
+removed from this expression.
+
+\begin{lemma}
+\label{at-lemma-isotopic-handle-attachments}
+If two embeddings
+$$
+f,g:\partial^-h\longrightarrow\partial M
+$$
+are isotopic, then
+$$
+M+_fh\cong M+_gh
+$$
+diffeomorphically.
+\end{lemma}
+
+\begin{proof}
+Extend the isotopy to an ambient isotopy
+$\Phi_t$ of $\partial M$.  On a boundary
+collar use
+$$
+\Phi'_t(x,s)=(\Phi_t(x),s).
+$$
+It yields the commutative gluing diagram
+$$
+\xymatrix@C=35pt{
+\partial M\times I\ar[d]_{\Phi'_1}&
+\partial^-h\ar[l]_{f}\ar[d]^{1}\\
+\partial M\times I&
+\partial^-h\ar[l]^{g}.
+}
+$$
+The induced map of the pushouts is the
+required diffeomorphism.
+\end{proof}
+
+The disk $D^i\times\{0\}$ is the
+\emph{core}, and its boundary
+$S^{i-1}\times\{0\}$ is the
+\emph{attaching sphere}.  Dually,
+$\{0\}\times D^{n-i}$ is the
+\emph{cocore}, and
+$\{0\}\times S^{n-i-1}$ is the
+\emph{belt sphere}.  For a
+$D^1\times D^2$ handle, the core is the axis
+of the cylinder and the cocore is its middle
+disk.
+
+A CW decomposition can be thickened, or a
+Morse function can be used, to produce a
+handle decomposition grouped by index.
+
+\begin{theorem}[Whitehead]
+\label{at-theorem-indexed-handle-decomp}
+Every smooth manifold has a decomposition
+$$
+(h^0_1\sqcup\cdots\sqcup h^0_{r_0})+
+(h^1_1\sqcup\cdots\sqcup h^1_{r_1})+
+\cdots
+$$
+with handles ordered by index.  There is an
+analogous relative decomposition of a
+cobordism beginning at
+$\partial_-W\times I$.
+\end{theorem}
+
+\begin{lemma}
+\label{at-lemma-simultaneous-handles}
+Suppose an index-$i$ handle $h_1$ is followed
+by an index-$j$ handle $h_2$.  If the belt
+sphere of $h_1$ is disjoint from the
+attaching
+sphere of $h_2$, then, after isotopy,
+$$
+(M+h_1)+h_2=M+(h_1\sqcup h_2).
+$$
+\end{lemma}
+
+\begin{proof}
+If the attaching regions are already
+disjoint, there is nothing to prove.  In
+general, the assumed disjointness of the two
+distinguished spheres lets one shrink the
+attaching neighborhood of $h_2$ and isotope
+it off the first handle.  The preceding lemma
+turns that isotopy into a diffeomorphism of
+the attached manifolds.
+\end{proof}
+
+For consecutive indices $i$ and $i+1$, the
+belt sphere of the first handle has dimension
+$n-i-1$ and the attaching sphere of the
+second has dimension $i$.  Both lie in an
+$(n-1)$-dimensional boundary, so a transverse
+intersection is zero-dimensional.  A handle
+decomposition in which all such intersections
+are transverse will be called
+\emph{transverse standard}.
+
+\begin{lemma}[Handle cancellation]
+\label{at-lemma-handle-cancellation}
+Let $h_i$ and $h_{i+1}$ be handles of
+consecutive indices.  If the belt sphere of
+$h_i$ and the attaching sphere of $h_{i+1}$
+meet transversely in exactly one point, then
+$$
+M+h_i+h_{i+1}\cong M.
+$$
+\end{lemma}
+
+\begin{proof}
+For indices zero and one, the first handle is
+a disjoint ball and the second joins it back
+to the original manifold.  For indices one
+and two, the first creates a tunnel and the
+second fills it along a longitude.  In
+general, product neighborhoods of the unique
+intersection reduce the attachment to this
+same local model.  The remaining portions
+are carried away by isotopy, and the pair is
+equivalent to attaching a collar.
+\end{proof}
+
+To turn algebraic intersection into geometric
+intersection, orient the ambient boundary and
+the two spheres.  Each transverse
+intersection point $x$ then has a sign
+$\epsilon(x)$.
+
+\begin{definition}
+\label{at-definition-oriented-intersection}
+The \emph{oriented intersection number} of
+oriented transverse submanifolds $S$ and $A$
+of complementary dimensions is
+$$
+S\mathbin{\boldsymbol{\cdot}}A
+=\sum_{x\in S\cap A}\epsilon(x).
+$$
+\end{definition}
+
+\begin{lemma}[Whitney trick]
+\label{at-lemma-whitney-handle-trick}
+Suppose $n\geq6$, the relevant boundary is
+simply connected, and
+$2\leq i\leq n-3$.  If the belt sphere of an
+index-$i$ handle and the attaching sphere of
+an index-$(i+1)$ handle have oriented
+intersection number $1$ or $-1$, the latter
+can be isotoped so that the two spheres meet
+in exactly one point.
+\end{lemma}
+
+\begin{proof}
+Pair intersection points of opposite signs.
+Join each pair by one arc in each sphere.
+Simple connectivity fills the resulting loop
+by a Whitney disk.  The dimension hypotheses
+allow its interior to be made embedded and
+disjoint from both spheres.  A Whitney move
+across the disk removes the pair.  Repeating
+leaves the single point required by the
+algebraic intersection number.
+\end{proof}
+
+Consequently, under these hypotheses, a pair
+with intersection number $1$ or $-1$
+cancels.
+
+Let $C_i$ be the free abelian group generated
+by the index-$i$ handles.  The incidence maps
+form the complex
+$$
+\xymatrix@C=12pt{
+C_n\ar[r]^{D_n}&C_{n-1}\ar[r]&\cdots
+\ar[r]&C_1\ar[r]^{D_1}&C_0\ar[r]&0.
+}
+$$
+If $S_j^i$ is the belt sphere of the
+$j$-th index-$i$ handle and $A_k^{i+1}$ is
+the attaching sphere of the $k$-th
+index-$(i+1)$ handle, then
+$$
+(D_{i+1})_{jk}
+=\sum_{x\in S_j^i\cap A_k^{i+1}}
+\epsilon(x).
+$$
+
+% The commented matrix sketch after this
+% formula in the source was empty and carries
+% no additional mathematical content.
+
+\begin{proposition}
+\label{at-proposition-handle-chain-complex}
+The incidence maps satisfy
+$D_iD_{i+1}=0$, and
+$$
+H_i(C_*)\cong H_i(W,\partial_-W;
+\mathbb{Z}).
+$$
+\end{proposition}
+
+In particular, this complex is acyclic for an
+$h$-cobordism.
+
+\begin{lemma}[Handle slides]
+\label{at-lemma-handle-slides}
+Sliding one index-$i$ handle over another
+gives a transverse-standard decomposition
+with the same number of handles.
+Algebraically
+it performs an elementary column operation on
+$D_i$ and the inverse row operation on
+$D_{i+1}$.  Sliding index-$(i+1)$ handles
+performs elementary column operations on
+$D_{i+1}$ and the inverse row operations on
+$D_{i+2}$.  Elementary row operations on
+$D_i$ are realized by sliding index-$(i-1)$
+handles, with the inverse column operations
+on $D_{i-1}$.
+\end{lemma}
+
+\begin{proposition}
+\label{at-proposition-middle-index-handles}
+A simply connected $h$-cobordism of dimension
+$n\geq6$ has a transverse-standard handle
+decomposition with no handles of indices
+$0$, $1$, $n-1$, or $n$.
+\end{proposition}
+
+\begin{proof}[Proof of the
+h-cobordism theorem]
+Use the handle structure in the proposition
+and its acyclic incidence complex.  If
+$C_{i-1}$ is the first nonzero group, the
+relevant tail is
+$$
+\xymatrix@C=16pt{
+\cdots\ar[r]&C_i\ar[r]^{D_i}&
+C_{i-1}\ar[r]&0\ar[r]&\cdots .
+}
+$$
+Acyclicity makes $D_i$ surjective.  Smith
+normal form, realized by handle slides, puts
+an identity block into its matrix.  Thus a
+chosen index-$(i-1)$ handle has algebraic
+intersection $1$ or $-1$ with a chosen
+index-$i$ handle and zero with the others.
+
+Reorder handles of the same index so this
+pair is adjacent.  The boundary at that stage
+is simply connected: the initial boundary is
+simply connected, index-two handles can only
+kill elements of the fundamental group, and
+higher-index handles do not change it.  The
+Whitney trick changes algebraic intersection
+into one geometric intersection, and handle
+cancellation removes the pair.  Iterate until
+the incidence complex is empty.  Applying the
+dual handle decomposition deals with the
+remaining high-index handles.  What remains
+is the product cobordism.
+\end{proof}
+\section{Vector bundles and K-theory}
+\label{section-vector-bundles-k-theory}
+
+We work over either $\mathbb{R}$ or
+$\mathbb{C}$, specifying the field when it
+matters.
+
+\begin{definition}
+\label{at-definition-vector-bundle}
+A rank-$n$ \emph{vector bundle} is a map
+$p:E\longrightarrow B$ whose fibers are
+$n$-dimensional vector spaces and which has
+local trivializations
+$$
+p^{-1}(U)\cong U\times\mathbb{F}^n.
+$$
+A \emph{bundle morphism} over $B$ is a
+continuous map, linear on fibers, in a
+commutative diagram
+$$
+\xymatrix@C=30pt@R=12pt{
+E_1\ar[rr]^f\ar[dr]_{p_1}&&
+E_2\ar[dl]^{p_2}\\
+&B.&
+}
+$$
+Given a map $f:X\longrightarrow Y$ and a
+bundle $E\longrightarrow Y$, the
+\emph{pullback bundle} is the cartesian
+square
+$$
+\xymatrix{
+f^*E\ar[r]\ar[d]_{p'}&E\ar[d]^p\\
+X\ar[r]_f&Y.
+}
+$$
+It defines a contravariant map on isomorphism
+classes of bundles.
+\end{definition}
+
+\begin{lemma}
+\label{at-lemma-fiberwise-bundle-isomorphism}
+In a bundle morphism
+$$
+\xymatrix@C=30pt@R=12pt{
+E_1\ar[rr]^f\ar[dr]_{p_1}&&
+E_2\ar[dl]^{p_2}\\
+&B,&
+}
+$$
+the map $f$ is a bundle isomorphism if its
+restriction to every fiber is a linear
+isomorphism.
+\end{lemma}
+
+\begin{definition}
+\label{at-definition-bundle-direct-sum}
+For two bundles over the same base,
+$$
+\xymatrix@C=30pt@R=12pt{
+E_1\ar[dr]_{p_1}&&E_2\ar[dl]^{p_2}\\
+&B,&
+}
+$$
+their \emph{direct sum} is
+$$
+E_1\oplus E_2
+=\{(e_1,e_2)\mid p_1(e_1)=p_2(e_2)\}.
+$$
+It is a subspace of $E_1\times E_2$ with
+fiber the direct sum of the two fibers.
+\end{definition}
+
+\begin{remark}
+\label{at-remark-bundle-complements}
+Writing $\varepsilon^n$ for the trivial
+rank-$n$ bundle, one has
+$$
+\varepsilon^n\oplus\varepsilon^m
+\cong\varepsilon^{n+m}.
+$$
+If $B$ is compact Hausdorff, every vector
+bundle $E$ has a complementary bundle $E'$:
+$$
+E\oplus E'\cong\varepsilon^N.
+$$
+The two bundles lie over the common base as
+in
+$$
+\xymatrix@C=22pt@R=10pt{
+E\ar[d]_p&E'\ar[dl]^{p'}\\
+B.&
+}
+$$
+\end{remark}
+
+\begin{definition}
+\label{at-definition-bundle-tensor-product}
+The \emph{tensor product} of two bundles over
+$B$ has fiber
+$$
+(E_1\otimes E_2)_b
+=(E_1)_b\otimes(E_2)_b.
+$$
+Its topology is defined locally from tensor
+products of bundle charts.  Namely,
+trivializations over $U$ induce
+$$
+(E_1\otimes E_2)|_U
+\cong U\times
+(\mathbb{F}^n\otimes\mathbb{F}^m).
+$$
+\end{definition}
+
+Two bundles are \emph{stably isomorphic} if
+they become isomorphic after taking direct
+sums with trivial bundles.  The Grothendieck
+group completion of bundles under direct sum
+is $K(X)$.  Its elements are formal
+differences $[E]-[F]$, subject to
+$$
+[E]-[F]=[E']-[F']
+$$
+when there is a vector bundle $G$ over $X$
+such that
+$$
+E\oplus F'\oplus G
+\cong
+E'\oplus F\oplus G.
+$$
+If $X$ is compact Hausdorff, the bundle
+complement theorem lets one replace $G$ by
+a trivial bundle in this relation.  Pullback
+makes $K$ a contravariant functor.
+
+For a based compact space $(X,x_0)$, define
+$$
+\widetilde K(X)=
+\ker\bigl(K(X)\longrightarrow K(x_0)\bigr).
+$$
+The restriction map comes from the pullback
+square
+$$
+\xymatrix{
+E|_{x_0}\ar[r]\ar[d]&E\ar[d]\\
+\{x_0\}\ar[r]&X.
+}
+$$
+Since $K(x_0)\cong\mathbb{Z}$ by dimension,
+$\widetilde K(X)$ records the virtual
+rank-zero classes.
+
+Tensor product gives $K(X)$ a ring structure.
+For bundles over a common base one again has
+the diagram
+$$
+\xymatrix@C=30pt@R=12pt{
+E_1\ar[dr]_{p_1}&&E_2\ar[dl]^{p_2}\\
+&B.&
+}
+$$
+For different bases the external product is
+$$
+K(X)\otimes K(Y)
+\longrightarrow K(X\times Y),
+$$
+$$
+a\otimes b\longmapsto
+p_X^*(a)p_Y^*(b).
+$$
+
+Let $H$ be the tautological complex line
+bundle over $\mathbb{C}P^1$:
+$$
+H=\{(L,v)\in\mathbb{C}P^1\times
+\mathbb{C}^2\mid v\in L\}.
+$$
+Its projection is pictured by
+$$
+\xymatrix@C=20pt@R=10pt{
+H\ar[d]_p&(L,v)\ar[d]|-{
+\hspace{-4pt}\longmapsto}\\
+\mathbb{C}P^1&L.
+}
+$$
+
+\begin{proposition}[Claim]
+\label{at-claim-hopf-bundle-relation}
+In $K(\mathbb{C}P^1)$,
+$$
+(H\otimes H)\oplus1=H\oplus H.
+$$
+Equivalently, $(H-1)^2=0$.
+\end{proposition}
+
+\begin{theorem}[Product theorem]
+\label{at-theorem-k-product}
+For compact Hausdorff $X$, the composition
+$$
+\xymatrix@C=13pt{
+\mathbb{Z}[H]/(H-1)^2\otimes K(X)
+\ar[r]&K(S^2)\otimes K(X)\ar[r]&
+K(S^2\times X)
+}
+$$
+is an isomorphism.  In particular,
+$$
+K(S^2)\cong\mathbb{Z}[H]/(H-1)^2.
+$$
+\end{theorem}
+
+For a finite based CW pair, write the
+quotient sequence as
+$$
+\xymatrix{
+A\ar@{^{(}->}[r]^i&X\ar[r]^q&X/A.
+}
+$$
+Contravariance gives the left-exact segment
+$$
+\xymatrix@C=20pt{
+\widetilde K(X/A)\ar[r]^{q^*}&
+\widetilde K(X)\ar[r]^{i^*}&
+\widetilde K(A).
+}
+$$
+Cones and suspensions extend it.  At the
+space level one has the ladder
+$$
+\xymatrix@C=7pt@R=12pt{
+A\ar@{^{(}->}[r]&X\ar@{^{(}->}[r]&
+X\cup CA\ar[r]\ar[d]&
+(X\cup CA)\cup CX\ar[r]\ar[d]&
+((X\cup CA)\cup CX)\cup C(X\cup CA)
+\ar[d]\\
+&&X/A&\Sigma A&\Sigma X.
+}
+$$
+
+\begin{lemma}
+\label{at-lemma-contractible-bundle-quotient}
+Let $A$ be a contractible subcomplex of a
+finite CW complex $X$.  Pullback along
+$q:X\longrightarrow X/A$ gives a bijection
+between stable isomorphism classes of vector
+bundles on $X/A$ and on $X$.
+\end{lemma}
+
+It follows that reduced K-theory has the
+exact
+sequence
+$$
+\xymatrix@C=8pt{
+\cdots\ar[r]&
+\widetilde K(\Sigma(X/A))\ar[r]&
+\widetilde K(\Sigma X)\ar[r]&
+\widetilde K(\Sigma A)\ar[r]&
+\widetilde K(X/A)\ar[r]&
+\widetilde K(X)\ar[r]&
+\widetilde K(A).
+}
+$$
+
+\begin{theorem}[Bott periodicity]
+\label{at-theorem-bott-periodicity}
+For complex K-theory and a finite based CW
+complex $X$, there is a natural isomorphism
+$$
+\widetilde K(X)
+\cong\widetilde K(\Sigma^2X).
+$$
+\end{theorem}
+
+\begin{corollary}
+\label{at-lemma-k-theory-spheres}
+For complex K-theory,
+$$
+\widetilde K(S^n)\cong
+\begin{cases}
+\mathbb{Z}&n=2r,\\
+0&n=2r+1.
+\end{cases}
+$$
+\end{corollary}
+
+\begin{definition}
+\label{at-definition-parallelizable-sphere}
+A smooth $n$-manifold is
+\emph{parallelizable} if its tangent bundle
+is trivial, equivalently if it admits $n$
+pointwise linearly independent vector fields.
+\end{definition}
+
+\begin{theorem}
+\label{at-theorem-division-algebra-spheres}
+The only dimensions in which
+$\mathbb{R}^n$ admits a normed real division
+algebra structure are
+$$
+n=1,2,4,8.
+$$
+Correspondingly, $S^{n-1}$ is parallelizable
+for these values.  In fact, these are the
+only parallelizable spheres.
+\end{theorem}
+
+\emph{Dani's question.}
+What does triviality of the tangent bundle
+say about curvature?
+
+It says very little by itself.  The circle is
+locally Euclidean, but the parallelizable
+three-sphere carries its usual positively
+curved metric and cannot admit a flat metric:
+a compact simply connected flat manifold
+would have universal cover $\mathbb{R}^3$.
+
+The H-space notion introduced with higher
+homotopy now gives a topological use of
+these bundle calculations.
+
+\begin{proposition}
+\label{at-proposition-parallelizable-h-space}
+Each sphere arising as the unit sphere in
+$\mathbb{R}$, $\mathbb{C}$, the quaternions,
+or the octonions is an H-space.  A
+parallelization of $S^{n-1}$ also gives such
+a multiplication.
+\end{proposition}
+
+\begin{proof}
+For a normed division algebra use
+$$
+(x,y)\longmapsto\frac{xy}{\lVert xy\rVert}.
+$$
+Alternatively, a parallelization determines
+continuously, for every $x$, an orthonormal
+frame with first vector $x$.  Choose the
+standard frame at the basepoint.  The unique
+orthogonal transformation carrying the
+standard frame to the frame at $x$, applied
+to $y$, defines the multiplication.
+\end{proof}
+
+\begin{remark}
+\label{at-remark-k-theory-h-spaces}
+Bott periodicity and the product theorem give
+$$
+\widetilde K(S^{2n})\cong\mathbb{Z},
+\qquad
+\widetilde K(S^{2n+1})=0,
+$$
+and
+$$
+K(S^{2k})\otimes K(X)
+\longrightarrow K(S^{2k}\times X)
+$$
+is an isomorphism for finite CW complexes.
+The resulting K-theoretic obstruction shows
+that no positive-dimensional even sphere is
+an H-space.  Stronger arguments leave only
+$S^0$, $S^1$, $S^3$, and $S^7$ among the
+spheres.
+\end{remark}
+\section{Characteristic classes}
+\label{section-characteristic-classes}
+
+Let $X=(x^i_j)$ be an $r\times r$ matrix of
+indeterminates.
+
+\begin{definition}
+\label{at-definition-invariant-polynomial}
+A polynomial $P(X)$ is
+\emph{conjugation invariant} if
+$$
+P(A^{-1}XA)=P(X)
+$$
+for every
+$A\in\operatorname{GL}_r(\mathbb{R})$.
+\end{definition}
+
+\begin{example}
+\label{at-example-invariant-polynomials}
+The determinant, trace, and power traces
+$$
+\operatorname{tr}_k(X)=
+\operatorname{tr}(X^k)
+$$
+are invariant.  So are the coefficients
+$f_j(X)$ defined by
+$$
+\det(I+tX)=\sum_{j=0}^{r}f_j(X)t^j.
+$$
+For a two-by-two matrix,
+$$
+\det
+\begin{pmatrix}x&y\\z&w\end{pmatrix}
+=xw-yz,
+$$
+while its trace is $x+w$.
+\end{example}
+
+\begin{proposition}
+\label{at-proposition-invariants-algebra}
+Let $\mathcal{A}$ be a commutative unital
+$\mathbb{R}$-algebra.  If $P$ is invariant
+under conjugation, it satisfies
+$$
+P(A^{-1}XA)=P(X)
+$$
+for matrices $X$ over $\mathcal{A}$ and
+invertible matrices $A$ over $\mathcal{A}$.
+\end{proposition}
+
+\begin{definition}
+\label{at-definition-bundle-connection}
+A \emph{connection} on a smooth vector bundle
+$E\longrightarrow M$ is an
+$\mathbb{R}$-bilinear map
+$$
+\nabla:\Gamma(TM)\times\Gamma(E)
+\longrightarrow\Gamma(E)
+$$
+which is $C^\infty(M)$-linear in the vector
+field and satisfies
+$$
+\nabla_X(fs)=(Xf)s+f\nabla_Xs
+$$
+in the section variable.
+\end{definition}
+
+\begin{definition}
+\label{at-definition-bundle-curvature}
+The \emph{curvature} of a connection is the
+$\mathbb{R}$-multilinear operator
+$$
+R(X,Y)s=
+\nabla_X\nabla_Ys-
+\nabla_Y\nabla_Xs-
+\nabla_{[X,Y]}s.
+$$
+\end{definition}
+
+For a local frame $e_1,\ldots,e_r$, write
+$$
+R(X,Y)e_j
+=\sum_i\Omega^i_j(X,Y)e_i.
+$$
+Thus $\Omega=(\Omega^i_j)$ is a matrix of
+two-forms.  Under a change of frame by
+$a:U\longrightarrow\operatorname{GL}_r(
+\mathbb{R})$, the curvature matrix changes
+by conjugation:
+$$
+\widetilde\Omega=a^{-1}\Omega a.
+$$
+
+At a point $p$, the even exterior algebra
+$$
+\bigoplus_{i\geq0}
+\bigwedge^{2i}T_p^*M
+$$
+is commutative.  Hence an invariant
+homogeneous polynomial $P$ of degree $k$
+yields a well-defined $2k$-form
+$P(\Omega)$.  For example, in rank two,
+$$
+\det(\Omega)=
+\Omega^1_1\wedge\Omega^2_2-
+\Omega^2_1\wedge\Omega^1_2.
+$$
+
+\begin{theorem}[Chern--Weil]
+\label{at-theorem-chern-weil}
+The form $P(\Omega)$ is closed, and its de
+Rham cohomology class is independent of the
+chosen connection.
+\end{theorem}
+
+The construction is multiplicative:
+$$
+[P(\Omega)\wedge Q(\Omega)]
+=[P(\Omega)]\smile[Q(\Omega)].
+$$
+Invariant polynomials may be generated either
+by the $f_j$ or by the power traces, so this
+defines the full Chern--Weil homomorphism.
+
+For a real bundle with a metric connection,
+$\Omega$ is skew symmetric.
+
+\begin{definition}
+\label{at-definition-pontryagin-class}
+The $k$-th \emph{real Pontryagin class} is
+$$
+p_k(E)=
+\left[
+f_{2k}\left(\frac{\Omega}{2\pi}\right)
+\right]
+\in H^{4k}(M;\mathbb{R}).
+$$
+\end{definition}
+
+\begin{proposition}
+\label{at-proposition-skew-det-square}
+The determinant of a skew-symmetric
+$2m\times2m$ matrix is the square of a
+polynomial in its entries.
+\end{proposition}
+
+\begin{definition}
+\label{at-definition-pfaffian}
+The polynomial whose square is the
+determinant
+is the \emph{Pfaffian}, denoted
+$\operatorname{Pf}(X)$.  It is invariant
+under oriented orthogonal changes of frame.
+\end{definition}
+
+\begin{definition}
+\label{at-definition-euler-class-curvature}
+For an oriented real bundle $E$ of rank
+$2m$, its \emph{Euler class} in the
+Chern--Weil normalization is
+$$
+e(E)=\left[
+\frac{1}{(2\pi)^m}
+\operatorname{Pf}(\Omega)
+\right].
+$$
+\end{definition}
+
+\begin{theorem}[Chern--Gauss--Bonnet]
+\label{at-theorem-chern-gauss-bonnet}
+For a closed oriented Riemannian
+$2m$-manifold,
+$$
+\int_M e(TM)=\chi(M).
+$$
+\end{theorem}
+
+\begin{definition}
+\label{at-definition-chern-classes}
+For a rank-$r$ complex bundle with a unitary
+connection, its \emph{Chern classes} are the
+homogeneous components in
+$$
+\det\left(I+\frac{\sqrt{-1}}{2\pi}
+\Omega\right)
+=1+c_1(\Omega)+\cdots+c_r(\Omega).
+$$
+Their de Rham classes are denoted $c_j(E)$.
+\end{definition}
+
+Characteristic classes are natural.  For a
+map $f:M\longrightarrow N$, the square
+$$
+\xymatrix{
+f^*E\ar[r]\ar[d]&E\ar[d]\\
+M\ar[r]_f&N
+}
+$$
+is cartesian, and every characteristic class
+$c$ satisfies
+$$
+c(f^*E)=f^*c(E).
+$$
+
+\begin{proposition}
+\label{at-proposition-hypersurface-p-class}
+Let $M^{4m}$ be a closed hypersurface in
+$\mathbb{R}^{4m+1}$.  Every positive-degree
+Pontryagin class of $TM$ vanishes.
+\end{proposition}
+
+The normal line is trivial, and
+$$
+TM\oplus\varepsilon^1
+\cong\varepsilon^{4m+1}.
+$$
+Stability and the Whitney product formula for
+Pontryagin classes give $p(TM)=1$.
+
+\begin{definition}
+\label{at-definition-calabi-yau}
+In the terminology of these notes, a
+\emph{Calabi--Yau manifold} is a compact
+Kahler manifold with first Chern class zero.
+\end{definition}
+
+For a finite CW complex, Euler characteristic
+can be computed from either cells or rational
+Betti numbers:
+$$
+\chi(M)=\sum_i(-1)^ic_i
+=\sum_i(-1)^i\beta_i.
+$$
+
+\begin{theorem}[Poincare--Hopf]
+\label{at-theorem-poincare-hopf}
+If a vector field $V$ on a closed manifold
+has isolated zeros, then
+$$
+\chi(M)=\sum_{p\in Z(V)}
+\operatorname{ind}_p(V).
+$$
+\end{theorem}
+
+\begin{theorem}
+\label{at-theorem-dependent-fields-locus}
+Let $M^n$ be closed, let $1\leq k\leq n$,
+and let $V_1,\ldots,V_k$ be generic vector
+fields.  The associated section of
+$\operatorname{Hom}(\varepsilon^k,TM)$ is
+transverse to every rank stratum.  Its
+dependency locus is a stratified subset.
+The top stratum, where the rank is $k-1$,
+is a submanifold of dimension $k-1$.  The
+locus carries a mod-two fundamental cycle
+Poincare dual to
+$$
+w_{n-k+1}(TM).
+$$
+\end{theorem}
+
+This generalizes the geometric idea behind
+the hairy-ball theorem.  We now apply it to
+real projective spaces.
+\section{Stiefel--Whitney classes and
+projective space}
+\label{section-stiefel-whitney-classes}
+
+For a real rank-$n$ vector bundle $\xi$ over
+$B$, there are classes
+$$
+w_i(\xi)\in H^i(B;\mathbb{Z}/2).
+$$
+They are characterized by the following
+properties:
+
+\begin{itemize}
+\item $w_0(\xi)=1$ and $w_i(\xi)=0$ for
+$i>n$.
+
+\item Naturality gives
+$w_i(f^*\xi)=f^*w_i(\xi)$.
+
+\item The Whitney formula is
+$$
+w_k(\xi\oplus\eta)=
+\sum_{i=0}^k
+w_i(\xi)\smile w_{k-i}(\eta).
+$$
+
+\item For the tautological line bundle over
+$\mathbb{R}P^1$, the class $w_1$ is the
+nonzero element of
+$H^1(\mathbb{R}P^1;\mathbb{Z}/2)$.
+\end{itemize}
+
+\begin{proposition}
+\label{at-proposition-sw-bundle-isomorphism}
+If $\xi\cong\eta$, then
+$w_i(\xi)=w_i(\eta)$ for every $i$.
+\end{proposition}
+
+\begin{proof}
+A bundle isomorphism appears over the
+identity
+in the square
+$$
+\xymatrix{
+E(\xi)\ar[r]^{\cong}\ar[d]_{\xi}&
+E(\eta)\ar[d]^{\eta}\\
+B\ar[r]_1&B.
+}
+$$
+Naturality and the identity map on cohomology
+give the assertion.
+\end{proof}
+
+\begin{proposition}
+\label{at-proposition-sw-trivial-bundle}
+If $\varepsilon$ is trivial, then
+$w_i(\varepsilon)=0$ for every $i>0$.
+\end{proposition}
+
+\begin{proof}
+A trivialization and the inclusion of a fiber
+give
+$$
+\xymatrix@C=18pt{
+E(\varepsilon)\ar[r]^{\cong}\ar[d]&
+B\times\mathbb{R}^k\ar[d]&
+\{b\}\times\mathbb{R}^k
+\ar@{^{(}->}[l]\ar[d]\\
+B\ar[r]_1&B&\{b\}\ar@{^{(}->}[l].
+}
+$$
+Positive-degree cohomology of the point
+vanishes.  More directly, the trivial bundle
+is pulled back from
+$\mathbb{R}^k\longrightarrow\{b\}$ along the
+unique map $B\longrightarrow\{b\}$.
+Naturality gives the result.
+\end{proof}
+
+\begin{proposition}
+\label{at-proposition-sw-stable}
+If $\varepsilon$ is trivial, then
+$$
+w_j(\varepsilon\oplus\eta)=w_j(\eta).
+$$
+\end{proposition}
+
+\begin{proof}
+The Whitney formula and the previous
+proposition give
+$$
+\begin{aligned}
+w_k(\varepsilon\oplus\eta)
+&=\sum_{i=0}^k
+w_i(\varepsilon)w_{k-i}(\eta)\\
+&=w_0(\varepsilon)w_k(\eta)\\
+&=w_k(\eta).
+\end{aligned}
+$$
+\end{proof}
+
+\begin{proposition}
+\label{at-proposition-section-kills-top-sw}
+If a rank-$n$ real bundle $\eta$ admits a
+nowhere-zero section, then $w_n(\eta)=0$.
+\end{proposition}
+
+\begin{proof}
+Choose a bundle metric.  The section spans a
+trivial line subbundle $L$, and
+$$
+\eta\cong L\oplus L^\perp.
+$$
+Since $L^\perp$ has rank $n-1$, stability
+gives
+$$
+w_n(\eta)=w_n(L^\perp)=0.
+$$
+\end{proof}
+
+\begin{corollary}
+\label{at-lemma-sections-kill-sw-classes}
+If a rank-$n$ bundle has $k$ pointwise
+linearly independent sections, then
+$$
+w_n(\eta)=w_{n-1}(\eta)=\cdots
+=w_{n-k+1}(\eta)=0.
+$$
+\end{corollary}
+
+\begin{remark}
+\label{at-remark-parallelizable-sw}
+A parallelizable manifold has total
+Stiefel--Whitney class $1$.  The converse is
+false: the vanishing of these classes is only
+one family of obstructions to a framing.
+\end{remark}
+
+\begin{definition}
+\label{at-definition-total-sw-class}
+The \emph{total Stiefel--Whitney class} of a
+rank-$n$ real bundle is
+$$
+w(\xi)=1+w_1(\xi)+\cdots+w_n(\xi).
+$$
+\end{definition}
+
+Let $\gamma_n^1$ be the tautological line
+bundle over $\mathbb{R}P^n$.  Inclusion of a
+projective line gives the pullback square
+$$
+\xymatrix{
+E(\gamma_1^1)\ar[r]\ar[d]&
+E(\gamma_n^1)\ar[d]\\
+\mathbb{R}P^1\ar@{^{(}->}[r]^i&
+\mathbb{R}P^n.
+}
+$$
+If $a=w_1(\gamma_n^1)$, naturality and the
+normalization axiom give
+$$
+w(\gamma_n^1)=1+a.
+$$
+The orthogonal complement satisfies
+$$
+\gamma_n^1\oplus(\gamma_n^1)^\perp
+\cong\varepsilon^{n+1},
+$$
+so, in
+$H^*(\mathbb{R}P^n;\mathbb{Z}/2)$,
+$$
+w((\gamma_n^1)^\perp)
+=1+a+\cdots+a^n.
+$$
+Moreover,
+$$
+T\mathbb{R}P^n
+\cong
+\operatorname{Hom}
+(\gamma_n^1,(\gamma_n^1)^\perp).
+$$
+
+\begin{theorem}
+\label{at-theorem-projective-tangent-stable}
+There is a stable bundle isomorphism
+$$
+T\mathbb{R}P^n\oplus\varepsilon^1
+\cong(n+1)\gamma_n^1.
+$$
+Consequently,
+$$
+w(T\mathbb{R}P^n)=(1+a)^{n+1}.
+$$
+\end{theorem}
+
+\begin{proof}
+The endomorphism bundle of a real line is
+trivial.  Therefore
+$$
+\begin{aligned}
+T\mathbb{R}P^n\oplus\varepsilon^1
+&\cong
+\operatorname{Hom}
+(\gamma_n^1,(\gamma_n^1)^\perp)
+\oplus
+\operatorname{Hom}
+(\gamma_n^1,\gamma_n^1)\\
+&\cong
+\operatorname{Hom}
+(\gamma_n^1,\varepsilon^{n+1})\\
+&\cong(n+1)\gamma_n^1.
+\end{aligned}
+$$
+The Whitney formula and stability now give
+the formula for the total class.
+\end{proof}
+
+The equation $w(T\mathbb{R}P^n)=1$ is
+possible only if $n+1$ is a power of two.
+Thus the first candidates are
+$\mathbb{R}P^1$, $\mathbb{R}P^3$,
+$\mathbb{R}P^7$, and
+$\mathbb{R}P^{15}$.  The first three are
+parallelizable, using complex, quaternionic,
+and octonionic multiplication.  The
+Stiefel--Whitney calculation alone does not
+settle the later candidates; the full theorem
+is that, among positive-dimensional real
+projective spaces, only dimensions $1$, $3$,
+and $7$ are parallelizable.
+\section{Sheaves and etale spaces}
+\label{section-sheaves-etale-spaces}
+
+\begin{definition}
+\label{at-definition-presheaf-and-sheaf}
+Let $\mathcal{O}(X)$ be the category of open
+subsets of $X$, with inclusions as morphisms.
+A \emph{presheaf} on $X$ is a contravariant
+functor
+$$
+F:\mathcal{O}(X)^{\mathrm{op}}
+\longrightarrow\operatorname{Set}.
+$$
+An element of $F(U)$ is a \emph{section over
+$U$}; it is global when $U=X$.  The maps
+induced by inclusions are
+\emph{restriction maps}, as in
+$$
+\xymatrix@C=35pt@R=10pt{
+U&&F(U)\ar[d]^{\rho^U_V}\\
+V\ar@{^{(}->}[u]&&F(V).
+}
+$$
+A morphism of presheaves is a natural
+transformation.
+
+A presheaf $F$ is a \emph{sheaf} if every
+compatible family of local sections has a
+unique gluing: for every open cover
+$U=\bigcup_\alpha U_\alpha$ and sections
+$s_\alpha\in F(U_\alpha)$ satisfying
+$$
+s_\alpha|_{U_\alpha\cap U_\beta}
+=s_\beta|_{U_\alpha\cap U_\beta},
+$$
+there is a unique $s\in F(U)$ whose
+restriction to each $U_\alpha$ is
+$s_\alpha$.  Thus
+$\operatorname{Sh}(X)$ is a full subcategory
+of $\operatorname{Psh}(X)$.
+\end{definition}
+
+\begin{example}
+\label{at-example-presheaves-sheaves}
+Continuous real-valued functions on open sets
+form a sheaf.  On a smooth manifold, smooth
+functions form a sheaf.  Assigning one fixed
+set $A$ to every open set, including the
+empty set, with identity restrictions gives
+the constant presheaf, but generally not a
+sheaf.  Its sheafification is the sheaf of
+locally constant $A$-valued functions.
+\end{example}
+
+\begin{definition}
+\label{at-definition-etale-space}
+An \emph{etale space} over $X$ is a local
+homeomorphism $p:E\longrightarrow X$.  A
+\emph{morphism of etale spaces} is a map over
+$X$, represented by
+$$
+\xymatrix@C=30pt@R=12pt{
+E\ar[rr]^\alpha\ar[dr]_p&&
+F\ar[dl]^q\\
+&X.&
+}
+$$
+\end{definition}
+
+\begin{remark}
+\label{at-remark-sheaves-etale-equivalence}
+Sheaves on $X$ are equivalent to etale spaces
+over $X$.  The construction is made explicit
+below rather than leaving the gap marked in
+the original notes.
+\end{remark}
+
+\begin{definition}
+\label{at-definition-sheaf-stalk}
+For a sheaf $F$ and $x\in X$, the
+\emph{stalk at $x$} is
+$$
+F_x=\underset{U\ni x}{\operatorname{colim}}
+F(U).
+$$
+It consists of pairs $(s,U)$ with $x\in U$
+and $s\in F(U)$, modulo the relation
+$(s,U)\sim(t,V)$ when the restrictions agree
+on some neighborhood of $x$ contained in
+$U\cap V$.
+\end{definition}
+
+The relation among the four categories is
+$$
+\xymatrix@C=38pt@R=16pt{
+\operatorname{Psh}(X)
+\ar@<.6ex>[r]&
+\operatorname{Top}/X
+\ar@<.6ex>[l]\\
+\operatorname{Sh}(X)
+\ar@<.6ex>[r]\ar@{^{(}->}[u]&
+\operatorname{Et}(X)
+\ar@<.6ex>[l]\ar@{^{(}->}[u].
+}
+$$
+For a sheaf $F$, form
+$E(F)=\coprod_{x\in X}F_x$.  A section
+$s\in F(U)$ determines a map
+$U\longrightarrow E(F)$ by sending $x$ to
+its germ.  Taking the images of all such maps
+as a basis defines a topology for which
+$E(F)\longrightarrow X$ is a local
+homeomorphism.  Conversely, an etale space
+gives the sheaf of its continuous local
+sections.  These constructions are inverse
+up to natural isomorphism.
+\section{Derived functors and de Rham's
+theorem}
+\label{section-derived-functors-de-rham}
+
+The source now returns to the derived-functor
+technique previously met in Ext and Tor.
+
+\begin{definition}
+\label{at-definition-abelian-derived-functor}
+An \emph{abelian category} is a category with
+finite biproducts, kernels, and cokernels, in
+which every monomorphism is a kernel and
+every
+epimorphism is a cokernel.  A functor between
+abelian categories is \emph{additive} if it
+preserves finite biproducts.
+
+An object $I$ is \emph{injective} if every
+map into $I$ extends across every
+monomorphism, as pictured by
+$$
+\xymatrix@C=22pt@R=13pt{
+A\ar@{^{(}->}[r]\ar[dr]&B\ar@{-->}[d]\\
+&I.
+}
+$$
+A category has \emph{enough injectives} when
+every object embeds into an injective one.
+
+Let $F:\mathcal{C}\longrightarrow
+\widehat{\mathcal{C}}$ be additive and left
+exact, and suppose $\mathcal{C}$ has enough
+injectives.  Its \emph{right derived
+functors} $R^iF$ satisfy $R^0F\cong F$ and
+turn every short exact sequence
+$$
+\xymatrix@C=18pt{
+0\ar[r]&A\ar[r]&B\ar[r]&C\ar[r]&0
+}
+$$
+into the long exact sequence
+$$
+\xymatrix@C=12pt@R=12pt{
+0\ar[r]&F(A)\ar[r]&F(B)\ar[r]&F(C)
+\ar[dll]\\
+&R^1F(A)\ar[r]&R^1F(B)\ar[r]&
+R^1F(C)\ar[dll]\\
+&R^2F(A)\ar[r]&R^2F(B)\ar[r]&
+R^2F(C)\ar[dll]\\
+&\cdots .&&
+}
+$$
+Moreover, $R^iF(I)=0$ for injective $I$ and
+$i>0$.
+\end{definition}
+
+\begin{proposition}
+\label{at-proposition-derived-functors-exist}
+The right derived functors of every additive
+left-exact functor between abelian categories
+exist when the source has enough injectives.
+\end{proposition}
+
+An \emph{injective resolution} of $A$ is an
+exact sequence
+$$
+\xymatrix@C=16pt{
+0\ar[r]&A\ar[r]&I^0\ar[r]^{d^0}&
+I^1\ar[r]^{d^1}&I^2\ar[r]&\cdots
+}
+$$
+with each $I^j$ injective.  Applying $F$
+gives the cochain complex
+$$
+\xymatrix@C=18pt{
+F(I^0)\ar[r]^{F(d^0)}&
+F(I^1)\ar[r]^{F(d^1)}&
+F(I^2)\ar[r]&\cdots .
+}
+$$
+Its $i$-th cohomology is $R^iF(A)$.
+
+\begin{definition}
+\label{at-definition-f-acyclic-object}
+An object $A$ is \emph{$F$-acyclic} if
+$$
+R^iF(A)=0
+$$
+for every $i>0$.
+\end{definition}
+
+Injectives can be replaced by acyclic
+objects.
+
+\begin{proposition}
+\label{at-proposition-acyclic-resolution}
+Suppose every $M^i$ is $F$-acyclic and
+$$
+\xymatrix@C=15pt{
+0\ar[r]&A\ar[r]&M^0\ar[r]^{d^0}&
+M^1\ar[r]^{d^1}&M^2\ar[r]&\cdots
+}
+$$
+is exact.  Then
+$$
+R^iF(A)\cong H^i(F(M^\bullet)).
+$$
+\end{proposition}
+
+\begin{proof}
+Let $B^0$ be the cokernel of
+$A\longrightarrow M^0$.  There is a short
+exact sequence
+$$
+\xymatrix@C=18pt{
+0\ar[r]&A\ar[r]&M^0\ar[r]&B^0
+\ar[r]&0.
+}
+$$
+Its derived long exact sequence is
+$$
+\xymatrix@C=10pt@R=11pt{
+0\ar[r]&F(A)\ar[r]&F(M^0)\ar[r]&
+F(B^0)\ar[dll]\\
+&R^1F(A)\ar[r]&R^1F(M^0)\ar[r]&
+R^1F(B^0)\ar[dll]\\
+&R^2F(A)\ar[r]&R^2F(M^0)\ar[r]&
+R^2F(B^0)\ar[dll]\\
+&\cdots .&&
+}
+$$
+Acyclicity of $M^0$ gives
+$$
+\xymatrix@C=15pt{
+F(M^0)\ar[r]&F(B^0)\ar[r]&
+R^1F(A)\ar[r]&0
+}
+$$
+and, for $i\geq1$,
+$$
+R^iF(B^0)\cong R^{i+1}F(A).
+$$
+In particular, the exact tail identifies
+$$
+\xymatrix@C=18pt{
+\operatorname{coker}\bigl(
+F(M^0)\longrightarrow F(B^0)\bigr)
+\ar[r]^-{\cong}&R^1F(A).
+}
+$$
+Now let $B^j$ be the image of
+$M^j\longrightarrow M^{j+1}$.  Repeating
+the argument for
+$$
+0\longrightarrow B^{j-1}
+\longrightarrow M^j
+\longrightarrow B^j
+\longrightarrow0
+$$
+dimension-shifts the higher derived functors.
+The cokernels produced at each stage are
+exactly the cohomology groups of
+$F(M^\bullet)$.
+\end{proof}
+
+The category of sheaves of abelian groups on
+$X$ is abelian and has enough injectives.
+The commented diagram in the source merely
+repeats the already recorded full inclusion
+of abelian sheaves into abelian presheaves;
+it has no additional arrows or objects.
+
+The global-sections functor is
+$$
+\xymatrix@C=32pt@R=8pt{
+\operatorname{Sh}_{\operatorname{Ab}}(X)
+\ar[r]^\Gamma&
+\operatorname{Ab}\\
+F\ar[r]|-{\hspace{-4pt}\longmapsto}&F(X).
+}
+$$
+Its right derived functors define sheaf
+cohomology:
+$$
+H^i(X;F)=R^i\Gamma(F).
+$$
+
+Let $M$ be a smooth manifold and let
+$\underline{\mathbb{R}}$ denote the constant
+sheaf.  Sheafified singular cochains form the
+resolution
+$$
+\xymatrix@C=12pt{
+0\ar[r]&\underline{\mathbb{R}}\ar[r]&
+\mathcal{C}^0_{\rm sing}\ar[r]&
+\mathcal{C}^1_{\rm sing}\ar[r]&
+\mathcal{C}^2_{\rm sing}\ar[r]&\cdots ,
+}
+$$
+and differential forms form the resolution
+$$
+\xymatrix@C=14pt{
+0\ar[r]&\underline{\mathbb{R}}\ar[r]&
+\Omega^0\ar[r]^d&\Omega^1\ar[r]^d&
+\Omega^2\ar[r]^d&\cdots .
+}
+$$
+The first resolution is flabby and the second
+is fine, hence both are $\Gamma$-acyclic.
+Exactness of the de Rham resolution is the
+Poincare lemma.  Applying global sections to
+the two resolutions proves de Rham's theorem:
+$$
+H^i_{\rm dR}(M)
+\cong R^i\Gamma(\underline{\mathbb{R}})
+\cong H^i_{\rm sing}(M;\mathbb{R}).
+$$
+
 \bibliography{my}
 \bibliographystyle{amsalpha}
 
