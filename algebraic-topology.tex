@@ -5851,6 +5851,48 @@ groups}
 $\pi_n(X,x_0)$ is an abelian group for $n>1$.
 \end{proposition}
 
+\begin{definition}
+\label{at-definition-h-space}
+A based space $(X,e)$ is an \emph{H-space}
+if there is a based multiplication
+$$
+\mu:X\times X\longrightarrow X
+$$
+whose restrictions to the two axes are
+based-homotopic to the identity.
+\end{definition}
+
+\begin{exercise}
+Let $X$ be an H-space. Show that the
+operation induced by its multiplication on
+$\pi_n(X)$ is the usual addition.
+\end{exercise}
+
+\begin{proof}
+Let $+$ denote concatenation and let
+$\star$ be the operation induced by
+$\mu$.  Both have the constant map as a
+unit.  Since $\mu$ is a map of spaces,
+the two operations satisfy
+$$
+(a+b)\star(c+d)
+=
+(a\star c)+(b\star d).
+$$
+The Eckmann--Hilton argument gives
+$$
+a\star b=a+b=b+a.
+$$
+Thus the H-space operation is the usual,
+necessarily commutative, operation.
+\end{proof}
+
+\begin{remark}
+Each element of $\pi_0(X,x_0)$ represents
+a path-connected component of $X$.  But
+$\pi_0(X,x_0)$ has no group structure.
+\end{remark}
+
 \section{Action of fundamental groupoid
 \texorpdfstring{$\Pi_1(X)$}{Π₁(X)} of
 \texorpdfstring{$X$}{X} on
@@ -6085,6 +6127,37 @@ which has become an interval:
 $$\Sigma X=(I\times X)/(t,x)\sim (0,y)\sim
 (1,y)\;\forall y\in X.$$
 
+The \emph{cone} on $X$ is
+$$
+CX = X\times I\,/\,(x,1)\sim(y,1)
+\quad\forall x,y\in X.
+$$
+
+\begin{definition}
+\label{definition-suspension-map}
+\label{fsusp}
+For a map $f:X\to Y$, its
+\emph{suspension} is the map
+$\Sigma f:\Sigma X\to\Sigma Y$
+induced by $f\times\mathrm{id}_I$.
+\end{definition}
+
+\begin{exercise}
+Prove that the reduced suspension is
+$S^1\wedge X$, and deduce
+$\Sigma S^n\cong S^{n+1}$.
+\end{exercise}
+
+\begin{proof}
+The smash $S^1\wedge X$ is
+$(I\times X)/((\partial I\times X)\cup
+(I\times\{x_0\}))$.
+Identifying $\partial I$ to a point gives
+the suspension.  Taking $X=S^n$ and using
+$\Sigma S^n\cong S^{n+1}$ inductively
+finishes the argument.
+\end{proof}
+
 \section{Path and loop spaces of a pointed
 space}
 \label{section-path-loop-space-point-space}
@@ -6186,6 +6259,53 @@ H_{n}(S^{n})$.
 Hurewicz theorem}
 \label{section-absol-relat-hurew-theor}
 
+We begin with some algebraic background.
+Let $G$ be a group and $g,h\in G$.  The
+\emph{commutator} is
+$$
+[g,h]=ghg^{-1}h^{-1}.
+$$
+The \emph{derived} (or \emph{commutator})
+\emph{subgroup} is
+$$
+G'=\langle[g,h]\mid g,h\in G\rangle
+\leq G.
+$$
+Every endomorphism of $G$ restricts to an
+endomorphism of $G'$, so $G'$ is
+characteristic, hence normal.  The quotient
+$$
+G^{\mathrm{ab}}:=G/G'
+$$
+is called the \emph{abelianization} of $G$.
+
+\begin{remark}
+If $G$ is nonabelian and simple, then
+$G'=G$, so its abelianization is trivial.
+Cyclic groups of prime order are already
+abelian, so their abelianization is the
+group itself.
+\end{remark}
+
+\begin{proposition}
+Let $G$ be a group and $A$ an abelian group.
+If $\varphi:G\to A$ is a homomorphism,
+there exists a unique
+$\bar\varphi:G^{\mathrm{ab}}\to A$
+such that
+$$
+\xymatrix@C=2.5em@R=2.5em{
+G \ar[r]^{\varphi}
+  \ar[d]_{q}
+ & A \\
+G^{\mathrm{ab}}
+  \ar@{-->}[ur]_{\bar\varphi}
+ &
+}
+$$
+commutes.
+\end{proposition}
+
 \begin{theorem}[Hurewicz]
 \label{theorem-Hurewicz-absolute}
 If $X$ is $n$-connected for some $n \geq 2$,
@@ -6202,6 +6322,16 @@ $n$, then it is an homotopy
 equivalence.
 \end{lemma}
 
+\begin{proof}
+Apply relative Hurewicz to the mapping
+cylinder pair.  If a relative homotopy group
+were first nonzero, it would map
+isomorphically to a relative homology group
+by Hurewicz, contradicting the homology
+hypothesis.  The map is therefore a weak
+equivalence, and Whitehead's theorem applies.
+\end{proof}
+
 \begin{theorem}[Hurewicz]
 \label{theorem-Hurewicz-relative}
 If $(X,A)$ is $(n-1)$-connected, i.e.
@@ -6213,6 +6343,61 @@ and $\pi_{n}(X,A)\cong H_n(X,A)$.
 Perhaps $X$ should be $(n-1)$-connected for
 the relative version too---
 they are stated together in Hatcher.
+
+\begin{exercise}
+Show that the suspension of an acyclic CW
+complex is contractible.
+\end{exercise}
+
+\begin{proof}
+An acyclic CW complex is connected.  Its
+suspension is simply connected, and the
+suspension isomorphism in reduced homology
+shows $\widetilde H_i(\Sigma X;\mathbb{Z})=0$
+for all $i$.  If $\Sigma X$ had a first
+nonzero homotopy group, Hurewicz would
+identify it with a nonzero homology group,
+a contradiction.  Whitehead then applies.
+\end{proof}
+
+\begin{exercise}
+For $n>k>0$, prove that no retraction
+$\mathbb{R}P^n\to\mathbb{R}P^k$ exists.
+\end{exercise}
+
+\begin{proof}
+A retraction gives a splitting of
+$\pi_i(\mathbb{R}P^k)
+\hookrightarrow\pi_i(\mathbb{R}P^n)$.
+For $k\geq2$ take $i=k$: covering-space
+invariance gives
+$\pi_k(\mathbb{R}P^k)\cong\mathbb{Z}$
+but $\pi_k(\mathbb{R}P^n)=0$, a
+contradiction.  For $k=1$, the splitting
+would produce a section of
+$\mathbb{Z}/2\to0$, impossible.
+\end{proof}
+
+\begin{exercise}
+Let $f:X\to Y$ be a map of connected CW
+complexes, suppose $f_*$ is an isomorphism
+on $\pi_1$, and let
+$\widetilde f:\widetilde X\to\widetilde Y$
+be the lift to universal covers.  If
+$\widetilde f$ is a homology isomorphism,
+prove that $f$ is a homotopy equivalence.
+\end{exercise}
+
+\begin{proof}
+The covers are simply connected CW
+complexes, so the homological Whitehead
+lemma makes $\widetilde f$ a homotopy
+equivalence.  Covering projections identify
+all homotopy groups in degrees at least two.
+With the hypothesis on $\pi_1$, this makes
+$f$ a weak equivalence.  Whitehead's theorem
+concludes.
+\end{proof}
 
 \section{Weak factorization systems}
 \label{section-weak-factorization-systems}
