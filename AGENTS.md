@@ -54,9 +54,20 @@ editing any heap-project file!!!!
 - Write recalled definitions as prose, not in
   a `definition` environment. Reserve that
   environment for definitions introduced here.
-- Put corollaries in a `lemma` environment 
-  with the optional title
-  `[Corollary]`.
+- Write corollaries in the `corollary`
+  environment. It shares its numbering
+  with theorems, lemmas, and propositions.
+  Do not use `\begin{lemma}[Corollary]`.
+  Use the optional title only for extra
+  information, as in
+  `\begin{corollary}[Yau's conjecture]`.
+- Do not rename labels when changing the
+  environment type of a statement. Keep
+  labels like `\label{lemma-foo}` as they
+  are, since the permanent tags follow them.
+- When changing an environment type, also
+  fix references written in prose such as
+  `Lemma~\ref{lemma-foo}`.
 - Never use capital letters in LaTeX labels. Use labels like
   `\label{theorem-rauch-clean}` instead of
   `\label{theorem-Rauch-clean}` or

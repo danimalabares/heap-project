@@ -1,5 +1,6 @@
 $(document).ready(function() {
   var environments = [
+    "corollary",
     "definition",
     "example",
     "exercise",
