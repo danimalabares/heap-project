@@ -2733,7 +2733,7 @@ Consider a fibration over a sphere
 $F\hookrightarrow E\to B$. According to our
 theorem for Serre spectral sequences, we know
 that the $n$-th page looks as follows:
-\begin{align*}
+$$
 \begin{array}{c|cccccccc}
 	n&H_n(F)&&&&&&&H_{n}(F)\\
 	 &\vdots&&&&&&&\vdots\\
@@ -2743,7 +2743,7 @@ that the $n$-th page looks as follows:
 	\hline\\
 	 &0&&&\ldots&&&&n
 \end{array}
-\end{align*}
+$$
 
 We can see there can be nontrivial
 differentials only on the $n$th page, so that
@@ -3173,6 +3173,2122 @@ sequence nearly equivalent?
 
 
 
+
+
+\section{Cohomology of spaces}
+\label{at-section-cohomology-spaces}
+
+\noindent
+Let $X$ be a topological space and $G$ an
+abelian group.  The singular chain complex
+is
+$$
+\xymatrix{
+C_\bullet(X)
+  & \cdots \ar[r]
+  & C_{n+1}(X)
+    \ar[r]^-{\partial_{n+1}}
+  & C_n(X) \ar[r]^-{\partial_n}
+  & C_{n-1}(X) \ar[r]
+  & \cdots.
+}
+$$
+Here $C_n(X)$ is the free abelian group on
+the singular simplices
+$\sigma:\Delta^n\to X$.  Thus
+$$
+C_n(X)
+=
+\bigoplus_{\sigma:\Delta^n\to X}
+\mathbb{Z}\sigma.
+$$
+We define
+$$
+H_n(X;\mathbb{Z})=H_n(C_\bullet(X)),
+$$
+$$
+C^n(X;G)
+=
+\operatorname{Hom}(C_n(X),G),
+$$
+and
+$$
+H^n(X;G)=H^n(C^\bullet(X;G)).
+$$
+The cochain complex runs in the opposite
+direction:
+$$
+\xymatrix{
+\cdots
+  & \operatorname{Hom}(C_{n+1},G)
+    \ar[l]
+  & \operatorname{Hom}(C_n,G)
+    \ar[l]_-{\delta^n}
+  & \operatorname{Hom}(C_{n-1},G)
+    \ar[l]_-{\delta^{n-1}}
+  & \cdots \ar[l].
+}
+$$
+The coboundary of a cochain is given by
+the diagonal composite
+$$
+\xymatrix{
+C_n(X) \ar[r]^-\varphi
+  & G \\
+C_{n+1}(X)
+  \ar[u]^{\partial_{n+1}}
+  \ar[ur]_{\delta\varphi}.
+}
+$$
+Elements of $\ker(\delta)$ are
+{\it cocycles}; elements of
+$\operatorname{im}(\delta)$ are
+{\it coboundaries}.
+
+\noindent
+The universal coefficient theorem gives
+$$
+\xymatrix@C=.55em{
+0 \ar[r]
+  & \operatorname{Ext}^1
+    (H_{n-1}(X),G) \ar[r]
+  & H^n(X;G) \ar[r]^-h
+  & \operatorname{Hom}(H_n(X),G)
+    \ar[r]
+  & 0.
+}
+$$
+
+\noindent
+Reduced cohomology is obtained by dualizing
+the augmented singular complex
+$$
+\xymatrix@C=.6em{
+\cdots \ar[r]
+  & C_2(X) \ar[r]^-{\partial_2}
+  & C_1(X) \ar[r]^-{\partial_1}
+  & C_0(X) \ar[r]^-\varepsilon
+  & \mathbb{Z} \ar[r]
+  & 0.
+}
+$$
+For $n>0$ there is an isomorphism
+$$
+\widetilde H^n(X;G)\cong H^n(X;G).
+$$
+In degree zero,
+$$
+H^0(X;G)
+\cong
+\prod_{[x]\in\pi_0(X)}G.
+$$
+If $X$ is path connected, the Hurewicz map
+and the universal property of abelianization
+give
+$$
+H^1(X;G)
+\cong
+\operatorname{Hom}(\pi_1(X),G).
+$$
+There is also a reduced universal
+coefficient theorem.
+
+\noindent
+For a pair $A\subset X$, begin with the
+split short exact sequence
+$$
+\xymatrix{
+0 \ar[r]
+  & C_\bullet(A) \ar[r]
+  & C_\bullet(X) \ar[r]
+  & C_\bullet(X,A) \ar[r]
+  & 0.
+}
+$$
+It splits degree by degree because the
+singular simplices in $A$ form a subset of
+the basis of $C_\bullet(X)$.  Dualizing
+gives
+$$
+\xymatrix{
+0 \ar[r]
+  & C^\bullet(X,A;G) \ar[r]
+  & C^\bullet(X;G) \ar[r]
+  & C^\bullet(A;G) \ar[r]
+  & 0.
+}
+$$
+We define
+$$
+H^n(X,A;G)
+=
+H^n(C^\bullet(X,A;G)).
+$$
+The long exact sequence of the pair is
+$$
+\xymatrix@C=.55em{
+\cdots \ar[r]
+  & H^n(X,A;G) \ar[r]
+  & H^n(X;G) \ar[r]
+  & H^n(A;G) \ar[r]
+  & H^{n+1}(X,A;G) \ar[r]
+  & \cdots.
+}
+$$
+
+\noindent
+Let $f:(X,A)\to(Y,B)$ be a map of pairs.
+The induced chain maps form a commutative
+diagram.
+$$
+\xymatrix@C=.65em{
+0 \ar[r]
+  & C_\bullet(A) \ar[r] \ar[d]_{f_\#}
+  & C_\bullet(X) \ar[r] \ar[d]_{f_\#}
+  & C_\bullet(X,A) \ar[r]
+    \ar[d]_{f_\#}
+  & 0 \\
+0 \ar[r]
+  & C_\bullet(B) \ar[r]
+  & C_\bullet(Y) \ar[r]
+  & C_\bullet(Y,B) \ar[r]
+  & 0.
+}
+$$
+Dualizing reverses the arrows:
+$$
+\xymatrix@C=.65em{
+0 \ar[r]
+  & C^\bullet(X,A;G) \ar[r]
+  & C^\bullet(X;G) \ar[r]
+  & C^\bullet(A;G) \ar[r]
+  & 0 \\
+0 \ar[r]
+  & C^\bullet(Y,B;G)
+    \ar[r] \ar[u]^{f^\#}
+  & C^\bullet(Y;G)
+    \ar[r] \ar[u]^{f^\#}
+  & C^\bullet(B;G)
+    \ar[r] \ar[u]^{f^\#}
+  & 0.
+}
+$$
+The long exact sequences are natural:
+$$
+\xymatrix@C=.45em{
+\cdots \ar[r]
+  & H^n(X,A;G) \ar[r]
+  & H^n(X;G) \ar[r]
+  & H^n(A;G) \ar[r]
+  & H^{n+1}(X,A;G) \ar[r]
+  & \cdots \\
+\cdots \ar[r]
+  & H^n(Y,B;G) \ar[r] \ar[u]^{f^*}
+  & H^n(Y;G) \ar[r] \ar[u]^{f^*}
+  & H^n(B;G) \ar[r] \ar[u]^{f^*}
+  & H^{n+1}(Y,B;G)
+    \ar[r] \ar[u]^{f^*}
+  & \cdots.
+}
+$$
+In particular,
+$$
+f^*:H^n(Y,B;G)\longrightarrow H^n(X,A;G)
+$$
+is contravariantly functorial.
+
+\noindent
+Cohomology is homotopy invariant.  If two
+maps of pairs are homotopic, the induced
+chain maps are chain homotopic.  Dualizing
+the chain homotopy gives a cochain
+homotopy, so the induced cohomology maps
+are equal.
+
+\noindent
+The universal coefficient theorem for a
+pair reads
+$$
+\xymatrix@C=.55em{
+0 \ar[r]
+  & \operatorname{Ext}^1
+    (H_{n-1}(X,A),G) \ar[r]
+  & H^n(X,A;G) \ar[r]
+  & \operatorname{Hom}(H_n(X,A),G)
+    \ar[r]
+  & 0.
+}
+$$
+It applies because $C_\bullet(X,A)$ is a
+complex of free abelian groups.  Its
+naturality diagram is
+$$
+\xymatrix@C=.3em@R=2.3em{
+0 \ar[r]
+  & \operatorname{Ext}^1
+    (H_{n-1}(X,A),G) \ar[r]
+  & H^n(X,A;G) \ar[r]^-h
+  & \operatorname{Hom}(H_n(X,A),G)
+    \ar[r]
+  & 0 \\
+0 \ar[r]
+  & \operatorname{Ext}^1
+    (H_{n-1}(Y,B),G)
+    \ar[r] \ar[u]
+  & H^n(Y,B;G)
+    \ar[r]_-{h'} \ar[u]^{f^*}
+  & \operatorname{Hom}(H_n(Y,B),G)
+    \ar[r] \ar[u]
+  & 0.
+}
+$$
+
+\noindent
+Cohomological excision follows from
+homological excision and the five lemma.
+If $Z\subset A\subset X$ and
+$\overline Z\subset\operatorname{int}(A)$,
+then inclusion induces an isomorphism
+$$
+H^n(X,A;G)
+\longrightarrow
+H^n(X-Z,A-Z;G).
+$$
+
+\noindent
+For a wedge whose gluing point has a
+contractible neighborhood,
+$$
+\widetilde H_n
+\left(\bigvee_\alpha X_\alpha\right)
+\cong
+\bigoplus_\alpha
+\widetilde H_n(X_\alpha)
+$$
+and
+$$
+\widetilde H^n
+\left(\bigvee_\alpha X_\alpha;G\right)
+\cong
+\prod_\alpha
+\widetilde H^n(X_\alpha;G).
+$$
+For disjoint unions,
+$$
+H_n\left(\coprod_\alpha X_\alpha\right)
+\cong
+\bigoplus_\alpha H_n(X_\alpha)
+$$
+and
+$$
+H^n
+\left(\coprod_\alpha X_\alpha;G\right)
+\cong
+\prod_\alpha H^n(X_\alpha;G).
+$$
+\section{Cellular cohomology}
+\label{at-section-cellular-cohomology}
+
+\noindent
+For a CW complex $X$,
+let $I_n$ denote the set of its $n$-cells.
+$$
+H_n(X^n,X^{n-1})
+\cong
+\bigoplus_{\alpha\in I_n}\mathbb{Z}.
+$$
+The cellular boundary
+is the composite shown by the upper
+diagonals in
+{\small
+$$
+\xymatrix@C=0em@R=1.8em{
+  & H_{n-1}(X^{n-1})
+    \ar[rd]^{j_{n-1}} \\
+H_n(X^n,X^{n-1})
+  \ar[ru]^{\partial_n}
+  \ar[rr]^-{d_n}
+  & & H_{n-1}(X^{n-1},X^{n-2})
+      \ar[rd]_{\partial_{n-1}}
+      \ar[rr]^-{d_{n-1}}
+  & & H_{n-2}(X^{n-2},X^{n-3}) \\
+  & & & H_{n-2}(X^{n-2})
+          \ar[ru]_{j_{n-2}}.
+}
+$$
+}
+The compositions $d_{n-1}d_n$ vanish by
+the long exact sequences of the relevant
+triples.  The individual cellular boundary
+maps need not vanish.
+
+\noindent
+Dualizing gives the cellular cochain
+differentials.
+{\small
+$$
+\xymatrix@C=0em@R=1.8em{
+  & H^{n-1}(X^{n-1})
+    \ar[ld]_{\partial_n^*} \\
+H^n(X^n,X^{n-1})
+  & & H^{n-1}(X^{n-1},X^{n-2})
+      \ar[ll]_-{D^{n-1}}
+      \ar[lu]_{j_{n-1}^*}
+  & & H^{n-2}(X^{n-2},X^{n-3})
+      \ar[ll]_-{D^{n-2}}
+      \ar[ld]^{j_{n-2}^*} \\
+  & & & H^{n-2}(X^{n-2})
+          \ar[lu]^{\partial_{n-1}^*}.
+}
+$$
+}
+
+\begin{proposition}
+\label{at-proposition-cellular-cohomology}
+Let $X$ be a CW complex.  The cellular
+cochain complex
+$$
+C^n_{\mathrm{CW}}(X;G)
+=
+\operatorname{Hom}
+(C_n^{\mathrm{CW}}(X),G)
+$$
+computes singular cohomology:
+$$
+H^n(C^\bullet_{\mathrm{CW}}(X;G))
+\cong H^n(X;G).
+$$
+\end{proposition}
+
+\begin{proof}
+Since
+$$
+C_n^{\mathrm{CW}}(X)
+\cong
+\bigoplus_{\alpha\in I_n}\mathbb{Z},
+$$
+we have
+$$
+\operatorname{Hom}
+(C_n^{\mathrm{CW}}(X),G)
+\cong
+\prod_{\alpha\in I_n}G.
+$$
+The relative cohomology
+$H^m(X^n,X^{n-1};G)$ is this product when
+$m=n$ and is zero otherwise.
+
+\noindent
+The long exact sequences of the skeleta
+give the following expanded version of the
+preceding diagram.  The zeros express the
+relative vanishing in the adjacent degrees.
+{\small
+$$
+\xymatrix@C=.1em@R=1.3em{
+  & & & 0 \ar[ld] \\
+0
+  & & H^{n-1}(X^n) \ar[ld] \\
+  & H^{n-1}(X^{n-1})
+    \ar[lu]
+    \ar[ld]_{\partial_n^*} \\
+H^n(X^n,X^{n-1})
+  & & H^{n-1}(X^{n-1},X^{n-2})
+      \ar[ll]_-{D^{n-1}}
+      \ar[lu]_{j_{n-1}^*}
+  & & H^{n-2}(X^{n-2},X^{n-3})
+      \ar[ll]_-{D^{n-2}}
+      \ar[ld]^{j_{n-2}^*} \\
+  & & & H^{n-2}(X^{n-2})
+          \ar[lu]^{\partial_{n-1}^*}
+          \ar[ld] \\
+  & & 0.
+}
+$$
+}
+The relative groups $H^k(X,X^{n+1};G)$
+vanish for $k\leq n+1$.  Hence
+$$
+\xymatrix@C=.55em{
+0 \ar[r]
+  & H^n(X,X^{n+1};G) \ar[r]
+  & H^n(X;G) \ar[r]^\cong
+  & H^n(X^{n+1};G) \ar[r]
+  & H^{n+1}(X,X^{n+1};G)
+    \ar[r]
+  & 0
+}
+$$
+has zero outer relative terms.  Exactness
+then identifies singular cohomology with
+the kernel modulo image of the cellular
+cochain maps in the expanded diagram.
+
+\noindent
+Finally, the evaluation maps from universal
+coefficients give the commutative diagram
+$$
+\xymatrix@C=.55em{
+H^n(X^n,X^{n-1};G)
+  \ar[r] \ar[d]_h
+  & H^n(X^n;G)
+    \ar[r] \ar[d]_h
+  & H^{n+1}(X^{n+1},X^n;G)
+    \ar[d]_h \\
+\operatorname{Hom}
+(H_n(X^n,X^{n-1}),G)
+  \ar[r]
+  & \operatorname{Hom}(H_n(X^n),G)
+    \ar[r]
+  & \operatorname{Hom}
+    (H_{n+1}(X^{n+1},X^n),G).
+}
+$$
+The outer vertical maps are isomorphisms
+because the relative homology groups are
+free.  This identifies the cellular
+cochain differential with the dual of the
+cellular chain differential.
+\end{proof}
+
+\begin{theorem}[Mayer--Vietoris]
+\label{at-theorem-mayer-vietoris-cohomology}
+If $X=U\cup V$ is an excisive union, then
+there is a natural long exact sequence
+{\small
+$$
+\cdots\longrightarrow H^n(X;G)
+\longrightarrow H^n(U;G)\oplus H^n(V;G)
+\longrightarrow H^n(U\cap V;G)
+\longrightarrow H^{n+1}(X;G)
+\longrightarrow\cdots.
+$$
+}
+\end{theorem}
+\section{Cup products}
+\label{at-section-cup-products}
+
+\noindent
+The product structure is what most visibly
+distinguishes cohomology from homology.  In
+this section the coefficients lie in a
+commutative ring $R$ with unit.  We will
+construct a product on
+$$
+\bigoplus_{n\geq0}H^n(X;R).
+$$
+
+\begin{definition}
+\label{at-definition-cup-product}
+Let $\varphi\in C^k(X;R)$ and
+$\psi\in C^\ell(X;R)$.  Their {\it cup
+product} is the cochain
+$$
+\varphi\smile\psi
+\in C^{k+\ell}(X;R)
+$$
+defined on a singular simplex
+$\sigma:\Delta^{k+\ell}\to X$ by
+$$
+\begin{aligned}
+(\varphi\smile\psi)(\sigma)
+&=
+\varphi(\sigma|[v_0,\ldots,v_k])
+\\
+&\quad\cdot
+\psi(\sigma|[v_k,\ldots,v_{k+\ell}]).
+\end{aligned}
+$$
+Thus $\varphi$ reads the front face and
+$\psi$ reads the back face, after which the
+two values are multiplied in $R$.
+\end{definition}
+
+\noindent
+The cup product is associative and
+distributive directly from its definition.
+The constant zero-cochain with value one is
+a unit.  Hence
+$$
+\bigoplus_{n\geq0}C^n(X;R)
+$$
+is a graded ring under addition and cup
+product.
+
+\begin{remark}
+\label{at-remark-graded-ring}
+A {\it graded ring} is a direct sum
+$$
+A=\bigoplus_{i\geq0}A_i
+$$
+of abelian groups with
+$$
+A_iA_j\subset A_{i+j}.
+$$
+\end{remark}
+
+\begin{proposition}[Leibniz rule]
+\label{at-proposition-cup-leibniz}
+If $\varphi$ has degree $k$, then
+$$
+\delta(\varphi\smile\psi)
+=
+\delta\varphi\smile\psi
++(-1)^k\varphi\smile\delta\psi.
+$$
+\end{proposition}
+
+\begin{proof}
+Evaluate both sides on a simplex and group
+the faces before and after the common
+vertex $v_k$.  All middle faces cancel in
+pairs.  Moving the boundary past the first
+$k$ vertices produces the sign.
+\end{proof}
+
+\noindent
+It follows that a product of cocycles is a
+cocycle.  A product of a coboundary and a
+cocycle, in either order, is a coboundary.
+Thus cup product is independent of the
+chosen representatives and gives the
+{\it cohomology ring}
+$$
+H^*(X;R)
+=
+\bigoplus_{n\geq0}H^n(X;R).
+$$
+
+\begin{proposition}
+\label{at-proposition-cup-naturality}
+For a continuous map $f:X\to Y$,
+$$
+f^*(\varphi\smile\psi)
+=
+f^*\varphi\smile f^*\psi.
+$$
+Consequently $f^*:H^*(Y;R)\to H^*(X;R)$
+is a homomorphism of graded rings.
+\end{proposition}
+
+\begin{proposition}[Graded commutativity]
+\label{at-proposition-cup-commutativity}
+If $\alpha\in H^k(X;R)$ and
+$\beta\in H^\ell(X;R)$, then
+$$
+\alpha\smile\beta
+=
+(-1)^{k\ell}\beta\smile\alpha.
+$$
+\end{proposition}
+
+\noindent
+In particular, the square of an odd-degree
+class is killed by two.  It need not vanish
+when the coefficient ring has two-torsion.
+With coefficients in
+$\mathbb{Z}/2\mathbb{Z}$ the sign
+disappears.
+
+\begin{example}[Real projective space]
+\label{at-example-projective-mod-two-ring}
+The cellular chain complex of
+$\mathbb{R}P^n$ has one copy of
+$\mathbb{Z}$ in each degree from zero to
+$n$, with differentials alternating between
+zero and multiplication by two.
+$$
+\xymatrix@C=.7em{
+\mathbb{Z} \ar[r]^-{d_n}
+  & \cdots \ar[r]
+  & \mathbb{Z} \ar[r]^-2
+  & \mathbb{Z} \ar[r]^-0
+  & \mathbb{Z} \ar[r]
+  & 0.
+}
+$$
+After applying
+$\operatorname{Hom}(-,
+\mathbb{Z}/2\mathbb{Z})$, every
+differential is zero.
+$$
+\xymatrix@C=.7em{
+\mathbb{Z}/2\mathbb{Z}
+  & \mathbb{Z}/2\mathbb{Z}
+    \ar[l]_-0
+  & \mathbb{Z}/2\mathbb{Z}
+    \ar[l]_-0
+  & \cdots \ar[l]
+  & 0 \ar[l].
+}
+$$
+Therefore there is one nonzero class in
+every degree from zero through $n$.  If
+$x$ is the degree-one class, then
+$$
+x^i
+$$
+is the nonzero class in degree $i$ and
+$x^{n+1}=0$.  The product assertion is
+proved geometrically below.  Thus
+$$
+H^*(\mathbb{R}P^n;
+\mathbb{Z}/2\mathbb{Z})
+\cong
+(\mathbb{Z}/2\mathbb{Z})[x]/(x^{n+1}).
+$$
+
+\begin{proposition}
+\label{at-proposition-cup-unions}
+For a family of spaces,
+$$
+H^*\left(\coprod_iX_i;R\right)
+\cong
+\prod_iH^*(X_i;R).
+$$
+If the wedge point has a contractible
+neighborhood, then
+$$
+\widetilde H^*\left(\bigvee_iX_i;R\right)
+\cong
+\prod_i\widetilde H^*(X_i;R).
+$$
+The reduced ring need not have a unit.
+\end{proposition}
+
+\begin{proof}
+The additive statements were proved above.
+Products of classes supported on distinct
+components or distinct wedge summands
+vanish, which identifies the ring
+structures.
+\end{proof}
+
+\begin{example}
+\label{at-example-wedge-projective-ring}
+The spaces
+$$
+S^1\vee S^2
+$$
+and $\mathbb{R}P^2$ have isomorphic
+mod-two cohomology groups.  Their rings are
+not isomorphic.  If $a$ is the degree-one
+class of the circle summand, then
+$$
+(a,0)^2=(a^2,0)=(0,0),
+$$
+whereas the square of the degree-one class
+in $\mathbb{R}P^2$ is its nonzero
+degree-two class.
+\end{example}
+\end{example}
+\section{Tensor products and the Kunneth
+theorem}
+\label{at-section-kunneth}
+
+\noindent
+If $X$ and $Y$ are finite CW complexes,
+then $X\times Y$ has the product CW
+structure, whose $n$-cells are the products
+$$
+e^i\times e^j
+$$
+with $i+j=n$.  This motivates the tensor
+product.
+
+\begin{definition}
+\label{at-definition-tensor-product}
+Let $R$ be a commutative ring with unit and
+let $M,N$ be $R$-modules.  A map
+$M\times N\to A$ is {\it bilinear} if it
+is $R$-linear in each variable.  The
+{\it tensor product} $M\otimes_RN$ is an
+$R$-module equipped with a bilinear map
+having the universal property
+$$
+\xymatrix{
+(m,n) \ar@{|->}[r]
+  & m\otimes n \\
+M\times N \ar[r]
+  \ar[rd]_-b
+  & M\otimes_RN
+    \ar@{-->}[d]^{\overline b} \\
+  & A.
+}
+$$
+Explicitly, it is the free $R$-module on
+symbols $m\otimes n$, modulo the relations
+$$
+\begin{aligned}
+(m_1+m_2)\otimes n
+&=m_1\otimes n+m_2\otimes n,
+\\
+m\otimes(n_1+n_2)
+&=m\otimes n_1+m\otimes n_2,
+\\
+(rm)\otimes n
+&=r(m\otimes n),
+\\
+m\otimes(rn)
+&=r(m\otimes n).
+\end{aligned}
+$$
+\end{definition}
+
+\begin{proposition}
+[Properties of tensor products]
+\label{at-proposition-tensor-properties}
+The following statements hold.
+\begin{enumerate}
+\item There is an isomorphism
+$$
+R\otimes_RM\cong M.
+$$
+\item There is a symmetry isomorphism
+$$
+M\otimes_RN\cong N\otimes_RM.
+$$
+\item Tensor product distributes over
+arbitrary direct sums:
+$$
+\left(\bigoplus_{i\in I}M_i\right)
+\otimes_RN
+\cong
+\bigoplus_{i\in I}(M_i\otimes_RN).
+$$
+\item A map $f:M_1\to M_2$ induces
+$$
+f\otimes1_N:
+M_1\otimes_RN\longrightarrow M_2\otimes_RN.
+$$
+\item For fixed $N$, tensor product is a
+covariant right-exact functor.
+\item The tensor product of two free
+$R$-modules is free.
+\item Tensor products of graded modules
+inherit a total grading.
+\item Cellular chains satisfy
+$$
+C_*^{\mathrm{CW}}(X\times Y;R)
+\cong
+C_*^{\mathrm{CW}}(X;R)
+\otimes_R C_*^{\mathrm{CW}}(Y;R).
+$$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The first four statements follow from the
+universal property.  The fifth can be
+pictured by the functor diagram
+$$
+\xymatrix{
+  & \operatorname{Ab} \\
+-\otimes_RN:
+\operatorname{Mod}_R
+  \ar[r]
+  \ar[ur]
+  & \operatorname{Mod}_R \ar[u].
+}
+$$
+Indeed, a short exact sequence
+$$
+\xymatrix{
+0 \ar[r]
+  & M'' \ar[r]
+  & M \ar[r]
+  & M' \ar[r]
+  & 0
+}
+$$
+induces the right-exact sequence
+$$
+\xymatrix{
+M''\otimes_RN \ar[r]
+  & M\otimes_RN \ar[r]
+  & M'\otimes_RN \ar[r]
+  & 0.
+}
+$$
+The left-derived functors are denoted
+$\operatorname{Tor}^R_i(-,N)$.
+
+\noindent
+If
+$$
+L_1=\bigoplus_\alpha R
+$$
+and
+$$
+L_2=\bigoplus_\beta R,
+$$
+then
+$$
+L_1\otimes_RL_2
+\cong
+\bigoplus_{(\alpha,\beta)}R.
+$$
+For graded modules $A$ and $B$, define
+$$
+(A\otimes_RB)_n
+=
+\bigoplus_{i+j=n}A_i\otimes_RB_j.
+$$
+The summands lie on diagonals in the array
+$$
+\begin{matrix}
+\vdots&&&&\\
+A_0\otimes B_2&&&&\\
+A_0\otimes B_1&A_1\otimes B_1&&&\\
+A_0\otimes B_0&A_1\otimes B_0
+&A_2\otimes B_0&\cdots&A_n\otimes B_0.
+\end{matrix}
+$$
+The product CW structure identifies its
+degree-$n$ basis with precisely these
+pairs of cells.
+\end{proof}
+
+\noindent
+Let $R$ be a principal ideal domain and let
+$X$ and $Y$ be finite CW complexes.  The
+cellular tensor product gives a natural
+short exact sequence
+{\small
+$$
+\xymatrix@C=.1em{
+0 \ar[r]
+  & \displaystyle\bigoplus_{i+j=k}
+    H_i(X;R)\otimes_RH_j(Y;R)
+    \ar[r]
+  & H_k(X\times Y;R) \ar[r]
+  & \displaystyle\bigoplus_{i+j=k-1}
+    \operatorname{Tor}^R_1
+    (H_i(X;R),H_j(Y;R))
+    \ar[r]
+  & 0.
+}
+$$
+}
+
+\noindent
+The cohomological {\it cross product} is
+defined by
+$$
+\begin{aligned}
+H^*(X;R)\times H^*(Y;R)
+&\longrightarrow H^*(X\times Y;R),
+\\
+(a,b)&\longmapsto
+p_1^*(a)\smile p_2^*(b).
+\end{aligned}
+$$
+It is bilinear and therefore factors
+through the tensor product.
+$$
+\xymatrix{
+H^*(X;R)\times H^*(Y;R)
+  \ar[r]^-\times \ar[d]
+  & H^*(X\times Y;R) \\
+H^*(X;R)\otimes_RH^*(Y;R)
+  \ar@{-->}[ur]_-\times.
+}
+$$
+Give the tensor product the multiplication
+$$
+(a\otimes b)(c\otimes d)
+=
+(-1)^{|b||c|}(ac)\otimes(bd).
+$$
+Then the cross product is a homomorphism of
+graded rings.
+
+\begin{theorem}[Kunneth theorem]
+\label{at-theorem-cohomology-kunneth}
+Let $R$ be a field and let $X,Y$ be finite
+CW complexes.  The cross product is an
+isomorphism of graded rings:
+$$
+H^*(X;R)\otimes_RH^*(Y;R)
+\xrightarrow{\cong}H^*(X\times Y;R).
+$$
+\end{theorem}
+
+\noindent
+The relative version gives a map
+$$
+H^*(X,A;R)\otimes_RH^*(Y,B;R)
+\longrightarrow H^*(X\times Y,W;R),
+$$
+where
+$$
+W=(A\times Y)\cup(X\times B).
+$$
+
+\begin{proposition}
+\label{at-proposition-projective-cup-ring}
+For every $n\geq0$,
+$$
+H^*(\mathbb{R}P^n;
+\mathbb{Z}/2\mathbb{Z})
+\cong
+(\mathbb{Z}/2\mathbb{Z})[x]/(x^{n+1}),
+$$
+where $|x|=1$.
+\end{proposition}
+
+\begin{proof}
+Write $P^n=\mathbb{R}P^n$.  We already
+know the additive groups.  It remains to
+show that the product of nonzero classes in
+degrees $i$ and $j$ is nonzero whenever
+$i+j\leq n$.
+
+\noindent
+Use the disk model
+$$
+P^n=D^n/(x\sim-x)
+$$
+on the boundary.  For $i+j=n$, choose
+projective subspaces $P^i,P^j\subset P^n$
+whose coordinate blocks overlap in one
+coordinate.  They meet in one point $p$.
+Their open cells are transverse copies of
+$\mathbb{R}^i$ and $\mathbb{R}^j$ inside
+the open cell $\mathbb{R}^n$.
+
+\noindent
+Cup product with supports gives the
+commutative comparison
+$$
+\xymatrix@C=.35em@R=2.2em{
+H^i(P^n)\times H^j(P^n)
+  \ar[r]^-\smile
+  & H^n(P^n) \\
+H^i(P^n,P^n-P^j)
+  \times H^j(P^n,P^n-P^i)
+  \ar[u]^\cong
+  \ar[r]^-\smile
+  \ar[d]_\cong
+  & H^n(P^n,P^n-\{p\})
+    \ar[u]_\cong
+    \ar[d]^\cong \\
+H^i(\mathbb{R}^n,
+\mathbb{R}^n-\mathbb{R}^j)
+  \times
+H^j(\mathbb{R}^n,
+\mathbb{R}^n-\mathbb{R}^i)
+  \ar[r]^-\smile
+  & H^n(\mathbb{R}^n,
+    \mathbb{R}^n-\{0\}).
+}
+$$
+All coefficients in this proof are
+$\mathbb{Z}/2\mathbb{Z}$.  Excision gives
+the downward isomorphisms.  Retraction onto
+normal disks gives the diagram
+$$
+\xymatrix@C=.3em@R=2.2em{
+H^i(\mathbb{R}^n,
+\mathbb{R}^n-\mathbb{R}^j)
+  \times
+H^j(\mathbb{R}^n,
+\mathbb{R}^n-\mathbb{R}^i)
+  \ar[r]^-\smile
+  \ar[d]_\cong
+  & H^n(\mathbb{R}^n,
+    \mathbb{R}^n-\{0\})
+    \ar[d]^\cong \\
+H^i(\mathbb{R}^i,
+\mathbb{R}^i-\{0\})
+  \times
+H^j(\mathbb{R}^j,
+\mathbb{R}^j-\{0\})
+  \ar[r]_-\times
+  & H^n(\mathbb{R}^n,
+    \mathbb{R}^n-\{0\}).
+}
+$$
+Each factor is one-dimensional.  The
+Kunneth theorem says that the cross product
+of its two generators is the generator on
+the right.
+
+\noindent
+For completeness, the isomorphism on the
+left can be tracked through
+$$
+\xymatrix@C=.35em@R=2em{
+H^i(P^n)
+  \ar[d]^\cong
+  & H^i(P^n,P^{i-1})
+    \ar[l]_\cong
+    \ar[d]^\cong
+  & H^i(P^n,P^n-P^j)
+    \ar[l]_\cong
+    \ar[r]^\cong
+    \ar[d]^\cong
+  & H^i(\mathbb{R}^n,
+    \mathbb{R}^n-\mathbb{R}^j)
+    \ar[d]^\cong \\
+H^i(P^i)
+  & H^i(P^i,P^{i-1})
+    \ar[l]^\cong
+  & H^i(P^i,P^i-\{p\})
+    \ar[l]^\cong
+    \ar[r]_\cong
+  & H^i(\mathbb{R}^i,
+    \mathbb{R}^i-\{0\}).
+}
+$$
+The horizontal maps come from inclusions,
+the rightmost maps from excision, and the
+leftmost map from the cellular calculation.
+This proves the product is nonzero when
+$i+j=n$.  Naturality under
+$P^{i+j}\hookrightarrow P^n$ gives the
+general case.
+\end{proof}
+
+\begin{remark}
+\label{at-remark-cup-intersection}
+The preceding proof suggests that cup
+product records intersections of suitably
+represented submanifolds.
+\end{remark}
+
+\begin{remark}
+\label{at-remark-map-to-projective-space}
+For a map $f:X\to\mathbb{R}P^n$, the ring
+homomorphism
+$$
+f^*:H^*(\mathbb{R}P^n;
+\mathbb{Z}/2\mathbb{Z})
+\longrightarrow H^*(X;
+\mathbb{Z}/2\mathbb{Z})
+$$
+is determined by the image of $x$.
+\end{remark}
+
+\begin{remarks}
+\label{at-remarks-projective-rings}
+The same method gives the following rings.
+\begin{enumerate}
+\item
+$$
+H^*(\mathbb{R}P^\infty;
+\mathbb{Z}/2\mathbb{Z})
+\cong(\mathbb{Z}/2\mathbb{Z})[x],
+$$
+with $|x|=1$.
+\item
+$$
+H^*(\mathbb{C}P^n;R)
+\cong R[u]/(u^{n+1}),
+$$
+with $|u|=2$, and
+$$
+H^*(\mathbb{C}P^\infty;R)
+\cong R[u].
+$$
+\item
+$$
+H^*(\mathbb{H}P^n;R)
+\cong R[v]/(v^{n+1}),
+$$
+with $|v|=4$.
+\item
+$$
+H^*(\mathbb{R}P^\infty
+\times\mathbb{R}P^\infty;
+\mathbb{Z}/2\mathbb{Z})
+\cong
+(\mathbb{Z}/2\mathbb{Z})[x,y].
+$$
+Finite products add one polynomial
+generator for each factor.
+\end{enumerate}
+\end{remarks}
+
+\begin{exercise}
+Compute the integral cohomology ring of
+$\mathbb{C}P^n$.
+\end{exercise}
+
+\begin{proof}
+There is one cell in every even dimension
+from $0$ through $2n$ and no odd cells.
+Consequently its cellular chain complex is
+$$
+\xymatrix@C=.8em{
+0\ar[r]&\mathbb{Z}\ar[r]
+&0\ar[r]&\mathbb{Z}\ar[r]
+&\cdots\ar[r]&\mathbb{Z}\ar[r]&0,
+}
+$$
+with every differential zero.  This single
+diagram replaces the two parity-dependent
+chains in the exercise source, both of which
+were false.
+
+Let $\alpha\in H^2(\mathbb{C}P^n;\mathbb{Z})$
+be the first Chern class of the dual
+tautological line bundle.  Equivalently,
+$\alpha$ is Poincare dual to a hyperplane.
+Transverse hyperplanes meet in
+$\mathbb{C}P^{n-k}$, so $\alpha^k$ is a
+generator of $H^{2k}$ for $0\leq k\leq n$.
+Dimensional reasons give $\alpha^{n+1}=0$.
+Hence
+$$
+H^*(\mathbb{C}P^n;\mathbb{Z})
+\cong
+\mathbb{Z}[\alpha]/(\alpha^{n+1}),
+\qquad |\alpha|=2.
+$$
+\end{proof}
+
+
+\noindent
+Integral universal coefficients give the
+additive pattern
+$$
+\xymatrix@C=.65em{
+H^*(P^{2m};\mathbb{Z})
+  & \mathbb{Z} \ar[r]
+  & 0 \ar[r]
+  & \mathbb{Z}/2\mathbb{Z} \ar[r]
+  & 0 \ar[r]
+  & \cdots \ar[r]
+  & \mathbb{Z}/2\mathbb{Z} \\
+H^*(P^{2m+1};\mathbb{Z})
+  & \mathbb{Z} \ar[r]
+  & 0 \ar[r]
+  & \mathbb{Z}/2\mathbb{Z} \ar[r]
+  & 0 \ar[r]
+  & \cdots \ar[r]
+  & \mathbb{Z}.
+}
+$$
+The entries run from degree zero on the
+left to the top degree on the right.
+Reduction modulo two gives
+$$
+\xymatrix@C=.55em@R=2em{
+\mathbb{Z} \ar[r]
+  \ar@{->>}[d]
+  & 0 \ar[r] \ar[d]
+  & \mathbb{Z}/2\mathbb{Z}
+    \ar[r] \ar@{=}[d]
+  & 0 \ar[r] \ar[d]
+  & \cdots \ar[r]
+  & H^n(P^n;\mathbb{Z}) \ar[d] \\
+\mathbb{Z}/2\mathbb{Z} \ar[r]
+  & \mathbb{Z}/2\mathbb{Z} \ar[r]
+  & \mathbb{Z}/2\mathbb{Z} \ar[r]
+  & \mathbb{Z}/2\mathbb{Z} \ar[r]
+  & \cdots \ar[r]
+  & \mathbb{Z}/2\mathbb{Z}.
+}
+$$
+Since reduction respects cup products, the
+degree-two integral class has the expected
+nonzero powers.  More explicitly,
+$$
+H^*(P^{2m};\mathbb{Z})
+\cong
+\mathbb{Z}[a]/(2a,a^{m+1}),
+$$
+where $|a|=2$.  In odd dimension,
+$$
+H^*(P^{2m+1};\mathbb{Z})
+\cong
+\mathbb{Z}[a,b]/
+(2a,a^{m+1},ab,b^2),
+$$
+where $|a|=2$ and $|b|=2m+1$.
+
+\noindent
+For $m>0$, the reduced integral cohomology
+ring of
+$$
+P^{2m}\vee S^{2m+1}
+$$
+is the product of the reduced rings of the
+two summands.  It is isomorphic to the
+reduced integral cohomology ring of
+$P^{2m+1}$.  With mod-two coefficients the
+underlying groups still agree, but the
+rings do not: the top power in projective
+space is nonzero, while products between
+wedge summands vanish.
+
+\begin{theorem}[Hopf]
+\label{at-theorem-hopf-division-dimension}
+If $A$ is a finite-dimensional division
+algebra over $\mathbb{R}$, then its real
+dimension is a power of two.
+\end{theorem}
+
+\begin{proof}
+Suppose $A\cong\mathbb{R}^n$.  Multiplying
+on either side by a nonzero element is a
+linear isomorphism.  Multiplication
+therefore induces
+$$
+\varphi:P^{n-1}\times P^{n-1}
+\longrightarrow P^{n-1}
+$$
+whose restriction to either factor is a
+homeomorphism.  With mod-two coefficients,
+$$
+\varphi^*:
+(\mathbb{Z}/2\mathbb{Z})[x]/(x^n)
+\longrightarrow
+(\mathbb{Z}/2\mathbb{Z})[x_1,x_2]/
+(x_1^n,x_2^n).
+$$
+Restriction to the two factors shows that
+$$
+\varphi^*(x)=x_1+x_2.
+$$
+For example, the first restriction is the
+commutative triangle
+$$
+\xymatrix{
+H^*(P^{n-1}\times P^{n-1})
+  \ar[d]_{i_1^*}
+  & H^*(P^{n-1})
+    \ar[l]_-{\varphi^*}
+    \ar[ld]^\cong \\
+H^*(P^{n-1}).
+}
+$$
+It follows that
+$$
+0=\varphi^*(x^n)=(x_1+x_2)^n.
+$$
+Since $x_1^n=x_2^n=0$, every interior
+binomial coefficient of order $n$ is even.
+Write the binary expansion as
+$$
+n=2^{r_1}+\cdots+2^{r_s}.
+$$
+Over $\mathbb{Z}/2\mathbb{Z}$,
+$$
+(x_1+x_2)^n
+=
+\prod_{q=1}^s
+(x_1^{2^{r_q}}+x_2^{2^{r_q}}).
+$$
+If $s>1$, selecting a nonempty proper
+subset of factors produces a nonzero
+interior monomial, a contradiction.  Hence
+$s=1$ and $n$ is a power of two.
+\end{proof}
+\section{Poincare duality}
+\label{section-poincare-duality}
+
+\begin{definition}
+\label{at-definition-topological-manifold}
+An \emph{$n$-dimensional topological
+manifold} is a Hausdorff,
+second-countable space that is locally
+homeomorphic to $\mathbb{R}^n$.  In this
+section manifolds have no boundary.  Such a
+manifold is \emph{closed} when it is
+compact.
+\end{definition}
+
+\begin{theorem}[Poincare duality]
+\label{at-theorem-poincare-integral}
+Let $M$ be an oriented $n$-manifold.
+Suppose that $M$ is connected and closed.
+Then, for every $k$,
+$$
+H_k(M;\mathbb{Z})
+\cong H^{n-k}(M;\mathbb{Z}).
+$$
+Every closed manifold, orientable or not,
+satisfies
+$$
+H_k(M;\mathbb{Z}/2\mathbb{Z})
+\cong
+H^{n-k}(M;\mathbb{Z}/2\mathbb{Z}).
+$$
+\end{theorem}
+
+\noindent
+The precise orientation data will be
+developed below.  Tensoring the integral
+isomorphism with $\mathbb{Q}$, and then
+using universal coefficients over a field,
+gives
+$$
+\begin{aligned}
+H_k(M;\mathbb{Q})
+&\cong H_k(M;\mathbb{Z})
+  \otimes\mathbb{Q} \\
+&\cong H^{n-k}(M;\mathbb{Z})
+  \otimes\mathbb{Q} \\
+&\cong H^{n-k}(M;\mathbb{Q}) \\
+&\cong H_{n-k}(M;\mathbb{Q}).
+\end{aligned}
+$$
+Thus the free ranks are symmetric.  The
+integral theorem and universal coefficients
+also identify the torsion subgroup of
+$H_k(M;\mathbb{Z})$ with that of
+$H_{n-k-1}(M;\mathbb{Z})$.
+
+\noindent
+Let $x\in M$, and choose a coordinate
+neighborhood $U$ of $x$.  Excision and the
+long exact sequence of a pair give
+$$
+\begin{aligned}
+H_n(M,M-\{x\};\mathbb{Z})
+&\cong H_n(U,U-\{x\};\mathbb{Z}) \\
+&\cong H_n(\mathbb{R}^n,
+  \mathbb{R}^n-\{0\};\mathbb{Z}) \\
+&\cong \widetilde H_{n-1}
+  (\mathbb{R}^n-\{0\};\mathbb{Z}) \\
+&\cong \widetilde H_{n-1}
+  (S^{n-1};\mathbb{Z}) \\
+&\cong\mathbb{Z}.
+\end{aligned}
+$$
+This group is the local homology of $M$ at
+$x$.
+
+\begin{definition}
+\label{at-definition-manifold-orientation}
+An \emph{orientation of $\mathbb{R}^n$}
+is a choice of generator of
+$$
+H_n(\mathbb{R}^n,
+\mathbb{R}^n-\{0\};\mathbb{Z}).
+$$
+A \emph{local orientation} of $M$ at $x$
+is a generator
+$$
+\mu_x\in
+H_n(M,M-\{x\};\mathbb{Z}).
+$$
+
+An \emph{orientation of $M$} is a choice
+of one local orientation $\mu_x$ at every
+$x\in M$, locally compatible as follows.
+For each sufficiently small coordinate ball
+$B$, there must be one generator
+$$
+\mu_B\in H_n(M,M-B;\mathbb{Z})
+$$
+whose image at every $y\in B$ is $\mu_y$.
+The relevant inclusion-induced maps are
+$$
+\xymatrix{
+H_n(M,M-B;\mathbb{Z})
+  \ar[r]^\cong \ar[d]_\cong
+  & H_n(M,M-\{x\};\mathbb{Z}) \\
+H_n(M,M-\{y\};\mathbb{Z}).
+}
+$$
+The manifold is \emph{orientable} if it
+admits an orientation.
+\end{definition}
+
+\begin{remark}
+\label{at-remark-two-orientations}
+A connected orientable manifold has exactly
+two integral orientations.  Once the local
+generator at one point is chosen,
+compatibility determines all the others;
+the two choices differ by sign.
+\end{remark}
+
+\begin{example}
+\label{at-example-orientable-manifolds}
+Every sphere $S^n$ is orientable.  The real
+projective space $\mathbb{R}P^{2m}$ is not
+orientable for $m\geq 1$, while
+$\mathbb{R}P^{2m+1}$ is orientable.  The
+Klein bottle is not orientable.
+\end{example}
+
+\begin{proposition}
+\label{at-proposition-orientation-cover}
+Every manifold $M$ has a canonical
+two-sheeted covering
+$$
+p:\widetilde M\longrightarrow M
+$$
+whose total space is orientable.
+\end{proposition}
+
+\begin{proof}[Construction]
+The fiber over $x$ consists of the two
+generators of the local homology group:
+$$
+\widetilde M
+=
+\bigl\{(x,\mu)\mid
+H_n(M,M-\{x\};\mathbb{Z})
+=\mathbb{Z}\mu\bigr\}.
+$$
+The projection sends $(x,\mu)$ to $x$.
+Over a small coordinate ball, continuation
+of either local generator gives one sheet.
+These sheets define the topology and show
+that $p$ is a two-sheeted covering.  On the
+total space, choose at $(x,\mu)$ the local
+orientation represented by $\mu$.  This
+choice varies compatibly, so
+$\widetilde M$ is orientable.  For the
+Mobius band, the construction unwinds the
+twist and produces a cylinder.
+\end{proof}
+
+\begin{remark}
+\label{at-remark-orientation-section}
+An orientation of $M$ is precisely a
+continuous section of its orientation
+cover $p:\widetilde M\to M$.
+\end{remark}
+
+\begin{corollary}
+\label{at-lemma-cover-components}
+If $M$ is connected, then $M$ is
+orientable if and only if $\widetilde M$
+has two connected components.
+\end{corollary}
+
+\begin{proof}
+An orientation gives a section, whose image
+is one component; the opposite orientation
+gives the other.  Conversely, if the
+two-sheeted cover has two components, each
+component maps homeomorphically to $M$ and
+therefore supplies a section.
+\end{proof}
+
+\begin{corollary}
+\label{at-lemma-no-index-two}
+Let $M$ be connected.  If $\pi_1(M)$ has
+no subgroup of index two, then $M$ is
+orientable.
+\end{corollary}
+
+\begin{proof}
+If $M$ were nonorientable, its orientation
+cover would be connected.  Covering-space
+theory would identify
+$\pi_1(\widetilde M)$ with an index-two
+subgroup of $\pi_1(M)$.
+\end{proof}
+
+\noindent
+The orientation cover sits inside a larger
+local-homology covering.  Its total space is
+$$
+M_{\mathbb{Z}}
+=
+\coprod_{x\in M}
+H_n(M,M-\{x\};\mathbb{Z}),
+$$
+with the topology defined by continuation
+over coordinate balls.  The projection
+$q$ sends each local class over $x$ to
+$x$.  The zero classes form a copy of $M$,
+and the classes of absolute value $r$ form
+a copy of $\widetilde M$ for each $r>0$.
+Thus
+$$
+M_{\mathbb{Z}}
+\cong M\sqcup
+\coprod_{r\geq 1}\widetilde M.
+$$
+The maps fit into
+$$
+\xymatrix{
+M_{\mathbb{Z}}\ar[dd]_q \\
+&\widetilde M
+  \ar@{^{(}->}[ul]
+  \ar[dl]^p \\
+M.
+}
+$$
+
+\begin{definition}
+\label{at-definition-ring-orientation}
+Let $R$ be a commutative ring with unit.
+An \emph{$R$-orientation} chooses at each
+$x$ a generator of the rank-one
+$R$-module
+$$
+H_n(M,M-\{x\};R),
+$$
+with the same local compatibility as above.
+The manifold is \emph{$R$-orientable} if
+such a choice exists.
+\end{definition}
+
+\noindent
+The generators in a local fiber correspond
+to the units $R^\times$.  When this group is
+finite, their bundle is an
+$|R^\times|$-sheeted covering, and an
+$R$-orientation is a section.  In
+$\mathbb{Z}/2\mathbb{Z}$ there is only one
+unit, so every manifold is orientable with
+these coefficients.  More generally, every
+manifold is $R$-orientable when $2=0$ in
+$R$.  The weaker condition that some
+nonzero element is killed by two is not
+enough: a local orientation must be a
+generator, hence a unit.  An integral
+orientation induces an $R$-orientation for
+every coefficient ring $R$.
+
+\begin{theorem}
+\label{at-theorem-top-manifold-homology}
+Let $M$ be a connected, closed
+$n$-manifold.  For every $x\in M$, the map
+$$
+H_n(M;R)\longrightarrow
+H_n(M,M-\{x\};R)
+$$
+is injective.  If $M$ is $R$-orientable,
+it is an isomorphism.  If it is not
+$R$-orientable, its image is
+$$
+\{r\in R\mid 2r=0\}
+\subseteq H_n(M,M-\{x\};R)
+\cong R.
+$$
+Moreover,
+$$
+H_j(M;R)=0
+\qquad (j>n).
+$$
+\end{theorem}
+
+\begin{proof}
+Local classes continue along paths.  The
+standard local-to-global argument for top
+homology identifies the image of the map
+with the classes fixed by continuation
+around every loop, and also proves
+injectivity.  The orientation monodromy of
+a loop is either $1$ or $-1$.  In the
+orientable case all loops act trivially.  In
+the nonorientable case some loop acts by
+$-1$, so its fixed classes are exactly
+those satisfying $r=-r$.  Local homology
+vanishes above degree $n$; the same
+local-to-global argument, applied to a
+finite coordinate-ball cover, gives the
+last assertion.
+\end{proof}
+
+This is \cite[Theorem 3.26]{hat}.
+
+\begin{lemma}
+If $M$ is an $n$-manifold, then
+$H_i(M;R)=0$ for $i>n$. This follows
+componentwise from the closed and noncompact
+cases.
+\end{lemma}
+
+\begin{proposition}
+Let $M$ be a connected noncompact
+$n$-manifold. Then
+$$
+H_i(M;R)=0
+$$
+for every $i\geq n$.
+\end{proposition}
+
+This is \cite[Proposition 3.29]{hat}.
+
+\begin{remark}[Question]
+\label{at-remark-local-determinant}
+How does local homology relate to the line
+$\bigwedge^n T_x^*M$ of a smooth manifold?
+The integral local homology group is the
+orientation line: choosing one of its two
+generators chooses a sign.  A nonzero
+element of $\bigwedge^n T_x^*M$ also
+chooses a sign after one passes to its two
+possible orientations.  These choices
+correspond, but the abelian group
+$H_n(M,M-\{x\};\mathbb{Z})$ is not
+literally the real vector space
+$\bigwedge^n T_x^*M$.
+\end{remark}
+
+\begin{definition}
+\label{at-definition-fundamental-class}
+Suppose $M$ is $R$-oriented.  A
+\emph{fundamental class} is an element
+$$
+[M]\in H_n(M;R)
+$$
+whose image in every local group
+$H_n(M,M-\{x\};R)$ is the chosen local
+generator.
+\end{definition}
+
+\noindent
+The preceding theorem gives a fundamental
+class for every $R$-orientation.  Conversely,
+such a class gives compatible local
+generators and hence an orientation.  If
+$B$ is a coordinate ball containing $x$,
+the compatibility is visible in
+$$
+\xymatrix{
+H_n(M;R)
+  \ar[r]\ar[dr]
+  &H_n(M,M-\{x\};R) \\
+&H_n(M,M-B;R)\ar[u]^\cong.
+}
+$$
+
+\begin{theorem}[Poincare duality]
+\label{at-theorem-poincare-ring}
+Let $M$ be a connected, closed,
+$R$-oriented $n$-manifold.  Then
+$$
+H^k(M;R)\cong H_{n-k}(M;R)
+$$
+for every integer $k$.
+\end{theorem}
+
+\begin{proof}[Cellular picture]
+For a triangulated manifold, a cell of
+dimension $k$ has a dual cell of dimension
+$n-k$.  With orientations chosen
+compatibly, the incidence numbers for dual
+cells are the transposes of the original
+ones, up to the conventional signs.  Thus
+the cochain complex of the original cell
+structure identifies with the chain
+complex of the dual structure, with degrees
+reversed.  The source notes record the
+degree reversal as
+$$
+\xymatrix@R=.8em{
+C&C^* \\
+0\ar[r]&n \\
+1\ar[r]&n-1 \\
+\vdots&\vdots \\
+n\ar[r]&0.
+}
+$$
+Passing to homology gives the displayed
+isomorphism.  The cap-product formulation
+below gives the intrinsic map and extends
+beyond this cellular picture.
+\end{proof}
+\section{Cap products}
+\label{section-cap-products}
+
+\begin{definition}
+\label{at-definition-cap-product}
+Let $X$ be a space and $R$ a commutative
+ring.  The \emph{cap product} is the
+bilinear operation
+$$
+\frown:
+C_k(X;R)\times C^\ell(X;R)
+\longrightarrow C_{k-\ell}(X;R).
+$$
+For a singular simplex
+$\sigma:[v_0,\ldots,v_k]\to X$, set
+$$
+\sigma\frown\varphi
+=
+\varphi
+(\sigma|[v_0,\ldots,v_\ell])
+\,\sigma|[v_\ell,\ldots,v_k],
+$$
+and extend $R$-bilinearly.
+\end{definition}
+
+\noindent
+The boundary and coboundary satisfy
+$$
+\partial(\sigma\frown\varphi)
+=(-1)^\ell
+\bigl(
+\partial\sigma\frown\varphi
+-\sigma\frown\delta\varphi
+\bigr).
+$$
+Consequently a cycle capped with a cocycle
+is a cycle.  If either representative is
+changed by a boundary or coboundary, the
+result changes by a boundary.  Thus cap
+product descends to
+$$
+\frown:
+H_k(X;R)\times H^\ell(X;R)
+\longrightarrow H_{k-\ell}(X;R).
+$$
+
+\begin{theorem}
+\label{at-theorem-poincare-cap}
+Let $M$ be a connected, closed,
+$R$-oriented $n$-manifold.  Capping with
+its fundamental class gives an isomorphism
+$$
+[M]\frown\mathord{-}:
+H^k(M;R)\longrightarrow H_{n-k}(M;R)
+$$
+for every $k$.
+\end{theorem}
+
+\begin{proposition}
+\label{at-proposition-cup-cap-adjunction}
+For $\alpha\in C_{k+\ell}(X;R)$,
+$\varphi\in C^k(X;R)$, and
+$\psi\in C^\ell(X;R)$,
+$$
+\psi(\alpha\frown\varphi)
+=(\varphi\smile\psi)(\alpha).
+$$
+\end{proposition}
+
+\begin{proof}
+Both sides evaluate $\varphi$ on the front
+$k$-face, evaluate $\psi$ on the remaining
+$\ell$-face, and multiply the two values.
+\end{proof}
+
+\noindent
+In particular, the two chain maps
+$$
+\begin{aligned}
+\varphi\smile\mathord{-}:
+C^\ell(X;R)
+&\longrightarrow C^{k+\ell}(X;R),\\
+\mathord{-}\frown\varphi:
+C_{k+\ell}(X;R)
+&\longrightarrow C_\ell(X;R)
+\end{aligned}
+$$
+are dual.  On homology, the universal
+coefficient evaluation maps fit into the
+commutative square
+$$
+\xymatrix@C=3.2em{
+H^\ell(X;R)
+  \ar[d]_{\varphi\smile\mathord{-}}
+  \ar[r]^h
+  &\operatorname{Hom}_R(H_\ell(X;R),R)
+  \ar[d]^{
+  (\mathord{-}\frown\varphi)^*} \\
+H^{k+\ell}(X;R)
+  \ar[r]^h
+  &\operatorname{Hom}_R
+  (H_{k+\ell}(X;R),R).
+}
+$$
+Over a field the maps $h$ are
+isomorphisms.  With integral coefficients
+they are surjective, and $h$ in degree $r$
+is an isomorphism when
+$H_{r-1}(X;\mathbb{Z})$ is free abelian,
+for example when it is finitely generated
+and torsion-free.
+\section{Consequences of duality}
+\label{section-duality-consequences}
+
+\begin{definition}
+\label{at-definition-nonsingular-pairing}
+Let $A$ and $B$ be $R$-modules.  A
+bilinear pairing
+$$
+\lambda:A\times B\longrightarrow R
+$$
+is \emph{nonsingular} if both adjoint maps
+$$
+\begin{aligned}
+A&\longrightarrow
+\operatorname{Hom}_R(B,R),\\
+a&\longmapsto
+\bigl(b\longmapsto\lambda(a,b)\bigr),
+\end{aligned}
+$$
+and
+$$
+\begin{aligned}
+B&\longrightarrow
+\operatorname{Hom}_R(A,R),\\
+b&\longmapsto
+\bigl(a\longmapsto\lambda(a,b)\bigr)
+\end{aligned}
+$$
+are isomorphisms.
+\end{definition}
+
+\noindent
+For a closed $R$-oriented $n$-manifold,
+Poincare duality gives the intersection
+pairing
+$$
+\begin{aligned}
+H^k(M;R)\times H^{n-k}(M;R)
+&\longrightarrow R,\\
+(\varphi,\psi)
+&\longmapsto
+(\varphi\smile\psi)([M]).
+\end{aligned}
+$$
+It is independent of the chosen cocycle
+representatives.
+
+\begin{proposition}
+\label{at-proposition-duality-pairing}
+The intersection pairing is nonsingular if
+$R$ is a field.  For $R=\mathbb{Z}$, it
+induces a nonsingular pairing after the
+torsion subgroups of both cohomology groups
+are factored out.
+\end{proposition}
+
+\begin{proof}
+Let
+$$
+D=[M]\frown\mathord{-}:
+H^k(M;R)\longrightarrow H_{n-k}(M;R).
+$$
+In the field case, both arrows in
+$$
+\xymatrix@C=2.6em{
+H^{n-k}(M;R)\ar[r]^h
+  &\operatorname{Hom}_R
+  (H_{n-k}(M;R),R)
+  \ar[r]^{D^*}
+  &\operatorname{Hom}_R
+  (H^k(M;R),R)
+}
+$$
+are isomorphisms.  The composite sends
+$\psi$ to the functional
+$$
+\varphi\longmapsto
+\psi([M]\frown\varphi)
+=(\varphi\smile\psi)([M]),
+$$
+so it is the second adjoint of the
+intersection pairing.  The first adjoint
+is handled in the same way, or by graded
+commutativity.
+
+For integral coefficients, the kernel of
+the evaluation map $h$ is the torsion
+subgroup supplied by the universal
+coefficient theorem.  Poincare duality
+preserves torsion.  The same argument
+therefore becomes an isomorphism after
+passing to torsion-free quotients.
+\end{proof}
+
+\begin{corollary}
+\label{at-lemma-primitive-dual-class}
+Assume the hypotheses of the proposition.
+Let $\alpha$ be a class in $H^k(M;R)$.
+It generates a rank-one direct summand if
+and only if there is a class
+$\beta\in H^{n-k}(M;R)$ for which
+$$
+(\alpha\smile\beta)([M])
+$$
+is a unit of $R$.  In the integral case,
+the statement is understood in the
+torsion-free quotient.
+\end{corollary}
+
+\begin{proof}
+The class $\alpha$ generates a direct
+summand precisely when some homomorphism to
+$R$ takes $\alpha$ to a unit.  By
+nonsingularity, every such homomorphism is
+pairing with a suitable $\beta$.
+\end{proof}
+
+\begin{example}[Real projective space]
+\label{at-example-rp-duality-product}
+Put $P^n=\mathbb{R}P^n$ and use
+$R=\mathbb{Z}/2\mathbb{Z}$.  The additive
+cohomology groups are recorded by
+$$
+\xymatrix@C=.15em{
+0\ar[r]&1\ar[r]&\ldots\ar[r]
+  &i\ar[r]&\cdots\ar[r]
+  &j\ar[r]&\cdots\ar[r]
+  &i+j\ar[r]&\cdots\ar[r]&n\\
+\mathbb{Z}/2\mathbb{Z}\ar[r]
+  &\mathbb{Z}/2\mathbb{Z}\ar[r]
+  &\ldots\ar[r]
+  &\mathbb{Z}/2\mathbb{Z}\ar[r]
+  &\cdots\ar[r]
+  &\mathbb{Z}/2\mathbb{Z}\ar[r]
+  &\cdots\ar[r]
+  &\mathbb{Z}/2\mathbb{Z}\ar[r]
+  &\cdots\ar[r]
+  &\mathbb{Z}/2\mathbb{Z}.
+}
+$$
+Let $x$ be the nonzero degree-one class.
+In $P^{i+j}$, nonsingularity says that the
+nonzero class $x^i$ pairs nontrivially with
+the unique nonzero degree-$j$ class,
+namely $x^j$.  Hence $x^{i+j}\neq 0$.
+Naturality for
+$P^{i+j}\hookrightarrow P^n$ gives the
+same conclusion in $P^n$ whenever
+$i+j\leq n$.  Thus duality recovers the
+projective-space cup-product calculation.
+\end{example}
+
+\begin{example}[The torus]
+\label{at-example-torus-pairing}
+Let $T=S^1\times S^1$.  Its integral
+cohomology has the pattern
+$$
+\xymatrix@R=.8em{
+0&1&2\\
+\mathbb{Z}\ar[r]
+  &\mathbb{Z}\oplus\mathbb{Z}\ar[r]
+  &\mathbb{Z}\\
+&\left\langle{}\alpha\right\rangle{}
+ \oplus
+ \left\langle{}\beta\right\rangle{}
+  &\left\langle{}\tau\right\rangle{}.
+}
+$$
+Choose $\alpha$ to restrict to a generator
+on a meridian, and choose $\beta$ from the
+other circle factor.  The source records
+this choice schematically as
+$$
+\xymatrix{
+T&\mathbb{Z}\ar[r]
+  &\mathbb{Z}\oplus\mathbb{Z}\ar[r]
+  &\mathbb{Z}\\
+S^1\ar@{^{(}->}[u]
+  &\mathbb{Z}
+  &\mathbb{Z}
+   =\left\langle{}\alpha
+    \right\rangle{}
+  &0.
+}
+$$
+Graded commutativity gives
+$2\alpha^2=0$, and $H^2(T;\mathbb{Z})$
+is torsion-free, so $\alpha^2=0$; this is
+not a dimension argument.  If
+$\gamma=n_1\alpha+n_2\beta$ satisfies
+$\alpha\smile\gamma=\tau$, then
+nonsingularity forces $n_2=\pm1$.
+Reversing the choice of $\beta$ if needed,
+we obtain
+$$
+\alpha\smile\beta=\tau,
+\qquad
+\beta\smile\alpha=-\tau.
+$$
+This agrees with the Kunneth description
+of $H^*(S^1\times S^1;\mathbb{Z})$.
+\end{example}
+\section{Manifolds with boundary}
+\label{section-manifolds-with-boundary}
+
+\begin{definition}
+\label{at-definition-boundary-manifold}
+An \emph{$n$-manifold with boundary} is a
+Hausdorff, second-countable space locally
+homeomorphic to
+$$
+\mathbb{R}_+^n
+=\{(x_1,\ldots,x_n)\in\mathbb{R}^n
+\mid x_n\geq0\}.
+$$
+Its \emph{boundary} $\partial M$ consists
+of the points corresponding locally to
+$x_n=0$; its complement is the
+\emph{interior}.
+\end{definition}
+
+\begin{remark}
+\label{at-remark-oriented-boundary}
+The boundary of an $n$-manifold is an
+$(n-1)$-manifold without boundary.  If $M$
+is oriented, its boundary inherits an
+orientation.
+\end{remark}
+
+\begin{proposition}[Collar theorem]
+\label{at-proposition-boundary-collar}
+The boundary has a neighborhood in $M$
+homeomorphic to
+$$
+\partial M\times[0,1),
+$$
+with $\partial M$ corresponding to
+$\partial M\times\{0\}$.
+\end{proposition}
+
+\begin{definition}
+\label{at-definition-boundary-orientation}
+A manifold with boundary is
+\emph{$R$-orientable} if its interior is
+$R$-orientable.
+\end{definition}
+
+\begin{remark}[Question]
+\label{at-remark-does-manifold-bound}
+Given a closed manifold $M$, must there be
+a compact manifold $W$ with
+$\partial W=M$?  No: not every closed
+manifold bounds.  This failure motivates
+cobordism.
+\end{remark}
+
+\begin{definition}
+\label{at-definition-unoriented-cobordism}
+Two closed smooth $n$-manifolds $M$ and
+$N$ are \emph{unoriented cobordant} if
+there is a compact smooth
+$(n+1)$-manifold $W$ such that
+$$
+\partial W\cong M\sqcup N.
+$$
+\end{definition}
+
+\begin{remark}
+\label{at-remark-cobordism-equivalence}
+Unoriented cobordism is an equivalence
+relation.  Cylinders give reflexivity,
+relabeling the boundary gives symmetry,
+and gluing cobordisms along their common
+boundary gives transitivity.
+\end{remark}
+
+\begin{definition}
+\label{at-definition-cobordism-ring}
+The \emph{unoriented smooth cobordism ring}
+is the graded set of cobordism classes
+$$
+\Omega_*^O
+=\coprod_{n\geq0}\Omega_n^O,
+$$
+with addition induced by disjoint union and
+multiplication induced by Cartesian product.
+\end{definition}
 
 \bibliography{my}
 \bibliographystyle{amsalpha}
