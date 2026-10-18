@@ -7,11 +7,16 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = Path(__file__).with_name(
     "plastex_gerby.py"
 )
+sys.path.insert(0, str(ROOT / "gerby-website"))
+
+from gerby.views.methods import pdfFilename
+
 SITE = ROOT / "gerby-website" / "gerby"
 TYPE_LISTS = [
     SITE / "tools" / "update.py",
@@ -67,6 +72,45 @@ class EnvironmentTests(unittest.TestCase):
             text = (ROOT / name).read_text()
             self.assertIsNone(
                 pattern.search(text), name
+            )
+
+    def test_pdf_filename_of_relabelled_statements(self):
+        for kind, label, stem in [
+            (
+                "corollary",
+                "birational-maps-commutative-algebra"
+                "-lemma-minimal",
+                "birational-maps-commutative-algebra",
+            ),
+            (
+                "corollary",
+                "cremona-transformations"
+                "-lemma-corollary-castelnuovo",
+                "cremona-transformations",
+            ),
+            (
+                "corollary",
+                "seminars-complex-geometry"
+                "-corollary-huybrechts-chi",
+                "seminars-complex-geometry",
+            ),
+            (
+                "lemma",
+                "real-analysis-lemma-foo",
+                "real-analysis",
+            ),
+            (
+                "example",
+                "seminars-complex-geometry"
+                "-examples-polygon",
+                "seminars-complex-geometry",
+            ),
+        ]:
+            tag = SimpleNamespace(
+                type=kind, label=label
+            )
+            self.assertEqual(
+                pdfFilename(tag), stem, label
             )
 
     def test_corollary_keeps_its_tag(self):

@@ -1,3 +1,5 @@
+import re
+
 import markdown
 from mdx_bleach.extension import BleachExtension
 from mdx_bleach.whitelist import ALLOWED_TAGS
@@ -7,11 +9,18 @@ from mdx_math import MathExtension
 from gerby.database import *
 
 
+# A label keeps the environment it was first written with, e.g. a
+# corollary may be labelled lemma-foo, so look for any statement type
+STATEMENT_TYPES = ["corollary", "definition", "example", "exercise", "lemma", "proposition", "remark", "remarks", "situation", "theorem"]
+STATEMENT_LABEL = re.compile("-(?:" + "|".join(STATEMENT_TYPES) + ")")
+
 def pdfFilename(tag):
   if tag.type == "part":
     return tag.label.removeprefix("part-")
   if tag.type == "chapter":
     return tag.label.removeprefix("chapter-")
+  if tag.type in STATEMENT_TYPES:
+    return STATEMENT_LABEL.split(tag.label)[0]
   return tag.label.split("-" + tag.type)[0]
 
 def is_math(tag, name, value):
