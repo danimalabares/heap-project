@@ -415,7 +415,7 @@ def show_history(tag):
   neighbours = gerby.views.tag.getNeighbours(tag)
 
   # only show history for tags for which we have one
-  if tag.type not in ["definition", "example", "exercise", "lemma", "proposition", "remark", "remarks", "situation", "theorem"]:
+  if tag.type not in ["corollary", "definition", "example", "exercise", "lemma", "proposition", "remark", "remarks", "situation", "theorem"]:
     return render_template("tag.history.invalid.html", tag=tag, breadcrumb=breadcrumb)
 
   if Change.table_exists():
