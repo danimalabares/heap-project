@@ -10,20 +10,5635 @@
 
 \tableofcontents
 
+\section{Paths and homotopies}
+\label{section-paths-homotopies}
+
+We denote by $I$ the unit interval $[0,1]$
+and by
+$X$ an arbitrary topological space.
+
+\begin{definition}
+A \emph{path} is a function $f:I\to X$.
+\end{definition}
+
+\begin{definition}
+A \emph{homotopy of paths} in $X$ is a family
+$f_t:I\to X$, with $0\leq t\leq1$, such that
+the
+associated function
+$$
+\begin{aligned}
+F:I\times I&\to X\\
+(s,t)&\mapsto f_t(s)
+\end{aligned}
+$$
+is continuous.
+
+We say that the homotopy $F:I\times I\to X$
+is
+\emph{relative to the endpoints} if
+$$
+F(0,t)=x_0\qquad\forall t\in I
+\qquad
+F(1,t)=x_1\qquad\forall t\in I
+$$
+for $x_0,x_1\in X$.
+
+Finally, two paths $f_0$ and $f_1$ in $X$
+such that
+$f_0(0)=f_1(0)$ and $f_0(1)=f_1(1)$ are
+\emph{homotopic rel} $\mathbf{0,1}$ if there
+is a
+homotopy relative to the endpoints between
+them. This is denoted
+$f_0\simeq f_1\operatorname{rel}\{0,1\}$.
+\end{definition}
+
+\begin{theorem}
+The relation
+$f_1\sim{}f_2\iff f_1\simeq
+f_2\operatorname{rel}\{0,1\}$ is an
+equivalence relation on the set of paths in
+$X$, which we
+will denote by $\Omega(X):=\{f:I\to X\}$.
+\end{theorem}
+\section{The fundamental group}
+\label{section-fundamental-group}
+
+On our way to defining the fundamental group,
+we first
+define an operation between paths.
+
+We denote by $[f]$ the homotopy class rel
+$0,1$ of
+$f\in\Omega(X)$.
+
+\begin{definition}
+Given $f,g:I\to X$ such that $f(1)=g(0)$, we
+can define
+the \emph{concatenation of paths}
+$$
+\begin{aligned}
+f&\cdot g:I\to X\\
+f\cdot g(s)&=\begin{cases}
+f(2s)\qquad s\in[0,1/2]\\
+g(2s-1)\qquad s\in[1/2,1].
+\end{cases}
+\end{aligned}
+$$
+\end{definition}
+
+\begin{remark}
+If $f\simeq f_1\operatorname{rel}\{0,1\}$ and
+$g\simeq g_1\operatorname{rel}\{0,1\}$, then
+$f\cdot g\simeq f_1\cdot
+g_1\operatorname{rel}\{0,1\}$.
+
+In other words, if $[f]=[f_1]$ and
+$[g]=[g_1]$, then
+$[f\cdot g]=[f_1\cdot g_1]$.
+\end{remark}
+
+\begin{definition}
+We say that $f:I\to X$ is a \emph{loop based
+at}
+$x_0\in X$ if $f(0)=f(1)=x_0$. We denote by
+$$
+\Omega(X,x_0)=\{f:I\to X:f(0)=f(1)=x_0\}
+$$
+the set of such loops.
+\end{definition}
+
+The equivalence relation
+$\operatorname{rel}\{0,1\}$ restricts
+correctly to
+$\Omega(X,x_0)\subseteq\Omega(X)$, so we can
+finally define:
+
+\begin{definition}
+The \emph{fundamental group} of $X$ based at
+$x_0$ is the
+set
+$$
+\pi_1(X,x_0)
+=\Omega(X,x_0)/
+\operatorname{rel}\{0,1\}.
+$$
+\end{definition}
+
+\begin{theorem}
+The fundamental group is a group with the
+concatenation
+operation $[f][g]=[f\cdot g]$.
+\end{theorem}
+
+\begin{proof}
+We have to check that:
+\begin{itemize}
+\item the product is well defined;
+\item there is an identity, the constant path
+$c_{x_0}:I\to X$ given by $c_{x_0}(t)=x_0$
+for every
+$t\in I$;
+\item there are inverses;
+\item there is associativity.
+\end{itemize}
+\end{proof}
+\section{Homotopies of maps}
+\label{section-basic-notions}
+
+A homotopy is a continuously varying
+map. This simple idea is the equivalence
+relation behind the constructions that
+follow.
+
+\begin{definition}
+\label{definition-homotopic-maps}
+\label{def:func-homot}
+Let $X$ and $Y$ be spaces. A
+\emph{homotopy} from $f:X\to Y$ to
+$g:X\to Y$ is a continuous map
+$$
+H:X\times I\longrightarrow Y
+$$
+such that
+$$
+H(x,0)=f(x),
+\qquad
+H(x,1)=g(x).
+$$
+We write $f\simeq g$. A homotopy is
+\emph{relative to} $A\subset X$ if
+$$
+H(a,t)=f(a)=g(a)
+$$
+for every $a\in A$ and $t\in I$.
+\end{definition}
+
+If we have $A\subseteq X$ and $B\subseteq Y$,
+and $f$ is
+such that $f(A)\subseteq B$, we write
+$$
+f:(X,A)\to(Y,B).
+$$
+A homotopy between functions of this kind is
+a function
+$H:X\times I\to Y$ such that all the
+functions obtained by
+changing the time parameter still send $A$ to
+$B$. That is,
+we have functions
+$$
+H(\_,t):(X,A)\to(Y,B)\qquad\forall t\in I
+$$
+such that
+$$
+H(x,0)=f(x)\qquad\forall x\in X,
+\qquad
+H(x,1)=g(x)\qquad\forall x\in X.
+$$
+
+In particular, if $A=\{x_0\}$ and
+$B=\{y_0\}$, just as
+before, we write
+$$
+f:(X,x_0)\to(Y,y_0).
+$$
+In this case, we say that a
+\emph{base-point-preserving
+homotopy} is a function $H:X\times I\to Y$
+such that
+$$
+H(x_0,t)=y_0\qquad\forall t\in I,
+$$
+$$
+H(x,0)=f(x)\qquad\forall x\in X,
+\qquad
+H(x,1)=g(x)\qquad\forall x\in X.
+$$
+We will simply say that $f$ and $g$ are
+homotopic,
+specifying when necessary that the homotopy
+preserves the
+base point.
+
+\begin{proposition}
+If $f,g:(X,x_0)\to(Y,y_0)$ are homotopic,
+preserving the
+base point, then they induce the same
+homomorphism on
+fundamental groups, that is,
+$$
+f_*=g_*:\pi_1(X,x_0)\to\pi_1(Y,y_0).
+$$
+\end{proposition}
+
+Homotopy classes form the morphisms in the
+homotopy category. A map $f:X\to Y$ is a
+\emph{homotopy equivalence} if there is a
+map $g:Y\to X$ such that
+$$
+g\circ f\simeq\operatorname{id}_X,
+\qquad
+f\circ g\simeq\operatorname{id}_Y.
+$$
+The map $g$ is a \emph{homotopy inverse}.
+A space is \emph{contractible} if it is
+homotopy equivalent to a point. A map is
+\emph{null homotopic} if it is homotopic
+to a constant map.
+
+\begin{corollary}
+\label{lemma-based-homotopy-equivalence}
+If $f:(X,x_0)\to(Y,y_0)$ has a based
+homotopy inverse, then
+$$
+f_*:\pi_1(X,x_0)\longrightarrow
+\pi_1(Y,y_0)
+$$
+is an isomorphism.
+\end{corollary}
+
+\begin{proof}
+Suppose that $g:Y\to X$ is as in the
+preceding definition.
+It is enough to show that $f_*$ and $g_*$ are
+inverses of one
+another. And they are, because
+$\operatorname{id}_{\pi_1(X,x_0)}
+=(g f)_*=g_*f_*$ and similarly for $Y$.
+\end{proof}
+
+For an unbased homotopy equivalence between
+path-connected spaces, the same conclusion
+holds after applying the appropriate
+change-of-base-point isomorphism.
+
+\begin{exercise}[Hatcher 0.11]
+\label{exercise-hatcher-homotopy-equivalence}
+\label{hatcher:0.11}
+\emph{One can use different functions to go
+and come back.} A map $f:X\to Y$ is a
+homotopy equivalence if there are maps
+$g,h:Y\to X$ such that
+$fg\simeq\operatorname{id}_Y$ and
+$hf\simeq\operatorname{id}_X$. More
+generally,
+$f$ is a homotopy equivalence if $fg$ and
+$hf$ are homotopy equivalences.
+\begin{proof}[Solution]
+The first assertion is the special case of
+the
+second in which both composites are already
+homotopic to identities. In the homotopy
+category, invertibility of $fg$ gives $f$ a
+right inverse, while invertibility of $hf$
+gives $f$ a left inverse. A morphism with
+both
+a left and a right inverse is invertible,
+since
+the two inverses agree. Thus $f$ is a
+homotopy
+equivalence.
+\end{proof}
+\end{exercise}
+
+We add one last property, for which we define
+two notions
+that are used throughout the text.
+
+\begin{definition}
+\label{definition-retraction}
+\label{def:retracto}
+A \emph{retraction} of a space $X$ onto a
+subspace $A$ is a
+function $f:X\to A$ such that
+$f|_A=\operatorname{id}_A$. A
+\emph{deformation retract} of $X$ onto $A$ is
+a homotopy
+$f_t:X\to X$ such that
+$f_0=\operatorname{id}_X$ and
+$f_1(X)=A$, and also
+$f_t|_A=\operatorname{id}_A$ for every $t$.
+\end{definition}
+
+\begin{proposition}
+If a space $X$ retracts onto a space $A$,
+then the
+homomorphism
+$i_*:\pi_1(A,x_0)\to\pi_1(X,x_0)$ induced by
+the inclusion $A\hookrightarrow X$ is
+injective. If $A$ is a
+deformation retract of $X$, then $i_*$ is an
+isomorphism.
+\end{proposition}
+\section{Change of base point}
+\label{section-change-base-point}
+
+What happens when we change the base point?
+Points in distinct path components can have
+different fundamental groups. Within one
+component, paths organize all changes of
+base point.
+
+\begin{definition}
+The \emph{fundamental groupoid} $\Pi_1(X)$
+has the points of $X$ as objects and
+endpoint-preserving homotopy classes of
+paths as morphisms. Composition is path
+concatenation, after reparametrizing paths
+to fit the two halves of the interval.
+\end{definition}
+
+\begin{theorem}
+\label{theorem-change-basepoint}
+\label{teo:cambioptobase}
+Let $\gamma$ be a path from $x_0$ to $x_1$.
+Then
+$$
+\begin{aligned}
+\beta_\gamma:
+\pi_1(X,x_0)&\longrightarrow
+\pi_1(X,x_1),\\
+[f]&\longmapsto
+[\overline\gamma\cdot f\cdot\gamma]
+\end{aligned}
+$$
+is an isomorphism. Its inverse is
+$\beta_{\overline\gamma}$.
+\end{theorem}
+
+\begin{proof}
+Endpoint-preserving homotopies can be pasted
+on either side with $\gamma$ and
+$\overline\gamma$, so the formula is well
+defined. Associativity up to path homotopy
+and the contractions of
+$\gamma\cdot\overline\gamma$ and
+$\overline\gamma\cdot\gamma$ show that the
+two displayed change-of-base-point maps are
+inverse homomorphisms.
+\end{proof}
+
+These maps are functorial in the fundamental
+groupoid. The same construction acts on the
+higher and relative homotopy groups of a
+pointed pair.
+
+\begin{exercise}
+For a path-connected space $X$, show that
+$\pi_1(X)$ is
+abelian if and only if the
+change-of-base-point
+homomorphisms $\beta_h$ depend only on the
+endpoint of $h$.
+\end{exercise}
+
+\begin{proof}[Solution]
+Let $h$ and $g$ have the same initial and
+terminal points. The two change-of-base-point
+maps differ by conjugation with the loop
+formed
+by $h$ and the reverse of $g$. If the
+fundamental group is abelian, that
+conjugation
+is trivial, so $\beta_h=\beta_g$.
+
+Conversely, compare an arbitrary loop
+$\delta$
+at $x_0$ with the constant path at $x_0$.
+Endpoint independence says conjugation by
+$[\delta]$ is the identity on
+$\pi_1(X,x_0)$. Thus every $[\delta]$ is
+central, so the group is abelian.
+\end{proof}
+\section{The fundamental group of the circle}
+\label{section-fundamental-group-circle}
+
+Let us think of
+$S^1=\{z\in\mathbb{C}:|z|=1\}$.
+
+\begin{theorem}
+$\pi_1(S^1,x_0)\cong\mathbb{Z}$ for every
+$x_0\in S^1$.
+\end{theorem}
+
+Two familiar consequences illustrate the
+force
+of the circle computation.
+\section{Brouwer's fixed point theorem in
+dimension 2}
+\label{section-brouwer-fixed-point}
+
+\begin{theorem}
+Every function $f:D^2\to D^2$ has a fixed
+point.
+\end{theorem}
+\section{The Borsuk--Ulam theorem in
+dimension 2}
+\label{section-borsuk-ulam}
+
+\begin{theorem}
+For every continuous function
+$f:S^2\to\mathbb{R}^2$ there exists
+$x\in S^2$ such that $f(x)=f(-x)$.
+\end{theorem}
+\section{The fundamental group of a product}
+\label{section-fundamental-group-product}
+
+\begin{theorem}
+Let $X$ and $Y$ be topological spaces and let
+$x_0\in X$,
+$y_0\in Y$. Then
+$$
+\pi_1(X\times Y,(x_0,y_0))
+\cong
+\pi_1(X,x_0)\times\pi_1(Y,y_0).
+$$
+\end{theorem}
+\section{Induced homomorphisms
+(functoriality)}
+\label{section-induced-fundamental-map}
+
+First let us establish some notation. If
+$f:X\to Y$,
+$x_0\in X$, $y_0\in Y$, and $f(x_0)=y_0$, we
+write
+$f:(X,x_0)\to(Y,y_0)$.
+
+\begin{theorem}[Functoriality]
+The function $f:(X,x_0)\to(Y,y_0)$ induces a
+homomorphism
+$$
+f_*:\pi_1(X,x_0)\to\pi_1(Y,y_0)
+$$
+such that
+\begin{enumerate}
+\item if $g:(Y,y_0)\to(Z,z_0)$, then
+$(g\circ f)_*=g_*\circ f_*$;
+\item $(\operatorname{id}_X)_*
+=\operatorname{id}_{\pi_1(X,x_0)}$.
+\end{enumerate}
+\end{theorem}
+\begin{exercise}
+Suppose that $f_t:X\to X$ is a homotopy such
+that $f_0$ and
+$f_1$ are the identity. Show that for every
+$x_0\in X$, the
+loop $f_t(x_0)$ represents an element in the
+center of
+$\pi_1(X,x_0)$.
+\end{exercise}
+
+\begin{proof}[Solution]
+Let $[f]$ be the equivalence class of the
+loop $f_t(x_0)$,
+and let $[\gamma]$ be any element of
+$\pi_1(X,x_0)$. We want
+to prove that $f\cdot\gamma\simeq\gamma\cdot
+f$.
+
+One can think of loops like $f_t(x_0)$ but
+starting at any
+point of the space $X$. In particular we have
+the family of
+loops $f_t(\gamma(s))$.  Its domain is
+represented by the following square.
+\begin{center}
+\includegraphics[width=.34\textwidth]{
+algebraic-topology-assets/homotopy-square
+}
+\end{center}
+Of course
+$f_0(\gamma(s))=\gamma(s)=f_1(\gamma(s))$,
+and
+$f_t(\gamma(0))=f_t(x_0)=f_t(\gamma(1))$.
+Thus the left and
+top edges represent $f\cdot\gamma$, and the
+bottom and right
+edges represent $\gamma\cdot f$. Any path
+inside the square
+joining the lower-left corner to the
+upper-right corner
+represents a path homotopic to either of the
+above.
+\end{proof}
+\section{Higher-dimensional spheres}
+\label{section-higher-dimensional-spheres}
+
+\begin{proposition}
+$\pi_1(S^n)=0$ if $n\geq2$.
+\end{proposition}
+
+This is proved using the following lemma.
+
+\begin{lemma}
+\label{lemma-loop-factorization-open-cover}
+\label{lema:homotopia}
+Let $X=\bigcup_{\alpha\in I} A_\alpha$ be
+such that
+\begin{itemize}
+\item the $A_\alpha$ are open sets, i.e. they
+are an open
+cover;
+\item there exists $x_0\in\bigcap A_\alpha$;
+\item $A_\alpha$ is path connected;
+\item $A_\alpha\cap A_\beta$ is also path
+connected for all
+$\alpha,\beta$.
+\end{itemize}
+Then every loop $\gamma$ in $X$ is homotopic
+rel $0,1$ to a
+product, i.e. concatenation, of loops of the
+form
+$\gamma\cong\gamma_1\cdots\gamma_n$ such that
+each
+$\gamma_i$ is completely contained in some
+$A_\alpha$.
+\end{lemma}
+\section{Invariance of Euclidean dimension}
+\label{section-invariance-dimension}
+
+\begin{theorem}
+$\mathbb{R}^2$ is not homeomorphic to
+$\mathbb{R}^n$ if $n\neq2$.
+\end{theorem}
+
+\begin{remark}
+If $x\in\mathbb{R}^n$, then
+$\mathbb{R}^n-\{x\}$ is homeomorphic to
+$S^{n-1}\times\mathbb{R}$.
+\end{remark}
+
+\begin{theorem}
+$\mathbb{R}^n\cong\mathbb{R}^m\iff n=m$.
+\end{theorem}
+\section{Free products}
+\label{section-free-products}
+
+In group theory, we normally define the
+direct product by
+thinking of something like
+% D01
+$$
+\xymatrix{
+  & G\times H \\
+G \ar@{^{(}->}[ur]^{g\mapsto(g,1)}
+  && H \ar@{_{(}->}[ul]_{h\mapsto(1,h)}
+}
+$$
+where the product is commutative, that is,
+$$
+(g,1)(1,h)=(1,h)(g,1).
+$$
+Now we define a product called the \emph{free
+product}, in
+which the elements will not commute.
+
+\begin{definition}
+Let $\{G_\alpha\}_{\alpha\in I}$ be a
+collection of groups.
+As a set, the free product $\ast_{\alpha\in
+I}G_\alpha$
+consists of the words $g_1g_2\ldots g_m$, for
+$m\in\mathbb{N}\cup\{0\}$, where each $g_i$
+lies in some
+$G_\alpha$. Also, $g_i\neq1$, and
+$g_i,g_{i+1}$ always
+belong to different $G_\alpha$, that is,
+$g_i\in G_\alpha$
+and $g_{i+1}\in G_\beta$ with
+$\alpha\neq\beta$. In this
+case, we say that $g_1\ldots g_m$ is a
+\emph{reduced word}.
+
+The binary operation on $\ast_{\alpha\in I}$
+is given by
+concatenation.
+\end{definition}
+
+\begin{remark}
+Each of the $G_\alpha$ is contained in
+$\ast_{\alpha\in I}G_\alpha$, since its
+elements appear as
+one-letter words. In symbols:
+$$
+\begin{aligned}
+G&\hookrightarrow\ast_{\alpha\in I}G_\alpha\\
+g&\mapsto g.
+\end{aligned}
+$$
+\end{remark}
+
+\begin{theorem}[Universal property of the
+free product]
+Given homomorphisms
+$\varphi_\alpha:G_\alpha\to H$, there
+exists a unique homomorphism
+$\varphi:\ast_{\alpha\in I}G_\alpha\to H$
+extending the
+$\varphi_\alpha$.  Equivalently, the
+following
+triangle commutes.
+% D02
+$$
+\xymatrix{
+G_\alpha \ar[rr]^{\varphi_\alpha}
+  \ar[dr]
+  && H \\
+  & \displaystyle
+    \ast_{\alpha\in I}G_\alpha
+    \ar[ur]_{\varphi}
+}
+$$
+\end{theorem}
+
+\begin{example}
+If $F_n$ and $F_m$ are free groups generated
+by $n$ and $m$
+elements, then $F_n*F_m\cong F_{n+m}$.
+\end{example}
+\section{The Van Kampen theorem}
+\label{section-van-kampen}
+
+Imagine that we want to compute the
+fundamental group of a
+space but do not know how. This happens very
+often. But it
+turns out that we can view this space as the
+union of many
+subspaces whose fundamental groups we know.
+This is the
+setting of the Van Kampen theorem.
+
+Take a topological space $X$, a base point
+$x_0\in X$, and
+suppose that $X=\bigcup_{\alpha\in
+I}A_\alpha$ for certain
+spaces $A_\alpha$ such that $x_0\in A_\alpha$
+for every
+$\alpha\in I$. Also suppose that the
+$A_\alpha$ are path
+connected.
+
+Since the $A_\alpha$ are subspaces, we can
+consider the
+inclusion $A_\alpha\hookrightarrow X$ and the
+induced
+homomorphisms on fundamental groups, denoted
+$j_\alpha:\pi_1(A_\alpha,x_0)
+\longrightarrow\pi_1(X,x_0)$.
+Then, by the
+universal property of the free product, we
+have a
+homomorphism from the free product of these
+groups to the
+fundamental group of $X$:
+$$
+\ast_{\alpha\in I}\pi_1(A_\alpha,x_0)
+\to
+\pi_1(X,x_0).
+$$
+The theorem will tell us that this function
+is surjective.
+Intuitively, it says that every loop in $X$
+is homotopic to
+another loop which is the concatenation of
+certain loops,
+each completely contained in one of the
+$A_\alpha$.
+
+Now think of a loop that lies in the
+intersection of two of
+the $A_\alpha$. We can think of the loop as
+lying in, say,
+$A_\alpha$, and its inverse as lying in
+$A_\beta$. For distinct indices, the two
+classes form a word in
+$\ast_{\alpha\in I}\pi_1(A_\alpha,x_0)$.
+This word can be nonidentity, while its
+image in $\pi_1(X,x_0)$ is the identity.
+Thus the map we have built need not be
+injective.
+
+Now suppose that for $\alpha,\beta\in I$ we
+have the
+inclusion $A_\alpha\cap
+A_\beta\hookrightarrow A_\alpha$,
+which induces a map
+$$
+i_{\alpha\beta}:
+\pi_1(A_\alpha\cap A_\beta,x_0)
+\longrightarrow
+\pi_1(A_\alpha,x_0).
+$$
+The order of the subscripts is important,
+since the
+codomain is given by the first symbol in the
+subscript.
+
+Putting the preceding paragraphs together,
+the word
+$$
+i_{\alpha\beta}[f]i_{\beta\alpha}[\bar f]
+\in \ast_{\alpha\in I}
+\pi_1(A_\alpha,x_0)
+$$
+can be pushed to $\pi_1(X,x_0)$. The Van
+Kampen theorem will tell us that the kernel
+of the homomorphism is generated precisely
+by elements of this kind.
+
+Now we can state it.
+
+\begin{theorem}[Van Kampen]
+If $X=\bigcup_{\alpha\in I}A_\alpha$ is an
+open cover, with each $A_\alpha$ path
+connected, $x_0\in A_\alpha$, and also
+$A_\alpha\cap A_\beta$ path connected for all
+$\alpha,\beta\in I$, then the homomorphism
+$$
+\Phi:\ast_{\alpha\in I}\pi_1(A_\alpha,x_0)
+\to\pi_1(X,x_0)
+$$
+is surjective.
+
+If moreover $A_\alpha\cap A_\beta\cap
+A_\gamma$ is path
+connected for all $\alpha,\beta,\gamma\in I$,
+then
+$$
+\ker\Phi=
+\left\langle\left\langle
+ i_{\alpha\beta}(\omega)
+ i_{\beta\alpha}(\omega)^{-1}
+ :\omega\in
+ \pi_1(A_\alpha\cap A_\beta,x_0)
+\right\rangle\right\rangle.
+$$
+In particular,
+$$
+\pi_1(X,x_0)\cong
+\ast_{\alpha\in
+I}\pi_1(A_\alpha,x_0)/\ker\Phi.
+$$
+\end{theorem}
+\section{The fundamental group of a wedge of
+spaces}
+\label{section-fundamental-group-wedge}
+
+Consider a collection of topological spaces
+$X_\alpha$ with
+$\alpha\in I$ and choose a point in each
+space, say
+$x_\alpha\in X_\alpha$. We define the
+\emph{wedge} of these
+spaces by
+$$
+\bigvee_{\alpha\in I}X_\alpha
+:=
+\bigsqcup_{\alpha\in I}X_\alpha
+\Big/\{x_\alpha\sim{}x_\beta,
+\forall\alpha,\beta\in
+I\}.
+$$
+Assume also that each $x_\alpha$ is a
+deformation retract
+of some neighbourhood $U_\alpha\subseteq
+X_\alpha$.
+
+Then we have:
+
+\begin{theorem}
+Under these hypotheses, the homomorphism
+appearing in the
+Van Kampen theorem,
+$$
+\Phi:\ast_{\alpha\in I}\pi_1(X_\alpha,x_0)
+\to
+\pi_1\left(\bigvee_{\alpha\in
+I}X_\alpha\right),
+$$
+is an isomorphism.
+\end{theorem}
+\section{Group presentations}
+\label{section-group-presentations}
+
+Consider a group $G$ and a generating set
+$S\subseteq G$,
+that is, such that $\langle S\rangle=G$. This
+is equivalent
+to saying that every element of $G$ can be
+seen as a product
+of elements of $S$.
+
+Also consider the free group generated by
+$S$, say $F_S$,
+and use the universal property of free groups
+to see that
+there exists a unique surjective homomorphism
+from $F_S$ to
+$G$ extending the inclusion of $S$ in $G$.
+% D03
+$$
+\xymatrix{
+S \ar@{^{(}->}[r]
+  \ar@{_{(}->}[d]
+  & G \\
+F_S \ar@{-->>}[ur]_{\varphi}
+}
+$$
+
+We have proved:
+
+\begin{theorem}
+Given a group $G$, there exists a free group
+$F_S$ which
+surjects onto $G$. In particular, by the
+first isomorphism
+theorem, every group is a quotient of a free
+group.
+\end{theorem}
+
+If in addition we have a set
+$R\subseteq\ker\varphi$ which
+normally generates the kernel, that is,
+$\langle\langle R\rangle\rangle=\ker\varphi$,
+then
+$$
+G\cong F_S/\ker\varphi
+\cong F_S/\langle\langle R\rangle\rangle,
+$$
+and we say that
+$$
+G=\langle S,R\rangle
+$$
+is a \emph{presentation} of $G$.
+
+\begin{proposition}
+If $G=\langle S,R\rangle$ is a group
+presentation, $K$ is
+another group, and $f:S\to K$ is a function
+such that the word obtained by applying $f$
+to every letter of each relator in $R$ is
+the identity in $K$, then there exists a
+unique homomorphism $\bar f:G\to K$
+such that the following diagram commutes.
+% D04
+$$
+\xymatrix{
+S \ar@{^{(}->}[r]
+  \ar[d]_{f}
+  & G \ar@{-->}[dl]^{\bar f} \\
+K
+}
+$$
+\end{proposition}
+
+That is, to define a homomorphism out of a
+group given by a
+presentation, we only have to make sure that
+the relations
+are respected.
+\section{Realizing groups as fundamental
+groups}
+\label{section-realizing-fundamental-groups}
+
+\begin{lemma}
+Let $X$ be a topological space, let $x_0\in
+X$ be a base
+point, and let $f:S^1\to X$ be such that
+$f(1)=x_0$. For the
+adjunction space $Y=X\cup_f D^2$,
+$$
+\pi_1(Y,x_0)\cong
+\pi_1(X,x_0)\big/\langle\langle
+[f]\rangle\rangle,
+$$
+where we view $f$ as a loop in the
+fundamental group.
+\end{lemma}
+
+This is called ``killing'' a loop.
+
+\begin{lemma}
+Let $X$ be a topological space, let $x_0\in
+X$ be a base
+point, and let $f_\alpha:S^1\to X$, with
+$\alpha\in I$, be
+such that $f_\alpha(1)=x_0$ for every
+$\alpha$. For the adjunction space
+$Y=X\cup_{\{f_\alpha\}}\{D^2\}$,
+$$
+\pi_1(Y,x_0)\cong
+\pi_1(X,x_0)
+\big/
+\langle\langle [f_\alpha]:\alpha\in
+I\rangle\rangle,
+$$
+where we view each $f_\alpha$ as a loop in
+the fundamental group.
+\end{lemma}
+
+And now:
+
+\begin{theorem}
+For every group $G$ there exists a
+topological space $X$
+such that $\pi_1(X,x_0)\cong G$.
+\end{theorem}
+
+\begin{proof}
+First take a presentation
+$G=\langle S,R\rangle=F_S/\langle\langle
+R\rangle\rangle$,
+and then take the wedge of as many circles as
+there are
+elements in $S$, say
+$X=\bigvee_{\alpha\in S}S^1_\alpha$.
+We know that
+$\pi_1(X,x_0)\cong *_{\alpha\in
+S}\mathbb{Z}\cong F_S$.
+
+Now we have to kill as many loops as there
+are relations. A
+relation is a word in the generators, say
+$r=s_1^{\varepsilon_1}
+s_2^{\varepsilon_2}\ldots
+s_m^{\varepsilon_m}$ with $s_i\in S$ and
+$\varepsilon_i=\pm1$. This word essentially
+determines a
+path in the wedge of circles, so we can glue
+in one disk for
+each relation, and by the preceding lemma we
+are done.
+\end{proof}
+\section{Attaching higher-dimensional cells}
+\label{section-attaching-higher-cells}
+
+To formalize the title of this section, we
+need:
+\begin{itemize}
+\item a connected topological space $X$;
+\item a cell $e^n$ of dimension $n>2$, that
+is, a space
+homeomorphic to the closed $n$-disk;
+\item an attaching map $f:S^{n-1}\to X$;
+\item the adjunction space $Y=X\cup_f e^n$;
+\item a point $x_0\in\operatorname{im}(f)$.
+\end{itemize}
+Then we have:
+
+\begin{theorem}
+The inclusion $i:X\hookrightarrow Y$ induces
+an isomorphism
+$i_*:\pi_1(X,x_0)\to\pi_1(Y,x_0)$.
+\end{theorem}
+
+That is, when we glue a cell of dimension
+greater than 2 to
+a space, the fundamental group stays the
+same.
+
+
+
+
+\begin{exercise}
+Use Lemma
+\ref{lemma-loop-factorization-open-cover} to
+show that if $Y$ is obtained from a
+path-connected space $A$ by adjoining a cell
+$e^n$ with $n\geq2$, then the inclusion
+$A\hookrightarrow Y$
+induces a surjective function on $\pi_1$.
+\end{exercise}
+
+\begin{proof}[Solution]
+Choose collar neighbourhoods in the attached
+cell so that $U=Y\setminus\{c\}$ retracts
+onto
+$A$, while $V$ is a contractible open
+neighbourhood of the cell center $c$. They
+may
+be chosen with path-connected intersection,
+homotopy equivalent to $S^{n-1}$. Choose the
+base point in $U\cap V$.
+
+The loop-factorization lemma writes every
+loop
+in $Y$ as a product of loops in $U$ and $V$.
+Loops in $V$ are nullhomotopic, and loops in
+$U$ come, after the deformation retraction
+and
+a base-point change, from loops in $A$. Hence
+$\pi_1(A)\to\pi_1(Y)$ is surjective.
+\end{proof}
+
+\section{Homological algebra for topology}
+\label{at-section-homological-algebra}
+
+\noindent
+Let $R$ be an associative ring with unit.
+The ring need not be commutative. Usually,
+we have one of
+$\mathbb{Z}$, $\mathbb{Q}$, or
+$\mathbb{R}$. An $R$-module plays the role
+of a vector space whose scalars lie in $R$.
+We begin with the category of left
+$R$-modules and $R$-linear maps.  We will
+also use chain complexes of $R$-modules,
+which have the form
+$$
+\xymatrix{
+\cdots \ar[r]^-{\partial_{n+1}}
+  & C_n \ar[r]^-{\partial_n}
+  & C_{n-1} \ar[r]^-{\partial_{n-1}}
+  & \cdots
+}
+$$
+and satisfy
+$$
+\partial_{n-1}\partial_n=0.
+$$
+Thus
+$$
+\operatorname{im}(\partial_n)
+\subset
+\ker(\partial_{n-1}).
+$$
+
+\noindent
+A morphism of chain complexes is written
+$$
+\xymatrix{
+C_\bullet \ar[r]^-f & D_\bullet.
+}
+$$
+It consists of maps $f_n:C_n\to D_n$
+making every square in the following
+diagram commute.
+$$
+\xymatrix@C=.7em{
+\cdots \ar[r]
+  & C_{n+1}
+    \ar[r]^-{\partial_{n+1}}
+    \ar[d]_{f_{n+1}}
+  & C_n
+    \ar[r]^-{\partial_n}
+    \ar[d]_{f_n}
+  & C_{n-1}
+    \ar[r]
+    \ar[d]_{f_{n-1}}
+  & \cdots \\
+\cdots \ar[r]
+  & D_{n+1}
+    \ar[r]_-{\delta_{n+1}}
+  & D_n
+    \ar[r]_-{\delta_n}
+  & D_{n-1}
+    \ar[r]
+  & \cdots
+}
+$$
+The homology of $C_\bullet$ is
+$$
+H_n(C_\bullet)
+=
+\frac{\ker(\partial_n)}
+{\operatorname{im}(\partial_{n+1})}.
+$$
+
+\begin{definition}
+We say that $(D_\bullet,\delta)$ is a
+\emph{sub-chain-complex} of
+$(C_\bullet,\partial)$ if
+$D_p\leq C_p$ for every $p\in\mathbb{Z}$ and
+$\partial|_{D_p}=\delta_p$. The quotient
+$(C_\bullet/D_\bullet,\partial)$ is the chain
+complex whose
+terms are $C_p/D_p$, with boundary maps
+$\partial_p/\delta_p([c])=[\partial_p(c)]$.
+% D17
+$$
+\xymatrix@C=2em{
+\cdots \ar[r]
+  & C_{p+1}/D_{p+1}
+    \ar[r]^{\overline\partial_{p+1}}
+  & C_p/D_p
+    \ar[r]^{\overline\partial_p}
+  & C_{p-1}/D_{p-1} \ar[r]
+  & \cdots
+}
+$$
+\end{definition}
+
+\begin{definition}
+\begin{itemize}
+\item Elements of $C_p$ are called
+\emph{$p$-dimensional
+chains}.
+\item Elements of $\ker\partial_p:=Z_p$ are
+called
+\emph{$p$-dimensional cycles}.
+\item Elements of
+$\operatorname{im}\partial_{p+1}:=B_p$ are
+called \emph{$p$-dimensional boundaries}.
+\end{itemize}
+\end{definition}
+
+Two cycles $z$ and $z'$ are \emph{homologous}
+if they determine the same homology class.
+
+\begin{center}
+\includegraphics[width=.34\textwidth]{
+algebraic-topology-assets/homologous-cycles
+}
+\end{center}
+
+\begin{definition}
+\label{at-definition-chain-exactness}
+A chain complex $C_\bullet$ is called
+{\it acyclic} if
+$H_n(C_\bullet)=0$ for every $n$.
+The sequence
+$$
+\xymatrix{
+C_1 \ar[r]^-\varphi
+  & C_2 \ar[r]^-\psi
+  & C_3
+}
+$$
+is {\it exact} if
+$$
+\operatorname{im}(\varphi)=\ker(\psi).
+$$
+The sequence
+$$
+\xymatrix{
+0 \ar[r]
+  & C_1 \ar[r]
+  & C_2 \ar[r]
+  & C_3 \ar[r]
+  & 0
+}
+$$
+is a {\it short exact sequence} if it is
+exact at every term.  An indefinitely
+extended exact sequence is called a
+{\it long exact sequence}.
+\end{definition}
+
+\begin{remark}
+A chain complex is exact if and only if all
+of its homology groups vanish. Thus homology
+measures the failure of exactness. A chain
+complex may be finite: outside its displayed
+range, its modules are zero.
+\end{remark}
+
+\begin{proposition}
+\label{at-proposition-short-exact-quotient}
+In a short exact sequence
+$$
+0\longrightarrow C_1
+\xrightarrow{\varphi}C_2
+\xrightarrow{\psi}C_3
+\longrightarrow0,
+$$
+the map $\varphi$ is injective, the map
+$\psi$ is surjective, and
+$$
+C_3\cong C_2/\ker(\psi).
+$$
+After identifying $C_1$ with its image,
+one may write $C_3\cong C_2/C_1$.
+One must remember that this notation
+depends on the chosen embedding of $C_1$.
+\end{proposition}
+
+
+An exact sequence may extend indefinitely:
+$$
+\xymatrix@C=2.2em{
+\cdots \ar[r]
+  & C_{p+1} \ar[r]^{f_{p+1}}
+  & C_p \ar[r]^{f_p}
+  & C_{p-1} \ar[r]^{f_{p-1}}
+  & \cdots
+}
+$$
+Exactness means exactness at every displayed
+term.
+
+\begin{proposition}
+\label{proposition-exact-sequence-criteria}
+\begin{enumerate}
+\item $0\to A\xrightarrow{\alpha}B$ is exact
+if and only if
+$\ker\alpha=0$, that is, $\alpha$ is
+injective.
+\item $A\xrightarrow{\alpha}B\to0$ is exact
+if and only if
+$\operatorname{im}\alpha=B$, that is,
+$\alpha$ is
+surjective.
+\item $0\to A\xrightarrow{\alpha}B\to0$ is
+exact if and only
+if $\alpha$ is an isomorphism, by the two
+preceding items.
+\item The sequence
+$$
+0\to A\xrightarrow{\alpha}B
+\xrightarrow{\beta}C\to0
+$$
+is exact if and only if $\alpha$ is
+injective, $\beta$ is
+surjective, and
+$\ker\beta=\operatorname{im}\alpha$, so that
+$\beta$ induces an isomorphism $C\cong
+B/\operatorname{im}\alpha$.
+
+If we think of $\alpha$ as the inclusion of
+$A$ as a subgroup
+of $B$, we can write $C\cong B/A$.
+\end{enumerate}
+\end{proposition}
+
+\begin{remark}[First isomorphism theorem]
+If $M'\subseteq M$, then
+% D19
+$$
+\xymatrix{
+0 \ar[r]
+  & M' \ar@{^{(}->}[r]
+  & M \ar@{->>}[r]
+  & M/M' \ar[r]
+  & 0
+}
+$$
+is an exact sequence.
+\end{remark}
+
+
+\noindent
+For each fixed $n$, homology is a functor.
+The forgetful inclusion into abelian groups
+can be pictured as follows.
+$$
+\xymatrix{
+  & \operatorname{Ab} \\
+\operatorname{Ch}(R)
+  \ar[r]^-{H_n}
+  \ar[ur]
+  & \operatorname{Mod}_R \ar[u] \\
+C_\bullet \ar@{|->}[r]
+  & H_n(C_\bullet)
+}
+$$
+A chain map sends cycles to cycles and
+boundaries to boundaries.  It therefore
+induces a map on homology.  These maps obey
+$$
+H_n(fg)=H_n(f)H_n(g)
+$$
+and preserve identities.  Since the order
+of composition does not reverse, homology
+is covariant.
+
+\begin{exercise}[Induced function]
+If $(C_\bullet,\partial)\xrightarrow
+f(C'_\bullet,\partial')$
+is a chain map, then $f(Z_p)\subseteq
+Z'_p$ and
+$f(B_p)\subseteq B'_p$, so the induced
+function
+$$
+\begin{aligned}
+\bar f_p:H_p(C_\bullet)&\to H_p(C'_\bullet)\\
+a+B_p&\mapsto f_p(a)+B'_p
+\end{aligned}
+$$
+is well defined. If we also have a second
+chain map
+$(C'_\bullet,\partial')\xrightarrow
+g(C''_\bullet,\partial'')$,
+then $\overline{g\circ f}=\bar g\circ\bar f$.
+Finally,
+$\overline{\operatorname{id}}_{C_p}
+=\operatorname{id}_{H_p(C)}$.
+\end{exercise}
+
+\begin{definition}
+\label{at-definition-chain-homotopy}
+Let
+$$
+f,g:(C_\bullet,\partial)
+\longrightarrow
+(C'_\bullet,\partial')
+$$
+be chain maps.  They are {\it chain
+homotopic} if there are homomorphisms
+$$
+h_n:C_n\longrightarrow C'_{n+1}
+$$
+for every $n\in\mathbb{Z}$ such that
+$$
+f_n-g_n
+=
+\partial'_{n+1}h_n
++h_{n-1}\partial_n.
+$$
+The two summands can be seen as the two
+diagonal routes in the following picture.
+$$
+\xymatrix@C=.65em@R=2.8em{
+\cdots \ar[r]
+  & C_{n+1}
+    \ar[r]^-{\partial_{n+1}}
+    \ar[d]_{f_{n+1}-g_{n+1}}
+  & C_n
+    \ar[r]^-{\partial_n}
+    \ar[d]^{f_n-g_n}
+    \ar[dl]_{h_n}
+  & C_{n-1}
+    \ar[r]
+    \ar[d]^{f_{n-1}-g_{n-1}}
+    \ar[dl]^{h_{n-1}}
+  & \cdots \\
+\cdots \ar[r]
+  & C'_{n+1}
+    \ar[r]_-{\partial'_{n+1}}
+  & C'_n
+    \ar[r]_-{\partial'_n}
+  & C'_{n-1}
+    \ar[r]
+  & \cdots
+}
+$$
+This is an additive identity, not the
+assertion that the diagonal diagram
+commutes.  Chain-homotopic maps induce the
+same map on homology.
+\end{definition}
+
+\section{The snake lemma}
+\label{section-snake-lemma}
+
+\begin{lemma}[Snake lemma]
+Suppose the rows in the following commutative
+diagram are exact.
+% D21
+$$
+\xymatrix@C=2.5em@R=2.6em{
+  & Z'_1 \ar[r]^{\phi'}
+    \ar[d]_{\partial_1}
+  & Z'_2 \ar[r]^{\psi'}
+    \ar[d]_{\partial_2}
+  & Z'_3 \ar[r]
+    \ar[d]_{\partial_3}
+  & 0 \\
+0 \ar[r]
+  & Z_1 \ar[r]_{\phi}
+  & Z_2 \ar[r]_{\psi}
+  & Z_3
+}
+$$
+There is a connecting homomorphism
+$$
+\delta_*:\ker\partial_3
+\longrightarrow\operatorname{coker}\partial_1
+$$
+for which the following sequence is exact.
+% D22
+$$
+\xymatrix@C=1.35em{
+\ker\partial_1 \ar[r]^{\phi''}
+  & \ker\partial_2 \ar[r]^{\psi''}
+  & \ker\partial_3 \ar[r]^{\delta_*}
+  & \operatorname{coker}\partial_1
+    \ar[r]^{\bar\phi}
+  & \operatorname{coker}\partial_2
+    \ar[r]^{\bar\psi}
+  & \operatorname{coker}\partial_3
+}
+$$
+Here $\phi''$ and $\psi''$ are restrictions,
+and $\bar\phi$ and $\bar\psi$ are induced
+maps.
+
+The famous snake is the bent connecting arrow
+in the expanded diagram below.
+% N01
+$$
+\xymatrix@C=1.7em@R=2.2em{
+  & \ker\partial_1
+    \ar@{^{(}->}[d]
+    \ar@{-->}[r]^{\phi''}
+  & \ker\partial_2
+    \ar@{^{(}->}[d]
+    \ar@{-->}[r]^{\psi''}
+  & \ker\partial_3
+    \ar@{^{(}->}[d]
+    \ar@{-->}@/_4pc/[dddll]|{\delta_*}
+  & \\
+  & Z'_1 \ar[r]^{\phi'}
+    \ar[d]_{\partial_1}
+  & Z'_2 \ar[r]^{\psi'}
+    \ar[d]_{\partial_2}
+  & Z'_3 \ar[r]
+    \ar[d]_{\partial_3}
+  & 0 \\
+0 \ar[r]
+  & Z_1 \ar[r]_{\phi}
+    \ar@{->>}[d]
+  & Z_2 \ar[r]_{\psi}
+    \ar@{->>}[d]
+  & Z_3 \ar@{->>}[d]
+  & \\
+  & \operatorname{coker}\partial_1
+    \ar@{-->}[r]_{\bar\phi}
+  & \operatorname{coker}\partial_2
+    \ar@{-->}[r]_{\bar\psi}
+  & \operatorname{coker}\partial_3
+}
+$$
+\end{lemma}
+
+\begin{remark}
+The cokernel measures how far a homomorphism
+is from being surjective. Notice that
+$$
+\operatorname{coker}\partial_i
+=Z_i/\operatorname{im}\partial_i.
+$$
+\end{remark}
+
+\section{Long exact homology sequences}
+\label{section-long-exact-homology}
+
+\begin{definition}
+A sequence of chain complexes is
+\emph{degreewise exact at $D_\bullet$} if
+% D23
+$$
+\xymatrix@C=2em{
+\cdots \ar[r]
+  & C_\bullet \ar[r]^f
+  & D_\bullet \ar[r]^g
+  & E_\bullet \ar[r]
+  & \cdots
+}
+$$
+induces an exact sequence
+% D24
+$$
+\xymatrix@C=2em{
+\cdots \ar[r]
+  & C_p \ar[r]^{f_p}
+  & D_p \ar[r]^{g_p}
+  & E_p \ar[r]
+  & \cdots
+}
+$$
+at $D_p$ for every $p\in\mathbb{Z}$.
+\end{definition}
+
+\begin{theorem}
+\label{at-theorem-long-exact-homology}
+Suppose that
+$$
+\xymatrix{
+0 \ar[r]
+  & A_\bullet \ar[r]^-\phi
+  & B_\bullet \ar[r]^-\psi
+  & C_\bullet \ar[r]
+  & 0
+}
+$$
+is a short exact sequence of chain
+complexes.  There are connecting maps
+$$
+\delta_p:H_p(C_\bullet)
+\longrightarrow H_{p-1}(A_\bullet)
+$$
+for which the sequence
+$$
+\xymatrix@C=.55em{
+\cdots \ar[r]
+  & H_p(A_\bullet)
+    \ar[r]^-{H_p(\phi)}
+  & H_p(B_\bullet)
+    \ar[r]^-{H_p(\psi)}
+  & H_p(C_\bullet)
+    \ar[r]^-{\delta_p}
+  & H_{p-1}(A_\bullet)
+    \ar[r]^-{H_{p-1}(\phi)}
+  & H_{p-1}(B_\bullet)
+    \ar[r]
+  & \cdots
+}
+$$
+is exact.
+\end{theorem}
+
+\noindent
+The construction of the connecting map is
+visible in the following commutative
+diagram.  Its columns and rows are exact.
+$$
+\xymatrix@C=.55em@R=1.7em{
+  & & 0 \ar[d]
+    & 0 \ar[d]
+    & 0 \ar[d] \\
+  & \cdots \ar[r]
+    & A_{p+1}
+      \ar[r]^-{\partial_{p+1}}
+      \ar[d]_{i_{p+1}}
+    & A_p
+      \ar[r]^-{\partial_p}
+      \ar[d]_{i_p}
+    & A_{p-1}
+      \ar[r]
+      \ar[d]_{i_{p-1}}
+    & \cdots \\
+  & \cdots \ar[r]
+    & B_{p+1}
+      \ar[r]^-{\partial_{p+1}}
+      \ar[d]_{j_{p+1}}
+    & B_p
+      \ar[r]^-{\partial_p}
+      \ar[d]_{j_p}
+    & B_{p-1}
+      \ar[r]
+      \ar[d]_{j_{p-1}}
+    & \cdots \\
+  & \cdots \ar[r]
+    & C_{p+1}
+      \ar[r]^-{\partial_{p+1}}
+      \ar[d]
+    & C_p
+      \ar[r]^-{\partial_p}
+      \ar[d]
+    & C_{p-1}
+      \ar[r]
+      \ar[d]
+    & \cdots \\
+  & & 0 & 0 & 0
+}
+$$
+
+\begin{proof}
+We spell out the diagram chase because it
+is the useful part of the construction.
+Begin with $c\in Z_p(C_\bullet)$.  Since
+$j_p$ is surjective, choose $b\in B_p$
+with $j_p(b)=c$.  Commutativity and
+$\partial c=0$ give
+$$
+j_{p-1}(\partial b)=0.
+$$
+Exactness supplies $a\in A_{p-1}$ such
+that
+$$
+i_{p-1}(a)=\partial b.
+$$
+Furthermore,
+$$
+i_{p-2}(\partial a)
+=
+\partial i_{p-1}(a)
+=
+\partial^2b
+=0.
+$$
+The map $i_{p-2}$ is injective, so $a$ is
+a cycle.  One checks that changing $b$ or
+the representative $c$ changes $a$ by a
+boundary.  Hence
+$$
+\delta_p[c]=[a]
+$$
+is well defined.  The same chase at each
+term proves exactness.
+\end{proof}
+
+\begin{theorem}
+\label{at-theorem-connecting-naturality}
+Consider a commutative diagram of short
+exact sequences of chain complexes.
+$$
+\xymatrix@C=.7em{
+0 \ar[r]
+  & A_\bullet \ar[r]^-i \ar[d]_f
+  & B_\bullet \ar[r]^-j \ar[d]_g
+  & C_\bullet \ar[r] \ar[d]_h
+  & 0 \\
+0 \ar[r]
+  & A'_\bullet \ar[r]
+  & B'_\bullet \ar[r]
+  & C'_\bullet \ar[r]
+  & 0
+}
+$$
+The induced long exact sequences form a
+commutative diagram.
+$$
+\xymatrix@C=.35em@R=2.4em{
+\cdots \ar[r]
+  & H_p(A) \ar[r] \ar[d]_{H_p(f)}
+  & H_p(B) \ar[r] \ar[d]_{H_p(g)}
+  & H_p(C)
+    \ar[r]^-\delta
+    \ar[d]_{H_p(h)}
+  & H_{p-1}(A)
+    \ar[r]
+    \ar[d]_{H_{p-1}(f)}
+  & H_{p-1}(B)
+    \ar[r]
+    \ar[d]_{H_{p-1}(g)}
+  & H_{p-1}(C)
+    \ar[r]
+    \ar[d]_{H_{p-1}(h)}
+  & \cdots \\
+\cdots \ar[r]
+  & H_p(A') \ar[r]
+  & H_p(B') \ar[r]
+  & H_p(C') \ar[r]_-{\delta'}
+  & H_{p-1}(A') \ar[r]
+  & H_{p-1}(B') \ar[r]
+  & H_{p-1}(C') \ar[r]
+  & \cdots
+}
+$$
+\end{theorem}
+
+\begin{proof}
+All squares away from a connecting map
+commute by functoriality.  At a connecting
+map, choose a lift as in the preceding
+proof.  Applying the vertical chain map
+before or after the chase gives the same
+class, by commutativity of the original
+diagram.
+\end{proof}
+
+The square containing the connecting
+homomorphisms is the substantive part of
+the preceding naturality assertion.
+
+\begin{lemma}[Five lemma]
+\label{at-lemma-five}
+Suppose the rows in the following
+commutative diagram are exact.
+$$
+\xymatrix@C=.65em{
+M_5 \ar[r]^-{f_5} \ar[d]_{h_5}
+  & M_4 \ar[r]^-{f_4} \ar[d]_{h_4}
+  & M_3 \ar[r]^-{f_3} \ar[d]_{h_3}
+  & M_2 \ar[r]^-{f_2} \ar[d]_{h_2}
+  & M_1 \ar[d]_{h_1} \\
+N_5 \ar[r]_-{g_5}
+  & N_4 \ar[r]_-{g_4}
+  & N_3 \ar[r]_-{g_3}
+  & N_2 \ar[r]_-{g_2}
+  & N_1.
+}
+$$
+If $h_5,h_4,h_2,h_1$ are isomorphisms,
+then $h_3$ is an isomorphism as well.
+\end{lemma}
+
+
+Where will the five lemma be used? It is
+the standard device for transporting
+isomorphisms through the long exact
+sequences in excision and universal
+coefficient arguments.
+\section{Hom and derived functors}
+\label{at-section-hom-derived}
+
+\noindent
+Let $M$ and $N$ be $R$-modules.  The set
+of $R$-linear maps from $M$ to $N$ is an
+abelian group.  Its zero is the zero map,
+and addition and scalar multiplication are
+given pointwise by
+$$
+(f+g)(m)=f(m)+g(m)
+$$
+and
+$$
+(rf)(m)=r f(m).
+$$
+For a commutative ring, this makes
+$\operatorname{Hom}_R(M,N)$ an $R$-module.
+
+\noindent
+Fixing $N$ gives the functor
+$$
+\operatorname{Hom}_R(-,N):
+\operatorname{Mod}_R^{\mathrm{op}}
+\longrightarrow\operatorname{Ab}.
+$$
+A map $\varphi:M\to M'$ induces
+$$
+\varphi^*:
+\operatorname{Hom}_R(M',N)
+\longrightarrow
+\operatorname{Hom}_R(M,N)
+$$
+by precomposition.  In other words,
+$$
+\xymatrix{
+M \ar[d]_\varphi
+  \ar[rd]^{f\varphi} \\
+M' \ar[r]_-f
+  & N.
+}
+$$
+The arrow reverses, so the functor is
+contravariant.
+
+\noindent
+This functor is additive.  The universal
+property behind the isomorphism
+$$
+\operatorname{Hom}_R(M_1\oplus M_2,N)
+\cong
+\operatorname{Hom}_R(M_1,N)
+\oplus
+\operatorname{Hom}_R(M_2,N)
+$$
+is pictured by
+$$
+\xymatrix{
+M_1 \ar@{^{(}->}[r]
+  \ar[rd]_f
+  & M_1\oplus M_2
+    \ar@{-->}[d]^{f\oplus g}
+  & M_2 \ar@{_{(}->}[l]
+    \ar[ld]^g \\
+  & N.
+}
+$$
+The map on the right sends $(f,g)$ to the
+unique map satisfying
+$$
+(f\oplus g)(m_1,m_2)
+=f(m_1)+g(m_2).
+$$
+
+\noindent
+The functor is left exact.  A short exact
+sequence
+$$
+\xymatrix{
+0 \ar[r]
+  & A \ar[r]^-\varphi
+  & B \ar[r]^-\psi
+  & C \ar[r]
+  & 0
+}
+$$
+induces an exact sequence
+$$
+\xymatrix{
+0 \ar[r]
+  & \operatorname{Hom}_R(C,N)
+    \ar[r]^-{\psi^*}
+  & \operatorname{Hom}_R(B,N)
+    \ar[r]^-{\varphi^*}
+  & \operatorname{Hom}_R(A,N).
+}
+$$
+The last map need not be surjective.
+
+\begin{exercise}
+\label{at-exercise-hom-left-exact}
+Verify the preceding exactness and determine
+what measures the cokernel of
+$\varphi^*$.  The original attempted
+solution observed only that left exactness
+does not force a terminal zero.  A concrete
+failure of surjectivity comes from
+$$
+0\longrightarrow2\mathbb{Z}
+\longrightarrow\mathbb{Z}
+\longrightarrow\mathbb{Z}/2\mathbb{Z}
+\longrightarrow0
+$$
+after applying
+$\operatorname{Hom}_{\mathbb{Z}}(-,
+\mathbb{Z}/2\mathbb{Z})$.
+Later we will identify the obstruction with
+an $\operatorname{Ext}^1$ group.
+\end{exercise}
+
+\begin{remark}
+\label{at-remark-hom-second-variable}
+Fixing the first variable instead gives a
+covariant additive left-exact functor.  The
+notes use $M^*$ for
+$\operatorname{Hom}_R(M,N)$ and $M_*$ for
+$\operatorname{Hom}_R(N,M)$.  These symbols
+always depend on the module held fixed.
+\end{remark}
+
+\noindent
+We now derive the contravariant functor.
+An $R$-module is {\it free} if it has the
+form
+$$
+L=\bigoplus_{i\in I}R e_i.
+$$
+Its basis has the following universal
+property.  Every function from
+$\{e_i\}_{i\in I}$ to an $R$-module $M$
+extends uniquely to an $R$-linear map.
+$$
+\xymatrix{
+\{e_i\}_{i\in I}
+  \ar[r]^-f
+  \ar@{^{(}->}[d]
+  & M \\
+L \ar@{-->}[ur]_-{\overline f}
+}
+$$
+An $R$-module $P$ is {\it projective} if
+there is an $R$-module $Q$ such that
+$P\oplus Q$ is free.
+
+\begin{example}
+\label{at-example-chinese-remainder-six}
+The source records
+$$
+\mathbb{Z}/6\mathbb{Z}
+\cong
+\mathbb{Z}/2\mathbb{Z}
+\oplus
+\mathbb{Z}/3\mathbb{Z}.
+$$
+This is the Chinese remainder theorem.  It
+is not an example of a projective
+$\mathbb{Z}$-module: a projective abelian
+group is torsion-free.
+\end{example}
+
+\begin{proposition}
+\label{at-proposition-module-free-quotient}
+Every $R$-module is a quotient of a free
+$R$-module.
+\end{proposition}
+
+\begin{proof}
+Take one basis element for every element of
+$M$.  The universal property gives
+$$
+\xymatrix{
+L=\displaystyle\bigoplus_{m\in M}R e_m
+  \ar@{-->}[r]^-{\overline f}
+  & M \\
+M \ar@{^{(}->}[u]
+  \ar[ur]
+}
+$$
+where $\overline f(e_m)=m$.  This map is
+surjective.
+\end{proof}
+
+\begin{definition}
+\label{at-definition-projective-resolution}
+A {\it free resolution} of an $R$-module
+$M$ is an exact sequence
+$$
+\xymatrix{
+\cdots \ar[r]
+  & F_1 \ar[r]^-{d_1}
+  & F_0 \ar[r]^-{d_0}
+  & M \ar[r]
+  & 0
+}
+$$
+in which every $F_i$ is free.  Replacing
+free modules by projective modules gives a
+{\it projective resolution}.
+\end{definition}
+
+\begin{theorem}
+\label{at-theorem-projective-resolutions}
+Every $R$-module has a free, hence a
+projective, resolution.
+\end{theorem}
+
+\begin{proof}
+Choose a free module $F_0$ surjecting onto
+$M$.  Then choose $F_1$ surjecting onto
+$\ker(d_0)$, and continue with successive
+kernels.  The first step is
+$$
+\xymatrix{
+\cdots \ar[r]
+  & F_1 \ar[r]^-{d_1}
+    \ar[rd]_{q_1}
+  & F_0 \ar[r]^-{d_0}
+  & M \ar[r]
+  & 0 \\
+  & & \ker(d_0)
+      \ar@{^{(}->}[u].
+}
+$$
+Here $d_1$ is the composite of $q_1$ with
+the inclusion.
+\end{proof}
+
+\begin{theorem}[Comparison theorem]
+\label{at-theorem-resolution-comparison}
+Let $\alpha:M\to M'$ be a homomorphism and
+choose projective resolutions of $M$ and
+$M'$.  There is a chain map lifting
+$\alpha$ in the diagram
+$$
+\xymatrix@C=.55em{
+\cdots \ar[r]
+  & F_2 \ar[r]^-{d_2}
+    \ar@{-->}[d]_{\alpha_2}
+  & F_1 \ar[r]^-{d_1}
+    \ar@{-->}[d]_{\alpha_1}
+  & F_0 \ar[r]^-{d_0}
+    \ar@{-->}[d]_{\alpha_0}
+  & M \ar[r] \ar[d]_\alpha
+  & 0 \\
+\cdots \ar[r]
+  & F'_2 \ar[r]_-{d'_2}
+  & F'_1 \ar[r]_-{d'_1}
+  & F'_0 \ar[r]_-{d'_0}
+  & M' \ar[r]
+  & 0.
+}
+$$
+Any two such lifts are chain homotopic.
+\end{theorem}
+
+\begin{proof}
+Since $F_0$ is projective and
+$d'_0:F'_0\longrightarrow M'$ is
+surjective, the map
+$\alpha d_0:F_0\longrightarrow M'$ lifts
+to a map
+$\alpha_0:F_0\longrightarrow F'_0$ such
+that
+$$
+d'_0\alpha_0=\alpha d_0.
+$$
+The lift is represented by
+$$
+\xymatrix{
+  & F'_0 \ar[d]^{d'_0} \\
+F_0 \ar[r]_-{\alpha d_0}
+  \ar@{-->}[ur]^{\alpha_0}
+  & M'.
+}
+$$
+Suppose maps have been constructed through
+degree $n-1$.  The map
+$\alpha_{n-1}d_n$ lands in
+$\ker(d'_{n-1})=\operatorname{im}(d'_n)$.
+Since $F_n$ is projective, it lifts through
+the surjection
+$$
+F'_n\longrightarrow\operatorname{im}(d'_n).
+$$
+Thus the lifting step is
+$$
+\xymatrix{
+  & F'_n \ar@{->>}[d]^{d'_n} \\
+F_n \ar[r]_-{\alpha_{n-1}d_n}
+  \ar@{-->}[ur]^{\alpha_n}
+  & \operatorname{im}(d'_n).
+}
+$$
+This gives $\alpha_n$, and induction gives
+the required chain map.
+
+\noindent
+For uniqueness, let $\alpha_\bullet$ and
+$\beta_\bullet$ be two lifts.  Their
+difference is zero after augmentation.
+Lift that zero successively through the
+surjections onto boundaries.  The resulting
+maps $h_n:F_n\to F'_{n+1}$ satisfy
+$$
+\alpha_n-\beta_n
+=d'_{n+1}h_n+h_{n-1}d_n.
+$$
+Thus the two lifts are chain homotopic.
+\end{proof}
+
+\begin{definition}
+\label{at-definition-ext}
+Choose a projective resolution
+$$
+\xymatrix{
+\cdots \ar[r]
+  & F_1 \ar[r]^-{d_1}
+  & F_0 \ar[r]^-{d_0}
+  & M \ar[r]
+  & 0.
+}
+$$
+Delete the augmentation to obtain
+$$
+\xymatrix{
+\cdots \ar[r]
+  & F_1 \ar[r]^-{d_1}
+  & F_0 \ar[r]
+  & 0.
+}
+$$
+Applying $\operatorname{Hom}_R(-,N)$ gives
+the cochain complex
+$$
+\xymatrix{
+0 \ar[r]
+  & \operatorname{Hom}_R(F_0,N)
+    \ar[r]^-{d_1^*}
+  & \operatorname{Hom}_R(F_1,N)
+    \ar[r]^-{d_2^*}
+  & \operatorname{Hom}_R(F_2,N)
+    \ar[r]
+  & \cdots.
+}
+$$
+The {\it derived functors of Hom} are
+$$
+\operatorname{Ext}^n_R(M,N)
+=
+H^n(\operatorname{Hom}_R(F_\bullet,N)).
+$$
+\end{definition}
+
+\begin{theorem}
+\label{at-theorem-ext-independent}
+The module $\operatorname{Ext}^n_R(M,N)$
+does not depend, up to canonical
+isomorphism, on the projective resolution.
+\end{theorem}
+
+\begin{proof}
+Apply the comparison theorem twice to two
+resolutions of $M$ and the identity of $M$.
+$$
+\xymatrix@C=.5em{
+\cdots \ar[r]
+  & F_2 \ar[r] \ar[d]_{\alpha_2}
+  & F_1 \ar[r] \ar[d]_{\alpha_1}
+  & F_0 \ar[r] \ar[d]_{\alpha_0}
+  & M \ar[r] \ar@{=}[d]
+  & 0 \\
+\cdots \ar[r]
+  & F'_2 \ar[r] \ar[d]_{\beta_2}
+  & F'_1 \ar[r] \ar[d]_{\beta_1}
+  & F'_0 \ar[r] \ar[d]_{\beta_0}
+  & M \ar[r] \ar@{=}[d]
+  & 0 \\
+\cdots \ar[r]
+  & F_2 \ar[r]
+  & F_1 \ar[r]
+  & F_0 \ar[r]
+  & M \ar[r]
+  & 0.
+}
+$$
+The composites $\beta\alpha$ and
+$\alpha\beta$ are homotopic to the
+respective identity maps.  Applying Hom
+reverses the vertical arrows.
+$$
+\xymatrix@C=.7em{
+\cdots
+  & \operatorname{Hom}_R(F_1,N)
+    \ar[l]
+  & \operatorname{Hom}_R(F_0,N)
+    \ar[l] \\
+\cdots
+  & \operatorname{Hom}_R(F'_1,N)
+    \ar[l]
+    \ar[u]_{\alpha_1^*}
+  & \operatorname{Hom}_R(F'_0,N)
+    \ar[l]
+    \ar[u]_{\alpha_0^*} \\
+\cdots
+  & \operatorname{Hom}_R(F_1,N)
+    \ar[l]
+    \ar[u]_{\beta_1^*}
+  & \operatorname{Hom}_R(F_0,N)
+    \ar[l]
+    \ar[u]_{\beta_0^*}.
+}
+$$
+Additivity carries the homotopies to the
+dual complexes.  Hence the induced maps
+on cohomology satisfy
+$$
+\xymatrix{
+\operatorname{Ext}^n_R(M,N) \\
+\operatorname{Ext}^n_R(M,N)
+  \ar[u]^{H^n(\alpha^*)} \\
+\operatorname{Ext}^n_R(M,N)
+  \ar[u]^{H^n(\beta^*)}.
+}
+$$
+After using the two resolutions to
+distinguish the three displayed copies,
+the adjacent maps are inverse
+isomorphisms.
+\end{proof}
+
+\begin{proposition}
+\label{at-proposition-ext-zero}
+There is a natural isomorphism
+$$
+\operatorname{Ext}^0_R(M,N)
+\cong\operatorname{Hom}_R(M,N).
+$$
+\end{proposition}
+
+\begin{proof}
+The beginning of the resolution gives
+$$
+\xymatrix{
+0 \ar[r]
+  & \operatorname{im}(d_1)
+    \ar@{^{(}->}[r]
+  & F_0 \ar[r]^-{d_0}
+  & M \ar[r]
+  & 0.
+}
+$$
+Left exactness gives
+$$
+\xymatrix{
+0 \ar[r]
+  & \operatorname{Hom}_R(M,N)
+    \ar[r]^-{d_0^*}
+  & \operatorname{Hom}_R(F_0,N)
+    \ar[r]^-{d_1^*}
+  & \operatorname{Hom}_R(F_1,N).
+}
+$$
+Thus $\ker(d_1^*)$ is the image of
+$d_0^*$, which proves the assertion.
+\end{proof}
+
+\begin{lemma}[Horseshoe lemma]
+\label{at-lemma-horseshoe}
+Given a short exact sequence
+$$
+0\longrightarrow M'
+\longrightarrow M
+\longrightarrow M''
+\longrightarrow0
+$$
+and projective resolutions of $M'$ and
+$M''$, there is a projective resolution of
+$M$ fitting into a short exact sequence of
+resolutions.
+$$
+\xymatrix@C=.7em@R=1.5em{
+  & 0
+    & 0
+    & 0 \\
+0 \ar[r]
+  & M' \ar[r] \ar[u]
+  & M \ar[r] \ar[u]
+  & M'' \ar[r] \ar[u]
+  & 0 \\
+0 \ar[r]
+  & P'_0 \ar[r] \ar[u]
+  & P_0 \ar[r] \ar[u]
+  & P''_0 \ar[r] \ar[u]
+  & 0 \\
+0 \ar[r]
+  & P'_1 \ar[r] \ar[u]
+  & P_1 \ar[r] \ar[u]
+  & P''_1 \ar[r] \ar[u]
+  & 0 \\
+  & \vdots \ar[u]
+  & \vdots \ar[u]
+  & \vdots \ar[u]
+}
+$$
+\end{lemma}
+
+\begin{proof}
+As modules, take the middle resolution to
+be the direct sum of the outer two.
+$$
+\xymatrix@C=.7em@R=1.5em{
+  & 0
+    & 0
+    & 0 \\
+0 \ar[r]
+  & M' \ar[r] \ar[u]
+  & M \ar[r] \ar[u]
+  & M'' \ar[r] \ar[u]
+  & 0 \\
+0 \ar[r]
+  & P'_0 \ar[r] \ar[u]
+  & P'_0\oplus P''_0 \ar[r] \ar[u]
+  & P''_0 \ar[r] \ar[u]
+  & 0 \\
+  & \vdots \ar[u]
+  & \vdots \ar[u]
+  & \vdots \ar[u].
+}
+$$
+Choose the off-diagonal pieces of the
+differentials inductively so that each
+square commutes.  Exactness follows by the
+usual element chase.  This is the routine
+part alluded to in the original notes.
+\end{proof}
+
+\noindent
+Apply $\operatorname{Hom}_R(-,N)$ to the
+horseshoe sequence.  Degree by degree we
+obtain
+$$
+\xymatrix@C=1.1em{
+  & 0 \ar[d]
+    & 0 \ar[d]
+    & 0 \ar[d] \\
+0
+  & \operatorname{Hom}_R(P'_0,N)
+    \ar[l] \ar[d]
+  & \operatorname{Hom}_R(P_0,N)
+    \ar[l] \ar[d]
+  & \operatorname{Hom}_R(P''_0,N)
+    \ar[l] \ar[d]
+  & 0 \ar[l] \\
+0
+  & \operatorname{Hom}_R(P'_1,N)
+    \ar[l] \ar[d]
+  & \operatorname{Hom}_R(P_1,N)
+    \ar[l] \ar[d]
+  & \operatorname{Hom}_R(P''_1,N)
+    \ar[l] \ar[d]
+  & 0 \ar[l] \\
+  & \cdots & \cdots & \cdots.
+}
+$$
+Equivalently, there is a short exact
+sequence of cochain complexes
+$$
+\xymatrix{
+0
+  & \operatorname{Hom}_R(P'_\bullet,N)
+    \ar[l]
+  & \operatorname{Hom}_R(P_\bullet,N)
+    \ar[l]
+  & \operatorname{Hom}_R(P''_\bullet,N)
+    \ar[l]
+  & 0 \ar[l].
+}
+$$
+The long exact sequence in cohomology is
+$$
+\xymatrix@C=.55em{
+0 \ar[r]
+  & \operatorname{Ext}^0_R(M'',N)
+    \ar[r]
+  & \operatorname{Ext}^0_R(M,N)
+    \ar[r]
+  & \operatorname{Ext}^0_R(M',N)
+    \ar[r]
+  & \operatorname{Ext}^1_R(M'',N)
+    \ar[r]
+  & \cdots.
+}
+$$
+Its beginning can also be written
+$$
+\xymatrix@C=.55em{
+0 \ar[r]
+  & \operatorname{Hom}_R(M'',N)
+    \ar[r]
+  & \operatorname{Hom}_R(M,N)
+    \ar[r]
+  & \operatorname{Hom}_R(M',N)
+    \ar[r]
+  & \operatorname{Ext}^1_R(M'',N)
+    \ar[r]
+  & \cdots.
+}
+$$
+This identifies the cokernel asked for in
+Exercise
+\ref{at-exercise-hom-left-exact}.
+
+\noindent
+A map between short exact sequences
+$$
+\xymatrix{
+0 \ar[r]
+  & M' \ar[r] \ar[d]
+  & M \ar[r] \ar[d]
+  & M'' \ar[r] \ar[d]
+  & 0 \\
+0 \ar[r]
+  & A' \ar[r]
+  & A \ar[r]
+  & A'' \ar[r]
+  & 0
+}
+$$
+lifts to a map of the corresponding
+horseshoe resolutions and, after applying
+Hom, to a reversed diagram
+$$
+\xymatrix@C=1em{
+0
+  & \operatorname{Hom}_R(P'_\bullet,N)
+    \ar[l]
+  & \operatorname{Hom}_R(P_\bullet,N)
+    \ar[l]
+  & \operatorname{Hom}_R(P''_\bullet,N)
+    \ar[l]
+  & 0 \ar[l] \\
+0
+  & \operatorname{Hom}_R(Q'_\bullet,N)
+    \ar[l] \ar[u]
+  & \operatorname{Hom}_R(Q_\bullet,N)
+    \ar[l] \ar[u]
+  & \operatorname{Hom}_R(Q''_\bullet,N)
+    \ar[l] \ar[u]
+  & 0 \ar[l].
+}
+$$
+Consequently the long exact Ext sequences
+form the commutative diagram
+$$
+\xymatrix@C=.4em{
+0 \ar[r]
+  & \operatorname{Ext}^0_R(M'',N)
+    \ar[r]
+  & \operatorname{Ext}^0_R(M,N)
+    \ar[r]
+  & \operatorname{Ext}^0_R(M',N)
+    \ar[r]
+  & \operatorname{Ext}^1_R(M'',N)
+    \ar[r]
+  & \cdots \\
+0 \ar[r]
+  & \operatorname{Ext}^0_R(A'',N)
+    \ar[r] \ar[u]
+  & \operatorname{Ext}^0_R(A,N)
+    \ar[r] \ar[u]
+  & \operatorname{Ext}^0_R(A',N)
+    \ar[r] \ar[u]
+  & \operatorname{Ext}^1_R(A'',N)
+    \ar[r] \ar[u]
+  & \cdots.
+}
+$$
+This is the basic game of derived functors:
+the failure of exactness becomes a sequence
+of new functors, naturally connected to one
+another.
+
+\noindent
+From now until coefficients are changed
+explicitly, take $R=\mathbb{Z}$.  If $A$
+is an abelian group, choose a free
+surjection $P_0\to A$.  Its kernel $P_1$
+is free because every subgroup of a free
+abelian group is free.  Thus
+$$
+\xymatrix{
+0 \ar[r]
+  & P_1 \ar[r]
+  & P_0 \ar[r]
+  & A \ar[r]
+  & 0
+}
+$$
+is a length-one free resolution.  Its dual
+has the form
+$$
+\xymatrix{
+0
+  & \operatorname{Hom}(P_1,B) \ar[l]
+  & \operatorname{Hom}(P_0,B) \ar[l]
+  & 0 \ar[l].
+}
+$$
+It follows that
+$$
+\operatorname{Ext}^n_{\mathbb{Z}}(A,B)=0
+$$
+for every $n\geq2$.
+
+\begin{proposition}
+\label{at-proposition-ext-calculations}
+The following statements hold.
+\begin{enumerate}
+\item The functor
+$\operatorname{Ext}^n_R(-,N)$ is additive.
+\item If $A$ is free, then
+$$
+\operatorname{Ext}^n_{\mathbb{Z}}(A,B)=0
+$$
+for every $n>0$.
+\item There is a natural isomorphism
+$$
+\operatorname{Ext}^1_{\mathbb{Z}}
+(\mathbb{Z}/n\mathbb{Z},B)
+\cong B/nB.
+$$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+For additivity, start with resolutions
+$$
+\xymatrix{
+P'_\bullet \ar[r]
+  & M' \ar[r]
+  & 0 \\
+P''_\bullet \ar[r]
+  & M'' \ar[r]
+  & 0.
+}
+$$
+Their direct sum is a resolution
+$$
+\xymatrix{
+P'_\bullet\oplus P''_\bullet \ar[r]
+  & M'\oplus M'' \ar[r]
+  & 0.
+}
+$$
+Hom takes this finite direct sum to a
+direct sum, and cohomology does likewise.
+For a free $A$, use the resolution
+$0\to A\to A\to0$.
+
+\noindent
+Finally, dualize the standard resolution of
+$\mathbb{Z}/n\mathbb{Z}$.
+$$
+\xymatrix@C=1.2em{
+0
+  & \operatorname{Hom}(\mathbb{Z},B)
+    \ar[l]
+    \ar[d]^\cong
+  & \operatorname{Hom}(\mathbb{Z},B)
+    \ar[l]_-{n^*}
+    \ar[d]^\cong
+  & 0 \ar[l] \\
+0
+  & B \ar[l]
+  & B \ar[l]^-n
+  & 0 \ar[l].
+}
+$$
+The degree-one cohomology is $B/nB$.
+\end{proof}
+
+\noindent
+If $A$ is finitely generated and
+$$
+A\cong
+\mathbb{Z}^r
+\oplus
+\mathbb{Z}/m_1\mathbb{Z}
+\oplus\cdots\oplus
+\mathbb{Z}/m_t\mathbb{Z},
+$$
+then additivity gives
+$$
+\operatorname{Ext}^1_{\mathbb{Z}}(A,B)
+\cong
+B/m_1B\oplus\cdots\oplus B/m_tB.
+$$
+\section{Cohomology and universal
+coefficients}
+\label{at-section-universal-coefficients}
+
+\noindent
+Let $G$ be an abelian group and let
+$C_\bullet$ be a chain complex of free
+abelian groups.
+$$
+\xymatrix{
+\cdots \ar[r]
+  & C_n \ar[r]^-{\partial_n}
+  & C_{n-1}
+    \ar[r]^-{\partial_{n-1}}
+  & C_{n-2} \ar[r]
+  & \cdots
+}
+$$
+Applying
+$\operatorname{Hom}_{\mathbb{Z}}(-,G)$
+gives the cochain complex
+$$
+\xymatrix{
+\cdots \ar[r]
+  & C^{n-1} \ar[r]^-{\delta^{n-1}}
+  & C^n \ar[r]^-{\delta^n}
+  & C^{n+1} \ar[r]
+  & \cdots,
+}
+$$
+where
+$$
+C^n=\operatorname{Hom}(C_n,G)
+$$
+and
+$$
+\delta^n(\varphi)
+=
+\varphi\partial_{n+1}.
+$$
+The $n$-th cohomology group is
+$$
+H^n(C_\bullet;G)
+=
+\frac{\ker(\delta^n)}
+{\operatorname{im}(\delta^{n-1})}.
+$$
+Thus the relevant part of the cochain
+complex is
+$$
+\xymatrix{
+\operatorname{Hom}(C_{n-1},G)
+  \ar[r]^-{\delta^{n-1}}
+  & \operatorname{Hom}(C_n,G)
+    \ar[r]^-{\delta^n}
+  & \operatorname{Hom}(C_{n+1},G).
+}
+$$
+The coboundary is precomposition with the
+chain boundary, as in
+$$
+\xymatrix{
+C_n \ar[r]^-\varphi
+  & G \\
+C_{n+1} \ar[u]^{\partial_{n+1}}
+  \ar[ur]_{\varphi\partial_{n+1}}.
+}
+$$
+Cocycles are precisely the homomorphisms
+that vanish on boundaries.
+
+\noindent
+Homology and dualization do not commute in
+general.
+
+\begin{example}
+\label{at-example-uct-two-complex}
+Consider the complex concentrated in
+degrees one and zero,
+$$
+\xymatrix{
+C_\bullet
+  & 0 \ar[r]
+  & \mathbb{Z} \ar[r]^-2
+  & \mathbb{Z} \ar[r]
+  & 0.
+}
+$$
+Dualizing with integer coefficients gives
+$$
+\xymatrix{
+C^\bullet
+  & 0
+  & \mathbb{Z} \ar[l]
+  & \mathbb{Z} \ar[l]_-2
+  & 0 \ar[l].
+}
+$$
+Consequently
+$$
+H^0(C_\bullet;\mathbb{Z})=0
+$$
+and
+$$
+H^1(C_\bullet;\mathbb{Z})
+\cong\mathbb{Z}/2\mathbb{Z},
+$$
+whereas
+$$
+\operatorname{Hom}
+(H_n(C_\bullet),\mathbb{Z})=0
+$$
+in every degree.
+\end{example}
+
+\noindent
+There is nevertheless a natural evaluation
+map
+$$
+h:H^n(C_\bullet;G)
+\longrightarrow
+\operatorname{Hom}(H_n(C_\bullet),G).
+$$
+If a cocycle $g:C_n\to G$ vanishes on
+$B_n$, then its restriction to $Z_n$
+factors through $Z_n/B_n$.  We set
+$$
+h[g]([z])=g(z).
+$$
+
+\begin{proposition}
+\label{at-proposition-uct-map-surjective}
+The map $h$ is surjective.  It has a group
+homomorphism section, although the section
+is not natural in $C_\bullet$.
+\end{proposition}
+
+\begin{proof}
+Let
+$$
+\overline g:H_n(C_\bullet)\longrightarrow G.
+$$
+The sequence
+$$
+\xymatrix{
+0 \ar[r]
+  & Z_n \ar@{^{(}->}[r]
+  & C_n \ar@{->>}[r]^-{\partial_n}
+  & B_{n-1} \ar[r]
+  & 0
+}
+$$
+splits because $B_{n-1}$ is a subgroup of
+the free abelian group $C_{n-1}$, hence is
+free.  Choose a retraction $r:C_n\to Z_n$.
+Then the dashed composite in
+$$
+\xymatrix{
+Z_n \ar[r]
+  & H_n(C_\bullet)
+    \ar[r]^-{\overline g}
+  & G \\
+C_n \ar[u]^r
+  \ar@{-->}[urr]_-g
+}
+$$
+is a cocycle and restricts to
+$\overline g$.  This produces a section of
+$h$.  The choice of splitting explains why
+the section is not natural.
+\end{proof}
+
+\begin{corollary}
+\label{at-lemma-uct-split-form}
+There is a noncanonical decomposition
+$$
+H^n(C_\bullet;G)
+\cong
+\operatorname{Hom}(H_n(C_\bullet),G)
+\oplus\ker(h).
+$$
+\end{corollary}
+
+\begin{proposition}
+\label{at-proposition-uct-kernel}
+There is a natural isomorphism
+$$
+\ker(h)
+\cong
+\operatorname{Ext}^1_{\mathbb{Z}}
+(H_{n-1}(C_\bullet),G).
+$$
+\end{proposition}
+
+\begin{proof}
+Write $Z_n=\ker(\partial_n)$ and
+$B_n=\operatorname{im}(\partial_{n+1})$.
+There is a short exact sequence of graded
+complexes
+$$
+\xymatrix@C=.6em@R=1.5em{
+  & 0 \ar[d]
+    & & \\
+Z_\bullet \ar[d]
+  & \cdots \ar[r]
+  & Z_n \ar[r]^0 \ar@{^{(}->}[d]
+  & Z_{n-1} \ar[r]^0
+    \ar@{^{(}->}[d]
+  & \cdots \\
+C_\bullet \ar[d]
+  & \cdots \ar[r]
+  & C_n \ar[r]^-{\partial_n}
+    \ar@{->>}[d]
+  & C_{n-1}
+    \ar[r]^-{\partial_{n-1}}
+    \ar@{->>}[d]
+  & \cdots \\
+B_{\bullet-1} \ar[d]
+  & \cdots \ar[r]
+  & B_{n-1} \ar[r]^0
+  & B_{n-2} \ar[r]^0
+  & \cdots \\
+  & 0
+}
+$$
+whose degreewise rows are split.  After
+dualizing, the order reverses:
+$$
+\xymatrix{
+0 \ar[r]
+  & B_{\bullet-1}^* \ar[r]
+  & C_\bullet^* \ar[r]
+  & Z_\bullet^* \ar[r]
+  & 0.
+}
+$$
+The associated long exact sequence contains
+$$
+\xymatrix@C=.5em{
+\cdots \ar[r]
+  & B_{n-1}^* \ar[r]
+  & H^n(C_\bullet;G) \ar[r]
+  & Z_n^* \ar[r]^-{i_n^*}
+  & B_n^* \ar[r]
+  & H^{n+1}(C_\bullet;G)
+    \ar[r]
+  & \cdots.
+}
+$$
+
+\begin{lemma}[Claim]
+\label{at-lemma-dual-inclusion-restriction}
+The map
+$$
+i_n^*:Z_n^*\longrightarrow B_n^*
+$$
+is restriction along $B_n\subset Z_n$.
+\end{lemma}
+
+\begin{remark}
+\label{at-remark-dual-inclusion}
+More generally, the dual of an inclusion is
+the corresponding restriction map.
+\end{remark}
+
+\noindent
+The chain-level origin of the map can be
+displayed as follows.  All arrows have now
+been given the variance and indices forced
+by dualization.
+$$
+\xymatrix@C=.35em@R=1.4em{
+\cdots \ar[r]
+  & Z_{n-1}^* \ar[r]^0
+  & Z_n^* \ar[r]^0
+  & Z_{n+1}^* \ar[r]
+  & \cdots \\
+\cdots \ar[r]
+  & C_{n-1}^*
+    \ar[r]^-{\delta^{n-1}} \ar[u]
+  & C_n^* \ar[r]^-{\delta^n} \ar[u]
+  & C_{n+1}^* \ar[r] \ar[u]
+  & \cdots \\
+\cdots \ar[r]
+  & B_{n-2}^* \ar[r]^0 \ar[u]
+  & B_{n-1}^* \ar[r]^0 \ar[u]
+  & B_n^* \ar[r] \ar[u]
+  & \cdots.
+}
+$$
+Choosing an extension can be pictured by
+$$
+\xymatrix{
+  & Z_n \ar[r]^-g
+    \ar@{^{(}->}[d]
+  & G \\
+B_n \ar@{^{(}->}[ur]
+  \ar@{^{(}->}[r]
+  & C_n \ar@{-->}[ur]_-{\overline g} \\
+  & C_{n+1}
+    \ar[u]_{\partial_{n+1}}
+    \ar[ul]^{\partial_{n+1}}
+}
+$$
+but the extension is not canonical.  This
+is why the source seemed to change a
+restriction into an extension.
+
+\noindent
+Exactness now gives a short exact sequence
+$$
+\xymatrix{
+0 \ar[r]
+  & \operatorname{coker}(i_{n-1}^*)
+    \ar[r]
+  & H^n(C_\bullet;G) \ar[r]^-h
+  & \ker(i_n^*) \ar[r]
+  & 0.
+}
+$$
+
+\begin{lemma}[Claim]
+\label{at-lemma-uct-kernel-hom}
+There is a natural equality
+$$
+\ker(i_n^*)
+=
+\operatorname{Hom}(H_n(C_\bullet),G).
+$$
+\end{lemma}
+
+\begin{lemma}[Claim]
+\label{at-lemma-uct-kernel-cokernel}
+Under the preceding identifications,
+$$
+\ker(h)=\operatorname{coker}(i_{n-1}^*).
+$$
+\end{lemma}
+
+\noindent
+It remains to identify this cokernel.  By
+definition it completes the sequence
+$$
+\xymatrix{
+Z_{n-1}^* \ar[r]^-{i_{n-1}^*}
+  & B_{n-1}^* \ar[r]
+  & \operatorname{coker}(i_{n-1}^*)
+    \ar[r]
+  & 0.
+}
+$$
+On the other hand, cycles and boundaries
+give the free resolution
+$$
+\xymatrix{
+0 \ar[r]
+  & B_{n-1} \ar@{^{(}->}[r]
+  & Z_{n-1} \ar@{->>}[r]
+  & H_{n-1}(C_\bullet) \ar[r]
+  & 0.
+}
+$$
+Dualizing it produces the exact sequence
+{\small
+$$
+\xymatrix@C=.2em{
+0 \ar[r]
+  & \operatorname{Hom}
+    (H_{n-1}(C_\bullet),G)
+  \ar[r]
+  & Z_{n-1}^* \ar[r]^-{i_{n-1}^*}
+  & B_{n-1}^* \ar[r]
+  & \operatorname{Ext}^1
+    (H_{n-1}(C_\bullet),G)
+  \ar[r]
+  & 0.
+}
+$$
+}
+This replaces the nonexact four-term sketch
+in the source and proves the proposition.
+\end{proof}
+
+\begin{theorem}[Universal coefficient
+theorem]
+\label{at-theorem-universal-coefficients}
+Let $G$ be an abelian group and let
+$C_\bullet$ be a chain complex of free
+abelian groups.  There is a natural split
+short exact sequence
+$$
+\xymatrix@C=.55em{
+0 \ar[r]
+  & \operatorname{Ext}^1_{
+    \mathbb{Z}}(H_{n-1}(C_\bullet),G)
+    \ar[r]
+  & H^n(C_\bullet;G) \ar[r]^-h
+  & \operatorname{Hom}_{\mathbb{Z}}
+    (H_n(C_\bullet),G)
+    \ar[r]
+  & 0.
+}
+$$
+The splitting need not be natural.
+
+If $\alpha:C_\bullet\to C'_\bullet$ is a
+chain map, naturality means that
+$$
+\xymatrix@C=.35em@R=2.3em{
+0 \ar[r]
+  & \operatorname{Ext}^1
+    (H_{n-1}(C_\bullet),G)
+    \ar[r]
+  & H^n(C_\bullet;G) \ar[r]^-h
+  & \operatorname{Hom}
+    (H_n(C_\bullet),G)
+    \ar[r]
+  & 0 \\
+0 \ar[r]
+  & \operatorname{Ext}^1
+    (H_{n-1}(C'_\bullet),G)
+    \ar[r] \ar[u]
+  & H^n(C'_\bullet;G)
+    \ar[r]_-{h'} \ar[u]^{\alpha^*}
+  & \operatorname{Hom}
+    (H_n(C'_\bullet),G)
+    \ar[r] \ar[u]
+  & 0
+}
+$$
+commutes.  The outer vertical maps are
+induced contravariantly by the homology maps
+$H_*(\alpha)$.
+\end{theorem}
+
+\begin{remark}
+\label{at-remark-name-universal}
+The name reflects the fact that integral
+homology determines cohomology with every
+abelian coefficient group.
+\end{remark}
+
+\begin{proof}
+Only naturality remains.  The chain map
+induces a map of split short exact
+sequences
+$$
+\xymatrix@C=.7em{
+0 \ar[r]
+  & Z_\bullet \ar[r] \ar[d]
+  & C_\bullet \ar[r] \ar[d]^\alpha
+  & B_{\bullet-1} \ar[r] \ar[d]
+  & 0 \\
+0 \ar[r]
+  & Z'_\bullet \ar[r]
+  & C'_\bullet \ar[r]
+  & B'_{\bullet-1} \ar[r]
+  & 0.
+}
+$$
+Dualization reverses both rows and vertical
+arrows.
+$$
+\xymatrix@C=.7em{
+0 \ar[r]
+  & B_{\bullet-1}^* \ar[r]
+  & C_\bullet^* \ar[r]
+  & Z_\bullet^* \ar[r]
+  & 0 \\
+0 \ar[r]
+  & B_{\bullet-1}^{'*}
+    \ar[r] \ar[u]
+  & C_\bullet^{'*}
+    \ar[r] \ar[u]^{\alpha^*}
+  & Z_\bullet^{'*}
+    \ar[r] \ar[u]
+  & 0.
+}
+$$
+Passing to the short exact sequences
+identified above gives
+$$
+\xymatrix@C=.5em{
+0 \ar[r]
+  & \operatorname{coker}(i_{n-1}^*)
+    \ar[r]
+  & H^n(C_\bullet;G) \ar[r]
+  & \ker(i_n^*) \ar[r]
+  & 0 \\
+0 \ar[r]
+  & \operatorname{coker}(i_{n-1}^{'*})
+    \ar[r] \ar[u]
+  & H^n(C'_\bullet;G)
+    \ar[r] \ar[u]^{\alpha^*}
+  & \ker(i_n^{'*})
+    \ar[r] \ar[u]
+  & 0,
+}
+$$
+which is the desired naturality square.
+\end{proof}
+
+\begin{corollary}
+\label{at-lemma-uct-finitely-generated}
+Suppose $H_n(C_\bullet)$ and
+$H_{n-1}(C_\bullet)$ are finitely
+generated.  Write
+$$
+H_n(C_\bullet)
+\cong\mathbb{Z}^{r_n}\oplus T_n
+$$
+and
+$$
+H_{n-1}(C_\bullet)
+\cong\mathbb{Z}^{r_{n-1}}\oplus T_{n-1},
+$$
+where the $T_i$ are finite.  Then
+$$
+H^n(C_\bullet;\mathbb{Z})
+\cong\mathbb{Z}^{r_n}\oplus T_{n-1}.
+$$
+\end{corollary}
+
+\begin{proof}
+The universal coefficient theorem and the
+calculations of Ext give
+$$
+\begin{aligned}
+H^n(C_\bullet;\mathbb{Z})
+&\cong
+\operatorname{Hom}
+(H_n(C_\bullet),\mathbb{Z})
+\\
+&\quad\oplus
+\operatorname{Ext}^1
+(H_{n-1}(C_\bullet),\mathbb{Z})
+\\
+&\cong
+\mathbb{Z}^{r_n}\oplus T_{n-1}.
+\end{aligned}
+$$
+\end{proof}
+
+\begin{corollary}
+\label{at-lemma-homology-implies-cohomology}
+If a chain map induces isomorphisms on
+homology, then it induces isomorphisms on
+cohomology with every fixed coefficient
+group.
+\end{corollary}
+
+\begin{proof}
+In the naturality diagram for the universal
+coefficient theorem, the two outer vertical
+maps are isomorphisms.  The five lemma gives
+the result.
+\end{proof}
+
+\section{Simplices}
+\label{section-simplices}
+
+We begin with the geometric objects on which
+singular chains are parametrized.
+
+\begin{definition}
+Let $v_0,\ldots,v_n$ be affinely
+independent points in $\mathbb{R}^m$. The
+\emph{$n$-simplex} with these vertices is
+their convex hull, denoted
+$[v_0,\ldots,v_n]$.
+$$
+[v_0,\ldots,v_n]
+=
+\{t_0v_0+\cdots+t_nv_n
+\mid t_i\geq0,\ t_0+\cdots+t_n=1\}.
+$$
+\end{definition}
+
+Here are the first four dimensions.
+
+\begin{center}
+\includegraphics[width=.86\textwidth]{
+algebraic-topology-assets/simplices
+}
+\end{center}
+
+\begin{definition}
+The \emph{standard $n$-simplex} is the
+convex hull of the standard basis vectors
+$e_0,\ldots,e_n$ in $\mathbb{R}^{n+1}$.
+$$
+\Delta^n=
+\{(t_0,\ldots,t_n)\in\mathbb{R}^{n+1}
+\mid t_i\geq0,\ t_0+\cdots+t_n=1\}.
+$$
+\end{definition}
+
+The corrected low-dimensional standard
+simplices are shown below.
+
+\begin{center}
+\includegraphics[width=.72\textwidth]{
+algebraic-topology-assets/standard-simplices
+}
+\end{center}
+
+The order of the vertices matters. There is a
+canonical affine homeomorphism
+
+$$
+\begin{aligned}
+(v_0,\ldots,v_n):\Delta^n
+&\longrightarrow[v_0,\ldots,v_n]\\
+(t_0,\ldots,t_n)
+&\longmapsto t_0v_0+\cdots+t_nv_n.
+\end{aligned}
+$$
+The numbers $(t_0,\ldots,t_n)$ are the
+\emph{barycentric coordinates} of the image
+point.
+
+\begin{definition}
+A \emph{face} of $[v_0,\ldots,v_n]$ is
+the subsimplex generated by a nonempty subset
+of its vertices.
+\end{definition}
+
+We orient an edge $[v_i,v_j]$ from $v_i$ to
+$v_j$ when $i<j$. The ordering of all the
+vertices orients a higher-dimensional face.
+Deleting $v_i$ gives the induced face with
+the sign $(-1)^i$. This answers the question
+from the original notes about the orientation
+of two-dimensional faces.
+
+\begin{center}
+\includegraphics[width=.72\textwidth]{
+algebraic-topology-assets/%
+oriented-simplex-faces
+}
+\end{center}
+\section{The singular chain complex}
+\label{section-singular-chain-complex}
+
+Take a topological space $X$ and an
+associative ring with unit $R$.
+
+\begin{definition}
+A \emph{singular $n$-simplex} in $X$ is a
+continuous map $\sigma:\Delta^n\to X$.
+\end{definition}
+
+The word ``singular'' comes from the fact
+that no conditions
+are imposed on $\sigma$ except continuity.
+This means that a
+singular simplex may look quite different
+from what we first
+imagine.
+
+The free $R$-module on all singular
+$n$-simplices is denoted $C_n(X)$. Its
+elements are finite sums
+$$
+\sum_{i=1}^m r_i\sigma_i
+\qquad
+m\in\mathbb{N},\quad r_i\in R.
+$$
+These elements are called \emph{singular
+$n$-chains}. We want to construct the
+following sequence.
+% D31
+\begin{equation}
+\label{equation-singular-chain-complex}
+\xymatrix@C=1.7em{
+\cdots \ar[r]
+ & C_{n+1}(X) \ar[r]^{\partial_{n+1}}
+ & C_n(X) \ar[r]^{\partial_n}
+ & C_{n-1}(X) \ar[r]^{\partial_{n-1}}
+ & \cdots \ar[r]^{\partial_1}
+ & C_0(X)
+}
+\end{equation}
+To do this it is enough to define
+$\partial_n:C_n(X)\to C_{n-1}(X)$ as follows:
+for a singular
+$n$-simplex
+$\sigma:\Delta^n=[v_0,\ldots,v_n]\to X$,
+$$
+\partial_n(\sigma)=
+\sum_{i=0}^n(-1)^i
+\sigma|[v_0,\ldots,\hat v_i,\ldots,v_n].
+$$
+Let $\delta_i:\Delta^{n-1}\to\Delta^n$
+be the affine map onto the face obtained by
+deleting $v_i$:
+$$
+[v_0,\ldots,\hat v_i,\ldots,v_n]
+:=
+[v_0,\ldots,v_{i-1},v_{i+1},\ldots,v_n],
+$$
+so the restriction in the formula means
+$\sigma\delta_i$. The maps fit into the
+following commutative diagram.
+% D32
+$$
+\xymatrix@C=2.2em@R=2.5em{
+[v_0,\ldots,\hat v_i,\ldots,v_n]
+  \ar@{^{(}->}[r]
+  & [v_0,\ldots,v_n] \ar[r]^{\sigma}
+  & X \\
+\Delta^{n-1} \ar[u]^{\cong}
+  \ar[urr]_{\sigma\delta_i}
+  & &
+}
+$$
+The lower-left isomorphism sends vertices in
+order and skips the $i$-th vertex. Defining
+$\partial_n$ on this basis and extending
+linearly gives the desired boundary map.
+
+Now we see a proposition:
+
+\begin{proposition}
+$\partial_{n-1}\circ\partial_n=0$.
+\end{proposition}
+
+\begin{proof}
+Every codimension-two face occurs twice in
+$\partial_{n-1}\partial_n\sigma$, with
+opposite signs, according to which of its two
+missing vertices is deleted first.
+\end{proof}
+
+Thus the sequence
+\eqref{equation-singular-chain-complex} is a
+chain complex, which we
+call the \emph{singular chain complex of
+$X$}, denoted
+$C_\bullet(X)$. We can now consider its
+homology groups and
+define
+$$
+H_n(X;R):=H_n(C_\bullet(X))
+$$
+as the \emph{$n$-th singular homology group
+of $X$ with
+coefficients in $R$}.
+\section{Homology and path-connected
+components}
+\label{section-homology-components}
+
+\begin{proposition}
+Let
+$X=\bigsqcup_{i\in I}X_i$
+be the decomposition of the topological
+space $X$ into path-connected components.
+Then
+$$
+H_n\left(\bigsqcup_{i\in I}X_i;R\right)
+\cong
+\bigoplus_{i\in I}H_n(X_i;R).
+$$
+\end{proposition}
+\section{The zeroth homology group}
+\label{section-zeroth-homology}
+
+\begin{proposition}
+For any space $X$, $H_0(X;R)$ is a direct sum
+of copies of
+$R$, one for each path-connected component.
+\end{proposition}
+\section{Homology of a point}
+\label{section-homology-point}
+
+\begin{proposition}
+If $X$ consists of a single point, then
+$$
+H_0(X;R)\cong R,
+$$
+and $H_n(X;R)=0$ for $n\neq0$.
+\end{proposition}
+
+For this to be fully intuitive: we would like
+the homology of
+this space to be zero in all dimensions. We
+will fix this in
+the next section.
+\section{Reduced
+homology}\label{section-reduced-homology}
+
+Reduced homology is a variant of singular
+homology useful for
+computations in low dimensions.
+
+\begin{definition}
+Let $X$ be a topological space and $R$ an
+associative ring
+with unit. The \emph{reduced homology} groups
+of $X$ with
+coefficients in $R$, denoted $\tilde H(X;R)$,
+are the
+homology groups of the chain complex
+% D33
+$$
+\xymatrix@C=1.25em{
+\cdots \ar[r]
+ & C_p(X) \ar[r]^{\partial_p}
+ & C_{p-1}(X) \ar[r]
+ & \cdots \ar[r]
+ & C_1(X) \ar[r]^{\partial_1}
+ & C_0(X) \ar[r]^{\varepsilon}
+ & R \ar[r]
+ & 0
+}
+$$
+where
+$\varepsilon(\sum n_i\sigma_i)=\sum n_i$ is
+the
+\emph{augmentation map}.
+\end{definition}
+
+\begin{remark}
+Since the chain complex is identical to the
+singular chain
+complex except at the rightmost terms,
+reduced homology can
+only differ from singular homology in
+dimension 0. That is,
+$\tilde H_n(X;R)=H_n(X;R)$ for every
+$n\geq1$.
+\end{remark}
+
+\begin{exercise}[Reduced homology of a
+one-point space]
+If $X=\{x\}$, then $\tilde H_0(X;R)=0$.
+\end{exercise}
+
+\begin{proof}
+For a point, $C_0(X)$ is freely generated by
+the constant zero-simplex. The augmentation
+is
+therefore an isomorphism. Equivalently, the
+following sequence is exact.
+% D34
+$$
+\xymatrix{
+0 \ar[r]
+ & \operatorname{im}\partial_1
+   \ar@{^{(}->}[r]
+ & C_0(X) \ar@{->>}[r]^{\varepsilon}
+ & R \ar[r]
+ & 0
+}
+$$
+Here both $\ker\varepsilon$ and
+$\operatorname{im}\partial_1$ vanish. Hence
+$\tilde H_0(X;R)=0$.
+\end{proof}
+
+\begin{exercise}
+If $X$ is nonempty, then
+$H_0(X;R)=\tilde H_0(X;R)\oplus R$.
+\end{exercise}
+
+\begin{proof}
+By the definition of $\varepsilon$, we know
+that
+$\varepsilon|_{
+\operatorname{im}\partial_1}=0$.
+
+Recall that, in general, a map out of a group
+descends to the
+quotient by a normal subgroup if its kernel
+contains that
+subgroup. This means that we have an induced
+map
+$$
+\bar\varepsilon:H_0(X;R)
+=C_0(X)/\operatorname{im}\partial_1
+\longrightarrow
+R.
+$$
+This map is surjective, and its kernel is
+$\ker\varepsilon/\operatorname{im}\partial_1
+=\tilde H_0(X;R)$. Thus there is a short
+exact
+sequence.
+% D35
+$$
+\xymatrix{
+0 \ar[r]
+ & \tilde H_0(X;R) \ar@{^{(}->}[r]
+ & H_0(X;R) \ar@{->>}[r]^
+   {\bar\varepsilon}
+ & R \ar[r]
+ & 0
+}
+$$
+Choose a point $x\in X$. Sending $r\in R$ to
+the class of $r x$ is a section of
+$\bar\varepsilon$. The sequence therefore
+splits, and
+$$
+H_0(X;R)\cong\tilde H_0(X;R)\oplus R.
+$$
+\end{proof}
+\section{Functoriality}
+\label{section-homology-functoriality}
+
+In this section we will prove that, in
+categorical language,
+the assignment sending each topological space
+to its chain
+complex is functorial. Also, the assignment
+sending each
+space to its $n$-th homology group is
+functorial.
+
+In other words, what we will see is that maps
+between
+topological spaces induce maps between
+singular chain
+complexes and therefore also maps between
+singular homology
+groups; moreover, compositions go to
+compositions and the
+identity goes to the identity.
+\section{Homotopy invariance}
+\label{section-homology-homotopy-invariance}
+
+First recall Definition
+\ref{definition-homotopic-maps}.
+
+\begin{definition}
+Two functions $f,g:X\to Y$ are
+\emph{homotopic} if there
+exists a function $H:X\times I\to Y$ such
+that
+$$
+H(x,0)=f(x)\qquad\forall x\in X,
+\qquad
+H(x,1)=g(x)\qquad\forall x\in X,
+$$
+and this is denoted by $f\simeq g$.
+\end{definition}
+
+\begin{definition}
+Two spaces $X$ and $Y$ are \emph{homotopy
+equivalent} if
+there exist functions called \emph{homotopy
+equivalences}
+$f:X\to Y$ and $g:Y\to X$ such that
+$g\circ f\simeq\operatorname{id}_X$ and
+$f\circ g\simeq\operatorname{id}_Y$. This is
+denoted by $X\simeq Y$.
+\end{definition}
+
+Now:
+
+\begin{theorem}
+If two functions $f,g:X\to Y$ are homotopic,
+then they induce
+the same homomorphism on the $n$-th homology
+group,
+$f_*=g_*:H_n(X)\to H_n(Y)$, for every $n$.
+\end{theorem}
+
+\begin{corollary}
+If $f:X\to Y$ is a homotopy equivalence, then
+the induced map
+$f_*:H_n(X)\to H_n(Y)$ is an isomorphism for
+every $n$.
+\end{corollary}
+
+\begin{proof}
+Using the theorem and the functoriality
+properties.
+\end{proof}
+
+\begin{example}
+If $X\simeq\{x_0\}$, that is, if $X$ is
+\emph{contractible}, then
+$$
+H_0(X;R)\cong R,
+$$
+and $H_n(X;R)=0$ for $n\neq0$.
+\end{example}
+\section{Relative homology}
+\label{section-relative-homology}
+
+Relative homology is a kind of singular
+homology which
+generalizes reduced homology. The point will
+be to define the
+homology of the space while ``ignoring what
+happens inside
+the subspace.''
+
+Take topological spaces $A\subseteq X$. We
+say that $(X,A)$
+is a \emph{pair}. Notice that $C_\bullet(A)$
+is a
+subcomplex of $C_\bullet(X)$, so we can
+define the relative
+complex
+$$
+C_\bullet(X,A)=C_\bullet(X)/C_\bullet(A).
+$$
+This simply means that for every $n$,
+$$
+C_n(X,A)=C_n(X)/C_n(A),
+$$
+so chains in $A$ become trivial.
+
+It is clear that the $n$-th boundary operator
+restricted to
+$C_n(A)$ maps to $C_{n-1}(A)$, since the
+boundary of a chain
+in $A$ could not leave $A$. This means that
+the boundary map
+is well defined on the quotient, giving a
+chain complex
+% D36
+$$
+\xymatrix@C=1.7em{
+\cdots \ar[r]
+ & C_{n+1}(X,A)
+   \ar[r]^{\overline\partial_{n+1}}
+ & C_n(X,A) \ar[r]^{\overline\partial_n}
+ & C_{n-1}(X,A) \ar[r]
+ & \cdots
+}
+$$
+This induces the homology
+$$
+H_n(X,A)=
+\ker\overline\partial_n/
+\operatorname{im}\overline\partial_{n+1}.
+$$
+
+The first thing that happens is that we have
+a short exact
+sequence to which we will apply the
+fundamental theorem of
+homological algebra:
+% D37
+$$
+\xymatrix{
+0 \ar[r]
+ & C_\bullet(A) \ar@{^{(}->}[r]^i
+ & C_\bullet(X) \ar@{->>}[r]^j
+ & C_\bullet(X,A) \ar[r]
+ & 0
+}
+$$
+Thus we obtain the \emph{long exact sequence
+of the pair}
+% D38
+$$
+\xymatrix@C=.65em{
+\cdots \ar[r]
+ & H_n(A) \ar[r]^{i_*}
+ & H_n(X) \ar[r]^{j_*}
+ & H_n(X,A) \ar[r]^{\delta_n}
+ & H_{n-1}(A) \ar[r]^{i_*}
+ & H_{n-1}(X) \ar[r]^{j_*}
+ & H_{n-1}(X,A) \ar[r]
+ & \cdots
+}
+$$
+
+\begin{remark}
+If the homology groups of the pair $C_p(X,A)$
+were trivial,
+we would automatically have that the map
+induced by the
+inclusion is an isomorphism. In fact, this is
+an if and only
+if. Thus the homology groups of the pair
+measure how
+different the homology groups of $A$ are from
+those of $X$.
+\end{remark}
+
+\begin{remark}
+We add that although the map $\delta$ used to
+complete the
+long exact sequence of the pair comes from
+the fundamental
+theorem of homological algebra, when we
+recall the proof of
+that theorem we see that this map acts
+exactly like the
+original boundary operator of $X$.
+\end{remark}
+
+\begin{remark}
+It is also possible to define the
+\emph{reduced homology of
+the pair}; see Hatcher. In fact it turns out
+to be equal to
+the homology of the pair just defined, that
+is,
+$\tilde H_n(X,A)=H_n(X,A)$.
+\end{remark}
+
+\begin{exercise}
+For a nonempty space $X$ and $x_0\in X$,
+$$
+H_n(X,\{x_0\})\cong\tilde H_n(X)
+$$
+for every $n\geq0$.
+\begin{proof}[Solution]
+The reduced long exact sequence of the pair
+and the vanishing of all reduced homology
+groups of a point give the isomorphism.
+
+The original notes ask whether this can be
+seen before introducing the long exact
+sequence. It can: quotienting $C_0(X)$ by the
+constant simplex at $x_0$ produces a chain
+complex chain-homotopy equivalent to the
+augmented singular complex. Thus the same
+isomorphism follows directly at chain level.
+\end{proof}
+\end{exercise}
+
+
+\begin{exercise}
+Let $X=S^1\times S^1$, and let $A$ be a
+nonempty finite subset with $k$ points.
+Compute $H_n(X,A;R)$.
+\end{exercise}
+
+\begin{proof}[Solution]
+The positive homology of the discrete space
+$A$ vanishes; its singular chain groups do
+not vanish. Since $A$ has disjoint
+contractible
+neighbourhoods, $(X,A)$ is a good pair. The
+relevant reduced exact sequence and its
+evaluation are as follows.
+% D63
+$$
+\xymatrix@C=.9em@R=2.5em{
+\cdots \ar[r]
+ & \tilde H_1(A) \ar[r]
+ & \tilde H_1(X) \ar[r]
+ & \tilde H_1(X/A) \ar[r]
+ & \tilde H_0(A) \ar[r]
+ & \tilde H_0(X) \ar[r]
+ & \cdots \\
+\cdots \ar[r]
+ & 0 \ar[r]
+ & R^2 \ar[r]
+ & \tilde H_1(X/A) \ar[r]
+ & R^{k-1} \ar[r]
+ & 0 \ar[r]
+ & \cdots
+}
+$$
+The right-hand module is free, so this short
+exact portion splits. Consequently
+$$
+H_1(X,A;R)\cong R^{k+1}.
+$$
+The rest of the pair sequence gives
+$$
+H_2(X,A;R)\cong R,
+\qquad
+H_0(X,A;R)=0,
+$$
+and all groups in degrees greater than two
+vanish.
+\end{proof}
+\section{Maps of pairs}
+\label{section-maps-of-pairs}
+
+\begin{remark}
+A function between pairs $f:(X,A)\to(Y,B)$
+induces a function
+$f_\#:C_\bullet(X,A)\to C_\bullet(Y,B)$ and
+therefore also a
+function $f_*:H_n(X,A)\to H_n(Y,B)$.
+\end{remark}
+
+\begin{proposition}
+If two functions between pairs
+$f,g:(X,A)\to(Y,B)$ are
+homotopic through functions between pairs,
+then the induced
+maps $f_*$ and $g_*$ are equal.
+\end{proposition}
+\section{Splitting lemma}
+\label{section-splitting-lemma}
+\label{subsec:splitting}
+
+Take the case where there is a retraction
+$r:X\to A$, that
+is, $r\circ i=\operatorname{id}_A$, where
+$i$ is the inclusion.
+This implies that
+$(ri)_*=r_*i_*=id_{H_n(A)}$, so $i_*$ is
+injective, and in
+fact we can break the exact sequence of the
+pair into short
+exact sequences of the form
+% D39
+$$
+\xymatrix{
+0 \ar[r]
+ & H_n(A) \ar@{^{(}->}[r]^{i_*}
+ & H_n(X) \ar@{->>}[r]^{j_*}
+   \ar@/^1pc/[l]^{r_*}
+ & H_n(X,A) \ar[r]
+ & 0
+}
+$$
+But there is more.
+
+\begin{lemma}[Splitting lemma]
+For any short exact sequence of abelian
+groups
+% D40
+$$
+\xymatrix{
+0 \ar[r]
+ & A \ar@{^{(}->}[r]^i
+ & B \ar@{->>}[r]^j
+ & C \ar[r]
+ & 0
+}
+$$
+the following statements are equivalent:
+\begin{enumerate}
+\item[(a)] there exists a homomorphism
+$p:B\to A$ such that
+$p\circ i=\operatorname{id}_A$;
+\item[(b)] there exists a homomorphism
+$q:C\to B$ such that
+$j\circ q=\operatorname{id}_C$;
+\item[(c)] there exists an isomorphism
+$B\cong A\oplus C$
+which makes the corresponding diagram
+commute, with the
+obvious maps in the last row, $a\mapsto(a,0)$
+and
+$(a,c)\mapsto c$.
+\end{enumerate}
+In this case we say that the sequence
+\emph{splits}.
+% D41
+$$
+\xymatrix@C=2em@R=2.6em{
+A \ar@{^{(}->}[r]^i \ar@{=}[d]
+ & B \ar@{->>}[r]^j \ar[d]^{\cong}
+   \ar@/^1pc/[l]^p
+ & C \ar@{=}[d] \ar@/^1pc/[l]^q \\
+A \ar@{^{(}->}[r]
+ & A\oplus C \ar@{->>}[r]
+ & C
+}
+$$
+\end{lemma}
+
+\begin{remark}
+\begin{itemize}
+\item If $C$ is a free abelian group, then
+the sequence splits. The converse need not
+hold.
+\item A retraction $r:X\to A$ gives
+$H_n(X)\cong H_n(A)\oplus H_n(X,A)$.
+\end{itemize}
+\end{remark}
+\section{The long exact sequence of a triple}
+\label{section-long-exact-triple}
+
+If $Z\subseteq Y\subseteq X$ are topological
+spaces, it is
+immediate from the definition that
+$$
+C_\bullet(Z)\leq C_\bullet(Y)\leq
+C_\bullet(X).
+$$
+Taking the quotient by $Z$ gives a short
+exact sequence.
+% D42
+$$
+\xymatrix{
+0 \ar[r]
+ & C_\bullet(Y,Z)
+   \ar@{^{(}->}[r]
+ & C_\bullet(X,Z)
+   \ar@{->>}[r]
+ & C_\bullet(X,Y) \ar[r]
+ & 0
+}
+$$
+In the last equality we use an isomorphism
+theorem to see
+that
+$$
+\frac{C_\bullet(X)/C_\bullet(Z)}
+{C_\bullet(Y)/C_\bullet(Z)}
+=
+C_\bullet(X,Y).
+$$
+Applying the fundamental theorem of
+homological algebra gives
+the \emph{long exact sequence of the triple}
+% D43
+$$
+\xymatrix@C=1.4em{
+\cdots \ar[r]
+ & H_n(Y,Z) \ar[r]^{i_*}
+ & H_n(X,Z) \ar[r]^{j_*}
+ & H_n(X,Y) \ar[r]^{\delta}
+ & H_{n-1}(Y,Z) \ar[r]^{i_*}
+ & \cdots
+}
+$$
+\section{Excision}\label{section-excision}
+
+This result makes much more precise the idea
+that homology of
+a pair is the homology of the space while
+``ignoring what
+happens in the subspace.''
+
+Let $Z\subseteq A\subseteq X$ be such that
+the closure of $Z$
+is contained in the interior of $A$. Then
+$$
+(X-Z,A-Z)\hookrightarrow (X,A)
+$$
+induces an isomorphism
+$$
+H_n(X-Z,A-Z)\to H_n(X,A)
+\qquad\forall n.
+$$
+Equivalently, for subspaces $A,B\subseteq X$
+whose interiors
+cover $X$, the inclusion
+$$
+(B,A\cap B)\hookrightarrow (X,A)
+$$
+induces an isomorphism
+$$
+H_n(B,A\cap B)\to H_n(X,A)
+\qquad\forall n.
+$$
+\section{The homology of a quotient}
+\label{section-homology-quotient}
+
+Given a topological space $X$ and a subspace
+$A\subseteq X$,
+we can consider the space $X/A$, obtained by
+identifying all
+points of $A$. This space is like $X$ but
+ignoring everything
+that happens in $A$. This reminds us of
+homology of a pair,
+and the natural question arises: is there any
+relation
+between $H_n(X,A)$ and $H_n(X/A)$? We need
+some conditions.
+
+\begin{definition}
+We say that $(X,A)$ is a \emph{good pair} if
+$A$ is closed
+and is a strong deformation retract of some
+neighbourhood in
+$X$.
+\end{definition}
+
+The Hawaiian earring with the attaching point
+is not a good
+pair because every neighbourhood of that
+point contains an
+entire circle, so it cannot be deformation
+retracted.
+
+\begin{theorem}
+Let $(X,A)$ be a good pair. Then
+$$
+q:(X,A)\to(X/A,A/A)
+$$
+induces isomorphisms for every $n$ of the
+form
+$$
+q_*:H_n(X,A)\to H_n(X/A,A/A)
+\cong\tilde H_n(X/A),
+$$
+where the tilde denotes reduced homology.
+\end{theorem}
+
+The proof uses the five lemma, homotopy
+invariance, etc.
+
+\begin{corollary}
+Let $(X,A)$ be a good pair. Then we have the
+following long
+exact sequence:
+% D44
+$$
+\xymatrix@C=.6em{
+\cdots \ar[r]
+ & \tilde H_n(A) \ar[r]
+ & \tilde H_n(X) \ar[r]
+ & \tilde H_n(X/A) \ar[r]
+ & \tilde H_{n-1}(A) \ar[r]
+ & \tilde H_{n-1}(X) \ar[r]
+ & \tilde H_{n-1}(X/A) \ar[r]
+ & \cdots
+}
+$$
+\end{corollary}
+\section{Homology of the sphere and
+applications}
+\label{section-sphere-homology-applications}
+
+\begin{theorem}[Homology of the sphere]
+$$
+\tilde H_n(S^n;R)\cong R.
+$$
+All other reduced homology groups of $S^n$
+vanish.
+\end{theorem}
+
+\begin{theorem}[Brouwer fixed point theorem]
+Let $n\geq2$ and $f:D^n\to D^n$. Then $f$ has
+a fixed point.
+\end{theorem}
+
+\begin{theorem}[Homology of the wedge]
+Consider a wedge of spaces
+$\bigvee_{\alpha\in I}X_\alpha$
+such that $(X_\alpha,x_\alpha)$ is a good
+pair for every
+$\alpha$, where $x_\alpha$ is the attaching
+point. Then the
+inclusions $i_\alpha:X_\alpha\hookrightarrow
+\bigvee_{\alpha\in I}X_\alpha$ induce an
+isomorphism
+$$
+\bigoplus i_{\alpha *}:
+\bigoplus_{\alpha\in I}\tilde H_n(X_\alpha)
+\to
+\tilde H_n\left(
+\bigvee_{\alpha\in I}X_\alpha
+\right).
+$$
+\end{theorem}
+
+\begin{theorem}[Invariance of dimension]
+Let $U\subseteq\mathbb{R}^n$ and
+$V\subseteq\mathbb{R}^m$ be open sets. If
+$U$ and $V$ are homeomorphic, then $n=m$.
+\end{theorem}
+\section{The Mayer--Vietoris sequence}
+\label{section-mayer-vietoris}
+
+Let $X$ be a topological space and let
+$A,B\subseteq X$ be
+such that $X=\operatorname{int}
+A\cup\operatorname{int} B$. Then we have the
+following
+long exact sequence in reduced homology:
+% D45
+$$
+\xymatrix@C=1.1em{
+\cdots \ar[r]
+ & \tilde H_n(A\cap B) \ar[r]^{\Phi}
+ & \tilde H_n(A)\oplus\tilde H_n(B)
+   \ar[r]^{\Psi}
+ & \tilde H_n(X) \ar[r]^{\delta}
+ & \tilde H_{n-1}(A\cap B) \ar[r]
+ & \cdots
+}
+$$
+
+To understand where this sequence came from,
+we should look
+at the chain subgroups $C_n(A+B)$ formed by
+sums of chains in
+$A$ and chains in $B$. It is possible to
+construct a chain
+complex, since the boundary homomorphism of
+the whole space,
+$\partial:C_n(X)\to C_{n-1}(X)$, restricts
+correctly to
+$C_n(A+B)\to C_{n-1}(A+B)$. Using the
+machinery of the
+excision theorem, one proves that the
+inclusion
+$C_n(A+B)\hookrightarrow C_n(X)$ induces
+isomorphisms on
+homology. Then, for every $n$, we have the
+short exact
+sequence
+$$
+0\to C_n(A\cap B)\xrightarrow{\varphi}
+C_n(A)\oplus
+C_n(B)\xrightarrow{\psi}C_n(A+B)\to0,
+$$
+where $\varphi(x)=(x,-x)$ and
+$\psi(x,y)=x+y$.
+
+This way of defining the functions ensures
+that the sequence
+is exact. It is easy to see that
+$\psi\varphi=0$, so
+$\operatorname{im}\varphi\subseteq\ker\psi$.
+Also
+$\ker\psi\subseteq\operatorname{im}\varphi$:
+if
+$(x,y)\overset{\psi}{\mapsto}(0,0)$, then
+$x=-y$, so both
+$x$ and $y$ lie in $A$ and in $B$, that is,
+$(x,y)\in C_n(A\cap B)$; clearly it lies in
+the image of
+$\varphi$. It is also easy to see that
+$\ker\varphi=0$ and
+that $\operatorname{im}\psi=C_n(A+B)$.
+
+Applying the fundamental theorem of
+homological algebra to
+the short exact sequence of chain complexes
+induced by these
+short exact sequences in each degree gives
+the Mayer--Vietoris
+sequence.
+% D46
+$$
+\xymatrix@C=1.6em{
+0 \ar[r]
+ & C_\bullet(A\cap B)
+   \ar@{^{(}->}[r]^{(i_\#,-j_\#)}
+ & C_\bullet(A)\oplus C_\bullet(B)
+   \ar@{->>}[r]^{k_\#+\ell_\#}
+ & C_\bullet(A+B) \ar[r]
+ & 0
+}
+$$
+
+It is possible to say how the connecting
+homomorphism acts. By what
+we said about excision, an element
+$[w]\in H_n(X)\cong H_n(A+B)$ is of the form
+$[a+b]$ for
+chains $a\in C_n(A)$ and $b\in C_n(B)$ whose
+sum $a+b$ is a
+cycle, that is, $\partial(a+b)=0$. Then
+$\partial(a)=-\partial(b)$ is a cycle in
+$H_{n-1}(A\cap B)$,
+so it is the perfect representative for the
+equivalence class
+to which we send $[w]$.
+
+Write $i,j,k,\ell$ for the four inclusion
+maps. Then
+$$
+\begin{aligned}
+i:A\cap B&\hookrightarrow A,
+&j:A\cap B&\hookrightarrow B,\\
+\Phi(x)&=(i_*x,-j_*x),
+&\Psi(y,z)&=k_*y+\ell_*z.
+\end{aligned}
+$$
+If $w=a+b$ is a cycle, with $a$ supported
+in $A$ and $b$ supported in $B$, then
+$$
+\delta[w]=[\partial a]=[-\partial b].
+$$
+
+\begin{example}
+It is possible to compute the homology of the
+torus using the
+Mayer--Vietoris sequence, although it is not
+enough to write
+down the exact sequence: one has to
+understand how the
+homomorphisms act.
+\end{example}
+
+\begin{remark}
+There is a version of this sequence for
+$X=A\cup B$ where
+$A$ and $B$ are deformation retracts of
+certain
+neighbourhoods $U$ and $V$ and where $U\cap
+V$ retracts onto
+$A\cap B$.
+
+In particular, if $X$ is a CW complex and
+$A,B\subseteq X$
+are CW subcomplexes, then it is possible to
+prove that such
+neighbourhoods exist, and we obtain the same
+Mayer--Vietoris
+sequence
+% D47
+$$
+\xymatrix@C=1.2em{
+\cdots \ar[r]
+ & \tilde H_n(A\cap B) \ar[r]
+ & \tilde H_n(A)\oplus\tilde H_n(B)
+   \ar[r]
+ & \tilde H_n(X) \ar[r]
+ & \tilde H_{n-1}(A\cap B) \ar[r]
+ & \cdots
+}
+$$
+Now $A$ and $B$ do not have to be open, and
+it does not have
+to be true that $\operatorname{int}
+A\cup\operatorname{int} B=X$.
+\end{remark}
+
+\begin{example}
+\label{example-torus-mayer-vietoris}
+The original notes ask how to complete the
+torus calculation. The proposed ``disk plus
+wedge'' is not a cover by CW subcomplexes:
+the
+closed characteristic disk is not embedded in
+the quotient model. This is the missing
+point.
+
+Instead, cover the second circle by two arcs
+$U$ and $V$ whose intersection has two
+components. Put
+$$
+A=S^1\times U,
+\qquad
+B=S^1\times V.
+$$
+Both $A$ and $B$ retract to a circle, while
+$A\cap B$ retracts to two circles. On first
+homology, after compatible choices of
+generators, $\Phi$ has rank one:
+$$
+\Phi(a,b)=(a+b,-a-b).
+$$
+Thus $\ker\Phi\cong R$ and
+$\operatorname{coker}\Phi\cong R$. The
+degree-one and degree-zero portions of the
+sequence then give
+$$
+H_2(T^2;R)\cong R,
+\qquad
+H_1(T^2;R)\cong R\oplus R.
+$$
+This agrees with the later cellular
+calculation.
+\end{example}
+
+
+\begin{exercise}
+Glue a M\"obius band $M$ to the torus $T$
+by identifying $\partial M$ with the circle
+$S^1\times\{0\}$ in $T$. Compute the homology
+of the resulting space $X$ using
+Mayer--Vietoris.
+\end{exercise}
+
+\begin{proof}[Solution]
+The cell pictures identify the common circle.
+
+\begin{center}
+\includegraphics[width=.75\textwidth]{
+algebraic-topology-assets/%
+torus-mobius-gluing
+}
+\end{center}
+
+The boundary of the M\"obius band uses two
+edges, while the chosen torus circle uses
+one.
+Thus a direct cellular gluing is
+inconvenient.
+Both pieces nevertheless retract from
+suitable
+open neighbourhoods, so Mayer--Vietoris
+applies.
+Its relevant abstract fragments are
+% D68 and D69
+$$
+\xymatrix@C=.55em@R=2.5em{
+0 \ar[r]
+ & \widetilde H_2(T\cap M) \ar[r]
+ & \widetilde H_2(T)\oplus
+   \widetilde H_2(M) \ar[r]
+ & \widetilde H_2(X)
+   \ar@/_1pc/[dll]_{\delta_2}
+ & \\
+ & \widetilde H_1(T\cap M)
+   \ar[r]^{\Phi_1}
+ & \widetilde H_1(T)\oplus
+   \widetilde H_1(M) \ar[r]
+ & \widetilde H_1(X) \ar[r]
+ & \widetilde H_0(T\cap M) \ar[r]
+ & 0.
+}
+$$
+After substituting the known groups, these
+become
+% D70 and D71
+$$
+\xymatrix@C=.75em@R=2.5em{
+0 \ar[r]
+ & 0 \ar[r]
+ & \mathbb{Z} \ar[r]^{\Psi_2}
+ & \widetilde H_2(X)
+   \ar@/_1pc/[dll]_{\delta_2}
+ & \\
+ & \mathbb{Z} \ar[r]^{\Phi_1}
+ & \mathbb{Z}^3 \ar[r]^{\Psi_1}
+ & \widetilde H_1(X) \ar[r]
+ & 0.
+}
+$$
+With the convention
+$\Phi_1=(i_*,-j_*)$, the common-circle
+generator maps to
+$$
+\Phi_1(1)=(1,0,-2).
+$$
+This map is injective and its cokernel is
+$\mathbb{Z}^2$. Exactness therefore gives
+$$
+H_2(X)\cong\mathbb{Z},
+\qquad
+H_1(X)\cong\mathbb{Z}^2,
+\qquad
+H_0(X)\cong\mathbb{Z}.
+$$
+All higher groups vanish.
+\end{proof}
+\section{Representatives of the homology of
+the sphere}
+\label{section-sphere-homology-generators}
+
+In this section we use $R=\mathbb{Z}$.
+
+Our method will be to find generators for the
+relative
+homology $H_n(D^n,\partial D^n)$, since this
+should be
+isomorphic to $H_n(S^n)$. The first thing we
+do is replace
+that pair by the following one, to which it
+is also
+isomorphic: $(\Delta^n,\partial\Delta^n)$.
+
+\begin{proposition}
+The identity map
+$\operatorname{id}:\Delta^n\to\Delta^n$
+is a cycle which
+generates
+$H_n(\Delta^n,\partial\Delta^n)
+\cong\mathbb{Z}$.
+\begin{proof}
+The boundary of the identity simplex is
+supported in $\partial\Delta^n$, so its class
+is a relative cycle. For $n=0$ the assertion
+is immediate. For $n>0$, contractibility of
+$\Delta^n$ makes the connecting map
+$$
+H_n(\Delta^n,\partial\Delta^n)
+\longrightarrow
+\tilde H_{n-1}(\partial\Delta^n)
+$$
+an isomorphism. It sends the identity simplex
+to its alternating boundary. Inductively that
+oriented boundary is a generator of
+$\tilde H_{n-1}(S^{n-1})\cong\mathbb{Z}$.
+Hence the relative identity class is a
+generator.
+\end{proof}
+\end{proposition}
+
+Now let us think of $S^n$ as the union of two
+standard
+simplices glued along their boundary, denoted
+$\Delta_1^n\cup_{\partial\Delta^n}
+\Delta_2^n$.
+
+\begin{proposition}
+$\Delta^n_1-\Delta^n_2$ is a generator of
+$H_n(S^n)$ for
+$n>0$.
+\begin{proof}
+The two simplices are given opposite induced
+orientations along their common boundary, so
+their difference is a cycle. Collapsing one
+simplex to a point identifies its class with
+the relative generator above, hence it
+generates $H_n(S^n)$.
+\end{proof}
+\end{proposition}
+\section{Degree of a map between spheres}
+\label{section-degree-sphere-maps}
+
+Consider $f:S^n\to S^n$, which induces a
+function
+$$
+f_*:\tilde H_n(S^n)\cong\mathbb{Z}
+\to
+\tilde H_n(S^n)\cong\mathbb{Z},
+$$
+so that $f_*$ has no choice but to be of the
+form
+$f_*(n\alpha)=dn\alpha$.
+
+\begin{definition}
+In the notation above, the \emph{degree} of
+$f$ is $d$.
+\end{definition}
+
+\begin{proposition}
+\begin{enumerate}
+\item $\deg Id=1$, by functoriality.
+\item If $f$ is not surjective, then
+$\deg(f)=0$. Since $f$
+is not surjective, choose a point
+$y\notin\operatorname{im}f$. Then $f$ factors
+through the punctured sphere.
+% D48
+$$
+\xymatrix{
+S^n \ar[rr]^f
+  \ar[dr]_{\bar f}
+  & & S^n \\
+  & S^n\setminus\{y\}
+    \ar[ur]_{i}
+}
+$$
+The induced map factors through zero
+homology.
+% D49
+$$
+\xymatrix{
+\tilde H_n(S^n) \ar[rr]^{f_*}
+  \ar[dr]_{\bar f_*}
+  & & \tilde H_n(S^n) \\
+  & \tilde H_n(S^n\setminus\{y\})=0
+    \ar[ur]_{i_*}
+}
+$$
+Therefore $f_*=0$.
+\item If $f\simeq g$, then $\deg f=\deg g$.
+By homotopy
+invariance, the induced functions are equal.
+\item $\deg(fg)=\deg(f)\deg(g)$.
+\item If $f$ is a reflection interchanging
+the hemispheres,
+then $\deg(f)=-1$.
+
+This is because, as seen in the previous
+section, the
+$n$-sphere, viewed as the union of two
+standard simplices,
+$S^n=\Delta_1^n
+\cup_{\partial\Delta^n}\Delta_2^n$,
+has
+$n$-th homology generated by the chain
+$\Delta_1^n-\Delta_2^n$. The reflection
+interchanging these
+simplices sends the generator to its
+negative.
+\item The antipodal map
+$-\operatorname{id}:S^n\to S^n$ has degree
+$$
+\deg(-\operatorname{id})=(-1)^{n+1}.
+$$
+Thus its degree is one for odd $n$ and minus
+one for even $n$.
+\item If $f$ has no fixed points, then it is
+homotopic to the antipodal map, and hence
+$\deg(f)=(-1)^{n+1}$. Indeed, the segment
+from $f(x)$ to $-x$ avoids the origin. Thus
+$$
+H(x,t)=
+\frac{(1-t)f(x)-tx}
+{\lVert(1-t)f(x)-tx\rVert}
+$$
+is the required homotopy.
+\end{enumerate}
+\end{proposition}
+
+
+\begin{exercise}
+Construct a surjective map $S^n\to S^n$ of
+degree zero for every $n\geq1$.
+\end{exercise}
+
+\begin{proof}[Solution]
+On $S^1$, let $g$ traverse one semicircle out
+and back. It is nonsurjective, hence has
+degree
+zero. The squaring map $q(z)=z^2$ maps that
+semicircle onto the whole circle. Thus
+$qg:S^1\to S^1$ is surjective and
+$$
+\deg(qg)=\deg(q)\deg(g)=0.
+$$
+Iterated suspension gives the required maps
+in every higher dimension: suspension
+preserves
+both surjectivity and degree.
+\end{proof}
+\section{Local degree}
+\label{section-local-degree}
+\label{subsec:grloc}
+
+Following Hatcher:
+
+\begin{definition}
+Suppose that $f:S^n\to S^n$ is such that the
+inverse image of
+some $y\in S^n$ consists of finitely many
+points, say
+$f^{-1}(y)=\{x_1,\ldots,x_m\}$. Take a family
+of disjoint
+open sets $U_1,\ldots,U_m$ containing each
+$x_i$, and which
+map to a neighbourhood $V$ of $y$ under $f$.
+Through a
+commutative diagram, using excision and the
+long exact
+sequence, Hatcher argues that the
+homomorphism $f_*$
+originally defined as
+$$
+H_n(S^n,S^n-x_i)\xleftarrow{\cong}
+H_n(U_i,U_i-x_i)\xrightarrow{f_*}H_n(V,V-y)
+$$
+is of the form $f_*:\mathbb{Z}\to\mathbb{Z}$,
+multiplication by a number
+called the \emph{local degree} of $f$,
+denoted
+$\deg f|x_i$.
+\end{definition}
+
+And then:
+
+\begin{theorem}
+$\deg f=\sum_i\deg f|_{x_i}$.
+\end{theorem}
+
+We add another proposition.
+
+\begin{proposition}
+The degree of the suspension $Sf:S^{n+1}\to
+S^{n+1}$ of a
+function $f:S^n\to S^n$ is equal to the
+degree of $f$.
+\end{proposition}
+\section{The hairy ball theorem}
+\label{section-hairy-ball}
+
+\begin{theorem}[Hairy ball theorem]
+$S^n$ has a vector field which vanishes
+nowhere if and only
+if $n$ is odd.
+\end{theorem}
+\section{Free actions on the sphere}
+\label{section-free-sphere-actions}
+
+\begin{theorem}[Free actions on the sphere]
+If a nontrivial finite group acts freely on
+an
+even-dimensional sphere, then it is
+isomorphic
+to $\mathbb{Z}/2\mathbb{Z}$.
+\end{theorem}
+\section{CW complexes}
+\label{section-cw-complexes}
+
+Let us establish some notation.
+\begin{itemize}
+\item $D^n=\{x\in\mathbb{R}^n:
+\lVert x\rVert\leq1\}$ is the closed
+$n$-disk.
+\item $S^{n-1}=\{x\in\mathbb{R}^n:
+\lVert x\rVert=1\}$ is its boundary sphere.
+\item $e^n=\{x\in\mathbb{R}^n:
+\lVert x\rVert<1\}$ is the open $n$-cell,
+or simply the $n$-cell.
+\end{itemize}
+Thus
+\begin{itemize}
+\item $\partial D^n=S^{n-1}$;
+\item $D^n=e^n\cup S^{n-1}$ as sets, not
+using the disjoint
+union topology;
+\item and, well, it should be true that
+$e^0=\{pt\}$.
+\end{itemize}
+
+\begin{definition}
+A \emph{CW complex} is a space $X$
+constructed
+by the following procedure:
+\begin{enumerate}
+\item Start with a discrete space $X^0$,
+called the
+0-skeleton.
+\item Obtain the $n$-skeleton $X^n$ from the
+$(n-1)$-skeleton
+$X^{n-1}$ by gluing $n$-cells $e^n_\alpha$
+via maps
+$\varphi_\alpha:S^{n-1}\to X^{n-1}$.
+Formally,
+$$
+X^n=X^{n-1}\bigsqcup_{\alpha\in I_n}
+D^n_\alpha\Big/\sim,
+\qquad
+x\sim\varphi_\alpha(x).
+$$
+The displayed relation is imposed for
+$x\in\partial D^n_\alpha$.
+The point is to take points and join them
+with
+lines, and then take lines and fill them with
+disks, and so on.
+\item We could stop after finitely many
+steps, say $m$, and
+obtain $X=X^m$, but we can also continue
+gluing cells of
+arbitrarily large dimension and obtain
+$X=\bigcup_nX^n$. In
+this case $X$ has the weak topology: a subset
+$A\subseteq X$ is closed if and only if
+$A\cap X^n$ is closed in $X^n$ for every $n$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+If $X=X^n$ for some $n\in\mathbb{N}$, we say
+that $X$ is \emph{finite-dimensional} and
+define the \emph{dimension} of $X$ as the
+dimension of the largest cell adjoined.
+Formally,
+$\dim X=\min\{n:X^n=X\}$.
+\end{definition}
+
+\begin{example}
+\begin{itemize}
+\item The zero-dimensional CW complexes are
+precisely the discrete spaces. Graphs are
+one-dimensional CW complexes.
+\item $S^n$ is a CW complex.
+\item Real projective space. Initially
+defined as
+$\mathbb{R}
+P^n=\mathbb{R}^{n+1}-\{0\}/x\sim\lambda x$
+for $\lambda\neq0$,
+we can take representatives of the lines on
+the sphere to
+obtain $\mathbb{R} P^n=S^n/x\sim -x$.
+
+This is equivalent to taking either
+hemisphere of the sphere,
+$D^n$, and identifying the points of its
+boundary by the
+antipodal map. In turn, this is equivalent to
+taking the
+$(n-1)$-sphere, which is the boundary of the
+disk,
+identifying antipodal points, and adding the
+interior of the
+$n$-disk. And the $(n-1)$-sphere with that
+identification is
+precisely $\mathbb{R} P^{n-1}$.
+
+In summary, by induction,
+$$
+\begin{aligned}
+\mathbb{R} P^n
+&=\mathbb{R}^{n+1}-\{0\}/x\sim\lambda x,
+\qquad\lambda\neq0\\
+&=S^n/x\sim-x\\
+&=D^n/x\sim-x,
+\qquad x\in\partial D^n=S^{n-1}\\
+&=\mathbb{R} P^{n-1}\cup e^n\\
+&=\mathbb{R} P^{n-2}\cup e^{n-1}\cup e^n\\
+&=e^0\cup e^1\cup\ldots\cup e^n,
+\end{aligned}
+$$
+where the attaching maps are exactly the
+antipodal maps.
+\item Complex projective space is the space
+of
+complex lines in $\mathbb{C}^{n+1}$, and it
+also has the quotient description
+$S^{2n+1}/S^1$. Its cellular decomposition is
+$$
+\mathbb{C} P^n=e^0\cup e^2\cup\ldots e^{2n}.
+$$
+The top cell is attached by the Hopf map
+$S^{2n-1}\to\mathbb{C}P^{n-1}$, not by an
+antipodal identification.
+\end{itemize}
+\end{example}
+
+\begin{exercise}
+Every CW complex is semilocally simply
+connected. That is,
+every CW complex has a universal covering.
+\end{exercise}
+
+\begin{definition}
+For each $n$-cell $e^n_\alpha$ of a CW
+complex, we have the
+\emph{characteristic map}, which is of the
+form
+$\Phi_\alpha:D^n_\alpha\to X^n$ and extends
+the attaching map
+$\varphi_\alpha$. It is a homeomorphism from
+the interior of
+$D^n_\alpha$ onto $e^n_\alpha$.
+It is the composite of the inclusion with the
+quotient map $q$.
+% N02
+$$
+\xymatrix@C=2em{
+D^n_\alpha \ar@{^{(}->}[r]^\iota
+  \ar@/_1.2pc/[rr]_{\Phi_\alpha}
+ & X^{n-1}\sqcup D^n_\alpha
+   \ar[r]^q
+ & X^n
+}
+$$
+\end{definition}
+
+\begin{definition}
+Let $X$ be a CW complex. A \emph{CW
+subcomplex} $Z$ is a
+closed subspace which is also a union of
+cells of $X$.
+\end{definition}
+
+\begin{remark}
+For a subcomplex $Z$,
+\begin{itemize}
+\item $Z\subseteq X$ is a good pair, meaning
+$Z$ is a
+deformation retract of a neighbourhood in
+$X$;
+\item $X/Z$, the space obtained by collapsing
+$Z$ to a point,
+is a CW complex.
+\end{itemize}
+\end{remark}
+
+\begin{remark}[Very important]
+Let $X$ be a CW complex. The quotient by the
+$(n-1)$-skeleton
+is a wedge of spheres, as many as there are
+$n$-cells of $X$. In symbols,
+$$
+X^n/X^{n-1}=\bigvee_{\alpha\in I_n}S^n,
+$$
+where $I_n$ is the set indexing the
+$n$-cells.
+\end{remark}
+
+\label{section-cw-compl-relat-cw-compl}
+\label{section-topol-produ-cw-compl}
+\begin{theorem}
+If $X$ and $Y$ are CW complexes with at most
+countably many
+cells, then $X\times Y$ is a CW complex.
+For general CW complexes, the same cell
+description uses the compactly generated
+topology on the product.
+\end{theorem}
+
+Here, the dimension of the product of two
+cells, say
+$e^1_\alpha\times e^2_\beta$, is the sum of
+the dimensions of
+each one. In this example, we have a 3-cell.
+\section{The cellular definition of CW
+complexes}
+\label{section-cellular-cw-definition}
+
+Let us see how Lee defines CW complexes in
+his book
+\textit{Introduction to Topological
+Manifolds}.
+
+\begin{definition}
+If $X$ is a nonempty topological space, a
+\emph{cellular
+decomposition} of $X$ is a partition
+$\mathcal E$ of $X$ into
+subspaces which are open cells, such that for
+each
+$e\in\mathcal E$ of dimension $n\geq1$ there
+exists a
+\emph{characteristic map} $\phi$ from a
+closed $n$-cell $D$
+to $X$, restricting to a homeomorphism from
+$\operatorname{Int}D$ to
+$e$, and sending $\partial D$ into the union
+of cells in
+$\mathcal E$ of dimension strictly less than
+$n$.
+
+A \emph{cellular complex} is a Hausdorff
+space $X$ together
+with a cellular decomposition.
+\end{definition}
+
+\begin{remark}
+Although the cells are homeomorphic to open
+disks, they do
+not have to be open subsets of $X$.
+\end{remark}
+
+\begin{definition}
+A \emph{CW complex} is a cellular complex
+$(X,\mathcal E)$
+such that:
+\begin{enumerate}
+\item[\emph{C}] \emph{Closure finiteness.}
+The closure of
+each cell intersects only finitely many cells
+of $X$.
+\item[\emph{W}] \emph{Weak topology.} The
+topology of $X$
+is coherent with the family of closed
+subspaces
+$\{\bar e:e\in\mathcal E\}$, that is,
+$U\subseteq X$ is closed
+in $X$ if and only if $U\cap\bar e$ is closed
+for every
+$e\in\mathcal E$.
+\end{enumerate}
+An equivalence between this definition and
+Hatcher's, when
+$X$ is Hausdorff, is in Hatcher's appendix.
+\end{definition}
+\section{The singular homology of a CW
+complex}
+\label{section-singular-homology-cw}
+
+\begin{lemma}
+\begin{itemize}
+\item If the $n$-cells are indexed by the set
+$I_n$, then
+the group $H_k(X^n,X^{n-1})$ vanishes for
+$k\neq n$, while
+$$
+H_n(X^n,X^{n-1})
+\cong\bigoplus_{\alpha\in I_n}R.
+$$
+\begin{proof}
+By the quotient theorem and wedge axiom,
+$$
+\begin{aligned}
+H_k(X^n,X^{n-1})
+&\cong\tilde H_k(X^n/X^{n-1})\\
+&\cong\tilde H_k
+\left(\bigvee_{\alpha\in I_n}S^n\right).
+\end{aligned}
+$$
+\end{proof}
+\item $H_k(X^n)=0$ for every $k>n$.
+
+Again, homology sees only up to the dimension
+of the space.
+\item The inclusion $X^n\hookrightarrow X$
+induces an isomorphism on $H_k$ for $k<n$
+and a surjection on $H_n$.
+
+Here the idea is that attaching cells of
+dimension greater
+than the homology we are computing does not
+change homology.
+That is, for $n>k$ one has $H_k(X\cup
+D^n)=H_k(X)$.
+\end{itemize}
+\end{lemma}
+
+\begin{proof}
+Look at $(X^n,X^{n-1})$. The long exact
+sequence of the pair contains the exact
+fragment
+% D50
+$$
+\xymatrix@C=1.2em{
+H_{k+1}(X^n,X^{n-1}) \ar[r]
+ & H_k(X^{n-1}) \ar[r]
+ & H_k(X^n) \ar[r]
+ & H_k(X^n,X^{n-1})
+}
+$$
+Using item 1, if $k\neq n,n-1$, then
+$H_k(X^{n-1})\cong H_k(X^n)$.
+
+To prove (2), we have $k>n$, and then, fixing
+$k$ and going
+down one by one, $H_k(X^n)\cong H_k(X^0)$,
+which is a
+discrete space, and homology in positive
+degree of discrete
+spaces is zero. This finishes (2).
+
+For the last claim, attaching an $m$-cell
+changes no homology below degree $m-1$ and is
+surjective in degree $m-1$. Iteration proves
+the finite-dimensional case. In general,
+singular chains have compact image and hence
+lie in a finite subcomplex of a CW complex.
+Passing to the filtered union of the skeleta
+proves the same stabilization for $X$.
+\end{proof}
+\section{Cellular homology}
+\label{section-cellular-homology}
+
+Next we construct a new type of homology for
+CW complexes.
+
+\begin{definition}
+Consider the maps obtained from the long
+exact sequences of
+the pairs of skeleta. Define $d_n$ as the
+following composite.
+% D51
+$$
+\xymatrix@C=2.2em@R=2.8em{
+H_n(X^n,X^{n-1})
+  \ar[rr]^{d_n}
+  \ar[dr]_{\partial_n}
+ & & H_{n-1}(X^{n-1},X^{n-2}) \\
+ & H_{n-1}(X^{n-1})
+   \ar[ur]_{j_{n-1}}
+ &
+}
+$$
+The maps satisfy $d_n d_{n+1}=0$. The
+resulting \emph{cellular chain complex} is
+denoted $C_\bullet^{\mathrm{CW}}(X;R)$.
+Its \emph{cellular homology} is
+$$
+H_n^{\mathrm{CW}}(X;R)
+=H_n(C_\bullet^{\mathrm{CW}}(X;R)).
+$$
+\end{definition}
+
+\begin{theorem}
+$$
+H_n^{\mathrm{CW}}(X;R)
+\cong H_n(X;R)
+$$
+for every $n\geq0$.
+\end{theorem}
+
+The first depends on the cellular structure
+of the space $X$,
+but the second does not. Thus the homology of
+a CW complex is
+independent of the cellular structure.
+
+\begin{remark}
+\label{remark-cellular-chain-groups}
+These groups $H_n(X^n,X^{n-1})$ are direct
+sums of $R$, one
+for each $n$-cell of $X$.
+\end{remark}
+
+\begin{proposition}[Consequences of the
+definition]
+Take $X$ a CW complex and $R=\mathbb{Z}$.
+\begin{enumerate}
+\item $H_n(X)=0$ if $X$ has no $n$-cells.
+\item Suppose $X$ has exactly $k$ $n$-cells.
+Then $H_n(X)$ is
+generated by at most $k$ elements, since
+$H_n(X^n,X^{n-1})$ is free abelian on
+$k$ elements. Its subgroup $\ker d_n$ is
+free of rank at most $k$, and its quotient
+$$
+H_n(X)=\ker d_n/
+\operatorname{im}d_{n+1}
+$$
+is generated by at most $k$ elements. The
+quotient need not be free.
+\item If $X$ has no cells in adjacent
+dimensions, then
+$H_n(X)$ is free for every $n$, with rank
+equal to the number
+of $n$-cells.
+\end{enumerate}
+\end{proposition}
+\section{A formula for the boundary
+homomorphism}
+\label{section-cellular-boundary-formula}
+
+Now let us try to understand what $d$ is.
+Consider the usual
+map from the boundary sphere of an $n$-cell
+to
+$X^{n-1}$, followed by the quotient
+$X^{n-1}\to X^{n-1}/X^{n-2}$ and
+projection to the sphere corresponding to
+$e^{n-1}_\beta$.
+% D52
+$$
+\xymatrix@C=1.1em{
+S^{n-1}_\alpha
+  \ar[r]^{\varphi_\alpha}
+  \ar@/_1.2pc/[rrr]_{\varphi_{\alpha\beta}}
+ & X^{n-1} \ar[r]^q
+ & \displaystyle
+   \bigvee_{\gamma\in I_{n-1}}
+   S^{n-1}_\gamma
+   \ar[r]^{p_\beta}
+ & S^{n-1}_\beta
+}
+$$
+The composite $\varphi_{\alpha\beta}$ is a
+map between spheres. Write its degree as
+$d_{\alpha\beta}$.
+
+\begin{theorem}
+For $n\geq2$, the homomorphism $d_n$ sends
+$$
+e^n_\alpha\mapsto\sum
+d_{\alpha\beta}e^{n-1}_\beta.
+$$
+\end{theorem}
+\section{Cellular computations}
+\label{section-cellular-computations}
+
+\begin{example}
+We compute the homology of
+$X=\bigvee_{\alpha\in I}S^1_\alpha$ in two
+different ways:
+first using directly that $H_0(X)=R$, and
+then using the
+preceding theorem. Since there is only one
+0-cell, for every
+$\alpha$, $e^1_\alpha\mapsto x_0-x_0=0$, so
+in fact
+$d_1=0$. It follows that
+$H_1=\bigoplus_{\alpha\in I}R$.
+\end{example}
+
+In fact, this is true in general:
+
+\begin{lemma}
+If $X$ is a complex with a single 0-cell,
+then $d_1=0$.
+\end{lemma}
+
+\begin{example}[The
+torus]\label{example-torus-cellular}
+We know that the torus has a CW decomposition
+with one
+0-cell, two 1-cells, and one 2-cell. This
+gives the chain
+complex
+% D53
+$$
+\xymatrix{
+0 \ar[r]
+ & \mathbb{Z} \ar[r]^{d_2=0}
+ & \mathbb{Z}^2 \ar[r]^{d_1=0}
+ & \mathbb{Z} \ar[r]
+ & 0
+}
+$$
+The square model records the attaching word.
+
+\begin{center}
+\includegraphics[width=.42\textwidth]{
+algebraic-topology-assets/%
+torus-cell-structure
+}
+\end{center}
+
+We know $d_1=0$ because there is only one
+0-cell.
+
+The boundary of the 2-cell, $S^1$, maps by
+the attaching map
+to the wedge of two circles, and
+\emph{traverses each one
+twice and in opposite directions}. The
+quotient $X^1/X^0$
+does nothing, since $X^0$ was already just
+one point. In the
+last step, when choosing one of the two
+circles in the wedge,
+we realize that our map traverses it
+\emph{out and then
+back}. This map is homotopic to a constant,
+so it has degree
+zero. Doing this for the two circles, we
+conclude that
+$d_2=0$. Hence
+$H_1(T^2)=\mathbb{Z}\oplus\mathbb{Z}$ and
+$H_2(T^2)=\mathbb{Z}$.
+\end{example}
+
+\begin{theorem}[Extra]
+A compact connected surface can only be a
+sphere, a torus, a
+connected sum of tori, the projective plane,
+or a connected
+sum of projective planes.
+\end{theorem}
+
+\begin{example}[The torus of genus $g$]
+It turns out that the double torus can be
+seen as the
+quotient of an octagon with identified edges.
+In general, the
+$g$-torus is the quotient of a $4g$-gon. The
+final result is
+$$
+H_0(S_g)=\mathbb{Z},
+\qquad
+H_1(S_g)=\mathbb{Z}^{2g},
+\qquad
+H_2(S_g)=\mathbb{Z}.
+$$
+\end{example}
+
+\begin{example}[The projective plane]
+Recall the simplest decomposition of the
+projective plane,
+with one cell in each dimension. Here,
+% D54
+$$
+\xymatrix{
+0 \ar[r]
+ & \mathbb{Z} \ar[r]^{d_2=2}
+ & \mathbb{Z} \ar[r]^{d_1=0}
+ & \mathbb{Z} \ar[r]
+ & 0
+}
+$$
+
+\begin{center}
+\includegraphics[width=.38\textwidth]{
+algebraic-topology-assets/%
+projective-plane-cell-structure
+}
+\end{center}
+Formally, to discover how the attaching map
+acts, we reason
+using local degree. The map in the drawing
+sends the northern
+hemisphere, without its boundary, to the
+circle on the right
+without the point. The restriction of the map
+to the northern
+hemisphere helps decompose the function in
+order to compute
+the degree. Since the restriction is a
+homeomorphism, the
+local degree here is 1.
+
+The same happens for the piece of the
+function on the
+southern hemisphere. The key observation is
+that each of
+these local functions is obtained from the
+other by composing
+with the antipodal map, which has degree $1$
+on $S^1$. The
+degree of the whole function is the sum of
+the local degrees,
+so the degree is 2. Since there is only one
+cell in each
+dimension, $d_2=2$. Hence
+$$
+H_2(\mathbb{R} P^2)=0,
+\qquad
+H_1(\mathbb{R} P^2)=\mathbb{Z}/2.
+$$
+\end{example}
+
+\begin{example}[$\mathbb{R} P^n$]
+We only have to generalize the preceding
+example. The CW
+decomposition of $\mathbb{R} P^n$ is
+$$
+\mathbb{R} P^n=e_0\cup e_1\cup\cdots\cup e_n.
+$$
+The diagram above becomes the corresponding
+diagram involving
+$S^{k-1}$, $\mathbb{R}P^{k-1}$, and the
+quotient
+$\mathbb{R}P^{k-1}/\mathbb{R}P^{k-2}$.
+% D55
+$$
+\xymatrix@C=1.7em{
+S^{k-1} \ar[r]^{\varphi_k}
+  \ar@/_1.2pc/[rrr]_{\bar\varphi_k}
+ & \mathbb{R}P^{k-1}
+   \ar[r]^q
+ & \mathbb{R}P^{k-1}/
+   \mathbb{R}P^{k-2}
+   \ar[r]^{\cong}
+ & S^{k-1}
+}
+$$
+
+The attaching maps $\varphi_\alpha$ are the
+quotient
+projection by the antipodal map on the
+sphere, i.e. the
+covering of the projective plane. These maps
+are two-to-one,
+and this makes the northern hemisphere of
+$S^{k-1}$ map
+homeomorphically to $S^{k-1}$ minus one
+point, just as in
+dimension 2.
+
+As we said, the functions obtained by
+restricting
+$\bar\varphi$ to each hemisphere differ from
+each other by the
+antipodal map. When computing degree, we
+obtain the formula
+$$
+\deg(\bar\varphi)=1+(-1)^k.
+$$
+Therefore
+the differential $d_k$ is multiplication by
+2 for even $k$ and is zero for odd $k$.
+This gives the corresponding cellular chain
+complexes for
+$n$ odd and $n$ even.
+
+For odd $n$, the complex begins as follows
+and continues with alternating maps.
+% D56
+$$
+\xymatrix@C=1.25em{
+0 \ar[r]
+ & \mathbb{Z} \ar[r]^0
+ & \mathbb{Z} \ar[r]^2
+ & \mathbb{Z} \ar[r]^0
+ & \cdots \ar[r]^2
+ & \mathbb{Z} \ar[r]^0
+ & \mathbb{Z} \ar[r]
+ & 0
+}
+$$
+For even $n$, it begins with multiplication
+by two and still alternates.
+% D57
+$$
+\xymatrix@C=1.25em{
+0 \ar[r]
+ & \mathbb{Z} \ar[r]^2
+ & \mathbb{Z} \ar[r]^0
+ & \mathbb{Z} \ar[r]^2
+ & \cdots \ar[r]^2
+ & \mathbb{Z} \ar[r]^0
+ & \mathbb{Z} \ar[r]
+ & 0
+}
+$$
+Thus
+$$
+H_0(\mathbb{R} P^n)=\mathbb{Z},
+$$
+$H_k(\mathbb{R} P^n)=\mathbb{Z}/2$ for odd
+$k<n$, and $H_n(\mathbb{R} P^n)$ is $0$
+if $n$ is even and $\mathbb{Z}$ if $n$ is
+odd. All other positive-degree groups
+vanish.
+\end{example}
+
+\begin{example}[First example where things
+change if we change
+rings]
+Take $\mathbb{R} P^n$ and the ring
+$R=\mathbb{Q}$. Now the map
+multiplication by 2 sends $\mathbb{Q}$ onto
+all of $\mathbb{Q}$, something
+that did not happen with $\mathbb{Z}$. This
+makes the homology
+easy to read from the cellular complex.
+% D58
+$$
+\xymatrix@C=1.25em{
+0 \ar[r]
+ & \mathbb{Q} \ar[r]^{d_n}
+ & \mathbb{Q} \ar[r]^{d_{n-1}}
+ & \cdots \ar[r]^2
+ & \mathbb{Q} \ar[r]^0
+ & \mathbb{Q} \ar[r]
+ & 0
+}
+$$
+The maps alternate between zero and
+multiplication by two. Therefore
+$$
+H_0(\mathbb{R}P^n;\mathbb{Q})
+\cong\mathbb{Q}.
+$$
+For positive degrees the homology vanishes,
+except in odd top degree. When $n$ is odd,
+$$
+H_n(\mathbb{R}P^n;\mathbb{Q})
+\cong\mathbb{Q}.
+$$
+\end{example}
+
+\begin{example}
+What if we take $R=\mathbb{Z}/2$?
+Multiplication by 2 is the zero map,
+so
+$$
+H_m(\mathbb{R} P^n,\mathbb{Z}/2)=\mathbb{Z}/2
+\qquad 0\leq m\leq n.
+$$
+\end{example}
+
+\begin{example}[The M\"obius band]
+Take the following cellular decomposition of
+the M\"obius band. The directions have been
+chosen so that the identified vertical sides
+represent the same oriented edge.
+
+\begin{center}
+\includegraphics[width=.38\textwidth]{
+algebraic-topology-assets/%
+mobius-band-cell-structure
+}
+\end{center}
+
+It corresponds to the chain complex
+% D59
+$$
+\xymatrix{
+0 \ar[r]
+ & \mathbb{Z} \ar[r]^{d_2}
+ & \mathbb{Z}^3 \ar[r]^{d_1}
+ & \mathbb{Z}^2 \ar[r]
+ & 0
+}
+$$
+In this case $d_1$ is not automatically zero
+because we have
+two 0-cells. However, we know that the band
+is connected, so
+$H_0\cong\mathbb{Z}$.
+
+We can compute $d_1$ explicitly, because we
+know that it
+behaves exactly like the boundary in
+simplicial homology.
+According to the names in the diagram, we can
+simply see that
+$$
+\begin{array}{ccc}
+d_1(e^1_1)=e^0_2-e^0_1&
+ d_1(e^1_2)=e^0_1-e^0_2&
+ d_1(e^1_3)=e^0_2-e^0_1.
+\end{array}
+$$
+Equivalently,
+$$
+\begin{array}{ccc}
+(1,0,0)\mapsto(-1,1)&
+(0,1,0)\mapsto(1,-1)&
+(0,0,1)\mapsto(-1,1).
+\end{array}
+$$
+Thus $\operatorname{im}d_1\cong\mathbb{Z}$,
+as expected, and
+$$
+\ker d_1=
+\langle(1,1,0),(0,1,1)\rangle
+\cong\mathbb{Z}^2.
+$$
+
+To compute $d_2$, traverse the oriented
+boundary of the square. The vertical sides
+each contribute $e^1_1$, while the horizontal
+sides contribute $e^1_2$ and $-e^1_3$.
+Thus, up to reversing the orientation of the
+2-cell,
+$$
+d_2(e^2)=2e^1_1+e^1_2-e^1_3,
+$$
+or $1\mapsto(2,1,-1)$. This is a
+primitive element of $\ker d_1$. Hence
+$\operatorname{im}d_2\cong\mathbb{Z}$ and
+$\ker d_2=0$. Therefore
+$$
+H_1(M)\cong\mathbb{Z},
+\qquad
+H_2(M)=0.
+$$
+\end{example}
+
+
+
+\begin{exercise}
+\label{exercise-same-homology-not-homotopy}
+\label{ejer:homol-homot}
+Show that $S^1\times S^1$ and
+$S^1\vee S^1\vee S^2$ have isomorphic
+integral homology groups but are not homotopy
+equivalent.
+\end{exercise}
+
+\begin{proof}[Solution]
+Both cellular chain complexes have the form
+% D64
+$$
+\xymatrix{
+0 \ar[r]
+ & \mathbb{Z} \ar[r]^{d_2=0}
+ & \mathbb{Z}^2 \ar[r]^0
+ & \mathbb{Z} \ar[r]
+ & 0
+}
+$$
+For the torus this was computed above. In the
+wedge, the boundary of the two-cell is
+collapsed to the wedge point, so $d_2=0$.
+Their fundamental groups are not isomorphic:
+one is $\mathbb{Z}^2$, while the other is the
+free group $\mathbb{Z}*\mathbb{Z}$.
+\end{proof}
+
+\begin{exercise}
+Compute the homology of the space obtained
+from
+$S^2$ by identifying its north and south
+poles.
+\end{exercise}
+
+\begin{proof}[Solution]
+The cell structure used in the original notes
+has one zero-cell, two one-cells, and two
+two-cells.
+
+\begin{center}
+\includegraphics[width=.36\textwidth]{
+algebraic-topology-assets/%
+sphere-poles-identified
+}
+\end{center}
+
+Its cellular complex is
+% D65
+$$
+\xymatrix{
+0 \ar[r]
+ & \mathbb{Z}^2 \ar[r]^{d_2}
+ & \mathbb{Z}^2 \ar[r]^{d_1=0}
+ & \mathbb{Z} \ar[r]
+ & 0
+}
+$$
+The boundary coefficient is read from this
+diagram.
+% D66
+$$
+\xymatrix@C=2.1em@R=2.6em{
+S^1_\alpha \ar[r]^{\varphi_\alpha}
+  \ar@{-->}[d]_{\varphi_{\alpha\beta}}
+ & X^1=S^1\vee S^1 \ar[d]^q \\
+S^1_\beta
+ & X^1/X^0=S^1\vee S^1
+   \ar[l]^{p_\beta}
+}
+$$
+For either two-cell and either one-cell, the
+resulting map has degree one. Therefore
+$$
+\begin{aligned}
+d_2:\mathbb{Z}^2
+&\longrightarrow\mathbb{Z}^2,\\
+(1,0)&\longmapsto(1,1),\\
+(0,1)&\longmapsto(1,1).
+\end{aligned}
+$$
+Its image and kernel are both isomorphic to
+$\mathbb{Z}$. Hence $H_0$, $H_1$, and $H_2$
+are each isomorphic to $\mathbb{Z}$, while
+$H_n=0$ for $n\geq3$.
+\end{proof}
+
+\begin{exercise}
+Compute the homology of
+$S^1\times(S^1\vee S^1)$.
+\end{exercise}
+
+\begin{proof}[Solution]
+The geometry and its product-cell structure
+are
+shown together.
+
+\begin{center}
+\includegraphics[width=.78\textwidth]{
+algebraic-topology-assets/%
+product-circle-wedge
+}
+\end{center}
+
+The cellular chain complex is
+% D67
+$$
+\xymatrix{
+0 \ar[r]
+ & \mathbb{Z}^2 \ar[r]^{d_2=0}
+ & \mathbb{Z}^3 \ar[r]^0
+ & \mathbb{Z} \ar[r]
+ & 0
+}
+$$
+The attaching words are commutators, as in
+the
+torus calculation, so $d_2=0$. Therefore
+$$
+H_2(X)\cong\mathbb{Z}^2,
+\qquad
+H_1(X)\cong\mathbb{Z}^3,
+\qquad
+H_0(X)\cong\mathbb{Z}.
+$$
+All higher groups vanish.
+\end{proof}
+\section{Euler characteristic}
+\label{section-euler-characteristic}
+
+Let $Y$ be a finite CW complex, i.e. one with
+finitely many
+cells. In fact this property is equivalent to
+$Y$ being
+compact. Let $c_i$ be the number of
+$i$-cells.
+The alternating description is: number of
+vertices, minus number of edges, plus number
+of two-cells, and so on. The
+\emph{Euler characteristic} is
+$$
+\chi(Y)=\sum_{i=0}^{\infty}(-1)^ic_i.
+$$
+
+\begin{example}
+\begin{itemize}
+\item The Euler characteristic of $S^n$ is
+zero for odd $n$ and two for even $n$.
+\item $\chi(\bigvee_{i=1}^nS^1)=1-n$;
+\item $\chi(S_g)=1-2g+1=2-2g$.
+\end{itemize}
+\end{example}
+
+\begin{theorem}
+Let $X,Y$ be finite CW complexes. If $X\simeq
+Y$, then
+$\chi(X)=\chi(Y)$.
+\end{theorem}
+
+\begin{proposition}
+Let $Y$ be a finite CW complex. Then
+$$
+\chi(Y)=\sum_{i=0}^{\infty}(-1)^i
+\operatorname{rank}
+H_i(Y;\mathbb{Z}).
+$$
+To understand what $\operatorname{rank} H_i$
+is, note that the chain complex
+is made of finitely generated abelian groups,
+since $Y$ is
+finite. Its homology groups are finitely
+generated abelian groups. By the
+classification
+theorem for finitely generated abelian
+groups, we can
+decompose a group in the form
+$$
+A\cong\mathbb{Z}^r\oplus T,
+$$
+where $T$ is finite. The integer
+$r=\operatorname{rank}A$ is the rank
+appearing
+in the proposition.
+\end{proposition}
+
+\begin{exercise}
+Let
+$$
+\xymatrix{
+0 \ar[r]
+ & A \ar@{^{(}->}[r]
+ & B \ar@{->>}[r]
+ & C \ar[r]
+ & 0
+}
+$$
+be an exact sequence of finitely generated
+abelian groups.
+Then
+$$
+\operatorname{rank}B=
+\operatorname{rank}A+
+\operatorname{rank}C.
+$$
+\begin{proof}[Solution]
+Tensor the sequence with $\mathbb{Q}$. Since
+$\mathbb{Q}$ is a flat $\mathbb{Z}$-module,
+the resulting sequence of finite-dimensional
+$\mathbb{Q}$-vector spaces is exact.
+Dimensions
+are additive in a short exact sequence, and
+$\dim_{\mathbb{Q}}(A\otimes\mathbb{Q})
+=\operatorname{rank}A$.
+\end{proof}
+\end{exercise}
+
+Now let us prove the proposition.
+
+\begin{proof}
+Take the cellular chain complex
+% D60
+$$
+\xymatrix@C=1.5em{
+0 \ar[r]
+ & C_k \ar[r]^{d_k}
+ & C_{k-1} \ar[r]^{d_{k-1}}
+ & \cdots \ar[r]^{d_2}
+ & C_1 \ar[r]^{d_1}
+ & C_0 \ar[r]
+ & 0
+}
+$$
+and recall that $Z_n=\ker d_n$,
+$B_n=\operatorname{im}d_{n+1}$,
+and $H_n=Z_n/B_n$. Thus we have the short
+exact sequences
+% D61
+$$
+\xymatrix@C=1.8em@R=2.3em{
+0 \ar[r]
+ & Z_n \ar@{^{(}->}[r]
+ & C_n \ar@{->>}[r]^{d_n}
+ & B_{n-1} \ar[r]
+ & 0 \\
+0 \ar[r]
+ & B_n \ar@{^{(}->}[r]
+ & Z_n \ar@{->>}[r]
+ & H_n \ar[r]
+ & 0
+}
+$$
+Using the exercise, we have
+$$
+\operatorname{rank}C_n=
+\operatorname{rank}Z_n+
+\operatorname{rank}B_{n-1},
+\qquad
+\operatorname{rank}Z_n=
+\operatorname{rank}B_n+
+\operatorname{rank}H_n.
+$$
+Now first by definition and then using the
+above,
+$$
+\begin{aligned}
+\chi(Y)
+&=\sum_{i=0}^{\infty}(-1)^i
+\operatorname{rank}C_i\\
+&=\sum_{i=0}^{\infty}(-1)^i
+\big(\operatorname{rank}B_i
++\operatorname{rank}H_i
++\operatorname{rank}B_{i-1}\big)\\
+&=\sum_{i=0}^{\infty}(-1)^i
+\operatorname{rank}H_i.
+\end{aligned}
+$$
+Here $B_{-1}=0$. The two boundary sums cancel
+after shifting the index.
+\end{proof}
+
+And with this proposition the theorem above
+follows easily.
+
+
+
+
 
 \medskip
 \noindent
 {\bf Organization of these notes.}
-These notes combine material from several courses and sets of
-lecture notes.  The first block develops homotopy theory of spaces
-(coverings, homotopy groups, fibrations, cofibrations, and model
-structures).  The second block develops the standard structural
-results (Blakers--Massey, Freudenthal, Whitehead and Postnikov
-towers, homotopy fibers and cofibers, and representability).
-The final block introduces spectral sequences, especially the
-Serre spectral sequence and its applications.  Some subsections
-are still lecture-note fragments; these are left visibly marked
-rather than silently completed.
+These notes consolidate material from three courses
+of lecture notes.
+The first part covers fundamental groups, covering
+spaces, homological algebra, and singular homology
+(from the Mexican algebraic topology courses).
+The second part covers cohomology, cup products,
+the K\"unneth theorem, Poincar\'e duality, and
+geometric topology including cobordism, handles,
+and characteristic classes.
+The third part develops homotopy theory: homotopy
+groups, fibrations, cofibrations, model structures,
+spectral sequences, and representability.
+Some subsections are lecture-note fragments and
+are left visibly marked rather than silently
+completed.
 
 
 \section{Covering spaces}
