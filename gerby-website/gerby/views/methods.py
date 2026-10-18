@@ -20,7 +20,14 @@ def pdfFilename(tag):
   if tag.type == "chapter":
     return tag.label.removeprefix("chapter-")
   if tag.type in STATEMENT_TYPES:
-    return STATEMENT_LABEL.split(tag.label)[0]
+    stem = STATEMENT_LABEL.split(tag.label)[0]
+    if stem != tag.label:
+      return stem
+    # labels like dcos-label-013 name no statement type
+    for chapter in Tag.select(Tag.label).where(Tag.type == "chapter").order_by(fn.LENGTH(Tag.label).desc()):
+      stem = chapter.label.removeprefix("chapter-")
+      if tag.label.startswith(stem + "-"):
+        return stem
   return tag.label.split("-" + tag.type)[0]
 
 def is_math(tag, name, value):
