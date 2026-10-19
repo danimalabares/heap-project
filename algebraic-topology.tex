@@ -5892,6 +5892,28 @@ Each element of $\pi_0(X,x_0)$ represents
 a path-connected component of $X$.  But
 $\pi_0(X,x_0)$ has no group structure.
 \end{remark}
+\begin{proposition}
+$\pi_n:\operatorname{Top}^*
+\longrightarrow\operatorname{Grp}$
+is a functor for $n\geq1$. That is,
+it is well defined on objects and
+arrows, sends identities to identities,
+and is associative.
+\end{proposition}
+
+\begin{proposition}
+Homotopy invariance: if
+$\varphi,\psi:(X,x_0)\to(Y,y_0)$
+are homotopic as based maps, then the
+induced maps on homotopy groups agree.
+In particular, a basepoint-preserving
+homotopy equivalence induces
+isomorphisms on all $\pi_n$.
+\end{proposition}
+
+The converse is false: $\mathbb{R}^2$ and
+$S^2$ have the same fundamental group
+but different second homology groups.
 
 \section{Action of fundamental groupoid
 \texorpdfstring{$\Pi_1(X)$}{Π₁(X)} of
@@ -5919,10 +5941,47 @@ spaces
 are products of homotopy groups of factors}
 \label{section-homot-group-produ-space}
 
+The coordinate projections induce
+$$
+\pi_n(X\times Y,(x_0,y_0))
+\cong
+\pi_n(X,x_0)\times\pi_n(Y,y_0).
+$$
+
 \section{Higher homotopy groups of a covering
 space
 are the same as those of a base space}
 \label{section-highe-homot-group-cover}
+
+If $p:\widetilde X\to X$ is a covering,
+then for every $n\geq2$ and compatible
+basepoints,
+$$
+p_*:\pi_n(\widetilde X,\widetilde x_0)
+\longrightarrow
+\pi_n(X,x_0)
+$$
+is an isomorphism.
+
+\begin{proof}
+For $n\geq2$, every based map $S^n\to X$
+lifts because $S^n$ is simply connected.
+This proves surjectivity. If a based map
+upstairs projects to a nullhomotopic map,
+lift a based nullhomotopy. Uniqueness of
+lifts keeps its initial map fixed,
+proving injectivity.
+\end{proof}
+
+\begin{example}
+The homotopy groups of the torus for
+$n\geq2$ are trivial because its
+universal covering is $\mathbb{R}^2$,
+which is contractible. More generally,
+any space with a contractible universal
+covering has trivial higher homotopy
+groups.
+\end{example}
 
 \section{Long exact sequence of homotopy
 groups associated to a pair}
@@ -6158,6 +6217,11 @@ $\Sigma S^n\cong S^{n+1}$ inductively
 finishes the argument.
 \end{proof}
 
+\begin{theorem}
+The cone and suspension of a CW complex
+are CW complexes.
+\end{theorem}
+
 \section{Path and loop spaces of a pointed
 space}
 \label{section-path-loop-space-point-space}
@@ -6188,6 +6252,65 @@ $$
 \pi_{n}(X,x_{0})\cong \pi_{n-1}(\Omega
 X,x_{0})\qquad \forall n.
 $$
+
+\begin{exercise}
+Show that $\operatorname{Map}(I,Y)$
+strongly deformation retracts onto its
+constant maps. Show also that evaluation
+at zero
+$$
+\operatorname{ev}_0:
+\operatorname{Map}(I,Y)
+\longrightarrow Y
+$$
+is a Hurewicz fibration.
+\end{exercise}
+
+\begin{proof}
+The contraction is the map
+$$
+\begin{aligned}
+h:\operatorname{Map}(I,Y)\times I
+&\longrightarrow\operatorname{Map}(I,Y)\\
+(f,t)&\longmapsto
+ \bigl(s\mapsto f((1-t)s)\bigr).
+\end{aligned}
+$$
+At $t=0$ this is the identity; at $t=1$
+it sends every $f$ to the constant path
+$f(0)$, which is the constant map at
+$f(0)$.
+
+For the lifting assertion, a square
+$$
+\xymatrix{
+A\times\{0\}\ar@{^{(}->}[d]
+ \ar[r]^{h_0}
+&\operatorname{Map}(I,Y)\ar[d]^{\operatorname{ev}_0}\\
+A\times I\ar[r]_{H}
+ \ar@{-->}[ur]^{\widetilde H}
+&Y
+}
+$$
+after currying becomes an extension
+problem over $A\times I\times I$
+from data on
+$(A\times\{0\})\times I$ and
+$(A\times I)\times\{0\}$.
+The square $I\times I$ retracts onto its
+left and bottom edges by
+$$
+r(s,t)=
+\begin{cases}
+(0,t-s)&s\leq t,\\
+(s-t,0)&t\leq s.
+\end{cases}
+$$
+The prescribed maps agree at the corner,
+so they glue; composing with $r$ gives
+the required extension.
+\end{proof}
+
 \end{definition}
 
 \section{For pointed spaces: smash with any
@@ -6241,7 +6364,7 @@ $S^1\wedge-$ is adjoint to
 $\text{Map}(S^1,-)$.
 
 \section{Hurewicz homomorphism}
-\label{section-Hurewicz-homomorphism}
+\label{section-hurewicz-homomorphism}
 
 \begin{definition}[Hurewicz homomorphism]
 \label{definition-hurewicz-homomorphism}
@@ -6307,7 +6430,7 @@ commutes.
 \end{proposition}
 
 \begin{theorem}[Hurewicz]
-\label{theorem-Hurewicz-absolute}
+\label{theorem-hurewicz-absolute}
 If $X$ is $n$-connected for some $n \geq 2$,
 them $\tilde{H}_i(X)=0$ for $i<n$
 and $\pi_{n}(X)\cong H_n(X)$.
@@ -6333,7 +6456,7 @@ equivalence, and Whitehead's theorem applies.
 \end{proof}
 
 \begin{theorem}[Hurewicz]
-\label{theorem-Hurewicz-relative}
+\label{theorem-hurewicz-relative}
 If $(X,A)$ is $(n-1)$-connected, i.e.
 $\pi_{n}(X,A)=0$ for $i \leq n-1$, for
 some $n\geq 2$ and $A$ is simply connected,
@@ -6359,6 +6482,14 @@ nonzero homotopy group, Hurewicz would
 identify it with a nonzero homology group,
 a contradiction.  Whitehead then applies.
 \end{proof}
+
+\begin{corollary}
+$$
+H_1(S^1)\cong\mathbb{Z},
+\qquad
+H_1(S^1\times S^1)\cong\mathbb{Z}^2.
+$$
+\end{corollary}
 
 \begin{exercise}
 For $n>k>0$, prove that no retraction
@@ -6747,6 +6878,43 @@ Homotopy_extension_property}{wiki}]
 	with respect to all topological spaces  $Y$.
 \end{definition}
 
+\begin{exercise}
+For an inclusion $A\hookrightarrow X$,
+prove that the homotopy extension
+property is equivalent to the existence
+of a retraction
+$$
+X\times I
+\longrightarrow
+X\times\{0\}\cup A\times I.
+$$
+\end{exercise}
+
+\begin{proof}
+Let $T=X\times\{0\}\cup A\times I$.
+If $(X,A)$ has the extension property,
+apply it to the identity on $T$: the
+adjoint lifting square
+$$
+\xymatrix{
+A\ar[r]\ar[d]_{\iota}
+&\operatorname{Map}(I,T)
+ \ar[d]^{\operatorname{ev}_0}\\
+X\ar[r]
+ \ar@{-->}[ur]
+&T
+}
+$$
+uncurries to give a retraction $X\times
+I\to T$.
+
+Conversely, if a retraction $r$ exists,
+a map on $X\times\{0\}$ and a homotopy
+on $A\times I$ glue to $\varphi:T\to Y$;
+then $\varphi\circ r$ is the required
+extension.
+\end{proof}
+
 \subsubsection{Mapping cylinder}
 \label{subsection-mapping-cylinder}
 
@@ -6808,6 +6976,45 @@ $X$ to $Y$ putting $X$ inside $Y$ via $f$…
 	\hookrightarrow
 	X\times[0,1]$ and of $f:X\times Y$.
 \end{definition}
+
+The map $f$ factors as
+$X\xrightarrow{g}M_f\xrightarrow{r}Y$,
+where $g(x)=[x,1]$ and
+$r([x,t])=f(x)$, $r(y)=y$.
+
+\begin{exercise}
+Prove that $r:M_f\to Y$ is a
+deformation retraction and that
+$g:X\to M_f$ is a Hurewicz cofibration.
+\end{exercise}
+
+\begin{proof}
+The homotopy
+$$
+K([x,t],s)=[x,(1-s)t],
+\quad K(y,s)=y
+$$
+deforms $M_f$ to $Y$ and fixes $Y$ at
+every stage.
+
+For the cofibration, a lifting problem
+$$
+\xymatrix{
+X\ar[r]^{H^\sharp}\ar[d]_{g}
+&\operatorname{Map}(I,Z)
+ \ar[d]^{\operatorname{ev}_0}\\
+M_f\ar[r]_{u}
+ \ar@{-->}[ur]
+&Z
+}
+$$
+has prescribed data on $X\times I\times I$
+occupying the bottom face and two vertical
+faces. That three-face subspace retracts
+from the cube, and the extension agrees on
+the glued face from the $Y$ part of $M_f$.
+Hence $g$ is a cofibration.
+\end{proof}
 
 \subsection{Serre fibrations}
 \label{subsection-serre-fibrations}
