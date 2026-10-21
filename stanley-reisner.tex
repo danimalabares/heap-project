@@ -44,52 +44,115 @@ and the {\it Stanley-Reisner scheme} is $\text{Proj} A_{\mathcal{K}}$.
 abstract symmetries}
 \label{section-polytopality-symmetries}
 
-\noindent
-The question is whether abstract face data
-can be realized by a convex polytope,
-and whether its symmetries survive there.
-A simplicial $d$-sphere $K$ is
-\emph{polytopal} if it is isomorphic to
-$\partial P$ for a convex simplicial
-$(d+1)$-polytope $P$.
-Convexity concerns the solid $P$, not its
-boundary: segments between points of $P$
-must remain in $P$.
+\subsection{What polytopality asks}
+\label{subsection-polytopality}
 
-An abstract symmetry permutes vertices
-while preserving faces. In a realization
-with vertices $p_v$, it is realized
-\emph{affinely} if an affine bijection $A$
-satisfies
+\noindent
+Start with an abstract triangulated sphere:
+we know which vertices form faces, but
+have not assigned coordinates. Can we
+place its vertices so that these are
+exactly the faces of a convex solid?
+A simplicial $d$-sphere is
+\emph{polytopal} if it is isomorphic to
+the boundary of a convex simplicial
+$(d+1)$-polytope. Convexity concerns the
+solid, not its boundary: every segment
+between points of the solid stays inside.
+A nonconvex drawing does not prove
+nonpolytopality; every possible convex
+realization must be ruled out.
+
+Nonpolytopality starts in sphere dimension
+$d=3$, hence ambient dimension four.
+A triangulated circle is a polygon.
+For a triangulated $2$-sphere, its graph
+is planar and $3$-connected; Steinitz's
+theorem gives a convex $3$-polytope with
+that graph and the same faces. See
+\cite[Introduction]{HollebenYang2026}.
+In higher dimensions, being a topological
+sphere no longer guarantees compatible
+convex coordinates: all prescribed
+facets must simultaneously lie in
+supporting hyperplanes, with all other
+vertices strictly on the inner side.
+These geometric constraints can conflict.
+
+\subsection{Realizing abstract symmetries}
+\label{subsection-realizing-symmetries}
+
+\noindent
+A vertex permutation $\varphi$ preserving
+faces is an abstract symmetry. In a
+realization with vertices $p_v$, it is
+realized affinely when an affine
+bijection $A$ satisfies
 $$
 A(p_v)=p_{\varphi(v)}.
 $$
-Failure in one realization differs from
-failure in every convex realization.
-Neither forces the sphere to be
-nonpolytopal.
+A symmetry missing from one realization
+may appear in another. A nonrealizable
+symmetry appears in none of the convex
+realizations. This still does not imply
+that the sphere itself is nonpolytopal.
 
-Central symmetry geometrically means
-$x\mapsto 2c-x$ about a centre $c$.
-Combinatorially, it is a face-preserving
-involution fixing no nonempty face
-setwise. The BEK example is a polytopal
-$3$-sphere with ten vertices whose
-involution
-$$
-(1\,10)(2\,5)(3\,6)(4\,9)(7\,8)
-$$
-is not affine in any convex realization;
-see \cite[Section 3.3, Proposition 3.8
-and Lemma 3.10]{HollebenYang2026}.
+Central symmetry geometrically sends
+$x$ to $2c-x$ about a centre $c$.
+Combinatorially it pairs vertices by a
+face-preserving involution fixing no
+nonempty face setwise.
 
-Bier spheres supply further examples.
-For a proper complex $K$ containing the
-empty face on $V=\{1,\ldots,n\}$, put
+\begin{theorem}[Holleben--Yang]
+\label{theorem-polytopal-nonrealizable}
+There exist polytopal Bier spheres whose
+combinatorial central symmetry cannot be
+realized affinely in any convex
+realization.
+\end{theorem}
+
+\noindent
+Reference: \cite[Theorem 1.2 and
+Lemma 3.10]{HollebenYang2026}.
+This disproves the tempting implication
+from nonrealizability of a symmetry to
+nonpolytopality of the sphere.
+For their twelve-vertex examples,
+Proposition 3.4 rules out central
+symmetry geometrically, while Theorem 1.4
+establishes polytopality.
+
+For the Stanley--Reisner scheme, however,
+every abstract symmetry acts by permuting
+variables, because it preserves $I_K$.
+Convex realizability is not needed for
+this algebraic action.
+
+\subsection{Bier spheres and an infinite
+family}
+\label{subsection-bier-spheres}
+
+\noindent
+Bier's construction turns a complex into
+a sphere by using two copies of its
+vertices. Choose a face from the first
+copy and a face from a complementary
+complex in the second. You may combine
+them provided no vertex is chosen in both
+copies. Remarkably, the resulting complex
+is a sphere even when the input is not.
+
+\begin{definition}
+\label{definition-bier-sphere}
+Let $V=\{1,\ldots,n\}$ and let $K$ be a
+proper subcomplex of $2^V$ containing
+$\varnothing$. Its \emph{Alexander dual}
+is
 $$
 K^\vee=\{B\subseteq V:V\setminus B\notin K\}.
 $$
-Using two copies of $V$, their faces are
+On two copies $V^+$ and $V^-$, the
+\emph{Bier sphere} has faces
 $$
 \begin{gathered}
 A^+\cup B^-,\\
@@ -97,25 +160,59 @@ A\in K,\quad B\in K^\vee,\quad
 A\cap B=\varnothing.
 \end{gathered}
 $$
-This is an $(n-2)$-sphere, although $K$
-need not be a sphere; see
-\cite[Section 2.2]{HollebenYang2026}.
+\end{definition}
 
-Holleben--Yang construct polytopal Bier
-spheres with nonrealizable central
-symmetry (Theorem 1.2). Their realization
-spaces, modulo affine transformations,
-are noncontractible (Proposition 3.14).
-These are results of the public preprint
-\cite{HollebenYang2026}.
+\noindent
+Reference: \cite[Section 2.2]{HollebenYang2026}.
+Bier's theorem says this is an
+$(n-2)$-sphere with at most $2n$ vertices;
+some singleton sets may be absent.
 
-For Stanley--Reisner schemes, every
-combinatorial symmetry still acts by
-permuting variables: it preserves
-$I_K$. Thus failure of convex symmetric
-realizability does not prevent this
-algebraic action. This observation alone
-says nothing about smoothability.
+\begin{theorem}[Holleben--Yang]
+\label{theorem-bier-infinite-family}
+For every even $n\geq6$, there are
+combinatorially centrally symmetric Bier
+$(n-2)$-spheres with $2n$ vertices which
+admit no centrally symmetric convex
+realization.
+\end{theorem}
+
+\noindent
+This is a consequence of
+\cite[Theorem 1.1]{HollebenYang2026}.
+The vertex counts are $12,16,20,\ldots$.
+The theorem does not assert that these
+spheres are nonpolytopal. All Bier spheres
+with at most twelve vertices are
+polytopal by Theorem 1.4 of that preprint.
+
+\subsection{Where the BEK example fits}
+\label{subsection-bek-example}
+
+\noindent
+BEK stands for
+Bokowski--Ewald--Kleinschmidt.
+Their example is a polytopal $3$-sphere
+with ten vertices, and therefore the
+boundary of a convex $4$-polytope.
+Its combinatorial central symmetry is
+$$
+(1\,10)(2\,5)(3\,6)(4\,9)(7\,8).
+$$
+No convex realization realizes this
+permutation affinely. See
+\cite[Section 3.3, Proposition 3.8
+and Lemma 3.10]{HollebenYang2026}.
+It is the earlier counterexample to the
+implication discussed above; the Bier
+construction supplies further examples.
+
+There is also a topological consequence:
+for a polytopal sphere with nonrealizable
+central symmetry, the space of convex
+realizations modulo affine changes of
+coordinates is noncontractible;
+see \cite[Proposition 3.14]{HollebenYang2026}.
 
 \section{Stanley-Reisner scheme of Grünbaum sphere and a determinantal CY3}
 \label{section-grunbaum-sphere}
