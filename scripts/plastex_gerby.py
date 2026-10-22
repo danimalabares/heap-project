@@ -4,7 +4,9 @@ import runpy
 import shutil
 import sys
 
+from plasTeX.Base.LaTeX.Verbatim import verbatim
 from plasTeX.Context import ContextItem
+from plasTeX.Packages import fancyvrb
 from plasTeX.Renderers import Gerby
 
 try:
@@ -56,6 +58,34 @@ def parts_list(document):
   return parts
 
 
+# fancyvrb calls strip() on these values.
+FANCYVRB_TEXT_OPTIONS = (
+  "frame",
+  "framerule",
+  "framesep",
+  "fontfamily",
+  "fontsize",
+  "fontseries",
+  "fontshape",
+)
+
+
+class FancyvrbVerbatim:
+  """Name macro values such as \\footnotesize."""
+
+  @staticmethod
+  def parse(node, tex):
+    result = verbatim.parse(node, tex)
+    options = node.attributes.get("options")
+    for key in FANCYVRB_TEXT_OPTIONS:
+      value = (options or {}).get(key)
+      if value is not None and not hasattr(
+        value, "strip"
+      ):
+        options[key] = value.nodeName
+    return result
+
+
 def main():
   plastex = shutil.which("plastex")
   if plastex is None:
@@ -63,6 +93,10 @@ def main():
 
   ContextItem.__getitem__ = context_item_getitem
   Gerby.partsList = parts_list
+  # fancyvrb.Verbatim.parse calls this name.
+  fancyvrb.verbatim = FancyvrbVerbatim
+  # plasTeX imports packages by short name.
+  sys.modules["fancyvrb"] = fancyvrb
   sys.argv[0] = plastex
   runpy.run_path(plastex, run_name="__main__")
 

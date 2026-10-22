@@ -9,7 +9,7 @@ PLASTEXFLAGS ?=
 PLASTEX_LOG ?= gerby/plastex.log
 GERBY_UPDATE_FLAGS ?=
 GERBY_ORDER ?= order-chapters.txt
-GERBY_FILES ?= real-analysis.tex complex-analysis.tex functional-analysis.tex pde.tex probability.tex optimal-transport.tex linear-algebra.tex groups.tex categories.tex homological-algebra.tex infty-categories.tex commutative-algebra.tex lie-algebras.tex representation-theory.tex vertex-algebras.tex springer.tex seminars-others.tex smooth-manifolds.tex differential-topology.tex algebraic-topology.tex differential-geometry.tex symplectic-geometry.tex geometric-prequantization.tex seminars-differential-geometry.tex xxii-egd-2026.tex complex-geometry.tex hodge-theory.tex variations-of-hodge-structures.tex k3.tex mumford-tate-groups-in-hodge-theory.tex seminars-complex-geometry.tex reading-the-masters.tex ringed-spaces.tex schemes.tex algebraic-geometry.tex stanley-reisner.tex surfaces.tex cremona-transformations.tex birational-maps-commutative-algebra.tex hodge-birational-atoms-2026.tex seminars-algebraic-geometry.tex 16th-alga-meeting-2026.tex iv-jornadas-lefschetz-2026.tex deformations.tex torelli.tex derived-categories-of-sheaves.tex homological-mirror-symmetry.tex geometric-invariant-theory.tex moduli-spaces-of-sheaves.tex bridgeland-stability-general-theory.tex geometric-stability-conditions-and-group-actions.tex hilbert-schemes.tex noncommutative-abelian-surfaces-and-kummer-type-hyperkahler-varieties.tex ai.tex computing-systems.tex economy.tex linguistics.tex religion.tex arte-moderna-brasileira.tex historia-do-brasil.tex genealogia-familiar.tex history.tex seiberg-witten.tex
+GERBY_FILES ?= real-analysis.tex complex-analysis.tex functional-analysis.tex pde.tex probability.tex optimal-transport.tex linear-algebra.tex groups.tex categories.tex homological-algebra.tex infty-categories.tex commutative-algebra.tex lie-algebras.tex representation-theory.tex vertex-algebras.tex springer.tex seminars-others.tex smooth-manifolds.tex differential-topology.tex algebraic-topology.tex differential-geometry.tex symplectic-geometry.tex geometric-prequantization.tex seminars-differential-geometry.tex xxii-egd-2026.tex complex-geometry.tex hodge-theory.tex variations-of-hodge-structures.tex k3.tex mumford-tate-groups-in-hodge-theory.tex seminars-complex-geometry.tex reading-the-masters.tex ringed-spaces.tex schemes.tex algebraic-geometry.tex stanley-reisner.tex surfaces.tex cremona-transformations.tex birational-maps-commutative-algebra.tex hodge-birational-atoms-2026.tex seminars-algebraic-geometry.tex 16th-alga-meeting-2026.tex iv-jornadas-lefschetz-2026.tex deformations.tex torelli.tex derived-categories-of-sheaves.tex homological-mirror-symmetry.tex geometric-invariant-theory.tex moduli-spaces-of-sheaves.tex bridgeland-stability-general-theory.tex geometric-stability-conditions-and-group-actions.tex hilbert-schemes.tex noncommutative-abelian-surfaces-and-kummer-type-hyperkahler-varieties.tex ai.tex ai4math-impa-2026.tex computing-systems.tex economy.tex linguistics.tex religion.tex arte-moderna-brasileira.tex historia-do-brasil.tex genealogia-familiar.tex history.tex seiberg-witten.tex
 GERBY_PORT ?= 5001
 PDFS = $(patsubst %.tex,%.pdf,$(GERBY_FILES)) book.pdf
 
@@ -48,13 +48,30 @@ book.pdf: tmp/book.tex my.bib
 
 .PHONY: gerby-book gerby-tags gerby-render gerby-import gerby-downloads gerby-deploy-build gerby-serve gerby-serve-prod gerby-smoke
 
-gerby-book:
+.PHONY: gerby-registry-check gerby-register gerby-book-source gerby-explain
+
+gerby-registry-check:
+	$(PYTHON) scripts/gerby_tagger.py --check
+
+# The only target that allocates new tags.
+# It also restores interrupted allocations.
+gerby-register: gerby-book-source
+	$(PYTHON) scripts/gerby_tagger.py \
+		--allocate
+
+gerby-explain:
+	$(PYTHON) scripts/gerby_tagger.py \
+		--explain $(TAG)
+
+gerby-book: gerby-registry-check gerby-book-source
+
+gerby-book-source:
 	mkdir -p gerby
 	$(PYTHON) scripts/make_gerby_book.py --order $(GERBY_ORDER) $(GERBY_FILES) > gerby/book.tex
 
 gerby-tags: gerby-book
-	$(PYTHON) scripts/gerby_tagger.py gerby/book.tex --tags gerby/tags > gerby/tags.tmp
-	mv gerby/tags.tmp gerby/tags
+	$(PYTHON) scripts/gerby_tagger.py \
+		--output gerby/tags
 
 gerby-render: gerby-tags
 	rm -rf gerby/document
@@ -63,7 +80,7 @@ gerby-render: gerby-tags
 gerby-import: gerby-render
 	cd gerby-website/gerby/tools && PYTHONPATH=../.. $(PYTHON) update.py $(GERBY_UPDATE_FLAGS)
 
-gerby-downloads: book.pdf $(patsubst %.tex,%.pdf,$(GERBY_FILES))
+gerby-downloads: gerby-registry-check $(PDFS)
 	mkdir -p gerby/downloads
 	cp book.pdf gerby/downloads/book.pdf
 	cp $(patsubst %.tex,%.pdf,$(GERBY_FILES)) gerby/downloads/

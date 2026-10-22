@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Tag {{ info.tag }}
+{% endblock %}
+
+{% block breadcrumb %}{% endblock %}
+
+{% block body %}
+<h2>Tag <span class="tag">{{ info.tag }}</span></h2>
+
+{% if info.status == "active" %}
+<p>This tag is permanently assigned to
+the label <code>{{ info.label }}</code>.
+{% if page %}
+<a href="/tag/{{ info.tag }}">View it</a>.
+{% else %}
+This item is not rendered as a standalone
+page.
+{% endif %}
+</p>
+{% elif info.status == "retired" %}
+<p>This tag is permanently assigned to
+the label <code>{{ info.label }}</code>,
+which has been removed from the current
+notes. The tag stays reserved for it and
+will never be reused.</p>
+{% elif info.status == "historical" %}
+<p>Earlier versions of this website used
+this tag for the label listed below. It is
+not part of the current registry, and the
+tag will never be assigned to anything
+else.</p>
+{% elif info.status == "ambiguous" %}
+<p>Earlier versions of this website
+assigned this tag to several different
+items. A link to this tag cannot tell us
+which one was meant, so none is chosen.
+The tag will never be assigned to anything
+else.</p>
+{% elif info.status == "reserved" %}
+<p>No item with this tag is known. Earlier
+builds may have used it, so it is reserved
+and will never be assigned.</p>
+{% else %}
+<p>The tag you requested does not
+exist.</p>
+{% endif %}
+
+{% if info.evidence %}
+<h3>Recorded assignments</h3>
+<p>Each label below was assigned to this
+tag by at least one recorded registry or
+reconstructed build. A current tag is shown
+when that label still exists.</p>
+<ul>
+{% for item in info.evidence %}
+<li><code>{{ item.label }}</code>
+{% if item.current %}
+is now tag
+<a href="/tag/{{ item.current }}">{{ item.current }}</a>.
+{% else %}
+is not in the current notes.
+{% endif %}
+<details>
+<summary>{{ item.sources | length }}
+source(s)</summary>
+<ul>
+{% for source, role in item.sources %}
+<li>{{ source }} ({{ role }})</li>
+{% endfor %}
+</ul>
+</details>
+</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
