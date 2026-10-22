@@ -73,9 +73,11 @@ gerby-tags: gerby-book
 	$(PYTHON) scripts/gerby_tagger.py \
 		--output gerby/tags
 
+# Number subsubsections so that their tags
+# get references (plasTeX defaults to 2).
 gerby-render: gerby-tags
 	rm -rf gerby/document
-	printf 'y\n' | $(PLASTEX) $(PLASTEXFLAGS) --renderer=Gerby --tags=gerby/tags --dir=gerby/document gerby/book.tex > $(PLASTEX_LOG) 2>&1 || (tail -n 120 $(PLASTEX_LOG); false)
+	printf 'y\n' | $(PLASTEX) $(PLASTEXFLAGS) --sec-num-depth=3 --renderer=Gerby --tags=gerby/tags --dir=gerby/document gerby/book.tex > $(PLASTEX_LOG) 2>&1 || (tail -n 120 $(PLASTEX_LOG); false)
 
 gerby-import: gerby-render
 	cd gerby-website/gerby/tools && PYTHONPATH=../.. $(PYTHON) update.py $(GERBY_UPDATE_FLAGS)
