@@ -22,52 +22,6 @@ class PipelineTests(unittest.TestCase):
         with factory() as td:
             root = Path(td)
             self.root = root
-            for directory in [
-                "scripts",
-                "gerby-website",
-            ]:
-                # Copy only Python source.
-                source = ROOT / directory
-                for file in source.rglob(
-                    "*.py"
-                ):
-                    relative = (
-                        file.relative_to(
-                            ROOT
-                        )
-                    )
-                    target = root / relative
-                    target.parent.mkdir(
-                        parents=True,
-                        exist_ok=True,
-                    )
-                    shutil.copy2(
-                        file, target
-                    )
-            templates = (
-                "gerby-website/gerby/templates"
-            )
-            shutil.copytree(
-                ROOT / templates,
-                root / templates,
-            )
-            for name in [
-                "Makefile",
-                "preamble.tex",
-                "my.bib",
-            ]:
-                shutil.copy2(
-                    ROOT / name, root / name
-                )
-            migrations = (
-                "scripts/"
-                "gerby_label_migrations.json"
-            )
-            shutil.copy2(
-                ROOT / migrations,
-                root / migrations,
-            )
-            (root / "registry").mkdir()
             baseline = (
                 "0000,part-examples\n"
                 "0001,chapter-sample\n"
@@ -75,44 +29,7 @@ class PipelineTests(unittest.TestCase):
                 "0003,sample-lemma-first\n"
                 "#0004,sample-deleted\n"
             )
-            (
-                root / "registry/tags"
-            ).write_text(baseline)
-            # 0005 was used by an old build.
-            legacy = "0005,sample-ancient\n"
-            snapshots = []
-            for name, role, text in [
-                ("baseline", "canonical", baseline),
-                ("legacy", "legacy", legacy),
-            ]:
-                path = "registry/" + name + ".tags"
-                (root / path).write_text(text)
-                snapshots.append(
-                    {
-                        "path": path,
-                        "role": role,
-                        "sha256": hashlib.sha256(
-                            text.encode()
-                        ).hexdigest(),
-                    }
-                )
-            (
-                root
-                / "registry/history.json"
-            ).write_text(
-                json.dumps(
-                    {
-                        "version": 2,
-                        "allocation_floor": "0000",
-                        "snapshots": snapshots,
-                    }
-                )
-            )
-            (
-                root / "order-chapters.txt"
-            ).write_text(
-                "PART I: Examples\nSample\n"
-            )
+            self.fixture(baseline)
             self.source("first")
             self.make("gerby-import")
             self.startup()
@@ -161,6 +78,166 @@ class PipelineTests(unittest.TestCase):
                 self.http("0003", "0006"),
                 [200, 410],
             )
+
+    def test_subsubsection_tags_resolve(self):
+        factory = tempfile.TemporaryDirectory
+        with factory() as td:
+            self.root = Path(td)
+            self.fixture(
+                "0000,part-examples\n"
+                "0001,chapter-sample\n"
+                "0002,sample-section-first\n"
+                "0003,sample-lemma-first\n"
+                "0004,sample-subsection-a\n"
+                "0006,sample-subsubsection-b\n"
+            )
+            (
+                self.root / "sample.tex"
+            ).write_text(
+                "\\title{Sample}\n"
+                "\\begin{document}\n"
+                "\\section{First}\n"
+                "\\label{section-first}\n"
+                "\\begin{lemma}\n"
+                "\\label{lemma-first}\n"
+                "A sample statement.\n"
+                "\\end{lemma}\n"
+                "\\subsection{A}\n"
+                "\\label{subsection-a}\n"
+                "\\subsubsection{B}\n"
+                "\\label{subsubsection-b}\n"
+                "Deep text.\n"
+                "\\end{document}\n"
+            )
+            self.make("gerby-import")
+            path = (
+                self.root / "gerby/stack.sqlite"
+            )
+            with sqlite3.connect(path) as db:
+                refs = dict(
+                    db.execute(
+                        "SELECT tag,ref FROM tag"
+                    )
+                )
+            # Unnumbered headings get ref None.
+            self.assertEqual(
+                refs["0006"], refs["0004"] + ".1"
+            )
+            self.assertEqual(
+                self.http("0002", "0004", "0006"),
+                [200, 200, 200],
+            )
+            for tag in ["0002", "0004"]:
+                self.assertIn(
+                    "Deep text", self.page(tag)
+                )
+
+    def page(self, tag):
+        code = (
+            "import sys, wsgi\n"
+            "c = wsgi.application.test_client()\n"
+            "r = c.get('/tag/' + sys.argv[1])\n"
+            "sys.stdout.write("
+            "r.get_data(as_text=True))"
+        )
+        result = subprocess.run(
+            [sys.executable, "-c", code, tag],
+            cwd=self.root / "gerby-website",
+            capture_output=True,
+            text=True,
+            timeout=60,
+        )
+        self.assertEqual(
+            result.returncode, 0, result.stderr
+        )
+        return result.stdout
+
+    def fixture(self, baseline):
+        root = self.root
+        for directory in [
+            "scripts",
+            "gerby-website",
+        ]:
+            # Copy only Python source.
+            source = ROOT / directory
+            for file in source.rglob(
+                "*.py"
+            ):
+                relative = (
+                    file.relative_to(
+                        ROOT
+                    )
+                )
+                target = root / relative
+                target.parent.mkdir(
+                    parents=True,
+                    exist_ok=True,
+                )
+                shutil.copy2(
+                    file, target
+                )
+        templates = (
+            "gerby-website/gerby/templates"
+        )
+        shutil.copytree(
+            ROOT / templates,
+            root / templates,
+        )
+        for name in [
+            "Makefile",
+            "preamble.tex",
+            "my.bib",
+        ]:
+            shutil.copy2(
+                ROOT / name, root / name
+            )
+        migrations = (
+            "scripts/"
+            "gerby_label_migrations.json"
+        )
+        shutil.copy2(
+            ROOT / migrations,
+            root / migrations,
+        )
+        (root / "registry").mkdir()
+        (
+            root / "registry/tags"
+        ).write_text(baseline)
+        # 0005 was used by an old build.
+        legacy = "0005,sample-ancient\n"
+        snapshots = []
+        for name, role, text in [
+            ("baseline", "canonical", baseline),
+            ("legacy", "legacy", legacy),
+        ]:
+            path = "registry/" + name + ".tags"
+            (root / path).write_text(text)
+            snapshots.append(
+                {
+                    "path": path,
+                    "role": role,
+                    "sha256": hashlib.sha256(
+                        text.encode()
+                    ).hexdigest(),
+                }
+            )
+        (
+            root
+            / "registry/history.json"
+        ).write_text(
+            json.dumps(
+                {
+                    "version": 2,
+                    "allocation_floor": "0000",
+                    "snapshots": snapshots,
+                }
+            )
+        )
+        (
+            root / "order-chapters.txt"
+        ).write_text(
+            "PART I: Examples\nSample\n"
+        )
 
     def source(self, label):
         (
