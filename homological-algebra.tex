@@ -4321,8 +4321,51 @@ $B = A + C$.
 \label{section-spectral-sequences}
 
 \noindent
-[Large detour on Lie theory and universal
-enveloping algebra.]
+{\bf Lecture of 26 October 2026.}
+Source: Jethro van Ekeren,
+\emph{Homological Algebra. IMPA 2026-2},
+Sections 7.1--7.2, pp.~139--143, and
+Theorem 7.3.1, p.~144
+\cite{vanEkerenHomologicalAlgebra2026}.
+The online PDF retrieved on 26 October
+is byte-for-byte identical to the uploaded
+\texttt{ah-current(2).pdf}.
+All eleven photographs, IMG\_4120--4130,
+were checked. They follow Sections 7.1
+and 7.2; the last board labels the
+Grothendieck theorem ``Next time''.
+Only passages enclosed in quotation
+blocks below are verbatim from the
+supplied PDF (with formulas typeset).
+The explanations and proofs are an
+editorial summary, not a transcript.
+Jethro identifies Weibel,
+\emph{An Introduction to Homological
+Algebra}, Section 5.4, as the source
+of his filtered-complex construction.
+
+\medskip\noindent
+{\bf Upshot.}
+A filtration lets us compute homology
+in stages. First ignore everything that
+lowers the filtration. Then restore its
+influence, one filtration step at a time.
+Each new differential detects a remaining
+obstruction to being a genuine cycle.
+The surviving groups describe the
+associated graded of the answer; they
+need not give a canonical direct-sum
+splitting of the answer itself.
+For a double complex this starts by
+computing vertical homology, then
+horizontal homology. This is the machinery
+behind the two-direction computation
+already used in the \v{C}ech section.
+
+
+
+\noindent
+{\bf Earlier motivation from Lie theory.}
 The following problem shall motivate
 our discussion on spectral sequences.
 We define
@@ -4371,156 +4414,362 @@ To prove this we shall use filtrations.
 The PBW filtration is:
 $$
 F_pV_n
-=\dots
-$$
-
-A spectral sequence $\{E^r_{p,n}\}$
-is a collection of pages indexed
-by $r \in \mathbb{Z}_{\geq 0}$
-$$
-E^0_{\bullet,\bullet},
-E^1_{\bullet,\bullet},\dots
-$$
-Here $p,n \in \mathbb{Z}$,
-and each $E_{p,n}^r$ is an
-abelian group, $R$-module, vector space
-(this is our current case), etc.
-
-Our filtration $F_pV_n$
-is compatible with differentials, meaning
-$$
-d(F_pV_n) \subset F_pV_{n-1}.
+=F_{p-n}U(\mathfrak{g})\otimes
+\Lambda^n\mathfrak{g}
 $$
 
 \medskip\noindent
-{\bf Claim.} A complex with a compatible filtration gives
-a spectral sequence.
+{\bf Pages and the two index conventions.}
+Use Jethro's homological convention:
+$n$ is total degree and $p$ is filtration
+index. The differential lowers total
+ degree by one. A spectral sequence has
+pages and differentials satisfying
+$$
+\begin{aligned}
+d^r &: E^r_{p,n}\longrightarrow
+E^r_{p-r,n-1},\\
+(d^r)^2&=0,\\
+E^{r+1}_{p,n}&\cong
+\frac{\ker(d^r:E^r_{p,n}\to
+E^r_{p-r,n-1})}
+{\operatorname{im}(d^r:E^r_{p+r,n+1}
+\to E^r_{p,n})}.
+\end{aligned}
+$$
+Thus the next page is the homology of
+the preceding page, with its own
+induced differential. To obtain the
+usual double-complex coordinates, set
+$$
+\widetilde E^r_{p,q}=E^r_{p,p+q}.
+$$
+Then
+$$
+d^r:\widetilde E^r_{p,q}
+\longrightarrow
+\widetilde E^r_{p-r,q+r-1}.
+$$
+These are the same arrows in different
+coordinates, not different constructions.
 
-Page 0 is:
+\medskip\noindent
+{\bf Filtered complexes: approximate
+cycles and boundaries.}
+Let $V_\bullet$ have an increasing
+filtration by subcomplexes:
 $$
-E^0_{p,n}
-=
-\operatorname{gr}_pV_n
-=
-\frac{F_pV_n}{F_{p-1}V_n}
+F_{p-1}V_n\subset F_pV_n,
+\qquad d(F_pV_n)\subset F_pV_{n-1}.
 $$
-plus some differentials
+Jethro writes (Section 7.1, p.~139):
+\begin{quote}
+We consider an increasing filtration
+$F_pV_n$ on a homological complex
+$V_\bullet$.
+\end{quote}
+For $r\geq0$, define
 $$
-d:F_pV_n \to F_pV_{n-1},
+A^r_{p,n}=\{v\in F_pV_n\mid
+ dv\in F_{p-r}V_{n-1}\},
 $$
-which, since $F_{p-1}V_n \subset F_pV_n$
-and $F_{p-1}V_{n-1}\subset F_p V_{n-1}$,
-descends to
 $$
-d:\operatorname{gr}_pV_n
-\to \operatorname{gr}_pV_{n-1}.
+D^r_{p,n}=F_pV_n\cap
+ d(F_{p+r-1}V_{n+1}).
+$$
+An element of $A^r$ is a cycle up to an
+error $r$ filtration steps lower.
+An element of $D^r$ is a boundary with a
+primitive at most $r-1$ steps higher.
+As $r$ grows, the cycle condition becomes
+stricter and more boundaries are admitted.
+For $r\geq1$,
+$$
+D^r_{p,n}=d(A^{r-1}_{p+r-1,n+1}).
+$$
+Let $\pi_{p,n}$ be the projection to
+$F_pV_n/F_{p-1}V_n$, and put
+$$
+Z^r_{p,n}=\pi_{p,n}(A^r_{p,n}),
+\qquad
+B^r_{p,n}=\pi_{p,n}(D^r_{p,n}).
+$$
+Since boundaries are cycles,
+$B^r_{p,n}\subset Z^r_{p,n}$. Define
+$$
+E^r_{p,n}=Z^r_{p,n}/B^r_{p,n}.
+$$
+At $r=0$ this is simply
+$$
+E^0_{p,n}=F_pV_n/F_{p-1}V_n,
+$$
+with the differential induced by $d$.
+Consequently
+$$
+E^1_{p,n}=H_n(F_pV_\bullet/
+F_{p-1}V_\bullet).
 $$
 
-Now
+\medskip\noindent
+{\bf Why the higher differential exists.}
+For $r\geq1$, the useful presentation is
+Jethro's equation (7.1.2), with $n$
+restored:
 $$
-E^1_{p,n}
-=
-H^\bullet(E^0_{p,n})
+E^r_{p,n}\cong
+\frac{A^r_{p,n}}
+{d(A^{r-1}_{p+r-1,n+1})+
+ A^{r-1}_{p-1,n}}.
 $$
-(or perhaps homology instead of
-cohomology…).
-The {\bf first nontrivial construction} 
-is to define the differentials in 
-$E^1_{\bullet,\bullet}$.
-This uses the long exact sequence in
-homology. It looks like a diagram-chasing
-type of argument.
+Indeed, start from
+$$
+\frac{A^r_{p,n}+F_{p-1}V_n}
+{D^r_{p,n}+F_{p-1}V_n}
+$$
+and use the isomorphism theorem together
+with
+$$
+F_{p-1}V_n\cap A^r_{p,n}
+=A^{r-1}_{p-1,n}.
+$$
+In this presentation, define
+$$
+d^r[a]=[da].
+$$
+It is well-defined: $d^2a=0$ puts $da$
+in the target numerator, $d$ kills the
+first denominator summand, and
+$$
+d(A^{r-1}_{p-1,n})
+\subset D^r_{p-r,n-1}.
+$$
+This last term is in the target
+denominator. Also $(d^r)^2=0$.
 
-Now
-$$
-E^2_{p,n}
-=
-H^\bullet(E^1_{p,n}),
-$$
-$E^2_{\bullet,\bullet}$ acquires a
-differential too, and it goes like
-[diagram with diagonal arrows, similar as
-the above argument].
+It matters that we use representatives
+in $A^r$, not arbitrary representatives
+in $A^r+F_{p-1}$. An arbitrary lower
+filtration correction can have a
+differential too high in the filtration
+to represent the intended target class.
+This is the warning in Remark 7.1.1.
 
-This continues forever,
+\medskip\noindent
+{\bf Why taking homology gives the next
+page.}
+The essential calculation in pp.~141--142
+is, inside $E^r_{p,n}=Z^r_{p,n}/B^r_{p,n}$,
 $$
-E^r_{p,n}
-=
-H^\bullet(E^{r-1}_{p,n}),
+\begin{aligned}
+\ker d^r&=Z^{r+1}_{p,n}/B^r_{p,n},\\
+\operatorname{im}d^r
+&=B^{r+1}_{p,n}/B^r_{p,n}.
+\end{aligned}
 $$
-acquires a differential
-of bidigree
+In the second line the differential is
+the one arriving at $(p,n)$.
+Here is the representative argument.
+If $d^r[a]=0$, then
 $$
-(\alpha_r,\beta_r)
-=
-(\alpha_0,\beta_0)
-+r(\alpha,\beta).
+da=db+c,
+\qquad b\in A^{r-1}_{p-1,n},
+\quad c\in A^{r-1}_{p-r-1,n-1}.
 $$
-So in $E_0$ the bidegree is $(0,-1)$,
-which means $d$ looks like vertical arrows
-in the $E^0$ page. Then for $E^1$
-it has bidegree $(-1,-1)$,
-and $E^r$ has bidigree $(-r,-1)$.
-
+Replacing $a$ by $a-b$ does not change
+its page-$r$ class, and
+$$
+d(a-b)=c\in F_{p-r-1}V_{n-1}.
+$$
+Thus the class has a representative in
+$A^{r+1}_{p,n}$. Conversely, such a
+representative has zero page-$r$
+differential. For the image, the new
+boundaries are exactly
+$$
+D^{r+1}_{p,n}=d(A^r_{p+r,n+1}),
+$$
+modulo the old ones. Taking the quotient
+therefore gives
+$$
+H(E^r,d^r)_{p,n}\cong
+Z^{r+1}_{p,n}/B^{r+1}_{p,n}
+=E^{r+1}_{p,n}.
+$$
+This is the main technical work of the
+lecture: a page records approximate
+cycles modulo currently visible
+boundaries, and its homology improves
+both approximations by one step.
 
 \begin{theorem}
 \label{theorem-spectral-sequence}
-$H_n(V_\bullet)$ is computed by
+Suppose the filtration is finite in
+each degree: for every $n$ it is zero
+for sufficiently small $p$ and equals
+$V_n$ for sufficiently large $p$.
+Define the induced filtration by
 $$
-\bigoplus_{k \in \mathbb{Z}}
-E^{\infty}_{(0,n)+k(\alpha,\beta)}
+G_pH_n(V_\bullet)=
+\operatorname{im}\bigl(
+H_n(F_pV_\bullet)\longrightarrow
+H_n(V_\bullet)\bigr).
+$$
+Then each term stabilizes and
+$$
+E^\infty_{p,n}\cong
+G_pH_n(V_\bullet)/G_{p-1}H_n(V_\bullet).
 $$
 \end{theorem}
+
+\noindent
+This makes precise the convergence claim
+on IMG\_4123 and IMG\_4130. The boundedness
+hypothesis is stated explicitly here;
+without convergence hypotheses one
+cannot assert this for every filtration.
+Indeed, for large $r$, the numerator
+$A^r_{p,n}$ is $F_pV_n\cap\ker d$, while
+$D^r_{p,n}$ is
+$F_pV_n\cap\operatorname{im}d$.
+Their images in the associated graded
+give the stated quotient.
 
 \begin{remark}
 \label{remark-spectral-sequence}
 \begin{enumerate}
-\item You never really go to $E^\infty$.
-In practice, usually $d$ becomes
-$d=0$ on $E^1$ or $E^2$ already.
-So then $E^N_{p,n}=E^{N+1}_{p,n}
-=E^{N+2}_{p,n}=\dots=E^{\infty}_{p,n}$.
-We say the spectral sequence 
-``collapses'' at page $N$.
-
-\item The precise statement of th etheorem.
-Note that $F_pV_n \subset V_n$
-induces a subspace
-$$
-\frac{Z_n \cap F_p}{B_n \cap F_p}
-\subset
-\frac{Z_n}{B_n} = H_n(V_\bullet).
-$$
-Denote this
-$$
-G_p H_n(V_\bullet)
-$$
-(to not confuse with $F_p$).
-$$
-G_0H^0 \subset G_1H^0 \subset\dots
-$$
-so we have $\operatorname{gr}_p H_n$.
-The theorem really says
-$$
-\operatorname{gr}_pH_n(V_\bullet)
-=
-E^\infty_{p,n}.
-$$
-
-\item The power of spectral sequence
-usually comes from observing
-$$
-E^2_{p,n} = 0 \qquad \forall n\geq 1,
-$$
-or something similar (the point is that,
-in practice, most entries in $E^2$ are
-zero), and deducing
-$$
-H_n=0\qquad \forall n \geq n
-$$
-from this.
+\item The limit gives the associated
+ graded of homology. Recovering homology
+ can require extension data. For vector
+ spaces a splitting exists, but is
+ generally not canonical.
+\item A spectral sequence collapses at
+ page $N$ if all $d^r$ vanish for
+ $r\geq N$. One zero differential alone
+ does not imply collapse: a later one
+ may be nonzero.
+\item Vanishing regions often force all
+ remaining arrows to vanish. If all
+ associated graded terms in a fixed total
+ degree vanish, the finite filtration
+ implies the homology in that degree
+ vanishes too.
 \end{enumerate}
 \end{remark}
+
+\medskip\noindent
+{\bf Bicomplexes: where the machinery
+becomes usable.}
+Let $C_{p,q}$ be a first-quadrant
+homological bicomplex, with
+$$
+\begin{aligned}
+d_h &: C_{p,q}\to C_{p-1,q},\\
+d_v &: C_{p,q}\to C_{p,q-1},\\
+d_h^2&=d_v^2=0,\\
+d_hd_v+d_vd_h&=0.
+\end{aligned}
+$$
+These are the anticommuting conventions
+on IMG\_4127. Thus the total complex has
+$$
+T_n=\bigoplus_{p+q=n}C_{p,q},
+\qquad d=d_h+d_v.
+$$
+Filter it by columns:
+$$
+F_pT_n=\bigoplus_{i+j=n,\ i\leq p}C_{i,j}.
+$$
+The horizontal differential drops the
+filtration, whereas the vertical one
+preserves it. Therefore, in the usual
+$(p,q)$ coordinates,
+$$
+\begin{aligned}
+\widetilde E^0_{p,q}&=C_{p,q},
+&d^0&=d_v,\\
+\widetilde E^1_{p,q}&=H_q(C_{p,\bullet},d_v),
+&d^1&=[d_h],\\
+\widetilde E^2_{p,q}&=
+H_p(H_q(C_{\bullet,\bullet},d_v),d_h).
+\end{aligned}
+$$
+The notation in the last line means
+horizontal homology of the vertical
+homology groups. Jethro writes
+(Section 7.2, p.~143):
+\begin{quote}
+The passage to the associated graded
+``kills'' the horizontal differential in
+$C_{\bullet,\bullet}$, and the differential
+in $E^{(0)}$ is precisely the vertical
+differential. Upon taking the cohomology,
+the horizontal differential appears on
+page $E^{(1)}$. And so it goes.
+\end{quote}
+The word ``cohomology'' is retained from
+the source; with these downward arrows
+we are taking homology.
+
+Because the bicomplex is first-quadrant,
+the filtration is finite in each total
+degree, and
+$$
+\widetilde E^\infty_{p,q}\cong
+G_pH_{p+q}(T)/G_{p-1}H_{p+q}(T).
+$$
+Filtering by rows instead reverses the
+order: horizontal homology first, then
+vertical homology. Both sequences
+converge to associated graded pieces of
+the same total homology, for their
+respective filtrations.
+
+\medskip\noindent
+{\bf Connection with the earlier
+\v{C}ech argument (editorial).}
+The cohomological version applies to
+$$
+C^{p,q}=\check C^p(\mathcal U,
+\mathcal F^q).
+$$
+In the resolution comparison already
+recorded in the \v{C}ech section, local
+exactness makes the vertical-first
+sequence concentrate in one row;
+acyclicity makes the horizontal-first
+sequence concentrate in one column.
+Their next pages compute respectively
+\v{C}ech cohomology of $\mathcal F$ and
+cohomology of global sections of its
+resolution. Comparing the common total
+cohomology produces the isomorphism.
+Today's construction explains why this
+method works; no second copy of that
+comparison proof is needed here.
+
+\medskip\noindent
+{\bf Next time: Grothendieck's theorem.}
+The last photograph announces this
+result; it does not record its proof.
+For left exact additive functors
+$$
+\mathcal A\xrightarrow{F}\mathcal B
+\xrightarrow{G}\mathcal C
+$$
+between abelian categories with enough
+injectives, assume $F$ sends injectives
+to $G$-acyclic objects. For $A\in\mathcal A$
+there is a cohomological spectral sequence
+$$
+E_2^{p,q}=R^pG(R^qF(A))
+\ \Longrightarrow\ R^{p+q}(G\circ F)(A).
+$$
+This is Jethro's Theorem 7.3.1, p.~144.
+It relates deriving a composite functor
+to deriving its two factors. Its proof
+in Sections 7.3, pp.~144--147, is further
+reading, not part of today's summary.
+
 
 \section{Koszul complex}
 \label{section-koszul-complex}
