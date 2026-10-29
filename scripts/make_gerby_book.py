@@ -8,6 +8,7 @@ from pathlib import Path
 
 DEFAULT_FILES = ["complex-geometry.tex"]
 KNOWN_CHAPTERS = {
+    "combinatorics",
     "hilbert-schemes",
     "algebra",
     "linear-algebra",
@@ -257,6 +258,14 @@ def body_for(filename):
     path = Path(filename)
     prefix = path.stem
     content = path.read_text(encoding="utf-8")
+    # TeX suppresses comment-newlines in wrapped URLs and labels.
+    content = re.sub(
+        r"\\(href|label)\{([^}]*)\}",
+        lambda m: "\\" + m.group(1) + "{" + re.sub(
+            r"%[^\n]*\n\s*", "", m.group(2)
+        ) + "}",
+        content,
+    )
     content = re.sub(r"\\label\{([^}]*)\}", lambda match: "\\label{" + " ".join(match.group(1).split()) + "}", content)
     lines = content.splitlines(True)
     title = chapter_title(lines, prefix)

@@ -3,11 +3,52 @@
 import runpy
 import shutil
 import sys
+import base64
+import html
+import re
+from pathlib import Path
 
 from plasTeX.Base.LaTeX.Verbatim import verbatim
 from plasTeX.Context import ContextItem
 from plasTeX.Packages import fancyvrb
 from plasTeX.Renderers import Gerby
+
+
+def render_source_image(node):
+  """Keep supplied PNGs visible in standalone tag HTML."""
+  path = Path(node.imageoverride)
+  if path.suffix.lower() != ".png":
+    raise ValueError("Expected a PNG source figure")
+  data = base64.b64encode(path.read_bytes()).decode("ascii")
+  options = node.attributes.get("options") or {}
+  width = str(options.get("width", ""))
+  match = re.fullmatch(
+      r"\s*([0-9.]+)\s*\\(?:line|text)width\s*", width
+  )
+  percent = min(100, max(1, float(match[1]) * 100)) if match else 100
+  return (
+      '<img src="data:image/png;base64,' + data + '" '
+      'alt="' + html.escape(path.stem, quote=True) + '" '
+      'style="width:' + str(percent) + '%;max-width:100%;height:auto">'
+  )
+
+
+def install_source_images(renderer_class):
+  original = renderer_class.loadTemplates
+
+  def load_templates(self, document):
+    original(self, document)
+    fallback = self.get("includegraphics")
+
+    def image(node):
+      path = getattr(node, "imageoverride", None)
+      if path and Path(path).parent.name == "combinatorics-assets":
+        return render_source_image(node)
+      return fallback(node) if fallback else ""
+
+    self["includegraphics"] = image
+
+  renderer_class.loadTemplates = load_templates
 
 try:
   import jinja2
@@ -93,6 +134,7 @@ def main():
 
   ContextItem.__getitem__ = context_item_getitem
   Gerby.partsList = parts_list
+  install_source_images(Gerby.Renderer)
   # fancyvrb.Verbatim.parse calls this name.
   fancyvrb.verbatim = FancyvrbVerbatim
   # plasTeX imports packages by short name.
