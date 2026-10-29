@@ -4748,27 +4748,287 @@ method works; no second copy of that
 comparison proof is needed here.
 
 \medskip\noindent
-{\bf Next time: Grothendieck's theorem.}
-The last photograph announces this
-result; it does not record its proof.
-For left exact additive functors
+{\bf Lecture of 28 October 2026:
+Grothendieck and Hochschild--Serre.}
+Sources: Luiz's eleven-page handwritten
+notes, supplied as
+\emph{Novo Documento(15).pdf}, pp.~1--11;
+and Jethro van Ekeren,
+\emph{Homological Algebra. IMPA 2026-2},
+version supplied 29 October as
+\texttt{ah-current(3).pdf},
+Sections 7.4--7.6, pp.~144--152
+\cite{vanEkerenHomologicalAlgebra2026}.
+The previous lecture's references above
+refer to the 26 October version;
+its Sections 7.1--7.3 are now 7.2--7.4.
+The account below is an editorial summary,
+with quotations explicitly marked.
+
+\medskip\noindent
+{\bf Upshot.}
+Monday constructed spectral sequences.
+Wednesday used them: deriving a composite
+functor can be computed in stages by
+first deriving its factors. The same
+double complex gives two spectral
+sequences: one identifies the answer,
+and the other offers computable terms.
+The example splits $S_3$ into its normal
+subgroup $\mathbb Z/3$ and quotient
+$\mathbb Z/2$ to compute its integral
+cohomology.
+
+\medskip\noindent
+{\bf Grothendieck's theorem.}
+Let
 $$
 \mathcal A\xrightarrow{F}\mathcal B
 \xrightarrow{G}\mathcal C
 $$
-between abelian categories with enough
-injectives, assume $F$ sends injectives
-to $G$-acyclic objects. For $A\in\mathcal A$
-there is a cohomological spectral sequence
+be left exact additive functors between
+abelian categories with enough injectives.
+Assume $F(I)$ is $G$-acyclic whenever
+$I$ is injective. For $A\in\mathcal A$,
 $$
 E_2^{p,q}=R^pG(R^qF(A))
 \ \Longrightarrow\ R^{p+q}(G\circ F)(A).
 $$
-This is Jethro's Theorem 7.3.1, p.~144.
-It relates deriving a composite functor
-to deriving its two factors. Its proof
-in Sections 7.3, pp.~144--147, is further
-reading, not part of today's summary.
+Here the convention is cohomological:
+$$
+d_r:E_r^{p,q}\longrightarrow
+E_r^{p+r,q-r+1}.
+$$
+The limit gives the associated graded of
+a finite filtration on each derived
+functor, not generally the object itself.
+References: Jethro, Theorem 7.4.1;
+Stacks Project, Lemma 13.22.2,
+\href
+{https://stacks.math.columbia.edu/tag/015N}
+{Tag 015N}.
+
+\medskip\noindent
+{\bf The splitting lemma.}
+Jethro's Lemma 7.4.2 and Luiz pp.~1--3
+say that if $I^\bullet$ consists of
+injectives and its cycles $Z^n$ are
+injective, then its cohomology objects
+are injective and
+$$
+H^n(G(I^\bullet))\cong G(H^n(I^\bullet)).
+$$
+Indeed both sequences
+$$
+0\to Z^n\to I^n\to B^{n+1}\to0,
+$$
+$$
+0\to B^n\to Z^n\to H^n\to0
+$$
+split successively. Direct summands of
+injectives are injective, and an additive
+functor preserves these split sequences.
+This justifies commuting $G$ with the
+horizontal cohomology below.
+
+\medskip\noindent
+{\bf The double complex and its two
+computations.}
+Choose an injective resolution
+$A\to A^\bullet$ and put
+$K^\bullet=F(A^\bullet)$, so
+$$
+H^q(K^\bullet)=R^qF(A).
+$$
+Resolve this complex compatibly by a
+Cartan--Eilenberg resolution
+$K^\bullet\to I^{\bullet,\bullet}$.
+Besides resolving every $K^q$, it
+resolves the cycles, boundaries and
+cohomology of $K^\bullet$ by injectives.
+These compatible resolutions are obtained
+from the short exact sequences
+$$
+0\to B^q\to Z^q\to H^q(K^\bullet)\to0,
+$$
+$$
+0\to Z^q\to K^q\to B^{q+1}\to0.
+$$
+See Stacks Project, Lemmas 13.21.2--3,
+\href
+{https://stacks.math.columbia.edu/tag/015G}
+{Section 13.21}.
+
+Jethro explains the need for compatible
+choices in Remark 7.4.4, p.~146
+(verbatim):
+\begin{quote}
+If we had just taken any old injective
+resolution of each $F(A^p)$ then the
+maps between columns in the diagram above
+would compose to something homotopic to
+$0$, not necessarily to $0$ ``on the nose''.
+\end{quote}
+Use commuting horizontal and vertical
+maps and the total differential
+$d_h+(-1)^q d_v$ on $I^{q,p}$.
+Apply $G$ to this double complex.
+
+First take vertical cohomology.
+Since $F(A^q)$ is $G$-acyclic, only
+vertical degree zero survives, with
+terms $G(F(A^q))$. Horizontal cohomology
+then gives
+$$
+H^n(G(F(A^\bullet)))=R^n(G\circ F)(A).
+$$
+This spectral sequence collapses.
+
+In the other order, the splitting lemma
+identifies horizontal cohomology with
+$G(H^q(I^{\bullet,p}))$.
+For each $q$, the complex
+$H^q(I^{\bullet,\bullet})$ in vertical
+degree is an injective resolution of
+$H^q(K^\bullet)=R^qF(A)$. Thus the next
+cohomology gives
+$$
+E_2^{p,q}=R^pG(R^qF(A)).
+$$
+Both computations have the same total
+cohomology, which proves the theorem.
+
+\noindent
+{\bf Editorial precision.}
+The compatible resolution requirement is
+essential. Arbitrary resolutions of the
+terms do not suffice. The source leaves
+an augmentation/exactness issue open in
+Exercise 7.4.5; Luiz p.~8 also invokes
+exactness after taking horizontal
+cohomology. This is not true for an
+arbitrary double complex merely because
+its columns are exact. The
+Cartan--Eilenberg conditions supply the
+needed assertion here. We use the precise
+construction cited above rather than
+repeat that unrestricted claim.
+
+\medskip\noindent
+{\bf Group extensions: Hochschild--Serre.}
+Let $N$ be a normal subgroup of a group
+$G$, and let $Q=G/N$. For a $G$-module $M$,
+taking invariants factors as
+$$
+M\longmapsto M^N\longmapsto(M^N)^Q=M^G.
+$$
+The $G$-action on $M^N$ factors through
+$Q$. The functor taking $N$-invariants
+is right adjoint to the exact inflation
+functor from $Q$-modules to $G$-modules:
+$$
+\operatorname{Hom}_G(\pi^*B,M)
+\cong\operatorname{Hom}_Q(B,M^N).
+$$
+It therefore preserves injectives, so
+Grothendieck's hypothesis holds
+(Jethro, Proposition 7.5.1, p.~149).
+Restriction of an injective $G$-module
+to $N$ is injective as well: its left
+adjoint is the exact induction functor,
+since $\mathbb Z[G]$ is free as a right
+$\mathbb Z[N]$-module. Thus the first
+derived functor is the usual $N$-group
+cohomology, with its induced $Q$-action.
+The resulting spectral sequence is
+$$
+E_2^{p,q}=H^p(Q,H^q(N,M))
+\ \Longrightarrow\ H^{p+q}(G,M).
+$$
+This is Jethro Section 7.5 and Luiz
+pp.~9--10. The quotient's action on
+$H^q(N,M)$ matters; one must not silently
+replace it by the trivial action.
+
+\medskip\noindent
+{\bf Worked example: integral cohomology
+of $S_3$.}
+Take $N=\langle\sigma\rangle\cong
+\mathbb Z/3$, $Q\cong\mathbb Z/2$,
+and $M=\mathbb Z$ with trivial action.
+Jethro Section 7.6, pp.~150--152,
+expands Luiz's computation on pp.~10--11.
+The periodic cyclic-group resolution has
+alternating maps $\sigma-1$ and
+$1+\sigma+\sigma^2$. It gives
+$$
+H^0(N,\mathbb Z)=\mathbb Z,
+\qquad H^{2k+1}(N,\mathbb Z)=0,
+$$
+for $k\geq0$, and
+$$
+H^{2k}(N,\mathbb Z)=\mathbb Z/3
+$$
+for $k\geq1$.
+A transposition conjugates $\sigma$ to
+$\sigma^{-1}$. Its action in degree
+$2k$ is multiplication by $(-1)^k$.
+Explicitly, Jethro lifts the conjugation
+map to the periodic resolution; after
+applying $\operatorname{Hom}(-,\mathbb Z)$
+the signs in degrees $0,1,2,3,\ldots$ are
+$$
++1,-1,-1,+1,+1,-1,-1,+1,\ldots.
+$$
+Thus the positive-degree groups
+$H^{4k}(N,\mathbb Z)$ have trivial
+$Q$-action and $H^{4k+2}(N,\mathbb Z)$
+have sign action.
+
+Since $2$ is invertible on $\mathbb Z/3$,
+the higher $Q$-cohomology of either of
+these modules vanishes. In degree zero,
+the trivial module has invariants
+$\mathbb Z/3$, whereas the sign module
+has no invariants. Consequently the only
+nonzero entries are
+$$
+E_2^{0,0}=\mathbb Z,
+\qquad E_2^{2k,0}=\mathbb Z/2,
+\qquad E_2^{0,4k}=\mathbb Z/3
+$$
+for $k\geq1$ in the last two formulas.
+This uses the standard cyclic-group
+calculation for $H^p(Q,\mathbb Z)$.
+
+All higher differentials vanish for
+support reasons. The only possible arrow
+from $(0,4k)$ to the bottom row would
+have $r=4k+1$ and land at $(4k+1,0)$,
+which is zero. Hence $E_2=E_\infty$.
+For total degree divisible by four, the
+remaining extension splits because its
+two factors have coprime orders. We get
+$$
+H^0(S_3,\mathbb Z)=\mathbb Z,
+\qquad H^{2k+1}(S_3,\mathbb Z)=0,
+$$
+for $k\geq0$, and
+$$
+H^{4k+2}(S_3,\mathbb Z)=\mathbb Z/2
+$$
+for $k\geq0$, while
+$$
+H^{4k}(S_3,\mathbb Z)=\mathbb Z/6
+$$
+for $k\geq1$.
+This illustrates both a usable spectral
+sequence and its extension problem:
+associated graded factors $\mathbb Z/2$
+and $\mathbb Z/2$, unlike the coprime
+case here, would not distinguish
+$\mathbb Z/4$ from
+$\mathbb Z/2\oplus\mathbb Z/2$.
 
 
 \section{Koszul complex}
@@ -6590,6 +6850,40 @@ are open affines in X is sufficient [15, Lemma 30.2.6].
 
 \subsection{Example: Sheaf cohomology on the elliptic curve}
 \label{subsection-jethro-cech-3}
+
+
+\noindent
+{\bf Reading guide, 29 October 2026.}
+The example below already records the
+calculation planned for the next class;
+we retain it here without duplicating it.
+In the PDF supplied on 29 October it is
+Section 8.1, pp.~153--154. Its goal is
+$H^0(E,\mathcal O_E)\cong\mathbb C$ and
+$H^1(E,\mathcal O_E)\cong\mathbb C$,
+using a two-open cover and the elliptic
+function $\zeta(z-p_1)-\zeta(z-p_2)$
+to represent the surviving degree-one
+class.
+
+\noindent
+{\bf Editorial distinction.}
+The finite-pole description below belongs
+to the algebraic interpretation: regular
+functions on a punctured smooth projective
+curve are rational functions with poles
+allowed at the removed points. Arbitrary
+holomorphic functions on the punctured
+analytic curve can have essential
+singularities there, so the stated finite
+linear combinations of elliptic functions
+do not describe all such analytic
+sections. Also choose one consistent
+Cech sign: with $(f,g)\mapsto g-f$, the
+kernel consists of $(c,c)$; with $f+g$,
+it consists of $(c,-c)$. The old quoted
+passage below uses both conventions.
+
 \begin{Verbatim}[fontsize=\footnotesize]
 
 Now let's do some examples. Let E = C/Z + Ztau be a smooth elliptic curve. Let's compute
