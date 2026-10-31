@@ -7446,6 +7446,255 @@ alone does not yet prove the global comparison.
 
 
 
+\section{Elliptic functions and a first glimpse of schemes}
+\label{section-elliptic-functions-jethro}
+
+\noindent
+Lecture of 30 October 2026, Jethro van
+Ekeren, \emph{Homological Algebra}, IMPA
+2026-2
+\cite{vanEkerenHomologicalAlgebra2026}.
+
+\medskip\noindent
+{\bf Daniel's note (verbatim).}
+\begin{quote}
+``Two elliptic curves are isomorphic if
+their tau's are related by a modular form.''
+\end{quote}
+This is tangential to the main line. As
+written on the board, the precise statement
+is: $\mathbb{C}/(\mathbb{Z} +
+\mathbb{Z}\tau) \cong \mathbb{C}/(\mathbb{Z}
++ \mathbb{Z}\tau')$ when
+$\tau' = (a\tau+b)/(c\tau+d)$ with
+$\left(\begin{smallmatrix} a & b \\ c & d
+\end{smallmatrix}\right) \in
+\mathrm{SL}_2(\mathbb{Z})$, so the $\tau$'s
+are related by a \emph{modular
+transformation}. The \emph{modular forms} of
+the lecture are the coefficients $a(\tau)$,
+$b(\tau)$ of the Weierstrass equation below.
+
+\medskip\noindent
+{\bf Main idea (Daniel's note, explained).}
+Removing a point $w$ from the elliptic curve
+$E$ and using Weierstrass functions with
+poles only at $w$ gives a bijection
+$\varphi_w$ from $E \setminus \{w\}$ onto an
+affine plane cubic $C$. Each $\varphi_w$ is
+a chart, and these charts cover $E$. For $E$
+to be glued algebraically from copies of
+$C$, the changes of chart must be rational
+functions. Checking this rationality is the
+gluing condition, and schemes are the gadget
+that formalizes such gluings.
+
+\medskip\noindent
+{\bf Sources of these notes.} Photographs of
+the board (13) and Daniel's notes. The audio
+transcript (whisper.cpp, English) is mostly
+noise; the usable lines, from the end of the
+lecture, are marked ``spoken''.
+
+\medskip\noindent
+{\bf Elliptic curves.} Let $\tau \in
+\mathbb{C}$ with $\operatorname{Im}\tau > 0$
+and $\Lambda = \mathbb{Z} + \mathbb{Z}\tau$.
+The quotient $E = \mathbb{C}/\Lambda$ (a set,
+a group, a topological space) has a
+one-dimensional complex manifold structure
+for which $\pi : \mathbb{C} \to E$ is a
+covering. Holomorphic functions on $E$
+correspond to \emph{elliptic functions}:
+meromorphic $f$ on $\mathbb{C}$ with
+$f(z+1) = f(z+\tau) = f(z)$. A holomorphic
+elliptic function is bounded, hence
+constant by Liouville. So allow poles at
+$z = 0$, hence at all $z \in \Lambda$.
+
+\medskip\noindent
+{\bf Weierstrass functions.} To build $f$
+with a pole of order $m$, put
+$$
+\wp_m(z) = \sum_{\lambda \in \Lambda}
+\frac{1}{(z-\lambda)^m}.
+$$
+For $z$ in a bounded set, the lattice
+points at distance about $R$ from $z$
+number at most a constant times $R^2$ (the
+board writes $3\pi\rho R^2$), and each term
+there has absolute value at most $1/R^m$, so
+they contribute less than $3\pi\rho
+R^2/R^m$. Summing over the regions at
+distance $R, 2R, 4R, \ldots$ gives a
+geometric series, convergent for $m > 2$
+(my rewriting of the board's estimate,
+whose exponents are not fully legible). So
+$\wp_m$ converges for $m \ge 3$. For $m = 2$
+one modifies:
+$$
+\wp(z) = \wp_2(z) = \frac{1}{z^2}
++ \sum_{\lambda \in \Lambda \setminus \{0\}}
+\Big(\frac{1}{(z-\lambda)^2}
+- \frac{1}{\lambda^2}\Big),
+$$
+``the'' Weierstrass $\wp$-function.
+Differentiating term by term,
+$\frac{d}{dz}\wp_m = -m\,\wp_{m+1}$; in
+particular $\wp' = -2\wp_3$.
+
+\begin{proposition}
+\label{proposition-elliptic-poles-on-lattice}
+Let $f$ be an elliptic function with poles
+only at $z \in \Lambda$. Then
+$$
+f(z) = c_0 + \sum_{m=2}^{N} c_m\,\wp_m(z),
+\qquad c_0, c_2, \ldots, c_N \in
+\mathbb{C}.
+$$
+\end{proposition}
+
+\begin{proof}[Sketch from the board]
+Let $N$ be the order of the pole at $0$ and
+$f(z) = \sum_{m \ge -N} c_m z^m$ the Laurent
+expansion there. Then $f - c_{-N}\wp_N$ has
+lower pole order; iterate. In the end
+$f - \sum_m c_m\wp_m$ has at most a simple
+pole on $\Lambda$, so by the residue
+theorem below it has none, and it is
+constant by Liouville.
+\end{proof}
+
+\medskip\noindent
+{\bf The differential equation.} Since
+$\wp' = -2\wp_3$, the function
+$\wp'(z)^2 - 4\wp(z)^3$ has pole order at
+most $5$ at $0$, in fact at most $4$ since
+it is even ($\wp$ is even, $\wp_3$ is odd).
+An explicit calculation shows that the pole
+order is only $2$, so by the proposition
+$$
+\wp'(z)^2 - 4\wp(z)^3 = a\,\wp(z) + b
+$$
+for constants $a, b \in \mathbb{C}$. The
+numbers $a = a(\tau)$ and $b = b(\tau)$ are
+examples of modular forms.
+
+\medskip\noindent
+{\bf Changing the lattice.} If $\Lambda' =
+\alpha\Lambda$, then $z \mapsto \alpha z$
+induces $\mathbb{C}/\Lambda \cong
+\mathbb{C}/\Lambda'$. Also $\Lambda =
+\mathbb{Z}(a\tau+b) + \mathbb{Z}(c\tau+d)$
+whenever $\left(\begin{smallmatrix} a & b
+\\ c & d \end{smallmatrix}\right) \in
+\mathrm{SL}_2(\mathbb{Z})$. Dividing by
+$c\tau+d$ sends $c\tau + d$ to $1$ and
+$a\tau+b$ to $\tau' = (a\tau+b)/(c\tau+d)$,
+so $\mathbb{C}/\Lambda \cong
+\mathbb{C}/(\mathbb{Z} + \mathbb{Z}\tau')$.
+
+\medskip\noindent
+{\bf The cubic.} The map
+$$
+\varphi_0 : E \setminus \{0\} \to
+\mathbb{C}^2,
+\qquad
+z \mapsto (x,y) = (\wp(z), \wp'(z)),
+$$
+has image in the algebraic set
+$C : y^2 = 4x^3 + ax + b$. (The board writes
+$(\wp_2(z),\wp_3(z))$; since $\wp_3 =
+-\wp'/2$, the equation then changes by
+constants. The later board computations use
+$(\wp,\wp')$.)
+
+\begin{theorem}
+\label{theorem-elliptic-residues}
+Let $f$ be a nonconstant elliptic function
+and $P$ a fundamental parallelogram whose
+boundary avoids the zeros and poles of $f$.
+\begin{enumerate}
+\item The residues of $f$ in $P$ sum to $0$.
+\item If $f$ has $n$ poles in $P$, counted
+with multiplicity, then for every constant
+$c$ the equation $f(z) = c$ has $n$
+solutions in $P$, with multiplicity.
+\item The sum of the zeros minus the sum of
+the poles of $f$ in $P$ (with multiplicity)
+lies in $\Lambda$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Sketch from the board]
+For 1, $\oint_{\partial P} f\,dz = 0$, since
+the integrals over opposite sides cancel:
+$f$ is periodic and they are traversed in
+opposite directions. For 2, apply 1 to
+$f'/(f-c)$: near a zero or pole of order
+$k$ of $f - c$ it is $\pm k(z-z_0)^{-1} +
+\cdots$, so its residues count zeros of
+$f - c$ minus poles. For 3, integrate
+$z f'(z)/f(z)$; the integral is not zero,
+since $z$ is not elliptic, but comparing
+opposite sides shows it lies in $2\pi i
+\Lambda$ (exercise).
+\end{proof}
+
+\noindent
+Spoken: a corollary of 1 is that no
+elliptic function has a single simple pole
+in a period parallelogram; one shifts $P$ so
+that its boundary avoids the lattice.
+
+\begin{proposition}
+\label{proposition-phi-zero-bijection}
+$\varphi_0$ is a bijection
+$E \setminus \{0\} \to C$.
+\end{proposition}
+
+\begin{proof}[Sketch from the board]
+Surjective: let $(x_0,y_0) \in C$. The
+function $\wp - x_0$ has one double pole in
+$P$, so $\wp(z) = x_0$ has two solutions,
+with multiplicity; take one, $z_0$. Then
+$\wp'(z_0)^2 = y_0^2$, so $\wp'(z_0) = \pm
+y_0$; if it is $-y_0$, replace $z_0$ by
+$-z_0$, since $\wp$ is even and $\wp'$ is
+odd. Injectivity was omitted in the lecture.
+\end{proof}
+
+\noindent
+By the first proposition, the ring of
+elliptic functions with poles only on
+$\Lambda$ is spanned by $1, \wp_2, \wp_3,
+\wp_4, \ldots$, generated by $\wp_2$ and
+$\wp_3$, and $\varphi_0$ identifies it with
+the ring of functions on $C$:
+$$
+\mathbb{C}[\wp_2,\wp_3] \cong
+\mathbb{C}[x,y]/(y^2 - 4x^3 - ax - b).
+$$
+
+\medskip\noindent
+{\bf Towards schemes (spoken).} The same
+construction with a point $w$ in place of
+$0$ uses $\wp(z-w)$ and $\wp'(z-w)$, which
+satisfy the same differential equation, so
+$\varphi_w$ identifies $E \setminus \{w\}$
+with the same curve $C$. The charts
+$E\setminus\{0\}$ and $E\setminus\{w\}$
+cover $E$. ``This is the beginning of the
+idea of a scheme.'' For the gluing to be
+algebraic, the change of charts must be
+rational: $\wp(z-w)$ and $\wp'(z-w)$ must be
+rational functions of $\wp(z)$ and
+$\wp'(z)$. This holds by an identity from
+the 19th century (the addition theorem for
+$\wp$; not named in the lecture as
+transcribed). He called this ``a bit of an
+eccentric way to introduce schemes''.
+
 \bibliography{my}
 \bibliographystyle{amsalpha}
 
