@@ -1280,10 +1280,12 @@ Ramsey''.
 the slides and of the board, and Daniel's
 notes taken during the talk. The talk was in
 Portuguese, the slides in English. The audio
-was recorded in ten pieces with gaps, and the
-automatic transcript (run with the wrong
-language setting) is unusable, so there are
-no spoken remarks here. Attributions are as
+was recorded in ten pieces with gaps; its
+automatic transcript (whisper.cpp,
+Portuguese) is poor in places, and remarks
+taken from it are marked as spoken. A first
+transcription with the wrong language setting
+was unusable. Attributions are as
 on the slides; those checked against a
 source say so, the rest are marked as
 unchecked. The talk follows Morris's survey
@@ -1315,6 +1317,14 @@ convex position. She asked whether, for every
 $k$, any $n$ points in the plane with no $3$
 on a line contain $k$ points in convex
 position, once $n$ is large enough.
+Spoken, her proof: if the convex hull of the
+$5$ points has $4$ or $5$ vertices we are
+done; otherwise it is a triangle with $2$
+points inside, and the line through those
+$2$ points leaves $2$ vertices of the
+triangle on one side, which together with
+the $2$ inner points are in convex
+position.
 
 \begin{theorem}[Erd\H{o}s--Szekeres, 1935]
 \label{theorem-happy-ending}
@@ -1358,6 +1368,15 @@ R(\ell,k)
 \le \binom{k+\ell-2}{\ell-1}.
 $$
 
+Spoken: pick a vertex, keep the larger of
+its red and blue neighbourhoods, which has at
+least half of the remaining vertices, and
+repeat inside it. After $2k$ steps one colour
+was chosen at least $k$ times, and those
+vertices form a monochromatic clique. Each
+step halves the set, so $2^{2k} = 4^k$
+vertices suffice.
+
 \medskip\noindent
 {\bf Lower bounds.} The first explicit
 construction gives
@@ -1371,7 +1390,9 @@ has at most $k-1$ vertices; a blue clique
 meets each copy at most once, so also has at
 most $k-1$ vertices. The slide ends with
 ``Challenge: find a better explicit
-colouring!''
+colouring!'' Spoken: it is not easy to beat
+this ``ugly square'', but Erd\H{o}s already
+proved an exponential lower bound.
 
 \begin{theorem}[Erd\H{o}s, 1947]
 \label{theorem-erdos-1947}
@@ -1432,22 +1453,50 @@ randomly on a high dimensional sphere and
 colour a pair red if the points are ``far
 apart''. On the board: a sphere $S^d$ with
 points and an angle between two of them, and
-a spherical cap.
+a spherical cap. Spoken: colour a pair red
+when the angle between the points exceeds
+$2\pi/3$. There is no red triangle, since
+three unit vectors cannot have pairwise inner
+products below $-1/2$ (the square of the norm
+of their sum would be negative). A blue
+clique has all angles below $2\pi/3$, and the
+concentration of measure on high dimensional
+spheres keeps such sets small. Asked about
+the constant $\varepsilon$, the speaker did
+not know it.
 \item Erd\H{o}s, 1959:
 $(k/\log k)^{3/2} < R(3,k)$, by colouring
 randomly and destroying the triangles.
+Spoken: with fewer than $n/2$ triangles,
+remove one vertex from each; deleting
+vertices creates no blue cliques.
 \item Erd\H{o}s, 1961:
 $(k/\log k)^2 < R(3,k)$, the same idea, now
 re-colouring edges. A slide shows a random
-red--blue colouring of $K_5$.
+red--blue colouring of $K_5$. Spoken:
+recolouring an edge may create larger blue
+cliques, and controlling this needed new
+techniques, now standard.
 \item Ajtai--Koml\'os--Szemer\'edi, 1980:
 $R(3,k) < C k^2/\log k$, by the
-``semi-random'' method.
+``semi-random'' method. Spoken: in a
+colouring with no red triangle, the red
+neighbourhood of a vertex is a blue clique.
+So either some vertex has red degree at
+least $k$, or one can pick a vertex, discard
+it with its neighbourhood, and repeat; this
+gives $k^2$. Choosing the vertices at random
+among those left, depending on earlier
+choices, saves the $\log k$.
 \item Kim, 1995:
 $R(3,k) = \Theta(k^2/\log k)$, also
 semi-random: choose the red edges randomly,
 one by one (in batches), depending on
-earlier choices.
+earlier choices. Spoken, the simpler
+\emph{triangle-free process}: start with no
+red edges, and at each step make red an edge
+chosen uniformly among those that create no
+red triangle.
 \end{enumerate}
 
 \begin{theorem}[Shearer; Bohman--Keevash; Fiz
@@ -1510,6 +1559,12 @@ $$
 2009), and the conjecture
 $R(4,k) = k^{3+o(1)}$.
 
+\noindent
+Spoken: for $\ell = 3$ both exponents equal
+$2$, but for $\ell \ge 4$ they differ, and
+the methods for $R(3,k)$ did not close the
+gap.
+
 \medskip\noindent
 {\bf Multicolour off-diagonal numbers.} The
 Ramsey number $R(3,3,k)$ is the smallest
@@ -1527,6 +1582,19 @@ $$
 \frac{k^3}{(\log k)^2}.
 $$
 \end{theorem}
+
+\noindent
+Spoken: the upper bound improves $k^3$ by
+$(\log k)^2$ with the
+Ajtai--Koml\'os--Szemer\'edi method; lower
+bounds beyond $k^2$ were out of reach until
+Alon and R\"odl. ``I want to show you the key
+lemma of this proof, which is very beautiful,
+a very simple proof \ldots{} an idea that was
+very important in the area in recent years.
+So perhaps this idea was the key of the
+story in Ramsey theory in recent years.''
+(Translated from the transcript.)
 
 \begin{lemma}[Alon--R\"odl, 2005]
 \label{lemma-alon-rodl}
@@ -1576,6 +1644,14 @@ Theorem~\ref{theorem-alon-rodl} one takes for
 $G$ a triangle-free graph with few
 independent $k$-sets, for example a famous
 algebraic construction of Alon.
+
+Spoken, in the discussion: the two copies of
+$G$ are placed on the same vertex set by a
+random bijection, and an edge lying in both
+can take either colour. The randomness is
+only there to avoid green copies of $K_k$.
+The speaker said this idea is subtle, and
+audiences often have trouble with it.
 
 \begin{remark}
 \label{remark-alon-rodl-reference}
@@ -1638,7 +1714,9 @@ $$
 Proof: an algebraic and geometric
 construction due to O'Nan (1972), together
 with probabilistic and combinatorial methods
-to count independent sets. This proves the
+to count independent sets. Spoken: an
+algebraic object, with random complete
+graphs placed on its lines. This proves the
 case $\ell = 4$ of Erd\H{o}s's conjecture.
 (Not checked against the paper.)
 
@@ -1679,7 +1757,20 @@ $$
 
 \noindent
 Proof: take two random copies of the CJMS
-blow-up. Checked: Z. Hefty, P. Horn,
+blow-up. Spoken: the lesson of Alon--R\"odl
+is that few independent sets are almost as
+good as none, since randomness destroys
+them. Florian Pfender, after hearing Marcus
+Michelen talk about CJMS, replaced the
+triangle-free process by two random copies
+of the blow-up. The copies create triangles,
+but because the graph is a blow-up they can
+be destroyed efficiently. The same
+construction was later used to disprove a
+well-known conjecture (its name is not
+recoverable from the audio), and Andrades,
+Campos and Morris use it for
+$R(3,3,k)$. Checked: Z. Hefty, P. Horn,
 D. King and F. Pfender, \emph{Improving
 $R(3,k)$ in just two bites},
 arXiv:2510.19718, Theorem 1.2, via a
@@ -1753,6 +1844,19 @@ I did not read the papers, and found no
 refereed version.
 \end{remark}
 
+\noindent
+Spoken, in the questions: is AI starting to
+show which problems and methods it can
+attack in combinatorics? The speaker: the
+technique is not so different from what
+existed; the construction tries many
+possibilities, so a simple proof, if one
+exists, will probably be found. A young
+colleague who read the proof found it uses
+a different and interesting version of a
+well-known counting method, so it may bring
+new ideas.
+
 \medskip\noindent
 {\bf A geometric lemma.} Near the end Morris
 showed a toy problem and a lemma.
@@ -1809,6 +1913,16 @@ theorem is
 $R_r(k) \le e^{-\delta k} r^{rk}$ for every
 $r \ge 2$, the first exponential improvement
 on Erd\H{o}s--Szekeres for $r \ge 3$ colours.
+Spoken, the toy problem: for a uniformly
+random bijection the two events are
+independent, each of probability about
+$1/2$, so the probability is about $1/4$.
+Can a bijection make them so negatively
+correlated that the probability tends to
+$0$? The answer is no, and this is
+``perhaps the fact at the bottom of this
+proof'': much negative correlation forces
+much clustering.
 There the lemma is one existence statement,
 not a dichotomy: there are $\lambda \ge -1$
 and $i \in [r]$ with
@@ -1849,7 +1963,9 @@ $R_{\mathrm{ind}}(H) \le C^k$ for every
 graph $H$ with $k$ vertices. (Morris's survey
 lists an exponential upper bound on induced
 Ramsey numbers among the recent results; I
-did not check what it proves.)
+did not check what it proves.) Spoken:
+this was solved last year by Marcelo Campos
+and four IMPA students (not checked).
 \end{enumerate}
 
 \medskip\noindent
@@ -1858,8 +1974,10 @@ did not check what it proves.)
 \item \emph{Daniel recalls that Morris said
 perhaps the key idea of this whole area of
 Ramsey theory is in the Alon--R\"odl
-lemma.} The audio for this is lost, so the
-quotation is unconfirmed. Here is my reading
+lemma.} Confirmed by the transcript: see
+the quotation before
+Lemma~\ref{lemma-alon-rodl}. Here is my
+reading
 of the idea (an explanation, not from the
 talk). Lemma~\ref{lemma-alon-rodl} turns a
 three-colour problem into a question about
@@ -1902,9 +2020,10 @@ with $f_1 = \mathrm{id}$ and $f_2 = f$, after
 rescaling, and its two alternatives are a
 two-colour Ramsey dichotomy: either both
 colourings are often nonnegative together,
-or one of them clusters. I do not know the
-answer, and it is not in the papers checked
-here.
+or one of them clusters. Morris's answer
+(spoken): the probability cannot tend to
+$0$, and this is the fact behind the
+geometric lemma.
 \item \emph{Relation with the Torelli
 project?} I see no direct mathematical
 link; the shared vocabulary hides different
