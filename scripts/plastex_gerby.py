@@ -48,8 +48,59 @@ def install_source_images(renderer_class):
       return fallback(node) if fallback else ""
 
     self["includegraphics"] = image
+    for name in TABULAR_NAMES:
+      self[name] = render_tabular
 
   renderer_class.loadTemplates = load_templates
+
+
+# Gerby's templates lack tabular, so each
+# cell became its own paragraph on the site.
+TABULAR_NAMES = ("tabular", "tabular*", "tabularx")
+CELL_STYLE = (
+    "padding:0.15em 0.6em;"
+    "vertical-align:top;text-align:left;"
+)
+
+
+def render_tabular(node):
+  try:
+    return tabular_html(node)
+  except Exception as error:
+    print("tabular fallback:", error)
+    return "".join(
+        str(cell) for row in node for cell in row
+    )
+
+
+def tabular_html(node):
+  rows = []
+  for row in node:
+    cells = []
+    for cell in row:
+      attributes = cell.attributes or {}
+      spans = ""
+      for key in ("rowspan", "colspan"):
+        value = attributes.get(key)
+        if value and int(value) > 1:
+          spans += ' %s="%d"' % (key, int(value))
+      style = CELL_STYLE + (cell.style.inline or "")
+      content = str(cell).strip()
+      single = re.fullmatch(
+          r"<p>(.*)</p>", content, re.S
+      )
+      if single and "<p>" not in single[1]:
+        content = single[1].strip()
+      cells.append(
+          '<td style="' + html.escape(style, quote=True)
+          + '"' + spans + ">" + content + "</td>"
+      )
+    rows.append("<tr>" + "".join(cells) + "</tr>")
+  return (
+      '<table class="tabular" style="border-collapse:'
+      'collapse;margin:0.5em auto">'
+      + "".join(rows) + "</table>"
+  )
 
 try:
   import jinja2
