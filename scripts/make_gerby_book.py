@@ -74,6 +74,7 @@ KNOWN_CHAPTERS = {
     "earth-sciences",
     "biostatistics",
     "mathematical-systems-biology",
+    "cimpa-el-salvador-2024",
 }
 
 
