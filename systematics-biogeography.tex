@@ -1,0 +1,929 @@
+\input{preamble}
+
+\begin{document}
+
+\title{Systematics and Biogeography}
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{What this chapter covers}
+\label{section-overview}
+
+Systematics: the schools of classification,
+characters and homology, parsimony and the
+measures of fit and support of a
+cladogram, phenetic clustering, ranks and
+nomenclature, species concepts and modes
+of speciation. Biogeography: its history,
+Darwin's dispersal experiments, the
+schools of historical biogeography, island
+biogeography, quantitative methods, the
+molecular clock, and the biogeographic
+provinces of Mexico.
+
+\textbf{Sources of these notes.}
+The first half rests on the course
+\emph{Sistem\'atica} (second semester,
+Facultad de Ciencias, UNAM, spring 2014),
+the second on \emph{Biogeograf\'ia} (third
+semester, autumn 2014). What survives is
+Daniel's work: exam outlines for both
+courses; lab exercises (coding characters
+of animals, fishes and books; a skeletal
+matrix of five ornithopod dinosaurs; a
+phenogram computed by hand); a team essay
+on the species concept; slides on the
+reptiles of Mexico; summaries of two
+papers on Mexican cloud forests; an
+opinion on chapters XI and XII of the
+\emph{Origin}; a short essay on the
+molecular clock; a comparison of maps of
+Mexican biotic provinces; and a team
+project on the spread of the monk
+parakeet. The facts were checked and
+completed with Simpson's \emph{Plant
+Systematics} \cite{simpson2006plant},
+Hickman, Roberts and Larson's \emph{Animal
+Diversity} \cite{hickman2002animal},
+Singh's \emph{Plant Systematics}
+\cite{singh2010plant}, Mayr's \emph{What
+Evolution Is} \cite{mayr2002evolution},
+Darwin's \emph{Origin}
+\cite{darwin2008origin}, Hubbell's
+\emph{Unified Neutral Theory}
+\cite{hubbell2001unified} and Morrone's
+\emph{Biogeograf\'ia de Am\'erica Latina y
+el Caribe} \cite{morrone2001biogeografia}.
+
+\section{Schools of systematics}
+\label{section-schools}
+
+The course's history ran from folk
+taxonomy and Greek essentialism (the
+archetype) through Linnaeus and Darwin to
+three modern schools.
+
+\textbf{Evolutionary systematics}
+(Simpson, Mayr) uses two criteria: common
+descent and the amount of adaptive change.
+A branch that enters a new adaptive zone is
+a \emph{grade} and earns a taxon; the
+broader the zone, the higher the rank.
+Penguins are a grade within birds.
+Evolutionary taxa may be monophyletic or
+paraphyletic: the traditional family
+Pongidae (orangutan, gorilla, chimpanzee)
+leaves out humans, although gorillas and
+chimpanzees are closer to humans than to
+orangutans
+\cite[Chapter 4]{hickman2002animal}.
+
+\textbf{Phenetics} (numerical taxonomy)
+groups taxa by overall similarity, without
+regard to phylogeny. It may group taxa by
+shared ancestral states, so its
+phenograms can differ from cladograms
+\cite[Chapters 1 and 2]{simpson2006plant}.
+It had little impact on animal
+classification
+\cite[Chapter 4]{hickman2002animal}.
+
+\textbf{Phylogenetic systematics}
+(cladistics), founded by Willi Hennig
+(main ideas published shortly before 1950,
+English translation 1966), takes the
+genealogical branching pattern as the only
+basis of classification, because it alone
+gives an unambiguous hierarchy, and uses
+shared derived characters
+(synapomorphies) as the only evidence for
+it. Only monophyletic groups are named
+\cite[Chapter 2]{simpson2006plant}.
+
+\section{Characters, homology and groups}
+\label{section-characters}
+
+\begin{definition}
+\label{definition-character}
+A \emph{character} is a feature that
+varies among the taxa studied; its
+variants are \emph{character states}.
+Characters may be morphological,
+chemical, molecular, behavioural or
+biogeographic.
+\end{definition}
+
+\begin{definition}
+\label{definition-homology}
+Two features are \emph{homologous} if
+their similarity is due to common
+ancestry. Similarity not due to common
+ancestry is \emph{homoplasy}: by
+\emph{convergence} (different ancestral
+conditions), \emph{parallelism} (the same
+ancestral condition) or \emph{reversal} (a
+return to the ancestral state).
+\end{definition}
+
+Homology is a hypothesis, tested by the
+cladistic analysis itself: a feature that
+turns out to have arisen several times was
+not homologous
+\cite[Chapter 2]{simpson2006plant}.
+
+\begin{definition}
+\label{definition-apomorphy}
+Relative to a monophyletic group, an
+ancestral state is a \emph{plesiomorphy}
+and a derived state an \emph{apomorphy}. A
+\emph{synapomorphy} is an apomorphy shared
+by two or more taxa, an
+\emph{autapomorphy} one found in a single
+taxon, and a \emph{symplesiomorphy} a
+shared plesiomorphy.
+\end{definition}
+
+The terms describe states relative to a
+group, not taxa: a state can be derived
+within a large group and ancestral within
+one of its subgroups
+\cite[Chapter 2]{simpson2006plant}.
+
+\begin{definition}
+\label{definition-monophyly}
+A group is \emph{monophyletic} if it
+contains a common ancestor and all its
+descendants, \emph{paraphyletic} if it
+contains the ancestor and some but not all
+descendants, and \emph{polyphyletic} if it
+does not contain the most recent common
+ancestor of its members.
+\end{definition}
+
+Monophyletic groups are diagnosed by
+synapomorphies, paraphyletic ones by
+symplesiomorphies, polyphyletic ones by
+convergences. Birds and mammals together
+(``Homeothermia'') would be polyphyletic
+\cite[Chapter 4]{hickman2002animal}.
+
+\textbf{Coding.} States are coded by
+nonnegative integers, the outgroup state
+usually 0. Binary characters take 0
+(plesiomorphic) or 1 (apomorphic).
+Multistate characters are \emph{ordered}
+(additive: from 0 to 2 one must pass
+through 1) or \emph{unordered}; the usual
+practice is unordered unless there is
+strong evidence for an order. A
+\emph{step matrix} gives the cost of each
+change; for DNA, a transition (purine to
+purine, pyrimidine to pyrimidine) may cost
+1 step and a transversion (purine to
+pyrimidine) 5
+\cite[Chapter 2]{simpson2006plant}.
+Weighting can be a priori (by judged
+complexity, criticized as subjective),
+by compatibility (only characters without
+homoplasy), or \emph{successive}: build a
+tree with equal weights, reweight each
+character by its fit (often by the
+rescaled consistency index), rebuild.
+
+\textbf{Polarity: the outgroup rule.} The
+outgroup is a group close to, but outside,
+the study group (ingroup).
+\begin{itemize}
+\item A state found both in the ingroup and
+in the outgroup is plesiomorphic.
+\item A state found only in the ingroup is
+apomorphic.
+\item If the outgroup has all the states,
+use a more distant outgroup.
+\end{itemize}
+The rationale is parsimony: the other
+choice needs more changes. Teeth are
+present in amphibians and bony fishes, so
+their absence in birds is derived within
+amniotes \cite[Chapter 4]{hickman2002animal}.
+The course also listed weaker criteria:
+fossils show the plesiomorphic state,
+``common is primitive'', and functional
+organs are plesiomorphic relative to
+vestigial ones.
+
+\section{Parsimony and tree search}
+\label{section-parsimony}
+
+Parsimony prefers the cladogram that
+needs the fewest character state changes
+(steps). The cost rules differ:
+\begin{center}
+\begin{tabular}{ll}
+Criterion & Changes allowed \\
+\hline
+Wagner & ordered; $0 \rightarrow 2$
+costs 2 \\
+Fitch & unordered; every change 1 \\
+Dollo & gain once, losses free \\
+Camin--Sokal & no reversals \\
+generalized & any step matrix
+\end{tabular}
+\end{center}
+Dollo's rule reflects the idea that a
+complex structure evolves once but can be
+lost many times; Camin--Sokal is the
+irreversible step matrix of
+\cite[Chapter 2]{simpson2006plant}.
+
+Methods of search, as listed in the
+course:
+\begin{itemize}
+\item \emph{Hennigian argumentation}:
+group only by synapomorphies, combine
+compatible characters, assume homology
+unless there is evidence against it.
+\item \emph{Wagner method}: add taxa one
+at a time, starting with the one most
+similar to the outgroup, joining each new
+taxon to the most similar branch or
+hypothetical ancestor; practical for about
+twenty taxa.
+\item \emph{Exhaustive search}: build all
+trees and keep the shortest.
+\item \emph{Branch and bound}: grow trees
+taxon by taxon and abandon any partial
+tree already longer than the best complete
+tree found.
+\item \emph{Branch swapping} (heuristic):
+rearrange a tree locally (swapping
+branches around an internal branch) or
+globally (cutting and regrafting
+subtrees); the \emph{ratchet} handles very
+large matrices.
+\end{itemize}
+
+\section{Fit, support and consensus}
+\label{section-support}
+
+Let $s$ be the number of steps on a tree,
+$m$ the minimum number of steps the data
+could need on any tree, and $g$ the
+maximum, the steps needed on a completely
+unresolved tree. Then
+\begin{equation}
+\label{equation-ci-ri}
+\begin{aligned}
+CI &= \frac{m}{s}, \\
+RI &= \frac{g-s}{g-m}, \\
+RC &= CI \cdot RI
+\end{aligned}
+\end{equation}
+are the \emph{consistency index}, the
+\emph{retention index} and the
+\emph{rescaled consistency index}. Values
+near 1 mean little homoplasy. The CI can
+be computed per character, cannot reach 0,
+and is inflated by autapomorphies; the RI
+depends on the number of taxa
+\cite[Chapter 2]{simpson2006plant}.
+
+\textbf{Support.} The \emph{bootstrap}
+resamples characters with replacement to
+build matrices of the original size,
+reruns the analysis many times (100 or
+more) and reports how often each clade
+appears; 70\% or more is usually taken as
+robust. The \emph{jackknife} resamples
+without replacement, giving smaller
+matrices. The \emph{decay index} or
+\emph{Bremer support} of a clade is the
+number of extra steps needed before the
+clade disappears from the shortest trees
+\cite[Chapter 2]{simpson2006plant}.
+
+\textbf{Consensus trees} summarize several
+equally parsimonious trees. The
+\emph{strict} consensus keeps only the
+clades present in all of them, collapsing
+the rest into polytomies; the \emph{50\%
+majority-rule} consensus keeps clades
+present in at least half
+\cite[Chapter 2]{simpson2006plant}. The
+course also listed semistrict, Adams and
+Nelson consensus trees, and supertrees.
+
+\textbf{Likelihood and Bayes.}
+\emph{Maximum likelihood} chooses the tree
+under which a chosen model of evolution
+gives the observed data the highest
+probability; the model can, for instance,
+make transitions likelier than
+transversions and let rates vary.
+\emph{Bayesian inference} computes the
+posterior probability of trees, sampled by
+Markov chain Monte Carlo; a clade with
+posterior probability 95\% or more is
+considered well supported, although these
+values are often high
+\cite[Chapter 2]{simpson2006plant}. For a
+tree $H$ and data $D$,
+$$
+P(H \mid D) =
+\frac{P(D \mid H)\, P(H)}{P(D)},
+$$
+where $P(D \mid H)$ is the likelihood,
+$P(H)$ the prior and $P(D)$ the marginal
+likelihood, the same for all trees.
+
+\begin{example}
+\label{example-parsimony}
+Take an outgroup O, three taxa A, B, C,
+and four binary characters:
+\begin{center}
+\begin{tabular}{lcccc}
+ & 1 & 2 & 3 & 4 \\
+\hline
+O & 0 & 0 & 0 & 0 \\
+A & 1 & 1 & 0 & 0 \\
+B & 1 & 1 & 1 & 0 \\
+C & 0 & 0 & 1 & 1
+\end{tabular}
+\end{center}
+Rooted at O there are three trees. On
+((A,B),C) characters 1, 2 and 4 change
+once and character 3 twice: length 5. On
+((B,C),A) characters 1 and 2 need two
+steps each: length 6. On ((A,C),B)
+characters 1, 2 and 3 need two steps:
+length 7. So ((A,B),C) is the most
+parsimonious tree, with $s = 5$ and
+$m = 4$. For $g$, each binary character
+needs on an unresolved tree as many steps
+as the taxa in its rarer state:
+$2+2+2+1 = 7$.
+Hence
+$$
+CI = \frac{4}{5} = 0.8, \quad
+RI = \frac{7-5}{7-4} \approx 0.67, \quad
+RC \approx 0.53.
+$$
+Character 4 is an autapomorphy of C: it
+adds 1 to both $m$ and $s$ but says
+nothing about grouping; without it
+$CI = 3/4$. The clade (A,B) is lost on
+the next best tree, one step longer, so
+its Bremer support is 1.
+\end{example}
+
+\section{Phenetics}
+\label{section-phenetics}
+
+Phenetic clustering starts from a matrix
+of similarities between operational
+taxonomic units (OTUs). For binary data,
+with $a$ the number of characters present
+in both OTUs, $d$ absent in both, and $u$
+the mismatches (present in only one), the
+\emph{simple matching coefficient} and the
+\emph{Jaccard coefficient} are
+$$
+S_{SM} = \frac{a+d}{a+d+u}, \qquad
+S_J = \frac{a}{a+u}.
+$$
+Jaccard ignores shared absences, which
+suits presence/absence data. In
+\emph{UPGMA} (unweighted pair-group method
+with arithmetic averages) the two most
+similar clusters are merged and the
+similarity of the new cluster to each
+other cluster is the average over all
+pairs of members
+\cite[Chapter 8]{singh2010plant}.
+
+\begin{example}
+\label{example-upgma}
+In the course's lab, Jaccard similarities
+among four hypothetical OTUs W, X, Y, Z
+were:
+\begin{center}
+\begin{tabular}{lccc}
+ & W & X & Y \\
+\hline
+X & 0.20 & & \\
+Y & 0.17 & 0.80 & \\
+Z & 0.33 & 0.00 & 0.17
+\end{tabular}
+\end{center}
+UPGMA joins X and Y at 0.80. The new
+similarities are $(0.20+0.17)/2 \approx
+0.18$ for W and $(0.00+0.17)/2 \approx
+0.08$ for Z, so W and Z join next at
+0.33. The two clusters join at the mean of
+the four cross pairs,
+$(0.20+0.17+0.00+0.17)/4 \approx 0.13$.
+The phenogram is ((X,Y),(W,Z)).
+\end{example}
+
+\section{Ranks and nomenclature}
+\label{section-nomenclature}
+
+\textbf{Ranks.} The seven mandatory
+ranks of the animal kingdom are kingdom,
+phylum, class, order, family, genus and
+species; intermediate ranks (subphylum,
+subclass, suborder, subfamily) are added
+as needed. A species name is a binomial,
+genus plus specific epithet, in italics; a
+subspecies takes a trinomial, as in
+\emph{Turdus migratorius achrustera}. The
+author and year that follow a name
+(\emph{Didelphis marsupialis} Linnaeus,
+1758) are not part of it; parentheses
+mark that the species has since moved to
+another genus. Formal subspecies have
+lost favour, since their boundaries are
+rarely sharp
+\cite[Chapter 4]{hickman2002animal}.
+
+\textbf{Types.} A name rests on a type.
+The \emph{holotype} is the single specimen
+designated in the original publication; an
+\emph{isotype} is a duplicate of it (in
+botany); a \emph{lectotype} is chosen
+later from the original material when no
+holotype was designated or it is lost; a
+\emph{neotype} is chosen from new material
+when all original material is lost; a
+\emph{syntype} is any specimen cited when
+no holotype was designated; a
+\emph{paratype} is a specimen cited that
+is none of these. A genus name is tied to
+a type species, a family name to a type
+genus \cite[Chapter 16]{simpson2006plant}.
+
+\textbf{Rules.} \emph{Priority}: of
+competing names the earliest published is
+correct. \emph{Synonyms} are rejected
+names for the same taxon, either
+illegitimate or rejected by taxonomic
+judgement; each taxon has one correct
+name. \emph{Homonyms} are identical names
+based on different types; the later
+homonym is illegitimate. A
+\emph{basionym} is the original name that
+supplies the epithet when a taxon is moved
+or changes rank
+\cite[Chapter 16]{simpson2006plant}. The
+course added monotypy (the type species is
+the only species of its genus) and
+tautonymy (genus and epithet identical).
+
+\textbf{Example: the reptiles of
+Mexico.} The course's slides used the
+ranks of the lab manual:
+\begin{center}
+\begin{tabular}{ll}
+Rank & Taxa \\
+\hline
+class & Reptilia \\
+superorder & Lepidosauria, Archosauria \\
+order & Testudines, Squamata, \\
+ & Crocodylia \\
+suborder & Pleurodira, Cryptodira \\
+ & (turtles); Lacertilia, \\
+ & Amphisbaenia, Serpentes
+\end{tabular}
+\end{center}
+Flores-Villela and Garc\'ia-V\'azquez
+(\emph{Revista Mexicana de
+Biodiversidad}, 2014), read in the course,
+count for Mexico (to October 2013) 864
+species in 159 genera and 40 families,
+8.7\% of the world's reptiles: 417
+lizards, 393 snakes, 48 turtles, 3
+amphisbaenians and 3 crocodilians; 493
+species (57\%) are endemic. The richest
+states are Oaxaca (262), Chiapas (220) and
+Veracruz (200). The \emph{Systema
+Naturae} already lists several Mexican
+reptiles, 13 of them still valid. The
+paper stresses that reptiles are not a
+natural group (crocodiles share
+synapomorphies with birds), that the major
+groups are better left without Linnaean
+ranks, and that lizards are paraphyletic,
+since snakes and amphisbaenians are nested
+among them. Reptiles as traditionally
+recognized are paraphyletic
+\cite[Chapter 4]{hickman2002animal}.
+
+\section{Species and speciation}
+\label{section-species}
+
+The course listed many species concepts:
+typological, phenetic, nominalist,
+morphological, biological, evolutionary,
+the cohesion or selection concept, and
+others. The reading by Llorente and
+Mich\'an frames two old debates behind
+them: realism against nominalism, and
+fixism against evolutionism.
+\begin{itemize}
+\item \emph{Typological}: a species is
+defined by fixed essential features,
+usually morphological; discarded after
+Darwin.
+\item \emph{Biological} (Dobzhansky,
+Mayr): ``a reproductive community of
+populations (reproductively isolated from
+others) that occupies a specific niche in
+nature'' (Mayr, 1983). It does not apply
+to asexual organisms.
+\item \emph{Evolutionary} (Simpson): a
+single lineage of ancestor--descendant
+populations with its own identity,
+evolutionary tendencies and historical
+fate; it covers asexual forms.
+\item \emph{Phylogenetic}: the smallest
+diagnosably distinct grouping with a
+parental pattern of ancestry and descent;
+it yields the most species.
+\end{itemize}
+\cite[Chapter 4]{hickman2002animal}.
+Mayr accepts only two concepts, the
+typological and the biological, and reads
+the others as criteria for delimiting
+species taxa. Sibling species, such as the
+six species once lumped as the malaria
+mosquito \emph{Anopheles maculipennis},
+defeat the typological concept
+\cite[Chapter 8]{mayr2002evolution}.
+
+\textbf{Speciation.} Anagenesis is change
+within a lineage, cladogenesis the
+splitting of lineages.
+\begin{itemize}
+\item \emph{Allopatric}: a population
+acquires isolating mechanisms while
+geographically isolated. In
+\emph{dichopatric} speciation a new
+barrier splits the range (vicariance); in
+\emph{peripatric} speciation a small
+founder population beyond the edge of the
+range diverges
+\cite[Chapter 9]{mayr2002evolution}.
+\item \emph{Sympatric}: without
+geographic isolation, as when insects
+shift to a new host plant and mate on it,
+or in cichlid fishes of small crater lakes
+in Cameroon
+\cite[Chapter 9]{mayr2002evolution}.
+\item The course also listed
+\emph{parapatric} speciation (adjacent
+populations, with loss of the
+intermediates of a cline) and
+\emph{stasipatric} speciation (by
+chromosomal change).
+\end{itemize}
+
+\textbf{The team essay.} Daniel's team
+argued, with Leibniz's principles of
+identity and continuity, that each
+organism is unique while forms grade into
+one another, so that every species concept
+cuts a continuous process arbitrarily. Its
+examples were a DNA barcode library of the
+butterflies of Peninsular Malaysia, where
+barcodes and morphology disagreed on
+species and subspecies, and a paper
+defending subspecies only as evolutionarily
+significant units. It floated the idea of a
+species as an emergent property of a
+complex system, and in the end preferred,
+for practical work such as conservation,
+the \emph{pragmatic} concept quoted by
+Llorente and Mich\'an: the smallest group
+consistently and persistently distinct from
+others and distinguishable by ordinary
+means.
+
+\section{History of biogeography}
+\label{section-biogeography-history}
+
+Biogeography studies the distribution of
+living things in space and time and its
+causes; distribution depends on both
+ecology and history. Historical
+biogeography works at geological time
+scales and seeks relationships between
+areas; ecological biogeography works at
+short times and local scales.
+
+The course's history:
+\begin{itemize}
+\item a single centre of creation and
+dispersal (Eden, the Flood);
+\item Acosta (1590): the American biota
+reached the New World by land bridges,
+such as the strait of Ani\'an in the
+north;
+\item Linnaeus: distribution follows
+ecology, as in the zones of a mountain;
+\item Buffon: regions with the same
+climate hold different species, so
+ecology is not enough;
+\item de Candolle: historical versus
+ecological causes;
+\item Sclater (1858): six regions from the
+distribution of birds, still in use:
+Palearctic, Nearctic, Neotropical,
+Ethiopian, Oriental, Australian;
+\item Wallace (1876): \emph{The Geographical
+Distribution of Animals}, built on
+Sclater's regions;
+\item Darwin: dispersal over a stable
+geography, against land bridges and
+multiple centres of creation;
+\item Croizat (\emph{Space, Time, Form},
+1964): the earth and its biota evolve
+together.
+\end{itemize}
+
+\textbf{Darwin's experiments}
+(\emph{Origin}, chapters XI and XII). To
+test ``occasional means of
+distribution'', Darwin soaked seeds in sea
+water: 64 of 87 kinds germinated after 28
+days, and a few survived 137 days. Most
+seeds sank, but dried plants with ripe
+fruit floated longer: 18 of 94 floated for
+more than 28 days. He concluded that the
+seeds of about 14 in 100 plants could be
+carried 924 miles by currents averaging 33
+miles a day and still germinate. He grew
+537 plants from three tablespoons of pond
+mud ($6\frac{3}{4}$ ounces when dry), and
+argued that wading birds carry such mud on
+their feet \cite[Chapters XI and
+XII]{darwin2008origin}. In Daniel's
+opinion essay, Darwin assumed a stable
+geography and so could not explain
+distribution fully, but his dispersal was
+far more reasonable than land bridges and
+multiple creations, and he presented his
+conclusions carefully as beliefs based on
+experiment.
+
+\section{Schools of historical biogeography}
+\label{section-schools-biogeography}
+
+\textbf{Dispersalism} (Darwin, Wallace,
+Simpson). Each taxon arises in a centre of
+origin and spreads. Dispersal is
+ecological (within the range) or
+historical (range expansion), active or
+passive. Routes are \emph{corridors}
+(open to many species), \emph{filters}
+(passable by some) or chance routes.
+Method: find the centre of origin, find
+the routes, reconstruct the history.
+Criticisms: no precise method, no
+criterion for the centre of origin,
+stable geography assumed, histories unique
+to each taxon (no general patterns), abuse
+of land bridges.
+
+\textbf{Phylogenetic biogeography}
+(Hennig, Brundin, Ball). It rests on
+continental drift, Hennig's cladistics and
+Croizat's critique of dispersalism, and
+studies one monophyletic group at a time.
+Two rules:
+\begin{itemize}
+\item \emph{deviation rule}: when a
+lineage splits, one daughter differs more
+and the other stays more like the
+ancestor;
+\item \emph{progression rule}: change in
+space runs parallel to change in
+characters, so the species with the most
+plesiomorphic characters live in the area
+occupied first, taken as the centre of
+origin.
+\end{itemize}
+Method: build the cladogram of the group,
+replace species by their areas, place the
+centre of origin, compare with geological
+history to decide between vicariance and
+dispersal, date with fossils (minimum
+ages) and barriers (maximum ages); jump
+dispersal is admitted when geology and
+cladogram disagree.
+
+\textbf{Cladistic vicariance biogeography}
+(Nelson, Platnick, Rosen) compares several
+monophyletic groups living in areas of
+endemism. Congruent patterns imply a
+common history, most probably vicariance:
+populations split by a new barrier.
+Method: replace the terminal taxa of each
+cladogram by their areas (taxon-area
+cladograms), solve the problems, then
+combine them into a general area cladogram
+by component analysis or parsimony. The
+trivial case has one endemic taxon per
+area; the problems are widespread taxa,
+missing areas and redundant distributions.
+The school grew with plate tectonics:
+Wegener proposed drift in 1915, and a
+mechanism was accepted only at the end of
+the 1960s.
+
+\textbf{Panbiogeography} (Croizat) needs
+no phylogeny, rejects dispersal from
+centres of origin, and gives priority to
+the geography of distributions: biotas
+spread in a phase of mobility, then
+differentiate in place when the land
+changes.
+\begin{itemize}
+\item \emph{Individual track}: the line
+joining the localities of a taxon by the
+shortest total length (a minimum spanning
+tree).
+\item \emph{Generalized track}: several
+coinciding individual tracks, a sign of
+shared history.
+\item \emph{Node}: where generalized tracks
+meet; read as zones of tectonic
+convergence and as conservation
+priorities.
+\item \emph{Baseline}: the barrier or
+geographic feature that tracks cross, used
+to orient them; a \emph{mass centre}, the
+area of greatest diversity, also orients
+them.
+\end{itemize}
+These schools are described from the
+course's exams and the reading by
+Llorente, Papavero and Bueno on the
+history of biogeography.
+Morrone uses generalized tracks to split
+South America: taxa of the west connect to
+Australia and New Zealand, those of the
+east to the Old World tropics
+\cite{morrone2001biogeografia}.
+
+\section{Islands, quantitative methods}
+\label{section-islands}
+
+\textbf{Island biogeography.} MacArthur and
+Wilson (1963, 1967) explained why islands
+have fewer species than mainland areas of
+the same size: smaller populations go
+extinct more easily and recolonize more
+slowly. The number of species $S$ on an
+island settles where the immigration rate
+$I$, falling as $S$ grows, meets the
+extinction rate $E$, rising as $S$ grows:
+$$
+I(S^{*}) = E(S^{*}).
+$$
+Distance from the mainland lowers
+immigration and small size raises
+extinction; the only state variable is
+the number of species, and all species are
+treated as equivalent
+\cite[Chapter 1]{hubbell2001unified}. The
+course added four stages (initial,
+competitive decline, reorganization,
+evolutionary) and four weaknesses: species
+can arise on the island, islands are not
+homogeneous, colonization and extinction
+are not independent, and history is
+ignored.
+
+\textbf{Quantitative biogeography.}
+Choose a study area, divide it into
+operational geographic units (grid cells),
+build a presence/absence matrix (taxa by
+units), compute diversity per unit and
+similarity between units (S{\o}rensen's
+index for presence data, Bray--Curtis for
+abundances), and cluster.
+\emph{Parsimony analysis of endemicity}
+(PAE) treats areas as taxa and taxa as
+characters, roots the tree with a
+hypothetical area with all taxa absent,
+and finds the most parsimonious cladogram
+of areas; taxa present in a single area,
+like autapomorphies, are uninformative. In
+a paper summarized in the course, Luna
+Vega and coauthors (\emph{Journal of
+Biogeography}, 1999) ran PAE on 1267
+species of vascular plants in 24 Mexican
+cloud forests and found one tree of 3581
+steps, with $CI = 0.354$ and
+$RI = 0.291$, grouping the forests into
+five clades that do not match Rzedowski's
+floristic provinces.
+
+\textbf{Molecular clock.} Zuckerkandl and
+Pauling (1962) showed that many molecules
+change at a roughly constant rate. Each
+molecule has its own rate, calibrated
+with dated fossils or vicariance events
+\cite[Chapter 2]{mayr2002evolution}. If a
+gene diverges at rate $r$ per lineage and
+two species differ by a fraction $d$, their
+common ancestor lived
+$$
+t = \frac{d}{2r}
+$$
+ago: with $r = 2\%$ per million years and
+$d = 10\%$, $t = 2.5$ million years.
+Rates vary between lineages (rodents
+evolve faster than primates)
+\cite[Chapter 10]{mayr2002evolution}.
+
+\section{Biogeography of Mexico}
+\label{section-mexico}
+
+Morrone divides Latin America into
+regions, subregions and provinces. Mexico
+holds:
+\begin{itemize}
+\item Nearctic region: provinces of
+California, Baja California, Sonora,
+Altiplano Mexicano and Tamaulipas;
+\item Neotropical region, Caribbean
+subregion: Sierra Madre Occidental,
+Sierra Madre Oriental, Eje Volc\'anico
+Transmexicano, Depresi\'on del Balsas,
+Sierra Madre del Sur, Costa Pac\'ifica
+Mexicana, Golfo de M\'exico, Pen\'insula
+de Yucat\'an and Chiapas.
+\end{itemize}
+Halffter's \emph{Mexican Transition Zone},
+in this scheme the Mexican and Central
+American part of the Caribbean subregion,
+lies between the Nearctic and Neotropical
+regions. Rzedowski saw its conifer and oak
+forests as a southern extension of the
+Nearctic, although most of its plants are
+Neotropical. A panbiogeographic analysis
+of Theaceae places a node in Mesoamerica,
+where the Caribbean generalized track
+meets an Asian--Mesoamerican one. The
+Transmexican Volcanic Belt, in central
+Mexico, is dominated by pine--oak forest,
+with alpine grassland near the summits of
+the great volcanoes
+\cite{morrone2001biogeografia}.
+
+In a course exercise Daniel compared four
+CONABIO maps of Mexico (floristic,
+mammal, herpetofaunal and morphotectonic
+provinces). All show north--south
+divisions in the north, set by the Sierras
+Madre Occidental and Oriental, and
+east--west divisions in the south, set by
+the Transmexican Volcanic Belt, with the
+Sierra Madre de Chiapas as another
+barrier. A second paper summarized in the
+course, a track analysis of 967 species of
+vascular plants in the cloud forests of
+Hidalgo by Luna Vega and coauthors
+(\emph{Diversity and Distributions},
+2000), found a node at Chapulhuac\'an and
+proposed it as a conservation priority.
+
+\textbf{The monk parakeet project.} The
+course's final team project (November
+2014) traced the spread of the monk
+parakeet, \emph{Myiopsitta monachus},
+native to southern Brazil, Uruguay,
+Bolivia and northern Argentina and the
+only parrot that builds its own nests.
+It was first recorded free in New York in
+1967, in Barcelona in 1975 and in England
+in 1987; Chile imported about 13\,000
+legally in 1995--1998. Mexico imported
+about 125\,000 between 2005 and 2010 and
+became the largest importer. The first
+Mexican sightings were in the Valley of
+Mexico in 2008, before those in Chihuahua
+and Baja California (about 2011). The team
+argued that the spread followed the pet
+trade, not natural dispersal from the
+north.
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

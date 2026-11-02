@@ -59,6 +59,21 @@ KNOWN_CHAPTERS = {
     "real-analysis",
     "history",
     "seiberg-witten",
+    "history-philosophy-biology",
+    "chemistry",
+    "molecular-cell-biology",
+    "microbiology",
+    "protistology",
+    "mycology",
+    "botany",
+    "zoology",
+    "animal-histology",
+    "animal-physiology",
+    "systematics-biogeography",
+    "ecology-natural-resources",
+    "earth-sciences",
+    "biostatistics",
+    "mathematical-systems-biology",
 }
 
 

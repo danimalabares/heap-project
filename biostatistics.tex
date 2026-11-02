@@ -1,0 +1,592 @@
+\input{preamble}
+
+\begin{document}
+
+\title{Biostatistics}
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{What this chapter covers}
+\label{section-overview}
+
+Classical statistics for biologists:
+probability and the binomial and Poisson
+distributions, confidence intervals,
+hypothesis tests, comparison of two or
+more groups, simple linear regression,
+the chi-square test of independence, and
+sampling designs.
+
+\textbf{Sources of these notes.}
+The notes rest on the course
+\emph{Bioestad\'istica}, third semester,
+Fall 2014 (semester 2015-1), Facultad de
+Ciencias, UNAM. What survives is
+Daniel's take-home probability exam,
+exercise sheets on confidence intervals,
+tests and ANOVA with his solutions, JMP
+outputs of his analyses, Excel workbooks
+on regression and the chi-square test,
+the teacher's slides on sampling, and an
+exam answer on a salamander survey. The
+course used JMP and Excel and cites no
+textbook. Definitions and formulas were
+checked against Rosner
+\cite{rosner2011biostatistics} and Triola
+\cite{triola2012elementary}, and all
+numbers below were recomputed.
+
+\section{Describing a sample}
+\label{section-descriptive}
+
+Every analysis in the course started
+with a statistical summary of each
+sample: $n$, mean, standard deviation,
+standard error, variance, skewness,
+kurtosis, coefficient of variation,
+quartiles, minimum and maximum, then a
+histogram and a box plot. For a sample
+$x_1, \dots, x_n$:
+$$
+\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i,
+\qquad
+s^2 = \frac{1}{n-1}
+\sum_{i=1}^n (x_i - \bar{x})^2,
+$$
+$$
+\mathrm{SE} = \frac{s}{\sqrt{n}},
+\qquad
+\mathrm{CV} = 100\,\frac{s}{\bar{x}}\ \%.
+$$
+The standard deviation describes the
+spread of the data; the standard error
+describes the uncertainty of the mean
+\cite[Section 2.6]{rosner2011biostatistics},
+\cite[Section
+6.5]{rosner2011biostatistics}.
+
+\section{Probability}
+\label{section-probability}
+
+For events $A$, $B$ with $P(B) > 0$ the
+conditional probability is
+$$
+P(A \mid B) =
+\frac{P(A \cap B)}{P(B)}.
+$$
+Two events are mutually exclusive if
+$P(A \cap B) = 0$, and independent if
+$$
+P(A \cap B) = P(A)\,P(B),
+$$
+equivalently $P(A \mid B) = P(A)$.
+Mutually exclusive events with positive
+probabilities are never independent. If
+$B_1, \dots, B_k$ are mutually exclusive
+and exhaustive, the law of total
+probability and Bayes' rule read
+\begin{equation}
+\label{equation-bayes}
+P(B_j \mid A) =
+\frac{P(A \mid B_j)\,P(B_j)}
+{\sum_{i=1}^k P(A \mid B_i)\,P(B_i)}.
+\end{equation}
+Here $P(B_j)$ is the prior (\emph{a
+priori}) and $P(B_j \mid A)$ the
+posterior (\emph{a posteriori})
+probability
+\cite[Sections
+3.4--3.7]{rosner2011biostatistics}.
+
+\begin{example}
+\label{example-bayes-flowers}
+In the take-home exam, two plant
+populations of $100$ individuals each
+carry a flower-colour gene: white,
+yellow and orange flowers number
+$60, 24, 16$ in the first population and
+$32, 48, 20$ in the second. A flower is
+drawn from a population chosen with
+probability $1/2$ and turns out yellow.
+By \eqref{equation-bayes}
+$$
+P(P_2 \mid Y) =
+\frac{\frac{1}{2}(0.48)}
+{\frac{1}{2}(0.48) + \frac{1}{2}(0.24)}
+= \frac{2}{3}.
+$$
+\end{example}
+
+\section{Binomial and Poisson distributions}
+\label{section-binomial-poisson}
+
+A random variable $X$ counting successes
+in $n$ independent trials, each with
+success probability $p$, is binomial:
+$$
+P(X = x) = \binom{n}{x}
+p^x (1-p)^{n-x},
+\qquad x = 0, \dots, n,
+$$
+with mean $np$ and variance $np(1-p)$. A
+count of rare events in a fixed interval
+of time or space, with mean $\lambda$, is
+Poisson:
+$$
+P(X = x) = \frac{e^{-\lambda}
+\lambda^x}{x!},
+\qquad x = 0, 1, 2, \dots,
+$$
+with mean and variance both equal to
+$\lambda$. The binomial needs the number
+of trials; the Poisson needs only the
+mean rate
+\cite[Sections
+4.8--4.12]{rosner2011biostatistics}.
+
+\begin{example}
+\label{example-binomial-cables}
+In an exam problem each of $15$
+undersea cables is bitten by sharks with
+probability $0.35$, so $X$ is binomial
+with $n = 15$ and $p = 0.35$. Summing the
+probability function:
+\begin{center}
+\begin{tabular}{lc}
+Event & Probability \\
+\hline
+$X = 0$ & $0.0016$ \\
+$X = 4$ & $0.1792$ \\
+$X \leq 4$ & $0.3519$ \\
+$X \geq 6$ & $0.4357$ \\
+$5 \leq X \leq 9$ & $0.6356$ \\
+\end{tabular}
+\end{center}
+In another problem a hitchhiking robot is
+picked up with probability $0.2$ on each
+of $27$ attempts: the number of lifts has
+mean $27(0.2) = 5.4$, variance
+$27(0.2)(0.8) = 4.32$ and standard
+deviation $2.08$.
+\end{example}
+
+\begin{example}
+\label{example-poisson-larvae}
+Beetle larvae per soil sample follow a
+Poisson law with $\lambda = 4.2$. Then
+$P(X = 4) = 0.194$,
+$P(X < 3) = 0.210$ and
+$P(X > 4) = 0.410$.
+\end{example}
+
+\section{Confidence intervals}
+\label{section-confidence-intervals}
+
+Write $z_q$, $t_{d,q}$ and $\chi^2_{d,q}$
+for the $q$-quantiles of the standard
+normal, the $t$ distribution and the
+chi-square distribution with $d$ degrees
+of freedom. A $100(1-\alpha)\%$
+confidence interval is:
+\begin{itemize}
+\item for a mean, with known $\sigma$ or
+large $n$:
+$$
+\bar{x} \pm z_{1-\alpha/2}
+\frac{\sigma}{\sqrt{n}};
+$$
+\item for a mean of a normal population
+with unknown $\sigma$:
+$$
+\bar{x} \pm t_{n-1,1-\alpha/2}
+\frac{s}{\sqrt{n}};
+$$
+\item for a variance of a normal
+population:
+$$
+\left[
+\frac{(n-1)s^2}{\chi^2_{n-1,1-\alpha/2}},
+\ \frac{(n-1)s^2}{\chi^2_{n-1,\alpha/2}}
+\right];
+$$
+\item for a proportion, with
+$n\hat{p}(1-\hat{p}) \geq 5$:
+$$
+\hat{p} \pm z_{1-\alpha/2}
+\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}.
+$$
+\end{itemize}
+See \cite[Sections
+6.5--6.8]{rosner2011biostatistics}. The
+interval is random; the population
+parameter is fixed. In repeated sampling
+$100(1-\alpha)\%$ of such intervals
+contain it.
+
+\begin{example}
+\label{example-confidence-intervals}
+From the exercise sheet:
+\begin{itemize}
+\item $\bar{x} = 817.75$, $s = 73.62$,
+$n = 30$, $99\%$: with
+$z_{0.995} = 2.576$ and
+$\mathrm{SE} = 13.44$ the interval is
+$783.13 \leq \mu \leq 852.37$.
+\item $s = 29.3$, $n = 12$, $99\%$: with
+$\chi^2_{11,0.995} = 26.76$ and
+$\chi^2_{11,0.005} = 2.603$ the interval
+is $352.9 \leq \sigma^2 \leq 3627.6$,
+that is $18.8 \leq \sigma \leq 60.2$.
+\item $\hat{p} = 0.51$, $n = 60$, $95\%$:
+$0.384 \leq p \leq 0.636$.
+\end{itemize}
+\end{example}
+
+\section{Hypothesis tests}
+\label{section-tests}
+
+A test compares a null hypothesis $H_0$
+with an alternative $H_1$. A test
+statistic is computed from the data; the
+$p$-value is the probability, under
+$H_0$, of a value at least as extreme as
+the one observed. One rejects $H_0$ at
+level $\alpha$ when $p < \alpha$,
+equivalently when the statistic falls
+in the rejection region. A type I error
+rejects a true $H_0$ (probability
+$\alpha$); a type II error accepts a
+false one. A one-sided alternative puts
+the whole rejection region in one tail;
+it is legitimate only when the direction
+is fixed before seeing the data
+\cite[Sections
+7.2--7.4]{rosner2011biostatistics}.
+
+\textbf{Homoscedasticity.}
+The pooled $t$ test and ANOVA assume equal
+variances. For two normal samples the $F$
+test uses
+$$
+F = \frac{s_1^2}{s_2^2}
+\sim F_{n_1-1,\,n_2-1}
+$$
+under $H_0\colon \sigma_1^2 = \sigma_2^2$
+\cite[Section
+8.6]{rosner2011biostatistics}.
+It is sensitive to non-normality. The
+Levene test (and its Brown-Forsythe
+version, with deviations from the median)
+replaces each value by its absolute
+deviation from the group mean or median
+and compares these deviations across
+groups \cite[Section
+9-5]{triola2012elementary}. JMP also
+reports Bartlett's and O'Brien's tests;
+Daniel's analyses checked all four
+before each comparison of means.
+
+\section{Comparing two groups}
+\label{section-two-samples}
+
+For independent normal samples with
+equal variances, the pooled $t$
+statistic is
+$$
+t = \frac{\bar{x}_1 - \bar{x}_2}
+{s_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}},
+\qquad
+s_p^2 = \frac{(n_1-1)s_1^2
++ (n_2-1)s_2^2}{n_1+n_2-2},
+$$
+with $n_1 + n_2 - 2$ degrees of freedom
+\cite[Section
+8.4]{rosner2011biostatistics}.
+With unequal variances one uses Welch's
+statistic
+$$
+t = \frac{\bar{x}_1 - \bar{x}_2}
+{\sqrt{\frac{s_1^2}{n_1}
++ \frac{s_2^2}{n_2}}}
+$$
+with the Satterthwaite degrees of freedom
+$$
+d' = \frac{\left(\frac{s_1^2}{n_1}
++ \frac{s_2^2}{n_2}\right)^2}
+{\frac{(s_1^2/n_1)^2}{n_1-1}
++ \frac{(s_2^2/n_2)^2}{n_2-1}}
+$$
+\cite[Section
+8.7]{rosner2011biostatistics}.
+
+\begin{example}
+\label{example-two-samples}
+In the third exercise sheet the students
+generated data in Excel within ranges
+given in each problem and compared the
+two groups in JMP. With $n = 20$ per
+group unless stated:
+\begin{itemize}
+\item \emph{Latrodectus mactans} (black
+widow): time to flee a vibration, in
+deciseconds, $11.1$ ($s = 1.62$) at
+$1\ \mathrm{Hz}$ versus $2.6$
+($s = 1.27$) at $25\ \mathrm{Hz}$;
+$t = 18.46$ with $38$ degrees of
+freedom, $p < 0.0001$; the variances do
+not differ ($F$ test $p = 0.30$).
+\item \emph{Crocodylus moreletii}
+(Morelet's crocodile): eggs per nest,
+$46.1$ ($s = 3.02$) in floating nests in
+Veracruz versus $26.1$ ($s = 2.59$) in
+nests on aquatic vegetation in San Luis
+Potos\'i; $t = 22.45$, $p < 0.0001$.
+\item \emph{Galeorhinus galeus} (school
+shark): weight $7.81\ \mathrm{kg}$
+($n = 21$) in the Gulf of Mexico versus
+$9.68\ \mathrm{kg}$ ($n = 19$) in the
+Pacific; $t = -4.74$, $p < 0.0001$;
+Levene $p = 0.98$.
+\end{itemize}
+Since the data were simulated from the
+stated ranges, these examples train the
+method rather than test the biology.
+\end{example}
+
+\section{One-way ANOVA and Tukey}
+\label{section-anova}
+
+Let $k$ groups have sizes $n_i$, means
+$\bar{y}_i$, total size $N$ and grand
+mean $\bar{y}$. The total sum of squares
+splits as
+$$
+\sum_{i,j}(y_{ij} - \bar{y})^2
+= \sum_i n_i(\bar{y}_i - \bar{y})^2
++ \sum_{i,j}(y_{ij} - \bar{y}_i)^2,
+$$
+the between and within sums of squares.
+Under $H_0\colon \mu_1 = \dots = \mu_k$,
+with normal data and equal variances,
+$$
+F = \frac{\mathrm{SS}_B/(k-1)}
+{\mathrm{SS}_W/(N-k)}
+\sim F_{k-1,\,N-k}
+$$
+\cite[Sections
+12.2--12.3]{rosner2011biostatistics}.
+The ANOVA table lists degrees of freedom,
+sums of squares, mean squares
+($\mathrm{SS}/\mathrm{df}$), $F$ and $p$;
+filling in such tables was a standard
+exam exercise.
+
+A significant $F$ says only that some
+means differ. Multiple comparison
+procedures then find which pairs do while
+controlling the overall error rate; the
+course used the Tukey-Kramer honestly
+significant difference
+\cite[Section 12-2]{triola2012elementary}.
+Means $i$ and $j$ differ when
+$$
+|\bar{y}_i - \bar{y}_j| >
+q_{1-\alpha;\,k,\,N-k}
+\sqrt{\frac{\mathrm{MS}_W}{2}
+\left(\frac{1}{n_i}+\frac{1}{n_j}\right)},
+$$
+with $q$ the studentized range quantile
+and $\mathrm{MS}_W = \mathrm{SS}_W/(N-k)$.
+JMP prints $q/\sqrt{2}$ as $q^*$. This is
+the standard form of the procedure, not
+taken from the two textbooks.
+
+\begin{example}
+\label{example-anova-lizards}
+A lizard exercise compared a control and
+two treatments, $20$ animals each, with
+means $12.30$, $7.85$ and $10.35$. The
+table gave $F(2,57) = 3.88$,
+$p = 0.026$, with
+$\mathrm{MS}_W = 25.67$; Levene
+($p = 0.16$) and Bartlett ($p = 0.35$)
+did not reject equal variances. With
+$q^* = 2.406$ the Tukey threshold is
+$$
+2.406\sqrt{25.67\left(\frac{1}{20}
++ \frac{1}{20}\right)} = 3.86,
+$$
+so only control versus treatment A
+(difference $4.45$) is significant.
+\end{example}
+
+\section{Simple linear regression}
+\label{section-regression}
+
+The model is $y = \beta_0 + \beta_1 x +
+\varepsilon$ with independent normal
+errors of constant variance. With
+$$
+\begin{aligned}
+L_{xx} &= \sum x_i^2
+- \frac{(\sum x_i)^2}{n}, \qquad
+L_{yy} = \sum y_i^2
+- \frac{(\sum y_i)^2}{n}, \\
+L_{xy} &= \sum x_i y_i
+- \frac{\sum x_i \sum y_i}{n},
+\end{aligned}
+$$
+the least-squares estimates and the
+correlation coefficient are
+$$
+b_1 = \frac{L_{xy}}{L_{xx}},
+\qquad
+b_0 = \bar{y} - b_1\bar{x},
+\qquad
+r = \frac{L_{xy}}{\sqrt{L_{xx}L_{yy}}}.
+$$
+The regression sum of squares is
+$L_{xy}^2/L_{xx}$, the residual sum of
+squares is $L_{yy} - L_{xy}^2/L_{xx}$,
+and $H_0\colon \beta_1 = 0$ is tested by
+$$
+F = \frac{L_{xy}^2/L_{xx}}
+{(L_{yy} - L_{xy}^2/L_{xx})/(n-2)}
+\sim F_{1,\,n-2},
+$$
+or equivalently by
+$$
+t = \frac{r\sqrt{n-2}}{\sqrt{1-r^2}}
+\sim t_{n-2},
+\qquad t^2 = F.
+$$
+Here $r^2$ is the fraction of the
+variance of $y$ explained by the line
+\cite[Sections
+11.3, 11.4,
+11.7, 11.8]{rosner2011biostatistics}.
+
+\begin{example}
+\label{example-regression-monkeys}
+A worked exercise gave a response
+frequency (labelled
+$\beta$-$\alpha$ in the sheet) for five
+monkeys at ten marijuana doses $x = 0.2,
+0.4, \dots, 2.0\ \mathrm{g}$; the mean
+responses fell from $31.4$ to $22.4$.
+On the ten means, $L_{xx} = 3.3$,
+$L_{xy} = -15.84$ and
+$L_{yy} = 78.10$, so
+$$
+\hat{y} = 31.4 - 4.8x,
+\qquad r = -0.987,
+\qquad r^2 = 0.974,
+$$
+and $F(1,8) = 294.7$, $p = 1.3 \times
+10^{-7}$: the dose explains almost all
+the variation in the mean response.
+\end{example}
+
+\section{Chi-square test of independence}
+\label{section-chi-square}
+
+For an $r \times c$ contingency table
+with observed counts $O_{ij}$, row totals
+$R_i$, column totals $C_j$ and grand
+total $N$, the expected counts under
+independence and the test statistic are
+$$
+E_{ij} = \frac{R_i C_j}{N},
+\qquad
+X^2 = \sum_{i,j}
+\frac{(O_{ij} - E_{ij})^2}{E_{ij}},
+$$
+and $X^2$ is approximately chi-square
+with $(r-1)(c-1)$ degrees of freedom if
+the expected counts are not too small
+\cite[Section
+10.6]{rosner2011biostatistics}.
+
+\begin{example}
+\label{example-chi-square-smoking}
+Daniel's workbook tests whether
+hypertension is independent of smoking:
+\begin{center}
+\begin{tabular}{lcccc}
+ & none & moderate & heavy & total \\
+\hline
+hypertensive & 21 & 36 & 30 & 87 \\
+not & 48 & 26 & 19 & 93 \\
+\hline
+total & 69 & 62 & 49 & 180 \\
+\end{tabular}
+\end{center}
+The expected count in the first cell is
+$87 \cdot 69/180 = 33.35$. Summing over
+the six cells gives $X^2 = 14.46$ with
+$2$ degrees of freedom, above the
+critical value $5.99$ for
+$\alpha = 0.05$ ($p = 0.0007$), so
+independence is rejected.
+\end{example}
+
+\section{Sampling designs}
+\label{section-sampling}
+
+The course slides distinguish the
+population (elements located in time and
+space), the sampling unit, the study
+population (units meeting the selection
+criteria), the sampling frame, and the
+sample. A good sample is representative
+and of adequate size; the size depends
+on the variability, the precision wanted,
+the budget and the population size. An
+estimator is a function of the sample
+used to estimate a parameter, and its
+distribution is the sampling distribution.
+The four basic designs
+\cite[Section 1-5]{triola2012elementary}:
+\begin{itemize}
+\item \emph{Simple random}: every subset
+of size $n$ has the same chance of being
+the sample; there are
+$\binom{N}{n}$ possible samples.
+\item \emph{Systematic}: a random start,
+then every $k$-th unit, with $k = N/n$.
+Easy in the field and well spread, but
+biased if the population is periodic.
+\item \emph{Stratified}: divide the
+population into strata homogeneous in the
+variable studied and sample within each,
+with allocation proportional to stratum
+size or optimal (more units from more
+variable strata). It increases precision
+for a given $n$.
+\item \emph{Cluster}: randomly choose
+some clusters (groups of units) and
+measure all units in them. Cheap when no
+frame of individual units exists; best
+when clusters are heterogeneous inside
+and alike among themselves.
+\end{itemize}
+
+In an exam on counts of adult and
+juvenile salamanders
+(\emph{Rhyacosiredon zempoalensis}) in
+several zones, Daniel called the study
+observational and descriptive, judged
+that counts without zone labels could not
+describe the species' distribution, and
+proposed a stratified design with zones
+of $250\ \mathrm{m}^2$ in which adults
+and juveniles are counted separately.
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

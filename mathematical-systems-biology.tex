@@ -1,0 +1,1044 @@
+\input{preamble}
+
+\begin{document}
+
+\title{Mathematical and Systems Biology}
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{What this chapter covers}
+\label{section-what-this-chapter-covers}
+
+These notes collect the mathematical side of
+the biology degree: population dynamics in
+discrete and continuous time, chaos,
+competition and metapopulations, a method
+for detecting causality in time series, and
+the network and gene-circuit models of
+systems biology. The mathematics is stated
+as mathematics; the biological reading of
+each model is given alongside.
+
+\textbf{Sources of these notes.}
+Two courses at the Facultad de Ciencias,
+UNAM. The first is Biolog\'ia Matem\'atica
+(third semester, fall 2014). What survives
+is Daniel's commentary on May's paper on the
+logistic map, his numerical experiment on
+the Lorenz system, and his final paper
+``B\'usqueda de causalidad en un modelo de
+especies fugitivas'', with its LaTeX sources,
+digitized data and Python scripts. The
+second is a programming and complex-systems
+workshop, filed as Taller (fourth semester,
+spring 2015): Python scripts on graphs, a
+plant--pollinator network, a final project
+computing graph invariants, a short essay on
+scales and levels of organization, and a
+critique of the ComK--ComS model of
+\cite{suel2006excitable}. The notes were
+checked and completed with
+\cite{murray2002mathematical},
+\cite{may1976simple},
+\cite{strogatz1994nonlinear}, the original
+papers \cite{armstrong1976fugitive} and
+\cite{sugihara2012detecting}, the
+metapopulation chapter
+\cite{nee2007metapopulations}, and the
+systems-biology texts
+\cite{ideker2001new} and
+\cite{stokes2007modeling}.
+
+\section{Exponential and logistic growth}
+\label{section-exponential-logistic}
+
+Let $N(t)$ be the size of a population. If
+births and deaths are proportional to $N$,
+with per capita rates $b$ and $d$, then
+$$
+\frac{dN}{dt} = (b-d)N,
+\qquad
+N(t) = N_0 e^{(b-d)t},
+$$
+so the population grows exponentially if
+$b>d$ and dies out if $b<d$ (Malthus).
+Verhulst's \emph{logistic} model makes the
+per capita growth rate decrease linearly
+with density:
+\begin{equation}
+\label{equation-logistic}
+\frac{dN}{dt} = rN\left(1-\frac{N}{K}\right),
+\qquad r, K > 0.
+\end{equation}
+Here $r$ is the intrinsic growth rate and
+$K$ the \emph{carrying capacity}. The
+equilibria are $N=0$, unstable since the
+linearization is $\dot n = rn$, and $N=K$,
+stable since the linearization is
+$\dot n = -rn$. The solution with
+$N(0)=N_0$ is
+$$
+N(t) =
+\frac{N_0 K e^{rt}}{K + N_0(e^{rt}-1)}
+\longrightarrow K .
+$$
+For $N_0<K/2$ the graph is the familiar
+sigmoid, with inflection at $N=K/2$. In
+general, an equilibrium $N^*$ of
+$\dot N = f(N)$ is linearly stable if
+$f'(N^*)<0$ and unstable if $f'(N^*)>0$
+\cite[Section 1.1]{murray2002mathematical}.
+
+\begin{remark}
+\label{remark-logistic-metaphor}
+Murray stresses that the logistic equation
+is a metaphor for density-dependent
+regulation rather than a law: fitting
+census data to part of the sigmoid gives
+poor predictions
+\cite[Section 1.1]{murray2002mathematical}.
+\end{remark}
+
+\section{The logistic map and period
+doubling}
+\label{section-logistic-map}
+
+For populations with non-overlapping
+generations (many temperate insects) one
+models the size in generation $t+1$ as a
+function of the size in generation $t$.
+May's canonical example is the
+\emph{logistic map}
+\begin{equation}
+\label{equation-logistic-map}
+x_{t+1} = F(x_t) = a\, x_t(1-x_t),
+\qquad 0 \le x_t \le 1
+\end{equation}
+\cite{may1976simple}. Daniel's course notes
+on May's paper derive its first properties.
+
+\begin{itemize}
+\item $F$ has its maximum $F(1/2)=a/4$, so
+$F$ maps $[0,1]$ to itself if and only if
+$0\le a\le 4$. For $a>4$ the point $1/2$
+leaves $[0,1]$, and an orbit that leaves
+$[0,1]$ tends to $-\infty$.
+\item The fixed points are the intersections
+of the parabola with the diagonal:
+$x=0$ and
+$$
+x^* = 1 - \frac{1}{a}.
+$$
+For example $a=2.5$ gives $x^*=0.6$, the
+value in Daniel's figure.
+\item $F'(x^*) = 2-a$. A fixed point is
+stable if $|F'(x^*)|<1$, so $x^*$ attracts
+the orbits of $(0,1)$ for $1<a<3$; for
+$a<1$ every orbit in $[0,1]$ tends to $0$.
+\end{itemize}
+
+At $a=3$ the multiplier passes through
+$-1$. The second iterate $F^{2}$ then has
+two new fixed points,
+$$
+p, q =
+\frac{(a+1)\pm\sqrt{(a+1)(a-3)}}{2a},
+$$
+which form a 2-cycle of $F$
+\cite[Section 2.3]{murray2002mathematical}.
+By the chain rule the multiplier of a
+$k$-cycle is the product of $F'$ along it.
+For the 2-cycle, using $p+q=(a+1)/a$ and
+$pq=(a+1)/a^2$,
+$$
+F'(p)F'(q) = a^2(1-2p)(1-2q)
+= -a^2+2a+4,
+$$
+so the 2-cycle is stable for
+$3<a<1+\sqrt{6}\approx 3.449$. At
+$1+\sqrt 6$ it gives way to a stable
+4-cycle, and so on: a cascade of
+period-doubling bifurcations with periods
+$2^n$, whose parameter values accumulate at
+$a_c \approx 3.5700$ \cite{may1976simple}.
+
+\begin{remark}
+\label{remark-feigenbaum}
+If $a_{n}$ denotes the parameter of the
+bifurcation to period $2^{n}$, then
+$$
+\lim_{n\to\infty}
+\frac{a_{n}-a_{n-1}}{a_{n+1}-a_{n}}
+= \delta = 4.6692\ldots,
+$$
+and Feigenbaum showed that $\delta$ is the
+same for all one-humped maps that undergo
+period doubling
+\cite[Section 2.3]{murray2002mathematical}.
+\end{remark}
+
+Beyond $a_c$ the dynamics is
+\emph{chaotic} in the sense of Li and Yorke:
+there are infinitely many periodic orbits
+and uncountably many bounded aperiodic
+orbits. The first odd cycle appears at
+$a\approx 3.6786$ and the 3-cycle at
+$a = 1+\sqrt 8 \approx 3.8284$, after which
+there are cycles of every period
+\cite{may1976simple}. This is Sharkovskii's
+theorem, of which Li and Yorke's ``period
+three implies chaos'' is a special case:
+for a continuous map of an interval, a
+periodic point of period $3$ forces periodic
+points of every period
+\cite[Section 2.3]{murray2002mathematical}.
+Between the chaotic bands there are
+windows of stable periodic behaviour, and
+the orbit diagram is self-similar.
+
+\begin{remark}
+\label{remark-may-message}
+May's point for ecologists: apparently
+random fluctuations in field data need not
+come from environmental noise; a
+deterministic density-dependent law with a
+steep enough hump produces them
+\cite{may1976simple}.
+\end{remark}
+
+\section{Lotka--Volterra predator--prey}
+\label{section-lotka-volterra}
+
+Let $x$ be the prey and $y$ the predator.
+The \emph{Lotka--Volterra} system, in the
+notation of Daniel's final paper, is
+\begin{equation}
+\label{equation-lotka-volterra}
+\dot x = ax - bxy,
+\qquad
+\dot y = -cy + dxy,
+\end{equation}
+with $a,b,c,d>0$: prey grow exponentially
+without predators, predators die out
+without prey, and encounters, at rate
+proportional to $xy$, transfer biomass.
+
+\textbf{Equilibria and linearization.}
+The equilibria are $(0,0)$ and
+$(c/d, a/b)$. The Jacobian is
+$$
+J(x,y) =
+\begin{pmatrix}
+a-by & -bx \\
+dy & -c+dx
+\end{pmatrix}.
+$$
+At the origin the eigenvalues are $a>0$
+and $-c<0$: a saddle. At $(c/d,a/b)$,
+$$
+J =
+\begin{pmatrix}
+0 & -bc/d \\
+ad/b & 0
+\end{pmatrix},
+\qquad
+\lambda = \pm i\sqrt{ac},
+$$
+a linear centre, with period
+$2\pi/\sqrt{ac}$ for small oscillations
+\cite[Section 3.1]{murray2002mathematical}.
+
+\textbf{Conserved quantity.}
+Linearization alone cannot decide the
+nonlinear behaviour at a centre. Here a
+first integral does: the function
+$$
+V(x,y) = dx - c\ln x + by - a\ln y
+$$
+on the open quadrant satisfies
+$$
+\dot V
+= \left(d-\frac{c}{x}\right)\dot x
++ \left(b-\frac{a}{y}\right)\dot y
+= 0 ,
+$$
+since both terms equal
+$\pm(dx-c)(a-by)$. $V$ is strictly convex
+with its minimum at $(c/d,a/b)$, so its
+level sets are closed curves and every
+orbit in the open quadrant is periodic.
+Prey and predator oscillate, the predator
+peak lagging behind the prey peak.
+
+\begin{example}
+\label{example-lv-paper}
+Daniel's paper uses $a=c=1$ and $b=d=0.2$.
+The equilibrium is $(5,5)$ and small
+oscillations have period close to $2\pi$.
+The caption of his figure says the
+trajectories are ``almost closed'' and
+might reach the equilibrium after a long
+time; by the conserved quantity they are
+exactly closed, and the visible drift is
+an artefact of the numerical integrator.
+\end{example}
+
+\begin{remark}
+\label{remark-lv-structural}
+The centre is structurally unstable: any
+small change to the vector field (for
+instance logistic prey growth) can turn it
+into a focus or create a limit cycle. This
+is why Lotka--Volterra is a starting point
+rather than a realistic model
+\cite[Section 3.1]{murray2002mathematical}.
+\end{remark}
+
+\section{Competition and coexistence}
+\label{section-competition}
+
+Two species with logistic growth inhibit
+each other. In the form used in Daniel's
+paper,
+\begin{equation}
+\label{equation-competition}
+\begin{aligned}
+\dot X_1 &= \frac{r_1}{K_1}\,
+X_1\,(K_1 - X_1 - \beta_{12} X_2), \\
+\dot X_2 &= \frac{r_2}{K_2}\,
+X_2\,(K_2 - \beta_{21} X_1 - X_2),
+\end{aligned}
+\end{equation}
+with all parameters positive;
+$\beta_{12}$ measures the effect of species
+$2$ on species $1$ and vice versa. This is
+Murray's model with $b_{ij}=\beta_{ij}$
+\cite[Section 3.5]{murray2002mathematical}.
+
+\textbf{Nullclines.}
+Besides the axes, the nullclines are the
+lines $X_1 + \beta_{12} X_2 = K_1$ and
+$\beta_{21} X_1 + X_2 = K_2$, both with
+negative slope. The first meets the axes at
+$(K_1,0)$ and $(0,K_1/\beta_{12})$, the
+second at $(K_2/\beta_{21},0)$ and
+$(0,K_2)$.
+
+\textbf{Equilibria.}
+$(0,0)$, $(K_1,0)$, $(0,K_2)$ and, if
+$\beta_{12}\beta_{21}\ne 1$,
+$$
+X^* =
+\left(
+\frac{K_1-\beta_{12}K_2}
+{1-\beta_{12}\beta_{21}},\;
+\frac{K_2-\beta_{21}K_1}
+{1-\beta_{12}\beta_{21}}
+\right).
+$$
+The origin is an unstable node. At
+$(K_1,0)$ the eigenvalues are $-r_1$ and
+$r_2(1-\beta_{21}K_1/K_2)$, so species $2$
+invades a monoculture of species $1$ if and
+only if $K_2 > \beta_{21}K_1$; symmetrically
+at $(0,K_2)$.
+
+\textbf{The four cases.}
+With $a_{12}=\beta_{12}K_2/K_1$ and
+$a_{21}=\beta_{21}K_1/K_2$
+\cite[Section 3.5]{murray2002mathematical}:
+\begin{enumerate}
+\item $a_{12}<1$ and $a_{21}<1$, that is
+$K_1/\beta_{12} > K_2$ and
+$K_2/\beta_{21} > K_1$: then $X^*$ lies in
+the open quadrant and attracts all of it.
+This is stable coexistence.
+\item $a_{12}>1$ and $a_{21}>1$: $X^*$ is a
+saddle, $(K_1,0)$ and $(0,K_2)$ are both
+stable, and the separatrix through $X^*$
+decides the winner.
+\item $a_{12}<1<a_{21}$: species $1$
+excludes species $2$.
+\item $a_{12}>1>a_{21}$: species $2$
+excludes species $1$.
+\end{enumerate}
+Cases 2--4 are the competitive exclusion
+principle. Coexistence requires that each
+species limit itself more than it limits
+the other.
+
+\begin{example}
+\label{example-competition-paper}
+Daniel's figure uses $r_1=5$, $r_2=8$,
+$K_1=10$, $K_2=15$, $\beta_{12}=0.4$,
+$\beta_{21}=0.9$. The conditions hold:
+$K_1/\beta_{12}=25>15$ and
+$K_2/\beta_{21}\approx 16.7>10$. Solving
+$X_1 = 10-0.4X_2$, $X_2 = 15-0.9X_1$ gives
+$0.64\,X_1 = 4$, so
+$$
+X^* = (6.25,\; 9.375),
+$$
+the intersection shown in his figure. The
+Jacobian there is
+$$
+J =
+\begin{pmatrix}
+-3.125 & -1.25 \\
+-4.5 & -5
+\end{pmatrix},
+$$
+with trace $-8.125$, determinant $10$ and
+discriminant
+$8.125^2-40\approx 26.0>0$: a stable node.
+\end{example}
+
+\begin{remark}
+\label{remark-competition-no-cycles}
+Planar competition of this kind cannot
+oscillate. At $X^*$ the off-diagonal
+entries of $J$ are both negative, so the
+discriminant $(J_{11}-J_{22})^2 +
+4J_{12}J_{21}$ is positive: the eigenvalues
+are real and $X^*$ is never a focus.
+Globally, with the Dulac function
+$B = 1/(X_1X_2)$,
+$$
+\frac{\partial (B\dot X_1)}{\partial X_1}
++ \frac{\partial (B\dot X_2)}{\partial X_2}
+= -\frac{r_1}{K_1X_2}-\frac{r_2}{K_2X_1}
+< 0
+$$
+on the open quadrant, so by the
+Bendixson--Dulac criterion there are no
+periodic orbits. This is the point behind
+Armstrong's remark that oscillations do not
+occur in simple two-species competition
+models
+(Section~\ref{section-metapopulations}).
+\end{remark}
+
+\section{The Lorenz system and sensitive
+dependence}
+\label{section-lorenz}
+
+The \emph{Lorenz system} is
+\begin{equation}
+\label{equation-lorenz}
+\dot x = \sigma(y-x),
+\quad
+\dot y = \rho x - y - xz,
+\quad
+\dot z = xy - \beta z,
+\end{equation}
+with $\sigma,\rho,\beta>0$
+\cite[Section 9.2]{strogatz1994nonlinear},
+where $\rho$ and $\beta$ are called $r$ and
+$b$. The origin is a fixed point, globally
+attracting for $\rho<1$. For $\rho>1$ there
+are two more,
+$$
+C^{\pm} =
+\left(\pm\sqrt{\beta(\rho-1)},\,
+\pm\sqrt{\beta(\rho-1)},\,
+\rho-1\right),
+$$
+linearly stable for
+$$
+1<\rho<\rho_H =
+\frac{\sigma(\sigma+\beta+3)}
+{\sigma-\beta-1},
+$$
+assuming $\sigma>\beta+1$. For
+$\sigma=10$, $\beta=8/3$ this gives
+$\rho_H = 470/19\approx 24.74$, where $C^\pm$
+lose stability in a subcritical Hopf
+bifurcation
+\cite[Section 9.2]{strogatz1994nonlinear}.
+
+\textbf{Parameter regimes.}
+Still with $\sigma=10$, $\beta=8/3$: at
+$\rho\approx 13.926$ a homoclinic
+bifurcation creates a complicated invariant
+set containing infinitely many saddle
+cycles; it is not an attractor, but nearby
+trajectories wander chaotically for a while
+before settling on $C^+$ or $C^-$
+(\emph{transient chaos}). At
+$\rho\approx 24.06$ this set becomes the
+strange attractor; the classical chaotic
+value is $\rho=28$
+\cite[Section 9.5]{strogatz1994nonlinear}.
+
+\textbf{Daniel's experiment.}
+With $\sigma=10$, $\beta=8/3$, $\rho=15$ he
+integrated two solutions whose initial $x$
+differed by $0.01$. They were
+indistinguishable for about 1{,}400
+iterations, clearly different by 1{,}800,
+and different from then on. With a
+difference of $0.1$ the solutions separated
+earlier. He concluded that the closer the
+initial conditions, the longer they stay
+together, and that the system shows
+sensitive dependence on initial conditions.
+Since $13.926<15<24.74$, this value lies in
+the transient-chaos regime: what the
+experiment shows is sensitive dependence
+near the non-attracting invariant set, and
+the two solutions may end on different
+equilibria $C^\pm$.
+
+\textbf{Lyapunov exponent and horizon.}
+On a chaotic attractor nearby trajectories
+separate as
+$$
+\|\delta(t)\| \sim \|\delta_0\|\,
+e^{\lambda t},
+$$
+with $\lambda\approx 0.9$ for the Lorenz
+attractor; $\lambda$ is the largest
+Lyapunov exponent. If $a$ is the tolerated
+error, prediction fails after
+$$
+t_{\mathrm{horizon}} \sim
+\frac{1}{\lambda}\ln\frac{a}{\|\delta_0\|}
+$$
+\cite[Section 9.3]{strogatz1994nonlinear}.
+So the time to divergence grows only
+logarithmically as $\|\delta_0\|$
+shrinks: dividing the initial error by $10$
+buys a fixed extra time $\ln(10)/\lambda$,
+not ten times as much. This refines
+Daniel's statement that the period of
+similarity is ``proportional'' to the size
+of the initial difference.
+
+\section{Metapopulations and fugitive
+species}
+\label{section-metapopulations}
+
+A \emph{metapopulation} is a population of
+local populations on discrete habitat
+patches, persisting through colonization of
+empty patches and extinction of occupied
+ones \cite{nee2007metapopulations}.
+
+\textbf{Levins' model.}
+Let $p$ be the fraction of occupied
+patches, $c$ the colonization rate and $e$
+the local extinction rate. Then
+\begin{equation}
+\label{equation-levins}
+\dot p = c\,p\,(1-p) - e\,p .
+\end{equation}
+This is logistic growth with
+$r = c-e$ and $K = 1-e/c$. If $c>e$ the
+equilibrium $p^* = 1-e/c$ is globally
+stable on $(0,1]$: a fraction $e/c$ of
+perfectly suitable patches is always empty.
+If a fraction $1-h$ of the patches is
+destroyed, $1$ is replaced by $h$, and the
+metapopulation dies out once $h<e/c$
+\cite[Section 4.2]{nee2007metapopulations}.
+
+\textbf{Fugitive species.}
+A \emph{fugitive species} is an inferior
+competitor that persists regionally because
+it colonizes newly emptied patches faster
+than the dominant species displaces it
+(Hutchinson's idea, recalled in
+\cite{armstrong1976fugitive}). In the
+two-species Levins model where the superior
+competitor immediately eliminates the
+inferior on arrival, a necessary condition
+for coexistence is
+$$
+\frac{c_i}{e_i} > \frac{c_s}{e_s},
+$$
+with $s$ and $i$ the superior and inferior
+species: the inferior species must have the
+larger ``basic reproduction number'' of
+patches
+\cite[Section 4.4]{nee2007metapopulations}.
+
+\textbf{Armstrong's model.}
+Armstrong works with $W$ patches per unit
+area, fractions $X_1, X_2$ occupied by the
+dominant $S_1$ and the fugitive $S_2$,
+effective colonization rates
+$c_i = \sigma_i m_i$ (viable propagules per
+patch and unit time, times the fraction
+landing on patches), a common extinction
+rate $\varepsilon$, and a probability
+$\phi$ that a propagule of $S_1$ captures a
+patch of $S_2$:
+$$
+\begin{aligned}
+\dot X_1 &= X_1\bigl(c_1
+[1-X_1-(1-\phi)X_2] - \varepsilon\bigr),\\
+\dot X_2 &= X_2\bigl(c_2(1-X_1-X_2)
+- \phi c_1 X_1 - \varepsilon\bigr)
+\end{aligned}
+$$
+\cite[equations 1a,
+1b]{armstrong1976fugitive}.
+This is the competition system
+\eqref{equation-competition} with
+$$
+\begin{gathered}
+\frac{r_i}{K_i} = c_i,
+\qquad
+K_i = 1-\frac{\varepsilon}{c_i},\\
+\beta_{12} = 1-\phi,
+\qquad
+\beta_{21} = 1+\frac{\phi c_1}{c_2}.
+\end{gathered}
+$$
+Stable coexistence holds exactly for
+$\varepsilon$ in an interval
+$(\varepsilon_{\min},\varepsilon_{\max})$
+with
+$\varepsilon_{\max}/\varepsilon_{\min}
+= c_2/c_1$, which is non-empty if and only
+if the better competitor is the poorer
+colonizer, $c_1<c_2$. Armstrong calls this
+ratio the \emph{coexistence bandwidth}
+\cite{armstrong1976fugitive}.
+
+\textbf{The experiment.}
+Armstrong's patches were small petri dishes
+of agar, colonized by spores blown from
+older dishes. \emph{Aspergillus nidulans}
+overgrows \emph{Penicillium} colonies (the
+better competitor); the \emph{Penicillium}
+produces more daughter colonies sooner (the
+better colonizer). When all dishes were
+renewed at once (ANNUAL regime) the species
+never coexisted. When only some dishes were
+renewed and new ones were seeded from dishes
+of several ages (PERENNIAL regime), they
+coexisted, readily at an average dish age
+of $2.5$ weeks. Both the percentage area of
+\emph{Aspergillus} and the total colony
+density then oscillated with a period of
+about $10$ weeks, slowly damping.
+Armstrong hypothesized that colony density
+drives the oscillation (small, dense
+colonies are easier for \emph{Aspergillus}
+to penetrate) and noted that the system is
+not two-dimensional, since dishes of several
+ages coexist
+\cite{armstrong1976fugitive}. By
+Remark~\ref{remark-competition-no-cycles},
+no planar competition model of the form
+\eqref{equation-competition} reproduces
+these oscillations.
+
+\begin{remark}
+\label{remark-armstrong-misprint}
+Equation (2) of
+\cite{armstrong1976fugitive} is printed
+without the factors $X_1$ and $X_2$, which
+equations (1a), (1b) contain; Daniel's
+paper copies the printed form. The factors
+do not change the interior equilibrium or
+the nullclines, but they are needed for the
+axes to be invariant and for the stability
+analysis of
+Section~\ref{section-competition}.
+\end{remark}
+
+\section{Convergent cross mapping}
+\label{section-ccm}
+
+\textbf{Granger causality.}
+$X$ \emph{Granger-causes} $Y$ if the
+predictability of $Y$ drops when $X$ is
+removed from the set of possible causal
+variables. This presupposes
+\emph{separability}: the information about
+$X$ is not already contained in the other
+variables. Separability holds for purely
+stochastic and linear systems but fails in
+deterministic dynamics, where, if $X$
+drives $Y$, the past of $Y$ already encodes
+$X$ \cite{sugihara2012detecting}.
+
+\textbf{Shadow manifolds.}
+Given a time series $X(1),\ldots,X(L)$, an
+embedding dimension $E$ and a lag $\tau$,
+the \emph{shadow manifold} $M_X$ is the set
+of delay vectors
+$$
+x(t) = \bigl(X(t), X(t-\tau), \ldots,
+X(t-(E-1)\tau)\bigr).
+$$
+The justification is Takens' theorem: for
+a generic smooth flow on a compact
+$d$-dimensional manifold $M$ and a generic
+smooth observable, the delay map into
+$\mathbb{R}^{2d+1}$ is an embedding (not
+checked against Takens' paper). Thus $M_X$
+is a diffeomorphic image of the attractor,
+and two variables of the same system have
+shadow manifolds related by a
+diffeomorphism.
+
+\begin{definition}
+\label{definition-cross-map}
+Let $t_1,\ldots,t_{E+1}$ be the times of
+the $E+1$ nearest neighbours of $x(t)$ in
+$M_X$, nearest first, and $d_j$ the
+Euclidean distance from $x(t)$ to
+$x(t_j)$. The \emph{cross-mapped estimate}
+of $Y(t)$ from $M_X$ is
+$$
+\hat Y(t)\mid M_X =
+\sum_{j=1}^{E+1} w_j\, Y(t_j),
+\qquad
+w_j = \frac{u_j}{\sum_k u_k},
+$$
+where $u_j = \exp(-d_j/d_1)$
+\cite{sugihara2012detecting}.
+\end{definition}
+
+\textbf{The test.}
+If $X$ causally influences $Y$, then $M_Y$
+recovers $X$: $\hat X\mid M_Y$ approximates
+$X$, and the approximation improves as the
+library length $L$ grows and the manifold
+fills in. This \emph{convergence}, measured
+by the correlation between $\hat X$ and $X$
+as a function of $L$, is what distinguishes
+causation from correlation. Mutual coupling
+gives cross mapping in both directions;
+unidirectional forcing $X\Rightarrow Y$
+gives convergent estimates of $X$ from
+$M_Y$ only, unless the forcing is so strong
+that $Y$ synchronizes with $X$. The
+standard example: fish abundance can
+estimate past climate, but not conversely
+\cite{sugihara2012detecting}.
+
+\begin{remark}
+\label{remark-ccm-direction}
+The direction is easy to invert: ``$M_Y$
+estimates $X$'' means ``$X$ causes $Y$''.
+In the method section of Daniel's paper the
+direction is stated backwards; his
+application uses the correct one.
+\end{remark}
+
+\section{Daniel's final paper}
+\label{section-final-paper}
+
+\textbf{Question.}
+Is the total colony density $C$ the cause of
+the oscillations in the percentage area $A$
+covered by \emph{Aspergillus} in Armstrong's
+$2.5$-week PERENNIAL experiment, as
+Armstrong suggested? The paper,
+``B\'usqueda de causalidad en un modelo de
+especies fugitivas'', is a student project
+for Biolog\'ia Matem\'atica.
+
+\textbf{Data.}
+Armstrong published only figures, so Daniel
+digitized them with WebPlotDigitizer. His
+scripts hold $41$ weekly values of $A$
+(weeks $4$--$44$) and $29$ of $C$; he kept
+the $29$ weeks present in both series.
+
+\textbf{Method.}
+Shadow manifolds $M_A$ and $M_C$ with
+$E=3$ and $\tau=1$ (one sampling step),
+plotted in three dimensions with
+matplotlib, giving $27$ delay vectors each.
+He chose a small cluster of nearby points
+in one manifold and marked the points with
+the same time indices in the other.
+
+\textbf{Result.}
+Four close points in $M_A$ correspond to
+close points in $M_C$, so $\hat C\mid M_A$
+has small error; a cluster in $M_C$
+corresponds to widely scattered points in
+$M_A$. By the criterion of
+Section~\ref{section-ccm}, $C$ causes $A$
+and not conversely, supporting Armstrong's
+hypothesis. Following Armstrong, he read
+it as density dependence: small, dense
+colonies are easy for \emph{Aspergillus}
+to penetrate, while large
+\emph{Penicillium} colonies resist. He
+also suggested that a
+density-dependent term coupling both
+populations could turn the equilibrium
+into a stable focus or a limit cycle.
+
+\begin{remark}
+\label{remark-final-paper-caveats}
+How far the conclusion goes. (1) With $27$
+points no convergence in $L$ can be shown,
+and convergence is the defining feature of
+the method; the comparison was visual,
+without the correlation between $\hat C$
+and $C$. (2) After discarding unmatched
+weeks the samples are not equally spaced
+(for instance weeks $6$, $10$, $11$), so a
+lag of one step is not a fixed time lag.
+(3) Without convergence, a one-sided
+cross-map signal may also come from strong
+forcing or a shared driver. The result is
+suggestive, not a test. (4) By
+Remark~\ref{remark-competition-no-cycles},
+the suggested focus or limit cycle cannot
+arise in a planar competition model; it
+needs either non-competitive terms or more
+dimensions, such as the dish ages that
+Armstrong pointed to. The paper itself asks
+for longer series.
+\end{remark}
+
+\section{Networks}
+\label{section-networks}
+
+A network is a graph $G=(V,E)$, usually
+simple and undirected, with $n=|V|$ and
+$m=|E|$. Daniel's workshop scripts compute
+the following invariants with the Python
+library networkx.
+
+\begin{itemize}
+\item The \emph{degree} of $v$ is the size
+of its open neighbourhood,
+$\deg v = |\{u : uv\in E\}|$; Daniel's
+project essay takes it as the basic measure
+of a node's role in the system.
+\item The \emph{density} is
+$2m/(n(n-1))$, the fraction of possible
+edges present.
+\item The local \emph{clustering
+coefficient} of $v$ is
+$$
+C(v) = \frac{2T(v)}{\deg v(\deg v-1)},
+$$
+where $T(v)$ is the number of triangles
+through $v$: the fraction of pairs of
+neighbours of $v$ that are adjacent.
+\item \emph{Closeness} of $v$ is
+$(n-1)/\sum_{u}d(u,v)$, with $d$ the
+graph distance; \emph{betweenness} of $v$
+is $\sum_{s\ne v\ne t}
+\sigma_{st}(v)/\sigma_{st}$, where
+$\sigma_{st}$ counts shortest $s$--$t$
+paths and $\sigma_{st}(v)$ those through
+$v$.
+\end{itemize}
+
+\textbf{Bipartite networks.}
+Mutualistic networks such as
+plant--pollinator networks are
+\emph{bipartite}: $V = P\sqcup A$ with
+every edge joining a plant to an animal.
+Their \emph{connectance} is $m/(|P||A|)$.
+A bipartite graph has no odd cycles, so
+every triangle count and ordinary
+clustering coefficient is zero;
+bipartite-specific versions are needed.
+
+\begin{example}
+\label{example-pollination-network}
+In the workshop Daniel encoded a
+plant--pollinator network of Canary Island
+species: plants such as
+\emph{Echium plantagineum}, \emph{Laurus
+azorica} and \emph{Galactites tomentosa},
+and pollinators such as \emph{Bombus
+canariensis}, \emph{Apis mellifera} and
+\emph{Macroglossum stellatarum}. As encoded
+it has $15$ animals, $15$ plants and $74$
+interactions, so connectance about $0.33$;
+the degrees are very uneven (one unnamed
+insect visits $13$ plants, \emph{Galactites}
+receives $12$ visitors, several species
+have one partner). His script computed
+bipartite betweenness and closeness. The
+workshop also used a Gal\'apagos pollination
+network from the Web of Life database
+($18$ species, $25$ interactions,
+connectance $0.35$).
+\end{example}
+
+\textbf{Final project.}
+A program that reads an adjacency matrix
+(CSV, from the House of Graphs database),
+builds the graph, prints nodes, edges,
+degrees, density, triangles and clustering
+on request, and draws it.
+
+\textbf{Structure of biological
+networks.}
+Many biological networks are reported to be
+\emph{scale-free}: the probability that a
+node has degree $k$ follows a power law,
+$\log P(k)$ linear in $\log k$, so a few
+hubs carry many links (work of Barab\'asi
+and colleagues). Small recurrent subgraphs,
+\emph{motifs} such as the feed-forward
+loop, and larger \emph{modules} acting as
+nearly autonomous functional units are
+thought to reflect function. The same
+topology can give very different dynamics
+depending on parameters, so topology alone
+is not enough
+\cite{stokes2007modeling}.
+
+\section{An excitable gene circuit}
+\label{section-comk-coms}
+
+Under nutrient limitation most cells of
+\emph{Bacillus subtilis} sporulate, but a
+few percent become \emph{competent} (able
+to take up DNA) for some hours and then
+return to vegetative growth. The core
+circuit
+\cite{suel2006excitable}:
+\begin{itemize}
+\item ComK, the master transcription factor
+of competence, activates its own gene
+(fast positive feedback);
+\item ComK is degraded by the
+MecA--ClpP--ClpC protease complex;
+\item the peptide ComS competes with ComK
+for that protease, so ComS protects ComK;
+\item ComK indirectly represses comS
+(slow negative feedback through ComS).
+\end{itemize}
+
+\textbf{The model.}
+In dimensionless form, with $K$ and $S$ the
+ComK and ComS levels,
+$$
+\begin{aligned}
+\dot K &= a_k + \frac{b_k K^n}{k_0^n+K^n}
+- \frac{K}{1+K+S},\\
+\dot S &= \frac{b_s}{1+(K/k_1)^p}
+- \frac{S}{1+K+S} + \xi(t),
+\end{aligned}
+$$
+where $\xi$ is noise in ComS expression
+\cite[Box 1]{suel2006excitable}. The
+shared denominator $1+K+S$ expresses
+competition for the protease.
+
+\begin{definition}
+\label{definition-excitable}
+A dynamical system with a stable
+equilibrium is \emph{excitable} if
+perturbations below a threshold decay
+directly, while perturbations above it
+trigger a long excursion through phase
+space before the return to the
+equilibrium.
+\end{definition}
+
+With the parameters of the paper's
+supplement ($a_k=0.004$, $b_k=0.07$,
+$b_s=0.82$, $k_0=0.2$, $k_1=0.222$, $n=2$,
+$p=5$) there are three fixed points: a
+stable node at low ComK (vegetative), a
+saddle, and an unstable spiral at high
+ComK (competent). Recomputing them gives
+$K\approx 0.035$, $0.082$, $0.111$. Noise
+pushes the state past the saddle's stable
+manifold, the trajectory loops around the
+spiral (competence) and returns: entry is
+random, exit automatic. Experiments
+confirmed the predictions: ComK and ComS
+promoter activities are anti-correlated
+during competence, entry is memoryless
+(about $3.6\%$ of division events), and a
+rewired strain expressing extra ComS from
+a competence promoter enters competence at
+the normal rate but mostly cannot exit
+\cite{suel2006excitable}.
+
+\begin{remark}
+\label{remark-coms-term}
+In his workshop critique Daniel questioned
+the degradation term $S/(1+K+S)$, which
+decreases as $K$ increases and so seems to
+contradict the repression of comS by ComK.
+There is no contradiction: repression acts
+through the production term
+$b_s/(1+(K/k_1)^p)$, while the degradation
+term says that ComK and ComS compete for
+the same protease, so more ComK leaves less
+protease for ComS. He reached the right
+conclusion that the term does not change
+the dynamics: the vegetative state is
+stable, and only noise turns the system
+on.
+\end{remark}
+
+\section{Levels of organization and the
+systems approach}
+\label{section-systems-approach}
+
+\textbf{Scales and levels.}
+In Daniel's workshop essay, a \emph{scale}
+classifies measurements by order of
+magnitude, while \emph{levels of
+organization} (molecule, cell, tissue,
+organ, organism, population, community,
+ecosystem) form a hierarchy of components
+in which each level shows \emph{emergent}
+properties absent from the level below.
+Both organize phenomena by size or
+complexity; the two hierarchies need not
+match, since one level can span several
+scales.
+
+\textbf{Systems biology.}
+Ideker, Galitski and Hood describe systems
+biology as studying all elements of a
+system and their relations while it
+functions, rather than one gene or protein
+at a time. Simulations of genetic networks
+show emergent properties not visible from
+isolated interactions
+\cite[p.~351]{ideker2001new}. Their
+framework is an iteration
+\cite[pp.~354--355]{ideker2001new}:
+\begin{enumerate}
+\item define all components of the system
+and build an initial model;
+\item perturb the system systematically
+(genetically or environmentally) and
+monitor the responses at all levels
+(mRNA, protein, pathway);
+\item reconcile observed and predicted
+responses and refine the model;
+\item design new perturbations to
+distinguish competing models, and repeat.
+\end{enumerate}
+The ComK--ComS study
+(Section~\ref{section-comk-coms}) follows
+this cycle on a small scale: a model of a
+core module, single-cell measurements, and
+a rewired strain to test a prediction.
+Mathematical models of such networks range
+from ordinary and partial differential
+equations to stochastic and agent-based
+models \cite{stokes2007modeling}.
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}
