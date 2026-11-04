@@ -6470,6 +6470,258 @@ line bundle
 of the ideal sheaf of $D$.
 \end{definition}
 
+\section{Stein manifolds}
+\label{section-stein-manifolds}
+
+\noindent
+Upshot: an analytical condition, holomorphic
+convexity, is used to construct psh functions
+on Stein manifolds, which in turn give Kähler
+metrics—Stein manifolds are non-compact
+Kähler manifolds.
+
+\medskip\noindent
+From the lecture of 4 November 2026 in
+Misha's Hodge theory course, following his
+2025 slides (lecture 20). Psh functions,
+holomorphic convexity, exhaustion functions,
+pseudoconvexity and the regularized maximum
+are in Section
+\ref{hodge-theory-%
+section-lecture-psh-pseudoconvexity}.
+
+\begin{definition}
+\label{definition-stein-manifold}
+Let $X$ be a complex manifold. We say that
+$\mathcal{O}_X$ \textit{locally separates
+points} if every $x\in X$ has a neighbourhood
+$V$ such that for every $y\in
+V\setminus\{x\}$ there is $f\in
+H^0(X,\mathcal{O}_X)$ with $f(x)\neq f(y)$. A
+\textit{Stein manifold} is a holomorphically
+convex complex manifold $X$ such that
+$\mathcal{O}_X$ locally separates points.
+\end{definition}
+
+\begin{remark}
+\label{remark-stein-other-definitions}
+The more common definition (for example in
+H\"ormander's book on several complex
+variables, Section 5.1; standard, not checked
+here) asks that $X$ be holomorphically
+convex, that global holomorphic functions
+separate points ($x\neq y$ implies $f(x)\neq
+f(y)$ for some $f$), and that at every point
+there are global holomorphic functions that
+form local coordinates. Other equivalent
+definitions are in Remarks
+\ref{remark-stein-oka},
+\ref{remark-stein-embedding} and
+\ref{remark-stein-cartan} below. Daniel's
+notes say ``$\mathcal{O}_M$ separates
+points''; the slides say ``locally separates
+points'', which is what is used in the proof
+below.
+\end{remark}
+
+\begin{theorem}
+\label{theorem-separates-points-spsh}
+Let $X$ be a complex manifold such that
+$\mathcal{O}_X$ locally separates points.
+Then there is a smooth, non-negative,
+strictly psh function $\Phi\colon
+X\to\mathbb{R}$.
+\end{theorem}
+
+\begin{proof}
+(The slides' proof, with details added by me,
+Claude.)
+
+Step 1: a global psh function that is large
+on a sphere around $x$. Fix $x\in X$ and a
+neighbourhood $V$ of $x$ as in Definition
+\ref{definition-stein-manifold}. Shrinking
+$V$ we may assume that $\overline{V}$ is
+compact and $V$ is a coordinate ball
+$\{|z|<1\}$ centred at $x$. For $y\in\partial
+V$ choose $f_y\in H^0(X,\mathcal{O}_X)$ with
+$f_y(x)\neq f_y(y)$; subtracting a constant
+and rescaling, $f_y(x)=0$ and $|f_y(y)|>1$,
+so $|f_y|>1$ near $y$. By compactness of
+$\partial V$ finitely many
+$f_{y_1},\dots,f_{y_N}$ suffice, and
+$$
+\psi_x=\sum_{i=1}^N|f_{y_i}|^2
+$$
+is a smooth non-negative psh function on $X$
+(Example 2 in Section
+\ref{hodge-theory-%
+section-lecture-psh-pseudoconvexity})
+with $\psi_x(x)=0$ and $\psi_x>1$ on
+$\partial V$. (The slide writes
+$\sup_{\partial V}\psi_x>1$; what is needed,
+and what the argument gives, is
+$\inf_{\partial V}\psi_x>1$.)
+
+Step 2: make it strictly psh near $x$. Let
+$|z|^2$ be the standard K\"ahler potential on
+$V$ and, for small $\varepsilon$, put
+$$
+\varphi_x=\max\nolimits_\varepsilon
+\left(\psi_x,\frac{|z|^2+1}{3}\right)
+$$
+on $V$, with the regularized maximum of
+Definition
+\ref{hodge-theory-%
+definition-regularized-maximum},
+chosen with $\max_\varepsilon\geq\max$. Near
+$x$ we have $\psi_x$ close to $0$ and
+$(|z|^2+1)/3\geq1/3$, so
+$\varphi_x=(|z|^2+1)/3$ there, which is
+strictly psh. Near $\partial V$ we have
+$\psi_x>1$ and $(|z|^2+1)/3<2/3$, so
+$\varphi_x=\psi_x$ there. Hence setting
+$\varphi_x=\psi_x$ on $X\setminus V$ gives a
+smooth function on $X$. It is psh by
+Corollary
+\ref{hodge-theory-%
+corollary-regularized-maximum-psh},
+non-negative since
+$\varphi_x\geq\psi_x\geq0$, and strictly psh
+on a neighbourhood $U_x$ of $x$.
+
+Step 3: add them up. Since $X$ is second
+countable, countably many
+$U_{x_1},U_{x_2},\dots$ cover $X$. Choose an
+exhaustion of $X$ by compact sets $K_1\subset
+K_2\subset\cdots$ and numbers
+$\varepsilon_i>0$ so small that every
+derivative of order at most $i$ of
+$\varepsilon_i\varphi_{x_i}$ is bounded by
+$2^{-i}$ on $K_i$ (compare Exercise 1 of the
+slides, which asks only for uniform
+convergence). Then
+$$
+\Phi=\sum_i\varepsilon_i\varphi_{x_i}
+$$
+converges in $C^\infty$ on compact sets, so
+$\Phi$ is smooth, non-negative, and
+$dd^c\Phi=\sum_i\varepsilon_i\
+,dd^c\varphi_{x_i}$.
+Every term is positive, and at each point the
+term of some $U_{x_i}$ containing it is
+positive definite, so $\Phi$ is strictly psh.
+\end{proof}
+
+\noindent
+Note on the proof: the local strictly psh
+functions are not glued with a partition of
+unity, since multiplying by a cut-off $\rho$
+destroys positivity ($dd^c(\rho\varphi)$
+involves the derivatives of $\rho$). Instead
+each local function is extended to all of $X$
+as a psh function (the regularized maximum
+with a global psh function), and the
+extensions are added with small positive
+coefficients, using an exhaustion of $X$ by
+compact sets to make the sum converge.
+Positive combinations of psh functions are
+psh.
+
+\begin{corollary}
+\label{corollary-stein-strongly-pseudoconvex}
+Every Stein manifold is strongly
+pseudoconvex. In particular it is K\"ahler,
+with an exhausting K\"ahler potential.
+\end{corollary}
+
+\begin{proof}
+Holomorphic convexity gives a psh exhaustion
+function $\Psi$ (Theorem
+\ref{hodge-theory-%
+theorem-holconvex-weakly-pseudoconvex}).
+Since $\mathcal{O}_X$ locally separates
+points, Theorem
+\ref{theorem-separates-points-spsh} gives a
+smooth strictly psh $\Phi\geq0$. Then
+$\Psi+\Phi$ is strictly psh, as a sum of a
+psh and a strictly psh function, and it is
+exhausting because $\Phi\geq0$ gives
+$\{\Psi+\Phi\leq c\}\subset\{\Psi\leq c\}$, a
+closed subset of a compact set. So $X$ is
+strongly pseudoconvex, and $dd^c(\Psi+\Phi)$
+is a K\"ahler form.
+\end{proof}
+
+\begin{remark}
+\label{remark-stein-oka}
+The slides attribute to K. Oka (1942, 1954)
+the converse: every strongly pseudoconvex
+manifold is Stein (to be proved later in the
+course). So a Stein manifold is the same as a
+K\"ahler manifold with an \emph{exhausting}
+global K\"ahler potential; today we proved
+that Stein implies this. (Daniel's notes say
+``Kähler with a global Kähler potential'';
+the potential must be exhausting. For example
+$\mathbb{C}^2\setminus\{0\}$ has the global
+K\"ahler potential $|z|^2$, which is not
+exhausting, and it is not Stein, since by
+Hartogs' theorem every holomorphic function
+extends over the origin, so it is not
+holomorphically convex.) Historical note,
+standard but not checked here: Oka solved the
+Levi problem for domains in $\mathbb{C}^n$,
+and the statement for manifolds is due to
+Grauert (1958).
+\end{remark}
+
+\begin{remark}
+\label{remark-stein-embedding}
+Stein manifolds are exactly the closed
+complex submanifolds of $\mathbb{C}^N$. That
+every Stein manifold of dimension $n$ embeds
+as a closed submanifold of some
+$\mathbb{C}^N$ (in fact $N=2n+1$ suffices) is
+the embedding theorem of Remmert, Bishop and
+Narasimhan (standard, not checked here); the
+slides say it will be proved later in the
+course.
+
+The other direction is an exercise. Let
+$M\subset\mathbb{C}^N$ be a closed complex
+submanifold. The coordinate functions
+$z_1,\dots,z_N$ restrict to holomorphic
+functions on $M$ that separate points, so
+$\mathcal{O}_M$ separates points. Let
+$K\subset M$ be compact. Restrictions of
+entire functions are holomorphic on $M$, so
+the hull of $K$ in $M$ satisfies
+$$
+\widehat K_M\subset\widehat K_{\mathbb{C}^N}
+\cap M .
+$$
+By Lemma
+\ref{hodge-theory-%
+lemma-cn-holomorphically-convex},
+$\widehat K_{\mathbb{C}^N}$ is compact, and
+$M$ is closed, so $\widehat
+K_{\mathbb{C}^N}\cap M$ is compact. Since
+$\widehat K_M$ is closed in $M$, it is
+compact. So $M$ is holomorphically convex,
+hence Stein.
+\end{remark}
+
+\begin{remark}
+\label{remark-stein-cartan}
+(H. Cartan.) A complex manifold $X$ is Stein
+if and only if $H^i(X,\mathcal{F})=0$ for all
+$i>0$ and all coherent sheaves $\mathcal{F}$
+on $X$. The implication from Stein to
+vanishing is Cartan's Theorem B.
+\end{remark}
+
+
 \section{Chow's theorem}
 \label{section-chow-theorem}
 

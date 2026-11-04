@@ -3755,4 +3755,402 @@ Dolbeault cohomology. The zero eigenspace is
 $\mathcal{H}^{p,q}_{\bar\partial}(M)$.
 \end{proof}
 
+\section{Lecture of 4 November 2026: psh
+functions and pseudoconvexity}
+\label{section-lecture-psh-pseudoconvexity}
+
+\noindent
+This lecture was given on 4 November 2026 by
+Yan. It follows Misha's slides of 2025,
+lecture 20 (``Stein manifolds''). The Stein
+manifolds themselves are in Section
+\ref{complex-geometry-%
+section-stein-manifolds}.
+
+\medskip\noindent
+{\bf Sources of these notes.} Daniel's notes
+(the list of highlights below follows them),
+Misha's 2025 slides for lecture 20, and an
+automatic transcript of the audio. The
+recording covers only the first 20 minutes
+(the reminders and the first examples).
+Proofs marked ``my'' are written by Claude to
+fill in details, and were not checked by
+anyone else.
+
+\medskip\noindent
+{\bf Conventions.} As in the slides,
+$d^c=\sqrt{-1}(\bar\partial-\partial)$, so
+that
+$$
+dd^c=2\sqrt{-1}\,\partial\bar\partial
+=-2\sqrt{-1}\,\bar\partial\partial.
+$$
+This differs by a positive factor from the
+convention of the complex geometry chapter,
+which does not change any positivity
+statement.
+
+\medskip\noindent
+{\bf Reminder: positive forms and psh
+functions.} A real $(1,1)$-form $\eta$ gives
+a symmetric bilinear form
+$g_\eta(x,y)=\eta(x,Iy)$, and this is a
+bijection between real $(1,1)$-forms and
+$I$-invariant symmetric forms (Section
+\ref{complex-geometry-section-kahler},
+Definition
+\ref{complex-geometry-%
+definition-positive-11form}).
+The form $\eta$ is \emph{positive} if
+$g_\eta$ is positive semidefinite, i.e.
+$\eta(x,Ix)\geq 0$ for all $x$, and
+\emph{Hermitian} if $g_\eta$ is positive
+definite. A function $f$ is
+\emph{plurisubharmonic} (psh) if $dd^cf$ is
+positive, and \emph{strictly psh} if $dd^cf$
+is positive definite, hence a K\"ahler form.
+
+Daniel's note asks to confirm ``psh functions
+are in bijection with positive forms''. As
+stated this is not true; the correct
+statements are the following.
+\begin{enumerate}
+\item By definition, $f\mapsto dd^cf$ sends
+psh functions to closed positive real
+$(1,1)$-forms. \item It is not injective:
+$dd^cf=dd^cg$ if and only if $f-g$ is
+pluriharmonic, and pluriharmonic functions
+are locally real parts of holomorphic
+functions. \item It is locally surjective: on
+a ball every closed real $(1,1)$-form is
+$dd^cf$ for some real $f$ (the local
+$dd^c$-lemma, proved for K\"ahler forms on
+the slides; the proof does not use
+positivity), and if the form is positive then
+$f$ is psh. \item It is not globally
+surjective: on a compact manifold a psh
+function is constant by the maximum
+principle, so a K\"ahler form on a compact
+manifold is never $dd^c$ of a function.
+\end{enumerate}
+So the bijection on the slides is the one
+between real $(1,1)$-forms and $I$-invariant
+symmetric forms, under which positive forms
+correspond to semipositive symmetric forms.
+Locally, psh functions modulo pluriharmonic
+functions are in bijection with closed
+positive $(1,1)$-forms.
+
+\medskip\noindent
+{\bf Example 1.} For any $(1,0)$-form $\xi$,
+the form $\sqrt{-1}\,\xi\wedge\bar\xi$ is
+positive. (Daniel's note says
+$\alpha\wedge\bar\alpha$; without the factor
+$\sqrt{-1}$ this form is imaginary, not
+real.)
+
+\begin{proof}
+Let $x$ be a real tangent vector. Since $\xi$
+is of type $(1,0)$,
+$\xi(Ix)=\sqrt{-1}\,\xi(x)$, and conjugating,
+$\bar\xi(Ix)=-\sqrt{-1}\,\overline{\xi(x)}$.
+Hence
+$$
+(\xi\wedge\bar\xi)(x,Ix)
+=\xi(x)\bar\xi(Ix)-\xi(Ix)\bar\xi(x)
+=-2\sqrt{-1}\,|\xi(x)|^2,
+$$
+so
+$\sqrt{-1}\,(\xi\wedge\bar\xi)(x,Ix)
+=2|\xi(x)|^2\geq
+0$.
+\end{proof}
+
+\medskip\noindent
+{\bf Example 2.} If $f$ is holomorphic, then
+$|f|^2$ is psh.
+
+\begin{proof}
+Since $\bar\partial f=0$ and $\partial\bar
+f=0$,
+$$
+dd^c(f\bar f)=2\sqrt{-1}\
+,\partial\bar\partial(f\bar f)
+=2\sqrt{-1}\,\partial f
+\wedge\bar\partial\bar f .
+$$
+Now $\bar\partial\bar f=\overline{\partial
+f}$, so this is $2\sqrt{-1}\,\partial
+f\wedge\overline{\partial f}$, which is
+positive by Example 1 with $\xi=\partial f$.
+\end{proof}
+
+\noindent
+Further examples from the lecture. A sum of
+psh functions is psh, and it is strictly psh
+if one of the summands is. If $f$ is psh and
+$\mu\colon\mathbb{R}\to\mathbb{R}$ is smooth
+with $\mu'>0$ and $\mu''\geq0$, then $\mu(f)$
+is psh, because
+$$
+dd^c\mu(f)=\mu'(f)\,dd^cf+\mu''(f)\,df
+\wedge d^cf,
+$$
+and $df\wedge d^cf=2\sqrt{-1}\,\partial
+f\wedge\bar\partial f$ is positive by Example
+1 (for real $f$, $\bar\partial
+f=\overline{\partial f}$). The slide writes
+$\mu'(f)^2$ in the first term; it should be
+$\mu'(f)$.
+
+\medskip\noindent
+{\bf Holomorphic convexity (recalled).} Let
+$X$ be a complex manifold and $K\subset X$
+compact. The \emph{holomorphic hull} of $K$
+is
+$$
+\widehat K=\{z\in X \mid |f(z)|\leq\sup_K|f| 
+\ \forall f\in H^0(X,\mathcal{O}_X)\}.
+$$
+It is closed and contains $K$, and
+$\widehat{\widehat K}=\widehat K$. The
+manifold $X$ is \emph{holomorphically convex}
+if $\widehat K$ is compact for every compact
+$K$. On the slides: an open set
+$\Omega\subset\mathbb{C}^n$ is a domain of
+holomorphy if and only if it is
+holomorphically convex.
+
+\begin{lemma}
+\label{lemma-cn-holomorphically-convex}
+$\mathbb{C}^n$ is holomorphically convex.
+\end{lemma}
+
+\begin{proof}
+(My proof; I did not find this proved earlier
+in these notes.) Let $K\subset\mathbb{C}^n$
+be compact and $r_j=\sup_K|z_j|$. Applying
+the definition of $\widehat K$ to the
+coordinate functions $z_j$ gives $\widehat
+K\subset\{|z_j|\leq r_j \ \forall j\}$, a
+compact polydisc. Since $\widehat K$ is
+closed, it is compact.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-exhaustion-hull-convex}
+(Claim 1 on the slides.) $X$ is
+holomorphically convex if and only if
+$X=\bigcup_i K_i$ for compact sets
+$K_1\subset K_2\subset\cdots$ with
+$\widehat{K_i}=K_i$ and $K_i$ contained in
+the interior of $K_{i+1}$.
+\end{lemma}
+
+\begin{proof}
+(My sketch.) If $X$ is holomorphically
+convex, take any exhaustion of $X$ by compact
+sets $L_1\subset L_2\subset\cdots$ and define
+inductively $K_1=\widehat{L_1}$ and $K_{i+1}$
+the hull of the union of $L_{i+1}$ and a
+compact neighbourhood of $K_i$. These hulls
+are compact and equal to their own hulls.
+Conversely, a compact $K$ lies in some $K_i$,
+so $\widehat K$ is a closed subset of
+$\widehat{K_i}=K_i$, hence compact.
+\end{proof}
+
+\medskip\noindent
+{\bf Exhaustion functions and
+pseudoconvexity.}
+
+\begin{definition}
+\label{definition-exhaustion-function}
+A function $\psi\colon X\to[-\infty,\infty[$
+on a topological space is an
+\textit{exhaustion function} (or
+\textit{exhausting}) if all its sublevel sets
+$\psi^{-1}([-\infty,c])$ are compact.
+\end{definition}
+
+\begin{definition}
+\label{definition-weakly-pseudoconvex}
+A complex manifold $X$ is \textit{weakly
+pseudoconvex} if it admits a smooth psh
+exhaustion function $\psi\colon
+X\to\mathbb{R}$, and \textit{strongly
+pseudoconvex} if it admits a smooth strictly
+psh exhaustion function.
+\end{definition}
+
+\noindent
+A strongly pseudoconvex manifold is K\"ahler:
+$dd^c\psi$ is a K\"ahler form with a global,
+exhausting potential.
+
+\begin{theorem}
+\label{theorem-holconvex-weakly-pseudoconvex}
+Every holomorphically convex manifold is
+weakly pseudoconvex.
+\end{theorem}
+
+\begin{proof}
+(The slides' proof, with details added by
+me.) Step 1. Take $K_1\subset
+K_2\subset\cdots$ as in Lemma
+\ref{lemma-exhaustion-hull-convex}, put
+$K_0=K_{-1}=\emptyset$, and let
+$L_i=K_i\setminus\mathrm{int}(K_{i-1})$, a
+compact set. The $L_i$ cover $X$. Let $z\in
+L_i$. Then
+$z\notin\mathrm{int}(K_{i-1})\supset
+K_{i-2}=\widehat{K_{i-2}}$, so by the
+definition of the hull there is $g\in
+H^0(X,\mathcal{O}_X)$ with
+$|g(z)|>\sup_{K_{i-2}}|g|$. Multiplying by a
+constant we may assume
+$\sup_{K_{i-2}}|g|<1<|g(z)|$, and then
+$|g|>c>1$ on a neighbourhood of $z$.
+
+Step 2. By compactness of $L_i$, finitely
+many such functions $g_{i,1},\dots,g_{i,n_i}$
+have neighbourhoods covering $L_i$. Replacing
+each $g_{i,k}$ by a high power $g_{i,k}^m$ we
+get $\sum_k|g_{i,k}|^2>i$ on $L_i$ and
+$\sum_k|g_{i,k}|^2<2^{-i}$ on $K_{i-2}$.
+
+Step 3. Put
+$$
+\psi=\sum_i\sum_{k=1}^{n_i}|g_{i,k}|^2 .
+$$
+On $K_j$ the terms with $i\geq j+2$ add up to
+less than $\sum_i 2^{-i}$, so the series
+converges uniformly on compact sets. Each
+term is psh by Example 2. (My remark: the
+limit is smooth and psh, since
+$\sum_{i,k}g_{i,k}(z)\overline{g_{i,k}(w)}$
+converges locally uniformly by
+Cauchy--Schwarz, so it is holomorphic in $z$
+and antiholomorphic in $w$, and $\psi$ is its
+restriction to $z=w$; then $dd^c\psi$ is the
+limit of the positive forms $dd^c$ of the
+partial sums.) Finally $\psi>i$ on $L_i$, so
+$\{\psi\leq c\}\subset L_1\cup\dots\cup
+L_{\lfloor c\rfloor}\subset K_{\lfloor
+c\rfloor}$, a closed subset of a compact set.
+So $\psi$ is exhausting.
+\end{proof}
+
+\medskip\noindent
+{\bf Regularized maximum.} The maximum of two
+psh functions is psh but not smooth. The
+regularized maximum is a smooth replacement,
+due to Demailly. The idea: take two real
+functions $\varphi_1,\varphi_2$ on $M$ and a
+function
+$\mu\colon\mathbb{R}^2\to\mathbb{R}$, and
+consider the composition
+$\mu(\varphi_1,\varphi_2)$ on $M$. If $\mu$
+is convex and increasing in each argument,
+the composition of psh functions is psh.
+
+\begin{lemma}
+\label{lemma-convex-composition-psh}
+Let $\mu\colon\mathbb{R}^n\to\mathbb{R}$ be
+smooth, convex and increasing in each
+argument, and $\varphi_1,\dots,\varphi_n$
+smooth psh functions. Then
+$\mu(\varphi_1,\dots,\varphi_n)$ is psh.
+\end{lemma}
+
+\begin{proof}
+(My write-up of ``the same formula,
+appropriately re-conceptualized''.) By the
+chain rule,
+$$
+dd^c\mu(\varphi)=\sum_i\partial_i\mu\
+,dd^c\varphi_i+\sum_{i
+,j}\partial_i\partial_j\mu\,d\varphi_i
+\wedge d^c\varphi_j .
+$$
+The first sum is positive since
+$\partial_i\mu\geq0$. For the second,
+diagonalize the positive semidefinite Hessian
+of $\mu$ at the point: it becomes
+$\sum_k\lambda_k\,d\chi_k\wedge d^c\chi_k$
+with $\lambda_k\geq0$ and $\chi_k$ real
+linear combinations of the $\varphi_i$, and
+each $d\chi_k\wedge d^c\chi_k$ is positive as
+above.
+\end{proof}
+
+\begin{definition}
+\label{definition-regularized-maximum}
+(Demailly.) A \textit{regularized maximum} is
+a smooth convex function
+$\max_\varepsilon\colon\mathbb{R}^2
+\to\mathbb{R}$,
+increasing in both arguments, such that
+$\max_\varepsilon(x,y)=\max(x,y)$ whenever
+$|x-y|\geq\varepsilon$,
+$\max_\varepsilon(x,y)=\max_\varepsilon(y,x)$
+,
+and
+$\max_\varepsilon(x+a,y+a)=\max_\varepsilon(x
+,y)+a$.
+\end{definition}
+
+\begin{corollary}
+\label{corollary-regularized-maximum-psh}
+A regularized maximum of smooth (strictly)
+psh functions is smooth and (strictly) psh.
+\end{corollary}
+
+\begin{proof}
+Psh follows from Lemma
+\ref{lemma-convex-composition-psh}. For
+strictness (my remark): differentiating
+$\max_\varepsilon(x+a,y+a)=\max_\varepsilon(x
+,y)+a$
+in $a$ gives
+$\partial_x\max_\varepsilon
++\partial_y\max_\varepsilon=1$,
+so in the first sum of the formula above the
+coefficients are nonnegative and add up to
+$1$, and a convex combination of positive
+definite forms is positive definite.
+\end{proof}
+
+\noindent
+Example (an exercise on the slides). Let
+$t\mapsto|t|_\varepsilon$ be a smooth even
+convex function with $|t|_\varepsilon=|t|$
+for $|t|\geq\varepsilon$. Then
+$$
+\max_\varepsilon(x,y)
+=\frac{1}{2}|x-y|_\varepsilon+\frac{1}{2}(x
++y)
+$$
+is a regularized maximum. It is convex as a
+sum of convex functions;
+$\partial_x\max_\varepsilon=\frac12(1
++|\cdot|_\varepsilon'(x-y))\geq0$
+because $|\cdot|_\varepsilon'$ takes values
+in $[-1,1]$; it equals $\max(x,y)$ for
+$|x-y|\geq\varepsilon$ because
+$\max(x,y)=\frac12|x-y|+\frac12(x+y)$; and
+symmetry and the translation property are
+clear. Choosing $|t|_\varepsilon\geq|t|$ we
+also get $\max_\varepsilon\geq\max$.
+
+\noindent
+This is used in Section
+\ref{complex-geometry-%
+section-stein-manifolds}
+to glue a strictly psh function near a point
+with a global psh function, without
+partitions of unity.
+
+
 \end{document}
