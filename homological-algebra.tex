@@ -7490,6 +7490,29 @@ gluing condition, and schemes are the gadget
 that formalizes such gluings.
 
 \medskip\noindent
+\textit{Snapshot, lecture of 4 November
+2026.} We proved that the elliptic curve
+$E=\mathbb{C}/\Lambda$ is a scheme, locally
+isomorphic to the affine curve
+$y^2=4x^3+ax+b$. Instead of checking that the
+transition maps between the charts compose
+correctly, Jethro defined one sheaf
+$\mathcal{F}$ of holomorphic functions on $E$
+with the Zariski topology: its sections over
+$E$ minus finitely many points are the
+elliptic functions holomorphic there. Last
+lecture's proposition says that $\wp(z-w)$
+and $\wp'(z-w)$ identify the ring
+$R=\mathbb{C}[x,y]/(y^2-4x^3-ax-b)$ with the
+sections of $\mathcal{F}$ over $E\setminus
+w$. A lemma says that removing the zeros of a
+section $f$ corresponds to localising at $f$.
+Together these give $\mathcal{F}|_{E\setminus
+w}\cong \mathcal{O}_C$ for every $w$, so $E$
+is a scheme. Details: section
+\ref{section-jethro-2026-11-04}.
+
+\medskip\noindent
 {\bf Sources of these notes.} Photographs of
 the board (13) and Daniel's notes. The audio
 transcript (whisper.cpp, English) is mostly
@@ -7694,6 +7717,518 @@ the 19th century (the addition theorem for
 $\wp$; not named in the lecture as
 transcribed). He called this ``a bit of an
 eccentric way to introduce schemes''.
+
+\section{Jethro, 4 November 2026: the
+structure sheaf, and the elliptic curve as a
+scheme}
+\label{section-jethro-2026-11-04}
+
+Lecture in Jethro's course Homological
+Algebra, IMPA 2026-2, Wednesday 4 November
+2026.
+
+\textit{Sources of these notes.} An audio
+recording (about 1 h 46 min), transcribed
+automatically with Whisper. The audio is
+quiet, so the transcript has gaps and
+misheard words; it is weak evidence. Six
+photographs of the boards, which cover only
+the elliptic-curve part (the second hour).
+Jethro's course notes
+\cite{vanEkerenHomologicalAlgebra2026}
+(version of 28 October
+2026), Sections 8.1 and 8.2. Daniel's notes.
+The first hour (Spec, structure sheaf,
+schemes, quasicoherent sheaves) is
+reconstructed from the transcript and the
+course notes, with no board photographs.
+Things said only in the recording are marked
+``Spoken:''.
+
+\textit{Spec and its topology.} Let $R$ be a
+commutative ring. Then $\mathrm{Spec}(R)$ is
+the set of prime ideals of $R$. Spoken: we
+would like to take only the maximal ideals,
+but the preimage of a maximal ideal under a
+ring map need not be maximal, while the
+preimage of a prime ideal is prime; so we
+take all primes. For $T\subset R$ put
+$$
+V(T)=\{P\in\mathrm{Spec}(R)\mid P\supset T\}.
+$$
+The \textit{Zariski topology} on
+$\mathrm{Spec}(R)$ is the topology whose
+closed sets are the $V(T)$. It is generated
+by the \textit{basic opens}
+$D(f)=\mathrm{Spec}(R)\setminus V(\{f\})$.
+Moreover $\mathrm{Spec}(R_f)\cong D(f)$: the
+primes of $R_f$ correspond to the primes of
+$R$ not containing $f$.
+
+\textit{Localisation.} $R_f$ is the ring of
+fractions $a/f^N$, $a\in R$, $N\geq 0$. It
+has a universal property: every ring map
+$R\to S$ sending $f$ to a unit extends
+uniquely to $R_f\to S$.
+
+\textit{Restriction maps.} Suppose
+$D(g)\subset D(f)$. Then every prime
+containing $f$ contains $g$. Hence the image
+of $f$ in $R_g$ lies in no prime ideal of
+$R_g$, so in no maximal ideal, so it is a
+unit. The universal property gives a
+canonical map $R_f\to R_g$.
+
+\textit{Gluing.} One must check the sheaf
+condition on the base of basic opens. Since
+$D(f)\cap D(g)=D(fg)$, it is enough to
+consider covers $D(f)\subset\bigcup_i
+D(g_i)$. Such a cover can be taken finite,
+and the inclusion means that the $g_i$
+generate the unit ideal in $R_f$. Spoken: the
+inclusion says that every prime containing
+all the $g_i$ contains $f$; so $f$ lies in
+the radical of $I=(g_1,\dots,g_n)$, i.e.
+$f^N\in I$ for some $N$; dividing by $f^N$
+gives $1$ as a combination of the $g_i$ in
+$R_f$. The gluing condition is then the
+following lemma applied to $R_f$.
+
+\begin{lemma}
+\label{lemma-jethro-2026-11-04-gluing}
+Let $R$ be a ring and let $g_1,\dots,g_n\in
+R$ generate the unit ideal. Then
+$$
+0\to R\xrightarrow{\alpha}\bigoplus_i R_{g_i}
+\xrightarrow{\beta}\bigoplus_{i,j}R_{g_ig_j}
+$$
+is exact, where $\alpha(r)=(r/1)_i$ and
+$\beta(s_i)_i=(s_i-s_j)_{i,j}$. The same
+holds for an $R$-module $M$ in place of $R$.
+\end{lemma}
+
+Checked: Stacks Project, Lemma 10.24.2 (Tag
+00EJ) for rings and Lemma 10.24.1 (Tag 00EK)
+for modules. Jethro's course notes cite this
+as ``[14, Lemma 10.2.4]''; the number should
+be 10.24.1.
+
+\begin{proof}
+First, $\beta\circ\alpha=0$, since both
+components of $\beta\alpha(r)$ are the image
+of the same $r$.
+
+Key fact (from the lecture): for every
+$N\geq1$ the powers $g_i^N$ also generate the
+unit ideal. Write $1=\sum_i c_ig_i$ and raise
+it to a large power: every monomial contains
+some $g_i$ with exponent at least $N$.
+
+$\alpha$ is injective: if $r/1=0$ in every
+$R_{g_i}$, then $g_i^Nr=0$ for all $i$ and
+one $N$. Write $1=\sum_i a_ig_i^N$; then
+$r=\sum_i a_ig_i^Nr=0$.
+
+Exactness in the middle. Jethro did not
+finish this step in the lecture and left the
+repair as an exercise; the following
+completion is mine, and it is the standard
+argument (compare the Stacks proof). Let
+$(s_i)$ with $\beta(s_i)=0$. Write
+$s_i=r_i/g_i^N$ with one $N$. Then $s_i=s_j$
+in $R_{g_ig_j}$ means
+$$
+(g_ig_j)^M(g_j^Nr_i-g_i^Nr_j)=0
+$$
+in $R$ for some $M$, which we may take
+independent of $i,j$. The point that was
+missing in the lecture is to first make this
+relation hold in $R$ without the factor
+$(g_ig_j)^M$. Put $r_i'=g_i^Mr_i$ and
+$N'=N+M$. Then $s_i=r_i'/g_i^{N'}$ and
+$$
+g_j^{N'}r_i'=g_i^{N'}r_j'
+$$
+holds in $R$ for all $i,j$. Now write
+$1=\sum_j a_jg_j^{N'}$ and set $r=\sum_j
+a_jr_j'$. Then
+$$
+g_i^{N'}r=\sum_j a_jg_i^{N'}r_j'
+=\sum_j a_jg_j^{N'}r_i'=r_i',
+$$
+so $r/1=r_i'/g_i^{N'}=s_i$ in $R_{g_i}$ for
+every $i$. So $(s_i)=\alpha(r)$. The same
+computation works verbatim for a module $M$.
+\end{proof}
+
+Spoken: this is like a partition of unity:
+writing $1$ as a combination of the $g_i^N$
+plays the role of the partition.
+
+\begin{definition}
+\label{definition-structure-sheaf-jethro}
+The \textit{structure sheaf} $\mathcal{O}_X$
+of $X=\mathrm{Spec}(R)$ is the sheaf with
+$\mathcal{O}_X(D(f))=R_f$ and the restriction
+maps above. The pair $(X,\mathcal{O}_X)$ is
+an \textit{affine scheme}.
+\end{definition}
+
+Spoken: Hartshorne does it differently. He
+assigns to each prime $P$ the localisation
+$R_P$ at the multiplicative set $R\setminus
+P$, and defines sections over an open set as
+functions into the union of the $R_P$ that
+are locally fractions. The definition is
+easier, but the same work comes back when one
+proves that the sections over $D(f)$ are
+$R_f$. (This is \cite[Section II.2,
+Proposition 2.2]{har}; not checked against
+the book
+here.)
+
+\begin{definition}
+\label{definition-scheme-jethro}
+Roughly, a \textit{scheme} is a topological
+space $X$ with a sheaf of rings
+$\mathcal{O}_X$ and an open cover $\{U_i\}$
+such that each $(U_i,\mathcal{O}_X|_{U_i})$
+is isomorphic to $\mathrm{Spec}(R_i)$ with
+its structure sheaf.
+\end{definition}
+
+\textit{Modules.} For an $R$-module $M$ put
+$M_f=\{m/f^N\}=M\otimes_RR_f$. Repeating the
+construction with $M_f$ in place of $R_f$
+gives a sheaf of $\mathcal{O}_X$-modules
+$\widetilde{M}$, with
+$\widetilde{M}(D(f))=M_f$. By Lemma
+\ref{lemma-jethro-2026-11-04-gluing} for
+modules it is a sheaf.
+
+\begin{definition}
+\label{definition-quasicoherent-sheaf-jethro}
+Let $X$ be a scheme. A sheaf $\mathcal{F}$ of
+$\mathcal{O}_X$-modules is
+\textit{quasicoherent} if one of the
+following equivalent conditions holds.
+\begin{enumerate}
+\item There is a cover of $X$ by open affines
+$U_i=\mathrm{Spec}(R_i)$ such that
+$\mathcal{F}|_{U_i}\cong\widetilde{M_i}$ for
+some $R_i$-module $M_i$.
+\item There is an open cover $\{U_i\}$ such
+that each $\mathcal{F}|_{U_i}$ has a
+presentation $\mathcal{O}_{U_i}^{\oplus J}\to
+\mathcal{O}_{U_i}^{\oplus I}\to
+\mathcal{F}|_{U_i}\to 0$.
+\end{enumerate}
+\end{definition}
+
+Jethro's notes cite Vakil's Rising Sea
+\cite{sea} (2017 draft), Definition 13.2.2,
+for the first condition
+(not checked here). Spoken: the names are
+bad; ``quasicoherent'' should be called
+coherent, since it says the sheaf is built
+coherently from modules over the affine
+pieces, and ``coherent'' involves a
+finiteness condition. Quasicoherent sheaves
+were not used further in this lecture.
+
+\textit{The elliptic curve as a scheme.}
+Recall $E=\mathbb{C}/\Lambda$,
+$\Lambda=\mathbb{Z}+\mathbb{Z}\tau$, and the
+open sets $U_w=E\setminus w$ for $w\in E$.
+Last lecture (Section
+\ref{section-elliptic-functions-jethro})
+gave
+$$
+E\setminus 0\to C\subset\mathbb{C}^2,\quad
+z\mapsto(\wp(z),\wp'(z)),
+$$
+where $a,b\in\mathbb{C}$ are constants
+depending on $\Lambda$ and
+$$
+C=\{(x,y)\mid y^2=4x^3+ax+b\}
+=\mathrm{Spec}(R),
+$$
+$$
+R=\mathbb{C}[x,y]/(y^2-4x^3-ax-b).
+$$
+(Strictly, $\mathrm{Spec}(R)$ also has a
+generic point, so $C$ is the set of its
+closed points; this was not discussed. With
+the usual normalisation
+$\wp'^2=4\wp^3-g_2\wp-g_3$ one has $a=-g_2$
+and $b=-g_3$.) The same works with any $w$ in
+place of $0$, using $(\wp(z-w),\wp'(z-w))$.
+On the board: a diagram with $U_0\leftarrow
+U_0\cap U_w\to U_w$, both ends identified
+with $C$, and on rings $\mathcal{O}_{U_0}\to
+\mathcal{O}_{U_0\cap U_w}\leftarrow
+\mathcal{O}_{U_w}$, both ends identified with
+$R$, with coordinates $(x,y)$ on one side and
+$(\bar x,\bar y)$ on the other. The question
+mark was: how do the two coordinate systems
+relate? Spoken: there is no $z$ in the ring
+$R$, since $z$ is not doubly periodic, so it
+is not a function on $E$.
+
+\textit{Transition functions.} Last lecture a
+classical identity (the addition law for
+$\wp$) gave, with $\alpha=\wp(w)$ and
+$\beta=\wp'(w)$,
+$$
+\bar x=\frac{1}{4}\left(\frac{y+\beta}
+{x-\alpha}\right)^2-x-\alpha,
+$$
+$$
+\bar
+y=-y+\left(\frac{y+\beta}{x-\alpha}\right)
+(2x+\alpha)
+-\frac{1}{4}\left(\frac{y+\beta}{x-\alpha}
+\right)^3,
+$$
+as elements of the localisation
+$R_{(x-\alpha)}\cong\mathcal{O}(U_0\cap
+U_w)$. This is the map $\varphi_{w,0}$: ``the
+transition functions are rational''. (These
+formulas are copied from the board and not
+checked.)
+
+\textit{Simple-minded approach.} Take
+$\varphi_{w_1,w_2}\colon\mathcal{O}_{U_{w_1}}
+\to\mathcal{O}_{U_{w_2}}$ as above, both
+identified with $R$, and check the cocycle
+condition
+$\varphi_{w_1,w_3}=\varphi_{w_1,w_2}\circ
+\varphi_{w_2,w_3}$. This leads to an even
+worse classical identity, so we do not do it.
+Spoken: it is also not enough to use $U_0$
+and $U_w$ alone: they cover $E$, but the sets
+$U_w$ form only a subbase of the Zariski
+topology, and one must also say what is
+assigned to their intersections.
+
+\textit{Better approach.} Let $K$ be the
+field of all elliptic functions for
+$\Lambda$, i.e. all meromorphic functions $f$
+on $\mathbb{C}$ with $f(z+1)=f(z)$ and
+$f(z+\tau)=f(z)$. For $V\subset E$ of the
+form $E$ minus finitely many points set
+$$
+\mathcal{F}(V)=\{g\in K\mid
+g|_V\in\mathcal{O}(V)\},
+$$
+the elliptic functions holomorphic at all
+points of $V$. This is a sheaf $\mathcal{F}$
+on $E$ in the Zariski topology (the open sets
+are $\emptyset$ and the complements of finite
+sets). Spoken: it is a subsheaf of the
+constant sheaf $K$, and it is going to be the
+structure sheaf; Jethro calls it
+$\mathcal{F}$ only to avoid confusion.
+
+\begin{proposition}
+\label{proposition-jethro-2026-11-04-chart}
+For each $w\in E$ the map
+$$
+\varphi_w^*\colon R\to\mathcal{F}(U_w),\quad
+(x,y)\mapsto(\wp(z-w),\wp'(z-w))
+$$
+is an isomorphism. That is,
+$\mathcal{F}(U_w)\cong\mathcal{O}_C(C)$.
+\end{proposition}
+
+\begin{proof}
+Proved last lecture (Proposition
+\ref{proposition-elliptic-poles-on-lattice}
+and Proposition
+\ref{proposition-phi-zero-bijection}): the
+elliptic functions
+with poles only at $w$ are the polynomials in
+$\wp(z-w)$ and $\wp'(z-w)$, and the only
+relation between them is the cubic.
+\end{proof}
+
+Now we show $\mathcal{F}|_{U_w}\cong
+\mathcal{O}_C$. (On the board Jethro switches
+from $w$ to $p$.)
+
+\begin{lemma}
+\label{lemma-jethro-2026-11-04-localisation}
+Let $f\in\mathcal{F}(U_p)$ be nonzero, let
+$V(f)\subset U_p$ be its zero set (a finite
+set), and $D(f)=U_p\setminus V(f)$. Then
+$$
+\mathcal{F}(D(f))=\mathcal{F}(U_p)_f.
+$$
+\end{lemma}
+
+\begin{proof}
+By definition $\mathcal{F}(U_p)_f=\{h/f^N\mid
+h\in\mathcal{F}(U_p),\ N\geq 0\}$. The
+inclusion $\supseteq$ is clear: $1/f$ is
+holomorphic away from $V(f)$.
+
+For $\subseteq$, let $g$ be holomorphic on
+$D(f)$. Its poles in $U_p$ lie in $V(f)$. For
+$q\in V(f)$ put
+$$
+m_q=\max\{0,-\mathrm{ord}_q(g)\},\quad
+k_q=\mathrm{ord}_q(f)\geq 1.
+$$
+Take $N\geq\max\{m_q\mid q\in V(f)\}$ and
+$h=f^Ng\in K$. Then for $q\in V(f)$
+$$
+\mathrm{ord}_q(h)=Nk_q+\mathrm{ord}_q(g)
+\geq N-m_q\geq 0,
+$$
+and $h$ is holomorphic at the other points of
+$U_p$ because $f$ and $g$ are. So $h$ is
+holomorphic on $U_p$, and
+$g=h/f^N\in\mathcal{F}(U_p)_f$.
+\end{proof}
+
+Spoken: the idea is that $g$ has poles only
+at finitely many points, and a high enough
+power of a function vanishing at those points
+kills the poles.
+
+\begin{proposition}
+\label{proposition-jethro-2026-11-04-scheme}
+Under the identifications $\varphi_w^*\colon
+R\xrightarrow{\sim} \mathcal{F}(U_w)$, the
+sheaf $\mathcal{F}|_{U_w}$ is identified with
+$\mathcal{O}_C$. In particular, $E$ is a
+scheme.
+\end{proposition}
+
+\begin{proof}
+It suffices to compare sections on the basic
+opens $D(f)\subset U_w$, and this follows
+from Lemma
+\ref{lemma-jethro-2026-11-04-localisation}:
+$$
+\mathcal{F}(D(f))=\mathcal{F}(U_w)_f
+\cong R_f=\mathcal{O}_C(D(f)).
+$$
+\end{proof}
+
+Spoken, from the discussion afterwards: a
+sheaf is determined by its values on a
+\textit{base} (every open set is a union of
+members) together with the sheaf condition,
+but not by its values on a \textit{subbase}
+(every open set is a union of finite
+intersections of members). The sets $U_w$
+form a subbase and the sets $D(f)$ a base;
+the lemma is what tells us what $\mathcal{F}$
+assigns to the intersections. A student
+pointed out that one could instead glue two
+affine schemes $U_0$ and $U_w$ along the
+isomorphism of $U_0\cap U_w$ given by the
+rational transition functions. Jethro said it
+is a bit strange to need elementary complex
+analysis to prove that $E$ is a scheme.
+
+Spoken, next lecture: compute the sheaf
+cohomology of the structure sheaf of $E$ with
+the \v{C}ech cover $\{U_0,U_w\}$; this
+reduces to a short computation with elliptic
+functions (Section 8.1 of the course notes).
+Jethro first tried to do this holomorphically
+and found it hard (whether Stein manifolds
+are acyclic, from several complex variables),
+while the algebraic computation is easy. That
+the holomorphic and algebraic answers agree
+is non-trivial. (This is Serre's GAGA; not
+stated in the lecture.)
+
+\textit{Daniel's notes, with answers.}
+
+``The ring is the ring of functions on a
+manifold. The maximal ideals are the
+functions that vanish at some point [\ldots]
+For some technical reason, we have to also
+add the rest of the prime ideals.'' The
+reason given in the lecture: preimages of
+prime ideals under ring maps are prime,
+preimages of maximal ideals need not be
+maximal (example: $(0)$ in
+$\mathbb{Z}\subset\mathbb{Q}$). So only Spec
+is functorial.
+
+``The basic open sets are complements of
+hypersurfaces $V(f)$ [\ldots] Then we check a
+gluing condition, and that's the structure
+sheaf.'' Yes. The restriction maps come from
+the universal property of localisation, and
+the gluing condition is Lemma
+\ref{lemma-jethro-2026-11-04-gluing} applied
+to $R_f$. Its proof was not finished in the
+lecture; the completion above is mine.
+
+``Quasicoherent sheaves: [\ldots] you expect
+a sheaf on this space to be built from
+sheaf-pieces on the affine pieces too.'' Yes,
+this is the first condition of Definition
+\ref{definition-quasicoherent-sheaf-jethro},
+and it is also Jethro's spoken comment on the
+name.
+
+``I think a rigorous proof [\ldots] is
+involved and was not given, but outlined.''
+Partly. The simple-minded proof (checking the
+cocycle condition for the rational transition
+maps) was not given. But the better approach
+was given as a proof, from Proposition
+\ref{proposition-jethro-2026-11-04-chart}
+(proved last lecture), Lemma
+\ref{lemma-jethro-2026-11-04-localisation}
+(proved on the board) and Proposition
+\ref{proposition-jethro-2026-11-04-scheme}.
+The steps left implicit are that
+$\mathcal{F}$ is a sheaf, which is easy since
+holomorphy is a local condition, and the
+generic-point remark above.
+
+``Weierstrass p-functions give us the maps
+from the coordinate algebras
+$R=\mathbb{C}[x,y]/(y^2-4x^3+ax+b)$
+[\ldots]'' Yes, this is Proposition
+\ref{proposition-jethro-2026-11-04-chart}.
+Two corrections: the board has
+$y^2-4x^3-ax-b$ (minus signs), and the map
+goes to the sections over $U_w$, which are
+the elliptic functions with poles only at
+$w$, not to all elliptic functions.
+
+``I think the lemma proves that the
+complements of the zero sets of sections $f$
+at the stalks $\mathcal{F}_p$ are the
+localizations of $\mathcal{F}_p$ at $f$.''
+Not stalks: $U_p$ is the open set $E\setminus
+p$ (Jethro renamed $U_w$ as $U_p$). The lemma
+says that the sections over
+$D(f)=U_p\setminus V(f)$ are the localisation
+of $\mathcal{F}(U_p)$ at $f$.
+
+``The final proposition asserts that the
+Weierstrass p-function map is indeed a sheaf
+isomorphism, making $E$ a scheme. [\ldots] we
+also need to check the restriction condition,
+and that's what the lemma is for.'' The lemma
+gives the sections over each basic open. The
+restriction maps are automatically
+compatible: my remark, not from the lecture.
+All the rings $\mathcal{F}(D(f))$ sit inside
+$K$ and all the $R_f$ sit inside the fraction
+field of $R$, and $\varphi_w^*$ extends to an
+isomorphism of these fields, so the
+restriction maps are inclusions on both
+sides.
 
 \bibliography{my}
 \bibliographystyle{amsalpha}
