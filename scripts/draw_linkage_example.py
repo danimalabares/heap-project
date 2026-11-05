@@ -5,7 +5,7 @@ The smooth cubic is F=x(x*x+y*y-w*w)+z(w*w+z*z).
 Its section z=0 is the line x=0 and the conic x*x+y*y=w*w.
 These are original explanatory figures, not copies of talk slides.
 Run from the repository root: python3 scripts/draw_linkage_example.py
-Dependencies: numpy and matplotlib.
+Dependencies: numpy, matplotlib, and TeX Live's Latin Modern fonts.
 
 Smoothness over C follows directly from the four partial derivatives:
 3x^2+y^2-w^2, 2xy, w^2+3z^2, 2w(z-x). If x=0 they force
@@ -14,6 +14,7 @@ give both w^2=3x^2 and w^2=-3x^2. There is no projective solution.
 """
 
 from pathlib import Path
+import subprocess
 
 import matplotlib
 
@@ -21,6 +22,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.lines import Line2D
+from matplotlib import font_manager
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 
@@ -30,7 +32,18 @@ OUT.mkdir(exist_ok=True)
 BLUE = "#1765a8"
 ORANGE = "#d05a19"
 GREY = "#788491"
-plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 12})
+# Use the same Latin Modern family as the HP's lmodern package.
+for style in ("regular", "italic", "bold"):
+    font_path = subprocess.check_output(
+        ["kpsewhich", f"lmroman10-{style}.otf"], text=True
+    ).strip()
+    font_manager.fontManager.addfont(font_path)
+plt.rcParams.update({
+    "font.family": "serif",
+    "font.serif": ["Latin Modern Roman"],
+    "mathtext.fontset": "cm",
+    "font.size": 12,
+})
 
 # In w=1, the real root of z^3+z=-x(x^2+y^2-1) is unique.
 grid = np.linspace(-1.5, 1.5, 151)
@@ -65,9 +78,9 @@ ax.plot(circle_x, circle_y, np.zeros_like(theta),
 ax.scatter([0, 0], [-1, 1], [0, 0], color="#253548",
            s=33, depthshade=False, zorder=7)
 ax.set(xlim=(-1.5, 1.5), ylim=(-1.5, 1.5), zlim=(-1.8, 1.8))
-ax.set_xlabel("x", labelpad=0)
-ax.set_ylabel("y", labelpad=0)
-ax.text2D(.96, .55, "z", transform=ax.transAxes)
+ax.set_xlabel("$x$", labelpad=0)
+ax.set_ylabel("$y$", labelpad=0)
+ax.text2D(.96, .55, "$z$", transform=ax.transAxes)
 ax.set_xticks([])
 ax.set_yticks([])
 ax.set_zticks([])
@@ -77,11 +90,11 @@ ax.grid(False)
 ax.set_title("A plane cuts a cubic surface in a line and a conic", pad=4)
 legend = [
     Line2D([0], [0], color="#75a796", lw=7, alpha=.6,
-           label="Cubic surface S"),
+           label="Cubic surface $S$"),
     Line2D([0], [0], color="#c9c3e2", lw=7,
-           label="Cutting plane z = 0"),
-    Line2D([0], [0], color=BLUE, lw=3, label="Known line L"),
-    Line2D([0], [0], color=ORANGE, lw=3, label="Residual conic C"),
+           label="Cutting plane $z = 0$"),
+    Line2D([0], [0], color=BLUE, lw=3, label="Known line $L$"),
+    Line2D([0], [0], color=ORANGE, lw=3, label="Residual conic $C$"),
 ]
 fig.legend(handles=legend, loc="lower center", ncol=2,
            frameon=False, bbox_to_anchor=(.5, .0))
@@ -110,9 +123,9 @@ for i, ax in enumerate(axes):
             linestyle="--" if i == 2 else "-")
     if i != 1:
         ax.scatter([0, 0], [-1, 1], s=30, color="#253548", zorder=5)
-    ax.text(.72, .78, "C", color=ORANGE, fontsize=14,
+    ax.text(.72, .78, "$C$", color=ORANGE, fontsize=14,
             alpha=.3 if i == 1 else 1)
-    ax.text(.1, 1.15, "L", color=BLUE, fontsize=14,
+    ax.text(.1, 1.15, "$L$", color=BLUE, fontsize=14,
             alpha=.3 if i == 2 else 1)
 fig.text(.5, .02, "Residuality keeps the two meeting points (black dots).",
          ha="center", color="#394858", fontsize=11)
