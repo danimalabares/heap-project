@@ -4153,4 +4153,566 @@ with a global psh function, without
 partitions of unity.
 
 
+\section{Lecture of 6 November 2026:
+vanishing cohomology for pseudoconvex
+manifolds}
+\label{section-vanishing-pseudoconvex}
+
+\noindent
+This lecture was given on 6 November 2026 by
+Yan. It follows Misha's slides of 2025,
+lecture 21 (``Vanishing cohomology for
+pseudoconvex manifolds''), and continues
+Section
+\ref{section-lecture-psh-pseudoconvexity}.
+
+\medskip\noindent
+{\bf Main idea.} A positive line bundle on a
+weakly pseudoconvex manifold has no higher
+cohomology in bidegree $(n,q)$. This is a
+non-compact version of Kodaira vanishing
+(Theorem
+\ref{complex-geometry-%
+theorem-kodaira-nakano-vanishing}).
+Two new ingredients make the non-compact case
+work. First, a complete K\"ahler metric,
+built from a psh exhaustion function, so that
+the $L^2$ theory of unbounded operators
+applies. Second, the freedom to multiply the
+metric on $L$ by $e^{-\chi(f)}$ for a
+fast-growing convex function $\chi$ of the
+exhaustion $f$. This keeps the curvature
+positive and makes any given form square
+integrable.
+
+\medskip\noindent
+{\bf Sources of these notes.} Daniel's notes;
+Misha's 2025 slides for lecture 21; an
+automatic transcript of the audio. The first
+part of the lecture was not recorded (up to
+the exercise below); for it Daniel's summary
+and the slides are the only sources.
+Arguments marked ``my'' were written by
+Claude to fill gaps or repair the slides, and
+were not checked by anyone else.
+
+\medskip\noindent
+{\bf Conventions.} As in Section
+\ref{section-lecture-psh-pseudoconvexity},
+$d^c=\sqrt{-1}(\bar\partial-\partial)$ and
+$dd^c=2\sqrt{-1}\,\partial\bar\partial$. For
+a real function $f$ this gives $d^cf=-df\circ
+I$, so
+$$
+(df\wedge d^cf)(x,Ix)=df(x)^2+df(Ix)^2 .
+$$
+In particular $df\wedge d^cf$ is a positive
+$(1,1)$-form.
+
+\medskip\noindent
+{\bf Complete manifolds.} By the Hopf--Rinow
+theorem (Theorem
+\ref{differential-geometry-%
+theorem-Hopf-Rinow}),
+a Riemannian manifold is complete if and only
+if its closed balls are compact. Recall that
+a continuous function is \emph{proper} if
+preimages of compact sets are compact; for a
+real function bounded below this is the same
+as being exhausting.
+
+\begin{proposition}
+\label{proposition-proper-gradient-complete}
+Let $(M,g)$ be a Riemannian manifold and
+$f\colon M\to\mathbb{R}$ a proper smooth
+function with $|df|\leq 1$. Then $(M,g)$ is
+complete.
+\end{proposition}
+
+\begin{proof}
+Let $\gamma\colon[0,r]\to M$ be a path of
+length $r$ from $x$ to $y$, parametrized by
+arc length. Then
+$$
+|f(y)-f(x)|=\left|\int_0^r df(\gamma'(t))\,dt
+\right|\leq\int_0^r|df|\,dt\leq r .
+$$
+So the closed ball of radius $r$ around $x$
+lies in $f^{-1}([f(x)-r,f(x)+r])$, which is
+compact since $f$ is proper. Closed balls are
+compact, so $M$ is complete by Hopf--Rinow.
+\end{proof}
+
+\noindent
+Recall (Definition
+\ref{definition-weakly-pseudoconvex}) that
+$M$ is weakly pseudoconvex if it has a smooth
+psh exhaustion function $f$. Such an $f$ is
+bounded below (if $\inf f=-\infty$, the sets
+$\{f\leq -k\}$ would be nonempty, compact and
+decreasing, so their intersection would be a
+point where $f=-\infty$). Adding a constant
+we may assume $f\geq0$, and then $f$ is
+proper. The slides define weak
+pseudoconvexity directly with a proper,
+non-negative psh function. It does not have
+to be strictly psh, so a weakly pseudoconvex
+manifold need not be K\"ahler.
+
+\begin{proposition}
+\label{proposition-wpc-kahler-complete}
+Let $M$ be a weakly pseudoconvex manifold
+with a K\"ahler form $\omega$. Then $M$
+admits a complete K\"ahler metric.
+\end{proposition}
+
+\begin{proof}
+Let $f\geq0$ be a proper smooth psh function.
+Then $f^2$ is psh (Section
+\ref{section-lecture-psh-pseudoconvexity}:
+$t\mapsto t^2$ is convex and increasing on
+$t\geq0$), so
+$$
+\hat\omega=\omega+dd^c(f^2)
+$$
+is a K\"ahler form. We have
+$$
+dd^c(f^2)=2\,df\wedge d^cf+2f\,dd^cf\geq df
+\wedge d^cf .
+$$
+(The slides write $df\wedge d^cf+f\,dd^cf$,
+without the factor $2$; this does not
+matter.) So for every tangent vector $x$,
+using the conventions above,
+$$
+df(x)^2\leq(df\wedge d^cf)(x,Ix)
+\leq\hat\omega(x,Ix)=|x|^2_{\hat g},
+$$
+where $\hat g$ is the Riemannian metric of
+$\hat\omega$. Hence $|df|_{\hat g}\leq1$, and
+$\hat g$ is complete by Proposition
+\ref{proposition-proper-gradient-complete}.
+
+(This last step is my simplification. The
+slides compare the dual norms of $df$ for the
+metrics $\hat\omega\geq\omega+df\wedge
+d^cf\geq\varepsilon\omega+df\wedge d^cf$ and
+let $\varepsilon\to0$.)
+\end{proof}
+
+\medskip\noindent
+{\bf Reminders from the $L^2$ theory
+(lectures 17 and 18 of the slides; not yet in
+these notes).}
+
+Hilbert complexes. Let
+$H_1\xrightarrow{T}H_2\xrightarrow{S}H_3$ be
+closed, densely defined unbounded operators
+between Hilbert spaces with $ST=0$. Then
+$$
+H_2=(\ker S\cap\ker T^*)
+\oplus\overline{\mathrm{im}\,T}
+\oplus\overline{\mathrm{im}\,S^*},
+\quad
+\ker S=(\ker S\cap\ker T^*)
+\oplus\overline{\mathrm{im}\,T}.
+$$
+If moreover there is $C>0$ with
+$$
+\|T^*x\|^2+\|Sx\|^2\geq C\|x\|^2
+$$
+for all
+$x\in\mathrm{Dom}\,S\cap\mathrm{Dom}\,T^*$,
+then $\mathrm{im}\,T=\ker S$: the image is
+closed, and every $x\in\ker S$ is $Ty$ for
+some $y\in\mathrm{Dom}\,T$. (The slides have
+subscripts $\|\cdot\|_1$, $\|\cdot\|_3$ for
+the norms in $H_1$ and $H_3$, and a typo
+$H_2\to H_2$ for $H_2\to H_3$.)
+
+Complete manifolds. Let $M$ be complete and
+$D$ a first order operator on bundle-valued
+forms with $D^2=0$. Then compactly supported
+smooth sections are dense in the domains of
+$D$, of its formal adjoint $\delta$ and of
+both, for the graph norms. Consequently the
+Hilbert space adjoint of $D$ is the closure
+of $\delta$. So it is enough to check an
+estimate as above on compactly supported
+smooth forms.
+
+The Bochner--Kodaira--Nakano identity
+(lecture 16 of the slides). For a holomorphic
+Hermitian bundle $L$ on a K\"ahler manifold,
+with curvature $\Theta$,
+$$
+\Delta_{\bar\partial}=\Delta_{\partial}
++[\sqrt{-1}\,\Theta,\Lambda]
+$$
+on $L$-valued forms. (Here $\partial$ is the
+$(1,0)$-part of the Chern connection;
+standard, compare
+Huybrechts, Complex Geometry.) Integrating
+against a compactly supported $\Phi$ gives
+$$
+\|\bar\partial\Phi\|^2
++\|\bar\partial^*\Phi\|^2\geq
+\int_M\langle[\sqrt{-1}\,\Theta,\Lambda]\Phi
+,\Phi\rangle .
+$$
+Standard linear algebra (not proved in the
+lecture): on $(n,q)$-forms, if
+$\sqrt{-1}\,\Theta\geq c\,\omega$ for the
+K\"ahler form $\omega$ used to define
+$\Lambda$, then
+$[\sqrt{-1}\,\Theta,\Lambda]\geq cq$. This is
+where bidegree $(n,q)$ is used.
+
+\medskip\noindent
+{\bf Making a form integrable.}
+
+\begin{exercise}
+\label{exercise-convex-weight-integrable}
+Let $F$ be a positive smooth function on
+$\mathbb{R}^{>0}$. Then there is a smooth,
+positive, increasing, convex function $\chi$
+on $\mathbb{R}^{>0}$ with
+$$
+\int_0^\infty e^{-\chi(t)}F(t)\,dt<\infty .
+$$
+\end{exercise}
+
+\begin{proof}
+(The slides' proof.) Let
+$F_{\max}(t)=\max_{s\in[0,t]}F(s)$, which is
+increasing and at least $F$, and
+$\chi(t)=\int_0^tF_{\max}(s)\,ds$. Then
+$\chi$ is positive and increasing, and it is
+convex because $\chi'=F_{\max}$ is
+increasing. Put $u=-e^{-\chi}$. Then
+$u'=F_{\max}e^{-\chi}$, and
+$$
+\int_0^\infty e^{-\chi}F\,dt\leq
+\int_0^\infty e^{-\chi}F_{\max}\,dt
+=u(\infty)-u(0)\leq1 .
+$$
+
+Spoken: the caveat raised in the lecture is
+that $F_{\max}$ is infinite if $F$ is
+unbounded near $0$, for example $F(t)=1/\sqrt
+t$, which is integrable near $0$; the answer
+given was to cut off near $0$ or take limits,
+without details. The caveat (my wording of
+it). As written $\chi$ is only $C^1$, since
+$F_{\max}$ is only continuous, and $F_{\max}$
+is finite only if $F$ is bounded near $0$.
+Both are easy to fix. Replace $F_{\max}$ by a
+smooth increasing function $G\geq F_{\max}$,
+for example a smoothing of $t\mapsto
+F_{\max}(t+1)$. Since in the application $F$
+comes from a function $f\geq1$, $F$ vanishes
+near $0$.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-weight-integrable}
+Let $\mu$ be a smooth volume form on $M$ and
+$f\colon M\to\mathbb{R}^{>0}$ a proper smooth
+function. Then there is a smooth, positive,
+increasing, convex $\chi$ on
+$\mathbb{R}^{>0}$ such that
+$$
+\int_Me^{-\chi(f)}\mu<\infty .
+$$
+\end{proposition}
+
+\begin{proof}
+Spoken: a question in the lecture was what
+the push-forward of a volume form means. It
+is the measure $f_*\mu(A)=\mu(f^{-1}(A))$ on
+$\mathbb{R}^{>0}$; it is a measure, not in
+general a smooth density. (The slides' idea:
+push $\mu$ forward to $\mathbb{R}^{>0}$ and
+apply Exercise
+\ref{exercise-convex-weight-integrable}. The
+slides write $f_*\mu=F\,dt$ with $F$ smooth,
+which fails at critical values of $f$. The
+following version is mine and avoids this.)
+Adding $1$ to $f$, assume $f\geq1$. For
+$k\geq1$ let $m_k=\mu(f^{-1}([k,k+1[))$,
+which is finite since $f$ is proper. Choose a
+smooth, positive, increasing, convex $\chi$
+with $\chi(k)\geq\log(m_k)+k$ for all $k$.
+(Such a $\chi$ exists: take a piecewise
+linear convex increasing function above the
+points $(k,\log(m_k)+k)$, whose slopes
+increase to infinity, and smooth its
+corners.) Then
+$$
+\int_Me^{-\chi(f)}\mu\leq
+\sum_k e^{-\chi(k)}m_k\leq
+\sum_k e^{-k}<\infty .
+$$
+\end{proof}
+
+\noindent
+The point (Daniel's notes): a form need not
+be square integrable, but it becomes square
+integrable after multiplying the metric on
+the bundle by $e^{-\chi(f)}$ for a convex
+increasing $\chi$ that grows fast enough.
+Since $\chi(f)$ is psh, this change of metric
+only makes the curvature more positive. The
+proposition is applied with
+$\mu=|\Phi|^2\,\mathrm{vol}$ for a given form
+$\Phi$.
+
+\medskip\noindent
+{\bf The vanishing theorem.} Recall that a
+holomorphic Hermitian line bundle $L$ is
+\emph{positive} if $\sqrt{-1}$ times its
+curvature is a K\"ahler form (Definition
+\ref{complex-geometry-%
+definition-positive-line-bundle}).
+
+\begin{theorem}
+\label{theorem-vanishing-wpc-positive}
+Let $M$ be a weakly pseudoconvex complex
+manifold of dimension $n$ and $L$ a positive
+holomorphic line bundle on $M$. Then
+$H^{n,q}(M,L)=0$ for all $q>0$. Equivalently
+$H^q(M,K_M\otimes L)=0$ for $q>0$.
+\end{theorem}
+
+\begin{proof}
+(The slides' proof, written out in more
+detail by me. In particular I fix the
+complete metric $\hat\omega$ once, before
+choosing $\chi$; on the slides the order of
+choices is not explicit, and if the metric is
+changed with $\chi$ the argument is
+circular.)
+
+Step 1: the metrics. Let $h$ be a Hermitian
+metric on $L$ with positive curvature,
+$\omega_L=\sqrt{-1}\,\Theta_h$, a K\"ahler
+form. Let $f\geq0$ be a proper smooth psh
+function. By Proposition
+\ref{proposition-wpc-kahler-complete},
+$$
+\hat\omega=\omega_L+dd^c(f^2)
+$$
+is a complete K\"ahler metric. We use
+$\hat\omega$ for all norms of forms, for the
+volume, and for $\Lambda$.
+
+Step 2: the weight. For a smooth convex
+increasing $\chi$ on $[0,\infty[$, give $L$
+the metric $h_\chi=e^{-\chi(f)}h$. Its
+curvature satisfies
+$$
+\sqrt{-1}\,\Theta_{h_\chi}=\omega_L
++\frac{1}{2}dd^c\chi(f)
+$$
+(the factor $\frac12$ comes from our
+normalization of $dd^c$). We have
+$dd^c\chi(f)=\chi'(f)\,dd^cf+\chi''(f)\,df
+\wedge
+d^cf$. So if $\chi'(t)\geq4t$ and
+$\chi''\geq4$, then
+$\frac{1}{2}dd^c\chi(f)\geq dd^c(f^2)$, hence
+$\sqrt{-1}\,\Theta_{h_\chi}\geq\hat\omega$.
+Any $\chi=2t^2+\chi_1$ with $\chi_1$ convex
+and increasing has these properties.
+
+Step 3: the estimate. By the
+Bochner--Kodaira--Nakano inequality and the
+linear algebra above, for compactly supported
+$L$-valued $(n,q)$-forms $\Phi$, with norms
+defined by $\hat\omega$ and $h_\chi$,
+$$
+\|\bar\partial\Phi\|^2
++\|\bar\partial^*\Phi\|^2\geq q\|\Phi\|^2 .
+$$
+Since $\hat\omega$ is complete, this holds on
+$\mathrm{Dom}\,\bar\partial\cap\mathrm{Dom}\
+,\bar\partial^*$
+in $L^2$. By the reminder on Hilbert
+complexes, applied to
+$$
+L^2_{n,q-1}(M,L)
+\xrightarrow{\bar\partial}L^2_{n,q}(M,L)
+\xrightarrow{\bar\partial}L^2_{n,q+1}(M,L),
+$$
+every $\bar\partial$-closed square integrable
+$(n,q)$-form is $\bar\partial\beta$ for a
+square integrable $\beta$.
+
+Step 4: every class. Let $\Phi$ be a smooth
+$\bar\partial$-closed $L$-valued
+$(n,q)$-form. By Proposition
+\ref{proposition-weight-integrable}, applied
+to
+$\mu=|\Phi|^2_{\hat\omega,h}\
+,\mathrm{vol}_{\hat\omega}$,
+there is $\chi_1$ with $\Phi$ square
+integrable for $h_\chi$, $\chi=2t^2+\chi_1$.
+By Step 3, $\Phi=\bar\partial\beta$ with
+$\beta$ in $L^2$. Choosing $\beta$ orthogonal
+to $\ker\bar\partial$ we get
+$\bar\partial^*\beta=0$, so
+$\Delta_{\bar\partial}\beta
+=\bar\partial^*\Phi$
+is smooth, and $\beta$ is smooth by elliptic
+regularity. So $[\Phi]=0$ in Dolbeault
+cohomology.
+\end{proof}
+
+\noindent
+Spoken, on the proof. Why bidegree $(n,q)$
+with $q>0$: in coordinates where $\hat\omega$
+is standard and the curvature is diagonal
+with eigenvalues $\gamma_j>0$, the operator
+$[\sqrt{-1}\,\Theta,\Lambda]$ acts on
+$dz_J\wedge d\bar z_K$ by $\sum_{k\in
+K}\gamma_k+\sum_{j\in
+J}\gamma_j-\sum_j\gamma_j$. For $|J|=n$ the
+last two sums cancel, leaving $\sum_{k\in
+K}\gamma_k$, positive when $|K|=q>0$; for
+$|J|<n$ the negative part does not cancel.
+(This formula is the standard one, e.g.\ in
+Demailly's book; the transcript is too
+garbled to confirm the exact expression on
+the board.) On the metric depending on
+$\Phi$: the weight $\chi$ is chosen for each
+$\Phi$, but being $\bar\partial$-exact does
+not depend on the metric, so this is enough.
+Daniel asked whether a harmonic
+representative is used; the answer in the
+lecture was no: the Bochner--Kodaira--Nakano
+identity is pointwise and needs no
+compactness, and the weight is what replaces
+compactness.
+
+\noindent
+Daniel's remark: this looks like a
+non-compact Kodaira vanishing, proved with
+Bochner--Kodaira--Nakano but with no Hodge
+theory and no harmonic representative. My
+answer: no harmonic representatives are
+needed because there are none. The estimate
+in Step 3 says that the Laplacian is bounded
+below by $q>0$. So in the $L^2$ Hodge
+decomposition (the reminder on Hilbert
+complexes) the harmonic part
+$\ker\bar\partial\cap\ker\bar\partial^*$ is
+zero, and every closed form is exact. The
+Hodge theory is still there, in its $L^2$
+form; what replaces compactness is
+completeness of $\hat\omega$ and the freedom
+to choose $\chi$. On a compact manifold the
+same argument is the usual proof of Kodaira
+vanishing.
+
+\medskip\noindent
+{\bf Vanishing for all vector bundles.}
+
+\begin{theorem}
+\label{theorem-vanishing-proper-spsh}
+Let $M$ be a complex manifold admitting a
+proper, positive, strictly psh smooth
+function $f$, and $B$ a holomorphic vector
+bundle on $M$. Then $H^i(M,B)=0$ for all
+$i>0$.
+\end{theorem}
+
+\begin{proof}
+(The slides' proof, with details added by
+me.) Step 1. The trivial bundle
+$\mathcal{O}_M$ with the metric $e^{-2f}$ has
+curvature $dd^cf$ up to a positive constant,
+which is positive definite since $f$ is
+strictly psh. In the same way, for a
+Hermitian metric $h$ on $B$ and a convex
+increasing $\chi$, the metric
+$e^{-2\chi(f)}h$ has curvature
+$\Theta_B+c\,dd^c\chi(f)\cdot\mathrm{Id}_B$
+for a constant $c>0$ depending on the
+normalization. On each compact set $\Theta_B$
+is bounded, and $\chi'(f)\,dd^cf$ grows with
+$\chi'$. Since the sublevel sets of $f$ are
+compact, choosing $\chi'$ increasing fast
+enough makes
+$[\sqrt{-1}\,\Theta,\Lambda]\geq1$ on
+$B$-valued $(n,q)$-forms, $q\geq1$. Here the
+norms are those of a complete K\"ahler metric
+$\hat\omega=dd^cf+dd^c(f^2)$, which is
+complete by Proposition
+\ref{proposition-wpc-kahler-complete}. (For
+vector bundles one needs this Nakano-type
+positivity; it holds once the term
+$dd^c\chi(f)\cdot\mathrm{Id}$ dominates
+$\Theta_B$.)
+
+Step 2. As in Theorem
+\ref{theorem-vanishing-wpc-positive},
+increasing $\chi$ further makes any given
+$\bar\partial$-closed
+$\Phi\in\Lambda^{n,q}(M,B)$ square
+integrable, hence $\bar\partial$-exact. So
+$H^{n,q}(M,B)=0$ for every holomorphic bundle
+$B$ and every $q>0$.
+
+Step 3. Since $H^{n,q}(M,B)=H^q(M,B\otimes
+K_M)$, apply Step 2 to $B_1=B\otimes
+K_M^{-1}$:
+$$
+0=H^{n,q}(M,B_1)=H^q(M
+,B\otimes K_M^{-1}\otimes K_M)=H^q(M,B).
+$$
+\end{proof}
+
+\noindent
+Daniel's remark: this looks like a tweak of
+the previous theorem to get a more general
+result. My answer: yes, with two tweaks.
+First, because $f$ is strictly psh, the
+weight $e^{-\chi(f)}$ alone produces as much
+positivity as needed. So no positive line
+bundle is needed, and the positivity can be
+made to dominate the curvature of an
+arbitrary bundle $B$. Second, since the
+result holds for every $B$, the restriction
+to bidegree $(n,q)$ disappears by twisting
+with $K_M^{-1}$.
+
+\begin{corollary}
+\label{corollary-stein-vanishing-bundles}
+Let $M$ be a Stein manifold and $B$ a
+holomorphic vector bundle on $M$. Then
+$H^i(M,B)=0$ for all $i>0$.
+\end{corollary}
+
+\begin{proof}
+By Corollary
+\ref{complex-geometry-%
+corollary-stein-strongly-pseudoconvex},
+$M$ has a smooth strictly psh exhaustion
+function. It is bounded below (see above), so
+adding a constant makes it positive and
+proper. Apply Theorem
+\ref{theorem-vanishing-proper-spsh}.
+\end{proof}
+
+\noindent
+This is Cartan's Theorem B for locally free
+sheaves (Remark
+\ref{complex-geometry-%
+remark-stein-cartan}).
+The slides remark that a manifold with a
+proper, positive, strictly psh function is
+always Stein, to be proved later in the
+course.
+
+
 \end{document}
