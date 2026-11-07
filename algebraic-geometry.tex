@@ -5567,30 +5567,128 @@ Here we study the fibres of a family
 and how a point on its generic fibre
 can specialize to its special fibre.
 
-\medskip\noindent
-Epiphany:
-in the category of commutative rings
-pushout is tensor product.
-So think of $\Spec $ as a functor
-from $\mathit{CRing}^{\text{op}}$ to $\Sch$,
-then pushout goes to pullback,
-and what's an example of a pullback?
-Fibre!
-So, the coordinate ring of a fiber
-is essentially given by the residue field
-at the point that parametrizes it!
-(tensored with the coordinate ring
-of the deformation space).
-See Commutative Algebra, Proposition
+For fibres of affine varieties, see
+Commutative Algebra, Proposition
 \ref{commutative-algebra-%
 proposition-preimage-of-point}
 and Remark
 \ref{commutative-algebra-%
 remark-preimage-as-fibered-product}.
-There we take the reduced fibre of
-affine varieties; for scheme-theoretic
-fibres we keep the tensor product,
-without removing its nilpotents.
+
+\begin{definition}
+\label{definition-specialization}
+Let $X$ be a topological space and let
+$P,Q\in X$.
+We say that $Q$ is a {\it specialization}
+of $P$, or that $P$ is a
+{\it generalization} of $Q$, if
+$$
+Q\in\overline{\{P\}}.
+$$
+We write $P\leadsto Q$.
+The closure is taken in $X$.
+\end{definition}
+
+This is Stacks Project, Definition 5.19.1,
+\href{https://stacks.math.columbia.edu/tag/%
+0061}{Tag 0061}.
+The definition concerns the Zariski
+topology when $X$ is a scheme.
+
+\begin{lemma}
+\label{lemma-specialization-basic}
+Specialization has the following
+properties.
+\begin{enumerate}
+\item It is reflexive and transitive.
+\item Continuous maps preserve
+specialization. In particular, morphisms
+of schemes preserve specialization.
+\item If $Z\subset X$ is closed and
+$P\in Z$, every specialization of $P$
+belongs to $Z$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}
+\item A point belongs to its own closure,
+so $P\leadsto P$.
+Suppose $P\leadsto Q$ and $Q\leadsto T$.
+The closed set $\overline{\{P\}}$
+contains $Q$, so it contains
+$\overline{\{Q\}}$.
+Hence
+$$
+T\in\overline{\{Q\}}
+\subset\overline{\{P\}},
+$$
+which gives $P\leadsto T$.
+\item Let $f:X\to Y$ be continuous.
+For any closed set $C\subset Y$
+containing $f(P)$, the inverse image
+$f^{-1}(C)$ is closed and contains $P$.
+If $P\leadsto Q$, it therefore contains
+$Q$, so $f(Q)\in C$.
+Thus $f(Q)$ lies in every closed set
+containing $f(P)$, giving
+$f(P)\leadsto f(Q)$.
+\item Since $Z$ is closed and contains
+$P$, it contains $\overline{\{P\}}$,
+and hence every such specialization.
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}
+\label{lemma-specialization-affine}
+In $\operatorname{Spec}A$, specialization
+is inclusion of prime ideals:
+$$
+\mathfrak{p}\leadsto\mathfrak{q}
+\quad\Longleftrightarrow\quad
+\mathfrak{p}\subseteq\mathfrak{q}.
+$$
+\end{lemma}
+
+\begin{proof}
+A closed set $V(I)$ contains
+$\mathfrak{p}$ precisely when
+$I\subseteq\mathfrak{p}$.
+In that case every prime containing
+$\mathfrak{p}$ also contains $I$.
+Since $V(\mathfrak{p})$ is itself closed
+and contains $\mathfrak{p}$, we get
+$$
+\overline{\{\mathfrak{p}\}}
+=V(\mathfrak{p}).
+$$
+Its points are exactly the prime ideals
+containing $\mathfrak{p}$.
+\end{proof}
+
+This gives a concrete meaning to the
+closed-set property.
+If an equation $a=0$ holds at
+$\mathfrak{p}$, then $a\in\mathfrak{p}$.
+For a specialization $\mathfrak{q}$,
+we have $a\in\mathfrak{q}$, so the same
+equation holds there.
+
+\begin{example}
+\label{example-specialization-many}
+A point can have many specializations.
+In $\mathbb{A}^1_{\mathbb{C}}$, the
+generic point is the prime ideal $(0)$.
+For every $a\in\mathbb{C}$,
+$$
+(0)\subset(x-a),
+$$
+so it specializes to the point $x=a$.
+More generally, a generic point of an
+irreducible scheme specializes to every
+point of that scheme: its closure is the
+whole scheme.
+\end{example}
 
 \begin{remark}
 \label{remark-units-formal-series}
@@ -5633,9 +5731,13 @@ R=\mathbb{C}[[t]],\qquad
 K=\mathbb{C}((t)).
 $$
 \begin{enumerate}
-\item Show that $\operatorname{Spec}R$
-has exactly two points:
-$\eta=(0)$ and $s=(t)$.
+\item The space
+$\operatorname{Spec}\mathbb{C}[[t]]$
+has two points, essentially by the
+invertibility criterion for power series
+coming from the geometric series.
+Show that they are $\eta=(0)$ and
+$s=(t)$.
 \item Show that $\eta$ is generic
 and $s$ is closed.
 \item Compute their residue fields.
@@ -5665,8 +5767,21 @@ prime ideal and choose
 $0\neq f\in\mathfrak{p}$.
 Write
 $$
-f=a_nt^n+a_{n+1}t^{n+1}+\cdots=t^n u,
-\qquad a_n\neq 0.
+f=a_0+a_1t+a_2t^2+\cdots.
+$$
+Since $f\neq0$, at least one coefficient
+is nonzero.
+Let $n\geq0$ be the smallest index
+with $a_n\neq0$.
+All preceding coefficients vanish,
+so factoring out $t^n$ gives
+$$
+f=t^n u,\qquad
+u=a_n+a_{n+1}t+a_{n+2}t^2+\cdots.
+$$
+For example,
+$$
+3t^2+5t^3-t^5=t^2(3+5t-t^3).
 $$
 The series $u$ has nonzero constant
 term $a_n$, so it is a unit by Remark
@@ -5684,15 +5799,13 @@ $t^n\in\mathfrak{p}$.
 Applying primality again gives
 $t\in\mathfrak{p}$, so
 $(t)\subset\mathfrak{p}$.
-But evaluation at zero gives
-$$
-R/(t)\cong\mathbb{C}.
-$$
-Hence $(t)$ is maximal, and necessarily
+Since $R/(t)\cong\mathbb{C}$ is a field,
+$(t)$ is maximal.
+As $(t)\subset\mathfrak{p}$ and
+$\mathfrak{p}$ is proper, we get
 $\mathfrak{p}=(t)$.
-It is itself prime because its quotient
-is a field. Therefore there are exactly
-two prime ideals, hence two points:
+Thus the only prime ideals, hence points,
+are
 $$
 \eta=(0),\qquad s=(t).
 $$
@@ -5767,6 +5880,77 @@ Stacks Project, Definition 26.18.4,
 01K0}{Tag 01K0}.
 \end{enumerate}
 \end{proof}
+
+\begin{lemma}
+\label{lemma-dvr-specialization}
+Let $V$ be a discrete valuation ring,
+with fraction field $L$ and maximal
+ideal $\mathfrak{m}$.
+Let
+$$
+\phi:\operatorname{Spec}V\longrightarrow X
+$$
+be a morphism.
+Write $P$ for the image of the generic
+point $(0)$ and $Q$ for the image of
+the closed point $\mathfrak{m}$.
+Then $P\leadsto Q$ in $X$.
+\end{lemma}
+
+\begin{proof}
+The inclusion $(0)\subset\mathfrak{m}$
+gives a specialization in
+$\operatorname{Spec}V$ by Lemma
+\ref{lemma-specialization-affine}.
+Apply Lemma
+\ref{lemma-specialization-basic}
+to the continuous map $\phi$.
+\end{proof}
+
+For the algebra of discrete valuation
+rings, see Commutative Algebra, Example
+\ref{commutative-algebra-%
+example-laurent-series-valuation}.
+Here is how to compute the two images.
+Suppose
+$$
+X=\operatorname{Spec}
+(V[x_1,\ldots,x_n]/I)
+$$
+and that $a_1,\ldots,a_n\in V$ satisfy
+every equation in $I$.
+The map
+$$
+V[x_1,\ldots,x_n]/I\longrightarrow V,
+\qquad x_i\longmapsto a_i
+$$
+defines a section over $V$.
+On the generic fibre its coordinates
+are $a_i$, regarded as elements of $L$.
+On the special fibre its coordinates
+are their images in $V/\mathfrak{m}$.
+
+In particular, if $V=\mathbb{C}[[s]]$
+and
+$$
+a_i(s)=a_{i,0}+a_{i,1}s+\cdots,
+$$
+the special point has coordinates
+$$
+(a_{1,0},\ldots,a_{n,0}).
+$$
+Reduction modulo $s$ keeps the constant
+terms. It preserves the equations
+because it is a ring homomorphism.
+Thus these coordinates satisfy the
+special-fibre equations.
+
+The extension over $V$ must be supplied
+before this reduction.
+There is no ring map $L\to V/\mathfrak{m}$
+extending the reduction map on $V$:
+a uniformizer would map to zero while
+its inverse would still have to exist.
 
 \begin{exercise}[A generic-fibre point
 specializes by taking its closure]
@@ -5916,10 +6100,314 @@ does not change this quotient:
 the denominators already become
 nonzero, hence invertible, elements
 of the field $K$.
+\item The closed subscheme $Z$ has ring
+$$
+R[x,y]/(xy-t,x-t,y-1)\cong R:
+$$
+the added relations replace $x$ by $t$
+and $y$ by $1$, and $xy-t$ becomes zero.
+\item Under $Z\cong\operatorname{Spec}R$,
+the generic point has coordinates
+$(t,1)$, so its image is $P$.
+The closed point has coordinates
+$(0,1)$, obtained by reduction modulo
+$t$.
+\item These coordinates satisfy the
+special-fibre equation, since
+$$
+0\cdot1=0.
+$$
+\item The generic point is dense in
+$\operatorname{Spec}R$, so $P$ is dense
+in $Z$.
+Since $Z$ is closed in the total space,
+the closure of $P$ in that total space
+is exactly $Z$.
+In particular $(0,1)$ is a
+specialization of $P$ by Definition
+\ref{definition-specialization}.
 \end{enumerate}
 \end{proof}
 
 
+
+\medskip\noindent
+We now ask when a generic point extends
+over a discrete valuation ring.
+We use the usual term {\it proper}:
+a morphism is proper if it is of finite
+type, separated and universally closed.
+Separatedness means that the diagonal
+is a closed immersion.
+Universally closed means that every
+base change sends closed sets to closed
+sets.
+
+\begin{theorem}[Properness extends points]
+\label{theorem-proper-dvr-extension}
+Let $f:X\to S$ be proper.
+Let $V$ be a discrete valuation ring
+with fraction field $L$.
+Given the solid arrows in a commutative
+diagram
+$$
+\xymatrix{
+\operatorname{Spec}L \ar[r]^P \ar[d]
+& X \ar[d]^f\\
+\operatorname{Spec}V \ar[r]
+\ar@{-->}[ru]^{\widetilde{P}}
+& S,
+}
+$$
+there is a unique morphism
+$\widetilde{P}$ making it commute.
+The image of the closed point of
+$\operatorname{Spec}V$ is a specialization
+of the image of $P$.
+\end{theorem}
+
+\begin{proof}
+Existence and uniqueness are the
+valuative criterion for properness,
+Stacks Project, Lemma 29.43.1,
+\href{https://stacks.math.columbia.edu/tag/%
+0BX5}{Tag 0BX5}.
+The assertion about specialization is
+Lemma \ref{lemma-dvr-specialization}.
+\end{proof}
+
+Uniqueness here concerns the fixed ring
+$V$ and the fixed diagram.
+A point can still have several
+specializations, as in Example
+\ref{example-specialization-many}.
+
+\begin{lemma}[The projective calculation]
+\label{lemma-projective-dvr-extension}
+Let $V$ be a discrete valuation ring
+with fraction field $L$, uniformizer
+$\pi$ and valuation $\nu$.
+Let $X\subset\mathbb{P}^N_V$ be a closed
+subscheme.
+Every point of $X(L)$ extends uniquely
+to a point of $X(V)$.
+\end{lemma}
+
+\begin{proof}
+Write the point as
+$$
+P=[a_0:\cdots:a_N],\qquad a_i\in L.
+$$
+At least one $a_i$ is nonzero.
+Let $n$ be the minimum of the valuations
+of the nonzero coordinates, and put
+$$
+b_i=\pi^{-n}a_i.
+$$
+Every $b_i$ belongs to $V$, and at least
+one is a unit. Hence
+$[b_0:\cdots:b_N]$ defines a $V$-point
+of projective space.
+For each homogeneous defining equation
+$F$ of $X$, of degree $d$, we have
+$$
+F(b_0,\ldots,b_N)
+=\pi^{-nd}F(a_0,\ldots,a_N)=0
+$$
+in $L$.
+Its left side belongs to $V$.
+Since $V\to L$ is injective, it is zero
+in $V$ too.
+Thus the point belongs to $X(V)$.
+
+For uniqueness, another extension can
+also be represented by coordinates
+$c_i\in V$ with at least one unit.
+This uses that $V$ is local.
+On the generic fibre there is
+$\lambda\in L^\times$ with
+$c_i=\lambda b_i$ for every $i$.
+Taking minimum valuations gives
+$$
+0=\nu(\lambda)+0.
+$$
+Thus $\lambda$ is a unit of $V$,
+so both coordinate vectors define the
+same $V$-point.
+\end{proof}
+
+The special point is obtained by
+reducing the $b_i$.
+At least one reduction is nonzero,
+so they are valid projective
+coordinates.
+For example, over $V=\mathbb{C}[[s]]$,
+$$
+[s^{-2}:1]=[1:s^2]
+$$
+on the generic fibre, and the second
+representative reduces to $[1:0]$.
+
+\begin{example}[An affine point can escape]
+\label{example-dvr-no-extension}
+Let $V=\mathbb{C}[[s]]$ and
+$L=\mathbb{C}((s))$.
+The point $x=1/s$ of
+$\mathbb{A}^1_L$ has no extension to
+$\mathbb{A}^1_V$ over $V$.
+Such an extension would have to send
+$x$ to $1/s$, which does not belong to
+$V$.
+Its closure in $\mathbb{A}^1_V$ is
+given by $sx-1=0$, since
+$$
+V[x]/(sx-1)\cong V[1/s]=L.
+$$
+This closure has no point over $s=0$:
+its equation would give $-1=0$.
+Thus flatness alone does not ensure
+that a generic-fibre point has a
+specialization in the special fibre.
+\end{example}
+
+\begin{example}[Extending the field first]
+\label{example-specialization-base-change}
+Put $R=\mathbb{C}[[t]]$ and
+$K=\mathbb{C}((t))$, and consider
+$$
+X=\operatorname{Spec}(R[x]/(x^2-t)).
+$$
+The equation $x^2=t$ has no root in $K$.
+Indeed, if a nonzero Laurent series has
+lowest exponent $n\in\mathbb{Z}$, its
+square has lowest exponent $2n$,
+whereas $t$ has lowest exponent $1$.
+
+Take $V=\mathbb{C}[[s]]$ and
+$L=\mathbb{C}((s))$, with $t=s^2$.
+This gives a finite field extension
+$K\subset L$.
+Indeed every Laurent series in $s$
+has a unique expression
+$$
+a(t)+s b(t),\qquad a(t),b(t)\in K,
+$$
+by separating its even and odd powers.
+The chosen root now gives the
+$L$-point $x=s$.
+Since $s\in V$, this point extends
+over $V$ and reduces to $x=0$.
+The field extension supplies the root;
+the coordinate in $V$ supplies the
+specialization in this example.
+\end{example}
+
+\begin{proposition}
+\label{proposition-nonsmooth-specializes}
+Let $f:X\to S$ be flat and locally of
+finite presentation.
+The set of points $x$ such that
+$X_{f(x)}$ is not smooth at $x$ over
+$\kappa(f(x))$ is closed in $X$.
+Consequently, if $P\leadsto Q$ and
+the fibre at $P$ is not smooth at $P$,
+then the fibre at $Q$ is not smooth
+at $Q$.
+\end{proposition}
+
+\begin{proof}
+For a flat morphism locally of finite
+presentation, the fibrewise smoothness
+criterion says that $f$ is smooth at
+$x$ if and only if its fibre is smooth
+at $x$.
+See Stacks Project, Lemma 29.35.14,
+\href{https://stacks.math.columbia.edu/tag/%
+01V9}{Tag 01V9}.
+The locus where $f$ is smooth is open,
+as explained after Definition 29.35.1,
+\href{https://stacks.math.columbia.edu/tag/%
+01V4}{Tag 01V4}.
+Hence its complement is closed.
+Apply Lemma
+\ref{lemma-specialization-basic}
+to this closed subset.
+\end{proof}
+
+\begin{corollary}[The smoothing bridge]
+\label{corollary-proper-singular-limit}
+Put $R=\mathbb{C}[[t]]$,
+$K=\mathbb{C}((t))$, and let
+$f:X\to\operatorname{Spec}R$ be proper,
+flat and of finite presentation.
+If $X_\eta$ is not smooth over $K$,
+there exist a finite field extension
+$L/K$, a discrete valuation ring $V$
+finite over $R$ with fraction field $L$,
+and a morphism
+$$
+\operatorname{Spec}V\longrightarrow X
+$$
+whose generic image is not smooth
+in $X_\eta$ and whose closed image
+is not smooth in the special fibre.
+\end{corollary}
+
+\begin{proof}
+The non-smooth locus of $X_\eta$ is a
+nonempty closed subset of a scheme of
+finite type over $K$.
+It has a closed point $P$ whose residue
+field $L=\kappa(P)$ is finite over $K$.
+For these facts see Stacks Project,
+Lemma 33.14.1,
+\href{https://stacks.math.columbia.edu/tag/%
+0478}{Tag 0478},
+and Lemma 29.21.3,
+\href{https://stacks.math.columbia.edu/tag/%
+01TF}{Tag 01TF}.
+
+Let $V$ be the integral closure of $R$
+in $L$.
+Since $R$ is complete and $L/K$ is
+finite and separable, $V$ is a discrete
+valuation ring finite over $R$.
+See Stacks Project, Remark 15.116.1,
+parts (4) and (7),
+\href{https://stacks.math.columbia.edu/tag/%
+09EM}{Tag 09EM}.
+The morphism
+$\operatorname{Spec}L\to X$ extends
+over $V$ by Theorem
+\ref{theorem-proper-dvr-extension}.
+The closed point of
+$\operatorname{Spec}V$ maps to $(t)$,
+since $V$ is integral over $R$.
+Thus its image $Q$ lies in the
+special fibre.
+Lemma \ref{lemma-dvr-specialization}
+gives $P\leadsto Q$.
+Proposition
+\ref{proposition-nonsmooth-specializes}
+then gives the asserted failure of
+smoothness at $Q$.
+\end{proof}
+
+This is the step used before local
+calculations in a smoothing argument.
+One first obtains a special point,
+then studies the possible places where
+it can lie.
+Vanishing of equations and of chosen
+Jacobian minors is a closed condition,
+so it persists under specialization.
+The local equations can then contradict
+the existence of that specialization.
+In the affine model exercises below,
+an extension over the DVR is supplied
+as an assumption.
+For proper families, the theorem above
+supplies it.
 
 \begin{exercise}[A unit cannot be
 cancelled by higher-order terms]
