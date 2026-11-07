@@ -5881,77 +5881,6 @@ Stacks Project, Definition 26.18.4,
 \end{enumerate}
 \end{proof}
 
-\begin{lemma}
-\label{lemma-dvr-specialization}
-Let $V$ be a discrete valuation ring,
-with fraction field $L$ and maximal
-ideal $\mathfrak{m}$.
-Let
-$$
-\phi:\operatorname{Spec}V\longrightarrow X
-$$
-be a morphism.
-Write $P$ for the image of the generic
-point $(0)$ and $Q$ for the image of
-the closed point $\mathfrak{m}$.
-Then $P\leadsto Q$ in $X$.
-\end{lemma}
-
-\begin{proof}
-The inclusion $(0)\subset\mathfrak{m}$
-gives a specialization in
-$\operatorname{Spec}V$ by Lemma
-\ref{lemma-specialization-affine}.
-Apply Lemma
-\ref{lemma-specialization-basic}
-to the continuous map $\phi$.
-\end{proof}
-
-For the algebra of discrete valuation
-rings, see Commutative Algebra, Example
-\ref{commutative-algebra-%
-example-laurent-series-valuation}.
-Here is how to compute the two images.
-Suppose
-$$
-X=\operatorname{Spec}
-(V[x_1,\ldots,x_n]/I)
-$$
-and that $a_1,\ldots,a_n\in V$ satisfy
-every equation in $I$.
-The map
-$$
-V[x_1,\ldots,x_n]/I\longrightarrow V,
-\qquad x_i\longmapsto a_i
-$$
-defines a section over $V$.
-On the generic fibre its coordinates
-are $a_i$, regarded as elements of $L$.
-On the special fibre its coordinates
-are their images in $V/\mathfrak{m}$.
-
-In particular, if $V=\mathbb{C}[[s]]$
-and
-$$
-a_i(s)=a_{i,0}+a_{i,1}s+\cdots,
-$$
-the special point has coordinates
-$$
-(a_{1,0},\ldots,a_{n,0}).
-$$
-Reduction modulo $s$ keeps the constant
-terms. It preserves the equations
-because it is a ring homomorphism.
-Thus these coordinates satisfy the
-special-fibre equations.
-
-The extension over $V$ must be supplied
-before this reduction.
-There is no ring map $L\to V/\mathfrak{m}$
-extending the reduction map on $V$:
-a uniformizer would map to zero while
-its inverse would still have to exist.
-
 \begin{exercise}[A generic-fibre point
 specializes by taking its closure]
 \label{exercise-follow-point-to-fibre}
@@ -6131,6 +6060,135 @@ specialization of $P$ by Definition
 
 
 
+\begin{proposition}[Singular points
+specialize to singular points]
+\label{proposition-nonsmooth-specializes}
+Let $f:X\to S$ be flat and locally of
+finite presentation.
+The set of points $x$ such that
+$X_{f(x)}$ is not smooth at $x$ over
+$\kappa(f(x))$ is closed in $X$.
+Consequently, if $P\leadsto Q$ and
+the fibre at $P$ is not smooth at $P$,
+then the fibre at $Q$ is not smooth
+at $Q$.
+\end{proposition}
+
+\begin{proof}
+For a flat morphism locally of finite
+presentation, the fibrewise smoothness
+criterion says that $f$ is smooth at
+$x$ if and only if its fibre is smooth
+at $x$.
+See Stacks Project, Lemma 29.35.14,
+\href{https://stacks.math.columbia.edu/tag/%
+01V9}{Tag 01V9}.
+The locus where $f$ is smooth is open,
+as explained after Definition 29.35.1,
+\href{https://stacks.math.columbia.edu/tag/%
+01V4}{Tag 01V4}.
+Hence its complement is closed.
+Apply Lemma
+\ref{lemma-specialization-basic}
+to this closed subset.
+\end{proof}
+
+\noindent
+In particular, for a flat family of finite
+presentation over
+$\operatorname{Spec}\mathbb{C}[[t]]$,
+a singular point of the generic fibre
+that specializes to the special fibre
+remains singular there.
+This only locates the special point in
+the singular locus. That is not yet a
+contradiction: a smoothing proof needs
+more information from the deformation
+equations.
+
+\section{Specialization and discrete
+valuation rings}
+\label{section-specialization-dvr}
+
+\noindent
+For now, we collect the additional tools
+involving discrete valuation rings and
+properness in this separate section.
+The preceding section assumes that a
+specialization is given; here we also
+study when one exists.
+
+\begin{lemma}
+\label{lemma-dvr-specialization}
+Let $V$ be a discrete valuation ring,
+with fraction field $L$ and maximal
+ideal $\mathfrak{m}$.
+Let
+$$
+\phi:\operatorname{Spec}V\longrightarrow X
+$$
+be a morphism.
+Write $P$ for the image of the generic
+point $(0)$ and $Q$ for the image of
+the closed point $\mathfrak{m}$.
+Then $P\leadsto Q$ in $X$.
+\end{lemma}
+
+\begin{proof}
+The inclusion $(0)\subset\mathfrak{m}$
+gives a specialization in
+$\operatorname{Spec}V$ by Lemma
+\ref{lemma-specialization-affine}.
+Apply Lemma
+\ref{lemma-specialization-basic}
+to the continuous map $\phi$.
+\end{proof}
+
+For the algebra of discrete valuation
+rings, see Commutative Algebra, Example
+\ref{commutative-algebra-%
+example-laurent-series-valuation}.
+Here is how to compute the two images.
+Suppose
+$$
+X=\operatorname{Spec}
+(V[x_1,\ldots,x_n]/I)
+$$
+and that $a_1,\ldots,a_n\in V$ satisfy
+every equation in $I$.
+The map
+$$
+V[x_1,\ldots,x_n]/I\longrightarrow V,
+\qquad x_i\longmapsto a_i
+$$
+defines a section over $V$.
+On the generic fibre its coordinates
+are $a_i$, regarded as elements of $L$.
+On the special fibre its coordinates
+are their images in $V/\mathfrak{m}$.
+
+In particular, if $V=\mathbb{C}[[s]]$
+and
+$$
+a_i(s)=a_{i,0}+a_{i,1}s+\cdots,
+$$
+the special point has coordinates
+$$
+(a_{1,0},\ldots,a_{n,0}).
+$$
+Reduction modulo $s$ keeps the constant
+terms. It preserves the equations
+because it is a ring homomorphism.
+Thus these coordinates satisfy the
+special-fibre equations.
+
+The extension over $V$ must be supplied
+before this reduction.
+There is no ring map $L\to V/\mathfrak{m}$
+extending the reduction map on $V$:
+a uniformizer would map to zero while
+its inverse would still have to exist.
+
 \medskip\noindent
 We now ask when a generic point extends
 over a discrete valuation ring.
@@ -6301,38 +6359,6 @@ The field extension supplies the root;
 the coordinate in $V$ supplies the
 specialization in this example.
 \end{example}
-
-\begin{proposition}
-\label{proposition-nonsmooth-specializes}
-Let $f:X\to S$ be flat and locally of
-finite presentation.
-The set of points $x$ such that
-$X_{f(x)}$ is not smooth at $x$ over
-$\kappa(f(x))$ is closed in $X$.
-Consequently, if $P\leadsto Q$ and
-the fibre at $P$ is not smooth at $P$,
-then the fibre at $Q$ is not smooth
-at $Q$.
-\end{proposition}
-
-\begin{proof}
-For a flat morphism locally of finite
-presentation, the fibrewise smoothness
-criterion says that $f$ is smooth at
-$x$ if and only if its fibre is smooth
-at $x$.
-See Stacks Project, Lemma 29.35.14,
-\href{https://stacks.math.columbia.edu/tag/%
-01V9}{Tag 01V9}.
-The locus where $f$ is smooth is open,
-as explained after Definition 29.35.1,
-\href{https://stacks.math.columbia.edu/tag/%
-01V4}{Tag 01V4}.
-Hence its complement is closed.
-Apply Lemma
-\ref{lemma-specialization-basic}
-to this closed subset.
-\end{proof}
 
 \begin{corollary}[The smoothing bridge]
 \label{corollary-proper-singular-limit}
