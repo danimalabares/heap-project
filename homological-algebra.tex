@@ -8230,6 +8230,652 @@ isomorphism of these fields, so the
 restriction maps are inclusions on both
 sides.
 
+\section{Jethro, 9 November 2026: the
+cohomology of the elliptic curve, and a
+glimpse of algebraic K-theory}
+\label{section-jethro-2026-11-09}
+
+Lecture in Jethro's course Homological
+Algebra, IMPA 2026-2, Monday 9 November
+2026. It continues Section
+\ref{section-jethro-2026-11-04}.
+
+\textit{Sources of these notes.} An audio
+recording (about 1 h 46 min), transcribed
+automatically with Whisper (model small,
+English). The audio is quiet: large parts of
+the transcript are missing or misheard, so
+it is weak evidence, and the formulas below
+are reconstructed. In particular the
+formulas of the K-theory part were not
+audible and are the standard ones. No
+photographs of the boards. Daniel's notes.
+
+\medskip\noindent
+{\bf Main idea.} For an elliptic curve $E$
+and two distinct points $p_1,p_2\in E$, the
+cover of $E$ by $U_1=E\setminus p_1$ and
+$U_2=E\setminus p_2$ gives
+$$
+\check{H}^k(\{U_1,U_2\},\mathcal{O}_E)
+\cong
+\begin{cases}
+\mathbb{C}, & k=0,1,\\
+0, & k\geq 2.
+\end{cases}
+$$
+The class in degree one is the elliptic
+function $\zeta(z-p_1)-\zeta(z-p_2)$. This is
+the sheaf cohomology $H^k(E,\mathcal{O}_E)$
+because $U_1$, $U_2$ and $U_1\cap U_2$ are
+affine, and quasicoherent sheaves on
+noetherian
+affine schemes have no higher cohomology.
+
+\medskip\noindent
+{\bf Setting.} As in Section
+\ref{section-jethro-2026-11-04}, $E$ carries
+the Zariski topology: the open sets are the
+empty set and the complements of finite sets.
+The sections of $\mathcal{O}_E$ over $U$ are
+the elliptic functions with poles only in
+$E\setminus U$. So $\mathcal{O}_E(U_i)$ is
+the
+space of elliptic functions with poles only
+at $p_i$, and $\mathcal{O}_E(U_1\cap U_2)$ is
+the space of elliptic functions with poles
+only at $p_1$ and $p_2$.
+
+Spoken, answering a student: the \v{C}ech
+cohomology for this coarse topology agrees
+with the cohomology of the sheaf of
+holomorphic functions in the usual topology.
+This is a consequence of Serre's GAGA, and
+Jethro said it is not easy to prove.
+
+\medskip\noindent
+{\bf The \v{C}ech complex.} It has two terms,
+$$
+\mathcal{O}_E(U_1)\oplus\mathcal{O}_E(U_2)
+\xrightarrow{d}
+\mathcal{O}_E(U_1\cap U_2),
+\qquad
+d(f_1,f_2)=f_2-f_1,
+$$
+where the functions are restricted to
+$U_1\cap U_2$ before subtracting. (The order
+of the difference is a convention.) The
+complex stops in degree one because the
+cover has only two open sets, so
+$\check{H}^k=0$ for $k\geq 2$.
+
+\medskip\noindent
+{\bf Degree zero.} If $d(f_1,f_2)=0$ then
+$f_1=f_2$ on $U_1\cap U_2$. But $f_1$ has
+poles only at $p_1$ and $f_2$ only at $p_2$,
+so neither has a pole. A holomorphic elliptic
+function is constant (Liouville), so
+$f_1=f_2$ is a constant and
+$\check{H}^0\cong\mathbb{C}$.
+
+\medskip\noindent
+{\bf Degree one: reduction to simple poles.}
+Let $f\in\mathcal{O}_E(U_1\cap U_2)$. Look at
+the Laurent expansion of $f$ at $p_1$. If the
+most negative power is $(z-p_1)^{-m}$ with
+$m\geq 2$, subtract a multiple of
+$\wp_m(z-p_1)$ (the Weierstrass functions of
+Section \ref{section-jethro-2026-11-04}).
+This
+lowers the order of the pole at $p_1$ and
+changes $f$ by an element of
+$\mathcal{O}_E(U_2)$, so it does not change
+the class of $f$ in $\check{H}^1$. Do this
+down to order two at $p_1$, and the same at
+$p_2$. So we may assume that $f$ has at most
+simple poles at $p_1$ and $p_2$.
+
+\medskip\noindent
+{\bf Residues.} Recall (Theorem
+\ref{theorem-elliptic-residues}) that the
+residues of an elliptic function in a
+fundamental parallelogram sum to $0$: in the
+contour integral around the parallelogram,
+opposite sides cancel. So there is no
+elliptic function with a single simple pole,
+and if $f$ has simple poles at $p_1$ and
+$p_2$, their residues are $c$ and $-c$.
+
+\medskip\noindent
+{\bf The function $\zeta$.} Is there an
+elliptic function with simple poles at
+$p_1,p_2$ and residues $1,-1$? Recall that
+$\sum_\lambda (z-\lambda)^{-m}$ converges
+absolutely for $m\geq 3$, and that for $m=2$
+one subtracts $\lambda^{-2}$ from each term
+($\lambda\neq 0$) so that the terms decay
+like $|\lambda|^{-3}$. For $m=1$ the sum
+$\sum_\lambda (z-\lambda)^{-1}$ does not even
+converge, but it can be corrected. The
+standard correction (the transcript does not
+give the formula) is the Weierstrass
+$\zeta$-function
+$$
+\zeta(z)=\frac{1}{z}
++\sum_{\lambda\in\Lambda\setminus\{0\}}
+\Big(\frac{1}{z-\lambda}+\frac{1}{\lambda}
++\frac{z}{\lambda^2}\Big),
+$$
+whose terms decay like $|\lambda|^{-3}$. It
+is meromorphic on $\mathbb{C}$ with simple
+poles of residue $1$ on $\Lambda$, and
+$\zeta'=-\wp$. Spoken: the correction
+terms depend on $z$, and this destroys
+periodicity, as it must, since there is no
+elliptic function with only simple poles.
+But $\zeta$ is ``almost elliptic'': since
+$\zeta'=-\wp$ is periodic,
+$$
+\zeta(z+1)=\zeta(z)+\eta_1,
+\qquad
+\zeta(z+\tau)=\zeta(z)+\eta_2
+$$
+for constants $\eta_1,\eta_2$. So in
+$$
+f_0(z)=\zeta(z-p_1)-\zeta(z-p_2)
+$$
+the constants cancel, and $f_0$ is an
+elliptic function with simple poles at $p_1$
+and $p_2$ and residues $1$ and $-1$.
+
+\medskip\noindent
+{\bf Degree one: the answer.} Let $f$ have
+simple poles at $p_1,p_2$ with residues $c$
+and $-c$. Then $f-cf_0$ has no poles, so it
+is
+a constant, and constants are in the image of
+$d$. So $\check{H}^1$ is spanned by the class
+of $f_0$. This class is not zero: if
+$f_0=f_2-f_1$ with
+$f_i\in\mathcal{O}_E(U_i)$,
+then $f_2$ would be an elliptic function
+whose
+only pole is a simple pole at $p_1$, which
+does not exist. Hence
+$\check{H}^1\cong\mathbb{C}$.
+
+\medskip\noindent
+{\bf Does \v{C}ech cohomology compute sheaf
+cohomology?} By Leray's theorem (Section
+\ref{section-cech-cohomology-jethro-2026})
+it does if the cover is
+$\mathcal{O}_E$-acyclic: the higher
+cohomology of $\mathcal{O}_E$ vanishes on
+$U_1$, $U_2$ and $U_1\cap U_2$.
+
+Spoken: in the holomorphic setting the
+relevant words are Stein manifolds and
+Cartan's Theorems A and B. Jethro first
+planned to do this part of the course with
+complex manifolds, to avoid schemes, and
+found
+that the Stein-manifold route is harder than
+going straight to schemes. (In HP: Corollary
+\ref{hodge-theory-%
+corollary-stein-vanishing-bundles}, from
+Yan's lecture of 6 November 2026, gives the
+vanishing of higher cohomology of
+holomorphic vector bundles on Stein
+manifolds. That a noncompact Riemann surface
+such as $E\setminus p$ is Stein is the
+Behnke--Stein theorem; my remark, not from
+the lecture, not checked.) A student pointed
+out that $E\setminus p$ is still a torus
+minus a point, with nontrivial topology, so
+it
+is not like a ball. Jethro: in the Zariski
+topology we do not need that.
+
+\medskip\noindent
+{\bf The algebraic route.} By Section
+\ref{section-jethro-2026-11-04}, $U_1$ and
+$U_2$ are affine schemes $\mathrm{Spec}(R)$
+with
+$$
+R=\mathbb{C}[x,y]/(y^2-4x^3-ax-b),
+$$
+and $R$ is noetherian (a quotient of a
+polynomial ring in two variables). The
+intersection $U_1\cap U_2$ is also affine,
+since $E$ is separated and the intersection
+of two affine opens of a separated scheme is
+affine (my remark, not from the lecture;
+Hartshorne, Exercise II.4.3
+\cite{har}, numbering not checked). So it
+suffices to prove the
+following, not just for $\mathcal{O}_E$ but
+for every quasicoherent sheaf, ``the natural
+level of generality''.
+
+\begin{proposition}
+\label{proposition-jethro-2026-11-09-affine}
+Let $R$ be a noetherian ring,
+$X=\mathrm{Spec}(R)$ and $M$ an $R$-module.
+Then
+$$
+H^k(X,\widetilde{M})\cong
+\begin{cases}
+M, & k=0,\\
+0, & k>0.
+\end{cases}
+$$
+\end{proposition}
+
+\noindent
+Checked: this is Hartshorne, Theorem III.3.5
+\cite{har} (Serre), as cited by ProofWiki.
+Spoken: many people point out that the
+noetherian hypothesis is not necessary; the
+result holds for every ring, but the proof is
+significantly harder, and Jethro finds the
+hypothesis reasonable. Checked: the general
+statement is Stacks Project, Lemma 30.2.2
+(Tag 01XB).
+
+\begin{remark}
+\label{remark-jethro-2026-11-09-qcoh-modules}
+For $X=\mathrm{Spec}(R)$ the functors
+$M\mapsto\widetilde{M}$ and
+$\mathcal{F}\mapsto\Gamma(X,\mathcal{F})$ are
+mutually inverse equivalences between
+$R$-modules and quasicoherent sheaves on $X$.
+Jethro first said this holds ``sort of by
+definition'', because a quasicoherent sheaf
+is one of the form $\widetilde{M}$ and its
+global sections are $M$. A student objected
+that the definition (Definition
+\ref{definition-quasicoherent-sheaf-jethro})
+only asks for this on the pieces of some
+cover, so on an affine scheme there is
+something to prove. Jethro agreed, and said
+that in this lecture ``quasicoherent'' on
+$\mathrm{Spec}(R)$ means ``of the form
+$\widetilde{M}$''. Reference: Hartshorne,
+Corollary II.5.5 \cite{har} (numbering not
+checked).
+\end{remark}
+
+\noindent
+{\bf Outline of the proof.} Taking global
+sections is an exact functor on quasicoherent
+sheaves on $X$, since it is an equivalence
+with $R$-modules. Sheaf cohomology is the
+derived functor of $\Gamma$ on all sheaves,
+so we would like to take an injective
+resolution $M\to I^\bullet$ of $R$-modules
+and localise it to a resolution
+$\widetilde{M}\to\widetilde{I^\bullet}$; then
+$\Gamma$ gives back the exact complex
+$M\to I^\bullet$, and the higher cohomology
+vanishes. The problem: $\widetilde{I}$ is
+injective in quasicoherent sheaves, but in
+general not in the category of all sheaves of
+$\mathcal{O}_X$-modules, so this resolution
+does not directly compute sheaf cohomology.
+The fix: if $R$ is noetherian and $I$ is an
+injective $R$-module, then $\widetilde{I}$ is
+flabby, and flabby resolutions compute sheaf
+cohomology (Section
+\ref{section-flabby-sheaves}). Checked: the
+first statement is Hartshorne, Proposition
+III.3.4 \cite{har}, as cited by ProofWiki.
+The proof is left for the next lecture;
+Jethro
+said it is commutative algebra and not
+trivial, and he wants to read it before
+presenting it.
+
+\medskip\noindent
+{\bf Summary of the logic (spoken).}
+\v{C}ech cohomology equals sheaf cohomology
+by
+Leray's theorem if the cover is acyclic. We
+took a cover by Zariski-affine opens, and
+quasicoherent sheaves on noetherian affine
+schemes are acyclic. Hence
+$$
+H^k(E,\mathcal{O}_E)\cong
+\begin{cases}
+\mathbb{C}, & k=0,1,\\
+0, & k\geq 2.
+\end{cases}
+$$
+
+\medskip\noindent
+{\bf A glimpse of algebraic K-theory.} The
+last part of the lecture was an informal
+survey, related to Jethro's research. There
+is topological and algebraic K-theory, and
+within algebraic K-theory one can take
+K-theory of rings or of fields; Jethro took a
+field $F$ and the abelian category
+$\mathcal{A}=\mathrm{Vec}_F^{\mathrm{f.d.}}$
+of finite-dimensional vector spaces over $F$.
+
+\textit{Quillen's Q-construction.} It applies
+to any exact category, for example any
+abelian category. The category
+$Q\mathcal{A}$ has the same objects as
+$\mathcal{A}$. A morphism $A\to B$ in
+$Q\mathcal{A}$ is an isomorphism class of
+diagrams in $\mathcal{A}$ consisting of an
+injection and a surjection between $A$, $B$
+and a third object $X$, so that $B$ is a
+subquotient of $A$ (Jethro's convention as
+spoken). For vector spaces, there is a
+morphism from $A$ to $B$ only if
+$\dim A\geq\dim B$. Composition is defined
+using the fibre product. Spoken: a surjection
+$A\to B$ gives a morphism $A\to B$ in
+$Q\mathcal{A}$, and an injection $A\to B$
+gives a morphism $B\to A$; every morphism of
+$Q\mathcal{A}$ is a composition of these two
+kinds. (In Quillen's own convention the
+arrows point the other way, from a
+subquotient to the bigger object. A category
+and its opposite have homeomorphic
+classifying spaces, so this does not change
+the K-groups. My remark, not checked against
+Quillen's paper.)
+
+\textit{The nerve.} For a small category
+$\mathcal{C}$, the \textit{nerve}
+$N\mathcal{C}$ is the delta set with $S_0$
+the set of objects, $S_1$ the set of
+morphisms, and $S_n$ the set of composable
+strings of $n$ morphisms. The two maps
+$S_1\to S_0$ take the domain and the
+codomain. The three maps $S_2\to S_1$ send a
+composable pair $(f,g)$ to $f$, to $g$ and to
+the composition, and in general there are
+$n+1$ maps $S_n\to S_{n-1}$. Its geometric
+realisation $|N\mathcal{C}|$ glues one
+$n$-simplex for each element of $S_n$ along
+these face maps (as explained a few weeks
+ago in the course).
+
+\begin{definition}
+\label{definition-quillen-k-groups}
+The \textit{(Quillen) algebraic K-groups} of
+the field $F$ are
+$$
+K_n(F)=\pi_{n+1}\big(\big|NQ\,
+\mathrm{Vec}_F^{\mathrm{f.d.}}\big|\big),
+\qquad n\geq 0.
+$$
+\end{definition}
+
+\noindent
+$K_0(F)\cong\mathbb{Z}$, so it says nothing
+about the field. Spoken sketch: every object
+is isomorphic to some $F^n$, and decomposing
+morphisms into the two kinds above one shows
+by hand that $\pi_1$ has a loop for each
+dimension, going from $0$ up to $F^n$ and
+back
+down, and these loops are not homotopic; ``a
+lot of work for a not terribly interesting
+result''. $K_1(F)\cong F^{\times}$, the
+multiplicative group.
+
+\textit{$K_2$.} Matsumoto's theorem gives a
+presentation:
+$$
+K_2(F)\cong
+\big(F^\times\otimes_{\mathbb{Z}}
+ F^\times\big)
+/\big\langle a\otimes(1-a)
+\mid a\neq 0,1\big\rangle.
+$$
+Spoken: it is concrete enough to compute
+for many fields; Jethro thought it is $0$
+for all finite fields (true, a classical
+result in Milnor's book \cite{milnor-k};
+not checked here). For $F=\mathbb{Q}$ one
+gets $\mathbb{Z}/2$
+and a copy of the multiplicative group
+$(\mathbb{Z}/p)^\times$ for every odd prime
+$p$, related to the Hilbert symbol (Tate).
+Reference: Milnor's book \cite{milnor-k}
+(Theorem 11.1 for Matsumoto and Theorem 11.6
+for $K_2(\mathbb{Q})$; numbering not
+checked).
+
+\textit{Milnor K-theory.} Spoken, as an
+``ahistorical'' motivation: given the
+presentation of $K_2$, Milnor guesses that
+$K_n^M(F)$, the quotient of
+$(F^\times)^{\otimes n}$ by the subgroup
+generated by the $a_1\otimes\cdots\otimes
+a_n$ with $a_i+a_j=1$ for some $i\neq j$, is
+the right $K_n$. (Historically Milnor's
+definition, 1970, came before Quillen's,
+1972--73; my remark.) By construction it
+recovers $K_2$, and there are homomorphisms
+$K_n^M(F)\to K_n(F)$. But already for $n=3$
+the image is not all of $K_3(F)$; the
+cokernel is called $K_3^{\mathrm{ind}}(F)$,
+the indecomposable part.
+
+\textit{The Bloch group.} Let
+$\mathcal{P}(F)$ be the free abelian group on
+the symbols $[x]$ for
+$x\in F\setminus\{0,1\}$, divided by the
+subgroup generated by the five-term
+relations
+$$
+[x]-[y]+\Big[\frac{y}{x}\Big]
+-\Big[\frac{1-x^{-1}}{1-y^{-1}}\Big]
++\Big[\frac{1-x}{1-y}\Big].
+$$
+The \textit{Bloch group} $B(F)$ is the
+kernel of the map
+$\mathcal{P}(F)\to
+\wedge^2_{\mathbb{Z}}F^\times$,
+$[x]\mapsto x\wedge(1-x)$. Then
+$K_3^{\mathrm{ind}}(F)$ and $B(F)$ agree up
+to torsion (Bloch, Suslin). Checked in part:
+Zagier \cite{zagier-dilog}, Chapter I, \S 4
+and \S 5, says that $B(F)$ equals a quotient
+of $K_3(F)$ ``at least after tensoring it
+with $\mathbb{Q}$''. The exact form of the
+five-term relation above is the standard one,
+not checked against Zagier.
+
+The five-term relation is satisfied by the
+dilogarithm: spoken, ``you start from this
+categorical construction that takes a field
+and produces some homotopy group, and to
+describe it you end up with this explicit
+quotient by this crazy identity, which
+happens to be satisfied by a classical
+function from the nineteenth century.'' The
+dilogarithm is
+$$
+\mathrm{Li}_2(x)=\sum_{k\geq 1}
+\frac{x^k}{k^2},
+$$
+in analogy with
+$-\log(1-x)=\sum_{k\geq 1}x^k/k$, and the
+relevant variant is the Rogers dilogarithm
+$$
+L(x)=\mathrm{Li}_2(x)
++\frac{1}{2}\log(x)\log(1-x),
+\qquad 0<x<1,
+$$
+which satisfies the five-term relation
+exactly
+(Zagier \cite{zagier-dilog}, Chapter II,
+\S 1A).
+
+\textit{Nahm's conjecture.} Spoken: the
+interesting vertex algebras $V$ are infinite
+dimensional and graded by finite-dimensional
+pieces $V_n$. Put the dimensions in the
+generating function
+$\chi(q)=\sum_n\dim(V_n)q^n$, which converges
+for $|q|<1$ for a nice vertex algebra. As
+$q\to 1$ it explodes, but in a controlled
+way: writing $q=e^{-\beta}$ with $\beta>0$,
+$$
+\chi(e^{-\beta})\sim
+C\exp(g/\beta),
+\qquad \beta\to 0,
+$$
+for some constant $g$, the asymptotic growth.
+To compute $g$ one solves a system of
+equations and sums dilogarithms of the
+solutions. In Zagier's formulation: for a
+positive definite symmetric $r\times r$
+rational matrix $A=(a_{ij})$, take the
+unique solution $Q\in(0,1)^r$ of Nahm's
+equations
+$$
+1-Q_i=\prod_{j=1}^r Q_j^{a_{ij}},
+\qquad i=1,\ldots,r;
+$$
+then the effective central charge is
+$$
+c=\sum_{i=1}^r
+\Big(1-\frac{L(Q_i)}{L(1)}\Big),
+$$
+and the growth is
+$$
+g=\frac{c\pi^2}{6}
+=\sum_{i=1}^r\big(L(1)-L(Q_i)\big),
+$$
+since $L(1)=\pi^2/6$. Spoken: there is
+always a solution with all $Q_i$ real, and
+$g$ is the sum of $\pi^2/6$ minus the
+dilogarithms of the $Q_i$. Nahm's
+conjecture says that a certain $q$-series
+built from $A$ (a Nahm sum) is modular for
+suitable $B$ and $C$ if and only if the
+solutions of Nahm's equations give torsion
+elements of the Bloch group. Checked: the
+equations, the formula for $c$ and the
+statement of the conjecture are in Zagier
+\cite{zagier-dilog}, Chapter II, \S 3A--3B
+(pp.~43--48, equations (3.3), (3.6),
+(3.7)).
+
+Spoken: Nahm is a physicist. In statistical
+mechanics the $n$ are energy levels and the
+sum is the partition function; $\beta$ is
+the inverse temperature, so $\beta\to 0$ is
+infinite temperature. Nahm estimated the
+growth by classical methods and found these
+equations. ``I think no one really
+understands'' why these things are related.
+
+\textit{$K_0$ in general (spoken, at the
+end, partly inaudible).} For an abelian (or
+exact) category, $K_0$ is the free abelian
+group on the isomorphism classes of objects
+modulo $[B]=[A]+[C]$ for each short exact
+sequence $0\to A\to B\to C\to 0$. Taking the
+category of vector bundles on a variety $X$
+gives an important invariant of $X$.
+
+\medskip\noindent
+\textit{Daniel's notes, with answers.}
+
+``First we compute \v{C}ech cohomology. Take
+two open sets in $E$: $U_1=E\setminus p_1$
+and
+$U_2=E\setminus p_2$. We conclude \v{C}ech
+$H(\mathcal{U},\mathcal{O}_E)=\mathbb{C}$ if
+$k=0,1$ and $0$ if $k\geq 2$.'' Yes; the
+computation is above. The class in degree one
+is $\zeta(z-p_1)-\zeta(z-p_2)$.
+
+``Does $H^k(E,\mathcal{O}_E)$ = \v{C}ech
+$H^k(\mathcal{U},\mathcal{O}_E)$? By Leray
+theorem we need an $\mathcal{F}$-acyclic
+cover.'' Yes, with
+$\mathcal{F}=\mathcal{O}_E$:
+the higher cohomology must vanish on $U_1$,
+$U_2$ and on $U_1\cap U_2$. The intersection
+is easy to forget; it is affine too (see
+above).
+
+``We've already seen that $U_1$ and $U_2$ are
+affine schemes $\mathrm{Spec}(R)$ where
+$R=\mathbb{C}[x,y]/(y^2-4x^3-ax-b)$.'' Yes,
+Proposition
+\ref{proposition-jethro-2026-11-04-scheme}.
+(Each $U_i$ has its own copy of $R$, with the
+coordinates centred at $p_i$.)
+
+``Prop. Let $X=\mathrm{Spec}(R)$ where $R$ is
+noetherian and $M$ an $R$-module. Then
+$H^k(X,\widetilde{M})=M$ if $k=0$ and $0$ if
+$k>0$.'' Yes, Proposition
+\ref{proposition-jethro-2026-11-09-affine}
+(Hartshorne III.3.5).
+
+``Rk. $\mathrm{QCoh}_{\mathrm{Spec}(R)}\simeq
+R$-mod.'' Yes, with the caveat about the
+definition in Remark
+\ref{remark-jethro-2026-11-09-qcoh-modules}.
+
+``Stopped at Hartshorne III Prop 3.4 (proof
+left for next time).'' Yes: if $R$ is
+noetherian and $I$ is an injective
+$R$-module, then $\widetilde{I}$ is flabby.
+
+``Quillen defines the algebraic K-theory
+groups of $\mathbb{F}$ to be
+$K_n(\mathbb{F})=\pi_{n+1}(|NQ\,
+\mathrm{Vec}^{\mathrm{f.d.}}_{\mathbb{F}}
+|)$.''
+Yes, Definition
+\ref{definition-quillen-k-groups}.
+Note the shift: $K_n$ is $\pi_{n+1}$, so
+$K_0=\pi_1=\mathbb{Z}$.
+
+``Matsumoto gives a presentation for
+$K_2(\mathbb{F})$, and Milnor K-theory
+defines
+presentations for $K_n^M(\mathbb{F})$.'' Yes.
+A small correction of emphasis: Milnor
+K-theory is not a presentation of Quillen's
+$K_n$; it is a different group, defined by
+generators and relations, which agrees with
+$K_n$ for $n\leq 2$.
+
+``Theorem: there exist homomorphisms
+$K_n^M(F)\to K_n(F)$. But those maps are not
+isomorphisms.'' Yes; for $n=3$ the map is not
+surjective, and the cokernel is
+$K_3^{\mathrm{ind}}(F)$.
+
+``Bloch showed that $K_3^{\mathrm{ind}}(F)$
+is
+`almost' iso.'' To the Bloch group $B(F)$,
+which Bloch introduced; the precise statement
+(agreement up to torsion) is due to Suslin.
+This attribution is standard but not checked
+against Suslin's paper here; Zagier
+\cite{zagier-dilog} credits Suslin among
+others.
+
+``Conjecture of Nahm.'' See above: a Nahm
+sum is modular if and only if the solutions
+of Nahm's equations are torsion in the Bloch
+group (Zagier's formulation,
+\cite{zagier-dilog}, Chapter II, \S 3A).
+
 \bibliography{my}
 \bibliographystyle{amsalpha}
 
