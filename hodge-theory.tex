@@ -4715,4 +4715,553 @@ always Stein, to be proved later in the
 course.
 
 
+\section{Lecture of 9 November 2026:
+singular psh functions}
+\label{section-singular-psh-functions}
+
+\noindent
+This lecture was given on 9 November 2026 by
+Beatrice. It continues Sections
+\ref{section-lecture-psh-pseudoconvexity}
+and
+\ref{section-vanishing-pseudoconvex}, where
+psh functions were smooth.
+
+\medskip\noindent
+{\bf Main idea.} The function $\log|z|$ is
+not even continuous at $0$, but it should be
+psh. To make sense of this, regard functions
+as distributions: a function is subharmonic
+(psh) when its Laplacian (complex Hessian) is
+a nonnegative distribution. Every such
+distribution has a canonical upper
+semicontinuous representative, obtained as
+the decreasing limit of its regularizations;
+this is the singular subharmonic (psh)
+function. The basic example is the
+Lelong--Poincar\'e equation: for a
+holomorphic $f$ with smooth zero divisor
+$Z$, the function $\log|f|$ is psh and
+$\frac{1}{2\pi}dd^c\log|f|$ is the current of
+integration over $Z$. Singular psh weights of
+this kind are what the Nadel vanishing
+theorem uses in the lectures on Kodaira
+embedding.
+
+\medskip\noindent
+{\bf Sources of these notes.} Only Daniel's
+eleven photographs of the blackboard, taken
+between 17:14 and 18:39. The audio recording
+was lost, so nothing spoken is recorded here,
+and there are no notes by Daniel for this
+lecture. Gaps between boards, and remarks
+marked ``my'', were filled in by Claude and
+were not checked by anyone else.
+
+\medskip\noindent
+{\bf Conventions.} On the board, for
+$\Omega\subseteq\mathbb{R}^n$ with the
+Euclidean metric,
+$$
+\Delta u=\sum_{i=1}^n
+\frac{\partial^2u}{\partial x_i^2},
+$$
+the analyst's Laplacian (nonnegative on
+convex functions). As in Section
+\ref{section-lecture-psh-pseudoconvexity},
+$d^c=\sqrt{-1}(\bar\partial-\partial)$, so
+$dd^c=2\sqrt{-1}\,\partial\bar\partial$. In
+one variable, with $z=x+\sqrt{-1}y$ and
+$dA=dx\wedge dy$, this gives
+$$
+dd^cu=\Delta u\,dA,
+$$
+since $\Delta=4\partial_z\partial_{\bar z}$
+and $dz\wedge d\bar z=-2\sqrt{-1}\,dA$.
+
+\medskip\noindent
+{\bf Subharmonic functions and
+distributions.} A function $u\in
+C^2(\Omega)$ is \emph{subharmonic} if $\Delta
+u\geq 0$. The question opening the lecture
+was what happens for $\log|z|$; it is
+answered in Proposition
+\ref{proposition-log-z-delta} below.
+
+\begin{definition}
+\label{definition-distribution-board}
+A \emph{distribution} on $\Omega$ is a
+continuous linear functional
+$T\colon C^\infty_c(\Omega)\to\mathbb{R}$.
+Its derivatives and Laplacian are
+$$
+\partial_jT(\varphi)
+=-T(\partial_j\varphi),
+\qquad
+\Delta T(\varphi)=T(\Delta\varphi).
+$$
+\end{definition}
+
+\noindent
+For example, $u\in L^1_{loc}(\Omega)$ gives
+the distribution
+$$
+T_u(\varphi)=\int_\Omega u\varphi\,
+\mathrm{vol}.
+$$
+The sign in $\partial_jT$ is the one that
+makes $\partial_jT_u=T_{\partial_ju}$ for
+$u\in C^1$, by integration by parts; two
+integrations by parts give no sign for
+$\Delta$.
+
+\begin{definition}
+\label{definition-subharmonic-distribution}
+A distribution $T$ is \emph{nonnegative} if
+$T(\varphi)\geq 0$ for every $\varphi\in
+C^\infty_c(\Omega)$ with $\varphi\geq 0$. It
+is \emph{subharmonic} if $\Delta T\geq 0$.
+\end{definition}
+
+\noindent
+If $u\in C^2(\Omega)$ is subharmonic, then
+$T_u$ is subharmonic: for $\varphi\geq 0$,
+$$
+\Delta T_u(\varphi)=T_u(\Delta\varphi)
+=\int_\Omega u\,\Delta\varphi\,\mathrm{vol}
+=\int_\Omega \Delta u\,\varphi\,\mathrm{vol}
+\geq 0.
+$$
+
+\medskip\noindent
+{\bf Regularization.} Fix $\rho\in
+C^\infty_c(\mathbb{R}^n)$ with $\rho\geq
+0$, radial ($\rho(y)$ depends only on
+$|y|$), supported in the unit ball $B_1(0)$,
+and with $\int_{\mathbb{R}^n}\rho\,
+\mathrm{vol}=1$. Put
+$$
+\rho_\varepsilon(y)
+=\varepsilon^{-n}\rho(y/\varepsilon).
+$$
+For $u\in L^1_{loc}(\Omega)$ set
+$$
+u_\varepsilon(x)=(u*\rho_\varepsilon)(x)
+=\int_\Omega u(y)\rho_\varepsilon(x-y)
+\,\mathrm{vol}(y),
+$$
+and for a distribution $T$ set
+$$
+T_\varepsilon(x)
+=T(\rho_\varepsilon(x-\cdot)).
+$$
+This is a function on $\Omega$, while $T$ is
+a functional on $C^\infty_c(\Omega)$. (The
+board writes $\rho$ for $\rho_\varepsilon$ in
+the convolution, and also
+$B_1(0)\subseteq\Omega$, which is not
+needed. My remark: $T_\varepsilon(x)$ is only
+defined when $\rho_\varepsilon(x-\cdot)$ has
+compact support in $\Omega$, i.e. on the set
+of points at distance more than
+$\varepsilon$ from $\partial\Omega$.) The
+board draws the graphs of $\rho_\varepsilon$
+for several $\varepsilon$: bumps that get
+taller and narrower as $\varepsilon\to 0$.
+
+\begin{proposition}
+\label{proposition-regularization-smooth}
+For every $\varepsilon>0$, $T_\varepsilon$ is
+a smooth function. Furthermore:
+\begin{enumerate}
+\item $\Delta(T_\varepsilon)
+=(\Delta T)_\varepsilon$;
+\item if $\Delta T\geq 0$, then
+$(\Delta T)_\varepsilon\geq 0$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Part 2, as on the board: $(\Delta
+T)_\varepsilon(x)=\Delta
+T(\rho_\varepsilon(x-\cdot))$, and
+$\rho_\varepsilon(x-\cdot)\geq 0$. Smoothness
+and part 1 come from differentiating under
+$T$ (my remark): the Laplacian in $x$ of
+$\rho_\varepsilon(x-y)$ equals its Laplacian
+in $y$.
+\end{proof}
+
+\noindent
+Recall that a function $u\colon\Omega\to
+[-\infty,\infty)$ is \emph{upper
+semicontinuous} if
+$$
+\limsup_{x\to y}u(x)\leq u(y)
+$$
+for every $y\in\Omega$.
+
+\begin{theorem}
+\label{theorem-canonical-representative}
+Let $T$ be a subharmonic distribution.
+\begin{enumerate}
+\item If $\varepsilon'<\varepsilon$, then
+$T_{\varepsilon'}\leq T_\varepsilon$.
+\item Define
+$$
+u(x)=\lim_{\varepsilon\to 0}
+T_\varepsilon(x).
+$$
+Then $u\in L^1_{loc}(\Omega)$ and $T=T_u$.
+\end{enumerate}
+\end{theorem}
+
+\noindent
+The board adds that $u$, being a decreasing
+limit of continuous functions, is clearly
+upper semicontinuous.
+
+My sketch of part 1, not from the board and
+not checked by anyone else: by Proposition
+\ref{proposition-regularization-smooth},
+each $T_\delta$ is smooth and subharmonic. A
+smooth subharmonic function has spherical
+means increasing in the radius, so
+$T_\delta*\rho_\varepsilon$ increases with
+$\varepsilon$ because $\rho$ is radial. Since
+$T_\delta*\rho_\varepsilon
+=T_\varepsilon*\rho_\delta$ tends to
+$T_\varepsilon$ as $\delta\to 0$, the
+inequality passes to the limit.
+
+\begin{definition}
+\label{definition-singular-subharmonic}
+A \emph{subharmonic function} (possibly
+singular) is the canonical representative
+$u$, constructed as above, of a subharmonic
+distribution.
+\end{definition}
+
+\noindent
+So if $u$ is subharmonic, then $u\in
+L^1_{loc}(\Omega)$, $T_u=T$ and $\Delta
+T_u\geq 0$.
+
+Checked: Kiselman's notes
+\href{%
+https://user.it.uu.se/~cki26691/pluri0.pdf%
+}{%
+Plurisubharmonic functions and their
+singularities} (Uppsala, 1993),
+Proposition 1.2.4: a distribution is defined
+by a subharmonic function if and only if its
+Laplacian is nonnegative; the proof uses the
+same regularization, increasing in
+$\varepsilon$. Uniqueness of the
+representative is not stated there as a
+separate result.
+
+\medskip\noindent
+{\bf psh functions in $\mathbb{C}^n$.} Let
+$\Omega\subseteq\mathbb{C}^n$ with
+coordinates $z_j=x_j+\sqrt{-1}y_j$ and
+operators $\partial_{z_j}$,
+$\partial_{\bar z_j}$.
+
+\begin{definition}
+\label{definition-psh-board}
+A function $u\in C^2(\Omega)$ is \emph{psh}
+if for every $\xi\in\mathbb{C}^n$
+$$
+\sum_{j,k=1}^n
+\frac{\partial^2u}{\partial z_j
+\partial\bar z_k}\xi_j\bar\xi_k\geq 0,
+$$
+that is, its complex Hessian is positive
+semidefinite.
+\end{definition}
+
+\noindent
+The board's example: $u(z)=|z|$ on
+$\mathbb{C}^n\setminus\{0\}$. (My remark, not
+checked against a source: on each complex
+line $t\mapsto|a+t\xi|$ is the norm of an
+affine holomorphic map, and the norm of a
+holomorphic vector-valued map is
+subharmonic.)
+
+\begin{proposition}
+\label{proposition-psh-complex-lines}
+A function $u\in C^2(\Omega)$ is psh if and
+only if its restriction to every complex
+line is subharmonic.
+\end{proposition}
+
+\begin{proof}
+Let $a\in\Omega$, $\xi\in\mathbb{C}^n$, and
+$v(t)=u(a+t\xi)$ for $t\in\mathbb{C}$ near
+$0$. Since $\partial_t(a+t\xi)=\xi$,
+$$
+\Delta v(t)=4\sum_{j,k}
+\frac{\partial^2u}{\partial z_j
+\partial\bar z_k}(a+t\xi)\,
+\xi_j\bar\xi_k.
+$$
+If $u$ is psh, this is nonnegative. For the
+converse, evaluate at $t=0$: $\Delta
+v(0)\geq 0$ gives the Hessian condition at
+$a$ in the direction $\xi$.
+\end{proof}
+
+\noindent
+Now drop smoothness. Let $u\in
+L^1_{loc}(\Omega)$ with $dd^cu\geq 0$. Here
+$dd^cu$ is a \emph{current}, a ``form'' whose
+coefficients are distributions. The
+condition means that for every
+$\xi\in\mathbb{C}^n$ the distribution
+$$
+\sum_{j,k}
+\frac{\partial^2u}{\partial z_j
+\partial\bar z_k}\xi_j\bar\xi_k
+$$
+is nonnegative, where the derivatives are
+taken in the sense of distributions (the
+coefficients need not be in $L^1_{loc}$).
+Taking for $\xi$ the coordinate vectors and
+adding,
+$$
+\sum_j\frac{\partial^2u}{\partial z_j
+\partial\bar z_j}\geq 0,
+$$
+which is $\Delta u\geq 0$ up to the factor
+$\frac{1}{4}$. As distributions,
+$$
+\Delta u(\varphi)=u(\Delta\varphi)
+=\int_\Omega u\,\Delta\varphi\,\mathrm{vol}
+=T_u(\Delta\varphi)=\Delta T_u(\varphi),
+$$
+so $\Delta u\geq 0$ if and only if $\Delta
+T_u\geq 0$.
+
+\begin{definition}
+\label{definition-singular-psh}
+A \emph{psh function} (possibly singular) is
+the canonical representative of $T_u$, for
+$u\in L^1_{loc}(\Omega)$ with $dd^cu\geq 0$.
+\end{definition}
+
+\noindent
+Checked: Kiselman's notes cited above,
+Definition 1.1.1, define a psh function as
+an upper semicontinuous function whose
+restrictions $z\mapsto f(a+zb)$ to complex
+lines are subharmonic; Proposition 1.2.7 is
+the $C^2$ criterion of Definition
+\ref{definition-psh-board}. The agreement of
+the two definitions for $L^1_{loc}$
+functions was not checked.
+
+\medskip\noindent
+{\bf The Cauchy formula with a
+$\bar\partial$ term.}
+
+\begin{proposition}
+\label{proposition-cauchy-pompeiu-board}
+Let $D\subseteq\mathbb{C}$ be a bounded
+domain with smooth boundary and $f\colon\bar
+D\to\mathbb{C}$ smooth. For every $w\in D$,
+$$
+f(w)=\frac{1}{2\pi\sqrt{-1}}
+\int_{\partial D}\frac{f(z)}{z-w}dz
+-\frac{1}{\pi}\int_D
+\frac{\partial_{\bar z}f(z)}{z-w}dA.
+$$
+\end{proposition}
+
+\begin{proof}
+Remove a small disc: replace
+$D\setminus\{w\}$ by
+$D\setminus B_\varepsilon(w)$. There
+$$
+d\left(\frac{f(z)}{z-w}dz\right)
+=\frac{\partial_{\bar z}f}{z-w}
+d\bar z\wedge dz
+=2\sqrt{-1}\,
+\frac{\partial_{\bar z}f}{z-w}dA.
+$$
+By Stokes' theorem, divided by
+$2\pi\sqrt{-1}$,
+$$
+\frac{1}{\pi}
+\int_{D\setminus B_\varepsilon(w)}
+\frac{\partial_{\bar z}f}{z-w}dA
+=\frac{1}{2\pi\sqrt{-1}}
+\int_{\partial D}\frac{f}{z-w}dz
+-\frac{1}{2\pi\sqrt{-1}}
+\int_{\partial B_\varepsilon(w)}
+\frac{f}{z-w}dz.
+$$
+With $z=w+\varepsilon e^{\sqrt{-1}\theta}$,
+the last term is
+$$
+-\frac{1}{2\pi}\int_0^{2\pi}
+f(w+\varepsilon e^{\sqrt{-1}\theta})
+\,d\theta
+\longrightarrow -f(w)
+$$
+as $\varepsilon\to 0$. The left side tends
+to the integral over $D$, because
+$1/(z-w)$ is integrable near $w$.
+\end{proof}
+
+\noindent
+Board typos: the circle integral is written
+over $[0,\pi]$ and its limit with
+$\frac{1}{\pi}$ instead of
+$\frac{1}{2\pi}$; the final line seems to
+carry a minus sign in front of
+$\frac{1}{\pi}\int_D$, which does not match
+the statement (perhaps a stray mark).
+
+\medskip\noindent
+{\bf The basic example.} For $a\in\mathbb{C}$
+let $\delta_a(\varphi)=\varphi(a)$ be the
+Dirac distribution.
+
+\begin{proposition}
+\label{proposition-log-z-delta}
+Let $u(z)=\log|z|$ for $z\neq 0$ and
+$u(0)=-\infty$. Then:
+\begin{enumerate}
+\item $dd^cu=2\pi\delta_0$, that is, for all
+$\varphi\in C^\infty_c(\mathbb{C})$,
+$$
+\int_{\mathbb{C}}\varphi\,dd^cu
+=2\pi\varphi(0);
+$$
+\item $u$ is psh.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Outside $0$, locally
+$$
+\log|z|=\frac{1}{2}\left(\log z
++\log\bar z\right)
+$$
+for a branch of $\log z$, and both terms are
+killed by $\partial\bar\partial$, since one
+is holomorphic and the other
+antiholomorphic. So $dd^cu=0$ outside $0$.
+
+Let $D$ be a disc centred at $0$ containing
+the support of $\varphi$. Apply Proposition
+\ref{proposition-cauchy-pompeiu-board} with
+$w=0$. The boundary term vanishes, so
+$$
+\varphi(0)=-\frac{1}{\pi}\int_D
+\frac{\partial_{\bar z}\varphi}{z}dA
+=\frac{1}{\pi}\int_D\varphi\,
+\partial_{\bar z}\left(\frac{1}{z}\right)
+dA,
+$$
+where the last derivative is taken in the
+sense of distributions. Since
+$\partial_z\log|z|=\frac{1}{2z}$,
+$$
+\partial_{\bar z}\left(\frac{1}{z}\right)
+=2\partial_{\bar z}\partial_z\log|z|
+=\frac{1}{2}\Delta\log|z|,
+$$
+and therefore
+$$
+\varphi(0)=\frac{1}{2\pi}\int_D\varphi\,
+dd^c\log|z|.
+$$
+This is part 1. For part 2, $dd^cu$ is a
+nonnegative measure, so $T_u$ is
+subharmonic, and $u$ is upper
+semicontinuous; in one variable psh means
+subharmonic.
+\end{proof}
+
+\noindent
+My remark on part 2: to see that $u$ is the
+canonical representative of $T_u$, note that
+the regularizations $u_\varepsilon(0)$ are
+averages of $\log|z|$ over small discs and
+tend to $-\infty=u(0)$, while
+$u_\varepsilon\to u$ away from $0$. Not
+checked by anyone else.
+
+\medskip\noindent
+{\bf The Lelong--Poincar\'e equation.} Let
+$M$ be a complex manifold of dimension $n$,
+$f$ a holomorphic function with $df\neq 0$
+along $Z=f^{-1}(0)$. Then $Z$ is a complex
+submanifold of codimension $1$, and it gives
+the \emph{current of integration} $[Z]$,
+defined on compactly supported
+$(n-1,n-1)$-forms by
+$$
+[Z](\eta)=\int_Z\eta.
+$$
+
+\begin{theorem}
+\label{theorem-lelong-poincare-smooth}
+Let $M$ be a complex manifold, $f$ a
+holomorphic function on $M$, $Z=f^{-1}(0)$,
+and suppose $df\neq 0$ along $Z$. Then
+$\log|f|$ is psh and
+$$
+\frac{1}{2\pi}dd^c\log|f|=[Z],
+$$
+that is, for every compactly supported
+$(n-1,n-1)$-form $\eta$,
+$$
+\frac{1}{2\pi}\int_M dd^c\log|f|\wedge\eta
+=\int_Z\eta.
+$$
+\end{theorem}
+
+\begin{proof}
+Away from $Z$, $\log|f|=\frac{1}{2}(\log
+f+\log\bar f)$ locally, so
+$dd^c\log|f|=0$ there, as in Proposition
+\ref{proposition-log-z-delta}. Close to $Z$,
+since $df\neq 0$, choose holomorphic
+coordinates $(z_1,\ldots,z_n)$ with $f=z_1$,
+so $Z=\{z_1=0\}$. Then
+$$
+\frac{1}{2\pi}dd^c\log|f|
+=\frac{1}{2\pi}dd^c\log|z_1|
+=\delta_0=[Z],
+$$
+by Proposition
+\ref{proposition-log-z-delta} in the
+variable $z_1$.
+\end{proof}
+
+\noindent
+My remark on the last step: $\delta_0$
+means the Dirac distribution in the $z_1$
+variable, times $dA$ in $z_1$. Wedging with
+$\eta$ and integrating first over $z_1$ (by
+Fubini) leaves $\int_Z\eta$, since only the
+component of $\eta$ in
+$dz_2\wedge d\bar z_2\wedge\cdots$ survives.
+A partition of unity glues the local
+statements.
+
+Not checked against a source: the theorem as
+stated, and its normalization with this
+$d^c$. The general Lelong--Poincar\'e
+equation, for $Z$ singular and $f$ with
+multiplicities, is in Demailly's book
+\emph{Complex analytic and differential
+geometry}, Chapter III; the exact number was
+not verified.
+
+
 \end{document}
