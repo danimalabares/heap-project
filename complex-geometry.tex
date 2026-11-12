@@ -4249,6 +4249,56 @@ by a matrix of functions, so its type
 does not depend on the frame.
 \end{proof}
 
+\begin{remark}
+\label{remark-line-bundle-weight}
+Let $(L,h)$ be a holomorphic hermitian
+line bundle and let $e$ be a holomorphic
+local frame. The function $h(e,e)$ is
+smooth and positive, so there is a unique
+smooth real function $\varphi$ with
+$$
+h(e,e)=e^{-2\varphi},
+$$
+namely
+$$
+\varphi=-\frac{1}{2}\log h(e,e).
+$$
+It is called the {\it weight} of $h$ in
+the frame $e$. A section $s=fe$ then has
+squared length
+$$
+h(s,s)=|f|^2e^{-2\varphi}.
+$$
+For a line bundle the matrix of
+Lemma \ref{lemma-chern-curvature-type}
+is the single function $h(e,e)$, so
+$$
+\begin{aligned}
+\Theta
+&=\bar\partial
+\bigl(h(e,e)^{-1}\partial h(e,e)\bigr)\\
+&=\bar\partial\partial\log h(e,e)\\
+&=-2\bar\partial\partial\varphi\\
+&=2\partial\bar\partial\varphi.
+\end{aligned}
+$$
+Hence
+$$
+i\Theta=2i\partial\bar\partial\varphi,
+$$
+which is a real $(1,1)$-form because
+$\varphi$ is real.
+Another holomorphic frame is $e'=ge$
+with $g$ holomorphic and nowhere zero.
+Its weight is
+$$
+\varphi'=\varphi-\log|g|,
+$$
+and $\partial\bar\partial\log|g|=0$,
+so the formula for $\Theta$ does not
+depend on the frame.
+\end{remark}
+
 \begin{lemma}
 \label{lemma-curvature-trace-closed}
 The trace $\operatorname{tr}\Theta$ of
@@ -5899,8 +5949,9 @@ See \cite[Proposition 5.2.2]{huc} and
 \cite[p. 154]{gri}.
 We unpack the argument in small steps.
 First we prove the case $p=n$, namely
-Kodaira vanishing. Then we explain the
-extra choice that gives Kodaira--Nakano.
+Kodaira vanishing. The last step explains
+the extra choice that gives
+Kodaira--Nakano.
 
 \medskip\noindent
 {\bf 1. What must we show?}
@@ -5920,123 +5971,252 @@ The $n$ occurs because $K_M$ is the
 bundle of holomorphic $n$-forms.
 By the bundle-valued Hodge theorem
 (Theorem \ref{theorem-bundle-valued-hodge}),
-every class has a harmonic representative.
+every class has exactly one harmonic
+representative.
 Thus it suffices to show that every
 harmonic $L$-valued $(n,q)$-form is zero
 when $q>0$.
 
 \medskip\noindent
-{\bf 2. Which curvature?}
-Choose a smooth Hermitian metric $h$
-on $L$ with positive Chern curvature.
-Write $\nabla$ for its Chern connection.
-This is curvature of a connection on $L$,
-not sectional curvature of $M$.
+{\bf 2. Conventions.}
+Choose a smooth hermitian metric $h$
+on $L$ with positive Chern curvature
+$\Theta$. This is curvature of a
+connection on $L$, not sectional
+curvature of $M$.
+Fix a Kähler form $\omega$ on $M$.
+One exists, since $i\Theta$ is closed
+and positive. The metric of $\omega$ is
+normalized by
+$$
+|v|^2=\omega(v,Iv)
+$$
+for every real tangent vector $v$.
 
-Let $e$ be a local holomorphic frame.
-There is a scalar $1$-form $A$ such that
-$\nabla e=A\otimes e$.
-On bundle-valued forms, the connection
-is locally $d+A\wedge$.
-This follows from the graded Leibniz
-rule in Definition
-\ref{definition-curvature-connection}.
-For an ordinary form $\alpha$, compute
+From now on, every form has values in
+$L$. Split the Chern connection of
+$(L,h)$ by type:
 $$
-\begin{aligned}
-\nabla^2(\alpha\otimes e)
-&=\bigl(d(A\wedge\alpha)
-+A\wedge d\alpha\\
-&\qquad
-+A\wedge A\wedge\alpha\bigr)\otimes e\\
-&=\bigl(dA\wedge\alpha
--A\wedge d\alpha\\
-&\qquad
-+A\wedge d\alpha\bigr)\otimes e\\
-&=(dA\wedge\alpha)\otimes e.
-\end{aligned}
+\nabla=\partial+\bar\partial.
 $$
-Here $d^2=0$ and $A\wedge A=0$.
-The curvature form is locally
-$\Theta=dA$. Thus $\nabla^2$ acts by
-wedging with $\Theta$.
+So $\partial$ and $\bar\partial$ act on
+$L$-valued forms. They are the operators
+$\partial_L$ and $\bar\partial_L$ of
+Section
+\ref{section-bundle-valued-hodge-serre}.
+In a holomorphic frame $e$ and for an
+ordinary form $\alpha$,
+$$
+\bar\partial(\alpha\otimes e)
+=(\bar\partial\alpha)\otimes e,
+$$
+with the usual $\bar\partial$ on the
+right.
 
-Fix a Kähler form $\omega$.
-Positivity and compactness give a
-constant $\varepsilon>0$ such that
+The metrics of $\omega$ and $h$ give
+the hermitian product
 $$
-i\Theta\geq\varepsilon\omega.
+(\alpha,\beta)
+=\int_M\left\langle{}
+\alpha,\beta\right\rangle{}*1
 $$
-Indeed, the smallest eigenvalue of
-$i\Theta$ relative to $\omega$ is positive
-and continuous on the compact manifold.
-It therefore has a positive minimum.
-Any positive lower bound will suffice.
+of Section
+\ref{section-bundle-valued-hodge-serre}.
+The operators $\partial^*$ and
+$\bar\partial^*$ are the formal adjoints:
+$$
+(\partial\alpha,\beta)
+=(\alpha,\partial^*\beta),
+\qquad
+(\bar\partial\alpha,\beta)
+=(\alpha,\bar\partial^*\beta).
+$$
+There are two Laplacians:
+$$
+\Delta_{\bar\partial}
+=\bar\partial\bar\partial^*
++\bar\partial^*\bar\partial,
+\qquad
+\Delta_{\partial}
+=\partial\partial^*
++\partial^*\partial.
+$$
+Harmonic means
+$\Delta_{\bar\partial}u=0$.
 
 \medskip\noindent
 {\bf 3. Why does curvature enter?}
-Write
-$$
-P=\partial_L,\qquad Q=\bar\partial_L,
-\qquad \nabla=P+Q.
-$$
 Let $\Lambda$ be the adjoint of wedging
 with $\omega$.
-The Kähler identities
-(Theorem \ref{theorem-nakano-identities})
-give
+The Kähler identities with values in
+$L$ (Theorem
+\ref{theorem-nakano-identities}) are
 $$
-[\Lambda,P]=iQ^*,
+[\Lambda,\bar\partial]=-i\partial^*,
 \qquad
-[\Lambda,Q]=-iP^*.
+[\Lambda,\partial]=i\bar\partial^*.
 $$
-The brackets here are ordinary
-commutators: $[S,T]=ST-TS$.
-Therefore
+The brackets are ordinary commutators.
+Solve for the adjoints:
 $$
-Q^*=-i[\Lambda,P],
-\qquad P^*=i[\Lambda,Q].
+\bar\partial^*=-i[\Lambda,\partial],
+\qquad
+\partial^*=i[\Lambda,\bar\partial].
 $$
-Substitute these into the Laplacians:
+Substitute these into the two
+Laplacians:
 $$
 \begin{aligned}
-\Delta_Q-\Delta_P
-=-i\bigl(&Q[\Lambda,P]+[\Lambda,P]Q\\
-&+P[\Lambda,Q]+[\Lambda,Q]P\bigr).
+\Delta_{\bar\partial}-\Delta_{\partial}
+=-i\bigl(
+&\bar\partial[\Lambda,\partial]
++[\Lambda,\partial]\bar\partial\\
+&+\partial[\Lambda,\bar\partial]
++[\Lambda,\bar\partial]\partial
+\bigr).
 \end{aligned}
 $$
 Expand all four terms:
 $$
 \begin{aligned}
-Q[\Lambda,P]&=Q\Lambda P-QP\Lambda,\\
-[\Lambda,P]Q&=\Lambda PQ-P\Lambda Q,\\
-P[\Lambda,Q]&=P\Lambda Q-PQ\Lambda,\\
-[\Lambda,Q]P&=\Lambda QP-Q\Lambda P.
+\bar\partial[\Lambda,\partial]
+&=\bar\partial\Lambda\partial
+-\bar\partial\partial\Lambda,\\
+[\Lambda,\partial]\bar\partial
+&=\Lambda\partial\bar\partial
+-\partial\Lambda\bar\partial,\\
+\partial[\Lambda,\bar\partial]
+&=\partial\Lambda\bar\partial
+-\partial\bar\partial\Lambda,\\
+[\Lambda,\bar\partial]\partial
+&=\Lambda\bar\partial\partial
+-\bar\partial\Lambda\partial.
 \end{aligned}
 $$
-The $Q\Lambda P$ terms cancel, as do
-the $P\Lambda Q$ terms. Hence
+The terms
+$\bar\partial\Lambda\partial$ cancel, and
+so do the terms
+$\partial\Lambda\bar\partial$. Hence
 $$
-\Delta_Q-\Delta_P
-=i[PQ+QP,\Lambda].
+\Delta_{\bar\partial}-\Delta_{\partial}
+=i[\partial\bar\partial
++\bar\partial\partial,\Lambda].
 $$
-Now $Q^2=0$ by holomorphicity.
-Also $P^2=0$, since Chern curvature
-has type $(1,1)$.
+Now $\bar\partial^2=0$ because $L$ is
+holomorphic, and $\partial^2=0$ because
+the Chern curvature has type $(1,1)$
+(Lemma \ref{lemma-chern-curvature-type}).
 Consequently
 $$
-PQ+QP=(P+Q)^2=\nabla^2=\Theta\wedge.
+\partial\bar\partial
++\bar\partial\partial
+=(\partial+\bar\partial)^2
+=\nabla^2=\Theta\wedge.
 $$
-We obtain the Bochner--Kodaira identity:
+We obtain the Bochner--Kodaira--Nakano
+identity:
 $$
-\Delta_Q=\Delta_P+[i\Theta\wedge,\Lambda].
+\Delta_{\bar\partial}
+=\Delta_{\partial}
++[i\Theta\wedge,\Lambda].
 $$
+The curvature term contains no
+derivatives of the form it acts on.
 
 \medskip\noindent
-{\bf 4. How does the bound act on forms?}
-At a point, choose an orthonormal
-$(1,0)$-coframe $\zeta_1,\ldots,\zeta_n$
-that diagonalizes the curvature:
+{\bf 4. A lower bound for the curvature.}
+We claim that there is a constant
+$\varepsilon>0$, depending on $\omega$,
+with
+$$
+i\Theta\geq\varepsilon\omega.
+$$
+Both $i\Theta$ and $\omega$ are real
+$(1,1)$-forms. The inequality means
+that for every real tangent vector $v$,
+$$
+i\Theta(v,Iv)
+\geq\varepsilon\,\omega(v,Iv).
+$$
+For $v\neq0$ both numbers are positive:
+the first because $L$ is positive, the
+second because it is $|v|^2$.
+So the ratio
+$$
+\frac{i\Theta(v,Iv)}{\omega(v,Iv)}
+$$
+is positive and continuous. It does not
+change when $v$ is rescaled, so it is a
+function on the unit tangent vectors.
+Since $M$ is compact, the set of unit
+tangent vectors is compact. A positive
+continuous function on a compact set
+has a positive minimum. Call it
+$\varepsilon$.
+
+A different choice of $\omega$ gives a
+different $\varepsilon$. For
+$\omega=i\Theta$ one may take
+$\varepsilon=1$. The proof only needs
+some $\varepsilon>0$.
+
+\medskip\noindent
+{\bf 5. A good coframe at one point.}
+Fix one point $x\in M$ and let
+$V=T^{1,0}_xM$. This step is linear
+algebra on $V$.
+A real $(1,1)$-form at $x$ is a
+hermitian form on $V$: in coordinates,
+the form
+$$
+i\sum_{j,k}h_{j\bar k}\,
+dz_j\wedge d\bar z_k
+$$
+corresponds to
+$$
+h(v,w)=\sum_{j,k}h_{j\bar k}\,
+v_j\overline{w_k},
+$$
+where $(h_{j\bar k})$ is a hermitian
+matrix. Let $g$ be the hermitian form
+of $\omega$ and $\theta$ the hermitian
+form of $i\Theta$. Both are positive.
+
+Use $g$ as the inner product of $V$.
+Define a linear map $A:V\to V$ by
+$$
+\theta(v,w)=g(Av,w)
+$$
+for all $v,w\in V$. It exists by the
+Riesz representation theorem
+\cite[Theorem 1.9]{bachman-narici}: for
+fixed $v$, the conjugate-linear function
+$\theta(v,\cdot)$ is $g(v',\cdot)$ for
+exactly one vector $v'$, and we put
+$Av=v'$. The map $A$ is self-adjoint,
+because $\theta$ is hermitian:
+$$
+\begin{aligned}
+g(Av,w)&=\theta(v,w)
+=\overline{\theta(w,v)}\\
+&=\overline{g(Aw,v)}=g(v,Aw).
+\end{aligned}
+$$
+By the spectral theorem
+\cite[Theorems 1.10 and
+2.1]{bachman-narici}, $V$ has a
+$g$-orthonormal basis $e_1,\ldots,e_n$
+of eigenvectors of $A$, with real
+eigenvalues $\lambda_1,\ldots,\lambda_n$.
+Then
+$$
+g(e_j,e_k)=\delta_{jk},
+\qquad
+\theta(e_j,e_k)=g(Ae_j,e_k)
+=\lambda_j\delta_{jk}.
+$$
+Let $\zeta_1,\ldots,\zeta_n$ be the dual
+basis. Translating back to forms,
 $$
 \omega=i\sum_{j=1}^n
 \zeta_j\wedge\bar\zeta_j,
@@ -6044,93 +6224,224 @@ $$
 i\Theta=i\sum_{j=1}^n
 \lambda_j\zeta_j\wedge\bar\zeta_j.
 $$
-Thus $\lambda_j\geq\varepsilon$.
-Using a unit vector $e$ in the fibre,
-write
+So $\omega$ defines what orthonormal
+means, and $i\Theta$ is diagonalized by
+an orthonormal eigenbasis. The coframe
+is chosen at the point $x$ only.
+
+\medskip\noindent
+{\bf 6. Positivity in the coframe.}
+Let $v$ be a real tangent vector at $x$
+and put $c_j=\zeta_j(v)$. Since
+$\zeta_j$ has type $(1,0)$,
 $$
-u=\sum_{|J|=q}u_J\,
+\zeta_j(Iv)=ic_j,
+\qquad
+\bar\zeta_j(Iv)=-i\overline{c_j}.
+$$
+Therefore
+$$
+\begin{aligned}
+(i\zeta_j\wedge\bar\zeta_j)(v,Iv)
+&=i\bigl(c_j(-i\overline{c_j})
+-(ic_j)\overline{c_j}\bigr)\\
+&=2|c_j|^2.
+\end{aligned}
+$$
+Adding up,
+$$
+\frac{i\Theta(v,Iv)}{\omega(v,Iv)}
+=\frac{\sum_j\lambda_j|c_j|^2}
+{\sum_j|c_j|^2}.
+$$
+This is a weighted average of the
+$\lambda_j$. If only $c_j$ is nonzero,
+the ratio is exactly $\lambda_j$.
+So $i\Theta\geq\varepsilon\omega$ at $x$
+holds if and only if
+$\lambda_j\geq\varepsilon$ for every $j$.
+
+\medskip\noindent
+{\bf 7. What does $\Lambda$ do?}
+The wedge monomials
+$\zeta_J\wedge\bar\zeta_K$ form an
+orthonormal basis of the forms at $x$.
+Write
+$$
+L_j=i\zeta_j\wedge\bar\zeta_j\wedge.
+$$
+Then
+$$
+\omega\wedge=\sum_jL_j,
+\qquad
+i\Theta\wedge=\sum_j\lambda_jL_j.
+$$
+The operator $L_j$ inserts the pair $j$.
+If a monomial $m'$ contains neither
+$\zeta_j$ nor $\bar\zeta_j$, then
+$L_jm'$ is again a monomial, up to a
+factor of absolute value one. If $m'$
+contains $\zeta_j$ or $\bar\zeta_j$,
+then $L_jm'=0$, because
+$\zeta_j\wedge\zeta_j=0$.
+
+Let $\Lambda_j$ be the adjoint of $L_j$,
+so that
+$$
+\Lambda=\sum_j\Lambda_j.
+$$
+We claim that $\Lambda_j$ removes the
+pair $j$. Let $m'$ be a monomial without
+$\zeta_j$ and $\bar\zeta_j$. For every
+monomial $a$,
+$$
+\left\langle{}
+a,\Lambda_jL_jm'\right\rangle{}
+=\left\langle{}
+L_ja,L_jm'\right\rangle{}.
+$$
+The right side is $1$ if $a=m'$ and
+$0$ for every other monomial, because
+different monomials give orthogonal
+results. The only vector with these
+inner products is $m'$. Hence
+$$
+\Lambda_jL_jm'=m'.
+$$
+Now let $m$ be a monomial which lacks
+$\zeta_j$ or $\bar\zeta_j$. Every
+$L_ja$ is zero or contains both, so
+$$
+\left\langle{}
+a,\Lambda_jm\right\rangle{}
+=\left\langle{}
+L_ja,m\right\rangle{}=0
+$$
+for all $a$. Hence $\Lambda_jm=0$: there
+is no pair $j$ to remove.
+
+\medskip\noindent
+{\bf 8. The curvature term on
+$(n,q)$-forms.}
+Using a unit vector $e$ in the fibre of
+$L$, write
+$$
+u=\sum_{|K|=q}u_K\,
 \zeta_1\wedge\cdots\wedge\zeta_n
-\wedge\bar\zeta_J\otimes e.
+\wedge\bar\zeta_K\otimes e.
 $$
-Here $J$ is an increasing list of $q$
-indices and $\bar\zeta_J$ is their wedge.
-
-For the $j$-th wedge--contraction
-commutator, the eigenvalue on a wedge
-monomial is $1$ if both $\zeta_j$ and
-$\bar\zeta_j$ occur, $0$ if exactly one
-occurs, and $-1$ if neither occurs.
-These are the degree $2$, $1$ and $0$
-cases of the Lefschetz relation
-(Proposition
-\ref{proposition-sl2-relat-exter-algeb})
-on the complex line in direction $j$.
-
-Every $\zeta_j$ occurs in $u$.
-So the curvature commutator multiplies
-the component indexed by $J$ by
+Every $\zeta_j$ occurs in $u$, so
+$L_ju=0$ for all $j$. Hence
+$i\Theta\wedge u=0$ and
 $$
-\sum_{j\in J}\lambda_j
-\geq q\varepsilon.
+[i\Theta\wedge,\Lambda]u
+=i\Theta\wedge(\Lambda u).
 $$
-In particular, pointwise,
+Take one component
+$$
+m=\zeta_1\wedge\cdots\wedge\zeta_n
+\wedge\bar\zeta_K.
+$$
+By step 7, $\Lambda_km$ removes the
+pair $k$ if $k\in K$, and is zero if
+$k\notin K$. Then $L_j\Lambda_km=0$ for
+$j\neq k$, because $\zeta_j$ is still
+there, while $L_k\Lambda_km=m$. So the
+pair $k$ is removed and put back with
+weight $\lambda_k$:
+$$
+[i\Theta\wedge,\Lambda]m
+=\left(\sum_{k\in K}\lambda_k\right)m.
+$$
+There are $q$ indices in $K$, each with
+$\lambda_k\geq\varepsilon$. Pointwise,
 $$
 \begin{aligned}
 \left\langle{}
 [i\Theta\wedge,\Lambda]u,u
 \right\rangle{}
-&=\sum_{|J|=q}
-\left(\sum_{j\in J}\lambda_j\right)
-|u_J|^2\\
+&=\sum_{|K|=q}
+\left(\sum_{k\in K}\lambda_k\right)
+|u_K|^2\\
 &\geq q\varepsilon|u|^2.
 \end{aligned}
 $$
+This holds at every point $x$.
 
 \medskip\noindent
-{\bf 5. Why must a harmonic form vanish?}
-Take the global $L^2$ inner product of
-the Bochner--Kodaira identity with $u$.
-Adjointness and the integrated estimate
-give
+{\bf 9. Why must a harmonic form vanish?}
+Let $u$ be a harmonic $(n,q)$-form.
+Pair the identity of step 3 with $u$:
+$$
+0=(\Delta_{\bar\partial}u,u)
+=(\Delta_{\partial}u,u)
++([i\Theta\wedge,\Lambda]u,u).
+$$
+The first term is not negative. Indeed,
+moving one operator across in each
+piece,
 $$
 \begin{aligned}
-\|Qu\|^2+\|Q^*u\|^2
-&=\|Pu\|^2+\|P^*u\|^2\\
-&\quad+
-\left\langle{}
-[i\Theta\wedge,\Lambda]u,u
-\right\rangle{}_{L^2}\\
-&\geq q\varepsilon\|u\|^2.
+(\Delta_{\partial}u,u)
+&=(\partial\partial^*u,u)
++(\partial^*\partial u,u)\\
+&=(\partial^*u,\partial^*u)
++(\partial u,\partial u)\\
+&=\|\partial^*u\|^2+\|\partial u\|^2.
 \end{aligned}
 $$
-All norms here are global $L^2$ norms.
-If $u$ is harmonic, then $\Delta_Q u=0$,
-so the left side is zero.
-For $q>0$, we obtain
+There is no boundary term because $M$
+is compact. The second term is the
+integral of the pointwise estimate of
+step 8:
 $$
-0\geq q\varepsilon\|u\|^2,
-\qquad u=0.
+([i\Theta\wedge,\Lambda]u,u)
+\geq q\varepsilon\|u\|^2.
 $$
-Every cohomology class has such a
-harmonic representative. Hence
+All norms are global $L^2$ norms.
+Together,
+$$
+0\geq q\varepsilon\|u\|^2.
+$$
+For $q>0$ this forces $u=0$.
+Every cohomology class has a harmonic
+representative. Hence
 $$
 H^q(M,K_M\otimes L)=0
-\qquad(q>0).
 $$
-Equivalently, every $Q$-closed form is
-$u=h+Qv$ with $h$ harmonic.
-Since $h=0$, it is exact.
+for $q>0$.
 
 \medskip\noindent
-{\bf 6. What about general $(p,q)$?}
-We may choose the Kähler form to be
+{\bf 10. What about general $(p,q)$?}
+Choose the Kähler form to be
 $\omega=i\Theta$ itself.
-It is closed and strictly positive.
-Changing this metric changes harmonic
+Changing the metric changes harmonic
 representatives, not the cohomology.
+Now $A$ is the identity, every
+$\lambda_j$ equals $1$, and
+$$
+[i\Theta\wedge,\Lambda]
+=\sum_{j,k}[L_j,\Lambda_k]
+=\sum_j[L_j,\Lambda_j].
+$$
+The terms with $j\neq k$ vanish:
+inserting the pair $j$ and removing the
+pair $k$ concern different indices, so
+they commute.
 
-Now all curvature eigenvalues are $1$.
-On a $(p,q)$-wedge monomial, let $a$
+By step 7, on a monomial $m$ the
+commutator $[L_j,\Lambda_j]$ acts as
+follows. If both $\zeta_j$ and
+$\bar\zeta_j$ occur, then
+$L_j\Lambda_jm=m$ and
+$\Lambda_jL_jm=0$, so it multiplies by
+$1$. If neither occurs, then
+$L_j\Lambda_jm=0$ and
+$\Lambda_jL_jm=m$, so it multiplies by
+$-1$. If exactly one occurs, both
+products are zero.
+
+On a $(p,q)$-monomial, let $a$
 count indices occurring in both types,
 $b$ those occurring in exactly one,
 and $c$ those occurring in neither.
@@ -6148,9 +6459,9 @@ $$
 =(p+q-n)\operatorname{id}.
 $$
 For a harmonic $(p,q)$-form $u$, the
-same inner product calculation becomes
+calculation of step 9 becomes
 $$
-0=\|Pu\|^2+\|P^*u\|^2
+0=\|\partial u\|^2+\|\partial^*u\|^2
 +(p+q-n)\|u\|^2.
 $$
 If $p+q>n$, all terms are nonnegative
