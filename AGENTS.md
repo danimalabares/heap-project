@@ -85,6 +85,15 @@ editing any heap-project file!!!!
   directories like `gerby/` and `tmp/`.
 - Do not use subsections or subsubsections.
 
+## Slides
+
+Beamer decks live in `slides/`, one folder per
+talk or series; see `slides/README.md`.
+They are not chapters: do not add them to
+`GERBY_FILES`, and the style rules above
+(no macros, 45-character lines, no text in
+equations) do not apply inside `slides/`.
+
 Generated files and directories such as
 `gerby/`, `tmp/`, `.venv/`, and build
 artifacts should not be committed.
