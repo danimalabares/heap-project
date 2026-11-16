@@ -1,0 +1,429 @@
+\documentclass{beamer}
+
+\input{beamer-preamble}
+
+\title{Nakajima's representation of the Heisenberg algebra}
+\author{Daniel González Casanova Azuela}
+\institute{PUC-Rio}
+\date{November 2025}
+
+\begin{document}
+
+\begin{frame}%Title page
+\titlepage
+\end{frame}
+
+\section*{Table of contents}
+\label{section-toc}
+
+\begin{frame}%Plan of the talk
+\frametitle{Plan of the talk}
+\tableofcontents
+\end{frame}
+
+\section{Heisenberg Algebra}
+
+\begin{frame}%Heisenberg algebra
+\frametitle{Heisenberg algebra}
+The Heisenberg algebra is
+$
+\hat{\mathfrak{a}}=
+\bigoplus_{n \in \mathbb{Z}} \mathbb{C}h_n \oplus\mathbb{C}K
+$
+with bracket given by 
+$$
+[h_m,h_n]=m\delta_{m,-n}K,\qquad 
+[K,\hat{\mathfrak{a}}]=0,
+$$
+and highest weight representation 
+$$
+H=\mathbb{C}[x_1,x_2,\ldots]$$
+with the action
+$$
+h_n\mapsto \begin{cases}
+n \frac{\partial }{\partial x_n}\qquad &\text{if }n>0\\
+x_{-n}\qquad &\text{if }n<0\\
+0\qquad &\text{if }n=0
+\end{cases},
+\qquad \qquad  K\mapsto \text{Id}.
+$$
+\end{frame}
+
+\section{Hilbert Scheme of Points}
+
+\begin{frame}%Hilbert scheme of points
+\frametitle{Hilbert scheme of points}
+Let $X$ be a projective surface over $\mathbb{C}$.
+The essential property of the 
+{\it Hilbert scheme
+of $n$ points $X^{[n]}$}
+is that a point (over $\mathbb{C}$) of $X^{[n]}$
+is a 0-dimensional closed subscheme of $X$
+of length $n$.
+
+\medskip\noindent
+\pause
+The {\it length} of any such subscheme $Z$, defined by
+ $\dim\Gamma(\mathcal{O}_Z)$,
+is given by
+$\sum_{x \in \text{supp} Z}\dim\Gamma(\mathcal{O}_{Z_x})=n$.
+
+\medskip\noindent
+\pause
+This {\bf does not} mean that the points in $X^{[n]}$ 
+are $n$-tuples of points of $X$ counted with multiplicities.
+\end{frame}
+
+\begin{frame}%Fogarty theorem
+\frametitle{Hilbert scheme of points}
+\begin{theorem}[Fogarty]
+\label{theorem-fogarty}
+If $X$ is a nonsingular projective surface,
+\begin{enumerate}
+\item $X^{[n]}$ is nonsingular and has dimension $2n$, and
+\item the {\it Hilbert-Chow morphism}
+\begin{align*}
+\pi : X^{[n]} &\longrightarrow S^nX \\
+ Z&\longmapsto \sum_{x \in \text{supp}Z}\dim\Gamma(\mathcal{O}_{Z,x})[x]
+\end{align*}
+is a resolution of singularities.
+\end{enumerate}
+\end{theorem}
+\end{frame}
+
+\section{Borel-Moore Homology}
+
+\begin{frame}%Borel-Moore homology
+\frametitle{Borel-Moore homology}
+{\it Borel-Moore homology $H_\bullet^{BM}(X)$}
+is the homology of the chain complex
+of {\bf locally finite} linear combinations
+of singular simplices.
+
+\pause
+\begin{enumerate}
+\item 
+\label{item-pushforward}
+(Pushforward.)
+If $f:X \to Y$ is proper
+then there is a map $f_* :H_i^{BM}(X)\to H_i^{BM}(Y)$.
+
+\pause
+\item 
+\label{item-pullback}
+(Pullback.) If $f:X \to Y$ 
+is a locally trivial fibration with
+fiber a manifold of dimension $m$ (over $\mathbb{R}$),
+then there is a map
+$f^* :H_i^{BM}(Y)\to H_{i+m}^{BM}(X)$.
+
+\pause
+\item  
+\label{item-intersection}
+(Intersection pairing.) If $X$ and $Y$ 
+are both ``nicely embedded'' in the same
+manifold $M$, there is a map
+$$
+\cap_M:H_i^{BM}(X)\times H_j^{BM}(Y)
+\to H_{i+j-m}^{BM}(X\cap Y).
+$$
+\vspace{-1.5em}\pause
+\item 
+\label{item-fundamental-class}
+(Fundamental class.)
+If $X$ is a variety of dimension $d$ over $\mathbb{C}$ then
+there is {\it fundamental class} $[X] \in H^{BM}_{2d}(X)$.
+\end{enumerate}
+\end{frame}
+
+\section{Correspondences}
+
+\begin{frame}%Correspondences
+\frametitle{Correspondences}
+Let $X_1,X_2$ be smooth irreducible varieties
+of dimensions $d_1,d_2$.
+Let $Z$ be a $d$-dimensional 
+closed subvariety of $X_1\times X_2$ 
+such that the projections $p_1$ and $p_2$
+are proper.
+
+\medskip\noindent
+The {\it correspondence} associated to $Z \subset X_1\times X_2$
+is the map
+\begin{align*}
+c_{[Z]}:H_i^{BM}(X_2)&\longrightarrow H_{i+2d-2d_2}^{BM}(X_1)\\
+c&\longmapsto p_{1,*}(p_2^*c\cap [Z])
+\end{align*}
+
+\noindent
+where $p_1$ and $p_2$ are the projections in the following diagram:
+$$
+\xymatrix{
+&Z\ar[ld]_{p_1}\ar[rd]^{p_2} \subset X_1\times X_2\\
+X_1&&X_2.
+}
+$$
+\end{frame}
+
+\begin{frame}%Composition of correspondences
+\frametitle{Composition of correspondences}
+Let $Z_{12} \subset X_1 \times X_2$ and $Z_{23} \subset X_2 \times X_3$
+such that the projections to $X_2$ and $X_3$ are proper.
+The composition of correspondences is
+$$
+[Z_{12}]\circ[Z_{23}]:=p_{13,*}(p_{12}^* [Z_{12}]\cap p_{23}^* [Z_{23}]),
+$$
+$$
+\xymatrix{
+&  X_1 \times X_2 \times X_3\ar[dl]_{p_{12}}\ar[dr]^{p_{23}}\ar[dd]_{p_{13}}\\
+ X_1\times X_2& & X_2\times X_3\\
+& X_1\times X_3.
+}
+$$
+In fact,
+the projection $p_{13}(p_{12}^{-1}Z_{12} \cap p_{23}^{-1} Z_{23})\to X_3$ 
+is proper.
+\end{frame}
+
+
+\section{Main Construction}
+
+\begin{frame}%Main construction
+\frametitle{Main construction}
+Let $i>0$. Define $P[i] \subseteq
+\coprod_nX^{[n-i]}\times X^{[n]}\times X$
+by
+$$
+P[i]:=\coprod_n 
+\left\{(\mathcal{J}_1\supseteq\mathcal{J}_2,x):
+\text{supp}(\mathcal{J}_1/\mathcal{J}_2)=\{x\}\right\}.
+$$
+
+\pause
+Let
+$\alpha \in H_*^{BM}(X)$, $\beta \in H_*(X)$
+and $i>0$. Define
+\begin{align*}
+P_\alpha[i]&=\varpi_*(\Pi_1^*\alpha \cap [P[i]])\\
+P_\beta[i]&=\varpi_*(\Pi_1^*\beta \cap [P[-i]]).
+\end{align*}
+$$
+\xymatrix{
+&  \coprod_n X^{[n-i]}\times X^{[n]}\times X
+\ar[dl]^{\Pi_1}\ar[dr]_{\varpi_i}\\
+X&&\coprod_n X^{[n-i]}\times X^{[n]}.
+}
+$$
+\end{frame}
+
+\begin{frame}%Main theorem
+\frametitle{Main theorem}
+\begin{theorem}[Nakajima, Grojnowski]
+\label{theorem-main}
+If $(\text{deg} \alpha)(\text{deg}\beta)\equiv 0 \text{ mod } 2$,
+$$
+[P_\alpha[i],P_\beta[j]]=(-1)^{i-1}i \delta_{i,-j}
+\left<\alpha,\beta\right>\text{Id},
+$$
+where $\left<\alpha,\beta\right>=p_*(\alpha \cap \beta)$
+for $p:X \to \text{pt}$ the unique morphism
+from $X$ to the point pt.
+\end{theorem}
+\end{frame}
+
+\section{Idea of Proof}
+
+\begin{frame}%Easy case
+\frametitle{Easy case}
+
+Let $x \in X$, $\alpha=[X]$, $\beta=[x]$.
+Take a set of distinct $n$ points
+$x_1,\ldots,x_n \in X\setminus\{x\}$ 
+and identify them with the
+ideal $\mathcal{J}$. Then
+$$
+[P_\alpha[1],P_\beta[-1]][\mathcal{J}]=[\mathcal{J}].
+$$
+
+\pause\vspace{-1em}
+$$
+\xymatrix{
+&X^{[n+1]}\times X^{[n]}\ar[ld]_{p_1}\ar[rd]^{p_2}\\
+X^{[n+1]}&&X^{[n]}.
+}
+$$
+
+\begin{itemize}
+\item $P_{[x]}[-1][\mathcal{J}]=[\{x\}\cup \mathcal{J}]$,
+since we are looking at
+$$
+\{(\mathcal{J'}\supseteq\mathcal{J},x):
+\text{supp}(\mathcal{J}'/\mathcal{J})=\{x\}\}
+\subset X^{[n]} \times X^{[n+1]} \times X.
+$$
+
+\item $P_{[X]}[1]P_{[x]}[-1][\mathcal{J}]$, since
+$$
+\{(\mathcal{J}''\subseteq \mathcal{J}',x)
+:\text{supp}(\mathcal{J}'/\mathcal{J}'')=\{y\},
+\text{ for some }y\in X\}
+$$
+\end{itemize}
+\end{frame}
+
+\begin{frame}%Easy case
+\frametitle{Easy case}
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{fig1.png}
+\end{center}
+
+\end{frame}
+
+\begin{frame}%Proof for i,j>0
+\frametitle{Proof for $i,j>0$}
+
+Let's explain the case $i,j>0$.
+By definition,
+$$
+P_\alpha[i]P_\beta[j]
+=p_{13,*}(p_{12}^*[P[i]]\cap\Pi_1^*\alpha\cap p_{23}^*[P[j]]\cap\Pi_2^*\beta).
+$$
+$$
+\xymatrixcolsep{.2em}
+\xymatrix{
+&  X^{[n-i-j]} \times X^{[n-j]} \times X^{[n]}
+\ar[dl]_{p_{12}}\ar[dr]^{p_{23}}\ar[dd]_{p_{13}}\\
+P[j]\subset X^{[n-j]}\times X^{[n]}& & X^{[n-i-j]}\times X^{[n-j]}\supset P[i]\\
+& X^{[n-i-j]}\times X^{[n]}
+}
+$$
+\end{frame}
+
+\begin{frame}%Proof for i,j>0
+\frametitle{Proof for $i,j>0$}
+\begin{align*}
+P[i,j]&:=p_{12}^{-1}(P[i])\cap p_{23}^{-1}(P[j])
+\cap(X^{[n-i-j]}\times X^{[n-j]}\times X^{[n]})\\
+&=\left\{
+(\mathcal{J}_1\supseteq\mathcal{J}_2\supseteq\mathcal{J}_3):
+\substack{
+\text{supp}(\mathcal{J}_1/\mathcal{J}_2)=\{x\}
+\text{ for some }x\in X\\
+\text{supp}(\mathcal{J}_2/\mathcal{J}_3)=\{y\}
+\text{ for some }y \in X }\right\}
+\end{align*}
+
+\pause
+$P[i,j]$ is the disjoint union of
+of $\{x \neq y\}$ and $\{x=y\}$.
+
+\medskip\noindent
+Let $\overline{P}[i,j]:=\overline{P[i,j]\cap\{x\neq y\}}$.
+Then
+$$
+p_{12}^* [P[i]]\cap p_{23}^* [P[j]]=[\overline{P}[i,j]]+\iota_*R
+$$
+where $R \in H_*^{BM}(P[i,j]\cap \{x=y\})$ corresponds
+to the $\{x=y\}$ part of $P[i,j]$ 
+and $\iota$ is the inclusion.
+\end{frame}
+
+\begin{frame}%Lemma
+\frametitle{Proof for $i,j>0$}
+\begin{lemma}
+\label{lemma-pij}
+\begin{enumerate}
+\item There exists an isomorphism
+$$
+P[i,j]\cap\{x \neq y\}\xrightarrow{\cong}P[j,i]\cap \{x \neq y\},
+$$
+\noindent
+which exchanges $\Pi_1$ and $\Pi_2$.
+
+\item $
+p_{13,*}(\Pi_1^*\alpha\cap\Pi_2^*\beta\cap\iota_*R)=0,\qquad 
+p_{13,*}(\Pi_1\beta\cap\Pi_2^*\alpha\cap\iota_*R')=0.
+$
+\end{enumerate}
+\end{lemma}
+
+\medskip\noindent\pause
+\noindent
+This lemma implies the result since
+\begin{align*}
+P_\alpha[i]P_\beta[j]
+&=(-1)^{\text{deg}\alpha}p_{13,*}((\overline{P}[i,j]+\iota_*R)\cap\Pi_1^*\alpha\cap\Pi_2^*\beta)\\
+&=(-1)^{\text{deg}\alpha\text{deg}\beta}
+p_{13,*}((\overline{P}[j,i]+\iota_*R')\cap\Pi_1^*\beta\cap\Pi_2^*\alpha)\\
+&=P_\beta[j]P_\alpha[i].
+\end{align*}
+\end{frame}
+
+\begin{frame}%Proof of 1.
+\frametitle{Proof of 1.}
+Define an isomorphism by
+$$
+\mathcal{J}_1/\mathcal{J}_2'=\mathcal{J}_2/\mathcal{J}_3,\qquad
+\mathcal{J}_2'/\mathcal{J}_3=\mathcal{J}_1/\mathcal{J}_2.
+$$
+\begin{center}
+\includegraphics[width=0.8\textwidth]{fig2.png}
+\end{center}
+
+\end{frame}
+
+\begin{frame}%Proof of 2.
+\frametitle{Proof of 2.}
+Consider the commutative diagram
+$$
+\xymatrix{
+P[i,j]\cap \{x=y\}\ar[r]^-{\Pi'}\ar[d]_{\iota}&X\ar[d]^{\Delta}\\
+P[i,j]\ar[r]_{\Pi_1 \times \Pi_2}&X \times X.
+}
+$$
+where $\Delta$ is the diagonal embedding
+and $\Pi'$ is any of the projections $\Pi_1$ or $\Pi_2$.
+Then
+\begin{align*}
+\Pi_1^*\alpha \cap \Pi_2^*\beta \cap\iota_*R
+&=\iota_*(\iota^*(\Pi_1^*\alpha\cap\Pi_2^*\beta)\cap R)\\
+&=\iota_*(\iota^*(\Pi_1\times\Pi_2)^*(\alpha\times\beta)\cap R)\\
+&=\iota_*({\Pi'}^*\Delta^*(\alpha\times\beta)\cap R)\\
+&=\iota_*({\Pi'}^*(\alpha\cap\beta)\cap R).
+\end{align*}
+\end{frame}
+
+\begin{frame}%Proof of 2.
+\frametitle{Proof of 2.}
+Consider another commutative diagram:
+$$
+\xymatrix{
+P[i,j]\cap\{x=y\}
+\ar[r]^-{\Pi'}\ar[d]_{p_{13 \circ \iota}}&X\ar@{=}[d]\\
+P[i+j]=\{(\mathcal{J}_1\supseteq\mathcal{J}_3):
+\text{supp}(\mathcal{J}_1/\mathcal{J}_3)=\{x\}\}\ar[r]_-{\Pi''}&X,
+}
+$$
+where $\Pi''$ is the usual projection to $X$ from the
+set $P[i+j]$. Then
+$$
+p_{13,*}\iota_*({\Pi'}^* (\alpha\cap \beta)\cap R)
+={\Pi''}^* (\alpha \cap \beta)\cap p_{13,*}\iota_*(R).
+$$
+Since $P[i+j]$ has less than the ``expected dimension'',
+$p_{13,*}\iota_*(R)=0$.
+\end{frame}
+
+\begin{frame}%Bibliography
+\frametitle{Bibliography}
+\begin{thebibliography}{9}
+\bibitem{nakajima-lectures} Nakajima, H. Lectures on Hilbert schemes of points on surfaces. In: Algebraic Geometry, Santa Cruz 1995, Proc. Sympos. Pure Math., vol. 62, AMS, 1997, pp. 33--104.
+\bibitem{nakajima-paper} Nakajima, H. Heisenberg algebra and Hilbert schemes of points on projective surfaces. Ann. of Math. (2) 145 (1997), no. 2, 379--388.
+\bibitem{fogarty} Fogarty, J. Algebraic families on an algebraic surface. Amer. J. Math. 90 (1968), 511--521.
+\bibitem{fulton} Fulton, W. Young Tableaux. Cambridge University Press, 1997.
+\bibitem{videos} Online videos: \url{https://www.youtube.com/playlist?list=PLtmvIY4GrVv_tNl9B41l6k8Xllk_RGwG0}
+\end{thebibliography}
+\end{frame}
+
+\end{document}

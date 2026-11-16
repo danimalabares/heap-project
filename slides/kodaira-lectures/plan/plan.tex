@@ -1,0 +1,176 @@
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb}
+\definecolor{ink}{HTML}{18364D}
+\setbeamercolor{structure}{fg=ink}
+\setbeamercolor{frametitle}{fg=ink}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{\hfill\insertframenumber\kern1.5em\vskip8pt}
+\setbeamersize{text margin left=10mm,text margin right=10mm}
+\newcommand{\cI}{\mathcal I}
+\newcommand{\cO}{\mathcal O}
+\newcommand{\db}{\bar\partial}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+\title{Curvature and vanishing theorems}
+\subtitle{Bochner--Kodaira, Kodaira, Nadel and Kawamata--Viehweg}
+\author{Daniel}
+\date{Hodge theory}
+\begin{document}
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+% Lecture 16 (Vanya), slide 5.
+\begin{frame}{Bochner--Kodaira identity}
+Let \((X,\omega)\) be Kähler and \(B\) a Hermitian holomorphic line bundle.
+Write its Chern connection as
+\[
+\nabla=\partial_B+\db_B,\qquad \Lambda=(\omega\wedge)^*.
+\]
+Then, on \(B\)-valued differential forms,
+\[
+\boxed{\Delta_{\db_B}=\Delta_{\partial_B}
++[i\Theta_B\wedge,\Lambda].}
+\]
+Here \(\Delta_D=DD^*+D^*D\), and \(\Theta_B\) is the curvature.
+\medskip
+
+The difference between the two Laplacians is a curvature operator.
+\end{frame}
+
+\begin{frame}{Bochner--Kodaira: proof}
+\begin{enumerate}
+\setlength{\itemsep}{8pt}
+\item Put \(P=\partial_B\), \(Q=\db_B\).
+The Kähler identities give
+\(Q^*=-i[\Lambda,P]\), \(P^*=i[\Lambda,Q]\).
+\item Substitute into the Laplacians:
+\[
+\Delta_Q-\Delta_P
+=-i\bigl(Q[\Lambda,P]+[\Lambda,P]Q
++P[\Lambda,Q]+[\Lambda,Q]P\bigr).
+\]
+\item Expand and cancel the \(Q\Lambda P\) and \(P\Lambda Q\) terms:
+\[
+\Delta_Q-\Delta_P=i[PQ+QP,\Lambda].
+\]
+\item Since \(P^2=Q^2=0\),
+\(PQ+QP=\nabla^2=\Theta_B\wedge\). This gives the identity.
+\end{enumerate}
+\end{frame}
+
+% Lecture 16 (Vanya); HP complex-geometry.tex.
+\begin{frame}{Kodaira vanishing theorem}
+Let \((X,\omega)\) be a compact Kähler manifold and \(B\)
+a holomorphic line bundle with a smooth Hermitian metric of positive curvature.
+Then
+\[
+\boxed{H^q(X,K_X\otimes B)=0\qquad(q>0).}
+\]
+\medskip
+Compactness gives a uniform lower bound
+\[
+i\Theta_B\ge\varepsilon\omega,\qquad\varepsilon>0.
+\]
+This is the \(p=n\) case of Kodaira--Nakano vanishing (lecture 16, Vanya).
+\end{frame}
+
+\begin{frame}{Kodaira vanishing: proof}
+\begin{enumerate}
+\setlength{\itemsep}{7pt}
+\item \textbf{Dolbeault.} Identify \(H^q(X,K_X\otimes B)\)
+with \(B\)-valued \((n,q)\)-Dolbeault cohomology.
+\item \textbf{Hodge theory.} Choose a harmonic representative \(u\).
+\item \textbf{Curvature.} Diagonalize \(i\Theta_B\), with
+\(\lambda_j\ge\varepsilon\). On an \((n,q)\) monomial indexed by \(J\),
+the commutator has eigenvalue
+\(\sum_{j\in J}\lambda_j\ge q\varepsilon\).
+\item \textbf{Bochner--Kodaira.} Take its inner product with \(u\):
+\[
+0=\norm{\partial_Bu}^2+\norm{\partial_B^*u}^2
++\langle[i\Theta_B\wedge,\Lambda]u,u\rangle
+\ge q\varepsilon\norm{u}^2.
+\]
+\item For \(q>0\), \(u=0\). Every cohomology class is zero.
+\end{enumerate}
+\end{frame}
+
+% Lecture 23 (Daniel), slides 2 and 12.
+\begin{frame}{Nadel vanishing theorem}
+Let \((X,\omega)\) be compact Kähler and \(B\) have a singular
+Hermitian metric \(h\) such that
+\[
+i\Theta_h\ge\varepsilon\omega,\qquad \varepsilon>0,
+\]
+in the sense of currents. Then
+\[
+\boxed{H^q(X,K_X\otimes B\otimes\cI_h)=0\qquad(q>0).}
+\]
+In a local holomorphic frame with \(|e|_h^2=e^{-2\varphi}\),
+\[
+(\cI_h)_x=\{f\in\cO_{X,x}:|f|^2e^{-2\varphi}
+\text{ is integrable near }x\}.
+\]
+\end{frame}
+
+% Lecture 23 (Daniel), slides 5--12. Explicit analytic inputs.
+\begin{frame}{Nadel vanishing: proof}
+\begin{enumerate}
+\setlength{\itemsep}{7pt}
+\item \textbf{Local resolution.} The weighted Dolbeault lemma
+resolves \(K_X\otimes B\otimes\cI_h\) by locally \(L^2_h\)
+\((n,q)\)-forms with weak \(\db\) in \(L^2_h\).
+\item \textbf{Represent classes.} The resolution is fine.
+A class is represented by a global \(L^2_h\), closed form \(f\).
+\item \textbf{Analytic estimate.} Extend the Bochner--Kodaira estimate
+using singular-weight approximation and complete metrics.
+\item \textbf{Solve.} Weighted \(L^2\) existence gives
+\[
+\db u=f,\qquad \norm{u}_h^2\le(q\varepsilon)^{-1}\norm{f}_h^2.
+\]
+\item Every class is exact, proving the vanishing.
+\end{enumerate}
+\end{frame}
+
+% Lecture 24 (Daniel), slides 13--14.
+\begin{frame}{Kawamata--Viehweg vanishing theorem}
+Let \(X\) be a smooth projective \(n\)-fold and \(L\) a nef and big
+line bundle. Then
+\[
+\boxed{H^q(X,K_X\otimes L)=0\qquad(q>0).}
+\]
+\textbf{Nef:} \(L\cdot C\ge0\) for every irreducible curve \(C\).
+\medskip
+
+\textbf{Big:} \(\displaystyle\limsup_{m\to\infty}
+\frac{h^0(X,L^m)}{m^n}>0\).
+\medskip
+
+\textbf{Kawamata--Viehweg:} obtain vanishing under the weaker
+positivity assumptions \textquotedblleft nef and big\textquotedblright.
+\end{frame}
+
+% Lecture 24 (Daniel), slides 4, 15--16.
+\begin{frame}{Kawamata--Viehweg: proof}
+\small
+\begin{enumerate}
+\setlength{\itemsep}{7pt}
+\item \textbf{Bigness.} Choose a smooth very ample divisor \(A\).
+The restriction sequence and
+\(h^0(A,L^m|_A)=O(m^{n-1})\) give
+\(L^d\simeq\cO_X(A+D)\) with \(D\) effective.
+\item \textbf{Nefness.} For \(N>d\), write
+\[
+L^N\simeq(L^{N-d}\otimes\cO_X(A))\otimes\cO_X(D).
+\]
+The first factor is ample.
+\item \textbf{Metric.} Multiply its positive metric by the divisor
+metric and take the \(N\)-th root. This gives strictly positive curvature on \(L\).
+\item \textbf{Integrability.} Its weight is locally a smooth factor
+times \(|f_D|^{-2/N}\). For fixed \(D\) and large \(N\), this is
+integrable, so \(\cI_h=\cO_X\).
+\item \textbf{Nadel.} Conclude \(H^q(X,K_X\otimes L)=0\) for \(q>0\).
+\end{enumerate}
+\end{frame}
+\end{document}

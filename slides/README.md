@@ -14,7 +14,8 @@ slides/
 ```
 
 A deck starts with `\input{../preamble.tex}` and refers to images as
-`../assets/<file>`. Build one deck with `make <deck>` inside the series
+`../assets/<file>`. A single talk (series `talks`) may instead keep its own
+preamble and images inside its deck folder. Build one deck with `make <deck>` inside the series
 folder, or with `latexmk -pdf <deck>.tex` inside the deck folder.
 
 ## Rules
@@ -39,10 +40,22 @@ folder, or with `latexmk -pdf <deck>.tex` inside the deck folder.
 
 ## Index
 
-| Series | Deck | Occasion |
+The list of published decks is `slides/index.json`.
+
+| Series | Decks | Copied from |
 | --- | --- | --- |
-| `kodaira-lectures` | `lecture-23`: Kodaira embedding theorem (Part 1), the mechanism and Nadel's theorem, 61 slides | Seminar on M. Verbitsky's Hodge theory course (IMPA 2025), November 2026 |
-| `kodaira-lectures` | `lecture-24`: Kodaira embedding theorem (Part 2), embedding, Chow, Kawamata–Viehweg, 60 slides | Same seminar, 16 November 2026 |
+| `dbar-poincare` | `lecture-12`, `lecture-13` | `danimalabares/tmp`, `dbar-poincare/` |
+| `kodaira-lectures` | `plan`, `lecture-23`, `lecture-24` | `danimalabares/tmp`, `kodaira-lectures/` |
+| `reading-seminar` | `session-1` | `danimalabares/tmp`, `reading-seminar/beamer/` |
+| `talks` | `stanley-reisner-opega`, `stanley-reisner-legalzinho` | `danimalabares/daniel`, `others/talks/` |
+| `talks` | `nakajima-heisenberg` | `vertex-algebras` repository, `beamer.tex` |
+
+Changes made when copying (16 November 2026): image paths; the spelling
+"Stanley-Raisner" corrected to "Stanley-Reisner"; `\date{\today}` in the
+Nakajima deck replaced by "November 2025" (from the git history, exact day
+of the talk not verified); `link.png` of the OPEGA deck taken from the
+Legalzinho folder. Most images in the older decks have no source or licence
+line yet.
 
 The Kodaira decks were developed in
 [danimalabares/tmp](https://github.com/danimalabares/tmp/tree/main/kodaira-lectures),
