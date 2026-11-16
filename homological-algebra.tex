@@ -9302,6 +9302,681 @@ end of the proof.
 ``Then is the part on projective space.''
 Above, from ``Projective space'' on.
 
+\section{Projective space, twisting sheaves
+and coherent cohomology}
+\label{section-jethro-2026-11-16}
+
+\noindent
+{\bf Upshot.} Quasicoherence says that a
+sheaf is locally a module, with restriction
+implemented by localization. On the
+noetherian schemes in this course,
+coherence adds finite generation. On
+projective space the twisting sheaves turn
+this local algebra into an explicit
+cohomology calculation: global sections of
+$\mathcal{O}(n)$ are homogeneous polynomials
+of degree $n$, and the remaining
+cohomology is found by tracking Laurent
+monomials through the \v{C}ech complex.
+Finite sums of these sheaves then control
+all coherent sheaves and prove finiteness
+of their cohomology.
+
+\medskip
+Lecture in Jethro van Ekeren's course
+Homological Algebra, IMPA, Monday
+16 November 2026. This continues Section
+\ref{section-jethro-2026-11-11}; the
+quasicoherent definition is already in
+Definition
+\ref{definition-quasicoherent-sheaf-jethro}.
+
+\textit{Sources and coverage.} Daniel's
+written comments; seven board photographs,
+IMG\_4468--IMG\_4474 (4469 and 4470 show
+nearly the same board); and New Recording
+4.m4a, lasting 1 h 30 min 20 s. The whole
+recording was automatically transcribed
+with faster-whisper base, CPU/int8, with
+English detected. Quiet speech and formulas
+are often unreliable, with long poorly
+resolved stretches. The recording begins
+with the elliptic-curve discussion and ends
+with the monomial contracting-homotopy
+argument. Coherence and the final finiteness
+statement are supported by Daniel's notes
+and the course PDF, not by this recording.
+
+The course PDF
+\cite{vanEkerenHomologicalAlgebra2026},
+retrieved on 16 November, has 208 pages;
+Sections 8.5--8.6, printed pp. 171--178,
+cover this material. Proposition 8.6.4 is
+unfinished in that version. These are
+edited lecture notes, not a verbatim
+transcript. Explanations and proof details
+added below are marked editorial; exact
+reference checks are given where used.
+
+\medskip\noindent
+{\bf Homogeneous algebra and affine charts.}
+Recall the standard grading
+$$
+S=\mathbb{C}[X_0,\ldots,X_r]
+=\bigoplus_{k\geq0}S_k,
+\qquad \deg X_i=1.
+$$
+A graded ring has $S_kS_l\subset S_{k+l}$;
+a graded module $M=\bigoplus M_l$ has
+$S_kM_l\subset M_{k+l}$. A homogeneous
+ideal is the direct sum of its homogeneous
+parts. The board's nonexample is
+$(X^2+X)\subset\mathbb{C}[X]$: it contains
+$X^2+X$ but neither homogeneous component.
+Indeed it contains no nonzero homogeneous
+polynomial. Homogeneous equations have
+conical zero sets upstairs and therefore
+define closed sets in projective space.
+
+For a nonconstant homogeneous $f$, put
+$D_+(f)=\mathbb{P}^r\setminus V(f)$. Then
+$$
+D_+(f)=\mathrm{Spec}((S_f)_0),
+\qquad
+\mathcal{O}(D_+(f))=(S_f)_0.
+$$
+\textit{Editorial explanation.} Inverting
+$f$ allows denominators; taking degree zero
+makes a fraction independent of the choice
+of homogeneous representative of a point.
+If $\deg g=m\deg f$, then $g/f^m$ is
+unchanged under simultaneous rescaling of
+all coordinates. This explains both parts
+of the construction.
+
+For $\mathbb{P}^1$, write $D_i=D_+(X_i)$,
+$z=X_1/X_0$ and $w=X_0/X_1$. Then
+$$
+\begin{aligned}
+\mathcal{O}(D_0)&=\mathbb{C}[z],\\
+\mathcal{O}(D_1)&=\mathbb{C}[w],\\
+\mathcal{O}(D_0\cap D_1)
+&=\mathbb{C}[z,z^{-1}],\quad w=z^{-1}.
+\end{aligned}
+$$
+Here the localization maps are exactly the
+restriction maps of the structure sheaf.
+
+\medskip\noindent
+{\bf The elliptic curve example (board).}
+The affine cubic from the earlier lectures
+is completed to the projective cubic
+$$
+E=V(X_0X_2^2-4X_1^3-aX_0^2X_1-bX_0^3)
+\subset\mathbb{P}^2.
+$$
+We assume this is smooth, as in the
+elliptic-curve example. On $D_0$, with
+$x=X_1/X_0$, $y=X_2/X_0$, its equation is
+$$
+y^2=4x^3+ax+b.
+$$
+The missing point is $[0:0:1]$. On $D_1$,
+with $u=X_0/X_1$, $v=X_2/X_1$, it is
+$$
+uv^2=4+au^2+bu^3.
+$$
+These formulas also follow by direct
+substitution in the homogeneous equation.
+
+\begin{quote}
+\textbf{Daniel's comment.}
+``Interesting remark: in discussing the
+ affine curves that glue up to construct
+ the elliptic curve as a scheme, it's
+ interesting that taking any point away
+ from the elliptic curve gives us an affine
+ piece of the shape
+ $uv^2=4+au^2v+bu^3$. That is: taking away
+ any point gives an affine piece of this
+ kind. That's not true for higher genus
+ curves: we might get pieces that are
+ \textit{not} isomorphic. This is a property
+ of elliptic curves and it's related to
+ them being abelian varieties (having a
+ group operation.)''
+\end{quote}
+
+\noindent
+\textbf{Editorial clarification.} The group
+law gives an isomorphism
+$$
+E\setminus\{p\}\longrightarrow
+E\setminus\{0\},\qquad x\longmapsto x-p.
+$$
+Thus removing any one point gives an affine
+curve isomorphic to the first Weierstrass
+chart. This is the translation argument
+heard at about 1:35--4:25 in the recording.
+However, the second displayed chart is not
+in general the complement of one point:
+$X_1=0$ also meets the cubic away from
+infinity. For $b\neq0$ it removes three
+distinct points. A student raises this
+finite-number-of-points caveat at about
+4:25--5:15. Also, the term in its equation
+is $au^2$, without $v$. The higher-genus
+comparison is a motivation from the talk;
+we do not assert that every two punctured
+higher-genus curves are nonisomorphic.
+
+\medskip\noindent
+{\bf What quasicoherence actually says.}
+Let $U=\mathrm{Spec}(A)$ be an affine chart
+and $N$ an $A$-module. The associated sheaf
+has
+$$
+\Gamma(U,\widetilde N)=N,\qquad
+\Gamma(D_U(g),\widetilde N)=N_g.
+$$
+The ring of functions on the smaller open
+is $A_g$, and the module there is obtained
+from the same $N$ by extending scalars:
+$$
+N_g=N\otimes_A A_g.
+$$
+So a quasicoherent sheaf does not assign
+unrelated modules to smaller affine opens:
+its restriction maps are those prescribed
+by localization. The equivalence between
+this description on every affine chart and
+the local definition was discussed in
+Section \ref{section-jethro-2026-11-09}.
+
+For a graded $S$-module $M$, the projective
+construction is
+$$
+\Gamma(D_+(f),\widetilde M)=(M_f)_0.
+$$
+This is a module over $(S_f)_0$. The action
+comes from localized multiplication:
+$$
+(S_f)_0\times(M_f)_0\longrightarrow(M_f)_0.
+$$
+On each standard chart it is the ordinary
+affine module-sheaf construction above;
+the localized descriptions agree on
+intersections, so they glue. This is the
+quasicoherent sheaf associated to $M$.
+
+\begin{quote}
+\textbf{Daniel's intuition and question.}
+``I liked this part because it helps me
+ develop intuition of what quasicoherent
+ means:
+
+For $S=\mathbb{C}[X0,\ldots,Xr]$ in general,
+ a graded $S$-module $M$ gives a
+ quasicoherent sheaf Tilde $M$ by
+ localization. Indeed
+ $(S_f)_0\hookrightarrow(M_f)_0$, yielding
+ compatibility Tilde $M_i$ in $Sh(D_i)$.
+
+That is: the affine pieces of this sheaf
+ are given by the proper localizations of
+ the modules. Recall that the basic open
+ sets where the structure sheaf is defined
+ are related to localization (OK, my wording
+ was sloppy here, help me out a bit).''
+\end{quote}
+
+\noindent
+\textbf{Editorial answer.} Yes: on an
+affine chart, shrinking to a distinguished
+open localizes both its function ring and
+its module of sections. On projective
+space we first take degree zero to obtain
+that chart's ring and module. The one
+correction is that there is no canonical
+inclusion $(S_f)_0\hookrightarrow(M_f)_0$
+for an arbitrary module $M$. There is a
+module action, as displayed above.
+
+\medskip\noindent
+{\bf Twisting sheaves: shifting the grading.}
+Using the convention from last time, put
+$$
+S(n)_k=S_{n+k},\qquad
+\mathcal{O}(n)=\widetilde{S(n)}.
+$$
+Hence
+$$
+\Gamma(D_i,\mathcal{O}(n))=(S_{X_i})_n.
+$$
+On $\mathbb{P}^1$ this becomes
+$$
+\begin{aligned}
+\Gamma(D_0,\mathcal{O}(n))
+&=\mathbb{C}[z]X_0^n,\\
+\Gamma(D_1,\mathcal{O}(n))
+&=\mathbb{C}[w]X_1^n.
+\end{aligned}
+$$
+The symbols $X_i^n$ are local frames, even
+when $n<0$. On the overlap,
+$X_1^n=z^nX_0^n$. Thus these modules recover
+the line-bundle transition functions from
+Section \ref{section-jethro-2026-11-11}.
+The notation means a section of a line
+bundle, not necessarily a global function.
+
+\begin{quote}
+\textbf{Daniel's question.}
+``Yikes! Jethro just computed
+ $H^0(\mathbb{P}^1,\mathcal{O}(1))
+ =\mathbb{C}X_0+\mathbb{C}X_1$.
+ I missed why.''
+
+``By his picture on the polynomial ring as
+ generated by monomials (it looks like a
+ cone with constants in the vertex, then
+ X0 and X1 above, then X0\^{}2, X0X1,
+ X1\^{}2 above, etc.) he barely counts how
+ many items are in the `level' determined
+ by the n in O(n): for n=0 we are in the
+ lowest level, i.e. we get constants and
+ H0(O)=C. For n=1 we have two items in level
+ 1, X0 and X1, and H0(O(1))=CX0+CX1.
+ Why does this work?''
+\end{quote}
+
+\noindent
+\textbf{Editorial answer: gluing comes
+before counting.} A global section is
+$p(z)X_0^n$ on $D_0$ and $q(w)X_1^n$ on
+$D_1$, with both coefficient functions
+polynomial. Equality on the overlap means
+$$
+p(z)=z^nq(1/z),\qquad
+q(w)=w^np(1/w).
+$$
+If $n=1$ and $p(z)=\sum_{j\geq0}a_jz^j$,
+then
+$$
+q(w)=\sum_{j\geq0}a_jw^{1-j}.
+$$
+Regularity at $w=0$ forces $a_j=0$ for
+$j>1$. Therefore
+$$
+p(z)X_0=a_0X_0+a_1X_1,
+$$
+and every such expression does glue. This
+proves the answer, including that there
+are no additional sections.
+
+For $n\geq0$, exactly the same argument
+allows $\deg p\leq n$, giving the basis
+$$
+X_0^n,\ X_0^{n-1}X_1,\ \ldots,\ X_1^n.
+$$
+For $n<0$, no nonzero polynomial $p$ makes
+$w^np(1/w)$ regular. So
+$h^0(\mathbb{P}^1,\mathcal{O}(n))=0$.
+The board's cone counts these basis
+monomials: shifting down by $n$ moves the
+old degree-$n$ level into degree zero.
+The reason that level computes global
+sections is the compatibility just proved;
+it is not a general rule that every
+$\widetilde M$ has global sections $M_0$.
+
+For $r\geq1$ the corresponding statement
+is
+$$
+H^0(\mathbb{P}^r,\mathcal{O}(n))=S_n.
+$$
+Here $S_n=0$ for $n<0$; for $n\geq0$ its
+dimension is $\binom{n+r}{r}$. One can see
+this by intersecting all $(S_{X_i})_n$ in
+the Laurent polynomial ring: a monomial
+allowed on every chart must have every
+exponent nonnegative. The explicit
+cohomology reference is the Stacks
+Project, Lemma 30.8.1, Section 30.8
+\cite{stacks-project}.
+
+\medskip\noindent
+{\bf Computing all twists at once (board
+and spoken).} Jethro's useful shortcut is
+to package the twists as the graded sheaf
+$$
+\mathcal{G}=\bigoplus_{n\in\mathbb{Z}}
+\mathcal{O}(n).
+$$
+Its sections on a chart are the whole
+localized graded ring, rather than one
+homogeneous piece. The ordered \v{C}ech
+complex has terms
+$$
+C^p=\bigoplus_{i_0<\cdots<i_p}
+S_{X_{i_0}\cdots X_{i_p}},
+\qquad 0\leq p\leq r.
+$$
+The differentials are alternating sums of
+localization maps. All preserve polynomial
+degree. The degree-$n$ subcomplex computes
+$H^q(\mathbb{P}^r,\mathcal{O}(n))$.
+This computes sheaf cohomology because all
+finite intersections in the cover are
+affine and the sheaves are quasicoherent;
+use the affine acyclicity theorem and
+Leray's theorem from the earlier sections.
+
+\medskip\noindent
+{\bf The full calculation on
+$\mathbb{P}^1$.} With $S=\mathbb{C}[X_0,X_1]$
+the complex is
+$$
+0\longrightarrow S_{X_0}\oplus S_{X_1}
+\xrightarrow{\ d\ }S_{X_0X_1}
+\longrightarrow0,
+\qquad d(a,b)=b-a.
+$$
+Its kernel is the common intersection $S$.
+Its cokernel has monomial basis
+$$
+[X_0^{-a}X_1^{-b}],\qquad a,b\geq1.
+$$
+Indeed a Laurent monomial with a
+nonnegative $X_1$ exponent already lies in
+$S_{X_0}$, and one with a nonnegative
+$X_0$ exponent lies in $S_{X_1}$. Both are
+boundaries. A monomial with both exponents
+negative lies in neither source summand,
+and linear independence of Laurent
+monomials shows that its class survives.
+Taking total degree $n$ gives
+$$
+H^1(\mathbb{P}^1,\mathcal{O}(n))
+=\bigoplus_{\substack{a,b\geq1\\a+b=-n}}
+\mathbb{C}[X_0^{-a}X_1^{-b}].
+$$
+There are no such pairs for $n\geq-1$.
+For $n=-m-1$, $m\geq1$, there are $m$:
+$(a,b)=(1,m),(2,m-1),\ldots,(m,1)$.
+Thus
+$$
+h^1(\mathbb{P}^1,\mathcal{O}(-m-1))=m.
+$$
+In particular $\mathcal{O}(-1)$ has no
+$H^0$ or $H^1$, while $\mathcal{O}(-2)$
+has a one-dimensional $H^1$ represented
+by $(X_0X_1)^{-1}$.
+
+\begin{quote}
+\textbf{Daniel's comment.}
+``OK, I didn't follow it. But he went all
+ the way to h1(P1,O(-1-n))=n for n\(\geq\)1
+ via Cech cohomology.''
+\end{quote}
+
+\noindent
+\textbf{Editorial answer.} The surviving
+classes are precisely the Laurent monomials
+with both exponents negative. Fixing their
+sum to be $-1-n$ leaves exactly $n$ choices.
+This is the missing counting step.
+
+\medskip\noindent
+{\bf Why intermediate cohomology vanishes.}
+For a fixed Laurent monomial
+$X^\alpha=\prod_{i=0}^rX_i^{\alpha_i}$, put
+$$
+N(\alpha)=\{i:\alpha_i<0\}.
+$$
+This monomial occurs in the summand indexed
+by $I$ exactly when $N(\alpha)\subset I$:
+only inverted variables can have negative
+exponents. Since the differential preserves
+each monomial, the complex splits into
+these small complexes. This is the
+argument sketched in the recording's last
+17 minutes.
+
+\textit{Editorial completion of the
+sketch.} If $N(\alpha)$ is empty, this is
+the ordinary cochain complex of the full
+simplex; it contributes one copy of
+$\mathbb{C}$ in degree zero. If all
+$r+1$ exponents are negative, only the final
+term occurs, contributing one copy in
+degree $r$. In every other case, choose an
+index $j\notin N(\alpha)$. Inserting $j$
+into the index set, with the alternating
+sign, defines the usual contracting
+homotopy: membership of $N(\alpha)$ is
+preserved on deleting $j$, so this pairing
+is allowed throughout. Thus the complex
+is acyclic. A full written verification
+is in Stacks, Lemma 30.8.1
+\cite{stacks-project}.
+
+Consequently, for $r\geq1$,
+$$
+H^r(\mathbb{P}^r,\mathcal{O}(n))
+=\bigoplus_{\substack{a_i\geq1\\
+\sum_{i=0}^r a_i=-n}}
+\mathbb{C}[X_0^{-a_0}\cdots X_r^{-a_r}].
+$$
+It vanishes for $n\geq-r$. For
+$n\leq-r-1$ its dimension is
+$\binom{-n-1}{r}$. All groups with
+$0<q<r$ or $q>r$ vanish. The brackets here
+mean cohomology classes; the negative-power
+expressions are not global regular
+sections of $\mathcal{O}(n)$.
+
+\medskip\noindent
+{\bf Coherent sheaves: finite local algebra.}
+The following part is reconstructed from
+Daniel's written notes and Section 8.6 of
+Jethro's PDF, with the definitions checked
+against Stacks, Lemma 30.9.1
+\cite{stacks-project}.
+
+\begin{quote}
+\textbf{Daniel's upshot.}
+``This is the most important part of today:
+
+Coherent means: not only the local pieces
+ of the modules are localizations by the
+ corresponding localizations that defines
+ the local open sets, BUT: the local pieces
+ are finitely generated. That's it.''
+\end{quote}
+
+\noindent
+\textbf{Editorial answer.} Exactly in our
+noetherian setting. On each affine chart
+$U=\mathrm{Spec}(A)$, quasicoherence gives
+one module $N$, and coherence says that
+$N$ has finitely many $A$-module
+generators. Finite generation is over the
+coordinate ring, not over $\mathbb{C}$.
+For example $\mathbb{C}[z]$ is infinite
+dimensional over $\mathbb{C}$ but generated
+by $1$ over itself. Thus the structure
+sheaf of the affine line is coherent.
+
+\begin{definition}
+\label{definition-coherent-sheaf-jethro}
+Let $X$ be a locally noetherian scheme.
+A quasicoherent sheaf $\mathcal{F}$ is
+\textit{coherent} if it has an affine open
+cover $U_i=\mathrm{Spec}(A_i)$ such that
+$$
+\mathcal{F}|_{U_i}\cong\widetilde{N_i}
+$$
+with each $N_i$ finitely generated over
+$A_i$.
+\end{definition}
+
+Equivalently, locally there is a finite
+presentation
+$$
+\mathcal{O}_U^m\longrightarrow
+\mathcal{O}_U^n\longrightarrow
+\mathcal{F}|_U\longrightarrow0.
+$$
+The last map chooses finitely many
+section generators; the preceding map
+records finitely many relations among
+them. Over a noetherian ring, the kernel
+of every map from a finite free module is
+finitely generated. This explains why
+finite generation already supplies all the
+relations required for coherence here.
+
+On a general ringed space the definition
+requires local finite generation of the
+sheaf and of the kernel of every map
+$\mathcal{O}_U^n\to\mathcal{F}|_U$ with
+$n$ finite. It is a condition on sheaves,
+not merely on a chosen module of sections
+over an arbitrary open. Without the
+noetherian hypothesis, finite generation
+alone does not suffice.
+
+\begin{example}
+\label{example-coherence-not-local-freeness}
+On the affine line
+$\mathbb{A}^1=\mathrm{Spec}(\mathbb{C}[z])$,
+the sheaf associated to
+$\mathbb{C}[z]/(z)$ is coherent. It is
+supported at the origin and is not locally
+free. It is the cokernel of
+$$
+\mathcal{O}_{\mathbb{A}^1}
+\xrightarrow{\ z\ }
+\mathcal{O}_{\mathbb{A}^1}.
+$$
+Thus kernels and cokernels of maps between
+vector bundles need not remain vector
+bundles, whereas coherent sheaves on a
+noetherian scheme form an abelian category.
+At the other extreme,
+$$
+\bigoplus_{m\geq0}\mathcal{O}_{\mathbb{A}^1}
+$$
+is quasicoherent but not coherent.
+\end{example}
+
+\medskip\noindent
+{\bf Cartan--Serre finiteness.}
+The distinction between finite generation
+over a ring and finite dimension over a
+field is crucial: affine coherent sheaves may have
+infinitely many global sections, as the
+structure sheaf of $\mathbb{A}^1$ does.
+Projectivity supplies the global
+finiteness conclusion.
+
+\begin{theorem}[Cartan--Serre]
+\label{theorem-jethro-2026-11-16-finiteness}
+Let $X\subset\mathbb{P}^r_{\mathbb{C}}$ be a
+projective variety and $\mathcal{F}$ a
+coherent sheaf on $X$. For every $q\geq0$,
+$$
+\dim_{\mathbb{C}}H^q(X,\mathcal{F})<\infty.
+$$
+Moreover $H^q(X,\mathcal{F})=0$ for $q>r$.
+\end{theorem}
+
+This is Theorem 8.6.3 of the course PDF
+for finiteness. The bound follows from
+the affine cover. Checked references:
+Stacks, Lemma 30.14.1 for projective space,
+and Lemma 30.19.2 for the more general
+proper finiteness statement
+\cite{stacks-project}. The course PDF
+also cites \cite[Theorem III.5.1]{har};
+that book's numbering was not independently
+checked here.
+
+\begin{proof}[Editorial expansion of the
+proof outline]
+For the closed embedding
+$i:X\hookrightarrow\mathbb{P}^r$,
+$i_*\mathcal{F}$ is coherent. Locally this
+just regards a finite $A/I$-module as a
+finite $A$-module. Extension by zero along
+a closed embedding is exact, preserves
+flabby resolutions, and gives
+$$
+H^q(X,\mathcal{F})
+=H^q(\mathbb{P}^r,i_*\mathcal{F}).
+$$
+So it suffices to work on projective space.
+Its standard cover has $r+1$ affine opens
+and affine intersections; the \v{C}ech
+complex stops in degree $r$. This proves
+the asserted high-degree vanishing.
+
+The further input is a surjection
+$$
+\mathcal{E}=\bigoplus_{j=1}^t
+\mathcal{O}(a_j)\longrightarrow\mathcal{F}
+$$
+with $t$ finite. This is Stacks, Lemma
+30.14.1(1). The mechanism is to twist
+$\mathcal{F}$ sufficiently positively so
+that finite sets of local generators
+extend to global generators, then untwist.
+We use that extension result here; it does
+not follow merely from writing the
+\v{C}ech differentials.
+
+The kernel $\mathcal{K}$ is coherent, so
+$$
+0\longrightarrow\mathcal{K}
+\longrightarrow\mathcal{E}
+\longrightarrow\mathcal{F}
+\longrightarrow0
+$$
+gives, abbreviating cohomology on
+$\mathbb{P}^r$,
+$$
+H^q(\mathcal{E})\longrightarrow
+H^q(\mathcal{F})\longrightarrow
+H^{q+1}(\mathcal{K}).
+$$
+We prove finiteness for all coherent
+sheaves simultaneously by descending
+induction on $q$. It holds for $q>r$ by
+vanishing. The left term is finite by the
+explicit twisting-sheaf computation; the
+right term is finite by induction. By
+exactness the middle term is finite too.
+This reaches $q=0$ and finishes the proof.
+\end{proof}
+
+\begin{quote}
+\textbf{Daniel's proof idea.}
+``Embed X in projective space and use the
+ standard differentials of the Chech cover
+ of projecive space.''
+\end{quote}
+
+\noindent
+\textbf{Editorial answer.} Yes, with one
+essential bridge: finite sums of twists
+surject onto any coherent sheaf. Coherence
+keeps their kernels in the same category,
+so the long exact sequence transfers the
+explicit \v{C}ech computation to every
+coherent sheaf.
+
 \bibliography{my}
 \bibliographystyle{amsalpha}
 
