@@ -93,6 +93,8 @@ They are not chapters: do not add them to
 `GERBY_FILES`, and the style rules above
 (no macros, 45-character lines, no text in
 equations) do not apply inside `slides/`.
+Decks listed in `slides/index.json` are
+published on the website at `/slides`.
 
 Generated files and directories such as
 `gerby/`, `tmp/`, `.venv/`, and build

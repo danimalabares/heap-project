@@ -46,7 +46,7 @@ book.pdf: tmp/book.tex my.bib
 	$(PDFLATEX) $(PDFLATEXFLAGS) tmp/book
 	$(PDFLATEX) $(PDFLATEXFLAGS) tmp/book
 
-.PHONY: gerby-book gerby-tags gerby-render gerby-import gerby-downloads gerby-deploy-build gerby-serve gerby-serve-prod gerby-smoke
+.PHONY: gerby-book gerby-tags gerby-render gerby-import gerby-downloads gerby-slides gerby-deploy-build gerby-serve gerby-serve-prod gerby-smoke
 
 .PHONY: gerby-registry-check gerby-register gerby-book-source gerby-explain
 
@@ -87,7 +87,15 @@ gerby-downloads: gerby-registry-check $(PDFS)
 	cp book.pdf gerby/downloads/book.pdf
 	cp $(patsubst %.tex,%.pdf,$(GERBY_FILES)) gerby/downloads/
 
+# Beamer decks listed in slides/index.json.
+# They are not chapters; see slides/README.md.
+gerby-slides:
+	$(PYTHON) scripts/build_slides.py
+
+# A deck that fails to build must not stop
+# the deployment of the book.
 gerby-deploy-build: gerby-import gerby-downloads
+	-$(MAKE) gerby-slides
 
 gerby-serve:
 	cd gerby-website && PYTHONPATH=. FLASK_APP=gerby $(PYTHON) -m flask run --host 127.0.0.1 --port $(GERBY_PORT)

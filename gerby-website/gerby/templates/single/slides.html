@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}Slides{% endblock %}
+
+{% block breadcrumb %}
+  <li><a href="/slides">Slides</a>
+{% endblock %}
+
+{% block hamburger %}
+  {{ macros.singlePageLinks() }}
+{% endblock %}
+
+{% block body %}
+<h2>Slides</h2>
+<p>Slides of talks and seminar lectures. They are not chapters of the book and have no tags.
+
+{% for series in slides %}
+<h3>{{ series.series_title }}</h3>
+<p>{{ series.occasion }}
+<ul>
+  {% for deck in series.decks %}
+  <li>
+    {% if deck.pdf %}<a href="/download/{{ deck.pdf }}">{{ deck.title }}</a>{% else %}{{ deck.title }}{% endif %}{% if deck.subtitle %}: {{ deck.subtitle }}{% endif %}{% if deck.date %} ({{ deck.date }}){% endif %}.
+    <a href="{{ deck.source }}">TeX source</a>{% if not deck.pdf %} (pdf not available){% endif %}
+  {% endfor %}
+</ul>
+{% else %}
+<p>No slides yet.
+{% endfor %}
+{% endblock %}

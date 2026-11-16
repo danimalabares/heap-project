@@ -21,6 +21,13 @@ folder, or with `latexmk -pdf <deck>.tex` inside the deck folder.
 
 - Slides are not chapters. They are not in `GERBY_FILES`, get no tags, and
   are not part of `book.tex`.
+- Slides are published on the website. Every deck listed in
+  `slides/index.json` is built by `make gerby-slides`
+  (`scripts/build_slides.py`) into `gerby/downloads/slides/` and appears on
+  the page `/slides`, with a link to its PDF and to its TeX source. The
+  deployment runs this step and does not fail if a deck fails to build: the
+  page then shows that deck without a PDF link.
+- To publish a new deck, add it to `slides/index.json`.
 - The chapter style rules of `AGENTS.md` (no macros, 45-character lines, no
   text in equations) do not apply here. A series may define its own macros
   in its `preamble.tex`.

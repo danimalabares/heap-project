@@ -190,3 +190,4 @@ import gerby.views.tag
 
 # Heap Project specific pages
 import gerby.views.stacks
+import gerby.views.slides
