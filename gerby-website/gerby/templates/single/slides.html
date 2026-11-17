@@ -12,19 +12,27 @@
 
 {% block body %}
 <h2>Slides</h2>
-<p>Slides of talks and seminar lectures. They are not chapters of the book and have no tags.
 
-{% for series in slides %}
-<h3>{{ series.series_title }}</h3>
-<p>{{ series.occasion }}
-<ul>
-  {% for deck in series.decks %}
-  <li>
+{% macro line(deck) %}
     {% if deck.pdf %}<a href="/download/{{ deck.pdf }}">{{ deck.title }}</a>{% else %}{{ deck.title }}{% endif %}{% if deck.subtitle %}: {{ deck.subtitle }}{% endif %}{% if deck.date %} ({{ deck.date }}){% endif %}.
     <a href="{{ deck.source }}">TeX source</a>{% if not deck.pdf %} (pdf not available){% endif %}
+{% endmacro %}
+
+<ul>
+  {% for entry in slides %}
+  <li>
+    {% if entry.decks %}
+    {{ entry.title }}
+    <ul>
+      {% for deck in entry.decks %}
+      <li>{{ line(deck) }}
+      {% endfor %}
+    </ul>
+    {% else %}
+    {{ line(entry) }}
+    {% endif %}
+  {% else %}
+  <li>No slides yet.
   {% endfor %}
 </ul>
-{% else %}
-<p>No slides yet.
-{% endfor %}
 {% endblock %}

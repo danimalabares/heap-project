@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Build the beamer decks listed in slides/index.json.
 
+The manifest is a list. An entry is either a deck, with a "path"
+<series>/<deck>, or a group with a "title" and a list "decks".
 Each deck slides/<series>/<deck>/<deck>.tex is compiled twice
 with pdflatex in a temporary directory, and the PDF is copied to
 gerby/downloads/slides/<series>/<deck>.pdf, where the website
@@ -58,9 +60,10 @@ def main():
     with open(str(SLIDES / "index.json")) as handle:
         index = json.load(handle)
     ok = True
-    for series in index:
-        for deck in series["decks"]:
-            ok = build(series["series"], deck["deck"]) and ok
+    for entry in index:
+        for deck in entry.get("decks", [entry]):
+            series, name = deck["path"].split("/")
+            ok = build(series, name) and ok
     return 0 if ok else 1
 
 

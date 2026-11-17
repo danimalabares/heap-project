@@ -16,11 +16,12 @@ def load_slides():
   with open(path) as f:
     index = json.load(f)
 
-  for series in index:
-    for deck in series["decks"]:
-      filename = os.path.join("slides", series["series"], deck["deck"] + ".pdf")
+  for entry in index:
+    for deck in entry.get("decks", [entry]):
+      name = deck["path"].split("/")[-1]
+      filename = os.path.join("slides", deck["path"] + ".pdf")
       deck["pdf"] = filename if os.path.isfile(os.path.join(DOWNLOADS, filename)) else None
-      deck["source"] = "https://github.com/danimalabares/heap-project/blob/main/slides/%s/%s/%s.tex" % (series["series"], deck["deck"], deck["deck"])
+      deck["source"] = "https://github.com/danimalabares/heap-project/blob/main/slides/%s/%s.tex" % (deck["path"], name)
 
   return index
 
