@@ -2,54 +2,26 @@
 
 {% block title %}Recent changes{% endblock %}
 
-{% block head %}
-  <script type="text/javascript" src="/static/js/toggle.js"></script>
-
-  <style type="text/css">
-dl#changes dt + dd {
-  border-left: 1px solid black;
-}
-
-pre.commit-message {
-  margin: 0;
-}
-  </style>
-{% endblock %}
-
 {% block breadcrumb %}
   <li><a href="/recent-changes">Recent changes</a>
 {% endblock %}
 
 {% block hamburger %}
-  <div class="interaction"></div>
+  {{ macros.singlePageLinks() }}
 {% endblock %}
 
 {% block body %}
-  <p>These are the recent changes to the tags <em>on the website</em>. The website is regularly updated, but it is possible that <a href="https://github.com/danimalabares/heap-project">the repository</a> is slightly ahead.
+<h2>Recent changes</h2>
 
-  <dl id="changes" class="row">
-    {% for commit in commits %}
-      <dt class="col-sm-3">{{ commit.time.strftime("%b %-d, %Y") }}</dt>
-      <dd class="col-sm-9"><a href="https://github.com/danimalabares/heap-project/commit/{{ commit.hash }}">{{ commit.hash[0:7] }}</a></dd>
-      <dd class="col-sm-9 offset-sm-3"><pre class="commit-message">{{ commit.log.splitlines()[0] }}</pre>
-      <dd class="col-sm-9 offset-sm-3">
-        {% if commit.tags | length > 20 %}<p>More than 20 tags were affected, see the commit for more information.
-        {% else %}
-          <ul>
-            {% for tag in commit.tags %}
-              <li>{{ tag.type | capitalize }} <a href="/tag/{{ tag.tag }}" data-tag="{{ tag.tag }}">{{ tag.ref }}</a>
-              {#
-              {% for parent in tag.breadcrumb %}
-                {{ parent.type | capitalize }} <a href="/tag/{{ parent.tag }}" data-tag="{{ parent.tag }}">{{ parent.ref }}</a>{% if parent.name %}: {{ parent.name }}{% endif %}{% if not loop.last %}, {% endif %}
-              {% endfor %}
-              #}
-            {% endfor %}
-          </ul>
-        {% endif %}
-    {% endfor %}
-  </dl>
+<ul>
+  {% for change in changes %}
+  <li>{{ change.date }}: <a href="{{ change.link }}">{{ change.title }}</a>
+  {% else %}
+  <li>The list could not be loaded. See the <a href="https://github.com/danimalabares/heap-project/commits">commit history</a>.
+  {% endfor %}
+</ul>
 {% endblock %}
 
 {% block sidebar %}
-  <div class="interaction"></div>
+  {{ macros.singlePageLinks() }}
 {% endblock %}

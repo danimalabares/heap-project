@@ -35,7 +35,7 @@ feeds = {
   "github": {
     "url": "https://github.com/danimalabares/heap-project/commits/main.atom",
     "title": "Recent changes",
-    "link": "https://github.com/danimalabares/heap-project/commits",
+    "link": "/recent-changes",
   },
 }
 

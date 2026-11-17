@@ -461,9 +461,19 @@ def download_pdf(filename):
 
 @app.route("/recent-changes")
 def show_recent_changes():
-  commits = Commit.select().order_by(Commit.time.desc()).limit(10)
-  for commit in commits:
-    commit.time = datetime.datetime.strptime(commit.time.decode(), "%Y-%m-%d %H:%M:%S %z")
-    commit.tags = sorted(Tag.select().join(Change).where(Change.commit == commit, Change.action << ["tag", "statement", "proof", "statement and proof"]).distinct())
+  # the commits of the repository, from the feed that the homepage also uses
+  import time
+  import feedparser
+  from gerby.application import update_feeds, feedsDirectory
 
-  return render_template("stacks/changes.html", commits=commits)
+  update_feeds()
+  feed = feedparser.parse(feedsDirectory + "/github.feed")
+  changes = []
+  for entry in feed.entries:
+    changes.append({
+      "date": time.strftime("%-d %b %Y", entry.updated_parsed),
+      "title": " ".join(entry.title.split()),
+      "link": entry.link,
+    })
+
+  return render_template("stacks/changes.html", changes=changes)
