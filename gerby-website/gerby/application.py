@@ -33,14 +33,9 @@ app.config.from_object(__name__)
 
 feeds = {
   "github": {
-    "url": "https://github.com/danimalabares/heap-project/commits/master.atom",
-    "title": "Recent commits",
+    "url": "https://github.com/danimalabares/heap-project/commits/main.atom",
+    "title": "Recent changes",
     "link": "https://github.com/danimalabares/heap-project/commits",
-  },
-  "blog": {
-    "url": "https://www.math.columbia.edu/~dejong/wordpress/?feed=rss2",
-    "title": "Recent blog posts",
-    "link": "https://www.math.columbia.edu/~dejong/wordpress",
   },
 }
 
