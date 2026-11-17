@@ -1,0 +1,226 @@
+\input{../../preamble.tex}
+\title{The curvature inequality \(i\Theta_B\ge\varepsilon\omega\)}
+\subtitle{Archived from lecture 23: the smooth estimate with a fixed K\"ahler form}
+\date{Hodge theory}
+\begin{document}
+\begin{frame}\titlepage\end{frame}
+
+\begin{frame}{What this is}
+These slides were removed from the lecture 23 deck on 13 November 2026.
+\par\medskip
+\textbf{What they prove.} Let \(B\) be a line bundle with a smooth metric on a compact K\"ahler manifold \((X,\omega)\), with \(i\Theta_B\ge\varepsilon\omega\). Then for a \(B\)-valued \((n,q)\)-form \(u\),
+\[
+\big\langle[\,i\Theta_B\wedge,\Lambda\,]u,u\big\rangle\ \ge\ q\varepsilon\,|u|^2 .
+\]
+With the Bochner--Kodaira--Nakano identity this gives \(\norm{\db^*u}^2+\norm{\db u}^2\ge q\varepsilon\norm{u}^2\).
+\par\medskip
+\textbf{Why they were removed.} The Kodaira vanishing proof in the deck chooses \(\omega=i\Theta_B\), so the term is exactly \(q\). The Nadel proof needs the estimate for a singular metric and quotes it. So neither proof uses this computation.
+\end{frame}
+
+\begin{frame}{Smooth estimate: why \(i\Theta_B\ge\varepsilon\omega\) for some \(\varepsilon>0\)}
+\label{fr:kv-proof-why-i-19}
+\textbf{1. What it means.} Here \(\omega\) is the fixed smooth background form, and \(i\Theta_B\) is the curvature of \(B\); both are real \((1,1)\)-forms. The inequality says: for every real tangent vector \(v\),
+\[
+i\Theta_B(v,Iv)\ \ge\ \varepsilon\,\omega(v,Iv).
+\]
+\textbf{2. What we know.} For \(v\ne0\): \(i\Theta_B(v,Iv)>0\) because \(B\) is positive, and \(\omega(v,Iv)=|v|^2>0\) is the squared length of \(v\) in the metric of \(\omega\).
+\par\medskip
+\textbf{3. Take the ratio.}
+\(\displaystyle f(v)=\frac{i\Theta_B(v,Iv)}{\omega(v,Iv)}\) is positive, continuous, and unchanged when \(v\) is rescaled.
+So \(f\) is a function on the unit tangent vectors \(\{v\in TX:\ |v|=1\}\).
+\par\medskip
+\textbf{4. Compactness.} \(X\) is compact, so the set of unit tangent vectors is compact.
+A positive continuous function on a compact set has a positive minimum. Call it \(\varepsilon\).
+\par\medskip
+\textbf{5. Conclusion.} \(f(v)\ge\varepsilon\) for all \(v\ne0\), which is the inequality in step 1.
+\par\medskip
+Without compactness this can fail: the ratio could tend to \(0\) at infinity.
+\end{frame}
+
+\begin{frame}{Smooth estimate: two hermitian forms at one point}
+\label{fr:kv-proof-two-hermitian-20}
+Fix \emph{one point} \(x\in X\). Let \(V=T^{1,0}_xX\), a complex vector space of dimension \(n\).
+\par\medskip
+\textbf{1. A real \((1,1)\)-form at \(x\) is a hermitian form on \(V\).}
+\[
+i\sum_{j,k}h_{j\bar k}\,dz_j\wedge d\bar z_k
+\quad\longleftrightarrow\quad
+h(v,w)=\sum_{j,k}h_{j\bar k}\,v_j\,\overline{w_k},
+\qquad (h_{j\bar k})\ \text{a hermitian matrix.}
+\]
+\textbf{2. We have two of them.} \(\omega\) gives \(g\), and \(i\Theta_B\) gives \(\theta\). Both are positive:
+\[
+g(v,v)>0,\qquad \theta(v,v)>0\qquad\text{for } v\ne0 .
+\]
+\textbf{3. Use \(g\) as the inner product of \(V\).} Choose a basis \(e_1,\ldots,e_n\) orthonormal for \(g\), and let \(\zeta_1,\ldots,\zeta_n\) be the dual basis. Then
+\[
+g(e_j,e_k)=\delta_{jk},
+\qquad\text{that is,}\qquad
+\omega=i\sum_j\zeta_j\wedge\bar\zeta_j .
+\]
+\textbf{4. There is freedom left.} A unitary change of basis keeps \(\omega\) in this shape.
+\par
+\textbf{Goal:} use this freedom to make \(i\Theta_B\) diagonal as well.
+\end{frame}
+
+\begin{frame}{Smooth estimate: the operator \(A\)}
+\textbf{Definition.} \(A:V\to V\) is the linear map with
+\[
+\theta(v,w)=g(Av,w)\qquad\text{for all } v,w\in V .
+\]
+\textbf{1. It exists, by the Riesz representation theorem.} Fix \(v\). The function \(w\mapsto\theta(v,w)\) is conjugate-linear. On an inner product space, every such function is \(w\mapsto g(v',w)\) for exactly one vector \(v'\). Put \(Av=v'\).
+\par\medskip
+\textbf{2. Its matrix.} In a basis orthonormal for \(g\):
+\(\ Ae_k=\sum_j\theta(e_k,e_j)\,e_j\).
+So \(A\) is ``the matrix of \(\theta\)''.
+\par\medskip
+\textbf{3. It is self-adjoint for \(g\),} because \(\theta\) is hermitian:
+\[
+g(Av,w)=\theta(v,w)=\overline{\theta(w,v)}=\overline{g(Aw,v)}=g(v,Aw).
+\]
+\textbf{Meaning.} \(A\) measures \(i\Theta_B\) relative to \(\omega\). If \(\omega=i\Theta_B\), then \(A\) is the identity.
+\src{Step 1: Bachman and Narici, \emph{Functional Analysis}, Theorem 1.9.}
+\end{frame}
+
+\begin{frame}{Smooth estimate: the spectral theorem}
+\textbf{Theorem.} Let \(A\) be self-adjoint on a finite-dimensional complex inner product space \(V\).
+Then \(V\) has an orthonormal basis of eigenvectors of \(A\), and the eigenvalues are real.
+\par\medskip
+\textbf{Proof.}
+(a) \(A\) has an eigenvector \(v\): its characteristic polynomial has a root \(\lambda\in\C\).
+\par
+(b) \(\lambda\) is real:
+\(\ \lambda\,g(v,v)=g(Av,v)=g(v,Av)=\bar\lambda\,g(v,v)\).
+\par
+(c) \(A\) preserves \(v^\perp\): if \(g(w,v)=0\), then \(g(Aw,v)=g(w,Av)=\lambda\,g(w,v)=0\). Repeat on \(v^\perp\).
+\src{Bachman and Narici, \emph{Functional Analysis}, Theorem 2.1; real eigenvalues: Theorem 1.10.}
+\end{frame}
+
+\begin{frame}{Smooth estimate: both forms become diagonal}
+\label{fr:kv-proof-both-forms-23}
+\textbf{Apply the spectral theorem to our \(A\)}, with the inner product \(g\) on \(V=T^{1,0}_xX\).
+\par\medskip
+\textbf{1.} Let \(e_1,\ldots,e_n\) be the orthonormal eigenbasis: \(Ae_j=\lambda_je_j\), with \(\lambda_j\) real.
+\par\medskip
+\textbf{2.} Orthonormal for \(g\) means \(g(e_j,e_k)=\delta_{jk}\). And \(\theta\) is diagonal too:
+\[
+\theta(e_j,e_k)=g(Ae_j,e_k)=\lambda_j\,g(e_j,e_k)=\lambda_j\,\delta_{jk}.
+\]
+\textbf{3.} Let \(\zeta_1,\ldots,\zeta_n\) be the dual basis. Translating back to forms:
+\[
+\omega=i\sum_j\zeta_j\wedge\bar\zeta_j,
+\qquad
+i\Theta_B=i\sum_j\lambda_j\,\zeta_j\wedge\bar\zeta_j .
+\]
+\textbf{4.} The eigenvalues are positive: \(\lambda_j=\theta(e_j,e_j)>0\), because \(B\) is positive.
+\par\medskip
+So there is no magic: \(\omega\) defines ``orthonormal'', and \(i\Theta_B\) is diagonalised by an orthonormal eigenbasis.
+The \(\zeta_j\) are chosen at the point \(x\) only.
+\end{frame}
+
+\begin{frame}{Smooth estimate: positivity says \(\lambda_j\ge\varepsilon\)}
+\label{fr:kv-proof-positivity-says-24}
+At the point \(x\):
+\(\ \omega=i\sum_j\zeta_j\wedge\bar\zeta_j\) and \(i\Theta_B=i\sum_j\lambda_j\,\zeta_j\wedge\bar\zeta_j\).
+\par\medskip
+\textbf{1. Components.} Let \(v\) be a real tangent vector at \(x\), and put \(c_j=\zeta_j(v)\in\C\).
+\par\medskip
+\textbf{2. One term.} Since \(\zeta_j\) has type \((1,0)\): \(\zeta_j(Iv)=i\,c_j\) and \(\bar\zeta_j(Iv)=-i\,\overline{c_j}\). So
+\[
+(i\,\zeta_j\wedge\bar\zeta_j)(v,Iv)
+=i\bigl(c_j\cdot(-i\,\overline{c_j})-(i\,c_j)\cdot\overline{c_j}\bigr)=2|c_j|^2 .
+\]
+\textbf{3. Add up.}
+\(\ \omega(v,Iv)=2\sum_j|c_j|^2\) and \(i\Theta_B(v,Iv)=2\sum_j\lambda_j|c_j|^2\).
+\par\medskip
+\textbf{4. The ratio is a weighted average of the \(\lambda_j\):}
+\[
+\frac{i\Theta_B(v,Iv)}{\omega(v,Iv)}=\frac{\sum_j\lambda_j|c_j|^2}{\sum_j|c_j|^2}.
+\]
+If \(v\) points along the \(j\)-th eigenvector (only \(c_j\ne0\)), the ratio is exactly \(\lambda_j\).
+\par\medskip
+\textbf{5. So} \(i\Theta_B\ge\varepsilon\omega\) at \(x\) \(\iff\) the ratio is \(\ge\varepsilon\) for all \(v\) \(\iff\) every \(\lambda_j\ge\varepsilon\).
+\end{frame}
+
+\begin{frame}{Smooth estimate: what \(\Lambda\) does}
+At \(x\), in the coframe of slide~\hyperlink{fr:kv-proof-both-forms-23}{\pageref{fr:kv-proof-both-forms-23}}, the monomials \(\zeta_J\wedge\bar\zeta_K\) are an orthonormal basis of the forms.
+\par
+\textbf{1. Insert a pair.} \(\omega\wedge=\sum_jL_j\), where \(L_j=i\,\zeta_j\wedge\bar\zeta_j\wedge\). On a monomial \(m'\):
+\begin{itemize}
+\item if \(m'\) contains neither \(\zeta_j\) nor \(\bar\zeta_j\), then \(L_jm'\) is again a monomial (up to sign): \(m'\) with the pair \(j\) inserted;
+\item if \(m'\) contains \(\zeta_j\) or \(\bar\zeta_j\), then \(L_jm'=0\), because \(\zeta_j\wedge\zeta_j=0\).
+\end{itemize}
+Likewise \(i\Theta_B\wedge=\sum_j\lambda_j\,L_j\): insert the pair \(j\), with weight \(\lambda_j\).
+\par\medskip
+\textbf{2. Remove a pair.} \(\Lambda\) is the adjoint of \(\omega\wedge\): \(\langle\omega\wedge\alpha,\beta\rangle=\langle\alpha,\Lambda\beta\rangle\). So \(\Lambda=\sum_j\Lambda_j\), with \(\Lambda_j\) the adjoint of \(L_j\).
+\par
+So \(L_j\) sends each monomial without \(\zeta_j,\bar\zeta_j\) to another monomial, and every other monomial to \(0\). Its adjoint sends those monomials \emph{back}:
+\begin{itemize}
+\item \(\Lambda_j(L_jm')=m'\): the pair \(j\) is removed;
+\item \(\Lambda_jm=0\) if \(m\) lacks \(\zeta_j\) or \(\bar\zeta_j\): there is no pair \(j\) to remove.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Smooth estimate: why the adjoint removes the pair}
+Let \(m'\) be a monomial without \(\zeta_j,\bar\zeta_j\), and \(b=L_jm'\), that is, \(m'\) with the pair \(j\) inserted.
+\textbf{Claim:} \(\Lambda_jb=m'\).
+\par\medskip
+\textbf{1. Test against every basis monomial \(a\).} By definition of the adjoint,
+\(\ \langle a,\Lambda_jb\rangle=\langle L_ja,b\rangle .\)
+\par\medskip
+\textbf{2. Compute the right side.} \(L_ja\) is either \(0\) or ``\(a\) with the pair \(j\) inserted''.
+It equals \(b\) only when \(a=m'\), since different monomials give different results. The basis is orthonormal, so
+\[
+\langle L_ja,b\rangle=1\ \text{ if } a=m',
+\qquad
+\langle L_ja,b\rangle=0\ \text{ for every other monomial } a .
+\]
+\textbf{3. Read off \(\Lambda_jb\).} Its inner product with \(m'\) is \(1\), and with every other basis vector is \(0\). The only such vector is \(m'\). So \(\Lambda_jb=m'\): the pair \(j\) has been removed.
+\par\medskip
+\textbf{Same test, other case.} If \(m\) lacks \(\zeta_j\) or \(\bar\zeta_j\), then \(m\) is never of the form \(L_ja\). So \(\langle a,\Lambda_jm\rangle=\langle L_ja,m\rangle=0\) for all \(a\), and \(\Lambda_jm=0\).
+\end{frame}
+
+\begin{frame}{Smooth estimate: why the operator is diagonal}
+\label{fr:kv-proof-why-the-27}
+Recall: \(L_j\) inserts the pair \(j\), \(\Lambda_j\) removes it, and
+\(\ i\Theta_B\wedge=\sum_j\lambda_jL_j\), \(\ \Lambda=\sum_j\Lambda_j\).
+\par\medskip
+\textbf{1. On \((n,q)\)-forms the commutator has one term.} Every \(\zeta_j\) already occurs in \(u\), so \(L_ju=0\) for all \(j\). Hence \(i\Theta_B\wedge u=0\) and
+\[
+[\,i\Theta_B\wedge,\Lambda\,]u
+=i\Theta_B\wedge(\Lambda u)-\Lambda(i\Theta_B\wedge u)
+=i\Theta_B\wedge(\Lambda u).
+\]
+\textbf{2. One component.} Let \(m=\zeta_1\wedge\cdots\wedge\zeta_n\wedge\bar\zeta_K\), where \(K\) has \(q\) indices.
+\begin{itemize}
+\item \(\Lambda_km\) removes the pair \(k\) if \(k\in K\), and is \(0\) if \(k\notin K\).
+\item Then \(L_j(\Lambda_km)=0\) for \(j\ne k\), because \(\zeta_j\) is still there; and \(L_k(\Lambda_km)=m\).
+\end{itemize}
+\textbf{3. So:} remove the pair \(k\), put it back with weight \(\lambda_k\), and sum over \(k\in K\):
+\[
+[\,i\Theta_B\wedge,\Lambda\,]\,m=\Bigl(\sum_{k\in K}\lambda_k\Bigr)\,m .
+\]
+\end{frame}
+
+\begin{frame}{Smooth estimate: why the curvature term is \(\ge q\varepsilon\int_X|u|^2\,dV\)}
+\label{fr:kv-proof-why-the-28}
+Work at the point \(x\), in the coframe \(\zeta_1,\ldots,\zeta_n\) of slide~\hyperlink{fr:kv-proof-both-forms-23}{\pageref{fr:kv-proof-both-forms-23}}.
+\par
+\textbf{1. Positivity} (slide~\hyperlink{fr:kv-proof-positivity-says-24}{\pageref{fr:kv-proof-positivity-says-24}}). \(i\Theta_B\ge\varepsilon\omega\) says exactly: every \(\lambda_j\ge\varepsilon\).
+\par\medskip
+\textbf{2. Our \(u\) is an \((n,q)\)-form:}
+\(u=\sum_{K}u_K\,\zeta_1\wedge\cdots\wedge\zeta_n\wedge\bar\zeta_K\), where \(K\) has \(q\) indices.
+\par\medskip
+\textbf{3. The operator is diagonal} (slide~\hyperlink{fr:kv-proof-why-the-27}{\pageref{fr:kv-proof-why-the-27}}): on \(\zeta_1\wedge\cdots\wedge\zeta_n\wedge\bar\zeta_K\), \([\,i\Theta_B\wedge,\Lambda\,]\) multiplies by \(\sum_{k\in K}\lambda_k\).
+\par\medskip
+\textbf{4. Count.} There are \(q\) indices in \(K\), each with \(\lambda_k\ge\varepsilon\), so \(\sum_{k\in K}\lambda_k\ge q\varepsilon\):
+\[
+\big\langle[\,i\Theta_B\wedge,\Lambda\,]u,u\big\rangle
+=\sum_K\Bigl(\sum_{k\in K}\lambda_k\Bigr)|u_K|^2
+\ \ge\ q\varepsilon\sum_K|u_K|^2=q\varepsilon\,|u|^2 .
+\]
+\textbf{5. Integrate.} This holds at every \(x\); integrate over \(X\).
+\src{Step 3 for general \((p,q)\): Demailly, \emph{Complex Analytic and Differential Geometry}, Prop.~VI-8.3.}
+\end{frame}
+
+\end{document}
