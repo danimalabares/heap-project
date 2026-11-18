@@ -247,10 +247,11 @@ def preamble():
             continue
         if stripped.startswith("\\usepackage{multicol}"):
             continue
-        # HTML already supports Greek Unicode.
-        if stripped.startswith(
-            "\\usepackage{textalpha}"
-        ):
+        # HTML supports these Unicode glyphs.
+        if stripped.startswith((
+            "\\usepackage{textalpha}",
+            "\\usepackage{pmboxdraw}",
+        )):
             continue
         if stripped.startswith(
             "\\newcommand{\\maybeexternaldocument}"
