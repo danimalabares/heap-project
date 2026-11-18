@@ -236,7 +236,9 @@ class MissingTagTests(unittest.TestCase):
         )
 
 
-class ContentsAndDownloadsTests(unittest.TestCase):
+class ContentsAndDownloadsTests(
+    unittest.TestCase
+):
     def test_parts_use_numeric_order(self):
         db.init(":memory:")
         db.connect()
@@ -257,7 +259,9 @@ class ContentsAndDownloadsTests(unittest.TestCase):
                 type="chapter",
                 active=True,
             )
-            Part.create(part=part, chapter=chapter)
+            Part.create(
+                part=part, chapter=chapter
+            )
         with patch.object(
             application, "render_template",
             return_value="Contents",
@@ -265,38 +269,56 @@ class ContentsAndDownloadsTests(unittest.TestCase):
             response = app.test_client().get(
                 "/browse"
             )
-        self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            [p.ref for p in
-             render.call_args.kwargs["parts"]],
+            response.status_code, 200
+        )
+        parts = render.call_args.kwargs[
+            "parts"
+        ]
+        self.assertEqual(
+            [p.ref for p in parts],
             ["1", "2", "10"],
         )
 
-    def test_downloads_serve_published_directory(self):
-        with tempfile.TemporaryDirectory() as td:
-            names = [
-                "history", "anthropology",
-                "historia-do-brasil",
-                "genealogia-familiar", "religion",
-            ]
-            for name in names:
-                (Path(td) / (name + ".pdf")).write_bytes(
-                    b"%PDF-1.4 test"
+    def test_published_pdf_downloads(self):
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        names = [
+            "history", "anthropology",
+            "historia-do-brasil",
+            "genealogia-familiar", "religion",
+        ]
+        for name in names:
+            path = Path(tmp.name) / (
+                name + ".pdf"
+            )
+            path.write_bytes(b"%PDF-1.4 test")
+        patcher = patch.object(
+            application, "DOWNLOADS", tmp.name
+        )
+        patcher.start()
+        self.addCleanup(patcher.stop)
+        client = app.test_client()
+        for name in names:
+            with self.subTest(name=name):
+                response = client.get(
+                    "/download/" + name
+                    + ".pdf"
                 )
-            with patch.object(application, "DOWNLOADS", td):
-                client = app.test_client()
-                for name in names:
-                    with self.subTest(name=name):
-                        response = client.get(
-                            "/download/" + name + ".pdf"
-                        )
-                        self.assertEqual(response.status_code, 200)
-                        self.assertEqual(response.data, b"%PDF-1.4 test")
-                        response.close()
                 self.assertEqual(
-                    client.get("/download/missing.pdf").status_code,
-                    404,
+                    response.status_code, 200
                 )
+                self.assertEqual(
+                    response.data,
+                    b"%PDF-1.4 test",
+                )
+                response.close()
+        response = client.get(
+            "/download/missing.pdf"
+        )
+        self.assertEqual(
+            response.status_code, 404
+        )
 
 
 if __name__ == "__main__":

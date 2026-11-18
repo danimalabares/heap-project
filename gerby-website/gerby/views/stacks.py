@@ -1,6 +1,8 @@
 import hashlib
 
-from flask import render_template, redirect
+from flask import (
+  render_template, redirect,
+)
 from datetime import datetime
 
 from gerby.application import app
