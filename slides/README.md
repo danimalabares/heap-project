@@ -66,7 +66,7 @@ line yet.
 The `dbar-poincare` decks were copied from `danimalabares/tmp`, whose `dbar-poincare/` folder was deleted on 18 November 2026 after its README was moved to `slides/dbar-poincare/README.md`.
 
 The Kodaira decks were developed in
-[danimalabares/tmp](https://github.com/danimalabares/tmp/tree/main/kodaira-lectures)
+`danimalabares/tmp` (`kodaira-lectures/`; that repository was deleted and recreated empty on 18 November 2026, so its old history and links no longer exist)
 and copied here on 16 November 2026 from tmp commit `ad55fbd`; lecture 24
 slide 12 was edited here afterwards. On 17 November 2026 the drafts, speaker
 notes (`notes.md`, `lecture-24-backup.tex`, `lecture-24-appendix.tex`),

@@ -47,7 +47,7 @@ HP builds the decks with `make gerby-slides`; to build one by hand, run
 - Claire Voisin, *Hodge Theory and Complex Algebraic Geometry I*,
   Chapter 4, especially Propositions 4.32 and 4.36.
   The numbering follows the
-  [de Rham and Dolbeault notes](https://github.com/danimalabares/tmp/blob/main/de-rham-dolbeault/de-rham-dolbeault.tex).
+  [de Rham and Dolbeault notes](../../archive/de-rham-dolbeault/de-rham-dolbeault.tex).
 - Daniel Huybrechts, *Complex Geometry: An Introduction*,
   Propositions 1.3.7-1.3.8 and Corollary 1.3.9.
 
