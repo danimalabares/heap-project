@@ -1,0 +1,217 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{default}
+\setbeamertemplate{navigation symbols}{}
+\usepackage{amsmath,amssymb,amscd}
+\title{Reading seminar}
+\subtitle{Session 1}
+\date{Deformation viewpoint}
+\begin{document}
+\begin{frame}\titlepage\end{frame}
+\begin{frame}{1. Definition of a deformation}
+Following Huybrechts, a deformation of a compact complex
+manifold $X$ is a proper smooth holomorphic family
+\[
+\begin{CD}
+X @>>> \mathcal X\\
+@VVV @VV{\pi}V\\
+\{0\} @>>> B
+\end{CD}
+\]
+This is a Cartesian square: $X\simeq\mathcal X\times_B\{0\}$.
+The fibres $X_t$ vary the complex structure.
+
+A tangent vector $v\in T_0B$ is an infinitesimal direction.
+The Kodaira--Spencer map turns it into a class on $X$.
+\end{frame}
+
+\begin{frame}{2. The Hilbert scheme: from functor to space (in AG)}
+\small
+Fix a projective variety $Y$ and a Hilbert polynomial $P$.
+For each scheme $U$, consider flat families of subschemes
+\[
+Z\subset Y\times U,\qquad Z\longrightarrow U,
+\]
+whose fibres have Hilbert polynomial $P$. Pullback of families
+along $U\to U'$ defines a contravariant functor
+\[
+\operatorname{Hilb}_Y^P:(\mathbf{Sch})^{\mathrm{op}}\to\mathbf{Sets}.
+\]
+Grothendieck's representability theorem constructs
+$\operatorname{Hilb}_Y^P$ with a natural bijection
+\[
+\operatorname{Hom}(U,\operatorname{Hilb}_Y^P)
+\ \simeq\ \operatorname{Hilb}_Y^P(U).
+\]
+The identity map corresponds to the \emph{universal family}
+$\mathcal Z\to\operatorname{Hilb}_Y^P$; every $Z\to U$ is
+its pullback under a unique classifying map
+$U\to\operatorname{Hilb}_Y^P$.
+\end{frame}
+
+\begin{frame}{4. The abstract deformation functor $\operatorname{Def}_X$ (in AG)}
+\small
+Now fix a compact complex manifold $X$, without
+choosing an ambient projective variety.
+Let $\mathbf{Art}_{\mathbb C}$ be the category of local
+Artinian $\mathbb C$-algebras with residue field $\mathbb C$.
+Define
+\[
+\operatorname{Def}_X:\mathbf{Art}_{\mathbb C}\to\mathbf{Sets},
+\quad
+A\longmapsto
+\left\{
+\begin{array}{c}
+\text{flat deformations }\mathcal X_A\to\operatorname{Spec}A\\
+\text{with special fibre identified with }X
+\end{array}\right\}\big/\cong.
+\]
+A map $A\to A'$ sends a deformation to its base change
+over $\operatorname{Spec}A'$.
+
+\medskip
+Unlike the Hilbert functor, this parametrizes
+\emph{abstract} deformations of $X$, not embedded
+subschemes of a fixed $Y$. Its local moduli object is
+the Kuranishi germ $\operatorname{Def}(X)$.
+\end{frame}
+
+\begin{frame}{3. Relevant moduli spaces}
+\small
+\textbf{Kuranishi space.}
+$\operatorname{Def}(X)$ is a complex analytic germ carrying a
+\emph{semiuniversal} family of deformations of $X$.
+Its formal completion $\operatorname{Spf}R$ is a
+\emph{hull} of the deformation functor $\operatorname{Def}_X$.
+For IHS manifolds, it actually \emph{prorepresents} this functor
+(uniquely classifies deformations over Artinian bases via $\operatorname{Spf}R$).
+
+\medskip
+\textbf{Hilbert scheme.}
+$\operatorname{Hilb}(Y)$ is a scheme representing the Hilbert
+functor $\operatorname{Hilb}_Y$ of flat families of closed
+subschemes of a fixed ambient scheme $Y$.
+(Every family is a unique pullback of the universal family.)
+
+\medskip
+{\leftskip=1.5em\textbf{Distinction:} local/formal versus global;
+semiuniversal versus universal.\par}
+
+\bigskip
+\textbf{Global marked moduli (Huybrechts, 1.18).}
+For a fixed lattice $(\Gamma,q_\Gamma)$ (and complex dimension),
+\[
+\mathfrak M_\Gamma
+=\{(X,\varphi)\}/\!\sim,\quad
+\varphi:(H^2(X,\mathbb Z),q_X)\xrightarrow{\sim}(\Gamma,q_\Gamma).
+\]
+Here $(X,\varphi)\sim(X',\varphi')$ if some biholomorphism
+$f:X\to X'$ satisfies $f^*=\pm\varphi^{-1}\circ\varphi'$.
+Patching local $\operatorname{Def}(X)$ charts yields a
+possibly non-Hausdorff complex manifold.
+\end{frame}
+
+\begin{frame}{5. The relative tangent sequence}
+Because $\pi$ is a submersion, its differential is surjective.
+The kernel consists of vectors tangent to the fibres:
+\[
+0\longrightarrow T_{\mathcal X/B}
+\longrightarrow T_{\mathcal X}
+\xrightarrow{d\pi}\pi^*T_B\longrightarrow0.
+\]
+Restrict to the central fibre. Since
+$T_{\mathcal X/B}|_X=T_X$ and
+$\pi^*T_B|_X=T_0B\otimes\mathcal O_X$, we obtain
+\[
+\boxed{0\longrightarrow T_X\longrightarrow
+T_{\mathcal X}|_X\longrightarrow
+T_0B\otimes\mathcal O_X\longrightarrow0.}
+\]
+\end{frame}
+
+\begin{frame}{6. The connecting homomorphism trick}
+Apply the long exact sequence of sheaf cohomology:
+\[
+H^0(X,T_{\mathcal X}|_X)\longrightarrow
+\underbrace{H^0(X,T_0B\otimes\mathcal O_X)}_{=\,T_0B}
+\xrightarrow{\ \delta\ }H^1(X,T_X)\longrightarrow\cdots
+\]
+Here $H^0(X,\mathcal O_X)=\mathbb C$ for compact connected $X$.
+The connecting map is precisely Kodaira--Spencer:
+\[
+\boxed{\rho=\delta:T_0B\longrightarrow H^1(X,T_X).}
+\]
+A local lift of $v$ to $T_{\mathcal X}|_X$ need not glue
+globally. Differences of local lifts are tangent to $X$
+and define a Cech $1$-cocycle representing $\rho(v)$.
+\end{frame}
+\begin{frame}{7. The IHS computation}
+Dolbeault gives $H^1(X,T_X)\simeq
+H_{\bar\partial}^{0,1}(X,T^{1,0}X)$.
+For an IHS manifold, contraction with the nondegenerate
+holomorphic symplectic form $\sigma$ is an isomorphism
+\[
+T_X\xrightarrow{\ \iota_{(-)}\sigma\ }\Omega_X^1.
+\]
+Hence, by Dolbeault and the Kahler Hodge decomposition,
+\[
+\boxed{T_0\operatorname{Def}(X)
+\simeq H^1(X,T_X)\simeq H^1(X,\Omega_X^1)
+\simeq H^{1,1}(X).}
+\]
+The Bogomolov--Tian--Todorov theorem ensures that
+$\operatorname{Def}(X)$ is smooth.
+\end{frame}
+\begin{frame}{8. Deforming a line bundle (Huybrechts, 1.14)}
+\small
+To deform the pair $(X,L)$, seek a line bundle
+$\mathcal L$ on the total space $\mathcal X\to B$ with
+$\mathcal L|_X\simeq L$.
+The topological class $c_1(L)$ transports to nearby
+fibres, but need not remain the Chern class of a
+\emph{holomorphic} bundle.
+
+\medskip
+By the Lefschetz $(1,1)$-theorem, it must remain an
+integral class of type $(1,1)$. Since the
+Beauville--Bogomolov form is compatible with Hodge types,
+this means
+\[
+\boxed{q_X(c_1(L),\sigma_t)=0,}
+\qquad H^{2,0}(X_t)=\mathbb C\sigma_t.
+\]
+Local Torelli identifies nearby deformations with
+their periods $[\sigma_t]$. For $c_1(L)\neq0$ this
+is one equation cutting out a smooth hypersurface:
+\[
+\dim\operatorname{Def}(X,L)=h^{1,1}(X)-1.
+\]
+\end{frame}
+
+\begin{frame}{9. Markings and the period map (Huybrechts, 1.15--1.18)}
+\small
+To compare periods of different IHS manifolds, fix a lattice
+$(\Gamma,q_\Gamma)$. A \emph{marking} is an isometry
+\[
+\varphi:(H^2(X,\mathbb Z),q_X)
+\xrightarrow{\sim}(\Gamma,q_\Gamma).
+\]
+It places every holomorphic symplectic line
+$H^{2,0}(X)=\mathbb C\sigma_X$ in the same projective space.
+The \emph{period map} is
+\[
+\mathcal P(X,\varphi)=[\varphi(\sigma_X)]
+\in\mathcal Q_\Gamma,\qquad
+\mathcal Q_\Gamma=
+\left\{\begin{array}{l|l}
+[x]\in\mathbb P(\Gamma_{\mathbb C})&
+q_\Gamma(x)=0,\\[-2pt]
+& q_\Gamma(x,\bar x)>0
+\end{array}\right\}.
+\]
+\emph{Local Torelli} (Beauville): the period map is locally
+an isomorphism. The global moduli space of marked IHS manifolds
+may be non-Hausdorff; Huybrechts' Theorem~8.1 proves
+global \emph{surjectivity} of its period map.
+\end{frame}
+
+\end{document}

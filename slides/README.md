@@ -61,6 +61,8 @@ of the talk not verified); `link.png` of the OPEGA deck taken from the
 Legalzinho folder. Most images in the older decks have no source or licence
 line yet.
 
+`huybrechts-reading-seminar/` (beamer deck and notes, copied from `danimalabares/tmp`, `reading-seminar/`, on 18 November 2026) is a silent series: it is not in `index.json`, so it is not built or shown on the website.
+
 The `dbar-poincare` decks were copied from `danimalabares/tmp`, whose `dbar-poincare/` folder was deleted on 18 November 2026 after its README was moved to `slides/dbar-poincare/README.md`.
 
 The Kodaira decks were developed in

@@ -1,0 +1,276 @@
+\input{preamble}
+
+\begin{document}
+
+\title{K3 surfaces exam}
+\author{Daniel González Casanova Azuela}
+\maketitle
+
+\section*{Complex curves on a K3 surface}
+\label{section-curves}
+
+\begin{exercise}[2.6a]
+\label{exercise-deformations-curve-in-k3}
+Let $C$ be a smooth genus $g$ curve which
+can be embedded in a K3 surface $M$, and
+$X$
+the family of all deformations of $C$ in
+$M$.
+Prove that $\dim X \leq g$.
+\end{exercise}
+
+\begin{proof}
+We are asked to compute
+$\dim X = \dim|C|=h^0(\mathcal{O}_S(C))-1$.
+
+By definition of Euler characteristic,
+$$
+\chi(\mathcal{O}(C))
+=
+h^0(\mathcal{O}(C))
+- h^1(\mathcal{O}(C))
++ h^2(\mathcal{O}(C)).
+$$
+To compute this Euler characteristic we use
+Riemann-Roch theorem for curves in surfaces:
+$$
+\chi(\mathcal{O}(C))
+=
+\chi(\mathcal{O}_S)
++\frac{1}{2}(\mathcal{O}(C),\mathcal{O}(C)-K_S)
+=
+2+\frac{1}{2}\mathcal{O}(C)^2
+$$
+since $S$ is a K3 surface.
+
+To compute the self-intersection number
+we use genus formula:
+$$
+(\mathcal{O}(C).\mathcal{O}(C)+K_S)
+=
+\mathcal{O}(C)^2
+=
+2g-2
+$$
+since $S$ is a K3 surface.
+
+Thus $\chi(\mathcal{O}(C))=g+1$ and
+$$
+g+1=h^0(\mathcal{O}(C))
+-h^1(\mathcal{O}(C))
++h^2(\mathcal{O}(C)).
+$$
+
+By Serre duality and $S$ being a K3,
+we obtain two equations:
+$$
+h^2(\mathcal{O}(C))
+=
+h^0(\mathcal{O}(-C)),
+\qquad 
+h^1(\mathcal{O}(C))
+=
+h^1(\mathcal{O}(-C)).
+$$
+
+The ideal sheaf $\mathcal{O}(-C)$
+exact sequence gives
+the long exact sequence
+$$
+0 \to H^0(\mathcal{O}(-C))
+\hookrightarrow
+H^0(\mathcal{O}_S)=\mathbb{C}
+\to
+H^0(\mathcal{O}_C)=\mathbb{C}
+\to 
+H^1(\mathcal{O}(-C))
+\to
+\cdots
+$$
+First note that
+$h^0(-C) = 0$
+since the global sections of the
+ideal sheaf $\mathcal{O}(-C)$
+are global holomorphic functions on $S$
+vanishing along $C$---only the
+constant zero function lies here.
+Thus
+$H^0(\mathcal{O}_S) =\mathbb{C}
+\to
+H^0(\mathcal{O}_C)=\mathbb{C}$
+in the long exact sequence is an injection,
+and thus surjective, making
+$H^1(\mathcal{O}(-C))=0$.
+Thus $\dim X = g$.
+\end{proof}
+
+\begin{exercise}[2.7]
+\label{exercise-singular-curve-on-k3}
+Let $C$ be a singular, irreducible complex
+curve on a K3 surface $X$. Prove that
+$(C.C)\geq 0$.
+\end{exercise}
+
+\begin{proof}
+This is an application of the genus
+formula. Since
+$K_X=\mathcal{O}_X$ it suffices to show that
+the arithmetic genus
+$p_a(C)$ is not zero. This follows from the
+fact that $C$ is singular, since its
+arithmetic genus, defined as 
+$p_a(C):=1-\chi(\mathcal{O}_C)$,
+satisfies
+\begin{equation}
+\label{equation-normalization-genus}
+p_a(C)=g(C) + h^0(\delta)
+\end{equation}
+where $g(C)$ is the geometric genus of $C$,
+defined as
+the genus of the normalization $\tilde{C}$,
+i.e. $g(C):=g(\tilde{C})$,
+while $\delta:=\nu_*\mathcal{O}_{\tilde{C}}
+/\mathcal{O}_C$
+where $\nu:\tilde{C} \to C$ is the
+normalization map.
+
+To prove Equation
+\ref{equation-normalization-genus}
+first note that
+$p_a(C)=h^1(\mathcal{O}_C)$
+and $g(C) =
+h^1(\mathcal{O}_{\widetilde{C}})$,
+where the latter uses Serre duality since
+normalization of a curve is smooth.
+
+Now use the normalization
+long exact sequence in cohomology
+$$
+0 \to
+H^0(\mathcal{O}_C)\to
+H^0(\nu_*\mathcal{O}_{\widetilde{C}})\to
+H^0(\delta)\to
+H^1(\mathcal{O}_C)\to
+H^1(\nu_*\mathcal{O}_{\widetilde{C}})\to
+H^1(\delta)
+$$
+Note the following three facts:
+the map
+$H^0(\mathcal{O}_C)
+\to
+H^0(\nu_*\mathcal{O}_{\widetilde{C}})$
+is an isomorphism,
+$H^1(\nu_*\mathcal{O}_{\widetilde{C}})
+\cong H^1(\mathcal{O}_{\widetilde{C}})$
+and
+$H^1(\delta)=0$.
+The first is due to both sheaves'
+global sections being
+constant functions,
+the second by $\nu$ being finite
+(Lecture 9),
+and the third because $\delta$
+is supported in finitely many points.
+The latter is because the support of
+$\delta$ are the singularities of $C$ 
+(which must be finitely many
+by compactness): the stalk
+$\delta_p$ is the quotient of the
+integral closure of the stalk
+$\mathcal{O}_p$ by $\mathcal{O}_p$,
+which is nonzero if and only if $p$
+is not a smooth point.
+Thus we have the short exact sequence
+$$
+\xymatrix{
+0\ar[r]
+&H^0(\delta)\ar[r]
+&H^1(\mathcal{O}_C)\ar[r]
+&H^1(\nu_*\mathcal{O}_{\widetilde{C}})\ar[r]
+&0
+}
+$$
+yielding
+Equation \ref{equation-normalization-genus}.
+
+Finally, since $C$ is singular
+$\delta$ is nonzero and thus
+$h^0(\delta)>0$.
+\end{proof}
+
+\begin{lemma}[Genus formula]
+\label{lemma-genus-formula}
+Let $C$ be any curve on a surface $S$. Then
+\begin{equation}
+\label{equation-genus-formula}
+2p_a(C)-2=(C.C+K_S).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+By Remark
+\ref{remark-euler-characteristic-additive}
+below we can take Euler characteristic
+of the ideal sheaf exact sequence of $C$
+to obtain
+$$
+\chi(\mathcal{O}(-C))+\chi(\mathcal{O}_C)=
+\chi(\mathcal{O}_S).
+$$
+Since $p_a(C)=h^0(K_S)
+=1-\chi(\mathcal{O}_C)$, we
+obtain that
+$p_a(C)=1-\chi(\mathcal{O}_S)-
+\chi(\mathcal{O}(-C))$.
+To compute $\chi(\mathcal{O}(-C))$ we use
+Riemann-Roch formula for curves on surfaces
+to get
+$$
+\chi(\mathcal{O}(-C))=\chi(\mathcal{O}_S)
++\frac{(\mathcal{O}(-C).
+\mathcal{O}(-C)-K_S)}{2}
+$$
+Taking duals on both entries of the
+intersection form and substituting in our
+previous expression for $p_a(C)$ we obtain
+the result.
+\end{proof}
+
+\begin{remark}
+\label{remark-euler-characteristic-additive}
+To prove that Euler characteristic is
+additive, i.e. that for an exact sequence
+$$
+\xymatrix{
+0\ar[r]
+&E\ar[r]
+&F\ar[r]
+&G\ar[r]
+&0
+}
+$$
+we must have
+$$
+\chi(F)=\chi(E)+\chi(G),
+$$
+we take the long exact sequence in cohomology
+and use the general fact that for
+a finite exact sequence of vector spaces
+$$
+\xymatrix{
+0\ar[r]
+&V_0\ar[r]
+&V_1\ar[r]
+&\cdots\ar[r]
+&V_n\ar[r]
+&0
+}
+$$
+we must have
+$$
+\sum_i(-1)^i\dim V_i,
+$$
+which basically follows by dimension theorem.
+\end{remark}
+
+\end{document}
