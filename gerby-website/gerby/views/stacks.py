@@ -1,6 +1,6 @@
 import hashlib
 
-from flask import render_template, send_from_directory, redirect
+from flask import render_template, redirect
 from datetime import datetime
 
 from gerby.application import app
@@ -452,11 +452,6 @@ def send_to_github(filename=""):
     return redirect("https://github.com/danimalabares/heap-project/blob/master/%s" % filename)
   else:
     return redirect("https://github.com/danimalabares/heap-project")
-
-
-@app.route("/download/<string:filename>")
-def download_pdf(filename):
-  return send_from_directory(ROOT, filename)
 
 
 @app.route("/recent-changes")

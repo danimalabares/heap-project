@@ -16,6 +16,7 @@ sys.path.insert(
 from gerby.application import app
 from gerby.database import (
     History,
+    Part,
     Reference,
     Slogan,
     Tag,
@@ -23,6 +24,7 @@ from gerby.database import (
 )
 import gerby.registry as registry
 import gerby.views.tag as view
+import gerby.application as application
 from gerby_registry import Evidence
 
 
@@ -232,6 +234,69 @@ class MissingTagTests(unittest.TestCase):
         self.assertEqual(
             response.status_code, 404
         )
+
+
+class ContentsAndDownloadsTests(unittest.TestCase):
+    def test_parts_use_numeric_order(self):
+        db.init(":memory:")
+        db.connect()
+        self.addCleanup(db.close)
+        db.create_tables([Tag, Part])
+        for number in [10, 2, 1]:
+            part = Tag.create(
+                tag="P%03d" % number,
+                label="part-%d" % number,
+                ref=str(number),
+                type="part",
+                active=True,
+            )
+            chapter = Tag.create(
+                tag="C%03d" % number,
+                label="chapter-%d" % number,
+                ref=str(number),
+                type="chapter",
+                active=True,
+            )
+            Part.create(part=part, chapter=chapter)
+        with patch.object(
+            application, "render_template",
+            return_value="Contents",
+        ) as render:
+            response = app.test_client().get(
+                "/browse"
+            )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            [p.ref for p in
+             render.call_args.kwargs["parts"]],
+            ["1", "2", "10"],
+        )
+
+    def test_downloads_serve_published_directory(self):
+        with tempfile.TemporaryDirectory() as td:
+            names = [
+                "history", "anthropology",
+                "historia-do-brasil",
+                "genealogia-familiar", "religion",
+            ]
+            for name in names:
+                (Path(td) / (name + ".pdf")).write_bytes(
+                    b"%PDF-1.4 test"
+                )
+            with patch.object(application, "DOWNLOADS", td):
+                client = app.test_client()
+                for name in names:
+                    with self.subTest(name=name):
+                        response = client.get(
+                            "/download/" + name + ".pdf"
+                        )
+                        self.assertEqual(response.status_code, 200)
+                        self.assertEqual(response.data, b"%PDF-1.4 test")
+                        response.close()
+                self.assertEqual(
+                    client.get("/download/missing.pdf").status_code,
+                    404,
+                )
 
 
 if __name__ == "__main__":

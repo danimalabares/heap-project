@@ -146,7 +146,10 @@ def show_chapters():
   # part is top-level
   if Tag.select().where(Tag.type == "part").exists():
     chapters = Part.select()
-    parts = Tag.select().join(Part, on=Part.part).order_by(Tag.ref).distinct()
+    parts = sorted(
+      Tag.select().join(Part, on=Part.part)
+      .distinct()
+    )
 
     for part in parts:
       part.chapters = sorted([chapter.chapter for chapter in chapters if chapter.part.tag == part.tag])
