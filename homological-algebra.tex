@@ -9977,6 +9977,244 @@ so the long exact sequence transfers the
 explicit \v{C}ech computation to every
 coherent sheaf.
 
+\section{Coherent sheaves and the proof of
+projective finiteness}
+\label{section-jethro-2026-11-18}
+
+Jethro van Ekeren, Homological Algebra, 18
+November 2026. On Monday we computed the
+cohomology of the twists $\mathcal O(n)$.
+Today we use that calculation for an
+arbitrary coherent sheaf. The bridge is a
+surjection from a finite sum of twists. Its
+construction fills in the step left open in
+Theorem
+\ref{theorem-jethro-2026-11-16-finiteness}.
+
+\emph{Sources.} Daniel's notes and twelve
+board photographs, checked against
+\cite[\S8.6]%
+{vanEkerenHomologicalAlgebra2026}.
+The English classroom recording lasts
+1 h 48 min 29 s. Its automatic transcript
+is uneven, especially for formulas.
+The overlap argument and analytic comparison
+below are editorial expansions.
+
+\medskip\noindent
+\textbf{Coherence and relations.}
+The three module conditions from the lecture
+are in Algebraic Geometry, Section
+\ref{algebraic-geometry-%
+section-coherent-reflexive-sheaves}.
+The definition of a Noetherian scheme is in
+Schemes, Definition
+\ref{schemes-definition-noetherian-scheme}.
+On such a scheme coherence asks for finitely
+many module generators on each affine chart.
+Kernels of maps between coherent sheaves
+remain coherent.
+
+\begin{quote}
+\textbf{Daniel's question.}
+If Weierstrass preparation already gives
+Noetherian local rings, what makes Oka's
+coherence theorem interesting?
+\end{quote}
+\textbf{Editorial answer.}
+Fix holomorphic functions $f_1,\ldots,f_n$
+near $x$. Noetherianity gives finitely many
+germs generating all relations $\sum a_i
+f_i=0$ at $x$. Represent them by holomorphic
+relations on a common neighbourhood. What
+guarantees that these same relations generate
+every relation at every nearby point after
+shrinking that neighbourhood? This is the
+extra assertion of Oka's theorem. Its
+statement on open subsets of $\mathbb C^n$
+gives the result on any complex manifold by
+using coordinate charts. See Demailly,
+\emph{Complex Analytic and Differential
+Geometry}, Chapter II, \S3.
+
+\begin{quote}
+\textbf{Daniel's observation.}
+The coherent sheaf category is the smallest
+abelian category containing the vector
+bundles.
+\end{quote}
+\textbf{Editorial clarification.}
+Multiplication by $z$ on the trivial line
+over $\mathbb A^1$ has zero kernel. Its sheaf
+cokernel vanishes away from the origin and
+has fibre $\mathbb C$ there. This jump rules
+out local freeness. See Example
+\ref{example-coherence-not-local-freeness}.
+On projective space the observation has a
+precise meaning inside the category of
+sheaves. Every coherent sheaf is a cokernel
+of a map of finite sums of line bundles.
+Apply the surjection constructed below twice,
+first to the sheaf and then to its coherent
+kernel.
+
+\medskip\noindent
+\textbf{Reduction to projective space.}
+The finite-pushforward lemma and its affine
+proof are in Schemes, Lemma
+\ref{schemes-lemma-finite-coherent-%
+pushforward}.
+Thus for a closed immersion
+$i:X\hookrightarrow\mathbb P^r$ we can
+replace $\mathcal F$ by $i_*\mathcal F$.
+Their cohomology agrees. Pushforward along a
+closed immersion is exact on stalks and
+preserves flabby resolutions. Taking global
+sections of the resulting resolution gives
+the original complex.
+
+\medskip\noindent
+\textbf{How a local generator extends.}
+Put $D_i=D_+(X_i)$ and
+$M_i=\Gamma(D_i,\mathcal F)$. Fix $s\in M_i$.
+We want a global section of $\mathcal F(N)$
+whose coefficient in the frame $X_i^N$ on
+$D_i$ is exactly $s$. There are two places
+where we use a power of $X_i$.
+
+For a first example, take the regular
+function $s=X_1/X_0$ on $D_0$ in
+$\mathbb P^1$. On the other chart this
+looks like $1/u$, with $u=X_0/X_1$.
+Twist once. The local expression $sX_0$
+is exactly $X_1$, a global section of
+$\mathcal O(1)$. Its coefficient on $D_1$
+in the frame $X_1$ is $1$. The same move
+clears denominators for module sections.
+
+First, on $D_j$ set $u=X_i/X_j$. The overlap
+with $D_i$ is the principal open $D(u)$, so
+the restriction of $s$ is a fraction $m/u^d$
+in $(M_j)_u$. In the frame $X_j^N$, the
+section we want has coefficient
+$$
+u^N s=u^{N-d}m .
+$$
+For $N\ge d$ this belongs to $M_j$ and
+defines a section on all of $D_j$. There are
+finitely many charts. Choose one $N$ that
+works on all of them.
+
+Second, the chosen extensions on $D_j$ and
+$D_k$ agree on $D_i\cap D_j\cap D_k$. On the
+affine $D_j\cap D_k$ their difference
+therefore becomes zero after localizing at
+$u$. By the definition of localization some
+power of $u$ kills the difference. Taking the
+largest such exponent $e$ over all pairs,
+multiply every extension by $X_i^e$. Their
+differences now vanish on whole overlaps, so
+the sections glue in degree $N+e$. On $D_i$
+their coefficient in the new frame is still
+$s$. This gluing step works even when
+$\mathcal F$ has torsion. See
+\cite[II, Lemma 5.14]{har}.
+
+Choose finitely many generators of each
+$M_i$. Carry out the construction for all of
+them and raise every resulting degree to the
+same $N$, multiplying a section from $D_i$ by
+the required extra power of $X_i$. The
+sections from chart $i$ still generate on
+that chart, since $X_i^N$ is a frame there.
+Together the sections give the first
+surjection below. Tensor it with $\mathcal
+O(-N)$ to get the second.
+$$
+\begin{aligned}
+\mathcal O^{\oplus k}
+&\twoheadrightarrow\mathcal F(N),\\
+\mathcal O(-N)^{\oplus k}
+&\twoheadrightarrow\mathcal F .
+\end{aligned}
+$$
+
+\begin{quote}
+\textbf{Daniel's question.}
+How does this relate to base-point freeness
+and to the analytic proof of Kodaira
+embedding?
+\end{quote}
+\textbf{Editorial answer.}
+Global generation means that global sections
+span every fibre, by Nakayama's lemma for
+finite stalks. For a line bundle a fibre has
+dimension one, so one nonzero value suffices.
+This is exactly base-point freeness. For a
+vector bundle one needs enough independent
+values to span the fibre.
+
+On a smooth complex projective variety take
+an ample line bundle $L$ and fix $x$. In the
+evaluation sequence for $L^N$, the
+obstruction to prescribing a value at $x$
+lies in
+$$
+H^1(X,\mathfrak m_x\otimes L^N).
+$$
+Here is where Daniel's Nadel argument fits.
+Use a cutoff logarithmic weight at $x$ with
+multiplier ideal $\mathfrak m_x$ and
+curvature bounded below. A sufficiently large
+positive power of $L$ absorbs this lower
+bound and the curvature of $K_X^{-1}$. Nadel
+vanishing applied to $K_X^{-1}\otimes L^N$
+with that weight then kills the displayed
+group. This gives evaluation for a line
+bundle at a fixed point. For an arbitrary
+coherent sheaf the analogous exact sequence
+uses the kernel of evaluation onto its fibre
+skyscraper. The chart proof gives a single
+exponent for all points and applies to every
+coherent sheaf.
+
+\medskip\noindent
+\textbf{Finishing the induction.}
+Write $\mathcal E=\mathcal O(-N)^{\oplus k}$
+and let $\mathcal R$ be the coherent kernel.
+The standard affine cover has $r+1$ members
+and affine intersections, so cohomology
+vanishes above $r$. At degree $r$ the map
+from $H^r(\mathcal E)$ onto $H^r(\mathcal F)$
+is surjective. This gives finiteness in
+degree $r$ for \emph{every} coherent sheaf,
+hence also for $\mathcal R$. One degree lower
+the exact sequence has the terms
+$$
+H^{r-1}(\mathcal E)\longrightarrow
+H^{r-1}(\mathcal F)\longrightarrow
+H^r(\mathcal R).
+$$
+The left term is finite by Monday's
+computation, the right by the case just
+proved. Repeating proves Theorem
+\ref{theorem-jethro-2026-11-16-finiteness}
+in every degree.
+
+\medskip\noindent
+\textbf{The example on curves.}
+The board examples on a smooth variety were
+the structure sheaf, the tangent sheaf and
+the exterior powers of the cotangent sheaf.
+On a smooth connected complex projective
+curve $C$, only $\mathcal O_C$ and
+$K_C=\Omega_C^1$ occur as sheaves of
+holomorphic forms. If $g=h^0(K_C)$, Serre
+duality gives $h^1(\mathcal O_C)=g$ and
+$h^1(K_C)=h^0(\mathcal O_C)=1$. Thus the
+middle row of the Hodge diamond is $(g,g)$,
+between two rows consisting of $1$.
+
 \bibliography{my}
 \bibliographystyle{amsalpha}
 
