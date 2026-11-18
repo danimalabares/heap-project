@@ -34,8 +34,11 @@ The existing material was reorganized,
 not comprehensively fact-checked. New
 Indigenous profiles cite ISA entries read
 on 18 November 2026. Classification dates
-are stated; original uncited names remain
-a research inventory. Family diagrams
+are stated. Following Daniel's correction,
+the original language tree is displayed
+in Linguistics with Guajá added and brief
+notes on non-genealogical links. It remains
+a dated working map. Family diagrams
 were replaced with explicit reconstructions
 whose evidence and gaps are distinguished.
 No claim of a complete genealogy is made.
