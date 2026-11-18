@@ -61,6 +61,8 @@ of the talk not verified); `link.png` of the OPEGA deck taken from the
 Legalzinho folder. Most images in the older decks have no source or licence
 line yet.
 
+The `dbar-poincare` decks were copied from `danimalabares/tmp`, whose `dbar-poincare/` folder was deleted on 18 November 2026 after its README was moved to `slides/dbar-poincare/README.md`.
+
 The Kodaira decks were developed in
 [danimalabares/tmp](https://github.com/danimalabares/tmp/tree/main/kodaira-lectures)
 and copied here on 16 November 2026 from tmp commit `ad55fbd`; lecture 24
