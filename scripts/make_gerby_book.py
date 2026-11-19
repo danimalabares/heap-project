@@ -43,6 +43,7 @@ KNOWN_CHAPTERS = {
     "seminars-complex-geometry",
     "seminars-algebraic-geometry",
     "seminars-others",
+    "seminars-analysis-pde",
     "geometric-prequantization",
     "surfaces",
     "stanley-reisner",
