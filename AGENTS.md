@@ -115,6 +115,31 @@ Question sheets and other course handouts do
 not belong here; they live in the Drive
 coursework folder.
 
+## Talks in seminar notebooks
+
+Every section of a seminar or conference
+notebook that records one talk (the notebooks
+of Parts XI and XII, such as
+`seminars-algebra.tex`) gives the speaker,
+place and date in comment lines right after
+its `\label`:
+
+```
+%% speaker: Name, Affiliation
+%% place: Seminar, Institution
+%% date: September 12, 2024
+```
+
+Plain text, no TeX markup. Omit a line when
+the fact is not known; never guess it. A long
+value continues on further lines with the
+same key. The website shows them under the
+title of the section in the table of
+contents (`gerby-website/gerby/talks.py`), and
+`scripts/test_gerby_routes.py` checks that
+the seminar notebooks record one for every
+section.
+
 ## Commit provenance
 
 Every commit containing AI-generated or AI-edited content must make the AI involvement explicit in the commit message. Name the AI/tool responsible (for example, `ChatGPT:` or `Claude:`) and briefly describe what it changed. For substantial automation, make the extent of the automated work clear enough for later debugging and provenance tracking.

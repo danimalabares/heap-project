@@ -8,6 +8,7 @@ from gerby.views.methods import *
 
 import gerby.configuration
 from gerby.registry import describe
+from gerby.talks import annotate as annotate_talks
 
 import re
 
@@ -236,6 +237,7 @@ def show_tag(tag):
                 .join_from(Tag, Reference, JOIN.LEFT_OUTER, attr="reference"))
 
     tree = combine(sorted(tags))
+    annotate_talks(tree)
 
   # dealing with comments
   commentsEnabled = tag.type not in hideComments and Comment.table_exists()

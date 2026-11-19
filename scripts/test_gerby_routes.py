@@ -27,6 +27,7 @@ import gerby.views.conferences as conferences_view
 import gerby.views.minicourses as minicourses_view
 import gerby.views.seminars as seminars_view
 import gerby.views.tag as view
+import gerby.talks as talks
 import gerby.application as application
 from gerby_registry import Evidence
 
@@ -499,6 +500,57 @@ class ContentsAndDownloadsTests(
             events[1][1][0].lecturer,
             "Aline Zanardini",
         )
+
+    def test_talk_metadata_of_a_section(self):
+        text = (
+            "\\section{T}\n"
+            "\\label{%\nsection-a%\n}\n"
+            "%% speaker: Ann Lee, Univ\n"
+            "%% speaker: of Somewhere\n"
+            "%% place: Seminar, IMPA\n"
+            "%% date: May 1, 2026\n\n"
+            "\\section{U}\n\\label{section-b}\n"
+            "Text.\n"
+        )
+        found = talks.parse_file("nb", text)
+        self.assertEqual(
+            found,
+            {
+                "nb-section-a": (
+                    "Ann Lee, Univ of Somewhere",
+                    "Seminar, IMPA",
+                    "May 1, 2026",
+                )
+            },
+        )
+        self.assertEqual(
+            talks.describe(found["nb-section-a"]),
+            "Ann Lee, Univ of Somewhere."
+            " Seminar, IMPA. May 1, 2026.",
+        )
+
+    def test_seminar_notebooks_record_talks(self):
+        for name in [
+            "seminars-analysis-pde",
+            "seminars-differential-geometry",
+            "seminars-complex-geometry",
+            "seminars-algebraic-geometry",
+            "seminars-algebra",
+            "seminars-physics",
+            "seminars-computing",
+            "oktobermat-2026",
+            "saet-2026",
+        ]:
+            text = (ROOT / (name + ".tex")).read_text(
+                encoding="utf-8"
+            )
+            sections = text.count("\\section{")
+            recorded = len(
+                talks.parse_file(name, text)
+            )
+            self.assertEqual(
+                sections, recorded, name
+            )
 
     def test_standalone_page_and_old_urls(self):
         client = app.test_client()
