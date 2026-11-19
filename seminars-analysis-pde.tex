@@ -1722,7 +1722,9 @@ This is gold.
 
 \medskip\noindent
 {\bf Editorial answer.}
-The idea is right, with one refinement.
+The idea is right, and Liu says the same in
+the talk (see the spoken remarks on
+solutions), with one refinement.
 A distribution is defined by how it acts on
 test functions, as in Definition
 \ref{%
@@ -1756,8 +1758,9 @@ solutions.
 
 \medskip\noindent
 {\bf Editorial answer.}
-Her remark was an invitation, so a short email
-is natural. A good first message would ask
+Her remark was an invitation (she says, ``you
+can come and ask me, or just email me''), so a
+short email is natural. A good first message would ask
 for the references on quantum algorithms for
 multivalued and Young-measure solutions (the
 two arXiv numbers on the slide) and say which
@@ -2243,6 +2246,275 @@ proximal operator''. The photographs stop
 there.
 
 \medskip\noindent
+{\bf Spoken: the talk itself.}
+The long recording (72 minutes) is a rough
+automatic transcript, with errors in names and
+formulas; I use it only for what Liu says in
+addition to the slides, in the order of the
+talk. The host introduces her and she thanks
+him; it is her first visit to South America
+and to Rio. She says the audience shares an
+interest in PDEs, and she asks them to
+interrupt.
+\begin{enumerate}
+\item {\bf What quantum simulation means.}
+It means letting a quantum system evolve, in
+the closed case by unitary dynamics, which are
+reversible; reversibility will matter. On a
+laptop one has to transform the quantum
+dynamics first; here the device itself works
+with quantum states. She says that today we
+are beyond what classical computers easily
+simulate, for example a thousand strongly
+interacting atoms, and that a quantum system
+with a thousand atoms can simulate that
+dynamics. Qubits: hundreds today; continuous
+variable systems (light): millions of modes.
+Linear quantum dynamics is Schr\"odinger's, so
+the question is how to put other equations
+into that form.
+
+\item {\bf The four classes.} In classical
+computing the data processing is in
+discrete steps and the encoding is by bits
+(the top left corner of the table), and a
+talk on quantum computing usually also stays
+there (circuit model, measurement-based
+model). But there were analogue classical
+devices before general computers, such as the
+slide rule, which encodes numbers
+continuously, and continuous time is the more
+natural notion for physics: discrete time is
+a special case of it. Her point about the
+table of the formulations (PDE, ODE, linear
+algebra): with hardware that is not yet good,
+the physical device must match the
+mathematical language as closely as possible.
+A PDE has continuous time and continuous
+space, so one wants a platform of that kind.
+
+\item {\bf Qubits.} The phase matters:
+a superposition is complex, not a classical
+probability. For the Trotter step she mentions
+other decompositions. The difficulty is that
+errors propagate over long evolutions, so one
+needs fault-tolerant devices, whose cost of
+correcting errors may exceed the classical
+simulation.
+
+\item {\bf Qumodes.} A rule she repeats: for
+quantum, whatever you have in classical
+mechanics, put hats on. The Fourier transform
+between $x$ and $p$ is the basis of the
+quantum Fourier transform used in Shor's
+algorithm and others. For the correspondence
+$d/dx\to i\hat p$ she calls it ``a little
+exercise'' and notes that $x$ and $d/dx$ do not
+commute either, exactly as $\hat x$ and
+$\hat p$ do, so everything is consistent. A
+single mode is, for instance, the light of a
+laser pointer (a coherent state), and $N$ modes
+are $N$ beams, though they need not be
+photonic.
+
+\item {\bf The table of costs.} In the
+classical corners one first discretises, and
+the cost has the curse of dimensionality. The
+quantum digital corner: polynomial in the
+dimension and logarithmic in the
+discretisation. The quantum analogue corner:
+linear in the dimension, no discretisation.
+She says this needs entanglement.
+
+\item {\bf The warm-up.} The heat and
+Schr\"odinger equations differ by one factor
+$i$. One may absorb it in ``imaginary time'',
+but then one cannot map back to real time.
+Instead, as the Argand plane makes the
+imaginary numbers real by adding a dimension,
+one adds a real dimension, a kind of
+dilation. Heat diffuses and loses
+information, while Schr\"odinger evolution is
+reversible, so the target should be an
+equation where one can go forward and
+backward. The name ``warped'' comes from her
+past as a high-energy physicist: the idea of
+a warped extra dimension in which gravity
+leaks. After the transformation, with the
+operator treated as a constant, the equation
+in $\xi$ is a translation, which does not
+change shape; then the Fourier transform turns
+the derivative into the missing factor $i$,
+and ``$\eta$ is a real number'', so each
+Fourier mode is a Schr\"odinger equation with
+dilated time. Then she remarks that one does
+not need to discretise again: in the
+continuous-variable picture $\eta$ is just
+another mode, and the Hamiltonian acts on two
+modes through a tensor product, an entangling
+operation, which classical systems do not
+have.
+
+\item {\bf Recovery.} The inverse Fourier
+transform is a change of basis (from the
+$\eta$ basis to the $\xi$ basis), and the
+integral over $\xi>0$ is a measurement of the
+extra mode in which one keeps only $\xi>0$; if
+it fails, ``we try again''. The success
+probability is related to the normalisation.
+
+\item {\bf General method.} Hermitian part:
+already Schr\"odinger-like, nothing to do.
+The heat equation is the case where it is
+zero. The extra qumode only needs the
+ancilla state, close to a Gaussian and to a
+coherent state, which has already been made in
+the lab, and it is the same for every PDE.
+She calls the method a meta-algorithm which
+applies to any of the four corners, to the
+choice of what to discretise, and to hybrid
+qubit-qumode devices. One goes back from a
+Hamiltonian to the PDE by reading off $A_1$,
+$A_2$, then $A$. Experiments: the convection
+equation needs only a displacement operation,
+which is easy in quantum optics, and was done
+with collaborators (the transcript says up to
+``20,000 words'', that is, probably
+dimensions; I could not verify the number or
+the collaborator's name). For a Fokker--Planck
+equation with linear drift and additive
+noise the term $\hat p^2\otimes\hat\eta$ is
+non-Gaussian and not easily available in
+optics, so her group works with a
+superconducting team on chips; several have
+been built and redesigned, so this is ongoing
+experimental work. If one finds a system with
+the Hamiltonian naturally, the simulation is
+one gate.
+
+\item {\bf Nonlinear PDEs.} Quantum mechanics
+is linear, so one must turn the problem
+linear, and there are two approaches.
+Linearisation (Carleman type, or closure
+methods) gives an infinite linear system that
+one truncates; then either the dimension is
+still too high (``it is not magical'') or the
+truncation works only for short times, weak
+nonlinearity or strong dissipation, where
+nonlinear effects die out, which is not where
+the interesting behaviour is. For strongly
+nonlinear, weakly dissipative regimes one
+wants an exact mapping, which in general may
+not exist and is open. So her group studies
+special PDEs. She names reinforcement
+learning, optimal control, transport, shocks
+and caustics and turbulence as the examples.
+\end{enumerate}
+
+\medskip\noindent
+{\bf Spoken: on solutions.}
+What does ``solution'' mean for a nonlinear PDE?
+The classical notion is appropriate only for
+short times, without shocks or caustics. The
+weak notion: ``a famous example is the Dirac
+delta function; it is not really a function, it
+is a distribution, because it only makes sense
+under an integral sign. Similarly the
+solution of the PDE only makes sense under an
+integral sign.'' (My paraphrase of the
+transcript.) A viscosity solution is a
+continuous function and is characterised by
+smooth test functions touching it from above
+(and below); it is the right notion for
+optimal control. There are also multivalued
+solutions and measure-valued ones (one asks for
+the probability that the solution takes a
+value). Different types of solutions encode
+different conditions and need different
+algorithms. She will talk about the viscosity
+solutions of Hamilton--Jacobi, which is joint
+interest with the host, ``but we also have
+quantum algorithms for other types of
+solutions: you can come and ask me, or just
+email me''.
+
+\medskip\noindent
+{\bf Spoken: viscosity and Hamilton--Jacobi.}
+A workable definition of the viscosity solution
+is to add an artificial viscosity term, which
+does not exist in reality, like a
+regularisation in optimisation. Modern schemes
+use a nonlinear viscosity, active only where
+there are corners, which is efficient. For
+quantum one wants linearity, so she goes back
+to the artificial viscosity of the 1950s, a
+linear diffusion term: as $\nu\to0$ the
+solution of the viscous equation tends to the
+viscosity solution. Adding a term makes it
+possible to linearise. She says that Cole--Hopf
+gives a heat equation with a source term, which
+is of a form already handled, and that one
+cares about $S$, not $u$.
+
+\medskip\noindent
+{\bf Spoken: Hamilton--Jacobi and the
+Lagrangian.}
+Where does the equation come from? In classical
+mechanics the action $S$ solves the
+Hamilton--Jacobi equation, and this ``hints at
+an approach for Lagrangian formulation'':
+Newton's equations with the Hamiltonian,
+or minimising an action with the Lagrangian,
+the two being Legendre--Fenchel dual. This is
+the origin of the time-stepping formula
+$S^{n+1}=\inf\dots$, whose infimum gives
+$-\mathcal{H}$. Why add the entropy regulariser?
+Without it the infimum is hard to solve; with
+it the minimiser is a Gibbs state (an inverse
+exponential), and the minimum value is a free
+energy, proportional to minus the logarithm of
+a partition function, as in thermodynamics. So
+$\nu$ plays the role of a temperature in the
+Gibbs weight, and $\gamma$ is a probability
+density on the velocities $v$. Cole--Hopf does
+not work on the whole equation for a general
+Hamiltonian, but it works in each small step,
+so one has either a time-stepping algorithm or
+a linear PDE. For the observables she says: the
+gradient is $\nabla S=\nabla u/u$ up to the
+factor $-2\nu$; replacing $d/dx$ by $i\hat p$,
+it is obtained by measuring the momentum; the
+cost she quotes is of order $d^2/\epsilon$
+(the transcript is unclear whether it is
+$\epsilon$ or $\epsilon^2$) against
+$d^4/\epsilon^2$ for the value of $S$, ``not
+optimal'' and improvable.
+
+\medskip\noindent
+{\bf Spoken: Wasserstein proximal operators.}
+She says the host asked her to talk about them
+as an application of the viscosity solution.
+Question: which new distribution best reduces a
+loss while staying close to the current one?
+Different distances give different algorithms.
+Gradient descent uses the $L^2$ distance, which
+does not preserve normalisation and positivity
+of a probability, while the Wasserstein distance
+does. In its dynamical form one minimises a
+kinetic energy subject to the continuity
+equation, which is what makes $\rho$ move as a
+probability, with $u$ read as a velocity;
+the constraint is a PDE itself with fixed
+initial and final distributions. She then adds
+a regularising diffusion term, ``a viscosity
+term similar to the one in our
+Hamilton--Jacobi equation'', so that the
+continuity equation becomes the Fokker--Planck
+equation, and adds the Lagrange multipliers,
+which gives the backward-forward system on the
+slides.
+
+\medskip\noindent
 {\bf Spoken: the end of the talk.}
 (From the transcript of the last three
 recordings, which is rough; words in
@@ -2354,14 +2626,14 @@ audience applauded.
 The photographs cover about 50 of the more
 than 100 slides (the deck has at least 118
 pages) and no title slide, outline or final
-summary slide. The spoken remarks above come
-from the last three recordings only (the
-end of the talk and the questions); the
-transcript of the long recording of the
-talk itself is not yet integrated, so remarks
-made while the slides were shown are
-missing, except where a slide carries the
-information. All the mathematics above is as
+summary slide. The spoken remarks come from
+all four recordings, which together cover the
+talk and the questions, but the transcripts are
+rough: they are my reading of automatic speech
+recognition, with garbled names and
+formulas, and some stretches (for instance the
+numbers of the experiments) could not be
+verified. All the mathematics above is as
 shown on the slides, plus the editorial
 answers, which are mine.
 
