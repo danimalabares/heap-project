@@ -1,0 +1,4462 @@
+\documentclass[portuguese]{article}
+\usepackage{titlesec}
+
+%Paquetes
+\usepackage[left=4cm, right=4cm]{geometry}
+\usepackage{palatino}%Fuente
+\usepackage{graphicx}%Imágenes
+\usepackage{float}%Imágenes
+\usepackage{subcaption}%Imágenes
+\usepackage{enumitem}%Listas
+\usepackage{parskip}%Espacio entre párrafos
+\usepackage{multicol}
+\usepackage{amsthm,thmtools,xcolor}
+\usepackage{amssymb}%Mate
+\usepackage{amsmath}%Mate
+\usepackage{tikz}%Mate (diagramas)
+\usepackage{dutchcal}
+\usepackage{tikz-cd}
+\usepackage{xcolor}
+\definecolor{blue-violet}{rgb}{0.54, 0.17, 0.89}
+\usetikzlibrary{%
+	matrix,%
+	calc,%
+	arrows,%
+	shapes,
+	decorations.markings
+}
+\usepackage[bookmarks,bookmarksopen,bookmarksdepth=3]{hyperref}%Links a lugares en el texto
+\hypersetup{%colores
+	colorlinks=true,
+	urlcolor=blue,
+	linkcolor=magenta,
+	citecolor=blue,
+	filecolor=blue,
+	urlbordercolor=white,
+	linkbordercolor=white,
+	citebordercolor=white,
+	filebordercolor=white
+}
+\usepackage{cleveref}
+
+
+
+\renewcommand{\contentsname}{Índice}
+
+%Referencias
+%\usepackage[style=authortitle,backend=bibtex]{biblatex}
+%\addbibresource{analysis.bib}
+
+\definecolor{blue-violet}{rgb}{0.54, 0.17, 0.89}
+\definecolor{azure}{rgb}{0.0, 0.5, 1.0}
+\definecolor{green(ncs)}{rgb}{0.0, 0.62, 0.42}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{limegreen}{rgb}{0.2, 0.8, 0.2}
+\definecolor{palatinateblue}{rgb}{0.15, 0.23, 0.89}
+\definecolor{trueblue}{rgb}{0.0, 0.45, 0.81}
+\definecolor{goldenyellow}{rgb}{1.0, 0.87, 0.0}
+\definecolor{fashionfuchsia}{rgb}{0.96, 0.0, 0.63}
+\definecolor{brightcerulean}{rgb}{0.11, 0.67, 0.84}
+\definecolor{jonquil}{rgb}{0.98, 0.85, 0.37}
+\definecolor{lavendermagenta}{rgb}{0.93, 0.51, 0.93}
+\definecolor{peru}{rgb}{0.8, 0.52, 0.25}
+\definecolor{persimmon}{rgb}{0.93, 0.35, 0.0}
+\definecolor{persianred}{rgb}{0.8, 0.2, 0.2}
+\definecolor{persianblue}{rgb}{0.11, 0.22, 0.73}
+\definecolor{persiangreen}{rgb}{0.0, 0.65, 0.58}
+\definecolor{persianyellow}{rgb}{0.9, 0.89, 0.0}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+
+\declaretheoremstyle[headfont=\color{trueblue}\normalfont\bfseries,]{colored1}
+\declaretheoremstyle[headfont=\color{forestgreen}\normalfont\bfseries,]{colored2}
+\declaretheoremstyle[headfont=\color{peru}\normalfont\bfseries,]{colored3}
+\declaretheoremstyle[headfont=\color{persiangreen}\normalfont\bfseries,]{colored4}
+\declaretheoremstyle[headfont=\color{brightcerulean}\normalfont\bfseries,]{colored5}
+\declaretheoremstyle[headfont=\color{lavendermagenta}\normalfont\bfseries,]{colored6}
+\declaretheoremstyle[headfont=\color{blue-violet}\normalfont\bfseries,]{colored7}
+\declaretheoremstyle[headfont=\color{green(ncs)}\normalfont\bfseries,]{colored8}
+\declaretheoremstyle[headfont=\color{peru}\normalfont\bfseries,]{colored9}
+\declaretheoremstyle[headfont=\color{persiangreen}\normalfont\bfseries,]{colored10}
+
+\declaretheorem[style=colored1,numberwithin=section,name=Teorema]{teo}
+\declaretheorem[style=colored2,numberwithin=section,numberlike=teo,name=Proposição]{prop}
+\declaretheorem[style=colored3,numberwithin=section,numberlike=teo,name=Lema]{lema}
+\declaretheorem[style=colored4,numberwithin=section,numberlike=teo,name=Corolário]{coro}
+\declaretheorem[style=colored5,numbered=no,name=Exemplo]{exemplo}
+\declaretheorem[style=colored5,numbered=no,name=Exemplos]{exemplos}
+\declaretheorem[style=colored6,numberwithin=subsection,name=Exercício]{exer}
+\declaretheorem[style=colored6,numbered=no,name=Exercício]{exer*}
+\declaretheorem[style=colored7,numberwithin=section,name=Observação]{obs}
+\declaretheorem[style=colored8,numberwithin=section,name=Afirmação]{af}
+\declaretheorem[style=colored8,numbered=no,name=Afirmação]{af*}
+\declaretheorem[style=colored9,numbered=no,name=Definição]{defn}
+\declaretheorem[style=colored10,numbered=no,name=Pergunta]{pregunta}
+
+\crefname{exer}{exercício}{exercícios}
+\crefname{exer*}{exercício}{exercícios}
+
+\renewcommand{\proofname}{Demostração}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\Cinf}{C^\infty}
+
+\DeclareMathOperator{\sen}{sen}
+\DeclareMathOperator{\img}{img}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\Id}{Id}
+\newcommand{\vertiii}[1]{{\left\vert\kern-0.25ex\left\vert\kern-0.25ex\left\vert #1 
+		\right\vert\kern-0.25ex\right\vert\kern-0.25ex\right\vert}}
+
+\begin{document}
+	\begin{center}
+		{\LARGE Notas de aula: Análise Funcional}
+		
+		{\Large Prof. Bruno Braga}
+		
+		 \href{https://github.com/danimalabares/functional-analysis}{github.com/danimalabares/functional-analysis}
+		
+	\end{center}
+	Este documento contém as notas das aulas do curso ministrado pelo Prof. Bruno Braga no Programa de Verão do IMPA, 2024.
+	\tableofcontents
+	\section*{Plano do curso}
+	Provas:
+	\begin{itemize}
+		\item 29 de fevereiro.
+		\item 1 de março.
+	\end{itemize}
+	Tópicos:
+	\begin{enumerate}
+		\item Espaços de Banach
+		\item Operadores.
+		\item Espaço dual
+		\item Topologia fraca e fraca*.
+		\item 4 teoremas:
+		\begin{enumerate}
+			\item Hahn-Banach.
+			\item Banach-Alaglou.
+			\item Banach-Steinhouse.
+			\item Aplicação aberta.
+		\end{enumerate}
+		\item Espaços de Hilbert.
+		\item Teoria espectral de operadores compactos.
+	\end{enumerate}
+	
+	\section{Espaços de Banach}
+	\begin{defn}
+		Seja $X$ un espaço vetorial sobre $\mathbb{K}\in\{\R,\C\}$. Uma função $\|\; \|:X\to[0,\infty)$ é uma \textbf{\textit{norma}} se
+		\begin{enumerate}
+			\item $\| x\|=0\iff x=0$.
+			\item $\|\lambda x\|=|\lambda|\| x\|\;\forall\lambda\in\mathbb{K},\;\forall x\in X$.
+			\item $\| x+y\|\leq\| x\|+\| y\|\quad\forall x,y\in X$.
+		\end{enumerate}
+		O par $(X,\|\;\|)$ é um \textbf{\textit{espaço normado}}. $(X,\|\;\|)$ é um espaço métrico normado com a métrica $d(x,y)=\| x-y\|$.
+		
+		No caso em que $(X,\|\;\|)$ é completo, chama-se um \textbf{\textit{espaço de Banach}}.
+	\end{defn}
+	
+	\begin{exemplo}\leavevmode
+		\begin{enumerate}
+			\item $\ell_p=\{(x_n)\in\mathbb{K}^\N:\sum_{n=1}^\infty|x_n|^p<\infty\}$ com a norma $\|(x_n)\|_p=\left(\sum_{n=1}^\infty|x_n|^p\right)^{1/p}$ é um espaço de Banach.
+			\item $\ell_\infty=\{(x_n)\in\mathbb{K}^\infty:\sup|x_n|<\infty\}$ com a norma $\|(x_n)\|_\infty=\sup|x_n|$.
+			\item $c_0=\{(x_n)\in\ell_\infty:\lim_{n}x_n=0\}$, com a norma de $\ell_\infty$.
+			\item Seja $K$ um compacto Housdorff, $C(K)=\{f:K\to K:f\text{ é contínua}\}$, com a norma $\| f\|=\sup_{x\in K}|f(x)|$. Então $(C(K),\|\;\|)$ é de Banach.
+			\item Seja $(X,\mathcal{A},\mu)$ um espaço de medida. O conjunto das clases de equivalença de funções $f:X\to \mathbb{K}$ tais que
+			\[\| f\|=\left(\int_K|f|^pd\mu\right)^{1/p}<\infty\]
+			é Banach.
+		\end{enumerate}
+	\end{exemplo}
+	\begin{exer}
+		Vamos mostrar que $\ell_p$ é Banach.
+		\begin{proof}
+			$\|\;\|_p$ é uma norma. Se $p=1$ já está. Suponha que $1\in (0,\infty)$.
+			\begin{af}[Desigualdade de Young]
+				Sejam $a,b$ numeros reais no negativos e $p,q$ numeros reais maiores que 1 tais que $1/p+1/q=1$. Então
+				\[ab\leq\frac{a^p}{p}+\frac{b^p}{q}.\]
+			\end{af}
+			\begin{proof}
+				%Seja $f(x)=x^{p-1}$ se $x>0$então $f^{-1}(x)=x^{q-1}$, $x>0$. 
+				%Seja ,$p\in[1,2]$ é $q\in[0,\infty)$.
+				
+				(Prova por figura disponível em Narici p. 110.) A idea é que as integrais da função $f(x)=x^{p-1}$ e da sua inversa sumam uma área maior do que a área do rectángulo de lados $a,b$.
+			\end{proof}
+			\begin{af}[Desigualdade de Hölder]
+				Sejam $p,q\in(1,\infty)$ tais que $1/p+1/q=1$, $(x_n)\in\ell_p$, $(y_n)\in\ell_q$. Temos que $(xy)\in\ell_1$.
+				\[\|(x_ny_n)\|_1\leq\|(x_n)\|_p\|(y_n)\|_q\]
+			\end{af}
+			\begin{proof}
+				Suponha $\| (x_n)\|=\| (y_m)\|_q=1$. Aplicando a desigualdade de Young, temos que
+				\[\sum_{n=1}^N|x_ny_n|\leq\sum_{n=1}^N\frac{|x_n|^p}{p}+\frac{|y_n|^q}{q}\leq\frac{1}{p}+\frac{1}{q}=1.\]
+				E se os vetoreis não são de norma 1 também está tranquilo pois podemos tomar $\tilde{x}_m=\frac{x_m}{\| x\|_p}$ é $\tilde{y}_m=\frac{y_m}{\| y\|_q}$. Nesse caso podemos factorizar os números $\| (x_n)\|_p$ e $\| (y_n)\|_p$ para obter que $\|(\tilde{x}_n)\|_p=\| (\tilde{y}_n)\|_q=1$ e aplicar o passo anterior.
+			\end{proof}
+			\begin{af}[Desigualdade de Minkowsky]
+				Sejam $(x_n),(y_n)\in\ell_p$. Então $(x_n)+(y_n)\in\ell_p$ e 
+				\[\|(x_n+y_n)\|_p\leq\| x_n\|_p+\| y_n\|_p.\]
+			\end{af}
+			\begin{proof}
+				Em geral, se $a,b>0$, então $(a+b)^p\leq2^{p-1}(a^p+b^p)$?. De fato, $(a+b)^p\leq (2\max\{a,b\})^p\leq 2^p(a^p+b^p)$. Logo $\| (x_n+y_n)\|_p\leq 2^p(\|x_n\|_p+\|y_n\|_p)$, assim $(x_n+y_n)\in\ell_p$.
+				\begin{align*}
+					\|(x_n+y_n)\|^p_p&=\sum_{n=1}^\infty|x_n+y_n|^p\\
+					&=\sum_{n=1}^\infty|x_n+y_n||x_n+y_n|^{p-1}\\
+					&\leq\sum_{n=1}^\infty|x_n||x_n+y_n|^{p-1}+\sum_{n+1}^\infty|y_n||x_n+y_n|^{p-1}\\
+					&=\|(x_n)(x_n+y_n)^{p/q})\|_1+\|(y_n)x_n+y_n)^{p/q})\|_1\qquad \left(p-1=\frac{p}{q}\right)\\
+					&\leq\|(x_n)\|_p\|(x_n+y_n)^{p/q}\|_q+\|(y_n)\|_p\|(x_n+y_n)^{p/q}\|_q\quad\text{(Hölder)}\\
+					&=(\|(x_n)\|_p+\|(y_n)\|_p)\|(x_n+y_n)\|_q^{p/q}\\
+					&=(\|(x_n)\|_p+\|(y_n)\|_p)\frac{\|(x_n+y_n)\|_p^{p}}{\|(x_n+y_n)\|_p^q}
+				\end{align*}
+				Usando que $(p-1)q=pq-q=p$. {\color{orange}Dividindo entre $\|?\|$ obtemos
+					\[\|(x_n+y_n)\|_p^{q}\leq\|(x_n)\|_p+\|(y_n)\|_p\]
+					Finalmente,
+					\[\|(x_n+y_n)\|_p\leq\| x_n\|_p+\| y_n\|_p.\]}
+			\end{proof}
+			\begin{af}
+				$\|\;\|_p$ é completa.
+			\end{af}
+			\begin{proof}
+				Seja $(x_n)$ uma sequência de Cauchy em $\ell_p$.
+				
+				Note que $\forall k\in\N$,
+				\[|x_n^k-x_m^k|\leq \| x_m-x_m\|\]
+				Assim, $(x_n^k)_k$ é Cauchy para toda $k\in\N$. Defina
+				\[x=(x^k)=\left(\lim_{n\to\infty}x_n^k\right)\]
+				Objetivo: $x\in\ell_p$ e $x_n\to x$.
+				Defina $M=\sup_{n\in\N}\| x_n\|$ pois $(x_n)$ é Cauchy, assim é limitada. Temos para $N\in\N$:
+				\begin{align*}
+					\left(\sum_{n=1}^N|x_n^k|^p\right)^{1/p}
+					&\leq\left(\sum_{n=1}^N|x^k_n|^p+|x_m^k|^p\right)^{1/p}+\left(\sum_{n=1}^N|x_n^k|^p\right)^{1/p}\\
+					&\leq \left(\sum_{n=1}^N |x^k_n-x^k_m|^p\right)^{1/p}+M
+				\end{align*}
+				issto é, ``uniformemente finito".
+				Tomando $m>>1$,
+				\[\left(\sum_{n=1}^N|x_n|^p\right)^{1/p}\leq\varepsilon+M\quad\forall N,\forall\]
+				Logo $\| x\|\leq M$.
+				
+				Logo,
+				\begin{align*}
+					\sum_{n=1}^N|x_n-x_m|^p&=\lim_m\sum_{n=1}^N|x_m(c)-x_m(x)|^p\\
+					&\leq \lim\| x_m-x_n\|^p
+				\end{align*}
+				{\color{magenta}A partir daqui está bem: }Como $(x_n)$ é Cauchy, existe $n_0\in\N$ t.q. $m,n>n_0$ implica $\| x_n-x_m\|^p<\varepsilon^p$.
+				
+				Logo, seja $n>n_0$, 
+				\[\sum_{k=1}^N|x^k-x_n^k|^p\leq\varepsilon^p\quad\forall N\in\N\]
+				Issto é, $\| x -x_n\|<\varepsilon\quad\forall m>n_0$.
+			\end{proof}
+		\end{proof}
+	\end{exer}
+	\begin{obs}\leavevmode
+		\begin{enumerate}
+			\item $\ell_p\leq\ell_q$, $p\leq q$.
+			\item $(X,\mu)$ medida finita, $L_q\leq L_p$, $p\leq q$.
+			\item $c_{00}=\{(x_n)\in K^\N:\exists n_0\in \N \text{ t.q. }x_n=0,\;\forall m>n_0\}$.
+		\end{enumerate}
+	\end{obs}
+	\subsection{Transformações lineares}
+	Sejam $X,Y$ espacos normados. Uma função $T:X\to Y$ é \textbf{\textit{linear}} se
+	\begin{enumerate}
+		\item $T(\alpha x+\beta y)=\alpha T(x)+\beta T(y)\quad\forall \alpha,\beta\in\mathcal{K},x,y\in X$.
+	\end{enumerate}
+	\begin{obs}
+		Num espaço linear de dimensão finita os operadores lineares sempre são contínuos.
+	\end{obs}
+	\begin{prop}
+		Sejam $X,Y$ espaços vetorias normados e $T:X\to Y$ linear. São equivalentes:
+		\begin{enumerate}
+			\item $T$ é continua em $x_0\in X$.
+			\item $T$ é continua.
+			\item $T$ é \textbf{\textit{limitada}}, issto é,
+			\[\| T\|:=\sup_{x\in B_X}\| Tx\|<\infty\]
+			onde $B_X=\{x\in X:\| x\|\leq1\}$.
+			\item $\exists C>0$ tal que $\| Tx\|\leq C\| x\|$ para todo $x\in X$. Além disso,
+			\[\| T\|=\inf\{C\geq0:\| Tx\|\leq C\| x\|\;\forall x\in X\}.\]
+			\item $T$ é uniformemente contínua.
+		\end{enumerate}
+	\end{prop}
+	\begin{proof}
+		$(1\implies 2)$. Seja $x_n\to x$. Note que
+		\[(x_n-x+x_0)_n\to x_0,\]
+		de forma que
+		\begin{align*}
+			T(x_0)=\lim_n T(x_n-x+x_0)=\lim_n T(x_n)-T(x)+T(x_0).
+		\end{align*}
+		$(2\implies 3)$ Caso contrário, $\exists(x_n)\subset B_X$ tal que $\lim \| Tx_n\|\to \infty$. Logo
+		\[\left(\frac{x_n}{\| Tx_n\|}\right)_n\to0.\]
+		então,
+		\[\left\| T\left(\frac{x_n}{\| Tx_n\|}\right)\right\|\to0,\]
+		que é impossível já que
+		\[\left\| T\left(\frac{x_n}{\| Tx_n\|}\right)\right\|=\frac{1}{\| Tx_n\|}\| T(x_n)\|=1.\]
+		$(3\implies 4)$. Pegue $C=\| T\|$. De fato, se $x\neq0$,
+		\[\frac{x}{\| x\|}\in B_X\implies T\left(\frac{x}{\| x\|}\right)\leq\| T\|\implies\| Tx\|\leq\| T\|\| x\|.\]
+		Issto mostra que $\| T\|\in\{C\geq0:\| Tx\|\leq C\| x\|\;\forall x\in X\}$, de forma que 
+		\[\inf\{C\geq0:\| Tx\|\leq C\| x\|\}\leq\| T\|=\sup_{x\in B_X}\| Tx\|.\]
+		Para ver a outra desigualdade, basta ver que $\inf\{C\geq0:\| Tx\|\leq C\| x\|\;\forall x\in X\}$ é uma cota superior do conjunto $\{\| Tx\|:x\in B_X\}$. De fato, se $x\in B_X$, para cualquer $C\in\{C\geq0:\| Tx\|\leq C\| x\|\;\forall x\in X\}$ temos que $\| Tx\|\leq C\| x\|\leq C$, pois $\| x\|\leq1$. Issto implica que $\| Tx\|$ é uma cota inferior do conjunto $\{C\geq0:\| Tx\|\leq C\| x\|\;\forall x\in X\}$, porém
+		\[\| Tx\|\leq\inf\{C\geq0:\| Tx\|\leq C\| x\|\}\qquad\forall x\in B_X.\]
+		
+		$(4\implies 5)$ Lembre que $T$ é unformemente contínua se \[\forall x\in X\forall\varepsilon>0\exists \delta>0:\| x-x_0\|<\delta\implies\| Tx-Tx_0\|<\varepsilon.\]
+		Tendo (4), observe que tomando $\delta=\varepsilon/C$ temos a continuidade em $0$, que podemos trasladar a todo punto de $X$ como em $(1\implies 2)$.
+		
+		$(5\implies 1)$ Imediato.
+	\end{proof}
+	\begin{defn}
+		Sejam $X$ e $Y$ espaços normados. Denotarmos por
+		\[\mathcal{L}(X,Y)=\{T:X\to Y:T\text{ limitado}\}\]
+	\end{defn}
+	\begin{exer}[Tareia]\leavevmode
+		\begin{enumerate}
+			\item $\| T\|=\sup_{x\in B_X}\| Tx\|$ é uma norma em $\mathcal{L}(X,Y)$.
+			\item Se $Y$ for Banach, então $\mathcal{L}(X,Y)$ é Banach.
+			\item $\| T\|=\sup_{x\in \partial Bx}\| Tx\|$ onde $\partial B_X=\{x\in X:\| x\|=1\}$.
+		\end{enumerate}
+	\end{exer}
+	
+	\begin{teo}
+		Todo espaço de dimensão finita é Banach.
+	\end{teo}
+	Para isto vamos provar um lemma muito importante para muitas coisas.
+	\begin{lema}[Riesz]
+		Seja $X$ um espaço normado, $Y\subset X$ subespaço próprio fechado, $a\in(0,1)$. Então existe un $x\in\partial B_X$ tal que $d(x,Y)\geq a$.
+	\end{lema}
+	\begin{proof}
+		Seja $x\in X\backslash Y$. Como $\frac{d(x,Y)}{a}>d(x,Y)$, podemos pegar um $y\in Y$ tal que $\| x-y\|\leq\frac{d(x,Y)}{a}$. Defina $z=\frac{x-y}{\| x-y\|}$. Seja $w\in Y$
+		\begin{align*}
+			\| w-z\|&=\left\| w-\frac{x-y}{\| x-y\|}\right\|\\
+			&=\frac{1}{\| x-y\|}\left\|\| x-y\| w+y-x\right\|\\
+			&\geq \frac{d(x,Y)}{\| x-y\|}\\
+			&\geq a
+		\end{align*}
+		pois $\| x-y\| w+y\in Y$ por ser $Y$ um espaço vetorial.
+	\end{proof}
+	\begin{proof}[Prova de que todo espaço de dimensão finita é Banach] {\color{orange} Incompleta!} 
+		Seja $n=\dim X$. Se $X=\mathbb{K}$ terminhamos. Fazendo indução, suponha certo para $n$ e mostraremos para $n+1$. Seja $Y\subseteq X$ espaço de dimensão $n$. Por hipótesis de indução, $Y$ é fechado. Pegamos $x\in X\backslash Y$ com $d(x,Y)>1/2$. Para todo $y\in Y$ e para todo $x\in X$ no $\operatorname{span}\{x\}$.
+		\begin{align*}
+			\| y+z\|&=\| y+\left\| z\|\frac{1}{\| y\|}\right\|\\
+			&=\| z\|+\left\|\frac{y}{\| y\|}+\frac{z}{\| y\|}\right\|\\
+			&\geq\frac{\| z\|}{z}
+		\end{align*}
+		O que estou falando aquim? Temos que $X=Y\oplus Z$, $\pi_Y:Y\to Z$, $\pi_Z:X\to Z$. Logo
+		\[\| \pi_Z(x_n)\| \leq z\| (x_n)\|\]
+		Logo $\pi_Y)\Id-\pi_Z$ ?
+		
+		Ahora seja $(x_n)_n\subseteq X$ de Cauchy. Logo $(\pi_Y(x_n))_n)$, $(\pi_Z(x_n))_n$ são Cauachy, logo $x_Y=\lim \pi_Z(x_n)$ e
+		\[x_n=\lim\pi_Z(x_n)\]
+		existe, logo
+		\[\pi_Z(x_n)+\pi_Y(y_n)\to x_Z+x_Y.\]
+	\end{proof}
+	
+	\begin{prop}
+		Seja $T:X\to Y$ um operador entre espaços normados. Se $\dim(X)<\infty$ então $T$ é contínua.
+	\end{prop}
+	\begin{proof}
+		Fazemos indução. Caso $n=0$ é fácil. Suponha verdade para $n\in\N$. Pegue $Z\subseteq X$ com $\dim Z=n-1$ e $w\in X\backslash Z$. Seja $W=\operatorname{span}\{w\}$. Então temos que $X=Z\oplus W$.
+		
+		Se 
+		\[\pi_Y=X\to Z\quad \text{e}\quad \pi_W:X\to W\]
+		são as projeções canónicas, então
+		\[\Id_{X}=\pi_Z+\pi_W\]
+		e ambas são contínuas, terminhamos. Como $T=T\circ \pi_Z+T\circ\pi_W$.
+	\end{proof}
+	
+	\begin{teo}
+		Um espaço normado $X$ tem dimensão finita se e somente se $B_X$ for compacto.
+	\end{teo}
+	\begin{proof}
+		\textbf{$(\implies)$} Defina $n=\dim X$. Fixe um isomorfismo \textit{algébrico} $T:\mathbb{K}^n\to X$. Munindo $\mathbb{K}^n$ com sua norma , é imediato que $B_{\mathbb{K}^n}$ é compacto. En consequência, $T(B_{\mathbb{K}^n})$ é compacto.
+		
+		Note que $B_X\subseteq N$. $T(B_{\mathbb{K}^n})$ para $N$ grande. Seja $e_1,\ldots, e_n\in X$ uma base, e para cada $i\leq n$ seja um mapa
+		\begin{align*}
+			f_i:X&\mapsto\mathbb{K}^n\\
+			\sum_{j=1}^na_je_j&\mapsto a_i
+		\end{align*}
+		Agora observe que
+		\begin{align*}
+			\left\| T^{-1}\left(\sum_{j=1}^na_je_j\right)\right\|&\leq\| T^{-1}\|\left\|\sum_{j=1}^na_je_j\right\|\\
+			&\leq \max_j\| e_j\|\| T^{-1}\|\left(\sum|a_j|\right)\\
+			&\leq\max\| e_j\|\| T^{-1}\|\left(\sum_j\| f_j\|\right)\left\|\sum_je_j\right\|.
+		\end{align*}
+		De forma que $\exists L>0$ tal que $\| T^{-1}(x)\|\leq L\| x\|$ para toda $x\in X$.
+		
+		\textbf{$(\impliedby)$} Suponha que $\dim X=\infty$. Por indução, existe (usando o lema de Riesz muitas vezes e o fato de que cualquer subespaço linear de dimensão finita é fechado) $(x_n)_n\subseteq\partial B_X$ tal que $\| x_n-x_m\|>1/2$.
+	\end{proof}
+	
+	\subsection{Normas equivalentes}
+	\begin{defn}
+		Seja $X$ um espaço vetorial e $\|\;\|,\vertiii{\;}$ normas em $X$. Diremos que $\|\;\|$ e $\vertiii{\;}$ são \textbf{\textit{equivalentes}} se existe $L>0$ tal que
+		\[\frac{1}{L}\vertiii{x}\leq \| x\|\leq L\vertiii{x}\qquad\forall x\in X.\]
+		Equivalentemente, se 
+		\[\Id:(X,\|\;\|)\to(X,\vertiii{\;})\]
+		for um homeomorfismo.
+	\end{defn}
+	\begin{obs}\leavevmode
+		\begin{enumerate}
+			\item Se $X$ tiver dimensão finita todas as nomas são equivalentes.
+			\item Seja $T:(X,\|\;\|)\to (X,\vertiii{\;})$ limitado. Então
+			\[\vertiii{x}=\| x\|+\| T(x)\|\]
+			nos da uma norma equivalente, pois $\| x\|\leq\vertiii{x}\leq(1+\| T\|)\| x\|$.
+		\end{enumerate}
+	\end{obs}
+	\begin{defn}\leavevmode
+		\begin{enumerate}
+			\item Sejam $X$ e $Y$ espaços normados e $T:X\to Y$ um operador bijetivo. $T$ é um \textbf{\textit{isomorfismo}} se $T$ e $T^{-1}$ forem contínuas.
+			
+			\item Se $T$ for contínuo, injetivo e $T^{-1}:\img(X)\to X$ for contínua, $T$ é um \textbf{\textit{mergulho isomórfico}}.
+			
+			\item Se $T$ for uma bijeção linear e 
+			\begin{equation}\label{eq:defn-equivalencia-isomorfica}
+				\| T(x)\|=\| x\|\qquad\forall x\in X,
+			\end{equation} 
+			$T$ é uma \textbf{\textit{equivalencia isomórfica}}.
+			
+			\item Se $T$ for linear e \cref{eq:defn-equivalencia-isomorfica} vale, $T$ é uma \textbf{\textit{isometría.}}
+		\end{enumerate}
+	\end{defn}
+	\begin{obs}
+		$T$ é um mergulho isomórfico se e somente se $\exists L>0$ tal que 
+		\[\frac{1}{L}\| x\|_X\leq\| T(x)\|_Y\leq L\| x\|_X\qquad\forall x\in X.\]
+	\end{obs}
+	
+	\subsection{Espaços duais}
+	Relembrando, anteriormente definimos
+	\[\mathcal{L}(X,Y)=\{T:X\to Y:T\text{ linear e contínuo}\}\]
+	com a norma
+	\[\| T\|=\sup_{x\in B_X}\| T(x)\|.\]
+	Denotamos $\mathcal{L}(X):=\mathcal{L}(X,X)$ e $X^*=\mathcal{L}(X,\mathbb{K})$.
+	
+	\begin{defn}
+		$X^*$ é o \textbf{\textit{dual (topológico)}} de $X$.
+	\end{defn}
+	
+	\paragraph{Duais de $\ell_p$ e $c_0$ ($p<\infty$)}
+	\begin{teo}
+		Se $p,q\in(1,\infty)$ com $\frac{1}{p}+\frac{1}{q}=1$, $\ell_p^*=\ell_q$.
+	\end{teo}
+	\begin{proof}
+		Definamos $\phi:\ell_q\to\ell_p^*$ por \[\phi(y)(x)=\sum_{n=1}^\infty x_ny_n\]
+		para $y=(y_n)\in\ell_q$ e $x=(x_n)\in\ell_p$. Observe que, pela desigualdade de Hölder, $\phi(y)(x)$ é uma série convergente, pois a convergencia absoluta
+		\[\sum_{n=1}^\infty |x_ny_n|\leq\| x\|_p\| y\|_q\]
+		implica a convergencia em espaços completos.
+		
+		\textbf{($\phi$ é uma isometria.)} Temos que $\| \phi(y)\|_{\ell^*_p}\leq\| y\|_{\ell_q}$ usando Hölder novamente:
+		\[\|\phi(y)\|_{\ell^*_p}=\sup_{x\in B_{\ell_p}}|\phi(y)(x)|=\sup_{x\in B_{\ell_p}}\left|\sum_{n=1}^\infty x_ny_n\right|\leq\| y\|_q.\]
+		E $\|\phi(y)\|_{\ell^*_q}\geq\| y\|_{\ell_q}$.
+		
+		Defina $x\in\ell_p$ como
+		\[x_n=\operatorname{sign}(y_n)\frac{|y_n|}{\| y\|_{\ell_q}^{q/p}}.\]
+		Temos que
+		\begin{align*}
+			\| x\|_{\ell_p}^p&=\sum|x_n|^p\\
+			&=\sum\frac{|y_n|^{pq-p}}{\| y\|^q_{\ell_q}}.
+		\end{align*}
+		Logo
+		\begin{align*}
+			\phi(y)(x)&=\sum\frac{\operatorname{sign}(y_n)|y_n|^{q-1}}{\| y\|^{q/p}_{\ell_q}}y_n\\
+			&=\frac{\| y\|^q_{\ell_q}}{\| y\|_{\ell_q}^{q/p}}.
+		\end{align*}
+		
+		\textbf{($\phi$ é sobrejetiva.)} Seja $f\in\ell_p^*$. Para cada $n\in\N$, defina 
+		\[y=f(e_n)\qquad\text{é}\qquad y=(y_n)_n.\]
+		Vamos ver que $y\in\ell_q$. Para cada $k\in\N$, defina
+		\[z_n=\sum_{n=1}^ky_ne_n=(y_1,y_2,\ldots, y_k,0,\ldots,0,\ldots)\]
+		Para $n\leq k$, $x_n=\operatorname{sign}(y_n)|y_n|^{q-1}$,				
+		\begin{align*}
+			\| z_k\|_{\ell_q}^p&=\sum_{n=1}^k|y_n|^q\\
+			&=\sum_{n=1}^ky_n\operatorname{sign}(y_n)|y_n|^{q-1}\\
+			&=f\left(\sum_{n=1}^kx_ne_n\right)\\
+			&\leq \| f\| \left\|\sum_{n=1}^k x_ne_n\right\|_{\ell_p}
+		\end{align*}
+		Agora computamos a norma desse cara:
+		\begin{align*}
+			\left\|\sum_{n=1}^kx_ne_n\right\|_{\ell_p}&=\sum_{n=1}^k|y_n|^{(q-1)p}\\
+			&=\left(\sum_{n=1}^k|y_n|^q\right)^{1/p}\\
+			&\leq\left(\| y\|_{\ell_q}^q\right)^{1/p}\\
+			&\leq\| z_k\|_p^{q/p}
+		\end{align*}
+		Assim que a desigualdade anterior termina em que
+		\[\| z_k\|_{\ell_q}^q\leq\| f\|\| z_k\|_{\ell_q}^{q/p}\]
+		de forma que $\| z_k\|_{\ell_q}\leq\| f\|$.
+	\end{proof}
+	
+	\begin{teo}
+		Sejam $p,q\in(1,\infty)$ com $\frac{1}{p}+\frac{1}{q}=1$. O mapa $\phi:\ell_p\to\ell_q^*$ dado por
+		\[\phi(y)(x)=\sum_{n=1}^\infty x_ny_n\]
+		para $y=(y_n)_n\in\ell_q$ e todo $x=(x_n)_n\in\ell_p$ é uma isometría sobrejetiva.
+	\end{teo}
+	
+	\begin{exemplos}\leavevmode
+		\begin{enumerate}
+			\item $c^*_0\equiv\ell_1$.
+			\item $\ell_1^*\equiv\ell_\infty$.
+			\item $\ell_\infty^*\not\equiv\ell_1$ {\color{orange}(entenda o problema na prova)}.
+			\item Se $p\in(1,\infty)$, $\ell^{**}_p\equiv\ell_p$.
+		\end{enumerate}
+	\end{exemplos}
+	
+	Lembre que $c_0\subseteq\ell_\infty$, e que $\ell_p\subseteq\ell_q$ quando $p\leq q$.
+	
+	\begin{pregunta}
+		Considere a inclução $I:\ell_p\to\ell_q$. Será que existe $L>0$ tal que
+		\[\frac{1}{L}\leq\| I(x)\|_q\leq L\| x\|\;?\]
+	\end{pregunta}
+	Observe que para cada $n\in\N$, $s_n=e_q+\ldots+e_n=(1,1,\ldots,1,0,0,\ldots)$ é tal que
+	$\| x_n\|_p=n^{1/p}$ e que $\| I(s_n)|\|_q=\| x_n\|_q=n^{1/q}$ assim que essa inclução boba não é uma isometría.
+	
+	\begin{teo}[Pitt]
+		Sejam $p,q\in(1,\infty)$ com $p\neq q$. Não existe um mergulho isomórfico $\ell_p\to\ell_q$.
+	\end{teo}
+	\begin{defn}
+		Seja $X$ um espaço normado. Uma sequência $(x_n)_n\subseteq X$ \textbf{\textit{converge fracamente}} a $x\in X$ se $f(x_n)\to f(x)$ para todo $f\in X^*$.
+	\end{defn}
+	\begin{exemplo}
+		$(e_n)_n\subseteq\ell_p$, $p\in(1,\infty)$, $e_n\overset{w}{\longrightarrow}0$. Quando pegamos $f\in\ell^*_p$, sabemos que $f=\phi(y)$ para algum $y\in\ell_q$. Logo $f(e_n)=y_n$.
+	\end{exemplo}
+	\begin{obs}
+		Se $T:X\to Y$ é limitado e $(x_n)_n\subseteq X$ tal que $x_n\overset{w}{\to}x$, $x\in X$, então $T(x_n)\overset{w}{\to}T(x)$.
+	\end{obs}
+	{\color{blue-violet}\begin{proof}
+			Queremos mostrar que para cualquer $f\in Y^*$, temos que $f(T(x_n))\to f(T(x))$. Seja $f\in Y^*$ cualquer e considere o seu \textit{pullback} baixo $T$, ie. o funcional
+			\begin{align*}
+				T^*f:X&\to\mathbb{K}\\
+				(T^*f)(x)&=f(T(x))
+			\end{align*}
+			De fato, $T^*f$ é linear e contínuo se $T$ é linear e contínuo. Como $x_n\overset{w}{\longrightarrow}x$, é concluimos que $f(T(x_n))\to f(T(x))$.
+	\end{proof}}
+	\begin{defn}
+		Dado $p\in[1,\infty]$, o funcional
+		\begin{align*}
+			e_n^*:\ell_p^*&\to\mathbb{K}\\
+			\sum_{j=1}^\infty x_je_j&\mapsto x_n
+		\end{align*}
+		é tal que $\| e^*_n\|=1$ e que $e^*_n(e_m)=\delta_{nm}$.
+	\end{defn}
+	\begin{proof}[Prova do teorema de Pitt]
+		Suponha que $T:\ell_p\to\ell_q$ é um mergulho isomórfico. Suponha $p>q$. Como $e_n\overset{w}{\to}0$ em $\ell_p$, $T(e_n)\overset{w}{\to}0$ em $\ell_q$.
+		
+		Passando para uma subsequência podemos supor que $\left(\operatorname{supp}(T(x_n))\right)_n$ são ``disjuntos". {\color{orange}Pode tentar, lembre que $\operatorname{supp}=\{i\in\N|y_i\neq0\}$.}
+		
+		%	\[\begin{tikzpicture}
+			%		\draw[dashed] (0,pi) node[left]{$0$} -- (10,pi);
+			%		\edef\x{1}
+			%		\edef\mysum{1}
+			%		\edef\lstc{(0.5*\x,4*\mysum)}
+			%		\loop
+			%		\edef\mysum{\fpeval{\mysum+(-1)^\x/(2*\x+1)}}
+			%		\edef\x{\the\numexpr\x+1}
+			%		\edef\lstc{\lstc (0.5*\x,4*\mysum)}
+			%		\ifnum\x<19\repeat
+			%		\draw plot[only marks,mark=*] coordinates {\lstc};
+			%	\end{tikzpicture}\]
+		
+		Note que se $(y_n)_n\subseteq\ell_q$ é tal que $\operatorname{supp}(y_n)\cap\operatorname{supp}(y_m)\neq\varnothing$ quando $n\neq m$, então
+		\begin{align*}
+			\left\|\sum_{n=1}^\infty y_n\right\|_q=\left(\sum_{n=1}^\infty\| y_n\|^q\right)^{1/q}
+		\end{align*}
+		{\color{orange}É para vocês analizar quais são os épsilons.}
+		
+		Logo, escolhendo a subsequência de $(T(x_n))_n$ de forma apropriada, podemos escolher $L\geq1$ tal que
+		\begin{align*}
+			\left\|\sum_{n=1}^k T(x_n)\right\|_q&\geq\frac{1}{L}\left(\sum_{n=1}^k\| T(e_n)\|^q\right)^{1/q}\\
+			&\geq \frac{a}{L}n^{1/q}.
+		\end{align*}
+		onde $a=\inf_n\| T(e_n)\|$.
+		
+		Por outro lado
+		\begin{align*}
+			\left\|\sum_{n=1}^kT(e_n)\right\|&=\left\| T\left(\sum_{n=1}^ke_n\right)\right\|_q\\
+			&\leq\| T\|\left\|\sum_{n=1}^ke_n\right\|_p\\
+			&=\| T\| k^{1/p}.
+		\end{align*}
+		Em conclusão,
+		\[\frac{a}{L}k^{1/q}\leq\| T\| k^{1/p}\qquad\forall k\in\N,\]
+		que não é possível.
+	\end{proof}
+	\begin{obs}Vamos ver que
+		\begin{enumerate}
+			\item $\ell_p\hookrightarrow\ell_\infty$ para toda $p\in[1,\infty)$.
+			\item $\ell_p\not\hookrightarrow\ell_1$ para toda $p\neq1$.
+			\item Nossa prova não serve para ver que $\ell_1\not\hookrightarrow\ell_p$, $p>1$. O problema ta no momento de escolher a sequência $e_n$, que converge fracamente em $\ell_p$. O enunciado é verdadeiro, só precisa mais um pouco de cuidado.
+			\item Por curiosidade, tem o seguinte resultado:
+			\begin{teo}
+				Se $X\not\hookrightarrow\ell_q$.
+			\end{teo}
+		\end{enumerate}
+	\end{obs}
+	
+	\subsection{Completamentos}
+	\begin{defn}
+		Sejam $(X,d)$ e $(\tilde{X},\tilde{d})$ espaços métricos. $\tilde{X}$ é um \textbf{\textit{completamento}} de $X$ se
+		\begin{enumerate}
+			\item $X$ é um subespaço métrico de $\tilde{X}$, ie., $X\subseteq\tilde{X}$ e $d=\tilde{d}|_{X\times X}$.
+			\item $\tilde{X}$ é completo, ie. $\bar{X}=\tilde{X}$.
+		\end{enumerate}
+		
+		Se $(X,\|\;\|)$ e $(\tilde{X},\vertiii{\;})$ forem espaços normados, $(\tilde{X},\vertiii{\;})$ é um \textbf{\textit{completamento}} de $(X,\|\;\|)$ se
+		\begin{enumerate}
+			\item $(X,\|\;\|)\subseteq(\tilde{X},\vertiii{\;})$.
+			\item $\overline{X}=\tilde{X}$.
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{teo}
+		Os completamentos existem e são únicos. Seja $(X,\|\;\|)$ um espaço normado. Existe $(\tilde{X},\vertiii{\;})$ Banach tal que
+		\begin{enumerate}
+			\item $(X,\|\;\|)\subseteq(\tilde{X},\vertiii{\;})$.
+			\item $\overline{X}^{\vertiii{\;}}=\tilde{X}$.
+			\item $(\tilde{X},\vertiii{\;})$ é Banach.
+		\end{enumerate}
+		(Equivalentemente, existe uma isometria $I:X\to\tilde{X}$ tal que $I(X))=\tilde{X}$.)
+	\end{teo}
+	\begin{proof}
+		Considere
+		\[\tilde{\tilde{X}}=\{(x_n)\in X^\N:(x_n)\text{ é Cauchy}\},\]
+		que têm uma estructura vetioral bacana. Defina uma relação de equivalencia em $\tilde{\tilde{X}}$, como
+		\[(x_n)\sim(y_m)\iff\lim_{n\to\infty}\| x_n-y_n\|=0.\]
+		Defina
+		\[\tilde{X}=\tilde{\tilde{X}}/\sim\]
+		e ainda defina as operações
+		\[\alpha[(x_n)]+\beta[(y_n)]=[(\alpha x_n+\beta_n)],\]
+		que estão bem definidas. Finalmente defina a norma
+		\[\vertiii{[(x_n)]}=\lim_{n\to\infty}\| x_n\|,\]
+		que também está bem definida.
+		
+		Para mostrar 1., basta notar que o mapa que manda cada ponto para a sequência constante,
+		\[x\in X\mapsto [(x)]\in\tilde{X},\]
+		é uma isometria linear.
+		
+		Para ver 2., fixe $[(x_n)]\in\tilde{X}$ e $\varepsilon>0$. Então existe $n_0\in\N$ tal que $\forall n,m\geq n_0$, temos $\| x_n-x_m\|\leq\varepsilon$. Logo
+		\[\vertiii{[(x_{n_0})]-[(x_n)]}<\varepsilon.\]
+		Ahora vejamos que $\tilde{X}$ é Banach. Pegue uma sequência de Cauchy $([(x^k_n)])_k$ em $\tilde{X}$. Passando para uma subseqência se é necessário, podemos pegar $(x^k)$ em $X$ tal que
+		\[\vertiii{[(x^m_n)]-[(x^k)]}<1/k\]
+		para $m\geq k$. Issto é, usando a densidade de $X$ podemos avanzar na sequência e achar para cada $k\in\N$ um elemento de $X$ que fique muito perto. Queremos que a sequência resultante seja de Cauchy e ainda que seja o límite da sequência com a qual começamos.
+		
+		Note que $(x^k)$ é Cauchy em $X$, pois
+		\begin{align*}
+			\| x^k-x^m\|&=\vertiii{[(x^k)]-[(x^n)]}\quad\text{(sequências constantes)}\\
+			&\leq\vertiii{[(x^k)]-[(x^m_n)]}+\vertiii{[(x^m_n)]-[(x^m)]}\\
+			&\leq 1/k+1/m\leq 2/k
+		\end{align*}
+		escolhendo $m\geq k$.
+		
+		Finalmente note que
+		\[[(x^n)]=\lim_{m\to\infty}[(x^m_n)],\]
+		pois
+		\begin{align*}
+			\lim_{m\to\infty}\vertiii{[(x^n)_n]-[(x^m_n)_n]}=\lim_{m\to\infty}\lim_{n\to\infty}\| x^n-x^m\|=0.
+		\end{align*}
+		Deixamos provar a unicidade como exercício.
+	\end{proof}
+	
+	\subsection{Cardinalidades de bases de Hamel}
+	\begin{prop}
+		Seja $X$ um espaço de Banach com dimensão infinita. Então sua base de Hamel é não numerável.
+	\end{prop}
+	\begin{obs}
+		E necésario pedir que espaço sea Banach na proposição anterior.
+	\end{obs}
+	\begin{proof}
+		Seja $X$ um espaço de Banach separável de dimensão infinita. Então a cardinalidade de suas bases de Hamel é a mesma de $\R$. Além disso, $\dim X=\# X$.
+	\end{proof}
+	
+	\section{Espaços cocientes}
+	Dado um espaço vetorial $X$, cualquer subespaço $Y$ é um subgrupo normal do grupo aditivo $(X,+)$. Gente quer ver que o espaço cociente é normado se $X$ for normado, e é Banach se $X$ for Banach.
+	
+	Seja $(X,\|\;\|)$ normado e $Y\subseteq X$ subespaço. Denotemos $[x]=x+Y$, e temos a relação de equivalencia no cociente dada por $x\sim y\iff x-y\in Y$. As operações de suma e produto escalar estão bem definidas. Defina uma norma em $X/Y$ como
+	\[\| x+Y\|_{X/Y}=d(x,Y)=\inf\{\| x-y\|:y\in Y\}.\]
+	que está bem definida pois a distancia de cualquer ponto na clase de $x$ para o kernel é igual. Para ver-o note que $\forall z\in x+\ker T$, temos que $z-x+y\in\ker T$, de modo que
+	\begin{gather*}
+		d(z,K)=\inf_{y\in K}\| z-y\|\leq\| z-(z-x+y)\|=\inf_{y\in K}\| x-y\|
+	\end{gather*}
+	e a desigualdade contrária é análoga.
+	
+	Vejamos que de fato $\|\;\|_{X/Y}$ é uma norma:
+	\begin{enumerate}
+		\item $\| \lambda x+Y\|=|\lambda|\| x+Y\|$ é clara.
+		\item $\| x+z+Y\|=\inf\{\| x+z+y\|:y\in Y\}$. Pegue sequências $(x_n)$ e $(z_n)$ em $Y$ tais que 
+		\[\| x+Y\|=\lim_n\| x+x_n\|\qquad\| z+Y\|=\lim_n\| z+z_n\|.\]
+		Então, $\| x+z+Y\|\leq\| x+x_n\|+\| z+z_n\|$ para toda $n$, e de fato $\| x+z+Y\|\leq\| x+Y\|+\| z+Y\|$.
+		
+		\item Para provar que $\| x+Y\|=0\implies x+Y=0\iff x\in Y$, temos que supor que $Y$ é fechado. Então, $\exists (y_n)\subseteq Y$ tal que $\lim_{n\to\infty}\| x-y_n\|=0$, assim, $y_n\to x$ e $x\in Y$.
+		
+		\item Finalmente suponhamos que $X$ é Banach e $Y$ fechado, e peguemos $(x_n+Y)$ uma sequência de Cuachy em $X/Y$. Queremos achar outra sequência em $X$ na mesma clase de equivalencia, mais que seja Cauchy. Pegue uma subsequência tal que
+		\[\| x_n-x_{n+1}+Y\|<2^{-n}.\]
+		Pegue $(w_n)\subseteq Y$ tal que
+		\[\| x_n-x_{n+1}-w_n\|<2^{-n}.\]
+		Defina $(z_n)$ como
+		\begin{itemize}
+			\item $z_1=x_1$.
+			\item $z_2=x_2+w_1$.
+			
+			$\vdots$
+			\item $z_n=x_n+w_{n-1}+\ldots+w_1$.
+		\end{itemize}
+		Temos então que
+		\begin{align*}
+			\| z_n-z_{n+1}\|=\| x_n-x_{n-1}-w_n\|<2^{n}.
+		\end{align*}
+		Logo $(z_n)$ é Cauchy e $z_n\in x_n+Y$. Defina $z=\lim_{n\to\infty}z_n$. Agora vejamos que $\| z-x_n+Y\|\to0$. Temos que
+		\begin{align*}
+			\| z-x_n+Y\|&=\| z-z_n+Y\|\leq \| z-z_n\|\to0.
+		\end{align*}
+	\end{enumerate}
+	Temos mostrado que
+	\begin{teo}
+		Seja $(X,\|\;\|)$ um espaço normado e $Y\subseteq X$ um subespacço fechado. Então $(X/Y,\|\;\|_{X/Y})$ é um espaço normado e se $X$ for Banach, $X/Y$ também.
+	\end{teo}
+	Ahora vamos mostrar que a projeção canónica é um operador de norma 1. De fato, escolhendo o vetor 0 pode ver que $\| Q\|\leq1$, e usando o Lema de Riesz pode ver pegar uma sequência $(x_n)\subset B_X$ tal que $d(x_n,Y)\geq1-\frac{1}{n}$, o que implica que $\| Q\|=\sup_{x\in B_X}d(x,Y)\geq1$.
+	\begin{teo}[Primer teorema de isomorfismo]
+		Existe um único $T':X/T\to Y$ tal que
+		\[\begin{tikzcd}
+			X\arrow[rr,"T"]\arrow[dr,"Q",swap]&&Y\\
+			&X/\ker T\arrow[ur,"T'",swap]
+		\end{tikzcd}\]
+		comuta, ou seja, $T=T'\circ Q$.
+	\end{teo}
+	\begin{exer*}
+		$\| T'\|=\| T\|$.
+	\end{exer*}
+	\begin{proof}
+		Temos que
+		\begin{align*}
+			\| T'\|&=\sup\left\{\| T(x+\ker T)\|:x+\ker T\in B_{X/\ker T}\right\}\\
+			&=\sup \left\{\| Tz\|:z\in x+\ker T\text{ para algum }x +\ker T\in B_{X/\ker T}\right\}
+		\end{align*}
+		de tal forma que fixando $x +\ker T \in B_{X/\ker T}$, temos para cualquer $z\in x+\ker T$ que
+		\[\| T'\|\leq\| T\|\| z\|,\]
+		assim que bastaria achar um representante $z$ em $B_X$. Note que como $\| x+\ker T\|=d(x,\ker T)=\inf_{y\in Y}\| x-y\|$,
+		para cualquer $n\in\N$ podemos achar $y_n\in\ker T$ tal que
+		\[\| x-y_n\|<\inf_{y\in Y}\| x-y\| +\frac{1}{n}\]
+		tomando o limite obtemos um ponto $y\in Y$ tal que $\| x-y\|\leq\| x+\ker T\|\leq1$. Notemos que $z=x-y\in x+\ker T$, pois $T(x-y-x)=Ty=0$, assim que de fato $\| T'\|\leq\| T\|$.
+		
+		A desigualdade contrária e quasi imediata:
+		\begin{align*}
+			\| Tx\|=\| T'(x+\ker T)\|\leq\| T'\|\| x+\ker T\|= \| T'\|\inf_{y\in \ker T}\| x-y\|\leq\| T'\|\| x\|.
+		\end{align*}	
+	\end{proof}
+	\begin{obs}
+		Se $f\in X^*$, $X/\ker f$ tem dimensão 1, pois $X/\ker f\approx\mathbb{K}$.
+	\end{obs}
+	\begin{teo}[Spoiler, precisa o Teorema da Aplicação Aberta]
+		Se $T$ for sobrejetiva,
+		\[T':X/\ker T\to Y\]
+		é um isomorfismo algébrico. Se $X$ e $Y$ forem Banach, é um isomorfismo.
+	\end{teo}
+	
+	Vimos que $X/Y$ é um espaço de Banach.
+	\begin{pregunta}
+		Quais espaços de Banach podem ser obtidos como $X/Y$?
+	\end{pregunta}
+	\begin{teo}
+		Seja $X$ um espaço de Banach separável (existe um conjunto numerável que é denso). Então existe um subespaço fechado $Y\subseteq\ell_1$ tal que $X$ é linearlmente isométrico a $\ell_1/Y$.
+	\end{teo}
+	\begin{proof}
+		Basta ver que existe $T:\ell_1\to X$ linear e surjetiva para obter $T':\ell_1/\ker T\to X$. Seja $X$ separável. Pegue $(x_n)\subseteq B_X$ denso e defina $T:\ell_1\to X$ como
+		\[T\left((\lambda_n)\right)=\sum_{n=1}^\infty \lambda_nx_n.\]
+		Note que como $\sum_{n=0}^\infty\|\lambda_nx_n\|\leq\sum_{n=1}^\infty|\lambda_n|<\infty$, segue-se que $\sum_{n=0}^\infty\lambda_nx_n$ converge.
+		
+		Vejamos que $\| T\|\leq1$:
+		\begin{align*}
+			\| T((\lambda_n))\|&=\left\|\sum_{n=1}^\infty\lambda_nx_n\right\|\\
+			&\leq \sum_{n=1}^\infty\| \lambda_nx_n\|\\
+			&\leq \sum_{n=1}^\infty|\lambda_n|\\
+			&=\| (\lambda_n)\|_{\ell_1}
+		\end{align*}
+		Vejamos que $T$ é sobrejetiva. Fixe $x\in B_X$ e $\varepsilon\in(0,1)$. \iffalse Como $(x_n)$ é denso em $B_X$, existe $n_0\in\N$ tal que $\| x-x_{n_0}\|<\varepsilon$. Para cualquer $(\lambda_n)\in\ell_1$,
+		\[\| x-T(\lambda_n)\|=\left\| x-\sum_{n=1}^\infty \lambda_nx_n\right\|\leq\left\| \sum_{n\neq n_0}x-\lambda_nx_n\right\|+\| x-\lambda_{n_0}x_{n_0}\|\]\fi
+		Como $(x_n)$ é denso em $B_X$, {\color{orange}existe} $y_1\in B_{\ell_1}$ tal que
+		\[\| x-T(y_1)\|<\varepsilon.\]
+		Como $\left\| \frac{x-T(y_1)}{\varepsilon}\right\|<1$, pegue $\tilde{y}_2\in B_{\ell_1}$ com
+		\[\left\|\frac{x-T(y_1)}{\varepsilon}-T(\tilde{y}_2)\right\|<\varepsilon.\]
+		Logo $\| x-T(y_1+\varepsilon\tilde{y}_2)\|<\varepsilon^2$.
+		Agora defina
+		\[y_2=\varepsilon\tilde{y}_2.\]
+		Por indução, pegamos $(y_n)$ tal que
+		\begin{enumerate}
+			\item $\| y_n\|\leq\varepsilon^{n-1}$.
+			\item $\| x-T(y_1+\ldots+y_n)\|<\varepsilon^n$.
+		\end{enumerate}
+		Como $\| y_n\|<\varepsilon^{n-1}$ para toda $n\in\N$, $y=\sum_{n=1}^\infty y_n$ existe. Como $T$ é contínuo,
+		\begin{align*}
+			\| T(y)-x\|=\lim_{n\to\infty}\left\|\sum_{i=1}^\infty T(y_i)-x\right\|=0
+		\end{align*}
+		Seja $T':\ell_1/\ker(T)\to X$ tal que $\| T'\|=\| T\|$ e tal que
+		\[\begin{tikzcd}
+			\ell_1\arrow[dr,"Q",swap]\arrow[rr,"T"]&&X\\
+			&\ell_1/\ker T\arrow[ur,"T'",swap]
+		\end{tikzcd}\]
+		conmuta, ie. $T=T'\circ Q$.
+		
+		Para concluir falta mostrar que $T'$ é isometria. Para isso lembre que
+		\[\| y\|\leq\sum_{n=1}^\infty\| y_n\|\leq\sum_{n=1}^\infty\varepsilon^{n-1}=\frac{1}{1-\varepsilon}\]
+		por se tratar de uma série geométrica.
+		Agora provaremos que $\forall x\in B_X$ e $\forall\varepsilon\in(0,1)$ existe $y_{x,\varepsilon}\in\ell_1$ tal que
+		\begin{enumerate}
+			\item $\| y_{x,\varepsilon}\|\leq\frac{1}{1-\varepsilon}$.
+			\item $T(y_{x,\varepsilon})=x$.
+		\end{enumerate}
+		Pegue $x\in B_X$ e $y\in\ell_1$ com $T'(y+\ker T)=x$. Logo
+		\begin{align*}
+			\| y+\ker T\|=\inf\{\| y+w\|:w\in \ker T\}=\inf_{\varepsilon>0}\| y-y+y_{x,\varepsilon}\|=1.
+		\end{align*}
+	\end{proof}
+	
+	\begin{obs}
+		$\ell_\infty$ não é separável. Considere para $A\subset\N$ a sequência $\chi_A\in \ell_\infty$. Note que se $B\neq A$, $\| \chi_A-\chi_B\|=1$, de forma que $\mathcal{B}=\{B(\chi_A,1/2):A\subseteq\N\}$ é uma coleção não numéravel de conjuntos abertos \textit{disjuntos}. Como cualquer conjunto denso de $\ell_\infty$ deve intersetar cada bola em $\mathcal{B}$, não pode ser numérvel.
+	\end{obs}
+	
+	
+	\section{Teorema de Hahn-Banach}
+	Por ahora tomemos $\mathbb{K}=\R$.
+	\begin{defn}
+		Seja $X$ um espaço vetorial e $p:X\to[0,\infty)$. Dizemos que $p$ é um \textbf{\textit{funcional sublinear}} se
+		\begin{enumerate}
+			\item $p(\alpha x)=\alpha p(x)$ para $\alpha\geq0$.
+			\item $p(x,y)\leq p(x)+p(y)$ para $x,y\in X$.
+		\end{enumerate}
+	\end{defn}
+	
+	\begin{teo}
+		Seja $X$ um espaço vetorial e $Y\subseteq X$ subespaço. Seja $f:Y\to\R$ linear e $p:X\to\R$ um funcional sublinear tal que
+		\[f(x)\leq p(x)\quad\forall x\in Y.\]
+		Então existe $\tilde{f}:X\to\R$ tal que
+		\begin{enumerate}
+			\item $\tilde{f}|_Y=f$.
+			\item $\tilde{f}(x)\leq p(x)$ para todo $x\in X$.
+		\end{enumerate}
+	\end{teo}
+	\begin{lema}
+		Suponha as mesmas hipoteses que no teorema. Seja $x_0\in X\backslash Y$. Então existe $\tilde{f}:E=\operatorname{span}\{Y\cup\{x_0\}\}\to\R$ linear tal que
+		\begin{enumerate}
+			\item $\tilde{f}|_Y=f$.
+			\item $\tilde{f}(x)\leq p(x)$ para todo $x\in X$.
+		\end{enumerate}
+	\end{lema}
+	\begin{proof}
+		Começamos por ver quais são as condições que tiver que satisfacer $\tilde{f}$ se existese, e logo definimos de acordo a isso.
+		\begin{align*}
+			\tilde{f}(y)+\tilde{f}(x_0)&=\tilde{f}(y+ x_0)\leq p(y+x_0)\quad\forall y\in Y\\
+			\implies f(y)+\tilde{f}(x_0)&=\tilde{f}(y+ x_0)\leq p(y+x_0)\quad\forall y\in Y
+		\end{align*}
+		então
+		\[\tilde{f}(x_0)\leq p(y+x_0)-f(y)\quad\forall y\in Y.\]
+		Defina
+		\[\tilde{f}(x_0)=\inf_{y\in Y}p(y+x_0)-f(y).\]
+		Temos que ver que está bem definido, ie. que $\tilde{f}(x)\in\R$. Tome $y_1,y_2\in Y$, assim
+		\begin{align*}
+			f(y_1)-f(y_2)&=f(y_1-y_2)\\
+			&\leq p(y_1-y_2)\\
+			&=p(y_1+x_0-y_2-x_0)\\
+			&\leq p(y_1+x_0)+p(-y_2-x_0)
+		\end{align*}
+		Assim,
+		\begin{gather*}
+			-p(-y_2-x_0)-f(y_2)\leq p(y_1+x_0)-f(y_1)\quad\forall y_1,y_2\in Y,
+		\end{gather*}
+		e como definimos $\tilde{f}(x)$ como o ínfimo dos termos na dereita desta desigualdade, temos que
+		\begin{align*}
+			-p(-y_2-x_0)-f(y_2)\leq\tilde{f}(x_0)\leq p(y_1+x_0)-f(y_1)\quad\forall y_1,y_2\in Y.
+		\end{align*}
+		
+		Definamos $\tilde{f}:E\to\R$ como \[\tilde{f}(y+\alpha x_0)=f(y)+\alpha\tilde{f}(x_0)\quad\forall y\in Y\; \forall\alpha\in\R.\]
+		
+		Para mostrar 2. queremos ver que
+		\[\tilde{f}(y+\alpha x_0)\leq p(y+\alpha x_0)\quad\forall y\in Y\;\forall\alpha\in\R.\]
+		Se $\alpha=0$ tá. Se $\alpha>0$, podemos fazer
+		\begin{align*}
+			\tilde{f}(y+\alpha x_0)&=f(y)+\alpha\tilde{f}(x_0)\\
+			&\leq f(y)+\alpha\left(p(y_1+x_0)-f(y_1)\right)\quad\forall y_1\in Y.
+		\end{align*}
+		Pegando $y_1=\frac{y}{\alpha}$ temos
+		\begin{align*}
+			\tilde{f}(y+\alpha x_0)\leq f(y)+\alpha\left(p\left(\frac{y}{\alpha}+x_0\right)-f\left(\frac{y}{\alpha}\right)\right)=p(y+\alpha x_0).
+		\end{align*}
+		Finalmente se $\alpha<0$,
+		\begin{align*}
+			\tilde{f}(y+\alpha x_0)&=f(y)+\alpha\tilde{f}(x_0)\\
+			&\leq f(y)+|\alpha|\left(p(-y_2-x_0)-f(y_2)\right)\quad\forall y_1\in Y.
+		\end{align*}
+		Fazendo {\color{orange}$y_2=\frac{y}{|\alpha|}$} obtemos
+		\[\tilde{f}(y+\alpha x_0)\leq p(y+\alpha x_0).\]
+	\end{proof}
+	\begin{lema}[de Zorn]
+		Seja $(\mathbb{P},\leq)$ um conjunto parcialmente ordenado no vazío. Se toda cadeia $\mathcal{C}\subset\mathbb{P}$ tem um supremo $\mathcal{C}\in\mathbb{P}$, então $(\mathbb{P},\leq)$ possui um elemento maximal.
+	\end{lema}
+	\begin{proof}[Demostração de Hahn-Banach]
+		Defina
+		\[\mathbb{P}=\left\{(E,g):Y\subseteq E\subseteq X,\;
+		g:E\to\R\text{ é linear},
+		g|_Y=f,\;
+		g(x)\leq p(x)\;\forall x\in E\right\}\]
+		Defna $(E,g)\leq(E',g')$ se ``$(E',g')$ é uma extensão mais proxima de resolver o nosso problema", issto é, quando $E\subseteq E'$ e $g'|_E=g$. Claramente as cadeias de $\mathbb{P}$ tem supremos em $\mathbb{P}$:
+		\[F=\bigcup_{g\in\mathcal{C}}g\]
+		como definen-se as funções em teoria de conjuntos (como conjuntos). Peguemos então pelo lema de Zorn um elemento maximal $(E,F)$.
+		\begin{af*}
+			$F$ é o que procuramos.
+		\end{af*}
+		\begin{proof}
+			De fato, temos que $E=X$, pois caso contrário o lema anterior genera uma contradição a maximalidade de $(E,F)$.
+		\end{proof}
+	\end{proof}
+	\begin{coro}
+		Seja $X$ espaço normado, $Y\subseteq X$ subespaço e $f:Y\to\R$ um funcional linear contínuo. Então existe $F\in X^*$ tal que
+		\begin{enumerate}
+			\item $F|_Y=f$.
+			\item $\| F\|=\| f\|$.
+		\end{enumerate}
+	\end{coro}
+	\begin{proof}
+		Defina
+		\[p(x)=\| f\|\| x\|\quad\forall x\in X.\]
+		Por Hahn-Banach, existe um funcional $F:X\to\R$ tal que
+		\begin{enumerate}
+			\item $F|_Y=f$.
+			\item $|F(x)|\leq\| f\|\| x\|$ para todo $x\in X$.
+		\end{enumerate}
+		Então, $\| F\|\leq\| f\|$. A outra desigualdade tá dada por ser $F$ uma extensão: $|f(x)|=|F(x)|\leq\| F\|\| x\|$ quando $x\in Y$.
+	\end{proof}
+	\begin{coro}
+		Seja $X$ espaço normado e $x_0\in X\backslash\{0\}$. Então existe $F\in X^*$ tal que
+		\begin{enumerate}
+			\item $F(x_0)=\| x_0\|$.
+			\item $\| F\| =1$.
+		\end{enumerate}
+	\end{coro}
+	\begin{proof}
+		Defina $Y=\operatorname{span}\{x_0\}$ e $f(\alpha x_0)=\alpha\| x_0\|$ para toda $\alpha\in\R$. Note que $\| f\|=1$, pois
+		\[|f(\alpha x_0)|=|\alpha|\| x_0\|=\| \alpha x_0\|,\]
+		logo $\| f\|\leq1$. Como $f\left(\frac{x_0}{\| x_0\|}\right)=1$, segue-se que $\| f\|=\sup_{x\in B_X}|f(x)|\geq1$ e que $f(x_0)=\| x_0\|$. O resultado se obtém aplicando o corolário anterior.
+	\end{proof}
+	\begin{coro}
+		Seja $X$ espaço normado e $Y\subseteq X$ subespaço vetorial fechado e $x_0\in X\backslash Y$. Existe $f\in X^*$ tal que
+		\begin{enumerate}
+			\item $f|_Y=0$.
+			\item $f(x_0)=d(x_0,Y)$.
+			\item $\| f\|=1$.
+		\end{enumerate}
+	\end{coro}
+	\begin{proof}
+		Tome $E=\operatorname{span}\{Y\cup\{x_0\}\}$. Defina $f(y+\alpha x_0)=\alpha d$ com $d=d(x_0,Y)$. Por Hahn-Banach, precisamos só mostrar que $\| f\|=1$.
+		
+		$(\| f\|\leq 1)$ Note que
+		\begin{align*}
+			|f(y+\alpha x_0)|&=|\alpha|d\\
+			&=|\alpha|\inf\{\| x_0-z\|:z\in Y\}\\
+			&\leq|\alpha|\left\| x_0-\frac{y}{\alpha}\right\|\qquad(z=-y/\alpha)\\
+			&=\|\alpha x_0+y\|.
+		\end{align*}
+		
+		$(\| f\|\geq1)$ Pegue $(y_n)\subseteq Y$ tal que $d=\lim_n\| x-y_n\|$. Logo
+		\begin{align*}
+			f\left(\frac{x-y_m}{\| x-y_m\|}\right)&=\frac{d}{\| x-y_n\|}\to1.
+		\end{align*}
+	\end{proof}
+	
+	\begin{teo}
+		Seja $X$ um espaço de Banach. Se $X^*$ for separável, $X$ é separável. 
+	\end{teo}
+	\begin{proof}
+		Pegue $(f_m)\subseteq\partial B_{X^*}$ denso. Para cada $n\in\N$, pegue $x_m\in\partial B_X$ tal que $f_n(x_n)\geq1-\frac{1}{m}$ (a gente não pode garantir que é 1). Defina $Y=\overline{\operatorname{span}\{x_n:n\in\N\}}$.
+		\begin{af*}
+			$Y=X$.
+		\end{af*}
+		\begin{proof}
+			Suponha falso, ie. existe $x\in X\backslash Y$. Pegue $f\in\partial B_{X^*}$ tal que
+			\begin{enumerate}
+				\item $f|_Y=0$.
+				\item $f(x)\neq0$. (De fato, esta propriedade não é usada na prova.)
+			\end{enumerate}
+			Pegue uma subsequência $(f_{m_k})_k$ de $(f_n)$ tal que $f_{m_k}\overset{k}{\to}f$. Então
+			\[|f(x_{n_k})|=|f_{n_k}(x_{m_k})-f_{n_k}(x_{n_k}+f)\]
+			logo
+			\[|f(x_{n_k})|\geq|f_{n_k}(x_{m_k})|-f_{n_k}(x_{n_k}+f)\]
+			que converge a 1, pois
+			\[|f_{m_k}(x_{n_k})-f(x_{n_k})=|(f_{n_k}-f)(x_{m/k})|\leq\| f_{n_k}-f\|\to0\]
+			mais isso não é possível pois $x_n$ está em $Y$.
+		\end{proof}
+	\end{proof}
+	
+	\begin{teo}[Hahn-Banach complexo]
+		Seja $X$ um espaço vetorial complexo, $Y\subseteq X$ subespaço, $f:X\to\C$ linear e $p:X\to[0,\infty)$ tal que
+		\begin{enumerate}
+			\item $p(\alpha x)=|\alpha|p(x)$ para todos $x\in X$ e $\alpha\in\C$.
+			\item $p(x+y)\leq p(x)+p(y)$ para todos $x,y\in X$.
+			\item $|f(x)|\leq p(x)$ para todo $x\in X$.
+		\end{enumerate}
+		Então existe $F:X\to\C$ tal que
+		\begin{enumerate}
+			\item $F|_Y=f$.
+			\item $|F(x)|\leq p(x)$ para todo $x\in X$.
+		\end{enumerate}
+	\end{teo}
+	\begin{proof}
+		\begin{exer*}
+			Existem funcionais $\R$-lineares $f_1,f_2:X\to\R$ tais que
+			\[f(x)=f_1(x)+if_2(x)\quad\forall x\in X.\]
+		\end{exer*}
+		Note que a relação entre $f_1$ e $f_2$ é que
+		\begin{align*}
+			i f_1(x)-f_2(x)&=i f(x)\\
+			&=f(ix)\\
+			&=f_1(ix)+if_2(ix)
+		\end{align*}
+		Logo
+		\[f_2(x)=-f_1(ix),\quad\forall x\in Y.\]
+		Como $|f_1(x)|\leq p(x)$ para toda $x\in Y$, podemos usar Hahn-Banach real para pegar $\tilde{f}:X\to\R$ tal que
+		\begin{enumerate}
+			\item $\tilde{f}|_Y=f_1$.
+			\item $|\tilde{f}(x)|\leq p(x)$.
+		\end{enumerate}
+		Defina $F:X\to\C$ como 
+		\[F(x)=\tilde{f}(x)+i\tilde{f}(ix)\quad\forall x\in X.\]
+		($F$ é linear) De fato, temos que $F$ é $\R$-linear. Resta ver que $F(ix)=iF(x)$ (Exercício).
+		
+		($F|_Y=f$) Tá certo.
+		
+		($|F(x)\leq p(x)$) Fixe $x\in X$ e $\theta\in[0,2\pi]$.
+		\[|F(x)|=e^{i\theta}F(x).\]
+		Note que, denotando $\tilde{f}(x)=F$ e $-\tilde{f}(ix)=F_2$ para que $F=F_1+iF_2$, temos que $F_2(e^{i\theta})=0$. Finalmente
+		\begin{align*}
+			|F(x)|&=F_1(e^{i\theta}x)\\
+			&=\tilde{f}(e^{i\theta}x)\\
+			&\leq p(e^{i\theta}x)\\
+			&=p(x).
+		\end{align*}
+	\end{proof}
+	
+	\begin{prop}
+		Seja $X$ um espaço normado separável. $X$ mergulha-se linermente e isometricámente em $\ell_\infty$.
+	\end{prop}
+	\begin{proof}
+		Seja $(x_m)\subseteq X$ denso. Pelo teorema de Hahn-Banach existe uma sequência de funcionais $(f_n)\subseteq\partial B_{X^*}$ tal que $f_n(x_n)=\| x_n\|$. Logo, o mapa
+		\begin{align*}
+			T:X&\to\ell_\infty\\
+			x&\mapsto (f_n(x))
+		\end{align*}
+		esta bem definido e é tal que $\| T\|\leq 1$. Então, $\| Tx\|\leq\| x\|$.
+		
+		Para ver que $T$ é uma isometria note que, como $(x_n)$ é denso, para cualquer $x\in X$ podemos pegar uma subsequência $(x_{n_k})$ de $(x_n)$ tal que $x_{n_k}\to x$. Então
+		\begin{align*}
+			\| Tx\|&=\sup_{n\in\N}|f_n(x)|\\
+			&\geq |f_n(x)|\quad\forall n\in\N\\
+			&\geq\big||f_{n_k}(x_{n_k})|-|f_{n_k}(x_{n_k})-f_{n_k}(x)|\big|\\
+			&=\big|\| x_{n_k}\|-|f_{n_k}(x_{n_k}-x)|\big|\overset{k}{\to}\| x\|.
+		\end{align*}
+	\end{proof}
+	
+	\section{Reflexivilidade}
+	Notemos que, entre aspas, $X\subseteq X^{**}$. Considere o mapa $J:X\to X^{**}$ como $(Jx)f=fx$ para toda $x\in X$ e $f\in X^*$.
+	
+	\begin{prop}
+		$J$ é uma isometria.
+	\end{prop}
+	\begin{proof}
+		Por um lado,
+		\[\| J\|=\sup_{x\in B_X}\| Jx\|=\sup_{x\in B_X}\sup_{f\in B_{X^*}}|fx|\leq1.\]
+		Seja agora $x\in X\backslash\{0\}$. Pegue $f\in X^*$ com $\| f\|=1$ e $f(x)=\| x\|$. Logo
+		\[\| Jx\|\geq|(Jx)f|=|fx|=\| x\|.\]
+	\end{proof}
+	
+	\begin{defn}
+		Se $J$ for sobrejetiva, então $X$ é \textbf{\textit{reflexivo}}.
+	\end{defn}
+	\begin{exemplos}\leavevmode
+		\begin{enumerate}
+			\item Dimensão finita.
+			\item $\ell_p$, $p\in(1,\infty)$. Para comprovar issto tem que comprovar que na nossa prova da dualidade de $\ell_p$ de fato usamos o mapa $J$. Considere os mapas
+			\[\varphi:\ell_p\to\ell_q^*\qquad\psi:\ell_p^*\to\ell_q\qquad\varphi^*:\ell_q^*\to\ell_p^{**}\] para obter
+			\[\begin{tikzcd}
+				\ell_p\arrow[rr,"J"]\arrow[rd,swap,"\varphi"]&&\ell_p^{**}\\
+				&\ell_q^{*}\arrow[ur,"\psi^*",swap]
+			\end{tikzcd}\]
+		\end{enumerate}
+	\end{exemplos}
+	
+	\begin{defn}
+		Seja $T:X\to Y$ operador contínuo entre espaços normados. O \textbf{\textit{adjunto}} de $T$ é $T^*:Y^*\to X^*$ dado por
+		\[(T^*y^*)x=y^*(Tx).\]
+	\end{defn}
+	
+	\begin{exemplos}
+		Não são reflexivos: $C[0,1],c_0,\ell_\infty$ usando que se o dual de um espaço é reflexivo, então o espaço é reflexivo.
+	\end{exemplos}
+	
+	\begin{exer*}
+		Seja $X$ reflexivo e $Y$ isomórfico a $X$. Então $Y$ é reflexivo.
+	\end{exer*}
+	\begin{proof}
+		Primeiro mostramos que o diagrama seguinte comuta:
+		\[\begin{tikzcd}
+			X\arrow[r,"\varphi"]\arrow[d,swap,"J_X"]&Y\arrow[d,"J_Y"]\\
+			X^{**}\arrow[r,"(\varphi^{*})^*",swap]&Y^{**}
+		\end{tikzcd}\]
+		e logo que, em geral, o operador adjunto de um isomorfismo é um isomorfismo, assim $(\varphi^*)^*$ é um isomorfismo.
+	\end{proof}
+	
+	\begin{prop}
+		Seja $X$ reflexivo e $Y\subseteq X$ subespaço fechado. Então $Y$ é reflexivo.
+	\end{prop}
+	\begin{proof}
+		Queremos mostrar que $J_Y:Y\to Y^{**}$ é sobrejetivo. Pegue $\xi\in Y^{**}$ e defina $\bar{\xi}\in X^{**}$ como
+		\[\bar{\xi}f=\xi f|_Y\quad\forall f\in X^*.\]
+		Como $X$ é reflexivo, existe $x\in X$ tal que $J_Xx=\bar{\xi}$.
+		
+		$(x\in Y)$. Caso contrário, como $Y$ é fechado, existe um funcional $f\in X^*$ tal que
+		\begin{enumerate}
+			\item $fx\neq0$. (De acordo com o corolário de Hahn-Banach, $fx=d(x,Y)$.)
+			\item $f|Y=0$.
+		\end{enumerate}
+		Logo
+		\begin{align*}
+			\bar{\xi}f&=\xi f|_Y=\xi0=0.
+		\end{align*}
+		Mais,
+		\[\bar{\xi}f=(Jx)f=fx\neq0.\]
+		
+		$(J_Yx=\xi)$. Pegue $g\in Y^*$ e usando Hahn-Banach defina $\bar{g}\in X^*$ extensão de $g$. Logo
+		\begin{align*}
+			(J_Yx)g&=gx\\
+			&=\bar{g}x\\
+			&=(J_Xx)\bar g\\
+			&=\bar{\xi}\bar{g}\\
+			&=\xi g
+		\end{align*}
+	\end{proof}
+	\begin{exer*}
+		Se $X$ é reflexivo e $Y\subseteq X$ fechado, então $X/Y$ é reflexivo.
+	\end{exer*}
+	
+	\section{Topologia fraca e fraca*}
+	Considere $X$ um conjunto e uma família de mapas $\mathcal{F}$ de $X$ para alguns espaços topológicos, $X\to(Y,\tau)$. A \textbf{\textit{topologia fraca}} de $X$ em relação a $\mathcal{F}$, denotada por $\sigma(X,\mathcal{F})$, é a menor topologia em $X$ que faz todos elementos de $\mathcal{F}$ contínuos. Em outras palavras, é a topologia gerada por os conjuntos da forma $f^{-1}(U)$ para $f\in\mathcal{F}$ e $U\subseteq\operatorname{codom}f$ aberto.
+	
+	Lembre que uma \textbf{\textit{base}} um espaço topológico é uma coleção de abertos tal que todo aberto da topologia pode se-expresar como união arbitrária de abertos da base. (E ainda, que todo elemento do espaço tem uma \textbf{\textit{base local}}, (todo aberto que contém o punto contém um aberto da base local) de abertos da base.) Uma base para $\sigma(X,\mathcal{F})$ é
+	\[\bigcap_{i=1}^n f^{-1}_i(U_i)\]
+	para $f_1,\ldots,f_n\in\mathcal{F}$ e $U_i\subseteq\operatorname{codom}f_i$ aberto.
+	
+	Voltando para espaços vetoriais,
+	\begin{defn}
+		Se $X$ é um espaço normado, $\sigma(X,X^*)$ é a \textbf{\textit{topologia fraca de $X$}}. Uma base para $\sigma(X,X^*)$ é
+		\[\bigcap_{i=1}^n\{x\in X:|f_ix_i-f_ix|<\varepsilon\}=\bigcap_{i=1}^nf_i^{-1}B(fx_i,\varepsilon){\color{orange}\overset{?}{=}\bigcap_{i=1}^nf_i^{-1}B(fx_i,\varepsilon_i)}\]
+		para $n\in\N$, $f_1,\ldots,f_n\in X^*$, $x_1,\ldots,x_n\in X$ e $\varepsilon>0$.
+	\end{defn}
+	\begin{exer*}
+		Seja $x_0\in X$. Mostre que
+		\[\bigcap_{i=1}^n\{x\in X:|f_ix_0-f_ix|<\varepsilon\}=\bigcap_{i=1}^nf_i^{-1}B(fx_0,\varepsilon)\]
+		para $n\in\N$, $f_1,\ldots,f_n\in X^*$ é uma base local para essa topologia em $x_0$.
+	\end{exer*}
+	\begin{proof}
+		Pega um conjunto da forma da primeira base e mostra que dentro dele tem um elemento da base local. Consideremos primeiro o caso $n=1$. Supongamos que
+		\[x_0\in f^{-1}B(fx_1,\varepsilon),\quad f\in X^*,\;x_1\in X,\;\varepsilon>0.\]
+		Defina
+		\[d=d(fx_0,\partial B(fx_1,\varepsilon)=\min\{|fx_0-(fx_1+\varepsilon)|,|fx_0-(fx_1-\varepsilon)|\}.\]
+		\begin{af*}
+			$f^{-1}B(fx_0,d/2)\subseteq f^{-1}B(fx_1,\varepsilon)$
+		\end{af*}
+		De fato, para cualquer $x\in  f^{-1}B(fx_0,d/2)$,
+		\begin{align*}
+			|fx-fx_1|\leq|fx-fx_0|+|fx_0+fx_1|<d/2
+		\end{align*}
+	\end{proof}
+	
+	O concepto de rede ajuda-nos a caracterizar propriedades de espaços topologicos arbitrários:
+	\begin{defn}\leavevmode
+		\begin{enumerate}
+			\item Lembre que dado $(I,\leq)$ um conjunto parcialmente ordenado, $I$ é \textbf{\textit{direcionado}} se para todos $i,j\in I$ existe $k\in I$ tal que $i\leq k$ e $j\leq k$. Esa definição implica a existencia de um elemento maior do que cualquer cantidade finita de elementos, mais não para uma quantidade infinita. 
+			\item $(x_i)_{i\in I}$ é uma \textbf{\textit{rede}} se $I$ é direcionado.
+			\item Sejam $(X,\tau)$ um espaço topológico, $(x_i)_{i\in I}$ uma rede e $x\in X$. Decimos que $x_i\to x$ se para todo $O\in\tau$ como $x\in O$ existe $i_0\in I$ tal que se $i\geq i_0$ então $x_i\in O$.
+			\item Uma rede $(x_i)_{i\in I}$ \textbf{\textit{converge fracamente}} se para todo $f\in X^*$, $fx_i\to fx$.
+		\end{enumerate}
+	\end{defn}
+	k
+	\begin{defn}
+		Seja $X$ um espaço normado. A topologia $\sigma(X^*,J(X)):=\sigma(X^*,X)$ é a \textbf{\textit{topologia fraca*}} de $X^*$. Trata-se da menor topologia de $X^*$ tal que $Jx$ é contínuo para todo $x\in X$.
+	\end{defn}
+	
+	\begin{obs}
+		Se $X$ for reflexivo, $\sigma(X^*,X^{**})=\sigma(X^*,X)$.
+	\end{obs}
+	
+	Uma base de topologia fraca* é
+	\begin{align*}
+		&\bigcap_{i=1}^n\{f\in X^*:|fx_i-f_ix_i|<\varepsilon\}\\
+		=&\bigcap_{i=1}^n\{f\in X^*:|(Jx_i)f-(Jx_i)f_i|<\varepsilon\}
+	\end{align*}
+	para $n\in\N$, $f_1,\ldots,f_n\in X^*$ e $x_1,\ldots,x_n\in X$.
+	
+	$(f_i)$ converge fracamente para $f$ se $f_ix\to fx$ para toda $x\in X$.
+	
+	Denotamos
+	\begin{enumerate}
+		\item $x_i\overset{w}{\longrightarrow}x$ se $(x_i)$ converge fracamente para $x$.
+		\item $f_i\overset{w^*}{\longrightarrow}$ se $(f_i)$ converge fraca-* para $f$.
+	\end{enumerate}
+	
+	\begin{exemplo}\leavevmode
+		\begin{enumerate}
+			\item Sejam $p\in(1,\infty)$ e $(e_m)\subseteq\ell_p$. Então $e_n\overset{w}{\longrightarrow}0$.
+			\item Mesmo para $c_0$.
+			\item Se $p=1$, não converge a zero.
+			\item Se $f_n\overset{w}{\longrightarrow}f$ em $X^*$ então $f_n\overset{w}{\longrightarrow}{\color{orange}?}$. O recíproco não é certo, pois. 
+		\end{enumerate}
+	\end{exemplo}
+	\begin{teo}
+		Seja $X$ um espaço normado. $X$ é reflexivo se e somente se $\sigma(X^*,X)=\sigma(X^*,X^{**})$.
+	\end{teo}
+	\begin{prop}
+		Seja $\xi\in X^{**}$. Se $\xi$ for contínuo para a topologia $\sigma(X^*,X)$, então $\xi\in X$.
+	\end{prop}
+	\begin{lema}
+		Sejam $f,f_1,\ldots,f_m:X\to\R$ lineares. Se
+		\[\bigcap_{i=1}^n\ker f_i\subseteq f\]
+		então $f\in\operatorname{span}\{f_i|i\in\{1,\ldots,n\}\}$.
+	\end{lema}
+	\begin{proof}
+		Tem um truco---defina a seguinte função auxiliar:
+		\begin{align*}
+			L:X\to\R^m\\
+		\end{align*}
+		como $L(x)=(f_1x,\ldots,f_nx)$ para $x\in X$. Como $\bigcap_{i=1}^n\ker f_i\subseteq \ker f$, podemos definir $g:\R^n\to\R$ mediante o diagrama
+		\[\begin{tikzcd}
+			X\arrow[dr,swap,"L"]\arrow[rr,"f"]&&\R\\
+			&\R^n\arrow[ur,dashed,"g",swap]
+		\end{tikzcd}\]
+		que fica bem definida e é linear pela propriedade dos kernels. Logo, existem $\lambda_1,\ldots,\lambda_n\in\R$ tais que
+		\[g(x_1,\ldots,x_n))\sum_{i=1}^n\lambda_ix_i\quad\forall (x_1,\ldots,x_n)\in\R^n.\]
+		E assim,
+		\[f=\sum_{i=1}^n\lambda_if_i.\]
+	\end{proof}
+	\begin{proof}[Prova da proposição]
+		Queremos achar funcionais $\xi_i\approx x_i$ que satisfaiz a condição dos kernels. Como $\xi$ é $\sigma(X^*,X)$-contínuo,
+		\[\xi^{-1}\left(-1,1\right)\in\sigma(X^*,X).\]
+		Logo $\xi^{-1}\left((-1,1)\right)$ é uma vizinhanza de zero na topologia fraca*. Logo existe $\varepsilon>0$, $x_1,\ldots,x_n\in X$ tais que
+		\begin{align*}
+			\bigcap_{i=1}^n\{f\in X^*:|f_ix_i|<\varepsilon\}\subseteq\left((-1,1)\right)
+		\end{align*}
+		pois
+		\begin{exer*}
+			Se $f_0\in X^*$ então
+			\[\bigcap_{i=1}^n\{f\in X^*:|fx_i-f_ix_i|<\varepsilon\}\]
+			$x_1,\ldots,x_n\in X$, $\varepsilon>0$ é uma base de abertos locais para $f_0$. (É o mesmo exercício que o da base local para a topologia fraca.)
+		\end{exer*}
+		Logo,
+		\[\bigcap\ker(x_i)\subseteq\xi^{-1}\left((-1,1)\right).\]
+		E pela linearidade do kernel e do operador $\xi$, temos que
+		\[\bigcap\ker(x_i)\subseteq\ker\xi\]
+		assim, pelo lema
+		\[\xi=\sum_{i=1}^n\lambda_ix_i\]
+		com $x_1,\ldots,x_n\in X$.
+	\end{proof}
+	\begin{proof}[Prova do teorema]\leavevmode
+		
+		$(\implies)$. Se $X$ é reflexivo, $X=X^{**}$ e $\sigma(X*,X)=\sigma(X^*,X^{**})$.
+		
+		$(\impliedby)$. Suponha $\sigma(X*,X)=\sigma(X^*,X^{**})$.
+		\begin{align*}
+			X^{**}&=\{\xi:X^*\to\R:\xi\text{ é linear e contínuo para }\sigma(X^*,X^{**})\}\\
+			&=\{\xi:X^*\to\R:\xi\text{ é linear e contínuo para }\sigma(X^*,X)\}\\
+			&=X
+		\end{align*}
+	\end{proof}
+	
+	\section{Formas geometricas de Hahn-Banach}
+	\begin{defn}
+		Sejam $X$ um espaço vetorial e $\tau$ uma topologia em $X$. $(X,\tau)$ é um \textbf{\textit{espaço vetorial topologico (EVT)}} se
+		\begin{enumerate}
+			\item $+$ e $\cdot$ são $\tau$-contínuas.
+			\item Os pontos são fechados.
+		\end{enumerate}
+	\end{defn}
+	\begin{exemplo}
+		$(X,\|\;\|)$, $(X,\sigma(X,X^*))$ e $(X,\sigma(X^*,X))$ são EVT.
+	\end{exemplo}
+	\begin{defn}
+		Para $(X,\tau)$ EVT,
+		\[X^*:=\{f:X\to\mathbb{K}\text{ linear e contínuo}\}.\]
+	\end{defn}
+	\begin{obs}
+		$(X^*,\sigma(X^*,X))^*=X=JX$.
+	\end{obs}
+	\begin{defn}
+		Sejam $X$ um espaço vetorial e $A\subseteq X$ um subconjunto. O \textbf{\textit{funcional de Minkowski de $A$}} é
+		\[\mu_A(x)=\inf\left\{t>0:\frac{x}{t}\in A\right\}.\]
+		{\color{persiangreen}É que tão longe posso ir na direção de $x$ sem sair de $A$.}
+	\end{defn}
+	\begin{defn}
+		Seja $A\subseteq X$.
+		\begin{enumerate}
+			\item $A$ é \textbf{\textit{absorbente}} se $\forall x\in X\;\exists t>0$ tal que $\frac{x}{t}\in A$. (Note que essa condição implica que $0\in A$.)
+			\item $A$ é \textbf{\textit{balançado}} se $\forall x\in A\;\forall\lambda\in B_\mathbb{K}$ temos que $\lambda x\in A$.
+		\end{enumerate}
+	\end{defn}
+	\begin{prop}
+		Seja $(X,\|\;\|)$ normado e $A=\{x\in X:\| x\|\leq1\}$. Então $A$ é convexo, balanceado, absorbente e $\mu_A=\|\;\|$.
+	\end{prop}
+	\begin{proof}
+		Vamos mostrar que $\mu_A=\|\;\|$. Pegue $x\in X$ e $t>\| x\|$, assim $\frac{x}{t}\in A$. Logo, $\mu_A(x)\leq t$ e de fato $\mu_A(x)\leq\| x\|$.
+		
+		Se $0<t<\| x\|$, $\frac{x}{t}\notin A$, e logo $t\leq\mu_A(x)$.
+	\end{proof}
+	
+	\begin{prop}
+		Sejam $X$ um EVT e $A\subseteq X$ absorbente e conexo. Então $\mu_A$ é sublinear e
+		\[B:=\{x\in X:\mu_A(x)<1\}\subseteq A\subseteq \{x\in X:\mu_A(x)\leq1\}:=C\]
+		e
+		\[\mu_A=\mu_B=\mu_C.\]
+		Se $A$ também for balanceado, $\mu_A$ é uma pseudonorma.
+	\end{prop}
+	\begin{proof}
+		(Sublinearidade). Sejam $x,y\in X$. Pegue $t>\mu_A(x)$ e $s>\mu_A(y)$. Como
+		\[\frac{x+y}{t+s}=\frac{t}{t+s}t^{-1}x+\frac{s}{t+s}s^{-1}s,\]
+		$\frac{x}{t}\in A$ é $\frac{y}{s}\in A$ pois $A$ é convexo. Logo $\mu_A(x+y)\leq t+s$.
+		
+		(Homogenidade). $\mu_A(\lambda x)=\lambda\mu_A(x)$, $\lambda>0$. Logo se $A$ for balanceado,
+		\[\mu_A(\lambda x)=|\lambda|\mu_A(x).\]
+		
+		($B\subseteq A$). Sai como $A$ é convexo e $0\in A$.
+		
+		($A\subseteq C$). Imediato
+		
+		($\mu_A=\mu_B=\mu_C$) Como $B\subseteq A\subseteq C$, segue que 
+		\[\mu_C\leq\mu_A\leq\mu_B.\]
+		Para ver que $\mu_B\leq\mu_C$, pegue $t>\mu_C(x)$. Logo $t^{-1}x\in C$. Logo $\mu_A(t^{-1}x)\leq1$. Logo, se $s>t$, 
+		\begin{align*}
+			\mu_A(s^{-1}x)&=\mu_A(s^{-1}tt^{-1}x)\\
+			&=s^{-1}t\mu_A(t^{-1}x)\\
+			&<1,
+		\end{align*}
+		de modo que $s^{-1}x\in B$, e assim $\mu_B(x)\leq s$.
+	\end{proof}
+	\begin{teo}[Primeira forma geométrica de Hahn-Banach.]
+		Sejam $X$ EVT real, $A,B\subseteq X$ convexos e disjuntos. Se $A$ é aberto, existe $f\in X^*$ e $\gamma\in\R$ tal que
+		\[fx<\gamma\leq fy\quad\forall x\in A\text{ e }y\in B.\]
+		(Interpretamos $f^{-1}\gamma$ como um hiperplano, assim, o conjunto $A$ fica num lado desse hiperplano, e o conjunto $B$ do outro lado. Observe que o fecho deles pode se intersectar.)
+	\end{teo}
+	\begin{proof}
+		Pegue $a\in A$ e $b\in B$. Defina $x_0=a-b$ e 
+		\[C=x_0+A-B.\]
+		($C$ é aberto). De fato, pois $C$ é uma união de traslaçoes de $A$ por ementos de $B$.
+		
+		($C$ é absorbente). Por ser um aberto que contém zero.
+		
+		($C$ é convexo). Por ser soma de convexos.
+		
+		Considere $\mu_C$. Note que $x_0\notin C$ e $E=\operatorname{span}\{x_0\}$. Defina $f:E\to\R$ como $f(\alpha x_0)=\alpha$ $\forall \alpha\in\R$.
+		
+		Temos $f(\alpha x_0)\leq\mu_X(\alpha x_0)\;\forall\alpha\in\R$. Se $\alpha<0$, terminhamos. Se $\alpha\geq0$, 
+		\begin{align*}
+			f(\alpha x_0)&=\alpha\cdot1\\
+			&\leq\alpha\mu_C(x_0)\\
+			&=\mu_C(\alpha x_0)
+		\end{align*}
+		
+		Por Hahn-Banach, existe $\tilde{f}:X\to\R$ linear tal que
+		\begin{enumerate}
+			\item $\tilde{f}|_E=f$.
+			\item $\tilde{f}(x)\leq\mu_C(x)\;\forall x\in X$.
+		\end{enumerate}
+		
+		($\tilde{f}$ é contínuo). Por 2., 
+		\[\tilde{f}(x)\leq\mu_C(x)\leq1\quad\forall x\in C\cap\{-C\}.\]
+		\begin{exer*}
+			Sejam $X$ EVT e $f:X\to\R$ linear e limitado em um aberto. Então $f$ é contínuo.
+		\end{exer*}
+		Assim, $\tilde{f}$ é contínuo. Pegue $y\in A$ e $x\in B$. Temos:
+		\begin{align*}
+			1+\tilde{f}(y)-\tilde{f}(x)&=\tilde{f}(x_0)+\tilde{f}(y)-\tilde{f}(x)\\
+			&=f(x_0+y+x)\\
+			&=\mu_C(x_0+y-x)<1
+		\end{align*}
+		
+		Logo $f(y)<\tilde{f}(x)$ para todo $y\in A$ e toda $x\in B$. Defina
+		\[\gamma=\inf_{x\in B}\tilde{f}(x)\]
+		Nota que $\tilde{f}(A)$ e $\tilde{f}(B)$ são conexos e, pelo exercício 1 da Lista II, $\tilde{f}(A)$ é aberto. Logo
+		\[\tilde{f}y<\gamma\quad\forall y\in A.\]
+	\end{proof}
+	
+	\begin{teo}[Segunda forma geometrica de Hahn-Banach]
+		Sejam $X$ EVT, $A,B\subseteq X$ convexos disjuntos, $A$ compacto e $B$ fechado. Então existe $f\in X^*$ tal que
+		\[\sup_{x\in A}f(x)<\inf_{x\in B}f(x).\]
+		(Mais uma vez, a $f$ divide o espaço em dois hiperespaços, em cada um dos quais reside um dos conjuntos $A$ ou $B$. Porém, agora ficam mais distantes um do outro, e seus fechos não irão se intersectar.)
+		
+		Alternativamente, existem $\alpha,\varepsilon\in\R$ tais que 
+		\[f(a)\leq \alpha-\varepsilon<\alpha+\varepsilon\leq f(b)\qquad\forall a\in A\;\forall b\in B.\]
+	\end{teo}
+	\begin{exer*}
+		Construa um conjunto convexo e absorbente $C\subseteq c_0$ com $(\lambda_n)\subseteq (0,\infty)$ $\lambda_n\to0$ tal que
+		\begin{enumerate}
+			\item $(\lambda_nc_n,0)\subseteq C$ para toda $n\in\N$.
+			\item Para todo $x\in c_0$ existe $\lambda_x$ tal que $\lambda x\notin C$ para toda $\lambda>\lambda_x$.
+		\end{enumerate}
+	\end{exer*}
+	\begin{lema}
+		Sejam $A,B\subseteq X$ com $A$ compacto e $B$ fechado. Então existe um aberto $V$ contendo zero tal que
+		\[(A+V)\cap(B+V)=\varnothing.\]
+	\end{lema}
+	\begin{proof}[Prova do lemma]
+		Como $B^C$ é aberto e ainda $+$ é contínua, $\forall x\in B^c\;\exists V_x\subseteq X$ aberto, $0\in V_x$ tal que
+		\[v+V_x+V_x+V_x+\subseteq B^c.\]
+		Trocando $V_x$ por $V_x\cap(-V_x)$, $V_x$ é simétrico. Como $A$ é compacto, existem $x_1,\ldots,x_n\in A$ tais que
+		\[A\subseteq\bigcup_{i=1}^nx_i+V_{x_i}.\]
+		Defina
+		\[V=\bigcap_{i=1}^nV_{x_i}.\]
+		Vamos mostrar que $(A+V)\cap(B+V)=\varnothing$. Suponha $x\in (A+V)\cap(B+V)$. Como
+		\[A+V\subseteq \bigcup_{i=1}^nx_i+V_{x_i}+V_{x_i}.\]
+		Então existe $i\leq n$ tal que
+		\[x\in(x_i+V_{x_i}+V_{x_i})\cap(B+V_{x_i}).\]
+		Isso implica que $x\in (x_i+V_{x_i}+V_{x_i}+V_{x_i})\cap B$, o que contradiz a nossa escolha de $V_x$.
+	\end{proof}
+	\begin{proof}[Prova do teorema]
+		Exercício.
+	\end{proof}
+	
+	\begin{coro}
+		Sejam $(X,\|\;\|)$ um espaço normado e $X\subseteq X$ convexo. Temos
+		\[\overline{C}^{\|\;\|}=\overline{C}^w.\]
+	\end{coro}
+	\begin{proof}
+		Como $\sigma(X,X')\subseteq\tau_{\|\;\|}$, $\overline{C}^{\|\;\|}\subseteq\overline{C}^w$. Pegue $x\notin\overline{C}^{\|\;\|}$ e defina
+		\[A=\{x\},\quad B=\overline{C}^{\|\;\|}.\]
+		Por Hahn-Banach, existe $f\in X^*$ tal que
+		\[f(x)<\inf_{y\in\overline{C}^{\|\;\|}}f(y)=\gamma.\]
+		Logo
+		\[x\in f^{-1}((-\infty,\gamma))\subseteq C^c,\]
+		e assim $x\notin\overline{C}^w$.
+	\end{proof}
+	\begin{pregunta}
+		$\overline{C}^w=\overline{C}^{\|\;\|}=\overline{C}^{w^*}$?
+		
+		Não, $c_0\subseteq\ell_\infty$ é convexo. Defina para cada $n\in\N$,
+		\[s_n=e_1+\ldots+e_n.\]
+		\begin{exer*}
+			$s_n\overset{w^*}{\longrightarrow}(1,1,\ldots)\notin\overline{C}^{\|\;\|}$.
+		\end{exer*}
+	\end{pregunta}
+	
+	\section{Teorema de Banach-Steinhaus}
+	\begin{teo}[Baire]
+		Seja $(M,d)$ um espaço métrico completo. Considere $\{F_n\}$ uma família de fechados em $M$ tais que
+		\[M=\bigcup_{i=1}^nF_n.\]
+		Então existe $n_0\in\N$ tal que
+		\[\operatorname{int} F_{n_0}=\varnothing.\]
+	\end{teo}
+	\begin{proof}
+		Ver Elon.
+	\end{proof}
+	\begin{teo}[Banach-Steinhaus]
+		Sejam $(X,\|\;\|_X)$ um espaço de Banach, $(Y,\|\;\|_Y)$ um espaço normado e $(T_n)\subseteq\mathcal{L}(X,Y)$ tais que para cada $x\in X$ existe $0<c=c_x<\infty$ tal que
+		\[\| T_nx\|_Y\leq c_x\quad\forall n\in\N.\]
+		Então existe $c>0$ tal que
+		\[\| T_n\|_{\mathcal{L}(X,Y)}\leq c\quad\forall n\in\N.\]
+	\end{teo}
+	\begin{proof}
+		Comencemos definindo os conjuntos
+		\begin{align*}
+			X_m^n&:=\{x\in X:\| T_nx\|_Y\leq m\}\\
+			&=\left(\|\;\|\circ T_n\right)^{-1}([0,m]).
+		\end{align*}
+		Segue-se que $X_m^n$ é fechado. Com isso, conjunto
+		\[X_m=\bigcap_{n=1}^\infty X_m^n\subseteq X\]
+		é fechado.
+		\begin{af*}
+			$X=\bigcup_{i=1}^\infty X_m$.
+		\end{af*}
+		\begin{proof}
+			$\subseteq$ é imediato. Recíprocamente, seja $x\in X$. Então existe $c_x>0$ tal que
+			\[\| T_nx\|\leq c_x\quad\forall n\in\N.\]
+			Pegue $m_x\in\N$ com $m_x>C$
+			\[\| T_nx\|_Y<m_x\quad\forall n\in\N.\]
+			Ou seja $x\in X_{m_x}^n$ para toda $n\in N$.
+			Logo
+			\[x\in \bigcap_{i=1}^\infty X_{m_x}^n=X_{m_x}\subseteq \bigcup_{i=1}^\infty X_m\]
+		\end{proof}
+		Logo, pelo teorema de Baire, existe $n_0\in\N$ tal que
+		\[\operatorname{int}X_{m_0}\neq\varnothing.\]
+		Considere $y\in\operatorname{int}X_{m_0}$ e $r>0$ tal que
+		\[B^x_r[y]\subseteq\operatorname{int}X_{m_0}.\]
+		Seja $x\in X$ com $\| x\|\leq1$. Logo, $z=y+rx\in B_r^x[y]$. Daí,
+		\begin{align*}
+			\| T_m(z-y)\|&=\| T_mz-T_my\|\\
+			&\leq\| T_nz\|+\| T_ny\|\\
+			&\leq m_0+m_0=2m_0
+		\end{align*}
+		Logo,
+		\begin{align*}
+			\| T_nx\|&=\| T_n\left(\frac{rx}{r}\right)\\
+			&=\frac{1}{r}\| T_n(rx)\|\\
+			&=\frac{1}{r}\| T_n(z-y)\|\\
+			&\leq\frac{2m_0}{r}
+		\end{align*}
+		Assim, $\| T_nx\|\leq\frac{2m_0}{r}$ para toda $x\in X$ e $\| x\|\leq1$.
+	\end{proof}
+	\begin{exemplo}[Limitação uniforme ``otimo"]
+		Considere
+		\[X=\{(x_n)\subseteq c_0:\exists k_0\in\N,\; x_k=0\;\forall k>k_0\}\]
+		\begin{exer*}
+			$(X,\|\;\|_\infty)$ não é completo.
+		\end{exer*}
+		Tome $Y=\R$ e defina a sequência de operadores
+		\begin{align*}
+			f_n:X&\mapsto\R\\
+			x=(x_n)&\mapsto f_n(x)=nx_n
+		\end{align*}
+		Note que $f_n$ é limitado. Pegando a sequência que vale 1 na $n$-esima entrada vemos que $\| f_n\|=1$.
+		
+		Seja $x=(x_k)\subseteq X$, assim existe $k_0\in\N$ tal que $x_k=0$ para $k>k_0$. Desse modo
+		\[f_n(x)=nx_n=0\quad\forall n>k_0.\]
+		Issto é, $|f_nx|\leq c_x$ para toda $n\in\N$, mas,
+		\[\| f_n\|=n\to\infty,\]
+		assim que a completude é essencial no teorema.
+	\end{exemplo}
+	\begin{coro}
+		Sejam $X$ um espaço Banach, $Y$ normado e $(T_n)\subseteq\mathcal{L}(X,Y)$ tais que
+		\[\lim_{n\to\infty}T_n(x)\]
+		existe para todo $x\in X$. Então o operador 
+		\begin{align*}
+			T:X&\to Y\\
+			x&\to Tx:=\lim_{n\to \infty}T_nx
+		\end{align*}
+		é contínuo.
+	\end{coro}
+	\begin{proof}
+		De fato,
+		\begin{enumerate}
+			\item $T$ é linear: para $x\in X$ e $\alpha\in\R$
+			\begin{align*}
+				T(\alpha x+y)&=\lim_{n\to \infty}T_n(\alpha x+y)\\
+				&=\lim_{n\to\infty} \\
+				&=\alpha\lim_{n\to\infty}(\alpha T_nx+T_ny)\\
+				&=\alpha\lim_{n\to \infty}T_nx+\lim_{n\to \infty}T_ny\\
+				&=\alpha Tx+Ty
+			\end{align*}
+			\item $T$ é contínuo. Seja $x\in X$. Como $(T_nx)$ converge em $Y$, então $\| T_nx\|$ converge em $\R$, assim que é um conjunto limitado. Por Banach-Steinhaus, existe $c>0$ tal que $\| T_n\|\leq c$ para todo $n\in\N$. Assim,
+			\[\| T_nx\|\leq\| T_n\|\| x\|\leq c\| x\|.\]
+			Tomando limite como $\|\;\|$ é contínua, terminhamos.
+		\end{enumerate}
+	\end{proof}
+	\begin{coro}
+		Seja $X$ espaço Banach, $Y$ normado e $(f_n)\subseteq X^*$ tal que $f_n\overset{w^*}{\longrightarrow}f\in X^*$. Então $(f_n)$ é limitada.
+	\end{coro}
+	
+	\begin{teo}[Banach-Alaoglu-Bourbaki]
+		Seja $X$ um espaço de Banach. Então $B_{X^*}$ é compacta na topologia fraca*.
+	\end{teo}
+	\begin{proof}
+		Para cada $x\in X$ defina
+		\[I_X=[-\| x\|,\| x\|],\]
+		que é compacto em $\R$. Pelo teorema de Tychonoff, o conjunto
+		\[I=\prod_{x\in X}I_x\]
+		é compacto em $\R^X$. Considere o mapa
+		\begin{align*}
+			\varphi:X^*&\to \R^X\\
+			f&\mapsto \varphi f=(f(x))_{x\in X}
+		\end{align*}
+		Dado $f\in B_{X^*}$,
+		\begin{align*}
+			|f(x)|&\leq\| f\|\| x\|\leq\| x\|\implies|f(x)|\in I_x.
+		\end{align*}
+		Logo
+		\[\varphi(B_{X^*})\subseteq I.\]
+		\begin{af*}
+			$\varphi$ é um homeomorfismo (sobre sua imagem) da topologia fraca* para a topologia produto.
+		\end{af*}
+		\begin{proof}
+			A injetividade é clara: se $\varphi g=\varphi f$, então $g(x)=f(x)$ para todo $x\in X$. Para a continuidade, considere a projeção
+			\begin{align*}
+				\pi_X:\R^X&\to\R\\
+				y=(y_\alpha)_{\alpha\in X}&\mapsto \pi_x(y)=y_x
+			\end{align*}
+			Daí, observe que para toda $f\in X^*$,
+			\begin{align*}
+				(\pi_X\circ\varphi)f&=\pi_X(\varphi f)\\
+				&=\pi_X((f(y))_{y\in X})\\
+				&=f(x)\\
+				&=J_xf,
+			\end{align*}
+			e como $J_x$ e contínua, também $\pi_X\circ\varphi$ para todo $x\in X$.
+		\end{proof}
+		Agora vamos mostrar que $\varphi^{-1}:\varphi(X^*)\to X^*$ é contínua em $\sigma(X^*,X)$. Lembremos que $\varphi:Y\to (X^*,\sigma(X^*,X))$ linear é contínuo se é só se
+		\[J_x\circ\varphi:Y\to\R\]
+		é contínua para todo $x\in X$. Assim, mostraremos que
+		\[(J_x\circ \varphi)=\pi_x|_{\varphi(X^*)}\]
+		é contínuo.
+		
+		Com isso, temos que $\varphi$ é homeomorfismo. Com isso, vamos mostrar que
+		\[\varphi(B_{X^*})\subseteq I\]
+		é fechado. De fato, seja $F=(F_x)\in \overline{\varphi(B_{X^*})}$. Vamos mostrar que existe $f\in B_{X^*}$ tal que $F_x=f(x)$ para todo $x\in X$. Defina
+		\begin{align*}
+			f:X&\to\R\\
+			x&\mapsto f(x)=F_x
+		\end{align*}
+		\begin{enumerate}
+			\item $f$ é linear. Sejam $x,y\in X$ e $\alpha\in\R$. Considere a vizinhança aberta de $F$ dada por
+			\[V:=\{(w_z)_{z\in X}:w_x-F_x|<\varepsilon,\; |w_y-F_y|<\varepsilon,\;|w_{\alpha x+y}-F_{\alpha x+y}|<\varepsilon\}.\]
+			Como $F\in\overline{\varphi(B_{X^*})}$, temos $V\cap\varphi(B_{X^*})\neq\varnothing$. Seja $g\in B_{X^*}$ tal que $\varphi g\in V$. Logo, $(g(w))_{w\in X}\in V$, ou seja,
+			\begin{align*}
+				|g(x)-F_x|<\varepsilon,\qquad|g(y)-F_y|<\varepsilon,\qquad|g(\alpha x+y)-F_{\alpha x+y}|<\varepsilon
+			\end{align*}
+			Dai,
+			\begin{align*}
+				|f(\alpha x+y)-(\alpha f(x)+f(y)|&=|F_{\alpha x+y}\\
+				&<(|\alpha|+2)\varepsilon)
+			\end{align*}
+			\item $f\in B_X$, pois
+			\[|f(x)=|F_x|\leq \| x\|\]
+			pois $F\in I$.
+		\end{enumerate}
+		Por tanto,
+		\[\overline{\varphi(B_{X^*})}=\varphi(B_{X^*})\subseteq I\]
+		é compacto. Como $\varphi$ é um homeomorfismo, temos que $B_{X^*}\subseteq X^*$ é compacto na topologia fraca*.
+	\end{proof}
+	\begin{coro}
+		Seja $X$ Banach. Se $X$ é reflexivo, $B_X$ é compacta na topologia fraca.
+	\end{coro}
+	\begin{proof}
+		De fato, como $X$ é reflexivo, então $J(B_X)=B_{X^{**}}$. (De fato, issto caracteriza o espaço ser reflexivo.) Por BAB, $B_{X^{**}}$ é compacto na fraca*, basta mostrar que
+		\[J^{-1}:X^{**}\to X\]
+		é contínua da topologia fraca* para fraca. De fato, basta mostrar que
+		\[f\circ J^{-1}:X^{**}\to \R\]
+		é contínua para todo $f\in X^*$. Seja $F\in X^{**}$,
+		\[J^{-1}(F)=x\]
+		então,
+		\[(f\circ J^{-1})(F)=f(x)=J_X(f)=f(x):=F(f)\]
+		Mais a aplicação
+		\[X^{**}\ni F\overset{f}{\mapsto}F(f)\]
+		é contínua para todo $f\in X^*$. Logo, $J^{-1}$ é contínua.
+	\end{proof}
+	
+	\begin{teo}[Goldstine]
+		Seja $X$ Banach. Então $J(B_X)\subseteq X^{**}$ é denso em $B_{X^{**}}$ na topologia fraca*.
+	\end{teo}
+	\begin{proof}
+		Suponha que
+		\[\overline{B}_X^{w^*}\neq B_{X^{**}}.\]
+		Então, existe $\xi\in B_{X^{**}}\backslash \overline{B}_X^{w^*}$. Por Hahn-Banach, existe $f\in X^*$ tal que
+		\[f(\xi)<\inf_{z\in \overline{B}_X^{w^*}}f(z)\leq-\| f\|.\]
+		Logo,
+		\[\| f\|<|f(\xi)|\leq\| f\|\|\xi\|.\]
+	\end{proof}
+	\begin{coro}
+		$X$ é reflexivo se e só se $(B_X,\sigma(X,X^*))$ é compacto.
+	\end{coro}
+	
+	\section{Krein-Milman}
+	\begin{defn}
+		Sejam $X$ um espaço vetorial e $K\subseteq X$ um convexo.
+		\begin{enumerate}
+			\item Um subconjunto de $L\subseteq K$ é \textbf{\textit{extremo}} em $K$ se para todos $x,y\in K$ e $\lambda\in(0,1)$,
+			\[\lambda x+(1-\lambda)y\in L\implies x,y\in L\]
+			\item Um ponto $x\in K$ é \textbf{\textit{extremo}} se $\{x\}$ for extremo em $K$. Denotamos por $E(K):=\{x\in K:x\text{ é extremo em }K\}$.
+			
+			Issto é, não posso escrever um ponto extremo como combinação convexa de dois pontos em $K$. (O unico jeito de fazer-o é a combinação convexa trivial.)
+		\end{enumerate}
+	\end{defn}
+	\begin{exemplos}\leavevmode
+		\begin{enumerate}
+			\item $X=c_0$, então $e_1$ não é extremo. De fato, $E(B_{c_0})=\varnothing$.
+			\item $E(B_{\ell_\infty})=\{(\varepsilon_n)\in\ell_\infty:\varepsilon_n\in\{-1,1\}\;\forall n\}$. Só note que  $\pm1$ são pontos extremos do intervalo $[-1,1]\subseteq\R$. Assim, quando $z_n=\pm1$ é necessário que $x_n=y_n=z_n$. Pedindo para toda $n$, os vetores são iguais.
+			\item $E(B_{\ell_1})=\{\pm e_n:n\in\N\}$. A contenção $\supseteq$ é análoga ao anterior.
+			\item {\color{persiangreen}$E(B_{\ell_p})=\partial B_{\ell_p}$.  Comença com $z,x,y\in\partial B_{\ell_p}$, suponha $z=\lambda x+(1-\lambda)y$, $\lambda\in(0,1)$. Meta: $x,y=z$. Faiz:
+				\[1=\| z\|\leq\lambda\| x\| +(1-\lambda)\| y\|=1,\]
+				de fato, basta comprender que a desigualdade triangular no $\ell_p$ é igualdade se e só se um é multiplo do outro.}
+		\end{enumerate}
+	\end{exemplos}
+	
+	\begin{teo}[Krein-Milman]
+		Sejam $X$ um EVT e $K\subseteq X$ compacto e convexo. Então,
+		\[K=\overline{\operatorname{conv}}(E(K)).\]
+		
+	\end{teo}
+	\begin{obs}
+		Lembre que
+		\begin{align*}
+			\operatorname{conv}A&=\bigcap_{\substack{A\subseteq B\\ B\text{é convexo}}}B\\
+			&=\left\{\sum_{i=1}^n\lambda_ix_i:n\in\N,x_i\in A,\lambda_i\in[0,1],\sum_i\lambda_i=1\right\}.
+		\end{align*}
+	\end{obs}
+	\begin{proof}
+		Como $K$ é convexo, a contenção $(\supseteq)$ é clara. Considere
+		\[\mathbb{P}=\{L\subseteq K:L\neq\varnothing, L\text{ é extremo em }K\}.\]
+		Meta:
+		\[\forall L\in\mathbb{P}\;\exists x\in E(K):\quad x\in L,\]
+		em outras palabras, procuramos $x\in L$ e $\{x\}\in\mathbb{P}$.
+		
+		Note que $\mathbb{P}$ é um conjunto parcialmente ordenado com a inclução inversa:
+		\[L\leq L'\iff L'\subseteq L.\]
+		Pelo lema de Zorn aplicado a
+		\[\mathbb{P}_L=\{L'\in\mathbb{P}:L'\subseteq L\}.\]
+		Obtemos que $\forall L\in\mathbb{P}$ $\exists S_L\subseteq L$ tal que $S_L\in\mathbb{P}$.
+		\begin{af*}
+			$S_L$ só tem um elemento.
+		\end{af*}
+		Suponha $|S_L|\geq2$, então, por Hahn-Banach existe $f\in X^*$ tal que $f|_{S_L}$ não é constante (pegando dos pontos, cada um como un conjunto compacto). Defina
+		\[\mu=\sup_{x\in S_L}f(x)=\max_{x\in S_L}f(x)\]
+		e
+		\[S_L=\{x\in S_L:f(x)=\mu\}.\]
+		Note que como $f$ não é constante em $S_L$, temos que $S_L\subsetneq S_L$.
+		
+		Ainda, note que $S_f$ é extremo em $K$. Para ver issto, suponha que $x,y\in K$, $\lambda\in(0,1)$ e $\lambda x+(1-\lambda)y\in S_f$. Como $S_f\subseteq S_L$ e $S_L$ é extremo em $K$, então $x,y\in S_L$. Como
+		\[f(\lambda x+(1-\lambda)y)=\mu=\max_{z\in S_L}f(z),\]
+		segue que $f(x)=f(y)=\mu$, logo $x,y\in S_f$. Issto contradiz a minimilaidade de $S_L$ em $\mathbb{P}_L$, assim $|S_L|=1$.
+		
+		Suponha que existe $x_0\in K\backslash\overline{\operatorname{conv}}(E(K))$. Por Hahn-Banach, existe $f\in X^*$ tal que 
+		\[\sup_{x\in\overline{\operatorname{conv}}(E(K))}f(x)<f(x_0).\]
+		Vamos mostrar que
+		\[K_f=\{x\in K:f(x)=\max_{z\in K}f(z)\}\]
+		é um conjunto extremo em $K$.
+		
+		Note que $K_f\in\mathbb{P}$, logo $E(K)\cap K_f\neq\varnothing$. Se $y\in E(K)\cap K_f$,
+		\[f(y)\leq\sup_{x\in E(K)}f(x)<f(x_0)\leq f(y).\]
+		Contradição.
+	\end{proof}
+	\begin{coro}
+		Se $X$ é um espaço de Banach, $E(B_{X^*})\neq\varnothing$.
+	\end{coro}
+	\begin{coro}
+		Como $E(B_{c_0})=\varnothing$, $c_0$ não é dual de um espaço de Banach.
+	\end{coro}
+	\begin{coro}
+		$C[0,1]$ não é um dual, pois $E(C[0,1])=\{-1,1\}$.
+	\end{coro}
+	
+	\section{Teorema da aplicação aberta}
+	\begin{defn}
+		Seja $(X,\tau)$ um espaço topologico e $Y\subseteq X$ um subconjunto.
+		\begin{enumerate}
+			\item $Y$ é \textbf{\textit{denso em lugar nenhum}} se $\overset{\circ}{\overline{Y}}=\varnothing$.
+			\item Se $Y=\bigcup_{i=1}^\infty Y_n$ e cada $Y_n$ é denso em lugar nenhum, então $Y$ é de \textbf{\textit{primeria categoria}} ou \textbf{\textit{magro}}.
+			\item $Y$ e de \textbf{\textit{segunda categoria}} se não for de primeria categoria.
+		\end{enumerate}
+	\end{defn}
+	\begin{teo}[da aplicação aberta]
+		Sejam $X$ e $Y$ espaços normados com $X$ Banach, $T:X\to Y$ linear e limitado e $T(X)$ de segunda categoria. Então $T$ é uma aplicação aberta. Em particular, se $T$ é sobrejetiva, é aberta.
+	\end{teo}
+	\begin{proof}
+		Meta: $T(U)$ é aberto se $U\subseteq X$ é aberto. Note que é suficiente mostrar que
+		\[0\in\operatorname{int}(T(rB_X))\quad\forall r>0.\]
+		Pegue $x\in U$, assim existe $r>0$ tal que $B_r(x)\subseteq U$. Como $0\in\operatorname{int}T(rB_X)$, pode pegar $\varepsilon>0$ tal que $\varepsilon B_Y\subseteq T(rB_X)$. Assim, $T(x)+\varepsilon B_Y\subseteq T(x+rB_X)\subseteq T(U)$.
+		\begin{af*}
+			\[\operatorname{int}\overline{T(rB_X)}\neq\varnothing\quad\forall r>0.\]
+		\end{af*}
+		\begin{proof}
+			Como $T(X)=\bigcup_{n=1}^\infty T(nB_X)$, como $T(X)$ não é magro, existe $n_0\in\N$ com $\operatorname{int}(\overline{T(n_0B_X)})\neq\varnothing$.
+		\end{proof}
+		\begin{af*}
+			\[0\in\operatorname{int}(\overline{T(rB_X)})\quad\forall r>0.\]
+		\end{af*}
+		\begin{proof}
+			Note que
+			\begin{align*}
+				\overline{T(\frac{r}{2}B_X)}-\overline{T(\frac{r}{2}B_X)}\subseteq \overline{T\left(\frac{r}{2}B_X\right)-T\left(\frac{r}{2}B_X\right)}\subseteq\overline{T(rB_X)}.
+			\end{align*}
+			Pela afirmação anterior, existe um aberto magro não vazío com $U\subseteq\overline{T\left(\frac{r}{2}B_X\right)}$. Logo
+			\[0\in U-U\subseteq\overline{T(rB_X)}\]
+		\end{proof}
+		\begin{af*}
+			\[\overline{T\left(\frac{r}{2}B_X\right)}\subseteq T(rB_X)\quad\forall r>0.\]
+		\end{af*}
+		\begin{proof}
+			Fixe $y\in\overline{T\left(\frac{r}{2}B_X\right)}$. Vamos construir uma sequência $(x_n)$ em $X$ e $(y_n)$ em $Y$ tais que
+			\begin{enumerate}
+				\item $y_1=y$.
+				\item $y_n\in\overline{T\left(\frac{r}{2^n}B_X\right)}$.
+				\item $x_n\in\frac{r}{2^n}B_X$.
+				\item $y_{n+1}=y_n-T(X_n)$.
+			\end{enumerate}
+			Suponha $y_1,\ldots y_n$ e $x_1,\ldots, x_{n+1}$ foram escolhidos. Note que
+			\[y_n-\overline{T\left(\frac{r}{2^{n+1}}B_X\right)}\]
+			é uma vizinhança de $y_n$. Issto é, $y_n\in\overline{T\left(\frac{r}{2^{n+1}}B_X\right)}$, asimm existe $x_n$ que aproxima $y_n$ do seguinte jeito:
+			\[\exists x_n\in \frac{r}{2^n}B_X:\quad T(x_n)\in y_n-\overline{T\left(\frac{r}{2^{n+1}}B_X\right)}.\]
+			Logo,
+			\[y_{n+1}=y_n-T(x_n)\in\overline{T\left(\frac{r}{2^{n+1}}B_X\right)}.\]
+			Como $X$ é Banach,
+			\[x=\sum_{n=1}^\infty x_n\]
+			converge. Mais ainda, $x\in rB_X$. Como $T$ é contínuo,
+			\begin{align*}
+				T(x)&=\sum_{n=0}^\infty T(x_n)
+			\end{align*}
+			Para calcular isso a gente calcula somas parciais:
+			\begin{align*}
+				\sum_{n=1}^NT(x_n)&=\sum_{n=1}^Ny_n-y_{n+1}\\
+				&=y_1-y_{N+1}.
+			\end{align*}
+			Como $y_n\to 0$, concluimos que $T(x)=y$.
+		\end{proof}
+		Assim, zero tem uma vizinhança em $T(r,B_X)$.
+	\end{proof}
+	\begin{coro}
+		Sejam $X$ e $Y$ espaços de Banach, $T:X\to Y$ operador limitado sobrejetivo. Então $T$ é aberto. Logo, existe $c>0$ tal que $\forall y\in Y$ existe $x\in X$ tal que
+		\[Tx=y\qquad\text{e}\qquad \|x\|\leq c\|y\|.\]
+	\end{coro}
+	\begin{proof}
+		Teorema de categoría de Baire.
+	\end{proof}
+	\begin{coro}
+		Se ainda $T$ for injetivo, então $T^{-1}$ é limitado.
+	\end{coro}
+	\begin{coro}
+		Seja $(X,\|\;\|)$ espaço de Banach e $(\vertiii{\;})$ uma norma Banach em $X$. Se $T:(X,\|\;\|)\to(X,\vertiii{\;})$ for contínua, então $\|\;\|\sim\vertiii{\;}$.
+	\end{coro}
+
+\begin{defn}
+	Sejam $X$, $Y$ espaços de Banach e $T\in\mathcal{L}(X,Y)$. $T$ é \textbf{\textit{compacto}} se $\overline{T(B_X)}$ for compacto.
+\end{defn}
+\begin{exemplos}\leavevmode
+	\begin{enumerate}
+		\item Se $\dim Y<\infty$, $T$ é compacto.
+		\item $K(X,Y)=\{T\in\mathcal{L}(X,Y):T\text{ é compacto}\}$ é um espaço de Banach.
+		\item Note que ``$\ell_\infty\subseteq \mathcal{L}(\ell_2)$" de forma canónica: para $a\in\ell_\infty$,
+		\begin{align*}
+			(Ta)x=(a_nx_n)_n
+		\end{align*}
+		{\color{orange}Note que $Ta$ é compacto se e só se $a\in c_0$.}
+	\end{enumerate}
+\end{exemplos}
+\begin{coro}
+	Se $X$ e $Y$ forem Banach e $\dim Y=\infty$, então nenhum operador compacto $X\to Y$ é sobrejetivo.
+\end{coro}
+
+\section{Teorema do gráfico fechado}
+\begin{teo}
+	Sejam $X$ e $Y$ espaços de Banach e $T:X\to Y$ linear (não necesariamente contínuo). Se
+	\[\operatorname{graph}(T)=\{(x,Tx):x\in X\}\]
+	for fechado, então $T$ é limitado.
+\end{teo}
+\begin{proof}
+	Definimos uma norma $\|\;\|$ em $X\times Y$ como
+	\[\|(x,y)\|_{X\times Y}=\|x\|_X+\|y\|_Y.\]
+	Como todas as normas são equivalentes no produto (pois ele é ``dimensão 2"), $\operatorname{graph}T$ é fecahdo em $(X\times Y,\|\;\|)$. Logo, como $T$ é linear $\operatorname{graph}T$ é um espaço vetorial e por ser fechado, é Banach. Para usar o teorema da aplicação aberte precisamos um mapa contínuo: usaremos as projeções.
+	
+	Note que a projeção $\pi_1:\operatorname{graph}T\to X$ dada por $(x,Tx)\mapsto x$ é contínuo. De fato, trata-se de um operador sobrejetivo, injetivo e contínuo, é um isomorfismo de espaços de Banach, ie. $\pi_1^{-1}$ é contínua.
+	
+	Como $T=\pi_2\circ\pi_1^{-1}$, onde $\pi_2:X\times Y\to Y$ é a projeção canónica, $T$ é contínuo.
+\end{proof}
+
+\section{Espaços complementados}
+\begin{defn}
+	Seja $X$ um espaço de Banach e $Y\subseteq X$ um subespaço fechado. $Y$ é \textbf{\textit{complementado}} em $X$ se existe $Z\subseteq X$ subespaço fechado tal que
+	\[X=Y\oplus X,\]
+	ie., $X=Y+Z$ é $Z\cap Z=\{0\}$.
+\end{defn}
+\begin{prop}\leavevmode
+	\begin{enumerate}
+		\item Se $\dim Y<\infty$, $Y$ é complementado.
+		\item Se $Y$ é fechado e $\operatorname{codim}Y<\infty$, $Y$ é complementado.
+	\end{enumerate}
+\end{prop}
+\begin{proof}\leavevmode
+	\begin{enumerate}
+		\item Seja $y_1,\ldots,y_n$ uma base de $Y$. Defina $\tilde{y}^*_1,\ldots,\tilde{y}_n^*\in Y^*$ por $\tilde{y}_i^*(y_j)=\delta_{ij}$. Por Hahn-Banach, existem $y_1,\ldots,y_n\in X^*$ extensões. Defina
+		\[Z=\bigcap_{i=1}^n\ker y^*_i.\]
+		Logo $Z$ é fechado. Mais ainda, $X=Y\oplus Z$. De fato, dado $x\in X$, defina
+		\[y=\sum_{i=1}^ny^*(x)y_i.\]		
+		\item $\operatorname{codim}Y=\dim\left(X/Y\right)<\infty$. Seja
+		\[y_1+Y,\ldots, y_n+Y\]
+		uma base para $X/Y$. Pegue $f_1,\ldots,f_n\in \left(X/Y\right)^*$ tais que $f_i(y_i+Y)=\delta_{ij}$. Então, se $\pi:X\to X/Y$ é o mapa quociente, temos
+		\[Y=\bigcap_{i=1}^n\ker(f_i\circ\pi).\]
+		Defina $Z=\operatorname{span}\{y_1,\ldots,y_n\}$. $Z$ é fechado. Como $y_1+Y,\ldots,y_n+Y$ é base de $X/Y$, $\alpha_1y_1+\ldots+\alpha_ny_n\in Y\implies \alpha_1,\ldots,\alpha_n=0$. Logo, $Y\cap Z=\{0\}$.
+		
+		Para ver que $X=Y+Z$, faça: $x\in X$, escreva
+		\[\pi (x)=\sum_{i=1}^n f_i(\pi x)(y_i+Y),\]
+		defina
+		\[z=\sum_{i=1}^nf_i(\pi x)y_i\in Z,\]
+		e obtenha $y=x-z$.
+	\end{enumerate}
+\end{proof}
+\begin{obs}
+	Nem todos os subespaços fechados são complementados: $c_0\subseteq \ell_\infty$ não é complementado.
+\end{obs}
+\begin{defn}
+	Seja $X$ um espaço de Banach, um operador linear limitado $p:X\to X$ é uma \textbf{\textit{projeção}} se $p^2=p$.
+\end{defn}
+\begin{prop}
+	$X$ Banach, $Y\subseteq X$ é complementado se e só se $Y=\img p$ para alguma projeção $p:X\to X$.
+\end{prop}
+\begin{proof}\leavevmode
+	
+	$(\impliedby)$ Defina $Z=\img(\Id-p)$. Então $Y=\ker(\Id-p)$ e $Z=\ker p$, que são fechados.
+	
+	$(\implies)$ Seja $Z\subseteq X$ fechado tal que
+	\[X=Y\oplus Z.\]
+	Definamos $p:X\to X$ como
+	\[px=y_x\]
+	onde $y_x$ é o único elemento de $X$ tal que $x-y_x\in Z$.
+	
+	{\color{orange} $p$ é linear}.
+	
+	$p$ é contínuo. Considere o quociente	
+	\[\pi:X=Y\oplus Z\to X/Z.\]
+	Note que
+	\[\pi|_Y:Y\to X/Z\]
+	é uma bijeção. Pelo teorema da aplicação aberta, $(\pi|_Y)^{-1}$ é contínuo. Como $p=(\pi_Y)^{-1}\circ\pi$, $p$ é contínuo.
+\end{proof}
+
+\section{Operadores adjuntos}
+\begin{defn}
+	Sejam $X$ e $Y$ espaços de Banach e $T:X\to Y$ um operador. O \textbf{\textit{adjunto}} de $T$ é o operador
+	\begin{align*}
+		T^*:Y^*\to X^*
+	\end{align*}
+	dado por
+	\[(Tf)x=f(Tx)\quad\forall f\in Y^*,\;\forall x\in X.\]
+\end{defn}
+\begin{exer*}
+	{\color{orange}$\|T\|=\|T^*\|$.}
+\end{exer*}
+\begin{proof}
+	content...
+\end{proof}
+\begin{prop}
+	Sejam $X$ e $Y$ espaços de Banach e considere $T:X\to Y$ linear.
+	\[T\text{ é contínuo}\iff T^*\text{ e fracamante contínuo}.\]
+\end{prop}
+\begin{proof}
+	{\color{orange}Exer.}
+\end{proof}
+\begin{prop}
+	Sejam $X$ e $Y$ espaços de Banach e considere $S:Y^*\to X^*$ linear.
+	\[S\text{ é fraco* contínuo}\iff\exists T\in\mathcal{L}(X,Y):S=T^*.\]
+\end{prop}
+\begin{proof}
+	$(\impliedby)$. Já está.
+	
+	$(\implies)$. Queremos: $(Sf)x=f(Tx)$. Para cada $x\in X$, defina
+	\begin{align*}
+		\xi_x:Y^*&\mapsto \R\\
+		f&\mapsto (Sf)x
+	\end{align*}
+	Como $S$ é contínua*, cada $\xi_x$ é contínuo*.
+	
+	Logo $\forall x\in X$, existe um único $y\in Y$ tal que
+	\[\xi_x=J_Yy.\]
+	Defina $Tx=y$.
+	
+	($T$ é linear.)\begin{align*}
+		J_Y(T(\lambda x+y))&=\xi_{\lambda x+y}\\
+		&=\lambda\xi_x+\xi_y\\
+		&=\lambda J_Y(Tx)+J_(Tx)\\
+		&=J_Y(\lambda Tx+Ty)
+	\end{align*}
+	
+	($T$ é limitado)\begin{align*}
+		\|Tx\|&=\|J_Y(Tx)\|=\|\xi_{Tx}\|\leq\|\xi\|\|x\|
+	\end{align*}
+	
+	($S=T^*$) \[(T^*f)x=f(Tx)=J_Y(tx)f=\xi_Xf=(Sf)x\]
+\end{proof}
+
+\section{Universalidade}
+Sabemos que para cualquer espaço separável $X$ existe uma isometria de $X\hookrightarrow\ell_\infty$. Seria bom ter um mergulho num espaço mais pequeno do que $\ell_\infty$, umo que fosse separável.
+
+\begin{teo}[Banach-Mazur]
+	Seja $X$ um espaço de Banach separável. Então existe uma isometria (não necesariamente surjetiva)
+	\[X\to C(\Delta)\]
+	onde $\Delta=\{0,1\}^\N$.
+\end{teo}
+\begin{obs}
+	Relembre. Seja $K$ um espaço métrico compacto. Então existe uma sobrejeção contínua $\Delta\to K$.
+\end{obs}
+\begin{proof}
+	Seja $X$ separável. Por Banach-Alaouglu, $(B_{X^*},\sigma(X^*,X))$ é compacto. Defina para $x\in X$, $\varphi x\in C(B_{X^*})$ dada por $(\varphi x)f=fx$. Então $\varphi$ é uma isometria linear.
+	
+	Como $X$ é separável, $(B_{X^*},\sigma(X^*,X))$ é metrizável e podemos pegar $\alpha:\Delta\to B_{X^*}$ uma sobrejeção contínua. Defina
+	\[\psi:C(B_{X^*})\to C(\Delta))\]
+	como
+	\[(\psi\xi)x=\xi(\alpha x)\quad\forall\xi\in C(B_{X^*})\;\forall x\in\Delta.\]
+	Então, $\psi$ é uma isometria e em conclução, $\psi\circ\varphi:X\to C(\Delta)$ é a isometria procurada.
+\end{proof}
+\begin{exer*}
+	Se $X$ é um espaço metrico compacto, $C(X)$ é separável.
+\end{exer*}
+\begin{proof}
+	Como $X$ é compacto, ele é separável. Seja $(x_n)\subset X$ denso. Defina para cada $n\in\N$ a função $f_n(x)=d(x,x_n)$. Ela é contínua, pois
+	\[|d(x,x_n)-d(x_n,y)|<d(x,y)\]
+	pela desigualdade triangular inversa. Ainda, o conjunto de funções geradas por $(f_n)$ e identidade em $X$ e um álgebra que separa pontos {\color{orange}pela densidade de $(x_n)$} e contém as constantes. Logo, pelo teorema de Weierstrass, $(f_n)$ é denso em $C(K)$.
+\end{proof}
+
+\section{Teorema de representação}
+\begin{teo}
+	Sejam $K$ compacto e Housdorff e $F\in C(K)^*$. Então existe uma medida de Borel com signal de variação limitada $\mu$ em $K$ tal que
+	\[Ff=\int_K fd\mu\]
+	e
+	\[\|F\|=|\mu|(K).\]
+\end{teo}
+
+Daqui em diante $(X,d)$ um espaço métrico compacto. Uma \textbf{\textit{$\sigma$-álgebra de Borel}} sobre $X$ é a menor $\sigma$-álgebra que contém todos os abertos de $X$. Uma medida definida sobre $(X,\mathcal{B})$ é chamada \textbf{\textit{medida Boreliana}}. Diremos que uma medida de Borel $\mu$ é \textbf{\textit{regular}} se
+\[\mu(B)=\sup_{\substack{K\subseteq B\\\text{compacto}}}\{\mu(K)\}.\]
+Uma medida é dita ter \textbf{\textit{signal}} se asume valores negativos. Definimos a \textbf{\textit{variação total}} de $\mu$ como $|\mu|:\mathcal{B}\to[-\infty,\infty]$ dada por
+\[|\mu|(B)=\sup\left\{\sum_{i=1}^\infty|\mu(B_n)|:\{B_n\}_{n=1}^\infty\subseteq\mathcal{B}\text{ que particionan a }B\right\}.\]
+Sabemos que $|\mu|$ é uma medida positiva finita em $(X,\mathcal{B})$. Definimos o seguinte conjunto:
+\[M(X):=\{\mu:\mu\text{ é Boreliana, finita e com signal}\}.\]
+Definimos $\|\;\|_M:M(X)\to\R$ dada por
+\[\|\mu\|_M=|\mu|(X).\]
+Note que $|\mu(B)|\leq|\mu|(B)$.
+\begin{exer*}
+	$(M,\|\;\|_M)$ é Banach.
+\end{exer*}
+\begin{exemplo}
+	Considere $C(X)$, $\mu\in M(X)$. Defina
+	\begin{align*}
+		\varphi:C(X)&\to\R\\
+		f&\mapsto\int_Xf(x)\mu(X)
+	\end{align*}
+	Então $\varphi$ é linear e
+	\[|\varphi f|=\left|\int_Xf(x)d\mu(x)\right|\leq\int|f(x)|d|\mu|(x)\leq\|f\|_\infty\int_Xd|\mu|(x)=\|f\|_\infty|\mu|(X)=\|f\|_\infty\|\mu\|_M.\]
+	Issto é
+	\[|\varphi f|\leq\|f\|_\infty\|\mu\|_M.\]
+	Daí $\|\varphi\|\leq\|\mu\|_{M}$. De fato, escolhendo $f$ adequada, obtemos que $\|\varphi\|=\|\mu\|_M$.
+\end{exemplo}
+\begin{defn}
+	Seja $\varphi\in C(X)^*$. Dizemos que $\varphi$ é \textbf{\textit{positivo}} se $\varphi f\geq0$ sempre que $f(x)\geq0\;\forall x\in X$. 
+\end{defn}
+Observe que 
+\[|f(x)|\leq\|f\|_\infty,\]
+assim definimos
+\[g_\pm(x)=\|f\|_\infty\pm f(x)\in C(X)\]
+de forma que
+\[g_\pm(x)\geq0.\]
+Assim, $\varphi g_\pm$. Daí
+\[\|f\|_\infty\varphi(1)\pm\varphi f\geq.\]
+Ou seja
+\[|\varphi f|\leq\varphi(1)\|f\|_\infty\quad\forall f\in C(X).\]
+Além disso, $\|f\|_*=\varphi(1)$.
+
+\begin{teo}
+	Sejam $(X,d)$ um espaço métrico compacto e $\varphi\in C(X)^*$. Se $\varphi$ é positivo, então existe uma medida $\mu\in M(X)$ positiva tal que
+	\[\varphi f=\int_Xf(x)d\mu(x)\quad\forall f\in C(X).\]
+\end{teo}
+\begin{proof}
+	Fixe $\varphi\in C(X)^*$. Seja $A\subseteq X$ aberto. Deja a função
+	\[r_\varphi(A)=\sup\{\varphi f:\operatorname{supp}f\subseteq A, 0\leq f(x)\leq 1\}.\]
+	Com isso defina a aplicação
+	\[\mu_*:\mathcal{P}(X)\to [-\infty,\infty]\]
+	dada por
+	\[\mu_*(B)=\inf\{r_\varphi(A):B\subseteq A\text{ e }A\text{ é aberto}\}.\]
+	Vamos mostrar que $\mu_*$ é uma medida exterior em $X$, ie.,
+	\begin{enumerate}
+		\item $\mu_*(\varnothing)=0$.
+		\item $\mu_*(B_1)\leq\mu_*(B_2)$ sempre que $B_1\subseteq B_2$.
+		\item Se $(B_n)_{n=1}^\infty\subseteq X$, então
+		\[\mu_*\left(\bigcup_{n=1}^\infty B_n\right)\leq\sum_{n=1}^\infty\mu_*(B_n).\]
+	\end{enumerate}
+	1. Já está. Para 2. considere $B_1\subseteq B_2$. Para $A$ aberto tal que $B_2\subseteq A$ temos 
+	\[B_1\subseteq B_2\subseteq A,\]
+	logo
+	\[\{r_\varphi(A):B\subseteq A\text{ aberto}\}\subseteq \{r_\varphi(A):B_1\subseteq A,\text{ aberto}\}.\]
+	Assim, $\mu_*(B_1)\leq\mu_*(B_2)$.
+	
+	Para 3. considere $(B_n)_{n=1}^\infty$ uma coleção de abertos e
+	\[B=\bigcup_{n=1}^\infty B_n.\]
+	Considere $f\in C(X)$ tal que
+	\[\operatorname{supp}f\subseteq B,\quad\text{ e}\quad 0\leq f(x)\leq 1.\]
+	Como $X$ é compacto e $\operatorname{supp}f$ é fechado (por definição), temos que $\operatorname{supp}f$ é compacto. Como $\operatorname{supp}f\subseteq B$, a menos de reordenação existem $B_1,\ldots,B_n$ tais que
+	\[\operatorname{supp}f\subseteq \bigcup_{n=1}^NB_n.\]
+	Considere $\{\eta_n\}_{n=1}^N$ uma partição da unidade para $\{B_1,\ldots,B_N\}$. Issto é, as $\eta_i$ são funções contínuas em $\operatorname{supp}f$ tais que
+	\begin{enumerate}
+		\item $0\leq\eta_i(x)\leq1\quad\forall i$.
+		\item $\operatorname{supp}\eta_i\subseteq B_i\qquad\forall i$.
+		\item $\sum_{i=1}^N\eta_i(x)=1\quad\forall x\in \operatorname{supp}f$.
+	\end{enumerate}
+	Com isso,
+	\begin{align*}
+		\varphi f=\varphi(f*1)=\varphi\left(f\sum_{i=1}^N\eta_i(x)\right)=\varphi\left(f\eta_i(x)\right)=\sum_{i=1}^N\varphi(f\eta_i)\leq\sum_{i=1}^Nr_\varphi(B_1)\leq\sum_{i=1}^\infty r_\varphi(B_i).
+	\end{align*}
+	Pois, $\operatorname{supp}(f\eta_i)\subseteq B_i$ e $0\leq f\eta_i\leq1$ para toda $i=1,\ldots,N$. Logo,
+	\begin{align*}
+		r_\varphi(B)\leq\sum_{i=1}^Nr_\varphi(B_i)\\
+		\implies r_\varphi\left(\bigcup_i B_i\right)\leq\sum_i r\varphi(B_i).
+	\end{align*}
+	Como cada $B_i$ é aberto,
+	\[\mu_*\left(\bigcup_iB_i\right)\leq\sum_i\mu_*(B_i).\]
+	Agora seja $\{x_k\}_{k=1}^\infty\subseteq X$ uma coleção de conjuntos. Para cada $k\in\N$ escolha $B_k$ aberto tal que
+	\[X_k\subseteq B_k\quad\text{ e que}\quad\mu_*(B_k)\leq\mu_*(X_k)+\varepsilon2^{-k}\]
+	que é possivel pela definição dada por um infimo.
+	
+	Como a $\bigcup_{k=1}^\infty X_k\subseteq\bigcup_{k=1}^\infty B_k$, pela propriedade 2., temos que
+	\[\mu_*\left(\bigcup_kX_k\right)\leq\mu_*\left(\bigcup_kB_k\right)\leq\sum_k\mu_*(B_k)\leq\sum_k(\mu_*(x))+\varepsilon2^{-k}=\sum_k\mu_*(x_k)+\varepsilon\]
+	para todo $\varepsilon>0$.
+	
+	Logo, $\mu_*\left(\bigcup_{k=1}^\infty X_k\right)\leq\sum_{k=1}^\infty\mu_*(X_k)$. Portanto, $\mu_*$ é uma medida exterior. Vamos probar que $\mu_*$ é métrica, ou seja, se $X_1,X_2\subseteq X$ com $d(X_1,X_2)>0$, então
+	\[\mu_*(X_1\cup X_2)=\mu_*(X_1)+\mu_*(X_2).\]
+	De fato, sejam $X_1,X_2\subseteq X$ com $d(X_1,X_2)>0$. Como $X$ é métrico, existem abertos $B_1,B_2$ tais que $B_1\cap B_2=\varnothing$ e $X_i\subseteq B_i$ para $i=1,2$. Daí, considerando $B$ um aberto com $X_1\cup X_2\subseteq B$, então
+	\[(B\cap B_1)\sqcup(B\cap B_2)\subseteq B.\]
+	Desde que $X_i\subseteq B\cap B_i$ para $i=1,2$, temos que
+	\begin{align*}
+		\mu_*(B)&\geq\mu_*((B\cap B_1)\sqcup(B\cap B_2))\\
+		&=\mu_*(B\cap B_1)+\mu_*(B\cap B_2)\\
+		&\geq \mu_*(X_1)+\mu_*(X_2).
+	\end{align*}
+	Logo,
+	\[\mu_*(B)\geq \mu_*(X_1)+\mu_*(X_2)\quad\forall \text{aberto }B\supseteq X_1\cup X_2.\]
+	assim,
+	\[\mu_*(X_1\cup X_2)\geq\mu_*(X_1)+\mu_*(X_2).\]
+	Como $\mu_*$ é exterior,
+	\[\mu_*(X_1\cup C_2)\leq\mu_*(X_1)+\mu_*(X_2).\]
+	Portanto,
+	\[\mu_*(X_1\cup X_2)=\mu_*(X_1)+\mu_*(X_2).\]
+	Em conclução, $\mu_*$ é uma medida métrica exterior em $X$. Desse modo, existe uma medida $\mu$ em $(X,B)$ finita, tal que $\mu_*|_B=\mu$. Como $\mu(X)=\mu_*(X)=\|\varphi\|_*=\varphi(1)$. Nos resta mostrar que $\mu$ representa $\varphi$. Considere $f\in C(X)$. Desde que $f(x)=f^+(x)-f^-(x)$, onde $f^+$ e $f^-$ são as partes positivas e negativas de $f$. Assuma sem perda de generalidade que $0\leq f(x)\leq1$ (usando ainda que $f$ é limitada por ser definida num compacto).
+	
+	Vamos descompor $f$ da seguinte maneira. Fixe $N\in\N$ e denote $B_0=X$. Para cada $n\geq1$, seja
+	\[B_n=\left\{x\in X:f(x)>\frac{n-1}{n}\right\}.\]
+	Temos $B_{n+1}\subseteq B_n$ e $B_{N+1}=\varnothing$. Defina
+	\[f_N(x)=\begin{cases}
+		\frac{1}{N},\quad x\in B_{n+1}\\
+		f(x)-\frac{n-1}{N},\quad x\in B_n\backslash B_{n+1}\\
+		0,\quad x\in X\backslash B_n
+	\end{cases}\]
+	para cada $n\in\N$ e $f_n\in C(X)$, vale
+	\[f_n(x)=\sum_{n=1}^Nf_n(x).\]
+	Pela definição de $f_n$, temos
+	\begin{itemize}
+		\item $Nf_n(x)=1$ em $B_{n+1}$.
+		\item $\operatorname{supp}(Nf_n)\subseteq\overline{B_n}\subseteq B_{n+1}$.
+		\item $0\leq Nf_n(x)\leq1$.
+	\end{itemize}
+	Como cada $B_n$ é aberto,
+	\begin{align*}
+		\mu(B_{n+1})\leq\varphi(Nf_n)\leq\mu(B_{n-1})
+	\end{align*}
+	Por linearidade,
+	\begin{equation}\label{eq:repr1}
+		\frac{1}{N}\sum_{n=1}^N\mu(B_{n+1})\leq\frac{1}{N}\sum_{n=1}^N\varphi(N\cdot f_n)\leq\frac{1}{N}\sum_{n=1}^N\mu(B_{n-1})
+	\end{equation}
+	É possível mostrar que
+	\[\mu(B_{n+1})\leq \int_XNf_n(x)d\mu(x)\leq\mu(B_n).\]
+	Basta observar que
+	\[\int_XNf_n(x)d\mu(x)=N\int_{B_n\backslash B_{n+1}}f(x)d\mu(x)-(n-1)\mu(B_n\backslash B_{n+1})+\mu(B_{n+1}).\]
+	Daí,
+	\begin{equation}\label{eq:repr2}
+		\frac{1}{N}\sum_{n=1}^N\mu(B_{n+1})\leq\frac{1}{N}\sum_{n=1}^N\int_XNf_n(x)d\mu(x)\leq\frac{1}{N}\sum_{n=1}^N\mu(B_n)
+	\end{equation}
+	Juntando \cref{eq:repr1,eq:repr2} podemos obter
+	\[\left|\varphi f\int_xf(x)d\mu(x)\right|\leq\frac{2\mu(x)}{N}\quad\forall N>0.\]
+	Tomando $N\to\infty$,
+	\[\varphi=\int_Xf(x)d\mu(x).\]
+	Para unicidade, considere $\mu'\in M(X)$ positiva e finita tal que
+	\[\varphi f=\int_Xf(x)d\mu(x)\quad\forall f\in C(X).\]
+	Como $\mu,\mu'$ são Borelianas, basta verificar que
+	\[\mu=\mu'\text{ em abertos.}\]
+	Considere $B$ aberto e $f\in C(X)$ com $0\leq f(x)\leq1$ e $\operatorname{supp}f\subseteq B$. Então
+	\begin{align*}
+		\varphi f&=\int_Xf(x)d\mu'(x)=\int_Bf(x)d\mu'(x)\leq\int_Bd\mu'(x)=\mu'(B).
+	\end{align*}
+	Tomando o supremo sobre $f$,
+	\[\mu(B)=\mu_*(B)=r_\varphi(B)\leq\mu'(B).\]
+	Recíprocamente, como $\mu$ é Boreliana e finita, $\mu$ é regular. Assim, dado $\varepsilon>0$, existe $K\subseteq B$ compacto tal que
+	\[\mu'(B)=\mu'(K)+\varepsilon\]
+	por definição de supremo.
+	
+	Como $K\int(X\backslash B)=\varnothing$, considere $f\in C(X)$, com $0\leq f(x)\leq1$, $\operatorname{supp}f\subseteq B$ e $f(x)=1\;\forall x\in K$. Daí
+	\begin{align*}
+		\mu'(B)&\leq \mu'(K)+\varepsilon\\
+		&=\int_X1d\mu'(x)+\varepsilon\\
+		&=\int_Xf(x)d\mu¡(x)+\varepsilon\\
+		&\leq\int_Xf(x)d\mu'(x)+\varepsilon\\
+		&=\varphi f+\varepsilon\\
+		&\leq\mu(B)+\varepsilon\quad\forall\varepsilon>0.
+	\end{align*}
+	Logo, $\mu'(B)\leq\mu(B)$.
+\end{proof}
+\begin{prop}
+	Sejam $(X,d)$ espaço metrico compacto e $\varphi\in C(X)^*$. Então existem funcionais $\varphi^*\in C(X)^*$ positivos tais que
+	\[\varphi=\varphi^+-\varphi^-\]
+	além disso,
+	\[\|\varphi\|_*=\varphi^+(1)+\varphi^-(1).\]
+\end{prop}
+\begin{teo}
+	Seja $(X,d)$ espaço métrico compacto e $\varphi\in C(X)^*$. Então existe $\mu\in M(X)$ única tal que
+	\[\varphi f=\int_Xf(x)\mu(x)\quad\forall f\in C(X).\]
+	Além disso,
+	\[\|\varphi\|_*=\|\mu\|_M\qquad (M(X)\cong C(X)^*).\]
+\end{teo}
+\begin{proof}
+	Seja $\varphi\in C(X)^*$. Pela proposição anterior, existem funcionais contínuos positivos $\varphi^\pm\in C(X)^*$ tais que $\varphi=\varphi^+-\varphi^-$. Pelo teorema anterior existem medidas positivas $\mu_\pm\in M(X)$ tais que
+	\[\varphi^\pm f=\int_X f(x)\mu_\pm(x).\]
+	Defina
+	\[\mu=\mu_+-\mu_-.\]
+	Então $\mu\in M(X)$ é tal que
+	\[\varphi f=\varphi^+f-\varphi^-f=\int_Xf(x)d\mu(x)-\int_Xf(x)d\mu(x)=\int_Xf(x)d(\mu_+-\mu_-)(x)=\int_Xf(x)d\mu(x).\]
+	Além disso, 
+	\begin{align*}
+		|\varphi f|&=\left|\int_Xf(x)d\mu(x)\right|\\
+		&\leq\int_X|f(x)|d|\mu|(x)\\
+		&\leq\|f\|_\infty|\mu|(X)
+	\end{align*}
+	Assim,
+	\[\|\varphi\|\leq\|\mu|(X)=\|\mu\|.\]
+	Além disso,
+	\begin{align*}
+		|\mu|(X)&\leq |\mu_+|(X)+|\mu_-|(X)\\
+		&=\varphi^+(1)+\varphi^-(1)\\
+		&=\|\varphi\|_*\\
+		\implies\|\varphi\|_*&=|\mu|(X)=\|\mu\|_M.
+	\end{align*}
+	Para provar uncidade, seja $\mu'\in M(X)$ tal que
+	\[\int_Xf(x)d\mu(X)=\varphi f=\int_Xf(x)d\mu'(x).\]
+	Definindo
+	\[\nu=\mu-\mu'\]
+	obtemos
+	\begin{equation}\label{eq:repr3}
+		\int_Xf(x)d\nu(x)=0.
+	\end{equation}
+	Definindo
+	\begin{align*}
+		\nu=\frac{1}{2}(|\nu|+\nu)-\frac{1}{2}(|\nu|-\nu)=\nu^+-\nu^-,
+	\end{align*}
+	são medidas positivas. Definindo $\psi^\pm\in C(X)^*$,
+	\[\psi^\pm f=\int_Xf(x)d\nu^\pm(x).\]
+	Por \cref{eq:repr3} temos que
+	\[\psi^+f=\psi^-f,\quad\forall f\in C(X).\]
+	Pela uncidade da medida $\nu^+=\nu^-$. Então,
+	\[\nu=\nu^+-\nu^-=0\implies\mu=\mu'.\]
+\end{proof}
+
+\section{Teorema de convexidade de Lyapunov}
+\begin{defn}
+	Uma medida com sinal $\mu:\mathcal{A}\to\R$ é \textbf{\textit{não atômica}} se para todo $A\in\mathcal{A}$ com $|\mu|(A)>0$ existe $B\in\mathcal{A}$ com $B\subseteq A$ e $|\mu|(B)<|\mu|(A)$.
+\end{defn}
+
+\begin{teo}
+	Sejam $\mu_1,\ldots,\mu_n:\mathcal{A}\to\R$ medidas com sinal não atômicas. Então a imagem de $\mu:\mathcal{A}\to\R^n$ dada por
+	\[\mu(A)=(\mu_1(A),\ldots,\mu_n(A))\]
+	é compacta e convexa. (Issto é, uma medida vetorial de dimensão finita não atômica tem imagem compacta e convexa.)
+\end{teo}
+\begin{obs}
+	Relembre. Seja $(X,\mathcal{A},\mu)$ um espaço de medida $\sigma$-finito. Considere $L_1(\mu)$ e $L_\infty(\mu)$. Onde $f\sim g\iff \mu(\{x\in X:f(x)\neq g(x)\})=0$. Temos que 
+	\[f\in L_1\text{ se }\|f\|_1=\int |f|d\mu<\infty.\]
+	A norma em  $L_\infty$ é o \textbf{\textit{supremo essencial}},
+	\[\|f\|_\infty=\inf\{t>0:\mu(\{x\in X:|f(x)|>t\})=0\}.\]
+	O dual de $L_1(\mu)$ é $L_\infty(\mu)$ pois asociamos a $f\in L_\infty(\mu)$ e $g\in L_1(\mu)$ o numero $f(g)=\int fgd\mu$. O dual de $L_\infty(\mu)$ são as medidas com sinal \textbf{\textit{finitamente aditivas}} (na verdade não são medidas pois não são numeravelmente adivitas), \textbf{\textit{absolutamente contínuas}} em relação a $\mu$ com a norma da variação limitada.
+	
+	Existe uma correspondença entre funções contínuas $\N\to\R$ limitadas com funções contínuas na compactificação de Stone-\v Cech dos naturais $\beta\N\to\R$. Assim $\ell_\infty\approx C(\beta\N)$. Assim, o seu dual pode ser interpretado mediante o teorema de representação da seção anterior.
+\end{obs}
+\begin{proof}
+	Defina
+	\[\nu=|\mu_1|+\ldots+|\mu_n|.\]
+	e
+	\begin{align*}
+		\Lambda:L_\infty(0)&\to\R^n\\
+		f&\mapsto\left(\int fd\mu_1,\ldots,\int f\mu_n\right),
+	\end{align*}
+	que é um operador legal entre espaços de Banach.
+	\begin{af*}
+		$\Lambda$ é fracamente* contínua.
+	\end{af*}
+	Lembre que
+	\begin{teo}[Radon-Nikodym]
+		Como cada $\mu_i$ é absolutamente contínua em relação a $\nu$, existem $f_i\in L_1(\nu)$ tais que
+		\[\int fd\mu_i=\int ff_id\nu.\]
+	\end{teo}
+	A afirmação segue de que ao tomar funcionais e evaluar em elementos de uma rede e simplesmente integrar, assim aplicamos o teorema de Radon-Nikodym.
+	
+	Para aplicar Krein-Milman, considere o conjunto convexo e fracamente* fechado:
+	\[K=\{f\in L_\infty(\nu):0\leq f\leq1\}.\]
+	\begin{exer*}
+		De fato, $K$ e fracamente* fechado. (Pegue uma rede convergente. Ao aplicar um funcional (integrar), se esse funcional não converge vai obter um conjunto de medida positiva onde os valores de $f$ están por arriba de 1, assim comparando as integrais, vai obter uma contradição).
+	\end{exer*}
+	Por B-A, $K$ é convexo e fracamente* compacto. Assim, $\Lambda(K)$ é convexo e compacto.
+	\begin{af*}
+		A imagem da nossa medida é $\Lambda(K)$.
+	\end{af*}
+	$(\subseteq)$. Fixe $A\in\mathcal{A}$. Então,
+	\begin{align*}
+		\mu(A)&=(\mu_1(A),\ldots,\mu_n(A))\\
+		&=\left(\int\chi_Ad\mu_1,\ldots,\int\chi_Ad\mu_n\right)\\
+		&=\Lambda(\chi_A)
+	\end{align*}
+	e $\chi_A\in K$.
+	
+	$(\supseteq)$. Fixe $\xi\in\Lambda(K)$ e considere
+	\begin{align*}
+		K_\xi=\Lambda^{-1}(\{\xi\})\cap K.
+	\end{align*}
+	Como $K_\xi$ é convexo e fraco*-compacto, existem pontos extremos, ie. $E(K_\xi)\neq\varnothing$.
+	
+	Seja $f\in E(K_\xi)$ e vamos mostrar que $f=\chi_A$ para algum $A\in\mathcal{A}$. Caso contrário, existe $A\in\mathcal{A}$ com $\nu(A)>0$ e $r>0$ tal que 
+	\[r\leq f(x)\leq 1-r\quad\forall x\in A.\]
+	Vamos mostrar que é possível ``perturbar'' $f$ em $A$. Defina
+	\[X=L_\infty(A,\mu)\subseteq L_\infty(\mu).\]
+	Como $\nu$ é não atômica (pois á uma soma de medidas não atômicas), temos que $\dim (X)=\infty$. Como $\operatorname{codim}(\ker\Lambda)<\infty$, temos que $X\cap\ker\Lambda\neq\varnothing$. Pegue $g\in X\cap \ker\Lambda\backslash\{0\}$ com
+	\[\|g\|_\infty<r.\]
+	Logo $f\pm g\in K_\xi\backslash\{f\}$. Como
+	\[f=\frac{1}{2}(f+g)+\frac{1}{2}(f-g),\]
+	$f$ não está em $E(K_\xi)$.
+\end{proof}
+
+\begin{teo}[Markov-Kakutani]
+	Seja $X$ um espaço de Banach, $K\subseteq X$ convexo e (fracamente) compacto. Considere $\mathcal{T}$ uma família de mapas (w) contínuos $K\to K$ tais que
+	\begin{enumerate}
+		\item $T\in\mathcal{T}$ é \textbf{\textit{afim}}, ie.
+		\[T(\lambda x+(1-\lambda)y)=\lambda Tx+(1-\lambda)Ty\quad\forall x,y\in K\;\forall\lambda\in[0,1].\]
+		\item $TS=ST\quad\forall S,T\in\mathcal{T}$.
+	\end{enumerate}
+	Então existe $x\in K$ tal que $Tx=x$ para toda $T\in\mathcal{T}$.
+\end{teo}
+\begin{proof}
+	Seja $T\in\mathcal{T}$. Vamos mostrar que $T$ tem um ponto fixo. Defina
+	\begin{align*}
+		A&=\{(x,x):x\in K\}\\
+		B&=\{(x,Tx):x\in K\}
+	\end{align*}
+	Note que $T$ tem um ponto fixo se e só se $A\cap B\neq\varnothing$. Suponha $A\cap B=\varnothing$. Considere $X\times X$ com a norma
+	\[\|(x,y)\|=\|x\|+\|y\|.\]
+	Como $T$ é afim, $B$ é convexo. $A$ também, assim, como $T$ é contínua, $A$ e $B$ são compactos. Por Hahn-Banach, existe $f\in (X\times X)^*$ e $\alpha<\beta\in\R$ tais que
+	\[f(x,x)<\alpha<\beta<f(x,Tx)\quad\forall x\in K.\]
+	Logo,
+	\[f(x,Tx)-f(x,x)>\beta-\alpha\quad\forall x\in K.\]
+	Que pode ser escrito como
+	\[f(0,Tx)-f(0,x)>\beta-\alpha\quad\forall x\in K.\]
+	Logo, para toda $n$ e para toda $x\in K$, temos
+	\[f(0,T^n(x))-f(0,T^{n-1}(x))>\beta-\alpha.\]
+	Usando uma soma telescôpica, obtemos que
+	\[f(0,T^nx)-f(0,x)>n(\beta-\alpha)\]
+	ou seja, que $f$ não pode ser limitado em $K$. Mais $f$ é contínuo em $K$ compacto.
+	
+	Para o caso de muitos funcionais, consideramos para todo $T\in\mathcal{T}$
+	\[K_T=\{x\in K:Tx=x\}.\]
+	que são compactos e não vazíos. Basta mostrar que a interseção deles e não vazía. Por compacidade, basta mostrar que cualquer quantidade finita deles tem interseção não vazía, ie.
+	\[\bigcap_{T\in S}K_T\neq\varnothing\quad\forall S\subseteq \mathcal{T}\text{ finito}.\]
+	Pegue $S=\{T_1,\ldots,T_n\}$. Fazemos assim:
+	\begin{align*}
+		&\text{Aplica o teorema a }T_1:K\to K.\\
+		&\text{Aplica o teorema a }T_2:K_T\to K_T\quad T_1T_2=T_2T_1.\\
+		\vdots\\
+		\varnothing=((K_{T_1}))\subseteq \bigcap K_T.
+	\end{align*}
+\end{proof}
+
+\section{Grupos amenos}
+\begin{defn}
+	Uma \textbf{\textit{média}} em um conjunto $X$ é um elemento $f\in \ell_\infty(X)^*$ tal que $f$ é \textbf{\textit{positivo}} ($F=(F_x)_{x\in X}\in\ell_\infty(X)$ com $F_x\geq0\;\forall x\implies f(F)\geq0$) e $\|f\|=1$.
+\end{defn}
+\begin{exer*}
+	$f$ é simplesmente uma \textbf{\textit{medida finitamente aditiva de probablidade}} em $X$. $\mu$ medida de probabilidade de $X$, $\mu(F)=\int Fd\mu$.
+\end{exer*}
+\begin{defn}\leavevmode
+	\begin{enumerate}
+	\item Se $G$ é um grupo, $G$ age em $\ell_\infty(G)$ com
+	\[g\cdot a(h)=a(g^{-1}h),\]
+	$\forall a\in\ell_\infty(G)\;\forall h\in G$.
+
+	\item Uma média $f\in\ell_\infty(G)^*$ é \textbf{\textit{invariante}} se
+	\[f(a)=f(g\cdot a)\quad\forall a\in\ell_\infty(G)\;\forall g\in G.\]
+	Issto é,
+	\[f(\chi_A)=f(g(\chi_A))=f(\chi_{gA}).\]
+	
+	\item Um grupo $G$ é \textbf{\textit{ameno}} se existe uma média invariante $f$ em $G$.
+	\end{enumerate}
+\end{defn}
+\begin{exemplos}\leavevmode
+	\begin{enumerate}
+		\item Grupos finitos com a medida de contágem promediada.
+		\item $\mathbb{F}_n$ não é ameno para $n>1$.
+		\begin{af*}
+			$\mathbb{F}_2$ não é ameno.
+		\end{af*}
+		Suponha $\mathbb{F}_2=\langle a,b\rangle$. Para cada $c\in\{a,b,a^{-1},b^{-1}\}$, $\mathbb{F}^c_2=\{x\in\mathbb{F}_2:x=c\ldots\text{(começa com }c\text{)}\}$. Note que
+		\[a^{-1}\mathbb{F}_2^a=\mathbb{F}_2^a\sqcup\mathbb{F}_2^b\sqcup\mathbb{F}_2^{b^{-1}}\sqcup\{e\}.\]
+		Logo,
+		\[\mu(\mathbb{F}_2^b\sqcup\mathbb{F}_2^{b^{-1}}\sqcup\{e\})=0.\]
+		de forma análoga
+		\[\mu(\mathbb{F}^a_2\sqcup\mathbb{F}^{a^{-1}}_2)=0,\]
+		mais então $\mu(\mathbb{F}_2)=0$, que não é possível.
+		\item {\color{orange}$\Z$ é ameno}.
+	\end{enumerate}
+\end{exemplos}
+\begin{teo}
+	Grupos abelianos são amenos.
+\end{teo}
+\begin{proof}
+	Seja $M(G)\subseteq\ell_\infty(G)^*$ o espaço dos mas médias.
+	\begin{exer*}
+		$M(G)$ é convexo e fracamente* compacto.
+	\end{exer*}
+	Para aplicar o teorema de Markov-Kakutani precisamos uma família de operadores, cujo ponto fixo será a média invariante. Defina para cada $g\in G$, o operador $T_g:G\to G$ como
+	\[T_gf=f(g\cdot-),\]
+	\begin{exer*}
+		$T_g$ está bem definido, é fraco* contínuo, afim e $(T_g)_{g\in G}$ comutam.
+	\end{exer*}
+	Por Markov-Kakutani, existe uma média $f\in M(G)$ tal que
+	\[T_gf=f\quad\forall g\in G.\]
+	\begin{exer*}
+		$f$ é invariante.
+	\end{exer*}
+\end{proof}
+
+\section{Espaços de Hilbert}
+\begin{defn}
+	Seja $X$ um espaço vetorial sobre $\mathbb{K}\in\{\R,\C\}$. Uma função
+	\[\langle\cdot,\cdot\rangle:X\times X\to\mathbb{K}\]
+	é um produto interno se
+	\begin{enumerate}
+		\item $\langle x,x\rangle\geq0\;\forall x\in X$.
+		\item $\langle x,x\rangle=0\iff x=0$.
+		\item $\langle x,y\rangle=\overline{\langle x,y\rangle}$
+		\item $\langle\alpha x+y,z\rangle=\alpha\langle x,z\rangle+\langle y,z\rangle\;\forall\alpha\in\mathbb{K}\;\forall x,y,z\in\mathbb{K}$.
+	\end{enumerate}
+\end{defn}
+\begin{exemplos}\leavevmode
+	\begin{enumerate}
+		\item $\R^n$. Se $(x_i)_{i=1}^n,y=(y_i)_{i=1}^n\in\R^n$ com o produto interno $\langle x,y\rangle=\sum_{i=1}^nx_iy_i$.
+		\item $\C^n$. Se $(x_i)_{i=1}^n,y=(y_i)_{i=1}^n\in\C^n$ com o produto interno $\langle x,y\rangle=\sum_{i=1}^nx_i\overline{y_i}$.
+		\item $\ell_2$ com $\langle x,y\rangle=\sum_{i=1}^\infty x_i\overline{y_i}$ que é finito por Hölder.
+		\item $C([0,1])$ com $\langle f,g\rangle=\int_0^1f\bar{g}$.
+		\item $L_2$ com $\int f\bar{g}$.
+	\end{enumerate}
+\end{exemplos}
+\begin{defn}\leavevmode
+	\begin{enumerate}
+		\item Em um espaço $(X,\langle\cdot,\cdot\rangle)$ um espaço com produto interno, dois elementos $x,y\in X$ são \textbf{\textit{ortogonais}} se $\langle x,y\rangle=0$ e escrevemos $x\perp y$.
+		\item Definimos $\|\;\|:X\to\mathbb{K}$ como
+		\[\|x\|=\langle x,x\rangle^{1/2}.\]
+	\end{enumerate}
+\end{defn}
+\begin{prop}[Pitágoras]
+	Se $x\perp y$, $\|x+y\|^2=\|x\|^2+\|y\|^2$.
+\end{prop}
+\begin{prop}[Desigualdade de Cauchy-Schwarz]
+	Para todos $x,y\in X$, temos
+	\[|\langle x,y\rangle|\leq\|x\|\|y\|.\]
+	Mais ainda, a igualdade acontece se e só se $x$ e $y$ forem linearmente dependentes.
+\end{prop}
+\begin{proof}
+	Consideramos a projeção de $x$ em $y$. Supondo que $y\neq0$, temos que
+	\[y\perp \left(x-\frac{\langle x,y\rangle}{\langle y,y\rangle}\right)y.\]
+	Logo,
+	\begin{align*}
+		\|x\|^2&=\left\|x-\frac{\langle x,y\rangle}{\langle y,y\rangle}+\frac{\langle x,y\rangle}{\langle y,y\rangle}\right\|^2\\
+		&=\left\|x-\frac{\langle x,y\rangle}{\langle y,y\rangle}y\right\|^2+\frac{|\langle x,y\rangle|^2}{\|y\|^2}\|y\|^2\\
+		&\geq\frac{|\langle x,y\rangle|^2}{\|y\|^2}.
+	\end{align*}
+\end{proof}
+\begin{coro}
+	$\|x\|=\langle x,x\rangle^{1/2}$ é uma norma.
+\end{coro}
+\begin{obs}\leavevmode
+	\begin{enumerate}
+		\item $\langle\cdot,\cdot\rangle:X\times X\to\mathbb{K}$ é contínua.
+		\item Se $(X,\langle\cdot,\cdot\rangle_X)$ e $(Y,\langle\cdot,\cdot\rangle_Y)$ foram espaços de produto interno, $X\times Y$ também e munido de
+		\[\langle(x,y),(x',y')\rangle_{X\times Y}=\langle x,x\rangle_X+\langle y,x\rangle_Y.\]
+		E de fato, a norma induzida por esse produto interno é $\|(x,y)\|=\left(\|x\|^2+\|y\|^2\right)^{1/2}$.
+	\end{enumerate}
+\end{obs}
+\begin{defn}
+	Um espaço de prouto interno $(X,\langle\cdot,\cdot\rangle)$ é um espaço de Hilbert se $(X,\|\;\|_{\langle\cdot,\cdot\rangle})$ for Banach.
+\end{defn}
+\begin{exer}
+	Formule e prove o teorema de completação adequado para espaços de produto interno.
+\end{exer}
+\begin{pregunta}
+	Quando um espaço normado é um espaço de produto interno disforçado? Issto é, quando existe um produto interno $\langle\cdot,\cdot\rangle$ em $X$ tal que $\|\;\|=\|\;\|_{\langle\cdot,\cdot,\rangle}$?
+\end{pregunta}
+\begin{teo}[Lei do paralelogramo]
+	Uma norma $\|\;\|$ em um espaço vetorial $X$ é proveniente de um produto interno se e só se
+	\[\|x+y\|^2+\|x-y\|^2=2\|x\|^2+2\|y\|^2\quad\forall x,y\in X.\]
+\end{teo}
+\begin{proof}
+	$(\implies)$. Escreva.
+	
+	$(\impliedby)$. Se $\mathbb{K}=\R$, defina
+	\[\langle x,y\rangle=\frac{1}{4}\left(\|x+y\|^2+\|x-y\|^2\right).\]
+	Se $\mathbb{K}=\C$, defina
+	\[\langle x,y\rangle=\frac{1}{4}\left(\|x+y\|^2-\|x-y\|^2+i\|x+iy\|^2-i\|x-iy\|^2\right).\]
+\end{proof}
+\begin{defn}
+	Seja $(X,\langle\cdot,\cdot\rangle)$ espaço de produto interno.
+	\begin{enumerate}
+		\item Um subconjunto $S\subseteq X$ é \textbf{\textit{ortogonal}} se para todos $x,y\in S$ distintos, $x\perp y$.
+		\item Um subconjunto $S\subseteq X$ é \textbf{\textit{ortonormal}} se for ortogonal e $S\subseteq\partial B_X$.
+	\end{enumerate}
+\end{defn}
+\begin{prop}
+	Se $S\subseteq X$ é ortogonal (ortonormal), então existe $S'\subseteq X$ ortogonal (ortonormal) maximal tal que $S\subseteq S'$.
+\end{prop}
+\begin{proof}
+	Zorn:
+	\[\mathbb{P}=\{S'\subseteq X:S'\text{ é ortogonal e }S\subseteq S'\}.\]
+\end{proof}
+\begin{exer*}
+	Seja $S\subseteq X$ ortogonal. $S$ é maximal se e só se para todo $x\in X$ vale
+	\[\forall y\in S, x\perp y\implies x=0.\]
+\end{exer*}
+
+\subsection{Desigualdade de Bessel}
+Provaremos que se $(X,\langle\cdot,\cdot\rangle)$ é um espaço de produto interno e $(x_i)_{i\in I}\subseteq X$ um conjunto ortogonal, para todo $x\in X$,
+	\[\sum_{i\in I}|\langle x,x_i\rangle|^2\leq\|x\|^2.\]
+
+\begin{defn}
+	Seja $(X,\|\;\|)$ um espaço normado, $(x_i)_{i\in I}\subseteq X$ e $x\in X$. Dizemos que $(x_i)_{i\in I}$ é \textbf{\textit{somável a $x$}} e escrevemos $\sum_{i\in I}x_i=x$ se $\forall \varepsilon>0$ existe $I_0\subseteq I$ finito tal que para todo $J\subseteq I$ finito com $I_0\subseteq J$ temos
+	\[\left\|x-\sum_{i\in J}x_i\right\|<\varepsilon.\]
+	Ou seja, se a rede
+	\[\left(\sum_{i\in J}x_i\right)_{J\in\mathcal{F}}\]
+	com $\mathcal{F}=\{J\subseteq I:I\text{ finito}\}$ converge.
+\end{defn}
+\begin{obs}
+	No caso dos numeros reais podemos definir
+	\[x=\sup_{\substack{F\subseteq I\\F\text{ finito}}}\sum_{i\in F}x_i.\]
+\end{obs}
+\begin{exer*}\leavevmode
+	\begin{enumerate}
+		\item Se $\sum_{i\in I}x_i=x$ e $\sum_{i\in I}y_i=y$ então
+		\[\sum_{i\in I}\alpha x_i+y_i=\alpha x+y.\]
+		\item Seja $(x_n)_n\subseteq X$ uma sequência, então
+		\[\sum_{n=1}^\infty x_n\neq\sum_{n\in\N}x_n.\]
+		Considere $x_n=\frac{(-1)^n}{n}$. Então $\sum_{n=1}^\infty\frac{(-1)^n}{n}$ existe mais $\sum_{n\in\N}\frac{(-1)^n}{n}$ não existe. Considere $I_k=\{2j:j\leq k\}$: resulta que $\lim_{k\to\infty}\sum_{i\in I_k}\frac{(-1)^n}{n}=\sum_{i=1}^\infty\frac{1}{2k}=\infty$.
+		\item Se $\sum_{n\in \N}x_n$ existe, então $\sum_{n=1}^\infty x_n=\sum_{n\in\N}x_n$.
+		\item O conjunto
+		\[\{1,\sqrt{2}\cos n\pi x,\sqrt{2}\sen n\pi x\}_{n\in\N}\]
+		é um \textbf{\textit{sistema ortonormal maximal}} (um conjunto ortonormal maximal) em $L^2(0,1)$.
+	\end{enumerate}
+\end{exer*}
+\begin{prop}
+	Se $(x_i)_{i\in I}$ é somável, então
+	\[|\{i\in I:x_i\neq0\}|\leq\aleph_0.\]
+\end{prop}
+\begin{proof}
+	Note que 
+	\begin{align*}
+		\{i\in I:x_i\neq0\}&=\bigcup_{i=1}^\infty\{i\in I:\|x_n\|>1/n\}.
+	\end{align*}
+	Vamos mostrar que para todo $\varepsilon>0$,
+	\[|\{i\in I:\|x_i\|>\varepsilon\}|<\infty.\]
+	Como $(x_i)_{i\in I}$ é somável, pegue $x\in X$ com $x=\sum_{i\in I}x_i$. Pegue $I_0\subseteq I$ finito tal que para todo $I_1\subseteq I_0$ finito com $I_1\supseteq I_0$,
+	\[\left\|x-\sum_{i\in I_1}x_i\right\|<\varepsilon/2.\]
+	Logo, se $i_0\notin I_0$,
+	\[\|x_{i_0}\|\leq\left\|x-\sum_{i\in I_0\cup\{i_0\}}x_i\right\|+\left\|x-\sum_{i\in I_0}x_i\right\|<\varepsilon.\]
+	Logo, $\{i\in I:\|x_i\|>\varepsilon\}\subseteq I_0$.
+\end{proof}
+\begin{teo}[Bessel]
+	Sejam $X$ um espaço de Hilbert e $(x_i)_{i\in I}\subseteq X$ um subconjunto ortonormal.
+	\[\sum_{i\in I}|\langle x,x_i\rangle|^2\leq\|x\|^2\quad\forall x\in X.\]
+\end{teo}
+\begin{proof}
+	Exercício. É suficiente mostrar que
+	\[\sum_{i\in J}|\langle x,x_i\rangle|^2\leq\|x\|^2\quad\forall J\subseteq I\text{ finito}.\]
+\begin{exer*}
+	Seja $a>0$ e $(x_i)_{i\in I}\subseteq [0,\infty)$. Se $\sum_{i\in J}x_i\leq a$ para todo $J\subseteq I$ finito, então $(x_i)_{i\in I}$ é somável e $\sum_{i\in I}x_i\leq a$.
+\end{exer*}
+\begin{proof}
+	Considere
+	\[x=\sup_{J\subseteq\mathcal{F}}\sum_{i\in J}x_i\leq a\]
+	onde $\mathcal{F}=\{J\subseteq I:J\text{ é finito}\}$. Seja $\varepsilon>0$. Então existe $I_0\in\mathcal{F}$ tal que
+	\[x-\varepsilon<\sum_{i\in I_0}x_i\leq x.\]
+	Mais ainda, se $J\supseteq I_0$ é finito, como $\left(\sum_{i\in J}x_i\right)_{J\in\mathcal{F}}$ é uma rede cresciente e limitada,
+	\[x-\varepsilon<\sum_{i\in I_0}x_i\leq\sum_{i\in J}x_i\leq x\implies x-\sum_{i\in J}x_i<\varepsilon.\]
+\end{proof}
+	Fixe $J\subseteq I$ finito.
+	\[0\leq\left\|x-\sum_{i\in J}\langle x,x_i\rangle x_i\right\|^2.\]
+	Logo,
+	\begin{align*}
+		\left\|x-\sum_{i\in J}\langle x,x_j\rangle x_i\right\|^2&=\langle x,x\rangle-\left\langle x,\sum_{i\in J}\langle x,x_j\rangle x_i\right\rangle-\left\langle\sum_{i\in J}\langle x,x_i\rangle x_i,x\right\rangle+\left\langle \sum_{i\in J}\langle x,x_i\rangle x_i,\sum_{i\in J}\langle x_i,x\rangle x\right\rangle\\
+		&=\|x\|^2-\sum_{i\in J}\overline{\langle x,x_i\rangle}\langle x,x_i\rangle-\sum_{i\in J}\langle x,x_i\rangle\langle x_i,x\rangle +\sum_{i\in J}\sum_{j\in J}\langle x,x_i\rangle\overline{\langle x,x_j\rangle}\langle x_i,x_j\rangle\\
+		&=\|x\|^2-2\sum_{i\in J}|\langle x,x_i\rangle|^2+\sum_{i\in J}|\langle x,x_i\rangle|^2\\
+		&=\|x\|^2-\sum_{i\in J}|\langle x,x_i\rangle|^2.
+	\end{align*}
+\end{proof}
+\subsection{Igualdade de Parseval}
+Agora vamos estudar em qué casos tem a igualdade.
+\begin{teo}
+	Seja $X$ um espaço de Hilbert e $S\subseteq X$ ortonormal. Então
+	\begin{enumerate}
+		\item $\sum_{y\in S}\langle x,y\rangle y$ existe para todo $x\in X$.
+		\item São equivalentes:
+		\begin{align*}
+			S\text{ é maximal}&\iff \sum_{y\in S}\langle x,y\rangle y=x\quad\forall x\in X\\
+			&\iff\overline{\operatorname{span}}\{S\}=X\\
+			&\iff\|x\|^2=\sum_{y\in S}|\langle x,y\rangle|^2\quad\forall x\in X\qquad\text{(Parseval)}
+		\end{align*}
+	\end{enumerate}
+\end{teo}
+\begin{proof}\leavevmode
+	\begin{enumerate}
+		\item \begin{exer*}[Critério de Cauchy]
+		É suficiente mostrar que $\forall\varepsilon>0$ existe $S_0$ tal que para todo $S_1\subseteq S\backslash S_0$ finito temos que
+		\[\left\|\sum_{y\in S_1}\langle x,y\rangle y\right\|<\varepsilon\]
+	\end{exer*}
+	Nesse caso, por Pitágoras,
+	\[\left\|\sum_{y\in S_1}\langle x,y\rangle y\right\|^2=\sum_{y\in S_1}|\langle x,y\rangle|^2.\]
+	Por Bessel,
+	\[(|\langle x,y\rangle|^2)_{y\in S}\]
+	e uma família somável, logo o critério de Cauchy vale.
+	\item Suponha $S$ maximal. Temos 
+	\begin{align*}
+		x-\sum_{y\in S}\langle x,y\rangle y\perp S
+	\end{align*}
+	Logo, pelo exercício passado, $x=\sum_{y\in S}\langle x,y\rangle y$.
+	
+	Para a seguinte, note que se $S$ não é maximal, existe $y_0\in\partial B_X$ tal que $y\perp S$. Logo, $y_0\in \perp\overline{\operatorname{span}}\{s\}$, e logo $y_0\notin\overline{\operatorname{span}}\{s\}$.
+	
+	Em particular, 
+	\[1=\|y_0\|^2\neq\sum_{y\in S}|\langle y_0,y\rangle|^2=0.\]
+	
+	Note que se
+	\[x=\sum_{y\in S}\langle x,y\rangle y\]
+	então 
+	\[\|x\|^2=\sum_{y\in S}|\langle x,y\rangle|^2.\]
+	\end{enumerate}
+\end{proof}
+\begin{prop}
+	Se $S\subseteq X$ é ortonormal, então
+	\[\|x-y\|=\sqrt{2}\quad\forall x,y\in S\text{ distintos}.\]
+	Logo se $X$ é separável, $S$ é enumerável.
+\end{prop}
+\begin{coro}
+	Sejam $H$ e $H'$ espaços de Hilbert e $S\subseteq H$, $S'\subseteq H'$ ortonormais maximais. Seja $j:S\to S'$ uma injeção. Então $T:H\to H'$ dado por
+	\[T\left(\sum_{y\in S}\langle x,y\rangle y\right)=\sum_{y\in S}\langle x,y\rangle jy\]
+	é uma isometria. Se $j$ for sobrejetiva, $T$ é uma isometria sobrejetiva.
+\end{coro}
+\begin{proof}
+	Escreva.
+\end{proof}
+\begin{coro}
+	Todo espaço de Hilbert é da forma $\ell_2(S)$ para algúm conjunto $S$, onde $|S|$ é a cardinalidadde de um subconjunto ortonormal maximal de $H$.
+\end{coro}
+
+\subsection{Teorema de representação}
+\begin{defn}
+	Seja $H$ um espaço de Hilbert. Definimos o \textbf{\textit{conjugado de $H$}}, denotado $\overline{H}$ como sendo $H$ com a ação de $H$ e produto
+	\[\lambda.x=\bar{\lambda}x\quad\forall\lambda\in\mathbb{K}\;\forall x\in H.\]
+	Definimos o produto interno
+	\[\langle x,y\rangle_{\overline{H}}=\langle y,x\rangle_H.\]
+\end{defn}
+\begin{prop}
+	Seja $H$ um espaço de Hilbert. Então o mapa
+	\[\phi:\overline{H}\to H^*\]
+	dado por
+	\[(\phi x) y=\langle y,x\rangle_H\quad \forall x,y\in\overline{H}\]
+	é uma isometria.
+\end{prop}
+\begin{proof}
+	($\phi$ é linear).
+	\begin{align*}
+		[content...]
+	\end{align*}
+	($\|\phi x\|\leq\|x\|\;\forall x\in X$). Por Cauchy-Schwarz.
+	
+	($\|\phi x\|\geq\|x\|\;\forall x\in X$). Quem é de norma 1?
+	
+	($\phi$ é injetiva). $\langle\cdot,y_1\rangle=\langle\dot,y_2\rangle\implies \|x-y\|=0$.
+	
+	($\phi$ é sobrejetiva). Seja $f\in H^*$. Por Zorn, pegue $S\subseteq H$ ortonormal maximal. Defina
+	\[x=\sum_{y\in S}\overline{f(y)}y.\]
+	Se $x$ está bem definido, então
+	\[\phi(x)=f,\]
+	pois
+	\begin{align*}
+		\phi(x)(y)&=\left\langle z,\sum_{y\in S}\overline{f(y)}y\right\rangle_H\\
+		&=\sum_{y\in S}f(y)\langle z,y\rangle_H
+	\end{align*}
+	Logo
+	\begin{align*}
+		f(z)&=f\left(\sum_{y\in S}\langle z,y\rangle y\right)\\
+		&=\sum_{y\in S}f(y)\langle z,y\rangle.
+	\end{align*}
+	Para ver que de fato trata-se de uma família somável, considere $S_0\subseteq S$ finito, então
+	\begin{align*}
+		\|f\|&\geq\left|\frac{f\left(\sum_{y\in S_0}\overline{f(y)}y\right)}{\left\|\sum_{y\in S_0}\overline{f(y)}y\right\|}\right|\\
+		&=\frac{\sum_{y\in S_0}|g(y)|^2}{\left(\sum_{y\in S_0}|f(y)|^2\right)^{\frac{1}{2}}}.
+	\end{align*}
+	Logo,
+	\[\left(\sum_{y\in S_0}|f(y)|^2\leq\|gf\|\right).\]
+\end{proof}
+\begin{coro}
+	$H^*$ é Hilbert.
+	\[\langle f,g\rangle_{H^*}=\langle\phi^{-1}(f),\phi^{-1}(g)\rangle_{\overline{H}}=\langle \phi^{-1}(g),\phi^{-1}(f)\rangle_H.\]
+		Ou seja
+		\[\left\langle\langle\cdot,x\rangle,\langle\cdot,y\rangle_{H^{*}}\right\rangle=\langle y,x\rangle_H.\]
+\end{coro}
+\begin{coro}
+	Todo espaço de Hilbert é reflexivo.
+\end{coro}
+\begin{proof}
+	Queremos mostrar que
+	\[J:H\to H^{**}\]
+	é sobrejetivo. Fixe isometrias sobrejetivas
+	\[\phi:\overline{H}\to H^*,\quad\psi:\overline{H^*}\to H^*.\]
+	Defina
+	\[\overline{\phi}:H\to H^*\]
+	como
+	\[\overline{\phi}(x)=\phi(x)\quad\forall x\in H.\]
+	Queremos mostrar que $J=\psi\circ\overline{\phi}$.
+
+	Fixe $x\in H$, $f\in H^*$ e $y\in H$ com $f=\langle\cdot,y\rangle_H$. Logo
+	\begin{align*}
+		\psi(\overline{\phi}(x))(f)&=\langle f,\langle\cdot,x\rangle_H\rangle_{H^*}\\
+		&=\langle\langle\cdot,y\rangle_H,\langle\cdot,x\rangle_H\rangle_{H^*}\\
+		&=\langle x,y\rangle_H\\
+		&=f(x)\\
+		&=J(x)(f).
+	\end{align*}
+\end{proof}
+
+\subsection{Exemplo e conjuntos ortonormais em $L_2$}
+\begin{prop}
+	\[\left\{\frac{e^{int}}{\sqrt{2\pi}}:n\in\Z\right\}\]
+	é ortonormal maximal em $L_2[0,2\pi]$.
+\end{prop}
+\begin{proof}
+	Só veremos maximalidade. Seja $f\in L_2[0,2\pi]$ tal que
+	\[f\perp S.\]
+	Vamos mostrar que $f=0$.
+	
+	Primero sustituimos $f$ por uma função contínua. Defina
+	\[G(x)=\int_0^xfd\mu.\]
+	Logo, {\color{orange}ela é absolutamente contínua}, assim $G'=f$. Daí,
+	\[(G+k)'\perp S\quad\forall k.\]
+	Vamos computar
+	\begin{align*}
+		0&=\int(G+k)'e^{int}d\mu\\
+		&=G(2\pi)-G(0)-\int_0^{2\pi}(G+k)(in)e^{int}d\mu\\
+		&=-\int_0^{2\pi}(G+k)(in)e^{int}d\mu
+	\end{align*}
+	assim
+	\[\int(G+k)e^{int}d\mu=0\quad\forall n\in \Z\backslash\{0\}.\]
+	Escolha $k\in\C$ tal que
+	\[H=G+k\perp S.\]
+	Como $H$ é contínuo, pelo teorema de Weierstrass, para todo $\varepsilon>0$ existe $T\in\operatorname{span}\{s\}$ tal que
+	\[\sup_{t\in[0,1]}|H(t)-T(t)|<\varepsilon.\]
+	Logo $H\in\overline{\operatorname{span}}\{s\}$. Como $H\perp S$, $H=0$. Mais como $H=f$, então $f=0$.
+\end{proof}
+
+\subsection{Projeções em espaços de Hilbert}
+\begin{defn}
+	Um espaço de Banach $X$ é \textbf{\textit{estritamente convexo}} se para todo $x,y\in\partial B_X$,
+	\[\left\|\frac{x+y}{2}\right\|<1.\]
+\end{defn}
+\begin{exemplos}\leavevmode
+	\begin{enumerate}
+		\item $\ell_p$ para $p\in(1,\infty)$ é estritamente convexo.
+		\item Se $X$ for Hilbert, sabemos que
+		\[\left\|\frac{x+y}{2}\right\|^2+\left\|\frac{x-y}{2}\right\|^2=2\left\|\frac{x}{2}\right\|^2+2\left\|\frac{y}{2}\right\|^2=1\]
+		para $x,y\in\partial B_X$ distintos. Logo,
+		\[\left\|\frac{x+y}{2}\right\|^2=1-\left\|\frac{x-y}{2}\right\|^2<1.\]
+	\end{enumerate}
+\end{exemplos}
+\begin{prop}
+	Seja $H$ um espaço de Hilbert e $H'\subseteq H$ um subespaço fechado. Para todo $x\in H$, existe um único $y\in H'$ tal que
+	\[d(x,H')=\|x-y\|.\]
+	Mais ainda, $x-y\perp H'$.
+\end{prop}
+\begin{proof}
+	Fixe $x\in H$. Como $H$ é reflexivo, $y$ existe. Suponha que $z\neq y$ em $H'$ tal que
+	\[\|x-y\|=\|x-z\|=d(x,H).\]
+	Então
+	\[\left\|x-\frac{y+z}{2}\right\|=\left\|\frac{x-y+x-z}{2}\right\|<d(x,H').\]
+	Agora vejamos que $x-y\perp H'$. Suponha que existe $h\in H'\backslash\{0\}$ que não seja ortogonal, ie. $\langle x-y,h\rangle\neq0$.
+	
+	Sem perda de generalidade, assuma que
+	\[\langle x-y,h\rangle>0.\]
+	Para contradizer que $y$ minimza, buscamos un multiplo de $h$ que faça uma menor distancia. Pegue $\lambda\in\R$.
+	\begin{align*}
+		\|x-y+\lambda h\|^2&=\|x -y\|^2+2\langle x-y,\lambda h\rangle+|\lambda|^2\|h\|^2.
+	\end{align*}
+	Pegue $\lambda<0$ tal que
+	\[{\color{orange}2\langle x-y,\lambda h\rangle+|\lambda|^2\|h\|^2>\|x-\lambda h\|^2-\|x-y\|^2}.\]
+\end{proof}
+\begin{defn}
+	O resultado antérior nos dá um mapa
+	\begin{align*}
+		P:H&\to H'\\
+	x&\mapsto y_x
+	\end{align*}
+	chamado a \textbf{\textit{projeção de $H$ sobre $H'$}}
+	tal que
+	\begin{enumerate}
+		\item $\|x-P(x)\|=d(x,H')$.
+		\item $x-P(x)\perp H'$.
+	\end{enumerate}
+\end{defn}
+\begin{prop}
+	Seja $H$ Hilbert, $H'\subseteq H$ fechado, $S\subseteq H'$ ortonormal maximal. Então
+	\begin{align*}
+		P(x)=\sum_{y\in S}\langle x,y\rangle y\quad\forall x\in H.
+	\end{align*}
+	Em particular, $P$ é linear é $\|P\|=1$ (o não ser que $H'=0$, caso em que a norma é 0).
+\end{prop}
+\begin{proof}
+	Note que
+	\[H'\oplus(H')^\perp=H\]
+	Onde
+	\[(H')^\perp=\{x\in H:x\perp H'\}.\]
+	Então, como
+	\[P(x),\sum_{y\in S}\langle y,x\rangle y\in H'.\]
+	Mais ainda,
+	\[x-P(x),x-\sum_{y\in S}\langle x,y\rangle y\in(H')^\perp.\]
+	Como
+		\begin{align*}
+			x&=x-P(x)+P(x)\\
+			 x&= x-\sum_{y\in S}\langle x,y\rangle y+\sum_{y\in S}\langle x,y\rangle y.
+		\end{align*}
+		Então, para todo $y\in H'$,
+		\begin{align*}
+			\langle x-Px+Px,y\rangle&=\left\langle x-\sum_{y\in S}\langle x,y\rangle y+\sum_{y\in S}\langle x,y\rangle y,y\right\rangle\\
+			\implies \langle x-Px,y\rangle+\langle Px,y\rangle&=\left\langle x-\sum_{y\in S}\langle x,y\rangle y,y\right\rangle+\left\langle\sum_{y\in S}\langle x,y\rangle y,y\right\rangle\\
+			\implies \langle Px,y\rangle&=\left\langle \sum_{y\in S}\langle x,y\rangle y,y\right\rangle\\
+			\implies \left\langle Px-\sum_{y\in S}\langle x,y\rangle y,y\right\rangle&=0\\
+			\implies Px&=\sum_{y\in S}\langle x,y\rangle y
+		\end{align*}
+\end{proof}
+\begin{coro}
+	Seja $H$ um espaço de Hilbert e $H'\subset H$ um subespaço fechado. Então $H'$ é complementado em $H$.
+\end{coro}
+De fato,
+\begin{teo}[Lindestrauss-Tzafini, 71]
+	Se todo subespaço fechado de um espaço de Banach $X$ for complementado, então $X$ é isomorfo a um espaço de Hilbert.
+\end{teo}
+\begin{teo}
+	$c_0$ não é complementado em $\ell_\infty$.
+\end{teo}
+\begin{defn}
+	Seja $(A_i)_{i\in I}$ uma familía de subconjuntos de um conjunto $X$. Dizemos que $(A_i)_{i\in I}$ é \textbf{\textit{quase-disjunto}} se
+	\[|A_i\cap A_j|<\infty\qquad\forall i,j\in I\text{ disjuntos.}\]
+\end{defn}
+\begin{prop}
+	Existe uma família $(A_i)_{i\in I}$ quase-disjunta de subconjuntos infinitos de $\N$ tal que $|I|=2^{\aleph_0}$.
+\end{prop}
+\begin{proof}
+	Para cada $i\in\R\backslash\Q$ escolha $(q_n)_n\subseteq \Q$ tal que $q_n^i\to i$.
+	
+	Fixe uma bijeção $\varphi:\Q\to\N$ e defina
+	\begin{align*}
+		A_i=\{\varphi(q^i_n):n\in\N\}\qquad\forall i\in\R\backslash\Q.
+	\end{align*}
+\end{proof}
+
+\begin{prop}
+	Seja $T:\ell_\infty\to\ell_\infty$ um operador limitado tal que $T|_{c_0}=0$. Então existe $A\subseteq\N$ infinito tal que $T|_{\ell_\infty(A)}=0$ (extendedo com zeros para ver $\ell_\infty(A)$ como subconjunto de $\ell_\infty$).
+\end{prop}
+\begin{proof}
+	Seja $(A_i)_{\i\in I}$ uma família quase-disjunta de subconjuntos infinitos de $\N$ tal que $|I|=2^{\aleph_0}$.
+	\begin{af*}
+		Existe $i\in I$ tal que $T|_{\ell_\infty(A)}=0$.
+	\end{af*}
+	Para cada $i\in I$, pegue $x_i\in\partial B_{\ell_\infty(A_i)}$ tal que
+	\[T(x_i)\neq0.\]
+	Como $|I|=2^{\aleph_0}$, existe $n\in\N$ tal que
+	\[|\{i\in I:e^*_n(Tx_i)\neq0\}|=2^{\aleph_0}.\]
+	Sem perda de generalidade, assumamos que
+	\[\{i\in I:e^*_n(Tx_i)>0\}|=2^{\aleph_0}.\]
+	Mais ainda, existe $\delta>0$ tal que
+	\[|\{i\in I:e^*_n(Tx_i)>\delta\}|=2^{\aleph_0}.\]
+	Se $F\subseteq J$ for finito,
+	\begin{align*}
+		\left\|T\left(\sum_{i\in F}x_i\right)\right\|&=\left\|\sum_{i\in F}T(x_i)\right\|\\
+	&\geq\sum_{i\in F}e^*_n(Tx_i)\\
+	&\geq |F|\delta
+	\end{align*}
+	Como $(A_i)_{i\in I}$ çe quase-disjunto, podemos escrever
+	\[\sum_{i\in F}x_i=x+y\]
+	onde 
+	\begin{align*}
+		|\operatorname{supp}x|<\infty\quad\text{e}\quad\|y\|\leq1
+	\end{align*}
+	Logo
+	\begin{align*}
+		\left\|T\left(\sum_{i\in I}x_i\right)\right\|=\|Ty\|\leq\|T\|
+	\end{align*}
+	Alesindo.
+\end{proof}
+\begin{proof}[Prova de que $c_0$ não é complementado]
+	Suponha que existe uma projecção $p:\ell_\infty\to c_0$ (limitada). Logo, $(\Id-p)|_{c_0}\equiv0$. Pela proposição, existe $A\subseteq\N$ infinito tal que
+	\[(\Id-p)_{\ell_\infty(A)}=0,\]
+	assim $p|_{\ell_\infty(A)}=\Id_{\ell_\infty(A)}$, que é absurdo.
+\end{proof}
+
+\section{Bases de Schauder}
+\begin{defn}
+	Seja $X$ um espaço de Banach e $(x_n)_n\subseteq X$. Dizemos que $(x_n)_n$ é uma \textbf{\textit{base de Schauder}} de $X$ se para todo $x\in X$ existe uma única sequência $(\alpha_n)_n\subseteq \mathbb{K}$ tal que
+	\[x=\sum_{n=1}^\infty \alpha_n x_n.\]
+\end{defn}
+\begin{exemplos}\leavevmode
+	\begin{enumerate}
+		\item $(e_n)$ é uma base de $\ell_p$ para todo $p\in[1,\infty)$, e de $c_0$.
+		\item Para $\ell_\infty$ não, pois todo espaço com base é separável.
+		\item Existem espaços de Banach separávels sem base (Enflo, '73).
+	\end{enumerate}
+\end{exemplos}
+\begin{teo}
+	Seja $X$ Banach e $(x_n)\subseteq X$. São equivalentes
+	\begin{enumerate}
+		\item $(x_n)$ é uma base de $X$.
+		\item Existe $(x^*_n)\subseteq X^*$ tal que
+		\[x_n^*(x_m)=\delta_{nm}\qquad\text{e}\qquad x=\sum_{n=1}^\infty x^*_n(x)x_n\quad\forall x\in X.\]
+	\end{enumerate}
+\end{teo}
+\begin{proof}
+	$(2\implies 1)$. Só baste ver unicidade. Se
+	\[\sum_{n=1}^\infty\alpha_nx_n=\sum_{n=1}^\infty\beta_nx_n,\]
+	então
+	\[\alpha_k=x^*\left(\sum\alpha_nx_n\right)=x^*\left(\sum\beta_nx_n\right)=\beta_k\]
+	
+	$(1\implies 2)$. Note segue da unicidade da representação da base que existe uma sequência $(x^*_n)_n$ de funções lineares $x^*_n:\mathbb{K}\to\mathbb{K}$ tais que
+	\[x=\sum_{n=1}^\infty x^*_i(x)x\qquad\forall x\in X.\]
+	Resta mostrar que $x^*_n\in X^*$ é contínuo para todo $n\in \N$. Defina para cada $N\in\N$
+	\[S_N(x)=\sum_{n=1}^Nx^*_n(x)x_n.\]
+	Como
+	\[x_n^*(x)x_n=S_n(x)-S_{n-1}(x),\]
+	basta mostrar que cada $S_n$ é contínuo.
+	
+	Defina uma norma $\vertiii{\;}$ em $X$ como
+	\[\vertiii{x}=\sup_n\|S_n(x)\|.\]
+	Note que
+	\begin{enumerate}
+		\item Como $S_n(x)\to x$, $\vertiii{x}<\infty$.
+		\item $\|x\|\leq\vertiii{x}$ para todo $x\in X$.
+		\item Se $(X,\vertiii{\;})$ é Banach, $\vertiii{\;}\sim\|\;\|$ e a prova segue.
+	\end{enumerate}
+	\begin{af*}
+		$(X,\vertiii{\;})$ é Banach.
+	\end{af*}
+	Seja $(y_n)\subset X$ de Cauchy para $\vertiii{\;}$. Como $\|\;\|<\vertiii{\;}$, $(y_n)$ é Cauchy para $\|\;\|$. Defina
+	\[y=\|\cdot\|-\lim_ny_n.\]
+	Queremos mostrar que $y_n\overset{\vertiii{\;}}{\longrightarrow}y$. Para cada $k\in\N$ defina
+	\[z_k=\|\cdot\|-\lim_nS_k(y_n).\]
+	\begin{af*}
+		$z_k\overset{\vertiii{}}{\longrightarrow}$.
+	\end{af*}
+	Fixe $\varepsilon>0$. Como $(y_n)$ são $\vertiii{\;}$-Cauchy, existe $n_0\in \N$ tal que $\vertiii{y_n-y_m}<\varepsilon$ para todo $n,m>n_0$.
+	
+	Fixe $m=n_0$. Pegue $k_0\in\N$ tal que $\|S_k(y_m)-y_m\|<\varepsilon$ para toda $k>k_0$. Então,
+	\begin{align*}
+		\|z_k-y\|&=\lim_n\|S_k(y_n)-y_n\|\\
+		&\leq\lim_n\|S_k(y_n)-S_k(y_n)\|+\|S_k(y_n)-y_m\|+\lim_n\|y_m-y_n\|\\
+		&<\varepsilon+\varepsilon+\varepsilon
+	\end{align*}
+	\begin{af*}
+		Para todo $n\geq k$, temos
+		\[S_k(z_m)=z_k.\]
+	\end{af*}
+	Como operadores lineares são contínuos em subespaços de dimensão finita, temos
+	\begin{align*}
+		z_k&=\|\;\|-\lim_nS_k(y_n)\\
+		&=\|\;\|-\lim_nS_k(S_m(y_k))\\
+		&=\|\;\|-\lim_nS_k|_{\operatorname{span}\{x_i:i\leq n\}}\\
+		&=S_k(z_m)
+	\end{align*}
+	Em conclusão, $S_k(y)=z_k$, ie. temos unicidade.
+	
+	Por fim,
+	\begin{align*}
+		\vertiii{y-y_n}&=\sup_k\|S_k(y)-S_k(y_n)\|\\
+	&=\sup_k\|z_k-S_k(y_n)\|\\
+	&=\sup_k\limsup_m\|S_k(y_n)-S_k(y_n)\|\\
+	&\leq\limsup_n\sup_k\|S_k(y_m)-S_k(y_n)\|\overset{n\to\infty}{\longrightarrow}0.
+	\end{align*}
+\end{proof}
+\begin{obs}\leavevmode
+	\begin{enumerate}
+		\item $\sup_n\|S_n\|<\infty$
+		\item $k=\sup_n\|S_n\|$ é a \textbf{\textit{constante básica}} da base $(x_n)$.
+		\item Se $k=1$, dizemos que a base $(x_n)$ e \textbf{\textit{monótona}}.		
+	\end{enumerate}
+\end{obs}
+\begin{defn}
+	Uma sequência $(x_n)\subseteq X$ é \textbf{\textit{básica}} se $(x_n)$ for de Schauder para $\overline{\operatorname{span}}\{x_n:n\in\N\}$.
+\end{defn}
+\begin{prop}
+	$(x_n)\subseteq X\backslash\{0\}$ é básica se e só se existe $L\geq0$ tal que
+	\[\left\|\sum_{n=1}^m\alpha_nx_n\right\|\leq L\left\|\sum_{n=1}^k\alpha_nx_n\right\|\]
+	para todo $k\geq m$ e $\alpha_1,\ldots,\alpha_k\in\mathbb{K}$.
+\end{prop}
+\begin{proof}\leavevmode
+	
+	$(\implies)$ Segue.
+	
+	$(\impliedby)$ Defina
+	\[Y=\operatorname{span}\{x_n:n\in\N\}.\]
+	Para cada $n\in\N$ defina $S_n:Y\to Y$ como
+	\[S_n\left(\sum_{n=1}^k\alpha_nx_n\right)=\sum^{\min\{n,k\}}_{n=1}\alpha_nx_n.\]
+	Por hipótese, temos que
+	\[\|S_n\|\leq L\quad\forall m.\]
+	Podemos então estender cada $S_n$ para $\overline{Y}$.
+	
+	Note:
+	\begin{enumerate}
+		\item $S_n$ é limitado.
+		\item $\dim\img S_n=n\;\forall n\in N$.
+		\item $S_n\circ S_m=S_m\circ S_n=S_{\min\{m,n\}}$.
+		\item $S_n(x)\to x\;\forall x\in X$.
+	\end{enumerate}
+	Esas observações {\color{orange}implicam} que $(x_n)$ é base de $\overline{Y}$.
+\end{proof}
+\begin{teo}
+	Sejam $(x_n)\subset X$ e $(y_n)\subset Y$ básicas. São equivalentes
+	\begin{enumerate}
+		\item $\sum_{n=1}^\infty \alpha_nx_n$ converge em $X$ se e somente se $\sum_{n=1}^\infty\alpha_ny_n$ em $Y$.
+		\item Existe um isomorfismo
+		\[T:\overline{\operatorname{span}}\{x_n:n\in\N\}\to\overline{\operatorname{span}}\{y_n:n\in\N\}\]
+		tal que
+		\[Tx_n=y_n\quad\forall n\in\N.\]
+	\end{enumerate}
+\end{teo}
+\begin{proof}
+	$(\impliedby)$. Segue
+	
+	$(\implies)$. Por 1, $T$ está bem definido e é uma bijeção. Falta mostrar que $T$ e $T^{-1}$ são contínuas. Sejam $(z_n)\subset \operatorname{dom}T$ tal que $z_n\to z$ e $Tz_n\to w$. Queremos mostrar que $Tz=w$. Se $j\in\N$, temos
+	\begin{align*}
+		y^*_j(w)&=\lim_ny^*_k(Tz_n)\\
+		&\lim_nx^*_j(z_n)\\
+		&=x_j^*(z)\\
+		&=y^*_j(Tz)
+	\end{align*}
+\end{proof}
+\begin{defn}
+	Os funcionais $(x_n^*)$ são os \textbf{\textit{funcionais biortogonais}} de $(x_n)$.
+\end{defn}
+\begin{coro}
+	Se $(x_n),(y_n)$ são basicas, existe $L>0$ tal que
+	\[\frac{1}{L}\left\|\sum_{i=1}^n\alpha_ix_i\right\|\leq\left\|\sum_{i=1}^n\alpha_ix_i\right\|\leq L\left\|\sum_{i=1}^n\alpha_iy_i\right\|\]
+	para todos $n$ e $\alpha_1,\ldots,\alpha_n$.
+\end{coro}
+\subsection{Construindo sequências basicas}
+\begin{teo}\label{teo:subsequencia-basica}
+	Se $\dim(X)=\infty$, existe uma sequência básica em $X$.
+\end{teo}
+\begin{teo}\label{teoremalema}
+	Se $S\subseteq X$ tal que $0\notin \overline{S}^{\|\;\|}$ e $0\in\overline{S}^w$ então existe uma sequência básica em $S$.
+\end{teo}
+\begin{lema}
+	Seja $X$ Banach, $E\subseteq X^*$ um subespaço de dimensão finita e $S\subseteq  X^*$ tal que tal que $0\notin \overline{S}^{\|\;\|}$ e $0\in\overline{S}^w$. Então para todo $\varepsilon>0$ existe $x*^\in X^*$ tal que
+	\[\|e^*+\lambda x^*\|\geq(1-\varepsilon)\|e^*\|\quad\forall e^*\in E \;\forall \lambda\in \R\]
+\end{lema}
+\begin{proof}
+	Fixe $\varepsilon>0$ e $\delta>0$. Como $\dim E<\infty$, por compacidad a bola é totalmente limitada, assim existe $e^*_1,\ldots, e^*_n\in\partial B_E$ tal que para cualquer $e^*\in\partial B_E$ existe $c\leq n$ tal que
+	$\|e^*-e^*_i\|<\delta$.
+	
+	Para cada $i\leq n$ pegue $e_i\in X$ tal que
+	\[e^*_i(e_i)>1-\delta.\]
+	Como $0\in 0\in\overline{S}^w$, existe $x^*\in S$ tal que
+	\[|x^*(e_i)|<\delta\quad\forall i\leq n.\]
+	Vamos estimar
+	\[\|e^*+\lambda x^*\|.\]
+	Fixe $e^*\in\partial B_E$ e $\lambda\in\R$. Defina $\alpha=\inf_{y^*\in \overline{S}}\|y^*\|$, que é positivo porque $0\notin\overline{S}$.
+	\begin{enumerate}
+		\item Se $|\lambda|>2/\alpha$, temos $\|e^*+\lambda x^*\|\geq|\lambda||x^*|-1\geq 1?\|e^*\|$.
+		\item Se $|\lambda|>2/\alpha$, temos
+		\[\|e^*+\lambda x^*\|\geq\|e^*_i+\lambda x^*\|-\delta\geq 1-\delta-|\lambda|\delta-\delta\geq 1-2\delta-\frac{2\delta}{\alpha}.\]
+		O resultado segue se $2\delta+\frac{2\delta}{\alpha}<\varepsilon$.
+	\end{enumerate}
+\end{proof}
+\begin{proof}[Prova do \cref{teoremalema}]
+	Seja $S\subseteq X$ com $0\notin \overline{S}^{\|\;\|}$ e $0\in\overline{S}^w$. Então, vendo $S\subseteq X^{**}$, temos $0\notin \overline{S}^{\|\;\|}$ e $0\in\overline{S}^w$.
+	Fixe $\varepsilon>0$. Pegue uma sequência $(\delta_n)$ de numeros positivos tais que
+	\[\prod_n(1-\delta_n)>\frac{1}{1+\varepsilon}.\]
+	Pelo lema, existe $(e^*_n)\subseteq S$ tal que para todS $n\in\N$ e $a_,\ldots,a_n\in\R$,
+	\[(1-d_n)\left\|\sum_{n=1}^ma_me^*_n\right\|\leq\left\|\sum_{n=1}^{m+1}a_ne_n^*\right\|\approx\left\|\sum_{n=1}^ma_ne^*_n+a_{m+1}e_{m+1}^*\right\|.\]
+	Assim, para toda $m\leq k$ e $a_1,\ldots,a_k\in\R$,
+	\[\left\|\sum_{n=1}^ma_ne^*_n\right\|\leq\frac{1}{\pi(1-\delta_n)}\left\|\sum_{n=1}^ka_ne_n^*\right\|\leq(1+\varepsilon)\left\|\sum_{n=1}^ka_ne_n^*\right\|.\]
+\end{proof}
+\begin{coro}
+	Se $(x_n)\subseteq X$ é tal que $x\overset{w}{\longrightarrow}$ mas $\inf\|x_n\|>0$, então $(x_n)$ possui uma subsequência basica.
+\end{coro}
+\begin{proof}[Prova de \cref{teo:subsequencia-basica}]
+	Note que $0\notin \overline{\partial B_X}^{\|\;\|}$ e $0\in\overline{\partial B_X}^w$. Pata comprovar o segundo, suponha o contrário, ie. que existe $\varepsilon>0$ e $x_1^*,\ldots,x_2^*\in X^*$ tal que
+	\[\{x\in X:|x^*_i(x_i)\}\cap\partial B_X=\varnothing.\]
+	Como $\bigcap \ker x^*_i\neq\{0\}$, pegue $x\in \bigcap\ker(x_i^*)\backslash\{0\}$. Logo
+	\[\frac{x}{\|x\|}\in\{y\in X:|x^*_i(y)<\varepsilon\}\cap\partial B_X\quad\forall i\leq n,\]
+	que é absurdo.
+\end{proof}
+\begin{pregunta}
+	$X$, $Y$ espaços de Banach, se $X\hookrightarrow Y$ e $Y\hookrightarrow X$ mergulhos isomófricos, então $X\overset{\text{isomor}}{\approx} Y$. Falso. E se pedimos que a sejam mergulhos de espaços complementados?
+	
+	Gouees. Existe espaço de Banach tal que $X\approx X^3$ mais $X\not\approx X^2$.
+\end{pregunta}
+
+\section{Técnica de descomposição de Pe\l cy\'nski}
+\begin{teo}
+	Sejam $X$ e $Y$ espaços de Banach e $X\overset{\perp}{\hookrightarrow}Y$ e $Y\overset{\perp}{\hookrightarrow}X$.
+\begin{enumerate}
+	\item Se $X\approx X^2$ e $Y\approx Y^2$ então $X\approx Y$.
+	\item Se $X\approx\ell_p(X)$, então $X\approx Y$. ($X\approx c_0(X)$.)
+\end{enumerate}
+\end{teo}
+
+\begin{defn}
+	Seja $X$ um espaço de Banach.
+	\begin{enumerate}
+		\item $p\in[1,\infty)$.
+		\[\ell_p(X)=\left\{(x_n)\in X^\N:\sum\|x\|^p<\infty\right\}\]
+		onde
+		\[\|(x_n)\|=\left(\sum_{n=1}^\infty\|x_n\|^p\right)^{\frac{1}{p}}.\]
+		\item
+		\[c_0(X)=\left\{(x_n)\in\ell_\infty(X):\lim_{n}\|x_n\|=0\right\}\]
+		com a norma
+		\[\|(x_n)\|=\sup_nx_n.\]
+	\end{enumerate}
+\end{defn}
+
+\begin{proof}
+	Por hipótese existe um subespaço fechado $E\subseteq X$ e $F\subseteq Y$ tais que
+	\[X=Y\oplus E\quad\text{e}\quad Y\oplus F.\]
+	\begin{enumerate}
+		\item \begin{align*}
+			X\approx Y\oplus E\approx Y\oplus Y\oplus E\approx X\oplus F\oplus Y\oplus E\approx X\oplus F\oplus X\approx X\oplus F\approx Y.
+		\end{align*}
+		
+		\item Suponha $X\approx\ell_p(X)$.
+		\begin{align*}
+			Y\approx X\oplus F\approx X\oplus\ell_p(X)\oplus F\approx Y\oplus X.
+		\end{align*}
+		Logo
+		\begin{align*}
+			X\approx\ell_p(X)\approx\ell_p(Y\oplus E)\approx\ell_p(Y)\oplus\ell_p(E)\approx Y\oplus\ell_p(Y)\oplus\ell_p(E)\approx Y.
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+\section{Algebras de Banach}
+\begin{defn}\leavevmode
+	\begin{enumerate}
+		\item Um espaço vetorial sobre $\mathbb{K}$ munido de um produto associativo é uma \textbf{\textit{álgebra}}.
+		\item Se $A$ é uma álgebra, $\|\;\|$ uma norma em $A$ e
+		\[\|ab\|\leq\|a\|\|b\|\quad\forall a,b\in A,\]
+		$A$ é uma \textbf{\textit{álgebra normada}}.
+		\item Se uma álgebra normada for completa, é uma \textbf{\textit{álgebra de Banach}}.
+		\item Se existe um elemento $1\in A$ tal que
+		\[a1=1a=a\quad\forall a\in A,\]
+		$1$ é a \textbf{\textit{unidade}} de $A$ e $A$ é uma \textbf{\textit{álgebra com unidade}}.
+	\end{enumerate}
+\end{defn}
+\begin{exemplos}[bobos]\leavevmode
+	\begin{enumerate}
+		\item Seja $K$ compacto Housdorff, $C(K)$ é uma álgebra de Banach com unidade onde
+		\[(fg)x=f(x)g(x)\quad\forall x\in K.\]
+		\item Se $K$ é localmente compacto e Housdorff,
+		\[C_0(K)=\{f:K\to\mathbb{K}:\forall\varepsilon>0\;\exists K'\subseteq K\text{ tal que }|f(x)|\leq\varepsilon\;\forall x\notin K'\}\]
+		não tem unidade a não ser que $K$ for compacto.
+		\item $\ell_\infty$.
+		\item $c_0$.
+		\item $L_\infty$.
+		\item Se $X$ for Banach, $\mathcal{L}(X)$ é uma álgebra de Banach com unidade (a identidade) que não é conmutativa.
+		\[\|ab\|=\sup_{x\in B_X}\|ab(x)\|\leq\|a\|\|b\|.\]
+		\item $K(X)=\{T\in\mathcal{L}(X):T\text{ compacto}\}$ {\color{orange} eles são fechados com a composição (de fato a composição com cualquer outro operador)}, é uma álgebra de Banach não commutativa e sem unidade se $\dim(X)=\infty$.
+		\item $L_1(-\infty,\infty)$ com
+		\[(f\ast g)(t)=\int_{-\infty}^\infty f(t-x)g(x)dx\]
+		{\color{orange} prove que satisfaz as propriedades}.
+	\end{enumerate}
+\end{exemplos}
+
+\begin{defn}
+	Seja $A$ uma álgebra e $I\subseteq A$ um subespaço vetorial.
+	\begin{enumerate}
+		\item $I$ é um \textbf{\textit{ideal à direita}} de $A$ se $ab\in I$ para todos $a\in A$ e $b\in I$.
+		\item $I$ é um \textbf{\textit{ideal à izquerda}} de $A$ se $ab\in I$ para todos $a\in I$ e $b\in A$.
+		\item Se ambos valem, $I$ é um \textbf{\textit{ideal}} de $A$.
+	\end{enumerate}
+\end{defn}
+\begin{exemplos}\leavevmode
+	\begin{enumerate}
+		\item Se $x_0\in K$,
+		\[I_0=\{f\in C(K):f(x_0)=0\}\]
+		é um ideal de $C(K)$.
+		\item $K(X)$ é um ideal de $\mathcal{L}(X)$.
+		\item $c_0$ é ideal de $\ell_\infty$.
+	\end{enumerate}
+\end{exemplos}
+\begin{prop}
+	Se $A$ é uma álgebra normada e $I\subseteq A$ é um ideal fechado de $A$, então $A/I$ é uma álgebra normada com produto
+	\[(a+I)(b+I)=ab+I.\]
+\end{prop}
+\begin{proof}
+	(O produto está bem definido.) Seja $a+I=a'+I$ e $b+I=b'+I$. Temos 
+	\begin{align*}
+		ab-a'b'&=ab-ab'+ab'-a'b'\\
+		&=a(b-b')+(a-a')b'\in I
+	\end{align*}
+	($\|\;\|$ é compatível como o produto.)
+	\begin{align*}
+		\|ab+I\|&=\inf_c\|ab+c\|\\
+		&=\inf_{a',b'\in I}\|ab+ab'+a'b+a'b'\|\\
+		&=\inf{a',b'\in I}\|(a+a')(b+b')\|\\
+		&=\inf{a',b'\in I}\|a+a'\|\|b+b'\|\\
+		&=\inf_{a'\in I}\|a+a'\|\inf_{b'\in I}\|b+b'\|.
+	\end{align*}
+\end{proof}
+\begin{exemplos}\leavevmode
+	\begin{enumerate}
+		\item $\ell_\infty/c_0$. {\color{persiangreen}Lembre que $\ell_\infty=\approx c(\beta\N)$ onde $\beta\N$ é o espaço dos ultrafiltros nos naturais.}
+		\item $\mathcal{L}(\ell_2)/K(\ell_2)$, a \textbf{\textit{álgebra de Caltim}}.
+	\end{enumerate}
+\end{exemplos}
+\begin{defn}
+	Se $A$ e $B$ são álgebras, um operador linear $T:A\to B$ é um \textbf{\textit{homomorfismo}} se $T(aa')=TaTa'$.
+\end{defn}
+\begin{exemplo}
+	Em $C(K)$, o mapa que manda $f\mapsto f(x_0)$ é um homomorfismo.
+\end{exemplo}
+\begin{obs}
+	Núcleos de homomorfismos são ideais.
+\end{obs}
+\section{Teoria espectral}
+\begin{defn}
+	Seja $A$ uma álgebra de Banach sobre $\C$ com unidade $1_A\in A$.
+	\begin{enumerate}
+		\item $\operatorname{Inv}A=\{a\in A:a^{-1}\text{ existe}\}$.
+		\item Se $a\in A$, o \textbf{\textit{espectro de $a$}} é
+		\[\sigma(a)=\{\lambda\in\C:a-\lambda\text{ não é inversível}\}\]
+		issto é,
+		\[\sigma(a)=\{\lambda\in\C:a-\lambda\notin\operatorname{Inv}A\}\]
+	\end{enumerate}
+\end{defn}
+\begin{exemplos}\leavevmode
+	\begin{enumerate}
+		\item $\operatorname{Inv}(A)$ é um grupo.
+		\item Se $K$ compacto Hausdorff e $f\in C(K)$, então $\sigma (f)=f(K)$.
+		\item Se $f\in\ell_\infty$, então $\sigma(f)=\overline{\{x_n:n\in\N\}}$. \href{https://math.stackexchange.com/questions/3077283/finding-the-spectrum-of-an-element-of-ell-infty}{Ver aqui.}
+		\item {\color{orange} Ache $\sigma (f)$ para $f\in L_\infty$.} {\color{persiangreen}Acredito que \[\sigma(f)=\{\lambda\in\mathbb{K}:f|_F\equiv \lambda\text{ para algum }E\notin N(\mu)\}.\]}
+	\end{enumerate}
+\end{exemplos}
+\begin{prop}
+	Seja $a\in A$ e $p$ um polinômio em $\C$, então
+	\[p(\sigma(a))=\sigma(p(a)).\]
+\end{prop}
+\begin{proof}
+	Se $p$ for constante, segue. Caso contrário, para cada $\lambda\in\C$ podemos escrever
+	\[p(z)-\lambda=\lambda_0(z-\lambda_1)\ldots(z-\lambda_n)\]
+	onde $\lambda_0,\ldots,\lambda_n\in\C$ e $\lambda_0\neq0$.
+	Logo
+	\[p(a)-\lambda=\lambda_0(a-\lambda_1)\ldots(a-\lambda_n).\]
+	Como $a-\lambda_1,\ldots,a-\lambda_n$ conmutam, $p(a)-\lambda$ é inversível se somente se cada $a-\lambda_i$ é inversível. Ou bem,
+	\[\lambda\in\sigma(p(a))\iff\exists i\leq n\text{ tal que } \lambda_i\in\sigma(a)\iff\exists\mu:\lambda_i\in\C:p(\mu)=\lambda\text{ e }\mu\in\sigma(a).\]
+\end{proof}
+\begin{prop}
+	Se $a\in A$ e $\|a\|<1$, então $1-a\in\operatorname{Inv}A$ e $(1-a)^{-1}=\sum_{n=0}^\infty a^n$.
+\end{prop}
+\begin{proof}
+	\begin{align*}
+		\left\|\sum_{n=m}^na^n\right\|&\leq\sum_{n=m}^k\|a^n\|\\
+		&\leq\sum_{n=m}^k\|a\|^n\\
+		&\leq\frac{\|a\|}{1-\|a\|}
+	\end{align*}
+	Logo, como $A$ é completo,
+	\[b=\sum_{n=0}^\infty a^n\in A.\]
+	Segue que
+	\begin{align*}
+		(1-a)b&=\lim_{k\to\infty}(1-a)\left(\sum_{n=0}^ka^n\right)\\
+		&=\lim_{k\to\infty}(1+a+\ldots+a^k-a-a^2-\ldots-a^{k+1})\\
+		&=\lim_{k\to\infty}1-a^{k+1}=1
+	\end{align*}
+\end{proof}
+\begin{coro}
+	$\operatorname{Inv}A$ é aberto.
+\end{coro}
+\begin{proof}
+	Fixe $a\in\operatorname{Inv}A$. Seja $\|a-b\|<$
+	\begin{align*}
+		\|1-ba^{-1}\|&=\|(a-b)a^{-1}\|\\
+		&\leq\|a-b\|\|a^{-1}\|\\
+		&<1
+	\end{align*}
+	logo $b^{-1}a\operatorname{Inv}(A)\ldots,b\in\operatorname{Inv}(A)$.
+\end{proof}
+\begin{teo}
+	A função 
+	\begin{align*}
+		\operatorname{Inv}a\in\operatorname{Inv}(A)\mapsto a^{-1}\in\operatorname{Inv}(A)
+	\end{align*}
+	é diferenciável.
+\end{teo}
+\begin{obs}[Relembre]
+	Sejam $X$ e $Y$ espaços de Banach e $f:X\to Y$. $f$ é \textbf{\textit{diferenciável}} en $x\in X$ se existe $L\in\mathcal{L}(X,Y)$ tal que
+	\[\lim_{h\to 0}\frac{\|f(x+h)-f(x)-L(n)\|}{\|h\|}.\]
+\end{obs}
+\begin{proof}
+	Vamos mostrar que
+	\[\operatorname{Inv}'(a)(b)=a^{-1}ba^{-1}.\]
+	Logo
+	\begin{align*}
+		\|(a+b)^{-1}-a^{-1}+a^{-1}ba^{-1}\|&=\|(1-a^{-1}b)^{-1}a^{-1}+a^{-1}ba^{-1}\|\\
+		&\leq\|(1+a^{-1}b)-a^{-1}-a^{-1}b\|\|a^{-1}\|\quad\qquad(\|a^{-1}b\|<1)\\
+		&=\left\|\sum_{n=0}^\infty(-1)^n(a^{-1}b)^n-1+a^{-1}b\right\|\|a^{-1}\|\\
+		&\leq\sum_{n=2}^\infty\|a^{-1}b\|^n\|a^{-1}\|\\
+		&=\frac{\|a^{-1}b\|^2}{1-\|a^{-1}b\|}\|a^{-1}\|\\
+		&(\|a^{-1}b\|<1/2)\\
+		&\leq2\|a^{-1}\|^3\|b\|^2.
+	\end{align*}
+	Logo
+	\[\lim_{b\to0}\frac{\|(a+b)^{-1}-a^{-1}+a^{-1}ba^{-1}}{\|b\|}=0.\]
+\end{proof}
+\begin{teo}[Gelfand]
+	$\sigma(a)$ é um compacto não vazío para todo $a\in A$. Mais ainda,
+	\[\sigma(a)\subseteq\{z\in\C:|z|\leq\|a\|\}=\|a\|B_{\C}.\]
+\end{teo}
+\begin{proof}
+	$(\subseteq)$ Suponha que $\lambda\in\C$ é tal que $|\lambda^{-1}|>\|a\|$. Logo $\|\lambda^{-1}a\|<1$ e portanto
+	\[1-\lambda^{-1}a\]
+	é inversível. Portanto,
+	\[a-\lambda\text{ é inversível}\]
+	e $\lambda\notin\sigma(a)$.
+	
+	($\sigma(a)$ é fechado) Como $\operatorname{Inv}(A)$ é aberto em $A$,
+	\[\C\backslash\sigma(a)=\{\lambda\in\C:a-\lambda\in\operatorname{Inv}A\}\]
+	é aberto em $\C$.
+	
+	($\sigma(a)\neq\varnothing$) Suponha $\sigma(a)=\varnothing$. Podemos definir
+	\begin{align*}
+		\varphi:\C&\to A\\
+		\lambda&\mapsto(a-\lambda)^{-1}.
+	\end{align*}
+	Como $\varphi$ é diferenciável, segue que $f\circ\varphi:\C\to\C$ é uma função inteira para todo $f\in A^*$.
+	
+	Pelo teorema de Liouville, se $\varphi$ for limitada, então $f\circ\varphi$ seria constante para todo $f\in A^*$. Em particular, teríamos
+	\[f(\varphi(0))=f(\varphi(1))\quad\forall f\in A^*,\]
+	ou bem,
+	\[f(a^{-1})=f((a-1)^n)\quad\forall f\in A^*.\]
+	Por Hahn-Banach,
+	\[a^{-1}=(a-1)^{-1}\implies a=a-1\]
+	que é absurdo.
+	
+	($\varphi$ é limitada) Seja $\lambda$ com $|\lambda|>2\|a\|$. Note que
+	\begin{align*}
+		\|(1-\lambda^{-1}a)^{-1}-1\|&\leq\sum_{n=1}\infty\|\lambda^{-1}a\|<1.
+	\end{align*}
+	Logo,
+	\[\|(1-\lambda^{-1}a)^{-1}\|<2.\]
+	Portanto,
+	\[\|(a-\lambda)^{-1}\|=\|(\lambda^{-1}a-1)\||\lambda^{-1}|\leq\frac{2\cdot 1}{2\|a\|}=\frac{1}{\|a\|}.\]
+\end{proof}
+\begin{coro}
+	Seja $A$ uma álgebra de Banach com unidade tal que
+	\[\operatorname{Inv}(A)=A\backslash\{0\}.\]
+	Então
+	\[A\cong\C.\]
+\end{coro}
+\begin{defn}
+	Seja $a\in A$. O \textbf{\textit{raio espectral de $a$}} é
+	\[r(a)=\sup_{\lambda\in\sigma(a)}|\lambda|.\]
+	(O radio do menor circulo centrado em zero que contém o espectro.)
+\end{defn}
+\begin{exemplos}\leavevmode
+	\begin{enumerate}
+		\item $f\in C(K)$, $r(f)=\|f\|_\infty$.
+		\item $r\begin{pmatrix}
+			0&1\\0&0
+		\end{pmatrix}=0$.
+		\item $r(a)\leq\|a\|$.
+	\end{enumerate}
+\end{exemplos}
+\begin{teo}
+	\[r(a)=\lim_{n\to\infty}\|a^n\|^{1/n}=\inf_{n\in\N}\|a^n\|^{1/n}.\]
+\end{teo}
+\begin{proof}
+	Se $\lambda\in\sigma(a)$, $\lambda^n\in\sigma(a^n)$. Logo $|\lambda^n|\leq\|a^n\|$ para todo $n\in\N$. Temos
+	\[\lambda\leq\|a^n\|^{1/n}\quad\forall n\in\N.\]
+	Logo,
+	\[r(a)\leq\inf_n\|a^n\|^{1/n}.\]
+	Resta mostrar que
+	\[\limsup\|a^n\|^{1/n}\leq r(a).\]
+	Vamos mostrar que se $|\lambda|>r(a)$, então
+	\[\limsup\|a^n\|^{1/n}\leq|\lambda|.\]
+	Defina
+	\[\Delta=\{z\in\C:|z|<1/r(a)\}.\]
+	\begin{af*}
+		Para todo $\lambda\in A$,
+		\[(\lambda^na^n)_n\]
+		é limitada.
+	\end{af*}
+\begin{proof}
+		Dado $f\in A^*$, defina
+	\begin{align*}
+		\lambda\in\Delta\mapsto f((1-\lambda a)^{-1})
+	\end{align*}
+	{\color{orange} que está bem definido, pois
+		\[\lambda<1/k\iff\lambda^{-1}>k \qquad\text{(...?)}.\]
+}
+	Logo existe $(\lambda_n)\in $tal que
+	\[f((a-\lambda a)^{-1})=\sum_{n=1}^\infty \lambda_n\lambda^n.\]
+	Se $|\lambda|<\frac{1}{\|a\|}$, então
+	\[(1-\lambda a)^{-1}=\sum_{n=0}^\infty\lambda^na^n.\]
+	Logo,
+	\[f((1-\lambda a)^{-1})=\sum_{n=0}^\infty f(a^n)\lambda^n.\]
+	Assim, temos dos séries iguais, de modo que os coeficientes são iguais {\color{persiangreen} (usando análise complexa)}. Logo,
+	\[f(a^n)=\lambda_n\quad\forall n\in \N.\]
+	Logo, $(f(a^n)\lambda^n)_n$ é limitada para toda $\lambda\in\Delta$ e para todo $f\in A^*$. Pelo teorema de Banach-Steinhaus, $(\lambda^na^n)_n$ é limitado. Com isso provamos a afirmação.
+\end{proof}
+Seja $|\lambda|>R(A)$. Logo, $\lambda\in\Delta$. Pela afirmação $(\lambda^na^n)_n$ e limitada. Pegue $M>0$ tal que
+\[\|\lambda^na^n\|\leq M\quad\forall n\in N.\]
+Então
+\[\|a^n\|^{1/n}\leq M^{1/n}|\lambda^{-1}\longrightarrow|\lambda^{-1}.\]
+Logo
+\[\limsup\|a^n\|^{1/n}\leq|\lambda^{-1}|.\]
+Por fim,
+\[\limsup_{n\to\infty}\|a^n\|^{1/n}\leq r(a).\]
+\end{proof}
+
+\begin{exemplo}
+	Considere 
+	\[A=\{f\in C[0,1]:f\text{ é }C^1\}\]
+	normado de
+	\[\|f\|=\|f\|_\infty+\|f'\|_\infty.\]
+	{\color{orange}A norma está bem definida e é completa.} Então, considerando
+	\[z:z\in[0,1]\mapsto z\in\C.\]
+	Temos que
+	\[\|z^n\|=1+n\quad\forall n\in\N,\]
+	e assim
+	\[r(z)=\lim_n(1+n)^{1/n}=1<2=\|z\|.\]
+\end{exemplo}
+
+\begin{teo}Seja $A$ uma álgebra de Banach com unidade e $B\subseteq A$ subalgebra fechada com $1_A\in B$.
+	\begin{enumerate}
+		\item $\operatorname{Inv}B$ é fechado e aberto em $B\cap \operatorname{Inv}A$.
+		\item Se $b\in B$, então
+		\[\sigma_A(b)\subseteq\sigma_B(b)\quad\text{e}\quad \partial\sigma_B(b)\subseteq\partial\sigma_A(a).\]
+		\item Se $b\in B$ e $\C\backslash\sigma_A(b)$ é conexo então
+		\[\sigma_A(b)=\sigma_B(b).\]
+	\end{enumerate}
+\end{teo}
+\begin{proof}\leavevmode
+	\begin{enumerate}
+		\item $\operatorname{Inv}B$ é aberto em $B$ e $\operatorname{Inv}A$ é aberto em $A$, assim, $\operatorname{Inv}B$ é aberto em $B\cap\operatorname{Inv}A$.
+		
+		Para ver que é fechado pegue $(b_n)\subseteq \operatorname{Inv}B$ tal que $b_n\to b\in B\cap \operatorname{Inv}B$. Logo,
+		\[b^{-1}_n\to b^{-1}.\]
+		Como $B$ é fechada, $b^{-1}\in B$, assim $\forall n\in \N$, $b^{-1}\in B$, e $b\in \operatorname{Inv}B$.
+		\item Como $\operatorname{Inv}B\subseteq \operatorname{Inv}A$,
+		\[\sigma_A(b)\subseteq \sigma_B(b).\]
+		Se $\lambda\in\partial\sigma_B(b)$ pegue $(\lambda_n)\subseteq\C\backslash\sigma_B(b)$ tal que $\lambda_n\to\lambda$. Logo $(\lambda_n)\subseteq\C\backslash\sigma_A(b))$.
+		
+		Precisamos mostrar que $\lambda\in \sigma_A(b)$. Suponha que não. Então $(b-\lambda_n)\subseteq \operatorname{Inv}(A)$ e $b-\lambda_n\to b-\lambda\in B\cap\operatorname{Inv}A$. Por 1., $b-\lambda\in\operatorname{Inv}B$, contradição.
+		
+		\item Por 1. e 2., 
+		\[\C\backslash\sigma_B(b)\subseteq\C\backslash\sigma_A(b)\]
+		e
+		$\C\backslash\sigma_B(b)$ é fechado e aberto em $\C\backslash\sigma_A(b)$.
+	\end{enumerate}
+\end{proof}
+\begin{exer*}
+	Mostre que existe uma álgebra de Banach com unidade $A$ e uma subalgebra $B$ com $1_A\in B$ e $b\in B$ tal que $b^{-1}\in A\backslash B$.
+\end{exer*}
+\begin{exemplo}
+	Seja $A$ a álgebra do disco,
+	\[A=\{f:\mathbb{D}\to\C| f\in C(\mathbb{D}) \text{ e }f\text{ é analítica em }\mathbb{D}\}.\]
+	Considere o mapa
+	\[\phi:f\in A\mapsto f|_{\partial\mathbb{D}}\in C(\partial\mathbb{D}).\]
+	Seja $B=\img\phi$. Note que $B=$ subalgebra de Banach de $C(\partial \mathbb{D})$ gerada por $1$ e $z$.
+	
+	Temos que
+	\[\sigma_{C(\partial\mathbb{D})}(z)=\partial\mathbb{D}\]
+	e
+	\[\sigma_A(z)=\sigma_B(z)=\mathbb{D}.\]
+\end{exemplo}
+\section{Exponencial de elementos em álgebras de Banach}
+\begin{defn}
+	Seja $A$ um álgebra de Banach com unidade. Se $a\in A$, escrevemos
+	\[e^a=\sum_{n=0}^\infty\frac{a^n}{n!}.\]
+\end{defn}
+\begin{teo}
+	$A$ álgebra de Banach com unidade.
+	\begin{enumerate}
+		\item Seja $a\in A$, $f:\R\to A$, $f(0)=1$, $f'(t)=af(t)\;\forall t$. Então,
+		\[f(t)=e^{ta}\quad\forall t\in\R.\]
+		\item $(e^{a})^{-1}=e^{-a}$, ie. $(e^{a})^{-1}$ é inversível e a sua inversa é $e^{-a}$.
+		\item  $e^{ab}=e^ae^b$ se $ab=ba$.
+	\end{enumerate}
+\end{teo}
+\begin{proof}\leavevmode
+	\begin{enumerate}
+		\item Primeramente note que $g(t)=e^{ta}$ satisfaz as mesmas propiriedades de $f$. {\color{orange} Exercício ($e$ converge uniformemente, assim pode diferenciar…).}
+		
+		Defina
+		\[h(t)=g(-t)f(t).\]
+		{\color{orange}A regla da cadiea funçõa igual… usar Hahn-Banach para extender todos os funcionais… ?}.
+		
+		Note que
+		\[h'(t)=-g'(t)f(t)+g(-t)f'(t)=-ae^{-ta}f(t)+e^{-ta}af(g)=a\]
+		pois as potencias de $a$ comutam.
+		
+		Logo,
+		\[e^{-ta}f(t)=1\quad\forall t\in\R.\]
+		Portanto,
+		\[e^{-ta}e^{ta}=e^{ta}e^{-ta}=1\quad\forall t\in \R.\]
+		Mais ainda,
+		\[=e^{ta}.\]
+		
+		\item Contido no antérior argumento.
+		\item Defina $g(t)=e^{ta}e^{ta}$ para $t\in\R$. Então
+		\begin{itemize}
+			\item $g(0)=1$.
+			\item \begin{align*}
+				g'(t)&=ae^{ta}e^{ta}+e^{ta}be^{tb}\\
+				&=(a+b)e^{ta}e^{tb}\\
+				&=(a+b)g(t)
+			\end{align*}
+		\end{itemize}
+		Por 1, $g(t)=e^{t(a+b)}$.
+	\end{enumerate}
+\end{proof}
+
+\section{Teorema espectral para operadores compactos}
+A nossa meta é provar o seguinte:
+
+\begin{teo}
+	Seja $X$ um espaço de Banach, $T\in\mathcal{L}(X)$ compacto. Então
+	\begin{enumerate}
+		\item $\sigma(T)$ é enumerável.
+		\item Se $\lambda\in\sigma(T)\backslash\{0\}$, $\lambda$ é um ponto isolado de $\sigma(T)$.
+		\item Se $\lambda\in\sigma(T)\backslash\{0\}$, $\lambda$ é um autovalor de $T$.
+	\end{enumerate}
+\end{teo}
+Assim, o único ponto de acumulação de um operador compacto é zero.
+
+\begin{exemplos}\leavevmode
+	\begin{enumerate}
+		\item Operadores de posto finito.
+		\item Seja $k\in C([0,1]^2)$. Defina
+		\begin{align*}
+			T_k:C[0,1]&\to C[0,1]\\
+			(T_kf)x=&\int_0^1k(x,t)f(y)dy\quad\forall x\in[0,1]
+		\end{align*}
+		
+		\textbf{($T_k$ está ben definido)} $x,y\in[0,1]$, $f\in C[0,1]$, temos
+		\begin{align*}
+			|(T_kf)x-(T_kf)y|&\leq\int_0^1|k(x,t)-k(y,t)||f(t)|dt\\
+			&\leq\|f\|\sup_t|k(x,t)-k(y,t)|.
+		\end{align*}
+		Como $k$ é uniformemente contínua, isso implica que $T_k(f)$ também é.
+		
+		\textbf{($T_k$ é limitado)} $|(T_nf)x|\leq\|f\|\sup_{x,t}|k(x,t)|$.
+		
+		\textbf{($T_k$ é compacto)} $T_k(B_{C[0,1]})\subseteq C[0,1]$ é para compacto. Por Arzelá-Ascoli, basta que $T_k(B_{C[0,1]})$ é equicontínua e pontoalmente limitado. De fato, já mostramos ambas.
+	\end{enumerate}
+\end{exemplos}
+\begin{exer*}\leavevmode
+	\begin{enumerate}
+		\item $T\in\mathcal{L}(X,Y)$, $S\in\mathcal{L}(Y,Z)$. Se $T$ ou $S$ forem compactos, a composição deles $S\circ T$ também é compacto.
+		\item $K(X)$ é um ideal fechado de $\mathcal{L}(X)$.
+		\item $K(X)=\mathcal{L}(X)$ se e somente se $\dim X<\infty$.
+		\item $T\in K(X,Y)$ se e somente se $T^*\in K(Y^*,X^*)$.
+	\end{enumerate}
+\end{exer*}
+
+\begin{teo}
+	Seja $T\in K(X)$ e $\lambda\in\C\backslash\{0\}$.
+	\begin{enumerate}
+		\item $\ker(T-\lambda)$ tem dimensão finita.
+		\item $\img(T-\lambda)$ é fechado e $\operatorname{codim}\img(T-\lambda)=\dim\ker(T^*-\lambda)$.
+		Em particular $\img(T-\lambda)$ tem codimensão finita.
+	\end{enumerate}
+\end{teo}
+\begin{proof}\leavevmode
+	\begin{enumerate}
+		\item $T|_{\ker(T-\lambda)}=\lambda\Id|_{\ker(T-\lambda)}$. Como $T$ é compacto e $\lambda\neq0$, $\Id_{\ker(T-\lambda)}$ é compacta, assim $\dim\ker(T-\lambda)<\infty$.
+		\item Como $Z=\ker(T-\lambda)$ tem dimensão finita, $\exists Y\subseteq X$ subespaço fechado tal que $X=Z\oplus Y$.
+		
+		Note que
+		\[\img(T-\lambda)=\img(T-\lambda)|_Y.\]
+		\begin{exer}\label{exer:img-fechada}
+			Suponha $E\to F$, $\delta>0$ e $\|Sx\|\geq \delta\|x\|$, então $\img(S)$ é fechado.
+		\end{exer}
+		Para obter uma contradição, suponha que as hipóteses do exercício não estão satisfeitas. Então existe uma sequência $(x_n)\subseteq\partial B_Y$ tal que
+		\[\|Tx_n-\lambda x_n\|\to 0.\]
+		Como $T$ é compacto, podemos supor que $(Tx_n)$ é Cauchy. Como $\lambda\neq0$, podemos escrever
+		\[x_n=\frac{1}{\lambda}(Tx_n-(T-\lambda)x_n)\]
+		e concluir que $(x_n)$ é Cauchy. Defina
+		\[x=\lim_nx_n.\]
+		Portanto, $Tx=\lambda x$, e assim $x\in \ker(T-\lambda)=Z$.
+		
+		Por outro lado, como $(x_n)\subseteq Y$ e $Y$ fechado, $x\in Y$. Assim, $x=0$, absurdo pois a sequência está contida em $\partial B_Y$.
+		
+		Para comprovar a seguite afirmação em 2., considere o quociente
+		\[\pi:X\to X/\img(T-\lambda).\]
+		\begin{af*}
+			\[\img \pi^*=\ker(T^*-\lambda).\]
+		\end{af*}
+		\begin{proof}\leavevmode
+			
+			\textbf{($\subseteq$)} Só note que
+			\begin{align*}
+				(T^*-\lambda)\pi^*\xi(y)&=\pi^*\xi(Ty-\lambda y)\\
+				&=\xi (\pi(Ty-\lambda y)).
+			\end{align*}
+			
+			\textbf{($\supseteq$)} Seja $x^*\in\ker(T^*-\lambda)$. Então
+			\[x^*|_{\img (T-\lambda)}=0.\]
+			Logo, podemos definir um funcional $\xi\in X/\img(T-\lambda)^*$ tal que
+			\[\pi^*(\xi)=x^*.\]
+		\end{proof}
+		Como $\pi^*$ é injetiva,
+		\[\dim\img\pi^*=\dim(X/\img(T-\lambda)).\]
+		Portanto,
+		\[\dim(X/\img(T-\lambda))=\dim\ker(T^*-\lambda).\]
+	\end{enumerate}
+\end{proof}
+
+\begin{defn}
+	Seja $T\in \mathcal{L}(X,Y)$ tal que
+	\begin{enumerate}
+		\item $\dim \ker T<\infty$.
+		\item $\operatorname{codim}\img T<\infty$.
+	\end{enumerate}
+	Então $T$ é chamado de um \textbf{\textit{operador Fredholm}}. 
+\end{defn}
+\begin{lema}
+	Seja $T\in K(X)$ e $\lambda\in\C\backslash\{0\}$. Então
+	\begin{enumerate}
+		\item Existe $m\in\N$ tal que 
+		\[\ker(T-\lambda)^n=\ker(T-\lambda)^{n+1}.\]
+		\item Existe $n\in \N$ tal que
+		\[\img(T-\lambda)^n=\img(T-\lambda)^{n+1}\]
+	\end{enumerate}
+\end{lema}
+\begin{obs}
+	$\ker T^n\subseteq \ker T^{n+1}$ e $\img T^n\supseteq \img T^{n+1}$.
+\end{obs}
+\begin{proof}
+	Suponha falso, ie.
+	\[\ker(T-\lambda)^n\subsetneq\ker(T-\lambda)^{n+1}\quad\forall n\in\N.\]
+	Pelo lema de Riesz, existe $(x_n)\subseteq\partial B_X$ tal que
+	\begin{enumerate}
+		\item  $x_n\in \ker(T-\lambda)^n$.
+		\item $d(x_{n+1},\ker(T-\lambda)^n)>1/2$.
+	\end{enumerate}
+	\begin{af*}
+		$(Tx_n)$ não possui uma subsequência convergente.
+	\end{af*}
+	Note que
+	\begin{align*}
+		Tx_n-Tx_m&=\lambda x_n+(T-\lambda)x_n-(T-\lambda)x_m-\lambda x_m.
+	\end{align*}
+	Defina
+	\[z:=(T-\lambda)x_n-(T-\lambda)x_m-\lambda x_m.\]
+	Se $n>m$,
+	\[z\in\ker(T-\lambda)^{n-1}.\]
+	Como $d(x_n,\ker(T-\lambda)^{n-1})>1/2$,
+	\begin{align*}
+		\|Tx_n-Tx_m\|&=\|\lambda x_n+z\|\\
+		&=|\lambda|\left\|x_n+\frac{z}{\lambda}\right\|\\
+		&>|\lambda|/2
+	\end{align*}
+	
+	{\color{orange} O item 2, exercício.}
+\end{proof}
+\begin{exer*}
+	Se $S$ é Fredholm, o lema anterior vale substituindo $T-\lambda$ por $S$? Considere o shift.
+\end{exer*}
+
+\begin{defn}
+	Seja $T\in\mathcal{L}(X,Y)$ Fredholm. O \textbf{\textit{índice}} de $T$ é dado por
+	\[\operatorname{ind}(T)=\dim\ker T-\operatorname{codim}\img T.\]
+\end{defn}
+\begin{teo}\label{teo:fredholm-conditions}
+	Se $T\in\mathcal{L}(X,Y)$ e $S\in\mathcal{L}(Y,Z)$ são Fredholm, então
+	\begin{enumerate}
+		\item $S\circ T$ é Fredholm.
+		\item $\operatorname{ind}(ST)=\operatorname{ind}S 
+		+\operatorname{ind}T$.
+	\end{enumerate}
+\end{teo}
+Primeiro vamos provar:
+\begin{prop}
+	Seja $T\in\mathcal{L}(X,Y)$ tal que existe $Z\subseteq Y$ fechado tal que
+	\[Y=Z\oplus\img T\quad\text{(algebricamente)}.\]
+	Então $\img T$ é fechado.
+\end{prop}
+\begin{proof}
+	Substituindo $T$ por 
+	\[\tilde{T}:[x]\in X/\ker T\mapsto Tx\in Y,\]
+	podemos supor que $T$ é injetivo. Para usar o Teorema da Aplicação Aberta, defina
+	\[S:X\oplus Z\to Y\]
+	como
+	\[S(x,y)=Tx+y.\]
+	Agora $S$ é uma bijecção contínua, assim pelo Teorama da Aplicação Aberta ele é contínua. Logo, se $x\in X$,
+	\begin{align*}
+		\|x\|&=\|S^{-1}Tx\|\\
+		&\leq\|S^{-1}\|\|Tx\|
+	\end{align*}
+	Pelo \cref{exer:img-fechada}, $\img T$ é fechada.
+\end{proof}
+\begin{proof}[Prova do \cref{teo:fredholm-conditions}]
+	Usando as hipóteses e a proposição anterior, sabemos que existem subespaços fechados $Y_1,Y_2,Y_3\subseteq Y$ tal que
+	\begin{itemize}
+		\item $\img T=(\ker S\cap \img T)\oplus Y_1$.
+		\item $\ker S=(\ker S\cap \img T)\oplus Y_2$.
+		\item $Y=\img T\oplus Y_2\oplus Y_3$.
+	\end{itemize}
+	Logo,
+	\[\dim \ker (ST)=\dim\ker T+\dim S\cap \img T.\]
+	(Isso segue de que
+	\[x\in \ker (ST)\mapsto Tx\in\ker S\cap \img T\]
+	é sobrejetiva.)
+	
+	Note que
+	\[\img S=S(Y)=S(Y_1)+S(Y_3)\]
+	e $\dim Y_3<\infty$.
+	
+	Logo
+	\[S(Y)=S(T(X))+S(Y_3)\]
+	e como $\operatorname{codim}S(Y)<\infty$, segue que
+	\[\operatorname{codim}ST(X)<\infty.\]
+	
+	\begin{obs}
+		Nossa meta é mostrar que
+		\[\operatorname{ind}ST=\operatorname{ind}T+\operatorname{ind}S,\]
+		ou seja
+		\begin{align*}
+			\dim\ker (ST)+\operatorname{codim}&\img T+\operatorname{codim}\img T\\
+			&=\operatorname{codim}\img (ST)+\dim\ker T+\dim\ker S.
+		\end{align*}
+	\end{obs}
+	O que temos até agora é que
+	\begin{align*}
+		\dim\ker (ST)+\operatorname{codim}&\img T+\operatorname{codim}\img T\\
+		&=\dim\ker T+\dim \ker S\cap\img T+\operatorname{codim}\img T+\operatorname{codim}\img S\\
+		&=\dim\ker T+\dim \ker S\cap\img T+{\color{persiangreen}\dim Y_2+\dim Y_3}+\operatorname{codim}\img S\\
+		&=\dim\ker T++{\color{blue-violet}\dim Y_2+\dim Y_3}+\operatorname{codim}\img S\\
+		&=\dim\ker T++\dim Y_2+\dim Y_3+{\color{cyan}\dim S(Y_3)+\operatorname{codim}\img S}\\
+		&=\dim\ker T+\dim \ker S+\operatorname{codim}\img (ST)\\
+		&=\operatorname{codim}\img (ST)+\dim\ker T+\dim\ker S.
+	\end{align*}
+\end{proof}
+\begin{coro}
+	Se $T\in\mathcal{L}(X)$ é Fredholm e $n\in\N$, então
+	\[\operatorname{ind}(T^n)=n\operatorname{ind}T.\]
+\end{coro}
+
+\begin{teo}
+	Sejam $T\in K(X)$ e $\lambda\in \C\backslash\{0\}$.
+	\begin{enumerate}
+		\item $\operatorname{ind}(T-\lambda)=0$.
+		\item \textbf{(Alternativa de Fredholm.)} $T-\lambda$ é injetivo se e somente se $T-\lambda$ for sobrejetivo.
+		\item Seja $n\in\N$ o menor natural tal que
+		\[\ker (T-\lambda)^n=\ker (T-\lambda)^{n+1},\]
+		então
+		\[X=\ker(T-\lambda)^n\oplus \img(T-\lambda)^n.\]
+	\end{enumerate}
+\end{teo}
+\begin{proof}\leavevmode
+	\begin{enumerate}
+		\item Fixe $m\in\N$ tal que
+		\[\operatorname{ind}(T-\lambda)^m=\img(T-\lambda)^{m+1}.\]
+		Pegue $i,j$ distintos e maiores que $\max\{n,m\}$.
+		
+		Logo,
+		\[\ker(T-\lambda)^i=\ker(T-\lambda)^j\]
+		e
+		\[\img(T-\lambda)^i=\img(T-\lambda)^j,\]
+		assim
+		\[\operatorname{ind}(T-\lambda)^i=\operatorname{ind}(T-\lambda)^j\]
+		e
+		\[\operatorname{ind}(T-\lambda)=j\operatorname{ind}(T-\lambda).\]
+		Como $i\neq j$,
+		\[\operatorname{ind}(T-\lambda)=0.\]
+		\item Imediato.
+		\item 
+		\begin{exer*}
+			$\img(T-\lambda)^n$ é fechado para todo $n\in\N$.
+		\end{exer*}
+		\begin{af*}
+			$\ker(T-\lambda)^n\cap\img(T-\lambda)^n=\{0\}$.
+		\end{af*}
+		Sponha que $x$ está nessa interseção. Logo existe $y\in X$ tal que
+		\[x=(T-\lambda)^ny.\]
+		Mas $(T-\lambda)^nx=0$, logo
+		\[(T-\lambda)^{2n}y=0.\]
+		Como
+		\[\ker(T-\lambda)^{2n}=\ker(T-\lambda)^n,\]
+		e assim $(T-\lambda)^ny=0$ e $x=0$.
+		
+		Por 1, e pelo corolário anterior,
+		\[\operatorname{ind}(T-\lambda)^n=0.\]
+		Logo
+		\[\dim\ker(T-\lambda)^n=\operatorname{codim}\img (T-\lambda)^n.\]
+		Como
+		\[\ker(T-\lambda)^n\cap\img(T-\lambda)^n=\{0\}.\]
+		Segue que
+		\[X=\ker(T-\lambda)^n+\img(T-\lambda)^n.\]
+	\end{enumerate}
+\end{proof}
+Finalmente,
+\begin{teo}[espectral de operadores compactos]
+	Seja $X$ Banach e $T\in K(X)$.
+	\begin{enumerate}
+		\item Se $\lambda\in\sigma(T)\backslash\{0\}$, então $\lambda$ é autovalor de $T$.
+		\item Se $\lambda\in\sigma(T)\backslash\{0\}$, $\lambda$ é ponto isolado de $\sigma(T)$.
+		\item $\sigma(T)$ é enumerável.
+	\end{enumerate}
+\end{teo}
+\begin{exer*}
+	Sejam $Y$ e $Z$ Banach e $S_1\in\mathcal{L}(Y)$ e $S_2\in\mathcal{L}(Z)$. Defina $X:=Y\oplus Z$ e um operador
+	\begin{align*}
+		T:(y,z)\in Y\oplus Z=X\mapsto(S_1y,S_2z)\in Y\oplus Z=X.
+	\end{align*}
+	Então
+	\[\sigma_{\mathcal{L}(X)}(T)=\sigma_{\mathcal{L}(Y)}(S_1)\cup\sigma_{\mathcal{L}(Z)}(S_2).\]
+\end{exer*}
+\begin{proof}\leavevmode
+	\begin{enumerate}
+		\item Como $\lambda\in\sigma(T)$, $T-\lambda$ é não inversível. Como $T$ é compacto e $\lambda\neq0$, se $T-\lambda$ é injetivo, é também bijetivo. Pelo Teorema da Aplicação Aberta, ele é inversível, que não é possível. Logo $T-\lambda$ não é injetivo, ou seja, $\lambda$ é autovalor de $T$.
+		
+		\item Pegue $n\in\N$ tal que
+		\[X=\underbrace{\ker(T-\lambda)^n}_Y\oplus\underbrace{\img(T-\lambda)^n}_Z.\]
+		Note que $T(Y)\subseteq Y$ e $T(Z)\subseteq Z$.
+		
+		Logo,
+		\[T=(T|_Y,T_Z):(y,z)\in Y\oplus Z\mapsto(T|_Yy,T|_Zz)\in Y\oplus Z.\]
+		
+		\begin{af*}
+			$\sigma_{\mathcal{L}(Y)}(T|_Y)=\{\lambda\}$.
+		\end{af*}
+		Por definição de $Y$,
+		\[(T|_Y-\lambda\Id_Y)^n=0.\]
+		Como o espectro comuta com polínomios, ie., ``$\sigma(p)=p\sigma$", considerando
+		\[p(z)=(z-\lambda)^n,\]
+		obtemos que
+		\[p(\sigma(T|_Y))=\sigma(p(T|_Y))=\sigma(0)=\{0\},\]
+		e assim
+		\[\sigma(T|_Y)=\{\lambda\}.\]
+		Note que $(T|_Z-\lambda\Id_Z)^n$ é inversível: segue da definição de $X=Y\oplus Z$ e do Teorema da Aplicação Aberta.
+		
+		Logo $T|_Z-\lambda\Id_Z$ é inversível, ie.
+		\[\lambda\notin\sigma_{\mathcal{L}(Z)}(T|_Z).\]
+		
+		Pelo exercício,
+		\[\sigma(T)\backslash\{\lambda\}=\sigma_{\mathcal{L}(Z)}(T|_Z).\]
+		
+		Como $\sigma_{\mathcal{L}(Z)}(T|_Z)$ é fechado, $\{\lambda\}$ é aberto em $\sigma(T)$.
+		
+		\item Considere a coberta aberta
+		\[\sigma(T)=\bigcup_{\lambda\in\sigma(T)\backslash\{0\}}\{\lambda\}\cup(B_{1/n}\cap\sigma(T)).\]
+		{\color{orange}Concluir.}
+	\end{enumerate}
+\end{proof}
+\begin{teo}[Atkinson]\label{teo:atkinson}
+	Seja $X$ um espaço de Banach de dimensão infinita e
+	\[\pi:\mathcal{L}(X)\to\mathcal{L}(X)/K(X)\]
+	a projeção na álgebra de Calkin. Então $T\in\mathcal{L}(X)$ é Fredholm se e somente se $\pi (T)\in\operatorname{Inv}(X/K(X))$.
+\end{teo}
+
+\begin{lema}
+	Seja $T\in\mathcal{L}(X)$ Fredholm. Existe $S\in\mathcal{L}(X)$ tal que
+	\begin{enumerate}
+		\item $1=ST$, $1-TS$ tem posto finito.
+		\item $\operatorname{ind}S=-\operatorname{ind}T$.
+		\item $TST=S$
+	\end{enumerate}
+\end{lema}
+\begin{proof}
+	Como $T$ é Fredholm, existem $X_1,X_2\subseteq X$ tais que
+	\[X=X_1\oplus \ker T\quad\text{e}\quad X=\img T\oplus X_2\]
+	Defina $S:X\to X$ como
+	\[S(x_0,x_1)=((T|_{X_1})^{-1}(x_1),0)\qquad\forall (x_1,x_2)\in\img T\oplus X_2.\]
+\end{proof}
+\begin{proof}[Prova do \cref{teo:atkinson}]
+	Suponha $T\in\mathcal{L}(X)$ é Fredholm. Pegue $S$ como no lema. Logo,
+	\[0=\pi(1)-\pi(S)\pi(T)\quad\text{e}\quad0=\pi(1)-\pi(T)\pi(S),\]
+	ou seja,
+	\[\pi(T)^{-1}=\pi(S).\]
+	
+	Suponga $\pi(T)\in\img(\mathcal{L}(X)(K(X))$. Logo existe $S\in\mathcal{L}(X)$ tal que
+	\[\pi(S)\pi(T)=\pi(T)\pi(S)=\pi(1).\]
+	Portanto,
+	\[W=1-ST\quad\text{e}\quad W'=1-TS\]
+	são compactos.
+	
+	Note que
+	\[\ker T\subseteq \ker(W-1).\]
+	Como $W$ é compacto, $\ker(W-1)$ tem dimensão finita, logo, $\dim\ker T<\infty$.
+	
+	Por outro lado, como
+	\[\img(W-1)\subseteq\img T,\]
+	segue que
+	\[\operatorname{codim}(\img T)<\infty.\]
+\end{proof}
+
+\begin{teo}
+	Seja $X$ Banach de dimensão infinita e denote o conjunto de operadores Fredholm em $X$ por $\Phi$.
+	\begin{enumerate}
+		\item $\Phi$ é aberto.
+		\item $T\in\Phi\to\operatorname{ind}T\in\Z$ é contínuo.
+	\end{enumerate}
+\end{teo}
+\begin{proof}\leavevmode
+	\begin{enumerate}
+		\item Seja $\pi:\mathcal{L}(X)\to\mathcal{L}(X)/K(X)$ o quociente. Então
+		\[\Phi=\pi^{-1}(\operatorname{Inv}(\mathcal{L}(X)/K(X))).\]
+		\item Sejam $T\in\Phi$, $S\in\Phi$ tais que $TST=T$ e $\operatorname{ind}S=-\operatorname{ind}T$, e $T'\in\Phi$ tal que $\|T-T'\|<\|S\|^{-1}$.
+		
+		Como $\|TS-T'S\|<1$,
+		\[W=1-TS+T'S\]
+		é inversível. Como $T=TST$,
+		\[WT=T'ST.\]
+		Portanto,
+		\[\operatorname{ind}W+\operatorname{ind}T=\operatorname{ind}T'+\operatorname{ind}S+\operatorname{ind}T.\]
+		Como $\operatorname{ind}W=0$, temos que
+		\[\operatorname{ind}T'=\operatorname{ind}S=\operatorname{ind}T.\]
+	\end{enumerate}
+\end{proof}
+\begin{coro}
+	Seja $T\in\mathcal{L}(X)$ Fredholm e $S\in K(X)$. Então $\operatorname{ind}(T+S)=\operatorname{ind}T$.
+\end{coro}
+\begin{proof}
+	Primero notemos que pertubar um operador de Fredholm por um compacto é Fredholm, ie.
+	
+	\textbf{($T+S\in\Phi$)} Como $T\in\Phi$, $\pi(T)$ é inversível. Como $\pi(T)=\pi(T+S)$, $T+S\in\Phi$.
+	
+	Como $S\in K(X)$, $tS\in K(X)\;\forall t\in\R$. Logo, como
+	\[t\in\R\mapsto T+tS\in\Phi\]
+	e
+	\[W\in\Phi\mapsto\operatorname{ind}(W)\in\Z\]
+	são contínuas,
+	\[t\in\R\mapsto\operatorname{ind}(T+ts)\in\Z\]
+	é constante.
+\end{proof}
+\begin{obs}[Relembre]
+	$A$ álgebra de Banach com unidade, então $e^a$ existe para todo $a\in A$, ie.
+	\[e^a=\sum_{n=0}^\infty\frac{a^n}{n!}.\]
+\end{obs}
+\begin{pregunta}
+	Quais elementos são a exponencial de alguém? Ou seja, o que é
+	\[\{e^a:a\in A\}?\]
+	Será que é $\operatorname{Inv}(A)$? Em $\C$ é verdade, mais em geral, não.
+\end{pregunta}
+\begin{coro}
+	Seja $X=\ell_p,c_0$ e considere o operador shift:
+	\begin{align*}
+		S:X&\mapsto X\\
+		e_n&\mapsto e_{n+1}.
+	\end{align*}
+	Seja
+	\[\pi:\mathcal{L}(X)\to \mathcal{L}(X)/K(X)\]
+	o quociente. Então
+	\[\pi(S)\notin\{e^a:a\in\mathcal{L}(X)/K(X)\}.\]
+\end{coro}
+\begin{proof}
+	\textbf{($S$ é Fredholm)} $\ker S=\{0\}$ e $\img S=\{(x_n)\in X:x_1=0\}$.
+	Logo $\operatorname{ind}(S)=-1$.
+	\begin{af}
+		Se $T\in\operatorname{Inv}(X)$, então $\pi(S)\neq\pi(T)$.
+	\end{af}
+	Caso contrário, $S-T\in K(X)$. Logo
+	\[-1=\operatorname{ind}S=\operatorname{ind}T=0.\]
+	Suponha $\pi(S)=e^a$ para algum $a\in\mathcal{L}(X)/K(X)$. Logo $a=\pi(T)$, $T\in\mathcal{L}(X)$. Portanto
+	\[\pi(S)=e^{\pi(T)}=\pi(e^T).\]
+\end{proof}
+
+\section{Teorema espectral para operadores compactos e autoadjuntos}
+Seja $H$ um espaço de Hilbert e $T\in\mathcal{L}(H)$. Para cada $x\in H$, considere
+\[y\in H\mapsto \langle Ty,x\rangle\in\mathbb{K}.\]
+Note que ese mapa é um funcional linear. Logo, existe um único $z_x\in H$ tal que
+\[\langle y,z_x\rangle=\langle Ty,x\rangle\qquad\forall y\in H.\]
+
+\begin{defn}
+	O \textbf{\textit{adjunto}} de $T$ é o operador $T^*:H\to H$ dado por
+	\[Tx=z_x\qquad\forall x\in H.\]
+\end{defn}
+\begin{exer*}\leavevmode
+	\begin{enumerate}
+		\item $T^*\in\mathcal{L}(X)$.
+		\item Qual é a relação entre esse adjunto e o adjunto já introduzido anteriormente?
+	\end{enumerate}
+\end{exer*}
+
+\begin{prop}
+	Seja $T\in\mathcal{L}(H)$ autoadjunto.
+	\begin{enumerate}
+		\item Se $\lambda\in\C$ é autovalor de $T$, $\lambda\in\R$.
+		\item Sejam $\lambda, \lambda'\in\C$ autovalores distintos con autovetores $x$ e $x'$ respectivamente. Então $x\perp x'$.
+	\end{enumerate}
+\end{prop}
+
+\begin{prop}
+	Seja $T\in\mathcal{L}(H)$ autoadjunto. Então
+	\[f(T)=\|T\|.\]
+\end{prop}
+\begin{proof}
+	Exercício.
+\end{proof}
+\begin{coro}
+	Se $\sigma(T)=\{0\}$, $T=0$.
+\end{coro}
+\begin{proof}
+	Sabemos que 
+	\[r(T)=\lim_n\|T^*\|^{1/n}.\]
+	Note que $\|T^*T\|=\|T\|^2$, pois
+	\begin{align*}
+		\|T\|^2	&=\sup_{x\in B_X}\langle Tx,Tx\rangle\\
+		&=\sup_{x\in B_X}\langle T^*Tx,Tx\rangle\\
+		&\leq\|T^*T\|.
+	\end{align*}
+	Logo
+	\begin{align*}
+		r(T)&=\lim_n\|T^{2n}\|^{1/2n}\\
+		&=\lim_n\|(T^*)^n-T^n\|^{1/2n}\\
+		&=\lim_n\|T^{2n}\|^{1/2n}\\
+		&=\|T\|.
+	\end{align*}
+\end{proof}
+\begin{teo}[Espectral para Operadores Auto-adjuntos Compactos]
+	Se $T\in K(H)$ é auto-adjunto então existe um conjunto maximal ortonormal composto por autovetores de $T$.
+	
+	Em particular, existe $(\lambda_n)\subset\R$ e $(x_n)\subset\partial B_X$ tais que
+	\[Tx=\sum_{n=1}^\infty\lambda_n\langle x,x_n\rangle x_n\qquad \forall x\in H.\]
+\end{teo}
+\begin{proof}
+	Para cada $\lambda\in\sigma(T)$, escreva
+	\[H_\lambda\in \ker(T-\lambda).\]
+	Então,
+	\begin{enumerate}
+		\item $\dim H_\lambda<\infty$ se $\lambda\neq0$.
+		\item $H_\lambda\perp H_{\lambda'}$, $\lambda\neq\lambda'$.
+		\item $\sigma(T)$ é enumerável.
+	\end{enumerate}
+	Defina
+	\[H'=\bigoplus_{\lambda\in\sigma(T)}H_\lambda.\]
+	\begin{obs}
+		O produto interno na soma de espaços de Hilbert é soma dos produtos internos.
+	\end{obs}
+	Resta mostrar que $H=H'$.
+	\begin{af*}
+		$T(H')\leq H'$.
+	\end{af*}
+	Isso segue pois
+	\[T(H_\lambda)\subseteq H_\lambda\qquad\forall\lambda\in\sigma(T).\]
+	\begin{af*}
+		$T((H)^\perp)\subseteq(H')^\perp$.
+	\end{af*}
+	Seja $y\ n (H')^\perp$ e $x\in H'$. Então
+	\[\langle Ty,x\rangle=\langle y,Tx\rangle=0.\]
+	O que podemos falar sobre
+	\[T|_{(H')^\perp}(H')^\perp\to(H')^\perp.\]
+	Como $T$ é compacto e auto-adjunto, $T|_{(H')^\perp}$ é compacto e auto-adjunto,
+	\[\sigma(T|_{(H')^\perp})=\{0\}.\]
+	Logo
+	\[T|_{(H')^\perp}=0.\]
+	Portanto,
+	\[(H')^\perp\subseteq H_0=\ker T.\]
+	Logo, $(H')^\perp=\{0\}$, ie. $H=H'$.
+	
+\end{proof}
+
+
+	\clearpage
+	\iffalse
+	\section{Exercícios}
+	\subsection{Lista I}
+	\begin{exer*}[1]\label{exer:1}
+		Seja $K$ um espaço topológico compacto e Hausdorff. Mostre que
+		\[C(K)=\{f:K\to\mathbb{K}:f\text{ é contínua}\}\]
+		é um espaço Banach quando munido da norma $\| f\|=\sup_{x\in K}|f(x)|$.
+	\end{exer*}
+	\begin{proof}
+		É claro que $C(K)$ é um espaço normado, pois
+		\begin{enumerate}
+			\item $\| f\|=\sup_{x\in K}|f(x)|=0\iff f(x)=0\;\forall x\in K$.
+			\item $\| \lambda f\| =\sup_{x\in K}|\lambda f(x)|=|\lambda|=\sup_{x\in K}|f(x)|=|\lambda|\| f\|\qquad\forall\lambda\in\mathbb{K}$.
+			\item
+			\begin{align*}
+				\| f+g\|&=\sup_{x\in K}|f(x)+g(x)|\\
+				&\leq\sup_{x\in K}\{|f(x)|+|g(x)|\}\\
+				&=\sup_{x\in K}|f(x)|+\sup_{x\in K}|g(x)|\\
+				&=\| f\|+\| g\|.
+			\end{align*}
+		\end{enumerate}
+		Para ver que $C(K)$ é Banach tomemos uma sequência de Cauchy $(f_n)$ em $C(K)$. Então,
+		\begin{gather*}
+			\forall\varepsilon>0\;\exists N\in\N\;\forall n,m>N:\| f_n-f_m\|<\varepsilon.
+		\end{gather*}
+		Como $\| f_n-f_m\|=\sup_{x\in K}|f_n(x)-f_m(x)|$, temos que
+		\begin{gather*}
+			\forall\varepsilon>0\;\exists N\in\N\;
+			\forall n,m>N\;\forall x\in K:
+			|f_n(x)-f_m(x)|<\varepsilon.
+		\end{gather*}
+		Fixando $x\in K$ vemos que $f_n(x)$ é uma sequência de Cauchy. Por ser $\mathbb{K}$ completo, temos um límite que denotamos por $f(x)$, i.e.
+		\begin{equation}\label{eq:ex1.1}
+			\begin{gathered}
+				\forall x\in K\;\forall\varepsilon>0\;\exists N\in\N\;\forall
+				n>N:|f_n(x)-f(x)|<\varepsilon.
+			\end{gathered}
+		\end{equation}
+		\begin{af*}
+			A função $f$ definida por $x\mapsto f(x)$ é contínua.
+		\end{af*}
+		\begin{proof}
+			Tomemos uma sequência $(x_i)\subset X$ tal que $x_i\to x$, e vejamos que $f(x_i)\to f(x)$. Como $f_n$ é contínua para toda $n$, temos que $f_n(x_i)\to f_n(x)$, assim
+			\begin{align*}
+				\exists N_1\in\N\;\forall i>N_1:\; |f_n(x_i)-f_n(x)|<\varepsilon/3.
+			\end{align*}
+			E por construção, temos que $f_n(x_i)\to f(x_i)$ e que $f_n(x)\to f(x)$, assim
+			\begin{align*}
+				&\exists N_2\in\N\;\forall n\geq N_2:|f_n(x_i)-f(x_i)|<\varepsilon/3,\\
+				&\exists N_3\in\N\;\forall n\geq N_3:|f_n(x)-f(x)|<\varepsilon/3.
+			\end{align*}
+			En suma, pegando $n,i>\max\{N_1,N_2,N_3\}$ temos que
+			\begin{align*}
+				|f(x_i)-f(x)|&=|f(x_i)-f_n(x_i)+f_n(x_i)-f_n(x)+f_n(x)-f(x)|\\
+				&\leq|f(x_i)-f_n(x_i)|+|f_n(x_i)-f_n(x)|+|f_n(x)-f(x)|\\
+				&<\varepsilon/3+\varepsilon/3+\varepsilon/3=\varepsilon.
+			\end{align*}
+		\end{proof}
+		
+		\begin{af*}
+			$f_n\to f$ em $C(K)$.
+		\end{af*}
+		\begin{proof}
+			Temos que mostrar que
+			\begin{gather*}
+				\forall\varepsilon>0\;\exists N\in\N\;\forall n>N:\| f_n-f\|<\varepsilon.
+			\end{gather*}
+			Como $\sup_{x\in K}| f_n(x)-f(x)|=\| f_n-f\|$, basta mostrar que
+			\begin{gather*}
+				\forall\varepsilon>0\;\exists N\in\N\;\forall n>N\;\forall x\in K:| f_n(x)-f(x)|\leq\varepsilon/2.
+			\end{gather*}
+			Seja $\varepsilon>0$ e $N\in\N$ tal que $\| f_n-f_m\|<\varepsilon/2$ para $n,m>N$. Para cualquer $x\in K$,
+			\begin{align*}
+				| f_n(x)-f(x)|&=\left|f_n(x)-\lim_{m\to\infty}f_m(x)\right|\\
+				&=\left|\lim_{m\to\infty}f_n(x)-f_m(x)\right|\\
+				&=\lim_{m\to\infty}|f_n(x)-f_m(x)|\\
+				&\leq \lim_{m\to\infty}\sup_{x\in K}| f_n(x)-f(x)|\\
+				&=\lim_{m\to\infty}\| f_n-f_m\|\\
+				&\leq\varepsilon/2.
+			\end{align*}
+		\end{proof}
+	\end{proof}
+	
+	\begin{exer*}[2]
+		Mostre que
+		\[\ell_\infty=\left\{(x_n):\sup_{n\in\N}|x_n|<\infty\right\}\]
+		é um espaço de Banach quando munido da norma $\|(x_n)\|_\infty=\sup_{n\in\N}|x_n|$.
+	\end{exer*}
+	\begin{proof}
+		Pegue uma sequência de Cauchy $(x^i_n)_i\subset\ell_\infty$ em $\ell_\infty$, ou seja, para cada $i\in\N$ temos una sequência de numeros reais variando $n\in\N$. Como trata-se de uma sequência de Cauchy, temos que
+		\begin{gather*}
+			\forall\varepsilon>0\;\exists N\in\N\text{ tal que }\forall i,j>N,\;\| (x^i_n)-(x^j_n)\|_\infty<\varepsilon.
+		\end{gather*}
+		Como $\| (x^i_n)-(x^j_n)\|_\infty=\sup_{n\in\N}|x^i_n-x^j_n|$, pegando $n\in\N$, temos que
+		\begin{gather*}
+			\forall\varepsilon>0\;\exists N\in\N\text{ tal que }\forall i,j>N,\; |(x^i_n)-(x^j_n)|<\varepsilon.
+		\end{gather*}
+		Ou seja, com $n$ fixo, $(x^i_n)$ é uma sequência de Cauchy em $\mathbb{K}$, que deve converger a um numero $x_n\in\mathbb{K}$. Assim,
+		\[\forall n\in\N\;\forall\varepsilon>0\;\exists N\in\N\text{ tal que se }i>N\text{ então }|x_n^i-x_n|<\varepsilon.\]
+		
+		\begin{af*}
+			A sequência $(x_n)$ é um elemento de $\ell_\infty$.
+		\end{af*}
+		\begin{proof}
+			Só note que como $(x^i)\subseteq\ell_\infty$ é Cauchy, ela é limitada, ie. $\exists M>0$ tal que
+			\[\| x_ i\|_\infty\leq M\quad\forall i.\]
+			Assim, é claro que
+			\[\sup_{n\in\N}|x_n|=\sup_{n\in\N}\left|\lim_{i\to\infty}x^i_n\right|=\sup_{n\in N}\lim_{i\to\infty}|x^i_n|\leq M.\]
+		\end{proof}
+		\begin{af*}
+			$x^i\to x$.
+		\end{af*}
+		\begin{proof}
+			Só note que como $(x^i)$ é Cauchy, para quaisquer $n\in\N$ e $i,j\geq n_0$,
+			\begin{align*}
+				|x^i_n-x^j_n|&<\varepsilon/2.
+			\end{align*}
+			Tomando limite quando $j\to\infty$ obtemos
+			\[\varepsilon/2\geq\lim_{j\to\infty}|x^i_n-x^j_n|=\left|x_n^i-\lim_{j\to\infty}x^j_n\right|=|x_n^i-x_n|.\]
+		\end{proof}
+	\end{proof}
+	
+	\begin{exer*}[6]
+		Mostre que se $T:X\to Y$ com $\dim Y<\infty$ e $\ker T$ é fechado, então $T$ é contínua.
+	\end{exer*}
+	\begin{proof}
+		A reserva de usar o argumento usando espaços cocientes, podemos fazer indução sob a dimensião de $Y$. Suponha o enunciado certo para $m<n$. Dado $Y'\subset Y$ pegue $x\in Y\backslash Y'$ para obter que $Y=Y\oplus \operatorname{span}\{w\}$. Definendo $T':X\to Y'$ obtemos $T=\pi_{Y'}\circ T + \pi_W\circ T$. Mais tem que ver que $\ker T'$ é fechado.
+	\end{proof}
+	
+	\begin{exer*}[9]
+		Sejam $X$ e $Y$ espaços normados e suponha que $Y$ é Banach. Mostre que
+		\[L(X,Y)=\{T:X\to Y:T\text{ é contínuo}\}\]
+		é Banach munido da norma $\| T\|=\sup_{x\in B_X}\| T(x)\|$.
+	\end{exer*}
+	\begin{proof}
+		Seja $(T_n)$ uma sequência de Cauchy em $L(X,Y)$. Então,
+		\begin{gather*}
+			\forall\hat\varepsilon>0\;\exists N\in\N\;\forall n,m>N:\| T_n-T_m\|<\hat\varepsilon.
+		\end{gather*}
+		Seja $\varepsilon>0$. Como $\| T_nx-T_mx\|\leq\| T_n-T_m\|\| x\|\;\forall x\in X$, pegando $x\in X$ e $\hat\varepsilon=\frac{\varepsilon}{\| x\|}$, obtemos que
+		\[\exists N\in\N\text{ tal que }\forall n>N, \| T_nx-T_mx\|<\varepsilon.\]
+		Isto significa que $(T_nx)\subset Y$ é uma sequência de Cauchy para toda $x\in X$. Como $Y$ é de Banach, trata-se de uma sequência que converge a um limite que denotamos por $Tx$. Então,
+		\[\forall x\in X\;\exists N\in\N\text{ tal que }\forall n>N, \| T_nx-Tx\|<\varepsilon.\]
+		
+		
+		%$\| T_n-T_m\|=\sup_{x\in B_X}\| T_n(x)-T_m(x)\|$, 
+		
+		
+		\begin{af*}
+			O mapeo $x\mapsto Tx$ é um operador linear.
+		\end{af*}
+		\begin{proof}
+			Como a suma e o produto escalar são funções contínuas e $Tx=\lim_{n\to\infty}T_nx$ com $T_n$ linear para toda $n$, o resultado é imediato.
+		\end{proof}
+		
+		\begin{af*}
+			$T$ é contínua.
+		\end{af*}
+		\begin{proof}
+			Veremos que de fato $\| T\|=\lim_{n\to\infty}\| T_n\|$. Seja $x\in X$.
+			\begin{align*}
+				\| Tx\|&=\left\| \lim_{n\to\infty}T_nx\right\|\\
+				&=\lim_{n\to\infty}\| T_nx\|\qquad\text{(norma é contínua)}\\
+				&\leq\lim_{n\to\infty}\| T_n\|\| x\|\\
+				&=\left(\lim_{n\to\infty}\| T_n\|\right)\| x\|.
+			\end{align*}
+		\end{proof}
+		
+		\begin{af*}
+			$\| T_n-T\|\to0$.
+		\end{af*}
+		\begin{proof}
+			Seja $\varepsilon>0$. Pegue $N\in\N$ tal que $\| T_n-T_m\|<\varepsilon/2$ quando $n,m>N$. Pegando ainda $x\in B_X$ e $n>N$, temos que
+			\begin{align*}
+				\| T_nx-Tx\|&=\lim_{m\to\infty}\| T_nx-T_mx\|\\
+				&\leq\lim_{m\to\infty}\| T_n-T_m\|\| x\|\\
+				&\leq\frac{\varepsilon}{2}\| x\|\leq\frac{\varepsilon}{2}.
+			\end{align*}
+			Assim, $\| T_n-T\|=\sup_{x\in B_X}\| T_n-Tx\|\leq\varepsilon/2<\varepsilon$.
+		\end{proof}
+	\end{proof}
+	
+	\begin{exer*}[12]
+		\textit{A distância de um ponto para um subespaço fechado é realizada?} Ache um espaço de Banach $X$, um subespaço fechado $Y\subseteq X$ e um $x\in X\backslash Y$ tal que $d(x,Y)<\| x-y\|\;\forall y\in Y$. Mostre que isso não ocorre caso a dimensão de $Y$ seja finita.
+	\end{exer*}
+	\begin{proof}
+		Considere
+		\[X=\{f:[0,1]\to\R: f\text{ é contínua e }f(0)=0\}\]
+		e o operador $T:X\to\R$ dado por
+		\[Tf=\int_0^1f.\]
+		$T$ é contínuo, pois \[|Tf|=\left|\int_0^1f\right|\leq\int_0^1|f|\leq\| f\|_\infty.\]
+		Assim, $Y:=\ker T=T^{-1}\{0\}$ é fechado em $X$. Ahora considere $f(x)=2x$, de forma que
+		\[Tf=\int_0^12x=2\int_0^1x=2\left[\frac{x^2}{2}\right]^1_0=1,\]
+		então $f\notin T$. Logo, observe que
+		\begin{align*}
+			d(f,Y)&=\inf\{\| f-g\|:g\in Y\}\\
+			&=\inf\{\| h\|:f-h\in Y\}\\
+			&=\inf\{\| h\|:\int_0^1f-h=0\}\\
+			&=\inf\{\| h\|:\int_0^1h=1\}.
+		\end{align*}
+		Para $h\equiv1$, temos que $\| h\|=1$ e $\int_0^1h=1$, assim $d(f,Y)\leq 1$. Mais ainda, 1 é uma cota inferior do conjunto $\{\| h\|\in X:\int_0^1h=1\}$, pois não é possível ter $\int_0^1h=1$ e $\| h\|<1$:
+		\begin{align*}
+			h(x)&\leq\| h\|<1\quad\forall x\in[0,1]\\
+			\implies \int_0^1h&\leq\| h\|<1.
+		\end{align*}
+		Assim, $d(f,Y)=1$. Para concluir, observe que de fato é impossivel ter $h(0)=0$ e $\int_0^1h=1$ com $\| h\|=1$. Assim, não existe $g\in Y$ tal que $\| f-g\|=1$.
+		
+		
+		\href{https://www.mathcounterexamples.net/distance-between-a-point-and-a-hyperplane-not-reached/}{Tomada daqui.} Suponha que $\dim Y<\infty$. Pegue um ponto $c\in Y$ e defina o conjunto
+		\[W:=\{y\in Y:\| y-x\|\leq\| c-x\|\}.\]
+		Note que $W=f^{-1}((-\infty,c])\cap Y$ donde $f$ é o funcional contínuo $f(z)=\| z-x\|$. Mostraremos que $W$ é compacto, assim $f$ alcança seu mínimo.
+		
+		Como $\dim Y<\infty$, basta mostrar que $W$ é limitado e fechado. Para cualquer $w\in W$,
+		\begin{align*}
+			\| w\|&=\| w-x+x-c+c\|\\
+			&\leq\| w-x\|+\| x-c\|+\| c\|\\
+			&\leq 2\| x-c\|+\| c\|
+		\end{align*}
+		assim $W$ é limitado. E de fato é fechado, pois $f$ é contínua e $(-\infty,c]$ é fechado, assim $W$ é a interseção de dois conjuntos fechados.
+	\end{proof}
+	
+	
+	\subsection{Lista II}
+	\begin{exer*}[2]
+		Sejam $X$ e $Y$ espaços normados e assuma que $\dim Y<\infty$. Mostre que toda aplicação linear sobrejetiva $f:X\to Y$ é uma aplicação aberta.
+	\end{exer*}
+	\begin{proof}
+		Mostramos que a projeção $Q:X\to X/\ker f$ é uma aplicação aberta. Pegue $U\subseteq X$ aberto e $x+\ker f\in Q(U)$ para achar uma vizinhança aberta de $x+\ker f$ contida em $Q(U)$. Suponha que $x\in U$, assim que existe $r>0$ tal que $B_X(x,r)\subseteq U$.
+		\begin{af*}
+			$B_{X/\ker f}(x+\ker f,r)\subseteq Q(U)$.
+		\end{af*}
+		Pegue $z+\ker f\in B_{X/\ker f}(x+\ker f,r)$. Então,
+		\begin{align*}
+			r&>\| (x+\ker f)-(z-\ker f)\|\\
+			&=\| (x-z)+\ker f\|\\
+			&=\inf_{y\in\ker f}\| x-z-y\|
+		\end{align*}
+		Assim, existe algum $y\in Y$ tal que $\| x-z+y\|<r$. De fato, $(z-y)+\ker f=z+\ker f$ e $Q(z-y)\in Q(U)$.
+	\end{proof}
+	
+	\begin{exer*}[5]
+		Seja $X$ um espaço normado e $Y\subseteq X$ um subespaço fechado.
+		\begin{enumerate}
+			\item Mostre que $Y^\perp=\{f\in X^*:f|_Y=0\}$ é linearmente isométrico a $(X/Y)^*$.
+			\item Mostre que $Y^*$ é linearmente isométrico a $X^*/Y^\perp$.
+		\end{enumerate}
+	\end{exer*}
+	\begin{proof}\leavevmode
+		\begin{enumerate}
+			\item Considere o mapeo adjunto da projeção $Q:X\to XY/$.
+			\item Para cualquer $f\in Y^*$, podemos construir uma extensão linear e contínua a todo $X$ definendo $\tilde{f}(y)=f(y)$ para $y\in Y$ e 0 caso contrário. De fato, $\tilde{f}$ é linear pela linearidade de $f$ e contínuo pois $\sup_{x\in B_X}|\tilde{f}(x)|=\sup_{y\in B_Y}|\tilde{f}(y)|=\sup_{y\in B_Y}|f(y)|$.
+			
+			\begin{af*}
+				O mapa $T:Y^*\to X^*/Y^\perp$ dado por $f\mapsto \tilde{f}+Y^\perp$ é o que buscamos.
+			\end{af*}
+			($T$ é linear). $T(f+g)=\widetilde{f+g}+Y^\perp=(\tilde{f}+\tilde{g})+Y^\perp=\tilde{f}+Y^\perp + \tilde{g}+Y^\perp=Tf+Tg$.
+			
+			($T$ é injetivo). $Tf=0\implies \tilde{f}+Y^\perp=0\implies \tilde{f}+Y^\perp=Y^\perp\implies\tilde{f}\in Y^\perp\implies \tilde{f}|_Y=0\implies f=0$.
+			
+			($T$ é surjetivo). Seja $f+Y^\perp\in X^*/Y^\perp$. É claro que $T\left(f|_Y\right)=f$.
+			
+			($T$ é isometria). Para toda $f\in Y^*$,
+			\begin{align*}
+				\| Tf\|&=\| \tilde{f}+Y^\perp\|\\
+				&=\inf_{g\in Y^\perp}\| \tilde{f}-g\|\\
+				&=\inf_{g\in Y^\perp}\sup_{x\in B_X}|\tilde{f}(x)-g(x)|\\
+				&\leq \sup_{x\in B_X}|\tilde{f}(x)|\qquad (g=0\in Y^\perp)\\
+				&=\sup_{y\in B_Y}|f (y)|\qquad (\tilde{f}\equiv0\text{ além de }Y)\\
+				&=\| f\|
+			\end{align*}
+			Mais ainda, observe que por causa de que $B_Y\subseteq B_X$, temos para toda $g\in Y^\perp$ e $f\in Y^*$ que
+			\begin{align*}
+				\sup_{y\in B_Y}|\tilde{f}(y)-g(y)|&\leq\sup_{x\in B_X}|\tilde{f}(x)-g(x)|\\
+				\implies \| f\|=\inf_{g\in Y^\perp}\sup_{y\in B_Y}|\tilde{f}(y)-g(y)|&\leq\inf_{g\in Y^\perp}\sup_{x\in B_x}|\tilde{f}(x)-g(x)|=\| Tf\|
+			\end{align*}
+		\end{enumerate}
+	\end{proof}
+	\begin{exer*}[8]
+		Mostre que se $X$ é um espaço vetorial normado de dimensão infinita, então existe uma sequência $(x_n)$ em $X$ tal que $x_n\notin\overline{\operatorname{span}}\{x_k:k>n\}$ para toda $n\in\N$.
+	\end{exer*}
+	\begin{proof}
+		Seja $x_1\in X\backslash\{0\}$. Por Hahn-Banach, existe $f_1\in X^*$ tal que $f_1(x)\neq0$. Defina $Y_1=\ker f_1$, assim $d(x_1,Y_1)>0$.
+		
+		Pegue $x_2\in Y_1$, assim $x_1\notin\overline{\operatorname{span}}\{x_2\}$. Existe $f_2\in X^*$ tal que $f_2(x_2)\neq0$. Defina $Y_2=\ker f_2$. Note que $Y_1\cap Y_2\neq\varnothing$, pois de outro jeito $X=\operatorname{span}\{x_1\}\oplus \operatorname{span}\{x_2\}$. 
+		
+		Pegue $x_3\in Y_1\cap Y_2$. Existe $f_3\in X^*$ tal que $f_3(x_3)\neq0$. Pegue $x_{n+1}\in Y_1\cap\ldots\cap Y_n$.
+		
+		Continuando, obtemos que $x_n\in\overline{\operatorname{span}}\{x_k:k>n\}$ pois $\{x_k:k>n\}\subseteq Y_1\cap\ldots\cap Y_n$, e de fato $x_n\notin Y_1\cap\ldots\cap Y_n$.
+		
+		Observe que o processo não termina, pois nesse caso teriamos que $X=\operatorname{span}\{x_1\}\oplus\ldots\oplus\operatorname{span}\{x_n\}$.
+	\end{proof}
+	
+	\begin{exer*}[10]
+		Seja $(X,|\;|_1)$ um espaço normado. Mostre que existe $|\;|_2$ que não é equivalente á $|\;|_2$. E se for Banach?
+	\end{exer*}
+	\begin{proof}\leavevmode
+		\begin{enumerate}
+			\item Constrúa um operador $T:X\to X$ linear, bijetor e discontínuo (exer)
+			\item Defina $|\;|_2:X\to\R$ dada por $|x|_2=|Tx|$.
+		\end{enumerate}
+		\begin{af*}
+			$|\;|_2$ é uma norma.
+		\end{af*}
+		\begin{proof}
+			\begin{enumerate}
+				\item $|x|_2=|Tx|_1\geq0$. E como $T$ é bijetor, $|x|_2=0\iff|Tx|_1=0\iff Tx=0\iff x=0$.
+				\item \begin{align*}
+					|\lambda x+y|_2&=|T(\lambda x+y)|_1\\
+					&=|\lambda Tx+Ty|_1\\
+					&\leq|\lambda||Tx|_1+|Ty|_1\\
+					&=|\lambda||x|_2+|x|_2.
+				\end{align*}
+			\end{enumerate}
+		\end{proof}
+		\begin{af*}
+			$(X,|\;|_2)$ é Banach.
+		\end{af*}
+		\begin{proof}
+			Seja $(x_n)\subseteq X$ uma sequência de Cauchy. Então,
+			\[\varepsilon>|x_n-x_m|_2=|Tx_n-Tx_m|_1\quad\forall n,m\geqq\]
+			Logo $(T_n)\subseteq (X,|\;|_1)$ é Cauchy. Por completitude de $(X,|\;|_1)$ existe $y\in X$ tal que
+			\[|Tx_m-y|_1\to0.\]
+			Como $T$ é bijetor, existe $x\in X$ com $Tx=y$. De fato,
+			\[|x_n-x|_2=|T_nx-Tx|_1=|Tx_n-y|_1<\varepsilon,\quad n\geqq.\]
+			Logo $x_n\overset{|\;|_2}{\longrightarrow}x$.
+		\end{proof}
+		Finalmente, se existe $C\geq0$ tal que $|x|_2\leq C|x|_1$, segue-se que $|Tx|_1\leq C|x|_1$, que não é posível pois $T$ é discontínuo.
+	\end{proof}
+	
+	\begin{exer*}[36.29, Botelho]
+		Prove que o operador
+		\begin{align*}
+			T:\ell^\infty&\to\mathcal{L}(\ell^2,\ell^2)\\
+		\end{align*}
+		dado por $Tx(y)=(x_ny_n)$ é uma isometria linear.
+	\end{exer*}
+	\begin{proof}
+		\begin{enumerate}
+			\item $T$ é bem definido e linear. Seja $x\in\ell^\infty$ e $y\in \ell^2$. Então,
+			\begin{align*}
+				\| (Tx)y\|_{\ell^2}=\|(x_ny_n)\|_{\ell^2}\leq\| x\|_\infty\|(y_n)\|_{\ell^2}.
+			\end{align*}
+			Assim, $\| Tx\|_{\mathcal{L}(\ell^2,\ell^2)}\leq\| x\|_\infty$.
+			
+			Dado $\varepsilon>0$, existe $n_0\in\N$ tal que
+			\[\| x\|_\infty=\sup_n|x_n|\geq|x_{n_0}|>\| x\|_\infty-\varepsilon.\]
+			Considere a sequência $e_{n_0}\in\ell^2$,
+			\[e^{n_0}_n=\begin{cases}
+				1,\quad n=n_0\\
+				0,\quad e.o.c.
+			\end{cases}\]
+			então,
+			\[(Tx)(e_{n_0})=(x_ne_n^{n_0})_n=\begin{cases}
+				x_n\quad n=n_0\\
+				0\quad e.o.c.
+			\end{cases}\]
+			Daí,
+			\[\| (Tx)(e_{n_0})=|x_{n_0}|>\| x\|_\infty-\varepsilon\quad\forall\varepsilon>0.\]
+		\end{enumerate}
+	\end{proof}
+	
+	\subsection{Lista III}
+	\begin{exer*}[6]
+		Seja $X$ um espaço de Banach reflexivo e $Y\subseteq X$ um subespaço fechado. Mostre que para todo $x\in X\backslash Y$ existe $y\in Y$ tal que $d(x,Y)=\| x-y\|$.
+	\end{exer*}
+	\begin{proof}
+		Considere a interseção
+		\[\bigcap_{\varepsilon>d(x,Y)}\overline{B(x,\varepsilon)}\cap Y.\]
+		É claro que trata-se de una interseção de conjuntos não vazíos. Mais, como $X$ é reflexivo, a bola $B_X\subseteq X$ é compacta na topologia fraca e de fato, cualquer bola é compacta, pois as traslações e homotecias são homeomorfismos. Como $Y$ é um subespaço fechado na topologia forte, também é fechado na fraca, assim $\overline{B(x,\varepsilon}\cap Y$ é compacto para toda $\varepsilon>d(x,Y)$. Usando que
+		\begin{prop}
+			Se $K_1\subseteq K_2\subseteq \ldots$ é uma sequência anidada de conjuntos compactos, a interseção $\bigcap_{i\in\N}K_1$ não é vazía.
+		\end{prop}
+	\end{proof}
+	\fi
+\section{As melhores coisas na matemática}
+\begin{enumerate}
+	\item Seja $f\in L^1(\R)$. Definimos a \textbf{\textit{transformada de Fourier}} de $f$ como
+	\[\mathcal{F}_{f(\xi)}=\hat{f}(\xi)=\int_\R e^{-2\pi i\xi x}f(x)dx.\]
+	\begin{itemize}
+		\item Mostre que $\mathcal{F}:L^1\to L^\infty$ é contínuo.
+		\item $\mathcal{F}(L^1)\subseteq C_0(\R)$.
+		\item $\mathcal{F}$ é injetiva. $\mathcal{F}$ é surjetiva? Não. Supor que sí, usa aplicação aberta.
+	\end{itemize}
+	\item Considere $f\in L_{\operatorname{loc}}^1(0,1)$. (Seguindo a Brezis, $f\in L^1_{\operatorname{loc}}(\Omega)$ quando $f\chi_K\in L^1(\Omega)$ para todo $K\subseteq\Omega$ compacto.) Dizemos que $g$ é a \textbf{\textit{derivada fraca}} de $f$ se
+	\[\int_0^1f(x)\varphi'(x)dx=-\int_0^1g(x)\varphi(x)dx,\quad\forall\varphi\in C_c^1.\]
+	\begin{itemize}
+		\item Mostre que se a derivada fraca de $f$ existe, ela é única. (Notação: $g=f'$.)
+		\item Dado $1\leq p\leq\infty$, definimos
+		\[W^{1,p}(0,1)=\{f\in L^p:f'\text{ existe e }f'\in L^p\}.\]
+		Então,
+		\[\|f\|_{W^{1,p}}=\|f\|_p+\|f'\|_p.\]
+		Mostre que $(W^{1,p},\|\;\|_{1,p})$ é um espaço de Banach. Se $1<p<\infty$, é reflexivo.
+	\end{itemize}
+	\item Dado $x=(x_n)_n$, definimos a \textbf{\textit{distribução de $x$}} como
+	\begin{align*}
+		\gamma_x:(0,\infty)&\mapsto[0,\infty]\\
+		t&\mapsto\gamma_x(t)=\#\{n\in\N:|x_n|>t\}
+	\end{align*}
+	Prove que:
+	\begin{itemize}
+		\item $\gamma_{x+y}(t)\leq\gamma_x\left(\frac{t}{2}\right)+\gamma_y\left(\frac{t}{2}\right)$.
+		\item $\gamma_x(t)\leq t^{-p}\|x\|_{\ell^p}$ para todo $x\in\ell^p$.
+		\item Se $x\in\ell^p$, então
+		\[\|x\|_{\ell^p}=p\int_0^\infty\gamma_x(t)t^{p-1}dt.\]
+	\end{itemize}
+	Com isso, definimos o $\ell_w^p$ como sendo as sequências $x=(x_n)_n$ tais que
+	\[\sup\{\gamma_x(t)t^p:t>0\}<\infty.\]
+	Prove que
+	\begin{itemize}
+		\item $\ell^p\not\subset\ell^p_w$.
+		\item $\ell^p_w\subseteq\ell^q+\ell^r$ para $q<p<r$. {\color{orange}Esqueça.}
+	\end{itemize}
+	\item Seja $\varphi(t)$ contínua, convexa e crescente em $[0,\infty)$ com $\varphi(0)=0$. Defina o espaço
+	\[L^\varphi(\R)=\left\{f:\R\to\R:\text{mesruable e }\int_\R\varphi\left(\frac{|f(x)|}{C}\right)dx<\infty,\;\text{ para alguma } C>0\right\}\]
+	e a norma
+	\[\|f\|_\varphi=\inf_{C>0}\int_\R\varphi\left(\frac{|f(x)|}{C}\right)dx.\]
+	Mostre que
+	\begin{itemize}
+		\item $(L^\varphi,\|\;\|_\varphi)$ é Banach. (Espaço vetorial, normado, completo.)
+		\item $\varphi(t)=t^p$ para $1\leq p<\infty$,
+		\[L^\varphi=L^p.\]
+	\end{itemize}
+	\item Seja $F\leq C^0([0,1])$ fechado. A suma que $F\subseteq C^1([0,1])$. Prove que
+	\begin{itemize}
+		\item $\|f'\|_\infty\leq C\|f\|_\infty$, para toda $f\in F$ e para algum $C>0$.
+		\item $\dim F=0$.
+	\end{itemize}
+\end{enumerate}
+	%	\printbibliography
+\end{document}
