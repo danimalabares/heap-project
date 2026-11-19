@@ -17,6 +17,8 @@ SUBJECTS = [
     "iv-jornadas-lefschetz-2026",
     "vbac",
   ]),
+  ("Several areas of mathematics", ["oktobermat-2026"]),
+  ("Economics", ["saet-2026"]),
 ]
 
 

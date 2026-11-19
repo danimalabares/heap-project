@@ -318,7 +318,7 @@ class ContentsAndDownloadsTests(
                 "xxii-egd-2026",
             ),
             (theory, "C001", "pde"),
-            (seminars, "C002", "seminars-others"),
+            (seminars, "C002", "seminars-algebra"),
             (
                 seminars, "C003",
                 "seminars-analysis-pde",
@@ -367,7 +367,7 @@ class ContentsAndDownloadsTests(
         self.addCleanup(tmp.cleanup)
         (
             Path(tmp.name)
-            / "seminars-others.pdf"
+            / "seminars-algebra.pdf"
         ).write_bytes(b"%PDF-1.4 test")
         patcher = patch.object(
             seminars_view, "DOWNLOADS",
@@ -399,17 +399,15 @@ class ContentsAndDownloadsTests(
             ],
             [
                 ("Analysis and PDE", ["C003"]),
-                (
-                    "Other subjects",
-                    ["C002", "C004"],
-                ),
+                ("Algebra", ["C002"]),
+                ("Computing", ["C004"]),
             ],
         )
-        others = subjects[1][1][0]
         self.assertEqual(
-            others.pdf, "seminars-others.pdf"
+            subjects[1][1][0].pdf,
+            "seminars-algebra.pdf",
         )
-        self.assertIsNone(subjects[1][1][1].pdf)
+        self.assertIsNone(subjects[2][1][0].pdf)
 
     def test_conferences_page_lists_by_subject(
         self,
@@ -508,8 +506,9 @@ class ContentsAndDownloadsTests(
         self.assertEqual(page.status_code, 200)
         text = page.get_data(as_text=True)
         self.assertIn("Course notes", text)
-        self.assertIn("End-of-course projects", text)
+        self.assertIn("End-of-course project", text)
         self.assertIn("Master’s tesina", text)
+        self.assertNotIn("<h3", text)
         self.assertNotIn("cimpa-oaxaca", text)
         pdf = client.get(
             "/standalone/combinatoria.pdf"

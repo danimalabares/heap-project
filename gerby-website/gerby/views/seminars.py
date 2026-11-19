@@ -12,8 +12,10 @@ SUBJECTS = [
   ("Analysis and PDE", ["seminars-analysis-pde"]),
   ("Differential geometry", ["seminars-differential-geometry"]),
   ("Complex geometry", ["seminars-complex-geometry"]),
+  ("Algebra", ["seminars-algebra"]),
   ("Algebraic geometry", ["seminars-algebraic-geometry"]),
-  ("Other subjects", ["seminars-others"]),
+  ("Physics", ["seminars-physics"]),
+  ("Computing", ["seminars-computing"]),
 ]
 
 

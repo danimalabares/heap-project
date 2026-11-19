@@ -42,7 +42,6 @@ KNOWN_CHAPTERS = {
     "seminars-differential-geometry",
     "seminars-complex-geometry",
     "seminars-algebraic-geometry",
-    "seminars-others",
     "seminars-analysis-pde",
     "quantum-mechanics",
     "functional-analysis",
@@ -80,6 +79,11 @@ KNOWN_CHAPTERS = {
     "cimpa-el-salvador-2024",
     "anthropology",
     "yang-mills-theory",
+    "seminars-algebra",
+    "seminars-physics",
+    "seminars-computing",
+    "oktobermat-2026",
+    "saet-2026",
 }
 
 
