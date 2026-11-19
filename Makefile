@@ -28,6 +28,16 @@ all: $(PDFS)
 %.aux: %.tex
 	$(PDFLATEX) $(PDFLATEXFLAGS) $*
 
+# Cross-chapter references in the integrated course projects.
+# A standalone PDF can read a chapter's labels after its first pass.
+quantum-mechanics.pdf: functional-analysis.aux symplectic-geometry.aux
+symplectic-geometry.pdf: quantum-mechanics.aux complex-geometry.aux hodge-theory.aux
+hilbert-schemes.pdf: vertex-algebras.aux algebraic-topology.aux
+algebraic-topology.pdf vertex-algebras.pdf: hilbert-schemes.aux
+springer.pdf: algebraic-topology.aux
+variations-of-hodge-structures.pdf seminars-algebraic-geometry.pdf: quantum-mechanics.aux symplectic-geometry.aux
+homological-mirror-symmetry.pdf: symplectic-geometry.aux
+
 # Clean up all intermediate files
 .PHONY: clean
 clean:
