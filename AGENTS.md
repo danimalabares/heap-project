@@ -100,6 +100,21 @@ Generated files and directories such as
 `gerby/`, `tmp/`, `.venv/`, and build
 artifacts should not be committed.
 
+## Course projects
+
+`course-projects/` keeps older documents as
+originals: the PDF as `course-projects/NAME.pdf`
+and its TeX, bibliography and figures in
+`course-projects/sources/NAME/`. They are not
+chapters. Keep them verbatim: the style rules
+above (no macros, 45-character lines, no text
+in equations) and bulk cleanups such as
+`scripts/gerby_align_cleanup.py` do not apply
+there. Only fix what is needed to compile.
+Question sheets and other course handouts do
+not belong here; they live in the Drive
+coursework folder.
+
 ## Commit provenance
 
 Every commit containing AI-generated or AI-edited content must make the AI involvement explicit in the commit message. Name the AI/tool responsible (for example, `ChatGPT:` or `Claude:`) and briefly describe what it changed. For substantial automation, make the extent of the automated work clear enough for later debugging and provenance tracking.

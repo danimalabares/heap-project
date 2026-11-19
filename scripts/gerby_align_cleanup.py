@@ -18,6 +18,7 @@ SKIP_DIRS = {
     "build",
     "tmp",
     "gerby",
+    "course-projects",
 }
 
 VERBATIM_ENVS = {"verbatim", "lstlisting", "minted", "Verbatim"}
