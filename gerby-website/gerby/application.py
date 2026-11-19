@@ -118,6 +118,18 @@ def show_index():
 def show_about():
   return render_template("single/about.html")
 
+@app.route("/course-projects")
+def show_course_projects():
+  return render_template("single/course-projects.html")
+
+@app.route("/course-projects/<name>.pdf")
+def show_course_project_pdf(name):
+  return send_from_directory(ROOT / "course-projects", name + ".pdf")
+
+@app.route("/download/geometric-prequantization.pdf")
+def show_prequantization_project_pdf():
+  return show_course_project_pdf("geometric-prequantization")
+
 
 @app.route("/statistics")
 def show_statistics():

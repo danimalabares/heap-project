@@ -344,14 +344,48 @@ $$
 \label{definition-poisson-bracket}
 $$
 \begin{aligned}
-\{\cdot,\cdot\}: C^\infty(M) \times
-C^\infty(M) &\longrightarrow C^\infty(M) \\
-\{f,g\}&=\omega(X_f,X_g)=df(X_g)=\mathcal{L}
-_{X_f}g=-\mathcal{L}_{X_g}f
+\{f,g\}&=\omega(X_f,X_g)\\
+&=df(X_g)=X_g(f)=-X_f(g)
 \end{aligned}
 $$
 is the {\it Poisson bracket}.
 \end{definition}
+
+\noindent
+In classical mechanics an observable is a
+smooth function on the phase space.  Let
+$\gamma(t)$ be a trajectory of the
+Hamiltonian $H$.  Its velocity is
+$\dot\gamma(t)=X_H(\gamma(t))$.
+Here $f$ takes only a phase point as input.
+This is what it means for $f$ to have no
+explicit time dependence.  For example, the
+position observable $f(q,p)=q$ takes the
+value $q(t)$ along the trajectory
+$\gamma(t)=(q(t),p(t))$.  Its value changes
+as the particle moves.  In general the value
+of $f$ at time $t$ is $f(\gamma(t))$.
+Writing $p=\gamma(t)$ and applying the chain
+rule gives
+$$
+\begin{aligned}
+\frac{d}{dt}f(\gamma(t))
+&=df_p(\dot\gamma(t))\\
+&=df_p(X_H(p))\\
+&=\omega_p(X_f(p),X_H(p))\\
+&=\{f,H\}(p).
+\end{aligned}
+$$
+Here we evaluated $\iota_{X_f}\omega=df$
+on $X_H$.
+The last equality is the definition of the
+Poisson bracket.  This is what we mean by
+$\frac{d}{dt}f=\{f,H\}$ along the flow.
+If an observable $F(t,x)$ also takes time
+as an input, its value can change even with
+the phase point $x$ held fixed.  The chain
+rule then adds the partial derivative
+$\partial F/\partial t$ to the bracket.
 
 \section{Symplectic structure of the
 cotangent bundle}
@@ -1504,6 +1538,371 @@ surgery; for Lagrangian fibrations, the
 fibers become tori, and the global problem
 turns into one about torsors, finite covers,
 and correspondences.
+
+\section{Geometric prequantization}
+\label{section-geometric-prequantization}
+
+\begin{remark}
+\label{section-overview-prequantization}
+The classical observable $f$ is a function
+on phase space. To make it act on states,
+we will replace it by a differential
+operator on sections of a line bundle. The
+choice of curvature makes the operators
+satisfy the commutator rule derived in
+Section \ref{quantum-mechanics-%
+section-dirac-rule}.
+\end{remark}
+
+\begin{definition}
+\label{definition-dirac-prequantization}
+A \emph{prequantization} assigns to each
+real observable $f$ a symmetric operator
+$Q(f)$ on a common invariant dense domain
+in a complex Hilbert space. The assignment
+is real-linear and satisfies
+$$
+\begin{aligned}
+Q(1)&=\operatorname{Id},\\
+[Q(f),Q(g)]&=i\hbar Q(\{f,g\}).
+\end{aligned}
+$$
+\end{definition}
+
+\section{Curvature of a Hermitian line}
+\label{section-hermitian-line-bundles}
+
+\begin{remark}
+\label{definition-hermitian-line-bundle}
+A Hermitian line bundle is the rank-one
+case with the Hermitian metric of
+Definition \ref{hodge-theory-%
+definition-hermitian-metric-vector}
+on each fibre, varying smoothly. In a
+local unit frame $e$ the norm of $ue$ is
+$|u|$. The metric will let us integrate
+pointwise inner products of sections.
+\end{remark}
+
+\begin{remark}
+\label{definition-connection-line-bundle}
+Apply the Leibniz rule of Definition
+\ref{complex-geometry-%
+definition-connection-vector-bundle}
+to a local frame $e$ of the line. Writing
+$\nabla e=\theta\otimes e$ gives
+$$
+\nabla(ue)=(du+u\theta)\otimes e .
+$$
+Thus a single scalar one-form determines
+the connection in this frame.
+\end{remark}
+
+\begin{remark}
+\label{definition-unitary-connection}
+For a unitary connection, compatibility
+with the metric is Definition
+\ref{complex-geometry-%
+definition-hermitian-connection}.
+In a unit frame it gives
+$d\,h(e,e)=\theta+\bar\theta=0$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-local-curvature-line-bundle}
+In the local frame above, the curvature
+$\Omega_\nabla$ equals $d\theta$. For a
+unitary connection it is purely imaginary.
+\end{lemma}
+
+\begin{proof}
+In the curvature formula of Definition
+\ref{complex-geometry-%
+definition-curvature-connection},
+$\theta\wedge\theta=0$ for a scalar
+one-form. In a unit frame $\theta$ is
+imaginary, so its exterior derivative is
+imaginary as well.
+\end{proof}
+
+\begin{remark}
+\label{definition-first-chern-class}
+With $\Omega_\nabla=\nabla^2$, the real
+image of the first Chern class is
+$[i\Omega_\nabla/(2\pi)]$. Compare
+Definition \ref{complex-geometry-%
+definition-first-chern-form}.
+Changing the unitary connection adds a
+global imaginary one-form to the connection
+and its exterior derivative to the
+curvature. This leaves the class unchanged.
+\end{remark}
+
+\begin{theorem}[Weil integrality]
+\label{theorem-weil-integrality}
+A closed real two-form $\beta$ has integral
+periods if and only if some Hermitian line
+bundle admits a unitary connection of
+curvature $-2\pi i\beta$. Its real first
+Chern class is then $[\beta]$.
+\end{theorem}
+
+See \cite[Theorem 23.9]{hallq}. Tensoring
+with a flat unitary line bundle preserves
+the curvature, so the connection need not
+be unique.
+
+\section{Prequantum line bundles}
+\label{section-prequantum-line-bundles}
+
+\begin{definition}
+\label{definition-prequantizable}
+Fix $\hbar>0$. A symplectic manifold
+$(M,\omega)$ is \emph{prequantizable} if
+the following class has integral periods.
+$$
+\left[\frac{\omega}{2\pi\hbar}\right]
+\in H^2(M,\mathbb{R}).
+$$
+A {\it prequantum line bundle} is a
+Hermitian line bundle $(L,h)$ with a unitary
+connection $\nabla$ whose curvature is
+$$
+\Omega_\nabla=\frac{i}{\hbar}\omega.
+$$
+\end{definition}
+
+\noindent
+With the bracket in Definition
+\ref{definition-poisson-bracket}, we use
+curvature $i\omega/\hbar$. Thus the real
+first Chern class of $L$ is
+$-[\omega/(2\pi\hbar)]$. Theorem
+\ref{theorem-weil-integrality} gives exactly
+the required existence criterion. The
+original course project uses the opposite
+symplectic sign convention.
+
+\medskip\noindent
+Write $\dim M=2n$. Complete the smooth
+compactly supported sections of $L$ using
+$$
+\left\langle{} s,t\right\rangle{}
+=
+\frac{1}{(2\pi\hbar)^n}
+\int_M h(s,t)\frac{\omega^n}{n!}.
+$$
+This gives $L^2(M,L)$ for the Liouville
+measure, up to the displayed normalization.
+
+\begin{definition}
+\label{definition-prequantum-operator}
+Let $f\in C^\infty(M,\mathbb{R})$.
+The {\it prequantum operator} associated to
+$f$ is
+$$
+Q(f)=-i\hbar\nabla_{X_f}+m_f,
+$$
+where $m_f$ denotes multiplication by $f$.
+\end{definition}
+
+\section{The Kostant--Souriau formula}
+\label{section-kostant-souriau-formula}
+
+\begin{lemma}
+\label{lemma-hamiltonian-volume-preserving}
+For every $f\in C^\infty(M)$,
+$$
+\mathcal L_{X_f}\omega=0
+$$
+and hence
+$$
+\mathcal L_{X_f}\omega^n=0.
+$$
+\end{lemma}
+
+\begin{proof}
+By Cartan's formula and the definition of
+$X_f$,
+$$
+\mathcal L_{X_f}\omega
+=d\iota_{X_f}\omega+
+\iota_{X_f}d\omega
+=d^2f+0=0.
+$$
+The statement for $\omega^n$ follows by the
+Leibniz rule for the Lie derivative.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-integral-poisson-bracket-zero}
+Assume that $M$ is compact without boundary.
+Then, for all $f,g\in C^\infty(M)$,
+$$
+\int_M \{f,g\}\frac{\omega^n}{n!}=0.
+$$
+\end{lemma}
+
+\begin{proof}
+Since $X_f(g)=-\{f,g\}$ and
+$\mathcal L_{X_f}\omega^n=0$, we have
+$$
+\{f,g\}\omega^n
+=-\mathcal L_{X_f}(g\omega^n).
+$$
+By Cartan's formula,
+$$
+\mathcal L_{X_f}(g\omega^n)
+=d\iota_{X_f}(g\omega^n)+
+\iota_{X_f}d(g\omega^n).
+$$
+The second term vanishes for degree reasons,
+because $g\omega^n$ is a top-degree form.
+Thus $\{f,g\}\omega^n$ is exact, and the
+integral vanishes by Stokes' theorem.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-prequantum-self-adjoint}
+Assume that $M$ is compact without boundary.
+For real $f$, the operator $Q(f)$ is formally
+self-adjoint on smooth sections.
+\end{proposition}
+
+\begin{proof}
+The multiplication operator $m_f$ is formally
+self-adjoint because $f$ is real.  It remains
+to check $-i\hbar\nabla_{X_f}$.
+By compatibility of $\nabla$ with $h$,
+$$
+X_fh(s,t)=h(\nabla_{X_f}s,t)
++h(s,\nabla_{X_f}t).
+$$
+Integrating and using Lemma
+\ref{lemma-integral-poisson-bracket-zero} for
+real and imaginary parts of $h(s,t)$, we get
+$$
+\int_M X_fh(s,t)\frac{\omega^n}{n!}=0.
+$$
+Hence
+$$
+\int_M h(\nabla_{X_f}s,t)\frac{\omega^n}{n!}
+=-
+\int_M h(s,\nabla_{X_f}t)\frac{\omega^n}{n!}.
+$$
+Thus $\nabla_{X_f}$ is formally skew-adjoint,
+and $-i\hbar\nabla_{X_f}$ is formally
+self-adjoint.
+\end{proof}
+
+\begin{theorem}[Kostant--Souriau]
+\label{theorem-kostant-souriau}
+\begin{reference}
+\cite[Propositions 23.13--23.14]{hallq}
+\end{reference}
+Let $(M,\omega)$ be prequantizable, and let
+$(L,h,\nabla)$ be a prequantum line bundle.
+Then
+$$
+Q(\{f,g\})=\frac{1}{i\hbar}[Q(f),Q(g)]
+$$
+for all $f,g\in C^\infty(M,\mathbb{R})$.
+Thus $f\mapsto Q(f)$ is a prequantization in
+the sense of Definition
+\ref{definition-dirac-prequantization}.
+\end{theorem}
+
+\begin{proof}
+Let $h=\{f,g\}$.  First,
+$$
+{}[X_f,X_g]=-X_h.
+$$
+Indeed,
+$$
+\iota_{[X_f,X_g]}\omega
+=\mathcal L_{X_f}\iota_{X_g}\omega
+=\mathcal L_{X_f}dg
+=d(X_fg)=-dh,
+$$
+because $X_f(g)=-h$.  Since
+$\iota_{X_h}\omega=dh$, this gives
+$[X_f,X_g]=-X_h$.
+
+Now compute the commutator on smooth
+sections.  We use
+$$
+{}[\nabla_X,m_g]=m_{X(g)}
+$$
+and the curvature identity
+$$
+{}[\nabla_X,\nabla_Y]
+=\nabla_{[X,Y]}+\Omega_\nabla(X,Y).
+$$
+Therefore
+$$
+\begin{aligned}
+{}[Q(f),Q(g)]
+&=(-i\hbar)^2[\nabla_{X_f},\nabla_{X_g}]\\
+&\quad -i\hbar m_{X_f(g)}
++i\hbar m_{X_g(f)}.
+\end{aligned}
+$$
+Since $X_f(g)=-h$ and $X_g(f)=h$, the last
+two terms give $2i\hbar m_h$.  For the
+first term we use the prequantum curvature.
+$$
+\begin{aligned}
+{}[\nabla_{X_f},\nabla_{X_g}]
+&=\nabla_{-X_h}
++\frac{i}{\hbar}\omega(X_f,X_g)\\
+&=-\nabla_{X_h}+\frac{i}{\hbar}m_h.
+\end{aligned}
+$$
+Thus
+$$
+\begin{aligned}
+{}[Q(f),Q(g)]
+&=(-i\hbar)^2
+\left(-\nabla_{X_h}
++\frac{i}{\hbar}m_h\right)
++2i\hbar m_h\\
+&=\hbar^2\nabla_{X_h}+i\hbar m_h\\
+&=i\hbar(-i\hbar\nabla_{X_h}+m_h)\\
+&=i\hbar Q(h).
+\end{aligned}
+$$
+Dividing by $i\hbar$ proves the formula.
+On a noncompact manifold the same symmetry
+proof uses compactly supported sections.
+The operators preserve this dense domain.
+Linearity is immediate from the definition of
+$Q$, and $Q(1)=\operatorname{Id}$ because
+$X_1=0$.
+\end{proof}
+
+\section{Polarization}
+\label{section-what-remains}
+
+In the cotangent bundle of a configuration
+space, a prequantum section depends on both
+position and momentum. The vertical
+polarization imposes $\nabla_Vs=0$ in
+momentum directions. Locally this leaves a
+wave function of position. Defining the
+polarized norm requires a separate measure
+on configuration space. For a complex
+polarization the analogous equations in
+antiholomorphic directions give holomorphic
+sections. See \cite[Sections 22.3--22.4
+and 23.4--23.5]{hallq}.
+
+The demand that position and momentum act
+in their usual irreducible representation
+adds a genuine restriction. With the usual
+normalization of quadratic observables,
+the Dirac rule cannot extend consistently
+to every polynomial on the symplectic
+plane. See \cite[Section 13.4]{hallq}.
 
 \section{Coadjoint orbits and KKS theorem}
 \label{section-kks}
@@ -2668,8 +3067,8 @@ Recall that
 
 \begin{itemize}
 \item
-$\{f,g\}=\omega(X_g,X_f)=L_{X_f}g=-L_{X_g}f$.
-\item $X_{\{f,g\}}=[X_f,X_g]$
+$\{f,g\}=\omega(X_f,X_g)=X_g(f)=-X_f(g)$.
+\item $[X_f,X_g]=-X_{\{f,g\}}$.
 \end{itemize}
 
 \noindent

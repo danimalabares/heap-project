@@ -142,9 +142,17 @@ def ordered_files(files, order_path):
     return ordered
 
 
-def body_for(filename):
-    prefix = filename.removesuffix('.tex')
-    lines = Path(filename).read_text(encoding='utf-8').splitlines(True)
+def body_for(filename, qualified_refs=(), unique_targets=None):
+    prefix = Path(filename).stem
+    source = Path(filename).read_text(encoding='utf-8')
+    unique_targets = unique_targets or {}
+    # A single equation can carry only one amsmath label. Use the
+    # existing local name whenever it identifies one object in the book.
+    def resolve(match):
+        key = re.sub(r'%[^\n]*\n\s*', '', match[2])
+        return '\\' + match[1] + '{' + unique_targets.get(key, key) + '}'
+    source = re.sub(r'\\(ref|eqref)\{([^}]+)\}', resolve, source)
+    lines = source.splitlines(True)
     title = chapter_title(lines, prefix)
     out = [f'\\chapter{{{title}}}\n', f'\\label{{chapter-{prefix}}}\n\n']
 
@@ -180,6 +188,12 @@ def body_for(filename):
         if stripped.startswith('\\bibliographystyle'):
             continue
         out.append(line)
+        # Standalone chapters import these qualified names via xr-hyper.
+        label = re.fullmatch(r'\\label\{([\w-]+)\}', stripped)
+        if label:
+            qualified = f'{prefix}-{label.group(1)}'
+            if qualified in qualified_refs and qualified not in unique_targets:
+                out.append(f'\\label{{{qualified}}}\n')
     return ''.join(out)
 
 
@@ -191,7 +205,20 @@ def main():
 
     files = ordered_files(args.files, args.order)
     entries = order_entries(args.order)
+    qualified_refs = set()
+    owners = {}
+    for filename in files:
+        source = Path(filename).read_text(encoding='utf-8')
+        for label in re.findall(r'\\label\{([\w-]+)\}', source):
+            owners.setdefault(label, []).append(Path(filename).stem)
+        for key in re.findall(r'\\(?:ref|eqref)\{([^}]+)\}', source):
+            qualified_refs.add(re.sub(r'%[^\n]*\n\s*', '', key))
 
+    unique_targets = {
+        chapters[0] + '-' + label: label
+        for label, chapters in owners.items()
+        if len(chapters) == 1 and chapters[0] + '-' + label in qualified_refs
+    }
     print(preamble(), end='')
     print('\\begin{document}\n')
     print('\\tableofcontents\n')
@@ -205,12 +232,12 @@ def main():
         if not next_filename:
             continue
         print(f'% --- Begin {next_filename} ---')
-        print(body_for(next_filename), end='')
+        print(body_for(next_filename, qualified_refs, unique_targets), end='')
         print(f'% --- End {next_filename} ---\n')
         next_filename = next(filenames, None)
     while next_filename:
         print(f'% --- Begin {next_filename} ---')
-        print(body_for(next_filename), end='')
+        print(body_for(next_filename, qualified_refs, unique_targets), end='')
         print(f'% --- End {next_filename} ---\n')
         next_filename = next(filenames, None)
     print('\\bibliographystyle{amsalpha}')
