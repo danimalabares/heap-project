@@ -34,6 +34,7 @@ KNOWN_CHAPTERS = {
     "vertex-algebras",
     "homological-algebra",
     "deformations",
+    "classical-mechanics",
     "physics",
     "pde",
     "probability",

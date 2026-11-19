@@ -10,15 +10,592 @@
 
 \tableofcontents
 
-\section{Introduction}
+\section{Four model equations}
 \label{section-introduction}
 
 \noindent
-These notes develop the theory of partial
-differential equations.
+The first four equations on Salsa and
+Verzini's list answer four questions.
+What happens to a
+profile carried by a current? To a hot spot?
+To a plucked string? What temperature can
+persist once heat has stopped flowing in
+or out of each small region? Here are the
+four equations, in their order in
+\cite[Section 1.2, (1.2)--(1.5)]%
+{salsa-verzini}.
 
-Given the material elsewhere in the Heap
-Project, the basic things to learn are:
+Write $x$ for position and $t$ for time.
+The unknown $u$ is a function of these
+variables. In Euclidean coordinates set
+$$
+\Delta u=\sum_{j=1}^n
+\frac{\partial^2 u}{\partial x_j^2}.
+$$
+Consider first a ring with angular
+coordinate $x$, so $\Delta u=u_{xx}$.
+We can try the same initial profile
+$u(x,0)=\cos x$ in three different laws.
+
+\begin{enumerate}
+\item \emph{Transport.} Material moving at
+constant velocity $b$ carries its profile
+with it. A particle starting at $a$ is
+at $a+bt$ at time $t$. The derivative
+of $u(a+bt,t)$ is $u_t+bu_x$, so
+$$
+u_t+bu_x=0,\qquad u(x,t)=\cos(x-bt).
+$$
+The maximum travels around the ring.
+
+\item \emph{Heat.} Take the diffusivity
+to be one. At a peak of the cosine the
+second derivative is negative, so the
+temperature there starts to drop. In fact
+$$
+u_t=\Delta u,\qquad u(x,t)=e^{-t}\cos x.
+$$
+The peak stays put and loses amplitude.
+This is the model parabolic equation.
+
+\item \emph{Waves.} Take wave speed one
+and release the string from rest. Now the
+curvature of the profile determines its
+acceleration. Since the time derivative
+is initially zero, the solution is
+$$
+u_{tt}=\Delta u,\qquad u(x,t)=\cos t\cos x.
+$$
+At $t=\pi$ the initial peak has become a
+trough of the same depth. This is the
+model second-order hyperbolic equation.
+We had to specify an initial velocity as
+well as an initial displacement.
+
+\item \emph{Laplace and Poisson.} A
+time-independent temperature in a region
+with no internal heat source satisfies
+$$
+\Delta u=0.
+$$
+On an interval this says $u''=0$.
+Temperatures prescribed at the two ends
+select the straight line joining them.
+In higher dimensions this is the model
+elliptic boundary value problem. With a
+source $f$ we write Poisson's equation
+as $-\Delta u=f$.
+\end{enumerate}
+
+All four operators are linear. If $P$ is
+one of them and $Pu=f$, $Pv=g$, then
+$$
+P(au+bv)=af+bg
+$$
+for constants $a,b$. Other linear examples
+in the same list are Black--Scholes for an
+option price, the vibrating plate, and
+Schr\"odinger's equation for a complex
+wave function. In Burgers' equation the
+velocity is the solution itself. The term
+$uu_x$ breaks this superposition rule.
+Fisher's equation adds population growth
+to diffusion. In the porous medium equation
+the density controls its own diffusivity.
+The minimal surface equation governs the
+height of a stationary area graph, and the
+eikonal equation governs arrival times.
+The list ends with systems for elastic
+displacements, electromagnetic fields,
+and incompressible fluid motion (Navier,
+Maxwell, and Navier--Stokes).
+
+For each model one must specify the data
+and ask whether a solution exists, whether
+it is unique, and how much it changes when
+the data change. These are the questions
+of well-posedness
+\cite[Section 1.3]{salsa-verzini}.
+The \href{https://www.heap-project.org/%
+download/slides/kodaira-lectures/%
+lecture-24.pdf}{Kodaira lectures} posed
+just such a problem. The datum was a
+closed form $f$.
+We wanted a primitive $u$ with
+$\bar\partial u=f$ and a bound on its
+size. First consider how a differential
+equation already arose in geometry.
+
+\section{From a geodesic to a field}
+\label{section-geodesic-field}
+
+A free particle moves on a Riemannian
+manifold $(M,g)$. Its position is a curve
+$\gamma(t)$. The metric measures the
+squared speed, so its action for unit mass
+is the integral of the kinetic energy,
+$$
+E(\gamma)=\frac12\int_a^b
+g_{\gamma(t)}(\dot\gamma,\dot\gamma)\,dt.
+$$
+The fixed-endpoint variation comes from
+Lagrangian mechanics in the Physics part
+of the Heap Project. See
+\emph{Classical mechanics}, Section
+\ref{classical-mechanics-section-action}.
+
+In coordinates write $q^i=\gamma^i(t)$
+and sum over repeated indices. The
+Lagrangian and its two derivatives are
+$$
+\begin{aligned}
+L(q,v)&=\tfrac12 g_{ij}(q)v^iv^j,\\
+L_{v^k}&=g_{kj}v^j,\\
+L_{q^k}&=\tfrac12(\partial_k g_{ij})v^iv^j.
+\end{aligned}
+$$
+Insert $v=\dot q$ in
+$\frac{d}{dt}L_{v^k}=L_{q^k}$. The time
+derivative hits both the metric and the
+velocity. Raising the index $k$ with the
+inverse metric and collecting the terms
+quadratic in velocity gives
+$$
+\ddot q^\ell+
+\Gamma^\ell_{ij}(q)\dot q^i\dot q^j=0,
+$$
+where
+$$
+\Gamma^\ell_{ij}=\tfrac12 g^{\ell k}
+(\partial_i g_{jk}+\partial_j g_{ik}
+-\partial_k g_{ij}).
+$$
+This is $\nabla_{\dot\gamma}\dot\gamma=0$.
+It is an ODE, even when $M$ has many
+dimensions. All the coordinates of the
+unknown depend on one parameter $t$.
+In the Euclidean plane the Christoffel
+symbols in Cartesian coordinates vanish,
+and $q(t)=p+tv$ is the familiar solution.
+See \cite[Section 19]{arn} and the
+\href{https://www.heap-project.org/tag/05Q2}
+{Heap Project section on geodesics}.
+
+Now let the unknown depend on two
+coordinates. Stretch a membrane over a
+plane region $\Omega$, prescribe its height
+at the boundary, and write $u(x,y)$ for
+the height in the interior. Its quadratic
+energy for small slopes is
+$$
+E(u)=\frac12\int_\Omega|\nabla u|^2\,dx\,dy.
+$$
+Vary $u$ to $u+s\eta$, where $\eta$ is
+smooth and supported in the interior.
+The first variation at $s=0$ is
+$$
+\int_\Omega\nabla u\cdot\nabla\eta\,dx\,dy.
+$$
+If $u$ is smooth, integration by parts
+puts both derivatives on $u$. Stationarity
+for every $\eta$ gives $-\Delta u=0$.
+This is the fourth equation on the list.
+In one space dimension the same energy is
+the kinetic action of a curve in the real
+line, and its equation is $u''=0$.
+
+There is a reason to keep the equation in
+its integrated form. Add a load by
+subtracting $\int_\Omega fu\,dx\,dy$ from
+the energy. Stationarity now means
+$$
+\int_\Omega\nabla u\cdot\nabla\eta\,dx\,dy
+=\int_\Omega f\eta\,dx\,dy
+$$
+for every smooth interior test function.
+This identity makes sense as soon as $u$
+has square-integrable first weak
+derivatives and $f$ is square-integrable.
+It is the weak form of $-\Delta u=f$ in
+the interior. Boundary values are imposed
+separately. We will use the same idea of
+testing an equation in complex geometry.
+See \cite[Chapter 8]{salsa-verzini}.
+
+\section{What does a primitive solve?}
+\label{section-dbar-primitive}
+
+In one complex coordinate $z=x+iy$, a
+function $u$ has
+$$
+\bar\partial u=
+\tfrac12(u_x+i u_y)\,d\bar z.
+$$
+Thus $\bar\partial u=f$ is a first-order
+linear PDE. For $f=d\bar z$ on a disc
+one solution is $u=\bar z$. Adding any
+holomorphic function gives another one.
+Already here the kernel explains the
+failure of uniqueness.
+
+On the complex torus
+$\mathbb{C}/(\mathbb{Z}+i\mathbb{Z})$ the
+same $d\bar z$ is a global form. Could
+it have a global smooth primitive? Its
+lift would be a periodic function with
+$u_x+i u_y=2$. Integrate over the unit
+square. The integral of each derivative
+vanishes because the opposite edge values
+agree, whereas the integral of $2$ is $2$.
+Local primitives exist on every chart and
+still fail to fit together globally.
+
+In higher degree $\bar\partial^2=0$
+gives a necessary condition on the data,
+$\bar\partial f=0$. The quotient of
+closed forms by forms with a global
+primitive is Dolbeault cohomology.
+In the Kodaira problem $X$ is a compact
+K\"ahler manifold of dimension $n$ and
+$L$ a holomorphic line bundle. The datum
+$f$ is an $L$-valued $(n,q)$-form with
+$1\le q\le n$. We seek an $L$-valued
+$(n,q-1)$-form $u$. In a holomorphic
+frame $\bar\partial$ acts on the form
+coefficients. For $q=1$ take a local
+holomorphic frame $\tau$ of $K_X\otimes L$.
+Writing
+$$
+u=a\tau,\qquad
+f=\sum_j f_j\,d\bar z^j\wedge\tau,
+$$
+we are asking one coefficient $a$ to
+satisfy all $n$ equations
+$$
+\frac{\partial a}{\partial\bar z^j}=f_j.
+$$
+For smooth data the condition
+$\bar\partial f=0$ says that the mixed
+derivatives required of $a$ agree,
+$$
+\frac{\partial f_j}{\partial\bar z^k}
+=\frac{\partial f_k}{\partial\bar z^j}.
+$$
+Local solvability for smooth closed forms
+is the
+\href{https://www.heap-project.org/tag/08QG}
+{Dolbeault lemma}. What can rule out a
+global obstruction like the one on the
+torus?
+
+\section{What curvature estimates}
+\label{section-dbar-curvature}
+
+Give $X$ a K\"ahler form $\omega$ and $L$
+a smooth Hermitian metric $h$. They give
+forms a pointwise length and an integrated
+squared norm
+$$
+\|v\|^2=\int_X |v|^2\,\frac{\omega^n}{n!}.
+$$
+The adjoint $\bar\partial^*$ moves a
+derivative from one factor of the inner
+product to the other. On smooth forms,
+$$
+(\bar\partial a,v)=(a,\bar\partial^*v).
+$$
+In the middle degree $(n,q)$ there are
+two ways to differentiate a test form $v$.
+The form $\bar\partial v$ goes up one
+degree and $\bar\partial^*v$ goes down
+one degree. Why should their two norms
+together control the size of $v$?
+
+Write $D'$ for the $(1,0)$ part of the
+Chern connection on $L$. Its curvature
+$\Theta_h(L)$ measures the failure of
+covariant derivatives to commute.
+Let $\Lambda$ be the adjoint of wedging
+with $\omega$, and let $A$ be the
+commutator of wedging with $i\Theta_h(L)$
+and $\Lambda$. The integrated
+Bochner--Kodaira--Nakano identity on a
+compact K\"ahler manifold without boundary
+gives, in bidegree $(n,q)$,
+$$
+\begin{aligned}
+\|\bar\partial v\|^2+\|\bar\partial^*v\|^2
+&=\|(D')^*v\|^2+(Av,v).
+\end{aligned}
+$$
+The term $\|D'v\|^2$ vanishes because
+its holomorphic degree would be $n+1$.
+See \cite[Section 4, (4.7) and (4.10)]%
+{demailly-cime}.
+
+At a point diagonalize $i\Theta_h(L)$
+relative to $\omega$, with eigenvalues
+$\lambda_1,\ldots,\lambda_n$. Each
+component of $v$ already contains all $n$
+holomorphic indices. If its antiholomorphic
+indices form the set $J$, then $A$ acts
+on this component by
+$$
+\sum_{j\in J}\lambda_j.
+$$
+For $q=1$ a component ending in
+$d\bar z^j$ therefore sees precisely
+$\lambda_j$. If the curvature satisfies
+$i\Theta_h(L)\ge\varepsilon\omega$ for
+some $\varepsilon>0$, each eigenvalue
+is at least $\varepsilon$. There are $q$
+indices in $J$. Integrating and dropping
+the squared norm on the right gives
+$$
+q\varepsilon\|v\|^2\le
+\|\bar\partial^*v\|^2+\|\bar\partial v\|^2.
+$$
+The smooth Kodaira lecture chose
+$\omega=i\Theta_h(L)$ for a positive
+line bundle. All eigenvalues are then
+one. With a fixed $\omega$ the lower
+bound records how much positivity we have.
+The flat trivial bundle on the torus has
+zero curvature, so this argument supplies
+no positive constant there.
+
+\section{How the estimate gives a solution}
+\label{section-estimate-solution}
+
+Fix a closed datum $f$ of degree $(n,q)$.
+The inequality we just obtained is about a
+test form $v$. The unknown $u$ does not
+occur in it. To find $u$, ask what its
+inner products would have to be if it
+solved the equation.
+
+Write $H_j$ for the Hilbert space of
+square-integrable $L$-valued $(n,j)$-forms,
+using $H_{n+1}=0$. The two successive
+derivatives are
+$$
+H_{q-1}\xrightarrow{T}H_q
+\xrightarrow{S}H_{q+1}.
+$$
+Both are $\bar\partial$, on different
+degrees. Take their weak domains. For
+example $a\in H_{q-1}$ belongs to the
+domain of $T$ when its distributional
+derivative is represented by a form in
+$H_q$. Testing against smooth forms shows
+that if $a_j\to a$ and $Ta_j\to b$ in
+these norms, then $Ta=b$. This says $T$
+is closed. It is densely defined since it
+contains all smooth forms. The same holds
+for $S$, and $\bar\partial^2=0$ gives
+$\operatorname{im}T\subset\ker S$.
+
+Let $T^*$ be the Hilbert space adjoint.
+On this compact manifold smooth forms are
+dense in the common domain of $T^*$ and
+$S$ for the norm controlling $v,T^*v,Sv$.
+Thus the smooth estimate passes to that
+domain. Write $C=q\varepsilon$. We know
+$$
+C\|v\|^2\le\|T^*v\|^2+\|Sv\|^2.
+$$
+Here is the existence argument of
+\cite[Theorem 5.1 and its proof]%
+{demailly-cime}, written with inner
+products linear in the first variable.
+
+\emph{Which part of $v$ can pair with
+$f$?} Put $K=\ker S$. Since $S$ is
+closed, $K$ is a closed subspace. For
+any $v$ in the domain of $T^*$, take
+its orthogonal decomposition
+$$
+v=v_0+v_1,\qquad v_0\in K,\quad v_1\perp K.
+$$
+For every $a$ in the domain of $T$,
+$Ta\in K$, so $(Ta,v_1)=0$. By the
+definition of the adjoint, $v_1$ belongs
+to its domain and $T^*v_1=0$. Hence
+$T^*v_0=T^*v$ and $Sv_0=0$. Apply the
+estimate to $v_0$. It gives
+$$
+\sqrt C\,\|v_0\|\le\|T^*v\|.
+$$
+Since $f\in K$, $(v,f)=(v_0,f)$. By
+Cauchy--Schwarz we now have precisely the
+bound on the pairing that we need,
+$$
+|(v,f)|\le
+\frac{\|f\|}{\sqrt C}\|T^*v\|.
+$$
+
+\emph{How do we recover $u$?} If $Tu=f$,
+then testing against $v$ would give
+$(T^*v,u)=(v,f)$. The right side is known.
+Define a functional on the range of $T^*$
+by prescribing
+$$
+\ell(T^*v)=(v,f).
+$$
+If two test forms have the same $T^*v$,
+apply the pairing bound to their
+difference. They give the same value of
+$\ell$. The same bound gives continuity,
+so $\ell$ extends to the closure of the
+range. Set it equal to zero on the
+orthogonal complement. By the
+\href{https://www.heap-project.org/tag/0562}
+{Riesz representation theorem}, this
+functional on $H_{q-1}$ is given by a
+vector $u$ with
+$$
+(T^*v,u)=(v,f),\qquad
+\|u\|\le\frac{\|f\|}{\sqrt C}.
+$$
+The identity for every $v$ in the domain
+of $T^*$ is exactly the definition of
+$u$ belonging to the domain of $T^{**}$
+with $T^{**}u=f$. A closed densely
+defined operator equals its double
+adjoint. We have proved $Tu=f$.
+
+All other solutions differ from $u$ by a
+vector in $\ker T$. Our extension by zero
+makes $u$ orthogonal to $\ker T$, since
+$(\operatorname{im}T^*)^\perp=\ker T$.
+Pythagoras therefore makes $u$ the unique
+solution of smallest norm. The difference
+of two such solutions is the minimal
+solution for the difference of their data.
+Thus the very same bound gives continuous
+dependence on $f$. Existence, uniqueness
+after normalization, and stability now
+have concrete meanings for this PDE.
+
+What if $f$ is smooth? For $q>1$ the
+minimal solution is perpendicular to the
+image of the preceding $\bar\partial$,
+since that image lies in $\ker T$.
+Thus $\bar\partial^*u=0$ weakly. For $q=1$
+this holds by degree. Applying the
+Dolbeault Laplacian gives
+$$
+\Delta_{\bar\partial}u
+=\bar\partial^*f.
+$$
+This second-order operator is elliptic.
+With smooth metrics its elliptic regularity
+implies that $u$ is smooth. Every smooth
+closed form of the indicated type now has
+a smooth primitive. By Dolbeault's theorem
+this is precisely the vanishing
+$$
+H^q(X,K_X\otimes L)=0,\qquad 1\le q\le n.
+$$
+Compare the harmonic-form proof in
+\href{https://www.heap-project.org/tag/066P}
+{Complex geometry, Kodaira vanishing}.
+
+\section{Correcting a local section}
+\label{section-cutoff-section}
+
+In degree $q=1$, a primitive $u$ is an
+$L$-valued $(n,0)$-form, or equivalently
+a section of $K_X\otimes L$, where $K_X$
+is the canonical bundle. Suppose we know
+a holomorphic section $t$ on a chart and
+want a global holomorphic section taking
+the same value at a chosen point $p$.
+Choose a smooth cutoff $\chi$ supported
+in the chart and equal to one near $p$.
+Extend $\chi t$ by zero. It is global
+and has the right value. Its error is
+$$
+f=\bar\partial(\chi t)=\bar\partial\chi
+\wedge t.
+$$
+The error is supported where $\chi$
+changes and is closed. If we can solve
+$\bar\partial u=f$, then
+$$
+s=\chi t-u,\qquad\bar\partial s=0.
+$$
+There is still a problem. The choice
+$u=\chi t$ solves the PDE and gives
+$s=0$. What forces a correction to
+preserve the value at $p$?
+
+This is where the singular weight in the
+Kodaira embedding lectures enters. In
+coordinates centered at $p$, use a
+squared metric weight comparable to
+$|z|^{-2n}$ near $0$. The error $f$
+vanishes there, so it pays no cost at the
+pole. The weighted estimate gives a
+primitive $u$ of finite weighted norm.
+Near $p$ it solves $\bar\partial u=0$
+weakly, so its local coefficient is
+holomorphic. If $u(p)\ne0$, that
+coefficient is bounded away from zero on
+a smaller ball. In radial coordinates its
+squared norm would contain a positive
+multiple of
+$$
+\int_0^\delta r^{2n-1}r^{-2n}\,dr
+=\int_0^\delta\frac{dr}{r}.
+$$
+This diverges. Thus $u(p)=0$, and
+$s(p)=t(p)$ as required.
+
+The weighted existence theorem requires
+a global metric whose curvature is still
+bounded below by $\varepsilon\omega$ in
+the sense of currents. Its proof extends
+the smooth theory by regularization. In
+the embedding argument one starts with a
+positive bundle $P$ and takes
+$L=P^m\otimes K_X^{-1}$. For $m$ large
+the positive curvature from $P^m$ absorbs
+the curvature cost of introducing the
+local poles. Now $s$ is a section of
+$P^m$. Poles at two points allow sections
+to distinguish their values. A stronger
+pole forces the correction to vanish to
+second order and preserves a prescribed
+first derivative. These are the sections
+that give projective coordinates in the
+\href{https://www.heap-project.org/tag/0679}
+{Kodaira embedding theorem}. See
+\cite[Corollaries 5.3, 5.12--5.13 and
+Exercise 5.14]{demailly-cime}.
+
+There is a useful point of comparison
+with a holomorphic Lagrangian fibration
+$\pi:X\to B$. If $\omega_B$ is a
+K\"ahler form on the smooth base, then
+$\pi^*\omega_B$ vanishes on vectors
+tangent to a smooth fibre. It cannot give
+the strictly positive bound used above.
+This locates the extra difficulty in
+trying to construct a fibration from a
+line bundle by the same argument.
+
+\section{Further topics}
+\label{section-further-pde}
+
+The \href{https://impa.br/disciplina/%
+equacoes-diferenciais-parciais-%
+teoria-linear/%
+}{IMPA course on linear PDEs}, taught by
+Jo\~ao Pedro Ramos in 2026, goes from weak
+derivatives and Sobolev spaces to elliptic
+equations and evolution equations. The
+following are topics for further study.
 
 \begin{enumerate}
 \item The model elliptic, parabolic, and

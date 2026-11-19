@@ -142,7 +142,7 @@ def ordered_files(files, order_path):
     return ordered
 
 
-def body_for(filename):
+def body_for(filename, section_refs=()):
     prefix = filename.removesuffix('.tex')
     lines = Path(filename).read_text(encoding='utf-8').splitlines(True)
     title = chapter_title(lines, prefix)
@@ -180,6 +180,12 @@ def body_for(filename):
         if stripped.startswith('\\bibliographystyle'):
             continue
         out.append(line)
+        # Standalone chapters import these qualified names via xr-hyper.
+        section = re.fullmatch(r'\\label\{(section-[\w-]+)\}', stripped)
+        if section:
+            qualified = f'{prefix}-{section.group(1)}'
+            if qualified in section_refs:
+                out.append(f'\\label{{{qualified}}}\n')
     return ''.join(out)
 
 
@@ -191,6 +197,12 @@ def main():
 
     files = ordered_files(args.files, args.order)
     entries = order_entries(args.order)
+    section_refs = set()
+    for filename in files:
+        section_refs.update(re.findall(
+            r'\\ref\{([\w-]+-section-[\w-]+)\}',
+            Path(filename).read_text(encoding='utf-8'),
+        ))
 
     print(preamble(), end='')
     print('\\begin{document}\n')
@@ -205,12 +217,12 @@ def main():
         if not next_filename:
             continue
         print(f'% --- Begin {next_filename} ---')
-        print(body_for(next_filename), end='')
+        print(body_for(next_filename, section_refs), end='')
         print(f'% --- End {next_filename} ---\n')
         next_filename = next(filenames, None)
     while next_filename:
         print(f'% --- Begin {next_filename} ---')
-        print(body_for(next_filename), end='')
+        print(body_for(next_filename, section_refs), end='')
         print(f'% --- End {next_filename} ---\n')
         next_filename = next(filenames, None)
     print('\\bibliographystyle{amsalpha}')
