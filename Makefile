@@ -30,7 +30,8 @@ all: $(PDFS)
 
 # Cross-chapter references in the integrated course projects.
 # A standalone PDF can read a chapter's labels after its first pass.
-quantum-mechanics.pdf: functional-analysis.aux symplectic-geometry.aux
+classical-mechanics.pdf: pde.aux quantum-mechanics.aux symplectic-geometry.aux
+quantum-mechanics.pdf: classical-mechanics.aux functional-analysis.aux symplectic-geometry.aux
 symplectic-geometry.pdf: quantum-mechanics.aux complex-geometry.aux hodge-theory.aux
 hilbert-schemes.pdf: vertex-algebras.aux algebraic-topology.aux
 algebraic-topology.pdf vertex-algebras.pdf: hilbert-schemes.aux
