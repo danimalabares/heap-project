@@ -16,8 +16,9 @@ scheme and its description through families.
 It then treats group-invariant subschemes,
 generalized Kummer varieties, and seminar
 notes on nested Hilbert schemes.
-The later sections preserve the material
-on Nakajima's Heisenberg representation.
+Section \ref{section-intro} uses incidence
+correspondences to construct Nakajima's
+Heisenberg representation.
 
 \tableofcontents
 
@@ -65,7 +66,7 @@ $P_u(m)=\chi(\mathcal{O}_{Z_u}\otimes
 \mathcal{O}_X(m))$.
 By flatness of $\pi$ the Hilbert polynomial
 is constant along $U$
-(\cite[Part III, Theorem 9.9]{Hartshorne}).
+(\cite[Part III, Theorem 9.9]{har}).
 For a fixed polynomial $P$
 we define $\mathcal{H}ilb^P_X$ as the
 functor which maps $U$
@@ -680,390 +681,102 @@ $E_h \neq  \emptyset$
 \label{section-abs}
 
 \noindent
-The main theorem in \cite{Nakajima-Heis}
-shows there is an action of the
-infinite-dimensional
-Heisenberg algebra
-on the homology groups of the Hilbert
-scheme of points on a projective surface.
-We explain how this representation is
-constructed
-and give an idea of the proof of the theorem.
-
-\noindent
-Motivated by earlier work on moduli spaces
-of
-torsion-free sheaves
-(see \cite{Nakajima-ALE}),
-Nakajima constructed in \cite{Nakajima-Heis}
-a representation the infinite-dimensional
-Heisenberg
-algebra on the homology groups of the
-Hilbert schemes
-on a nonsingular projective surface.
-
-In this work we outline the basic ideas in
-Nakajima's construction
-and explain the first part of the proof of
-the main theorem.
-Most of this work is based in
-\cite{Nakajima-lectures},
-with the exception of the section on
-Heisenberg algebras
-where I try to identify the precise version
-of the Heisenberg
-algebra that is being represented.
-In Section \ref{section-hilbert-scheme},
-I explain the construction of the Hilbert
-scheme,
-providing slightly more details than what is
-really essential
-to understand the main theorem,
-but which help to get a better idea on what
-the Hilbert scheme is
-and how to work with it.
-
-This work is strongly influenced by
-\cite{videos},
-a series of seminars aimed at understanding
-\cite{Nakajima-lectures}
-documented in videos.
-This was of great help
-specially in Section \ref{section-bm}, since
-the properties of Borel-Moore homology are a
-rather technical
-but essential part of the construction.
-The remaining sections, containing the main
-theorem
-and part of its proof,
-also pick up ideas from these videos,
-but are mostly based in
-\cite{Nakajima-lectures}.
-
+Start with the Hilbert scheme $X^{[n]}$ of
+Definition
+\ref{definition-hilbert-scheme-of-points}
+for a smooth projective complex surface $X$.
+An incidence correspondence adds or removes
+a subscheme concentrated at one point of
+$X$. This changes $n$. The operators
+therefore act on the direct sum
+$$
+\bigoplus_{n\geq 0} H_*(X^{[n]}).
+$$
+Their graded commutators recover the
+intersection pairing on $X$. The vacuum
+is the empty subscheme in $X^{[0]}$.
+See Theorem \ref{theorem-main} and
+\cite[Chapter 8]{Nakajima-lectures}.
+Section \ref{section-example} computes the
+commutator for adding and removing one
+point. Section \ref{section-proof} treats
+the contribution of modifications at
+distinct points.
 
 \section{Heisenberg algebra}
 \label{section-heisenberg}
 
 \noindent
-In this section we review four different
-variants
-of the Heisenberg algebra and discuss their
-characters.
-We conclude by showing how the character is
-used
-to prove that Nakajima's representation is
-of highest weight.
-
-\medskip\noindent
-The most basic definition of the Heisenberg
-Lie algebra is
-$\hat{\mathfrak{a}}=
-\bigoplus_{n \in \mathbb{Z}} \mathbb{C}h_n
-\oplus\mathbb{C}K$
-with bracket given by
-\begin{equation}
-\label{equation-bracket-basic}
-[h_m,h_n]=m\delta_{m,-n}K,\qquad
-[K,\hat{\mathfrak{a}}]=0.
-\end{equation}
-
-\noindent
-In class we described its highest weight
-representation
-$H=\mathbb{C}[x_1,x_2,\ldots]$ with
-\begin{align*}
-h_n&\mapsto \begin{cases}
-n \frac{\partial }{\partial x_n}\qquad
-&\text{if }n>0\\
-x_{-n}\qquad &\text{if }n<0\\
-0\qquad &\text{if }n=0
-\end{cases},
-\qquad \qquad  K\mapsto \text{Id}.
-\end{align*}
-
-\noindent
-We introduced a grading in
-$H=\bigoplus_{\Delta=0}^\infty H_\Delta$
-given by the {\it energy} of monomials,
-defined by
-$$
-\Delta(x_1^{k_1}x_2^{k_2}\ldots
-x_s^{k_s})=\sum_j k_j,
-$$
-which gives the character formula
-\begin{equation}
-\label{equation-character-heisenberg}
-\sum_{\Delta=0}^\infty q^\Delta \dim H_\Delta
-=\prod_{m=1}^\infty\frac{1}{1-q^m}.
-\end{equation}
-
-\noindent
-In order to generalize this construction
-it's worth going over why this formula holds.
-Recall that the \textit{Verma module} of
-weight $\mu=0$
-of $\hat{\mathfrak{a}}$ is defined by
-$H=
-\mathcal{U}(\hat{\mathfrak{a}})
-\otimes_{\mathcal{U}(\hat{\mathfrak{a}}_+)}
-\mathbb{C}|0\rangle$.
-Further, by the PBW theorem, this module
-is isomorphic to
-$\mathcal{U}(\mathfrak{n}_-)$,
-the universal enveloping algebra
-of the negative roots in the triangular
-decomposition
-(as in the finite-dimensional case, see
-\cite[Lecture 24]{KLAL} and
-\cite[Video 8]{videos}).
-Since the subalgebra of negative roots is
-abelian,
-the universal enveloping algebra becomes the
-symmetric algebra
-and therefore we have
+The algebra for this construction uses the
+graded vector space $V=H_*(X,\mathbb{C})$.
+First recall the oscillator relation and
+the rank-one character from Vertex Algebras,
+Equations \ref{vertex-algebras-%
+equation-bracket-basic} and
+\ref{vertex-algebras-%
+equation-character-heisenberg}.
+A negative mode of index $-m$ increases the
+number of points by $m$. For rank one the
+vacuum representation is the polynomial ring
+with one generator for each positive $m$.
 \begin{equation}
 \label{equation-symmetric-rank-1}
-\begin{aligned}
-H&\cong\text{Sym}\left(\bigoplus_{m>0}\mathbb{C}at^{-m}\right)\\
-&\cong\bigotimes_{m>0}\text{Sym}(\mathbb{C}at^{-m})\\
-&\cong \bigotimes_{m>0}\mathbb{C}[at^{-m}],
-\end{aligned}
+\bigotimes_{m>0}\mathbb{C}[x_m],
+\qquad \deg x_m=m .
 \end{equation}
-
-\noindent
-since the symmetric power of a vector space
-is the polynomial ring in its generators,
-and the symmetric power of a direct sum
-is the tensor product of the symmetric
-powers of the factors.
-This matches our previous formula
-$H=\mathbb{C}[x_1,x_2,\ldots]$ by letting
-$x_m=at^{-m}$.
-
-Putting a dummy variably $q$ to every
-1-dimensional
-factor and multiplying throughout, we obtain
-$$
-\begin{aligned}
-m=1\qquad &(1+q+q^2+q^3+\ldots)\times\\
-m=2\qquad &(1+q^2+q^4+q^6+\ldots)\times\\
-m=3\qquad
-&(1+q^3+q^6+q^9+\ldots)\times\ldots,
-\end{aligned}
-$$
-
-\noindent
-so that indeed the character is given by
-Equation \ref{equation-character-heisenberg}.
-
-\medskip\noindent
-Another version of this construction
-we discussed in lectures
-(see \cite[Section
-3.1]{Jethro-vertex-algebras})
-starts with any finite-dimensional vector
-space $\mathfrak{h}$
-equipped with a symmetric bilinear form
-$(\cdot,\cdot)$.
-Define
-$$
-\hat{\mathfrak{h}}=\mathfrak{h}\otimes\mathbb{C}[[t^{\pm 1}]]\oplus\mathbb{C}K
-$$
-with bracket
-\begin{equation}
-\label{equation-bracket-affine}
-[at^m,bt^n]=m\delta_{m,-n}(a,b)K,\qquad
-[K,\hat{\mathfrak{h}}]=0,
-\end{equation}
-
-\noindent
-which is just the affine Lie algebra of
-$\mathfrak{h}$ when
-regarded as a commutative Lie algebra.
-
-A similar formula to Equation
-\ref{equation-symmetric-rank-1} is
+If $V$ is purely even, the Fock space has
+one copy of $V$ in each positive weight.
 \begin{equation}
 \label{equation-symmetric}
-\begin{aligned}
-H&\cong\text{Sym}\left(\bigoplus_{m>0}\bigoplus_{a \in B}
-\mathbb{C}at^{-n}\right)\\
-&\cong\bigotimes_{m>0}\bigotimes_{a \in
-B}\text{Sym}(\mathbb{C}at^{-m})\\
-&\cong\bigotimes_{m>0}\bigotimes_{a \in
-B}\mathbb{C}[at^{-m}]
-\end{aligned}
+\bigotimes_{m>0}\operatorname{Sym}(Vt^{-m}).
 \end{equation}
-where $B$ is a basis of the underlying
-vector space $\mathfrak{h}$.
-If $\mathfrak{h}$ has dimension $r$, this
-has character
-\begin{equation}
-\label{equation-character-rank-r}
-\prod_{m=0}^\infty\frac{1}{(1-q^m)^r}.
-\end{equation}
+This follows from the Poincar\'e--Birkhoff--
+Witt theorem since the negative modes
+commute. Its character is computed in
+Equation \ref{vertex-algebras-%
+equation-character-rank-r}.
 
-\medskip\noindent
-Taking this construction one step further,
-let's change $\mathfrak{h}$ for a
-finite-dimensional
-super vector space
-$\mathfrak{h}=\mathfrak{h}_0\oplus
-\mathfrak{h}_1$
-with basis $B^{\text{even}}\amalg
-B^{\text{odd}}$.
-If we equip $\mathfrak{h}$ with a graded
-commutative
-pairing $\left\langle{}\cdot,\cdot\right\rangle{}$, we can
-apply the same construction as above
-to obtain the algebra
+For a surface with odd homology, give a
+homogeneous class $a$ the parity of its
+homological degree. The intersection pairing
+is graded symmetric. The nonzero modes and
+the even central element $K$ span
 \begin{equation}
 \label{equation-super-heisenberg}
-\hat{\mathfrak{h}}
-=(\mathfrak{h}_0[[t^{\pm
-1}]]\oplus\mathfrak{h}_1[[t^{\pm 1}]])
-\oplus\mathbb{C}K
+\bigoplus_{m\ne 0} Vt^m\oplus\mathbb{C}K .
 \end{equation}
-
-\noindent
-with Lie bracket
+The ordinary bracket for even classes is
+\begin{equation}
+\label{equation-bracket-affine}
+[at^m,bt^n]=m\delta_{m,-n}(a,b)K .
+\end{equation}
+For homogeneous $a,b$ the graded bracket
+obeys the same mode relation
 \begin{equation}
 \label{equation-super-bracket}
-[at^m,bt^n]=\left\langle{}a,b\right\rangle{}m\delta_{m,-n}K,\qquad
-[K,\hat{\mathfrak{h}}]=0.
+[at^m,bt^n]_{\rm gr}
+=m\delta_{m,-n}(a,b)K .
 \end{equation}
-
-\noindent
-One can check that this is indeed a super
-Lie bracket
-(which essentially holds by the pairing
-being graded commutative
-and $K$ being central),
-i.e. $\hat{\mathfrak{h}}$ is a Lie
-superalgebra.
-Its highest weight module is given by
-$$
-\begin{aligned}
-H&\cong
-\text{Sym}\left(\bigoplus_{m>0}\bigoplus_{a
-\in B}
-\mathbb{C}at^{-m}\right)\\
-&\cong
-\bigotimes_{m>0}\text{Sym}\left(\bigoplus_{a
-\in B^{\text{even}}}
-\mathbb{C}at^{-m}\right)
-\otimes\bigotimes_{m>0}
-\Lambda\left(\bigoplus_{a \in B^{\text{odd}}}
-\mathbb{C}at^{-m}\right).
-\end{aligned}
-$$
-
-\noindent
-since the universal enveloping algebra of
-the odd
-part is the exterior power (see \cite[Video
-8]{videos}).
-
-Now recall that while the symmetric power of
-a vector
-space yields the polynomial algebra on the
-basis of the vector space,
-the exterior power yields the algebra
-generated
-by the wedge products of the basic vectors.
-In the case of a 1-dimensional vector space
-generated
-by the element $at^{-m}$, we get
-$$
-\Lambda(\mathbb{C}at^{-m})=\mathbb{C} \oplus
-\mathbb{C}at^{-m}
-$$
-and thus the character contribution in this
-case is simply
-$
-1+q^m.
-$
-Multiplying throughout we obtain the
-character
-$$
-\prod_{m=0}^\infty \frac{(1+q^m)^{\dim
-\mathfrak{h}^{\text{odd}}}}{
-(1-q^m)^{\dim \mathfrak{h}^{\text{even}}}}.
-$$
-
-\medskip\noindent
-Let's introduce one last variant of this
-construction.
-This time we start from a graded vector space
-$\mathfrak{h}=\bigoplus_{m \in
-\mathbb{Z}}\mathfrak{h}_m$,
-which is automatically also a supervector
-space
-by the $\mathbb{Z}_2$-grading
-$\mathfrak{h}^{\text{even}}=\bigoplus_{i \in
-\mathbb{Z}}\mathfrak{h}_{2i}$
-and $\mathfrak{h}^{\text{odd}}=\bigoplus_{i
-\in \mathbb{Z}}\mathfrak{h}_{2i+1}$.
-Suppose $\mathfrak{h}_i$ is
-finite-dimensional with basis $B_i$,
-and that $\mathfrak{h}$ is equipped with a
-graded commutative
-pairing $\left\langle{}\cdot,\cdot\right\rangle{}$.
-The definition of $\hat{\mathfrak{h}}$ as an
-algebra
-is given exactly as in Equation
-\ref{equation-super-heisenberg}
-with bracket given by Equation
-\ref{equation-super-bracket}.
-
-Now we obtain
-$$
-\begin{aligned}
-H&\cong
-\text{Sym}\left(\bigoplus_{m>0}\bigoplus
-_{\substack{a \in B_i \\ i \in \mathbb{Z}}}
-\mathbb{C}at^{-m}\right)\\
-&\cong
-\bigotimes_{m>0}\text{Sym}\left(\bigoplus
-_{\substack{a \in B_{2i} \\ i \in
-\mathbb{Z}}}
-\mathbb{C}at^{-m}\right)
-\otimes\bigotimes_{m>0}
-\Lambda\left(\bigoplus_{
-\substack{a \in B_{2i+1} \\ i \in
-\mathbb{Z}}}
-\mathbb{C}at^{-m}\right).
-\end{aligned}
-$$
-
-\noindent
-This gives the character
-$$
-\sum_{\substack{\Delta\in \mathbb{Z}_{\geq
-0}  \\ i \in \mathbb{Z}}}
-\dim \mathfrak{h}_{i,\Delta}t^iq^\Delta
-=\prod_{m>0}\prod_j(1-(-1)^jt^jq^m)^{-(-1)^j\dim \mathfrak{h}_j}.
-$$
-
-\noindent
-Finally fix $\mathfrak{h}=H_*(X)$, the
-singular homology ring
-of a complex projective surface $X$.
-Then the character of the corresponding
-Heisenberg algebra is
+Thus the negative modes in odd degree give
+exterior factors. An even generator of
+weight $m$ contributes $1/(1-q^m)$ to the
+ordinary character. An odd generator
+contributes $1+q^m$. In the surface
+representation a class of degree $j$ in
+weight $m$ creates a class of degree
+$j+2m-2$ from the vacuum. Writing
+$b_j=\dim H_j(X,\mathbb{C})$, the resulting
+two-variable character is
 \begin{equation}
 \label{equation-character}
-\prod_{m=1}^\infty \frac{
-(1+t^{2m-1}1^m)^{b_1(X)}
-(1+t^{2m+1}q^m)^{b_3(X)}}
-{(1-t^{2m-2}q^m)^{b_0(X)}
-(1-t^{2m}q^m)^{b_2(X)}
-(1-t^{2m+2}q^m)^{b_4(X)}}.
+\prod_{m>0}\prod_{j=0}^4
+\bigl(1-(-1)^jt^{j+2m-2}q^m\bigr)
+^{(-1)^{j+1}b_j}.
 \end{equation}
 
 \noindent
 It was proved by Göttsche using the Weil
-conjectures in \cite{Gottsche1990}
+conjectures in \cite{gottsche1990betti}
 (and in \cite[Section
 6.2]{Nakajima-lectures} by other methods)
 that Equation \ref{equation-character}
@@ -1090,227 +803,7 @@ as explained in \cite[Corollary
 
 
 
-\section{Borel-Moore homology}
-\label{section-bm}
 
-\noindent
-In this section we define Borel-Moore (BM)
-homology
-and formulate its basic properties.
-Most of this section is based on \cite[Video
-9]{videos}.
-For further details on the construction see
-\cite{Fulton-Young-Tableaux}.
-
-\medskip\noindent
-Let $M$ be a a smooth, connected,
-oriented, finite-dimensional manifold over
-$\mathbb{R}$.
-While the following results hold for any
-topological space $X \subset M$
-that is a proper deformation retract
-of a closed neighbourhood of a manifold,
-for us it's enough to think of $X \subset M$
-as a
-(possibly singular) variety over
-$\mathbb{C}$.
-
-In this work we consider homology and
-cohomology
-groups with coefficients in $\mathbb{C}$.
-Recall that singular homology is defined
-as the homology of the chain complex of
-finite linear combinations of $i$-simplices
-in $X$.
-\textit{Borel-Moore homology}
-$H_\bullet^{BM}(X)$
-is the homology of the complex of locally
-finite
-linear combinations of singular simplices in
-$X$,
-where ``locally finite'' means that every
-point $x \in X$ is in a neighbourhood
-that intersects only finitely many
-simplices.
-
-A striking
-difference between singular and BM homology
-is that the latter is not homotopy invariant.
-To see this recall that the homology groups
-of  $\mathbb{R}^2$ are
-$H_0(\mathbb{R}^2)=\mathbb{C}$
-and $H_i(\mathbb{R}^2)=0$ for $i \neq 0$.
-However, $H_2^{BM}(\mathbb{R}^2)=\mathbb{C}$
-since a tiling of triangles
-is a locally finite chain of 2 simplices,
-has no boundary (since the boundaries of
-all triangles cancel each other),
-and is clearly not the boundary of a
-3-simplex;
-thus this tiling is a nonzero element of
-$H_2^{BM}(\mathbb{R}^2)$.
-Further, notice that
-$H_0^{BM}(\mathbb{R}^2)=0$
-since a ray of 1-simplices
-is a locally finite chain
-whose boundary is a point;
-thus a point is a boundary and
-has trivial homology class.
-
-\medskip\noindent
-Here are three important properties of BM
-homology:
-\begin{enumerate}
-\item If $X$ is compact, $H_i^{BM}(X)\cong
-H_i(X)$.
-\item If $X$ is not compact,
-$H_i^{BM}(X)\cong H_i(\hat{X},\infty)$
-where $\hat{X}$ is the one-point
-compactification of $X$ and
-$H_i(\hat{X},\infty)$ is the
-relative homology group.
-\item
-\label{item-isomorphism-relative-cohomology}
-If the dimension of the manifold
-where $X$ is embedded is $m$,
-there is a canonical isomorphism
-$H_i^{BM}(X) \cong H^{m-i}(M,M\setminus X)$.
-In other words, there is a perfect
-pairing
-$$
-H_i^{BM}(X) \times H_{m-i}(M,M\setminus
-X)\to \mathbb{C}
-$$
-given by ``intersection''
-(where the quotes account for some
-transversal intersection condition
-that we would require before
-computing the intersection of
-two simplicial chains).
-\end{enumerate}
-
-Consider the previous example of
-the tiling of $\mathbb{R}^2$
-by triangles and put
-$X=M=\mathbb{R}^2$.
-Take any point as a 0-chain in singular
-homology
-and the triangle tiling as 2-chain in BM
-homology.
-Since the point lies in exactly one triangle
-(after suitable perturbation)
-their intersection is 1.
-Notice this wouldn't work with
-singular homology: we need an infinite
-2-chain
-to make sure that the whole plane
-is tiled by triangles since
-otherwise we cannot guarantee that the point
-is contained in some triangle.
-
-\medskip\noindent
-Now we formulate the key properties
-of BM homology needed to define the operators
-in Nakajima's representation of the
-Heisenberg algebra.
-
-\begin{enumerate}
-\item (Pushforward.)
-\label{item-pushforward}
-If $f:X \to Y$ is proper
-(i.e. inverse image of any compact set is
-compact)
-then there is a pushforward map $f_*
-:H_i^{BM}(X)\to H_i^{BM}(Y)$.
-This is functorial in proper maps,
-i.e. preserves compositions.
-Roughly, this works because, by properness,
-the inverse image of
-a point in $Y$ will be mapped to a compact
-set of $X$,
-which can intersect only finitely many
-simplices of a given chain,
-ensuring local finiteness of the image under
-$f$ of the chain.
-
-\item
-\label{item-pullback}
-(Pullback.) If $f:X \to Y$
-is a locally trivial fibration with
-fibre a manifold of dimension $m$ (over
-$\mathbb{R}$),
-then there is a pullback map
-$f^* :H_i^{BM}(Y)\to H_{i+m}^{BM}(X)$.
-
-\item
-\label{item-intersection}
-(Intersection pairing.) If $X$ and $Y$
-are both ``nicely embedded'' in the same
-manifold $M$, there is a bilinear
-graded-commutative map
-$$
-\cap_M:H_i^{BM}(X)\times H_j^{BM}(Y)
-\to H_{i+j-m}^{BM}(X\cap Y).
-$$
-Constructing this product can be done
-via the isomorphism with relative singular
-cohomology
-(item
-(\ref{item-isomorphism-relative-cohomology})
-in the previous list),
-and then using usual cap product.
-Again, the term ``nicely embedded'' accounts
-for a transversality condition that we will
-not
-specify.
-
-\item (Fundamental classes.)
-\label{item-fundamental-class}
-To any variety $V$ we can associate a
-fundamental class $[V]$.
-More precisely,
-\begin{itemize}
-\item If $V$ is a smooth irreducible variety
-of dimension $d$ over $\mathbb{C}$,
-its {\it fundamental class} $[V]$ is the
-canonical generator of
-$H_{2d}^{BM}(V)\cong H^0(V)\cong \mathbb{C}$,
-where the first isomorphism
-is given by the isomorphism of BM homology
-and
-relative singular cohomology taking $V = M$
-since it is smooth.
-
-\item If $V$ is a (possibly singular)
-irreducible variety of dimension $d$
-over $\mathbb{C}$, its fundamental class
-$[V] \in B_{2d}^{BM}(V)$
-is the unique class such that
-$u^* [V]=[V_{\text{reg}}]$.
-This is well-defined since
-the pullback in this degree turns
-out to be injective (by further properties
-of BM homology not discussed here)
-and thus this class is unique.
-
-\item For $V$ not necessarily irreducible
-of dimension $d$, then $H_{2d}^{BM}(V)$
-has basis $[V_1],\ldots,[V_k]$
-where $V_i$ are the $d$-dimensional
-irreducible components of $V$.
-In this case we define the fundamental class
-as the sum of the fundamental classes of
-those
-components, i.e. $[V]=[V_1]+\ldots+[V_k]$.
-\end{itemize}
-\end{enumerate}
-
-\noindent
-As a final remark notice that it is
-as special feature of BM homology
-that we can define fundamental classes for
-noncompact manifolds, as opposed to
-singular homology.
 
 \section{Correspondences}
 \label{section-correspondences}
@@ -1358,12 +851,12 @@ given by pulling back a class by $p_2$,
 intersecting with the fundamental class of
 $[Z]$,
 and pushing forward by $p_1$.
-This map is well-defined according
-to the key properties of BM homology stated
-in the previous section;
-the degree of the target homology group is
-computed according
-to such properties.
+The pullback here is along the projection of
+the ambient product. Intersect there with
+$[Z]$, then use properness on its support
+for the pushforward. See Algebraic Topology,
+Section \ref{algebraic-topology-section-bm},
+and \cite[Section 8.2]{Nakajima-lectures}.
 
 \begin{remark}
 \label{remark-notes}
@@ -1452,47 +945,33 @@ representation
 of the Heisenberg algebra and formulate
 the theorem which guarantees that it is so.
 
-Let $n\geq i>0$. Define $P[i]$
-as a subset of
-$\coprod_nX^{[n-i]}\times X^{[n]}$
-by
+Fix $i>0$ and $n\geq i$. In the product
 $$
-P[i]:=\coprod_n
-\{(\mathcal{J}_1,\mathcal{J}_2,x)
-\in X^{[n-i]}\times X^{[n]}:
-\mathcal{J}_1 \supseteq \mathcal{J}_2,
-\text{supp}(\mathcal{J}_1/\mathcal{J}_2)=\{x\}
-\text{ for some }x \in X\}.
+X^{[n-i]}\times X^{[n]}\times X
 $$
-
-\noindent
-For $i<0$, we swap $\mathcal{J}_1$ and
-$\mathcal{J}_2$
-in this definition.
-Now let
-$\alpha \in H_*^{BM}(X)$, $\beta \in H_*(X)$
-and suppose that $i>0$. Define the classes
+take the triples $(J_1,J_2,x)$ satisfying
+$$
+J_2\subseteq J_1,\qquad
+\operatorname{supp}(J_1/J_2)=\{x\}.
+$$
+Their incidence variety is the $n$th piece
+of $P[i]$. Interchanging the first two
+factors gives $P[-i]$. Let $\Pi$ project to
+$X$ and let $\varpi$ forget the marked
+point. For a homogeneous class $\alpha$ on
+$X$, the associated correspondence is
 \begin{equation}
 \label{equation-correspondence-p}
-\begin{aligned}
-P_\alpha[i]&=\varpi_*(\Pi_1^*\alpha \cap
-[P[i]])\\
-P_\beta[i]&=\varpi_*(\Pi_1^*\beta \cap
-[P[-i]])
-\end{aligned}
+P_\alpha[j]=\varpi_*
+  (\Pi^*\alpha\cap[P[j]]),\qquad j=\pm i.
 \end{equation}
-according to the projections
-$$
-\xymatrix{
-&  \coprod_n X^{[n-i]}\times X^{[n]}\times X
-\ar[dl]_{\Pi_1}\ar[dr]^{\varpi_i}\\
-X&&\coprod_n X^{[n-i]}\times X^{[n]}.
-}
-$$
-These homology classes define the operators
-of the group
-$\bigoplus_{n=0}^{\infty}H_*(X^{[n]})$
-that will be used in the main theorem.
+Here the pullback and intersection take
+place in the ambient product. All
+projections on the supports are proper
+because $X$ is projective. Positive indices
+remove points and negative indices add them
+as in \cite[Equation
+(8.12)]{Nakajima-lectures}.
 
 \medskip\noindent
 Before we continue, we formulate and
@@ -1503,8 +982,8 @@ a lemma that will be used later.
 
 \begin{lemma}
 \label{lemma-dimension}
-$\dim_\mathbb{C}P[i]\cap (X^{[n-i]}\times
-X^{[n]})=2n-i+1$.
+The $n$th piece of $P[i]$ has complex
+dimension $2n-i+1$.
 \end{lemma}
 
 \begin{proof}
@@ -1518,7 +997,8 @@ the variety
 obtained by varying  $\mathcal{J}_2 \in
 X^{[n]}$
 satisfying
-$\mathcal{J}_1/\mathcal{J}_2=\{x\}$
+$\operatorname{supp}(\mathcal{J}_1/
+\mathcal{J}_2)=\{x\}$
 for some $x \in X$.
 The generic case is when
 $x \in
@@ -1547,168 +1027,71 @@ as a subvariety of the Hilbert scheme.
 \end{proof}
 
 \medskip\noindent
-Now we state the main theorem,
-\cite[Theorem 8.13]{Nakajima-lectures}.
-Notice that we must add the assumption that
-the homology group of $X$ is concentrated in
-even degrees.
-The theorem can be stated in a more general
-form without
-this assumption, but we shall not discuss it
-in this work.
+For homogeneous classes $\alpha,\beta$ put
+$\epsilon=(-1)^{|\alpha||\beta|}$. For
+operators $A,B$ of those parities write
+$[A,B]_{\rm gr}=AB-\epsilon BA$.
+
 \begin{theorem}[Nakajima, Grojnowski]
 \label{theorem-main}
-Suppose $(\text{deg}
-\alpha)(\text{deg}\beta)\equiv 0 (\text{mod}
-2)$
-for all $\alpha,\beta \in H_*(X)$.
-Then
+\begin{reference}
+\cite[Theorem 8.13]{Nakajima-lectures}
+\end{reference}
+On the direct sum of the homology groups of
+the Hilbert schemes of a smooth projective
+complex surface, the incidence operators
+satisfy
 \begin{equation}
 \label{equation-main}
-[P_\alpha[i],P_\beta[j]]=(-1)^{i-1}i
-\delta_{i,-j}
-\left\langle{}\alpha,\beta\right\rangle{}\text{Id}.
+[P_\alpha[i],P_\beta[j]]_{\rm gr}
+=(-1)^{i-1}i\delta_{i,-j}
+(\alpha,\beta)\operatorname{Id}
 \end{equation}
-
-\noindent
-where $\left\langle{}\alpha,\beta\right\rangle{}=p_*(\alpha
-\cap \beta)$
-for $p:X \to \text{pt}$ the unique morphism
-from $X$ to the point pt.
+for all nonzero indices $i,j$. Here
+$(\alpha,\beta)$ is the degree of the
+intersection pairing, extended by zero in
+noncomplementary degrees.
 \end{theorem}
 
-\medskip\noindent
-According to our constructions in
-Section \ref{section-heisenberg},
-this means that we have a representation of
-the Heisenberg algebra $\hat{\mathfrak{h}}$
-associated to the graded vector space
-$H_*(X)$
-on $\bigoplus_{n=0}^{\infty}H_{*}(X^{[n]})$.
-
-\medskip\noindent
-Notice the factor $(-1)^{i-1}$
-in Equation \ref{equation-main},
-which is not present in the Lie bracket
-equations of any of the
-variants of the Heisenberg algebra discussed
-earlier in this work.
-The reason for including this term in the
-main theorem
-is explained in
-\cite[Theorem 9.15]{Nakajima-lectures}.
-Moreover, this factor does not modify the
-Lie algebra structure:
-we can define a Lie algebra isomorphism
-from, say, the most basic version of the
-Heisenberg algebra
-with bracket given by Equation
-\ref{equation-bracket-basic},
-to the Lie algebra
-$\bigoplus_{n \in
-\mathbb{Z}}\mathbb{C}\tilde{h}_n
-\oplus\mathbb{C}K$
-with bracket
-$$
-[\tilde{h}_m,\tilde{h}_m]=(-1)^{m-1}m\delta_{m,-n}K,\qquad
-\text{$K$ central,}
-$$
-by putting
-$$
-h_m \mapsto
-\begin{cases}
-(-1)^{m-1}\tilde{h}_m\qquad &m<0 \\
-\tilde{h}_m\qquad &m\geq 0.
-\end{cases}
-$$
-
-
+The bracket is an anticommutator when both
+classes are odd. For even classes it is the
+ordinary commutator. Multiplying the
+creation operator of index $-m$ by
+$(-1)^{m-1}$ for $m>0$ puts this relation
+in the oscillator normalization of Section
+\ref{section-heisenberg}.
 
 \section{Worked example}
 \label{section-example}
 
 \noindent
-In this section we do a worked example
-following \cite{Nakajima-lectures}
-and \cite[Video 10]{videos}
-to illustrate the main idea of the proof.
+Let $Z$ consist of $n$ distinct points of
+$X$, and choose $x$ outside $Z$. Write
+$C=P_{[x]}[-1]$ for creation at $x$ and
+$D=P_{[X]}[1]$ for removal at any point.
+Then $C[Z]=[Z\cup\{x\}]$. Applying $D$
+next gives one term for each point of
+$Z\cup\{x\}$ that can be removed. Removing
+$x$ gives back $[Z]$. Removing $y\in Z$
+gives the same result as first removing $y$
+and then adding $x$. Thus
+$$
+\begin{aligned}
+DC[Z]&=[Z]+
+\sum_{y\in Z}[(Z\setminus\{y\})\cup\{x\}],\\
+CD[Z]&=
+\sum_{y\in Z}[(Z\setminus\{y\})\cup\{x\}].
+\end{aligned}
+$$
+Subtracting gives $[D,C][Z]=[Z]$.
 
-\medskip\noindent
-Fix $x \in X$ and let $\alpha=[X]$ be the BM
-class of $X$,
-and $\beta=[x]$ the class of the point $x$.
-Take a set of distinct $n$ points
-$x_1,\ldots,x_n \in X\setminus\{x\}$
-none of which is $x$.
-Identify them with the corresponding
-ideal $\mathcal{J}$. We refer interchangeably
-to the set of points and the ideal sheaf
-$\mathcal{J}$.
-
-Let's show that
+The two orders of adding and removing a
+point are shown in \cite[Example
+8.17]{Nakajima-lectures}.
 $$
-[P_\alpha[1],P_\beta[-1]][\mathcal{J}]=[\mathcal{J}].
+\includegraphics[width=.85\linewidth]{%
+slides/talks/nakajima-heisenberg/fig1.png}
 $$
-We start by computing
-$P_\beta[-1][\mathcal{J}]$.
-For this consider
-$$
-\xymatrix{
-&X^{[n+1]}\times
-X^{[n]}\ar[ld]_{p_1}\ar[rd]^{p_2}\\
-X^{[n+1]}&&X^{[n]}.
-}
-$$
-By definition, $P_{[x]}[-1]$ is given by:
-pull back $\mathcal{J}$ via $p_2$,
-intersect with the class
-$\varpi_*(\Pi^*\alpha \cap
-[P[-1]])=P_{[x]}[-1]$
-and push forward
-down to $X^{[n+1]}$.
-This means that we push forward the cycle
-corresponding to
-$$
-\{(\mathcal{J}, \mathcal{J}',x)
-:\mathcal{J}\subseteq
-\mathcal{J}',\text{supp}(\mathcal{J}'/\mathcal{J})=\{x\}\}
-\subset X^{[n]} \times X^{[n+1]} \times X.
-$$
-The pushforward recovers the $X^{[n+1]}$
-component,
-that is, the schemes $\mathcal{J}'$ in
-$X^{[n+1]}$ satisfying
-$\text{supp}(\mathcal{J}'/\mathcal{J})=\{x\}$.
-Since $x$ is not a point in $\mathcal{J}$,
-the only possible choice is that
-$\mathcal{J}'=\{x\}\cup \mathcal{J}$,
-that is,
-$$
-P_{[x]}[-1][\mathcal{J}]=[\{x\}\cup
-\mathcal{J}].
-$$
-(see figure below).
-
-On the other hand, the correspondence
-$P_{[X]}[1]$
-starts with an ideal $\mathcal{J}'\in
-X^{[n+1]}$
-intersects it with
-$$
-\{(\mathcal{J}, \mathcal{J}',x)
-:\mathcal{J}\subseteq
-\mathcal{J}',\text{supp}(\mathcal{J}'/\mathcal{J})=\{y\},
-\text{ for some }y\in X\}
-$$
-and projects to $X^{[n]}$. We obtain
-$\sum_{y \in
-\mathcal{J}'}[\mathcal{J}'-\{y\}]$.
-Then it becomes clear that
-$$
-[P_\alpha[1],P_\beta[-1]][\mathcal{J}]=[\mathcal{J}].
-$$
-The following figure is taken directly from
-\cite{Nakajima-lectures}:
 
 
 
@@ -1932,9 +1315,13 @@ The defining relation is
 \end{equation}
 
 \noindent
-The following figure
-(taken from \cite{Nakajima-lectures})
-shows how this correspondence works.
+The diagram from \cite[Section
+8.4]{Nakajima-lectures} shows the two
+intermediate ideals.
+$$
+\includegraphics[width=.8\linewidth]{%
+slides/talks/nakajima-heisenberg/fig2.png}
+$$
 
 The setting is the following. We have the
 ideals with contentions

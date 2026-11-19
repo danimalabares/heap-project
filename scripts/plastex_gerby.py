@@ -43,7 +43,8 @@ def install_source_images(renderer_class):
     def image(node):
       path = getattr(node, "imageoverride", None)
       if path and Path(path).parent.name in (
-          "combinatorics-assets", "biology-assets", "reading-assets"):
+          "combinatorics-assets", "biology-assets", "reading-assets",
+          "nakajima-heisenberg"):
         return render_source_image(node)
       return fallback(node) if fallback else ""
 
