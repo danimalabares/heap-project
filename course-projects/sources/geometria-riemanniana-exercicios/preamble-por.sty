@@ -1,0 +1,390 @@
+\documentclass{article}
+\usepackage[left=4cm, right=4cm]{geometry}
+\usepackage{palatino,eulervm,dutchcal,xcolor}
+\usepackage{graphicx,subcaption,float}
+\usepackage{enumitem,parskip,multicol,array}
+\usepackage[only,llbracket,rrbracket]{stmaryrd}
+\usepackage{amsthm,amssymb,amsmath,mathtools,
+%thmtools,
+tikz,tikz-cd}
+\usepackage[makeroom]{cancel}
+\usetikzlibrary{matrix,calc,arrows,shapes,decorations.markings,backgrounds,calc,intersections,decorations.pathmorphing}
+\tikzcdset{scale cd/.style={every label/.append style={scale=#1},cells={nodes={scale=#1}}}}
+\usepackage[bookmarks,bookmarksopen,bookmarksdepth=3]{hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=magenta,citecolor=blue,filecolor=blue,urlbordercolor=white,linkbordercolor=white,citebordercolor=white,filebordercolor=white}
+\usepackage{cleveref}
+
+\usepackage{mathabx,graphicx}
+\def\Circlearrowleft{\ensuremath{%
+  \rotatebox[origin=c]{180}{$\circlearrowleft$}}}
+\def\Circlearrowright{\ensuremath{%
+  \rotatebox[origin=c]{180}{$\circlearrowright$}}}
+
+%\usepackage[citestyle=authortitle-terse,backref,backend=bibtex]{biblatex}
+%\addbibresource{homotopy-theory.bib}
+
+\renewcommand*{\contentsname}{Índice}  
+\renewcommand*{\proofname}{Demostra\c c\~ao}
+  %{blue,magenta,yellow}            %dark mode/light mode
+\definecolor{1}{rgb}{0.93, 0.35, 0.0}%persimmon(blue)/orange
+\definecolor{2}{rgb}{1.0, 0.0, 0.0}%cyan/red
+\definecolor{3}{rgb}{0.9, 0.2, 0.5}%green/purply
+\definecolor{4}{rgb}{0.37, 0.4444.74}%purple/green
+\definecolor{5}{rgb}{0.07, 0.5, 0.15}%pink/greenblue (look for lila!)
+\definecolor{6}{rgb}{0.6, 0.4, 0.99}%ugly green/nice lila
+%\definecolor{6}{rgb}{0.1, .8, 1}%red/cyan
+\definecolor{7}{rgb}{0.4, 0.5, 1.0}% orange/cyan
+\definecolor{8}{rgb}{0.0, 0.0, 1}%yellow/blue
+\definecolor{9}{rgb}{0.96, 0.0, 0.63}%bright green/magenta(fashionfuchsia)
+\definecolor{10}{rgb}{0.54, 0.17, 0.89}%blue-violet
+\definecolor{11}{rgb}{0.98, 0.85, 0.37}%jonquil
+\definecolor{12}{rgb}{0.93, 0.51, 0.93}%lavendermagenta
+\definecolor{13}{rgb}{0.15, 0.23, 0.89}%palatinateblue
+\definecolor{14}{rgb}{0.6, 0.4, 0.99}%ugly green/nice lila
+\definecolor{15}{rgb}{0.8, 0.2, 0.2}%persianred
+\definecolor{16}{rgb}{0.11, 0.22, 0.73}%persianblue
+\definecolor{17}{rgb}{0.0, 0.65, 0.58}%persiangreen
+\definecolor{18}{rgb}{0.9, 0.89, 0.0}%persianyellow
+
+\definecolor{blue-violet}{rgb}{0.54, 0.17, 0.89}
+\definecolor{azure}{rgb}{0.0, 0.5, 1.0}
+\definecolor{green(ncs)}{rgb}{0.0, 0.62, 0.42}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{limegreen}{rgb}{0.2, 0.8, 0.2}
+\definecolor{palatinateblue}{rgb}{0.15, 0.23, 0.89}
+\definecolor{trueblue}{rgb}{0.0, 0.45, 0.81}
+\definecolor{goldenyellow}{rgb}{1.0, 0.87, 0.0}
+\definecolor{fashionfuchsia}{rgb}{0.96, 0.0, 0.63}
+\definecolor{brightcerulean}{rgb}{0.11, 0.67, 0.84}
+\definecolor{jonquil}{rgb}{0.98, 0.85, 0.37}
+\definecolor{lavendermagenta}{rgb}{0.93, 0.51, 0.93}
+\definecolor{peru}{rgb}{0.8, 0.52, 0.25}
+\definecolor{persimmon}{rgb}{0.93, 0.35, 0.0}
+\definecolor{persianred}{rgb}{0.8, 0.2, 0.2}
+\definecolor{persianblue}{rgb}{0.11, 0.22, 0.73}
+\definecolor{persiangreen}{rgb}{0.0, 0.65, 0.58}
+\definecolor{persianyellow}{rgb}{0.9, 0.89, 0.0}
+
+\iffalse
+{}% measure of space to leave above the theorem. E.g.: 3pt
+{}% measure of space to leave below the theorem. E.g.: 3pt
+{\em}% name of font to use in the body of the theorem
+{}% measure of space to indent
+{\bf}% name of head font
+{.}% punctuation between head and body
+{ }% space after theorem head; " " = normal interword space
+\fi
+
+\newtheoremstyle{c1}{}{1em}{}{}{\color{1}\bfseries}{}{1em}{}
+\newtheoremstyle{c2}{}{1em}{}{}{\color{2}\bfseries}{}{1em}{}
+\newtheoremstyle{c3}{}{.5em}{}{}{\color{3}\bfseries}{}{1em}{}
+\newtheoremstyle{c4}{}{1em}{}{}{\color{4}\bfseries}{}{1em}{}
+\newtheoremstyle{c5}{}{1em}{}{}{\color{5}\bfseries}{}{1em}{}
+\newtheoremstyle{c6}{}{}{}{}{\color{6}\bfseries}{}{1em}{}
+\newtheoremstyle{c7}{}{}{}{}{\color{7}\bfseries}{}{1em}{}
+\newtheoremstyle{c8}{}{}{}{}{\color{8}\bfseries}{}{1em}{}
+\newtheoremstyle{c9}{}{}{}{}{\color{9}\bfseries}{}{1em}{}
+\newtheoremstyle{c10}{}{}{}{}{\color{10}\bfseries}{}{1em}{}
+\newtheoremstyle{c11}{}{}{}{}{\color{11}\bfseries}{}{1em}{}
+\newtheoremstyle{c12}{}{}{}{}{\color{12}\bfseries}{}{1em}{}
+\newtheoremstyle{c13}{}{}{}{}{\color{13}\bfseries}{}{1em}{}
+\newtheoremstyle{c14}{}{}{}{}{\color{14}\bfseries}{}{1em}{}
+\newtheoremstyle{c15}{}{}{}{}{\color{15}\bfseries}{}{1em}{}
+\newtheoremstyle{c16}{}{}{}{}{\color{16}\bfseries}{}{1em}{}
+\newtheoremstyle{c17}{}{}{}{}{\color{17}\bfseries}{}{1em}{}
+
+\theoremstyle{definition}
+\theoremstyle{c1}
+\newtheorem*{thm}{Teorema}
+
+\theoremstyle{c2}
+\newtheorem*{prop}{Proposição}
+\newtheorem*{lemma}{Lemma}
+
+\theoremstyle{c3}
+\newtheorem*{example}{Exemplo}
+
+\theoremstyle{c4}
+\newtheorem*{conjecture}{Conjectura}
+
+\theoremstyle{c5}
+\newtheorem*{exercise}{Exercício}
+
+\theoremstyle{c3}
+\newtheorem*{remark}{Observação}
+
+\theoremstyle{c8}
+\newtheorem*{claim}{Afirmação}
+
+\theoremstyle{c1}
+\newtheorem*{question}{Pergunta}
+
+\theoremstyle{c14}
+\newtheorem*{defn}{Definição}
+
+\theoremstyle{c10}
+\newtheorem*{upshot}{Upshot}
+
+\theoremstyle{c10}
+\newtheorem*{coro}{Corolário}
+
+%Manual numbering environments
+\theoremstyle{c10}
+\newtheorem{manualdefinner}{Definição}
+\newenvironment{manualdef}[1]{%
+  \renewcommand\themanualdefinner{#1}%
+  \manualdefinner
+}{\endmanualdefinner}
+
+\theoremstyle{c13}
+\newtheorem{manualthminner}{Teorema}
+\newenvironment{manualthm}[1]{%
+  \renewcommand\themanualthminner{#1}%
+  \manualthminner
+}{\endmanualthminner}
+
+\theoremstyle{c1}
+\newtheorem{manualexerciseinner}{Exercício}
+\newenvironment{manualexercise}[1]{%
+  \renewcommand\themanualexerciseinner{#1}%
+  \manualexerciseinner
+}{\endmanualexerciseinner}
+
+\theoremstyle{c15}
+\newtheorem{manualcorollaryinner}{Corolário}
+\newenvironment{manualcorollary}[1]{%
+  \renewcommand\themanualcorollaryinner{#1}%
+  \manualcorollaryinner
+}{\endmanualcorollaryinner}
+
+%https://tex.stackexchange.com/questions/12913/customizing-theorem-name
+\iffalse
+\theoremstyle{plain} % just in case the style had changed
+\newcommand{\thistheoremname}{}
+\theoremstyle{c7}
+\newtheorem*{genericthm*}{\thistheoremname}
+\newenvironment{namedthm*}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm*}}
+  {\end{genericthm*}}
+\fi
+
+
+\theoremstyle{plain}
+\newcommand{\thistheoremname}{}
+
+\theoremstyle{c1}
+\newtheorem*{genericthm1*}{\thistheoremname}
+\newenvironment{thing1}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm1*}}
+  {\end{genericthm1*}}
+
+\theoremstyle{c1}
+\newtheorem*{genericthm0*}{\thistheoremname}
+\newenvironment{thing0}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm0*}}
+  {\end{genericthm0*}}
+
+\theoremstyle{c2}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm2*}{\thistheoremname}
+\newenvironment{thing2}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm2*}}
+  {\end{genericthm2*}}
+
+\theoremstyle{c3}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm3*}{\thistheoremname}
+\newenvironment{thing3}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm3*}}
+  {\end{genericthm3*}}
+
+\theoremstyle{c4}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm4*}{\thistheoremname}
+\newenvironment{thing4}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm4*}}
+  {\end{genericthm4*}}
+
+\theoremstyle{c5}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm5*}{\thistheoremname}
+\newenvironment{thing5}[1]
+{\renewcommand{\thistheoremname}{#1}%
+\begin{genericthm5*}}
+{\end{genericthm5*}}
+
+\theoremstyle{c6}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm6*}{\thistheoremname}
+\newenvironment{thing6}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm6*}}
+  {\end{genericthm6*}}
+
+\theoremstyle{c7}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm7*}{\thistheoremname}
+\newenvironment{thing7}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm7*}}
+  {\end{genericthm7*}}
+
+\theoremstyle{c8}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm8*}{\thistheoremname}
+\newenvironment{thing8}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm8*}}
+  {\end{genericthm8*}}\theoremstyle{c8}
+\renewcommand{\thistheoremname}{}
+
+\theoremstyle{c9}
+\newtheorem*{genericthm9*}{\thistheoremname}
+\newenvironment{thing9}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm9*}}
+  {\end{genericthm9*}}
+
+\theoremstyle{c10}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm10*}{\thistheoremname}
+\newenvironment{thing10}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm10*}}
+  {\end{genericthm10*}}
+
+\theoremstyle{c11}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm11*}{\thistheoremname}
+\newenvironment{thing11}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm11*}}
+  {\end{genericthm11*}}
+
+\theoremstyle{c12}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm12*}{\thistheoremname}
+\newenvironment{thing12}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm12*}}
+  {\end{genericthm12*}}
+
+\theoremstyle{c13}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm13*}{\thistheoremname}
+\newenvironment{thing13}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm13*}}
+  {\end{genericthm13*}}
+
+\theoremstyle{c14}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm14*}{\thistheoremname}
+\newenvironment{thing14}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm14*}}
+  {\end{genericthm14*}}
+
+\theoremstyle{c15}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm15*}{\thistheoremname}
+\newenvironment{thing15}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm15*}}
+  {\end{genericthm15*}}
+
+\theoremstyle{c16}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm16*}{\thistheoremname}
+\newenvironment{thing16}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm16*}}
+  {\end{genericthm16*}}
+
+\theoremstyle{c17}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm17*}{\thistheoremname}
+\newenvironment{thing17}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm17*}}
+  {\end{genericthm17*}}
+
+
+
+
+
+
+\iffalse
+\newcommand{\thistheoremname}{}
+\newtheorem*{genericthm*}{\thistheoremname}
+
+\theoremstyle{c1}
+\newenvironment{idea1}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm*}}
+  {\end{genericthm*}}
+
+\theoremstyle{c2}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm2*}{\thistheoremname}
+\newenvironment{idea2}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm2*}}
+  {\end{genericthm2*}}
+
+\theoremstyle{c3}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm3*}{\thistheoremname}
+\newenvironment{idea3}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm3*}}
+  {\end{genericthm3*}}
+
+\theoremstyle{c4}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm4*}{\thistheoremname}
+\newenvironment{idea4}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm4*}}
+  {\end{genericthm4*}}
+
+\theoremstyle{c5}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm5*}{\thistheoremname}
+\newenvironment{idea5}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm5*}}
+  {\end{genericthm5*}}
+
+\theoremstyle{c6}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm6*}{\thistheoremname}
+\newenvironment{idea6}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm6*}}
+  {\end{genericthm6*}}
+
+\theoremstyle{c7}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm7*}{\thistheoremname}
+\newenvironment{idea7}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm7*}}
+  {\end{genericthm7*}}
+
+\theoremstyle{c8}
+\renewcommand{\thistheoremname}{}
+\newtheorem*{genericthm8*}{\thistheoremname}
+\newenvironment{idea8}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm8*}}
+  {\end{genericthm8*}}
+
+
+\fi

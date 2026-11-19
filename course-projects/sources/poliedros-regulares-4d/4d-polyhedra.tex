@@ -1,0 +1,599 @@
+\documentclass[spanish]{article}
+\usepackage{titlesec}
+
+%Quitar páginas en blanco
+\let\cleardoublepage\clearpage
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\@endpart}{\vfil\newpage}{\par}{}{}
+\makeatother
+
+%\usepackage[spanish]{babel} ¡Esto estaba interfiriendo con las flechitas de los \tikspicture
+
+\renewcommand{\contentsname}{Índice}
+
+\usepackage[left=4cm, right=4cm]{geometry}
+\usepackage{palatino}%Font
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{cancel}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{tikz-3dplot}
+\usepackage{xcolor}
+\usepackage[bookmarks,bookmarksopen,bookmarksdepth=3]{hyperref}
+\hypersetup{
+colorlinks=true,
+urlcolor=blue,
+linkcolor=magenta,
+citecolor=blue,
+filecolor=blue,
+urlbordercolor=white,
+linkbordercolor=white,
+citebordercolor=white,
+filebordercolor=white
+}
+
+\theoremstyle{definition}
+\renewcommand{\proofname}{Demostración}
+
+\newtheorem*{defn}{Definición}
+\newtheorem*{lema}{Lema}
+\newtheorem*{obs}{Observación}
+\newtheorem*{teo}{Teorema}
+\newtheorem*{prop}{Proposición}
+\newtheorem*{coro}{Corolario}
+\newtheorem*{af}{Afirmación}
+\newtheorem*{ejer}{Ejercicio}
+\newtheorem*{ejem}{Ejemplo}
+\newtheorem*{pregunta}{Pregunta}
+\newtheorem*{Wreg}{Construcción de Wythoff para poliedros regulares}
+\newtheorem*{Wqui}{Construcción de Wythoff para poliedros quirales}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\s}{\mathbb{S}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\p}{\mathcal{P}}
+\newcommand{\q}{\mathcal{Q}}
+\newcommand{\T}{\mathcal{T}}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\img}{img}
+\DeclareMathOperator{\Fix}{Fix}
+\DeclareMathOperator{\Stab}{Stab}
+
+%\definecolor{blue-violet}{rgb}{0.54, 0.17, 0.89}
+\definecolor{azure}{rgb}{0.0, 0.5, 1.0}
+\definecolor{green(ncs)}{rgb}{0.0, 0.62, 0.42}
+\definecolor{forestgreen(web)}{rgb}{0.13, 0.55, 0.13}
+\definecolor{limegreen}{rgb}{0.2, 0.8, 0.2}
+\definecolor{palatinateblue}{rgb}{0.15, 0.23, 0.89}
+\definecolor{trueblue}{rgb}{0.0, 0.45, 0.81}
+\definecolor{goldenyellow}{rgb}{1.0, 0.87, 0.0}
+
+\title{Seminario 2024-1}
+
+\usepackage[style=authortitle,backend=bibtex]{biblatex}
+\addbibresource{4d-polyhedra.bib}
+
+\begin{document}
+%\maketitle
+	\begin{center}
+	{\LARGE Seminario 2024-1
+		\vspace{.2cm}
+		
+		 \textit{Four-dimensional regular polyhedra}}
+\end{center}
+		\vspace{.2cm}
+		
+		Estas notas son el resumen de un seminario dedicado a la lectura de:
+\printbibliography[heading=none]
+		\vspace{.2cm}
+El archivo \texttt{.tex} de estas notas está disponible en \href{https://github.com/dan-gc/4d-polyhedra}{github.com/dan-gc/4d-polyhedra}.
+
+\tableofcontents
+
+
+\section{Introducción}
+Un politopo abstracto $\p$ se puede indentificar con su grupo de automorfismos, que es un C-grupo string.
+Un \textbf{C-grupo string} $\Gamma$ es un grupo generado por las involuciones $\rho_0,\ldots,\rho_{n-1}$ que satisface
+\begin{itemize}
+	\item la \textbf{propiedad de la intersección},
+	$\langle \rho_i|i\in I\rangle\cap\langle\rho_j|j\in J\rangle=\langle\rho_t|t\in I\cap J\rangle$ para cualesquiera $J,K\subseteq\{0,\ldots,n-1\}$. Estos subgrupos son: el grupo de la cara, el de la figura de vértice, la "figura de arista", etc.
+	\item $(\rho_j\rho_k)^2=1$ para $j,k=0,\ldots,n-1$ con $|j-k|\geq2$.
+\end{itemize}
+Las $j$\textbf{-caras} de $\p$ son los cosets derechos del grupo $\Gamma_j=\langle \rho_i:i\neq j\rangle$. Dos caras son \textbf{incidentes} si se intersectan como cosets. Esta incidencia induce un orden en el conjunto de caras:
+\[\Gamma_j\sigma\leq\Gamma_k\tau\iff\Gamma_j\cap\Gamma_k\tau\neq\varnothing\text{ y }j\leq k\]
+Y agregamos formalmente las caras $\Gamma_n$ y $\Gamma_{-1}$ para construir un COPO. Respecto a éste, las cadenas maximales se llaman \textbf{banderas}. Dos banderas son \textbf{adyacentes} si comparten todas las caras salvo una. La \textbf{bandera base} es $\Phi:=\{\Gamma_0,\dots,\Gamma_{n-1}\}$ y la bandera adyacente $\Phi^j$ difiere de $\Phi$ únicamente en la cara $\Gamma_j$.
+
+Los subgrupos $\langle\rho_0,\ldots,\rho_{n-2}\rangle$ y $\langle\rho_1,\ldots,\rho_n\rangle$ son C-grupos string, que llamaremos respectivamente \textbf{faceta} y \textbf{figura de vértice}.
+
+
+
+En este caso, tenemos la estructura $\p(\Gamma)$, cuyos vértices son los conjuntos de clases laterales $\langle\rho_1,\rho_2\rangle\gamma$, aristas $\langle\rho_0,\rho_2\rangle\gamma$ y caras $\langle\rho_0,\rho_1\rangle\gamma$. Si esta construcción se hizo con base en el grupo de automorfismos de un poliedro abstracto, entonces esta estructura es isomorfa a tal grupo.
+
+Luego, está la \textbf{realización} geométrica enviando $\langle\rho_0,\rho_1,\rho_2\rangle\to\langle R_0,R_1,R_2\rangle:=G$. Si existe $v\in(\Fix R_1\cap\Fix R_2)\backslash\Fix R_0$ (puede no existir), podemos construir un poliedro geométrico como Wythoff. Si en cambio nos quedamos con las abstractas no tenemos este problema.
+
+Cuando $(\rho_0\rho_1)^p=1$ y $(\rho_1\rho_2)^q=1$ decimos que $\p$ es de tipo $\{p,q\}$ Si además ponemos la relación $(\rho_0\rho_2\rho_1)^r=1$, $\p$ es \textit{el} $\{p,q\}_r$. Para los sólidos platónicos obtenemos los proyectivos, para la $\{4,4\}$ obtenemos toritos y en otros casos teselaciones hiperbólicas.
+\section{Operaciones}
+\subsection{Mixing operations}
+\subsubsection{Dualidad}
+Es la operación $(\rho_0,\rho_1,\rho_2)\to(\rho_2,\rho_1,\rho_0)$ y obtenemos el poliedro $\p^*$.
+\subsubsection{Petrie}
+Es la operación $(\rho_0,\rho_1,\rho_2)\to(\rho_0\rho_2,\rho_1\rho_2)$ y obtenemos algo que puede no ser poliedro. En este objeto, el vértice es $\langle\rho_1,\rho_2\rangle$, la arista $\langle\rho_0\rho_2,\rho_2\rangle=\langle\rho_0,\rho_2\rangle$ y eso sí, la caras es $\langle\rho_0\rho_2,\rho_1$. La rotación en la cara cambia, es: $\rho_0\rho_2\rho_1$.
+
+Ahora tenemos (Wilson):
+\[\begin{tikzcd}
+	&(\rho_0,\rho_1,\rho_2)\arrow[dl,leftrightarrow,"\delta"]\arrow[rd,leftrightarrow,"\pi"]\\
+	(\rho_2,\rho_1,\rho_0)\arrow[d,leftrightarrow,"\pi"]&&(\rho_0\rho_2\rho_1,\rho_2)\arrow[d,leftrightarrow,"\delta"]\\
+	(\rho_0,\rho_2,\rho_1,\rho_0)\arrow[dr,leftrightarrow,"\delta"]&&(\rho_2,\rho_1,\rho_0\rho_2)\arrow[dl,leftrightarrow,"\pi"]\\
+	&(\rho_0,\rho_1,\rho_0\rho_2)\arrow[uuu,leftrightarrow]
+\end{tikzcd}\]
+\subsubsection{$k$-Hole o Facetting}
+Dado $\p$ de tipo $\{p,q\}$, tomamos $1\leq k\leq q/2$. La operación es $(\rho_0,\rho_1,\rho_2)\to(\rho_0,(\rho_1\rho_2)^{k-1},\rho_2)$. (Como siempre, me brinco uno, etc). Obtenemos $\p^{\varphi_k}$.
+
+Si $k$ y $q$ son primos relativos, tenemos chances de que el grupo sea el mismo. Si no, el grupo se puede hacer más pequeño.
+
+Los $k$-hoyos son las cosas $(\rho,(\rho_1\rho_2)^{k-1}\rho_1)$. Cuando $k=2$ se llaman sólo hoyos y denotamos $\{p,q|h\}$ cuando $(\rho_0(\rho_1\rho_2)^{k-1}\rho_1)^{h_k}=1$.
+
+También tenemos facetting con Petrie: $(\rho_0,\rho_1,\rho_2)\xrightarrow{\pi\varphi_k}(\rho_0\rho_2,(\rho_1\rho_2)^{k-1}\rho_1,\rho_2)$. Por ejemplo, si $\p$ es de tipo $\{4,q\}$, entonces $\rho_0\rho_1)^4=1$ (éste es el caso del cubo$\to$tetraedro, se llama \textbf{halving}, que manda $\p\to\p^\eta$). Se puede generalizar para cualquier numero par, aunque esto no está en el artículo.
+
+\subsubsection{Skewing}
+$\p^\sigma:=\p^{\pi\delta\eta\pi\delta}$. Haciendo todos los pasos, tenemos $(\rho_0,\rho_1,\rho_2)\to(\rho_1,\rho_0\rho_2,(\rho_1\rho_2)^2):=(\tau_0,\tau_1,\tau_2)$. Otra vez, el grupo puede ser más chiquito por el halving, en cuyo caso es de índice 2.
+
+Puede ser que $\rho_2\notin\Gamma(\p^\sigma)$. ¿Qué pasa cuando conjugamos por $\rho_2$? $\tau_0^{\rho_2}=\tau_0\tau_2$, $\tau_1^{\rho_2}=\tau_1$ y $\tau_2^{\rho_2}=\tau_2$. Es decir, $\p^\sigma\xrightarrow{\text{conj }\rho_2}(\p^\sigma)^\pi$ es el petrial. Y si $\rho_2$ sí está en el grupo, el poliedo es autopetrie.
+
+\subsection{Other operations}
+\subsubsection{Mezclar con el segmento}
+Ahora tomamos $\Gamma=\langle\rho_0,\rho_1,\rho_2\rangle$ y algún elemento $\tau\in\Lambda$ con $\Gamma\leq\Lambda$ tal que $\tau^2=1$ y $\tau\rho_i=\rho_i\tau$. De hecho, $\Lambda=\langle\tau,\rho_i\rangle$.
+
+$\tau$ es un segmento en el lenguaje de politopos.
+
+\subsubsection{Kappa}
+Para ésta necesitamos un teorema
+\begin{teo}
+	Sea $\Gamma$ un C-grupo lineal. Mezclar con el segmento siempre me da otro C-grupo lineal que es isomorfo a $\Gamma$ o a $\Gamma\times C_2$ donde $C_2=\langle\tau\rangle$. El primer caso ocurre si el 1-esqueleto de $\p(\Gamma)$ es bipartito.
+\end{teo}
+
+Resulta que $\kappa$ es la operación \textbf{centroinversión} dada por $R_0\mapsto R_0^\perp=-R_0$.
+
+\section{Resumen de la clasificación}
+\subsection{Vectores de dimensión}
+El chiste descubrir cuáles \textbf{vectores de espejos} $(\dim R_0,\dim R_1,\dim R_2)$ pueden posiblemente generar poliedros.
+\begin{teo}Por el teorema 2.2, tenemos que
+\[1\leq\dim R_0\leq3\qquad2\leq\dim R_1\leq3\qquad2\leq\dim R_2\leq 3\]
+\end{teo}
+\begin{obs}
+	El vector de dimensión sólo está bien definido si el poliedro realmente vive en $\R^4$ (en general, en $\R^n$). Si no, hay más de una opción, por ejemplo, para poliedros que realmente viven en $\R^3$, ie. sólidos platónicos y estrellados.
+\end{obs}
+
+\subsection{Polígonos}
+Comenzamos buscando cómo son los polígonos dado un vector de dimensión de dos coordenadas. Buscamos dos reflexiones $S$ y $T$ que sean como $R_0$ y $R_1$. Tomaremos $v\in T\backslash S$ para construir un polígono.
+$\{S,T\}\subset\{R_0,R_1,R_2\}$ y
+\[\Fix(ST)=(S\cap T)+(S\cap T)^\perp=(S\cap T)+(S^\perp\cap T^\perp)\]
+Y también
+\[(ST)=(-S)(-T)=S^\perp T^\perp\]
+\begin{obs}
+	\textbf{No} estamos considerando los polígonos infinitos y los finitos \textbf{sí}.
+\end{obs}
+\paragraph{\textbf{(3,3)}} Tenemos que $\dim(S\cap T)=2$, un 2-plano que es el eje de una isometría. Si $v\in T\backslash S$, el 2-plano ortogonal al eje que contenga a $v$ queda invariante. Así, el polígono generado por la acción de $\langle S,T\rangle$ en es $v$ \textbf{plano}.
+
+\paragraph{\textbf{(2,3)}} Se trata de un plano y un 3-espacio que se intersectan, de manera que $\dim(S\cap T)=1$, así que $\dim(S\cap T)^\perp=3$. Consideremos un trasladado $\Pi$ de $(S\cap T)^\perp$ que contenga a $v$. En este 3-espacio trasladado, sólo hay un punto de $S\cap T$ y ningún punto del $(S\cap T)^\perp$ original. Tratemos de ver cómo es el polígono generado por $v$ al hacer actuar $\langle S,T\rangle$.
+
+Definamos $S'=S|_\Pi=(S\cap\Pi)$ y $T'=T|_\Pi=(T\cap\Pi)$. El vector de dimension de $\langle S',T'\rangle$ es $(1,2)$, así que el polígono es \textbf{alabeado} (salvo casos particulares).
+
+\paragraph{\textbf{(3,2)}} Aquí $\dim(S\cap T)=1$ y $\dim(S\cap T)^\perp=3$. Si $(S\cap T)^\perp:=\Pi$, tenemos $\dim(S|_\Pi)=2$ y $\dim(T|_\Pi)=1$. Así que otra vez $S'T'$ es una reflexión con giro, pero ahora $v$ está en el plano de esta reflexión con giro, así que el polígono es \textbf{plano}.
+
+\paragraph{\textbf{(2,2)}} Hay dos casos: $\dim(S\cap T)=0,1$.
+\begin{itemize}
+	\item Si $\dim(S\cap T)=1$, entonces $\dim(S\cap T)^\perp=3$ y definamos $\Pi$ como el trasladado de este espacio que contiene a $v$. Luego, $\dim(S')=1$ y $\dim(T')=1$. Es \textbf{plano}.
+	\item Si $\dim(S\cap T)=0$ es \textbf{hélice}.
+\end{itemize}
+
+\paragraph{\textbf{(1,2)}} El espacio generado por $S$ y $T$ es de dimensión 3, y como $v\in T$, pues no se puede salir de ese 3-espacio. El caso genérico es \textbf{alabeado} y en casos extraños puede ser plano.
+
+\paragraph{\textbf{(1,3)}} Este caso se obtiene de aplicar $\kappa$ al (3,3). Obtenemos un polígono \textbf{alabeado}.
+
+\paragraph{¿La menos identidad está en el grupo o no?}
+Consideremos el grupo generado por $G'=G\cup -\Id G$. Si $-\Id$ está en el grupo, $G'=G$, y si no, $|G'|=1/2|G|$. Ahora consideremos $H=\langle -R_0,R_1,R_2\rangle\leq G'$. Si $-\Id\in H$, entonces $H=G'$; y si $-\Id\notin H$ entonces $|H|=1/2G'$.
+
+\subsection{Poliedros}
+Primero establecemos notación:
+\begin{itemize}
+	\item Polígonos planos: $\left\{\frac{s}{t}\right\}$ con $(s,t)=1$.
+	\item Polígonos alabeados: $\left\{\frac{2s}{t,s}\right\}$ para $1\leq t\leq s$ con $(2s,t)=1,2$. También podemos denotar $\{p\}\#\{\}$. El hecho es que $s$ y $t$ determinan al polígono. Si el número de vértices $s$ es par, tenemos dos copias del polígono convexo y vamos intercalanado los vértices. Si el número es impar, entonces le damos dos vueltas.
+	
+	Por ejemplo, el $\left\{\frac{4}{1,2}\right\}=\left\{\frac{4}{1}\right\}\#\{\}$ que es el petrie del tetraedro (? o cubo). Y el $\left\{\frac{6}{2,3}\right\}=\left\{\frac{2\cdot3}{2,3}\right\}=\left\{\frac{6}{1}\right\}\#\{\}$. Éste es dos triángulos uno arriba de otro y el zigzag.
+	
+	\item Hélices: $\left\{\frac{p}{s,t}\right\}=\left\{\frac{p'}{s'}\right\}\#\left\{\frac{p''}{s''}\right\}$ donde $\frac{p'}{s'}=\frac{p}{s}$ y $\frac{p''}{t''}=\frac{p}{t}$, donde el máximo común divisor de $p'$ y $p''$ es $p:=[p',p'']$, $(p,s,t)=1$ y $1\leq s<t\leq\frac{p}{2}$. Esta última desigualdad con $\frac{p}{2}$ simplemente tiene que ver con no usar, por ejemplo, en el pentagrama $\frac{5}{3}$ en vez de $\frac{5}{2}$. En algún punto del artículo se "rompe" esta regla porque usaremos orientaciones.
+	
+	Hay dos formas de proyectar la hélice: una que nos da el $\frac{p'}{s'}$ y la otra que nos da el $\frac{p''}{t''}$.
+\end{itemize}
+También usaremos que
+\[\Fix(ST)=(S\cap T)+(S\cap T)^\perp=(S\cap T)+(S^\perp\cap T^\perp)\]
+Y recordemos que para centroinversión $\kappa$, si el grupo de simetrías del poliedro es $G$, se tiene que
+\[|G^\kappa|=|G|\qquad\text{o}\qquad |\frac{1}{2}G|=|G^\kappa|\qquad\text{o}\qquad2|G|=|G^\kappa|\]
+\begin{obs}
+	Si $\dim R_0=2$ y $\dim R_2=3$ o viceversa, al sustituir $R_0\to R_0R_2$ obtenemos que $\dim R_0=1,3$. Esto nos ayudará a reducir casos.
+\end{obs}
+\begin{obs}
+	Si $\dim R_i=3$ para alguna $i\in\{0,1,2\}$, entonces $(R_0,R_1,R_2)$ es un grupo de reflexiones (de Coxeter).
+\end{obs}
+Ahora sí:
+
+\paragraph{\textbf{(3,3,3)}} La intersección de los tres es una línea, es decir, $\Fix G$ es una línea. El poliedro vive en un tres espacio. Cuando intersecto ese tres espacio con cualquier de las $R_i$ obtengo un 2-plano. Es decir, tengo (2,2,2) finito en $\E^3$ con caras planas, es decir, es platónico o estrellado.
+
+\paragraph{\textbf{(3,3,2)}} Es el dual del $(2,3,3)$. Si al (2,3,3) le aplicamos petrie y llegamos al (1,3,3) o (3,3,3). Si llegamos al (3,3,3) estamos diciendo que el poliedro es el petrial de un platónico o estrellado, así que sus caras son alabeadas y entonces su dual no existe geométricamente. Si en cambio llegamos al (1,3,3) tenemos caras alabeadas centradas y tampoco existe. Éste \textbf{no existe}.
+
+\paragraph{\textbf{(3,2,3)}}Será tratado como grupo de Coxeter.
+
+\paragraph{\textbf{(3,2,2)}} Es la observación viceversa: haciendo el petrial me queda uno de los otros dos.
+
+\paragraph{\textbf{(2,3,3)}} Aplicando el petrial llegamos a (3,3,3) o (1,3,3). 
+
+\paragraph{\textbf{(2,3,2)}} Será tratado como grupo de Coxeter.
+
+\paragraph{\textbf{(2,2,3)}} Aplicando petrial llegamos a (3,2,3) o (1,2,3).
+
+\paragraph{\textbf{(2,2,2)}} Con cuaternios…
+
+\paragraph{\textbf{(1,3,3)}} Éste es como el (3,3,3). Tiene caras alabeadas centrales.
+
+\paragraph{\textbf{(1,3,2)}} \textbf{No existe} por ser el $\kappa$ de (3,3,2).
+
+\paragraph{\textbf{(1,2,3)}} Es el $\kappa$ de (3,2,3).
+
+\paragraph{\textbf{(1,2,2)}} Es el $\kappa$ de (3,2,2).
+
+\section{Poliedros licuados}
+Primero recordemos qué es mezclar con el segmento:
+\[(\rho_0,\rho_2,\rho_2,\tau)\to(\rho_0\tau,\rho_1,\rho_2)\]
+que a la mera hora es tomar el poliedro abstracto $\Gamma(\p)\times C_2$ donde un "segmento" es el grupo cíclico de dos elementos. Ahora veamos cuáles hay
+\begin{enumerate}
+	\item $\{3,3\}\diamond\{\}=\{\frac{6}{1,3},3:4\}\#\{\}$.
+	
+	\item $\{3,4\}\diamond\{\}=\{\frac{6}{1,3},4:3\}\#\{\}$. El 3 quiere decir que $(\rho_0\rho_1\rho_2)^3=\tau$, que no puede ser. {\color{magenta}(?)}
+	
+	\item $\{4,3\}\diamond\{\}=\{\frac{4}{1,2},3:3\}\#\{\}$.
+	
+	\item $\{5,3\}\diamond\{\}=\{\frac{10}{3,5},3:5\}\#\{\}$.
+	
+	\item $\{3,5\}\diamond\{\}=\{\frac{6}{1,3},5:\frac{5}{2}\}\#\{\}$.
+	
+	\item $\{5,3\}\diamond\{\}=\{\frac{4}{1,2},3:3\}\#\{\}$.
+	
+	\item 	$\{5,\frac{5}{2}\}\diamond\{\}=\{\frac{10}{3,5},5:3\}\#\{\}$.
+\end{enumerate}
+
+Donde el gatito es el mixing (producto cruz de las caras y el grupo dado por $R_0\to R_0T$ donde "el segmento" es $T$) con un politopo que es $\kappa'$ del que comenzamos. Por ejemplo, $\{4,3\}\overset{\kappa'}{\to}\{\frac{4}{1,2},3:3\}$.
+
+\section{Vector de dimensión $(3,2,3)$}
+Queremos analizar todas las posibilidades que salen con este vector. No sé cómo clasificar directo, así que voy a construir un grupo nuevo, que tiene este diagrama. Si se fijan, $R_0$ y $R_2$ tienen dimensión 3 así que $S_0$ y $S_?$ también así que las $S$ tienen dimensión 3. Es decir, estamos en un grupo de reflexiones.
+
+Si de aquí logro sacar un poliedro, entonces sus caras van a tener $p$ o $2p$
+
+Se trata del caso en que tenemos un grupo
+\[G=\langle R_0,R_1,R_2\rangle\]
+Definiendo
+\[S_0=R_0,\quad S_1=R_1R_2R_1,\quad S_2=R_2,\quad S_3=R_1R_0R_1\]
+pensando que $R_1$ es un automorfismo del grupo. Los órdenes de los productos se pueden expresar de esta forma:
+\[\begin{tikzcd}[row sep=small]
+	S_1=R_0\arrow[r,no head,"r"]\arrow[dd,no head,"p",swap]&S_1\arrow[dd,no head,"q"]\\&&\updownarrow R_1 \\
+	S_3\arrow[r,swap,no head,"r"]&S_2=R_2
+\end{tikzcd}\]
+y $R_1$ actúa volteando el diagrama horizontalmente. Es decir,
+\begin{align*}
+	\begin{aligned}
+		S_0S_1&=R_0R_1R_2R_1\\
+	(S_1S_2)&=(R_1R_2)^2\\
+	S_2S_3&=R_2R_1R_0R_1\\
+	S_0S_3&=(R_0R_1)^2\\
+	S_0S_1&=1\text{ $r$ tamaño del 2-hoyo}\qquad
+		\end{aligned}
+		\begin{aligned}
+	(S_1S_2)^q&=1=(R_1R_2)^{2q}\\
+	(S_2S_3)^r&=1\\
+	(S_0S_3)^p&=(R_0R_1)^{2p}\\
+	(S_0S_2)^2&=1\\
+	(S_1S_3)^2&=1
+		\end{aligned}
+\end{align*}
+También tenemos que
+\[p,q>1,\qquad p\text{ no tiene denominador par, y}\qquad r>0\]
+Tenemos un poliedro
+\[\{2p,2q|r\},\qquad \text{o} \qquad \{p,q|r\}\qquad \text{o}\qquad \{p,2q|r\}\]
+Si $q$ tampoco tiene denominador par,
+\[\delta\to\{2q,2p|r\}\]
+Si $q$ es dem. par
+
+\vspace{.5cm}
+En este punto cambiamos las $S$ (sección 7). Queda así:
+\[S_0=R_0,\quad S_1=R_1{\color{magenta}R_2}R_1,\quad S_2=R_2,\quad S_3=R_1{\color{magenta}xR_0}R_1\]
+
+\[\begin{tikzcd}[row sep=small]
+	{\color{magenta}S_0}=R_0\arrow[r,no head,"r"]\arrow[dd,no head,"p",swap]&{\color{magenta}S_3}\arrow[dd,no head,"q"]\\&&\updownarrow R_1 \\
+	{\color{magenta}S_1}\arrow[r,swap,no head,"r"]&S_2=R_2
+\end{tikzcd}\]
+Y dice: no puedo tener $r=2$, pero sí es posible que $p=0$ o $q=0$ o ambos.
+
+Va la parte geométrica. Como los espejos que generan las caras son $(3,2)$, las caras son planas. Es decir, $v\langle R_0,R_1\rangle$ es plano y por otro lado, $u\langle R_1,R_2\rangle$ es skew (figuras de vértice son skew).
+
+\begin{quotation}
+	{\color{blue}The faces will be planar of type $\{2p\}$.}
+	
+	Es decir, 
+	\begin{align*}
+		(S_0S_1)^{2p}&=(R_0S_1)^{2p}\\
+		&=(R_0R_1R_0R_1)^{2p}
+	\end{align*}
+	{\color{cyan} no lo entendemos}
+\end{quotation}
+Si $p=\frac{s}{t}$ con $t$ impar, $\left\{\frac{s}{t/2}\right\}$.
+
+Continuemos. Como $r$ es el tamaño del 2-hoyo, si $q=\frac{s}{t}$, entonces $\left\{\frac{2}{t,s}\right\}$ es el tipo de la \textbf{\textit{figura de vértice}}.
+
+\paragraph{$\mathbf{p=2=q\text{ y }r>2}$}
+El diagrama es
+\[\begin{tikzcd}[row sep=tiny]
+	\bullet\arrow[r,no head,"r"]&\bullet\\&&\updownarrow\\
+		\bullet\arrow[r,no head,"r"]&\bullet
+\end{tikzcd}\]
+Obtenemos el toroide
+\[\left\{4,\frac{4}{1,2}|r\right\}=Q\]
+Si $r=\frac{s}{t}$, el grupo de $Q$ es $(D_s\times D_s)\rtimes C_2$, es decir, es el producto de dos dihédricos con un automorfismo externo. Es $\{4,4,\}_{(s,0)}$.
+
+\paragraph{$\mathbf{p>2\text{ o }q>2}$} Tenemos un diagrama conexo, es decir, un grupo de Coxeter irreducible. 
+
+\begin{itemize}
+	\item $[3,3,3]\rtimes C_2$,
+\[\begin{tikzcd}[row sep=tiny]
+	&\bullet\arrow[r,no head]&\bullet\arrow[dd,no head]\\\updownarrow\\
+	&\bullet\arrow[r,no head]&\bullet
+\end{tikzcd}\qquad\leftrightsquigarrow\qquad\begin{tikzcd}
+\bullet\arrow[r,no head]&\bullet\arrow[r,no head]&\bullet\arrow[r,no head]&\bullet
+\end{tikzcd}\]
+Tenemos los poliedros $\{4,6|3\}$ y su dual $\{6,4|3\}$.
+
+\item Ahora consideremos $[3,4,3]\rtimes C_2$. Hay tres casos:
+\[\begin{tikzcd}[row sep=tiny]
+	&\bullet\arrow[r,no head]\arrow[dd,"4",swap,no head]&\bullet\\\updownarrow\\
+	&\bullet\arrow[r,no head]&\bullet
+\end{tikzcd}\qquad\qquad
+\begin{tikzcd}[row sep=tiny]
+	&\bullet\arrow[r,no head]\arrow[dd,no head,"\frac{4}{3}",swap]&\bullet\arrow[dd,"4",no head]\\\updownarrow\\
+	&\bullet\arrow[r,no head]&\bullet
+\end{tikzcd}\qquad\qquad
+\begin{tikzcd}[row sep=tiny]
+	&\bullet\arrow[r,no head]&\bullet\arrow[dd,"\frac{4}{3}",no head]\\\updownarrow\\
+	&\bullet\arrow[r,no head]&\bullet
+\end{tikzcd}\]
+y hay seis poliedros resultantes (ver artículo). Me parece que aquí hay 8 poliedros contando los duales, etc.
+
+\item Del $[3,3,5]$ salen muchos degenerados.
+
+\item Definamos una operación aplicada a un 4-politopo regular $\q$ con grupo $\langle T_i\rangle$ para obtener un poliedro $\p$:
+\[(T_0,T_1,T_2,T_3)\mapsto(T_1,T_0T_2,T_3):=(R_0,R_1,R_2)\]
+Los vectores de dimensión correspondientes son
+\[(3,3,3,3)\mapsto(3,2,3)\]
+\begin{itemize}
+	\item Las caras unen los puntos medios de Petries de las facetas de $\q$.
+	\item La simetría de un 2-hoyo es $\rho_0\rho_1\rho_2\rho_1$. El 2-hoyo de la figura de vértice es:
+	\begin{align*}
+		R_0R_1R_2R_1&=T_1T_0T_2T_3T_0T_2\\
+		&=T_1T_2T_3T_2		
+	\end{align*}
+	\item $R_1R_2=T_0T_2T_3$.
+	
+	Los posibles poliedros se clasifican de acuerdo al 4-politopo $\q$ al que están asociados. El caso de $\{3,3,4\}$ es aparte. Los demás son de \textbf{\textit{tipo $\{h,\frac{2s}{2t,s}|r\}$, con $s$ impar.}} Tenemos
+	\begin{align*}
+		\begin{aligned}
+			&\hspace{-.3cm}\text{Convexos}\\
+			\{3,3,3\}&\to\{4,\frac{6}{2,3}|3\}\\
+			\{4,3,3\}&\to\{6,\frac{6}{2,3}|3\}\\
+			\{3,4,3\}&\to\{6,\frac{6}{2,3}|4\}\\
+			\{5,3,3\}&\to\{10,\frac{6}{2,3}|3\}\\
+			\{3,3,5\}&\to\{4,\frac{10}{2,5}|5\}\\
+		\end{aligned}
+		\qquad
+		\begin{aligned}
+			&\hspace{-.3cm}\text{Estrellados}\\
+			\{3,5,\frac{5}{2}\}&\to\{10,\frac{10}{4,5}|3\}\\
+			\{\frac{5}{2},3,5\}&\to\{\frac{10}{3},\frac{10}{2,5}|5\}\\\\\\\\\\\\
+		\end{aligned}
+	\end{align*}
+	Los demás estrellados faltan, aunque la idea es sacarlos. Salieron 15 poliedros más, así que con los otros 8 tenemos 23, más la(s?) familia(s?) infinita(s).
+\end{itemize}
+\end{itemize}
+\paragraph{La construcción al revés} ¿Es posible construir $\q$ a partir de $\p=\{h,\frac{2s}{2t,s}|r\}$? Sabemos que la figura de vértice es un tamborsito cuyas tapas están una encima de la otra bien alineadas. Se nos antoja que $T_0$ sea la reflexión por el plano por el ecuador del tambor, junto con el origen, es decir es una reflexión por un hiperplano bien definido. Para hacer esto, notamos que esta reflexión y $(R_0R_1)^s$ mandan los mismos 5 puntos (2 vértices del tambor, el punto medio entre ellos, otro vértice del tambor y el origen) en los mismos 5 puntos, así que definimos $T_0:=(R_0R_1)^s$, que es una involución.
+
+Y así nomás: $T_2=(R_1R_2)^sR_1=R_1(R_2R_1)^s$, $T_1=R_0$, $T_3=R_2$. ¿Conmutan? ¡Sí! Todo parece funcionar. El grupo de las $T$'s es tiene vector de dimensión (3,3,3), y ahora sí nos convencimos de estos 15. Falta convencernos de los otros 8.
+
+
+\clearpage
+\section{Vector de dimensión $(2,3,2)$}
+En este caso definimos
+\[(S_0,S_1,S_2,S_3):=(R_1,R_0R_1R_0,R_0R_2R_1R_2R_0,R_2R_1R_2)\]
+Ahora tenemos
+\[\begin{tikzcd}[column sep=tiny,row sep=small]
+	&R_1=S_0\arrow[dd,no head,swap,"p"]\arrow[rr,no head,"q"]\arrow[ddrr,"r",no head,near start,swap]&&R_2R_1R_2=S_3\arrow[dd,no head,"p"]\\
+	R_0\updownarrow\\
+	&R_0R_1R_0=S_1\arrow[rr,no head,swap,"q"]\arrow[rruu,no head,"r",near end,swap]&&R_2R_0R_1R_0R_2=S_2\\
+	&&\leftrightarrow R_2
+\end{tikzcd}\]
+ya que
+\begin{align*}
+\begin{aligned}
+	p&=\operatorname{orden}(S_2S_3)\\
+	&=\operatorname{orden}(R_2R_0R_1R_0R_2R_2R_1R_2)\\
+	&=\operatorname{orden}(R_2R_0R_1R_0R_1R_2)\\
+	&=\operatorname{orden}(R_0R_1R_0R_1)\\
+	&=\operatorname{orden}(S_0S_1)\\\\\
+\end{aligned}
+\qquad
+\begin{aligned}
+	q&=\operatorname{orden}(S_1S_2)\\
+	&=\operatorname{orden}(R_0R_1R_0R_2R_0R_1R_0R_2)\\
+	&=\operatorname{orden}((R_0R_1R_0R_2)^2)\\
+	&=\operatorname{orden}((R_0R_1R_2R_0)^2)\\
+	&=\operatorname{orden}(R_0R_1R_2R_0R_0R_1R_2R_0)\\
+	&=\operatorname{orden}((R_1R_2)^2)\\
+	&=\operatorname{orden}(S_0S_3)
+\end{aligned}
+\end{align*}
+\begin{align*}
+	r&=\operatorname{orden}(S_0S_2)\\
+	&=\operatorname{orden}(R_1R_2R_0R_1R_0R_2)\\
+	&=\operatorname{orden}(R_1R_0R_2R_1R_0R_2)\\
+	&={\color{magenta}why?}\\
+	&=\operatorname{orden}(R_0R_1R_2R_0R_1R_2)\\
+	&=\operatorname{orden}(R_0R_1R_0R_2R_1R_2)\\
+	&=\operatorname{orden}(S_1S_3)\\\\
+	&{\color{magenta}\operatorname{orden}(R_0R_1R_0R_2R_1R_2)\overset{?}{=}\operatorname{orden}(R_1R_0R_2R_1R_2R_0)}
+\end{align*}
+
+\begin{itemize}
+	\item \textit{As we have already indicated, the resulting polyhedron is of type ${\color{magenta}\{2p,2q:2r\}}$ (...) from which are obtained up to five others by duality $\delta$ and Petriality $\pi$.}
+
+	 \begin{obs}
+		Las operaciones $\delta$, $\pi$ y $\kappa$ preservan la clase $(2,3,2)$.
+	\end{obs}
+	\begin{itemize}
+		\item Por un lado,
+		\[(R_0,R_1,R_2)\overset{\delta}{\mapsto}(R_2,R_1,R_0)\]
+		resulta en que
+		\begin{align*}
+			S_0&\mapsto R_1=S_0\\
+			S_1&\mapsto R_2R_1R_2=S_3\\
+			S_2&\mapsto R_0R_2R_1R_2R_0=S_2^{-1}\qquad\text{ya que }(R_0R_2R_1R_2R_0)(R_2R_0R_1R_0R_2)=\Id\\
+			S_3&\mapsto R_0R_1R_0=S_1
+		\end{align*}
+		que a la mera hora quiere decir que
+		\[p\leftrightarrow q.\]
+		\item Por otro lado,
+		\[(R_0,R_1,R_2)\overset{\pi}{\mapsto}({\color{magenta}R_0R_2},R_1,R_2)\]
+		resulta en que
+		\begin{align*}
+			S_0&\mapsto R_1=S_0\\
+			S_1&\mapsto R_0R_2R_1R_0R_2=S_2^{-1}\\
+			S_2&\mapsto R_2R_0R_2R_1R_0R_2R_2=R_0R_1R_0=S_1\\
+			S_3&\mapsto R_2R_1R_2=S_3
+		\end{align*}
+		que a la mera hora quiere decir que
+		\[p\leftrightarrow r\]
+		\item Por otro lado más,
+		\[(R_0,R_1,R_2)\overset{\kappa}{\mapsto}(R_0^\perp,R_1,R_2)=(-R_0,R_1,R_2)\]
+		resulta en que
+		\begin{align*}
+			S_0&\mapsto R_1=S_0\\
+			S_1&\mapsto R_2R_0^\perp R_1R_0^\perp R_2={\color{magenta}?}\\
+			S_2&\mapsto R_2R_0^\perp R_1R_0^\perp R_2={\color{magenta}?}\\
+			S_3&\mapsto R_2R_1R_2=S_3
+		\end{align*}
+		que a la mera hora quiere decir que
+		\[p\leftrightarrow p'\qquad\text{y}\qquad r\leftrightarrow r'\]
+		donde
+		\[\frac{1}{p}+\frac{1}{p'}=1,\qquad\frac{1}{r}+\frac{1}{r'}=1.\]
+	\end{itemize}
+	\item \textit{The \textbf{2-faces of the polyhedron are skew} $(2p)$-gons of the form $\{p\}\#\{\}$. Here it does not matter if $p$ is a fraction with an even denominator; {\color{blue}the skew nature of the face prevents a collapse}.}
+	\item \textit{However, \textbf{the vertex-figure is a planar polygon} so that, if $q$ is a fraction with an even denominator, then collapse occurs and the polyhedron degenerates.}
+	\begin{obs}
+		$R_0R_2$ is an automorphism of the diagram, since
+		\begin{align*}
+			S_0&\mapsto R_2R_0R_1R_0R_2=S_2\\
+			S_1&\mapsto R_2R_0R_0R_1R_0R_0R_2=R_2R_1R_2=S_3\\
+			S_2&\mapsto R_2R_0R_2R_0R_1R_0R_2R_0R_2=R_1=S_0\\
+			S_3&\mapsto R_2R_0R_2R_1R_2R_0R_2=R_0R_1R_0=S_1
+		\end{align*}
+		that is, $S_0\leftrightarrow S_2$ and $S_1\leftrightarrow S_3$.
+		
+		\textit{For non degeneracy, it turns out that \textbf{at least one of $R_0$, $R_2$, $R_0R_2$ must be an outer automorphism}. In general, then, two of them will be outer and the other inner.}
+	\end{obs}
+	\item $[3,3,5]$ has no proper orthogonal subgroup in $O_4$; it has no outer automorphisms as a subgroup of $O_4$.
+\end{itemize}
+Ahora comenzamos con cada caso. De acuerdo a la observación sobre los automorfismos admisibles, los posibles diagramas están determinados por las tripletas no ordenadas $\{p,q,r\}$ que no se deben confundir con símbolos de Shläffli porque no lo son; de hecho, ninguna lo es.
+
+\textbf{\textit{Las posibilidades son :
+		\begin{itemize}
+			\item $\{p,2,2\}$ con $p>2$ (y que $p$ no puede jugar el papel de $q$, ?),
+			\item $\{3,3,\frac{3}{2}\}$, $\{4,4,\frac{3}{2}\}$, $\{\frac{4}{3},\frac{4}{3},\frac{3}{2}\}$, cada uno con una pareja, y por último,
+			\item $\{3,4,\frac{4}{3}\}$ y todas las permutaciones, así que hay 6.
+	\end{itemize}}}
+\paragraph{$\mathbf{\{p,2,2\}}$}
+El diagrama es
+\[\begin{tikzcd}[row sep=tiny,column sep=tiny]
+	&&\bullet\arrow[dd,no head,"p",swap]&&\bullet\arrow[dd,no head,"p"]\\
+	\updownarrow&&&&\\
+	&&\bullet&&\bullet\\
+	&&&\leftrightarrow
+\end{tikzcd}\]
+\begin{itemize}
+	\item $R_2$ y $R_0R_2$ son externos, y también su composición $R_0$ cuando $p$ no es una fracción con denominador par.
+	\item Si $p=s/t$ en términos mínimos, el orden del grupo es
+	\[\begin{cases}
+		16s^2\qquad&t\text{ impar}\\
+		8s^2\qquad&t\text{ par}
+	\end{cases}\]
+	\item Sin importar el valor de $t$, \textbf{\textit{es un poliedro con figuras de vértice planas cuadradas y caras alabeadas de tamaño $2s$, es decir}}
+	\[\{\frac{2s}{t,s},4:\frac{4}{1,2}\}\]
+	\item El \textbf{\textit{Petrial}} $\{\frac{2s}{t,s},4:\frac{4}{1,2}\}$ es un toroide de tipo $\{4,4\}_{(s,s)}$ para $t$ impar y $\{4,4\}_{(s,0)}$ para $t$ par.
+	\item Si $t$ es impar, el \textbf{\textit{dual}} $\{\frac{4}{1,2},\frac{2s}{t}:\frac{4}{1,2}\}$ existe. Si $t$ es impar, el dual no se puede realizar en $\mathbb{E}^4$.
+\end{itemize}
+
+\paragraph{$\mathbf{\{3,3,\frac{3}{2}\}}$}
+\begin{itemize}
+	\item El grupo es del mismo orden que $\{4,6|3\}$, que es 240, así que provienen del simplejo $[3,3,3]$, cuyo grupo es de orden 120. (Veremos por qué en la sección 11).
+	\item Hay dos:
+		\[\{\frac{6}{1,3},6:\frac{6}{2,3}\}\qquad\text{y}\qquad\{\frac{6}{2,3},6:\frac{6}{1,3}\};\]
+	 las operaciones $\pi$ y $\kappa$ los intercambian. El primero es autodual y el dual del segundo no existe en $\mathbb{E}^4$.
+\end{itemize}
+
+\paragraph{$\mathbf{\{4,4,\frac{3}{2}\},\{\frac{4}{3},\frac{4}{3},\frac{3}{2}\},\{3,4,\frac{4}{3}\}}$}
+Los grupos de simetrías vienen del grupo $[3,4,3]$: cada uno tiene orden 2304, el doble que el orden de $[3,4,3]$, 1152.
+
+{\color{magenta}\textbf{\textit{The hyperplane reflections in the three diagrams are the same, and it is only the choice of outer normal vectors to them which gives rise to different diagrams; it is then the automorphisms which differ.}}}
+
+Veamos cómo son los diagramas:
+
+\[\begin{tikzcd}[column sep=tiny,row sep=small]
+	&R_1=S_0\arrow[dd,no head,swap,"4"]\arrow[rr,no head,"4"]\arrow[ddrr,"\frac{3}{2}",no head,near start,swap]&&R_2R_1R_2=S_3\arrow[dd,no head,"4"]\\
+	R_0\updownarrow\\
+	&R_0R_1R_0=S_1\arrow[rr,no head,swap,"4"]\arrow[rruu,no head,"\frac{3}{2}",near end,swap]&&R_2R_0R_1R_0R_2=S_2\\
+	&&\leftrightarrow R_2
+\end{tikzcd}\]
+
+\[\begin{tikzcd}[column sep=tiny,row sep=small]
+	&R_1=S_0\arrow[dd,no head,swap,"\frac{4}{3}"]\arrow[rr,no head,"\frac{4}{3}"]\arrow[ddrr,"\frac{3}{2}",no head,near start,swap]&&R_2R_1R_2=S_3\arrow[dd,no head,"\frac{4}{3}"]\\
+	R_0\updownarrow\\
+	&R_0R_1R_0=S_1\arrow[rr,no head,swap,"\frac{4}{3}"]\arrow[rruu,no head,"\frac{3}{2}",near end,swap]&&R_2R_0R_1R_0R_2=S_2\\
+	&&\leftrightarrow R_2
+\end{tikzcd}\]
+
+\[\begin{tikzcd}[column sep=tiny,row sep=small]
+	&R_1=S_0\arrow[dd,no head,swap,"3"]\arrow[rr,no head,"4"]\arrow[ddrr,"\frac{3}{2}",no head,near start,swap]&&R_2R_1R_2=S_3\arrow[dd,no head,"3"]\\
+	R_0\updownarrow\\
+	&R_0R_1R_0=S_1\arrow[rr,no head,swap,"4"]\arrow[rruu,no head,"\frac{3}{2}",near end,swap]&&R_2R_0R_1R_0R_2=S_2\\
+	&&\leftrightarrow R_2
+\end{tikzcd}\]
+
+Según entiendo, $S_i$ deben ser las mismas en los tres diagramas, sólo que cambian de nombre. ¿Con lo de los vectores externos se refiera a que se intercambian los nombres? (Una reflexión está determinada por un vector). Entiendo que al final, cambiarán los automorfismos por $R_0$, $R_2$ y $R_0R_2$.
+
+\begin{itemize}
+	\item Cuando $q=4,\frac{4}{3}$, el poliedro tiene los mismos 144 vértices que $\{4,8|3\}$, que son justamente los que se obtienen de \textbf{\textit{sumar}} (como conjuntos, suma de Minkowsky) $\{3,4,3\}$ \textbf{\textit{con su dual}}.
+	\item Cuando $q=3$, los vértices son \textbf{\textit{los puntos medios de las aristas de $\{3,4,3\}$ y los puntos medios de las aritstas de su dual}}. (Hay $96\cdot2=192$ vértices).
+	\item Los 10 poliedros en estos tres casos se relacionan entre sí aplicando $\delta,\pi,\kappa$ y $\varphi_3$.
+	
+\end{itemize}
+\end{document}
