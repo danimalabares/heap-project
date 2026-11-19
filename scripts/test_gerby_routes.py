@@ -24,6 +24,7 @@ from gerby.database import (
 )
 import gerby.registry as registry
 import gerby.views.conferences as conferences_view
+import gerby.views.minicourses as minicourses_view
 import gerby.views.seminars as seminars_view
 import gerby.views.tag as view
 import gerby.application as application
@@ -299,7 +300,12 @@ class ContentsAndDownloadsTests(
             tag="P003", label="part-conferences",
             ref="3", type="part", active=True,
         )
+        minicourses = Tag.create(
+            tag="P004", label="part-minicourses",
+            ref="4", type="part", active=True,
+        )
         for part, tag, name in [
+            (minicourses, "C007", "surfaces"),
             (conferences, "C005", "vbac"),
             (
                 conferences, "C006",
@@ -443,13 +449,49 @@ class ContentsAndDownloadsTests(
             subjects[1][1][0].pdf, "vbac.pdf"
         )
 
+    def test_minicourses_page_lists_by_event(
+        self,
+    ):
+        self.make_parts()
+        with patch.object(
+            minicourses_view, "render_template",
+            return_value="Minicourses",
+        ) as render:
+            response = app.test_client().get(
+                "/minicourses"
+            )
+        self.assertEqual(
+            response.status_code, 200
+        )
+        events = render.call_args.kwargs[
+            "subjects"
+        ]
+        self.assertEqual(
+            [
+                (event, [c.tag for c in chapters])
+                for event, chapters in events
+            ],
+            [
+                (
+                    "IMPA Summer School 2026",
+                    ["C007"],
+                ),
+            ],
+        )
+        self.assertEqual(
+            events[0][1][0].lecturer,
+            "Aline Zanardini",
+        )
+
     def test_standalone_page_and_old_urls(self):
         client = app.test_client()
         page = client.get("/standalone")
         self.assertEqual(page.status_code, 200)
         text = page.get_data(as_text=True)
         self.assertIn("Course notes", text)
-        self.assertIn("Theses, projects", text)
+        self.assertIn("End-of-course projects", text)
+        self.assertIn("Master’s tesina", text)
+        self.assertNotIn("cimpa-oaxaca", text)
         pdf = client.get(
             "/standalone/combinatoria.pdf"
         )

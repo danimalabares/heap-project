@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}Minicourses{% endblock %}
+
+{% block breadcrumb %}
+  <li><a href="/minicourses">Minicourses</a>
+{% endblock %}
+
+{% block hamburger %}
+  {{ macros.singlePageLinks() }}
+{% endblock %}
+
+{% block body %}
+<h2>Minicourses</h2>
+
+<ul>
+  {% for subject, chapters in subjects %}
+  <li>
+    {{ subject }}
+    <ul>
+      {% for chapter in chapters %}
+      <li><a href="/tag/{{ chapter.tag }}">{{ chapter.name }}</a>{% if chapter.lecturer %}, minicourse by {{ chapter.lecturer }}{% endif %}.
+        {% if chapter.pdf %}<a href="/download/{{ chapter.pdf }}">pdf</a>{% else %}pdf not available{% endif %},
+        <a href="{{ chapter.source }}">TeX source</a>
+      {% endfor %}
+    </ul>
+  {% else %}
+  <li>No minicourse notebooks yet.
+  {% endfor %}
+</ul>
+{% endblock %}

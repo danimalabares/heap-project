@@ -167,14 +167,16 @@ def show_statistics():
   return render_template("single/statistics.html", total=total, counts=counts, extras=extras, records=records)
 
 
-# The Seminars and Conferences parts are listed
-# at /seminars and /conferences, not in the
-# table of contents.
+# The Seminars, Conferences and Minicourses
+# parts are listed at /seminars, /conferences
+# and /minicourses, not in the table of contents.
 SEMINARS_PART_LABEL = "part-seminars"
 CONFERENCES_PART_LABEL = "part-conferences"
+MINICOURSES_PART_LABEL = "part-minicourses"
 HIDDEN_PART_LABELS = (
   SEMINARS_PART_LABEL,
   CONFERENCES_PART_LABEL,
+  MINICOURSES_PART_LABEL,
 )
 
 
@@ -229,3 +231,4 @@ import gerby.views.stacks
 import gerby.views.slides
 import gerby.views.seminars
 import gerby.views.conferences
+import gerby.views.minicourses
