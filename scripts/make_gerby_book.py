@@ -78,6 +78,7 @@ KNOWN_CHAPTERS = {
     "mathematical-systems-biology",
     "cimpa-el-salvador-2024",
     "anthropology",
+    "yang-mills-theory",
 }
 
 
