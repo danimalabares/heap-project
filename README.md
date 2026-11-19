@@ -3,7 +3,7 @@
 This is a copy of the [Stacks Project repository](https://github.com/danimalabares/heap-project).
 There are some files with math notes.
 The site is currently up at
-https://www.heap-project.org (the `www` is required).
+https://www.heap-project.org.
 
 ## How to use
 
