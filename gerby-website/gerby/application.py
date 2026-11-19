@@ -5,7 +5,10 @@ import urllib.request
 import socket
 import feedparser
 import re
-from flask import Flask, abort, render_template, request, send_from_directory
+from flask import (
+  Flask, abort, redirect, render_template, request,
+  send_from_directory,
+)
 #import flask_profiler
 
 from peewee import *
@@ -118,13 +121,24 @@ def show_index():
 def show_about():
   return render_template("single/about.html")
 
+@app.route("/standalone")
+def show_standalone():
+  return render_template("single/standalone.html")
+
+
+# The section was first published as /course-projects.
 @app.route("/course-projects")
-def show_course_projects():
-  return render_template("single/course-projects.html")
+def redirect_course_projects():
+  return redirect("/standalone", code=301)
 
 @app.route("/course-projects/<name>.pdf")
-def show_course_project_pdf(name):
-  return send_from_directory(ROOT / "course-projects", name + ".pdf")
+def redirect_course_project_pdf(name):
+  return redirect("/standalone/%s.pdf" % name, code=301)
+
+
+@app.route("/standalone/<name>.pdf")
+def show_standalone_pdf(name):
+  return send_from_directory(ROOT / "standalone", name + ".pdf")
 
 @app.route("/download/geometric-prequantization.pdf")
 def show_prequantization_project_pdf():

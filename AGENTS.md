@@ -100,12 +100,12 @@ Generated files and directories such as
 `gerby/`, `tmp/`, `.venv/`, and build
 artifacts should not be committed.
 
-## Course projects
+## Standalone documents
 
-`course-projects/` keeps older documents as
-originals: the PDF as `course-projects/NAME.pdf`
+`standalone/` keeps older documents as
+originals: the PDF as `standalone/NAME.pdf`
 and its TeX, bibliography and figures in
-`course-projects/sources/NAME/`. They are not
+`standalone/sources/NAME/`. They are not
 chapters. Keep them verbatim: the style rules
 above (no macros, 45-character lines, no text
 in equations) and bulk cleanups such as

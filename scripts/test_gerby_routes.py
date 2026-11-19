@@ -443,6 +443,34 @@ class ContentsAndDownloadsTests(
             subjects[1][1][0].pdf, "vbac.pdf"
         )
 
+    def test_standalone_page_and_old_urls(self):
+        client = app.test_client()
+        page = client.get("/standalone")
+        self.assertEqual(page.status_code, 200)
+        text = page.get_data(as_text=True)
+        self.assertIn("Course notes", text)
+        self.assertIn("Theses, projects", text)
+        pdf = client.get(
+            "/standalone/combinatoria.pdf"
+        )
+        self.assertEqual(pdf.status_code, 200)
+        pdf.close()
+        for old, new in [
+            ("/course-projects", "/standalone"),
+            (
+                "/course-projects/combinatoria.pdf",
+                "/standalone/combinatoria.pdf",
+            ),
+        ]:
+            response = client.get(old)
+            self.assertEqual(
+                response.status_code, 301
+            )
+            self.assertTrue(
+                response.headers["Location"]
+                .endswith(new)
+            )
+
     def test_published_pdf_downloads(self):
         tmp = tempfile.TemporaryDirectory()
         self.addCleanup(tmp.cleanup)
