@@ -44,8 +44,7 @@ def load_minicourses():
   events = load_part_by_subject(MINICOURSES_PART_LABEL, EVENTS)
   for event, chapters in events:
     for chapter in chapters:
-      name = chapter.label[len("chapter-"):]
-      chapter.lecturer = LECTURERS.get(name)
+      chapter.lecturer = LECTURERS.get(chapter.notebook)
   return events
 
 

@@ -17,8 +17,28 @@ SUBJECTS = [
 ]
 
 
+def notebook_name(label, known):
+  """File name (without .tex) of the notebook of a chapter tag.
+
+  A chapter is labelled chapter-NAME, except when the
+  notebook opens with a starred section: the label of
+  that section then names the chapter, as
+  NAME-section-LABEL.
+  """
+  if label.startswith("chapter-"):
+    return label[len("chapter-"):]
+  for name in known:
+    if label.startswith(name + "-"):
+      return name
+  return label
+
+
 def load_part_by_subject(part_label, subject_table):
   """List the notebooks of a part by subject."""
+  known = sorted(
+    (n for _, names in subject_table for n in names),
+    key=len, reverse=True,
+  )
   part = Tag.select().where(Tag.label == part_label).first()
   if part is None:
     return []
@@ -26,7 +46,8 @@ def load_part_by_subject(part_label, subject_table):
   notebooks = {}
   for row in Part.select().where(Part.part == part.tag):
     chapter = row.chapter
-    name = chapter.label[len("chapter-"):]
+    name = notebook_name(chapter.label, known)
+    chapter.notebook = name
     filename = name + ".pdf"
     chapter.pdf = filename if os.path.isfile(os.path.join(DOWNLOADS, filename)) else None
     chapter.source = "https://github.com/danimalabares/heap-project/blob/main/%s.tex" % name

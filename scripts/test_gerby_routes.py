@@ -306,6 +306,12 @@ class ContentsAndDownloadsTests(
         )
         for part, tag, name in [
             (minicourses, "C007", "surfaces"),
+            (
+                minicourses, "C008",
+                "geometric-stability-conditions"
+                "-and-group-actions"
+                "-section-motivation",
+            ),
             (conferences, "C005", "vbac"),
             (
                 conferences, "C006",
@@ -320,7 +326,12 @@ class ContentsAndDownloadsTests(
             (seminars, "C004", "seminars-new"),
         ]:
             chapter = Tag.create(
-                tag=tag, label="chapter-" + name,
+                tag=tag,
+                label=(
+                    name
+                    if "-section-" in name
+                    else "chapter-" + name
+                ),
                 ref=tag[-1], type="chapter",
                 active=True, name=name,
             )
@@ -473,6 +484,10 @@ class ContentsAndDownloadsTests(
             ],
             [
                 (
+                    "CIMPA school Florianópolis 2025",
+                    ["C008"],
+                ),
+                (
                     "IMPA Summer School 2026",
                     ["C007"],
                 ),
@@ -480,6 +495,10 @@ class ContentsAndDownloadsTests(
         )
         self.assertEqual(
             events[0][1][0].lecturer,
+            "Hannah Dell",
+        )
+        self.assertEqual(
+            events[1][1][0].lecturer,
             "Aline Zanardini",
         )
 
