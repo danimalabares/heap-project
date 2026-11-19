@@ -539,6 +539,8 @@ class ContentsAndDownloadsTests(
             "seminars-algebra",
             "seminars-physics",
             "seminars-computing",
+            "seminars-dynamics",
+            "oktobermat-2024",
             "oktobermat-2026",
             "saet-2026",
         ]:

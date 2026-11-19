@@ -85,6 +85,8 @@ KNOWN_CHAPTERS = {
     "oktobermat-2026",
     "saet-2026",
     "seminars-symplectic-geometry",
+    "seminars-dynamics",
+    "oktobermat-2024",
 }
 
 

@@ -10,6 +10,7 @@ from gerby.database import Part, Tag
 # (chapter file name without .tex) of each.
 SUBJECTS = [
   ("Analysis and PDE", ["seminars-analysis-pde"]),
+  ("Dynamics", ["seminars-dynamics"]),
   ("Differential geometry", ["seminars-differential-geometry"]),
   ("Symplectic geometry", ["seminars-symplectic-geometry"]),
   ("Complex geometry", ["seminars-complex-geometry"]),

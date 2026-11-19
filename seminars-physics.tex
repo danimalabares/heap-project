@@ -126,6 +126,392 @@ meaning: time doesn't pass! And this means
 the state of the particle cannot
 change.
 
+\section{Second Quantization}
+\label{section-erdnigor-second-quantization}
+%% speaker: Altan Erdnigor, IMPA
+%% place: Seminário das Sextas, PUC-Rio
+%% date: October 18, 2024
+
+\noindent
+Altan Erdnigor, IMPA.
+Semin\'ario das Sextas, PUC-Rio.
+October 18, 2024.
+
+\medskip\noindent
+{\bf Abstract.}
+The talk will cover a survey by Yuri Neretin
+of a famous eponymous book by Felix Berezin.
+Neretin's overview is short and clean, with
+no proofs (they are all exercises in
+functional analysis), providing an abundance
+of references.
+
+The topics are: finite-dimensional and
+infinite-dimensional bosonic Fock space
+(\href{https://en.wikipedia.org/wiki/Segal%E2%80%93Bargmann_space}{Segal-Bargmann
+space}
+(1961, 1963)) and fermionic Fock spaces, and
+the Weil representation of the orthogonal and
+symplectic groups.
+
+The main theorem of the paper is that the
+representations do exist. Mostly it's about
+giving the right definitions. If we don't
+discuss the proofs, I can fit it under one
+hour.
+
+\bigskip\noindent
+{\bf Plan.}
+\begin{enumerate}
+\item Bossonic Fock space $F_n\cong
+L^2(\mathbb{R}^n)$. What is it, how to work
+with it. This will be the quantization of
+ordinary space $\mathbb{R}^{2}$.
+
+\item Metaplectic representation (Weil
+representation) $\mathsf{Sp}(\mathbb{R})$
+(symplectic matrices). The projective action
+$\mathsf{Sp}_{2n}(\mathbb{R})\curvearrowright
+F_n$. You will see how strange it is that
+this representation ?
+
+\item Fermionic Fock space $\Lambda_n\cong
+\Lambda^\bullet(\mathbb{C}^n)$.
+
+\item Spinor represenation. Fermionic Fock
+space also admits a projective representation
+called spinor represenation: $\mathsf{SO}(2n)
+\curvearrowright \Lambda_n$.
+
+\item $n\to \infty$. Gives rise to $F_\infty,
+\Lambda_\infty$.
+\end{enumerate}
+
+Big formulas give rise to representations.
+
+\medskip\noindent{\bf Fock space.}
+Consider $\mathbb{C}^{n}$. define
+$$F_n=\left\{\text{$f(z)$-entire functions
+$\mathbb{C}^{n}\to \mathbb{C}$}\Big|
+\int_{\mathbb{C}^{n}}(f(x))^2e^{-|z|^2}
+d\lambda(z)<\infty\right\}$$
+
+We have an inner product:
+$$\left\langle{} f,g \right\rangle{}
+:=\int_{\mathbb{C}^{n}}f(z)\overline{g(z)}
+e^{|z|^2}d
+\lambda(z)$$
+
+\begin{proposition}
+\label{proposition-erdnigor-monomials}
+$z^k:=z_1^{k_1}\cdot\ldots\cdot z_n^{k_n}$,
+where $k=(k_1,\ldots,k_n)$, form an
+orthogonal basis (of monomials) for $F_n$.
+Thus $F_n$ is a Hilbert space. Moreover,
+$\|z^k\|^2=k_1!\ldots k_n!$.
+\end{proposition}
+
+\medskip\noindent{\bf Question.}
+Why is this basis orthogonal--- why do two
+different monomials integrate to zero?
+
+\begin{remark}
+\label{remark-erdnigor-folland}
+See {\it Harmonica analysis in phase space}
+by Folland (1988).
+\end{remark}
+
+\begin{definition}
+\label{definition-erdnigor-bt}
+$b_T(z):=\operatorname{exp}(zTz^+)$ for $T$
+symmetric.
+\end{definition}
+
+\medskip\noindent{\bf Claim.}
+$b_T\in F_n \iff \|T\|<1$.
+
+\begin{exercise}
+\label{exercise-erdnigor-bt}
+$\left\langle{} b_T,b_S \right\rangle{} =\det
+( (1-TS^*)^{-\frac{1}{2}} )$ {\bf Hint:}
+Appendix 1 in Folland. This implies that
+$$\|b_T\|=\det (1-T T^*
+)^{-\frac{1}{4}}=\sqrt{\det (1-T
+T^*)^{-\frac{1}{2}}}$$
+\end{exercise}
+
+\medskip\noindent
+{\bf Altan's talk exercise 2: Fock space is
+reproducing kernel space.}
+
+\begin{definition}[Coherent states]
+\label{definition-erdnigor-coherent}
+For $a\in \mathbb{C}^{n}$,
+$$\varphi_a(z):=\operatorname{exp}
+(z_1\overline{a_1}+\ldots
++z_n\overline{a_n})$$
+\end{definition}
+
+\medskip\noindent{\bf Claim.}
+For $f\in F_n$,
+$$\left\langle{} f,\varphi_a \right\rangle{}
+=f(a)$$
+
+\begin{remark}
+\label{remark-erdnigor-rkhs}
+This says that for every $a\in\mathbb{C}^{n}$
+the functional $F_n\ni f\mapsto
+f(z)\in\mathbb{C}$ is bounded since it is
+represented by $\varphi_a$ (Riesz
+representation theorem). This is called
+{\it\bf Reproducing Kernel Hilbert Space}.
+\end{remark}
+
+\begin{proof}[Proof (Exercise)]
+Let's consider the case $n=1$. Then
+$\varphi_a=\operatorname{exp}(z\bar{a})$ and
+$$\left\langle{} f,\varphi_a \right\rangle{}
+=\int_{\mathbb{C}}f(z)
+\overline{\operatorname{exp}(za)
+}e^{-|z|^2}d \lambda(z)$$
+But I'm not sure how to compute this
+integral. Upon difficulties let's suppose
+$f\equiv1$. Perhaps split complex exponential
+into real and imaginary parts? Then we get
+real-valued integrals over
+$\mathbb{R}^{2}=\mathbb{C}$:
+$$
+\begin{aligned}
+\int_{\mathbb{C}}\overline{\operatorname{exp}
+(za)}
+e^{-|z|^2}d
+\lambda(z)&=\int_{\mathbb{R}^{2}}
+\overline{e^{\operatorname{Re}(za)}\big(\cos
+\operatorname{Im}(za)+i
+\operatorname{Im}(za)\big)}e^{-|z|^2}d
+\lambda(z)\\
+&=
+\int_{\mathbb{R}^{2}}
+\overline{e^{\operatorname{Re}(za)}\cos
+\operatorname{Im}(za)}e^{-|z|^2}d
+\lambda(z)+\int_{\mathbb{R}^{2}}
+\overline{e^{\operatorname{Re}(za)}i
+\operatorname{Im}(za)}e^{-|z|^2}d \lambda(z)
+\end{aligned}
+$$
+Not sure$\ldots$
+
+In the general case we shall have
+$$
+\begin{aligned}
+\left\langle{} f,\varphi_a \right\rangle{}
+&=\int_{\mathbb{C}^n}f(z)
+\overline{\varphi_a(z)}e^{-|z|^2}d\lambda(z)
+\\
+&=\int_{\mathbb{C}^{n}}f(z)
+\overline{\operatorname{exp}(z_1\overline{a}
+_1+\ldots
++z_n\overline{a}_n)}e^{-|z|^2}d \lambda(z)
+\end{aligned}
+$$
+Maybe take this somehow to a line integral
+around $a$ to Cauchy integral
+formula$\ldots$?
+\end{proof}
+
+\begin{remark}
+\label{remark-erdnigor-evaluation}
+Evaluation at a point is a bounded functional
+(this is not the case in general  $L^2$ space
+because you can have functions with
+arbitrarily large values).
+\end{remark}
+
+\medskip\noindent{\bf Question.}
+What are the operators $A\curvearrowright
+F_n$?
+
+\medskip\noindent{\bf Answer.}
+$(\operatorname{Af})z=\int_{\mathbb{C}^{n}}
+k(z,\bar{u})f(u)e^{-|u|^2}
+d \lambda(u)$, where $K(z,u)$ is holomorphic
+in  $z$ and antiholomorphic in $u$. The
+integral converges absolutely for all $f \in
+F_n$.
+
+\begin{proof}
+We need to compute the kernel. So define
+$$c_ke=\left\langle{} Az^{\mathbf{k}},z^\ell
+\right\rangle{}$$
+then
+$$k(z,\bar{u}
+)=\sum_{k,\ell}c_{k\ell}\frac{z^k}{k!}
+\frac{\bar{u}
+^\ell}{\ell!}$$
+which means that the kernel is symmetric. So
+this means that restricting the kernel to
+diagonal is not holomorphic anymore, kind of
+real analytic (?).
+
+Alternatively, $k(a,b)=\left\langle{}
+A\varphi_b,\varphi_a \right\rangle{}$.
+\end{proof}
+
+\medskip\noindent{\bf Question (Dani).}
+Why do we need to compute the kernel? We want
+to show that the operator $A\curvearrowright
+F_n$ produces a (projective) action, right?
+
+\medskip\noindent{\bf OK.}
+so we defined Fock space and the operators
+that act nicely on it.
+
+\medskip\noindent{\bf Metaplectic
+representation.}
+
+\begin{definition}
+\label{definition-erdnigor-sp}
+$$\mathsf{Sp}(2n,\mathbb{R}:=\left(
+h\in\operatorname{Mat}_{2n\times 2n}:h
+\begin{pmatrix} 0&1\\-1&0
+\end{pmatrix}h^+=\begin{pmatrix} 0&1\\-1&0
+\end{pmatrix}   \right)$$
+\end{definition}
+
+Let
+$$J=\frac{1}{\sqrt{2} }\begin{pmatrix}
+1&i\\i&1 \end{pmatrix} , \qquad g:=Jg
+J^{-1}$$
+$$g=\begin{pmatrix} Q&\psi\\\bar{\psi}
+&\bar{\phi}  \end{pmatrix} ,\qquad g
+\begin{pmatrix} 1&0\\0&-1 \end{pmatrix} g^*
+=\begin{pmatrix} 1&0\\0&-1 \end{pmatrix}$$
+
+Also
+$$\mathsf{Sp}(2n,\mathbb{R})\cong
+\mathsf{U}(n,n) \cap
+\mathsf{Sp}(2n,\mathbb{C})$$
+Now
+$$\left(W\begin{pmatrix}
+\phi&\psi\\\bar{\psi} &\bar{\phi}
+\end{pmatrix}
+f\right)(z)=\int_{\mathbb{C}^{n}}
+\operatorname{exp}
+\left\{ \frac{1}{2}(z,\bar{u}
+)\begin{pmatrix} \bar{\psi}
+\phi^{-1}&(\phi^t)^{-1}\\\phi^{-1}&-\phi^{-1}
+\psi
+\end{pmatrix} \begin{pmatrix} z^t\\\bar{u} ^t
+\end{pmatrix}  \right\} f(u)e^{-|u|^2}d
+\lambda(u).$$
+
+Who is this guy? It's a {\it\bf Berezin's
+integral}. So that is the definition of $W$,
+which is the representation of the
+mataplectic group
+$W:\mathsf{Sp}_{2n}(\mathbb{R})
+\curvearrowright
+F_n$ we wanted.
+
+Now let's explain what is a projective
+representation.
+
+\begin{theorem}
+\label{theorem-erdnigor-projective}
+\begin{enumerate}
+
+\item
+$W(\cdot )$ are unitary up to scalar. More
+precisely,
+$$\det (\phi^*\phi)^{-\frac{1}{4}} W
+\begin{pmatrix} \phi&\psi\\\bar{\psi}
+&\bar{\phi}  \end{pmatrix}$$
+are unitary.
+
+\item $W(\cdot )$ define a projective
+representation of
+$\mathsf{Sp}_{2n}(\mathbb{R})\curvearrowright
+F_n$.
+
+Now let's finish with this nice formula for
+the cocycle (how to multiply these
+operators?:
+
+$$W \begin{pmatrix} \phi_1
+&\psi_1\\\bar{\psi}_1 &\bar{\phi}_1
+\end{pmatrix}W \begin{pmatrix}
+\phi_2&\psi_2\\\bar{\psi}_2&\bar{\phi}_2
+\end{pmatrix} =\det
+(1+\phi_1^{-1}\psi_1\bar{\psi}_2\phi_2^{-1})
+^{-\frac{1}{2}}
+W\left( \begin{pmatrix}
+\phi_1&\psi_1\\\bar{\psi}_1&\bar{\phi}_1
+\end{pmatrix}  \right)$$
+\end{enumerate}
+\end{theorem}
+
+\medskip\noindent{\bf Question (Dani).}
+So what is projective representation?
+
+\medskip\noindent
+{\bf Editorial note.}
+The notes are unfinished and end with this
+question. Colour marks of the original
+(for questions and doubts) were dropped,
+the section titles Plan, Fock space and
+Metaplectic representation became
+bold headings, the old claims and
+questions became bold run-in headings,
+and the angle brackets of the inner
+products were rewritten as required by
+HP style. Typos and doubtful formulas,
+including the last formula of the
+theorem, are as in the original.
+
+\section{Feynman checkers: quantum theory on
+a checkered paper}
+\label{section-skopenkov-feynman-checkers}
+%% speaker: Mikhail Skopenkov, King Abdullah
+%% speaker: University of Science and
+%% speaker: Technology
+%% place: Seminário das Sextas
+%% date: February 27, 2025
+
+\noindent
+Mikhail Skopenkov, King Abdullah University
+of Science and Technology.
+Semin\'ario das Sextas.
+February 27, 2025.
+
+\medskip\noindent
+{\bf Abstract.}
+We survey the most elementary model of
+electron motion introduced by Feynman. In
+this game, a checker moves on a checkerboard
+by simple rules, and we count the turns.
+Feynman checkers are also known as a
+one-dimensional quantum walk, or an Ising
+model at an imaginary temperature, or a
+six-vertex model with complex weights. We
+mathematically solve a Feynman problem from
+1965, which was to prove that the discrete
+model (for large time, small average
+velocity, and small lattice step) is
+consistent with the continuum one. We get
+further asymptotic properties of the model
+for large time, improving the results by
+Sunada and Tate from 2012 towards the
+ultimate goal of a uniform asymptotic formula
+in the whole range.
+
+\medskip\noindent
+{\bf Editorial note.}
+The old notes contain only the title,
+speaker and abstract of this talk, no notes.
+The old header gives the series
+(Seminário das Sextas) but not the
+institution.
+
 \bibliography{my}
 \bibliographystyle{amsalpha}
 
