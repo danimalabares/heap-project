@@ -782,6 +782,1589 @@ Its amplitude acquires a phase of modulus
 one. Where is the decay encoded when a
 larger quantum system simulates heat flow?
 
+\medskip\noindent
+{\bf Sources of these notes.}
+The notes combine 53 photographs of the
+slides, four audio recordings (about 88
+minutes in total, transcribed with
+whisper.cpp), and Daniel's own written
+notes. The photographs show the room, not
+the slide files, so a few lines are partly
+hidden by the speaker or by the camera;
+those are marked. Slides are transcribed as
+shown, and the tables are copied verbatim.
+Statements marked {\bf spoken} come from the
+transcript. Everything marked {\bf Daniel's
+note}, {\bf Daniel's question} or {\bf
+Editorial answer} is not Liu's. The talk
+reports results of
+Jin--Liu--Yu~\cite{jly-prl} (with the
+technical companion~\cite{jly-pra}) and of
+Jin--Liu~\cite{jl-analog}; the slides name
+these papers, and I have not compared the
+formulas below with them line by line.
+
+\medskip\noindent
+{\bf Big picture.}
+A quantum computer evolves a state by a
+unitary, that is, by Schr\"odinger's
+equation. Most differential equations one
+wants to solve are not of this form: the
+heat equation, for instance, makes things
+decay. {\bf Schr\"odingerisation} turns any
+linear PDE into a Schr\"odinger equation,
+at the price of one extra dimension, the
+``warped phase'' variable $\xi$. Then one
+can hand the problem to quantum hardware.
+For a nonlinear PDE the plan is different:
+first make the problem linear, by an exact
+change of variables such as the Cole--Hopf
+transformation, then Schr\"odingerise. The
+talk ends with the Hamilton--Jacobi
+equation and Wasserstein proximal
+operators, where this plan works.
+
+\medskip\noindent
+{\bf Quantum simulation.}
+{\bf Slide 4.}
+``Quantum simulations can efficiently
+simulate quantum systems.'' An initial state
+$|u(0)\rangle$ evolves to
+$U(t)|u(0)\rangle=|u(t)\rangle$ where $U(t)$
+is unitary, $U(t)^\dagger U(t)=1$. The slide
+says that today we are reaching beyond the
+limit of what classical computers can easily
+simulate: quantum computers with
+$O(100)$ ``quite good'' qubits, and quantum
+simulators with continuous variables with
+$O(1000000)$ qumodes. A system of $N$
+two-level systems (qubits) corresponds to a
+classical vector with $2^N$ entries.
+
+\medskip\noindent
+{\bf Slide ``Quantum simulation of ODEs and
+PDEs''.}
+The slide shows $D$ ODEs
+$$
+\frac{dX^{[k]}}{dt}=F(X^{[k]}(t)),
+\qquad
+X^{[k]}\in\mathbb{R}^D,
+$$
+with $X^{[k]}(0)=X^{[k]}_0$ and
+$k=1,\dots,M$ (``molecular dynamics,
+particle swarm, electrical networks\dots
+etc''), and $(d+1)$-dimensional PDEs
+$$
+\frac{\partial u^{[k]}}{\partial t}
++F(u^{[k]},\nabla u^{[k]},
+\nabla^2u^{[k]},\dots)=0,
+\qquad
+u^{[k]}\in\mathbb{R}^d
+$$
+(``fluid dynamics, financial market
+behaviour, machine learning\dots etc'').
+Beside them: ``To put onto quantum hardware:
+How to map onto Schr\"odinger's equation in
+a simple way? Schr\"odingerisation!''
+
+\medskip\noindent
+{\bf Slide ``Dynamical processes are
+described by ordinary and partial
+differential equations''.}
+A plot of time ($1\,\mathrm{s}$, $10^{-6}$,
+$10^{-10}$, $10^{-15}\,\mathrm{s}$) against
+space ($1\,\text{\AA}$, $1\,\mathrm{nm}$,
+$1\,\mu\mathrm{m}$, $1\,\mathrm{m}$), with
+an arrow from the small and fast scale to the
+large and slow one: quantum mechanics
+(Schr\"odinger's equation), molecular
+dynamics (Newton's equation), kinetic theory
+(Boltzmann's equation), continuum theory
+(Navier--Stokes equation). The box on the
+slide:
+$$
+i\frac{d|u(t)\rangle}{dt}
+=\mathbf{H}(t)|u(t)\rangle,
+\qquad
+|u(t)\rangle=U(t)|u(0)\rangle.
+$$
+
+\medskip\noindent
+{\bf Slide ``Chief challenges''.}
+``Schr\"odingerisation method: Mapping linear
+PDEs to linear quantum dynamics.'' ``For
+nonlinear PDEs: Formulating the nonlinear
+PDE problem in terms of a linear problem,
+where the dimension of the linear problem is
+not too high.''
+
+\medskip\noindent
+{\bf Slide 9, a section title.}
+``4 classes of ways of using quantum
+hardware as simulators.''
+
+\begin{remark}
+\label{remark-liu-four-classes}
+The next slide, ``Do we choose space and time
+to be continuous or discrete during
+simulation? Depends on the quantum
+platform!'', is a two-by-two table. Its
+columns are labelled ``data encoding
+(Space)'': ``discrete'' and ``continuous''.
+Its rows are labelled ``data processing
+(Time)'': ``discrete'' (with the caption
+``digital quantum computation'') and
+``continuous'' (with the caption
+``continuous-time quantum computation'').
+The four cells read:
+\begin{itemize}
+\item discrete time, discrete space:
+``Qubits: circuit model quantum computing;
+measurement-based quantum computing'';
+
+\item discrete time, continuous space:
+``Qumodes: continuous-variable quantum
+computing'';
+
+\item continuous time, discrete space:
+``Qubits: adiabatic quantum computing;
+quantum walks; quantum annealing'';
+
+\item continuous time, continuous space:
+``Qumodes: quantum analogue computing''.
+\end{itemize}
+At the centre of the four cells the slide
+writes ``quantum simulation''. The same table
+reappears later, under the title
+``Schr\"odingerisation is easily applicable to
+not only the four main classes of quantum
+devices, but also hybrid qubit-qumode
+devices'', without the words ``Qubits'' and
+``Qumodes''.
+\end{remark}
+
+\begin{remark}
+\label{remark-liu-differential-vs-linear}
+The slide ``Formulation of differential
+equations versus linear algebra'' is the
+table
+$$
+\begin{tabular}{l|l|l}
+Mathematical language & Time & Space \\
+\hline
+Partial differential equation & Continuous
+& Continuous \\
+Ordinary differential equation & Continuous
+& Discrete \\
+Linear algebra & Discrete & Discrete
+\end{tabular}
+$$
+The point is that the choice of hardware
+(discrete or continuous in time and in space)
+should match the formulation of the problem.
+\end{remark}
+
+\medskip\noindent
+{\bf Daniel's note.}
+``Gateway = discrete.'' How is information
+embedded in the hardware? In quantum hardware
+we use qubits instead of bits. Quantum is
+also continuous, not only discrete:
+information can be encoded continuously, and
+in quantum one can use both discrete and
+continuous. ``Qumode: continuous in space and
+in time.'' Idea (with a question mark): find
+the proper hardware to solve your problem or
+perform your computation, discrete or
+continuous, in time or in space?
+
+\medskip\noindent
+{\bf Editorial answer.}
+I read ``Gateway'' as the gate model of
+quantum computing, which is the digital row
+of the table above: time is discrete, because
+the evolution is chopped into gates. A
+qumode is a quantum system whose state is a
+wavefunction of a real variable $x$ (the
+position of a particle, or the quadrature of
+a light mode), so the space is continuous.
+The idea is right and is the content of the
+table: the slide says the choice ``depends on
+the quantum platform''. Note that ``qumode:
+continuous in space and in time'' is true of
+the {\bf analogue} column; a digital
+simulation of a qumode would still run in
+discrete steps.
+
+\medskip\noindent
+{\bf Digital quantum information: the qubit.}
+The slide ``Digital quantum information:
+matrix language'' compares a bit,
+$|0\rangle$ or $|1\rangle$, with a qubit
+(for instance the ground state $|0\rangle$ and
+the first excited state $|1\rangle$ of an
+atomic energy level):
+$$
+|u\rangle=\alpha|0\rangle+\beta|1\rangle,
+\qquad
+\alpha,\beta\in\mathbb{C},
+$$
+and ``Born's rule: Probability
+$|\alpha|^2+|\beta|^2=1$''. For $N$ qubits,
+$|u\rangle\in\mathcal{H}^{\otimes N}$, a
+$D=2^N$ dimensional Hilbert space, with
+Pauli operators $\hat\sigma^{\otimes N}$.
+Physical qubits: ions, spin systems,
+superconducting qubits, etc.
+
+\medskip\noindent
+{\bf Digital simulation.}
+The slide ``Typical digital quantum
+simulation: evolution through digital
+steps'': time evolution through concatenation
+of a large number of gates. The aim is to
+prepare
+$$
+|u(t)\rangle=\sum_ju_j(t)|j\rangle
+=\exp(-i\mathbf{H}t)|u(0)\rangle,
+$$
+with $\mathbf{H}$ a Hermitian $D\times D$
+matrix. Example, Trotter decomposition: if
+$\mathbf{H}=\sum_l\mathbf{H}_l$, then
+$$
+e^{-i\mathbf{H}t}
+=\prod_le^{-i\mathbf{H}_l\Delta t}
++O(\Delta t^2),
+$$
+and the number of steps is
+$\sim t^2/\epsilon$. The picture is a
+circuit (``programmable quantum simulator'',
+``fault-tolerant digital quantum
+simulator'').
+
+\medskip\noindent
+{\bf Analogue quantum information: the
+qumode.}
+The slide ``Analogue quantum information:
+operator language'' (three slides in a row).
+A qumode (continuous-variable, CV) is
+$$
+|u\rangle=\int u(x)|x\rangle\,dx,
+\qquad
+x\in\mathbb{R},
+$$
+where $u(x)$ is the wavefunction. The
+position and momentum operators satisfy
+$$
+\hat x|x\rangle=x|x\rangle,
+\qquad
+\hat p|p\rangle=p|p\rangle,
+$$
+$$
+\int|x\rangle\langle x|\,dx=1
+=\int|p\rangle\langle p|\,dp,
+\qquad
+[\hat x,\hat p]=i\hbar\mathbf{1},
+$$
+``Heisenberg's uncertainty principle'', and
+in green: ``Position and momentum operators
+don't commute in quantum mechanics.'' Next:
+$\langle p|x\rangle=\exp(-ixp)$ and the
+``Fourier transform: $\mathcal{F}|x\rangle
+=|p\rangle$''; ``Important correspondence we
+will use later'':
+$$
+xu(x)\to\hat x|u\rangle,
+\qquad
+\frac{d}{dx}u(x)\to i\hat p|u\rangle,
+$$
+and in green: ``Easy to do Fourier transform
+on optical systems (change of measurement
+basis)!'' Finally: infinite dimensional
+Hilbert space; ``Born's rule''
+$\int|u(x)|^2dx=1$; and for $N$ qumodes
+$$
+|u\rangle=\int u(x_1,\dots,x_N)
+|x_1,\dots,x_N\rangle\,dx_1\cdots dx_N,
+$$
+realised by ``lasers, light inside cavities,
+freely moving atoms\dots etc''.
+
+\medskip\noindent
+{\bf Analogue simulation.}
+The slide ``Analogue quantum simulation:
+evolution in continuous time'': time
+evolution through the natural dynamics of a
+quantum system, by quantum control of a single
+Hamiltonian in continuous time. The aim is to
+prepare $|u(t)\rangle=e^{-iH_{CV}t}|u(0)\rangle$
+(or $e^{-i\mathbf{H}t}|u(0)\rangle$) without
+breaking up into many gates. Systems:
+``quantum optomechanics, superconductors,
+photonics, neutral atoms\dots etc''.
+
+\begin{remark}
+\label{remark-liu-qaq-table}
+The slide titled (in red) ``$D+1$ qumode
+quantum evolution solves $D$-dimensional
+linear PDE!'' is a table with the columns
+``Analogue (A)'' and ``Digital (D)'' and the
+rows ``Quantum (Q)'' and ``Classical (C)''.
+Its four cells read:
+\begin{itemize}
+\item Quantum, analogue: ``PDEs mapped to
+continuous quantum systems. Quantum cost
+linear in dimension. No discretisation
+necessary'';
+
+\item Quantum, digital: ``Discretised PDE
+mapped to qubit dynamics. Quantum cost poly
+in dimension and logarithmic in $N$'';
+
+\item Classical, analogue: ``For PDEs, often
+need to discretise spatially first into a
+system of ODEs'';
+
+\item Classical, digital: ``For PDEs, can have
+curse-of-dimensionality''.
+\end{itemize}
+\end{remark}
+
+\medskip\noindent
+{\bf Daniel's note.}
+It looks like the ``simulator'' is the fastest
+way to compute. But what is a simulator?
+{\bf Daniel's question:} what is simulation?
+It looks like a cheap way to find out what is
+up with your PDE without solving it.
+
+\medskip\noindent
+{\bf Editorial answer.}
+A simulator is a physical system, built or
+chosen so that its own law of evolution
+copies the law one cares about. The trapped
+atoms on the first slide are an example: an
+optical lattice reproduces the Hubbard model
+of electrons in a crystal, and one reads off
+how the model behaves by letting it run and
+measuring. A quantum computer used as a
+simulator is the same idea with programmable
+hardware. So a simulation does solve the
+equation, but the answer is a quantum state
+$|u(t)\rangle$ that encodes the whole
+solution $u(t,\cdot)$ in its amplitudes, and
+one cannot print it out. One can only measure
+some quantities of it, with a probability of
+success and a cost that depend on the
+quantity (see the slides on recovering
+$u$ and the observables of Hamilton--Jacobi
+below). The speed-up claimed is in the number
+of qubits or qumodes: $\log N$ qubits hold
+$N$ grid values, and $D+1$ qumodes hold a
+function of $D+1$ real variables, with no grid
+at all. In that sense it is cheap, but not
+because the PDE is not solved.
+
+\medskip\noindent
+{\bf Daniel's note.}
+A naive question I could ask: is it true that
+people design hardware to solve specific
+problems?
+
+\medskip\noindent
+{\bf Editorial answer.}
+Yes, and the table of the four classes is
+organised by it. Analogue simulators, quantum
+annealers and cold-atom lattices are built
+for a given class of Hamiltonians, while
+gate-based machines are programmable and
+simulate by composing gates. The talk's
+message is that Schr\"odingerisation does not
+need to choose: the same linear problem can be
+given to any of the four classes, and to
+hybrids of qubits and qumodes.
+
+\medskip\noindent
+{\bf Daniel's note.}
+Some basic quantum mechanics. Important:
+position $\hat x$ and momentum $\hat p$, like
+in classical mechanics. {\bf Must see:} they
+do not commute, so they do not have
+simultaneous eigenvalues; this is the
+uncertainty principle, directly linked with
+noncommutativity. Is it true that the Fourier
+transform of position is momentum? Quantum
+Fourier transform? Must recall: quantum
+modes, the Born rule.
+
+\medskip\noindent
+{\bf Editorial answer.}
+Yes to the first. For a wavefunction $u(x)$
+the momentum wavefunction is its Fourier
+transform $\tilde u(p)$, and on the basis
+states this is the slide's
+$\mathcal{F}|x\rangle=|p\rangle$ with
+$\langle p|x\rangle=e^{-ixp}$ (with
+$\hbar=1$). The commutation relation
+$[\hat x,\hat p]=i\hbar$ is the reason:
+$\hat p=-i\hbar\,d/dx$ in the position
+picture, and then $[\hat x,\hat p]u=
+i\hbar u$ by the Leibniz rule, so no state
+is an eigenvector of both. The ``important
+correspondence'' on the slide,
+$d/dx\to i\hat p$, is this dictionary, with
+$\hbar=1$. The quantum Fourier transform is the
+finite-dimensional cousin of the same map: it
+acts on the $2^N$ amplitudes of $N$ qubits,
+by $O(N^2)$ gates. The qumode version is
+what an optical system does naturally, by a
+change of measurement basis, as the slide
+says.
+
+\medskip\noindent
+{\bf I. Schr\"odingerisation.}
+The section slide: ``Turning linear
+non-Schr\"odinger's equations into
+Schr\"odinger's equations''. ``Based on:
+`Quantum simulation of partial differential
+equations via Schr\"odingerisation',
+Physical Review Letters (arXiv:2212.13969),
+Shi Jin, Nana Liu*, Yue Yu; technical
+companion paper Physical Review A
+(arXiv:2212.14703), Shi Jin, Nana Liu*, Yue
+Yu; `Analog quantum simulation of partial
+differential equations', Quantum Science and
+Technology (arXiv:2308.00646), Shi Jin, Nana
+Liu*.'' (Parts of the last title are hidden in
+the photograph.) These are \cite{jly-prl},
+\cite{jly-pra} and \cite{jl-analog}.
+
+\medskip\noindent
+{\bf Warm-up with the heat equation.}
+The slide ``Linear partial differential
+equations: warm-up example with heat
+equation'':
+$$
+\frac{\partial u}{\partial t}=\mathcal{L}u,
+\qquad
+\mathcal{L}\text{ a linear operator,}
+$$
+with examples ``Schr\"odinger:
+$\mathcal{L}=-i(-\nabla_x^2+V(x))$'' and
+``Heat with force term:
+$\mathcal{L}=-(-\nabla_x^2+V(x))$''. Write
+$P=-\nabla_x^2+V(x)$. For the heat equation
+$u_t=-Pu$ and the operator $-P$ is
+negative: the solution decays. For the
+Schr\"odinger equation $u_t=-iPu$ and
+$-iP$ is anti-Hermitian: the solution only
+rotates. This is the whole difficulty. The
+thin-ring preparation above, with
+$u=e^{-t}\cos x$ against $e^{-it}\cos x$,
+is this difference in the simplest case.
+
+\medskip\noindent
+{\bf The warped phase transformation.}
+The slide ``Schr\"odingerisation and the
+warped phase transformation'': ``Increase
+problem by one dimension (`warped phase
+space')''. The transformation is
+$$
+w(t,x,\xi)=e^{-\xi}u(t,x),
+\qquad
+\xi>0,
+$$
+the picture is the graph of $w$ against
+$\xi$, and ``Recover $u(t,x)$'':
+$$
+u(t,x)=\int_0^\infty w(t,x,\xi)\,d\xi
+\quad\text{or}\quad
+u(t,x)=e^{\xi^*}w(t,x,\xi^*),
+\ \xi^*>0
+$$
+(the second formula is partly hidden in the
+photograph; it is also on the later slide
+``Recovering the state $u$'').
+
+\medskip\noindent
+{\bf The equation in the warped phase space.}
+The slide ``Heat equation in `warped phase
+space''':
+$$
+\frac{\partial w}{\partial t}
+=(-\nabla_x^2+V(x))\frac{\partial w}
+{\partial\xi},
+\qquad
+w(0,x,\xi)=e^{-|\xi|}u(0,x),
+$$
+with $\xi\in(-\infty,\infty)$, and the text:
+``Before we had $w(0,x,\xi)=e^{-\xi}u(0,x)$
+for $\xi>0$. Here $w$ moves from right to
+left along $\xi$, so no boundary condition
+is needed at $\xi=0$. We can extend the
+initial data $w(0,x,\xi)$ and $w$ to
+$\xi<0$ since the solution does not impact
+the region $\xi>0$. This extension to
+$\xi\in(-\infty,\infty)$ is necessary for the
+Fourier transform step.''
+
+\begin{remark}
+\label{remark-liu-warped-check}
+Here is the one-line check that the two
+slides agree. For $\xi>0$ we have
+$\partial_\xi w=-w$, hence
+$w_t=e^{-\xi}u_t=-Pw=P\,\partial_\xi w$. The
+new equation $w_t=P\,w_\xi$ is a transport
+equation in $\xi$ with speed given by the
+nonnegative operator $P$, moving towards
+negative $\xi$. So whatever is put on
+$\xi<0$ never reaches $\xi>0$, and the
+extension by $e^{-|\xi|}$ is harmless.
+\end{remark}
+
+\medskip\noindent
+{\bf Fourier transform in $\xi$.}
+The slide ``Take Fourier transform to make
+into Schr\"odinger-like equation'':
+$$
+w(t,x,\xi)=\int e^{-i\xi\eta}
+\tilde w(t,x,\eta)\,d\eta,
+$$
+and the boxed result
+$$
+i\frac{\partial\tilde w}{\partial t}
+=\eta(-\nabla_x^2+V(x))\tilde w,
+\qquad
+\tilde w(0,x,\eta)=\frac{1}{\pi(1+\eta^2)}
+u(0,x).
+$$
+``Schr\"odinger's equations for each Fourier
+mode $\eta$: $t\to\eta t$.'' Indeed
+$\xi\mapsto e^{-|\xi|}$ has Fourier
+transform $1/(\pi(1+\eta^2))$ in this
+convention, and $\partial_\xi$ becomes
+multiplication by $-i\eta$, so
+$\tilde w_t=-i\eta P\tilde w$. Each mode
+$\eta$ is a Schr\"odinger equation with
+Hamiltonian $\eta P$, which is Hermitian
+because $P$ is. So the decay of $u$ has been
+traded for a family of rotations, one for
+each $\eta$ ($\eta$ is a new continuous
+coordinate), and the rotation speeds are
+different.
+
+\medskip\noindent
+{\bf Daniel's question.}
+Answer in the notes and in chat: what is this
+warped phase space example doing? Is she
+introducing a method to solve an equation
+involving quantization? I think this is the
+Schr\"odingerisation itself, right?
+
+\medskip\noindent
+{\bf Editorial answer.}
+Yes: the warped phase transformation is the
+first step of Schr\"odingerisation, not a
+separate example. The slides say so
+(``Schr\"odingerisation and the warped phase
+transformation''). The method has three
+steps. First, add the variable $\xi$ by
+$w=e^{-\xi}u$ and extend to all $\xi$. Second,
+Fourier transform in $\xi$, which produces
+the Schr\"odinger equation
+$i\tilde w_t=\eta P\tilde w$. Third, solve that
+Schr\"odinger equation on quantum hardware and
+go back to $u$ (see ``recovering the state''
+below). The heat equation is only the
+warm-up case. There is no quantization of the
+PDE in the sense of the Dirac rule: $x$ and
+$\partial_x$ do become the operators $\hat x$
+and $i\hat p$ (that is the
+``correspondence'' slide), but this just says
+how a function of $x$ is stored in a qumode.
+The new idea is $\xi$.
+
+\medskip\noindent
+{\bf Continuous-variable implementation.}
+The slide ``Schr\"odingerisation in
+continuous-variable implementation'': with
+$x\to\hat x$, $\eta\to\hat\eta$ and
+$\partial/\partial x\to i\hat p$, the state
+$$
+|\tilde w(t)\rangle\propto\iint
+\tilde w(t,x,\eta)|x\rangle|\eta\rangle
+\,dx\,d\eta\propto
+\exp(-iH_{CV}t)|\tilde w(0)\rangle,
+$$
+``Example: $H_{CV}=(\hat p^2+V(\hat x))
+\otimes\hat\eta$'', and ``$\hat\eta$ can act
+like any quadrature, e.g. $\hat\eta=\hat x$''.
+So the $\eta$ variable is carried by one extra
+qumode.
+
+\medskip\noindent
+{\bf Recovering the state $u$.}
+The slide ``Recovering the state $u$'':
+$u(t,x)=\int_0^\infty w(t,x,\xi)\,d\xi$ or
+$u(t,x)=e^{\xi^*}w(t,x,\xi^*)$, $\xi^*>0$.
+``Inverse quantum Fourier transform
+$|\tilde w(t)\rangle\to|w(t)\rangle\propto
+\iint w(t,x,\xi)|x\rangle|\xi\rangle d\xi$.
+Recover $|u(t)\rangle\propto\int u(t,x)
+|x\rangle dx$: projective measurement onto
+$|w(t)\rangle$ using either
+$P=\int_0^\infty|\xi\rangle\langle\xi|d\xi$ or
+$P=|\xi^*>0\rangle\langle\xi^*>0|$.''
+``Probability of success $\propto\|\mathbf{u}
+(t)\|^2/\|\mathbf{u}(0)\|^2$. Algorithm has an
+in-built way to compute normalisation
+constant!'' (the last words are partly hidden.)
+In words: after the evolution one measures
+the extra mode and keeps the run only if
+$\xi>0$. For $\xi>0$ we have
+$w=e^{-\xi}u$, so on that event the state is a
+product: the $x$-register holds
+$|u(t)\rangle$ and the $\xi$-register holds
+the fixed profile $e^{-\xi}$. The price is the
+probability of keeping the run, which is the
+ratio of the norms: if $u$ decays a lot (as
+for the heat equation), success becomes rare.
+
+\medskip\noindent
+{\bf General methodology.}
+Two slides. The first: ``Linear homogeneous
+PDE; $K$th-order derivatives, $D$ spatial
+dimensions'':
+$$
+\frac{\partial u}{\partial t}
++\sum_{k=1}^K\sum_{j=1}^Da_{k,j}
+(x_1,\dots,x_D)\frac{\partial^ku}
+{\partial x_j^k}+b(x_1,\dots,x_D)u=0,
+$$
+with ``$a_{k,j}<0$ for $k$ even'',
+$\mathbf{u}(t)\equiv\int u(t,x)|x\rangle dx$,
+$$
+\frac{d\mathbf{u}}{dt}=-iA(\hat x_1,\dots,
+\hat x_D,\hat p_1,\dots,\hat p_D)\mathbf{u},
+$$
+$$
+A=\sum_{k=1}^K\sum_{j=1}^Da_{k,j}
+(\hat x_1,\dots,\hat x_D)\,i^{k+3}\hat p_j^k
+-ib(\hat x_1,\dots,\hat x_D),
+$$
+with the rule $x_i\to\hat x_i$,
+$\partial^k/\partial x_j^k\to(i\hat p_j)^k$,
+``can also have explicit time-dependence''
+(partly hidden). The second slide splits
+$A=A_1-iA_2$ with
+$A_1=(A+A^\dagger)/2=A_1^\dagger$ and
+$A_2=i(A-A^\dagger)/2=A_2^\dagger$:
+``Hermitian part of $A$: Schr\"odinger-like
+equation. Anti-Hermitian part of $A$:
+heat-like equation. Original system stable if
+$A_2>0$. We can also deal with unstable
+cases too (simple modification).''
+Check: $-iA=-iA_1-A_2$, so $A_1$ rotates and
+$A_2$ damps, and the warped phase trick is
+applied to $A_2$ only.
+
+\medskip\noindent
+{\bf Implementation scheme.}
+The slide ``Implementation scheme'': ``Just
+add one qumode: `Qumodisation'.'' The initial
+state is $|\tilde v(0)\rangle$, made of the
+ancilla $\int e^{-|\xi|}|\xi\rangle d\xi$ and
+$|u(0)\rangle$; it goes through
+$\exp(-i(A_2\otimes\hat\eta+A_1\otimes I)t)$;
+the ancilla is projected with
+$\hat P_{>0}=\int_0^\infty|\xi\rangle\langle
+\xi|d\xi$, leaving
+$|u(t)\rangle=\frac{1}{\|\mathbf{u}(t)\|}\int
+u(t,x)|x\rangle dx$, with probability
+$\|\mathbf{u}(t)\|^2/(2\|\mathbf{u}(0)\|^2)$.
+``Initial ancilla state preparation'':
+$|\Xi\rangle=\int e^{-|\xi|}|\xi\rangle d\xi$
+is close to the Gaussian state
+$|G\rangle=\frac{1}{\sqrt s\,\pi^{1/4}}
+\int e^{-\xi^2/2s^2}|\xi\rangle d\xi$, with
+$|\langle\Xi|G\rangle|\approx0.986$ for
+$s\approx0.925$. In green: ``$D+1$ qumodes''
+(cut off in the photograph).
+
+\begin{remark}
+\label{remark-liu-summary-diagram}
+The summary slide, which starts from a PDE and
+ends in Schr\"odingerisation, is the
+following diagram. Each box is read downwards.
+$$
+\begin{tabular}{c}
+Linear PDE \\[1ex]
+$\displaystyle\frac{\partial u}{\partial t}
+=\sum_kA_k\left(x,\frac{\partial^k}
+{\partial x^k}\right)u$ \\[1ex]
+$\Downarrow$ \\[1ex]
+Embed into qumodes: \\[1ex]
+$u\to\mathbf{u}\equiv\int u(t,x)|x\rangle
+dx$ \\[1ex]
+$\Downarrow$\quad $x\to\hat x$,\quad
+$\dfrac{\partial^k}{\partial x^k}\to
+(i\hat p)^k$ \\[1ex]
+$\displaystyle\sum_kA_k\to-iA$,\quad
+$\dfrac{d\mathbf{u}}{dt}=-iA\mathbf{u}$,
+\\[1ex]
+initial condition $\mathbf{u}(0)$ \\[1ex]
+$\Downarrow$ \\[1ex]
+Schr\"odingerisation: \\[1ex]
+$\dfrac{d\tilde{\mathbf{v}}}{dt}
+=-iH\tilde{\mathbf{v}}$, \\[1ex]
+initial condition
+$\tilde{\mathbf{v}}(0)=\int e^{-|\xi|}
+|\xi\rangle d\xi\,\mathbf{u}(0)$, \\[1ex]
+$H=A_2\otimes\hat\eta+A_1\otimes I=H^\dagger$
+\end{tabular}
+$$
+In a side box: $A=A_1-iA_2$,
+$A_1=\frac12(A+A^\dagger)$,
+$A_2=\frac{i}{2}(A-A^\dagger)$. The bottom
+line of the slide, partly cut off: ``Also
+applicable to time-dependent
+(non-autonomous) \dots''.
+\end{remark}
+
+\medskip\noindent
+{\bf The simplest example.}
+The slide ``Simplest example'': the
+$D$-dimensional convection equation
+$$
+\frac{\partial u}{\partial t}-\sum_{j=1}^D
+a_j\frac{\partial u}{\partial x_j}=0,
+\quad
+u(0,x)=u_0(x),
+\quad
+x\in\mathbb{R}^D,\ a_j\in\mathbb{R}.
+$$
+``Only displacement required'':
+$d\mathbf{u}/dt=-iH\mathbf{u}$ with
+$H=\sum_jH_j$, $H_j=a_j\hat p_j$,
+$H_j=H_j^\dagger$, on $D$ qumodes. In green:
+``In general, simulation of PDEs require
+entangling operations and will go beyond
+Gaussian operations.''
+
+\begin{remark}
+\label{remark-liu-pde-table}
+The slide with the quantum simulation cost is
+a table with the columns ``Equation'',
+``Number of qumodes'', ``Max order term in
+$H$'' and ``Number of terms in $H$''. The red
+roman numerals and letters in it are section
+numbers of the source paper. Its rows are
+transcribed from a zoomed photograph. A red
+oval enclosed everything from ``General
+linear PDEs'' down to ``Maxwell''; the blue
+box beside it says ``Quantum simulation cost
+is only linear in dimension\dots and if use
+qubits is also logarithmic in discretization
+size!''
+\begin{itemize}
+\item {\bf General linear PDEs.}
+Homogeneous (IV), 1st-order time derivative:
+$D+1$ qumodes; terms
+$[a_{K,j},\hat p_j^K]\otimes\hat\eta$ and
+$b\otimes\hat\eta$; $O(DK)$ terms.
+Inhomogeneous (IV A): add 1 more qubit;
+$[a_{K,j},\hat p_j^K]\otimes\hat\eta\otimes
+\sigma$ and $b\otimes\hat\eta\otimes\sigma$;
+$O(DK)$. $n$-th order time derivative (IV B):
+add $\log_2(n)$ more qubits; ``similar terms
+to 1st-order
+$\otimes\,\sigma^{\otimes\log_2n}$'';
+$O(DK)$.
+
+\item {\bf Examples.}
+Liouville (V A): $D+1$;
+$i[\hat p,L]\otimes\hat\eta$ and
+$\{\hat p,L\}\otimes I$; $O(D)$.
+Heat (V B1): $D+1$;
+$\{\hat pD,\hat p\}\otimes\hat\eta$ and
+$V\otimes\hat\eta$; $O(D+1)$.
+Fokker--Planck (V B2): $D+1$;
+$\{\hat p^2,D\}\otimes\hat\eta$,
+$i[\mu,\hat p]\otimes\hat\eta$,
+$\{\hat p,\mu\}\otimes I$,
+$i[\hat p^2,D]\otimes I$; $O(D)$.
+Black--Scholes (V B3): $2$;
+$(\hat x^2\hat p^2+\hat p^2\hat x^2)\otimes
+\hat\eta$; $5$.
+Wave (V B4): $D+1$ + one qubit;
+$\{a,\hat p^2\}\otimes\hat\eta\otimes\sigma$,
+$V\otimes\eta\otimes\sigma$,
+$i[a,\hat p^2]\otimes I\otimes\sigma$; $O(D)$.
+Maxwell ($D=3$) (V B5): $4$ qumodes $+$ $4$
+qubits; ``See Section V B5''; $30$.
+
+\item {\bf Uncertain linear PDE} (VI).
+Convection: $D+L+1$;
+$i[c,\hat p]\otimes\hat\eta$ and
+$\{c,\hat p\}\otimes I$; $O(DL)$.
+
+\item {\bf Nonlinear.}
+Scalar hyperbolic (VII A): $D+1$;
+$i[Q,\hat\varsigma]\otimes\hat\eta$ and
+$\{Q,\hat\varsigma\}\otimes I$; $O(D)$.
+Hamilton--Jacobi (VII A): $2D$;
+$[\hat\varsigma H,\hat p]$; $O(D)$.
+$N$ nonlinear ODEs (VII B): $N+1$;
+$i[Q,F]\otimes\hat\eta$ and
+$\{Q,F\}\otimes I$; $O(N)$.
+\end{itemize}
+The glyph written $\hat\varsigma$ above looks
+like a hatted final sigma (or zeta) in the
+photograph and I could not confirm it.
+\end{remark}
+
+\medskip\noindent
+{\bf II. Nonlinear PDEs.}
+The slide ``Are nonlinear problems suitable for
+quantum computation?'' has a pyramid: ``A
+computation is a physical process'';
+``Quantum computation is a quantum mechanical
+process''; ``A quantum mechanical process is
+fundamentally linear''. The next slide,
+``Making nonlinear problem look linear'',
+has two arrows: ``Approximations'' and
+``Exact mapping''. The exact mapping used in
+the rest of the talk is the Cole--Hopf
+transformation.
+
+\begin{remark}
+\label{remark-liu-nonlinear-pdes}
+The slide ``Nonlinear PDEs: Strongly nonlinear
+and weakly dissipative regime'', verbatim
+(it has three pictures: a vortex street, a
+cloud billow and a traffic jam). The first
+letters of the last two items are hidden by the
+speaker in the photograph and are restored
+from the words that are visible.
+\begin{itemize}
+\item {\bf Nonsmooth optimal control:}
+Competing optimal trajectories, switching
+surfaces, front collisions, reachability, and
+differential games
+
+\item {\bf Far-from-equilibrium transport:}
+Strong aggregation, multimodal densities,
+metastable transitions, and nonlinear
+data-assimilation updates
+
+\item {\bf Shocks and caustics:}
+Ray crossing, wave breaking, traffic jams,
+hydraulic jumps, and compressible-flow shocks
+
+\item {\bf Turbulence and microstructure:}
+Intermittent fluid cascades, unresolved
+oscillations, phase mixtures, and
+sharp-interface limits
+
+\item {\bf Sharp-front diffusion:}
+Porous-medium invasion, combustion fronts,
+thermal runaway, and persistent localized hot
+spots
+
+\item {\bf Coherent structures and defects:}
+Solitons, rogue waves, vortices, domain
+[the end of this line is hidden] and
+topological-defect dynamics
+\end{itemize}
+\end{remark}
+
+\begin{remark}
+\label{remark-liu-solution-types}
+The slide ``Different solution types:
+different applications and different
+methods'', verbatim.
+\begin{itemize}
+\item {\bf Weak (distributional) solution:}
+presence of jump discontinuities (e.g. shock
+waves in compressible gas)
+
+\item {\bf Viscosity solution:} remains
+single-valued and continuous but develops
+corners at shock surfaces\dots etc, but
+selects unique non-smooth solution (e.g.
+optimal control)
+
+\item {\bf Multi-valued solution:} several
+physically distinct solutions (e.g.
+geometric optics and seismology). {\it Quantum
+algorithms on multivalued solutions:
+arXiv:2202.07834}
+
+\item {\bf Measure-valued solution:} turbulent
+or highly oscillatory limits of nonlinear
+fluid equations. {\it Quantum algorithm
+papers on Young-measure solutions:
+arXiv:2604.11825}
+\end{itemize}
+``Different types of solutions encode
+different physically or analytically
+important admissibility conditions.''
+(I have not checked the two arXiv numbers; the
+second one is a very recent preprint.)
+\end{remark}
+
+\medskip\noindent
+{\bf Daniel's note.}
+Epiphany: distributions (from the Kodaira
+lectures) are weak solutions! Not functions:
+they make sense only under the integral sign.
+This is gold.
+
+\medskip\noindent
+{\bf Editorial answer.}
+The idea is right, with one refinement.
+A distribution is defined by how it acts on
+test functions, as in Definition
+\ref{%
+hodge-theory-definition-distribution-board}
+of the Hodge theory notebook, and
+derivatives of distributions are defined by
+moving them onto the test function. A
+distributional (or weak) solution is a
+function or distribution that satisfies the
+equation after pairing with test functions,
+so the equation need not make sense point by
+point. But a weak solution is not
+necessarily not a function: every locally
+integrable function is a distribution, and
+the shock waves on the first line of the
+slide are ordinary piecewise smooth
+functions with jumps, which solve the
+equation only in this weak sense. A Dirac
+delta is the other kind. The viscosity
+solution of the next line is a different
+notion: it is a continuous function, and the
+equation is tested with smooth functions that
+touch it from above and from below, instead of
+being integrated by parts.
+
+\medskip\noindent
+{\bf Daniel's question.}
+Should I email her about something? She said
+to email her about the other types of
+solutions.
+
+\medskip\noindent
+{\bf Editorial answer.}
+Her remark was an invitation, so a short email
+is natural. A good first message would ask
+for the references on quantum algorithms for
+multivalued and Young-measure solutions (the
+two arXiv numbers on the slide) and say which
+equation you care about. I will not send
+anything.
+
+\medskip\noindent
+{\bf III. The Hamilton--Jacobi equation.}
+The slide ``Hamilton--Jacobi equation'':
+$$
+\frac{\partial S}{\partial t}
++\mathcal{H}(t,x,\nabla S)=0,
+\qquad
+S_0(x)=S(0,x),
+$$
+``$\mathcal{H}$ is continuous''. ``Applications
+in classical mechanics, geometric optics,
+mean-field games, optimal control, machine
+learning\dots etc.''
+
+\medskip\noindent
+{\bf Viscosity solutions.}
+The slide ``Hamilton--Jacobi PDE: Viscosity
+solutions'': ``{\bf Intuition:} when the
+derivative of the solution does not exist,
+replace it by a (unique) smooth function that
+`touches above and below' the solution.''
+``Viscosity sub-solution: For every smooth test
+function $\phi\in C^1$, if $S-\phi$ has a
+local maximum at $(t_0,x_0)$, then
+$$
+\frac{\partial S(t_0,x_0)}{\partial t}
++\mathcal{H}(t_0,x_0,\nabla\phi(t_0,x_0))
+\le0.
+$$
+Viscosity super-solution: For every smooth test
+function $\phi\in C^1$, if $S-\phi$ has a
+local minimum at $(t_0,x_0)$, then
+$$
+\frac{\partial S(t_0,x_0)}{\partial t}
++\mathcal{H}(t_0,x_0,\nabla\phi(t_0,x_0))
+\ge0.\text{''}
+$$
+``A viscosity solution is defined as a
+solution that satisfies both the viscosity
+sub-solution [and super-solution] and
+satisfies the given initial/boundary data''
+(a few words are hidden by the speaker).
+
+\medskip\noindent
+{\bf Daniel's question.}
+Tell me in chat: what is viscosity?
+
+\medskip\noindent
+{\bf Editorial answer.}
+In a fluid, viscosity is the internal friction
+that smooths out velocity differences, for
+instance in honey. The model equation is
+Burgers' equation
+$u_t+uu_x=\nu u_{xx}$, with $\nu>0$ the
+viscosity: it has smooth solutions, while for
+$\nu=0$ the solutions develop shocks in finite
+time. A {\bf viscosity solution} of
+a Hamilton--Jacobi equation is the limit, as
+$\nu\to0$, of the solutions of the equation
+with the term $\nu\Delta S$ added. The
+definition on the slide recognises that limit
+without computing it: at a point where $S$
+has no derivative, one tests with smooth
+functions touching $S$ from above (then $S$
+is a sub-solution there) and from below
+(super-solution). The point of the
+adjective is uniqueness: among all the
+non-smooth functions that solve the equation
+almost everywhere there are many, and under
+the usual assumptions exactly one is the
+viscosity solution.
+
+\medskip\noindent
+{\bf Viscous Hamilton--Jacobi and
+Cole--Hopf.}
+The slide ``Viscous Hamilton--Jacobi PDE,
+Quadratic Hamiltonian'' (shown twice):
+``We begin with a special example of the
+quadratically nonlinear viscous
+Hamilton--Jacobi PDE
+$$
+\frac{\partial S_\nu}{\partial t}
++\mathcal{H}(t,x,\nabla S_\nu)
+=\nu\sum_{j=1}^d\frac{\partial^2S_\nu}
+{\partial x_j^2},
+$$
+$$
+\mathcal{H}(t,x,\nabla S_\nu)
+=\sum_{j=1}^d\frac12\left(\frac{\partial
+S_\nu}{\partial x_j}\right)^2+V(t,x),
+\qquad
+S_\nu(0,x)=S_0(x).\text{''}
+$$
+``Define a Cole--Hopf transformation with
+normalization constant:
+$$
+S_\nu(t,x)=-2\nu\ln(\mathcal{N}_0u(t,x)),
+\qquad
+\mathcal{N}_0^2=\int e^{-S_\nu(0,x)/\nu}dx.
+\text{''}
+$$
+Next slide: ``Then it is simple to verify
+that $u(t,x)$ satisfies the $d$-dimensional
+heat equation with a linear source term:
+$$
+\frac{\partial u}{\partial t}
+-\frac{V(t,x)}{2\nu}u
+=\nu\sum_{j=1}^d\frac{\partial^2u}
+{\partial x_j^2},
+\quad
+u_0(x)=u(0,x),
+\quad
+\int|u_0(x)|^2dx=1.
+$$
+Defining $R_\nu=\nabla S_\nu$, we get
+multidimensional Burgers' equation (for
+curl-free solution):
+$$
+\frac{\partial R_\nu}{\partial t}
++R_\nu\cdot\nabla R_\nu+\nabla V
+=\nu\sum_{j=1}^d\frac{\partial^2R_\nu}
+{\partial x_j^2}.\text{''}
+$$
+Note that the exponent in the slide's formula
+$u=e^{-S_\nu/(2\nu)}/\mathcal{N}_0$ (the
+inverse of the logarithm) gives
+$u_t=\nu\Delta u+\frac{V}{2\nu}u$, which is
+exactly the slide's heat equation. So the
+quadratic viscous Hamilton--Jacobi equation is
+linear in disguise, and the linear problem is
+what Schr\"odingerisation handles (the
+source term $V/2\nu$ plays the role of the
+$b$ of the general methodology).
+
+\medskip\noindent
+{\bf Errors at finite viscosity.}
+The slide: ``If $S(t,x)$ is the viscosity
+solution of the HJ PDE and $S_\nu(t,x)$ is the
+solution of the viscous HJ PDE:
+$$
+\sup_{0\le t\le T}\sup_{x\in\mathbb{T}^d}
+|S(t,x)-S_\nu(t,x)|\le C\nu^\beta,
+$$
+$$
+\sup_{0\le t\le T}\|\nabla S(t,x)
+-\nabla S_\nu(t,x)\|_{l_2(\mathbb{T}^d)}
+\le C\nu^{\beta/2}.\text{''}
+$$
+
+\medskip\noindent
+{\bf Beyond quadratic Hamiltonians.}
+Two slides, ``Alternative formulation
+needed''. ``{\bf Intuition of what we want:}
+a formulation of HJ in terms of taking small
+time-steps (where in each small step the
+Cole--Hopf works).''
+$$
+S_D^{n+1}(x)=G[S_D^n](x)
+=\inf_\gamma\int\bigl(h\mathcal{L}(x,v)
++S_D^n(x+hv)+2\nu\ln\gamma(v)\bigr)
+\gamma(v)\,dv,
+$$
+``where an entropy regulariser
+$\gamma(v)\ln\gamma(v)$ is added for
+$\nu\ne0$; $\gamma(v)$ is a probability
+density over $\mathbb{R}^d$ so
+$\int_{\mathbb{R}^d}\gamma(v)dv=1$.'' ``Why
+does this work? Rough idea (ignoring
+entropy regularization we get non-viscous
+HJ):
+$$
+\partial S_D^n/\partial t\sim
+(S_D^{n+1}-S_D^n)/h=(G[S_D^n]-S_D^n)/h
+$$
+$$
+\sim\frac{h\mathcal{L}(x,v)+S_D^n(x+hv)
+-S_D^n(x)}{h}
+\sim\inf_v\mathcal{L}(x,v)+h\nabla S_D\cdot v
+$$
+$$
+\sim\inf_v\mathcal{L}(x,v)-p\cdot v
+\sim-\mathcal{H}(x,p)
+\quad\Longrightarrow\quad
+\frac{\partial S}{\partial t}
++\mathcal{H}=0.\text{''}
+$$
+(The photographs of these two slides carry
+the label ``Page 50 of 118'' of the PDF.)
+The second slide: ``Entropy regularization
+helps in two ways: It is the correct term in
+the presence of viscosity and need to add
+uncertainty, where viscosity is acting like
+inverse temperature. With this entropy
+regularizer, can find the exact solution of the
+minimizer: solution to a `free-energy
+minimization' problem is a Gibbs state.''
+
+\medskip\noindent
+{\bf Daniel's question.}
+Let's have a look at Hamilton--Jacobi. The
+speaker has lots of work on this. Is it the
+Lagrangian formulation of mechanics?
+
+\medskip\noindent
+{\bf Editorial answer.}
+Not quite, but they are close relatives. The
+Lagrangian formulation of mechanics describes
+motion by minimising the action
+$\int\mathcal{L}(x,\dot x)\,dt$, whose
+critical paths solve the Euler--Lagrange
+equations. The Hamilton--Jacobi equation
+describes the {\bf minimum value} of that
+action, viewed as a function $S(t,x)$ of
+the endpoint (the value function), and its
+gradient $p=\nabla S$ is the momentum. The
+Hamiltonian $\mathcal{H}(x,p)$ is the
+Legendre transform of the Lagrangian,
+$\mathcal{H}(x,p)=\sup_v(p\cdot v-\mathcal{L}
+(x,v))$, which is exactly the last step of
+the slide's heuristic ($\inf_v\mathcal{L}-p
+\cdot v=-\mathcal{H}$). The slide's
+time-stepping formula $S^{n+1}=\inf\int
+(h\mathcal{L}+S^n(x+hv)\dots)$ is the
+dynamic programming principle of this
+minimisation problem. In symplectic
+terms, the graph of $\nabla S$ is a
+Lagrangian submanifold of the cotangent
+bundle, which is why classical solutions
+break down when caustics appear.
+
+\medskip\noindent
+{\bf Recovering the observables of HJ.}
+The slide ``Recovering observables of HJ,
+Using amplitude-encoded quantum state of
+linear PDE'': ``Once we have $|u(t)\rangle$,
+then what? Some examples of quantities of
+interest: (1) the value of $S$ at a point,
+(2) the gradient $\nabla S$ at a point, (3) the
+minimum value of $S$, (4) the value of a
+known function $f(x)$ at the location of the
+minimum of $S$. We will present here the
+continuous-variable version of the protocols
+for simplicity, but digital versions are also
+available'' (the photograph hides a few
+letters). The photographs of this slide carry
+the label ``Page 54 of 118''.
+
+\medskip\noindent
+{\bf Value of the HJ solution.}
+The slide ``Value of HJ solution'': ``We first
+observe that at a location $x=x_a$, if we
+measure the probability
+$|\langle x_a|u(t)\rangle|^2$, then we can
+write
+$$
+-\nu\ln|\langle x_a|\mathbf{u}(t)\rangle|^2
+=-\nu\ln\left(\frac{e^{-S_\nu(t,x_a)/\nu}}
+{\|\mathbf{u}(t)\|^2}\right)
+=S_\nu(t,x_a)+\nu\ln\|\mathbf{u}(t)\|^2.
+\text{''}
+$$
+``Schr\"odingerisation can be used to directly
+measure the normalization constant for
+$|u(t)\rangle$. Cost order
+$O(d^4/\epsilon^2)$, but can be improved.''
+
+\medskip\noindent
+{\bf Minimum value of the HJ solution.}
+The slide ``Minimum value of HJ solution'':
+``{\bf Assumption.} For the function
+$S_\nu(t,x)$ at some constant $t$, we will
+assume the following properties: (1)
+$x_\nu^*$ is the unique global minimiser of
+$S_\nu(t,x)$; (2) $x_\nu^*$ is an interior
+point in the domain; (3) The Hessian
+$H_{S_\nu}(t,x_\nu^*)=\nabla^2S_\nu(t,x_\nu^*)$
+is positive definite (so we have a minimum at
+that point); (4)
+$\|\mathbf{u}(t)\|_{CV}^2=\int e^{-S_\nu(t,x)
+/\nu}dx<\infty$ since we assume $|u(t)
+\rangle_{CV}$ is a physical state. No extra
+assumption is needed in the discrete-variable
+case since the normalisation constant is
+always bounded.'' ``In the small
+$\nu\le O(1/d)\ll1$ regime, it is possible to
+show $|S_{\nu,\min}+\nu\ln\|\mathbf{u}(t)
+\|^2|\lesssim\tilde O(\nu d)$.''
+``Schr\"odingerisation can be used to directly measure the
+normalization constant for $|u(t)\rangle$
+[algorit]hm and cost as before.'' The remaining
+observables (2) and (4) are not on the
+photographs I have.
+
+\medskip\noindent
+{\bf IV. Wasserstein proximal operators.}
+The slide ``Wasserstein proximal operators,
+Applications'': ``{\bf Question:} which new
+distribution best reduces the objective while
+minimizing transport away from the current
+distribution? Generative learning (deep
+connection between Wasserstein proximal
+operators and diffusion models); Mean-field
+games (Wasserstein proximal operator as
+fundamental building block for computing
+equilibrium dynamics of large interacting
+systems); Stochastic optimal control
+(connection between Wasserstein proximal
+operator and Schr\"odinger bridge problem).''
+
+\medskip\noindent
+{\bf The proximal operator for probability
+distributions.}
+``Proximal step for vectors (e.g. gradient
+descent) for minimizing a function $F(x)$:
+$$
+x_{k+1}=\arg\min_x\left\{\frac{1}{2\tau}
+\|x-x_k\|^2+F(x)\right\}.
+$$
+Suppose one wants to minimize instead a
+functional $F(\rho)$ of a probability
+distribution $\rho$, then need a proximal step
+that actually preserves probability
+normalisation and positivity:
+$$
+\rho_{k+1}=\arg\min_\rho\left\{\frac{1}{2\tau}
+\mathcal{W}^2(\rho,\rho_k)
++\mathcal{F}(\rho)\right\}.\text{''}
+$$
+Then ``Wasserstein distance'': ``Want a
+definition of penalty $W^2(\rho,\rho_k)$ to
+denote the cost of transforming one
+probability distribution $\rho$ into another
+probability distribution $\rho_k$. A dynamical
+formulation of Wasserstein-2 distance:
+$$
+W_2^2(p_0,p_1)=\min_{u(t,z),\rho(t,z)}
+\int_0^1\!\!\int\rho(t,z)\|u(t,z)\|^2
+dz\,dt,
+$$
+subject to
+$$
+\frac{\partial\rho(t,z)}{\partial t}
++\nabla\cdot(\rho(t,z)u(t,z))=0,
+\ \ \rho(t=0,z)=p_0(z),
+\ \ \rho(t=1,z)=p_1(z).\text{''}
+$$
+Then the ``Wasserstein proximal operator
+(WPO)'':
+$$
+\rho_T:=\mathrm{WProx}_{T,\mathcal{F}}
+(\rho_0):=\arg\min_{q\in\mathcal{P}_2
+(\mathbb{R}^d)}\mathcal{F}(q)
++\frac{\mathcal{W}(\rho_0,q)^2}{2T}.
+$$
+``Suppose we focus on the linear energy
+functional $\mathcal{F}(q)=\int_{\mathbb{R}^d}
+V(x)q(x)dx$. We include a small diffusion term
+in the transport term (regularized Wasserstein
+proximal operator):
+$$
+\rho_T=\mathrm{WProx}_{T,\mathcal{F},\beta}
+(\rho_0):=\arg\min_{\rho,v,q}
+\int_0^T\!\!\int_{\mathbb{R}^d}\frac12
+\|v(t,x)\|^2\rho(t,x)\,dx\,dt
++\int_{\mathbb{R}^d}V(x)q(x)\,dx
+$$
+subject to the Fokker--Planck equation
+$$
+\partial_t\rho(t,x)+\nabla\cdot(\rho(t,x)
+v(t,x))=\beta\Delta\rho(t,x),
+\ \ \rho(0,x)=\rho_0(x),
+\ \ \rho(T,x)=q(x),
+$$
+where $\beta>0$ is the small regularization
+parameter, the viscosity coefficient.''
+
+\medskip\noindent
+{\bf Solving for the optimization problem.}
+The slide ``Lagrange multiplier
+formulation'': ``Optimality conditions and
+the forward-backward system. To derive the
+optimality conditions, we introduce a
+Lagrange multiplier $\Phi(t,x)$ to enforce
+the Fokker--Planck constraint. The Lagrangian
+is
+$$
+\mathcal{L}(\rho,v,\Phi)=\int_0^T\!\!
+\int_{\mathbb{R}^d}\Bigl(\tfrac12\|v\|^2\rho
++\Phi\bigl(\partial_t\rho+\nabla\cdot(\rho v)
+-\beta\Delta\rho\bigr)\Bigr)dx\,dt
++\int_{\mathbb{R}^d}V(x)\rho(T,x)\,dx.
+$$
+Taking variations with respect to $\rho$ and
+$v$ yields the optimality conditions. In
+particular, variation with respect to $v$
+gives $v=\nabla\Phi$.'' The next slide,
+``Euler--Lagrange equations'': ``Euler--Lagrange
+equations gives the forward-backward PDE
+system (Fokker--Planck and Hamilton--Jacobi
+PDEs)''
+$$
+\partial_t\rho+\nabla\cdot(\rho\nabla\Phi)
+=\beta\Delta\rho,
+\qquad
+\partial_t\Phi+\tfrac12|\nabla\Phi|^2
+=-\beta\Delta\Phi,
+$$
+$$
+\rho(0,x)=\rho_0(x),
+\qquad
+\Phi(T,x)=-V(x),
+$$
+``Proximal operator is then the solution
+$\rho_T:=\mathrm{WProx}_{T,\mathcal{F},\beta}
+(\rho_0)=\rho(T,x)$.''
+
+\medskip\noindent
+{\bf Daniel's question.}
+Another thing I should know and do not know:
+what is a Lagrange multiplier?
+
+\medskip\noindent
+{\bf Editorial answer.}
+It is the standard device for minimising under
+a constraint. To minimise $f(z)$ subject to
+$g(z)=0$ one looks for critical points of
+$f+\lambda g$ in all variables, including the
+new variable $\lambda$ (the multiplier);
+varying $\lambda$ returns the constraint, and
+varying $z$ gives $\nabla f=-\lambda\nabla g$:
+at the optimum the gradient of $f$ is
+parallel to the gradient of the constraint.
+Here the unknown is a pair $(\rho,v)$, the
+constraint is the Fokker--Planck equation at
+every point $(t,x)$, so there is one multiplier
+for each point: a function $\Phi(t,x)$. The
+variation in $v$ of $\frac12\|v\|^2\rho
++\Phi\nabla\cdot(\rho v)$ gives, after
+integrating by parts, $\rho v-\rho\nabla\Phi=0$,
+that is the slide's $v=\nabla\Phi$; the
+variation in $\rho$ then gives the
+Hamilton--Jacobi equation for $\Phi$ with
+terminal value $-V$. So the multiplier
+is not a bookkeeping device only: it becomes
+the velocity potential of the optimal
+transport, and the Hamilton--Jacobi equation
+appears here as the equation of the
+multiplier.
+
+\medskip\noindent
+{\bf Solving the forward-backward system.}
+Two slides. ``Making everything linear first'':
+``In Fokker--Planck equation, need to remove
+Lagrange multiplier $\Phi$ out of dynamics
+into initial condition (otherwise hard to
+simulate in quantum way)'', the same system as
+above, and ``Use Cole--Hopf again!''
+$$
+\psi(t,x)=\rho(t,x)e^{-\Phi(t,x)/(2\beta)}
+\quad\Longrightarrow\quad
+\partial_t\psi=\beta\Delta\psi,
+$$
+$$
+\psi(0,x)=\rho_0(x)e^{-\Phi(0,x)/(2\beta)}
+=\rho_0(x)e^{S_\beta(T,x)/(2\beta)}
+=\frac{\rho_0(x)}{\eta(T,x)},
+$$
+(the denominator is partly hidden) and the
+final solution
+$\rho(T,x)=\psi(T,x)e^{-V(x)/(2\beta)}
+=\psi(T,x)\eta_0(x)$. The last slide I have,
+``Solving forward-backward PDE system:
+Quantum simulation'', repeats the system
+and the final solution: ``Original system to
+solve for final $\rho(T,x)$ which is the
+proximal operator''. The photographs stop
+there.
+
+\medskip\noindent
+{\bf Spoken: the end of the talk.}
+(From the transcript of the last three
+recordings, which is rough; words in
+brackets are my reading of garbled speech.)
+Liu summarises the Wasserstein part. To
+solve the Hamilton--Jacobi equation one first
+adds the viscous term, since the genuine
+Hamilton--Jacobi equation is not known to be
+solvable quantumly, and then uses the
+Cole--Hopf transformation to make the problem
+exactly linear. In the forward-backward system
+one uses Cole--Hopf again: the final
+distribution $\rho(T,x)$ is the
+Cole--Hopf factor times $\psi(T,x)$, which comes
+from an initial condition, and ``then
+everything now is linear''. The two heat
+equations are solved one after the other; the
+first is solved backwards; there is a
+quantum protocol, which the transcript renders
+as ``quantum habitar division'' and which
+is probably a Hadamard (entrywise) division,
+that forms the product of the initial state
+with the inverse of the final one. Then the
+second heat equation prepares
+$\psi(T)$, and from it $\rho(T)$, which encodes
+the proximal operator.
+
+\medskip\noindent
+{\bf Spoken: the company.}
+Liu co-founded a company, which the transcript
+names Unitary Lab. Its web page, with an
+English version, has a prompt where one
+describes the PDE, or one can choose a PDE
+from a list, then choose boundary conditions
+or initial data on the right. She says there
+is no quantum computer yet behind it: the
+simulation is classical, with the quantum
+circuits in the background. They would
+include other people's algorithms if asked.
+
+\medskip\noindent
+{\bf Spoken: questions after the talk.}
+Three questions, in my summary of the
+transcript.
+\begin{enumerate}
+\item The first questioner asks whether
+Hamilton--Jacobi equations solved quantumly
+could be connected with search
+algorithms, as a strategy for finding where
+trajectories or waves can arrive. Liu first
+asks what search means here, and ends with: for
+a mapping onto quantum algorithms one wants an
+algorithm as simple and as linear as possible.
+Many search procedures need another protocol
+to check that one went to the right place, and
+measurement disturbs a quantum state. So
+that kind of approach would get messy quickly
+and the quantum advantage would be lost. She
+adds the point on which the whole talk
+insists: if one wants the solution at every
+grid point, one loses, because each measurement
+destroys the state, so the number of runs is
+at least the size of the vector. That is why she
+cares about observables: the value at one
+point, the minimum value, and so on, which
+need one type of measurement.
+
+\item The second questioner asks whether one
+can go beyond the linear case, that is, other
+Hamiltonians. Liu: very hard. The linear case
+works because the two equations of the
+forward-backward system decouple: one starts
+from a terminal condition, solves backwards,
+and puts it into the initial condition. For a
+nonlinear problem they become coupled
+nonlinearly and she does not know a linear
+mapping. One can go beyond the quadratic
+Hamiltonian by the time-step method of the
+slides, but then one deals with the two
+equations one after the other, not together;
+and it is only the entropic regularisation
+that makes Cole--Hopf linear. She would be
+interested in a different regulariser, and
+offers to talk about it.
+
+\item The third questioner asks where the
+quantum advantage is. Liu: in the simulation
+itself. If the PDE is high-dimensional,
+finite-difference or similar methods are
+exponential in the dimension $D$, and the
+quantum algorithm saves that, provided that one
+asks for observables whose output does not
+cost too much. Here the algorithm only
+prepares the quantum state of the proximal
+operator; it is a subroutine, from which one
+can compute expectation values, or one can
+keep taking proximal steps as part of a
+Wasserstein flow. In the linear case the
+proximal step is exact, up to the
+regularisation, and the dependence on the
+regularisation parameter is the same as for
+the viscosity solution.
+\end{enumerate}
+The session chair thanked the speaker and the
+audience applauded.
+
+\medskip\noindent
+{\bf Coverage.}
+The photographs cover about 50 of the more
+than 100 slides (the deck has at least 118
+pages) and no title slide, outline or final
+summary slide. The spoken remarks above come
+from the last three recordings only (the
+end of the talk and the questions); the
+transcript of the long recording of the
+talk itself is not yet integrated, so remarks
+made while the slides were shown are
+missing, except where a slide carries the
+information. All the mathematics above is as
+shown on the slides, plus the editorial
+answers, which are mine.
+
 \section{Robust and Efficient Mean
 Estimation via Soft Shrinkage}
 \label{section-robust-efficient-mean}
@@ -1242,5 +2825,8 @@ spike trains, high-dimensional binary
 graphical models, and random walks on
 random graphs. In 2026 he is also teaching
 High-Dimensional Statistics at IMPA.
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
 
 \end{document}
