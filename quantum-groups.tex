@@ -1,0 +1,1758 @@
+\input{preamble}
+
+\begin{document}
+
+\title{Quantum groups}
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\noindent
+These are Daniel's own notes of a
+mini-course on quantum groups by Artem,
+in the summer of 2024. There were four
+lectures; the first one took place on
+July 11, 2024, from 15:00 to 16:30.
+The surname of the lecturer and the event
+where the course was given are not
+recorded in the notes.
+
+\medskip\noindent
+{\bf Editorial note.}
+In the original notes, places where
+Daniel was unsure of what was written on
+the board were marked in magenta; here
+these marks are removed and the question
+marks or gaps they marked are kept as
+plain text. Pictures and tikz-cd diagrams
+were replaced by descriptions or by
+xymatrix diagrams. Obvious misspellings
+(for instance of Verma, Yangian, Yang,
+Baxter, Reidemeister, Belavin, Whitehead)
+were corrected. Other repairs are listed
+at the end of each lecture.
+
+\section{First lecture: Hopf algebras}
+\label{section-first-lecture}
+
+\noindent
+Daniel's summary of the lecture, as
+written at the top of the notes:
+``On July 11 from 15:00 to 16:30 we had
+a first lecture of a mini-course on
+quantum groups by Artem. He defined Hopf
+algebras, gave some examples: functions
+on algebraic group, dual, universal
+enveloping algebra for a Lie algebra,
+particular examples with $g^n=1$,
+$x^n=0$, $gx = z xg$ with
+$z = \exp(2\pi i/n)$. Reminder on
+representations of $\mathfrak{sl}_{2}$ and
+Verma modules.''
+
+\medskip\noindent
+``First lecture was finished with a
+quantum cliffhanger: the universal
+enveloping algebra
+$\operatorname{U}(\mathfrak{g}) =
+\operatorname{U}_{\hbar}(\mathfrak{g})$
+seen as a (deformation) quantization of
+$\mathfrak{g}^*$, the latter considered
+as a Poisson variety (after Sophus Lie
+and KKS).''
+
+\medskip\noindent
+{\bf Definition of Hopf algebras.}
+$G$ is an affine algebraic variety over
+$\mathbb{C}$. (A group object in the
+category of algebraic varieties.)
+We shall work mostly with
+$\operatorname{GL}_{n}$ and
+$\operatorname{SL}_{n}$. There are also
+finite groups, $\operatorname{SO}_{n}$,
+$\operatorname{Sp}_{n}$. So $G$ is a
+linear group.
+
+Everything we say of $G$ will be
+determined by its ring of functions
+$\mathcal{O}(G)=H$, which is an algebra.
+
+We have the {\it multiplication map} and
+the {\it unit map}
+$$
+m:H\otimes H\to H
+\qquad\qquad
+u:\mathbb{C}\to H
+$$
+for which there are some axioms:
+\begin{enumerate}
+\item[{\bf A1}] Associativity. The
+following diagram commutes:
+$$
+\xymatrix{
+H\otimes H\otimes H
+\ar[r]^-{m\otimes\operatorname{id}}
+\ar[d]_{\operatorname{id}\otimes m}
+& H\otimes H \ar[d]^{m}\\
+H\otimes H \ar[r]_-{m} & H
+}
+$$
+\item[{\bf A2}] Unitality.
+$$
+\xymatrix{
+H\cong H\otimes\mathbb{C}
+\ar[r]^-{\operatorname{id}\otimes u}
+\ar@/_1.5pc/[rr]_{\operatorname{id}}
+& H\otimes H \ar[r]^-{m} & H
+}
+$$
+\end{enumerate}
+
+\begin{definition}
+\label{definition-l1-algebra}
+An {\it algebra} is a structure with
+multiplication and unit map subject to
+axioms A1 and A2.
+\end{definition}
+
+Now comes the group part. So what does it
+mean to be a group? That we have a map
+$G\times G\to G$ and a unit
+$\mathbb{C}\to G$. On the level of
+functions these correspond to the
+{\it coproduct}
+$$
+\Delta:H\to H\otimes H
+$$
+and the {\it counit}
+$$
+\eta:H\to \mathbb{C}
+$$
+
+And we put some new axioms:
+\begin{enumerate}
+\item[{\bf A3}] Coassociativity.
+$$
+\xymatrix{
+H \ar[r]^-{\Delta} \ar[d]_{\Delta}
+& H\otimes H
+\ar[d]^{\Delta\otimes\operatorname{id}}\\
+H\otimes H
+\ar[r]_-{\operatorname{id}\otimes\Delta}
+& H\otimes H\otimes H
+}
+$$
+\item[{\bf A4}] Counitality.
+$$
+\xymatrix{
+H \ar[r]^-{\Delta}
+\ar@/_1.5pc/[rr]_{\operatorname{id}}
+& H\otimes H
+\ar[r]^-{\eta\otimes\operatorname{id}} & H
+}
+$$
+\end{enumerate}
+
+\begin{definition}
+\label{definition-l1-coalgebra}
+A {\it coalgebra} is a structure with a
+coproduct and a counit subject to
+axioms A3 and A4.
+\end{definition}
+
+And then we ask that the two structures
+are compatible with the following axiom:
+\begin{enumerate}
+\item[{\bf A5}]
+$$
+\xymatrix{
+H\otimes H \ar[rr]^-{m}
+\ar[d]_{\Delta\otimes\Delta}
+&& H \ar[d]^{\Delta}\\
+H\otimes H\otimes H\otimes H
+\ar[dr]_{\operatorname{id}\otimes P
+\otimes\operatorname{id}}
+&& H\otimes H\\
+& H\otimes H\otimes H\otimes H
+\ar[ur]_{m\otimes m}
+}
+$$
+\end{enumerate}
+
+\begin{remark}
+\label{remark-l1-homomorphisms}
+So we are asking that coproduct and
+product are homomorphisms of algebras.
+And there are also some properties about
+the units.
+\end{remark}
+
+\begin{remark}
+\label{remark-l1-other-axioms}
+There are other axioms we did not write
+down. One of them says that some map is a
+map of $k$-algebras. Anyway,
+\end{remark}
+
+\begin{definition}
+\label{definition-l1-bialgebra}
+A {\it bialgebra} is a structure with a
+multiplication, unit, coproduct and
+counit satisfying axioms A1 to A8.
+\end{definition}
+
+So in a group we have the map
+$G\to G$ mapping $g\mapsto g^{-1}$, which
+corresponds to the {\it antipode map}
+$$
+S:H\to H
+$$
+
+Let us write this other axiom:
+\begin{enumerate}
+\item[{\bf A9}]
+$$
+\xymatrix{
+& H\otimes H
+\ar[rr]^-{S\otimes\operatorname{id}}
+&& H\otimes H \ar[dr]^{m}\\
+H \ar[ur]^{\Delta} \ar[dr]_{\Delta}
+\ar[rr]^-{\eta}
+&& \mathbb{C} \ar[rr]^-{u} && H\\
+& H\otimes H
+\ar[rr]_-{\operatorname{id}\otimes S}
+&& H\otimes H \ar[ur]_{m}
+}
+$$
+\end{enumerate}
+
+\begin{definition}
+\label{definition-l1-hopf-algebra}
+A {\it Hopf algebra} is a structure with
+multiplication, unit, product, coproduct
+and antipode map satisfying axioms
+A1-A9.
+\end{definition}
+
+\begin{remark}
+\label{remark-l1-commutative}
+For $\mathcal{O}(G)$, $m$ is commutative:
+$$
+\xymatrix{
+H\otimes H \ar[rr]^-{m}
+\ar[dr]_{P} && H\\
+& H\otimes H \ar[ur]_{m}
+}
+$$
+This is a special feature of affine
+algebraic groups.
+\end{remark}
+
+\begin{definition}
+\label{definition-l1-cocommutative}
+The coproduct $\Delta$ is
+{\it cocommutative} if
+$$
+\xymatrix{
+H \ar[rr]^-{\Delta}
+\ar[dr]_{\Delta} && H\otimes H\\
+& H\otimes H \ar[ur]_{P}
+}
+$$
+commutes.
+\end{definition}
+
+\begin{example}[1, Functions on algebraic
+groups]
+\label{example-l1-functions}
+Let $G$ be any affine algebraic group like
+$\operatorname{GL}_{n}$, the invertible
+matrices. What is the ring of functions?
+Let us present it in a flappy way:
+$$
+\mathcal{O}(\operatorname{GL}_{n})=
+\mathbb{C}\left\langle{}
+t_{ij}\,|\,t_{ij}=t_{ji}
+\right\rangle{}
+$$
+where $t_{ij}$ are the coordinates of a
+matrix, with the following relations:
+$$
+T=(t_{ij})\in
+\operatorname{End}(\mathbb{C}^{n})
+\otimes H
+$$
+so that
+\begin{itemize}
+\item $T_{1}T_{2}=T_{2}T_{1}$
+which means there is a commutativity
+condition: $t_{ij}t_{ik}=t_{ik}t_{ij}$.
+
+\item (Invertibility of $\det$.)
+$\mathcal{O}(\operatorname{GL}_{n})=
+\mathbb{C}[t_{ij},\det{}^{-1}]$
+
+So that
+$\mathcal{O}(\operatorname{SL}_{n})=
+\mathbb{C}[t_{ij}]/(\det =1)$
+\end{itemize}
+The coproduct here is
+$$
+\Delta T=T\otimes T
+$$
+so
+$$
+\Delta t_{ij}=\sum_{k=1}^{n}
+t_{ik}\otimes t_{kj}
+$$
+which is what matrix multiplication does.
+
+And the counit sends $T$ to the identity
+matrix, that is,
+$$
+\eta(t_{ij})=\delta_{ij}
+$$
+
+And the antipode is
+$$
+S(T)=T^{-1}
+$$
+\end{example}
+
+\begin{example}[2, Dual]
+\label{example-l1-dual}
+If $H$ is a finite-dimensional Hopf
+algebra, its dual $H^{*}$ obtained by
+reversing all arrows in the construction
+of $H$ is also a Hopf algebra.
+
+If $G$ is a finite group and
+$H=\mathcal{O}(G)$ then
+$H^{*} =\mathbb{C}[G]$ is a
+{\it group algebra}. Multiplication is the
+usual multiplication.
+
+Another example is if $G$ is a connected
+affine algebraic group. Then
+$\mathcal{O}(G)=H$ is infinite
+dimensional, but there is kind of the
+dual, which is called the
+{\it universal enveloping algebra}
+$U\mathfrak{g}$.
+
+Recall that a Lie algebra is
+$\mathfrak{g}=T_{e}G$. For example, if
+$G=\operatorname{GL}_{n}$ then
+$\mathfrak{g}=
+\operatorname{End}(\mathbb{C}^{n})=
+\mathfrak{gl}_{n}$. Abstractly, a Lie
+algebra $\mathfrak{g}$ is a vector space
+with
+$[\,,]:\mathfrak{g}\otimes\mathfrak{g}
+\to\mathfrak{g}$ such that
+$[x,y]=-[y,x]$ and
+$[x,[y,z]]+[y,[x,z]]+[z,[x,y]]=0$.
+For example, $\mathfrak{gl}_{n}$ with
+bracket $[A,B]=AB-BA$.
+
+Then for the universal enveloping algebra
+take the tensor algebra
+$$
+T(V)=\bigoplus_{k} V^{\otimes k}
+$$
+then
+$$
+U\mathfrak{g}=T(\mathfrak{g})/(xy-yx-[x,y])
+$$
+which turns out to be a Hopf algebra for
+$x\in \mathfrak{g}$ with
+\begin{itemize}
+\item Coproduct: $\Delta(x)=x\otimes\ ?$
+\item Counit: $\eta(x)=\ ?$
+\item Antipode: $S(x)=-x$.
+\end{itemize}
+There is a kind of duality or
+non-degenerate pairing
+$$
+U\mathfrak{g}\otimes \mathcal{O}(G)
+\to \mathbb{C}
+$$
+\end{example}
+
+\begin{example}[3, exercise]
+\label{example-l1-exercise}
+Let $H=\mathbb{C}\left\langle{}
+g,x\right\rangle{} / (g^{n}=1,\ x^{n}=0,\
+gx=\zeta xg)$ for $\zeta\in \mathbb{C}$
+such that $\zeta^{n}=1$.
+
+There is a coproduct given by
+$$
+\begin{aligned}
+\Delta(g)&=g\otimes g\\
+\Delta(x)&=x\otimes\ ?+g\otimes x
+\end{aligned}
+$$
+\begin{itemize}
+\item Show that this is a Hopf algebra.
+In particular, find $\eta$ and $\zeta$.
+\item Show that $\dim H=n^{2}$.
+\item {\bf Hint:} use representation of
+$H$.
+\end{itemize}
+\end{example}
+
+Let $H$ be an algebra. Then
+$\operatorname{Rep}H$ is the ``category''
+of algebraic representations. Let $H$ be
+in addition a bialgebra, then for any
+$V,W\in \operatorname{Rep}H$,
+$$
+V\otimes W\in \operatorname{Rep}H
+$$
+and this works as follows: for
+$v\in V$, $w\in W$ and $h \in H$,
+$$
+h(v\otimes w)=\Delta h\cdot
+(v\otimes w)\in H\otimes H
+$$
+If additionally $H$ is a Hopf algebra,
+i.e. there is an antipode $S$, we can
+take duals:
+$$
+V\in \operatorname{Rep}H\implies
+V^{*}\in \operatorname{Rep}H
+$$
+so, for a functional $\varphi \in V^{*}$
+and $x\in V$, $h\in H$,
+$(h\varphi)(x)=\varphi (S(h)x)$.
+
+\begin{example}
+\label{example-l1-group-algebra}
+$H=\mathbb{C}[G]$,
+$(g\cdot \varphi)(x)=\varphi (g^{-1}x)$.
+\end{example}
+
+\begin{remark}
+\label{remark-l1-permutation}
+As vector spaces:
+$$
+\begin{aligned}
+P: V\otimes W &\longrightarrow
+W\otimes V \\
+v\otimes w &\longmapsto w\otimes v
+\end{aligned}
+$$
+but it is not an isomorphism of
+$H$-modules in general. If $H$ is
+cocommutative, like $U\mathfrak{g}$, for
+example, it is.
+\end{remark}
+
+\medskip\noindent
+{\bf Review of representation theory of
+$\mathfrak{sl}_{2}$.}
+Let $\mathfrak{g}=\mathfrak{sl}_{2}\subset
+\mathfrak{gl}_{2}$, the traceless
+matrices. They are generated by
+$$
+e=\begin{pmatrix} 0&1\\0&0 \end{pmatrix},
+\qquad
+h=\begin{pmatrix} 1&0\\0&-1 \end{pmatrix},
+\qquad
+f=\begin{pmatrix} 0&0\\1&0 \end{pmatrix}
+$$
+with the relations
+$$
+[h,e]=2e,\qquad [h,f]=-2f,
+\qquad [e,f]=h.
+$$
+There are some representations:
+\begin{itemize}
+\item (Trivial.) $V(0)=
+\operatorname{span}(v_{0})$ with
+$e(v_{0})=hv_{0}=fv_{0}=0$.
+\item (Vector or fundamental
+representation.) $V(1)=
+\operatorname{span}(v_{0},v_{1})$, with an
+action by matrices.
+\end{itemize}
+
+\begin{theorem}
+\label{theorem-l1-sl2-representations}
+\begin{enumerate}
+\item Every finite dimensional
+representation of $\mathfrak{sl}_{2}$ is
+completely reducible,
+$$
+V=\bigoplus_{i}V_{i}
+$$
+where $V_{i}$ is irreducible.
+\item Every irreducible is isomorphic to
+$V(k)=\operatorname{span}
+(v_{0},\ldots,v_{k})$ with
+$$
+\begin{aligned}
+hv_{n}&=(\lambda-2n)v_{n}\\
+ev_{n}&=(\lambda-?)\\
+fv_{n}&=\ ?
+\end{aligned}
+$$
+As an exercise, it can be shown that
+$V(k)\cong \operatorname{Sym} V\ ?$.
+\end{enumerate}
+\end{theorem}
+
+Now let us denote $\mathfrak{b}=
+\operatorname{span}(h,e)\subset
+\mathfrak{sl}_{2}$, so that
+$U\mathfrak{b}\subset U\mathfrak{g}$. So
+there is a representation of
+$U\mathfrak{b}$ acting on
+$\mathbb{C}_{\lambda}=
+\operatorname{span}(v_{0}^{\lambda})$
+and $hv_{0}^{\lambda} =\lambda
+v_{0}^{\lambda}$ for
+$\lambda\in \mathbb{C}$ and
+$ev_{0}^{\lambda}=0$.
+
+\begin{definition}
+\label{definition-l1-verma-module}
+The {\it Verma module} of weight
+$\lambda$ is
+$$
+U\mathfrak{g}\otimes_{U\mathfrak{b}}
+\mathbb{C}_{\lambda}.
+$$
+Concretely, as a vector space,
+$$
+M_{\lambda}=\operatorname{span}
+(v_{0}^{\lambda},\
+v_{1}^{\lambda} =fv_{0}^{\lambda},\
+v_{2}^{\lambda}
+=\tfrac{f^{2}}{2!} v_{0}^{\lambda},
+\ldots)
+$$
+with the action
+$$
+\begin{aligned}
+h\cdot v_{n}^{\lambda}
+&=(\lambda-2n)v_{n}^{\lambda} \\
+e\cdot v_{n}^{\lambda}
+&=(\lambda-n+1)v_{n-1}^{\lambda}\\
+f \cdot v_{n}^{\lambda}
+&=(n+1)v^{\lambda}_{n+1}
+\end{aligned}
+$$
+\end{definition}
+
+\begin{proposition}
+\label{proposition-l1-quotient}
+If $\lambda\in \mathbb{Z}_{\geq 1}$, then
+$V(\lambda)$ is a quotient of
+$M_{\lambda}$.
+\end{proposition}
+
+Some terminology:
+\begin{itemize}
+\item $\lambda$ is the {\it highest
+weight},
+\item $h\cdot v_{n}^{\lambda}
+=(\lambda-2n)v_{n}^{\lambda}$ is the
+{\it weight} of $v_{n}^{\lambda}$
+\item $v_{0}^{\lambda}$ is the
+{\it highest weight vector}.
+\end{itemize}
+
+\medskip\noindent
+{\bf Intro to ``quantum''.}
+How to use the universal enveloping
+algebra $U\mathfrak{g}$ of
+$\mathfrak{g}$? Consider
+$\mathfrak{g}^{*}$ as an algebraic
+variety. Then
+$$
+\mathcal{O}(\mathfrak{g}^{*})=
+\operatorname{Sym}^{\bullet}(\mathfrak{g})
+$$
+By the Poincar\'e-Birkhoff-Witt theorem,
+$$
+U\mathfrak{g}=
+\operatorname{Sym}^{\bullet}\mathfrak{g}
+$$
+as a vector space.
+
+\begin{remark}
+\label{remark-l1-question}
+{\bf Question.}
+What is the relation between
+$\mathcal{O}(\mathfrak{g}^{*})$ and
+$U\mathfrak{g}$?
+\end{remark}
+
+Notice that $\mathfrak{g}^{*}$ is also a
+Poisson algebra with bracket
+$\{x,y\} =[x,y]$ for
+$x,y\in \mathfrak{g}$, called the
+Kirillov-Kostant-Souriau (KKS) Poisson
+structure.
+
+Now we can consider
+$$
+U_{\hbar}\mathfrak{g}=
+\mathbb{C}[\hbar]\otimes
+T\mathfrak{g}/(xy-yx-\hbar [x,y])
+$$
+so for $x,y\in \mathfrak{g}$ we will kind
+of have
+$\widetilde{x},\widetilde{y}\in
+U_{\hbar}\mathfrak{g}$ such that
+$$
+\frac{\widetilde{x}\widetilde{y}-
+\widetilde{y}\widetilde{x}}{\hbar}
+\Big|_{\hbar =0}=[x,y]=\{x,y\}
+$$
+There is one more topological structure
+that defines a group structure on
+$\mathfrak{g}^{*}$:
+$$
+\begin{aligned}
++: \mathfrak{g}^{*}\times
+\mathfrak{g}^{*} &\longrightarrow
+\mathfrak{g}^{*}\\
+(\varphi,\psi) &\longmapsto \varphi +\psi
+\end{aligned}
+$$
+and what is this in terms of functions?
+$$
+\begin{aligned}
+\mathcal{O}(\mathfrak{g}^{*} )
+&\longrightarrow
+\mathcal{O}(\mathfrak{g}^{*})\otimes
+\mathcal{O}(\mathfrak{g}^{*}) \\
+x &\longmapsto x\otimes 1+1\otimes x
+\end{aligned}
+$$
+
+\medskip\noindent
+{\bf Editorial note.}
+In the original, the middle arrow of
+axiom A5 was labelled with a coproduct
+between the two copies of
+$H\otimes H\otimes H\otimes H$; since
+this cannot typecheck I read it as the
+permutation of the two middle factors
+and wrote $\operatorname{id}\otimes P
+\otimes\operatorname{id}$. The map written
+$p$ in the original diagrams is written
+$P$ here, as in the remark on
+permutations. The unlabelled arrow of A3
+was labelled $\Delta$. Other repairs:
+the antipode in a group maps $g$ to
+$g^{-1}$ (the original had $g\mapsto g$);
+$\mathcal{O}(\operatorname{GL})$ was read
+as $\mathcal{O}(\operatorname{GL}_{n})$;
+the relation $g^{n}=0$ in the third
+example was read as $g^{n}=1$, as in
+the summary above; the dual in the second
+example was written $K=\mathcal{O}(G)$ and
+was read as $H=\mathcal{O}(G)$; in the
+action on tensor products, $u\otimes w$
+was read as $v\otimes w$; the
+trivial and fundamental
+representations, labelled $V(?)$ and
+$V(G)$, were labelled $V(0)$ and $V(1)$ to
+agree with the theorem; in the
+definition of the Verma module the
+induction was written from
+$U\mathfrak{g}$ and was read as from
+$U\mathfrak{b}$, and the action of $e$ and
+$f$ had no target vector, which I took as
+$v_{n-1}^{\lambda}$ and
+$v_{n+1}^{\lambda}$ (for
+$v_{n}^{\lambda}=\frac{f^{n}}{n!}
+v_{0}^{\lambda}$); ``$ev_{0}^{\lambda}$''
+was completed by ``$=0$'';
+``completely irreducible'' was read as
+``completely reducible''. The
+relation in the first example,
+$\mathcal{O}(\operatorname{GL}_{n})=
+\mathbb{C}\langle t_{ij}|t_{ij}=t_{ji}
+\rangle$, is left as written, although it
+presumably means that the $t_{ij}$
+commute. The
+question marks in the coproduct and counit
+of $U\mathfrak{g}$, in the third example,
+and in the second part of the theorem on
+$\mathfrak{sl}_{2}$ are in the original.
+
+\section{Second lecture: Poisson-Lie
+groups and quantization}
+\label{section-second-lecture}
+
+\begin{definition}
+\label{definition-l2-poisson-structure}
+Let $A$ be a commutative algebra. A
+{\it Poisson structure} on $A$ is
+$\{\,,\} :A\otimes A\to A$ satisfying
+\begin{enumerate}
+\item $\{f,g\} =-\{g,f\}$.
+\item ({\bf Leibniz identity.})
+$\{fg,h\} =f\{g,h\}+\{f,h\} g$
+\item ({\bf Jacobi identity.})
+$\{f,\{g,h\} \} +\{g,\{h,f\} \}
++\{h,\{f,g\} \}=0$
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+\label{remark-l2-bivector}
+If $X$ is a smooth variety, then
+$\{\,,\}$ is equivalent to a
+{\it bicovector}
+$\Pi\in \Gamma(X,\Lambda^{2} TX)$.
+\end{remark}
+
+\begin{example}
+\label{example-l2-poisson}
+\begin{enumerate}
+\item $\mathcal{O}(X)=\mathbb{C}[x,y]$,
+with $\{x,y\} =1$ and
+$\Pi=\partial_{x}\wedge\partial_{y}$.
+Here $X\cong T^{*} \mathbb{A}$.
+\item $X=\mathfrak{g}^{*}$,
+$\mathcal{O}(X)=
+\operatorname{Sym}^{\bullet}(\mathfrak{g})$,
+$\{x,y\}=[x,y]$
+\end{enumerate}
+\end{example}
+
+\begin{definition}
+\label{definition-l2-poisson-lie-group}
+A {\it Poisson-Lie group} $G$ is
+\begin{enumerate}
+\item A group $G$.
+\item A Poisson bracket on $G$, so
+$\Pi\in \Lambda^{2}TG$ such that
+$$
+G\times G\to G
+$$
+is Poisson.
+\end{enumerate}
+\end{definition}
+
+\begin{exercise}
+\label{exercise-l2-poisson-lie}
+\begin{enumerate}
+\item Show that $\Pi_{e}=0$.
+\item Show that $\Pi$ induces a Lie
+bracket on
+$$
+\xymatrix{
+T^{*}_{e}G\otimes T^{*}_{e}G
+\ar[r] \ar@{=}[d]
+& T^{*}_{e}G \ar@{=}[d]\\
+\mathfrak{g}^{*} \otimes \mathfrak{g}^{*}
+\ar[r] & \mathfrak{g}^{*}
+}
+$$
+{\bf Hint:}
+$T^{*}_{e}G\cong
+\mathcal{M}_{e}/\mathcal{M}^{2}_{e}$
+\end{enumerate}
+\end{exercise}
+
+\begin{definition}
+\label{definition-l2-lie-bialgebra}
+A {\it Lie bialgebra} $\mathfrak{g}$ is a
+Lie algebra with
+$$
+\delta:\mathfrak{g}\to
+\mathfrak{g}\wedge \mathfrak{g}
+$$
+such that
+\begin{enumerate}
+\item $\delta^{*}$ is a Lie bracket on
+$\mathfrak{g}^{*}$.
+\item ({\bf Cocycle condition.})
+$$
+\delta([a,b])=[\delta(a),1\otimes b-
+b\otimes 1]+[a\otimes 1+1\otimes a,
+\delta(b)]
+$$
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}
+\label{proposition-l2-lie-bialgebra}
+A Poisson-Lie group gives a Lie bialgebra
+structure on $\mathfrak{g}=T_{e}G$.
+\end{proposition}
+
+\begin{example}
+\label{example-l2-lie-bialgebras}
+\begin{enumerate}
+\item $G=(\mathfrak{g}^{*},+)$,
+$$
+\delta:T_{e}^{*} G\otimes T_{e}^{*} G
+\to T^{*}_{e}G
+$$
+or equivalently
+$$
+[\,,]:\mathfrak{g}\otimes \mathfrak{g}
+\to \mathfrak{g}
+$$
+\item $G=\operatorname{SL}_{2}$,
+$\mathfrak{g}=\mathfrak{sl}_{2}$,
+$\delta(e)=\frac{1}{2} e\wedge h$,
+$\delta(f)=\frac{1}{2} f\wedge h$,
+$\delta(h)=0$.
+\end{enumerate}
+\end{example}
+
+\begin{theorem}[Drinfeld]
+\label{theorem-l2-drinfeld}
+If $G$ is simply connected, then there is
+a bijection between the Poisson-Lie
+structures on $G$ and the Lie bialgebra
+structures on $\mathfrak{g}$.
+(In general, not algebraic.)
+\end{theorem}
+
+Let $r\in \mathfrak{g}\otimes \mathfrak{g}$.
+
+\begin{definition}
+\label{definition-l2-cyb}
+\begin{enumerate}
+\item
+$$
+\begin{aligned}
+\operatorname{CYB}:
+\mathfrak{g}\otimes \mathfrak{g}&\to
+\mathfrak{g}\otimes \mathfrak{g}\otimes
+\mathfrak{g}\\
+r&\longmapsto [r_{12},r_{13}]+
+[r_{12},r_{23}]+[r_{13},r_{23}]
+\end{aligned}
+$$
+$$
+r=\sum a_{i}\otimes b_{i}\in
+\mathfrak{g}\otimes \mathfrak{g}
+$$
+then
+$$
+r_{12}=\sum_{i}a_{i}\otimes b_{i}
+\otimes 1,\qquad
+r_{13}=\sum_{i}a_{i}\otimes 1\otimes
+b_{i},\qquad
+r_{23}=\sum_{i}1\otimes a_{i}\otimes
+b_{i}
+$$
+\item The {\it classical Yang-Baxter
+equation} is
+$$
+\operatorname{CYB}(r)=0
+$$
+\item A {\it classical $r$-matrix} is a
+solution to the CYB equation.
+\end{enumerate}
+\end{definition}
+
+Given $r\in \Lambda^{2} \mathfrak{g}$ such
+that $\operatorname{CYB}(r)$ is
+$\mathfrak{g}$-invariant, we can define
+$$
+\begin{aligned}
+\delta: \mathfrak{g} &\longrightarrow
+\mathfrak{g}\otimes \mathfrak{g} \\
+x &\longmapsto
+[r,x\otimes 1+1\otimes x]
+\end{aligned}
+$$
+
+\begin{exercise}
+\label{exercise-l2-bialgebra}
+Check that $(\mathfrak{g},\delta)$ is a
+bialgebra. Action of $\mathfrak{g}$ on
+$\mathfrak{g}$ by
+$$
+x\cdot y=[x,y]\rightsquigarrow
+\mathfrak{g}\curvearrowright
+\mathfrak{g}\otimes \mathfrak{g}\otimes
+\mathfrak{g}\ni\Xi
+$$
+and $\Xi\in\ ?\iff$. More explicitly,
+[Several lines on the side board
+concerning $\Xi$.]
+\end{exercise}
+
+\begin{remark}
+\label{remark-l2-simple}
+\begin{enumerate}
+\item If $G$ is simple (e.g.
+$G=\operatorname{SL}_{n},
+\operatorname{SO}_{n},\ldots$), then any
+$\delta$ comes from some
+$r\in \mathfrak{g}\wedge \mathfrak{g}$.
+And the implication $\impliedby$ is the
+Whitehead lemma.
+
+Given such $\Gamma=r\,?$, bivector,
+$$
+\Pi=r^{\ell}-r^{r}
+$$
+where the element on the left is
+left-invariant and the one on the right
+is right-invariant.
+\end{enumerate}
+\end{remark}
+
+\begin{example}
+\label{example-l2-gln}
+$G=\operatorname{GL}_{n}\subset
+\operatorname{Mat}_{n\times n}
+(\mathbb{C})$,
+$\mathcal{O}(\operatorname{GL}_{n})=
+\mathbb{C}[t_{ij},\det{}^{-1}]$, and
+$T\operatorname{GL}_{n}=
+\operatorname{GL}_{n}\times
+\operatorname{Mat}_{n\times n}
+(\mathbb{C})$.
+
+Then for $X\in \operatorname{Mat}_{n\times
+n}(\mathbb{C})$, the left-invariant vector
+field
+$X^{\ell}:\operatorname{GL}_{n}\to
+\operatorname{Mat}_{n\times n}$ with
+$X^{\ell} (g)=g\cdot X$ and the
+right-invariant $X^{r} (g)=X\cdot g$.
+
+Recall:
+$T=(t_{ij})\in \operatorname{End}
+(\mathbb{C}^{n} \otimes
+\mathcal{O}(\operatorname{GL}_{n}))$.
+Given such
+$r\in \mathfrak{gl}_{n}\otimes
+\mathfrak{gl}_{n}$, the Poisson structure
+is
+$$
+\{T\otimes T\}=[r,T_{1}T_{2}]
+$$
+So what are these $T_{1}$ and $T_{2}$?
+Let us do an example for $n=2$.
+$$
+T_{1}T_{2}=\begin{pmatrix}
+t_{11}t_{11}&t_{11}t_{12}&
+t_{12}t_{11}&t_{12}t_{12}\\
+t_{11}t_{21}&t_{11}t_{22}&\cdots \\
+\vdots
+\end{pmatrix}
+$$
+and so on. And then $r$ is a constant
+matrix
+$$
+r=\begin{pmatrix}
+r_{11} &\cdots &r_{1n}\\&&\\&
+\end{pmatrix}
+$$
+\end{example}
+
+Let us do another example.
+\begin{example}
+\label{example-l2-gln-r-matrix}
+$G=\operatorname{GL}_{n}$,
+$r=E_{12}\otimes E_{21}+
+E_{11}\otimes E_{11}+
+E_{22}\otimes E_{22}$. Take
+$$
+r=\begin{pmatrix}
+1&0&0&0\\0&0&0&0\\0&0&1&0\\0&0&0&1
+\end{pmatrix}
+$$
+So
+$$
+\begin{aligned}
+&\begin{pmatrix}
+\{t_{11},t_{11}\}&\{t_{11},t_{12}\}
+&\cdots \\
+\vdots &&
+\end{pmatrix}\\
+&=\begin{pmatrix}
+1&0&0&0\\0&0&0&0\\0&0&1&0\\0&0&0&1
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+\{t_{11},t_{11}\}&\{t_{11},t_{12}\}
+&\cdots \\
+\vdots &&
+\end{pmatrix}\\
+&\quad -\begin{pmatrix}
+\{t_{11},t_{11}\}&\{t_{11},t_{12}\}
+&\cdots \\
+\vdots &&
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+1&0&0&0\\0&0&0&0\\0&0&1&0\\0&0&0&1
+\end{pmatrix}
+\cdot \ldots
+\end{aligned}
+$$
+
+Also consider the case of
+$G=\operatorname{SL}_{n}$ with
+$r=e\otimes f+\frac{1}{4}h\otimes h$
+\end{example}
+
+\begin{exercise}
+\label{exercise-l2-difference}
+Interpret the difference.
+\end{exercise}
+
+\begin{definition}
+\label{definition-l2-quasi-triangular}
+A {\it quasi-triangular Lie bialgebra} is
+a triple $(\mathfrak{g},[\,,],r)$ where
+\begin{itemize}
+\item $(\mathfrak{g},[\,,])$ is a Lie
+algebra
+\item $r\in \mathfrak{g}\otimes
+\mathfrak{g}$ is such that
+\begin{enumerate}
+\item $r+r^{21}$ is
+$\mathfrak{g}$-invertible.
+\item $\operatorname{CYB}(r)=0$.
+\end{enumerate}
+$r$ is an $r$-matrix.
+\end{itemize}
+\end{definition}
+
+\begin{remark}
+\label{remark-l2-symmetric-part}
+In ??
+$$
+r^{2}r^{21}=E_{12}\otimes E_{21}+
+E_{11}\otimes E_{11}+
+E_{22}\otimes E_{22}+
+E_{21}\otimes E_{12}
+$$
+is a bilinear form $(X,Y)\mapsto T\,?$
+\end{remark}
+
+\medskip\noindent
+{\bf Quantization.}
+
+\begin{definition}[``Definition'']
+\label{definition-l2-quantization}
+Let $(A,\{\,,\} )$ be a Poisson algebra.
+A {\it quantization} of $A$ is $A_{\hbar}$
+such that
+\begin{enumerate}
+\item $A_{\hbar}\cong
+A\otimes_{\mathbb{C}}\mathbb{C}[\hbar]$ or
+$A\otimes_{\mathbb{C}}
+\mathbb{C}[[\hbar]]$ as vector spaces.
+\item $A_{\hbar}/(\hbar)\cong A$ as
+algebras.
+\item For $f,g\in A$ consider
+$\widetilde{f},\widetilde{g}\in
+A_{\hbar}$ such that
+$\widetilde{f}|_{\hbar=0}=f$ and
+$\widetilde{g}|_{\hbar=0}=g$.
+Consider their commutator: because of
+condition 2., this commutator is
+divisible by $\hbar$, so it makes sense
+to ask that the Poisson bracket is
+$$
+\frac{\widetilde{f}\widetilde{g}-
+\widetilde{g}\widetilde{f}}{\hbar}
+\Big|_{\hbar =0}=\{f,g\}
+$$
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+\label{example-l2-quantizations}
+\begin{enumerate}
+\item $A=\mathcal{O}(T^{*}
+\mathbb{A}^{1})=\mathbb{C}[x,y]$.
+$$
+A_{\hbar}=\mathbb{C}[\hbar]
+\left\langle{}\widetilde{x},
+\widetilde{y}\right\rangle{} /
+(\widetilde{x}\widetilde{y}-
+\widetilde{y}\widetilde{x}=\hbar)
+$$
+so
+$$
+A_{\hbar}\cong \mathbb{C}[\hbar]
+\left\langle{}x,\hbar \partial_{x}
+\right\rangle{}
+$$
+\item $U_{\hbar}\mathfrak{g}$ as a
+quantization of
+$(\mathfrak{g}^{*},\{\,,\} )$ where
+$\{\,,\}$ is KKS.
+\item $\mathcal{O}(\operatorname{GL}_{n})
+=\mathbb{C}\left\langle{}t_{ij}
+\right\rangle{} /(T_{1}T_{2}=T_{2}T_{1})$.
+Let $r$ be the $r$-matrix (for $n=2$ as
+before) and
+$\{T\otimes ,T\} =[r,T_{1}T_{2}]$
+\end{enumerate}
+\end{example}
+
+\begin{definition}
+\label{definition-l2-frt}
+Let $R$ be any element in
+$\operatorname{End}(\mathbb{C}^{n})\otimes
+\operatorname{End}(\mathbb{C}^{n})$. Then
+we can define
+\begin{equation}
+\label{equation-l2-frt}
+\frac{\mathbb{C}\left\langle{}t_{ij}
+\right\rangle{} }{(RT_{1}T_{2}=
+T_{2}T_{1}R)}
+\end{equation}
+which was defined by FRT.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-l2-frt}
+The FRT algebra is a bialgebra with
+$\Delta T=T\otimes T$. Where is the
+quantization part? Assume that we choose
+this $R$ in a very specific way:
+$$
+R=1+\hbar r+\mathcal{O}(\hbar^{*})
+$$
+where $1$ is the identity matrix. Show
+that the $\hbar^{1}$ term of
+Equation~\ref{equation-l2-frt} implies\ ?
+\end{exercise}
+
+\begin{definition}
+\label{definition-l2-qybe}
+Let $R\in \operatorname{End}
+(\mathbb{C}^{n})\otimes
+\operatorname{End}(\mathbb{C}^{n})$. The
+{\it quantum YBE} is
+$$
+R_{12}R_{13}R_{23}=R_{23}R_{13}R_{12}
+$$
+in $\operatorname{End}
+(\mathbb{C}^{n})^{\otimes 3}$.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-l2-qybe}
+Let $R=1+\hbar r+\mathcal{O}(\hbar^{2})$.
+Then $\hbar^{2}$ of QYBE implies CYBE for
+$r$. Also, solutions are (quantum)
+$R$-matrices.
+\end{exercise}
+
+\begin{example}
+\label{example-l2-r-matrix-q}
+Consider
+$$
+R=\begin{pmatrix}
+1&0&0&0\\0&1&0&0\\0&q-q^{-1}&1&0\\0&0&0&q
+\end{pmatrix}
+$$
+we may consider $q=e^{\hbar}$:
+$$
+R=1+\hbar \begin{pmatrix}
+1&0&0&0\\0&0&0&0\\0&2&0&\\0&0&0&1
+\end{pmatrix}
+$$
+$$
+\hbar \cdot (E_{11}\otimes E_{11}+
+E_{22}\otimes E_{22}+
+2E_{12}\otimes E_{21})
+$$
+\end{example}
+
+\begin{definition}
+\label{definition-l2-quantum-gl2}
+$\mathcal{O}(\operatorname{GL}_{2})=
+\mathbb{C}\left\langle{}t_{ij}
+\right\rangle{} /
+(RT_{1}T_{2}=T_{2}T_{1}R)$ subject to
+$\operatorname{qdet}$ is invertible,
+where
+$$
+\operatorname{qdet}=\sum_{\sigma\in S_{n}}
+(-q)^{e(\sigma)}
+t_{n\,?}\ldots t_{?}
+$$
+\end{definition}
+
+\medskip\noindent
+{\bf Editorial note.}
+Repairs: the third term of the classical
+Yang-Baxter map was written
+$[r_{13},r_{13}]$ and was read as
+$[r_{13},r_{23}]$; the definition of
+$r_{13}$ ended in the garbled
+``$r_{13=\ldots}$'', which I read as the
+definition of $r_{23}$; $\partial_{x\wedge
+\partial_{y}}$ was read as
+$\partial_{x}\wedge\partial_{y}$;
+$\operatorname{End}(\mathbb{C}^{*})$ in
+the definition of the FRT algebra was
+read as $\operatorname{End}
+(\mathbb{C}^{n})$, and the sentence
+``was defined by FRT'' was attached to
+the displayed algebra; $R_{1}$
+in the relation of the quantum
+$\mathcal{O}(\operatorname{GL}_{2})$ was
+read as $R$; in the quantization the
+restriction $|_{\hbar}$ was read as
+$|_{\hbar=0}$; in the last example, the
+terms of the displayed element, written
+$E_{^{-1}}$ and $E_{2}$, were read as
+$E_{11}$ and $E_{22}$. In the
+Poisson-Lie theorem the original
+displayed a bijection between two sets
+written with text inside the formula,
+which I wrote in words. The side-board
+lines on $\Xi$, the remark ``In ??'', and
+the formula for the quantum determinant
+are incomplete in the original; the
+statement of Example 3 of the
+quantizations ends in the original with
+a magenta comma between $T\otimes$ and
+$T$, written here as a comma.
+
+\section{Lecture 3: The quantum group of
+$\mathfrak{sl}_{2}$ and link invariants}
+\label{section-lecture-3}
+
+\begin{definition}[Main definition]
+\label{definition-l3-uq-sl2}
+$U_{q}(\mathfrak{sl}_{2})$ is a Hopf
+algebra over $\mathbb{C}(q)$ generated by
+$E,F,K^{\pm 1}$ such that
+\begin{enumerate}
+\item $KK^{-1} =K^{-1} K=1$.
+\item $KEK^{-1}=q^{2}E$.
+\item $KFK^{-1} =q^{-2} F$.
+\item $EF-FE=\frac{K-K^{-1}}{q-q^{-1}}$
+\end{enumerate}
+with coproduct
+$$
+\begin{aligned}
+\Delta(E)&=E\otimes 1+K\otimes E\\
+\Delta(F)&=1\otimes F+F\otimes K^{-1} \\
+\Delta(K)&=K\otimes K
+\end{aligned}
+$$
+counit
+$$
+\eta(E)=\eta(F)=0,\quad \eta(K)=1
+$$
+and antipode given by $S(K)=K^{-1}$,
+$S(E)=-K^{-1} E$ and $S(F)=-FK$.
+\end{definition}
+
+Quantization? Take $q=e^{\hbar}$.
+Informally,
+$$
+U_{q}(\mathfrak{sl}_{2})
+\overset{\hbar\to 0}{\longrightarrow}
+U(\mathfrak{sl}_{2})
+$$
+$$
+E\mapsto e,\quad F\mapsto f,\quad
+K\mapsto e^{\hbar h}
+$$
+$$
+\frac{K-K^{-1}}{q-q^{-1}}=
+\frac{e^{\hbar h}-e^{-\hbar h}}
+{e^{\hbar}-e^{-\hbar}}=
+\frac{\hbar(2h)}{2\hbar}
+\to \mathcal{O}(\hbar) =h
+$$
+
+Let us take
+$$
+\frac{\Delta-\Delta^{\operatorname{op}}}
+{\hbar}\Big|_{\hbar=0}
+$$
+What is this applied to $E$?
+$$
+\begin{aligned}
+\frac{\Delta-\Delta^{\operatorname{op}}}
+{\hbar}\Big|_{\hbar=0}(E)
+&=\frac{E\otimes 1+e^{\hbar h}\otimes E
+-1\otimes E-E\otimes e^{\hbar h}}{\hbar}\\
+&=h\otimes e-e\otimes h=h\wedge e
+\end{aligned}
+$$
+
+\begin{remark}
+\label{remark-l3-upshot}
+{\bf Upshot.}
+This produces the coalgebra structure
+from last lecture, i.e. the cobracket:
+$$
+\frac{\Delta-\Delta^{\operatorname{op}}}
+{\hbar}\Big|_{\hbar =0}=\delta
+$$
+So this is a quantization in the sense of
+coalgebras.
+\end{remark}
+
+\medskip\noindent
+{\bf Finite-dimensional representations.}
+
+\begin{definition}[Notations]
+\label{definition-l3-quantum-integers}
+\begin{enumerate}
+\item A {\it quantum integer}
+$$
+[n]:=\frac{q^{n}-q^{-n}}{q-q^{-1}}
+$$
+\item The {\it quantum factorial} is
+$$
+[n]!:=\prod_{i=1}^{n}[i]
+$$
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}
+\label{theorem-l3-representations}
+\begin{enumerate}
+\item Any finite dimensional
+representation of $U_{q}(\mathfrak{sl}_{2})$
+is {\it completely reducible}, i.e.,
+$V=\bigoplus_{i}V_{i}$ with $V_{i}$
+irreducible.
+\item Any irreducible representation is
+isomorphic to
+$V(n)=\operatorname{span}
+(v_{0},\ldots,v_{n})$,
+$$
+\begin{aligned}
+Kv_{i}&=\lambda q^{-2i} v_{i},
+\qquad \lambda=q^{n}\\
+Fv_{i}&=[i+1]v_{i+1}\\
+Ev_{i}&=\frac{\lambda q^{i-1}-
+\lambda^{-1} q^{i-1}}{q-q^{-1}}v_{i-1}
+\end{aligned}
+$$
+\end{enumerate}
+\end{theorem}
+
+\begin{exercise}
+\label{exercise-l3-check}
+Check the formulas $\ddot\smile$ The point
+is that $v_{i}=\frac{F^{i}}{[i]!}v_{0}$.
+\end{exercise}
+
+\begin{remark}
+\label{remark-l3-infinite}
+This is not necessarily
+finite-dimensional.
+\end{remark}
+
+\begin{definition}
+\label{definition-l3-verma-module}
+The {\it Verma module} of weight
+$\lambda \in \mathbb{C}(q)^{*}$ is either
+\begin{itemize}
+\item $M_{\lambda}:=\operatorname{span}
+(v_{0}^{\lambda},\ldots,v_{u}^{\lambda})$
+with the action given above, or
+\item $M_{\lambda}=U_{q}\mathfrak{sl}_{2}
+\otimes_{U_{q}(\mathfrak{b})}
+\mathbb{C}_{\lambda}$.
+\end{itemize}
+\end{definition}
+
+\begin{exercise}
+\label{exercise-l3-important}
+This is an important exercise.
+\begin{enumerate}
+\item $V(1)\otimes V(1)$ is a
+$U_{q}(\mathfrak{sl}_{2})$-module.
+Decompose it:
+$V(1)\otimes V(1)\cong
+V(2)\oplus V(0)$.
+
+So we have $V(1)\otimes V(q)\cong
+S^{1}(V)\oplus \Lambda^{2}(V)$.
+
+\item Recall that in general
+$V\otimes W\not\cong W\otimes V$ for
+$V,W \in \operatorname{Rep}(H)$ of a Hopf
+algebra, but, show that
+$\hat{R}:=R\cdot P$ with $P$ permutations,
+defines an isomorphism of
+$V(1)\otimes V(1)\cong V(1)\otimes V(1)$
+as
+$U_{q}(\mathfrak{sl}_{2})$-representations.
+\end{enumerate}
+\end{exercise}
+
+\medskip\noindent
+{\bf Knot invariant.}
+
+\begin{definition}
+\label{definition-l3-knot}
+A {\it knot} is a smooth oriented
+embedding $S^{1}\hookrightarrow S^{3}$.
+A {\it link} is a smooth oriented
+embedding
+$S^{1}\cup \ldots\cup S^{1}
+\hookrightarrow S^{3}$.
+
+A {\it link diagram} is a projection to
+$\mathbb{R}^{2}$ such that the worst
+singularities are double points.
+\end{definition}
+
+\begin{example}
+\label{example-l3-links}
+[Drawings do not show crossings
+correctly.]
+\begin{enumerate}
+\item Unknot. [Figure in the original
+notes: a circle.]
+\item Hopf link. [Figure in the original
+notes: two linked circles.]
+\item Trefoil (right or left-handed).
+[Figure in the original notes: a trefoil
+knot drawn as a parametric curve with an
+arrow.]
+\end{enumerate}
+\end{example}
+
+\begin{theorem}[Lickorish-Wallace]
+\label{theorem-l3-lickorish-wallace}
+Any closed 3-dimensional manifold can be
+constructed via a {\it Dehn surgery}.
+\end{theorem}
+
+\begin{definition}
+\label{definition-l3-knot-invariant}
+A {\it knot invariant} is an assignment of
+a number to a link that respects isotopy.
+\end{definition}
+
+\begin{theorem}[Reidemeister,
+Alexander-Briggs]
+\label{theorem-l3-reidemeister}
+The three {\it Reidemeister moves} are:
+\begin{enumerate}
+\item[(R1)] [no pictures...]
+\item[(R2)]
+\item[(R3)]
+\end{enumerate}
+Two diagrams come from isotopic links if
+and only if they are related by
+Reidemeister moves.
+\end{theorem}
+
+Physicists introduced the idea that
+morphisms between algebras can be
+represented by diagrams. So the idea is to
+view links as homomorphisms of
+$U_{q}(\mathfrak{sl}_{2})$-representations.
+These are the rules:
+\begin{enumerate}
+\item Empty diagram is trivial
+representation: $\varnothing
+\longleftrightarrow\mathbb{C}$
+\item Identity morphism is a vertical
+line: $\downarrow\longleftrightarrow
+\operatorname{id}_{V}$.
+\item A diagram $A$ with $k$ lines coming
+in and $n$ coming out (that are
+representations), labelled
+$V_{1},\ldots,V_{k}$ and
+$W_{1},\ldots,W_{m}$, corresponds to a
+homomorphism $A \in \operatorname{Hom}
+(V_{1}\otimes \ldots\otimes V_{k},
+W_{1}\otimes \ldots\otimes W_{n})$.
+
+This should respect structure:
+\item {\it Stacking vertically} two
+diagrams $A,B$ like the one in the last
+item yields a third one. This corresponds
+to composition, i.e.
+$B\circ A \in \operatorname{Hom}
+(V_{1}\otimes \ldots\otimes V_{j},
+U_{1}\otimes \ldots\otimes U_{m})$.
+\item {\it Stacking horizontally}
+corresponds to tensor product of
+homomorphisms,
+$A\otimes B \in \operatorname{Hom}
+(V_{1}\otimes V_{2},W_{1}\otimes W_{2})$.
+\end{enumerate}
+
+We restrict to diagrams whose in/output
+is a tensor product of an irreducible
+representation $V$. Then, given a link, it
+is enough to specify just three morphisms
+that look like $\cup$, $\cap$ and $X$
+(last one with a crossing). These are
+called, respectively, {\it coevaluation},
+{\it evaluation} and $\hat{R}$.
+
+\begin{exercise}
+\label{exercise-l3-cup-cap}
+\begin{enumerate}
+\item $U(\mathfrak{sl}_{2})$,
+$V=\mathbb{C}^{2}$. Corresponding to
+$\cup$ with $\mathbb{C}$ below and
+$\mathbb{C}$ on each end above, we get the
+representation $\mathbb{C}\to V\otimes V$
+with $1\mapsto u_{0}\otimes v_{1}-
+u_{1}\otimes v_{0}$ using that
+$V\otimes V\cong V(1)\otimes V(1)$. This
+representation is determined up to a
+scalar $c_{1}$.
+
+Another diagram $\cap$ with a copy of
+$\mathbb{C}$ above and two in the lower
+ends yields another representation
+determined up to a scalar $c_{2}$.
+
+[An $S$-shaped diagram corresponding to
+$V\to V$, showing isotopy invariance.]
+
+The exercise is to determine $c_{1}$ and
+$c_{2}$ and their relation.
+
+\item Do the same for
+$U_{q}(\mathfrak{sl}_{2})$.
+\end{enumerate}
+\end{exercise}
+
+If this is well-defined, then the third
+Reidemeister move gives us
+$$
+(R 3)\longleftrightarrow
+\check R_{12}\check R_{23}\check R_{12}=
+\check R_{23}\check R_{12}\check R_{23}
+$$
+This is called the {\it braid relation}.
+If $\check R=R\circ P$, then that is also
+equivalent to
+$R_{12}R_{13}R_{23}=R_{23}R_{13}R_{12}$.
+
+\begin{theorem}
+\label{theorem-l3-link-invariant}
+Correspondence between links and
+homomorphisms of
+$U_{q}(\mathfrak{sl}_{2})$-representations
+gives a link invariant.
+\end{theorem}
+
+\medskip\noindent
+{\bf Editorial note.}
+Repairs: in the relations of
+$U_{q}(\mathfrak{sl}_{2})$ the original had
+$KEK^{1}=q^{2}E$ and
+$KEK^{-1}=q^{-2}F$, read as
+$KEK^{-1}=q^{2}E$ and
+$KFK^{-1}=q^{-2}F$; in the coproduct the
+original had $\oplus$ where I wrote
+$\otimes$; in the first theorem the
+statement ``completely reducible, with
+$V_{i}$ reducible'' was read with $V_{i}$
+irreducible, and $Kv_{i}=\lambda q^{-2i}
+v_{1}$ was read with $v_{i}$ on the right;
+the ``Vernon model'' is the Verma module;
+the third Reidemeister move, in the
+original $\check R_{12}\check R_{23}
+\check R_{12}=\check R_{23}\check R_{12}
+\check R_{13}$, was read as the braid
+relation with $\check R_{23}$ at the end;
+the quotation marks in the informal limit
+of $U_{q}(\mathfrak{sl}_{2})$ were turned
+into the word ``informally''. Left as in
+the original, although they look wrong:
+the $q$-exponent in the action of $E$ on
+$v_{i}$ in the theorem, the last vector
+$v_{u}^{\lambda}$ of $M_{\lambda}$, the
+statement $V(1)\otimes V(q)\cong
+S^{1}(V)\oplus\Lambda^{2}(V)$, and the
+display ending in $\mathcal{O}(\hbar)=h$.
+The three pictures of an unknot, a Hopf
+link and a trefoil, and the (empty)
+list of Reidemeister moves, are not
+reproduced.
+
+\section{Lecture 4: Yangians}
+\label{section-lecture-4}
+
+\begin{proposition}
+\label{proposition-l4-given}
+Given a ...
+\end{proposition}
+
+\begin{definition}
+\label{definition-l4-cybe-spectral}
+Let $r(z)\in \mathfrak{g}\otimes
+\mathfrak{g}((z))$. The {\it CYBE with
+spectral parameter} is
+$$
+\begin{aligned}
+\operatorname{CYB}(r(z))&=
+[r_{12}(z_{1}-z_{2}),r_{13}(z_{2}-z_{3})]\\
+&\quad +[r_{12}(z_{1}-z_{2}),
+r_{23}(z_{2}-z_{3})]\\
+&\quad +[r_{13}(z_{1}-z_{3}),
+r_{23}(z_{1}-z_{3})]
+\end{aligned}
+$$
+for $|z_{1}|<|z_{2}| <|z_{3}|$.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-l4-check}
+Check
+$\operatorname{CYB}\left(
+\frac{\sum_{i}z_{i}\otimes x_{i}}{z}
+\right) =0$.
+\end{exercise}
+
+\begin{theorem}[Belavin-Drinfeld]
+\label{theorem-l4-belavin-drinfeld}
+Let $r(z)$ satisfy
+$\operatorname{CYB}(r(z))=0$ and a
+non-degeneracy condition. Then
+\begin{enumerate}
+\item $r(z)$ extends to a meromorphic
+function on $\mathbb{C}$.
+\item Poles of $r(z)$ are on a lattice
+$\Gamma\subset \mathbb{C}$. (E.g.
+$\Gamma=\{0\},\mathbb{Z},\mathbb{Z}^{2},
+\ldots$.)
+\item $r(z)=\frac{\varepsilon
+\sum_{i}z_{i}\otimes x_{i}}{z}
++\mathcal{O}(1)$.
+\item $r(z)+r^{2?}(-z)=0$.
+\end{enumerate}
+\end{theorem}
+
+$$
+R(z)=1-\frac{P}{z}\in
+\operatorname{End}(\mathbb{C}^{n}\otimes
+\mathbb{C}^{n})[z^{-1}]
+$$
+$$
+P=\sum_{i,j}E_{ij}\otimes E_{ji}
+$$
+
+\begin{definition}
+\label{definition-l4-yangian}
+The {\it Yangian}
+$\operatorname{Y}(\mathfrak{gl}_{n})$ is an
+algebra generated by $t_{ij}^{(k)}$,
+$i,j=1,\ldots,n$ subject to
+$$
+t_{ij}(u):=\delta_{ij}+\sum_{k\geq 1}
+t^{(k)}_{ij}u^{-k}
+$$
+where $\delta_{ij}\in
+\operatorname{Y}(\mathfrak{gl}_{n})[[\,?\,]]$
+\end{definition}
+
+\begin{proposition}
+\label{proposition-l4-qybe}
+$R(u)$ satisfies the QYBE with spectral
+parameter
+$$
+R_{12}(u_{1}-u_{2})R_{13}(u_{1}-u_{3})
+$$
+\end{proposition}
+
+[Half a board missing...]
+
+\medskip\noindent
+{\bf Fact (vv).}
+There is a homomorphism
+$$
+\begin{aligned}
+\operatorname{ev}:
+\operatorname{Y}(\mathfrak{gl}_{n})
+&\longrightarrow U(\mathfrak{gl}_{n}) \\
+t_{ij}^{(k)} &\longmapsto
+\delta_{k,1}E_{ij}\\
+t_{ij}(u)&\longmapsto
+\delta_{ij}+\frac{E_{ij}}{u}
+\end{aligned}
+$$
+
+\medskip\noindent
+{\bf How to use?}
+$$
+\operatorname{qdet}(T(u)):=
+\sum_{c \in S_{n}}(-1)^{?}
+t_{ij}(u)\cdot t_{?,2}(u-1)\cdot \ldots
+\cdot t_{?,n}(u-n+1)\in
+\operatorname{Y}(\mathfrak{gl}_{n})
+[[u^{-1}]]
+$$
+
+\begin{proposition}[v]
+\label{proposition-l4-central}
+$\operatorname{qdet}(T(u))$ is central.
+{\bf Idea}: $R(u)=$ antisymmetrizer.
+\end{proposition}
+
+Combining the proposition (v) and the
+fact (vv) we get the following.
+
+\begin{theorem}
+\label{theorem-l4-center}
+$$
+u\cdot (u-1)\ldots(u-n-1)\,
+\operatorname{ev}(\operatorname{qdet}(T(u)))
+$$
+generates $Z(U(\mathfrak{gl}_{n}))$.
+\end{theorem}
+
+\medskip\noindent
+{\bf Editorial note.}
+Lecture 4 is unfinished in the original:
+the proposition at the start, the second
+proposition (the quantum Yang-Baxter
+equation with spectral parameter), the
+definition of the Yangian and the formula
+for the quantum determinant are cut off or
+carry question marks, and half a board is
+noted as missing. Repairs: the equations
+were called CBYE, CRB and CBY in the
+original and are all called CYB here;
+the formula for $R(z)$ had a stray control
+sequence before the $1$ and a capital $Z$,
+and was read as $1-\frac{P}{z}$; in the
+homomorphism
+$\operatorname{ev}$ the image of
+$t_{ij}(u)$ was written
+$\delta_{ij}+\frac{E_{ij}}{4}$ and was read
+as $\delta_{ij}+\frac{E_{ij}}{u}$;
+``$R(U)=$ antisymmetrizer'' was read with
+$u$. The numerator
+$\sum_{i}z_{i}\otimes x_{i}$ in the last
+two items of the Belavin-Drinfeld theorem,
+the factor $u(u-1)\ldots(u-n-1)$ and the
+first factor $t_{ij}(u)$ in the quantum
+determinant are left as in the original,
+although they look wrong. The statement of
+the last theorem has no condition on
+$u$.
+
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

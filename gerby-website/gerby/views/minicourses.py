@@ -19,6 +19,9 @@ EVENTS = [
     "cremona-transformations",
     "birational-maps-commutative-algebra",
   ]),
+  ("Summer 2024", [
+    "quantum-groups",
+  ]),
   ("IMPA Summer School 2026", [
     "surfaces",
     "mumford-tate-groups-in-hodge-theory",
@@ -26,6 +29,7 @@ EVENTS = [
 ]
 
 LECTURERS = {
+  "quantum-groups": "Artem",
   "bridgeland-stability-general-theory": "Cristian Martinez",
   "geometric-stability-conditions-and-group-actions": "Hannah Dell",
   "moduli-spaces-of-sheaves": "Cristina Manolache",

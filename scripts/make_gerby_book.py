@@ -87,6 +87,7 @@ KNOWN_CHAPTERS = {
     "seminars-symplectic-geometry",
     "seminars-dynamics",
     "oktobermat-2024",
+    "quantum-groups",
 }
 
 
