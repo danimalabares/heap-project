@@ -23,6 +23,8 @@ from gerby.database import (
     db,
 )
 import gerby.registry as registry
+import gerby.views.conferences as conferences_view
+import gerby.views.seminars as seminars_view
 import gerby.views.tag as view
 import gerby.application as application
 from gerby_registry import Evidence
@@ -278,6 +280,167 @@ class ContentsAndDownloadsTests(
         self.assertEqual(
             [p.ref for p in parts],
             ["1", "2", "10"],
+        )
+
+    def make_parts(self):
+        db.init(":memory:")
+        db.connect()
+        self.addCleanup(db.close)
+        db.create_tables([Tag, Part])
+        theory = Tag.create(
+            tag="P001", label="part-analysis",
+            ref="1", type="part", active=True,
+        )
+        seminars = Tag.create(
+            tag="P002", label="part-seminars",
+            ref="2", type="part", active=True,
+        )
+        conferences = Tag.create(
+            tag="P003", label="part-conferences",
+            ref="3", type="part", active=True,
+        )
+        for part, tag, name in [
+            (conferences, "C005", "vbac"),
+            (
+                conferences, "C006",
+                "xxii-egd-2026",
+            ),
+            (theory, "C001", "pde"),
+            (seminars, "C002", "seminars-others"),
+            (
+                seminars, "C003",
+                "seminars-analysis-pde",
+            ),
+            (seminars, "C004", "seminars-new"),
+        ]:
+            chapter = Tag.create(
+                tag=tag, label="chapter-" + name,
+                ref=tag[-1], type="chapter",
+                active=True, name=name,
+            )
+            Part.create(
+                part=part, chapter=chapter
+            )
+
+    def test_browse_hides_seminars(self):
+        self.make_parts()
+        with patch.object(
+            application, "render_template",
+            return_value="Contents",
+        ) as render:
+            response = app.test_client().get(
+                "/browse"
+            )
+        self.assertEqual(
+            response.status_code, 200
+        )
+        parts = render.call_args.kwargs[
+            "parts"
+        ]
+        self.assertEqual(
+            [p.label for p in parts],
+            ["part-analysis"],
+        )
+
+    def test_seminars_page_lists_by_subject(
+        self,
+    ):
+        self.make_parts()
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        (
+            Path(tmp.name)
+            / "seminars-others.pdf"
+        ).write_bytes(b"%PDF-1.4 test")
+        patcher = patch.object(
+            seminars_view, "DOWNLOADS",
+            tmp.name,
+        )
+        patcher.start()
+        self.addCleanup(patcher.stop)
+        with patch.object(
+            seminars_view, "render_template",
+            return_value="Seminars",
+        ) as render:
+            response = app.test_client().get(
+                "/seminars"
+            )
+        self.assertEqual(
+            response.status_code, 200
+        )
+        subjects = render.call_args.kwargs[
+            "subjects"
+        ]
+        self.assertEqual(
+            [
+                (
+                    subject,
+                    [c.tag for c in chapters],
+                )
+                for subject, chapters
+                in subjects
+            ],
+            [
+                ("Analysis and PDE", ["C003"]),
+                (
+                    "Other subjects",
+                    ["C002", "C004"],
+                ),
+            ],
+        )
+        others = subjects[1][1][0]
+        self.assertEqual(
+            others.pdf, "seminars-others.pdf"
+        )
+        self.assertIsNone(subjects[1][1][1].pdf)
+
+    def test_conferences_page_lists_by_subject(
+        self,
+    ):
+        self.make_parts()
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        (
+            Path(tmp.name) / "vbac.pdf"
+        ).write_bytes(b"%PDF-1.4 test")
+        patcher = patch.object(
+            seminars_view, "DOWNLOADS",
+            tmp.name,
+        )
+        patcher.start()
+        self.addCleanup(patcher.stop)
+        with patch.object(
+            conferences_view, "render_template",
+            return_value="Conferences",
+        ) as render:
+            response = app.test_client().get(
+                "/conferences"
+            )
+        self.assertEqual(
+            response.status_code, 200
+        )
+        subjects = render.call_args.kwargs[
+            "subjects"
+        ]
+        self.assertEqual(
+            [
+                (
+                    subject,
+                    [c.tag for c in chapters],
+                )
+                for subject, chapters
+                in subjects
+            ],
+            [
+                (
+                    "Differential geometry",
+                    ["C006"],
+                ),
+                ("Algebraic geometry", ["C005"]),
+            ],
+        )
+        self.assertEqual(
+            subjects[1][1][0].pdf, "vbac.pdf"
         )
 
     def test_published_pdf_downloads(self):

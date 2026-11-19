@@ -153,6 +153,17 @@ def show_statistics():
   return render_template("single/statistics.html", total=total, counts=counts, extras=extras, records=records)
 
 
+# The Seminars and Conferences parts are listed
+# at /seminars and /conferences, not in the
+# table of contents.
+SEMINARS_PART_LABEL = "part-seminars"
+CONFERENCES_PART_LABEL = "part-conferences"
+HIDDEN_PART_LABELS = (
+  SEMINARS_PART_LABEL,
+  CONFERENCES_PART_LABEL,
+)
+
+
 @app.route("/browse")
 def show_chapters():
   # part is top-level
@@ -162,6 +173,7 @@ def show_chapters():
       Tag.select().join(Part, on=Part.part)
       .distinct()
     )
+    parts = [part for part in parts if part.label not in HIDDEN_PART_LABELS]
 
     for part in parts:
       part.chapters = sorted([chapter.chapter for chapter in chapters if chapter.part.tag == part.tag])
@@ -201,3 +213,5 @@ import gerby.views.tag
 # Heap Project specific pages
 import gerby.views.stacks
 import gerby.views.slides
+import gerby.views.seminars
+import gerby.views.conferences

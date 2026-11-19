@@ -193,6 +193,86 @@ sum expression.
 
 
 
+\section{Can Machines Prove Theorems?
+Two Case Studies in AI-Assisted
+Mathematics}
+\label{section-swaminathan-ai-lean}
+
+The notes below are reproduced verbatim
+from my notes taken at IMPA, including
+their original wording and shorthand.
+They are my notes, not a verbatim
+transcript of the speaker's words.
+
+Ashvin Swaminathan (Harvard University),
+\emph{Can Machines Prove Theorems?
+Two Case Studies in AI-Assisted
+Mathematics}, Centro Pi seminar, IMPA,
+19 June 2026, 13:30, Auditorium 3.
+Source:
+\href{https://seminarios.impa.br/%
+visualizar/10500}{IMPA announcement},
+checked on 29 October 2026.
+
+\medskip
+
+Formal proof :=
+every phrase can be computer checked.
+
+Proof assistant :=
+programming language precise enough
+to encode each proof step.
+
+Lean. Needs libraries. 
+Mathlib if a library of functions and
+deftinitions (formalizations)
+of mathematical concepts.
+Currently = 115L defs vs 232K thms.
+It's a language to write proofs that
+computer can check.
+Proof is written as code;
+trusted kernel checks it has no gaps.
+If it compiles, it's 100% correct.
+Created by Leonardo de Moura
+(from PUC-Rio!).
+
+Proof that addition is commutative:
+
+\begin{verbatim}
+theorem add_comm( a b : Nat) : a+b=b+a:= by
+induction b with
+|zero => simp
+|succ n ih =>rw[Nat.add_succ,ih,Nat.succ_add]
+\end{verbatim}
+
+simp means simplifiy
+n+1 is denoted succ
+
+sorry := it's an axiom
+
+Proving := the agentic loop converges.
+
+Example: 14,500 lines of Lean, 25 files.
+Make the verifiable proof + check examples.
+
+Claude Code = creative
+Codex = more formal
+
+-> there is not a very big infrastructure
+for Lean these days!
+
+Idea: combine codex + Lean.
+This is what an "automated prover" does,
+e.g. Aritstotle: leverage LLM
+to create proofs in Lean.
+Also AxiomProver.
+
+
+Need to search mathlib to know what is already
+available! Probably there's more
+number theory/combinatorics than
+geometry/topology (as of today).
+
 \section{Vertex Algebras and the Monster}
 \label{section-vertex-algebras-monster}
 
