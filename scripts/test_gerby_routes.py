@@ -533,6 +533,7 @@ class ContentsAndDownloadsTests(
         for name in [
             "seminars-analysis-pde",
             "seminars-differential-geometry",
+            "seminars-symplectic-geometry",
             "seminars-complex-geometry",
             "seminars-algebraic-geometry",
             "seminars-algebra",

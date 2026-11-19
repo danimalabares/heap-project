@@ -11,6 +11,7 @@ from gerby.database import Part, Tag
 SUBJECTS = [
   ("Analysis and PDE", ["seminars-analysis-pde"]),
   ("Differential geometry", ["seminars-differential-geometry"]),
+  ("Symplectic geometry", ["seminars-symplectic-geometry"]),
   ("Complex geometry", ["seminars-complex-geometry"]),
   ("Algebra", ["seminars-algebra"]),
   ("Algebraic geometry", ["seminars-algebraic-geometry"]),
