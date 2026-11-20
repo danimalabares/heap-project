@@ -404,9 +404,121 @@ This is not obvious: the new terms \(tH_i+\cdots\) of the other twelve need not 
 \src{v4, Section 3.2, proves step 3 in a formal neighbourhood of each point \(Q\) of the triangle. \textcolor{red}{I will confirm this slide later.}}
 \end{frame}
 
+\begin{frame}{From four equations to one}
+\textbf{Where we are.} Four equations, \(F_3,\ F_{12},\ F_9,\ F_7\), on the open set \(b,e,h\ne0\).
+\par\smallskip
+\textbf{Coordinates.} Since \(b\ne0\), we set \(b=1\). We write \(e=u\), \(h=v\), so \(u,v\ne0\). Seven coordinates remain:
+\[
+a,\ c,\ g,\ d,\ f,\ u,\ v.
+\]
+\textbf{At \(t=0\).} The four equations are the four monomials. In the old and in the new notation:
+\[
+\begin{array}{l@{\quad}l@{\qquad\qquad}l@{\quad}l}
+F_3:& abh=v\,a & F_9:& beg=u\,g\\[4pt]
+F_{12}:& ceh=uv\,c & F_7:& bdf=df
+\end{array}
+\]
+So the equations are
+\[
+v\,a=0,\qquad uv\,c=0,\qquad u\,g=0,\qquad df=0.
+\]
+Divide the first three by \(u\) and \(v\): they say \(a=0,\ c=0,\ g=0\).
+\par\medskip
+What is left is one equation, \(df=0\), in the coordinates \(d,f,u,v\).
+\end{frame}
+
+\begin{frame}{Solving for \(a,\ c,\ g\)}
+\textbf{Where we are.} Near \(Q\) the family is the zero locus of \(F_3,\ F_{12},\ F_9,\ F_7\), in the coordinates \(a,c,g,d,f,u,v\) and the parameter \(t\).
+\par
+\textbf{At \(t=0\)} (last slide). Three equations, \(F_3=v\,a=0\), \(F_{12}=uv\,c=0\), \(F_9=u\,g=0\), said
+\[
+a=0,\qquad c=0,\qquad g=0;
+\]
+one was left, \(F_7=df=0\).
+\par
+\textbf{Now with \(t\).} There will be \(A,\ C,\ G\) in \(d,f,u,v,t\) only, zero at \(t=0\), with
+\[
+\boxed{F_3=F_{12}=F_9=0\quad\Longleftrightarrow\quad a=A,\quad c=C,\quad g=G.}
+\]
+\textbf{These are two claims.}
+\begin{itemize}
+\setlength{\itemsep}{0pt}
+\item[\(\Rightarrow\)] If the three equations hold, then \(a,c,g\) must be \(A,C,G\).
+\item[\(\Leftarrow\)] If we set \(a=A,\ c=C,\ g=G\), then the three equations hold.
+\end{itemize}
+At \(t=0\) both are clear, since \(u,v\ne0\). With \(t\), both need a proof.
+\par
+\textbf{What this gives.} A point of the family depends only on \(d,f,u,v,t\).
+\end{frame}
+
+\begin{frame}{A toy example: what \(A\) looks like}
+A made-up equation of the same shape as \(F_3\) (it is not \(F_3\)), with \(v\ne0\):
+\[
+\boxed{v\,a+t\,(d+a^2)=0.}
+\]
+\textbf{At \(t=0\):} \(v\,a=0\), so \(a=0\).
+\par\smallskip
+\textbf{With \(t\):} try \(a=a_1t+a_2t^2+a_3t^3+\cdots\) and compare powers of \(t\):
+\begin{itemize}
+\setlength{\itemsep}{2pt}
+\item \(t^1\): \(\ v\,a_1+d=0\), so \(a_1=-d/v\).
+\item \(t^2\): \(\ v\,a_2=0\), so \(a_2=0\).
+\item \(t^3\): \(\ v\,a_3+a_1^2=0\), so \(a_3=-d^2/v^3\).
+\end{itemize}
+Each step divides by \(v\) and uses only the earlier steps. It never stops:
+\[
+a=A=-\frac dv\,t-\frac{d^2}{v^3}\,t^3-\cdots
+\]
+\textbf{This infinite sum is a power series in \(t\).} It is how we write \(A\) when there is no finite formula. It is allowed because our equations are already power series in \(t\): \(F_i=m_i+tH_i+\cdots\)
+\end{frame}
+
+\begin{frame}{Solving the three equations for \(a,\ c,\ g\)}
+\textbf{The real equations.}
+\[
+F_3=v\,a+t(\cdots),\qquad F_{12}=uv\,c+t(\cdots),\qquad F_9=u\,g+t(\cdots).
+\]
+\textbf{The same procedure as in the toy example.} Write \(a=a_1t+a_2t^2+\cdots\), and the same for \(c\) and \(g\). Compare powers of \(t\). At order \(t^n\) the three equations say
+\[
+v\,a_n+(\text{earlier})=0,\qquad uv\,c_n+(\text{earlier})=0,\qquad u\,g_n+(\text{earlier})=0,
+\]
+where ``earlier'' only involves \(a_k,c_k,g_k\) with \(k<n\). Divide by \(v,\ uv,\ u\).
+\par\smallskip
+\textbf{Why it works.} Every term other than \(v\,a,\ uv\,c,\ u\,g\) has a factor \(t\), and \(v,\ uv,\ u\) are nonzero.
+\par\smallskip
+\textbf{Result.} There is a solution (\(\Leftarrow\)) and only one (\(\Rightarrow\)); its coefficients are polynomials in \(d,f,u,v,\tfrac1u,\tfrac1v\):
+\[
+\boxed{a=A=t(\cdots),\qquad c=C=t(\cdots),\qquad g=G=t(\cdots).}
+\]
+\src{This is the implicit function theorem for power series; its hypothesis is that \(v,uv,u\) are nonzero. v4, Section 4.}
+\end{frame}
+
+\begin{frame}{Next steps}
+\centering
+{\Large Prove the two implications, or move on and prove them later?}
+\end{frame}
+
 \begin{frame}
 \centering
 {\Huge Archive}
+\end{frame}
+
+\begin{frame}{Why only \(F_7\) is left}
+\textbf{A small example first.} Two equations in \(x,y\):
+\[
+y=x^2,\qquad x+y=3.
+\]
+The first tells us what \(y\) is; it puts no condition on \(x\). Put \(y=x^2\) in the second: \(x+x^2=3\), the only condition on \(x\).
+\par\medskip
+\textbf{Our four equations.} A point \((a,c,g,d,f,u,v,t)\) is in the family when
+\[
+F_3=0,\qquad F_{12}=0,\qquad F_9=0,\qquad F_7=0.
+\]
+\textbf{The first three.} By \(\Rightarrow\) (last slide) they tell us what \(a,c,g\) are: \(A,C,G\). By \(\Leftarrow\) they put no condition on \(d,f,u,v,t\): for any \(d,f,u,v,t\), setting \(a=A,\ c=C,\ g=G\) makes them zero.
+\par\medskip
+\textbf{The fourth.} Put \(a=A,\ c=C,\ g=G\) in \(F_7\). It becomes an equation in \(d,f,u,v,t\) only, and it is the only condition on them:
+\[
+\boxed{\text{the family near } Q=\{(d,f,u,v,t)\ :\ F_7(A,C,G,d,f,u,v,t)=0\}.}
+\]
 \end{frame}
 
 \begin{frame}{A dummy example: how the contradiction works}
