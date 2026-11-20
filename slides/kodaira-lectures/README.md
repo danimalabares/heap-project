@@ -1,6 +1,5 @@
 # Kodaira lectures
 
-The original nine-slide outline is preserved unchanged in [plan/slides.tex](plan/slides.tex).
 
 | Folder | Draft | Slides |
 | --- | --- | ---: |
@@ -25,7 +24,7 @@ pdflatex -interaction=nonstopmode -halt-on-error lecture-23.tex
 pdflatex -interaction=nonstopmode -halt-on-error lecture-23.tex
 ```
 
-For lecture 24, use folder `lecture-24` and source `lecture-24.tex`; for the outline, use folder `plan` and source `slides.tex`. The lecture outputs are `lecture-23/lecture-23.pdf` and `lecture-24/lecture-24.pdf`. Compiled PDFs remain local, following the repository's existing PDF ignore rule.
+For lecture 24, use folder `lecture-24` and source `lecture-24.tex`. The lecture outputs are `lecture-23/lecture-23.pdf` and `lecture-24/lecture-24.pdf`. Compiled PDFs remain local, following the repository's existing PDF ignore rule.
 
 ## Mathematical scope
 
