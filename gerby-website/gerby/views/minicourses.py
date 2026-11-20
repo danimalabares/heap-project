@@ -29,7 +29,7 @@ EVENTS = [
 ]
 
 LECTURERS = {
-  "quantum-groups": "Artem",
+  "quantum-groups": "Artem Kalmykov",
   "bridgeland-stability-general-theory": "Cristian Martinez",
   "geometric-stability-conditions-and-group-actions": "Hannah Dell",
   "moduli-spaces-of-sheaves": "Cristina Manolache",
