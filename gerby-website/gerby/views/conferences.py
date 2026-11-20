@@ -16,6 +16,7 @@ SUBJECTS = [
     "16th-alga-meeting-2026",
     "iv-jornadas-lefschetz-2026",
     "vbac",
+    "legal-2027",
   ]),
   ("Several areas of mathematics", ["oktobermat-2024", "oktobermat-2026"]),
   ("Economics", ["saet-2026"]),

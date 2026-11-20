@@ -88,6 +88,7 @@ KNOWN_CHAPTERS = {
     "seminars-dynamics",
     "oktobermat-2024",
     "quantum-groups",
+    "legal-2027",
 }
 
 
