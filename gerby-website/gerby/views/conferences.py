@@ -3,14 +3,14 @@ from flask import render_template
 from gerby.application import CONFERENCES_PART_LABEL, app
 from gerby.views.seminars import load_part_by_subject
 
-# Subjects in display order, with the notebook
+# Subjects in display order (by date of their first conference), with the notebook
 # (chapter file name without .tex) of each.
 SUBJECTS = [
   ("Differential geometry", [
     "cimpa-el-salvador-2024",
     "xxii-egd-2026",
   ]),
-  ("Analysis and PDE", ["waves-in-fluids-iv"]),
+  ("Several areas of mathematics", ["oktobermat-2024", "oktobermat-2026"]),
   ("Algebraic geometry", [
     "hodge-birational-atoms-2026",
     "16th-alga-meeting-2026",
@@ -18,8 +18,8 @@ SUBJECTS = [
     "vbac",
     "legal-2027",
   ]),
-  ("Several areas of mathematics", ["oktobermat-2024", "oktobermat-2026"]),
   ("Economics", ["saet-2026"]),
+  ("Analysis and PDE", ["waves-in-fluids-iv"]),
 ]
 
 
