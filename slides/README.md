@@ -25,12 +25,12 @@ folder, or with `latexmk -pdf <deck>.tex` inside the deck folder.
 - Slides are published on the website. Every deck listed in
   `slides/index.json` is built by `make gerby-slides`
   (`scripts/build_slides.py`) into `gerby/downloads/slides/` and appears on
-  the page `/slides`, with a link to its PDF and to its TeX source. The
+  the page `/talks` (formerly `/slides`), with a link to its PDF and to its TeX source. The
   deployment runs this step and does not fail if a deck fails to build: the
   page then shows that deck without a PDF link.
 - To publish a new deck, add it to `slides/index.json`. The manifest is one
   list: an entry is a deck (`path` is `<series>/<deck>`) or a group with a
-  `title` and a list `decks`. The page `/slides` is that list and nothing
+  `title` and a list `decks`. The page `/talks` is that list and nothing
   else. Keep it that way: simple, just a list, provide the data.
 - Do not name a file `beamer-preamble.tex`: `.gitignore` ignores that name.
   Use `preamble.tex`.

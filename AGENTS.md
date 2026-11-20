@@ -94,7 +94,7 @@ They are not chapters: do not add them to
 (no macros, 45-character lines, no text in
 equations) do not apply inside `slides/`.
 Decks listed in `slides/index.json` are
-published on the website at `/slides`.
+published on the website at `/talks`.
 
 Generated files and directories such as
 `gerby/`, `tmp/`, `.venv/`, and build

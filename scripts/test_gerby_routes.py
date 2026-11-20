@@ -555,6 +555,16 @@ class ContentsAndDownloadsTests(
                 sections, recorded, name
             )
 
+    def test_talks_page_and_old_slides_url(self):
+        client = app.test_client()
+        page = client.get("/talks")
+        self.assertEqual(page.status_code, 200)
+        old = client.get("/slides")
+        self.assertEqual(old.status_code, 301)
+        self.assertTrue(
+            old.headers["Location"].endswith("/talks")
+        )
+
     def test_standalone_page_and_old_urls(self):
         client = app.test_client()
         page = client.get("/standalone")

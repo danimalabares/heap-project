@@ -1,7 +1,7 @@
 import json
 import os.path
 
-from flask import render_template
+from flask import redirect, render_template
 
 from gerby.application import app
 from gerby.configuration import DOWNLOADS, ROOT
@@ -26,6 +26,12 @@ def load_slides():
   return index
 
 
-@app.route("/slides")
+@app.route("/talks")
 def show_slides():
   return render_template("single/slides.html", slides=load_slides())
+
+
+@app.route("/slides")
+def redirect_slides():
+  """The page was called /slides."""
+  return redirect("/talks", code=301)
