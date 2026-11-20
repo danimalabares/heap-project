@@ -6,34 +6,190 @@
 \begin{frame}\titlepage\end{frame}
 
 \begin{frame}{Provisional: definitions and the problem}
-\textbf{Provisional slide.} It stands for the whole part of the talk on the definitions and the problem:
-\begin{itemize}
-\setlength{\itemsep}{10pt}
-\item Stanley--Reisner schemes and smoothings, with examples.
-\item Grünbaum's sphere \cite{GS} and why its smoothing matters \cite{AC}.
-\item The question, and the statement of the result.
-\end{itemize}
+\textbf{Input.} Nothing: this is the background.
+\par\bigskip
+\textbf{Output.} The scheme \(\SR(\mathcal M)\subset\Pj^7\) of Grünbaum's sphere \cite{GS}, given by sixteen cubics \(m_1,\dots,m_{16}\); its symmetry group \(G\simeq S_3\), computed from the cubics: all permutations of the eight vertices that preserve them; the question whether it smooths to a Calabi--Yau threefold \cite{AC}.
 \end{frame}
 
 \begin{frame}{Provisional: the \(G\)-invariance argument}
-\textbf{Provisional slide.} It stands for the argument with the symmetry group \(G\simeq S_3\), which ends at the smoothing step:
-\begin{itemize}
-\setlength{\itemsep}{10pt}
-\item The obstruction space has no \(G\)-invariants.
-\item Every equivariant first-order deformation extends to all orders.
-\item The first-order deformation, and the forced second-order terms.
-\end{itemize}
-The talk then continues with the proof that the generic fibre is smooth.
+\textbf{What we are doing.} We obtain a formal family by extending a \(G\)-equivariant first-order deformation to all orders.
+\par\bigskip
+\textbf{Input.} The ideal \(I=(m_1,\dots,m_{16})\), and a \(G\)-equivariant first-order deformation \(m_i+tH_i\) that was obtained computationally.
+\par\bigskip
+\textbf{Output.} A formal deformation: a flat \(G\)-equivariant family \(\mathcal X\to\operatorname{Spec}\C[[t]]\) with special fibre \(\SR(\mathcal M)\), with generators \[F_i=m_i+tH_i+t^2K_i+O(t^3).\]
+\par\bigskip
+\textbf{Note.} Recall that the base \(\operatorname{Spec}\C[[t]]\) is topologically two points: the closed point \((t)\) and the generic point \((0)\).
 \end{frame}
 
 \begin{frame}{Provisional: specialization}
-\textbf{Provisional slide.} It stands for the first step of the smoothness proof:
+\textbf{What we are doing.} This is where the proof that the generic fibre is smooth starts. We argue by contradiction: assume there is a singular point \(P\) on the generic fibre, and specialize it to the special fibre.
+\par\bigskip
+\textbf{Input.} The family \(\mathcal X\to\operatorname{Spec}\C[[t]]\), and a \emph{hypothetical} singular point \(P\) of its generic fibre.
+\par\bigskip
+\textbf{Output.} If \(P\) existed: a singular point \(Q\) of the special fibre \(\SR(\mathcal M)\) with \(P\leadsto Q\). So \(Q\) lies on a triangle, an edge or a vertex of \(\mathcal M\).
+\par\bigskip
+\textbf{Reminder.} \(P\leadsto Q\) means \(Q\in\overline{\{P\}}\): the point \(Q\) is a specialization of \(P\).
+\src{Stacks Project, Definition 5.19.1, Tag 0061.}
+\end{frame}
+
+\begin{frame}{Provisional: the manoeuvre}
+\textbf{What we are doing.} We describe the same family near \(Q\) with fewer equations and fewer coordinates.
+\par\bigskip
+\textbf{Input.} The family near \(Q\): sixteen equations \(F_1,\dots,F_{16}\) in seven affine coordinates.
+\par\bigskip
+\textbf{Two operations.}
+\begin{enumerate}
+\setlength{\itemsep}{8pt}
+\item \emph{Discard.} If some of the sixteen cubics already generate the special fibre near \(Q\), then their deformed versions generate the family near \(Q\). This uses flatness and Nakayama.
+\item \emph{Solve.} Some of the remaining equations can be solved for some of the coordinates, by the implicit function theorem. Those coordinates disappear.
+\end{enumerate}
+\par\bigskip
+\textbf{Output.} A few equations in a few coordinates, near \(Q\).
+\end{frame}
+
+\begin{frame}{A particular case: \(Q\) on the triangle \(beh\)}
+\textbf{The ambient space.} \(\Pj^7\), with eight homogeneous coordinates
+\[
+[a:b:c:d:e:f:g:h].
+\]
+\textbf{The special fibre.} \(\SR(\mathcal M)\): the points where the sixteen monomials vanish.
+\par\medskip
+\textbf{The hypothesis.} \(P\) is a singular point of the generic fibre. We want a contradiction.
+\par\medskip
+\textbf{Its specialization.} \(P\leadsto Q\), and \(Q\) is a singular point of the special fibre. It can land on any triangle, edge or vertex of \(\mathcal M\).
+\par\medskip
+\textbf{Now consider the following particular case.} \(Q\) lands on the triangle \(beh\): the coordinates of \(Q\) in the slots \(b,e,h\) are nonzero, and the other five are zero:
+\[
+\boxed{Q=[\,0:b:0:0:e:0:0:h\,],\qquad b,e,h\ne0.}
+\]
+The nonzero slots \(\{b,e,h\}\) are a triangle of \(\mathcal M\). The other cases come later.
+\end{frame}
+
+
+\begin{frame}{Picture: the triangle \(beh\) inside \(\mathcal M\)}
+\begin{columns}[c]
+\begin{column}{0.48\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.95,line join=round]
+\coordinate (b) at (-0.6,-1.7);
+\coordinate (h) at (-0.2,1.7);
+\coordinate (e) at (1.1,0.2);
+\coordinate (d) at (-2.6,0.1);
+\coordinate (f) at (2.8,-0.1);
+\fill[gray!35] (b)--(e)--(h)--cycle;
+\draw (d)--(b) (d)--(h) (d)--(e);
+\draw (f)--(b) (f)--(h) (f)--(e);
+\draw[very thick] (b)--(e)--(h)--cycle;
+\fill (-0.05,-0.55) circle (1.6pt) node[right]{\(Q\)};
+\node[below] at (b) {\(b\)};
+\node[above] at (h) {\(h\)};
+\node[below right] at (e) {\(e\)};
+\node[left] at (d) {\(d\)};
+\node[right] at (f) {\(f\)};
+\node at (-1.9,-1.4) {\(bdeh\)};
+\node at (1.9,-1.4) {\(befh\)};
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{In the sphere \(\mathcal M\).} The triangle \(beh\) (grey) is a face of exactly two tetrahedra: \(bdeh\) and \(befh\).
+\par\medskip
+\textbf{In \(\Pj^7\).}
 \begin{itemize}
-\setlength{\itemsep}{10pt}
-\item The family \(\mathscr X\to\operatorname{Spec}\C[[t]]\), its generic fibre and its special fibre \(\SR(\mathcal M)\).
-\item A singular point of the generic fibre specializes to a singular point of the special fibre.
-\item So it lands on a triangle, an edge or a vertex of \(\mathcal M\).
+\setlength{\itemsep}{6pt}
+\item each tetrahedron is a \(\Pj^3\);
+\item the triangle is the \(\Pj^2\) where they meet;
 \end{itemize}
+\end{column}
+\end{columns}
+\src{\textcolor{red}{I did not verify this picture.}}
+\end{frame}
+
+\begin{frame}{Picture: \(\mathcal M\) seen from the vertex \(b\)}
+\begin{columns}[c]
+\begin{column}{0.5\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.8,line join=round]
+\coordinate (g) at (0,3.3);
+\coordinate (f) at (-3.7,-2.3);
+\coordinate (h) at (3.7,-2.3);
+\coordinate (c) at (0,1.3);
+\coordinate (e) at (-0.9,-1.2);
+\coordinate (d) at (1.3,-0.1);
+\coordinate (a) at (0.15,0.05);
+\fill[gray!35] (e)--(f)--(h)--cycle;
+\fill[gray!35] (d)--(e)--(h)--cycle;
+\draw (f)--(g)--(h)--cycle;
+\draw (c)--(f) (c)--(g) (c)--(h) (c)--(e) (c)--(d) (c)--(a);
+\draw (e)--(f) (d)--(h) (d)--(e) (a)--(d) (a)--(e);
+\draw[very thick] (e)--(h);
+\foreach \p/\pos in {g/above,f/below left,h/below right,c/above right,e/below left,d/above right,a/left}
+  \fill (\p) circle (1.5pt) node[\pos]{\(\p\)};
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.48\textwidth}
+The vertex \(b\) is joined to the other seven vertices. Looking from \(b\), we see a triangulated \(2\)-sphere on \(a,c,d,e,f,g,h\), drawn flat here. The outside region \(fgh\) is also a triangle.
+\par\medskip
+\textbf{Our case.} The thick edge \(eh\) is the triangle \(beh\). The two grey triangles \(deh\) and \(efh\) are the tetrahedra \(bdeh\) and \(befh\).
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Working locally: the equations near \(Q\)}
+\textbf{The open set.} We replace \(\Pj^7\) by the points with \(b,e,h\ne0\). This contains \(Q\), and being singular at \(Q\) is a local question.
+\par\medskip
+\textbf{The equations.} On this open set, the sixteen monomials have the same zeros as four equations:
+\[
+\boxed{a=0,\qquad c=0,\qquad g=0,\qquad df=0.}
+\]
+For example \(abh=0\) gives \(a=0\), because \(b,h\ne0\).
+\par\medskip
+\textbf{The zeros.} \(df=0\) means \(d=0\) or \(f=0\). Two cases:
+\begin{center}
+\begin{tabular}{lll}
+\(d=0\):&\([\,0:b:0:0:e:f:0:h\,]\)&a \(\Pj^3\), free slots \(b,e,f,h\): the tetrahedron \(befh\)\\[3pt]
+\(f=0\):&\([\,0:b:0:d:e:0:0:h\,]\)&a \(\Pj^3\), free slots \(b,d,e,h\): the tetrahedron \(bdeh\)\\[3pt]
+both:&\([\,0:b:0:0:e:0:0:h\,]\)&a \(\Pj^2\), free slots \(b,e,h\): the triangle \(beh\)
+\end{tabular}
+\end{center}
+\textbf{Where \(Q\) is.} Near \(Q\) the special fibre is two \(\Pj^3\)'s glued along a \(\Pj^2\). \(Q\) is one point of that \(\Pj^2\). It is not the only zero, and every point of the \(\Pj^2\) is a singular point.
+\end{frame}
+
+\begin{frame}{The manoeuvre for the triangle \(beh\)}
+\textbf{Coordinates.} Put \(b=1\), \(e=u\), \(h=v\) (units), \(d=U\), \(f=V\).
+\par\medskip
+\textbf{Discard.} At \(t=0\), four of the sixteen cubics become
+\[
+abh=v\,a,\qquad ceh=uv\,c,\qquad beg=u\,g,\qquad bdf=UV.
+\]
+The other twelve lie in \((a,c,g,UV)\); for example \(def=u\cdot UV\). So four equations remain: \(F_3,\ F_{12},\ F_9,\ F_7\).
+\par\medskip
+\textbf{Solve.} \(F_3,F_{12},F_9\) start with \(va,\ uvc,\ ug\). Their derivative matrix in \(a,c,g\) is \(\operatorname{diag}(v,uv,u)\), invertible. So they give \(a,c,g\) as series in \(t,U,V\), each divisible by \(t\).
+\par\medskip
+\textbf{Substitute into \(F_7\).} \(F_7=bdf+t(10acd+10cfg)+t^2K_7+\cdots\). Each term of \(10acd+10cfg\) has two of \(a,c,g\), so no \(t\)-term survives:
+\[
+\boxed{f(U,V,u,v,t)=UV+t^2p(u,v)+\cdots}
+\]
+Sixteen equations in seven coordinates became one equation in four.
+\end{frame}
+
+\begin{frame}{A dummy example: how the contradiction works}
+Take the family over \(\C[[t]]\) given by one equation:
+\[
+\boxed{f(x,y,t)=xy-t^2.}
+\]
+\textbf{Special fibre} (\(t=0\)): \(xy=0\), two lines, singular at the origin.
+\par\medskip
+\textbf{Generic fibre} (\(t\) invertible): suppose \(P\) is a singular point. On a fixed fibre \(t\) is a constant, so we differentiate only in \(x\) and \(y\):
+\[
+f_x=y=0,\qquad f_y=x=0.
+\]
+But \(P\) also satisfies \(f=0\). Substituting \(x=y=0\) gives
+\[
+\boxed{0=t^2,}
+\]
+which is impossible when \(t\) is invertible. So the generic fibre is smooth.
+\par\medskip
+\textbf{For the triangle:} the same three steps, with \(UV+t^2p(u,v)\) in place of \(xy-t^2\).
 \end{frame}
 
 %% Frames taken out for now (kept for later): question, plan, SR schemes,
@@ -48,7 +204,6 @@ Let \(\mathcal M\) be Grünbaum's triangulated \(3\)-sphere with \(8\) vertices.
 \textbf{Today.} A proposed proof that the answer is yes, and one local case of it carried out completely.
 \par\bigskip
 \textbf{Status.} The proof was assembled with AI help and checked only by an AI audit. No human referee has verified it.
-\src{\textcolor{red}{Red means: I did not verify this.}}
 \end{frame}
 
 \begin{frame}{Plan}
@@ -116,7 +271,6 @@ If \(\mathcal K\) triangulates a \(3\)-sphere, \(\SR(\mathcal K)\) is a union of
 Altmann--Christophersen \cite{AC} relate the smoothings of such schemes to Calabi--Yau geometry.
 \par\medskip
 Today's theorem proves the Calabi--Yau properties directly, for one complex.
-\src{\textcolor{red}{I did not verify the precise statement in \cite{AC}.}}
 \end{frame}
 
 \begin{frame}{Grünbaum's sphere}
@@ -132,7 +286,7 @@ Vertices \(a,\dots,h\). The Stanley--Reisner ideal is generated by sixteen cubic
 \(\SR(\mathcal M)\subset\Pj^7\) has dimension \(3\) and degree \(20\).
 \par\medskip
 \textbf{Symmetry.} \(G\simeq S_3\), generated by \((b\,h)(c\,g)(d\,f)\) and \((a\,c)(b\,e)(d\,f)\). Vertex orbits: \(\{a,c,g\}\), \(\{b,e,h\}\), \(\{d,f\}\).
-\src{Grünbaum--Sreedharan, Table 4, p.~461. \textcolor{red}{I did not recheck the list against the table.}}
+\src{Grünbaum--Sreedharan, Table 4, p.~461.}
 \end{frame}
 
 \begin{frame}{The result (proposed proof)}
@@ -147,7 +301,6 @@ K_Y\simeq\cO_Y,\quad H^1(\cO_Y)=H^2(\cO_Y)=0,\quad H^3=20,\quad c_2\cdot H=56.
 \end{enumerate}
 \end{theorem}
 \textbf{Not claimed:} Hodge numbers, fundamental group, uniqueness, or that \(Y\) is the Gulliksen--Negård threefold.
-\unv
 \end{frame}
 
 \begin{frame}{Strategy of the proof}
@@ -159,7 +312,6 @@ K_Y\simeq\cO_Y,\quad H^1(\cO_Y)=H^2(\cO_Y)=0,\quad H^3=20,\quad c_2\cdot H=56.
 \item \textbf{No singular points.} A singular point of the generic fibre would specialize to a point of \(\SR(\mathcal M)\). Rule this out face by face: triangles, edges, vertices.
 \item \textbf{Curve selection} makes the formal family algebraic; Riemann--Roch gives the invariants.
 \end{enumerate}
-\unv
 \end{frame}
 
 \begin{frame}{Step 2: the first-order deformation}
@@ -175,10 +327,7 @@ Flatness needs \(p\cdot\operatorname{lcm}(m_1,m_j)/q\in I\) for \(j\notin J\). H
 \[
 ace\cdot d\in(cde),\qquad ace\cdot g\in(ceg),\qquad ace\cdot h\in(ceh).
 \]
-\unv
 \end{frame}
-\fi
-
 \begin{frame}{The triangle \(beh\): local equations}
 Near the points with \(b,e,h\ne0\) and all other coordinates zero, put
 \[
@@ -193,8 +342,98 @@ The first three equations are solved for \(a,c,g\); their derivative matrix is \
 with \emph{no \(t\)-term}, and \(p(u,v)=-8u^2-20uv-8v^2-20u-20v-8\).
 \par\medskip
 Compare \(xy-t^2\): same shape.
-\src{\textcolor{red}{I did not verify this slide. The formula for \(p\) is taken from the manuscript.}}
 \end{frame}
+\begin{frame}{Triangle \(beh\): coordinates near \(Q\)}
+Homogeneous coordinates are defined up to scaling, and \(b\ne0\) at \(Q\). So we divide by \(b\):
+\[
+b=1.
+\]
+Seven affine coordinates remain: \(a,c,d,e,f,g,h\).
+\par\medskip
+\begin{center}
+\begin{tabular}{lll}
+\textbf{Coordinates}&\textbf{At \(Q\)}&\textbf{New name}\\[3pt]
+\(e,\ h\)&nonzero&\(e=u,\ h=v\)\\[3pt]
+\(d,\ f\)&zero&\(d=U,\ f=V\)\\[3pt]
+\(a,\ c,\ g\)&zero&same names
+\end{tabular}
+\end{center}
+\par\medskip
+So \(u,v\) move \(Q\) along the triangle, and \(a,c,g,U,V\) measure how far a point is from the triangle.
+\par\medskip
+Near \(Q\) the functions \(u\) and \(v\) are invertible. We call them \emph{units}.
+\end{frame}
+
+\begin{frame}{Triangle \(beh\): discard}
+The sixteen monomials in the new coordinates (\(b=1\), \(e=u\), \(h=v\), \(d=U\), \(f=V\)):
+\[
+\begin{array}{llll}
+abf=aV&abg=ag&\boxed{abh=v\,a}&acg=acg\\[2pt]
+ach=v\,ac&adh=v\,aU&\boxed{bdf=UV}&bdg=Ug\\[2pt]
+\boxed{beg=u\,g}&cde=u\,cU&ceg=u\,cg&\boxed{ceh=uv\,c}\\[2pt]
+cfh=v\,cV&def=u\,UV&dfh=v\,UV&efg=u\,Vg
+\end{array}
+\]
+Since \(u,v\) are units, the four boxed ones give \(a,\ c,\ g,\ UV\). Each of the other twelve is a multiple of one of these four.
+\par\medskip
+So near \(Q\) the special fibre is given by four equations: \(a=c=g=0\), \(UV=0\).
+\par\medskip
+\textbf{For the family:} the four deformed equations \(F_3,\ F_{12},\ F_9,\ F_7\) give the family near \(Q\). The other twelve are discarded. (Flatness and Nakayama.)
+\end{frame}
+
+\begin{frame}{Triangle \(beh\): solve}
+Three of the four equations are
+\[
+F_3=v\,a+t(\cdots),\qquad F_{12}=uv\,c+t(\cdots),\qquad F_9=u\,g+t(\cdots).
+\]
+Their derivatives in \(a,c,g\) at \(t=0\) form the matrix
+\[
+\begin{pmatrix}v&0&0\\0&uv&0\\0&0&u\end{pmatrix},
+\]
+which is invertible because \(u,v\) are units.
+\par\medskip
+By the implicit function theorem, the three equations give \(a,c,g\) as functions of the rest:
+\[
+\boxed{a=t(\cdots),\qquad c=t(\cdots),\qquad g=t(\cdots).}
+\]
+At \(t=0\) this is \(a=c=g=0\), so each of them is divisible by \(t\).
+\par\medskip
+The coordinates \(a,c,g\) disappear. Four coordinates remain: \(U,V,u,v\).
+\end{frame}
+
+\begin{frame}{Triangle \(beh\): the one equation left}
+The fourth equation is
+\[
+F_7=bdf+t\,(10acd+10cfg)+t^2K_7+\cdots
+\]
+Substitute \(b=1\), \(d=U\), \(f=V\), and the solutions \(a,c,g\) from the last slide.
+\begin{itemize}
+\setlength{\itemsep}{8pt}
+\item \(bdf\) becomes \(UV\).
+\item Each term of \(10acd+10cfg\) contains two of \(a,c,g\). Each of those is divisible by \(t\). So \(t\,(10acd+10cfg)\) is divisible by \(t^3\): no \(t\)-term survives.
+\end{itemize}
+The result:
+\[
+\boxed{f(U,V,u,v,t)=UV+t^2p(u,v)+\cdots}
+\]
+Sixteen equations in seven coordinates became one equation in four coordinates.
+\end{frame}
+\begin{frame}{Triangle \(beh\): what the equation says}
+\textbf{The equation.} Near \(Q\), the family is the zero set of one function in the coordinates \(U,V,u,v\) and the parameter \(t\):
+\[
+\boxed{f(U,V,u,v,t)=UV+t^2p(u,v)+\cdots=0.}
+\]
+\textbf{At \(t=0\):} \(UV=0\). This is two pieces, \(U=0\) and \(V=0\): the two \(\Pj^3\)'s of the tetrahedra \(befh\) and \(bdeh\). They meet along \(U=V=0\), which is the triangle.
+\par\medskip
+\textbf{Where \(Q\) is.} \(Q\) is the point \(U=V=0\) with its own values of \(u,v\). It is not the only zero: every point of the triangle near \(Q\) is a zero, and is singular.
+\par\medskip
+\textbf{Where \(P\) is.} \(P\) is a zero of \(f\) with \(t\ne0\), and it is singular: all four derivatives vanish there,
+\[
+f=0,\qquad f_U=f_V=f_u=f_v=0.
+\]
+\end{frame}
+\fi
+
 
 \begin{frame}{No singular point near the triangle}
 A singular point has critical value \(\Delta=t^2p(u,v)+\cdots\) and \(\Delta_u=\Delta_v=0\). Divide by \(t^2\) and set \(t=0\): a common zero of \(p,\,p_u,\,p_v\).
@@ -206,7 +445,6 @@ But
 This is a unit in characteristic \(0\) and modulo \(101\). So \(p,p_u,p_v\) have no common zero, and there is no singular point near the triangle.
 \par\medskip
 \textbf{Check.} \(p_u=p_v=0\) forces \(u=v=-\tfrac59\), where \(p=\tfrac{28}{9}\ne0\).
-\src{\textcolor{red}{I did not verify the derivation of \(f\) or the critical-value argument.}}
 \end{frame}
 
 \begin{frame}{The other cases}
@@ -217,7 +455,6 @@ The same scheme applies to every face of \(\mathcal M\).
 \item \textbf{Other triangles and edges.} Tables and short calculations.
 \item \textbf{Vertices.} Three orbits: \(a\), \(b\), \(d\).
 \end{itemize}
-\unv
 \end{frame}
 
 \begin{frame}{Open questions}
