@@ -256,7 +256,37 @@ The nonzero slots \(\{b,e,h\}\) are a triangle of \(\mathcal M\). The other case
 \end{frame}
 
 
-\begin{frame}{Picture: the triangle \(beh\) inside \(\mathcal M\)}
+\begin{frame}{The triangle \(beh\) in the link of \(b\)}
+\begin{columns}[c]
+\begin{column}{0.5\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.8,line join=round]
+\coordinate (g) at (0,3.3);
+\coordinate (f) at (-3.7,-2.3);
+\coordinate (h) at (3.7,-2.3);
+\coordinate (c) at (0,1.3);
+\coordinate (e) at (-1.3,-1.2);
+\coordinate (d) at (0.9,-0.9);
+\coordinate (a) at (-0.13,-0.27);
+\fill[gray!35] (e)--(f)--(h)--cycle;
+\fill[gray!35] (d)--(e)--(h)--cycle;
+\draw (f)--(g)--(h)--cycle;
+\draw (c)--(f) (c)--(g) (c)--(h) (c)--(e) (c)--(d) (c)--(a);
+\draw (e)--(f) (d)--(h) (d)--(e) (a)--(d) (a)--(e);
+\draw[very thick] (e)--(h);
+\foreach \p/\pos in {g/above,f/below left,h/below right,c/above right,e/below left,d/right,a/below}
+  \fill (\p) circle (1.5pt) node[\pos]{\(\p\)};
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Remember the link of \(b\)} (slides 3 and 4): what we see from the vertex \(b\).
+\par\medskip
+\textbf{Where our triangle is.} The thick edge \(eh\) is the triangle \(beh\). The two grey triangles \(deh\) and \(efh\) are the two tetrahedra \(bdeh\) and \(befh\) that contain it.
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{The triangle \(beh\) inside \(\mathcal M\)}
 \begin{columns}[c]
 \begin{column}{0.48\textwidth}
 \centering
@@ -293,78 +323,90 @@ The nonzero slots \(\{b,e,h\}\) are a triangle of \(\mathcal M\). The other case
 \item the triangle is the \(\Pj^2\) where they meet.
 \end{itemize}
 \par\medskip
-\textbf{The rule.} A point is drawn in the interior of the face whose vertices are its nonzero slots. So a point is in the interior of the edge \(eh\) if \(e,h\ne0\) and all its other slots are zero.
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Picture: \(\mathcal M\) seen from the vertex \(b\)}
-\begin{columns}[c]
-\begin{column}{0.5\textwidth}
-\centering
-\begin{tikzpicture}[scale=0.8,line join=round]
-\coordinate (g) at (0,3.3);
-\coordinate (f) at (-3.7,-2.3);
-\coordinate (h) at (3.7,-2.3);
-\coordinate (c) at (0,1.3);
-\coordinate (e) at (-1.3,-1.2);
-\coordinate (d) at (0.9,-0.9);
-\coordinate (a) at (-0.13,-0.27);
-\fill[gray!35] (e)--(f)--(h)--cycle;
-\fill[gray!35] (d)--(e)--(h)--cycle;
-\draw (f)--(g)--(h)--cycle;
-\draw (c)--(f) (c)--(g) (c)--(h) (c)--(e) (c)--(d) (c)--(a);
-\draw (e)--(f) (d)--(h) (d)--(e) (a)--(d) (a)--(e);
-\draw[very thick] (e)--(h);
-\foreach \p/\pos in {g/above,f/below left,h/below right,c/above right,e/below left,d/right,a/below}
-  \fill (\p) circle (1.5pt) node[\pos]{\(\p\)};
-\end{tikzpicture}
-\end{column}
-\begin{column}{0.48\textwidth}
-The vertex \(b\) is joined to the other seven vertices. Looking from \(b\), we see a triangulated \(2\)-sphere on \(a,c,d,e,f,g,h\), drawn flat here. The outside region \(fgh\) is also a triangle.
+\textbf{The rule.} A point is drawn in the interior of the face whose vertices are its nonzero slots.
 \par\medskip
-\textbf{Our case.} The thick edge \(eh\) is the triangle \(beh\). The two grey triangles \(deh\) and \(efh\) are the tetrahedra \(bdeh\) and \(befh\).
+So a point is in the interior of the edge \(eh\) if \(e,h\ne0\) and all its other slots are zero.
+\end{column}
+\end{columns}
+\src{\textcolor{red}{The explanation of the rule is left for later.}}
+\end{frame}
+
+\begin{frame}{The open set \(b,e,h\ne0\)}
+\begin{columns}[c]
+\begin{column}{0.64\textwidth}
+\textbf{Remember.} A point of \(\SR(\mathcal M)\) is in the interior of the edge \(eh\) if \(e,h\ne0\) and all its other coordinates are zero.
+\par\smallskip
+\textbf{Now let \(b\) be nonzero too.}
+\begin{itemize}
+\setlength{\itemsep}{2pt}
+\item \(b,e,h\ne0\) and all other coordinates zero: the point is in the interior of the triangle \(beh\).
+\item \(b,e,h\ne0\) and something else nonzero: the point is in the interior of one of the two tetrahedra that have \(beh\) on their boundary: \(bdeh\) if \(d\ne0\), \(befh\) if \(f\ne0\).
+\end{itemize}
+\textbf{Nothing else of \(\SR(\mathcal M)\) is in this open set.} The nonzero coordinates of a point form a face, and the only faces containing \(b,e,h\) are \(beh\), \(bdeh\), \(befh\).
+\end{column}
+\begin{column}{0.34\textwidth}\centering
+\begin{tikzpicture}[scale=0.72,line join=round]
+\coordinate (b) at (-0.6,-1.7);
+\coordinate (h) at (-0.2,1.7);
+\coordinate (e) at (1.1,0.2);
+\coordinate (d) at (-2.6,0.1);
+\coordinate (f) at (2.8,-0.1);
+\fill[gray!20] (d)--(b)--(e)--(h)--cycle;
+\fill[gray!20] (f)--(b)--(e)--(h)--cycle;
+\fill[gray!55] (b)--(e)--(h)--cycle;
+\draw[dashed] (d)--(b) (d)--(h) (d)--(e) (f)--(b) (f)--(h) (f)--(e) (b)--(e)--(h)--cycle;
+\foreach \p/\pos in {b/below,h/above,e/below right,d/left,f/right}
+  \draw[fill=white] (\p) circle (1.8pt) node[\pos]{\(\p\)};
+\fill (-0.05,-0.55) circle (1.6pt) node[right]{\(Q\)};
+\end{tikzpicture}
+\par\smallskip
+Every point inside the triangle is in the open set, not only \(Q\).
 \end{column}
 \end{columns}
 \end{frame}
 
-\begin{frame}{The equations near \(Q\)}
+\begin{frame}{The equations on the open set}
 \textbf{We now work locally.} We replace \(\Pj^7\) by an open set that contains \(Q\): the points with \(b,e,h\ne0\). Being singular at \(Q\) is a local question.
 \par\medskip
-\textbf{The equations.} On this open set, the sixteen monomials have the same zeros as four equations:
+\textbf{Claim.} On this open set, the sixteen monomials have the same zeros as four equations:
 \[
 \boxed{a=0,\qquad c=0,\qquad g=0,\qquad df=0.}
 \]
-For example \(abh=0\) gives \(a=0\), because \(b,h\ne0\).
-\par\medskip
-\textbf{The zeros.} \(df=0\) means \(d=0\) or \(f=0\). Two cases:
+\textbf{Step 1: four monomials give the four equations.} Since \(b,e,h\ne0\), we can divide by them:
+\[
+abh=0\Rightarrow a=0,\qquad ceh=0\Rightarrow c=0,\qquad beg=0\Rightarrow g=0,\qquad bdf=0\Rightarrow df=0.
+\]
+\textbf{Step 2: the other twelve add nothing.} Each contains \(a\), or \(c\), or \(g\), or both \(d\) and \(f\), so it vanishes once \(a=c=g=0\) and \(df=0\):
 \begin{center}
-\begin{tabular}{lll}
-\(d=0\):&\([\,0:b:0:0:e:f:0:h\,]\)&a \(\Pj^3\), free slots \(b,e,f,h\): the tetrahedron \(befh\)\\[3pt]
-\(f=0\):&\([\,0:b:0:d:e:0:0:h\,]\)&a \(\Pj^3\), free slots \(b,d,e,h\): the tetrahedron \(bdeh\)\\[3pt]
-both:&\([\,0:b:0:0:e:0:0:h\,]\)&a \(\Pj^2\), free slots \(b,e,h\): the triangle \(beh\)
+\begin{tabular}{ll@{\qquad}ll}
+contains \(a\):&\(abf,\ abg,\ acg,\ ach,\ adh\)&contains \(g\):&\(bdg,\ efg\)\\
+contains \(c\):&\(cde,\ ceg,\ cfh\)&contains \(d\) and \(f\):&\(def,\ dfh\)
 \end{tabular}
 \end{center}
-\textbf{Where \(Q\) is.} Near \(Q\) the special fibre is two \(\Pj^3\)'s glued along a \(\Pj^2\). \(Q\) is one point of that \(\Pj^2\). It is not the only zero, and every point of the \(\Pj^2\) is a singular point.
+\src{\textcolor{red}{This slide needs verification (not complicated, just need to check).}}
 \end{frame}
 
-\begin{frame}{From the special fibre to the family: four equations}
-\textbf{Last slide.} On the special fibre, near \(Q\), four of the sixteen monomials are enough:
+\begin{frame}{From sixteen equations to four}
+Each monomial \(m_i\) has its deformed equation \(F_i=m_i+tH_i+t^2K_i+\cdots\) We work on the open set \(b,e,h\ne0\).
+\begin{enumerate}
+\setlength{\itemsep}{9pt}
+\item \textbf{The monomials} (last slide). The sixteen monomials vanish on the same locus as four of them:
 \[
-abh\ \text{gives}\ a=0,\qquad ceh\ \text{gives}\ c=0,\qquad beg\ \text{gives}\ g=0,\qquad bdf\ \text{gives}\ df=0.
+m_3=abh,\qquad m_{12}=ceh,\qquad m_9=beg,\qquad m_7=bdf.
 \]
-\textbf{The family.} Each monomial \(m_i\) has its deformed equation
-\[
-F_i=m_i+tH_i+t^2K_i+\cdots
-\]
-\textbf{Claim.} Near \(Q\), the family is given by the four deformed equations of those four monomials:
-\[
-\boxed{F_3\ (abh),\qquad F_{12}\ (ceh),\qquad F_9\ (beg),\qquad F_7\ (bdf).}
-\]
-The other twelve equations follow from these four.
-\par\medskip
-\textbf{Why.} The family is flat. Flatness and Nakayama's lemma turn ``enough at \(t=0\)'' into ``enough for the family''. For sixteen arbitrary equations this would be false.
-\src{v4, Section 3.2. ``Near \(Q\)'' for the family means in a formal neighbourhood of \(Q\).}
+\item \textbf{At \(t=0\).} There \(F_i=m_i\). So the sixteen \(F_i\) vanish on the same locus as \(F_3,\ F_{12},\ F_9,\ F_7\). This is obvious: it is step 1 again.
+\item \textbf{For \(t\) invertible.} Do the sixteen \(F_i\) still vanish on the same locus as \(F_3,\ F_{12},\ F_9,\ F_7\)?
+\par\smallskip
+This is not obvious: the new terms \(tH_i+\cdots\) of the other twelve need not be combinations of the four.
+\par\smallskip
+\textbf{The answer is yes}, because the family is flat (flatness and Nakayama's lemma).
+\end{enumerate}
+\src{v4, Section 3.2, proves step 3 in a formal neighbourhood of each point \(Q\) of the triangle. \textcolor{red}{I will confirm this slide later.}}
+\end{frame}
+
+\begin{frame}
+\centering
+{\Huge Archive}
 \end{frame}
 
 \begin{frame}{A dummy example: how the contradiction works}
@@ -682,6 +724,19 @@ The other twelve lie in \((a,c,g,UV)\); for example \(def=u\cdot UV\). So four e
 \boxed{f(U,V,u,v,t)=UV+t^2p(u,v)+\cdots}
 \]
 Sixteen equations in seven coordinates became one equation in four.
+\end{frame}
+\begin{frame}{The zeros near \(Q\)}
+On the open set \(b,e,h\ne0\), the special fibre is given by \(a=c=g=0\), \(df=0\).
+\par\medskip
+\textbf{The zeros.} \(df=0\) means \(d=0\) or \(f=0\). Two cases:
+\begin{center}
+\begin{tabular}{lll}
+\(d=0\):&\([\,0:b:0:0:e:f:0:h\,]\)&a \(\Pj^3\), free slots \(b,e,f,h\): the tetrahedron \(befh\)\\[3pt]
+\(f=0\):&\([\,0:b:0:d:e:0:0:h\,]\)&a \(\Pj^3\), free slots \(b,d,e,h\): the tetrahedron \(bdeh\)\\[3pt]
+both:&\([\,0:b:0:0:e:0:0:h\,]\)&a \(\Pj^2\), free slots \(b,e,h\): the triangle \(beh\)
+\end{tabular}
+\end{center}
+\textbf{Where \(Q\) is.} Near \(Q\) the special fibre is two \(\Pj^3\)'s glued along a \(\Pj^2\). \(Q\) is one point of that \(\Pj^2\). It is not the only zero, and every point of the \(\Pj^2\) is a singular point.
 \end{frame}
 \fi
 
