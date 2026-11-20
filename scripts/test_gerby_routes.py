@@ -448,6 +448,7 @@ class ContentsAndDownloadsTests(
                 in subjects
             ],
             [
+                ("Analysis and PDE", [None]),
                 (
                     "Differential geometry",
                     ["C006"],
@@ -456,7 +457,7 @@ class ContentsAndDownloadsTests(
             ],
         )
         self.assertEqual(
-            subjects[1][1][0].pdf, "vbac.pdf"
+            subjects[2][1][0].pdf, "vbac.pdf"
         )
 
     def test_minicourses_page_lists_by_event(
