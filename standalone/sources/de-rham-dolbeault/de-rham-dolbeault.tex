@@ -1,0 +1,275 @@
+\documentclass{article}
+\usepackage{titlesec}
+
+\usepackage[citestyle=authortitle-terse,backref]{biblatex}
+\addbibresource{bibliography.bib}
+
+\usepackage[left=4cm, right=4cm]{geometry}
+\usepackage{palatino,eulervm,dutchcal,xcolor}
+\usepackage{graphicx,subcaption,float}
+\usepackage{enumitem,parskip,multicol,array}
+\newcolumntype{L}{>{$}c<{$}}%table in mathmode
+\usepackage{amsthm,amssymb,amsmath,mathtools,thmtools,tikz,tikz-cd}
+\usetikzlibrary{%
+	matrix,%
+	calc,%
+	arrows,%
+	shapes,
+	decorations.markings,backgrounds,calc,intersections}
+\tikzcdset{scale cd/.style={every label/.append style={scale=#1},
+		cells={nodes={scale=#1}}}}
+\usepackage[bookmarks,bookmarksopen,bookmarksdepth=3]{hyperref}
+\hypersetup{%colores
+	colorlinks=true,
+	urlcolor=blue,
+	linkcolor=magenta,
+	citecolor=blue,
+	filecolor=blue,
+	urlbordercolor=white,
+	linkbordercolor=white,
+	citebordercolor=white,
+	filebordercolor=white}
+\usepackage{cleveref}
+
+\definecolor{blue-violet}{rgb}{0.54, 0.17, 0.89}
+\definecolor{azure}{rgb}{0.0, 0.5, 1.0}
+\definecolor{green(ncs)}{rgb}{0.0, 0.62, 0.42}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{limegreen}{rgb}{0.2, 0.8, 0.2}
+\definecolor{palatinateblue}{rgb}{0.15, 0.23, 0.89}
+\definecolor{trueblue}{rgb}{0.0, 0.45, 0.81}
+\definecolor{goldenyellow}{rgb}{1.0, 0.87, 0.0}
+\definecolor{fashionfuchsia}{rgb}{0.96, 0.0, 0.63}
+\definecolor{brightcerulean}{rgb}{0.11, 0.67, 0.84}
+\definecolor{jonquil}{rgb}{0.98, 0.85, 0.37}
+\definecolor{lavendermagenta}{rgb}{0.93, 0.51, 0.93}
+\definecolor{peru}{rgb}{0.8, 0.52, 0.25}
+\definecolor{persimmon}{rgb}{0.93, 0.35, 0.0}
+\definecolor{persianred}{rgb}{0.8, 0.2, 0.2}
+\definecolor{persianblue}{rgb}{0.11, 0.22, 0.73}
+\definecolor{persiangreen}{rgb}{0.0, 0.65, 0.58}
+\definecolor{persianyellow}{rgb}{0.9, 0.89, 0.0}
+
+
+
+\declaretheoremstyle[headfont=\color{trueblue}\normalfont\bfseries,]{colored1}
+\declaretheoremstyle[headfont=\color{forestgreen}\normalfont\bfseries,]{colored2}
+\declaretheoremstyle[headfont=\color{peru}\normalfont\bfseries,]{colored3}
+\declaretheoremstyle[headfont=\color{persiangreen}\normalfont\bfseries,]{colored4}
+\declaretheoremstyle[headfont=\color{brightcerulean}\normalfont\bfseries,]{colored5}
+\declaretheoremstyle[headfont=\color{lavendermagenta}\normalfont\bfseries,]{colored6}
+\declaretheoremstyle[headfont=\color{blue-violet}\normalfont\bfseries,]{colored7}
+\declaretheoremstyle[headfont=\color{green(ncs)}\normalfont\bfseries,]{colored8}
+\declaretheoremstyle[headfont=\color{peru}\normalfont\bfseries,]{colored9}
+\declaretheoremstyle[headfont=\color{persiangreen}\normalfont\bfseries,]{colored10}
+
+\declaretheorem[style=colored1,numbered=no,name=Theorem]{thm}
+\declaretheorem[style=colored2,numbered=no,name=Proposition]{prop}
+\declaretheorem[style=colored3,numbered=no,name=Lemma]{lemma}
+\declaretheorem[style=colored4,numbered=no,name=Corollary]{coro}
+\declaretheorem[style=colored5,numbered=no,name=Example]{example}
+\declaretheorem[style=colored5,numbered=no,name=Examples]{exemplos}
+\declaretheorem[style=colored7,numbered=no,name=Exercise]{exercise}
+\declaretheorem[style=colored6,numbered=no,name=Remark]{remark}
+\declaretheorem[style=colored8,numbered=no,name=Claim]{claim}
+\declaretheorem[style=colored9,numbered=no,name=Definition]{defn}
+\declaretheorem[style=colored10,numbered=no,name=Question]{question}
+
+\numberwithin{equation}{section}
+
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\D}{\mathbb{D}}
+\renewcommand{\P}{\mathbb{P}}
+
+\newcommand{\Ac}{\mathcal{A}}
+\newcommand{\Bc}{\mathcal{B}}
+\newcommand{\Cc}{\mathcal{C}}
+\newcommand{\Dc}{\mathcal{D}}
+\newcommand{\Ec}{\mathcal{E}}
+\newcommand{\Fc}{\mathcal{F}}
+\newcommand{\Gc}{\mathcal{G}}
+\newcommand{\Hc}{\mathcal{H}}
+\newcommand{\Ic}{\mathcal{I}}
+\newcommand{\Jc}{\mathcal{J}}
+\newcommand{\Kc}{\mathcal{K}}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Mc}{\mathcal{M}}
+\newcommand{\Nc}{\mathcal{N}}
+\newcommand{\Oc}{\mathcal{O}}
+\newcommand{\Pc}{\mathcal{P}}
+\newcommand{\Qc}{\mathcal{Q}}
+\newcommand{\Rc}{\mathcal{R}}
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\Tc}{\mathcal{T}}
+\newcommand{\Uc}{\mathcal{U}}
+\newcommand{\Vc}{\mathcal{V}}
+\newcommand{\Wc}{\mathcal{W}}
+\newcommand{\Xc}{\mathcal{X}}
+\newcommand{\Yc}{\mathcal{Y}}
+\newcommand{\Zc}{\mathcal{Z}}
+
+\newcommand{\mf}{\mathfrak{m}}
+
+\DeclareMathOperator{\img}{img}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\pt}{pt}
+\DeclareMathOperator{\Alt}{Alt}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\hTop}{h-Top}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\sing}{sing}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Top}{Top}
+\DeclareMathOperator{\Set}{Set}
+\DeclareMathOperator{\CGWH}{CGWH}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Tot}{Tot}
+\DeclareMathOperator{\op}{op}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\hofib}{hofib}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\Nat}{Nat}
+\DeclareMathOperator{\Arr}{Arr}
+\DeclareMathOperator{\Funct}{Funct}
+\DeclareMathOperator{\colim}{colim}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\U}{U}
+\DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\M}{M}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\PGL}{PGL}
+\DeclareMathOperator{\PSL}{PSL}
+\DeclareMathOperator{\Vect}{Vect}
+\DeclareMathOperator{\VectBund}{VectBund}
+\DeclareMathOperator{\Open}{Open}
+\DeclareMathOperator{\coker}{coker}
+
+\begin{document}
+	{\Large de Rham and Dolbeault theorems}
+	\subsection*{Preliminaries}
+	\begin{defn}If $\Ac$ is a sheaf of rings, a sheaf $\Fc$ of $\Ac$-modules is said to be a \textbf{\textit{sheaf of free $\Ac$-modules}} if there exists an integer $n$ such that $\Fc$ is locally isomorphic to $\Ac^n$ as a sheaf of $\Ac$-modules. The integer $n$ is called the \textbf{\textit{rank}} of $\Fc$.
+	\end{defn}
+	\begin{lemma}
+		Let $\Ac$ be the sheaf of continuous, differentiable or holomorphic functions over a topological, differentiable or complex manifold $X$. For every vector topological, differentiable or holomorphic bundle $E\to X$, the presheaf $\Ec$
+		\[U\mapsto\{\text{cont., dif. or hol. sections }\sigma:U\to E|_U\}\]
+		is a sheaf of modules over its corresponding sheaf of functions such that the correspondence
+		\[E\mapsto\Ec\]
+		is an equivalence of categories between vector bundles and sheaves of free $\Ac$-modules.
+	\end{lemma}
+	\begin{defn}
+			\begin{itemize}
+			\item A \textbf{\textit{morphism of sheaves}} $\phi:\Fc\to\Gc$ is a collection, for each open set $U$, of morphisms $\phi_U:\Fc(U)\to\Gc(U)$ such that for $\sigma\in\Fc(U)$ and $V\subset U$ we have $\phi_U(\sigma)|_V=\phi_V(\sigma|_V)$.
+			\item The morphism $\phi$ is \textbf{\textit{injective}} (resp. \textbf{\textit{surjective}}) if for every $x\in X$ the morphism
+			\[\phi_x:\Fc_x\to\Gc_x\]
+			is injective (resp. surjective).
+			\item The presheaf $U\mapsto \ker(\phi_U:\Fc(U)\to\Gc(U))$ is a sheaf called the \textbf{\textit{kernel}} of $\phi$.
+			\item The sheaf associated to the presheaf $U\mapsto\img(\phi_U:\Fc(U)\to\Gc(U))$ is called \textbf{\textit{image}} of $\phi$.
+			\item The sheaf associated to the presheaf $U\mapsto\coker(\phi_U:\Fc(U)\to\Gc(U))$ is called \textbf{\textit{coker}} of $\phi$.
+		\end{itemize}
+		\end{defn}
+	\subsection*{de Rham's theorem}
+	
+	Let's prove that singular cohomology groups are isomorphic to de Rham cohomology groups:
+	\[H_{dR}^q(X)\cong H^q_{\sing}(X,\R).\]
+	References are from \cite{voisin}. {\color{blue-violet}Purple} means I'm unsure.
+	
+	
+	\begin{enumerate}
+		\item \begin{lemma}[4.26]
+			If an abelian category $\Cc$ has sufficiently many injective objects, then every every object of $\Cc$ admits an injective resolution, i.e. a resolution $I^\bullet$ by a complex all of whose objects are injective objects.
+		\end{lemma}
+		\item 	\begin{thm}[4.28, Derived functors of a left-exact functor exist.]
+			Let $\Cc$ and $\Cc'$ be two abelian categories, and let $F$ be a left-exact functor from $\Cc$ to $\Cc'$. Assume that $\Cc$ has sufficiently many injective objects. For every object $M$ of $\Cc$ there exist objects $R^iF(M)$ for $i\geq0$ in $\Cc'$ satisfying the following conditions:
+			\begin{itemize}
+				\item (Conditions...)
+			\end{itemize}
+		\end{thm}
+		\item \begin{defn}[4.31]
+			We say that an object $M$ of $\Cc$ is \textbf{\textit{acyclic}} for the functor $F$ if we have $R^iF(M)=0$ for all $i>0$.
+		\end{defn}
+		\begin{prop}[4.32]
+			Let $M^\bullet$, $i:A\to M^0$ be a resolution of $A$, where the $M^i$ are acyclic for the functor $F$. Then $R^iF(A)$ is equal to the cohomology $H^i(F(M))$ of the complex $F(M^\bullet)$. (\textbf{Obs.} This  cohomology \textit{of a complex} is defined as a cokernel, def. 4.24)
+		\end{prop}
+		\item (\textbf{Sect. 4.3}) From now on, we consider the category of sheaves of abelian groups over a topological space $X$, and the functor $\Gamma$ of "global sections" which to $\Fc$ associates $\Gamma(X,\Fc)=F(X)$, with values in the category of abelian groups. The category of shaves of abelian groups has sufficiently many injective objects. This implies the existence of the derived functors $R^i\Gamma$. They are written
+		\[R^i\Gamma(\Fc)=:H^i(X,\Fc)\]
+		\item \begin{defn}[4.33]
+			A sheaf $\Fc$ is called \textbf{\textit{flasque}} if for ever pair of open sets $V\subset U$, the restriction map $\rho_{UV}:\Fc(U)\to\Fc(V)$ is surjective.
+		\end{defn}
+		\begin{prop}[4.34]
+			Flasque sheaves are acyclic for the functor $\Gamma$.
+		\end{prop}
+		\clearpage
+		\item \begin{defn}[4.35]
+			A \textbf{\textit{fine sheaf}} $\Fc$ over $X$ is a sheaf of $\Ac$-modules, where $\Ac$ is a sheaf of rings over $X$ satisfying the property:
+			\begin{quotation}
+				For every open cover $U_i$, $i\in I$ of $X$ there exists a partition of unity $f_i$, $i\in I$, $\sum f_i+1$ (where the sum is locally finite), subordinate to this covering.
+			\end{quotation}
+		\end{defn}
+		\begin{prop}[4.36]
+			If $\Fc$ is a fine sheaf, we have $H^i(X,\Fc)=0\;\forall i>0$.
+		\end{prop}
+		\begin{coro}[4.37]
+			Let $X$ be a $\Cc^\infty$ manifold. Then
+			\[H^k(X,\R)=H^k_{dR}(X,\R).\]
+			(The left-hand side is the cohomology of the constant sheaf $\R$, and the right-hand side is the cohomology of the de Rham complex given by exterior differentiation of differential forms)
+		\end{coro}
+		
+		\item \begin{thm}[4.47]
+			Let $X$ be a locally contractible topological space. Then we have a canonical isomorphism
+			\[H^q_{\sing}(X,\Z)\cong H^q(X,\Z).\]
+			The same result holds with $\Z$ replaced by any commutative ring $G$.
+		\end{thm}
+		\begin{proof}\leavevmode
+			\begin{enumerate}
+				\item Construct a complex of sheaves from singular cochains. This is done starting with the presheaf
+				\[U\mapsto C^q_{\sing}(U,\Z)\]
+				where $C^q_{\sing}(U,\Z)$ is just the dual of the $q$-chains, wich in turn are just elements in the free group generated by simplices.
+				
+				\item Such a complex is a resolution of $\Z$. (computation)
+				
+				\item Such a resolution is acyclic for $\Gamma$. (prop 4.34; it is flasque)
+				
+				\item By prop. 4.32 cohomology of acyclic resolution equals derived functors. {\color{blue-violet}Constant sheaf $\Z$ is also acyclic resolution?}
+				\[H^q(X,\Z)=H^q(\Gamma(\Cc_{\sing}^\bullet))\]
+				
+				\item $\Gamma(\Cc^\bullet_{\sing})$ is quasi-isomorphic to $C^\bullet_{\sing}$.
+			\end{enumerate}
+		\end{proof}\clearpage
+		\item \begin{coro}[de Rham theorem]
+			\[H_{dR}^q(X)\cong H_{\sing}^q(X,\R)\]
+		\end{coro}
+		\begin{proof}
+			Coro. 4.37 and thm 4.47 replacing $\Z$ with $\R$.
+		\end{proof}
+		
+	\end{enumerate}
+	
+	\subsection*{Dolbeault's theorem}
+	Here's an attempt to use the proof of de Rham's theorem as a model to prove Dolbeault's theorem! 
+	\begin{thm}[Dolbeault, coro. 2.6.21 \cite{huybrechts}]
+		For a complex compact manifold $M$
+		\[H^{p,q}_{\bar\partial}(M)\cong H^q_X(M,\Omega^p)\]
+	\end{thm}
+	\begin{proof}\leavevmode
+		\begin{enumerate}
+			\item For every $p$ we have a sheaf complex $\Ac^{p,q}(X)$.
+			\item Such a complex is a resolution of the sheaf of sections $\Omega^{p,q}$. (\textbf{Obs.} See prop. 4.19 \cite{voisin}  to use instead the sheaf $\Omega^{0,q}\otimes E$, $E$ holomorphic vector bundle.)
+			\item Such a resolution is acyclic. ({\color{blue-violet}maybe by Newlander-Nierenberg+Poincar\'e $\bar\partial$-lemma?)}
+			\item By \cite{voisin} prop. 4.32 cohomology of this sheaf complex equals derived functors.
+			\item {\color{blue-violet}Dolbeault complex is also a resolution of the sheaf of sections $\Omega^{p,q}$.}
+		\end{enumerate}
+	\end{proof}
+	
+\end{document}

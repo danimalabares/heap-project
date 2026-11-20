@@ -1,0 +1,215 @@
+\documentclass{article}
+\usepackage{titlesec}
+
+\usepackage[citestyle=authortitle-terse,backref,backend=bibtex]{biblatex}
+\addbibresource{homotopy-theory.bib}
+
+\makeatletter
+\renewcommand\thesection{}
+\renewcommand\thesubsection{\@arabic\c@section.\@arabic\c@subsection}
+\makeatother
+\usepackage{tocloft}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+
+
+\usepackage[left=4cm, right=4cm]{geometry}
+\usepackage{palatino,eulervm,dutchcal,xcolor}
+\usepackage{graphicx,subcaption,float}
+\usepackage{enumitem,parskip,multicol,array}
+\newcolumntype{L}{>{$}c<{$}}%table in mathmode
+\usepackage{amsthm,amssymb,amsmath,mathtools,thmtools,tikz,tikz-cd}
+\usetikzlibrary{%
+	matrix,%
+	calc,%
+	arrows,%
+	shapes,
+	decorations.markings,backgrounds,calc,intersections}
+\tikzcdset{scale cd/.style={every label/.append style={scale=#1},
+		cells={nodes={scale=#1}}}}
+\usepackage[bookmarks,bookmarksopen,bookmarksdepth=3]{hyperref}
+\hypersetup{%colores
+	colorlinks=true,
+	urlcolor=blue,
+	linkcolor=magenta,
+	citecolor=blue,
+	filecolor=blue,
+	urlbordercolor=white,
+	linkbordercolor=white,
+	citebordercolor=white,
+	filebordercolor=white}
+\usepackage{cleveref}
+
+\definecolor{blue-violet}{rgb}{0.54, 0.17, 0.89}
+\definecolor{azure}{rgb}{0.0, 0.5, 1.0}
+\definecolor{green(ncs)}{rgb}{0.0, 0.62, 0.42}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{limegreen}{rgb}{0.2, 0.8, 0.2}
+\definecolor{palatinateblue}{rgb}{0.15, 0.23, 0.89}
+\definecolor{trueblue}{rgb}{0.0, 0.45, 0.81}
+\definecolor{goldenyellow}{rgb}{1.0, 0.87, 0.0}
+\definecolor{fashionfuchsia}{rgb}{0.96, 0.0, 0.63}
+\definecolor{brightcerulean}{rgb}{0.11, 0.67, 0.84}
+\definecolor{jonquil}{rgb}{0.98, 0.85, 0.37}
+\definecolor{lavendermagenta}{rgb}{0.93, 0.51, 0.93}
+\definecolor{peru}{rgb}{0.8, 0.52, 0.25}
+\definecolor{persimmon}{rgb}{0.93, 0.35, 0.0}
+\definecolor{persianred}{rgb}{0.8, 0.2, 0.2}
+\definecolor{persianblue}{rgb}{0.11, 0.22, 0.73}
+\definecolor{persiangreen}{rgb}{0.0, 0.65, 0.58}
+\definecolor{persianyellow}{rgb}{0.9, 0.89, 0.0}
+
+
+
+\declaretheoremstyle[headfont=\color{trueblue}\normalfont\bfseries,]{colored1}
+\declaretheoremstyle[headfont=\color{forestgreen}\normalfont\bfseries,]{colored2}
+\declaretheoremstyle[headfont=\color{peru}\normalfont\bfseries,]{colored3}
+\declaretheoremstyle[headfont=\color{persiangreen}\normalfont\bfseries,]{colored4}
+\declaretheoremstyle[headfont=\color{brightcerulean}\normalfont\bfseries,]{colored5}
+\declaretheoremstyle[headfont=\color{lavendermagenta}\normalfont\bfseries,]{colored6}
+\declaretheoremstyle[headfont=\color{blue-violet}\normalfont\bfseries,]{colored7}
+\declaretheoremstyle[headfont=\color{green(ncs)}\normalfont\bfseries,]{colored8}
+\declaretheoremstyle[headfont=\color{peru}\normalfont\bfseries,]{colored9}
+\declaretheoremstyle[headfont=\color{persiangreen}\normalfont\bfseries,]{colored10}
+
+\declaretheorem[style=colored1,name=Theorem]{thm}
+\declaretheorem[style=colored2,numberlike=thm,name=proposition]{prop}
+\declaretheorem[style=colored3,numbered=no,name=Lemma]{lemma}
+\declaretheorem[style=colored4,numbered=no,name=Corollary]{coro}
+\declaretheorem[style=colored5,numbered=no,name=Example]{example}
+\declaretheorem[style=colored5,numbered=no,name=Examples]{exemplos}
+\declaretheorem[style=colored7,numbered=no,name=Exercise]{exercise}
+\declaretheorem[style=colored6,numbered=no,name=Remark]{remark}
+\declaretheorem[style=colored8,numbered=no,name=Claim]{claim}
+\declaretheorem[style=colored9,numbered=no,name=Definition]{defn}
+\declaretheorem[style=colored10,numbered=no,name=Question]{question}
+
+\numberwithin{equation}{section}
+
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\D}{\mathbb{D}}
+\renewcommand{\P}{\mathbb{P}}
+
+\newcommand{\Ac}{\mathcal{A}}
+\newcommand{\Bc}{\mathcal{B}}
+\newcommand{\Cc}{\mathcal{C}}
+\newcommand{\Dc}{\mathcal{D}}
+\newcommand{\Ec}{\mathcal{E}}
+\newcommand{\Fc}{\mathcal{F}}
+\newcommand{\Gc}{\mathcal{G}}
+\newcommand{\Hc}{\mathcal{H}}
+\newcommand{\Ic}{\mathcal{I}}
+\newcommand{\Jc}{\mathcal{J}}
+\newcommand{\Kc}{\mathcal{K}}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand{\Mc}{\mathcal{M}}
+\newcommand{\Nc}{\mathcal{N}}
+\newcommand{\Oc}{\mathcal{O}}
+\newcommand{\Pc}{\mathcal{P}}
+\newcommand{\Qc}{\mathcal{Q}}
+\newcommand{\Rc}{\mathcal{R}}
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\Tc}{\mathcal{T}}
+\newcommand{\Uc}{\mathcal{U}}
+\newcommand{\Vc}{\mathcal{V}}
+\newcommand{\Wc}{\mathcal{W}}
+\newcommand{\Xc}{\mathcal{X}}
+\newcommand{\Yc}{\mathcal{Y}}
+\newcommand{\Zc}{\mathcal{Z}}
+
+\DeclareMathOperator{\img}{img}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\pt}{pt}
+\DeclareMathOperator{\Alt}{Alt}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\hTop}{h-Top}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Int}{Int}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Top}{Top}
+\DeclareMathOperator{\Set}{Set}
+\DeclareMathOperator{\CGWH}{CGWH}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\Tot}{Tot}
+\DeclareMathOperator{\op}{op}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\hofib}{hofib}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\Nat}{Nat}
+\DeclareMathOperator{\Arr}{Arr}
+\DeclareMathOperator{\Funct}{Funct}
+\DeclareMathOperator{\colim}{colim}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\U}{U}
+\DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\M}{M}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\PGL}{PGL}
+\DeclareMathOperator{\PSL}{PSL}
+
+\begin{document}
+	{\Large cohomology ring of $\C P^n$}
+	\begin{exercise}
+		Show that
+		\[H^\bullet(\C P^n)\cong \Z[\alpha]/(\alpha^{n+1})\]
+		where $\alpha$ has degree 2.
+	\end{exercise}
+\begin{proof}
+		The CW structure of $\C P^n$ consists of one cell for every even dimension. This gives us the following chain complex:
+	\[\begin{tikzcd}
+		\Z\arrow[r]&0\arrow[r]&\Z\arrow[r]&\ldots\arrow[r]&\Z,\qquad\text{if }n\text{ is even}
+	\end{tikzcd}\]
+	\[\begin{tikzcd}
+		\Z\arrow[r]&0\arrow[r]&\Z\arrow[r]&\ldots\arrow[r]&0,\qquad\text{if }n\text{ is odd}
+	\end{tikzcd}\]
+	which yields the cohomology
+	\[H^i(\C P^n)=\begin{cases}
+		\Z,\quad&i=0,2,4,\ldots 2n\\
+		0,\quad&i\text{ otherwise}
+	\end{cases}\]
+	so that
+	\begin{align*}
+		H^\bullet(\C P^n)&=H^0(\C P^n)\oplus H^2(\C P^n)\oplus\ldots\oplus H^{2n}(\C P^{n})
+	\end{align*}
+	This means that the underlying group of the cohomology ring is the same as that of
+	\[\Z[\alpha]/(\alpha^{n+1})\]
+	where $\alpha$ has degree 2. To show that these groups are also isomorphic as algebras we can use Poincar\'e duality as follows.
+	
+	Consider the case $n=2$, where we may immediately multiply the generator of second cohomology group with itself:
+	\begin{align*}
+		H^2(\C P^2)\times H^2(\C P^2)&\to H^4(\C P^2)\\
+		(\alpha,\alpha)\qquad\quad&\mapsto\alpha\smile\alpha =\alpha^2
+	\end{align*}
+	By Poincar\'e duality this map is nondegenerate symmetric bilinear form, so it must map generator to a generator. {\color{blue-violet}The fact that the product of the generator in degree 2 is the generator of degree 4} yields an homomorphism
+	\iffalse\begin{align*}
+		\varphi:H^\bullet(\C P^n)&\to\Z[\alpha]/(\alpha^{n+1})\\
+		H^2(\C P^n)\ni\alpha&\mapsto\alpha
+	\end{align*}
+	satisfying
+	\[\varphi(\alpha\smile\alpha)=\varphi()\]\fi
+	\begin{align*}
+		\varphi:\Z[\alpha]&\to H^\bullet(\C P^n)\\
+		\alpha&\mapsto\alpha\in H^2(\C P^n)
+	\end{align*}
+	with kernel $(\alpha^{n+1})$ as desired.
+	
+	Now the case of $\C P^3$ is:
+	\begin{align*}
+		H^2(\C P^3)\times H^4(\C P^3)&\to H^6(\C P^3)\\
+		(\alpha,\alpha^2)\qquad\quad&\mapsto\alpha\smile\alpha^2=\alpha^3
+	\end{align*}
+	which also  maps generator to generator, producing the desired algebra isomorphism. Notice we have used the group isomorphism $H^4(\C P^3)\approx H^4(\C P^2)$ when denoting the generator of $H^4(\C P^3)$ as $\alpha^2$. Such an isomorphism is induced by inclusion $\C P^{n-1}\hookrightarrow\C P^n$ via relative cohomology exact sequence.
+	
+	The case for dimension $n$ follows by induction.
+\end{proof}
+\end{document}
