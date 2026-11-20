@@ -5,6 +5,196 @@
 \begin{document}
 \begin{frame}\titlepage\end{frame}
 
+\begin{frame}{Spheres made of simplices}
+\begin{columns}[t]
+\begin{column}{0.3\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.9]
+\foreach \i in {0,...,5} \coordinate (p\i) at ({90+60*\i}:1.3);
+\draw (p0)--(p1)--(p2)--(p3)--(p4)--(p5)--cycle;
+\foreach \i in {0,...,5} \fill (p\i) circle (1.6pt);
+\end{tikzpicture}
+\par\medskip
+\textbf{A circle.}\\ 6 vertices, 6 edges.
+\end{column}
+\begin{column}{0.3\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.9,line join=round]
+\coordinate (t) at (0,1.5); \coordinate (u) at (0,-1.5);
+\coordinate (w) at (-1.4,-0.1); \coordinate (x) at (-0.3,-0.45);
+\coordinate (y) at (1.4,0.1); \coordinate (z) at (0.3,0.45);
+\draw[dashed] (w)--(z)--(y) (t)--(z)--(u);
+\draw (w)--(x)--(y) (t)--(w)--(u) (t)--(x)--(u) (t)--(y)--(u);
+\foreach \p in {t,u,w,x,y,z} \fill (\p) circle (1.6pt);
+\end{tikzpicture}
+\par\medskip
+\textbf{A \(2\)-sphere.}\\ 6 vertices, 12 edges, 8 triangles.
+\end{column}
+\begin{column}{0.36\textwidth}
+\centering
+\vspace{2mm}
+{\Large \(\mathcal M\)}
+\par\vspace{2mm}
+\textbf{A \(3\)-sphere.}\\ 8 vertices, 28 edges, 40 triangles, 20 tetrahedra.
+\end{column}
+\end{columns}
+\par\bigskip
+In this talk we discuss \(\mathcal M\), a specific triangulation of the \(3\)-sphere with \(8\) vertices, described by Grünbaum and Sreedharan in 1967 \cite{GS}.
+\src{\textcolor{red}{I did not confirm the incidence relations in any picture of this talk.}}
+\end{frame}
+
+\begin{frame}{The link of a vertex}
+The \emph{link} (or vertex figure) of a vertex: what is at incidence distance \(1\) from it.
+\begin{columns}[c]
+\begin{column}{0.48\textwidth}\centering
+\begin{tikzpicture}[scale=0.78,line join=round]
+\coordinate (t) at (0,1.6); \coordinate (u) at (0,-1.6);
+\coordinate (w) at (-1.5,-0.1); \coordinate (x) at (-0.35,-0.5);
+\coordinate (y) at (1.5,0.1); \coordinate (z) at (0.35,0.5);
+\draw[dashed] (t)--(z)--(u);
+\draw (t)--(w)--(u) (t)--(x)--(u) (t)--(y)--(u);
+\draw[very thick,dashed] (w)--(z)--(y);
+\draw[very thick] (w)--(x)--(y);
+\foreach \p in {u,w,x,y,z} \fill (\p) circle (1.6pt);
+\fill (t) circle (2.4pt) node[above]{\(p\)};
+\node[below] at (u) {\(q\)};
+\begin{scope}[xshift=3.3cm]
+\draw[very thick] (-0.7,-0.7) rectangle (0.7,0.7);
+\foreach \a/\b in {-0.7/-0.7,0.7/-0.7,0.7/0.7,-0.7/0.7} \fill (\a,\b) circle (1.6pt);
+\end{scope}
+\draw[->] (1.8,0)--(2.3,0);
+\end{tikzpicture}
+\par\smallskip
+\textbf{Octahedron, from \(p\).} A square: a circle with \(4\) vertices. The vertex \(q\) is at distance \(2\) and is not in it.
+\end{column}
+\begin{column}{0.5\textwidth}\centering
+\begin{tikzpicture}[scale=0.45,line join=round]
+\coordinate (g) at (0,3.3);
+\coordinate (f) at (-3.7,-2.3);
+\coordinate (h) at (3.7,-2.3);
+\coordinate (c) at (0,1.3);
+\coordinate (e) at (-1.3,-1.2);
+\coordinate (d) at (0.9,-0.9);
+\coordinate (a) at (-0.13,-0.27);
+\draw (f)--(g)--(h)--cycle;
+\draw (c)--(f) (c)--(g) (c)--(h) (c)--(e) (c)--(d) (c)--(a);
+\draw (e)--(f) (d)--(h) (d)--(e) (a)--(d) (a)--(e) (e)--(h);
+\foreach \p/\pos in {g/above,f/below left,h/below right,c/above right,e/below left,d/right,a/below}
+  \fill (\p) circle (1.5pt) node[\pos]{\(\p\)};
+\end{tikzpicture}
+\par\smallskip
+\textbf{\(\mathcal M\), from \(b\).} A \(2\)-sphere with \(7\) vertices, \(15\) edges, \(10\) triangles, drawn flat. Every vertex is at distance \(1\) from \(b\), so all seven are in it.
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{The link of \(b\): what it shows and what it misses}
+\begin{columns}[c]
+\begin{column}{0.5\textwidth}\centering
+\begin{tikzpicture}[scale=0.8,line join=round]
+\coordinate (g) at (0,3.3);
+\coordinate (f) at (-3.7,-2.3);
+\coordinate (h) at (3.7,-2.3);
+\coordinate (c) at (0,1.3);
+\coordinate (e) at (-1.3,-1.2);
+\coordinate (d) at (0.9,-0.9);
+\coordinate (a) at (-0.13,-0.27);
+\draw (f)--(g)--(h)--cycle;
+\draw (c)--(f) (c)--(g) (c)--(h) (c)--(e) (c)--(d) (c)--(a);
+\draw (e)--(f) (d)--(h) (d)--(e) (a)--(d) (a)--(e) (e)--(h);
+\foreach \p/\pos in {g/above,f/below left,h/below right,c/above right,e/below left,d/right,a/below}
+  \fill (\p) circle (1.8pt) node[\pos]{\(\p\)};
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{What it shows.} An edge \(xy\) of the picture is the triangle \(bxy\) of \(\mathcal M\). A triangle \(xyz\) of the picture is the tetrahedron \(bxyz\) of \(\mathcal M\).
+\par\medskip
+\textbf{What it misses.} Everything that does not touch \(b\):
+\begin{itemize}
+\setlength{\itemsep}{4pt}
+\item \(10\) of the \(20\) tetrahedra:\\ \(acdf,\ acef,\ adeg,\ adfg,\ aefh,\)\\ \(aegh,\ afgh,\ cdfg,\ cdgh,\ degh\);
+\item \(6\) of the \(28\) edges:\\ \(af,\ ag,\ ah,\ df,\ dg,\ eg\);
+\item \(15\) of the \(40\) triangles.
+\end{itemize}
+\par\medskip
+The picture is the surface of a ball. The missing tetrahedra fill the inside.
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Why the link of \(b\) is a \(2\)-sphere}
+A sphere drawn flat: remove one face, flatten the rest. The removed face becomes the outside region. It is like stereographic projection from a point inside that face.
+\par\medskip
+\begin{columns}[c]
+\begin{column}{0.3\textwidth}\centering
+\begin{tikzpicture}[scale=0.42,line join=round]
+\coordinate (A) at (0,3.3); \coordinate (B) at (-3.7,-2.3); \coordinate (C) at (3.7,-2.3); \coordinate (O) at (0,-0.4);
+\draw (A)--(B)--(C)--cycle (O)--(A) (O)--(B) (O)--(C);
+\foreach \p in {A,B,C,O} \fill (\p) circle (2pt);
+\end{tikzpicture}
+\par\smallskip
+\textbf{Tetrahedron.}\\ 3 triangles drawn\\ + the outside \(=4\).
+\end{column}
+\begin{column}{0.3\textwidth}\centering
+\begin{tikzpicture}[scale=0.42,line join=round]
+\coordinate (A) at (0,3.3); \coordinate (B) at (-3.7,-2.3); \coordinate (C) at (3.7,-2.3);
+\coordinate (a) at (0,-1.5); \coordinate (b) at (1.2,0.5); \coordinate (c) at (-1.2,0.5);
+\draw (A)--(B)--(C)--cycle (a)--(b)--(c)--cycle;
+\draw (A)--(b) (A)--(c) (B)--(c) (B)--(a) (C)--(a) (C)--(b);
+\foreach \p in {A,B,C,a,b,c} \fill (\p) circle (2pt);
+\end{tikzpicture}
+\par\smallskip
+\textbf{Octahedron.}\\ 7 triangles drawn\\ + the outside \(=8\).
+\end{column}
+\begin{column}{0.36\textwidth}\centering
+\begin{tikzpicture}[scale=0.42,line join=round]
+\coordinate (g) at (0,3.3);
+\coordinate (f) at (-3.7,-2.3);
+\coordinate (h) at (3.7,-2.3);
+\coordinate (c) at (0,1.3);
+\coordinate (e) at (-1.3,-1.2);
+\coordinate (d) at (0.9,-0.9);
+\coordinate (a) at (-0.13,-0.27);
+\draw (f)--(g)--(h)--cycle;
+\draw (c)--(f) (c)--(g) (c)--(h) (c)--(e) (c)--(d) (c)--(a);
+\draw (e)--(f) (d)--(h) (d)--(e) (a)--(d) (a)--(e) (e)--(h);
+\foreach \p in {g,f,h,c,e,d,a} \fill (\p) circle (2pt);
+\end{tikzpicture}
+\par\smallskip
+\textbf{Link of \(b\).}\\ 9 triangles drawn\\ + the outside \(fgh\) \(=10\).
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{\(\mathcal M\) is a non-polytopal sphere}
+\textbf{Definition.} A simplicial \(d\)-sphere is \emph{polytopal} if it is isomorphic to the boundary of a convex simplicial \((d+1)\)-polytope.
+\par\smallskip
+To prove non-polytopality, every possible convex realization must be ruled out. A nonconvex drawing proves nothing.
+\par\smallskip
+\textbf{Where it starts.} Every simplicial \(2\)-sphere is polytopal (Steinitz). Non-polytopal spheres start in dimension \(3\).
+\par\smallskip
+\textbf{Our sphere.} Grünbaum--Sreedharan \cite{GS}, Theorem 2: \(\mathcal M\), with \(8\) vertices and \(20\) tetrahedra, is not the boundary of any \(4\)-polytope.
+\par\medskip
+\textbf{Among \(8\)-vertex \(3\)-spheres.} There are \(39\) types; \(37\) are polytopal and two are not: \(\mathcal M\) and Barnette's sphere.
+\par\medskip
+\textbf{For this talk.} Non-polytopality is not, by itself, an obstruction to smoothing \(\SR(\mathcal M)\).
+\src{The count of \(8\)-vertex spheres is Barnette (1973), cited from my notes, not re-read.}
+\end{frame}
+
+\begin{frame}{Basic information about \(\mathcal M\)}
+\textbf{What it is.} A triangulation of the \(3\)-sphere with \(8\) vertices \(a,\dots,h\), which is not the boundary of a \(4\)-polytope \cite{GS}.
+\par\medskip
+\textbf{Counts.} \(8\) vertices, \(28\) edges, \(40\) triangles, \(20\) tetrahedra. Every two vertices are joined by an edge.
+\par\medskip
+\textbf{The \(16\) triples that are not triangles} (the sixteen cubics):
+\[
+abf,\ abg,\ abh,\ acg,\ ach,\ adh,\ bdf,\ bdg,\ beg,\ cde,\ ceg,\ ceh,\ cfh,\ def,\ dfh,\ efg.
+\]
+\textbf{Symmetry.} \(G\simeq S_3\), generated by \((b\,h)(c\,g)(d\,f)\) and \((a\,c)(b\,e)(d\,f)\). Orbits of vertices: \(\{a,c,g\}\), \(\{b,e,h\}\), \(\{d,f\}\).
+\end{frame}
+
+
+
 \begin{frame}{Provisional: definitions and the problem}
 \textbf{Input.} Nothing: this is the background.
 \par\bigskip
@@ -89,6 +279,9 @@ The nonzero slots \(\{b,e,h\}\) are a triangle of \(\mathcal M\). The other case
 \node at (-1.9,-1.4) {\(bdeh\)};
 \node at (1.9,-1.4) {\(befh\)};
 \end{tikzpicture}
+\par\smallskip
+\(Q\) lands in \(beh\)\\[3pt]
+\(Q=[\,0:b:0:0:e:0:0:h\,]\)
 \end{column}
 \begin{column}{0.5\textwidth}
 \textbf{In the sphere \(\mathcal M\).} The triangle \(beh\) (grey) is a face of exactly two tetrahedra: \(bdeh\) and \(befh\).
@@ -97,11 +290,12 @@ The nonzero slots \(\{b,e,h\}\) are a triangle of \(\mathcal M\). The other case
 \begin{itemize}
 \setlength{\itemsep}{6pt}
 \item each tetrahedron is a \(\Pj^3\);
-\item the triangle is the \(\Pj^2\) where they meet;
+\item the triangle is the \(\Pj^2\) where they meet.
 \end{itemize}
+\par\medskip
+\textbf{The rule.} A point is drawn in the interior of the face whose vertices are its nonzero slots. So a point is in the interior of the edge \(eh\) if \(e,h\ne0\) and all its other slots are zero.
 \end{column}
 \end{columns}
-\src{\textcolor{red}{I did not verify this picture.}}
 \end{frame}
 
 \begin{frame}{Picture: \(\mathcal M\) seen from the vertex \(b\)}
@@ -113,16 +307,16 @@ The nonzero slots \(\{b,e,h\}\) are a triangle of \(\mathcal M\). The other case
 \coordinate (f) at (-3.7,-2.3);
 \coordinate (h) at (3.7,-2.3);
 \coordinate (c) at (0,1.3);
-\coordinate (e) at (-0.9,-1.2);
-\coordinate (d) at (1.3,-0.1);
-\coordinate (a) at (0.15,0.05);
+\coordinate (e) at (-1.3,-1.2);
+\coordinate (d) at (0.9,-0.9);
+\coordinate (a) at (-0.13,-0.27);
 \fill[gray!35] (e)--(f)--(h)--cycle;
 \fill[gray!35] (d)--(e)--(h)--cycle;
 \draw (f)--(g)--(h)--cycle;
 \draw (c)--(f) (c)--(g) (c)--(h) (c)--(e) (c)--(d) (c)--(a);
 \draw (e)--(f) (d)--(h) (d)--(e) (a)--(d) (a)--(e);
 \draw[very thick] (e)--(h);
-\foreach \p/\pos in {g/above,f/below left,h/below right,c/above right,e/below left,d/above right,a/left}
+\foreach \p/\pos in {g/above,f/below left,h/below right,c/above right,e/below left,d/right,a/below}
   \fill (\p) circle (1.5pt) node[\pos]{\(\p\)};
 \end{tikzpicture}
 \end{column}
@@ -134,8 +328,8 @@ The vertex \(b\) is joined to the other seven vertices. Looking from \(b\), we s
 \end{columns}
 \end{frame}
 
-\begin{frame}{Working locally: the equations near \(Q\)}
-\textbf{The open set.} We replace \(\Pj^7\) by the points with \(b,e,h\ne0\). This contains \(Q\), and being singular at \(Q\) is a local question.
+\begin{frame}{The equations near \(Q\)}
+\textbf{We now work locally.} We replace \(\Pj^7\) by an open set that contains \(Q\): the points with \(b,e,h\ne0\). Being singular at \(Q\) is a local question.
 \par\medskip
 \textbf{The equations.} On this open set, the sixteen monomials have the same zeros as four equations:
 \[
@@ -154,22 +348,23 @@ both:&\([\,0:b:0:0:e:0:0:h\,]\)&a \(\Pj^2\), free slots \(b,e,h\): the triangle 
 \textbf{Where \(Q\) is.} Near \(Q\) the special fibre is two \(\Pj^3\)'s glued along a \(\Pj^2\). \(Q\) is one point of that \(\Pj^2\). It is not the only zero, and every point of the \(\Pj^2\) is a singular point.
 \end{frame}
 
-\begin{frame}{The manoeuvre for the triangle \(beh\)}
-\textbf{Coordinates.} Put \(b=1\), \(e=u\), \(h=v\) (units), \(d=U\), \(f=V\).
-\par\medskip
-\textbf{Discard.} At \(t=0\), four of the sixteen cubics become
+\begin{frame}{From the special fibre to the family: four equations}
+\textbf{Last slide.} On the special fibre, near \(Q\), four of the sixteen monomials are enough:
 \[
-abh=v\,a,\qquad ceh=uv\,c,\qquad beg=u\,g,\qquad bdf=UV.
+abh\ \text{gives}\ a=0,\qquad ceh\ \text{gives}\ c=0,\qquad beg\ \text{gives}\ g=0,\qquad bdf\ \text{gives}\ df=0.
 \]
-The other twelve lie in \((a,c,g,UV)\); for example \(def=u\cdot UV\). So four equations remain: \(F_3,\ F_{12},\ F_9,\ F_7\).
-\par\medskip
-\textbf{Solve.} \(F_3,F_{12},F_9\) start with \(va,\ uvc,\ ug\). Their derivative matrix in \(a,c,g\) is \(\operatorname{diag}(v,uv,u)\), invertible. So they give \(a,c,g\) as series in \(t,U,V\), each divisible by \(t\).
-\par\medskip
-\textbf{Substitute into \(F_7\).} \(F_7=bdf+t(10acd+10cfg)+t^2K_7+\cdots\). Each term of \(10acd+10cfg\) has two of \(a,c,g\), so no \(t\)-term survives:
+\textbf{The family.} Each monomial \(m_i\) has its deformed equation
 \[
-\boxed{f(U,V,u,v,t)=UV+t^2p(u,v)+\cdots}
+F_i=m_i+tH_i+t^2K_i+\cdots
 \]
-Sixteen equations in seven coordinates became one equation in four.
+\textbf{Claim.} Near \(Q\), the family is given by the four deformed equations of those four monomials:
+\[
+\boxed{F_3\ (abh),\qquad F_{12}\ (ceh),\qquad F_9\ (beg),\qquad F_7\ (bdf).}
+\]
+The other twelve equations follow from these four.
+\par\medskip
+\textbf{Why.} The family is flat. Flatness and Nakayama's lemma turn ``enough at \(t=0\)'' into ``enough for the family''. For sixteen arbitrary equations this would be false.
+\src{v4, Section 3.2. ``Near \(Q\)'' for the family means in a formal neighbourhood of \(Q\).}
 \end{frame}
 
 \begin{frame}{A dummy example: how the contradiction works}
@@ -431,6 +626,62 @@ Sixteen equations in seven coordinates became one equation in four coordinates.
 \[
 f=0,\qquad f_U=f_V=f_u=f_v=0.
 \]
+\end{frame}
+\begin{frame}{Intuition for \(\mathcal M\): the link of an edge}
+The link of an edge: what forms a face together with the edge. It is a sphere of two dimensions less.
+\par\medskip
+\begin{columns}[c]
+\begin{column}{0.48\textwidth}\centering
+\begin{tikzpicture}[scale=0.95,line join=round]
+\coordinate (t) at (0,1.6); \coordinate (u) at (0,-1.6);
+\coordinate (w) at (-1.5,-0.1); \coordinate (x) at (-0.35,-0.5);
+\coordinate (y) at (1.5,0.1); \coordinate (z) at (0.35,0.5);
+\fill[gray!30] (t)--(w)--(x)--cycle;
+\fill[gray!30] (t)--(x)--(y)--cycle;
+\draw[dashed] (t)--(z)--(u) (w)--(z)--(y);
+\draw (w)--(x)--(y) (t)--(w)--(u) (x)--(u) (t)--(y)--(u);
+\draw[very thick] (t)--(x);
+\foreach \p in {t,u,x,z} \fill (\p) circle (1.6pt);
+\fill (w) circle (2.6pt) node[left]{\(r\)};
+\fill (y) circle (2.6pt) node[right]{\(s\)};
+\node[above] at (t) {\(p\)};
+\node[below left] at (x) {\(x\)};
+\draw[->] (2.1,0)--(2.6,0);
+\fill (3.1,0) circle (2.6pt) node[below]{\(r\)};
+\fill (4.1,0) circle (2.6pt) node[below]{\(s\)};
+\end{tikzpicture}
+\par\smallskip
+\textbf{Octahedron, edge \(px\).} Two triangles contain it (grey). The link is the two points \(r,s\): a \(0\)-sphere.
+\end{column}
+\begin{column}{0.5\textwidth}\centering
+\begin{tikzpicture}[scale=1.05,line join=round]
+\foreach \n/\i in {a/0,c/1,f/2,h/3,d/4} \coordinate (\n) at ({90+72*\i}:1.3);
+\draw (0,0)--(a) (0,0)--(c) (0,0)--(f) (0,0)--(h) (0,0)--(d);
+\draw[very thick] (a)--(c)--(f)--(h)--(d)--cycle;
+\fill (0,0) circle (2.4pt) node[below right]{\(be\)};
+\foreach \n/\i in {a/0,c/1,f/2,h/3,d/4} \fill (\n) circle (1.6pt) node at ({90+72*\i}:1.55) {\(\n\)};
+\end{tikzpicture}
+\par\smallskip
+\textbf{\(\mathcal M\), edge \(be\).} Looking along the edge, it is the dot. Five tetrahedra contain it, seen as the five triangles. The link is the pentagon \(a,c,f,h,d\): a circle.
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}{The manoeuvre for the triangle \(beh\)}
+\textbf{Coordinates.} Put \(b=1\), \(e=u\), \(h=v\) (units), \(d=U\), \(f=V\).
+\par\medskip
+\textbf{Discard.} At \(t=0\), four of the sixteen cubics become
+\[
+abh=v\,a,\qquad ceh=uv\,c,\qquad beg=u\,g,\qquad bdf=UV.
+\]
+The other twelve lie in \((a,c,g,UV)\); for example \(def=u\cdot UV\). So four equations remain: \(F_3,\ F_{12},\ F_9,\ F_7\).
+\par\medskip
+\textbf{Solve.} \(F_3,F_{12},F_9\) start with \(va,\ uvc,\ ug\). Their derivative matrix in \(a,c,g\) is \(\operatorname{diag}(v,uv,u)\), invertible. So they give \(a,c,g\) as series in \(t,U,V\), each divisible by \(t\).
+\par\medskip
+\textbf{Substitute into \(F_7\).} \(F_7=bdf+t(10acd+10cfg)+t^2K_7+\cdots\). Each term of \(10acd+10cfg\) has two of \(a,c,g\), so no \(t\)-term survives:
+\[
+\boxed{f(U,V,u,v,t)=UV+t^2p(u,v)+\cdots}
+\]
+Sixteen equations in seven coordinates became one equation in four.
 \end{frame}
 \fi
 
