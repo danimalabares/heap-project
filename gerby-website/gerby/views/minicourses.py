@@ -7,6 +7,9 @@ from gerby.views.seminars import load_part_by_subject
 # (chapter file name without .tex) of each
 # minicourse.
 EVENTS = [
+  ("Summer 2024", [
+    "quantum-groups",
+  ]),
   ("CIMPA school Florianópolis 2025", [
     "bridgeland-stability-general-theory",
     "geometric-stability-conditions-and-group-actions",
@@ -15,16 +18,13 @@ EVENTS = [
     "derived-categories-of-sheaves",
     "noncommutative-abelian-surfaces-and-kummer-type-hyperkahler-varieties",
   ]),
-  ("OPEGA 2026, UFPE", [
-    "cremona-transformations",
-    "birational-maps-commutative-algebra",
-  ]),
-  ("Summer 2024", [
-    "quantum-groups",
-  ]),
   ("IMPA Summer School 2026", [
     "surfaces",
     "mumford-tate-groups-in-hodge-theory",
+  ]),
+  ("OPEGA 2026, UFPE", [
+    "cremona-transformations",
+    "birational-maps-commutative-algebra",
   ]),
 ]
 
