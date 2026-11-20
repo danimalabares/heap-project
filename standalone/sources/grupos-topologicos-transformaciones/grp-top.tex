@@ -1,0 +1,1081 @@
+\documentclass[spanish]{article}
+\usepackage{titlesec}
+
+%Quitar páginas en blanco
+\let\cleardoublepage\clearpage
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\@endpart}{\vfil\newpage}{\par}{}{}
+\makeatother
+
+%\usepackage[spanish]{babel} ¡Esto estaba interfiriendo con las flechitas de los \tikspicture
+
+\renewcommand{\contentsname}{Índice}
+\renewcommand{\partname}{Parte}
+
+\usepackage[left=4cm, right=4cm]{geometry}
+\usepackage{palatino}%Font
+\usepackage{graphicx}
+\usepackage{marvosym}%Smileys
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage[bookmarks,bookmarksopen,bookmarksdepth=3]{hyperref}
+\hypersetup{
+	colorlinks=true,
+	urlcolor=blue,
+	linkcolor=magenta,
+	citecolor=blue,
+	filecolor=blue,
+	urlbordercolor=white,
+	linkbordercolor=white,
+	citebordercolor=white,
+	filebordercolor=white
+}
+
+\theoremstyle{definition}
+\renewcommand{\proofname}{Demostración}
+
+\newtheorem*{defn}{Definición}
+\newtheorem*{lema}{Lema}
+\newtheorem*{obs}{Observación}
+\newtheorem*{teo}{Teorema}
+\newtheorem*{prop}{Proposición}
+\newtheorem*{coro}{Corolario}
+\newtheorem*{ejer}{Ejercicio}
+\newtheorem*{ejem}{Ejemplo}
+\newtheorem*{af}{Afirmación}
+\newtheorem*{pregunta}{Pregunta}
+
+\newcommand\mc{\mathcal}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\SP}{\mathbb{S}}
+\newcommand{\Hom}{\mathcal{H}}
+\newcommand{\Cnt}{\mathcal{C}}
+\DeclareMathOperator{\img}{img}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\Int}{int}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\Or}{O}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\AEx}{AE}
+\DeclareMathOperator{\ANEx}{ANE}
+\DeclareMathOperator{\diam}{diam}
+
+
+
+\title{Grupos topológicos de transformaciones}
+%\author{Notas\\ \\ \href{https://github.com/danimalabares/cohom}{github.com/danimalabares/cohom}}
+
+\begin{document}
+	\maketitle
+	\phantomsection
+%	\addcontentsline{toc}{part}{\contentsname}
+	\tableofcontents
+	
+\section{Definición y ejemplos}
+\begin{defn}
+	Un \textbf{grupo topológico} es una terna $(G,\tau,\cdot)$ en donde $\tau$ es una topología, $\cdot$ es una operación de grupo tal que las operaciones
+	\begin{align*}
+		\begin{aligned}
+		G\times G&\to G\\
+		(x,y)&\mapsto x\cdot y\\
+		\qquad\text{multiplicación}
+		\end{aligned}
+		\qquad\qquad\qquad
+		\begin{aligned}
+		G&\to G\\
+		x&\mapsto -x\\
+		\qquad&\text{simetría (inversión)}
+		\end{aligned}
+	\end{align*}
+	son continuas.
+\end{defn}
+\begin{ejem}\leavevmode
+	\begin{enumerate}
+		\item $(\R,+)$.
+		\item $(\R^n,+)$. \textbf{Ejercicio:} demostrar que la operación suma es continua con $\varepsilon$ y $\delta$.
+		\begin{proof}
+			Sean $\varepsilon>0$ y $(x,y),(x',y')\in\R^n\times\R^n$. Supongamos que ambos vectores están en un cuadrado abierto de lado $<\varepsilon/2$. Entonces $|x+y-(x'+y')|=|x-x'+y-y'|\leq|x-x'|+|y-y'|<\varepsilon$. 
+		\end{proof}
+		\item $X$ un espacio lineal normado, entonces $(X,+)$ es un grupo topológico.
+		\item $(R_+,\cdot)$ donde $\R_+=\{x\in\R:x>0\}$. En este caso el espacio no es un espacio vectorial (es isomorfo a uno, pero eso no es obvio por ahora).
+		\item $(\R\backslash\{0\},\cdot)$, que no es conexo.
+		\item $(\GL(n),\cdot)$ donde $\GL(n)=\{A=(a_{ij}): a_{ij}\in\R, A\text{ es invertible}\}$ y la operación es el producto usual de matrices.
+		
+		Recordemos que una matriz es invertible si y sólo si su determinante no es cero, y como el determinante abre producto, se sigue que el producto está bien definido, así que sí es un grupo. La topología es la inducida por la métrica de $\R^{n^2}$. 
+		
+		Ahora veamos que las operaciones de grupo son continuas. Para el producto, que el producto de dos matrices $AB=C$ con $C=(c_{ij})$ está dado por $c_{ij}=\sum_{k=1}^na_{ik}b_{kj}$, que es una función continua.
+		
+		Para la inversión, supongamos que $A^{-1}=(c_{ij})$, de forma que $c_{ij}=\frac{(-1)^{i+j}a_{ij}}\det A_{ij}$ donde $A_{ij}$ es la matriz de menores que resulta de quitar el renglón $i$ y la fila $j$. Ahora consideremos
+		\[\begin{tikzcd}
+			GL(n,\R)\arrow[d,hook]\arrow[r,"\det"]&\R\\
+			M(n,\R)\approx\R^{n^2}\arrow[ur,swap,"\det"]
+		\end{tikzcd}\]
+		y como el determinante es un polinomio, se sigue la continuidad.
+	\end{enumerate}
+\end{ejem}
+\begin{defn}
+	Un grupo topológico $G$ se llama \textbf{grupo de Lie} si
+	\begin{enumerate}
+		\item $G$ es una variedad diferenciable.
+		\item La multiplicación y la inversión son diferenciables.
+	\end{enumerate}
+\end{defn}
+\begin{obs}
+	Todos los ejemplos hasta ahora son grupos de Lie. Un ejemplo que no es grupo de Lie es $C([0,1])$, las funciones continuas en $[0,1]$, ya que no es localmente homeomorfo a un $\R^n$ con $n$ finita.
+\end{obs}
+\begin{defn}
+	Sean $G$ un grupo toplógico, y $H<G$ un subgrupo algebraico. $H$ con la topología inducida es un grupo topológico (ya que la restricción de una función continua es continua), lo que se llama \textbf{subgrupo topológico de $G$}.
+\end{defn}
+\begin{ejem}[\textbf{Para exposición}]\leavevmode
+	\begin{itemize}
+		\item $\GL(n,\R)$, ya que es un subconjunto abierto de $\R^{n^2}$ (por es la preimagen del abierto $\R\backslash\{0\}$ bajo la función continua $\det$).
+		\begin{itemize}
+			\item $\GL(1)=\R\backslash\{0\}$. 
+			\item Las matrices con determinante positivo y negativo de $\GL(n)$ son subgrupos topológicos.
+		\end{itemize}
+		\item $\Or(n,\R)<\GL(n,\R)$, el subgrupo de matrices ortogonales, $\Or(n,\R):=\{A\in\GL(n,\R): A^{-1}=A^t\}$. También es un grupo de Lie que, a diferencia de $\GL(n,\R)$, es compacto.
+		\begin{itemize}
+			\item $\Or(1)=\{-1,1\}=\Z_2$.
+			\item $\SO(1)=\{1\}$.
+			%\item $\Or(n)=\SO(n)\cup\SO(n)$.
+		\end{itemize}
+		\item $\SL(n,\R)<\GL(n,\R)$, el grupo especial lineal, $\SL(n,\R):=\{A\in\GL(n,\R):\det A=1\}$, que tampoco es compacto.
+		\item $\SO(n,\R)=\Or(n,\R)\cap\SL(n,\R)$ Según en programa de GAP, el subgrupo generado por la identidad es de índice 2, ¿esto es posible? ¿Cómo demostramos que las dos clases laterales son disconexas?
+		\item $\C^*=\C\backslash\{0\}$, que tiene como subgrupo $\SP ^1=\{z\in\C:|z|=1\}$.
+		\item $\SP^3\subset\C^2$ también es un grupo, pero $\SP^2$ no. Este hecho está relacionado con que $\R^3$ no puede tener estructura de campo, mientras $\R^2\approx\C$ y $\R$ sí. Por su parte, $\R^4$ visto como los cuaterniones, es un \textbf{cuerpo}, que satisface todos los axiomas de campo salvo la existencia de inversos multiplicativos.
+	\end{itemize}
+\end{ejem}
+
+
+\section{Propiedades topológicas de los grupos topológicos}
+\begin{obs}
+	Como veremos en $G$-espacios, para cada elemento $g\in G$ tenemos un homeomorfismo $\tilde{g}$ que envía cada punto en el producto por $g$. Para cualquier $U\subseteq G$ abierto, $g\cdot U$ y $U\cdot g$ son abiertos, y lo mismo para un conjunto cerrado. Y el producto de un abierto $U$ con cualquier conjunto $W$, definido punto a punto, es abierto, ya que $W\cdot U=\bigcup_{w\in W}w\cdot U$.
+\end{obs}
+\begin{defn}
+	Un subconjunto de un espacio topológico $V\subseteq X$ es una \textbf{vecindad} de $x\in X$ si $x\in\int(V)$. Las vecindades de un punto son $N(e)=\{V\subseteq G|V\text{ es vedindad de }e\}$.
+\end{defn}
+\begin{defn}
+	Un espacio topológico $X$ es \textbf{homogéneo} si para cualesquiera dos puntos $x,y\in X$ existe un homeomorfismo $f:X\to X$ tal que $f(x)=y$.
+\end{defn}
+\begin{obs}
+	Todo grupo topológico es homogéneo.
+\end{obs}
+\begin{prop}
+	Sea $B$ una base de $e$. Entonces, $B_x=\{x\cdot v|v\in B\}$ es una base local de cualquier $x\in X$.
+\end{prop}
+\begin{proof}
+	Sea $V\in\tau$ con $x\in V$. Entonces, $e\in x^{-1}V$. Como $B$ es una base, existe $W\in B$ tal que $e\in w\subseteq x^{-1}\cdot V$. Luego, $x\in x\cdot W\subseteq x\cdot x^{-1}v$, así que $x\cdot w\in B_x$.
+\end{proof}
+\begin{defn}
+	Un conjunto $V\in N(e)$ es una \textbf{vecindad simétrica} si $V=V^{-1}$.
+\end{defn}
+\begin{prop}
+	Sea $v\in N(e)\cap\tau_G$. Entonces existe $w\in N(e)\cap\tau_G$ tal que $w=w^{-1}\subset V$.
+\end{prop}
+\begin{proof}
+	Sea $e\in V\in\tau_G$. Como la inversión es continua, existe $w'\in N(e)\cap\tau_G$ tal que $(w')^{-1}\subset V$. Proponemos $W'\cap(W')^{-1}$.
+\end{proof}
+\begin{obs}
+	Si $V\in N(e)\cap\tau$, existe $W\in N(e)\cap\tau$ tal que $W^2=V$.
+\end{obs}
+\begin{teo}
+	Sea $G$ un grupo topológico. Entonces,
+	\begin{enumerate}
+		\item Para todo $U\in N(e)\cap\tau$ existe $V\in N(e)\cap\tau$ tal que $V^2\subset U$.
+		\item Para todo $U\in N(e)\cap\tau$ existe $V\in N(e)\cap\tau$ tal que $V^2\subset U$ y $V^{-1}=V$.
+		\item Para todo $U\in N(e)\cap\tau$ existe $V\in N(e)\cap\tau$ \textbf{regular}, es decir, tal que $V\subset\bar{V}\subset U$.
+	\end{enumerate}
+\end{teo}
+\begin{proof}\leavevmode
+	\begin{enumerate}
+		\item Sea $U\in N(e)\cap\tau$. Dado que la función producto es continua y $e\cdot e=e\in U$, existen dos abiertos $V_1,V_2\in N(e)$ tales que $V_1\cdot V_2\subset U$. Definamos $V=V_1\cap V_2$. Entonces $V\in N(e)\cap\tau$. Luego, $V\cdot V=(V_1\cap V_2)\cdot(V_1\cap V_2)=\subset V_1\cdot V_2\subset U$.
+		\item Sea $U\in N(e)\cap\tau$. Entonces existe $V_1\in N(e)\cap\tau$ con $V_1^2\subset U$. Por la observación sobre la base local de vecindades simétricas, existe $V\in N(e)\cap\tau$ tal que $V^{-1}=V$ y $V\subset V_1$. Entonces $V\cdot V\subset V_1\cdot V_1=V_1^2\subset U$.
+		\item Sea $U\in N(e)\cap\tau$. Por el inciso anterior existe $V\in N(e)\cap\tau$ tal que $V^2\subset U$ y $V^{-1}=V$. Afirmamos que $\bar{V}\subset U$. Sea $x\in\bar{V}$. Sea $x\in\bar{V}$. Entonces $x\in x\cdot V$, de forma que $x\in x\cdot V\cap V\neq\varnothing$. Así, existen $V_1,V_2\in V$ tales que $x\cdot V_1=V_2$. Luego, $x=V_2\cdot V_1^{-1}=V\cdot V=V^2\subset U$, es decir $x\in U$.
+	\end{enumerate}
+\end{proof}
+\begin{defn} El espacio topológico $X$ es
+	\begin{itemize}
+		\item $\mathbf{T_0}$ si para cualesquiera $x,y\in X$ distintos existe $U\in\tau_X$ tal que $|U\cap\{x,y\}|=1$.
+		\item $\mathbf{T_1}$ si para cualesquiera $x,y\in X$ distintos existen abiertos $U,V$ tales que $X\in U\backslash V$ y $y\in V\backslash U$.
+		\item $\mathbf{T_2}$ si para cualesquiera dos punto $x,y\in X$ existen abiertos $U,V$ tales que $x\in U$, $y\in V$ y $U\cap V\neq\varnothing$.
+		\item $\mathbf{T_3}$ si $X$ es $T_1$ y además para cualquier punto $x\in X$ y $A\subset X$ cerrado existen abiertos $U,V$ tales que $x\in U$, $A\subset V\cap U\cap V\neq\varnothing$.
+	\end{itemize}
+\end{defn}
+\begin{obs}\leavevmode
+	\begin{itemize}
+		\item $X$ es $T_1$ si y sólo si para cualquier punto $x\in X$, $\{x\}$ es cerrado.
+		\item Si $X$ es $T_1$ y regular, entonces es $T_3$.
+		\item $T_3\implies T_2\implies T_1\implies T_0$.
+	\end{itemize}
+\end{obs}
+\begin{teo}
+	Todo grupo topológico $T_0$ es $T_3$.
+\end{teo}
+\begin{proof}
+	Como cualquier grupo topológico cumple la condición 3 del teorema anterior, sólo debemos mostrar que es $T_1$, es decir, que los conjuntos unipuntuales son cerrados. Como $G$ es homogéneo, basta probar que $\{e\}$ es cerrado.
+	
+	Veamos que si $g\in G\backslash\{e\}$ entonces $V\in\tau_G$ tal que $g\in V\subset G\backslash\{e\}$. Como $g\neq $ y $G$ es abierto, existe $U$ abierto tal que $|U\cap\{g,e\}|=1$. Ahora hay casos:
+	\begin{enumerate}
+		\item Si $g\in U$, por lo anterior, $e\notin U$, así que $g\in U\subset G\backslash\{e\}$.
+		\item Si $e\in U$, entonces existe $V\in N(e)\cap\tau_G$ con $\bar{V}\subset U$. Es claro que $g\notin \bar{V}$, así que $g\in X\backslash\bar{V}\in\tau_G$ y $e\notin X\backslash\bar{V}$. Luego $g\in X\backslash\bar{V}\subset G\backslash\{e\}$ y $G\backslash\{e\}\in\tau_G$.
+	\end{enumerate}
+\end{proof}
+\begin{obs}
+	Las tralaciones no tienen puntos fijos: si $x\in G$ es tal que $x=gx$, entonces $g=e$.
+\end{obs}
+\begin{defn}
+	Un espacio topológico $X$ tiene la \textbf{propiedad del punto fijo} si cualquier función continua $f:X\to X$ tiene un punto fijo.
+\end{defn}
+Algunos ejemplos de espacios con la propiedad del punto fijo son el intervalo $[0,1]\subset\R$, las $n$-bolas $B_r(0)\subset\R^n$ y el cubo de Hilbert $[0,1]^\N$. Como las traslaciones no tienen puntos fijos, el cubo de Hilbert no puede tener estructura de grupo topológico (claro, usando su topología usual).
+
+Ahora consideremos un subgrupo $H<G$ y el espacio cociente $G/H$, que está definido aunque $H$ no sea normal (es un espacio topológico sin estructura de grupo). Resulta que no hay ningún espacio de esta forma que sea homeomorfo al cubo de Hilbert.
+
+\begin{obs}
+	$A=\{n+\frac{1}{n}\}_{n\in\N}$ es cerrado, pero $A-\N=\{\frac{1}{n}\}_{n\in N}$ no.
+\end{obs}
+
+\begin{teo}
+	Sean $G$ un grupo topológico, $A,B,O,U\subset G$ y $g\in G$. Entonces,
+	\begin{enumerate}
+		\item Si $A$ es cerrado y $B$ es compacto, $A\cdot B$ es cerrado.
+		\item Si $A$ y $B$ son abiertos, $A\cdot B$ es abierto.
+		\item Si $A$ es abierto (cerrado), $g\cdot A$ y $A\cdot g$ son abiertos (cerrados).
+		\item Si $A$ y $B$ son compactos, $A\cdot B$ es compacto.
+	\end{enumerate}
+\end{teo}
+\begin{defn}
+	Sea $G$ un grupo y $H<G$. La proyección $g\overset{p}{\mapsto}G/H$ es continua, abierta y, si $G$ es compacto, cerrada.
+\end{defn}
+\section{Acciones de grupos}
+\begin{defn}
+	Sea $G$ un grupo topológico y $X$ un espacio topológico. Una \textbf{acción} $G\curvearrowright X$ es una función continua $\alpha:G\times X\to X$ tal que
+	\begin{enumerate}
+		\item $\alpha(g,\alpha(h,x))=\alpha(g\cdot h,x)$ para $g,h\in G$ y $x\in X$. Es decir, $g(hx)=(g\cdot h)x$.
+		\item $\alpha(e,x)=x$ donde $e\in G$ es la identidad. Es decir, $ex=x$.
+	\end{enumerate}
+	La terna $(G,X,\alpha)$ se llama \textbf{$G$-espacio} o \textbf{grupo topológico de transformaciones}.
+\end{defn}
+Este último nombre se refiere a las transformaciones de la forma
+\begin{align*}
+	\tilde{g}:X&\to X\\
+	x&\mapsto gx
+\end{align*}
+para $g\in G$, que son continuas. Y además,
+\begin{enumerate}
+	\item $\widetilde{gh}=\tilde{g}\circ\tilde{h}$.
+	\item $\tilde{e}=1_X$.
+\end{enumerate}
+\begin{prop}
+	$\tilde{g}$ es un homeomorfismo.
+\end{prop}
+\begin{proof}
+	$\tilde{g}\circ\widetilde{g^{-1}}=\widetilde{gg^{-1}}=\tilde{e}=1_X$, y también $\widetilde{g^{-1}}\circ\tilde{g}=1_X$, por lo que $\widetilde{g^{-1}}=(\tilde{g})^{-1}$.
+\end{proof}
+Así que de hecho tenemos el homomorfismo
+\begin{align*}
+	\sim:G&\to \Hom(X)\\
+	g&\mapsto\tilde{g}
+\end{align*}
+donde $\Hom(X)$ es el grupo de homeomorfismos de $X$.
+
+La teoría interesente se tiene cuando $X$ tiene propiedades, como por ejemplo ser un espacio lineal. En ese caso podríamos tomar los homeomorfismos lineales y construir un diagrama donde \textbf{representamos} el grupo $G$ mediante homeomorfismos lineales.
+
+Ahora bien, ¿$\sim$ es continua? Para responder esta pregunta necesitamos dar una topología a $\Hom(X)$. Bueno, $\Hom(X)\subset\Cnt_C(X,X)$ donde $C$ es la topología compacto-abierta en el espacio de funciones continuas de $X$.
+\begin{defn}
+	Si $X$ y $Y$ son dos $G$-espacios, una función $f:X\to Y$ se llama $G$\textbf{-equivariante} si $f(gx)=gf(x)$.
+\end{defn}
+\begin{teo}[\textbf{Para exposición}]
+	Sea $X$ un espacio localmente compacto de Housdorff y localmente conexo. Entonces, $\Hom_C(X)$ es un grupo topológico.
+\end{teo}
+\begin{proof}[Observación sobre la prueba]
+	Si no pedimos localmente conexo, falla $f\mapsto f^{-1}$. Por ejemplo, el espacio $X=\left\{\frac{1}{n}\right\}_{n\in\N}$ es localmente compacto pero no localmente conexo.
+\end{proof}
+\begin{teo}[\textbf{Para exposición}]
+	Sea $X$ compacto y de Housdorff. Entonces $\Hom_C(X)$ es un grupo topológico.
+\end{teo}
+Otro tema interesante es el siguiente:
+\begin{teo}[\textbf{Para exposición}]
+	La acción
+	\begin{align*}
+	\Hom(X)\times X&\to X\\
+	(f,x)&\mapsto f(x)
+\end{align*}
+es continua cuando $\Hom(X)$ es un grupo topológico. Es decir, se trata de un $\Hom(X)$-espacio.
+\end{teo}
+\begin{obs}
+	Si tomamos
+\begin{align*}
+	\Cnt(X,X)\times X&\to X\\
+	(f,x)&\mapsto f(x)
+\end{align*}
+no necesariamente, por ejemplo si $X=\Q$, ya que $\Q$ no es localmente compacto. Pero si sí, sí.
+\end{obs}
+\begin{ejem}\leavevmode
+	\begin{enumerate}
+		\item Sea $G$ cualquier grupo topológico y tomemos $X=G$. Podemos decinir la acción de distintas formas:
+		\begin{enumerate}
+			\item $gx=gx$, la misma operación que la del grupo.
+			\item $gx=xg^{-1}$, que no es igual que la anterior si el grupo no es abeliano.
+			\item $gx=gxg^{-1}$.
+		\end{enumerate}
+		\item Para un subgrupo $H<G$ y el conjunto de clases laterales $G/H=\{gH:g\in G\}$, tenemos $G\curvearrowright G/H$ dada por \begin{enumerate}
+			\item $g(xH)=(gx)H$.
+			\[\begin{tikzcd}
+				G\times G/H\arrow[r]&G/H\\
+				G\times G\arrow[u,shift left]\arrow[u,shift right]\arrow[r]&G\arrow[u,"\pi"]
+			\end{tikzcd}\]
+			\item Si $X$ es un $G$-espacio, hay una acción inducida
+			\[\begin{tikzcd}
+				G\times X\arrow[r,"\alpha"]&X\\
+				H\times X\arrow[u,hook]\arrow[dashed,swap,ur,"\alpha'=\alpha|_{H\times X}"]
+			\end{tikzcd}\]
+		\end{enumerate}
+		\item $G=\SP$ y $X=\R^2$, donde $G$ actúa por multiplicación, que geométricamente son rotaciones.
+		\item $\SO(n)\curvearrowright\R^n$, que ahora vemos como transformaciones ortogonales que preservan la norma. Para ver que la acción es continua, usamos los teoremas anteriores para ver que $\Hom_C(\R^n)\times \R^n\to\R^n$ es continua. Y luego usar
+		\[\begin{tikzcd}
+			\Hom_C(\R^n)\arrow[r,"\omega"]&\R^n\\
+			\SO(n)\arrow[hook,u]\arrow[ur,dashed]
+		\end{tikzcd}\]
+		con el detalle de que hay que checar que la topología de $\SO(n)$ sea la misma que $C$, la topología compacto-abierto.
+		\item En el diagrama anterior, podemos sustituir $\SO(n)$ por $\Or(n)$ o $\GL(n)$.
+	\end{enumerate}
+\end{ejem}
+\begin{defn}
+	Sea $X$ un $G$-espacio y $x\in X$. La \textbf{órbita} de $x$ es $G(x)=\{gx|g\in G\}$.
+\end{defn}
+Notemos que dos órbitas son ajenas o iguales. De hecho, $x\sim y\iff G(x)=G(x)$ es una relación de equivalencia, de donde tenemos la \textbf{proyección orbital} $X\xrightarrow{\pi}X/G$ y podemos dotar este conjunto de la topología cociente.
+\begin{prop}
+	La proyección orbital es abierta.
+\end{prop}
+\begin{proof}
+	Tomemos $U\subset X$ abierto. Para ver que $\pi(U)$ es abierto, basta ver que $\pi^{-1}\left(\pi(U)\right)$ lo es. Simplemente recordemos que 
+	\begin{align*}
+		\pi^{-1}\left(\pi(U)\right)&=\{x\in X:\pi(x)\in\pi(U)\}\\
+		&=\{x\in X:\exists u\in U,\pi(x)=\pi(u)\}\\
+		&=\{x\in X:\exists u\in G(u),x\in G(u)\}\\
+		&=\bigcup_{u\in U}G(u)\\
+		&=\bigcup_{g\in G}gU
+	\end{align*}
+	que es abierto.
+\end{proof}
+\begin{coro}
+	$G\xrightarrow{p} G/H$ es abierta.
+\end{coro}
+\begin{defn}
+	Sea $X$ un $G$-espacio. El \textbf{estabilizador} de $x\in X$ es $G_x=\{g\in G:gx=x\}<G$.
+\end{defn}
+\begin{prop}
+	Si $X$ es de Housdorff, $G_x$ es cerrado.
+\end{prop}
+\begin{defn}
+	Una acción es \textbf{libre} si todos los estabilizadores son triviales, es decir, $G_x=\{e\}$ para todo $x\in X$.
+\end{defn}
+\begin{defn}
+	Una acción es \textbf{transitiva} si $G(x)=X$ para todo $x\in X$. En este caso $X/G$ es unipuntual.
+\end{defn}
+\begin{ejem}\leavevmode
+\begin{itemize}
+	\item 	$X=\R^2$ y $G=(\R_+,\cdot)$. Acción por rayos. Este espacio es $T_0$ pero no $T_1$.
+	\item Decimos que $(\R,X,\alpha)$ es un \textbf{sistema dinámico} y $(\Z,X,\alpha)$ es un \textbf{sistema dinámico discreto}.
+	\item $\R\curvearrowright\SP^1$ mediante $t\cdot e^{iu} e^{i(t+u)}$.
+	\item $\R\curvearrowright\SP^1\times\SP^1$ mediante $t\cdot(e^{iu},e^{iv})=(e^{i(u+t)},e^{i(u+\sqrt{2}t)})$. Las órbitas $\R(z)$ son densas en $\SP^1\times\SP^1$. Este espacio no es ni $T_1$ ni $T_0$.
+\end{itemize}
+\end{ejem}
+\begin{obs}
+	Para un epimorfismo $p:G'\to G$, si $X$ es un $G$-espacio, también es un $G'$-espacio.
+\end{obs}
+El siguiente teorema descarta estos casos patológicos:
+\begin{teo}
+	Sea $X$ un $G$-espacio con $G$ un grupo compacto.
+	\begin{enumerate}
+		\item Entonces, toda órbita es cerrada en $X$.
+		\item[1.5] La proyección $p$ es cerrada.
+		\item $G(x)\approx_GG/G_x$ ya que ambos son $G$-espacios.
+	\end{enumerate}
+\end{teo}
+\begin{proof}\leavevmode
+\begin{enumerate}
+	\item 	Fijemos $x\in X$ para definir
+	\begin{align*}
+		p:G&\to G(x)\\
+		g&\mapsto gx
+	\end{align*}
+	Como $p$ es continua y $G$ compacto, $G(x)$ es compacto y en particular cerrado.
+	\item Tomamos la acción $G(x)\curvearrowright G$ dada por $g'(gx)=(g'g)x$. Eso hace que la proyección orbital de esta acción $\eta$ sea abierta. Ahora observemos
+	\[\begin{tikzcd}
+		G\arrow[r,"p"]\arrow[d,"\eta",swap]&G(x)\\
+		G/G_x\arrow[ur,swap,dashed,"\tilde{p}"]
+	\end{tikzcd}\]
+	Notemos que $p$ es constante en las clases laterales, así que podemos definir la flecha punteada por
+	\[\tilde{p}(gG_x):=p(g)=gG_x\]
+	Esta función resulta biyectiva y, por la compacidad, cerrada.
+	
+	Para ver que $\tilde{p}$ es equivariante,
+	\[\tilde{p}(t\cdot g)=t\tilde{p}(g)\]
+\end{enumerate}
+\end{proof}
+Los ejemplos más sencillos de $G$-espacios son de la forma $G(x)=G/H$, en particular $G(x)=G/G_x)$. Y se pegan así: $X=\sqcup G(x)$.
+\begin{defn}
+	Un subconjunto $A\subset X$ es \textbf{$G$-invariante} si $G(a)\subseteq A$ para cualquier $a\in A$.
+	Podemos tomar acciones restringidas para producir \textbf{$G$-subespacios}:
+	\[\begin{tikzcd}
+		G\times X\arrow[r,"\alpha"]&X\\
+		G\times A\arrow[u,hook]\arrow[r,"\alpha'"]&A\arrow[u,hook]
+	\end{tikzcd}\]
+\end{defn}
+
+\begin{defn}
+	Una función suprayectiva $X\xrightarrow{f}Y$ es \textbf{perfecta} si las fibras $f^{-1}(y)$ son compactas.
+\end{defn}
+\begin{teo}
+	Sea $G$ compacto y $X$ un $G$-espacio. Entonces cualquier propiedad $\mathcal{P}$ invariante de funciones perfectas pasa de $X$ a $X/G$ mediante la proyección orbital. Entre ellas:
+	\begin{enumerate}
+		\item Compacidad.
+		\item Conexidad.
+		\item Axiomas se separabilidad $T_0,T_1,T_2,T_3,T_{3\frac{1}{2}},T_4$.
+		\item Paracompacidad.
+		\item Metrizabilidad.
+	\end{enumerate}
+\end{teo}
+\begin{defn}
+	Una métrica $\rho$ en un $G$-espacio $X$ es \textbf{invariante} si $\tilde{g}$ es una isometría para toda $g$ en $G$. Es decir, $\rho(gx,gy)=\rho(x,y)$.
+\end{defn}
+De hecho, hay veces donde las $\tilde{g}$ son lineales.
+\begin{teo}
+	Sea $G$ compacto y $X$ un $G$-espacio metrizable. Entonces existe una métrica invariante compatible en $X/G$.
+\end{teo}
+(Este teorema implica la propiedad 5 del anterior)
+\begin{proof}
+	Diremos que dos órbitas en un espacio métrico son \textbf{paralelas} si $\rho(x,G(y))=\inf_{g\in G}\rho(x,gy)\equiv$ constante. Esto nos permite definir una métrica en el espacio fase mediante
+\[\tilde{\rho}(\pi(x),\pi(y)):=\rho(x,G(y))\]
+\end{proof}
+\begin{teo}[Exposición]
+	Si $G$ es compacto y $X$ es un $G$-espacio que admite una métrica invariante, entonces existe una métrica compatible en $X/G$.
+\end{teo}
+\begin{proof}
+	Para $x,y\in X$ fijos, la función
+	\begin{align*}
+		G(y)&\to\R\\
+		gy&\mapsto\rho(x,gy)
+	\end{align*}
+	está acotada inferiormente por el cero, así que podemos definir 
+	\[\rho(x,G(y)):=\inf_{g\in G}\rho(x,gy).\]
+	Ahora veamos que de hecho este mapeo es constante en $G(x)$. Como la métrica  $X$ es $G$-invariante, para cualquier $hx\in G(x)$,
+	\[\rho(hx,G(y))=\inf_{g\in G}\rho(hx,gy)=\inf_{g\in G}\rho(x,h^{-1}gy)=\inf_{g\in G}\rho(x,gy)=\rho(x,G(y))\]
+	ya que como los conjuntos $\{\rho(hx,gy):g\in G\}$ y $\{\rho(x,h^{-1}gy):g\in G\}$ son iguales, su ínfimo es el mismo.
+	Definamos
+	\[\tilde{\rho}(G(x),G(y)):=\rho(x,G(y)).\]
+	Ahora veamos que esta función efectivamente es una métrica:
+	\begin{enumerate}
+		\item $\tilde{\rho}(G(x),G(x))=0$ trivialmente.
+		
+		\item Es positiva, es decir, $\tilde{\rho}(G(x),G(y))\geq0$ para cualesquiera $x,y\in X$.
+		
+		Si $G(x)\neq G(y)$ pero $\tilde{\rho}(G(x),G(y))=0$, entonces podemos (ya que $X$ es metrizable) construir una sucesión de puntos en $G(y)$ cuyas distancias a algún $x\in G(x)$ tienden a cero, es decir, la sucesión tiende a $x$. Como el grupo es compacto, $G(y)$ es cerrada y contiene a sus puntos límites, así que $x\in G(y)$, que no es posible.
+		
+		\item Es simétrica, pues
+		\begin{align*}
+			\tilde{\rho}(G(x),G(y))&=\inf_{g\in G}\rho(x,gy)\\
+			&=\inf_{g\in G}\rho(gy,x)\\
+			&=\inf_{g\in G}\rho(y,g^{-1}x)\\
+			&=\inf_{g\in G}\rho(y,gx)\\
+			&=\tilde{\rho}(G(y),G(x))
+		\end{align*}
+		
+		\item La desigualdad del triángulo se hereda.
+		\begin{align*}
+			\tilde{\rho}(G(x),G(z))&=\inf_{g\in G}\rho(x,gz)\\
+			&\leq\inf_{g,h\in G}\left(\rho(x,hy)+\rho(hy,gz)\right)\\
+			&=\inf_{h\in G}\rho(x,hy)+\inf_{g,h\in G}\rho(hy,gz)\\
+			&=\tilde{\rho}(G(x),G(y))+\tilde{\rho}(G(y),G(z))
+		\end{align*}
+		ya que $\rho(x,gz)\leq\rho(x,hy)+\rho(hy,gz)$ para cualesquiera $g,h\in G$.
+	\end{enumerate}
+	Por último, veamos que la topología inducida por $\tilde{\rho}$ es la misma que la topología cociente. Recordemos que los abiertos de la topología cociente son los subconjuntos de $X/G$ que bajo la proyección $\pi:X\to X/G$ son abiertos en $X$.
+	
+	\begin{af}
+		Para cualquier $x\in X$,
+		\[\pi(B_\varepsilon(x))=\tilde{B}_\varepsilon(G(x))\]
+		para las bolas abiertas de radio $\varepsilon>0$ en los respectivos espacios.
+	\end{af}
+	
+	Primero veamos por qué el resultado se sigue de esta afirmación. Sea $\tau$ la topología cociente en $X/G$, y tomemos un abierto $U$ de $(X/G,\tau)$. Su imagen inversa es un abierto en $X$, que es una unión de bolas abiertas $\bigcup_\alpha B^\alpha_\varepsilon(x)$. La imagen de cada bola abierta es una bola abierta en $(X/G,\tilde{\rho})$, así que $\pi\circ\pi^{-1}(U)=U$ es abierto en $(X/G,\tilde{\rho})$.
+	
+	A la inversa, cualquier abierto de $(X/G,\tilde{\rho})$ es una unión de bolas, cada una de las cuales es la imagen de una bola abierta en $X$. Como la proyección cociente es abierta en $(X/G,\tau)$, terminamos.
+	 
+	Ahora demostramos la afirmación. Tomamos $\varepsilon>0$, $x\in X$ y las bolas abiertas\linebreak
+	${B_\varepsilon(x)=\{y\in X:\rho(x,y)<\varepsilon\}}$ y $\tilde{B}_\varepsilon(G(x))=\{G(y)\in X/G:\tilde{\rho}(G(x),G(y))<\varepsilon)\}$.
+	
+	\begin{enumerate}
+		\item[$(\subseteq)$] Si $y\in B_\varepsilon(x)$, entonces $\pi(y)=G(y)\in\tilde{B}_\varepsilon(G(x))$ ya que $\tilde{\rho}(G(x),G(y))\leq\rho(x,y)$.
+	
+	
+		\item[$(\supseteq)$] Si $G(y)\in\tilde{B}_\varepsilon(G(x))$, debemos encontrar $y'\in B_\varepsilon(x)$ tal que $\pi(y')=G(y)$.
+	
+	La distancia entre $x$ y el conjunto $\pi^{-1}(G(y))$ es
+	\begin{align*}
+		\rho(x,\pi^{-1}(G(y)))&=\inf_{z\in\pi^{-1}G(y)}\rho(x,z)\\
+		&=\inf_{g\in G}\rho(x,gy)\\
+		&=\rho(x,G(y))\\
+		&=\tilde{\rho}(G(x),G(y))\\
+		&<\varepsilon
+	\end{align*}
+	
+	Así que existe $y'\in\pi^{-1}(G(y))\cap B_\varepsilon(x)$.
+	\end{enumerate}
+\end{proof}
+El teorema también es cierto si $G$ es numerablemente compacto.
+
+\begin{defn}
+	Un espacio $X$ es \textbf{numerablemente compacto} si cualquier cubierta numerable tiene una subcubierta finita.
+\end{defn}
+
+Para demostrar esta variante del teorema basta revisar que la métrica es positiva (inciso 3). Resultará que la órbita de $G(y)$, al ser la imagen de $G$ bajo $g\mapsto gy$ es numerablemente compacta, así que debe contener al menos un $\omega$\textbf{-punto límite}, con lo que se obtiene una contradicción como en la demostración anterior. Específicamente,
+\begin{prop}
+	La imagen de un espacio numerablemente compacto bajo una función continua es numerablemente compacto.
+\end{prop}
+\begin{proof}
+	Supongamos que $f:X\to Y$ es continua y $X$ es numerablemente compacto. Tomemos una cubierta numerable $\{U_\alpha\}$ de $Y$. Entonces, $\{f^{-1}(U_\alpha)\}$ es una cubierta numerable de $X$, para la cual existe una subcubierta finita $f^{-1}(U_1),\ldots,f^{-1}(U_n)$. Si $U_1,\ldots,U_n$ no cubre a $Y$, escojamos $y\in Y\backslash\bigcup_{i=1}^nU_i$, luego $y'\in f^{-1}(y)$, de forma que $y'\in f^{-1}(U_j)$ para algún $j=1,\ldots,n$. Pero entonces $f(f^{-1}(y'))=y\in U_j$.
+\end{proof}
+\begin{defn}
+	Sean $X$ un espacio topológico y $A\subset X$. Decimos que $x\in X$ es un \textbf{$\omega$-punto límite} de $A$ si cualquier abierto $U\subset X$ que contiene a $x$ tiene una infinidad de puntos de $A$.
+\end{defn}
+En nuestro caso, el espacio $X$ es la órbita $G(y)$, y el subconjunto $A$ es la sucesión convergente a $x$. Veremos que de hecho este punto está en $A$.
+\begin{prop}\label{prop:num-comp}
+	Sean $X$ un espacio topológico y $A\subset X$ un subconjunto infinito. Si $X$ es numerablemente compacto, entonces $A$ contiene al menos un $\omega$-punto límite.
+\end{prop}
+\begin{proof}
+	(Tomada de \href{https://math.stackexchange.com/questions/1817245/a-topological-space-is-countably-compact-iff-every-countably-infinite-subset-has}{aquí}).
+	Supongamos que $A$ no tiene $\omega$-puntos límite. Entonces, para cualquier $x\in X$ existe una vecindad $U_x$ tal que su intersección con $A$ es finita. Es claro que $\{U_x:x\in X\}$ es una cubierta de $X$. Usaremos que la familia de subconjuntos finitos de un conjunto numberable es numerable para construir una cubierta numerable. Para cualquier $F\subset A$ finito, definamos \[U_F=\bigcup\{U_x:U_x\cap A=F\}\]
+	Que es una cubierta numerable de $X$ ya que contiene a todos puntos de los $U_x$. Notemos que cualquie $U_F\cap A$ es finito por definición. Pero si hubiera una subcubierta finita, tendría que haber al menos un $U_F$ que contuviera una infinidad de puntos en $A$.
+\end{proof}
+\begin{ejem}[Exposición]
+	Si $G$ no es compacto, podemos dar un contraejemplo de $X$ con una métrica $G$-invariante que no pasa al cociente $X/G$.
+\end{ejem}
+\begin{proof}
+	Es necesario que las órbitas no sean conjuntos compactos. El ejemplo es el flujo irracional en el toro: como las órbitas son densas, en cualquier vecindad de un punto $x$ hay un elemento de cualquier órbita $G(y)$, así que $\inf_{g\in G} (x,gy)=0$ aunque $G(x)\neq G(y)$.
+	
+	Una acción más simple de esta idea es $\Z\curvearrowright\SP^1$ mediante $n\cdot e^{2\pi it}=e^{2\pi itn}$. Resultará que la órbita de cualquier punto con argumento número irracional es densa en $\SP^1$. Para demostrarlo fijamos $\alpha$ irracional y obtenemos por el teorema de aproximación de Dirichlet que
+	\[|e^{2\pi i\alpha n}-e^{2\pi im}|\leq|2\pi i\alpha n-2\pi im|=2\pi|\alpha n-m|<1/N\]
+	para cualquier entero $N$, así que las órbitas $\Z(\alpha)$ y $\Z(1)$ son infinitamente cercanas. ¡El neutro de $\Z$ manda a todos los puntos al 1! \textbf{Ésta no es acción.}
+	
+	¿Quizás $\Q^\times$ multiplicativo sobre $\R$?
+\end{proof}
+\begin{ejem}
+	Si el grupo es metrizable y compacto entonces siempre se puede. Pero si el grupo no es compacto y no es abeliano es posible dar una métrica que sea invariante por un lado pero no por el otro. (Ver Tkachenko et al.)
+\end{ejem}
+\section{Producto torcido}
+Sea $G$ un grupo topológico, $H<G$ y $X$ un $H$-espacio. Entonces tenemos la acción $H\curvearrowright(G\times X)$ dada por $h\cdot(g,x):=(gh^{-1},hx)$. Entonces podemos considerar el espacio de órbitas 
+\[G\times_HX:=(G\times X)/H\]
+que se llama \textbf{producto torcido} de $G$ y $X$ por medio de $H$.
+
+En este espacio se pierde la acción de $H$, pero se preserva la acción de $G$. Denotarmos $H((g,x)):=[g,x]$.
+\begin{teo}
+	 La correspondencia $G\curvearrowright(G\times_HX)$ definida por $g'*[g,x]:=[g'*g,x]$ es una acción.
+\end{teo}
+\begin{proof}
+	Consideremos el siguiente diagrma
+	\[\begin{tikzcd}
+		G\times G\times_H X\arrow[r,"\alpha"]&G\times_HX\\
+		G\times G\times X\arrow[u,"id\times p"]\arrow[r,"\beta"]&G\times X\arrow[u,"p"]\\
+		(g',g,x)\arrow[r,maps to,"\beta"]&(g'\cdot g,x)
+	\end{tikzcd}\]
+\end{proof}
+Notemos que podemos identificar $X\approx S:=\{[e,x]:x\in X\}\subset G\times_HX$. El conjunto $H* S=\{h*[e,x]:h\in H\}$ es igual que $S$, ya que $h*[e,x]=[he,x]=[heh^{-1}e,x]=[e,x]$ por tratarse de una clase de equivalencia.
+\begin{teo}
+	Sea $X$ un espacio topológico. La función
+	\begin{align*}
+		f:X&\to G\times_HX\\
+		x&\mapsto[e,x]
+	\end{align*}
+	es un $H$-encaje, es decir, un encaje $H$-equivariante. Y es cerrada si $H$ es cerrado.
+\end{teo}
+Para una prueba, primero veremos que
+\begin{prop}
+	Sea $B\subset X$ un cerrado en un $G$-espacio $X$ con $G$ cualquier grupo topológico y $H<G$ un subgrupo cerrado. Entonces, el conjunto
+	\[A=\{(h^{-1},hb):h\in H,b\in B\}\]
+	es cerrado en $G\times X$.
+\end{prop}
+\begin{proof}
+	Para demostrar que es un conjunto cerrado tomaremos una \textbf{red} (que generaliza una sucesión) y veremos que converge. Sea $(h_i)\subset G$ una red. Veamos si $(h_i^{-1},h_ob)\to(g,x)$. Si $h_i^{-1}\to g$ y $h_ib\to x$, entonces $h_i^{-1}(hb)\to gx$. Luego, $gx=b\implies x=g^{-1}b\implies(g,x)=(g,g^{-1}b)$, y de hecho $g\in H$ ya que $H$ es cerrado.
+\end{proof}
+\begin{proof}
+	\textbf{(del teorema).}
+	Para ver que $f$ es inyectiva, consideremos
+	\[\begin{tikzcd}[row sep=tiny]
+		X\arrow[r]&G\times X\arrow[r,"\pi"]&G\times_XH\\
+		x\arrow[r,maps to]&(e,x)\arrow[r,maps to]& \left[e,x\right]\\
+		y\arrow[r,maps to]&(e,y)\arrow[r,maps to]& \left[e,y\right]\arrow[u,equal]
+	\end{tikzcd}\]
+	Así que existe $h\in H$ tal que $(e,x)=h\cdot(e,y)=(h^{-1},hy)$, pero entonces $h=e$.
+	
+	Para ver que $f$ es cerrada, tomemos $B\subset X$ un conjunto cerrado. Luego, 
+	\begin{align*}
+		p^{-1}\left(f(B)\right)&=\{(g,x)\in G\times X:[g,x]\in f(B)\}\\
+		&=\{(g,x)\in G\times X:[g,x]=[e,b], b\in B\}\\
+		&=\{(h^{-1},hb)\in G\times X:b\in B,h\in H\}
+	\end{align*}
+	Además, $f$ es $H$-equivariante, pues
+	\[[e,hx]=f(hx)=hf(x)=[,]\]
+\end{proof}
+\begin{proof}
+	\textbf{(de Lucho para ver que $f$ es cerrada)}
+	\begin{af}
+		$\pi^{-1}(S)=H\times X$.
+	\end{af}
+	($\supseteq$) Claro, pues para $(h,x)\in H\times X$ tenemos que $[h,x]=[e,x]$.
+	
+	($\subseteq$) Sea $(g,x)\in\pi^{-1}(S)$. Luego, existe $y\in X$ tal que $[g,x]=[e,y]$, así que $(g,x)=h\cdot (e,x)=(h^{-1},hx)$ para algún $h\in H$.
+	
+	De aquí se sigue que $S$ es cerrado.
+	
+	Para ver que $f$ es abierta  construimos su inversa mediante el teorema de transgresión aplicado a 
+	\[\begin{tikzcd}
+		H\times X\arrow[r,"\pi"]\arrow[d,swap,"\alpha"]&S\arrow[dl,dashed]\\
+		X
+	\end{tikzcd}\]
+	Donde $\alpha(h,x)=hx$. Basta notar que $\pi^{-1}([e,x])=\{(h,h^{-1}x)\in H\times X,h\in H\}$, de forma que la flecha punteada manda $[e,x]\mapsto x$.
+\end{proof}
+\begin{prop}
+	$\frac{G\times_HX}{G}\approx X/H$ para $H<G$ cerrado. 
+\end{prop}
+\begin{proof}
+	Afirmamos que $H(x)\overset{f}{\mapsto}G(x)$ es un homeomorfismo. Como ${G\times X\overset{p}{\to}X}$ es $H$-equivariante, tenemos
+	\begin{align*}
+		\tilde{p}:G\times_HX&\to X\\
+		[g,x]&\mapsto H(x)
+	\end{align*}
+	Es posible factorizar $\tilde{p}$ como $\varphi$ de acuerdo a que
+	\[\begin{tikzcd}
+		\frac{G\times_HX}{G}\arrow[rd,"\varphi"]\\
+		G\times_HX\arrow[u,"\pi"]\arrow[r,swap,"\tilde{p}"]&X/H
+	\end{tikzcd}\]
+	y de hecho, $\varphi$ y $f$ son inversas una de la otra.
+\end{proof}
+\section{Rebanadas}
+\begin{defn}
+	Una \textbf{sección cruzada} es una función $\sigma$ tal que el siguiente diagrama conmuta:
+	\[\begin{tikzcd}
+		&X\arrow[d,"\pi"]\\
+		X/G\arrow[r,"\Id",swap]\arrow[dashed,ur,"\sigma"]&X/G
+	\end{tikzcd}\]
+\end{defn}
+\begin{defn}
+	Dado un subconjunto $A\subseteq X$ de un espacio topológico, una \textbf{retracción} es una función $r:X\to A$ tal que $r\circ i=\Id_A$ para la inclusión $i:A\hookrightarrow X$.
+\end{defn}
+\begin{defn}
+	Sea $X$ un $G$-espacio, $H<G$ y $S\subset X$. Decimos que $S$ es una \textbf{$H$-rebanada} de $X$ si
+	\begin{enumerate}
+		\item $S$ es $H$-invariante, es decir, $H(S)=S$.
+		\item $S$ es cerrado en su \textbf{saturación} $G(S)=\{gs:g\in G,s\in S\}$.
+		\item Si $g$ es tal que $gS\cap S\neq\varnothing$, entonces $g\in H$.
+		\item $G(S)$ es abierto en $X$.
+	\end{enumerate}
+	 Si $G(S)=X$ decimos que $S$ es una \textbf{rebanada global}. 
+\end{defn}
+Se sigue que si dos órbitas tienen intersección no vacía, entonces son la misma.
+
+¿Cuándo existen las rebanadas?
+\begin{teo}[de la rebanada]
+	Si $G$ es un grupo de Lie compacto y $X$ es de Tychonoff, entonces para cualquier $x\in X$ existe $S\subset X$ una $G_x$-rebanada tal con $x\in S$.
+\end{teo}
+\begin{prop}
+	Sea $X$ un $G$-espacio con $G$ compacto. Si $S\subset X$ es una $H$-rebanada global y $\alpha$ es la acción de $G$ en $X$, entonces $\alpha|_{G\times S}=G\times S\to G(S)=X$ es abierto.
+\end{prop}
+\begin{obs}
+	$S$ es una $H$-rebanada global de $G(S)$, así que para cualesquiera abiertos $U$ de $S$ y $O$ de $G$, entonces $U\cdot O$ es abierto de $G(S)$. Además, como $G(S)$ es abierto de $X$, $U\cdot O$ también.
+\end{obs}
+\begin{prop}
+	Supongamos que $(X,d)$ es un $G$-espacio metrizable con $G$ compacto de Lie. Entonces para cada $x\in X$ y $r>0$ existe una $G_x$-rebanada tal que $\diam(S)\leq2r$.
+\end{prop}
+\begin{defn}
+	Decimos que $V$ es un \textbf{$G$-espacio lineal} si la acción es lineal, es decir, $g\cdot(\lambda x+y)=\lambda gx+gy$.
+\end{defn}
+\clearpage
+\begin{ejem}\leavevmode
+	\begin{enumerate}
+		\item $S=\{eH\}$ con $eH\in G/H$ es una $H$-rebanada. El movimiento de $eH$ en $G/H$ "modela" el movimiento de $S$ en $X$.
+		\item En el producto torcido $G\times_HS$, $S\approx\{[e,s]:s\in S\}$ es una $H$-rebanada global. Veamos la condición 2. Supongamos que $gS\cap S\neq\varnothing$, de forma que existe $h\in H$ tal que $[e,x]=[g^{-1},gs]=[h^{-1},hs]$.
+	\end{enumerate}
+\end{ejem}
+\begin{prop}
+	Si $H<G$ es cerrado, $\frac{G\times_HX}{G}$ es homeomorfo a un retracto de $\frac{G\times_HX}{H}$.
+\end{prop}
+\begin{proof}
+	Usamos que $\frac{G\times_HX}{G}\approx X/H$. Definamos la retracción
+	\begin{align*}
+		r:\frac{G\times_HX}{H}&\to X/H\\
+		H([g,x])&\mapsto H(x)
+	\end{align*}
+	Ahora para $i:X\hookrightarrow G\times_HX$ tenemos \begin{align*}
+		\tilde{i}:X/H&\hookrightarrow\frac{G\times_HX}{H}\\
+		H(x)&\mapsto H([e,x])\overset{r}{\mapsto}H(x)
+	\end{align*}
+	de manera que hemos construido una inversa izquierda de $r$, por lo cual es una retracción de acuerdo a la siguiente proposición.
+\end{proof}
+\begin{prop}
+	Sean $r:X\to A$ y $f:A\to X$ continuas tales que $r\circ f=\Id_A$. Entonces $r:X\to f(A)$ es una retracción en $f(A)$.
+\end{prop}
+\begin{proof}
+	$rf$ es inyectiva, pues si $rf(a_1)=rf(a_2)$, entonces $a_1=a_2$. Además, $f$ es un encaje, pues $f(C)=f(A)\cap r^{-1}(C)$ y $C=r(f(C))$.
+\end{proof}
+Ahora veamos que cualquier vecindad tubular (saturación de una rebanada) es un producto torcido:
+\begin{teo}
+	Sean $G$ un grupo topológico, $H<G$ cerrado, $X$ un $G$-espacio y $S\subset X$ una $H$-rebanada. Entonces,
+	\[G\times_HS\approx_GG(S)\]
+\end{teo}
+\begin{proof}
+	Tomemos
+	\begin{align*}
+		f:G\times_HS&\to G(S)\\
+		[g,s]&\mapsto gs
+	\end{align*}
+	Primero notemos que $[gh^{-1},hs]\overset{f}{\mapsto}(gh^{-1})hs=gs$ por lo que $f$ está bien definida. Luego
+	\[\begin{tikzcd}
+		G \times_H S \arrow{r} & G(S)\\
+		G \times S \arrow{u} \arrow[swap]{ur}{\varphi}\arrow[hook]{r}&G\times G(S)\arrow{u}
+	\end{tikzcd}\]
+	Donde $\varphi$ es la acción. Por este diagrama, $f$ es continua. Ahora veamos que es inyectiva tomando $[g,s]$ y $[g',s']$ que vayan a dar a $gs=g's'$. Luego, $s'=(g')^{-1}gs\in S\cap(g')^{-1}gS\neq\varnothing$. Tomemos $h:=(g')^{-1}g\in H$, de forma que $g'=gh^{-1}$. También es suprayectiva.
+	
+	(Creo que) si $G$ es compacto, entonces $f$ es cerrada.
+\end{proof}
+\begin{lema}
+	Sea $G$ un grupo compacto y $X$ un $G$-espacio. Entonces la acción $G\times X\to X$ es cerrada.
+\end{lema}
+
+\begin{teo}[de la rebanada]
+	Sean $G$ un grupo compacto de Lie, $X$ un $G$-espacio de Tychonoff, $x\in X$. Entonces existe una $G_x$-rebanada $S\subset X$ tal que $x\in S$.
+\end{teo}
+\begin{prop}
+	Sea $G$ cualquier grupo topológico y $f:X\to Y$ una $G$-función. Si $S\subset Y$ es una $H$-rebanada en $Y$, entonces, $f^{-1}(S)$ es una $H$-rebanada en $X$.
+\end{prop}
+
+\section{Extensión de funciones equivariantes: teorema de Tits-\textit{Urison}}
+Dada la acción $\Z_2\curvearrowright\R$ dada por $x\mapsto -x$, ¿cómo extendemos equivariantemente una función de un conjunto cerrado $A$ en $\R$ a $\R^2$?
+\[\begin{tikzcd}
+	A\arrow[r,"\varphi"]\arrow[hook,d]&\R\\
+	\R^2\arrow[ur,dashed,"f",swap]
+\end{tikzcd}\]
+Simplemente tomamos el promedio
+\[f(x)=\frac{\varphi(x)-\varphi(-x)}{2}\]
+ya que en este caso $f(x)=-f(x)$, es decir, $f$ es $\Z_2$-equivariante.
+
+Ahora consideremos la acción $\SP^1\curvearrowright\R^2$ mediante rotaciones. Tomemos
+\[f(x)=\int_{\SP^1}g^{-1}\varphi(gx)dg\]
+donde $dg$ es la \textbf{medida de Haar}, que se define como sigue:
+%\begin{align*}
+%	G\times\mathcal{C}(G,\R)&\to\mathcal{C}(G,\R)\\
+%	(gf(x))&\mapsto f(x\cdot g)
+%\end{align*}
+\begin{align*}
+	\int:(G,\R)\to\R
+\end{align*}
+	tal que
+	\begin{enumerate}
+		\item Es lineal.
+		\item $\int1=1$,
+		\item $\int f\geq0$ si $f\geq0$,
+		\item $\int gf=\int f=\int g*f$.
+	\end{enumerate}
+%	Recordemos que para cualquier medida $\mu$ y $A\subset X$, definimos $\mu(A)=\int\chi(A)$.
+Ahora veamos si $f$ es equivariante, es decir, si $f(hx)=hf(x)$. Por un lado
+\begin{align*}
+	f(hx)&=\int g^{-1}\varphi(ghx)\\
+	&=\int h t^{-1}\varphi(tx)\\
+	&=h\varphi t^{-1}\varphi(tx)
+\end{align*}
+donde $dt=dg$. Por otro lado
+\begin{align*}
+	hf(x)&=h\int g^{-1}\varphi(gx)
+\end{align*}
+Si $a\in A$,
+\begin{align*}
+	f(a)&=\int g^{-1}\varphi(ga)=\int g^{-1}g\varphi(a)=\\
+	&=\int\varphi(a)dg=\varphi(a)
+\end{align*}
+
+\section{Teorema de Dugundji}
+\begin{teo}[de Dugundji]
+	Sea $X$ un espacio metrizable, $A=\bar{A}\subset X$ y $L$ un espacio vectorial localmente convexo, y $V\subset L$ convexo. Entonces cualquier función $f:A\to V$ admite una extensión $F$.
+\[\begin{tikzcd}
+	A\arrow[r,"f"]\arrow[hook,d]&V\\
+	X\arrow[ur,dashed,"F",swap]
+\end{tikzcd}\]
+Además $\img F\subset\conv\img F$.
+\end{teo}
+Primero necesitaremos
+\begin{lema}
+	En esta situación existe una cubierta abierta $\omega$ de $X\backslash A$ tal que
+	\begin{enumerate}
+		\item $\omega$ es localmente finita en $X\backslash A$, es decir, cualquier punto tiene una vecindad que intersecta a $\omega$ en un número finito de abiertos.
+		\item para cualquier punto $a\in A$ y cada vecindad $U_a$ existe otra vecindad $V_a$ tal que si $V_a\cap W\neq\varnothing$ para algún $W\in\omega$, entonces $W\subset U_a$.
+	\end{enumerate}
+	Diremos que esta cubierta es un \textbf{sistema de Dugundji}.
+\end{lema}
+\begin{defn}
+	Una \textbf{partición de la unidad} subordinada a $\omega$ es una familia de funciones $\{\varphi_i:X\to[0,1]| i\in J\}$ tales que
+	\begin{itemize}
+		\item $\varphi_i^{-1}((0,1])\subset U_i$.
+		\item $\sum_{i\in J}\varphi_i(x)=1$.
+	\end{itemize}
+\end{defn}
+Resulta que cualquier cubierta localmente finita admite una partición de la unidad subordinada. Ahora demostremos el teorema de Dugundji:
+\begin{proof}
+	Sea $\omega$ el sistema de Dugundji para $X\backslash A$. Para cada $U_i\in\omega$, sean $x_i\in U_i$ y $a_i\in A$ tales que
+	\[\rho(x_i,a_i)\leq 2d(x_i,A)\]
+	donde $d(x_i,A):=\inf_{a\in A}d(x_i,a)$.
+	
+	Para una partición de la unidad de $\omega$, definamos
+	\[F(x):=\begin{cases}
+		\begin{aligned}
+			f(x),\qquad&x\in A\\
+			\sum\varphi_i(x)f(a_i),\qquad&x\in X\backslash A
+		\end{aligned}
+	\end{cases}\]
+	Por tratarse de una partición de la unidad, la suma de abajo es una suma convexa (los coeficientes suman 1), de manera que en cualquiera de los casos, $F(x)\in V$.
+	
+	Ahora veamos que $F$ es continua. Procedemos por casos:
+	
+	\begin{enumerate}
+		\item Si $x\in X\backslash A$, existe $S$ con $x\in S$ tal que $S\cap U_i\neq\varnothing$ para un número finito de índices $i\in J$. Entonces $F(z)=\sum_{i\in J}\varphi_i(z)f(a_i)$ para todo $z\in S$ por ser $\varphi_i$ una partición de la unidad.
+	
+		\item Si $x=a\in A$, entonces $F(a)=f(a)$. Tomemos un abierto convexo $Q\subset V$ que contiene este punto. Como $f$ es continua en $A$, entonces xiste una vecindad de $a$ en $A$, es decir, existe $\delta>0$ tal que $f(B(a,\delta)\cap A)\subset Q$.
+		
+		Por la propiedad (2) en lema, sabemos que existe $r>0$ tal que para cualquier $W\in\omega$ con $W\cap N(a,r)\neq\varnothing$, entonces $W\subset B(a,\delta)$. Supongamos que $r<\frac{\delta}{4}$.
+		
+		Afirmamos que $F(B(a,r))\subset Q$. Sea $x\in B(a,r)\cap(X\backslash A)$. Entonces, $F(x)=\sum_{i\in J}\varphi_i(x)f(a_i)\overset{?}{\in }Q$. Tenemos que
+		\begin{align*}
+			\rho(a,a_i)&\leq\rho(a_i,x_i)+\rho(x_i,a)<2d+\delta<4\delta<r
+		\end{align*}
+		Luego, $a_i\in B(a,r)$ así que $f(a_i)\in Q$ y por convexidad, se cumple que $F(x)=\sum_{i\in J}\varphi_i(x)f(a_i)\in Q$.
+	\end{enumerate}
+\end{proof}
+Ahora nos preguntamos qué pasa en el análogo equivariante.
+\begin{defn}
+	Sea $X$ un espacio topológico y $K$ alguna clase de espacios topológicos. Se dice que $X$ es un \textbf{extensor absoluto} $X\in\AEx(K)$ si para cualesquiera $y\in K$, $A\in Y$ y $f:A\to X$ continua existe $F:Y\to X$ continua.
+\end{defn}
+\begin{ejem}
+	Para $W$ un subconjunto convexo de un espacio localmente convexo y $M$ la clase de espacio metrizables, el teorema de Dugundji nos asegura que $W\in\AEx(M)$.
+\end{ejem}
+\begin{teo}[Tietze]
+	Sea $X$ un espacio normal y $A\subset X$ cerrado. Si $f:A\to[0,1]$ es una función continua, entonces existe una extensión continua $f:X\to[0,1]$.
+\end{teo}
+\begin{defn}
+	Sea $X$ un espacio topológico y $K$ alguna clase de espacios topológicos. Se dice que $X$ es un \textbf{extensor de vecindad absoluto} $X\in\ANEx(K)$ si para cualesquiera $y\in K$, $A\in Y$ y $f:A\to X$ continua existe $F:U\to X$ continua con $U$ una vecindad abierta de $A$.
+\end{defn}
+\begin{teo}
+	$X\in\AEx(M)\iff X$ es contraible y $X\ANEx(M)$.
+\end{teo}
+\begin{teo}[de Dugundji para $G$-espacios]
+	Sea $X$ un $G$-espacio metrizable, $A=\bar{A}\subset X$ invariante, es decir $G(A)=A$. Si $L$ es un $G$-espacio vectorial localmente convexo, y $V\subset L$ invariante y convexo, entonces cualquier función $f:A\to V$ es equivariante, entonces admite una extensión $F:U\to V$ con $U$ una vecindad invariante de $A$.
+	\[\begin{tikzcd}
+		A\arrow[r,"f"]\arrow[hook,d]&V\\
+		U\arrow[ur,dashed,"F",swap]
+	\end{tikzcd}\]
+	Además $\img F\subset\conv\img F$.
+\end{teo}
+Es decir, no se puede extender $f$ a todo el espacio pero sí a una vecindad. Resultará que si $X$ es contraible sí podemos extender la función. Dotando a los espacios de funciones continuas con la topología compacto-abierta, que resultarán ser también espacios vectoriales topológicos (las operaciones son continuas) y $G$-espacios (con $gf(x)=g^{-1}f(gx(x))$), el operador
+\[\Delta:\mathcal{C}(A,V)\to\mathcal{C}(X,V)\]
+es un encaje lineal.
+
+\section{Cubierta $G$-canónica y teorema de Dugundji}
+\begin{defn}\leavevmode
+	\begin{itemize}
+		\item Sean $\mathcal{U},\mathcal{V}$ cubiertas abiertas de un espacio topológico $X$. Decimos que $\mathcal{U}$ \textbf{refina} a $\mathcal{V}$ si para cualquier $U\in \mathcal{U}$ existe $V\in \mathcal{V}$ tal que $U\subset V$.
+		\item Sea $\mathcal{U}$ una cubierta abierta de $X$. Decimos que $\mathcal{U}$ es \textbf{localmente finita} si cualquier $x\in X$ tiene una vecindad que intersecta una cantidad finita de elementos de $\mathcal{U}$.
+		\item Un espacio es \textbf{paracompacto} si cualquier cubierta abierta admite un refinamiento localmente finito.
+	\end{itemize}
+\end{defn}
+\begin{obs}
+	Si $X$ es compacto entonces es paracompacto.
+\end{obs}
+\begin{teo}[Stone]
+	Si $X$ es metrizable entonces es $X$ paracompacto.
+\end{teo}
+\begin{proof}
+	Parecida a la del teorema de Urison.
+\end{proof}
+De manera que si $X$ es metrizable y la métrica es $G$-invariante, entonces $X/G$ es paracompacto.
+
+\begin{teo}
+	$X$ es paracompacto si y sólo si cualquier cubierta abierta $\mathcal{U}$ de $X$ admite una partición de la unidad subordinada a $\mathcal{U}$.
+\end{teo}
+
+\begin{prop}
+	Sean $G$ un grupo topológico, $H\leq G$ cerrado y $X$ un $G$-espacio. La función 
+	\begin{align*}
+		G/H\times X[H]&\to X\\
+		(gH,x)\quad&\mapsto gx
+	\end{align*}
+	donde $X[H]:=\operatorname{Fix}(H)=\{x\in X:hx=x\forall h\in H\}$, está bien definida y es continua.
+\end{prop}
+\begin{proof}
+	Sean $(g_1H,x),(g_2H,y)\in G/H\times X[H]$ tales que $g_1H=g_2H$, es decir, $g_2^{-1}g_1\in H$. Luego $g_2^{-1}g_1x=x$, así que $g_1x=g_2x$.
+	
+	Para ver que es continua simplemente
+	\[\begin{tikzcd}
+		G/H\times X[H]\arrow[r,"\omega"]&X\\
+		G\times X[H]\arrow[swap,ur,"\alpha|_{G\times X[H]}"]\arrow[u,"p\times\Id"]
+	\end{tikzcd}\]
+	Suponiendo por ahora que $X[H]$ es cerrado, $\omega$ resulta devolver cerrados en cerrados ya que $p\times\Id$ es abierta.
+\end{proof}
+
+\begin{defn}
+	Sea $X$ un $G$-espacio. Decimos que una cubierta $\{U_\alpha\}$ es \textbf{invariante} si cada $U_\alpha$ es un conjunto invariante ($=$un tubo, es decir, la saturación de una rebanada).
+\end{defn}
+
+\begin{prop}
+	Sea $X$ un espacio paracompacto. Si $\{U_\alpha\}$ es una cubierta invariante, entonces existe un refinamiento localmente finito de conjuntos invariantes de $\{U_\alpha\}$.
+\end{prop}
+\begin{proof}
+	Como la proyección es una función perfecta (continua, cerrada y con fibras compactas), $X/G$ es paracompacto.
+	
+	Sea $\{U_\alpha\}$ una cubierta invariante de $X$. Entonces $\{p(U_\alpha)\}$ es una cubierta abierta de $X/G$, de forma que podemos encontrar un refinamiento localmente finito $\{V_\lambda\}$. Entonces, $\{p^{-1}(V_\lambda)\}$ es una cubierta abierta de $X$, de hecho, es localmente finita ya que $\{V_\lambda\}$ es localmente finita.
+	
+	Para ver que $\{p^{-1}(V_\lambda)\}$ es un refinamiento de $\{U_\alpha\}$, notemos que $p^{-1}(V_\lambda)\subset U_\alpha$ ya que $U_\alpha$ es invariante. Además, $p^{-1}(V_\lambda)$ es invariante.
+\end{proof}
+
+\begin{prop}
+	Sea $X$ un $G$-espacio paracompacto. Entonces si $\{G(S_\alpha)\}_{a\in A}$ es una cubierta tubular (es decir, $S_\alpha$ es una $H_\alpha$-rebanada para $\alpha\in A$), entonces existe un refinamiento localmente finito de conjuntos de conjuntos tubulares.
+\end{prop}
+\begin{proof}
+	Sabemos que $G(S_\alpha)$ es abierto en $X$, así que nuestra cubierta es como en el teorema anterior. Por medio de la misma construcción obtenemos un refinamiento $\{p^{-1}(V_\lambda)\}$. Tomemos $p^{-1}(V_\lambda)\subset U_\alpha=G(S_\alpha)$ y definamos $Q_\lambda=p^{-1}(V_\lambda)\cap S_\alpha$. De hecho, $p^{-1}(V_\lambda)=G(Q_\lambda)$, y $Q_\lambda$ es una $H_\alpha$-rebanada.
+\end{proof}
+
+\begin{prop}
+	Supongamos que $S$ es una $H$-rebanada global. Existe una función ${\tilde{g}:X\to G/H}$ tal que $x\in gS$ para $g\in\tilde{g}(x)$ continua, equivariante y única.
+\end{prop}
+\begin{proof}
+	Como $X=G(S)$, entonces cualquier $x\in X$ es de la forma $gs$. Definamos $\tilde{g}(x)=gH$.
+	
+	Para ver que $\tilde{g}$ está bien definida, tomemos $g_x,h_x\in G$ tales que $x\in g_xS$ y $x\in h_xS$. Entonces, $g_x^{-1}\in S$ y $g_x^{-1}x\in g_x^{-1}h_xS$, y luego $S\cap g^{-1}_xh_xS\neq\varnothing$. Como $S$ es rebanada, $g^{-1}_xh_x\in H\iff g_xH=h_xH= \tilde{g}(x)$.
+	
+	Veamos que $\tilde{g}:X\to G/H$ es continua. Sean $x\in X$ y $U$ abierto en $G/H$ tales que $\tilde{g}(x)\in G$. Consideremos $p:G\to G/H$, que es abierta, así que $p^{-1}(U)$ es abierto en $G$. Luego, $W=E\cdot S$ es abierto en $X$. Si $x\in gS$, entonces $\tilde{g}(x)=gH$ … \textbf{*falta*}.
+\end{proof}
+
+\begin{defn}
+	Sea $U$ un conjunto abierto invariante de un $G$-espacio $X$ y $\{G(S_\lambda)\}$ una cubierta tubular. Decimos que esta cubierta es \textbf{$G$-canónica} si:
+	\begin{enumerate}
+		\item Es localmente finita.
+		\item Para cada $\lambda\in\Lambda$ existe $x\in U$ tal que $G_x=H_\lambda$.
+		\item Para cada $a\in X\backslash U$ y cualquier vecindad $V_a$ existe $W_a$ una vecindad de $a$ en $X$ tal que si $g\in G$ y $gS_x\cap W_a\neq\varnothing$ entonces
+		\begin{enumerate}
+			\item $gS_\lambda\subset V_a$.
+			\item Existe $h\in G$ tal que $ha\in V_a$ y $H_\lambda\subset g^{-1}Ghag$.
+		\end{enumerate}
+	\end{enumerate}
+\end{defn}
+
+\begin{prop}[5.5 de Bredon, de Palais]
+	Sea $G$ un grupo compacto de Lie. Para cada vecindad $U$ de $e$ en $G$ y para todo $x\in X$ existe $\exists x\in V\in \tau_X$ tal que para todo $y\in V$ existe $u\in U$ tal que $u^{-1}G_yu=G_x$.
+\end{prop}
+
+\begin{teo}
+	Si $(X,d)$ es un $G$-espacio metrizable con $G$ compacto de Lie, entonces cada abierto $U$ invariante admite una cubierta $G$-canónica.
+\end{teo}
+\iffalse
+\begin{proof}
+	Si $U=X$, tenemos que para todo $x\in X$ existe una $G_x$-rebanada. Luego $\{G(S_x)\}_{x\in X}$ es una cubierta abierta tubular, para la cual, por el teorema anterior, existe un refinamiento $\{G(Q_\alpha)\}$ donde $Q_\alpha$ es una $G_x$-rebanada. Así, tenemos las propiedades 1 y 2 de la definición. La propiedad 3 se tiene por vacuidad.
+	
+	Ahora supongamos que $U\neq X$. Entonces $U$ es metrizable, así que es paracompacto por el teorema de Stone. De acuerdo a que $U=\bigcup_{x\in U}G(x)$, tomemos un representante de cada órbita $x\in U$ y  $Q_x$ una $G_x$-rebanada. Definamos
+	\[r_x=\frac{1}{4}\rho(X,X\backslash U)\]
+	que es un número positivo porque $U$ es abierto. Ahora definamos
+	\[R_x=Q_x\cap B_{r_x}(x)\]
+	que es una $G_x$-rebanada.
+	
+	Luego, $R_x$ \textit{es una cubierta abierta} de $U$, para la cual existe $\{U_\lambda\}$ un refinamiento tubular, con $U_\lambda=G(S_\lambda)$ para $S_\lambda$ una $G_x=H_\lambda$-rebanada de la forma $S_\lambda=R_x\cap U_x$. Con esto hemos demostrado los primeros dos puntos de la definición.
+	
+	Sean $a\in X\backslash U$ y $V_a$ abierto de $X$ con $a\in V_a$. Como $G\times X\to X$ es continua, $e\cdot a=a\in V_a$ existe $E$ abierto de $G$ con $e\in E$ tal que $g\cdot a\in V_a$. Ahora aplicamos el 5.5 de Bredon:
+	\[\exists B_\varepsilon(a)\text{ tal que si } y\in B_\varepsilon(a)\exists u\in E\text{ tal que }u^{-1}G_yu\subset G_a\]
+	Ahora sean $W_a=B_{\varepsilon/4}(a)$ y $g\in G$ tal que $gS_\lambda\cap W_a\neq\varnothing$. Recordemos que existe $x\in U$ tal que $S_x=R_x\cap U_x$ y $S_x$ es una $G_x$-rebanada.
+	
+	Ahora sea $y\in gS_x\cap W_a\subset gR_x$.
+	\begin{align*}
+		\rho(a,gx)&\leq\rho(a,y)+\rho(y,gx)\\
+		&<\varepsilon/4+\rho(y,gx)\\
+		&\leq \varepsilon/4+\operatorname{diam}R_x
+	\end{align*}
+	ya que
+	 \begin{align*}\operatorname{diam}R_x&=\operatorname{diam}R_x\leq r_x\\
+	 	&=\frac{1}{2}\rho(X,X\backslash U)\\
+	 	&=\frac{1}{2}\rho(gX,X\backslash U)\\
+	 	&<\rho(gx,a)
+ 	\end{align*}
+ 	ya que $a\in X\backslash U$. Entonces
+ 	\begin{align*}
+ 		\operatorname{diam}R_x&<\frac{1}{2}\rho(X,X\backslash U)<\frac{1}{2}\rho(gx,a)\\
+ 		\implies \rho(a,gx)&<\varepsilon/4+\frac{1}{2}\rho(gx,a)\\
+ 		\implies\rho(a,gx)&<\varepsilon/2
+	\end{align*}
+	Finalmente, \textbf{\textit{aquí hubo falla}}
+	\[\operatorname{diam}gR_x\leq\frac{1}{2}\rho(gx,X\backslash U)\leq\frac{1}{2}\]
+\end{proof}
+\fi
+\begin{teo}[Dugundji]
+	content...
+\end{teo}
+
+\section{Acciones propias de grupos localmente compactos}
+\begin{defn}\leavevmode
+	\begin{enumerate}
+		\item Sean $G$ un grupo localmente compacto Housdorff y $X$ un $G$-espacio. Para $U,V\subset X$ definimos el \textbf{\textit{transportador}} como
+	\[\langle U,V\rangle:=\{g\in G:gU\cap V\neq\varnothing\}\]
+
+		\item Se dice que \textbf{\textit{$U$ es delgado relativo a $V$}} si $\overline{\langle U,V\rangle}$ es compacto.
+
+		\item $U$ se llama \textbf{\textit{pequeño}} si para $x\in X$ existe una vecindad $V_x$ tal que $V_x$ es delgado respecto a $U$.
+		
+		\item Una acción $G\curvearrowright X$ se llama \textbf{\textit{propia}} (en el sentido de Richard Palais) si  cualquier punto $x\in X$ tiene una vecindad pequeña $V_x$. En este caso decimos que $X$ es un \textbf{\textit{$G$-espacio propio}}.
+	\end{enumerate}
+\end{defn}
+\begin{teo}[van Danzig]
+	Sea $X$ una variedad Riemanniana conexa. Entonces $\operatorname{Iso}(X)$ es un grupo de Lie y la acción natural \begin{align*}\operatorname{Iso}(X)\times X&\to X\\
+	(f,x)&\mapsto f(x)\end{align*}
+	es propia.
+\end{teo}
+\begin{obs}
+	El teorema se puede generalizar para un espacio localmente compacto, localmente conexo, metrizable y un grupo localmente compacto.
+\end{obs}
+\begin{ejem}\leavevmode
+	\begin{enumerate}
+		\item $\R_+\curvearrowright\R^2$ no es propia porque tiene un punto fijo.
+		\item Si $G$ es localmente compacto y $H<G$. La acción $G\curvearrowright G/H$ es propia si y sólo si $H$ es compacto.
+		\item Sean $X$ un grupo topológico y $G<X$ localmente compacto. Entonces la acción multiplicativa natural $G\curvearrowright X$ es propia.
+	\end{enumerate}
+\end{ejem}
+\begin{teo}[R. Palais, 1961]
+	Sea $G$ un grupo de Lie que actúa propiamente en un espacio $X$ separable y metrizable. Entonces en $X$ existe una métrica $G$-invariante.
+\end{teo}
+
+\begin{pregunta}
+	¿Es posible quitar la condición de separabilidad? Éste es un problema abierto.
+\end{pregunta}
+La propiedad de ser $\operatorname{T_1}$ pasa al cociente $X\to X/G$ (*Faltan las notas*). ¿Qué pasará con la propiedad de ser  $\operatorname{T_2}$?
+\begin{prop}
+	Sea $G\curvearrowright X$ propia. Si para cualesquiera $x,y\in X$ existen $U_x$ y $U_y$ relativamente delgadas, entonces $X/G\in\operatorname{T_2}$ si $X\in\operatorname{T_2}$.
+\end{prop}
+\begin{proof}
+	(Vista en clase.)
+\end{proof}
+Usando esta proposición demostramos que la propiedad $\operatorname{T_2}$ también pasa al cociente. Continuando con los axiomas de separabilidad, tenemos la siguiente proposición:
+\begin{prop}
+	Sea $G\curvearrowright X$ propia. Si $X\in\operatorname{T_{3\frac{1}{2}}}$, entonces $X/G\in\operatorname{T_{3\frac{1}{2}}}$.
+\end{prop}
+\end{document}

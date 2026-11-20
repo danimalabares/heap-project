@@ -1,0 +1,206 @@
+\documentclass[spanish]{article}
+\usepackage{titlesec}
+
+%Quitar páginas en blanco
+\let\cleardoublepage\clearpage
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\@endpart}{\vfil\newpage}{\par}{}{}
+\makeatother
+
+%\usepackage[spanish]{babel} ¡Esto estaba interfiriendo con las flechitas de los \tikspicture
+
+\usepackage[left=4cm, right=4cm]{geometry}
+\usepackage{palatino}%Font
+\usepackage{graphicx}
+\usepackage{marvosym}%Smileys
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage[bookmarks,bookmarksopen,bookmarksdepth=3]{hyperref}
+\hypersetup{
+	colorlinks=true,
+	urlcolor=blue,
+	linkcolor=magenta,
+	citecolor=blue,
+	filecolor=blue,
+	urlbordercolor=white,
+	linkbordercolor=white,
+	citebordercolor=white,
+	filebordercolor=white
+}
+
+\theoremstyle{definition}
+\renewcommand{\proofname}{Demostración}
+
+\newtheorem*{defn}{Definición}
+\newtheorem*{lema}{Lema}
+\newtheorem*{obs}{Observación}
+\newtheorem*{teo}{Teorema}
+\newtheorem*{prop}{Proposición}
+\newtheorem*{coro}{Corolario}
+\newtheorem*{ejer}{Ejercicio}
+\newtheorem*{ejem}{Ejemplo}
+\newtheorem*{af}{Afirmación}
+\newtheorem*{pregunta}{Pregunta}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\SP}{\mathbb{S}}
+\newcommand{\Hom}{\mathcal{H}}
+\newcommand{\Cnt}{\mathcal{C}}
+\DeclareMathOperator{\img}{img}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\Int}{int}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\Or}{O}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\AEx}{AE}
+\DeclareMathOperator{\ANEx}{ANE}
+
+
+
+\title{Métricas en espacios de órbitas}
+\author{Daniel González Casanova Azuela}
+
+\begin{document}
+\maketitle
+	\begin{defn}
+		Una métrica $\rho$ en un $G$-espacio $X$ es \textbf{invariante} si $\tilde{g}$ es una isometría para toda $g$ en $G$. Es decir, $\rho(gx,gy)=\rho(x,y)$.
+	\end{defn}
+	\begin{teo}[Recordatorio]
+		Sea $G$ compacto y $X$ un $G$-espacio metrizable. Entonces existe una métrica invariante compatible en $X/G$.
+	\end{teo}
+	\begin{prop}[Recordatorio]
+		Si $X$ es un $G$-espacio con $G$ compacto, entonces toda órbita es cerrada en $X$.
+	\end{prop}
+	\begin{teo}[Exposición]
+		Si $G$ es compacto y $X$ es un $G$-espacio que admite una métrica invariante, entonces existe una métrica compatible en $X/G$.
+	\end{teo}
+	\begin{proof}
+		Para $x,y\in X$ fijos, la función
+		\begin{align*}
+			G(y)&\to\R\\
+			gy&\mapsto\rho(x,gy)
+		\end{align*}
+		está acotada inferiormente por el cero, así que podemos definir 
+		\[\rho(x,G(y)):=\inf_{g\in G}\rho(x,gy).\]
+		Ahora veamos que de hecho este mapeo es constante en $G(x)$. Como la métrica  $X$ es $G$-invariante, para cualquier $hx\in G(x)$,
+		\[\rho(hx,G(y))=\inf_{g\in G}\rho(hx,gy)=\inf_{g\in G}\rho(x,h^{-1}gy)=\inf_{g\in G}\rho(x,gy)=\rho(x,G(y))\]
+		ya que como los conjuntos $\{\rho(hx,gy):g\in G\}$ y $\{\rho(x,h^{-1}gy):g\in G\}$ son iguales, su ínfimo es el mismo.
+		Definamos
+		\[\tilde{\rho}(G(x),G(y)):=\rho(x,G(y)).\]
+		Ahora veamos que esta función efectivamente es una métrica:
+		\begin{enumerate}
+			\item $\tilde{\rho}(G(x),G(x))=0$ trivialmente.
+			
+			\item Es positiva, es decir, $\tilde{\rho}(G(x),G(y))\geq0$ para cualesquiera $x,y\in X$.
+			
+			Si $G(x)\neq G(y)$ pero $\tilde{\rho}(G(x),G(y))=0$, entonces podemos (ya que $X$ es metrizable) construir una sucesión de puntos en $G(y)$ cuyas distancias a algún $x\in G(x)$ tienden a cero, es decir, la sucesión tiende a $x$. Como el grupo es compacto, $G(y)$ es cerrada y contiene a sus puntos límites, así que $x\in G(y)$, que no es posible.
+			
+			\item Es simétrica, pues
+			\begin{align*}
+				\tilde{\rho}(G(x),G(y))&=\inf_{g\in G}\rho(x,gy)\\
+				&=\inf_{g\in G}\rho(gy,x)\\
+				&=\inf_{g\in G}\rho(y,g^{-1}x)\\
+				&=\inf_{g\in G}\rho(y,gx)\\
+				&=\tilde{\rho}(G(y),G(x))
+			\end{align*}
+			
+			\item La desigualdad del triángulo se hereda.
+			\begin{align*}
+				\tilde{\rho}(G(x),G(z))&=\inf_{g\in G}\rho(x,gz)\\
+				&\leq\inf_{g,h\in G}\left(\rho(x,hy)+\rho(hy,gz)\right)\\
+				&=\inf_{h\in G}\rho(x,hy)+\inf_{g,h\in G}\rho(hy,gz)\\
+				&=\tilde{\rho}(G(x),G(y))+\tilde{\rho}(G(y),G(z))
+			\end{align*}
+			ya que $\rho(x,gz)\leq\rho(x,hy)+\rho(hy,gz)$ para cualesquiera $g,h\in G$.
+		\end{enumerate}
+		Por último, veamos que la topología inducida por $\tilde{\rho}$ es la misma que la topología cociente. Recordemos que los abiertos de la topología cociente son los subconjuntos de $X/G$ que bajo la proyección $\pi:X\to X/G$ son abiertos en $X$.
+		
+		\begin{af}
+			Para cualquier $x\in X$,
+			\[\pi(B_\varepsilon(x))=\tilde{B}_\varepsilon(G(x))\]
+			para las bolas abiertas de radio $\varepsilon>0$ en los respectivos espacios.
+		\end{af}
+		
+		Primero veamos por qué el resultado se sigue de esta afirmación. Sea $\tau$ la topología cociente en $X/G$, y tomemos un abierto $U$ de $(X/G,\tau)$. Su imagen inversa es un abierto en $X$, que es una unión de bolas abiertas $\bigcup_\alpha B^\alpha_\varepsilon(x)$. La imagen de cada bola abierta es una bola abierta en $(X/G,\tilde{\rho})$, así que $\pi\circ\pi^{-1}(U)=U$ es abierto en $(X/G,\tilde{\rho})$.
+		
+		A la inversa, cualquier abierto de $(X/G,\tilde{\rho})$ es una unión de bolas, cada una de las cuales es la imagen de una bola abierta en $X$. Como la proyección cociente es abierta en $(X/G,\tau)$, terminamos.
+		
+		Ahora demostramos la afirmación. Tomamos $\varepsilon>0$, $x\in X$ y las bolas abiertas\linebreak
+		${B_\varepsilon(x)=\{y\in X:\rho(x,y)<\varepsilon\}}$ y $\tilde{B}_\varepsilon(G(x))=\{G(y)\in X/G:\tilde{\rho}(G(x),G(y))<\varepsilon)\}$.
+		
+		\begin{enumerate}
+			\item[$(\subseteq)$] Si $y\in B_\varepsilon(x)$, entonces $\pi(y)=G(y)\in\tilde{B}_\varepsilon(G(x))$ ya que $\tilde{\rho}(G(x),G(y))\leq\rho(x,y)$.
+			
+			
+			\item[$(\supseteq)$] Si $G(y)\in\tilde{B}_\varepsilon(G(x))$, debemos encontrar $y'\in B_\varepsilon(x)$ tal que $\pi(y')=G(y)$.
+			
+			La distancia entre $x$ y el conjunto $\pi^{-1}(G(y))$ es
+			\begin{align*}
+				\rho(x,\pi^{-1}(G(y)))&=\inf_{z\in\pi^{-1}G(y)}\rho(x,z)\\
+				&=\inf_{g\in G}\rho(x,gy)\\
+				&=\rho(x,G(y))\\
+				&=\tilde{\rho}(G(x),G(y))\\
+				&<\varepsilon
+			\end{align*}
+			
+			Así que existe $y'\in\pi^{-1}(G(y))\cap B_\varepsilon(x)$.
+		\end{enumerate}
+	\end{proof}
+	El teorema también es cierto si $G$ es numerablemente compacto.
+	
+	\begin{defn}
+		Un espacio $X$ es \textbf{numerablemente compacto} si cualquier cubierta numerable tiene una subcubierta finita.
+	\end{defn}
+	
+	Para demostrar esta variante del teorema basta revisar que la métrica es positiva (inciso 3). Bastará ver que
+	
+	\begin{enumerate}
+		\item La órbita de $G(y)$, al ser la imagen de $G$ bajo $g\mapsto gy$ es numerablemente compacta.
+		\item Un subconjunto infinito de un expacio numerablemente debe contener al menos un $\omega$\textbf{-punto límite}. 
+	\end{enumerate}Resultará que la órbita de $G(y)$, al ser la imagen de $G$ bajo $g\mapsto gy$ es numerablemente compacta, así que debe contener al menos un $\omega$\textbf{-punto límite}, con lo que se obtiene una contradicción como en la demostración anterior.
+	
+	\begin{prop}
+		La imagen de un espacio numerablemente compacto bajo una función continua es numerablemente compacto.
+	\end{prop}
+	\begin{proof}
+		Supongamos que $f:X\to Y$ es continua y $X$ es numerablemente compacto. Tomemos una cubierta numerable $\{U_\alpha\}$ de $Y$. Entonces, $\{f^{-1}(U_\alpha)\}$ es una cubierta numerable de $X$, para la cual existe una subcubierta finita $f^{-1}(U_1),\ldots,f^{-1}(U_n)$. Si $U_1,\ldots,U_n$ no cubre a $Y$, escojamos $y\in Y\backslash\bigcup_{i=1}^nU_i$, luego $y'\in f^{-1}(y)$, de forma que $y'\in f^{-1}(U_j)$ para algún $j=1,\ldots,n$. Pero entonces $f(f^{-1}(y'))=y\in U_j$.
+	\end{proof}
+	\begin{defn}
+		Sean $X$ un espacio topológico y $A\subset X$. Decimos que $x\in X$ es un \textbf{$\omega$-punto límite} de $A$ si cualquier abierto $U\subset X$ que contiene a $x$ tiene una infinidad de puntos de $A$.
+	\end{defn}
+	En nuestro caso, el espacio $X$ es la órbita $G(y)$, y el subconjunto $A$ es la sucesión convergente a $x$. Veremos que de hecho este punto está en $A$.
+	\begin{prop}\label{prop:num-comp}
+		Sean $X$ un espacio topológico y $A\subset X$ un subconjunto infinito. Si $X$ es numerablemente compacto, entonces $A$ contiene al menos un $\omega$-punto límite.
+	\end{prop}
+	\begin{proof}
+		(Tomada de \href{https://math.stackexchange.com/questions/1817245/a-topological-space-is-countably-compact-iff-every-countably-infinite-subset-has}{aquí}).
+		Supongamos que $A$ no tiene $\omega$-puntos límite. Entonces, para cualquier $x\in X$ existe una vecindad $U_x$ tal que su intersección con $A$ es finita. Es claro que $\{U_x:x\in X\}$ es una cubierta de $X$. Usaremos que la familia de subconjuntos finitos de un conjunto numberable es numerable para construir una cubierta numerable. Para cualquier $F\subset A$ finito, definamos \[U_F=\bigcup\{U_x:U_x\cap A=F\}\]
+		Que es una cubierta numerable de $X$ ya que contiene a todos puntos de los $U_x$. Notemos que cualquie $U_F\cap A$ es finito por definición. Pero si hubiera una subcubierta finita, tendría que haber al menos un $U_F$ que contuviera una infinidad de puntos en $A$.
+	\end{proof}
+	\begin{ejem}[Exposición]
+		Si $G$ no es compacto, podemos dar un contraejemplo de $X$ con una métrica $G$-invariante que no pasa al cociente $X/G$.
+	\end{ejem}
+	\begin{proof}[Contraejemplo]
+		Es necesario que las órbitas no sean conjuntos compactos. Tomemos el flujo irracional en el toro, definido como la acción $\R\curvearrowright\SP^1\times\SP^1$ mediante \[t\cdot(e^{iu},e^{iv})=(e^{i(u+t)},e^{i(u+\sqrt{2}t)}).\]
+		
+		Se trata de una acción invariante respecto a la métrica euclideana, pues actúa por rotaciones en cada entrada.
+		
+		Sabemos que las órbitas $\R(z)$ son densas en $\SP^1\times\SP^1$, de forma que el espacio de órbitas no es ni $T_1$ ni $T_0$. En cualquier vecindad de un punto $z$ hay un elemento de cualquier órbita $G(w)$, así que $\inf_{g\in G} (z,gw)=0$ aunque $G(z)\neq G(w)$.
+	\end{proof}
+
+\end{document}

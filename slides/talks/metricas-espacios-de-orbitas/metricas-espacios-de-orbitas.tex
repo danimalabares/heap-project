@@ -1,0 +1,295 @@
+\documentclass{beamer}
+\usetheme{default}
+
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	urlcolor=blue,
+	linkcolor=magenta,
+	citecolor=blue,
+}
+
+%\theoremstyle{definition}
+\renewcommand{\proofname}{Demostración}
+
+\makeatletter
+\newenvironment<>{proofs}[1][\proofname]{%
+	\par
+	\def\insertproofname{#1\@addpunct{.}}%
+	\usebeamertemplate{proof begin}#2}
+{\usebeamertemplate{proof end}}
+\makeatother
+
+\newtheorem*{defn}{Definición}
+\newtheorem*{lema}{Lema}
+\newtheorem*{obs}{Observación}
+\newtheorem*{teo}{Teorema}
+\newtheorem*{prop}{Proposición}
+\newtheorem*{coro}{Corolario}
+\newtheorem*{ejer}{Ejercicio}
+\newtheorem*{ejem}{Ejemplo}
+\newtheorem*{af}{Afirmación}
+\newtheorem*{pregunta}{Pregunta}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\SP}{\mathbb{S}}
+\newcommand{\Hom}{\mathcal{H}}
+\newcommand{\Cnt}{\mathcal{C}}
+\DeclareMathOperator{\img}{img}
+\DeclareMathOperator{\Id}{Id}
+
+\title{Métricas en espacios de órbitas}
+\author{Daniel González Casanova Azuela}
+
+\begin{document}
+\begin{frame}[plain]
+    \maketitle
+\end{frame}
+\begin{frame}
+	Veremos que:
+	\begin{itemize}
+		\item Cuando tenemos un espacio metrizable y una acción de un grupo \textbf{compacto} invariante con la métrica, podemos dar una métrica en el espacio de órbitas.
+		\pause
+		\item El resultado también se tiene si el grupo es sólo \textbf{numerablemente compacto}.
+		\pause
+		\item Si el grupo no es ni compacto ni numerablemente compacto, podemos dar un contraejemplo.
+	\end{itemize}
+\end{frame}
+\begin{frame}{Preliminares}
+		\begin{defn}
+		Una métrica $\rho$ en un $G$-espacio $X$ es \textbf{invariante} si $\tilde{g}$ es una isometría para toda $g$ en $G$. Es decir, $\rho(gx,gy)=\rho(x,y)$.
+	\end{defn}
+	\pause
+	\begin{teo}[recordatorio]
+		Sea $G$ compacto y $X$ un $G$-espacio metrizable. Entonces existe una métrica invariante compatible en $X/G$.
+	\end{teo}
+	\pause
+	\begin{prop}[recordatorio]
+		Si $X$ es un $G$-espacio con $G$ compacto, entonces toda órbita es cerrada en $X$.
+	\end{prop}
+\end{frame}
+
+\begin{frame}
+	\begin{teo}
+		Si $G$ es compacto y $X$ es un $G$-espacio que admite una métrica invariante, entonces existe una métrica compatible en $X/G$.
+		\pause
+		\begin{proofs}
+			Sea $(X,\rho)$ un espacio métrico. Notemos que para $x,y\in X$ fijos, la función
+			\begin{align*}
+				G(y)&\to\R\\
+				gy&\mapsto\rho(x,gy)
+			\end{align*}
+			está acotada inferiormente por el cero, así que podemos definir 
+			\[\rho(x,G(y)):=\inf_{g\in G}\rho(x,gy).\]
+		\end{proofs}
+	\end{teo}
+\end{frame}
+
+\begin{frame}
+		Ahora veamos que de hecho este mapeo es constante en $G(x)$. Como la métrica  $X$ es $G$-invariante, para cualquier $hx\in G(x)$,
+		\begin{align*}
+			\rho(hx,G(y))&=\inf_{g\in G}\rho(hx,gy)=\inf_{g\in G}\rho(x,h^{-1}gy)\\
+			&=\inf_{g\in G}\rho(x,gy)=\rho(x,G(y))
+		\end{align*}
+		ya que como los conjuntos $\{\rho(hx,gy):g\in G\}$ y $\{\rho(x,h^{-1}gy):g\in G\}$ son iguales, su ínfimo es el mismo.
+		
+		\vspace{1cm}
+		\pause
+		Definamos
+		\[\tilde{\rho}(G(x),G(y)):=\rho(x,G(y)).\]
+\end{frame}
+
+\begin{frame}
+	Ahora veamos que esta función efectivamente es una métrica:
+	\pause
+	
+	\begin{enumerate}
+		\item[1.] $\tilde{\rho}(G(x),G(x))=0$ trivialmente.
+		\pause
+		\vspace{1cm}
+		\item[2.] Es positiva, es decir, $\tilde{\rho}(G(x),G(y))\geq0$ para cualesquiera $x,y\in X$.
+		\pause
+		
+		\vspace{0.5cm}		
+		Si $G(x)\neq G(y)$ pero $\tilde{\rho}(G(x),G(y))=0$, entonces podemos (ya que $X$ es metrizable) construir una sucesión de puntos en $G(y)$ cuyas distancias a algún $x\in G(x)$ tienden a cero, es decir, la sucesión tiende a $x$. Como el grupo es compacto, $G(y)$ es cerrada y contiene a sus puntos límites, así que $x\in G(y)$, que no es posible.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\begin{enumerate}
+	\item[3.] Es simétrica, es decir, $\tilde{\rho}(G(x),G(y))=\tilde{\rho}(G(y),G(x))$ para cualesquiera $x,y\in X$.
+	\pause
+	\vspace{0.5cm}
+	\begin{align*}
+		\tilde{\rho}(G(x),G(y))&=\inf_{g\in G}\rho(x,gy)\\
+		&=\inf_{g\in G}\rho(gy,x)\\
+		&=\inf_{g\in G}\rho(y,g^{-1}x)\\
+		&=\inf_{g\in G}\rho(y,gx)\\
+		&=\tilde{\rho}(G(y),G(x))
+	\end{align*}
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\begin{enumerate}
+		\item[4.] La desigualdad del triángulo se hereda:
+		\pause
+		\vspace{0.5cm}
+		
+		Para cualesquiera $x,y,z\in X$,
+		\begin{align*}
+			\tilde{\rho}(G(x),G(z))&=\inf_{g\in G}\rho(x,gz)\\
+			&\leq\inf_{g,h\in G}\left(\rho(x,hy)+\rho(hy,gz)\right)\\
+			&=\inf_{h\in G}\rho(x,hy)+\inf_{g,h\in G}\rho(hy,gz)\\
+			&=\tilde{\rho}(G(x),G(y))+\tilde{\rho}(G(y),G(z))
+		\end{align*}
+		ya que $\rho(x,gz)\leq\rho(x,hy)+\rho(hy,gz)$ para cualesquiera $g,h\in G$.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	Por último, veamos que la topología inducida por $\tilde{\rho}$ es la misma que la topología cociente.
+	\pause Recordemos que los abiertos de la topología cociente son los subconjuntos de $X/G$ que bajo la proyección $\pi:X\to X/G$ son abiertos en $X$.
+	\pause
+	\vspace{0.5cm}
+	
+	La prueba está basada en la siguiente afirmación:
+	
+	\begin{af}
+		Para cualquier $x\in X$,
+		\[\pi(B_\varepsilon(x))=\tilde{B}_\varepsilon(G(x))\]
+		para las bolas abiertas de radio $\varepsilon>0$ en los respectivos espacios.
+	\end{af}
+\end{frame}
+
+\begin{frame}
+	\begin{af}
+		Si $x\in X$,
+		\[\pi(B_\varepsilon(x))=\tilde{B}_\varepsilon(G(x))\]
+		para las bolas abiertas de radio $\varepsilon>0$ en los respectivos espacios.
+	\end{af}
+	\pause
+	Primero veamos por qué con esto es suficiente:
+	\vspace{0.5cm}
+	\pause
+	
+	Sea $\tau$ la topología cociente en $X/G$, y tomemos un abierto $U$ de $(X/G,\tau)$. Su imagen inversa es un abierto en $X$, que es una unión de bolas abiertas $\bigcup_\alpha B^\alpha_\varepsilon(x)$. La imagen de cada bola abierta es una bola abierta en $(X/G,\tilde{\rho})$, así que $\pi\circ\pi^{-1}(U)=U$ es abierto en $(X/G,\tilde{\rho})$.
+\end{frame}
+
+\begin{frame}
+	\begin{af}
+		Si $x\in X$,
+		\[\pi(B_\varepsilon(x))=\tilde{B}_\varepsilon(G(x))\]
+		para las bolas abiertas de radio $\varepsilon>0$ en los respectivos espacios.
+	\end{af}
+	Primero veamos por qué con esto es suficiente:
+	\vspace{0.5cm}
+	
+	A la inversa, cualquier abierto de $(X/G,\tilde{\rho})$ es una unión de bolas, cada una de las cuales es la imagen de una bola abierta en $X$. Como la proyección cociente es abierta en $(X/G,\tau)$, terminamos.
+\end{frame}
+
+\begin{frame}
+	Ahora demostremos la afirmación. Tomamos $\varepsilon>0$, $x\in X$ y las bolas abiertas
+	\begin{align*}
+		B_\varepsilon(x)&=\{y\in X:\rho(x,y)<\varepsilon\}\\ \tilde{B}_\varepsilon(G(x))&=\{G(y)\in X/G:\tilde{\rho}(G(x),G(y))<\varepsilon)\}.
+	\end{align*}
+	Queremos ver que $\pi(B_\varepsilon(x))=\tilde{B}_\varepsilon(G(x))$.
+	\pause
+	
+	\begin{enumerate}
+		\item[$(\subseteq)$] Si $y\in B_\varepsilon(x)$, entonces $\pi(y)=G(y)\in\tilde{B}_\varepsilon(G(x))$ ya que $\tilde{\rho}(G(x),G(y))\leq\rho(x,y)$.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\begin{enumerate}
+			\item[$(\supseteq)$] Si $G(y)\in\tilde{B}_\varepsilon(G(x))$, debemos encontrar $y'\in B_\varepsilon(x)$ tal que $\pi(y')=G(y)$.
+		
+		La distancia entre $x$ y el conjunto $\pi^{-1}(G(y))$ es
+		\begin{align*}
+			\rho(x,\pi^{-1}(G(y)))&=\inf_{z\in\pi^{-1}G(y)}\rho(x,z)\\
+			&=\inf_{g\in G}\rho(x,gy)\\
+			&=\rho(x,G(y))\\
+			&=\tilde{\rho}(G(x),G(y))\\
+			&<\varepsilon
+		\end{align*}
+		
+		Así que existe $y'\in\pi^{-1}(G(y))\cap B_\varepsilon(x)$.
+	\end{enumerate}
+	\pause
+	\begin{flushright}
+		$\square$
+	\end{flushright}
+\end{frame}
+
+\begin{frame}
+	El teorema también es cierto si $G$ es numerablemente compacto.
+	\pause
+	\begin{defn}
+		Un espacio $X$ es \textbf{numerablemente compacto} si cualquier cubierta numerable tiene una subcubierta finita.
+	\end{defn}
+	\pause
+			Para demostrar esta variante del teorema basta revisar que la métrica es positiva (inciso 3). \pause
+			Bastará ver que
+		
+		\begin{enumerate}
+			\item La órbita de $G(y)$, al ser la imagen de $G$ bajo $g\mapsto gy$ es numerablemente compacta.
+			\pause
+			\item Un subconjunto infinito de un expacio numerablemente debe contener al menos un $\omega$\textbf{-punto límite}. 
+		\end{enumerate}
+		\pause
+		De esta forma, la sucesión que tiende a $x$ debe contener su punto límite, obteniendo una contradicción como en la prueba anterior.
+\end{frame}
+
+\begin{frame}
+	\begin{prop}
+		La imagen de un espacio numerablemente compacto bajo una función continua es numerablemente compacto.
+	\end{prop}
+	\pause
+	\begin{proof}
+		Supongamos que $f:X\to Y$ es continua y $X$ es numerablemente compacto. Tomemos una cubierta numerable $\{U_\alpha\}$ de $Y$. Entonces, $\{f^{-1}(U_\alpha)\}$ es una cubierta numerable de $X$, para la cual existe una subcubierta finita $f^{-1}(U_1),\ldots,f^{-1}(U_n)$. Si $U_1,\ldots,U_n$ no cubre a $Y$, escojamos $y\in Y\backslash\bigcup_{i=1}^nU_i$, luego $y'\in f^{-1}(y)$, de forma que $y'\in f^{-1}(U_j)$ para algún $j=1,\ldots,n$. Pero entonces $f(f^{-1}(y'))=y\in U_j$.
+	\end{proof}
+\end{frame}
+
+\begin{frame}
+		\begin{defn}
+		Sean $X$ un espacio topológico y $A\subset X$. Decimos que $x\in X$ es un \textbf{$\omega$-punto límite} de $A$ si cualquier abierto $U\subset X$ que contiene a $x$ tiene una infinidad de puntos de $A$.
+	\end{defn}
+	\pause
+	\begin{prop}\label{prop:num-comp}
+		Sean $X$ un espacio topológico y $A\subset X$ un subconjunto infinito. Si $X$ es numerablemente compacto, entonces $A$ contiene al menos un $\omega$-punto límite.
+	\end{prop}
+		\begin{proofs}
+		Supongamos que $A$ no tiene $\omega$-puntos límite. Entonces, para cualquier $x\in X$ existe una vecindad $U_x$ tal que su intersección con $A$ es finita. Es claro que $\{U_x:x\in X\}$ es una cubierta de $X$.
+	\end{proofs}
+\end{frame}
+
+\begin{frame}
+	\begin{proof}
+		Usaremos que la familia de subconjuntos finitos de un conjunto numberable es numerable para construir una cubierta numerable.
+		
+		\pause Para cualquier $F\subset A$ finito, definamos \[U_F=\bigcup\{U_x:U_x\cap A=F\}\]
+		Que es una cubierta numerable de $X$ ya que contiene a todos puntos de los $U_x$. Notemos que cualquier $U_F\cap A$ es finito por definición.
+		\pause Pero si hubiera una subcubierta finita, tendría que haber al menos un $U_F$ que contuviera una infinidad de puntos en $A$.
+	\end{proof}
+\end{frame}
+
+\begin{frame}
+	\begin{obs}
+		Si $G$ no es compacto (ni numerablemente compacto), podemos dar un contraejemplo de $X$ con una métrica $G$-invariante que no pasa al cociente $X/G$.
+	\end{obs}
+	\pause
+	\begin{proof}[Contraejemplo]
+		Tomemos el flujo irracional en el toro, definido como la acción $\R\curvearrowright\SP^1\times\SP^1$ mediante \[t\cdot(e^{iu},e^{iv}):=(e^{i(u+t)},e^{i(u+\sqrt{2}t)}).\]
+		\pause
+		Se trata de una acción invariante respecto a la métrica euclideana, pues actúa por rotaciones en cada entrada.
+		\pause
+		Como las órbitas son densas, en cualquier vecindad de un punto $z$ hay un elemento de cualquier órbita $G(w)$, así que $\inf_{g\in G} (z,gw)=0$ aunque $G(z)\neq G(w)$.
+	\end{proof}
+\end{frame}
+
+\end{document}

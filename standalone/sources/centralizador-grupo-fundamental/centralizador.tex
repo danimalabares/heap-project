@@ -1,0 +1,177 @@
+\documentclass[spanish]{article}
+\usepackage{titlesec}
+
+%Quitar páginas en blanco
+\let\cleardoublepage\clearpage
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\@endpart}{\vfil\newpage}{\par}{}{}
+\makeatother
+
+%\usepackage[spanish]{babel} ¡Esto estaba interfiriendo con las flechitas de los \tikspicture
+
+\renewcommand{\contentsname}{Índice}
+
+%Paquetes
+\usepackage[left=4cm, right=4cm]{geometry}
+\usepackage{palatino}%Fuente
+\usepackage{graphicx}%Imágenes
+\usepackage{float}%Imágenes
+\usepackage{subcaption}%Imágenes
+\usepackage{enumitem}%Listas
+\usepackage{parskip}%Espacio entre párrafos
+\usepackage{multicol}
+\usepackage{amsthm}%Mate
+\usepackage{amssymb}%Mate
+\usepackage{amsmath}%Mate
+\usepackage{tikz}%Mate (diagramas)
+\usepackage{tikz-cd}
+\usetikzlibrary{%
+	matrix,%
+	calc,%
+	arrows,%
+	shapes,
+	decorations.markings
+}
+\usepackage[bookmarks,bookmarksopen,bookmarksdepth=3]{hyperref}%Links a lugares en el texto
+\hypersetup{%colores
+	colorlinks=true,
+	urlcolor=blue,
+	linkcolor=magenta,
+	citecolor=blue,
+	filecolor=blue,
+	urlbordercolor=white,
+	linkbordercolor=white,
+	citebordercolor=white,
+	filebordercolor=white
+}
+\usepackage{cleveref}
+
+%Referencias
+\usepackage[style=mla,backend=bibtex]{biblatex}
+\addbibresource{bib-centralizador.bib}
+
+\theoremstyle{definition}
+\renewcommand{\proofname}{Demostración}
+
+\newtheorem*{defn}{Definición}
+\newtheorem*{teo}{Teorema}
+\newtheorem*{prop}{Proposición}
+\newtheorem*{coro}{Corolario}
+\newtheorem*{lema}{Lema}
+\newtheorem*{obs}{Observación}
+\newtheorem{ejer}{Ejercicio}
+\newtheorem*{ejer*}{Ejercicio}
+\newtheorem*{af}{Afirmación}
+\newtheorem*{ejem}{Ejemplo}
+\newtheorem*{pregunta}{Pregunta}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Sp}{\mathbb{S}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Hy}{\mathbb{H}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\M}{\mathbb{M}}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\img}{img}
+\DeclareMathOperator{\rel}{rel}
+\DeclareMathOperator{\Mod}{Mod}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Homeo}{Homeo}
+\DeclareMathOperator{\Isom}{Isom}
+\DeclareMathOperator{\Deck}{Deck}
+\DeclareMathOperator{\Diff}{Diff}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\PSL}{PSL}
+\DeclareMathOperator{\SMod}{\mathcal{S}Mod}
+\DeclareMathOperator{\LMod}{\mathcal{L}Mod}
+\DeclareMathOperator{\SHomeo}{\mathcal{S}Homeo}
+\DeclareMathOperator{\LHomeo}{\mathcal{L}Homeo}
+
+\title{}
+\author{Ejercicio}
+\date{}
+\begin{document}
+	\begin{ejer*}Si $\chi(S)<0$, entonces $Z(\pi_1(S))$ es trivial. \textcolor{magenta}{Dani}
+		\begin{proof}[Solución]
+			Primero mostramos que una superficie $S$ con característica de Euler negativa admite una métrica hiperbólica. Usamos ideas de \cite{Wolf} (ver pág. 82).
+			
+			Cualquier 2-variedad admite una métrica Riemanniana (teo. 1.12 \cite{Loring-dif}). Por satisfacer las hipótesis de conexidad, tiene un cubriente universal $\tilde{S}$ tal que el grupo de transformaciones de cubierta $\Gamma$ actúa propia y discontinuamente en $S$, de forma que $\tilde{S}/\Gamma=S$ (coros. 1.8.21 y 1.8.22 \cite{Wolf}).
+			
+			Si el cubriente es una variedad suave (\href{https://math.stackexchange.com/questions/322845/can-someone-give-an-example-of-a-non-differentiable-manifold}{parece} ser cierto para cualquier 2-variedad topológica), existe una única estructura diferenciable tal que el cubriente es diferenciable (lem. 1.8.23 \cite{Wolf}). Más aún, mediante el pullback de la métrica en $S$, el cubriente es una variedad riemanniana tal que la proyección es una isometría local y las transformaciones de cubierta son isometrías (lem. 2.3.10 \cite{Wolf}).
+			
+			Como $\tilde{S}$ es simplemente conexo, es orientable (prop. 3.25 \cite{Hatcher}). Luego, tiene una estructura de superficie de Riemann que se construye de la siguiente manera. Cualquier 2-variedad Riemanniana es localmente conforme al plano euclidiano (coro. 2.5.16 \cite{Wolf}), es decir, cualquier punto tiene una carta coordenada \textbf{isoterma}: es de la forma $(U,(u^1,u^2))$ tal que el tensor métrico se expresa como $\mu(u^1,u^2)(du^1\otimes du^1+du^2\otimes du^2)$ para alguna función $\mu$. La colección de tales cartas forma una estructura compleja en la superficie (2.5.17 \cite{Wolf}). Como esta nueva estructura diferenciable está contenida en la original, nuestro cubriente $p:\tilde{S}\to S$ sigue siendo una isometría local.
+			
+			El Teorema de Uniformización dice que cualquier superficie de Riemann simplemente conexa es conformemente equivalente a la esfera, el plano euclideano o el plano hiperbólico, así que nuestro cubriente $\tilde{S}$ debe ser una de estas tres. Además, las transformaciones de cubierta deben preservar orientación, ya que son analíticas en el sentido complejo (coro. 2.5.12 \cite{Wolf}).
+			
+			Nuestra superficie tiene curvatura constante $\pm1$ o $0$ por ser localmente isométrica a uno de los cubrientes del teorema de uniformización (lem. 2.3.2 \cite{Wolf}). Por el teorema de Gauss-Bonnet, como $\chi(S)<0$, concluimos que $S=\Hy^2/\Gamma$.
+			
+			Como el cubriente $\Hy^2$ es simplemente conexo, sabemos que $\Gamma\approx\pi_1(S)$.
+			
+			\vspace{.5cm}
+			
+
+			
+			
+			Ahora mostramos que $\Gamma$ tiene centro trivial siguiendo \cite{Margalit}, pág. 22 y la excelente explicación de \cite{stack}.
+			
+			Los modelos usuales del plano hiperbólico pueden asociarse naturalmente con un espacio al infinito: en el disco de Poincaré, la circunferencia y en el semiplano superior, el eje X. La unión de cada uno con este espacio al infinito es homeomorfo a una bola cerrada que denotamos por $\Hy^2\cup\partial\Hy^2:=\bar{\Hy}^2$.
+			
+			Cualquier isometría de $\Hy^2$ se extiende de manera única a su frontera $\partial\Hy^2$, de forma que podemos pensarla como un homeomorfismo de la bola cerrada en sí misma, que tiene al menos un punto fijo por el teorema de Brouwer.
+			
+			Sabemos que las isometrías que preservan orientación están en correspondencia con las transformaciones de Möbius, que son de la forma
+			\[z\mapsto\frac{az+b}{cz+d}\]
+			con $ad-bc=1$ (teo. 2.12 \cite{Vinberg-1}).
+			Observemos qué pasa con un punto fijo:
+			\begin{align*}
+				z&=\frac{az+b}{cz+d}\implies z(cz+d)-(az+b)=cz^2+z(d-a)+b=0,
+			\end{align*}
+			de manera que hay sólo dos posibles puntos fijos, y para cada uno, su conjugado también es punto fijo. (Incluso en el caso donde $c=0$, en el que $\infty\in\bar{\Hy}^2$ es un punto fijo, sólo hay otro posible punto fijo---que soluciona la ecuación lineal que resulta). Definimos las transformaciones como
+			\begin{itemize}
+				\item \textbf{Elípticas} si fijan un punto en $\Hy^2$ (y su conjugado). Son rotaciones hiperbólicas respecto a este punto.
+				\item \textbf{Parabólicas} si fijan un punto en $\partial\Hy^2$. Son rotaciones hiperbólicas respecto a este punto ideal.
+				\item \textbf{Hiperbólicas} si fijan dos puntos en $\partial\Hy^2$. Estos dos puntos determinan una única geodésica que permanece invariante bajo la transformación, que llamamos \textbf{eje de traslación} (sec. 4.1 \cite{Vinberg-1}).
+			\end{itemize}
+
+		\paragraph{Definition} Let $V$ be a vector space with quadratic form $q$ of signature $(1,n)$, $\operatorname{Pos}(V)=\{x\in V:q(x,x)>0\}$ its \textit{\textbf{positive cone}}, and $\mathbb{P}^+V$ the projectivization of $\operatorname{Pos}(V)$ (which is a ball by dani Riemann surface exam!). Denote by $g$ the (unique?) $\mathsf{SO}(V)$-invariant Riemannian structure on $\mathbb{P}^+V$. Then $(\mathbb{P}^+V,g)$ is called \textit{\textbf{hyperbolic space}}, and the group  $\mathsf{SO}^+(V)$ the \textit{\textbf{group of oriented hyperbolic isometries}}.
+
+		\paragraph{Theorem} Let $ a\in \mathsf{SO}^+(1,n)\setminus\{\operatorname{Id}\}$ be an orientation-preserving isometry of hyperbolic space. Then one and only one of the following happen:
+		\begin{enumerate}[label=(\roman*)]
+		\item $a$ has eigenvector $x$ with $(x,x)>0$ called  \textit{\textbf{elliptic}}.
+		\item $a$ has an eigenvector $x$ with $q(x,x)=0$ and a real eigenvalue  $|\lambda_x|>1$, \textit{\textbf{hyperbolic}}.
+		 \item $a$ has a unique eigenvector $x$ with $q(x,x)=0$,  \textit{\textbf{parabolic}}.
+		\end{enumerate}
+
+
+			Como la acción $\Gamma\curvearrowright\Hy^2$ es propiamente discontinua, cada punto tiene una vecindad disjunta con su traslación bajo cualquier transformación, así que descartamos las isometrías elípticas.
+			
+			Veamos que si $f,g\in\bar{\Gamma}=\{\text{extensiones a }\bar{\Hy}^2\text{ de isometrías en }\Gamma\}$ conmutan, son del mismo tipo. Veamos los dos casos:
+			
+			\begin{itemize}
+				\item Si $f$ es parabólica y fija a $x$, entonces también fija a $g(x)$, pues $f(g(x))=g(f(x))=g(x)$. Como sólo hay un punto fijo, $g(x)=x$. Y si $g$ fija otro punto $y$, entonces también fija a $f(y)$, pero como a lo más puede fijar dos puntos, alguno de éstos debe ser $x$. Si $f(y)=x$, entonces $y=f^{-1}(x)=x$. En conclusión, $f$ y $g$ fijan al mismo único punto.
+				
+				Conjugando con la transformación adecuada, podemos suponer que $x=\infty$, lo que obliga a las transformaciones en el centralizador $Z(f)$ de $f$ a ser traslaciones horizontales euclideanas $z\mapsto z+\lambda$, con $\lambda\in\R$.
+			
+				\item Si $f$ es hiperbólica, por el caso anterior $g$ no puede ser parabólica, pues esto obligaría a $f$ a ser parabólica. Más aún, si el eje de $f$ es la línea $\ell$, entonces también fija a su imagen bajo $g$, es decir, $g(\ell)=g(f(\ell))=f(g(\ell))$. Como las traslaciones hiperbólicas fijan una única línea, se sigue que ambas traslaciones comparten el mismo eje (sec. 4.1 \cite{Vinberg-1}).
+			\end{itemize}
+			En cada caso podemos identificar las transformaciones con la magnitud de los vectores de traslación, así que podemos suponer que $Z(f)$ es un subgrupo de $\R$.
+			
+			Además, es un grupo discreto. Esto es consecuencia de que la acción es propiamente discontinua: suponer lo contrario implica que podemos construir una sucesión de Cauchy en la órbita, que no es posible. (Esto se hace mediante la función orbital, que es continua, ver prop. 7.26 \cite{Lee}).
+			
+			Cualquier subgrupo discreto de $\R$ es cíclico. Para una prueba (divertida y) topológica: el cociente $\R/Z(f)$ es $\Sp^1$, la única 1-variedad compacta---la única que no es compacta es $\R$ (\cite{Milnor}). Luego $Z(f)\approx\pi_1(\Sp^1)$.
+			
+			Volviendo a $\Gamma$, si su centro fuera no trivial, el centralizador de alguna transformación hiperbólica o parabólica estaría contenido en él. De hecho, por lo dicho arriba, tendría que ser exactamente alguno de éstos.
+			
+			En cada caso, la \textbf{región fundamental}, un subconjunto cerrado que tesela $\Hy^2$ bajo la acción de $\Gamma$, es un conjunto hiperbólicamente no acotado. En el caso parabólico es una banda vertical de ancho la magnitud de traslación más pequeña, y en el caso hiperbólico una banda geodésica perpendicular al eje de las traslaciones, también de ancho la magnitud de la traslación más pequeña.
+			
+			Por fin, esta región fundamental no es un conjunto compacto, que por la prop. 1.6 \cite{Vinberg-2}, implica que el cociente $\Hy^2/\Gamma=S$ tampoco lo es, una contradicción ya que $S$ tiene característica de Euler negativa.
+		\end{proof}
+	\end{ejer*}
+	\subsubsection*{Referencias}
+	\printbibliography[heading=none]
+	
+\end{document}
