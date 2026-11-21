@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Metronome</title>
+<style>
+  :root { --bg:#fafafa; --fg:#1a1a1a; --mut:#777; --acc:#c0392b; --card:#fff; --bd:#ddd; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#161616; --fg:#eee; --mut:#999; --acc:#ff6b5b; --card:#222; --bd:#444; }
+  }
+  body { margin:0; background:var(--bg); color:var(--fg); font:14px system-ui,sans-serif;
+         display:flex; justify-content:center; padding:10px 12px; }
+  main { width:100%; max-width:560px; }
+  .top { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  #bpm { font-size:60px; font-weight:700; line-height:1; font-variant-numeric:tabular-nums; }
+  #bpm + span { color:var(--mut); font-size:12px; margin-left:4px; }
+  #time { font-size:40px; font-weight:700; font-variant-numeric:tabular-nums; }
+  button, select { font:inherit; color:var(--fg); background:var(--card); border:1px solid var(--bd);
+                   border-radius:7px; padding:5px 10px; cursor:pointer; }
+  button:hover { border-color:var(--acc); }
+  #go { background:var(--acc); color:#fff; border:0; font-size:20px; padding:10px 26px; }
+  .row { display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin-top:8px; }
+  .row label { display:flex; gap:4px; align-items:center; color:var(--mut); font-size:12px; }
+  input[type=range] { flex:1; min-width:120px; margin:0 4px; }
+  #dots { display:flex; gap:6px; margin-left:auto; }
+  .dot { width:14px; height:14px; border-radius:50%; border:2px solid var(--bd); }
+  .dot.on { background:var(--fg); border-color:var(--fg); }
+  .dot.on.first { background:var(--acc); border-color:var(--acc); }
+  small { color:var(--mut); font-weight:400; font-size:12px; }
+  #todo { background:var(--card); border:1px solid var(--bd); border-radius:10px; padding:6px 10px; margin-top:10px; }
+  #todo h2 { font-size:13px; margin:0 0 2px; }
+  #todo ol { list-style:none; margin:0; padding:0; }
+  #todo li { display:flex; gap:8px; align-items:center; padding:3px 4px; border-radius:6px; cursor:pointer; }
+  #todo li.cur { background:rgba(192,57,43,.15); font-weight:600; }
+  #todo li input { width:38px; font:inherit; text-align:center; color:var(--mut); background:var(--card); border:1px solid var(--bd); border-radius:6px; padding:1px 2px; }
+  #todo li input.some { color:#2e8b57; font-weight:700; border-color:#2e8b57; }
+  #tot { font-size:17px; }
+  #todo li span { flex:1; }
+  #todo li b { font-variant-numeric:tabular-nums; color:var(--mut); font-weight:400; }
+  #mins { width:48px; font:inherit; color:var(--fg); background:var(--card); border:1px solid var(--bd); border-radius:7px; padding:4px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <div><span id="bpm">100</span><span>bpm</span></div>
+    <div id="time">02:00</div>
+    <button id="go">Start</button>
+  </div>
+  <div class="row">
+    <button data-d="-10">−10</button><button data-d="-5">−5</button><button data-d="5">+5</button><button data-d="10">+10</button>
+    <input id="slider" type="range" min="30" max="240" value="100" aria-label="Tempo">
+  </div>
+  <div class="row">
+    <label>Beats <select id="beats"><option>1</option><option>2</option><option>3</option><option selected>4</option>
+        <option>5</option><option>6</option><option>7</option></select></label>
+    <label>Subdiv. <select id="sub"><option value="1">Quarter</option><option value="2">Eighths</option><option value="3">Triplets</option><option value="4">Sixteenths</option></select></label>
+    <button id="tap">Tap</button>
+    <div id="dots"></div>
+  </div>
+  <div class="row">
+    <label>Timer <select id="mode"><option value="down" selected>Countdown</option><option value="up">Stopwatch</option></select></label>
+    <label id="minsbox"><input id="mins" type="number" min="1" max="120" value="2"> min</label>
+    <button id="treset">Reset timer</button>
+    <small>runs while the metronome plays</small>
+  </div>
+  <div id="todo">
+    <h2>To practice today </h2>
+    <ol id="list"></ol>
+    <div class="row" style="justify-content:space-between;align-items:center;margin-top:4px">
+      <b id="tot"></b>
+      <span><button id="save">Save</button> <button id="fin">Done for today</button></span>
+    </div>
+    <small id="saved" style="display:block"></small>
+    <small>Diagram numbers and pages are those of <a href="guitar-scales.pdf" target="_blank" style="color:inherit">guitar-scales.pdf</a>. Tap one, then Start: when its time ends it is recorded. The number is the times done today; change it by hand if needed, then Save. Space = start/stop · ↑/↓ = ±1 bpm</small>
+  </div>
+</main>
+<script>
+let ctx = null, running = false, bpm = 100, beats = 4, sub = 1;
+let nextTime = 0, tick = 0, timer = null, taps = [];
+let elapsed = 0, lastT = 0, tTimer = null;
+const LOCAL = ['localhost', '127.0.0.1', ''].includes(location.hostname);  // false on the public copy
+const ITEMS = [  // p:1 = private: make-public.py leaves those lines out of the public copy
+  {t:'C major, position 1 (open, frets 0–4)', m:2, d:'Page 2, Diagram 2'},
+  {t:'C major, position 2 (starting at fret 2)', m:1, d:'Page 3, Diagram 3'},
+  {t:'C major, position 3 (starting at fret 4)', m:1, d:'Page 3, Diagram 4'},
+  {t:'C major, position 4 (starting at fret 7)', m:1, d:'Page 3, Diagram 5'},
+  {t:'A minor pentatonic, box 1 (frets 5–8)', m:1, d:'Page 5, Diagram 9'},
+  {t:'A natural minor, position 1 (open, frets 0–4)', m:1, d:'Page 4, Diagram 7'},
+  {t:'C major pentatonic, open position (frets 0–3)', m:1, d:'Page 6, Diagram 11'},
+  {t:'A blues scale, box 1 (frets 5–8)', m:1, d:'Page 7, Diagram 13'},
+  {t:'G major, position 1 (open)', m:2, d:'Page 8, Diagram 15'},
+  {t:'E minor pentatonic, open box (frets 0–3)', m:2, d:'Page 9, Diagram 17'},
+];
+let cur = null, today = {d:'', log:[]}, hist = {};
+const dstr = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+const mins = l => l.reduce((a, x) => a + x.m, 0);
+const fmtTot = m => m >= 60 ? Math.floor(m / 60) + ' h ' + String(m % 60).padStart(2, '0') + ' min' : m + ' min';
+function store() { try { localStorage.setItem('gp-today', JSON.stringify(today)); localStorage.setItem('gp-hist', JSON.stringify(hist)); } catch (e) {} }
+function archive() {
+  if (today.log.length) hist[today.d] = (hist[today.d] || []).concat(today.log);
+  today = {d:'', log:[]}; store();
+}
+function loadState() {
+  try { hist = JSON.parse(localStorage.getItem('gp-hist')) || {}; } catch (e) {}
+  try { const t = JSON.parse(localStorage.getItem('gp-today')); if (t && Array.isArray(t.log)) today = t; } catch (e) {}
+  try {  // days ticked with the old checklist
+    const old = [];
+    for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k.startsWith('gp-done-')) old.push(k); }
+    old.forEach(k => {
+      const arr = JSON.parse(localStorage.getItem(k)) || [], d = k.slice(8);
+      const l = ITEMS.filter((x, i) => arr[i]).map(x => ({t:x.t, m:x.m}));
+      if (d === dstr(new Date()) && !today.log.length) today = {d, log:l};
+      else if (l.length) hist[d] = (hist[d] || []).concat(l);
+      localStorage.removeItem(k);
+    });
+    if (old.length) store();
+  } catch (e) {}
+  if (today.log.length && today.d !== dstr(new Date())) archive();  // a day never closed
+}
+function renderList() {
+  $('list').innerHTML = '';
+  ITEMS.forEach((it, i) => {
+    const n = today.log.filter(x => x.t === it.t).length;
+    const li = document.createElement('li');
+    li.className = i === cur ? 'cur' : '';
+    li.innerHTML = '<input type="number" min="0" max="99" title="Times done today (you can change it)"><span></span><b>' + it.m + ' min</b>';
+    const c = li.querySelector('input'); c.value = n; c.className = n ? 'some' : '';
+    c.onclick = e => e.stopPropagation();
+    c.onchange = () => setCount(i, +c.value);
+    li.querySelector('span').textContent = it.t;
+    if (it.d) { const r = document.createElement('small'); r.textContent = ' ' + it.d; li.querySelector('span').appendChild(r); }
+    li.onclick = () => selectItem(i);
+    $('list').appendChild(li);
+  });
+  $('tot').textContent = 'Done today: ' + fmtTot(mins(today.log));
+}
+function setCount(i, n) {  // manual correction of how many times exercise i was done today
+  n = Math.max(0, Math.min(99, Math.round(n) || 0));
+  const it = ITEMS[i];
+  today.log = today.log.filter(x => x.t !== it.t);
+  for (let k = 0; k < n; k++) today.log.push({t:it.t, m:it.m});
+  if (today.log.length && !today.d) today.d = dstr(new Date());
+  store(); renderList();
+}
+function csv() {
+  const rows = ['date,minutes,exercises'], all = Object.assign({}, hist);
+  if (today.log.length) all[today.d] = (all[today.d] || []).concat(today.log);  // the running count too
+  Object.keys(all).sort().forEach(d => {
+    const c = {}; all[d].forEach(x => c[x.t] = (c[x.t] || 0) + 1);
+    rows.push(d + ',' + mins(all[d]) + ',"' + Object.keys(c).map(t => t.replace(/"/g, "'") + (c[t] > 1 ? ' x' + c[t] : '')).join('; ') + '"');
+  });
+  return rows.join('\n') + '\n';
+}
+function save(reset) {  // Save keeps the count; Done for today saves and resets it
+  if (!today.log.length) { $('saved').textContent = 'Nothing recorded yet.'; return; }
+  const d = today.d, m = mins(hist[d] || []) + mins(today.log), body = csv();
+  if (reset) { archive(); renderList(); }
+  const tail = reset ? ' Count reset.' : ' Count continues.';
+  if (!LOCAL) { $('saved').textContent = fmtTot(m) + ' for ' + d + ' kept in this browser.' + tail; return; }
+  fetch('/save', {method: 'POST', body}).then(r => {
+    if (!r.ok) throw 0;
+    $('saved').textContent = 'Saved ' + fmtTot(m) + ' for ' + d + ' to practice-log.csv.' + tail;
+  }).catch(() => {
+    $('saved').textContent = 'Not opened with the guitar command: ' + fmtTot(m) + ' for ' + d + ' kept in this browser only.' + tail;
+  });
+}
+function selectItem(i) {
+  if (running) stop();
+  cur = i; $('mode').value = 'down'; $('mins').value = ITEMS[i].m;
+  $('minsbox').style.display = ''; elapsed = 0; showTime(); renderList();
+}
+function itemDone() {
+  if (cur === null) return;
+  if (!today.log.length) today.d = dstr(new Date());
+  today.log.push({t:ITEMS[cur].t, m:ITEMS[cur].m}); store();
+  selectItem(cur);  // stay on it: Start again repeats it
+}
+const $ = id => document.getElementById(id);
+$('save').onclick = () => save(false); $('fin').onclick = () => save(true);
+
+function setBpm(v) {
+  bpm = Math.max(30, Math.min(240, Math.round(v)));
+  $('bpm').textContent = bpm; $('slider').value = bpm;
+}
+function buildDots() {
+  $('dots').innerHTML = '';
+  for (let i = 0; i < beats; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' first' : ''); $('dots').appendChild(d);
+  }
+}
+function click(time, accent, weak) {
+  const o = ctx.createOscillator(), g = ctx.createGain();
+  o.frequency.value = accent ? 1600 : weak ? 800 : 1100;
+  const peak = accent ? 1 : weak ? 0.25 : 0.6;
+  g.gain.setValueAtTime(0.0001, time);
+  g.gain.exponentialRampToValueAtTime(peak, time + 0.002);
+  g.gain.exponentialRampToValueAtTime(0.0001, time + 0.05);
+  o.connect(g).connect(ctx.destination); o.start(time); o.stop(time + 0.06);
+}
+function flash(beat, time) {
+  setTimeout(() => {
+    [...$('dots').children].forEach((d, i) => d.classList.toggle('on', i === beat));
+  }, Math.max(0, (time - ctx.currentTime) * 1000));
+}
+function schedule() {
+  while (nextTime < ctx.currentTime + 0.15) {
+    const per = tick % sub, beat = Math.floor(tick / sub) % beats;
+    click(nextTime, per === 0 && beat === 0, per !== 0);
+    if (per === 0) flash(beat, nextTime);
+    nextTime += 60 / bpm / sub; tick++;
+  }
+}
+const fmt = t => String(Math.floor(t / 60)).padStart(2, '0') + ':' + String(Math.floor(t % 60)).padStart(2, '0');
+function limit() { return Math.max(1, +$('mins').value || 1) * 60; }
+function showTime() {
+  const down = $('mode').value === 'down';
+  $('time').textContent = fmt(down ? Math.max(0, Math.ceil(limit() - elapsed)) : elapsed);
+}
+function timeTick() {
+  const now = performance.now(); elapsed += (now - lastT) / 1000; lastT = now;
+  showTime();
+  if ($('mode').value === 'down' && elapsed >= limit()) {
+    stop(); elapsed = limit(); showTime();
+    const t = ctx.currentTime;
+    [660, 880, 1100].forEach((f, i) => beep(t + i * 0.2, f));
+    itemDone();
+  }
+}
+function beep(t, f) {
+  const o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.value = f;
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.8, t + 0.003);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + 0.25);
+  o.connect(g).connect(ctx.destination); o.start(t); o.stop(t + 0.3);
+}
+function start() {
+  ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+  ctx.resume(); running = true; tick = 0; nextTime = ctx.currentTime + 0.05;
+  if ($('mode').value === 'down' && elapsed >= limit()) elapsed = 0;
+  lastT = performance.now(); tTimer = setInterval(timeTick, 200);
+  timer = setInterval(schedule, 25); $('go').textContent = 'Stop';
+}
+function stop() {
+  if (running) { elapsed += (performance.now() - lastT) / 1000; }
+  running = false; clearInterval(timer); clearInterval(tTimer); $('go').textContent = 'Start'; showTime();
+  [...$('dots').children].forEach(d => d.classList.remove('on'));
+}
+$('mode').onchange = () => { $('minsbox').style.display = $('mode').value === 'down' ? '' : 'none'; elapsed = 0; showTime(); };
+$('mins').onchange = showTime;
+$('treset').onclick = () => { elapsed = 0; lastT = performance.now(); showTime(); };
+$('go').onclick = () => running ? stop() : start();
+$('slider').oninput = e => setBpm(+e.target.value);
+document.querySelectorAll('[data-d]').forEach(b => b.onclick = () => setBpm(bpm + +b.dataset.d));
+$('beats').onchange = e => { beats = +e.target.value; tick = 0; buildDots(); };
+$('sub').onchange = e => { sub = +e.target.value; tick = 0; };
+$('tap').onclick = () => {
+  const now = performance.now();
+  if (taps.length && now - taps[taps.length - 1] > 2000) taps = [];
+  taps.push(now); taps = taps.slice(-6);
+  if (taps.length > 1) setBpm(60000 / ((taps[taps.length - 1] - taps[0]) / (taps.length - 1)));
+};
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' && e.target.type === 'number') return;  // typing a number
+  if (e.code === 'Space') { e.preventDefault(); $('go').click(); }
+  if (e.code === 'ArrowUp') { e.preventDefault(); setBpm(bpm + 1); }
+  if (e.code === 'ArrowDown') { e.preventDefault(); setBpm(bpm - 1); }
+});
+buildDots(); loadState(); renderList(); showTime();
+</script>
+</body>
+</html>

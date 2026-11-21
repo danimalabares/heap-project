@@ -35,3 +35,11 @@ def show_slides():
 def redirect_slides():
   """The page was called /slides."""
   return redirect("/talks", code=301)
+
+
+@app.route("/guitar")
+def show_guitar():
+  """Guitar practice: metronome with timed scale exercises, and the scales PDF.
+
+  Static files, built from ~/music/guitar-practice by its make-public.py."""
+  return redirect("/static/guitar/index.html")

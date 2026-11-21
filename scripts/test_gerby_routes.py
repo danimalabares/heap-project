@@ -566,6 +566,18 @@ class ContentsAndDownloadsTests(
             old.headers["Location"].endswith("/talks")
         )
 
+    def test_guitar_practice_page(self):
+        client = app.test_client()
+        page = client.get("/guitar")
+        self.assertEqual(page.status_code, 302)
+        for name in ("index.html", "guitar-scales.pdf"):
+            got = client.get("/static/guitar/" + name)
+            self.assertEqual(got.status_code, 200, name)
+        # Public copy: the scale exercises only.
+        html = client.get("/static/guitar/index.html").get_data(as_text=True)
+        for word in ("Estrela", "Poder do"):
+            self.assertNotIn(word, html)
+
     def test_standalone_page_and_old_urls(self):
         client = app.test_client()
         page = client.get("/standalone")
