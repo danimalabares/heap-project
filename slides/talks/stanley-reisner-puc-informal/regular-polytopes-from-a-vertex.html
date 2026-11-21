@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Regular polytopes from a vertex</title>
+<style>
+  :root { --bg:#fff; --fg:#1c1c1c; --mute:#6b6b6b; --line:#d9d6cf; --panel:#f1efe9; --red:#c62828; --green:#2a7f62; }
+  * { box-sizing:border-box; }
+  html, body { height:100%; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:14px/1.4 Georgia, "Times New Roman", serif; }
+  .wrap { display:flex; flex-direction:column; height:100vh; }
+  #stage { flex:1 1 auto; min-height:240px; position:relative; }
+  canvas { position:absolute; inset:0; width:100%; height:100%; display:block; cursor:grab; touch-action:none; }
+  canvas:active { cursor:grabbing; }
+  h1 { position:absolute; left:12px; top:8px; font-size:17px; margin:0; font-weight:normal; pointer-events:none; }
+  #info { position:absolute; left:12px; top:32px; right:12px; color:var(--mute); font-size:12.5px; pointer-events:none; }
+  .hint { position:absolute; left:12px; bottom:6px; color:var(--mute); font-size:12.5px; pointer-events:none; }
+  aside { flex:0 0 auto; padding:8px 12px 10px; background:var(--panel); border-top:1px solid var(--line);
+          display:grid; grid-template-columns:1.15fr 1fr; gap:0 22px; max-height:55vh; overflow:auto; }
+  p { margin:6px 0; color:var(--mute); font-size:13px; }
+  h2 { font-size:11.5px; margin:8px 0 3px; text-transform:uppercase; letter-spacing:.06em; color:var(--mute); font-weight:normal; }
+  label { display:flex; align-items:center; gap:5px; cursor:pointer; white-space:nowrap; }
+  button { font:inherit; font-size:12.5px; padding:2px 7px; margin:2px 2px 2px 0; border:1px solid var(--line); background:var(--bg); color:var(--fg); border-radius:4px; cursor:pointer; }
+  button:hover, button.on { border-color:var(--fg); }
+  button.on { background:var(--fg); color:var(--bg); }
+  input[type=range] { width:100%; margin:0; }
+  .sliders { display:grid; grid-template-columns:auto 1fr; gap:4px 8px; align-items:center; }
+  .sliders span { font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--mute); white-space:nowrap; }
+  details { grid-column:1 / -1; margin-top:6px; }
+  summary { cursor:pointer; color:var(--mute); font-size:13px; }
+  .k { display:inline-block; width:18px; height:0; border-top:2px solid; vertical-align:middle; margin-right:2px; }
+  nav.models { position:absolute; right:10px; bottom:6px; display:flex; gap:4px; z-index:2; }
+  nav.models a { font:12.5px Georgia, serif; padding:2px 7px; border:1px solid var(--line); border-radius:4px; background:var(--bg); color:var(--fg); text-decoration:none; }
+  nav.models a:hover { border-color:var(--fg); }
+  nav.models a.on { background:var(--fg); color:var(--bg); border-color:var(--fg); }
+  button.dk { position:absolute; right:10px; top:8px; z-index:2; font:12.5px Georgia, serif; padding:2px 7px; margin:0; border:1px solid var(--line); border-radius:4px; background:var(--bg); color:var(--fg); cursor:pointer; }
+  button.dk.on { background:var(--fg); color:var(--bg); border-color:var(--fg); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="stage"><canvas id="cv"></canvas><nav class="models"><a href="spheres-2d.html">2D</a><a href="regular-polytopes-from-a-vertex.html" class="on">3D: regular</a><a href="inside-the-link-of-b-3d.html">3D: M</a></nav><button id="dk" class="dk" title="Drawing colours for a black background">dark colours</button><h1>Regular 4-polytopes from a vertex <i>v</i></h1><div id="info"></div>
+    <div class="hint">Drag to rotate. Scroll to change the size.</div></div>
+  <aside>
+    <div>
+      <h2 style="margin-top:0">Polytope</h2>
+      <div id="polys"></div>
+      <h2>Picture</h2>
+      <div id="modes"></div>
+      <h2>Show</h2>
+      <label><input type="checkbox" id="eLink" checked> <span class="k" style="color:var(--fg)"></span> edges of the link of <i>v</i></label>
+      <label><input type="checkbox" id="eIn" checked> <span class="k" style="color:var(--red)"></span> edges inside</label>
+      <label><input type="checkbox" id="eRay" checked> <span class="k" style="color:var(--green);border-top-style:dashed"></span> edges going to <i>v</i></label>
+    </div>
+    <div>
+      <div class="sliders" style="margin-top:4px">
+        <span>Size</span><input id="zoom" type="range" min="40" max="400" value="100">
+        <span>Cells inside</span><input id="ncell" type="range" min="0" max="1" value="1">
+        <span>Pull apart</span><input id="explode" type="range" min="0" max="100" value="0">
+      </div>
+      <p id="cellnote"></p>
+      <label><input type="checkbox" id="spin"> turn slowly</label>
+    </div>
+    <details>
+      <summary>What this is</summary>
+      <p>A regular 4-polytope sits in 4-space with its vertices on a round 3-sphere. Its boundary is a 3-sphere made of cells. All vertices look the same, so one vertex <i>v</i> is enough.</p>
+      <p><b>Round.</b> Push the boundary out onto the round 3-sphere and project stereographically from <i>v</i>. Then <i>v</i> is at infinity, the neighbours of <i>v</i> (the link) lie on a round 2-sphere, edges are arcs of circles, and the edges through <i>v</i> are straight rays going out. The cells that do not touch <i>v</i> fill the inside; the cells that touch <i>v</i> are the outside.</p>
+      <p><b>Straight.</b> Look at the polytope from a point just outside it, near <i>v</i>, and draw only the far side. Everything is flat, the link of <i>v</i> is a convex polyhedron, and the cells that do not touch <i>v</i> tile it. This picture exists because the polytope is convex. The edges going to <i>v</i> are drawn as straight rays pointing away from the centre: with them, the cells that touch <i>v</i> are the regions outside, between the rays.</p>
+      <p>Cells are filled only when they are tetrahedra (5-cell, 16-cell, 600-cell). The slider adds them starting from the ones nearest to <i>v</i>.</p>
+    </details>
+  </aside>
+</div>
+<script>
+// ---------- geometry (no DOM) ----------
+const PHI = (1+Math.sqrt(5))/2;
+const dot4 = (a,b) => a[0]*b[0]+a[1]*b[1]+a[2]*b[2]+a[3]*b[3];
+const unit4 = a => { const n = Math.sqrt(dot4(a,a)); return a.map(x => x/n); };
+function signs(base) {           // all sign choices on the nonzero entries
+  let out = [[]];
+  for (const x of base) out = x === 0 ? out.map(o => [...o,0]) : out.flatMap(o => [[...o,x],[...o,-x]]);
+  return out;
+}
+function perms(n) { if (n === 1) return [[0]]; const out = [];
+  for (const p of perms(n-1)) for (let i=0;i<n;i++) { const q = p.slice(); q.splice(i,0,n-1); out.push(q); } return out; }
+const parity = p => { let s = 0; for (let i=0;i<p.length;i++) for (let j=i+1;j<p.length;j++) if (p[i]>p[j]) s++; return s%2; };
+function uniq(list) { const seen = new Set(), out = [];
+  for (const v of list) { const k = v.map(x => (Math.round(x*1e6)/1e6+0).toFixed(6)).join(","); if (!seen.has(k)) { seen.add(k); out.push(v); } } return out; }
+const AXES = [0,1,2,3].flatMap(i => [1,-1].map(s => [0,1,2,3].map(j => j===i ? s : 0)));
+const HALVES = signs([.5,.5,.5,.5]);
+const NAMES = { "5":"5-cell", "16":"16-cell", "600":"600-cell", "8":"tesseract", "24":"24-cell" };
+const CELLNAME = { "5":"tetrahedra", "16":"tetrahedra", "600":"tetrahedra", "8":"cubes", "24":"octahedra" };
+
+function rawVertices(name) {
+  if (name === "5") { const s = -1/Math.sqrt(5); return [[1,1,1,s],[1,-1,-1,s],[-1,1,-1,s],[-1,-1,1,s],[0,0,0,4/Math.sqrt(5)]]; }
+  if (name === "16") return AXES;
+  if (name === "8") return HALVES;
+  if (name === "24") return [...AXES, ...HALVES];
+  const base = [PHI/2, 1/2, 1/(2*PHI), 0], extra = [];
+  for (const p of perms(4)) if (parity(p) === 0) for (const s of signs(base)) extra.push(p.map(i => s[i]));
+  return uniq([...AXES, ...HALVES, ...extra]);
+}
+
+function build(name) {
+  let V = rawVertices(name).map(unit4);
+  // reflect so that V[0] becomes the north pole (0,0,0,1)
+  const u = V[0].map((x,i) => x - (i===3 ? 1 : 0)), uu = dot4(u,u);
+  const refl = x => uu < 1e-12 ? x : x.map((xi,i) => xi - 2*dot4(u,x)/uu*u[i]);
+  V = V.map(refl);
+  const n = V.length;
+  let dmax = -2;
+  for (let j=1;j<n;j++) dmax = Math.max(dmax, dot4(V[0],V[j]));
+  const adj = V.map(() => new Set()), E = [];
+  for (let i=0;i<n;i++) for (let j=i+1;j<n;j++) if (dot4(V[i],V[j]) > dmax-1e-6) { adj[i].add(j); adj[j].add(i); E.push([i,j]); }
+  // cells
+  let cells = [], normals;
+  const simplicial = name === "5" || name === "16" || name === "600";
+  if (simplicial) {
+    for (const [i,j] of E) for (const k of adj[i]) if (k>j && adj[j].has(k)) for (const l of adj[i]) if (l>k && adj[j].has(l) && adj[k].has(l)) cells.push([i,j,k,l]);
+    normals = cells.map(c => unit4([0,1,2,3].map(m => c.reduce((s,i) => s+V[i][m],0))));
+  } else {
+    const raw = name === "8" ? AXES : uniq(perms(4).flatMap(p => signs([1,1,0,0]).map(s => p.map(i => s[i]))));
+    normals = raw.map(unit4).map(refl);
+    cells = normals.map(nv => { const h = Math.max(...V.map(x => dot4(nv,x))); return V.map((x,i) => dot4(nv,x) > h-1e-6 ? i : -1).filter(i => i>=0); });
+  }
+  // viewpoint for the straight picture: beyond exactly the cells at v
+  let lmax = Infinity;
+  normals.forEach((nv,c) => { if (cells[c].includes(0)) return; const h = dot4(nv,V[cells[c][0]]); if (nv[3] > 1e-9) lmax = Math.min(lmax, h/nv[3]); });
+  const lambda = lmax === Infinity ? 1.5 : 1 + 0.5*(lmax-1);
+  const kind = V.map((x,i) => i===0 ? "v" : adj[0].has(i) ? "link" : "in");
+  const inside = cells.map((c,i) => i).filter(i => !cells[i].includes(0))
+    .sort((a,b) => normals[b][3]-normals[a][3]);
+  return { name, V, E, adj, cells, normals, simplicial, lambda, kind, inside };
+}
+
+function projector(P, mode) {
+  if (mode === "round") return x => { const y = unit4(x), d = 1-y[3]; return [y[0]/d, y[1]/d, y[2]/d]; };
+  const L = P.lambda; return x => { const f = L/(L-x[3]); return [x[0]*f, x[1]*f, x[2]*f]; };
+}
+const mix = (a,b,t) => a.map((x,i) => (1-t)*x + t*b[i]);
+const norm3 = p => Math.hypot(p[0],p[1],p[2]);
+
+// everything to draw, in model coordinates
+function scene(P, mode) {
+  const pr = projector(P, mode), round = mode === "round", big = P.V.length > 30;
+  const pts = P.V.map((x,i) => i===0 ? null : pr(x));
+  const R = Math.max(...pts.filter((p,i) => P.kind[i]==="link").map(norm3));
+  const segs = [], steps = round ? (big ? 6 : 14) : 1;
+  for (const [i,j] of P.E) {
+    if (i === 0) {                      // edge to v
+      if (!round) { segs.push([pts[j], pts[j].map(x => x*1.55), "ray"]); continue; }
+      let prev = pts[j];
+      for (let s=1;s<=40;s++) { const q = pr(mix(P.V[j], P.V[0], s*0.02)); if (norm3(q) > 1.55*R) break; segs.push([prev,q,"ray"]); prev = q; }
+      continue;
+    }
+    const cls = P.kind[i]==="link" && P.kind[j]==="link" ? "link" : "in";
+    let prev = pts[i];
+    for (let s=1;s<=steps;s++) { const q = pr(mix(P.V[i], P.V[j], s/steps)); segs.push([prev,q,cls]); prev = q; }
+  }
+  const tris = [];
+  if (P.simplicial) {
+    const m = round ? (big ? 2 : 4) : 1;
+    P.inside.forEach((ci, rank) => {
+      const c = P.cells[ci];
+      const cen = pr([0,1,2,3].map(k => c.reduce((s,i) => s+P.V[i][k],0)/4));
+      for (let o=0;o<4;o++) {
+        const [A,B,C] = c.filter((_,k) => k!==o).map(i => P.V[i]);
+        const g = (i,j) => pr(A.map((a,k) => (i*a + j*B[k] + (m-i-j)*C[k])/m));
+        for (let i=0;i<m;i++) for (let j=0;j<m-i;j++) {
+          tris.push([g(i,j), g(i+1,j), g(i,j+1), rank, cen]);
+          if (i+j < m-1) tris.push([g(i+1,j), g(i+1,j+1), g(i,j+1), rank, cen]);
+        }
+      }
+    });
+  }
+  return { pts, R, segs, tris };
+}
+
+function summary(P) {
+  const nl = P.kind.filter(k => k==="link").length, ni = P.kind.filter(k => k==="in").length;
+  const touch = P.cells.length - P.inside.length;
+  return `${NAMES[P.name]}: ${P.V.length} vertices, ${P.E.length} edges, ${P.cells.length} ${CELLNAME[P.name]}. ` +
+    `Link of v: ${nl} vertices. Cells touching v (outside): ${touch}. Cells not touching v (inside): ${P.inside.length}. ` +
+    `Vertices at distance 2 or more from v: ${ni}.`;
+}
+
+// ---------- page ----------
+if (typeof document !== "undefined") {
+const $ = id => document.getElementById(id);
+const COL_L = ["#4e79a7","#f28e2b","#59a14f","#b07aa1","#edc948","#76b7b2","#e15759","#9c755f","#ff9da7","#86bc86"], COL_D = ["#6fa8ff","#ffa94d","#7ddc6f","#d59cff","#ffe066","#66e0d6","#ff7b7b","#d9a37a","#ffb3c7","#a8e6a1"];
+let darkCols = false; try { darkCols = localStorage.getItem("darkCols") === "1"; } catch (e) {}
+const DARK = { "--fg":"#f5f5f5", "--red":"#ff7b7b", "--green":"#5fe0b0", "--mute":"#b5b5b5" };
+let COL = darkCols ? COL_D : COL_L;
+const cache = {};
+let cur = "16", mode = "straight", P, SC;
+function choose() {
+  P = cache[cur] || (cache[cur] = build(cur));
+  SC = scene(P, mode);
+  $("info").textContent = summary(P);
+  const nc = $("ncell"); nc.max = P.simplicial ? P.inside.length : 0; nc.disabled = !P.simplicial;
+  nc.value = P.simplicial ? (P.inside.length > 100 ? 20 : P.inside.length) : 0;
+  note(); draw();
+}
+function note() { $("cellnote").textContent = P.simplicial ? `Showing ${$("ncell").value} of the ${P.inside.length} tetrahedra inside.` : "Cells are filled only when they are tetrahedra."; }
+function group(id, items, get, set) {
+  items.forEach(([key,label]) => { const b = document.createElement("button"); b.textContent = label;
+    b.onclick = () => { set(key); [...$(id).children].forEach(c => c.classList.toggle("on", c === b)); choose(); };
+    if (key === get()) b.classList.add("on"); $(id).appendChild(b); });
+}
+group("polys", [["5","5-cell"],["16","16-cell"],["600","600-cell"],["8","tesseract"],["24","24-cell"]], () => cur, k => cur = k);
+group("modes", [["round","round (stereographic from v)"],["straight","straight"]], () => mode, k => mode = k);
+["zoom","explode","eLink","eIn","eRay"].forEach(id => $(id).addEventListener("input", draw));
+$("ncell").addEventListener("input", () => { note(); draw(); });
+
+let R3 = [[1,0,0],[0,1,0],[0,0,1]];
+const mul = (A,B) => A.map(r => [0,1,2].map(j => r[0]*B[0][j]+r[1]*B[1][j]+r[2]*B[2][j]));
+const rotX = t => [[1,0,0],[0,Math.cos(t),-Math.sin(t)],[0,Math.sin(t),Math.cos(t)]];
+const rotY = t => [[Math.cos(t),0,Math.sin(t)],[0,1,0],[-Math.sin(t),0,Math.cos(t)]];
+R3 = mul(rotX(-0.35), rotY(0.6));
+
+const cv = $("cv"), ctx = cv.getContext("2d");
+let W = 0, H = 0;
+function resize() { const r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+  W = r.width; H = r.height; cv.width = W*d; cv.height = H*d; ctx.setTransform(d,0,0,d,0,0); draw(); }
+window.addEventListener("resize", resize);
+let drag = null;
+cv.addEventListener("pointerdown", e => { drag = [e.clientX, e.clientY]; cv.setPointerCapture(e.pointerId); });
+cv.addEventListener("pointermove", e => { if (!drag) return;
+  const dx = e.clientX-drag[0], dy = e.clientY-drag[1]; drag = [e.clientX, e.clientY];
+  R3 = mul(mul(rotX(dy*0.008), rotY(dx*0.008)), R3); draw(); });
+cv.addEventListener("pointerup", () => drag = null);
+cv.addEventListener("pointercancel", () => drag = null);
+cv.addEventListener("wheel", e => { e.preventDefault(); const z = $("zoom"); z.value = Math.round(z.value*Math.exp(-e.deltaY*0.002)); draw(); }, {passive:false});
+const css = n => darkCols && DARK[n] ? DARK[n] : getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function setDark(on) { darkCols = on; COL = on ? COL_D : COL_L; $("dk").classList.toggle("on", on);
+  try { localStorage.setItem("darkCols", on ? "1" : "0"); } catch (e) {}
+  draw(); }
+$("dk").onclick = () => setDark(!darkCols);
+
+function draw() {
+  if (!W || !SC) return;
+  const k = $("explode").value/100*1.2, round = mode === "round", big = P.V.length > 30;
+  const S = Math.min(W,H) / ((round || $("eRay").checked ? 3.5 : 2.5)*SC.R*(1+0.6*k)) * $("zoom").value/100;
+  const scr = p => [W/2 + (R3[0][0]*p[0]+R3[0][1]*p[1]+R3[0][2]*p[2])*S, H/2 - (R3[1][0]*p[0]+R3[1][1]*p[1]+R3[1][2]*p[2])*S,
+                    R3[2][0]*p[0]+R3[2][1]*p[1]+R3[2][2]*p[2]];
+  const fg = css("--fg"), red = css("--red"), green = css("--green");
+  ctx.clearRect(0,0,W,H); ctx.lineJoin = ctx.lineCap = "round";
+  const items = [], ncell = +$("ncell").value;
+  for (const [a,b,c,rank,cen] of SC.tris) { if (rank >= ncell) continue;
+    const o = cen.map(x => x*k), f = [a,b,c].map(p => scr([p[0]+o[0],p[1]+o[1],p[2]+o[2]]));
+    items.push([(f[0][2]+f[1][2]+f[2][2])/3, 0, f, COL[rank % COL.length]]); }
+  const want = { link:$("eLink").checked, in:$("eIn").checked, ray:$("eRay").checked };
+  for (const [p,q,cls] of SC.segs) { if (!want[cls]) continue; const a = scr(p), b = scr(q); items.push([(a[2]+b[2])/2 + 1e-3, 1, a, b, cls]); }
+  P.V.forEach((x,i) => { if (i === 0) return; const a = scr(SC.pts[i]); items.push([a[2] + 2e-3, 2, a, i]); });
+  items.sort((x,y) => x[0]-y[0]);
+  for (const it of items) {
+    if (it[1] === 0) { const f = it[2];
+      ctx.beginPath(); ctx.moveTo(f[0][0],f[0][1]); ctx.lineTo(f[1][0],f[1][1]); ctx.lineTo(f[2][0],f[2][1]); ctx.closePath();
+      ctx.globalAlpha = 0.42; ctx.fillStyle = it[3]; ctx.fill(); ctx.globalAlpha = 1;
+    } else if (it[1] === 1) { const [, , a, b, cls] = it;
+      ctx.beginPath(); ctx.moveTo(a[0],a[1]); ctx.lineTo(b[0],b[1]);
+      if (cls === "link") { ctx.strokeStyle = fg; ctx.lineWidth = 2; ctx.setLineDash([]); }
+      else if (cls === "in") { ctx.strokeStyle = red; ctx.lineWidth = big ? 0.7 : 1.3; ctx.globalAlpha = big ? 0.6 : 0.9; ctx.setLineDash([]); }
+      else { ctx.strokeStyle = green; ctx.lineWidth = 1.5; ctx.setLineDash([5,4]); }
+      ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha = 1;
+    } else { const [, , a, i] = it, link = P.kind[i] === "link";
+      if (!link && !want.in) continue;
+      ctx.beginPath(); ctx.arc(a[0],a[1], link ? 3.2 : (big ? 1.4 : 3), 0, 7); ctx.fillStyle = link ? fg : red; ctx.fill();
+      if (P.V[i][3] < -1+1e-6) { ctx.font = "italic 15px Georgia, serif"; ctx.fillStyle = fg; ctx.fillText("−v", a[0]+6, a[1]-6); }
+    }
+  }
+}
+function tick() { if ($("spin").checked && !drag) { R3 = mul(rotY(0.006), R3); draw(); } requestAnimationFrame(tick); }
+choose(); resize(); setDark(darkCols); tick();
+}
+if (typeof module !== "undefined") module.exports = { build, scene, summary };
+</script>
+</body>
+</html>
