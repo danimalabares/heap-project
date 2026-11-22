@@ -592,6 +592,8 @@ class ContentsAndDownloadsTests(
         html = client.get("/static/guitar/index.html").get_data(as_text=True)
         for word in ("Estrela", "Poder do"):
             self.assertNotIn(word, html)
+        # Not linked from the homepage (Daniel, 2026-11-22): reachable by its address only.
+        self.assertNotIn("guitar", client.get("/").get_data(as_text=True).lower())
 
     def test_standalone_page_and_old_urls(self):
         client = app.test_client()
