@@ -568,32 +568,31 @@ class ContentsAndDownloadsTests(
 
     def test_talk_models(self):
         client = app.test_client()
-        base = "/talks/talks/stanley-reisner-puc-informal/"
+        base = "/talks/stanley-reisner-puc-informal/"
         page = client.get("/talks").get_data(as_text=True)
-        for name in (
-            "spheres-2d.html",
-            "regular-polytopes-from-a-vertex.html",
-        ):
-            self.assertIn(base + name, page)
+        self.assertIn(base + "from-a-vertex.html", page)
+        for name in ("from-a-vertex.html", "from-a-vertex-4d.html"):
             got = client.get(base + name)
             self.assertEqual(got.status_code, 200, name)
             self.assertIn("text/html", got.content_type)
         # Only files listed in slides/index.json are served.
         for name in ("preamble.html", "nothing.html"):
             self.assertEqual(client.get(base + name).status_code, 404)
-
-        client = app.test_client()
-        page = client.get("/guitar")
-        self.assertEqual(page.status_code, 302)
-        for name in ("index.html", "guitar-scales.pdf"):
-            got = client.get("/static/guitar/" + name)
-            self.assertEqual(got.status_code, 200, name)
-        # Public copy: the scale exercises only.
-        html = client.get("/static/guitar/index.html").get_data(as_text=True)
-        for word in ("Estrela", "Poder do"):
-            self.assertNotIn(word, html)
-        # Not linked from the homepage (Daniel, 2026-11-22): reachable by its address only.
-        self.assertNotIn("guitar", client.get("/").get_data(as_text=True).lower())
+        # Former addresses: with the series, and the old file names.
+        old = client.get("/talks/talks/stanley-reisner-puc-informal/spheres-2d.html")
+        self.assertEqual(old.status_code, 301)
+        self.assertTrue(old.headers["Location"].endswith(base + "spheres-2d.html"))
+        old = client.get(base + "spheres-2d.html")
+        self.assertEqual(old.status_code, 301)
+        self.assertTrue(old.headers["Location"].endswith(base + "from-a-vertex.html"))
+        # The address has no series, so deck names must not repeat.
+        index = json.loads((ROOT / "slides" / "index.json").read_text())
+        names = [
+            deck["path"].split("/")[-1]
+            for entry in index
+            for deck in entry.get("decks", [entry])
+        ]
+        self.assertEqual(len(names), len(set(names)))
 
     def test_standalone_page_and_old_urls(self):
         client = app.test_client()

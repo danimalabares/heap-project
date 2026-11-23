@@ -31,18 +31,29 @@ def show_slides():
   return render_template("single/slides.html", slides=load_slides())
 
 
-@app.route("/talks/<series>/<deck>/<name>.html")
-def show_model(series, deck, name):
+@app.route("/talks/<deck>/<name>.html")
+def show_model(deck, name):
   """An interactive page of a talk: a file listed under "models" in
-  slides/index.json, served from the talk's own folder."""
-  path = "%s/%s" % (series, deck)
+  slides/index.json, served from the talk's own folder. A former
+  name of the file (listed under "was") redirects to it."""
+  name = name + ".html"
   for entry in load_slides():
     for item in entry.get("decks", [entry]):
-      if item["path"] == path:
-        if name + ".html" in [m["file"] for m in item.get("models", [])]:
-          folder = os.path.join(str(ROOT), "slides", series, deck)
-          return send_from_directory(folder, name + ".html")
+      if item["path"].split("/")[-1] != deck:
+        continue
+      for model in item.get("models", []):
+        if name == model["file"]:
+          folder = os.path.join(str(ROOT), "slides", item["path"])
+          return send_from_directory(folder, name)
+        if name in model.get("was", []):
+          return redirect("/talks/%s/%s" % (deck, model["file"]), code=301)
   abort(404)
+
+
+@app.route("/talks/<series>/<deck>/<name>.html")
+def redirect_model(series, deck, name):
+  """The address used to contain the series."""
+  return redirect("/talks/%s/%s.html" % (deck, name), code=301)
 
 
 @app.route("/slides")
