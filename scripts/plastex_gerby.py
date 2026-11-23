@@ -33,6 +33,15 @@ def render_source_image(node):
   )
 
 
+def is_source_image(path):
+  """A PNG kept in a chapter's own folder <chapter>-assets."""
+  folder = path.parent.name
+  return path.suffix.lower() == ".png" and (
+      folder.endswith("-assets")
+      or folder == "nakajima-heisenberg"
+  )
+
+
 def install_source_images(renderer_class):
   original = renderer_class.loadTemplates
 
@@ -42,9 +51,7 @@ def install_source_images(renderer_class):
 
     def image(node):
       path = getattr(node, "imageoverride", None)
-      if path and Path(path).parent.name in (
-          "combinatorics-assets", "biology-assets", "reading-assets",
-          "electromagnetism-assets", "nakajima-heisenberg"):
+      if path and is_source_image(Path(path)):
         return render_source_image(node)
       return fallback(node) if fallback else ""
 
