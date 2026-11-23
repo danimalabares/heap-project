@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pants and trivalent graphs</title>
+<meta name="description" content="Short slideshow, 5 steps: a compact orientable surface cut into pairs of pants gives a connected trivalent graph.">
+<style>
+  :root { --bg:#fff; --fg:#1c1c1c; --mute:#6b6b6b; --line:#d9d6cf; --panel:#f1efe9; --hinge:#096762; --motion:#bc4d2c; }
+  * { box-sizing:border-box; }
+  html, body { height:100%; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:14px/1.42 Georgia, "Times New Roman", serif; }
+  .wrap { display:flex; flex-direction:column; height:100vh; }
+  #stage { flex:1 1 auto; min-height:230px; position:relative; }
+  canvas { position:absolute; inset:0; width:100%; height:100%; display:block; cursor:grab; touch-action:none; }
+  canvas:active { cursor:grabbing; }
+  h1 { position:absolute; left:12px; top:8px; right:200px; font-size:19px; margin:0; font-weight:normal; pointer-events:none; }
+  .hint { position:absolute; left:12px; bottom:5px; color:var(--mute); font-size:12px; pointer-events:none; }
+  .dk { position:absolute; right:10px; top:9px; z-index:2; display:flex; gap:10px; font-size:13px; white-space:nowrap; }
+  aside { flex:0 0 auto; padding:8px 12px 6px; background:var(--panel); border-top:1px solid var(--line); max-height:62vh; overflow:auto; }
+  #text p { margin:0 0 6px; font-size:14px; }
+  #text .pt { font-size:15px; border-left:3px solid var(--hinge); padding:1px 0 1px 9px; margin-bottom:7px; }
+  #text ol { margin:0 0 6px; padding-left:22px; } #text li { margin:0 0 2px; }
+  #text .src { color:var(--mute); font-size:12px; }
+  .cut { color:var(--hinge); } .hole { color:var(--motion); } .tree { color:#2c4fbb; }
+  .cols { display:grid; grid-template-columns:1.25fr 1fr; gap:0 20px; margin-top:4px; }
+  h2 { font-size:11.5px; margin:5px 0 3px; text-transform:uppercase; letter-spacing:.06em; color:var(--mute); font-weight:normal; }
+  label { display:inline-flex; align-items:center; gap:5px; cursor:pointer; white-space:nowrap; margin-right:12px; }
+  button { font:inherit; font-size:12.5px; padding:2px 8px; margin:0; border:1px solid var(--line); background:var(--bg); color:var(--fg); border-radius:4px; cursor:pointer; }
+  button:hover { border-color:var(--fg); }
+  button.on { background:var(--fg); color:var(--bg); border-color:var(--fg); }
+  button:disabled { opacity:.35; cursor:default; }
+  input[type=range] { width:100%; margin:0; accent-color:var(--motion); }
+  .ctl { display:grid; grid-template-columns:auto auto 1fr 3.6em; gap:3px 7px; align-items:center; }
+  .ctl .v { text-align:right; font-variant-numeric:tabular-nums; color:var(--mute); font-size:12.5px; }
+  .ctl button { min-width:2.1em; padding:2px 5px; }
+  .rows { display:grid; grid-template-columns:auto auto 1fr; gap:0 9px; align-items:baseline; font-size:13px; }
+  .rows .n { font-variant-numeric:tabular-nums; text-align:right; }
+  .rows .w { color:var(--mute); font-size:12px; }
+  nav { display:flex; align-items:center; gap:10px; margin-top:7px; padding-top:6px; border-top:1px solid var(--line); }
+  nav button { padding:3px 12px; font-size:13.5px; }
+  #count { color:var(--mute); font-size:13px; }
+  #dots { flex:1; display:flex; gap:5px; justify-content:center; }
+  #dots b { width:9px; height:9px; border-radius:50%; border:1px solid var(--mute); cursor:pointer; }
+  #dots b.on { background:var(--fg); border-color:var(--fg); }
+  .fs { position:absolute; right:10px; top:32px; z-index:2; display:flex; gap:10px; font-size:13px; white-space:nowrap; }
+  .fs label { display:inline-flex; align-items:center; gap:5px; margin:0; cursor:pointer; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="stage"><canvas id="cv"></canvas>
+    <div class="fs" title="Full screen: the whole page, controls included. Key f, or Esc to leave."><label><input type="radio" name="fs" id="fsW" checked> Window</label><label><input type="radio" name="fs" id="fsF"> Full screen</label></div>
+    <div class="dk" title="The page stays white; only the drawing colours change."><label style="margin:0"><input type="radio" name="dk" id="dkL"> Light</label><label style="margin:0"><input type="radio" name="dk" id="dkD"> Dark</label></div>
+    <h1 id="title"></h1>
+    <div class="hint">Drag to rotate. Scroll to change the size.</div>
+  </div>
+  <aside>
+    <div id="text"></div>
+    <div class="cols">
+      <div><div id="modes"></div><div class="ctl" id="ctl"></div></div>
+      <div><h2 id="rowsT">Count</h2><div class="rows" id="rows"></div></div>
+    </div>
+    <nav><button id="back">&lsaquo; Back</button><span id="count"></span><span id="dots"></span><button id="next">Next &rsaquo;</button></nav>
+  </aside>
+</div>
+<script>
+// ---------- geometry (no DOM) ----------
+// A graph is drawn in ordinary 3-space: vertices V and curves E. The surface is the tube around the curves.
+// A curve goes from vertex a to vertex b; b === null means a free end (a half-edge that is not paired).
+const dot = (a,b) => a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+const cross = (a,b) => [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]];
+const add = (a,b) => [a[0]+b[0], a[1]+b[1], a[2]+b[2]], sub = (a,b) => [a[0]-b[0], a[1]-b[1], a[2]-b[2]], sc = (a,s) => [a[0]*s, a[1]*s, a[2]*s];
+const len = a => Math.sqrt(dot(a,a)), dist = (a,b) => len(sub(a,b)), lerp = (a,b,t) => [a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t, a[2]+(b[2]-a[2])*t];
+const N = 48;                                             // every curve is stored as N+1 points, equally spaced along it
+function resample(pts, n = N) { const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i-1] + dist(pts[i], pts[i-1]));
+  const L = cum[cum.length-1], out = []; if (L < 1e-12) { for (let i = 0; i <= n; i++) out.push(pts[0].slice()); return out; }
+  let j = 0; for (let i = 0; i <= n; i++) { const s = L*i/n; while (j < pts.length-2 && cum[j+1] < s) j++;
+    const d = cum[j+1] - cum[j]; out.push(lerp(pts[j], pts[j+1], d > 0 ? Math.min(1, (s - cum[j])/d) : 0)); }
+  return out; }
+function bez(P0, P1, P2, P3, m = 80) { const o = []; for (let i = 0; i <= m; i++) { const t = i/m, u = 1-t;
+    o.push([0,1,2].map(j => u*u*u*P0[j] + 3*u*u*t*P1[j] + 3*u*t*t*P2[j] + t*t*t*P3[j])); } return o; }
+const E = (pts, a, b, extra) => ({ pts:resample(pts), a, b, ...extra });
+function at(c, t) { const x = Math.max(0, Math.min(1, t))*N, i = Math.min(N-1, Math.floor(x)); return lerp(c.pts[i], c.pts[i+1], x-i); }
+function tan(c, t) { const i = Math.min(N-1, Math.floor(Math.max(0, Math.min(1, t))*N)), d = sub(c.pts[i+1], c.pts[i]), l = len(d); return l > 1e-12 ? sc(d, 1/l) : [1,0,0]; }
+const clen = c => { let L = 0; for (let i = 0; i < N; i++) L += dist(c.pts[i], c.pts[i+1]); return L; };
+
+// Genus 2. s = 0: the theta graph. s = 1: the dumbbell. In between the middle edge shrinks to a point (s = 1/2)
+// and a new edge grows in the other direction. The two outer curves are deformed, never broken.
+function thetaDumbbell(s) { const d = 1.2, d2 = 0.55, m = Math.min(1, 2*s), a = 0.5 + 1.7*m, k = 1.5 + 0.3*m, th = s <= 0.5;
+  const u = th ? [-d*(1-2*s),0,0] : [0, d2*(2*s-1), 0], v = th ? [d*(1-2*s),0,0] : [0, -d2*(2*s-1), 0];
+  const A3 = th ? v : u, B0 = th ? u : v;
+  return { name: th ? "theta" : "dumbbell", V:[u,v], rho:0.28, E:[
+    E([u,v], 0, 1, { name:"middle" }),
+    E(bez(u, add(u,[-a,k,0]), add(A3,[a,k,0]), A3), 0, th ? 1 : 0, { name:"upper" }),
+    E(bez(B0, add(B0,[-a,-k,0]), add(v,[a,-k,0]), v), th ? 0 : 1, 1, { name:"lower" }) ] }; }
+// Genus 3: the tetrahedron (my choice of example).
+function tetra() { const V = [[1,1,1],[1,-1,-1],[-1,1,-1],[-1,-1,1]].map(p => sc(p, 0.95)), Ed = [];
+  for (let i = 0; i < 4; i++) for (let j = i+1; j < 4; j++) Ed.push(E([V[i],V[j]], i, j)); return { name:"tetrahedron", V, E:Ed, rho:0.24 }; }
+// One piece of the cut theta surface (sig = 0), straightened into a symmetric pair of pants (sig = 1).
+function pants(sig, end = "cut") { const T = thetaDumbbell(0), u = T.V[0];
+  return { name:"pair of pants", V:[[0,0,0]], rho:0.28, E:T.E.map((c,i) => { const an = [0,120,240][i]*Math.PI/180, pts = [];
+    for (let j = 0; j <= N; j++) pts.push(lerp(sub(at(c, 0.5*j/N), u), [1.3*j/N*Math.cos(an), 1.3*j/N*Math.sin(an), 0], sig));
+    return E(pts, 0, null, { end }); }) }; }
+// A torus with one hole: one pair of pants, two of its rims glued to each other.
+function torusHole() { const v = [0,-0.5,0];
+  return { name:"loop with a leaf", V:[v], rho:0.28, E:[ E(bez(v, add(v,[-2.2,2,0]), add(v,[2.2,2,0]), v), 0, 0), E([v, add(v,[0,-1.25,0])], 0, null, { end:"hole" }) ] }; }
+// Genus 2 with one hole: the theta graph with one more vertex on the upper curve, carrying a leaf of length l.
+// l = 0: the leaf and its vertex are removed and vertex 0 is coloured (Belmans-Galkin-Mukhopadhyay, "Removing half-edges").
+const LEAF = 1.1;
+function genus2Hole(l) { const T = thetaDumbbell(0), up = T.E[1];
+  if (l < 0.02) return { ...T, col:{ v:0, a:1 } };
+  const m = at(up, 0.5);
+  return { name:"theta with a leaf", V:[T.V[0], T.V[1], m], rho:0.28, col:{ v:0, a:Math.max(0, 1 - l/(0.3*LEAF)) }, E:[ T.E[0], T.E[2],
+    E(up.pts.slice(0, N/2+1), 0, 2), E(up.pts.slice(N/2), 2, 1), E([m, add(m,[0,l,0])], 2, null, { end:"hole" }) ] }; }
+// A sphere with six holes. s = 0: the chain (fan of the hexagon). s = 1: the star (central triangle).
+// The middle edge is AD for s < 1/2 and CE for s > 1/2.
+function hexTree(s) { const m = Math.min(1, 2*s), n2 = Math.max(0, 2*s-1), ch = s <= 0.5, u = [-1.8,0,0], z = [1.8,0,0];
+  const v = ch ? [-0.6*(1-m),0,0] : [0, 0.75*n2, 0], w = ch ? [0.6*(1-m),0,0] : [0, -0.45*n2, 0];
+  const dir = g => [Math.cos(g*Math.PI/180), Math.sin(g*Math.PI/180), 0], cd = 90 + 20*m + 15*n2;
+  const leaf = (P, i, g, name) => E([P, add(P, sc(dir(g), 0.95))], i, null, { end:"hole", name });
+  return { name: ch ? "chain" : "star", V:[u,v,w,z], rho:0.22, E:[
+    E([u, ch ? v : w], 0, ch ? 1 : 2, { name:"AC" }), E([v,w], 1, 2, { name: ch ? "AD" : "CE" }), E([w,z], 2, 3, { name:"AE" }),
+    leaf(u,0,240,"AB"), leaf(u,0,120,"BC"), leaf(v,1,cd,"CD"), leaf(ch ? w : v, ch ? 2 : 1, 180-cd, "DE"), leaf(z,3,60,"EF"), leaf(z,3,300,"FA") ] }; }
+// What the picture is a picture of: pairs of pants, circles, holes, genus.
+function counts(G) { const deg = G.V.map(() => 0); let edges = 0, leaves = 0, loops = 0;
+  for (const c of G.E) { deg[c.a]++; if (c.b === null) leaves++; else { deg[c.b]++; edges++; if (c.a === c.b) loops++; } }
+  return { pants:G.V.length, circles:edges, holes:leaves, loops, genus:edges - G.V.length + 1, trivalent:deg.every(x => x === 3) }; }
+if (typeof module !== "undefined") module.exports = { thetaDumbbell, tetra, pants, torusHole, genus2Hole, hexTree, counts, at, tan, clen, dist, N, LEAF };
+
+// ---------- page ----------
+if (typeof document !== "undefined") {
+const $ = id => document.getElementById(id);
+const cv = $("cv"), ctx = cv.getContext("2d"), off = document.createElement("canvas"), octx = off.getContext("2d");
+const I = s => "<i>" + s + "</i>", f2 = x => x.toFixed(2);
+const COLS = { light:{ ink:"#202e32", inkRGB:[32,46,50], surf:[226,220,205], inside:[122,114,100], cut:"#096762", hole:"#bc4d2c", tree:"#2c4fbb", halo:"#fff" },
+               dark: { ink:"#f5f5f5", inkRGB:[245,245,245], surf:[66,82,88], inside:[24,30,33], cut:"#4fc3b5", hole:"#ff8a65", tree:"#9cc0ff", halo:null } };
+let dark = false; try { dark = localStorage.getItem("darkCols") === "1"; } catch (e) {}
+
+// ----- the steps -----
+const Ng = `${I("N")}<sub>${I("g")}</sub>`, G_ = I("G"), g_ = I("g"), n_ = I("n");
+const cutW = `<span class="cut">green</span>`, holeW = `<span class="hole">orange</span>`, treeW = `<span class="tree">blue</span>`;
+const gapCtl = { key:"gap", label:"cut open", play:true, range:() => [0,0.36] };
+const thinCtl = { key:"thin", label:"thickness", play:true, range:() => [0.05,1] };
+const countRows = (G, extra) => { const c = counts(G); return [["pairs of pants = vertices", c.pants, ""], ["circles = edges", c.circles, ""], ["holes = leaves", c.holes, ""], ["genus " + g_, c.genus, ""], ...(extra || [])]; };
+const finalStep = () => ({ rad:2.0, init:() => ({ thin:1 }), controls:[thinCtl],
+  scene:st => { const G = thetaDumbbell(0); return { G, thin:st.thin, graph:true, rows:countRows(G) }; } });
+
+const hat = `Hatcher, &ldquo;Pants decompositions of surfaces&rdquo;, arXiv:math/9906084 (1999), introduction`;
+const STEPS = [
+ { title:"A surface, its pants and its graph", ...finalStep(),
+   point:`This is where the slideshow ends. A surface cut into pairs of pants has a graph inside it, and that graph is trivalent.`,
+   text:`<p>Press play: the surface shrinks onto its ${treeW} graph. What I will do:</p><ol>
+     <li>Every surface can be cut into pairs of pants (step 2).</li>
+     <li>A pair of pants has three rims, so the graph of the cut is trivalent (step 3).</li>
+     <li>The graph depends on the cut, and holes of the surface give leaves (step 4).</li>
+     <li>Summary (step 5).</li></ol>` },
+
+ { title:"Every surface can be cut into pairs of pants", rad:2.05,
+   point:`A compact connected orientable surface of genus ${g_} with ${n_} holes can be cut along 3${g_} &minus; 3 + ${n_} circles into 2${g_} &minus; 2 + ${n_} pairs of pants, as soon as 2${g_} &minus; 2 + ${n_} is positive.`,
+   text:`<p>A <b>pair of pants</b> is a sphere with three holes. Press play: the surface is cut open along the ${cutW} circles. Try the three surfaces and count (table). ${holeW.replace("orange","Orange")} rims are holes of the surface itself.</p><p>Only the sphere, the torus, the disc and the annulus are left out. Why the counts: the Euler characteristic is 2 &minus; 2${g_} &minus; ${n_}, a pair of pants has &minus;1 and a circle has 0.</p><p class="src">${hat}: the definition and the two counts. The pictures (tubes around a graph, and the tetrahedron for genus 3) are my choice.</p>`,
+   init:() => ({ mode:"g2", gap:0 }), modes:[["g2","Genus 2"],["g3","Genus 3"],["s6","Sphere, 6 holes"]], setMode:(st, m) => { st.mode = m; },
+   controls:[gapCtl],
+   scene:st => { const G = st.mode === "g2" ? thetaDumbbell(0) : st.mode === "g3" ? tetra() : hexTree(0); return { G, gap:st.gap, graph:false, rad: st.mode === "s6" ? 2.75 : 2.05, rows:countRows(G).map(r => [r[0].replace(" = vertices","").replace(" = edges","").replace(" = leaves",""), r[1], r[2]]) }; } },
+
+ { title:"Three rims, so the graph is trivalent", rad:2.0,
+   point:`Put a dot in each pair of pants and a half-edge through each of its three rims. Gluing two rims joins two half-edges into an edge: this is the graph of the cut, and it is trivalent.`,
+   text:`<p>Play &ldquo;cut open&rdquo; to glue and cut again; then play the thickness, and the surface shrinks onto the graph.</p><p>The graph has a vertex for each pair of pants and an edge for each circle. It is <b>trivalent</b> because a pair of pants has three rims, and <b>connected</b> because the surface is. It has edges &minus; vertices + 1 = ${g_} independent cycles.</p>`,
+   init:() => ({ gap:0.36, thin:1 }), controls:[gapCtl, thinCtl],
+   scene:st => { const G = thetaDumbbell(0); return { G, gap:st.gap, thin:st.thin, graph:true, rows:countRows(G) }; } },
+
+ { title:"The graph depends on the cut; holes give leaves", rad:2.3,
+   point:`The graph belongs to the surface together with its cut: another cut of the same surface gives another graph. A rim glued to nothing is a hole of the surface and a leaf of the graph.`,
+   text:`<p>Press play: one circle is replaced by another, and the surface is only deformed. In genus 2 the theta graph becomes the dumbbell, so loops and multiple edges cannot be avoided. On the sphere with six holes the chain becomes the star; its six leaves are the six holes.</p><p>Any two cuts of one surface are joined by finitely many moves that change one circle at a time.</p><p class="src">${hat}, quoting Hatcher&ndash;Thurston for the last sentence. Both moves shown are what Hatcher calls an A-move.</p>`,
+   init:() => ({ mode:"g2", s:0, thin:1 }), modes:[["g2","Genus 2"],["s6","Sphere, 6 holes"]], setMode:(st, m) => { st.mode = m; },
+   controls:[{ key:"s", label:"replace one circle", play:true, range:() => [0,1] }, thinCtl],
+   scene:st => { const s6 = st.mode === "s6", G = s6 ? hexTree(st.s) : thetaDumbbell(st.s), c = counts(G); G.E.forEach(e => { if (e.b !== null) delete e.name; });
+     return { G, thin:st.thin, graph:true, rad: s6 ? 2.75 : 2.3, rowsT:"Graph: " + G.name, rows:[["vertices", c.pants, "same"], ["edges", c.circles, "same"], ["leaves", c.holes, "same"], ["loops", c.loops, s6 ? "same" : "changes"]] }; } },
+
+ { title:"What we did", ...finalStep(),
+   point:`A compact orientable surface with a cut into pairs of pants gives a connected trivalent graph. These are the graphs of Theorem 1.`,
+   text:`<ol>
+     <li>The surface of genus ${g_} with ${n_} holes is cut by 3${g_} &minus; 3 + ${n_} circles into 2${g_} &minus; 2 + ${n_} pairs of pants.</li>
+     <li>Vertex = pair of pants, edge = circle. Three rims: trivalent.</li>
+     <li>The graph has ${g_} independent cycles and ${n_} leaves. Loops and multiple edges occur.</li>
+     <li>The graph is not determined by the surface alone: it changes with the cut.</li></ol>
+     <p class="src">Theorem 1 (Affine reconstruction of trivalent multigraphs): the polytope ${I("P")}(${G_}) determines such a graph ${G_}, with one exception.</p>` },
+];
+
+// ----- state -----
+let cur = 0, playing = {}, phase = {}, drag = null, W = 0, H = 0, zoom = 1, q = 1, buf = null, ready = false;
+STEPS.forEach(s => s.st = s.init());
+const mulM = (A,B) => A.map(r => [0,1,2].map(j => r[0]*B[0][j]+r[1]*B[1][j]+r[2]*B[2][j]));
+const rotX = a => [[1,0,0],[0,Math.cos(a),-Math.sin(a)],[0,Math.sin(a),Math.cos(a)]];
+const rotY = a => [[Math.cos(a),0,Math.sin(a)],[0,1,0],[-Math.sin(a),0,Math.cos(a)]];
+const view0 = () => mulM(rotX(0.32), rotY(0.4));         // rows: screen right, screen up, towards the viewer
+let R = view0();
+const ctlList = () => STEPS[cur].controls;
+
+function go(i) { cur = Math.max(0, Math.min(STEPS.length-1, i)); playing = {}; phase = {}; zoom = 1; R = view0();
+  const S = STEPS[cur];
+  $("title").textContent = S.title; $("text").innerHTML = `<p class="pt">${S.point}</p>` + S.text;
+  $("count").textContent = (cur+1) + " / " + STEPS.length; $("back").disabled = cur === 0; $("next").disabled = cur === STEPS.length-1;
+  [...$("dots").children].forEach((b,j) => b.className = j === cur ? "on" : "");
+  try { history.replaceState(null, "", "#" + (cur+1)); } catch (e) {}
+  buildControls(); ready = true; draw(); }
+function buildControls() { const S = STEPS[cur], st = S.st, L = ctlList();
+  $("modes").innerHTML = S.modes ? S.modes.map(([m,t]) => `<label><input type="radio" name="mode" value="${m}" ${st.mode === m ? "checked" : ""}> ${t}</label>`).join("") : "";
+  document.querySelectorAll("[name=mode]").forEach(el => el.onchange = () => { S.setMode(st, el.value); draw(); });
+  $("ctl").innerHTML = L.map((c,i) => `<button id="p${i}" title="play">&#9654;</button><span>${c.label}</span><input id="s${i}" type="range" step="0.005"><span class="v" id="v${i}"></span>`).join("");
+  L.forEach((c,i) => {
+    $("s"+i).addEventListener("input", e => { st[c.key] = +e.target.value; delete phase[c.key]; draw(); });
+    $("p"+i).onclick = () => { playing[c.key] = !playing[c.key]; $("p"+i).classList.toggle("on", !!playing[c.key]); $("p"+i).innerHTML = playing[c.key] ? "&#10073;&#10073;" : "&#9654;"; draw(); }; }); }
+function syncControls() { const st = STEPS[cur].st; ctlList().forEach((c,i) => { const el = $("s"+i), [lo,hi] = c.range(st);
+    el.min = lo; el.max = hi; st[c.key] = Math.max(lo, Math.min(hi, st[c.key])); el.value = st[c.key]; $("v"+i).textContent = f2(st[c.key]); }); }
+
+// ----- drawing -----
+// The surface is drawn exactly as what it is here: the union of balls centred on the curves, cut by planes at open rims.
+// Each pixel keeps the nearest point (z-buffer), then it is shaded. Circles and the graph are drawn on top.
+const LIGHT = (() => { const v = [-0.45,-0.55,0.7], n = Math.sqrt(v[0]*v[0]+v[1]*v[1]+v[2]*v[2]); return v.map(x => x/n); })();   // screen: x right, y down, z to the viewer
+function raster(balls, discs, C) { const bw = Math.max(1, Math.round(W*q)), bh = Math.max(1, Math.round(H*q));
+  if (!buf || buf.w !== bw || buf.h !== bh) { off.width = bw; off.height = bh;
+    buf = { w:bw, h:bh, z:new Float32Array(bw*bh), k:new Uint8Array(bw*bh), a:new Uint8Array(bw*bh), b:new Uint8Array(bw*bh), img:octx.createImageData(bw,bh) }; }
+  const { z, k, a, b } = buf; z.fill(-1e9); k.fill(0);
+  for (const B of balls) { const X = B[0]*q, Y = B[1]*q, Z = B[2]*q, r = B[3]*q, cl = B[4]; if (r < 0.35) continue;
+    const r2 = r*r, x0 = Math.max(0, Math.floor(X-r)), x1 = Math.min(bw-1, Math.ceil(X+r)), y0 = Math.max(0, Math.floor(Y-r)), y1 = Math.min(bh-1, Math.ceil(Y+r));
+    let cx = 0, cy = 0, cz = 0, tx = 0, ty = 0, tz = 0; if (cl) { cx = cl.S[0]*q; cy = cl.S[1]*q; cz = cl.S[2]*q; tx = cl.Tv[0]; ty = cl.Tv[1]; tz = cl.Tv[2]; }
+    for (let y = y0; y <= y1; y++) { const dy = y - Y; for (let x = x0; x <= x1; x++) { const dx = x - X, d2 = dx*dx + dy*dy; if (d2 >= r2) continue;
+        const dz = Math.sqrt(r2 - d2), zz = Z + dz, i = y*bw + x; if (zz <= z[i]) continue;
+        if (cl && (x-cx)*tx + (y-cy)*ty + (zz-cz)*tz > 0) continue;
+        z[i] = zz; k[i] = 1; const lum = (dx*LIGHT[0] + dy*LIGHT[1] + dz*LIGHT[2])/r; a[i] = lum > 0 ? lum*255 : 0; b[i] = Math.min(255, dz/r*900); } } }
+  for (const D of discs) { const X = D.S[0]*q, Y = D.S[1]*q, Z = D.S[2]*q, r = D.rpx*q, T = D.Tv; if (Math.abs(T[2]) < 0.03 || r < 0.6) continue;
+    const r2 = r*r, x0 = Math.max(0, Math.floor(X-r)), x1 = Math.min(bw-1, Math.ceil(X+r)), y0 = Math.max(0, Math.floor(Y-r)), y1 = Math.min(bh-1, Math.ceil(Y+r));
+    for (let y = y0; y <= y1; y++) { const dy = y - Y; for (let x = x0; x <= x1; x++) { const dx = x - X, dz = -(dx*T[0] + dy*T[1])/T[2];
+        if (dx*dx + dy*dy + dz*dz > r2) continue; const i = y*bw + x; if (Z + dz > z[i]) { z[i] = Z + dz; k[i] = 2; } } } }
+  const px = buf.img.data, s = C.surf, ink = C.inkRGB, ins = C.inside;
+  for (let i = 0, j = 0; i < bw*bh; i++, j += 4) { if (k[i] === 1) { const f = 0.62 + 0.38*a[i]/255, m = b[i]/255;
+      px[j] = ink[0] + (s[0]*f - ink[0])*m; px[j+1] = ink[1] + (s[1]*f - ink[1])*m; px[j+2] = ink[2] + (s[2]*f - ink[2])*m; px[j+3] = 255; }
+    else if (k[i] === 2) { px[j] = ins[0]; px[j+1] = ins[1]; px[j+2] = ins[2]; px[j+3] = 255; } else px[j+3] = 0; }
+  octx.putImageData(buf.img, 0, 0); }
+function line(pts, col, w, dash) { if (pts.length < 2) return; ctx.beginPath(); pts.forEach((p,i) => i ? ctx.lineTo(p[0],p[1]) : ctx.moveTo(p[0],p[1]));
+  ctx.strokeStyle = col; ctx.lineWidth = w; ctx.setLineDash(dash || []); ctx.lineJoin = ctx.lineCap = "round"; ctx.stroke(); ctx.setLineDash([]); }
+function text(s, x, y, col, C, font) { ctx.font = font || "italic 16px Georgia, serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  if (C.halo) { ctx.lineWidth = 4; ctx.strokeStyle = C.halo; ctx.strokeText(s, x, y); } ctx.fillStyle = col; ctx.fillText(s, x, y); }
+function draw() {
+  if (!W || !ready) return;
+  const S = STEPS[cur], st = S.st; syncControls();
+  const C = COLS[dark ? "dark" : "light"], d = S.scene(st), G = d.G, rho = G.rho || 0.28, thin = d.thin === undefined ? 1 : d.thin, gap = d.gap || 0, pinch = d.pinch || 0;
+  const s = Math.min(W, H-50)/2/(d.rad || S.rad)*zoom, mx = W/2, my = H/2 + 12, cen = S.centre || [0,0,0];
+  const vw = p => { const o = sub(p, cen); return [mx + s*dot(R[0],o), my - s*dot(R[1],o), s*dot(R[2],o)]; };      // CSS pixels; third entry: towards the viewer
+  const vdir = T => [dot(R[0],T), -dot(R[1],T), dot(R[2],T)];
+  const radius = (c,t) => rho*thin*(c.b !== null && pinch ? Math.sqrt(Math.max(0, 1 - pinch*(1 - (2*t-1)*(2*t-1)))) : 1);
+  const balls = [], discs = [], rings = [], strokes = [];
+  for (const c of G.E) { const L = clen(c); if (L < 1e-6) continue; const inner = c.b !== null;
+    const parts = inner && gap > 0 ? [[0, 0.5-gap/2], [0.5+gap/2, 1]] : [[0,1]];
+    for (const [t0,t1] of parts) { const ends = [];
+      if (t0 > 0) ends.push({ t:t0, T:sc(tan(c,t0), -1), kind:"cut" });
+      if (t1 < 1 || !inner) ends.push({ t:t1, T:tan(c,t1), kind: inner ? "cut" : (c.end || "hole") });
+      for (const e of ends) { e.P = at(c, e.t); e.r = radius(c, e.t); e.S = vw(e.P); e.Tv = vdir(e.T); e.rpx = e.r*s; discs.push(e); rings.push({ P:e.P, T:e.T, r:e.r, col: e.kind === "cut" ? C.cut : C.hole }); }
+      for (let t = t0, guard = 0; guard < 3000; guard++) { const r = radius(c,t), P = vw(at(c,t)); let cl = null; for (const e of ends) if (Math.abs(t - e.t)*L < 1.3*r) cl = e;
+        balls.push([P[0], P[1], P[2], r*s, cl]); if (t >= t1) break; t = Math.min(t1, t + Math.max(0.09*r, 0.006)/L); }
+      strokes.push({ c, t0, t1, ext: !inner && c.end === "hole" ? 0.3 : !inner ? 0.22 : 0 }); }
+    if (inner && gap === 0 && L > 0.12) rings.push({ P:at(c,0.5), T:tan(c,0.5), r:radius(c,0.5), col:C.cut });
+  }
+  const t0 = typeof performance !== "undefined" ? performance.now() : 0;
+  raster(balls, discs, C);
+  if (typeof performance !== "undefined" && performance.now() - t0 > 30 && q > 1) q = 1;       // a slow machine: draw the surface more coarsely
+  ctx.clearRect(0,0,W,H); ctx.drawImage(off, 0, 0, W, H);
+  // circles and rims: only the part that the surface does not hide
+  for (const g of rings) { if (g.r*s < 0.8) { const p = vw(g.P); ctx.beginPath(); ctx.arc(p[0], p[1], 3.2, 0, 2*Math.PI); ctx.fillStyle = g.col; ctx.fill(); continue; }
+    const h = Math.abs(g.T[2]) < 0.9 ? [0,0,1] : [1,0,0]; let n1 = cross(g.T, h); n1 = sc(n1, 1/len(n1)); const n2 = cross(g.T, n1), rr = g.r + 1.2/s; let run = [];
+    for (let i = 0; i <= 72; i++) { const f = 2*Math.PI*i/72, p = vw(add(g.P, add(sc(n1, rr*Math.cos(f)), sc(n2, rr*Math.sin(f)))));
+      const x = Math.round(p[0]*q), y = Math.round(p[1]*q), zb = x >= 0 && y >= 0 && x < buf.w && y < buf.h ? buf.z[y*buf.w + x] : -1e9;
+      if (p[2]*q >= zb - 0.22*g.r*s*q - 1.5) run.push(p); else { line(run, g.col, 2.4); run = []; } }
+    line(run, g.col, 2.4); }
+  if (d.graph) {
+    for (const k of strokes) { const pts = []; for (let i = 0; i <= N; i++) { const t = k.t0 + (k.t1 - k.t0)*i/N; pts.push(vw(at(k.c, t))); }
+      if (k.ext) pts.push(vw(add(at(k.c, k.t1), sc(tan(k.c, k.t1), k.ext))));
+      line(pts, C.tree, 2.6); }
+    G.V.forEach((p,i) => { const o = vw(p); ctx.beginPath(); ctx.arc(o[0], o[1], 5, 0, 2*Math.PI); ctx.fillStyle = C.tree; ctx.fill();
+      if (G.col && G.col.v === i && G.col.a > 0.02) { ctx.globalAlpha = G.col.a; ctx.beginPath(); ctx.arc(o[0], o[1], 9.5, 0, 2*Math.PI); ctx.strokeStyle = C.hole; ctx.lineWidth = 3.4; ctx.stroke(); ctx.globalAlpha = 1; } });
+    if (d.labels) for (const c of G.E) { if (!c.name) continue; const L = clen(c);
+      if (c.b === null) { const p = vw(add(at(c,1), sc(tan(c,1), 0.55))); text(c.name, p[0], p[1], C.hole, C); }
+      else if (L > 0.35) { const T = tan(c,0.5), p = vw(add(at(c,0.5), sc([T[1], -T[0], 0], rho*thin + 0.26))); text(c.name, p[0], p[1], C.cut, C); } } }
+  $("rowsT").textContent = d.rowsT || "Count";
+  $("rows").innerHTML = (d.rows || []).map(([a,v,w]) => `<span>${a}</span><span class="n">${v}</span><span class="w">${w}</span>`).join("");
+}
+function resize() { const r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1; q = Math.min(d, 2);
+  W = r.width; H = r.height; cv.width = Math.round(W*d); cv.height = Math.round(H*d); ctx.setTransform(d,0,0,d,0,0); draw(); }
+window.addEventListener("resize", resize);
+cv.addEventListener("pointerdown", e => { drag = [e.clientX, e.clientY]; cv.setPointerCapture(e.pointerId); });
+cv.addEventListener("pointermove", e => { if (!drag) return;
+  R = mulM(rotY((e.clientX-drag[0])*0.008), mulM(rotX((e.clientY-drag[1])*0.008), R)); drag = [e.clientX, e.clientY]; draw(); });
+cv.addEventListener("pointerup", () => drag = null);
+cv.addEventListener("pointercancel", () => drag = null);
+cv.addEventListener("wheel", e => { e.preventDefault(); zoom = Math.max(0.4, Math.min(3, zoom*Math.exp(-e.deltaY*0.002))); draw(); }, {passive:false});
+function setDark(on) { dark = on; $("dkL").checked = !on; $("dkD").checked = on; try { localStorage.setItem("darkCols", on ? "1" : "0"); } catch (e) {} draw(); }
+$("dkL").onchange = () => setDark(false); $("dkD").onchange = () => setDark(true);
+$("back").onclick = () => go(cur-1); $("next").onclick = () => go(cur+1);
+$("dots").innerHTML = STEPS.map(() => "<b></b>").join(""); [...$("dots").children].forEach((b,j) => b.onclick = () => go(j));
+// Left / right arrows change the step, also when a slider or a radio button has the focus (capture phase, so the control does not take the key).
+window.addEventListener("keydown", e => { const t = e.target, typing = t.tagName === "TEXTAREA" || (t.tagName === "INPUT" && !/^(range|radio|checkbox|button)$/.test(t.type));
+  if (typing || e.metaKey || e.ctrlKey || e.altKey || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
+  e.preventDefault(); e.stopPropagation(); go(cur + (e.key === "ArrowRight" ? 1 : -1)); }, true);
+let then = null;
+function tick(now) { const dt = then === null ? 0 : Math.min(0.05, (now-then)/1000); then = now; const st = STEPS[cur].st;
+  let any = false; for (const c of ctlList()) if (playing[c.key]) { any = true; const [lo,hi] = c.range(st);      // a slider goes back and forth between its two ends
+      let ph = phase[c.key]; if (ph === undefined) ph = Math.acos(Math.max(-1, Math.min(1, 1 - 2*(st[c.key]-lo)/(hi-lo))));
+      ph += 0.55*dt; phase[c.key] = ph; st[c.key] = lo + (hi-lo)*(0.5 - 0.5*Math.cos(ph)); }
+  if (any) draw(); requestAnimationFrame(tick); }
+resize(); setDark(dark); go(Math.max(1, Math.min(STEPS.length, parseInt(location.hash.slice(1)) || 1)) - 1); requestAnimationFrame(tick);
+}
+</script>
+<script>
+// ---------- full screen (whole page, so the controls stay; key f, Esc leaves) ----------
+if (typeof document !== "undefined") (function () {
+  const d = document, el = d.documentElement, w = d.getElementById("fsW"), f = d.getElementById("fsF");
+  const req = el.requestFullscreen || el.webkitRequestFullscreen, exit = d.exitFullscreen || d.webkitExitFullscreen;
+  if (!w || !f) return; if (!req || !exit) { w.closest(".fs").style.display = "none"; return; }
+  const on = () => !!(d.fullscreenElement || d.webkitFullscreenElement);
+  const sync = () => { f.checked = on(); w.checked = !on(); };
+  const set = want => { if (want === on()) return sync(); try { const p = want ? req.call(el) : exit.call(d); if (p && p.catch) p.catch(sync); } catch (e) { sync(); } };
+  f.onchange = () => set(true); w.onchange = () => set(false);
+  d.addEventListener("fullscreenchange", sync); d.addEventListener("webkitfullscreenchange", sync);
+  d.addEventListener("keydown", e => { const t = e.target, typing = t.tagName === "TEXTAREA" || (t.tagName === "INPUT" && !/^(range|radio|checkbox|button)$/.test(t.type));
+    if (e.key === "f" && !typing && !e.metaKey && !e.ctrlKey && !e.altKey) set(!on()); });
+  sync();
+})();
+</script>
+</body>
+</html>

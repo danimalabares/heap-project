@@ -1131,6 +1131,184 @@ theory and differential topology to the
 classification problems for smooth
 4-manifolds.
 
+\section{Pants decompositions and trivalent graphs}
+\label{section-pants-decompositions}
+
+\begin{reference}
+This section is not from the course.  The
+definitions and the two counts are in the
+introduction of \cite{hatcher-pants}.  The
+proofs are the standard arguments, written
+here and not checked against a source.
+\end{reference}
+
+\noindent
+In this section a surface is a compact
+connected orientable smooth manifold of
+dimension 2, possibly with boundary.  It has
+type $(g,n)$ if it has genus $g$ and $n$
+boundary circles.  We use the classification
+of surfaces \cite{hirsch}: two surfaces of
+the same type are diffeomorphic, and the
+Euler characteristic of a surface of type
+$(g,n)$ is $2-2g-n$.
+
+A pair of pants is a surface of type
+$(0,3)$, that is, a sphere with three open
+discs removed.  A pants decomposition of a
+surface $\Sigma$ is a finite collection of
+disjoint embedded circles in the interior of
+$\Sigma$ that cut $\Sigma$ into pairs of
+pants.
+
+\begin{theorem}
+\label{theorem-pants-decomposition}
+Let $\Sigma$ be a surface of type $(g,n)$
+with $2g-2+n>0$.  Then $\Sigma$ has a pants
+decomposition.  Every pants decomposition of
+$\Sigma$ has $3g-3+n$ circles and cuts
+$\Sigma$ into $2g-2+n$ pairs of pants.
+\end{theorem}
+
+\begin{proof}
+We prove existence by induction on
+$3g-3+n$.  If this number is zero, then
+$(g,n)=(0,3)$, the surface $\Sigma$ is a
+pair of pants, and the empty collection
+works.
+
+If $g\geq 1$, choose a circle $C$ in the
+interior of $\Sigma$ whose complement is
+connected.  Cutting $\Sigma$ along $C$ gives
+a connected surface with two more boundary
+circles and the same Euler characteristic,
+so its type is $(g-1,n+2)$.
+
+If $g=0$, then $n\geq 4$.  Choose a circle
+$C$ that separates two boundary circles of
+$\Sigma$ from the other $n-2$.  Cutting
+$\Sigma$ along $C$ gives a pair of pants and
+a surface of type $(0,n-1)$.
+
+In both cases the number $3g-3+n$ of each
+piece that is not a pair of pants is one
+less than that of $\Sigma$, and its number
+$2g-2+n$ is still positive.  By induction
+each piece has a pants decomposition.  These
+circles together with $C$ form a pants
+decomposition of $\Sigma$.
+
+For the counts, let a pants decomposition
+have $c$ circles and $p$ pairs of pants.  A
+circle has Euler characteristic zero, so
+cutting along circles does not change the
+Euler characteristic.  A pair of pants has
+Euler characteristic $-1$.  Hence
+$$
+-p=2-2g-n.
+$$
+The $p$ pairs of pants have $3p$ boundary
+circles.  Each circle of the decomposition
+appears twice among them and each boundary
+circle of $\Sigma$ once.  Hence
+$$
+3p=2c+n,
+$$
+and therefore $c=3g-3+n$.
+\end{proof}
+
+\noindent
+The sphere, the disc, the annulus and the
+torus are exactly the surfaces with
+$2g-2+n\leq 0$.  They have no pants
+decomposition.
+
+\begin{definition}
+\label{definition-graph-of-pants-decomposition}
+Let $P$ be a pants decomposition of a surface
+$\Sigma$.  The {\it graph of $P$} has one
+vertex for each pair of pants, and one
+half-edge at that vertex for each of its
+three boundary circles.  Each circle of $P$
+gives two such half-edges, one on each of
+its sides, and they are joined into an edge.
+The half-edge of a boundary circle of
+$\Sigma$ is joined to nothing; it is called
+a {\it leaf}.
+\end{definition}
+
+\noindent
+The two sides of a circle of $P$ may lie in
+the same pair of pants.  The edge is then a
+loop.  Two pairs of pants may share several
+circles.  They are then joined by several
+edges.
+
+\begin{proposition}
+\label{proposition-graph-of-pants-decomposition}
+Let $\Sigma$ be a surface of type $(g,n)$
+with $2g-2+n>0$.  The graph of a pants
+decomposition of $\Sigma$ is connected and
+trivalent.  It has $2g-2+n$ vertices,
+$3g-3+n$ edges and $n$ leaves, and its first
+Betti number is $g$.
+\end{proposition}
+
+\begin{proof}
+The graph is trivalent because a pair of
+pants has three boundary circles.  It is
+connected because $\Sigma$ is connected:
+a path in $\Sigma$ between two pairs of
+pants crosses finitely many circles of the
+decomposition, and each crossing is an edge.
+The numbers of vertices, edges and leaves
+are given by Theorem
+\ref{theorem-pants-decomposition}.  Leaves do
+not change the first Betti number, which is
+therefore
+$$
+(3g-3+n)-(2g-2+n)+1=g.
+$$
+\end{proof}
+
+\noindent
+Here is the closed surface of genus 2 cut
+along three circles into two pairs of pants.
+\begin{figure}[ht]
+\centering
+\includegraphics[width =
+0.6\linewidth]{differential-topology-assets/pants-decomposition.png}
+\end{figure}
+
+\noindent
+Its graph has two vertices joined by three
+edges.
+\begin{figure}[ht]
+\centering
+\includegraphics[width =
+0.6\linewidth]{differential-topology-assets/pants-graph.png}
+\end{figure}
+
+\noindent
+In the
+\href{https://www.heap-project.org/models/differential-topology/pants-and-graphs.html}%
+{animated version}
+the surface is cut open, glued back and
+shrunk onto its graph.
+
+The graph is not determined by $\Sigma$
+alone.  It depends on the pants
+decomposition.  On the closed surface of
+genus 2, replacing the middle circle above
+by another circle gives a graph with two
+loops joined by one edge.  Any two pants
+decompositions of $\Sigma$, up to isotopy,
+are joined by a finite sequence of moves
+that change one circle at a time; this is
+stated in the introduction of
+\cite{hatcher-pants}, which attributes it to
+Hatcher and Thurston.
+
 \bibliography{my}
 \bibliographystyle{amsalpha}
 
