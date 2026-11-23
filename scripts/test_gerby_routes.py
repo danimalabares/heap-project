@@ -566,7 +566,22 @@ class ContentsAndDownloadsTests(
             old.headers["Location"].endswith("/talks")
         )
 
-    def test_guitar_practice_page(self):
+    def test_talk_models(self):
+        client = app.test_client()
+        base = "/talks/talks/stanley-reisner-puc-informal/"
+        page = client.get("/talks").get_data(as_text=True)
+        for name in (
+            "spheres-2d.html",
+            "regular-polytopes-from-a-vertex.html",
+        ):
+            self.assertIn(base + name, page)
+            got = client.get(base + name)
+            self.assertEqual(got.status_code, 200, name)
+            self.assertIn("text/html", got.content_type)
+        # Only files listed in slides/index.json are served.
+        for name in ("preamble.html", "nothing.html"):
+            self.assertEqual(client.get(base + name).status_code, 404)
+
         client = app.test_client()
         page = client.get("/guitar")
         self.assertEqual(page.status_code, 302)

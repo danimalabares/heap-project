@@ -16,6 +16,7 @@
 {% macro line(deck) %}
     {% if deck.pdf %}<a href="/download/{{ deck.pdf }}">{{ deck.title }}</a>{% else %}{{ deck.title }}{% endif %}{% if deck.subtitle %}: {{ deck.subtitle }}{% endif %}{% if deck.date %} ({{ deck.date }}){% endif %}.
     <a href="{{ deck.source }}">TeX source</a>{% if not deck.pdf %} (pdf not available){% endif %}
+    {% for model in deck.models %}{% if model.title %}{% if loop.first %}<br>Interactive models: {% else %}, {% endif %}<a href="/talks/{{ deck.path }}/{{ model.file }}">{{ model.title }}</a>{% endif %}{% endfor %}
 {% endmacro %}
 
 <ul>

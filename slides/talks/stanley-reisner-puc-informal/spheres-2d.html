@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2-spheres from a vertex</title>
+<style>
+  :root { --bg:#fff; --fg:#1c1c1c; --mute:#6b6b6b; --line:#d9d6cf; --panel:#f1efe9; --red:#c62828; --green:#2a7f62; }
+  * { box-sizing:border-box; }
+  html, body { height:100%; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:14px/1.4 Georgia, "Times New Roman", serif; }
+  .wrap { display:flex; flex-direction:column; height:100vh; }
+  #stage { flex:1 1 auto; min-height:240px; position:relative; }
+  canvas { position:absolute; inset:0; width:100%; height:100%; display:block; cursor:grab; touch-action:none; }
+  h1 { position:absolute; left:12px; top:8px; font-size:17px; margin:0; font-weight:normal; pointer-events:none; }
+  #info { position:absolute; left:12px; top:32px; right:12px; color:var(--mute); font-size:12.5px; pointer-events:none; }
+  .hint { position:absolute; left:12px; bottom:6px; color:var(--mute); font-size:12.5px; pointer-events:none; }
+  aside { flex:0 0 auto; padding:8px 12px 10px; background:var(--panel); border-top:1px solid var(--line);
+          display:grid; grid-template-columns:1.25fr 1fr; gap:0 22px; max-height:55vh; overflow:auto; }
+  p { margin:6px 0; color:var(--mute); font-size:13px; }
+  h2 { font-size:11.5px; margin:8px 0 3px; text-transform:uppercase; letter-spacing:.06em; color:var(--mute); font-weight:normal; }
+  label { display:flex; align-items:center; gap:5px; cursor:pointer; white-space:nowrap; }
+  button { font:inherit; font-size:12.5px; padding:2px 7px; margin:2px 2px 2px 0; border:1px solid var(--line); background:var(--bg); color:var(--fg); border-radius:4px; cursor:pointer; }
+  button:hover, button.on { border-color:var(--fg); }
+  button.on { background:var(--fg); color:var(--bg); }
+  input[type=range] { width:100%; margin:0; }
+  .sliders { display:grid; grid-template-columns:auto 1fr; gap:4px 8px; align-items:center; }
+  .sliders span { font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--mute); white-space:nowrap; }
+  details { grid-column:1 / -1; margin-top:6px; }
+  summary { cursor:pointer; color:var(--mute); font-size:13px; }
+  .k { display:inline-block; width:18px; height:0; border-top:2px solid; vertical-align:middle; margin-right:2px; }
+  nav.models { position:absolute; right:10px; bottom:6px; display:flex; gap:4px; z-index:2; }
+  nav.models a { font:12.5px Georgia, serif; padding:2px 7px; border:1px solid var(--line); border-radius:4px; background:var(--bg); color:var(--fg); text-decoration:none; }
+  nav.models a:hover { border-color:var(--fg); }
+  nav.models a.on { background:var(--fg); color:var(--bg); border-color:var(--fg); }
+  .steer { position:absolute; right:10px; bottom:36px; z-index:2; display:flex; align-items:center; gap:8px; }
+  .steer button { margin:0; }
+  #wheel { width:58px; height:58px; cursor:grab; touch-action:none; color:var(--fg); display:block; }
+  #wheel:active { cursor:grabbing; }
+  button.dk { position:absolute; right:10px; top:8px; z-index:2; margin:0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="stage"><canvas id="cv"></canvas>
+    <nav class="models"><a href="spheres-2d.html" class="on">3D</a><a href="regular-polytopes-from-a-vertex.html">4D</a></nav>
+    <button id="dk" class="dk" title="Drawing colours for a black background">dark colours</button>
+    <div class="steer"><button id="fromV" title="Turn the solid so that v points at you, in the same position as the picture on the left">look from <i>v</i></button>
+      <svg id="wheel" viewBox="-30 -30 60 60" aria-label="Steering wheel: turns the solid about the line of sight"><title>Steering wheel: drag around to turn the solid without tilting it</title>
+        <g id="wheelG" fill="none" stroke="currentColor" stroke-linecap="round"><circle r="25" stroke-width="5"/><circle r="5" fill="currentColor" stroke="none"/>
+          <path d="M-22 0H22M0 4V23" stroke-width="4"/><circle cy="-25" r="2.6" fill="var(--green)" stroke="none"/></g></svg></div>
+    <h1>2-spheres from a vertex <i>v</i></h1><div id="info"></div>
+    <div class="hint">Left: the picture. Right: the solid; drag to turn it.</div></div>
+  <aside>
+    <div>
+      <h2 style="margin-top:0">Regular</h2>
+      <div id="regular"></div>
+      <h2>Other triangulations of the 2-sphere</h2>
+      <div id="other"></div>
+      <h2>Seen from</h2>
+      <button id="prev">&lsaquo;</button><button id="next">&rsaquo;</button> <span id="which"></span>
+    </div>
+    <div>
+      <h2 style="margin-top:0">Picture</h2>
+      <div id="modes"></div>
+      <div class="sliders" style="margin-top:6px"><span>Size</span><input id="zoom" type="range" min="40" max="400" value="100"></div>
+      <h2>Show</h2>
+      <label><input type="checkbox" id="eRim" checked> <span class="k" style="color:var(--fg)"></span> the rim around <i>v</i></label>
+      <label><input type="checkbox" id="eIn" checked> <span class="k" style="color:var(--red)"></span> edges inside</label>
+      <label><input type="checkbox" id="eRay" checked> <span class="k" style="color:var(--green);border-top-style:dashed"></span> edges going to <i>v</i></label>
+      <label><input type="checkbox" id="fill" checked> the faces inside</label>
+      <label><input type="checkbox" id="fillOut" checked> the faces at <i>v</i> (outside)</label>
+    </div>
+    <details>
+      <summary>What this is</summary>
+      <p>The surface of a convex polyhedron is a 2-sphere made of faces. Remove a vertex <i>v</i>: what is left of the sphere is a plane, and this is a picture of it. It is the 3D models, one dimension down.</p>
+      <p>On the right is the solid itself, with the same colours. <b>Look from <i>v</i></b> turns it so that <i>v</i> points at you: then it sits exactly as the picture on the left, which is what the solid looks like from <i>v</i>. The steering wheel turns it about the line of sight. Each face that touches <i>v</i> has its own colour there; in the picture it is the region with that colour outside the rim, between two rays. It goes on to infinity; the colour is cut where the rays are cut.</p>
+      <p>The thick curve is the rim: the far edges of the faces that touch <i>v</i>. When all faces are triangles it is the link of <i>v</i>. The faces that do not touch <i>v</i> fill the inside of the rim. The faces that touch <i>v</i> are the outside: one region between each pair of neighbouring green rays, and the rays are the edges going to <i>v</i>, which is at infinity.</p>
+      <p><b>Round.</b> Put the vertices on a round sphere and project stereographically from <i>v</i>. Edges are arcs of circles and the rays are literal.</p>
+      <p><b>Straight.</b> Look at the polyhedron from a point just outside it, near <i>v</i>, and draw the far side. Edges are straight and the rim is a convex polygon. The rays are a convention here: they point away from the centre.</p>
+      <p>The other triangulations are not regular, so different vertices give different pictures: use the arrows. The last three are links of vertices in the two 3-spheres of the 4D tab that are not boundaries of convex polytopes: the link of <i>b</i> in <i>M</i>, and the links of 7 and of 1 in Barnette's sphere, with the names of the vertices. The link of 7 is an octahedron.</p>
+    </details>
+  </aside>
+</div>
+<script>
+// ---------- geometry (no DOM) ----------
+const PHI = (1+Math.sqrt(5))/2;
+const dot = (a,b) => a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+const sub = (a,b) => [a[0]-b[0],a[1]-b[1],a[2]-b[2]];
+const cross = (a,b) => [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]];
+const unit = a => { const n = Math.sqrt(dot(a,a)); return a.map(x => x/n); };
+const mix = (a,b,t) => a.map((x,i) => (1-t)*x + t*b[i]);
+function signs(base) { let out = [[]];
+  for (const x of base) out = x === 0 ? out.map(o => [...o,0]) : out.flatMap(o => [[...o,x],[...o,-x]]); return out; }
+const cyc = list => list.flatMap(v => [[v[0],v[1],v[2]],[v[1],v[2],v[0]],[v[2],v[0],v[1]]]);
+const ring = (n, z) => Array.from({length:n}, (_,i) => [Math.cos(2*Math.PI*i/n), Math.sin(2*Math.PI*i/n), z]);
+const SOLIDS = {
+  tetra:  { label:"tetrahedron",  regular:true, V:[[1,1,1],[1,-1,-1],[-1,1,-1],[-1,-1,1]] },
+  cube:   { label:"cube",         regular:true, V:signs([1,1,1]) },
+  octa:   { label:"octahedron",   regular:true, V:cyc(signs([1,0,0])) },
+  dodeca: { label:"dodecahedron", regular:true, V:[...signs([1,1,1]), ...cyc(signs([0,1/PHI,PHI]))] },
+  icosa:  { label:"icosahedron",  regular:true, V:cyc(signs([0,1,PHI])) },
+  bip3:   { label:"5 vertices (double pyramid)", V:[[0,0,1],[0,0,-1],...ring(3,0)] },
+  bip5:   { label:"7 vertices (double pyramid)", V:[[0,0,1],[0,0,-1],...ring(5,0)] },
+  linkb:  { label:"link of b in M", names:"acdefgh",
+            V:[[-0.7137,-0.5117,0.4783],[-0.6874,0.7235,-0.063],[0.0012,-0.3852,0.9228],[-0.1634,-0.8945,-0.4162],[0.425,-0.0937,-0.9003],[0.5755,0.6347,-0.5157],[0.8897,0.1145,0.4419]] },
+  barn7:  { label:"link of 7 in Barnette", names:"123456",      // an octahedron: 1-5, 2-6, 3-4 are the opposite pairs
+            V:[[1,0,0],[0,1,0],[0,0,1],[0,0,-1],[-1,0,0],[0,-1,0]] },
+  barn1:  { label:"link of 1 in Barnette", names:"2345678",
+            V:[[0.7964,-0.5983,-0.0882],[-0.8763,-0.3541,-0.3266],[0.0865,0.9074,0.4112],[0.572,0.3979,-0.7173],[-0.5423,-0.196,0.817],[0.1636,-0.6769,0.7176],[-0.1971,0.1122,-0.9739]] },
+};
+
+function hullFaces(V) {           // faces of the convex hull, each a cyclically ordered list of vertex indices
+  const n = V.length, seen = new Set(), faces = [], eps = 1e-7;
+  for (let i=0;i<n;i++) for (let j=i+1;j<n;j++) for (let k=j+1;k<n;k++) {
+    let nv = cross(sub(V[j],V[i]), sub(V[k],V[i])); if (dot(nv,nv) < 1e-12) continue;
+    nv = unit(nv); let d = dot(nv,V[i]); if (d < 0) { nv = nv.map(x => -x); d = -d; }
+    if (V.some(x => dot(nv,x) > d+eps)) continue;
+    const on = V.map((x,m) => Math.abs(dot(nv,x)-d) < eps ? m : -1).filter(m => m >= 0), key = on.join(",");
+    if (seen.has(key)) continue; seen.add(key);
+    const c = on.reduce((s,m) => s.map((x,t) => x+V[m][t]/on.length), [0,0,0]);
+    const e1 = unit(sub(V[on[0]],c)), e2 = cross(nv,e1);
+    on.sort((a,b) => Math.atan2(dot(sub(V[a],c),e2), dot(sub(V[a],c),e1)) - Math.atan2(dot(sub(V[b],c),e2), dot(sub(V[b],c),e1)));
+    faces.push({ v:on, n:nv, h:d });
+  }
+  return faces;
+}
+
+function build(name, vi) {
+  const src = SOLIDS[name]; let V = src.V.map(unit);
+  const u = sub(V[vi], [0,0,1]), uu = dot(u,u);
+  if (uu > 1e-12) V = V.map(x => sub(x, u.map(t => 2*dot(u,x)/uu*t)));
+  const faces = hullFaces(V), edges = [], seen = new Set();
+  for (const f of faces) f.v.forEach((a,i) => { const b = f.v[(i+1)%f.v.length], key = Math.min(a,b)+","+Math.max(a,b);
+    if (!seen.has(key)) { seen.add(key); edges.push([a,b]); } });
+  const atV = faces.filter(f => f.v.includes(vi)), inside = faces.filter(f => !f.v.includes(vi));
+  const rim = new Set(); for (const f of atV) f.v.forEach((a,i) => { const b = f.v[(i+1)%f.v.length]; if (a!==vi && b!==vi) rim.add(Math.min(a,b)+","+Math.max(a,b)); });
+  const rimV = new Set(atV.flatMap(f => f.v).filter(a => a!==vi));
+  let lmax = Infinity; for (const f of inside) if (f.n[2] > 1e-9) lmax = Math.min(lmax, f.h/f.n[2]);
+  const lambda = lmax === Infinity ? 1.5 : 1 + 0.5*(lmax-1);
+  // colours: inside faces in order; each face at v gets a colour different from its neighbours, unused inside when possible
+  const NC = 10, share = (f,g) => f.v.filter(a => g.v.includes(a)).length >= 2;
+  inside.forEach((f,i) => f.col = i % NC);
+  const usedIn = new Set(inside.map(f => f.col)), all = Array.from({length:NC}, (_,c) => c), usedOut = new Set();
+  const order = [...all.filter(c => !usedIn.has(c)), ...all.filter(c => usedIn.has(c))];
+  for (const f of atV) { const ban = new Set(faces.filter(g => g !== f && g.col !== undefined && share(f,g)).map(g => g.col));
+    const c = order.find(c => !ban.has(c) && !usedOut.has(c)) ?? order.find(c => !ban.has(c)) ?? order[0];
+    f.col = c; usedOut.add(c); }
+  const cls = ([a,b]) => a===vi || b===vi ? "ray" : rim.has(Math.min(a,b)+","+Math.max(a,b)) ? "rim" : "in";
+  return { name, vi, V, faces, edges, atV, inside, rimV, lambda, cls, names:src.names, label:src.label, regular:!!src.regular };
+}
+function projector(P, mode) {
+  if (mode === "round") return x => { const y = unit(x), d = 1-y[2]; return [y[0]/d, y[1]/d]; };
+  const L = P.lambda; return x => { const f = L/(L-x[2]); return [x[0]*f, x[1]*f]; };
+}
+function scene(P, mode) {
+  const pr = projector(P, mode), round = mode === "round", steps = round ? 24 : 1;
+  const pts = P.V.map((x,i) => i===P.vi ? null : pr(x));
+  const R = Math.max(...pts.filter(p => p).map(p => Math.hypot(p[0],p[1])));
+  const arc = (a,b) => { const out = []; for (let s=0;s<=steps;s++) out.push(pr(mix(P.V[a],P.V[b],s/steps))); return out; };
+  const lines = P.edges.map(e => { const c = P.cls(e);
+    if (c !== "ray") return { c, p:arc(e[0],e[1]) };
+    const j = e[0]===P.vi ? e[1] : e[0];
+    if (!round) return { c, p:[pts[j], pts[j].map(x => x*1.55*R/Math.hypot(pts[j][0],pts[j][1]))] };
+    const p = [pts[j]]; for (let s=1;s<=60;s++) { const q = pr(mix(P.V[j],P.V[P.vi],s/64)); if (Math.hypot(q[0],q[1]) > 1.55*R) break; p.push(q); }
+    return { c, p }; });
+  const polys = P.inside.map(f => f.v.flatMap((a,i) => arc(a, f.v[(i+1)%f.v.length]).slice(0,-1)));
+  // a face at v is the region outside the rim between two neighbouring rays
+  const outer = P.atV.map(f => { const m = f.v.indexOf(P.vi), ring = [...f.v.slice(m+1), ...f.v.slice(0,m)], p = [];
+    for (let i=0;i+1<ring.length;i++) p.push(...arc(ring[i], ring[i+1]).slice(i ? 1 : 0));
+    const ang = j => Math.atan2(pts[j][1], pts[j][0]), t0 = ang(ring[ring.length-1]);
+    let d = ang(ring[0]) - t0; while (d > Math.PI) d -= 2*Math.PI; while (d <= -Math.PI) d += 2*Math.PI;
+    for (let s=0;s<=16;s++) p.push([1.55*R*Math.cos(t0+d*s/16), 1.55*R*Math.sin(t0+d*s/16)]);
+    return { p, col:f.col }; });
+  return { pts, R, lines, polys, outer };
+}
+function summary(P) {
+  const kinds = {3:"triangles",4:"squares",5:"pentagons"}, sizes = [...new Set(P.faces.map(f => f.v.length))];
+  const nin = P.V.length - 1 - P.rimV.size;
+  return `${P.label}: ${P.V.length} vertices, ${P.edges.length} edges, ${P.faces.length} faces (${sizes.map(s => kinds[s] || s+"-gons").join(", ")}). ` +
+    `Faces touching v (outside): ${P.atV.length}. Faces not touching v (inside): ${P.inside.length}. Vertices not on the rim: ${nin}.`;
+}
+
+// ---------- page ----------
+if (typeof document !== "undefined") {
+const $ = id => document.getElementById(id);
+const COL_L = ["#4e79a7","#f28e2b","#59a14f","#b07aa1","#edc948","#76b7b2","#e15759","#9c755f","#ff9da7","#86bc86"];
+const COL_D = ["#6fa8ff","#ffa94d","#7ddc6f","#d59cff","#ffe066","#66e0d6","#ff7b7b","#d9a37a","#ffb3c7","#a8e6a1"];
+let darkCols = false; try { darkCols = localStorage.getItem("darkCols") === "1"; } catch (e) {}
+const DARK = { "--fg":"#f5f5f5", "--red":"#ff7b7b", "--green":"#5fe0b0" };
+const css = n => darkCols && DARK[n] ? DARK[n] : getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+let cur = "octa", vi = 0, mode = "straight", P, SC;
+function choose() {
+  P = build(cur, vi); SC = scene(P, mode);
+  $("info").textContent = summary(P);
+  $("which").textContent = P.regular ? "any vertex: they all look the same"
+    : `vertex ${P.names ? P.names[vi] : vi+1} (${P.atV.length} faces meet there), ${vi+1} of ${P.V.length}`;
+  $("prev").disabled = $("next").disabled = P.regular;
+  draw();
+}
+function group(id, keys, get, set, label) {
+  keys.forEach(key => { const b = document.createElement("button"); b.textContent = label(key); b.dataset.key = key;
+    b.onclick = () => { set(key); mark(); choose(); }; $(id).appendChild(b); });
+}
+function mark() { document.querySelectorAll("#regular button, #other button").forEach(b => b.classList.toggle("on", b.dataset.key === cur));
+  document.querySelectorAll("#modes button").forEach(b => b.classList.toggle("on", b.dataset.key === mode)); }
+const pick = k => { cur = k; vi = 0; };
+group("regular", Object.keys(SOLIDS).filter(k => SOLIDS[k].regular), () => cur, pick, k => SOLIDS[k].label);
+group("other", Object.keys(SOLIDS).filter(k => !SOLIDS[k].regular), () => cur, pick, k => SOLIDS[k].label);
+group("modes", ["round","straight"], () => mode, k => mode = k, k => k === "round" ? "round (stereographic from v)" : "straight");
+$("prev").onclick = () => { vi = (vi + SOLIDS[cur].V.length - 1) % SOLIDS[cur].V.length; choose(); };
+$("next").onclick = () => { vi = (vi + 1) % SOLIDS[cur].V.length; choose(); };
+["zoom","eRim","eIn","eRay","fill","fillOut"].forEach(id => $(id).addEventListener("input", draw));
+function setDark(on) { darkCols = on; $("dk").classList.toggle("on", on); try { localStorage.setItem("darkCols", on ? "1" : "0"); } catch (e) {} draw(); }
+$("dk").onclick = () => setDark(!darkCols);
+
+const cv = $("cv"), ctx = cv.getContext("2d");
+let W = 0, H = 0;
+function resize() { const r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+  W = r.width; H = r.height; cv.width = W*d; cv.height = H*d; ctx.setTransform(d,0,0,d,0,0); draw(); }
+window.addEventListener("resize", resize);
+cv.addEventListener("wheel", e => { e.preventDefault(); const z = $("zoom"); z.value = Math.round(z.value*Math.exp(-e.deltaY*0.002)); draw(); }, {passive:false});
+
+// the solid itself, on the right: drag to turn it
+const mul = (A,B) => A.map(r => [0,1,2].map(j => r[0]*B[0][j]+r[1]*B[1][j]+r[2]*B[2][j]));
+const rotX = t => [[1,0,0],[0,Math.cos(t),-Math.sin(t)],[0,Math.sin(t),Math.cos(t)]];
+const rotY = t => [[Math.cos(t),0,Math.sin(t)],[0,1,0],[-Math.sin(t),0,Math.cos(t)]];
+const rotZ = t => [[Math.cos(t),-Math.sin(t),0],[Math.sin(t),Math.cos(t),0],[0,0,1]];
+let R3 = mul(rotX(-1.1), rotZ(0.5));          // v (the north pole) on top, tilted towards the viewer
+let drag = null;
+cv.addEventListener("pointerdown", e => { anim++; drag = [e.clientX, e.clientY]; cv.setPointerCapture(e.pointerId); });
+cv.addEventListener("pointermove", e => { if (!drag) return;
+  const dx = e.clientX-drag[0], dy = e.clientY-drag[1]; drag = [e.clientX, e.clientY];
+  R3 = mul(mul(rotX(dy*0.008), rotY(dx*0.008)), R3); draw(); });
+cv.addEventListener("pointerup", () => drag = null);
+cv.addEventListener("pointercancel", () => drag = null);
+
+// "look from v": v is the north pole, so the identity puts v nearest to you, in the position of the picture on the left
+let anim = 0, wheelAngle = 0;
+const setWheel = a => { wheelAngle = a; $("wheelG").setAttribute("transform", `rotate(${-a*180/Math.PI})`); };
+$("fromV").onclick = () => {
+  const R0 = R3, c = Math.max(-1, Math.min(1, (R0[0][0]+R0[1][1]+R0[2][2]-1)/2)), th = Math.acos(c), sn = Math.sin(th), w0 = wheelAngle, id = ++anim;
+  if (sn < 1e-4) { R3 = [[1,0,0],[0,1,0],[0,0,1]]; setWheel(0); draw(); return; }
+  const ax = [R0[2][1]-R0[1][2], R0[0][2]-R0[2][0], R0[1][0]-R0[0][1]].map(x => x/(2*sn)), t0 = performance.now();
+  const rot = a => { const C = Math.cos(a), S = Math.sin(a), [x,y,z] = ax;      // rotation by a about ax
+    return [[C+x*x*(1-C), x*y*(1-C)-z*S, x*z*(1-C)+y*S],[y*x*(1-C)+z*S, C+y*y*(1-C), y*z*(1-C)-x*S],[z*x*(1-C)-y*S, z*y*(1-C)+x*S, C+z*z*(1-C)]]; };
+  const step = now => { if (id !== anim) return; const u = Math.min(1, (now-t0)/700), e = 1-(1-u)*(1-u)*(1-u);
+    R3 = rot(th*(1-e)); setWheel(w0*(1-e)); draw(); if (u < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+};
+// the steering wheel turns the solid about the line of sight
+const wheel = $("wheel"); let grip = null;
+const gripAngle = e => { const r = wheel.getBoundingClientRect(); return Math.atan2(r.top+r.height/2-e.clientY, e.clientX-r.left-r.width/2); };
+wheel.addEventListener("pointerdown", e => { anim++; grip = gripAngle(e); wheel.setPointerCapture(e.pointerId); });
+wheel.addEventListener("pointermove", e => { if (grip === null) return; const a = gripAngle(e);
+  let d = a-grip; if (d > Math.PI) d -= 2*Math.PI; if (d < -Math.PI) d += 2*Math.PI; grip = a;
+  R3 = mul(rotZ(d), R3); setWheel(wheelAngle+d); draw(); });
+wheel.addEventListener("pointerup", () => grip = null);
+wheel.addEventListener("pointercancel", () => grip = null);
+
+function draw() {
+  if (!W || !SC) return;
+  const rays = $("eRay").checked, box = Math.min(W/2, H-70), cy = (H+30)/2, zoom = $("zoom").value/100;
+  const fg = css("--fg"), red = css("--red"), green = css("--green"), COL = darkCols ? COL_D : COL_L;
+  const alpha = darkCols ? 0.7 : 0.45, want = { in:$("eIn").checked, rim:$("eRim").checked, ray:rays };
+  const style = { in:[red,1.4,[]], rim:[fg,2.6,[]], ray:[green,1.6,[6,4]] };
+  ctx.clearRect(0,0,W,H); ctx.lineJoin = ctx.lineCap = "round";
+
+  // left: the flat picture
+  const S = box / ((rays ? 3.4 : 2.4)*SC.R) * zoom;
+  const scr = p => [W/4 + p[0]*S, cy - p[1]*S];
+  const path = pts => { ctx.beginPath(); pts.forEach((p,i) => { const q = scr(p); i ? ctx.lineTo(q[0],q[1]) : ctx.moveTo(q[0],q[1]); }); };
+  ctx.save(); ctx.beginPath(); ctx.rect(0,0,W/2,H); ctx.clip();
+  if ($("fillOut").checked) { const o = scr([0,0]);
+    SC.outer.forEach(r => { const g = ctx.createRadialGradient(o[0],o[1],SC.R*S*0.9, o[0],o[1],1.55*SC.R*S);
+      g.addColorStop(0, COL[r.col]); g.addColorStop(1, COL[r.col] + "66");     // fades: the region goes on to v, at infinity
+      path(r.p); ctx.closePath(); ctx.globalAlpha = alpha; ctx.fillStyle = g; ctx.fill(); ctx.globalAlpha = 1; }); }
+  if ($("fill").checked) SC.polys.forEach((poly,i) => { path(poly); ctx.closePath(); ctx.globalAlpha = alpha; ctx.fillStyle = COL[P.inside[i].col]; ctx.fill(); ctx.globalAlpha = 1; });
+  for (const c of ["in","ray","rim"]) for (const l of SC.lines) { if (l.c !== c || !want[c]) continue;
+    path(l.p); ctx.strokeStyle = style[c][0]; ctx.lineWidth = style[c][1]; ctx.setLineDash(style[c][2]); ctx.stroke(); ctx.setLineDash([]); }
+  SC.pts.forEach((p,i) => { if (!p) return; const q = scr(p), onRim = P.rimV.has(i);
+    ctx.beginPath(); ctx.arc(q[0],q[1], 3.6, 0, 7); ctx.fillStyle = onRim ? fg : red; ctx.fill();
+    ctx.font = "italic 17px Georgia, serif"; ctx.fillStyle = fg;
+    if (P.names) ctx.fillText(P.names[i], q[0]+7, q[1]-7);
+    else if (P.V[i][2] < -1+1e-6) ctx.fillText("−v", q[0]+7, q[1]-7); });
+  ctx.restore();
+
+  // right: the solid
+  const S3 = box/2.7 * zoom;
+  const s3 = p => [3*W/4 + (R3[0][0]*p[0]+R3[0][1]*p[1]+R3[0][2]*p[2])*S3, cy - (R3[1][0]*p[0]+R3[1][1]*p[1]+R3[1][2]*p[2])*S3,
+                   R3[2][0]*p[0]+R3[2][1]*p[1]+R3[2][2]*p[2]];
+  const Q = P.V.map(s3), items = [];
+  P.faces.forEach(f => { const k = P.inside.indexOf(f), z = f.v.reduce((t,i) => t+Q[i][2],0)/f.v.length;
+    items.push([z, () => { ctx.beginPath(); f.v.forEach((i,m) => m ? ctx.lineTo(Q[i][0],Q[i][1]) : ctx.moveTo(Q[i][0],Q[i][1])); ctx.closePath();
+      if (k >= 0) { if (!$("fill").checked) return; ctx.globalAlpha = alpha; ctx.fillStyle = COL[f.col]; }
+      else if ($("fillOut").checked) { ctx.globalAlpha = alpha; ctx.fillStyle = COL[f.col]; }
+      else { ctx.globalAlpha = darkCols ? 0.3 : 0.18; ctx.fillStyle = green; }
+      ctx.fill(); ctx.globalAlpha = 1; }]); });
+  P.edges.forEach(e => { const c = P.cls(e); if (!want[c]) return; const a = Q[e[0]], b = Q[e[1]];
+    items.push([(a[2]+b[2])/2 + 0.02, () => { ctx.beginPath(); ctx.moveTo(a[0],a[1]); ctx.lineTo(b[0],b[1]);
+      ctx.strokeStyle = style[c][0]; ctx.lineWidth = style[c][1]; ctx.setLineDash(style[c][2]); ctx.stroke(); ctx.setLineDash([]); }]); });
+  P.V.forEach((x,i) => { const q = Q[i], isV = i === P.vi;
+    items.push([q[2] + 0.04, () => { ctx.beginPath(); ctx.arc(q[0],q[1], isV ? 5 : 3.6, 0, 7);
+      ctx.fillStyle = isV ? green : P.rimV.has(i) ? fg : red; ctx.fill();
+      ctx.font = "italic 17px Georgia, serif"; ctx.fillStyle = isV ? green : fg;
+      if (P.names) ctx.fillText(P.names[i] + (isV ? " = v" : ""), q[0]+7, q[1]-7);
+      else if (isV) ctx.fillText("v", q[0]+7, q[1]-7);
+      else if (x[2] < -1+1e-6) ctx.fillText("−v", q[0]+7, q[1]+18); }]); });
+  items.sort((a,b) => a[0]-b[0]).forEach(it => it[1]());
+}
+mark(); choose(); resize(); setDark(darkCols);
+}
+if (typeof module !== "undefined") module.exports = { SOLIDS, build, scene, summary };
+</script>
+</body>
+</html>

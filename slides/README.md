@@ -32,6 +32,10 @@ folder, or with `latexmk -pdf <deck>.tex` inside the deck folder.
   list: an entry is a deck (`path` is `<series>/<deck>`) or a group with a
   `title` and a list `decks`. The page `/talks` is that list and nothing
   else. Keep it that way: simple, just a list, provide the data.
+- A deck may list interactive HTML pages under `models` in
+  `slides/index.json` (`file`, and a `title` if it should be linked from
+  `/talks`). They live in the deck folder, are self-contained, and are
+  served as `/talks/<series>/<deck>/<file>`.
 - Do not name a file `beamer-preamble.tex`: `.gitignore` ignores that name.
   Use `preamble.tex`.
 - The chapter style rules of `AGENTS.md` (no macros, 45-character lines, no
