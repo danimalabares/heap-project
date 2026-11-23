@@ -1,0 +1,885 @@
+\input{preamble}
+
+\begin{document}
+
+\title{Derived categories}
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Overview}
+\label{section-overview}
+
+\noindent
+These notes start from the lecture of
+23 November 2026 in Jethro van Ekeren's
+course on homological algebra (IMPA).
+They are meant as a skeleton: the steps
+of the construction and why each one is
+taken, without the full proofs.
+
+\medskip\noindent
+{\bf Sources.} My own notes of the
+lecture; two photographs of the board;
+an automatic transcript of the audio
+recording (99 minutes, with long silent
+stretches of board writing); Sections
+9.1 and 9.2 of Jethro's
+\href{https://w3.impa.br/~jethro/2026-2/%
+ah-current.pdf}{course notes}, which say
+they are based on
+\cite[Chapter 2]{huybrechts-fm}.
+Statements checked against
+\cite{huybrechts-fm} carry the exact
+number. Paragraphs marked
+{\it editorial} were added afterwards
+and were not said in the lecture;
+{\it spoken} marks remarks found only in
+the recording.
+A minicourse on the same subject is in
+Section
+\ref{derived-categories-of-sheaves-section-motivation}
+and the sections around it.
+
+\medskip\noindent
+{\bf Big picture.} Homological algebra
+replaces an object by a complex and
+only cares about the complex up to
+something weaker than isomorphism.
+The derived category is the place where
+this ``up to'' becomes literal
+isomorphism of objects. It is built in
+steps:
+\begin{enumerate}
+\item Start with an abelian category
+$\mathcal{A}$.
+\item Pass to the category of complexes
+$\operatorname{Ch}(\mathcal{A})$. It is
+abelian.
+\item Pass to the homotopy category
+$K(\mathcal{A})$: same objects, maps up
+to homotopy. It is additive but {\bf not}
+abelian in general.
+\item Since there are no exact sequences
+in $K(\mathcal{A})$, replace them by
+{\it distinguished triangles}, which come
+from cones.
+\item Prove that $K(\mathcal{A})$ with
+these triangles is a
+{\it triangulated category}.
+\item Only now write down the definition
+of triangulated category: its axioms are
+the properties just observed.
+\item (Next.) Invert the
+quasi-isomorphisms of $K(\mathcal{A})$
+to get the derived category
+$D(\mathcal{A})$.
+\end{enumerate}
+
+\section{Complexes and the homotopy category}
+\label{section-complexes-homotopy-category}
+
+\noindent
+Let $\mathcal{A}$ be an abelian category.
+Jethro always works with cohomological
+complexes
+$$
+\xymatrix{
+\cdots\ar[r]
+&A^{-1}\ar[r]^{d}
+&A^{0}\ar[r]^{d}
+&A^{1}\ar[r]
+&\cdots
+}
+$$
+with $d\circ d=0$. The category of
+complexes is written
+$\operatorname{Ch}(\mathcal{A})$, or
+$\operatorname{Com}(\mathcal{A})$, or
+$\operatorname{Kom}(\mathcal{A})$,
+depending on the author
+(the last one is the notation of
+\cite{huybrechts-fm}). It is again
+abelian, see Lemma
+\ref{homological-algebra-lemma-cat-cochain-abelian}.
+
+\medskip\noindent
+{\bf From the board.} A short exact
+sequence
+$$
+\xymatrix{
+0\ar[r]&A\ar[r]&B\ar[r]&C\ar[r]&0
+}
+$$
+in $\operatorname{Ch}(\mathcal{A})$ gives
+a long exact sequence in $\mathcal{A}$
+$$
+\xymatrix@C=1.1em{
+\cdots\ar[r]
+&H^n(A)\ar[r]
+&H^n(B)\ar[r]
+&H^n(C)\ar[r]
+&H^{n+1}(A)\ar[r]
+&\cdots
+}
+$$
+Two chain maps $f,g:A\to B$ are
+{\it homotopic}, written $f\sim g$, if
+there are maps $h:A^n\to B^{n-1}$ with
+$$
+f-g=dh+hd.
+$$
+``Marvellous fact'': if $f\sim g$ then
+$$
+H^n(f)=H^n(g)
+$$
+for all $n$ (Lemma
+\ref{homological-algebra-lemma-map-cohomology-homotopy-cochain}).
+If $f:A\to B$ and $g:B\to A$ satisfy
+$f\circ g\sim\operatorname{id}$ and
+$g\circ f\sim\operatorname{id}$, then
+$H^n(A)\cong H^n(B)$ for all $n$; such
+$f$ and $g$ are called homotopy
+equivalences. A chain map $f:A\to B$ for
+which every
+$$
+H^n(f):H^n(A)\to H^n(B)
+$$
+is an isomorphism is called a
+quasi-isomorphism (``qis'' for short).
+The board had a picture of a small
+blob of homotopy equivalences inside a
+big blob of quasi-isomorphisms: every
+homotopy equivalence is a
+quasi-isomorphism, but not conversely.
+
+\begin{definition}
+\label{definition-homotopy-category}
+The {\it homotopy category}
+$K(\mathcal{A})$ has the same objects as
+$\operatorname{Ch}(\mathcal{A})$, and
+for two complexes $A$ and $B$
+$$
+\operatorname{Hom}_{K(\mathcal{A})}(A,B)
+=
+\operatorname{Hom}_{
+\operatorname{Ch}(\mathcal{A})}(A,B)
+/\sim.
+$$
+\end{definition}
+
+\noindent
+Some authors write
+$\mathcal{H}(\mathcal{A})$. The
+category $K(\mathcal{A})$ is still
+additive, but it is not abelian in
+general: there are morphisms with no
+kernel (an example is in Remark
+\ref{remark-homotopy-category-not-abelian}).
+Complexes related by a homotopy
+equivalence become isomorphic in
+$K(\mathcal{A})$.
+
+\medskip\noindent
+{\it Spoken.} The quotient makes sense
+because being homotopic to zero is
+``kind of an ideal'' in the set of all
+morphisms: composing homotopic maps with
+any map gives homotopic maps (Lemma
+\ref{homological-algebra-lemma-compose-homotopy}).
+The definition is simple but tricky to
+get your head around: there are fewer
+morphisms, since we took a quotient, and
+yet more isomorphisms, since it became
+easier for two objects to be isomorphic.
+
+\section{Shift, triangles and cones}
+\label{section-shift-triangles-cones}
+
+\noindent
+Both Jethro and Lyalya Guseva (in the
+minicourse) introduced the shift at this
+point.
+
+\begin{definition}
+\label{definition-shift}
+The {\it shift} (or {\it suspension})
+of a complex $A$ is the complex $A[1]$
+with
+$$
+A[1]^n=A^{n+1},
+\qquad
+d_{A[1]}=-d_A.
+$$
+For a chain map $f:A\to B$, the map
+$f[1]:A[1]\to B[1]$ is
+$f[1]^n=f^{n+1}$.
+\end{definition}
+
+\noindent
+So everything moves one place to the
+left. The minus sign has to appear
+somewhere, whatever the convention; where
+it appears is a choice. We will see it
+again in Proposition
+\ref{proposition-huybrechts-2-16} and in
+axiom (TR2).
+
+\medskip\noindent
+{\bf Why triangles.} We cannot take
+exact sequences in $K(\mathcal{A})$,
+because it is not abelian. What replaces
+them is the following.
+
+\begin{definition}
+\label{definition-triangle}
+Let $\mathcal{C}$ be an additive category
+with an equivalence
+$\Sigma:\mathcal{C}\to\mathcal{C}$,
+written $\Sigma X=X[1]$.
+A {\it triangle} in $\mathcal{C}$ is a
+diagram
+$$
+\xymatrix{
+A\ar[r]^{f}
+&B\ar[r]^{g}
+&C\ar[r]^{h}
+&A[1]
+}
+$$
+\end{definition}
+
+\noindent
+{\bf The cone gives triangles.} We
+already used the cone in the course,
+see Section
+\ref{homological-algebra-section-cone-construction}.
+Let $f:A\to B$ be a morphism in
+$\operatorname{Ch}(\mathcal{A})$. Its
+cone $C(f)$ is
+$$
+C(f)^n=A^{n+1}\oplus B^n,
+$$
+$$
+d_{C(f)}(a,b)=(-d_A(a),f(a)+d_B(b)).
+$$
+Writing elements as columns, this is
+the matrix
+$$
+d_{C(f)}=
+\begin{pmatrix}
+-d_A&0\\
+f&d_B
+\end{pmatrix}
+$$
+of \cite[Definition 2.15]{huybrechts-fm}.
+(In my notes I wrote the transpose,
+which is the same map acting on rows.)
+There are two natural maps: the
+inclusion $\tau:B\to C(f)$ and the
+projection $\pi:C(f)\to A[1]$. By
+Proposition
+\ref{homological-algebra-proposition-ses-complexes-cone}
+they form a short exact sequence of
+complexes
+\begin{equation}
+\label{equation-ses-cone}
+\xymatrix{
+0\ar[r]
+&B\ar[r]^-{\tau}
+&C(f)\ar[r]^-{\pi}
+&A[1]\ar[r]
+&0
+}
+\end{equation}
+and so a long exact sequence
+$$
+\xymatrix@C=0.9em{
+\cdots\ar[r]
+&H^i(B)\ar[r]
+&H^i(C(f))\ar[r]
+&H^{i+1}(A)\ar[r]
+&H^{i+1}(B)\ar[r]
+&\cdots
+}
+$$
+
+\begin{definition}
+\label{definition-cone-triangle}
+The {\it triangle of the cone} of
+$f:A\to B$ is
+\begin{equation}
+\label{equation-cone-triangle}
+\xymatrix{
+A\ar[r]^-{f}
+&B\ar[r]^-{\tau}
+&C(f)\ar[r]^-{\pi}
+&A[1]
+}
+\end{equation}
+A triangle in $K(\mathcal{A})$ is
+{\it distinguished} if it is isomorphic
+to the triangle of a cone.
+\end{definition}
+
+\noindent
+{\bf Idea.} A distinguished triangle is
+what is left of an exact sequence. It is
+meant to model ``giving rise to a long
+exact sequence''. Instead of ending in
+zero, it returns to $A$, one step higher.
+
+\medskip\noindent
+{\it Spoken.} In $K(\mathcal{A})$ it no
+longer makes sense to say that $B$
+injects into the middle term and the
+middle term surjects onto the last one:
+``where we are on the triangle loses
+meaning''. What survives is the long
+exact sequence, and a long exact
+sequence has a symmetry: it can be
+rotated. That is why one expects to be
+able to rotate distinguished triangles.
+
+\begin{remark}
+\label{remark-triangle-is-helix}
+(Jethro's notes, Remark 9.2.1.) A
+triangle is really a helix: the triangle
+\eqref{equation-cone-triangle} is no more
+fundamental than its rotation
+$$
+\xymatrix{
+B\ar[r]^-{\tau}
+&C(f)\ar[r]^-{\pi}
+&A[1]\ar[r]^-{-f[1]}
+&B[1]
+}
+$$
+The triangle \eqref{equation-cone-triangle}
+is distinguished because
+\eqref{equation-ses-cone} is exact. But
+$A\to B\to C(f)$ is not exact, and the
+composition $\tau\circ f$ is not even
+zero in
+$\operatorname{Ch}(\mathcal{A})$. It is
+zero in $K(\mathcal{A})$ (Jethro's
+Exercise 9.2.2).
+\end{remark}
+
+\medskip\noindent
+{\it Editorial: solution of the
+exercise.} Take $h:A^n\to C(f)^{n-1}$,
+$h(a)=(a,0)$; note that
+$C(f)^{n-1}=A^n\oplus B^{n-1}$. Then
+$$
+\begin{aligned}
+dh(a)+hd(a)
+&=(-d_A(a),f(a))+(d_A(a),0)\\
+&=(0,f(a)),
+\end{aligned}
+$$
+which is $\tau(f(a))$. So
+$\tau\circ f\sim 0$.
+
+\section{The homotopy category is triangulated}
+\label{section-homotopy-category-triangulated}
+
+\noindent
+We want to define a triangulated
+category: an additive category
+$\mathcal{C}$ with a shift functor
+$\Sigma$ and a collection of
+distinguished triangles, subject to
+axioms. Before writing the axioms we
+check, in $K(\mathcal{A})$, the facts
+that the axioms will ask for.
+
+\begin{lemma}
+\label{lemma-cone-identity-zero}
+For every complex $A$, the cone of the
+identity is isomorphic to zero in
+$K(\mathcal{A})$:
+$$
+C(\operatorname{id}_A)\cong 0.
+$$
+\end{lemma}
+
+\begin{proof}
+We need a homotopy from the identity of
+$C(\operatorname{id}_A)$ to zero. Here
+$$
+C(\operatorname{id}_A)^n
+=A^{n+1}\oplus A^n,
+$$
+$$
+d(a,b)=(-d_A(a),a+d_A(b)).
+$$
+Take $h(a,b)=(b,0)$, which lands in
+$A^n\oplus A^{n-1}$. Then
+$$
+\begin{aligned}
+dh(a,b)&=(-d_A(b),b),\\
+hd(a,b)&=(a+d_A(b),0),
+\end{aligned}
+$$
+and the sum is $(a,b)$. (Jethro's notes
+leave this check as an exercise; the
+computation here is editorial.)
+\end{proof}
+
+\noindent
+So
+$$
+\xymatrix{
+A\ar[r]^-{\operatorname{id}}
+&A\ar[r]
+&0\ar[r]
+&A[1]
+}
+$$
+is a distinguished triangle. This will
+be axiom (TR1)(i).
+
+\medskip\noindent
+{\bf Commuting squares.} A commuting
+square
+$$
+\xymatrix{
+A\ar[r]^{f}\ar[d]_{\alpha}
+&B\ar[d]^{\beta}\\
+A'\ar[r]^{f'}
+&B'
+}
+$$
+gives a map $C(f)\to C(f')$, namely
+$\alpha\oplus\beta$ in each degree, and
+with it a morphism between the two cone
+triangles. Whether the squares of this
+morphism commute on the nose or only up
+to homotopy, and what happens if the
+first square commutes only up to
+homotopy, is Jethro's Exercise 9.2.3.
+This will be axiom (TR3).
+
+\medskip\noindent
+{\bf Rotation.} This is where the real
+work is. We want: if
+$$
+\xymatrix{
+A\ar[r]^{f}
+&B\ar[r]^{g}
+&C\ar[r]^{h}
+&A[1]
+}
+$$
+is distinguished, then so is
+$$
+\xymatrix{
+B\ar[r]^{g}
+&C\ar[r]^{h}
+&A[1]\ar[r]^-{-f[1]}
+&B[1]
+}
+$$
+Since distinguished means ``isomorphic
+to a cone triangle'', we must compare
+the rotated triangle with the cone
+triangle of $\tau:B\to C(f)$. This is
+the content of:
+
+\begin{proposition}
+\label{proposition-huybrechts-2-16}
+\cite[Proposition 2.16]{huybrechts-fm}
+Let $f:A\to B$ be a morphism of
+complexes, with $\tau:B\to C(f)$ and
+$\pi:C(f)\to A[1]$ as above. Then there
+is a morphism of complexes
+$$
+g:A[1]\to C(\tau)
+$$
+which is an isomorphism in
+$K(\mathcal{A})$ and such that the
+diagram
+$$
+\xymatrix{
+B\ar[r]^-{\tau}\ar@{=}[d]
+&C(f)\ar[r]^-{\pi}\ar@{=}[d]
+&A[1]\ar[r]^-{-f}\ar[d]^{g}
+&B[1]\ar@{=}[d]\\
+B\ar[r]^-{\tau}
+&C(f)\ar[r]
+&C(\tau)\ar[r]
+&B[1]
+}
+$$
+commutes in $K(\mathcal{A})$. The bottom
+row is the cone triangle of $\tau$.
+\end{proposition}
+
+\noindent
+{\bf The map.} We have
+$$
+C(\tau)^i
+=B^{i+1}\oplus C(f)^i
+=B^{i+1}\oplus A^{i+1}\oplus B^i
+$$
+and $A[1]^i=A^{i+1}$. The map is
+$$
+g=(-f^{i+1},\operatorname{id},0).
+$$
+Its inverse in $K(\mathcal{A})$ is the
+projection to the middle factor. The
+right square commutes already in
+$\operatorname{Ch}(\mathcal{A})$; the
+middle square commutes only up to
+homotopy \cite[proof of Proposition
+2.16]{huybrechts-fm}. The sign in $g$ is
+the reason for the sign $-f[1]$ in the
+rotated triangle.
+
+\begin{theorem}
+\label{theorem-homotopy-category-triangulated}
+(Jethro's notes, Theorem 9.2.4;
+\cite[Proposition 2.24]{huybrechts-fm}.)
+The category $K(\mathcal{A})$, with the
+shift of complexes and with
+distinguished triangles those isomorphic
+to the triangle of a cone, is a
+triangulated category in the sense of
+Definition
+\ref{definition-triangulated-category}.
+\end{theorem}
+
+\noindent
+{\bf Status.} What was checked above is
+(TR1), (TR3) and one direction of (TR2).
+Jethro said that he feels a more general
+version of the argument of Proposition
+\ref{proposition-huybrechts-2-16} gives
+both (TR2) and (TR3). The octahedral
+axiom (TR4) was not verified (``it can
+be done''); Jethro's notes say the
+theorem is ``essentially verified'' if
+one ignores it, and \cite{huybrechts-fm}
+refers to the literature for the proof.
+
+\section{Triangulated categories}
+\label{section-triangulated-categories}
+
+\noindent
+Only now comes the definition. Each axiom
+is one of the facts of Section
+\ref{section-homotopy-category-triangulated}.
+
+\begin{definition}
+\label{definition-triangulated-category}
+A {\it triangulated category} is an
+additive category $\mathcal{C}$ with an
+equivalence
+$\Sigma:\mathcal{C}\to\mathcal{C}$,
+written $\Sigma X=X[1]$, and a collection
+of triangles called {\it distinguished},
+such that:
+\begin{enumerate}
+\item[(TR1)] (i) For every $A$ the
+triangle
+$$
+\xymatrix{
+A\ar[r]^-{\operatorname{id}}
+&A\ar[r]
+&0\ar[r]
+&A[1]
+}
+$$
+is distinguished. (ii) A triangle
+isomorphic to a distinguished triangle is
+distinguished. (iii) Every morphism
+$f:A\to B$ is the first map of some
+distinguished triangle
+$$
+\xymatrix{
+A\ar[r]^{f}
+&B\ar[r]^{g}
+&C\ar[r]^{h}
+&A[1]
+}
+$$
+\item[(TR2)] The triangle
+$$
+\xymatrix{
+A\ar[r]^{f}
+&B\ar[r]^{g}
+&C\ar[r]^{h}
+&A[1]
+}
+$$
+is distinguished if and only if
+$$
+\xymatrix{
+B\ar[r]^{g}
+&C\ar[r]^{h}
+&A[1]\ar[r]^-{-f[1]}
+&B[1]
+}
+$$
+is distinguished.
+\item[(TR3)] Given two distinguished
+triangles and maps $\alpha$, $\beta$
+making the left square commute,
+$$
+\xymatrix{
+A\ar[r]^{f}\ar[d]_{\alpha}
+&B\ar[r]\ar[d]^{\beta}
+&C\ar[r]\ar@{-->}[d]^{\gamma}
+&A[1]\ar[d]^{\alpha[1]}\\
+A'\ar[r]^{f'}
+&B'\ar[r]
+&C'\ar[r]
+&A'[1]
+}
+$$
+there is a map $\gamma$ making the whole
+diagram commute.
+\item[(TR4)] (Octahedral axiom.) Given
+two composable morphisms
+$$
+\xymatrix{
+A\ar[r]^{f}
+&B\ar[r]^{g}
+&C
+}
+$$
+and distinguished triangles on $f$, on
+$g$ and on $g\circ f$, with third objects
+$C'$, $A'$ and $B'$ respectively, there
+is a distinguished triangle
+$$
+\xymatrix{
+C'\ar[r]
+&B'\ar[r]
+&A'\ar[r]
+&C'[1]
+}
+$$
+compatible with the maps of the three
+given triangles.
+\end{enumerate}
+\end{definition}
+
+\noindent
+This is Definition 9.2.2 of Jethro's
+notes; compare
+\cite[Definition 1.32]{huybrechts-fm}.
+The compatibility in (TR4) is not
+spelled out here: Jethro's notes leave
+that sentence unfinished, and
+\cite{huybrechts-fm} does not state
+(TR4) precisely either, saying that it
+is never used explicitly in the book.
+
+\begin{remark}
+\label{remark-octahedral-intuition}
+(Idea behind the octahedral axiom;
+Jethro's notes, Remark 9.2.5; the same
+explanation follows
+\cite[Definition 1.32]{huybrechts-fm}.)
+Take abelian groups
+$A\subset B\subset C$. Then
+$$
+C/B\cong (C/A)/(B/A),
+$$
+that is, there is a short exact sequence
+$$
+\xymatrix{
+0\ar[r]
+&B/A\ar[r]
+&C/A\ar[r]
+&C/B\ar[r]
+&0
+}
+$$
+Its three terms come from three short
+exact sequences of the original setup:
+$$
+\xymatrix@R=0.6em{
+0\ar[r]&A\ar[r]&B\ar[r]&B/A\ar[r]&0\\
+0\ar[r]&B\ar[r]&C\ar[r]&C/B\ar[r]&0\\
+0\ar[r]&A\ar[r]&C\ar[r]&C/A\ar[r]&0
+}
+$$
+Now replace ``short exact sequence'' by
+``distinguished triangle''. The
+inclusions become $f:A\to B$ and
+$g:B\to C$; the quotients $B/A$, $C/B$
+and $C/A$ become the third objects $C'$,
+$A'$ and $B'$ of triangles on $f$, on
+$g$ and on $g\circ f$. The axiom says
+that the fourth sequence also exists:
+$C'\to B'\to A'\to C'[1]$ is
+distinguished, in the same way that
+$B/A\to C/A\to C/B$ is exact.
+\end{remark}
+
+\begin{quote}
+\textbf{Daniel's comment.} ``Yikes --- I
+didn't follow this intuition remark
+until the end\ldots''
+\end{quote}
+
+\noindent
+\textbf{Editorial answer.} The end of the
+remark is the dictionary in its last
+paragraph: a quotient by a subobject
+becomes the third vertex of a triangle.
+The octahedral axiom is then the third
+isomorphism theorem for cones: ``the cone
+of $g\circ f$ modulo the cone of $f$ is
+the cone of $g$''. For $K(\mathcal{A})$
+one can see the maps: Jethro's notes
+point out that for composable $f$ and
+$g$ there are canonical morphisms
+$$
+\xymatrix{
+C(f)\ar[r]
+&C(g\circ f)\ar[r]
+&C(g)
+}
+$$
+given in degree $i$ by
+$$
+(a,b)\mapsto(a,g(b)),
+\qquad
+(a,c)\mapsto(f(a),c).
+$$
+The explicit formulas are editorial;
+that both are chain maps is a direct
+check with the differential of the cone.
+
+\begin{quote}
+\textbf{Daniel's question.} ``Is it true
+that the octahedral axiom was recently
+proved to actually be necessary (like
+Euclid's 5th postulate is indeed
+necessary)? Do we get non-canonical
+derived categories if we deny the
+octahedral axiom?''
+\end{quote}
+
+\noindent
+\textbf{Editorial answer.} Yes to the
+first question, according to a 2026
+preprint. In \cite{cilsz-tr4} the
+authors construct classes of triangles
+satisfying (TR1), (TR2) and (TR3) but
+not (TR4); their abstract says this
+``confirms a long-standing conjecture on
+triangulated categories''. So (TR4) does
+not follow from the other axioms. I read
+only the abstract; it is a preprint
+(arXiv:2608.09777), not yet a refereed
+paper.
+
+\medskip\noindent
+To the second question: not in the way
+the analogy suggests. By its abstract,
+\cite{cilsz-tr4} perturbs the class of
+distinguished triangles on a category
+that is already triangulated in the
+usual way. For $K(\mathcal{A})$ and
+$D(\mathcal{A})$ with the cone triangles
+(TR4) is a theorem, not a choice
+\cite[Proposition 2.24]{huybrechts-fm},
+so an abelian category has no
+``non-octahedral derived category''.
+Whether the exotic structures have a
+meaning of their own, as non-Euclidean
+geometries do, I do not know.
+
+\begin{remark}
+\label{remark-homotopy-category-not-abelian}
+(Editorial, from Jethro's notes, Section
+9.4; not in this lecture.) In a
+triangulated category every
+monomorphism splits. This gives a
+morphism with no kernel in
+$K(\mathcal{A})$ for $\mathcal{A}$ the
+category of abelian groups: reduction
+modulo $p$
+$$
+\mathbb{Z}/p^2\to\mathbb{Z}/p,
+$$
+both placed in degree $0$. So
+triangulated categories are ``bad''
+(not abelian) for the same reason that
+they are ``good'' (all monomorphisms
+split).
+\end{remark}
+
+\section{Next: the derived category}
+\label{section-next-derived-category}
+
+\noindent
+(Said in the last minutes of the
+lecture as a preview; written here with
+the help of Jethro's notes, Section 9.3.
+See also Definition
+\ref{derived-categories-of-sheaves-definition-derived-category}.)
+Passing from
+$\operatorname{Ch}(\mathcal{A})$ to
+$K(\mathcal{A})$ turned homotopy
+equivalences into isomorphisms. The
+derived category $D(\mathcal{A})$ does
+the same for all quasi-isomorphisms. The
+reason to want this: two projective
+resolutions $P_1$ and $P_2$ of an object
+$X$ are homotopy equivalent, so
+$P_1\cong P_2$ already in
+$K(\mathcal{A})$; but the maps
+$P_1\to X$ and $P_2\to X$ are only
+quasi-isomorphisms. In $D(\mathcal{A})$
+one has
+$$
+P_1\cong X\cong P_2.
+$$
+A morphism from $A$ to $B$ in
+$D(\mathcal{A})$ is a class of ``roofs''
+$$
+\xymatrix{
+&C\ar[dl]_{s}\ar[dr]^{f}&\\
+A&&B
+}
+$$
+with $s$ a quasi-isomorphism, thought of
+as the fraction of $f$ by $s$. Composing
+two roofs needs
+\cite[Proposition 2.17]{huybrechts-fm},
+whose proof uses the cone and
+Proposition
+\ref{proposition-huybrechts-2-16}. That
+is why the triangulated structure of
+$K(\mathcal{A})$ comes first.
+
+\medskip\noindent
+{\it Spoken.} Every chain map $f$ gives
+a roof, with the identity as its
+quasi-isomorphism leg. Every
+quasi-isomorphism $q:B\to A$ gives a roof
+from $A$ to $B$, with $q$ on one leg and
+the identity on the other; this is the
+inverse of $q$. Checking that it really
+is an inverse, and that composition is
+associative, works only up to homotopy,
+which is why one passes through
+$K(\mathcal{A})$. One can reach
+$D(\mathcal{A})$ without the homotopy
+category, but that takes heavy category
+theory, and to compute anything one has
+to bring the homotopy category back.
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}
