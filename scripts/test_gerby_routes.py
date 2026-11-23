@@ -566,7 +566,24 @@ class ContentsAndDownloadsTests(
             old.headers["Location"].endswith("/talks")
         )
 
-    def test_talk_models(self):
+    def test_talks_are_in_chronological_order(self):
+        from gerby.views.slides import date_key, load_slides
+
+        self.assertLess(
+            date_key({"date": "November 2026"}),
+            date_key({"date": "16 November 2026"}),
+        )
+        self.assertLess(
+            date_key({"date": "3 December 2026"}),
+            date_key({"date": "In preparation"}),
+        )
+        index = load_slides()
+        firsts = [date_key(e.get("decks", [e])[0]) for e in index]
+        self.assertEqual(firsts, sorted(firsts))
+        for entry in index:
+            keys = [date_key(d) for d in entry.get("decks", [])]
+            self.assertEqual(keys, sorted(keys))
+
         client = app.test_client()
         base = "/talks/stanley-reisner-puc-informal/"
         page = client.get("/talks").get_data(as_text=True)

@@ -7,14 +7,38 @@ from gerby.application import app
 from gerby.configuration import DOWNLOADS, ROOT
 
 
+MONTHS = ["january", "february", "march", "april", "may", "june", "july",
+          "august", "september", "october", "november", "december"]
+
+
+def date_key(deck):
+  """Sort key of a date such as "3 December 2026" or "September 2024".
+  A date without a year ("In preparation") goes last."""
+  year, month, day = 9999, 0, 0
+  for word in deck.get("date", "").replace(",", " ").split():
+    if word.lower() in MONTHS:
+      month = MONTHS.index(word.lower()) + 1
+    elif word.isdigit() and len(word) == 4:
+      year = int(word)
+    elif word.isdigit():
+      day = int(word)
+  return (year, month, day)
+
+
 def load_slides():
-  """Read slides/index.json and mark which PDFs have been built."""
+  """Read slides/index.json, oldest talk first, and mark which PDFs
+  have been built. A group stands at the date of its first talk."""
   path = os.path.join(str(ROOT), "slides", "index.json")
   if not os.path.isfile(path):
     return []
 
   with open(path) as f:
     index = json.load(f)
+
+  for entry in index:
+    if "decks" in entry:
+      entry["decks"].sort(key=date_key)
+  index.sort(key=lambda entry: date_key(entry.get("decks", [entry])[0]))
 
   for entry in index:
     for deck in entry.get("decks", [entry]):
