@@ -377,6 +377,9 @@ class ContentsAndDownloadsTests(
         patcher.start()
         self.addCleanup(patcher.stop)
         with patch.object(
+            seminars_view, "latest_talk",
+            return_value=(0, 0, 0),
+        ), patch.object(
             seminars_view, "render_template",
             return_value="Seminars",
         ) as render:
@@ -448,16 +451,16 @@ class ContentsAndDownloadsTests(
                 in subjects
             ],
             [
-                ("Analysis and PDE", [None]),
+                ("Algebraic geometry", ["C005"]),
                 (
                     "Differential geometry",
                     ["C006"],
                 ),
-                ("Algebraic geometry", ["C005"]),
+                ("Analysis and PDE", [None]),
             ],
         )
         self.assertEqual(
-            subjects[2][1][0].pdf, "vbac.pdf"
+            subjects[0][1][0].pdf, "vbac.pdf"
         )
 
     def test_minicourses_page_lists_by_event(
@@ -484,22 +487,22 @@ class ContentsAndDownloadsTests(
             ],
             [
                 (
-                    "CIMPA school Florianópolis 2025",
-                    ["C008"],
-                ),
-                (
                     "IMPA Summer School 2026",
                     ["C007"],
+                ),
+                (
+                    "CIMPA school Florianópolis 2025",
+                    ["C008"],
                 ),
             ],
         )
         self.assertEqual(
             events[0][1][0].lecturer,
-            "Hannah Dell",
+            "Aline Zanardini",
         )
         self.assertEqual(
             events[1][1][0].lecturer,
-            "Aline Zanardini",
+            "Hannah Dell",
         )
 
     def test_talk_metadata_of_a_section(self):
@@ -566,24 +569,47 @@ class ContentsAndDownloadsTests(
             old.headers["Location"].endswith("/talks")
         )
 
-    def test_talks_are_in_chronological_order(self):
-        from gerby.views.slides import date_key, load_slides
+    def test_talks_are_listed_newest_first(self):
+        from gerby.talks import date_key
+        from gerby.views.slides import load_slides
 
         self.assertLess(
-            date_key({"date": "November 2026"}),
-            date_key({"date": "16 November 2026"}),
+            date_key("November 2026"), date_key("16 November 2026")
         )
         self.assertLess(
-            date_key({"date": "3 December 2026"}),
-            date_key({"date": "In preparation"}),
+            date_key("September 12, 2024"), date_key("3 December 2026")
+        )
+        self.assertLess(
+            date_key("3 December 2026"), date_key("In preparation")
         )
         index = load_slides()
-        firsts = [date_key(e.get("decks", [e])[0]) for e in index]
-        self.assertEqual(firsts, sorted(firsts))
+        firsts = [
+            date_key(e.get("decks", [e])[0].get("date", ""))
+            for e in index
+        ]
+        self.assertEqual(firsts, sorted(firsts, reverse=True))
         for entry in index:
-            keys = [date_key(d) for d in entry.get("decks", [])]
-            self.assertEqual(keys, sorted(keys))
+            keys = [
+                date_key(d.get("date", ""))
+                for d in entry.get("decks", [])
+            ]
+            self.assertEqual(keys, sorted(keys, reverse=True))
 
+    def test_seminar_subjects_are_listed_newest_first(self):
+        import gerby.views.seminars as seminars
+        from types import SimpleNamespace
+
+        latest = {"a": (2024, 5, 1), "b": (2026, 1, 2), "c": (2025, 3, 3)}
+        table = [
+            (name, [SimpleNamespace(notebook=name)]) for name in "abc"
+        ]
+        with patch.object(
+            seminars, "load_part_by_subject", return_value=table
+        ), patch.object(seminars, "latest_talk", latest.get):
+            got = [subject for subject, _ in seminars.load_seminars()]
+        self.assertEqual(got, ["b", "c", "a"])
+
+    def test_talk_models(self):
         client = app.test_client()
         base = "/talks/stanley-reisner-puc-informal/"
         page = client.get("/talks").get_data(as_text=True)

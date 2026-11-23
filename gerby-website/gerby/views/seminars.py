@@ -5,9 +5,11 @@ from flask import render_template
 from gerby.application import SEMINARS_PART_LABEL, app
 from gerby.configuration import DOWNLOADS
 from gerby.database import Part, Tag
+from gerby.talks import latest_talk
 
-# Subjects in display order, with the notebook
-# (chapter file name without .tex) of each.
+# Subjects, with the notebook (chapter file name without .tex)
+# of each. The page lists them by the date of their latest talk,
+# newest first; this order only breaks ties.
 SUBJECTS = [
   ("Analysis and PDE", ["seminars-analysis-pde"]),
   ("Dynamics", ["seminars-dynamics"]),
@@ -72,7 +74,12 @@ def load_part_by_subject(part_label, subject_table):
 
 def load_seminars():
   """List the notebooks of the Seminars part by subject."""
-  return load_part_by_subject(SEMINARS_PART_LABEL, SUBJECTS)
+  subjects = load_part_by_subject(SEMINARS_PART_LABEL, SUBJECTS)
+  subjects.sort(
+    key=lambda subject: max(latest_talk(c.notebook) for c in subject[1]),
+    reverse=True,
+  )
+  return subjects
 
 
 @app.route("/seminars")

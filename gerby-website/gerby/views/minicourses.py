@@ -3,28 +3,28 @@ from flask import render_template
 from gerby.application import MINICOURSES_PART_LABEL, app
 from gerby.views.seminars import load_part_by_subject
 
-# Events in display order, with the notebook
-# (chapter file name without .tex) of each
-# minicourse.
+# Events in display order, newest first, with
+# the notebook (chapter file name without .tex)
+# of each minicourse.
 EVENTS = [
-  ("Summer 2024", [
-    "quantum-groups",
-  ]),
-  ("CIMPA school Florianópolis 2025", [
-    "bridgeland-stability-general-theory",
-    "geometric-stability-conditions-and-group-actions",
-    "moduli-spaces-of-sheaves",
-    "geometric-invariant-theory",
-    "derived-categories-of-sheaves",
-    "noncommutative-abelian-surfaces-and-kummer-type-hyperkahler-varieties",
+  ("OPEGA 2026, UFPE", [
+    "birational-maps-commutative-algebra",
+    "cremona-transformations",
   ]),
   ("IMPA Summer School 2026", [
-    "surfaces",
     "mumford-tate-groups-in-hodge-theory",
+    "surfaces",
   ]),
-  ("OPEGA 2026, UFPE", [
-    "cremona-transformations",
-    "birational-maps-commutative-algebra",
+  ("CIMPA school Florianópolis 2025", [
+    "noncommutative-abelian-surfaces-and-kummer-type-hyperkahler-varieties",
+    "derived-categories-of-sheaves",
+    "geometric-invariant-theory",
+    "moduli-spaces-of-sheaves",
+    "geometric-stability-conditions-and-group-actions",
+    "bridgeland-stability-general-theory",
+  ]),
+  ("Summer 2024", [
+    "quantum-groups",
   ]),
 ]
 

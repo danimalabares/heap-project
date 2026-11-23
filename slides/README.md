@@ -32,8 +32,9 @@ folder, or with `latexmk -pdf <deck>.tex` inside the deck folder.
   list: an entry is a deck (`path` is `<series>/<deck>`) or a group with a
   `title` and a list `decks`. The page `/talks` is that list and nothing
   else. Keep it that way: simple, just a list, provide the data.
-  The page sorts it by `date`, oldest first; a group stands at the date of
-  its first talk, and a date without a year goes last.
+  The page sorts it by `date`, newest first; a group stands at the date of
+  its latest talk, a date without a year goes first, and talks with the
+  same date keep the order of the manifest.
 - A deck may list interactive HTML pages under `models` in
   `slides/index.json` (`file`, and a `title` if it should be linked from
   `/talks`). They live in the deck folder, are self-contained, and are

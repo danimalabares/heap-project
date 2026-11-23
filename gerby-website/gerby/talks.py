@@ -49,6 +49,32 @@ def load_talks():
   return talks
 
 
+MONTHS = ["january", "february", "march", "april", "may", "june", "july",
+          "august", "september", "october", "november", "december"]
+
+
+def date_key(date):
+  """Sort key of a date such as "3 December 2026", "September 12, 2024"
+  or "September 2024". A date without a year ("In preparation") counts
+  as later than every dated one."""
+  year, month, day = 9999, 0, 0
+  for word in date.replace(",", " ").split():
+    if word.lower() in MONTHS:
+      month = MONTHS.index(word.lower()) + 1
+    elif word.isdigit() and len(word) == 4:
+      year = int(word)
+    elif word.isdigit():
+      day = int(word)
+  return (year, month, day)
+
+
+def latest_talk(notebook):
+  """Sort key of the latest dated talk of a notebook; (0, 0, 0) if none."""
+  keys = [date_key(values[2]) for label, values in load_talks().items()
+          if label.startswith(notebook + "-") and values[2]]
+  return max([key for key in keys if key[0] != 9999], default=(0, 0, 0))
+
+
 def describe(values):
   """One line: speaker. place. date."""
   return ". ".join(value.rstrip(".") for value in values if value) + "."
