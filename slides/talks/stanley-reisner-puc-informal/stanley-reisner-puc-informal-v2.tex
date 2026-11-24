@@ -1,0 +1,979 @@
+\input{preamble}
+\title{Deformations of Stanley--Reisner schemes}
+\subtitle{Smoothing the Grünbaum sphere}
+\date{Informal talk, PUC-Rio \quad 3 December 2026}
+% Divider for the seven parts: number, title, what the part does.
+\usepackage{array}
+\newcommand{\partslide}[3]{\begin{frame}\centering
+{\large Part #1}\par\medskip{\huge #2\par}\par\vspace{9mm}
+\begin{minipage}{0.78\textwidth}\centering #3\end{minipage}\end{frame}}
+% The link of b, drawn flat (the picture of Part 2), at a given scale.
+\newcommand{\linkofb}[1]{\begin{tikzpicture}[scale=#1,line join=round]
+\coordinate (g) at (0,3.3);
+\coordinate (f) at (-3.7,-2.3);
+\coordinate (h) at (3.7,-2.3);
+\coordinate (c) at (0,1.3);
+\coordinate (e) at (-1.3,-1.2);
+\coordinate (d) at (0.9,-0.9);
+\coordinate (a) at (-0.13,-0.27);
+\draw (f)--(g)--(h)--cycle;
+\draw (c)--(f) (c)--(g) (c)--(h) (c)--(e) (c)--(d) (c)--(a);
+\draw (e)--(f) (d)--(h) (d)--(e) (a)--(d) (a)--(e) (e)--(h);
+\foreach \p/\pos in {g/above,f/below left,h/below right,c/above right,e/below left,d/right,a/below}
+  \fill (\p) circle (1.5pt) node[\pos]{\(\p\)};
+\end{tikzpicture}}
+\begin{document}
+\begin{frame}\titlepage
+\vfill\centering{\footnotesize\href{https://www.heap-project.org/talks/stanley-reisner-puc-informal/live.html}{\textcolor{blue}{Click here for the live version}} (slides with moving models)}
+\end{frame}
+
+\partslide{1}{What I will do}{The main theorem, and the main steps of its proof.}
+
+\begin{frame}{The main theorem}
+\begin{columns}[c]
+\begin{column}{0.6\textwidth}
+\textbf{The sphere.} \(\mathcal M\): a triangulation of the \(3\)-sphere with \(8\) vertices and \(20\) tetrahedra \cite{GS}.
+\par\medskip
+\textbf{The scheme.} \(X=\SR(\mathcal M)\subset\Pj^7\): one \(\Pj^3\) for each tetrahedron, glued as the tetrahedra are glued.
+\par\medskip
+\fbox{\begin{minipage}{0.93\linewidth}
+\textbf{Theorem (proposed).} \(X\) is a limit of smooth Calabi--Yau threefolds of degree \(20\) in \(\Pj^7\).
+\end{minipage}}
+\end{column}
+\begin{column}{0.38\textwidth}\centering
+\linkofb{0.4}
+\par
+{\small \(\mathcal M\) seen from its vertex \(b\) (Part 2).}
+\end{column}
+\end{columns}
+\par\medskip
+\textbf{In full.} There is a flat family \(\mathcal Y\subset\Pj^7\times C\) over a curve \(C\), with fibre \(X\) over a point \(0\in C\). Every other fibre \(Y\) is smooth, and
+\[
+K_Y\simeq\cO_Y,\qquad H^1(\cO_Y)=H^2(\cO_Y)=0,\qquad H^3=20,\qquad c_2\cdot H=56.
+\]
+\src{\textbf{Status.} The proof was assembled with AI help and checked only by an AI audit. No human has verified it. \textbf{Not claimed:} Hodge numbers, or which known family \(Y\) belongs to.}
+\end{frame}
+
+\begin{frame}{The same statement in lower dimensions}
+\begin{columns}[t]
+\begin{column}{0.31\textwidth}\centering
+\begin{tikzpicture}[scale=0.55,line join=round]
+\coordinate (A) at (90:1.2); \coordinate (B) at (210:1.2); \coordinate (C) at (330:1.2);
+\draw[thick] (A)--(B)--(C)--cycle;
+\foreach \p/\pos/\n in {A/above/x,B/left/y,C/right/z} \fill (\p) circle (1.6pt) node[\pos]{\(\n\)};
+\end{tikzpicture}
+\par\smallskip
+\textbf{Triangle}\\ (a circle).\\ Three lines in \(\Pj^2\):\\ \(xyz=0\).\\ A limit of smooth cubic curves.
+\end{column}
+\begin{column}{0.31\textwidth}\centering
+\begin{tikzpicture}[scale=0.55,line join=round]
+\coordinate (A) at (0,1.3); \coordinate (B) at (-1.3,-0.6); \coordinate (C) at (0.3,-1.0); \coordinate (D) at (1.3,-0.3);
+\draw[dashed] (B)--(D);
+\draw[thick] (A)--(B)--(C)--(D)--cycle (A)--(C);
+\foreach \p/\pos/\n in {A/above/x,B/left/y,C/below/z,D/right/w} \fill (\p) circle (1.6pt) node[\pos]{\(\n\)};
+\end{tikzpicture}
+\par\smallskip
+\textbf{Tetrahedron}\\ (a \(2\)-sphere).\\ Four planes in \(\Pj^3\):\\ \(xyzw=0\).\\ A limit of smooth quartics: K3 surfaces.
+\end{column}
+\begin{column}{0.34\textwidth}\centering
+\begin{tikzpicture}[scale=0.55,line join=round]
+\foreach \i in {0,...,4} \coordinate (p\i) at ({90+72*\i}:1.3);
+\draw[thick] (p0)--(p1)--(p2)--(p3)--(p4)--cycle;
+\draw (p0)--(p2)--(p4)--(p1)--(p3)--cycle;
+\foreach \i in {0,...,4} \fill (p\i) circle (1.6pt);
+\end{tikzpicture}
+\par\smallskip
+\textbf{\(5\)-cell}\\ (a \(3\)-sphere).\\ Five \(\Pj^3\)'s in \(\Pj^4\):\\ \(x_0x_1x_2x_3x_4=0\).\\ A limit of smooth quintic threefolds.
+\end{column}
+\end{columns}
+\par\smallskip
+\textbf{The rule.} One coordinate for each vertex. One equation for each set of vertices that is not a face: the product of its coordinates.
+\par
+\textbf{Why \(\mathcal M\) is harder.} Above there is one equation, and \(xyzw+t\,q\), with \(q\) a general quartic, is a smoothing. For \(\mathcal M\) there are sixteen equations, to be deformed together.
+\end{frame}
+
+\begin{frame}{The proof in four steps}
+\begin{center}
+\begin{tikzpicture}[>=Stealth,box/.style={draw,rounded corners=2pt,align=center,inner sep=4pt,font=\small}]
+\node[box] (a) at (0,0) {\(\SR(\mathcal M)\)\\ sixteen cubics};
+\node[box] (b) at (3.6,0) {formal family\\ over \(\C[[t]]\)};
+\node[box] (c) at (7.2,0) {its generic fibre\\ is smooth};
+\node[box] (d) at (10.8,0) {family over\\ a curve \(C\)};
+\draw[->] (a)--node[above]{\small 1}(b);
+\draw[->] (b)--node[above]{\small 2}(c);
+\draw[->] (c)--node[above]{\small 3}(d);
+\end{tikzpicture}
+\end{center}
+\begin{enumerate}
+\setlength{\itemsep}{4pt}
+\item \textbf{A formal family} (Part 4). \(\mathcal M\) has a symmetry group \(G\simeq S_3\). A first-order deformation that respects \(G\) extends to all orders in \(t\).
+\item \textbf{Its generic fibre is smooth} (Part 5). By contradiction. A singular point would come down to a point of \(\SR(\mathcal M)\), in some face of \(\mathcal M\). Today: one face, the triangle \(beh\).
+\item \textbf{Algebraization} (Part 6). The power series in \(t\) are replaced by a family over a curve.
+\item \textbf{The smooth fibres are Calabi--Yau} (Part 3). This holds for every triangulated \(3\)-sphere.
+\end{enumerate}
+\textbf{Before the proof.} Part 2: what is \(\mathcal M\)? Part 3 also: the Calabi--Yau threefolds in \(\Pj^7\) that are known. Part 7: conclusion.
+\end{frame}
+
+\partslide{2}{What is \(\mathcal M\)?}{Pictures of \(\mathcal M\), to get used to it. They are not needed for the proof.}
+
+\begin{frame}{Spheres made of simplices}
+\begin{columns}[t]
+\begin{column}{0.3\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.9]
+\foreach \i in {0,...,5} \coordinate (p\i) at ({90+60*\i}:1.3);
+\draw (p0)--(p1)--(p2)--(p3)--(p4)--(p5)--cycle;
+\foreach \i in {0,...,5} \fill (p\i) circle (1.6pt);
+\end{tikzpicture}
+\par\medskip
+\textbf{A circle.}\\ 6 vertices, 6 edges.
+\end{column}
+\begin{column}{0.3\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.9,line join=round]
+\coordinate (t) at (0,1.5); \coordinate (u) at (0,-1.5);
+\coordinate (w) at (-1.4,-0.1); \coordinate (x) at (-0.3,-0.45);
+\coordinate (y) at (1.4,0.1); \coordinate (z) at (0.3,0.45);
+\draw[dashed] (w)--(z)--(y) (t)--(z)--(u);
+\draw (w)--(x)--(y) (t)--(w)--(u) (t)--(x)--(u) (t)--(y)--(u);
+\foreach \p in {t,u,w,x,y,z} \fill (\p) circle (1.6pt);
+\end{tikzpicture}
+\par\medskip
+\textbf{A \(2\)-sphere.}\\ 6 vertices, 12 edges, 8 triangles.
+\end{column}
+\begin{column}{0.36\textwidth}
+\centering
+\vspace{2mm}
+{\Large \(\mathcal M\)}
+\par\vspace{2mm}
+\textbf{A \(3\)-sphere.}\\ 8 vertices, 28 edges, 40 triangles, 20 tetrahedra.
+\end{column}
+\end{columns}
+\par\bigskip
+In this talk we discuss \(\mathcal M\), a specific triangulation of the \(3\)-sphere with \(8\) vertices, described by Grünbaum and Sreedharan in 1967 \cite{GS}.
+\src{\textcolor{red}{I did not confirm the incidence relations in any picture of this talk.}}
+\end{frame}
+
+\begin{frame}{The link of a vertex}
+The \emph{link} (or vertex figure) of a vertex: what is at incidence distance \(1\) from it.
+\begin{columns}[c]
+\begin{column}{0.48\textwidth}\centering
+\begin{tikzpicture}[scale=0.78,line join=round]
+\coordinate (t) at (0,1.6); \coordinate (u) at (0,-1.6);
+\coordinate (w) at (-1.5,-0.1); \coordinate (x) at (-0.35,-0.5);
+\coordinate (y) at (1.5,0.1); \coordinate (z) at (0.35,0.5);
+\draw[dashed] (t)--(z)--(u);
+\draw (t)--(w)--(u) (t)--(x)--(u) (t)--(y)--(u);
+\draw[very thick,dashed] (w)--(z)--(y);
+\draw[very thick] (w)--(x)--(y);
+\foreach \p in {u,w,x,y,z} \fill (\p) circle (1.6pt);
+\fill (t) circle (2.4pt) node[above]{\(p\)};
+\node[below] at (u) {\(q\)};
+\begin{scope}[xshift=3.3cm]
+\draw[very thick] (-0.7,-0.7) rectangle (0.7,0.7);
+\foreach \a/\b in {-0.7/-0.7,0.7/-0.7,0.7/0.7,-0.7/0.7} \fill (\a,\b) circle (1.6pt);
+\end{scope}
+\draw[->] (1.8,0)--(2.3,0);
+\end{tikzpicture}
+\par\smallskip
+\textbf{Octahedron, from \(p\).} A square: a circle with \(4\) vertices. The vertex \(q\) is at distance \(2\) and is not in it.
+\end{column}
+\begin{column}{0.5\textwidth}\centering
+\begin{tikzpicture}[scale=0.45,line join=round]
+\coordinate (g) at (0,3.3);
+\coordinate (f) at (-3.7,-2.3);
+\coordinate (h) at (3.7,-2.3);
+\coordinate (c) at (0,1.3);
+\coordinate (e) at (-1.3,-1.2);
+\coordinate (d) at (0.9,-0.9);
+\coordinate (a) at (-0.13,-0.27);
+\draw (f)--(g)--(h)--cycle;
+\draw (c)--(f) (c)--(g) (c)--(h) (c)--(e) (c)--(d) (c)--(a);
+\draw (e)--(f) (d)--(h) (d)--(e) (a)--(d) (a)--(e) (e)--(h);
+\foreach \p/\pos in {g/above,f/below left,h/below right,c/above right,e/below left,d/right,a/below}
+  \fill (\p) circle (1.5pt) node[\pos]{\(\p\)};
+\end{tikzpicture}
+\par\smallskip
+\textbf{\(\mathcal M\), from \(b\).} A \(2\)-sphere with \(7\) vertices, \(15\) edges, \(10\) triangles, drawn flat. Every vertex is at distance \(1\) from \(b\), so all seven are in it.
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{The link of \(b\): what it shows and what it misses}
+\begin{columns}[c]
+\begin{column}{0.5\textwidth}\centering
+\begin{tikzpicture}[scale=0.8,line join=round]
+\coordinate (g) at (0,3.3);
+\coordinate (f) at (-3.7,-2.3);
+\coordinate (h) at (3.7,-2.3);
+\coordinate (c) at (0,1.3);
+\coordinate (e) at (-1.3,-1.2);
+\coordinate (d) at (0.9,-0.9);
+\coordinate (a) at (-0.13,-0.27);
+\draw (f)--(g)--(h)--cycle;
+\draw (c)--(f) (c)--(g) (c)--(h) (c)--(e) (c)--(d) (c)--(a);
+\draw (e)--(f) (d)--(h) (d)--(e) (a)--(d) (a)--(e) (e)--(h);
+\foreach \p/\pos in {g/above,f/below left,h/below right,c/above right,e/below left,d/right,a/below}
+  \fill (\p) circle (1.8pt) node[\pos]{\(\p\)};
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{What it shows.} An edge \(xy\) of the picture is the triangle \(bxy\) of \(\mathcal M\). A triangle \(xyz\) of the picture is the tetrahedron \(bxyz\) of \(\mathcal M\).
+\par\medskip
+\textbf{What it misses.} Everything that does not touch \(b\):
+\begin{itemize}
+\setlength{\itemsep}{4pt}
+\item \(10\) of the \(20\) tetrahedra:\\ \(acdf,\ acef,\ adeg,\ adfg,\ aefh,\)\\ \(aegh,\ afgh,\ cdfg,\ cdgh,\ degh\);
+\item \(6\) of the \(28\) edges:\\ \(af,\ ag,\ ah,\ df,\ dg,\ eg\);
+\item \(15\) of the \(40\) triangles.
+\end{itemize}
+\par\medskip
+The picture is the surface of a ball. The missing tetrahedra fill the inside.
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Provisional: the six missing edges, drawn}
+\begin{columns}[c]
+\begin{column}{0.5\textwidth}\centering
+\begin{tikzpicture}[scale=0.8,line join=round]
+\coordinate (g) at (0,3.3);
+\coordinate (f) at (-3.7,-2.3);
+\coordinate (h) at (3.7,-2.3);
+\coordinate (c) at (0,1.3);
+\coordinate (e) at (-1.3,-1.2);
+\coordinate (d) at (0.9,-0.9);
+\coordinate (a) at (-0.13,-0.27);
+\draw[red,dashed,thick] (a)--(f) (a) to[bend left=28] (g) (a)--(h) (d)--(f) (d)--(g) (e)--(g);
+\draw (f)--(g)--(h)--cycle;
+\draw (c)--(f) (c)--(g) (c)--(h) (c)--(e) (c)--(d) (c)--(a);
+\draw (e)--(f) (d)--(h) (d)--(e) (a)--(d) (a)--(e) (e)--(h);
+\foreach \p/\pos in {g/above,f/below left,h/below right,c/above right,e/below left,d/right,a/below}
+  \fill (\p) circle (1.8pt) node[\pos]{\(\p\)};
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Dashed.} The \(6\) edges not touching \(b\):\\ \(af,\ ag,\ ah,\ df,\ dg,\ eg\).
+\par\medskip
+They are inside the ball. Drawn flat, they cross the other edges.
+\par\medskip
+Now every pair of the \(7\) points is joined: \(15+6=21\).
+\par\medskip
+The \(10\) missing tetrahedra are made of these lines. For example, \(afgh\) is the big triangle \(fgh\) with \(a\) inside: it covers the whole picture.
+\par\medskip
+The lines do not show which \(10\) of the \(35\) quadruples are the tetrahedra. For that: the 3D model.
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Why the link of \(b\) is a \(2\)-sphere}
+A sphere drawn flat: remove one face, flatten the rest. The removed face becomes the outside region. It is like stereographic projection from a point inside that face.
+\par\medskip
+\begin{columns}[c]
+\begin{column}{0.3\textwidth}\centering
+\begin{tikzpicture}[scale=0.42,line join=round]
+\coordinate (A) at (0,3.3); \coordinate (B) at (-3.7,-2.3); \coordinate (C) at (3.7,-2.3); \coordinate (O) at (0,-0.4);
+\draw (A)--(B)--(C)--cycle (O)--(A) (O)--(B) (O)--(C);
+\foreach \p in {A,B,C,O} \fill (\p) circle (2pt);
+\end{tikzpicture}
+\par\smallskip
+\textbf{Tetrahedron.}\\ 3 triangles drawn\\ + the outside \(=4\).
+\end{column}
+\begin{column}{0.3\textwidth}\centering
+\begin{tikzpicture}[scale=0.42,line join=round]
+\coordinate (A) at (0,3.3); \coordinate (B) at (-3.7,-2.3); \coordinate (C) at (3.7,-2.3);
+\coordinate (a) at (0,-1.5); \coordinate (b) at (1.2,0.5); \coordinate (c) at (-1.2,0.5);
+\draw (A)--(B)--(C)--cycle (a)--(b)--(c)--cycle;
+\draw (A)--(b) (A)--(c) (B)--(c) (B)--(a) (C)--(a) (C)--(b);
+\foreach \p in {A,B,C,a,b,c} \fill (\p) circle (2pt);
+\end{tikzpicture}
+\par\smallskip
+\textbf{Octahedron.}\\ 7 triangles drawn\\ + the outside \(=8\).
+\end{column}
+\begin{column}{0.36\textwidth}\centering
+\begin{tikzpicture}[scale=0.42,line join=round]
+\coordinate (g) at (0,3.3);
+\coordinate (f) at (-3.7,-2.3);
+\coordinate (h) at (3.7,-2.3);
+\coordinate (c) at (0,1.3);
+\coordinate (e) at (-1.3,-1.2);
+\coordinate (d) at (0.9,-0.9);
+\coordinate (a) at (-0.13,-0.27);
+\draw (f)--(g)--(h)--cycle;
+\draw (c)--(f) (c)--(g) (c)--(h) (c)--(e) (c)--(d) (c)--(a);
+\draw (e)--(f) (d)--(h) (d)--(e) (a)--(d) (a)--(e) (e)--(h);
+\foreach \p in {g,f,h,c,e,d,a} \fill (\p) circle (2pt);
+\end{tikzpicture}
+\par\smallskip
+\textbf{Link of \(b\).}\\ 9 triangles drawn\\ + the outside \(fgh\) \(=10\).
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{\(\mathcal M\) is a non-polytopal sphere}
+\textbf{Definition.} A simplicial \(d\)-sphere is \emph{polytopal} if it is isomorphic to the boundary of a convex simplicial \((d+1)\)-polytope.
+\par\smallskip
+To prove non-polytopality, every possible convex realization must be ruled out. A nonconvex drawing proves nothing.
+\par\smallskip
+\textbf{Where it starts.} Every simplicial \(2\)-sphere is polytopal (Steinitz). Non-polytopal spheres start in dimension \(3\).
+\par\smallskip
+\textbf{Our sphere.} Grünbaum--Sreedharan \cite{GS}, Theorem 2: \(\mathcal M\), with \(8\) vertices and \(20\) tetrahedra, is not the boundary of any \(4\)-polytope.
+\par\medskip
+\textbf{Among \(8\)-vertex \(3\)-spheres.} There are \(39\) types; \(37\) are polytopal and two are not: \(\mathcal M\) and Barnette's sphere.
+\par\medskip
+\textbf{For this talk.} Non-polytopality is not, by itself, an obstruction to smoothing \(\SR(\mathcal M)\).
+\src{The count of \(8\)-vertex spheres is Barnette (1973), cited from my notes, not re-read.}
+\end{frame}
+
+\begin{frame}{Basic information about \(\mathcal M\)}
+\textbf{What it is.} A triangulation of the \(3\)-sphere with \(8\) vertices \(a,\dots,h\), which is not the boundary of a \(4\)-polytope \cite{GS}.
+\par\medskip
+\textbf{Counts.} \(8\) vertices, \(28\) edges, \(40\) triangles, \(20\) tetrahedra. Every two vertices are joined by an edge.
+\par\medskip
+\textbf{The \(16\) triples that are not triangles} (the sixteen cubics):
+\[
+abf,\ abg,\ abh,\ acg,\ ach,\ adh,\ bdf,\ bdg,\ beg,\ cde,\ ceg,\ ceh,\ cfh,\ def,\ dfh,\ efg.
+\]
+\textbf{Symmetry.} \(G\simeq S_3\), generated by \((b\,h)(c\,g)(d\,f)\) and \((a\,c)(b\,e)(d\,f)\). Orbits of vertices: \(\{a,c,g\}\), \(\{b,e,h\}\), \(\{d,f\}\).
+\end{frame}
+
+\partslide{3}{Why Calabi--Yau, and what is known in \(\Pj^7\)}{A smoothing of the scheme of a triangulated \(3\)-sphere is a Calabi--Yau threefold. Then: the known Calabi--Yau threefolds in \(\Pj^7\), and the spheres with \(8\) vertices.}
+
+\begin{frame}{Why the glued space looks like a Calabi--Yau threefold}
+\begin{columns}[c]
+\begin{column}{0.64\textwidth}
+\textbf{The space.} \(X\): one \(\Pj^3\) for each tetrahedron of a triangulated \(3\)-sphere, glued as the tetrahedra are.
+\par\medskip
+\textbf{Canonical class.} On \(\Pj^3\), \(K=-4\) planes. Each \(\Pj^3\) is glued to its neighbours along exactly \(4\) planes: the \(4\) faces of its tetrahedron. The two cancel.
+\par\medskip
+\textbf{One dimension down.} One \(\Pj^2\) for each triangle of a \(2\)-sphere. On \(\Pj^2\), \(K=-3\) lines, and a triangle has \(3\) sides. The tetrahedron gives \(xyzw=0\), a limit of K3 surfaces.
+\par\medskip
+\textbf{This is not a proof.} \(X\) is not smooth. The proof is on the next two slides: it looks at a smooth fibre \(Y\) near \(X\).
+\end{column}
+\begin{column}{0.34\textwidth}\centering
+\begin{tikzpicture}[scale=1.15,line join=round]
+\coordinate (A) at (0,1.3); \coordinate (B) at (-1.3,-0.6); \coordinate (C) at (0.3,-1.0); \coordinate (D) at (1.3,-0.3);
+\fill[gray!30] (A)--(B)--(C)--cycle;
+\fill[gray!15] (A)--(C)--(D)--cycle;
+\draw[dashed] (B)--(D);
+\draw[thick] (A)--(B)--(C)--(D)--cycle (A)--(C);
+\foreach \p in {A,B,C,D} \fill (\p) circle (1.6pt);
+\end{tikzpicture}
+\par\smallskip
+{\small One tetrahedron: a \(\Pj^3\). Its \(4\) faces: the \(4\) planes where it meets its neighbours.}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Two facts about the glued space}
+\textbf{Notation.} A triangulated \(3\)-sphere with \(n\) vertices, \(e\) edges, \(T\) tetrahedra. Its scheme \(X\subset\Pj^{n-1}\).
+\par
+\textbf{Fact 1: cohomology.} \(H^i(X,\cO_X)\) is the cohomology of the sphere:
+\[
+\boxed{H^0=\C,\qquad H^1=0,\qquad H^2=0,\qquad H^3=\C.}
+\]
+\textbf{Fact 2: Hilbert polynomial.} There is no \(m^2\) term and no constant term:
+\[
+\boxed{\chi(\cO_X(m))=\frac T6\,m^3+\Bigl(e-\frac{7T}6\Bigr)m.}
+\]
+\textbf{Why Fact 2.} Count the monomials of degree \(m\) by the face they live on:
+\[
+n+e\,(m-1)+2T\tbinom{m-1}2+T\tbinom{m-1}3 .
+\]
+A sphere has \(2T\) triangles, and \(n-e+2T-T=0\). Expand.
+\par
+\textbf{For \(\mathcal M\).} \(n=8\), \(e=28\), \(T=20\): \(\ \chi(\cO_X(m))=\tfrac{10}3m^3+\tfrac{14}3m\).
+\src{For \(\mathcal M\): v4, Appendix B. Fact 2 in general: computed for this talk. \textcolor{red}{Fact 1 in general is standard, but I did not check a source.}}
+\end{frame}
+
+\begin{frame}{Why a smooth fibre is Calabi--Yau}
+\(Y\): a smooth fibre, close to \(X\), of a flat family with special fibre \(X\). \(H\): a hyperplane.
+\begin{enumerate}
+\setlength{\itemsep}{0pt}
+\item \emph{Semicontinuity.} By Fact 1, \(H^1(\cO_Y)=H^2(\cO_Y)=0\) and \(Y\) is connected.
+\item \emph{Flatness.} \(Y\) has the Hilbert polynomial of \(X\). So \(\chi(\cO_Y)=0\), and \(h^3(\cO_Y)=1\).
+\item \emph{Serre duality.} \(h^0(K_Y)=h^3(\cO_Y)=1\): there is a nonzero section \(s\) of \(K_Y\).
+\item \emph{Riemann--Roch.} The \(m^2\) coefficient of \(\chi(\cO_Y(m))\) is \(-\tfrac14K_Y\cdot H^2\). By Fact 2 it is \(0\).
+\item \emph{No zeros.} If \(s\) had zeros, they would form a surface \(D\) with \(D\cdot H^2>0\). But \(D\cdot H^2=K_Y\cdot H^2=0\). So \(s\) has no zeros: \(K_Y\simeq\cO_Y\).
+\end{enumerate}
+\textbf{Result.} The \(m^3\) and \(m\) coefficients are \(\tfrac16H^3\) and \(\tfrac1{12}c_2\cdot H\). So
+\[\setlength{\fboxsep}{2pt}
+\boxed{K_Y\simeq\cO_Y,\qquad H^1(\cO_Y)=H^2(\cO_Y)=0,\qquad H^3=T,\qquad c_2\cdot H=12e-14T.}
+\]
+\textbf{Examples.} \(5\)-cell: \(5\) and \(50\), the quintic. \(16\)-cell: \(16\) and \(64\), four quadrics. \(\mathcal M\): \(20\) and \(56\).
+\src{For \(\mathcal M\): v4, Section 10. The formulas in \(e\), \(T\) and the two checks: computed for this talk.}
+\end{frame}
+
+\begin{frame}{Two ways to list Calabi--Yau threefolds in \(\Pj^7\)}
+\begin{center}
+\begin{tikzpicture}[>=Stealth,box/.style={draw,rounded corners=2pt,align=center,inner sep=5pt,font=\small}]
+\node[box] (s) at (0,0) {\(39\) triangulated \(3\)-spheres\\ with \(8\) vertices\\ \(14\) to \(20\) tetrahedra};
+\node[box] (f) at (9.6,0) {\(11\) families of smooth\\ Calabi--Yau threefolds in \(\Pj^7\)\\ degrees \(14\) to \(20\)};
+\draw[->] (s)--node[above]{\small smoothing} node[below]{\small which sphere goes where?} (f);
+\end{tikzpicture}
+\end{center}
+\textbf{From the right: bilinkage.} Coughlan, Gołębiowski, G.~Kapustka and M.~Kapustka \cite{CGKK} list eleven families, several of them built by bilinkage from simpler threefolds. Published.
+\par\medskip
+\textbf{From the left: spheres.} Each sphere with \(8\) vertices gives a glued space in \(\Pj^7\), of degree its number of tetrahedra. If it smooths, the result is a Calabi--Yau threefold in \(\Pj^7\) (last slide). A draft of Gołębiowski studies these smoothings. Unpublished.
+\par\medskip
+\textbf{Where \(\mathcal M\) is.} \(20\) tetrahedra, so degree \(20\): the degree of the last of the eleven families.
+\src{\textcolor{red}{Bilinkage is not explained in this talk. To decide: whether the unpublished draft is shown.}}
+\end{frame}
+
+\begin{frame}{The eleven Calabi--Yau threefolds in \(\Pj^7\) of \cite{CGKK}}
+{\centering\footnotesize
+\renewcommand{\arraystretch}{0.9}\setlength{\tabcolsep}{4pt}
+\begin{tabular}{ccccll}
+row & degree & \(h^{1,1}\) & \(h^{1,2}\) & description in their Table 1 & \(3\)-sphere with \(8\) vertices\\ \hline
+1 & \(14\) & \(2\) & \(86\) & divisor of bidegree \((2,4)\) in \(\Pj^1\times\Pj^3\) & ?\\
+2 & \(15\) & \(1\) & \(76\) & \(G(2,5)\,\cap\) cubic \(\cap\,\Pj^7\) & ?\\
+3 & \(16\) & \(1\) & \(65\) & four quadrics & \(16\)-cell\\
+4 & \(17\) & \(1\) & \(55\) & bilinked on \(Y_{2,2,2}\) to \(\Pj^3\) & ?\\
+5 & \(17\) & \(2\) & \(58\) & \(2\times2\) minors of a \(3\times3\) matrix, rows of degrees \(1,1,2\) & ?\\
+6 & \(17\) & \(2\) & \(54\) & rolling factors, codimension \(2\) in a cubic scroll & ?\\
+7 & \(18\) & \(1\) & \(46\) & bilinked on \(Y_{2,2,3}\) to \(F_1\) & ?\\
+8 & \(18\) & \(1\) & \(45\) & bilinked on \(Y_{2,2,3}\) to \(F_2\) & ?\\
+9 & \(19\) & \(2\) & \(37\) & bilinked on a special \(\mathrm{Pf}_{13}\) to \(F_1\) & ?\\
+10 & \(19\) & \(2\) & \(36\) & bilinked on a special \(\mathrm{Pf}_{13}\) to \(F_2\) & ?\\
+11 & \(20\) & \(2\) & \(34\) & \(3\times3\) minors of a \(4\times4\) matrix of linear forms & \(\mathcal M\)? (same degree)
+\end{tabular}\par}
+{\footnotesize\textbf{Notation.} \(Y_{a,b,c}\): complete intersection of those degrees. \(F_1\): a divisor of bidegree \((1,1)\) in \(\Pj^2\times\Pj^2\). \(F_2=\Pj^1\times\Pj^1\times\Pj^1\). \(\mathrm{Pf}_{13}\): codimension \(3\), degree \(13\), Pfaffians of a \(5\times5\) skew matrix with one row of quadrics.
+\par
+\textbf{Last column.} A sphere whose scheme is a limit of that family. Of the \(39\) spheres only the \(16\)-cell is placed. The authors conjecture that the list is complete.\par}
+\src{Table 1 and \S3 of \cite{CGKK}, \textcolor{red}{read in the arXiv HTML of v1, not in the PDF; ``degree \(13\)'' is my reading of \(\mathrm{Pf}_{13}\). ``?'': not computed.}}
+\end{frame}
+
+\begin{frame}{Is the list of eleven complete?}
+\small
+\textbf{The objects.} Smooth Calabi--Yau threefolds in \(\Pj^7\) whose coordinate ring is Gorenstein. Smoothings of spheres are of this kind.
+\par
+\textbf{Open.} \cite{CGKK} ask whether their eleven rows are all (Problem 3.1).
+\begin{itemize}
+\setlength{\itemsep}{1pt}
+\item \emph{Degrees \(14\) to \(17\).} They announce that the list is complete, with the proof in a paper in preparation. \textcolor{red}{I have not found that paper.}
+\item \emph{Shape of the equations.} \cite{SSY}: a smooth threefold of this kind has one of \(8\) Betti tables. The eleven rows realize all \(8\): rows 5 and 6 share one, as do rows 7 and 8, and rows 9 and 10. The shapes are classified; the families of a given shape are not.
+\item \emph{Degree \(19\).} \cite{QQ} construct two families, not identified with rows 9 and 10.
+\item \emph{Degree \(20\).} Nothing proved beyond row 11. \cite{QQ} also find threefolds with nodes that do not smooth.
+\end{itemize}
+\textbf{For the dictionary.} A sphere could smooth into a family that is not on the list; its equations would still have one of the \(8\) shapes.
+\src{From my reading notes of 6 November 2026. \textcolor{red}{Not re-read for this slide.}}
+\end{frame}
+
+\begin{frame}{The \(3\)-spheres with \(8\) vertices: \(14\) to \(16\) tetrahedra}
+{\centering\small
+\renewcommand{\arraystretch}{1.0}\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lcccc}
+spheres & tetrahedra & \(f\)-vector & Betti numbers & CGKK rows of that degree\\ \hline
+\textcolor{red}{1} & \textcolor{red}{\(14\)} & \textcolor{red}{\((8,23,30,14)\)} & \textcolor{red}{\((1,11,23,18,5)\)} & \textcolor{red}{1}\\
+2, 3 & \(14\) & \((8,22,28,14)\) & \((1,9,16,9,1)\) & 1\\
+4, 5, 6 & \(15\) & \((8,23,30,15)\) & \((1,9,16,9,1)\) & 2\\
+\textcolor{red}{7} & \textcolor{red}{\(15\)} & \textcolor{red}{\((8,24,32,15)\)} & \textcolor{red}{\((1,9,19,16,5)\)} & \textcolor{red}{2}\\
+13 & \(15\) & \((8,23,30,15)\) & \((1,6,10,6,1)\) & 2\\
+8, 9, 10, 14, 15 & \(16\) & \((8,24,32,16)\) & \((1,9,16,9,1)\) & 3\\
+16 & \(16\) & \((8,24,32,16)\) & \((1,7,12,7,1)\) & 3\\
+17 & \(16\) & \((8,24,32,16)\) & \((1,6,10,6,1)\) & 3\\
+34 (the \(16\)-cell) & \(16\) & \((8,24,32,16)\) & \((1,4,6,4,1)\) & 3\\
+\end{tabular}\par}\smallskip
+{\footnotesize \textbf{Spheres.} The numbers of the \(37\) polytopes in the list of \cite{GS}. \textbf{\(f\)-vector.} Vertices, edges, triangles, tetrahedra. \textbf{Betti numbers.} The ranks in the free resolution of the Stanley--Reisner ring: the second is the number of equations. \textbf{Degree \(16\).} The draft says that all eight smooth to the four quadrics, row 3; no proof there. \textcolor{red}{Red rows: the last Betti number is \(5\), but for a sphere it must be \(1\); the draft's data for these are wrong.}\par}
+\src{Appendix of Ł.~Gołębiowski, \emph{Some observations on simplicial polytopes via Gorenstein Calabi--Yau threefolds}, unpublished draft. \textcolor{red}{Copied, not recomputed.}}
+\end{frame}
+
+\begin{frame}{The \(3\)-spheres with \(8\) vertices: \(17\) to \(20\) tetrahedra}
+{\centering\small
+\renewcommand{\arraystretch}{1.0}\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lcccc}
+spheres & tetrahedra & \(f\)-vector & Betti numbers & CGKK rows of that degree\\ \hline
+11, 12 & \(17\) & \((8,25,34,17)\) & \((1,11,20,11,1)\) & 4, 5, 6\\
+18, 19, 20, 21 & \(17\) & \((8,25,34,17)\) & \((1,9,16,9,1)\) & 4, 5, 6\\
+22 & \(17\) & \((8,25,34,17)\) & \((1,8,14,8,1)\) & 4, 5, 6\\
+26 & \(17\) & \((8,25,34,17)\) & \((1,7,12,7,1)\) & 4, 5, 6\\
+23, 24, 25 & \(18\) & \((8,26,36,18)\) & \((1,11,20,11,1)\) & 7, 8\\
+27, 28 & \(18\) & \((8,26,36,18)\) & \((1,10,18,10,1)\) & 7, 8\\
+\textcolor{red}{29} & \textcolor{red}{\(18\)} & \textcolor{red}{\((8,?,?,19)\)} & \textcolor{red}{\((1,13,24,20,5)\)} & \textcolor{red}{7, 8}\\
+30, 31, 32, 33 & \(19\) & \((8,27,38,19)\) & \((1,13,24,13,1)\) & 9, 10\\
+35, 36, 37, \(\mathcal M\) & \(20\) & \((8,28,40,20)\) & \((1,16,30,16,1)\) & 11\\
+\end{tabular}\par}\smallskip
+{\footnotesize \textbf{Degree \(20\).} \(\mathcal M\) and the three polytopes \(35,36,37\) have the same numbers: sixteen cubics. \textbf{Missing.} The draft has \(38\) of the \(39\) spheres; Barnette's sphere is not in it. \textbf{Not known from the draft.} Which sphere goes to which row when a degree has several rows, and whether it smooths at all. \textcolor{red}{Red row: as on the previous slide.}\par}
+\src{Appendix of Ł.~Gołębiowski, \emph{Some observations on simplicial polytopes via Gorenstein Calabi--Yau threefolds}, unpublished draft. \textcolor{red}{Copied, not recomputed.}}
+\end{frame}
+
+\partslide{4}{A formal family, from symmetry}{We deform the sixteen cubics to first order in \(t\), and then to all orders. The symmetry group \(G\) removes the obstruction.}
+
+\begin{frame}{A first-order deformation}
+\textbf{What it is.} Replace each cubic \(m_i\) by \(m_i+tH_i\), with \(t^2=0\), where \(H_1,\dots,H_{16}\) are sixteen new cubics.
+\par
+\textbf{Ours.} The \(H_i\) are a sum of ten simple maps and their images under \(G\). A simple map multiplies a few of the \(m_i\) by a fraction of monomials. For example, one of them sends
+\[
+abf\ \longmapsto\ \frac{ce}{bf}\cdot abf=ace,
+\]
+so \(ace\) is one of the terms of \(H_1\).
+\par
+\textbf{Two properties.}
+\begin{enumerate}
+\setlength{\itemsep}{2pt}
+\item \emph{It is flat}: a true first-order deformation. This is a check by dividing monomials.
+\item \emph{It respects \(G\)}: the elements of \(G\) permute the sixteen \(m_i+tH_i\).
+\end{enumerate}
+\textbf{One of them in full}, for later: \(H_7=10\,acd+10\,cfg\), so \(bdf\) becomes \(bdf+t\,(10\,acd+10\,cfg)\).
+\src{v4, Section 2.3: the table of the ten maps. The \(H_i\) were found by computer. \textcolor{red}{\(H_7\) is copied from v4, not re-derived.}}
+\end{frame}
+
+\begin{frame}{The \(G\)-invariance argument}
+\textbf{The problem.} We have \(m_i+tH_i\) with \(t^2=0\). We want \(t^2\) terms, then \(t^3\) terms, and so on.
+\par
+\textbf{The obstruction.} Each step, from order \(n\) to order \(n+1\), produces an element of a vector space \(T^2\): the \emph{obstruction}. The step is possible exactly when it is zero.
+\par\smallskip
+\textbf{The argument.}
+\begin{enumerate}
+\setlength{\itemsep}{2pt}
+\item Our deformation up to order \(n\) respects \(G\). So its obstruction is fixed by \(G\).
+\item A computation: the only element of \(T^2\) fixed by \(G\) is zero.
+\item So the step is possible. Averaging over \(G\), the new deformation respects \(G\) again. Repeat.
+\end{enumerate}
+\textbf{Output.} A flat family \(\mathcal X\to\operatorname{Spec}\C[[t]]\) that respects \(G\), with special fibre \(\SR(\mathcal M)\):
+\[
+\boxed{F_i=m_i+tH_i+t^2K_i+\cdots\qquad(i=1,\dots,16).}
+\]
+\src{v4, Theorem 2.1 and Appendix A. \(T^2\): second cotangent cohomology, degree \(0\); computed with \cite{AC}, Proposition 11 and Theorem 13. \textcolor{red}{Not re-checked for this slide.}}
+\end{frame}
+
+\begin{frame}{The base \(\operatorname{Spec}\C[[t]]\) has two points}
+\begin{columns}[c]
+\begin{column}{0.5\textwidth}\centering
+\begin{tikzpicture}[scale=0.9]
+% base
+\draw[thick] (-2.6,-2.2)--(2.6,-2.2);
+\fill (-1.5,-2.2) circle (2.2pt) node[below=3pt]{\((t)\)};
+\draw[fill=gray!40] (1.5,-2.2) circle (4.5pt) node[below=5pt]{\((0)\)};
+% special fibre: two lines
+\draw[thick] (-2.3,-0.9)--(-0.7,0.9) (-2.3,0.9)--(-0.7,-0.9);
+\fill (-1.5,0) circle (1.6pt);
+\node at (-1.5,1.35) {\small special fibre};
+% generic fibre: hyperbola
+\draw[thick,domain=0.2:1,samples=40,smooth] plot ({1.5+\x},{0.2/\x});
+\draw[thick,domain=-1:-0.2,samples=40,smooth] plot ({1.5+\x},{0.2/\x});
+\node at (1.5,1.35) {\small generic fibre};
+\draw[->] (-1.5,-1.1)--(-1.5,-1.9);
+\draw[->] (1.5,-1.1)--(1.5,-1.9);
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{The closed point \((t)\).} Here \(t=0\). The fibre is \(\SR(\mathcal M)\): the special fibre.
+\par\medskip
+\textbf{The generic point \((0)\).} Here \(t\) is invertible. The fibre is the \emph{generic fibre}: a scheme over the field \(\C((t))\).
+\par\medskip
+\textbf{Formal.} The \(F_i\) are power series in \(t\). They need not converge, so we cannot give \(t\) a numerical value. Part 6 repairs this.
+\par\medskip
+\textbf{Next.} Part 5: the generic fibre is smooth.
+\end{column}
+\end{columns}
+\end{frame}
+
+\partslide{5}{The generic fibre is smooth}{By contradiction. A singular point of the generic fibre would specialize to a point of \(\SR(\mathcal M)\). We rule this out on one face: the triangle \(beh\).}
+
+\begin{frame}{A dummy example: how the contradiction works}
+Take the family over \(\C[[t]]\) given by one equation:
+\[
+\boxed{f(x,y,t)=xy-t^2.}
+\]
+\textbf{Special fibre} (\(t=0\)): \(xy=0\), two lines, singular at the origin.
+\par\medskip
+\textbf{Generic fibre} (\(t\) invertible): suppose \(P\) is a singular point. On a fixed fibre \(t\) is a constant, so we differentiate only in \(x\) and \(y\):
+\[
+f_x=y=0,\qquad f_y=x=0.
+\]
+But \(P\) also satisfies \(f=0\). Substituting \(x=y=0\) gives
+\[
+\boxed{0=t^2,}
+\]
+which is impossible when \(t\) is invertible. So the generic fibre is smooth.
+\par\medskip
+\textbf{For the triangle:} the same three steps, with \(df+t^2p(u,v)+\cdots\) in place of \(xy-t^2\).
+\end{frame}
+
+\begin{frame}{A singular point specializes to the special fibre}
+\textbf{What we are doing.} This is where the proof that the generic fibre is smooth starts. We argue by contradiction: assume there is a singular point \(P\) on the generic fibre, and specialize it to the special fibre.
+\par\bigskip
+\textbf{Input.} The family \(\mathcal X\to\operatorname{Spec}\C[[t]]\), and a \emph{hypothetical} singular point \(P\) of its generic fibre.
+\par\bigskip
+\textbf{Output.} If \(P\) existed: a singular point \(Q\) of the special fibre \(\SR(\mathcal M)\) with \(P\leadsto Q\). So \(Q\) lies on a triangle, an edge or a vertex of \(\mathcal M\).
+\par\bigskip
+\textbf{Reminder.} \(P\leadsto Q\) means \(Q\in\overline{\{P\}}\): the point \(Q\) is a specialization of \(P\).
+\src{Stacks Project, Definition 5.19.1, Tag 0061.}
+\end{frame}
+
+\begin{frame}{The manoeuvre}
+\textbf{What we are doing.} We describe the same family near \(Q\) with fewer equations and fewer coordinates.
+\par\bigskip
+\textbf{Input.} The family near \(Q\): sixteen equations \(F_1,\dots,F_{16}\) in seven affine coordinates.
+\par\bigskip
+\textbf{Two operations.}
+\begin{enumerate}
+\setlength{\itemsep}{8pt}
+\item \emph{Discard.} If some of the sixteen cubics already generate the special fibre near \(Q\), then their deformed versions generate the family near \(Q\). This uses flatness and Nakayama.
+\item \emph{Solve.} Some of the remaining equations can be solved for some of the coordinates, by the implicit function theorem. Those coordinates disappear.
+\end{enumerate}
+\par\bigskip
+\textbf{Output.} A few equations in a few coordinates, near \(Q\).
+\end{frame}
+
+\begin{frame}{A particular case: \(Q\) on the triangle \(beh\)}
+\textbf{The ambient space.} \(\Pj^7\), with eight homogeneous coordinates
+\[
+[a:b:c:d:e:f:g:h].
+\]
+\textbf{The special fibre.} \(\SR(\mathcal M)\): the points where the sixteen monomials vanish.
+\par\medskip
+\textbf{The hypothesis.} \(P\) is a singular point of the generic fibre. We want a contradiction.
+\par\medskip
+\textbf{Its specialization.} \(P\leadsto Q\), and \(Q\) is a singular point of the special fibre. It can land on any triangle, edge or vertex of \(\mathcal M\).
+\par\medskip
+\textbf{Now consider the following particular case.} \(Q\) lands on the triangle \(beh\): the coordinates of \(Q\) in the slots \(b,e,h\) are nonzero, and the other five are zero:
+\[
+\boxed{Q=[\,0:b:0:0:e:0:0:h\,],\qquad b,e,h\ne0.}
+\]
+The nonzero slots \(\{b,e,h\}\) are a triangle of \(\mathcal M\). The other cases come later.
+\end{frame}
+
+\begin{frame}{The triangle \(beh\) in the link of \(b\)}
+\begin{columns}[c]
+\begin{column}{0.5\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.8,line join=round]
+\coordinate (g) at (0,3.3);
+\coordinate (f) at (-3.7,-2.3);
+\coordinate (h) at (3.7,-2.3);
+\coordinate (c) at (0,1.3);
+\coordinate (e) at (-1.3,-1.2);
+\coordinate (d) at (0.9,-0.9);
+\coordinate (a) at (-0.13,-0.27);
+\fill[gray!35] (e)--(f)--(h)--cycle;
+\fill[gray!35] (d)--(e)--(h)--cycle;
+\draw (f)--(g)--(h)--cycle;
+\draw (c)--(f) (c)--(g) (c)--(h) (c)--(e) (c)--(d) (c)--(a);
+\draw (e)--(f) (d)--(h) (d)--(e) (a)--(d) (a)--(e);
+\draw[very thick] (e)--(h);
+\foreach \p/\pos in {g/above,f/below left,h/below right,c/above right,e/below left,d/right,a/below}
+  \fill (\p) circle (1.5pt) node[\pos]{\(\p\)};
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Remember the link of \(b\)} (Part 2): what we see from the vertex \(b\).
+\par\medskip
+\textbf{Where our triangle is.} The thick edge \(eh\) is the triangle \(beh\). The two grey triangles \(deh\) and \(efh\) are the two tetrahedra \(bdeh\) and \(befh\) that contain it.
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{The triangle \(beh\) inside \(\mathcal M\)}
+\begin{columns}[c]
+\begin{column}{0.48\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.95,line join=round]
+\coordinate (b) at (-0.6,-1.7);
+\coordinate (h) at (-0.2,1.7);
+\coordinate (e) at (1.1,0.2);
+\coordinate (d) at (-2.6,0.1);
+\coordinate (f) at (2.8,-0.1);
+\fill[gray!35] (b)--(e)--(h)--cycle;
+\draw (d)--(b) (d)--(h) (d)--(e);
+\draw (f)--(b) (f)--(h) (f)--(e);
+\draw[very thick] (b)--(e)--(h)--cycle;
+\fill (-0.05,-0.55) circle (1.6pt) node[right]{\(Q\)};
+\node[below] at (b) {\(b\)};
+\node[above] at (h) {\(h\)};
+\node[below right] at (e) {\(e\)};
+\node[left] at (d) {\(d\)};
+\node[right] at (f) {\(f\)};
+\node at (-1.9,-1.4) {\(bdeh\)};
+\node at (1.9,-1.4) {\(befh\)};
+\end{tikzpicture}
+\par\smallskip
+\(Q\) lands in \(beh\)\\[3pt]
+\(Q=[\,0:b:0:0:e:0:0:h\,]\)
+\end{column}
+\begin{column}{0.5\textwidth}
+\textbf{In the sphere \(\mathcal M\).} The triangle \(beh\) (grey) is a face of exactly two tetrahedra: \(bdeh\) and \(befh\).
+\par\medskip
+\textbf{In \(\Pj^7\).}
+\begin{itemize}
+\setlength{\itemsep}{6pt}
+\item each tetrahedron is a \(\Pj^3\);
+\item the triangle is the \(\Pj^2\) where they meet.
+\end{itemize}
+\par\medskip
+\textbf{The rule.} A point is drawn in the interior of the face whose vertices are its nonzero slots.
+\par\medskip
+So a point is in the interior of the edge \(eh\) if \(e,h\ne0\) and all its other slots are zero.
+\end{column}
+\end{columns}
+\src{\textcolor{red}{The explanation of the rule is left for later.}}
+\end{frame}
+
+\begin{frame}{The open set \(b,e,h\ne0\)}
+\begin{columns}[c]
+\begin{column}{0.64\textwidth}
+\textbf{Remember.} A point of \(\SR(\mathcal M)\) is in the interior of the edge \(eh\) if \(e,h\ne0\) and all its other coordinates are zero.
+\par\smallskip
+\textbf{Now let \(b\) be nonzero too.}
+\begin{itemize}
+\setlength{\itemsep}{2pt}
+\item \(b,e,h\ne0\) and all other coordinates zero: the point is in the interior of the triangle \(beh\).
+\item \(b,e,h\ne0\) and something else nonzero: the point is in the interior of one of the two tetrahedra that have \(beh\) on their boundary: \(bdeh\) if \(d\ne0\), \(befh\) if \(f\ne0\).
+\end{itemize}
+\textbf{Nothing else of \(\SR(\mathcal M)\) is in this open set.} The nonzero coordinates of a point form a face, and the only faces containing \(b,e,h\) are \(beh\), \(bdeh\), \(befh\).
+\end{column}
+\begin{column}{0.34\textwidth}\centering
+\begin{tikzpicture}[scale=0.72,line join=round]
+\coordinate (b) at (-0.6,-1.7);
+\coordinate (h) at (-0.2,1.7);
+\coordinate (e) at (1.1,0.2);
+\coordinate (d) at (-2.6,0.1);
+\coordinate (f) at (2.8,-0.1);
+\fill[gray!20] (d)--(b)--(e)--(h)--cycle;
+\fill[gray!20] (f)--(b)--(e)--(h)--cycle;
+\fill[gray!55] (b)--(e)--(h)--cycle;
+\draw[dashed] (d)--(b) (d)--(h) (d)--(e) (f)--(b) (f)--(h) (f)--(e) (b)--(e)--(h)--cycle;
+\foreach \p/\pos in {b/below,h/above,e/below right,d/left,f/right}
+  \draw[fill=white] (\p) circle (1.8pt) node[\pos]{\(\p\)};
+\fill (-0.05,-0.55) circle (1.6pt) node[right]{\(Q\)};
+\end{tikzpicture}
+\par\smallskip
+Every point inside the triangle is in the open set, not only \(Q\).
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{The equations on the open set}
+\textbf{We now work locally.} We replace \(\Pj^7\) by an open set that contains \(Q\): the points with \(b,e,h\ne0\). Being singular at \(Q\) is a local question.
+\par\medskip
+\textbf{Claim.} On this open set, the sixteen monomials have the same zeros as four equations:
+\[
+\boxed{a=0,\qquad c=0,\qquad g=0,\qquad df=0.}
+\]
+\textbf{Step 1: four monomials give the four equations.} Since \(b,e,h\ne0\), we can divide by them:
+\[
+abh=0\Rightarrow a=0,\qquad ceh=0\Rightarrow c=0,\qquad beg=0\Rightarrow g=0,\qquad bdf=0\Rightarrow df=0.
+\]
+\textbf{Step 2: the other twelve add nothing.} Each contains \(a\), or \(c\), or \(g\), or both \(d\) and \(f\), so it vanishes once \(a=c=g=0\) and \(df=0\):
+\begin{center}
+\begin{tabular}{ll@{\qquad}ll}
+contains \(a\):&\(abf,\ abg,\ acg,\ ach,\ adh\)&contains \(g\):&\(bdg,\ efg\)\\
+contains \(c\):&\(cde,\ ceg,\ cfh\)&contains \(d\) and \(f\):&\(def,\ dfh\)
+\end{tabular}
+\end{center}
+\src{\textcolor{red}{This slide needs verification (not complicated, just need to check).}}
+\end{frame}
+
+\begin{frame}{From sixteen equations to four}
+Each monomial \(m_i\) has its deformed equation \(F_i=m_i+tH_i+t^2K_i+\cdots\) We work on the open set \(b,e,h\ne0\).
+\begin{enumerate}
+\setlength{\itemsep}{9pt}
+\item \textbf{The monomials} (last slide). The sixteen monomials vanish on the same locus as four of them:
+\[
+m_3=abh,\qquad m_{12}=ceh,\qquad m_9=beg,\qquad m_7=bdf.
+\]
+\item \textbf{At \(t=0\).} There \(F_i=m_i\). So the sixteen \(F_i\) vanish on the same locus as \(F_3,\ F_{12},\ F_9,\ F_7\). This is obvious: it is step 1 again.
+\item \textbf{For \(t\) invertible.} Do the sixteen \(F_i\) still vanish on the same locus as \(F_3,\ F_{12},\ F_9,\ F_7\)?
+\par\smallskip
+This is not obvious: the new terms \(tH_i+\cdots\) of the other twelve need not be combinations of the four.
+\par\smallskip
+\textbf{The answer is yes}, because the family is flat (flatness and Nakayama's lemma).
+\end{enumerate}
+\src{v4, Section 3.2, proves step 3 in a formal neighbourhood of each point \(Q\) of the triangle. \textcolor{red}{I will confirm this slide later.}}
+\end{frame}
+
+\begin{frame}{From four equations to one}
+\textbf{Where we are.} Four equations, \(F_3,\ F_{12},\ F_9,\ F_7\), on the open set \(b,e,h\ne0\).
+\par\smallskip
+\textbf{Coordinates.} Since \(b\ne0\), we set \(b=1\). We write \(e=u\), \(h=v\), so \(u,v\ne0\). Seven coordinates remain:
+\[
+a,\ c,\ g,\ d,\ f,\ u,\ v.
+\]
+\textbf{At \(t=0\).} The four equations are the four monomials. In the old and in the new notation:
+\[
+\begin{array}{l@{\quad}l@{\qquad\qquad}l@{\quad}l}
+F_3:& abh=v\,a & F_9:& beg=u\,g\\[4pt]
+F_{12}:& ceh=uv\,c & F_7:& bdf=df
+\end{array}
+\]
+So the equations are
+\[
+v\,a=0,\qquad uv\,c=0,\qquad u\,g=0,\qquad df=0.
+\]
+Divide the first three by \(u\) and \(v\): they say \(a=0,\ c=0,\ g=0\).
+\par\medskip
+What is left is one equation, \(df=0\), in the coordinates \(d,f,u,v\).
+\end{frame}
+
+\begin{frame}{Solving for \(a,\ c,\ g\)}
+\textbf{Where we are.} Near \(Q\) the family is the zero locus of \(F_3,\ F_{12},\ F_9,\ F_7\), in the coordinates \(a,c,g,d,f,u,v\) and the parameter \(t\).
+\par
+\textbf{At \(t=0\)} (last slide). Three equations, \(F_3=v\,a=0\), \(F_{12}=uv\,c=0\), \(F_9=u\,g=0\), said
+\[
+a=0,\qquad c=0,\qquad g=0;
+\]
+one was left, \(F_7=df=0\).
+\par
+\textbf{Now with \(t\).} There will be \(A,\ C,\ G\) in \(d,f,u,v,t\) only, zero at \(t=0\), with
+\[
+\boxed{F_3=F_{12}=F_9=0\quad\Longleftrightarrow\quad a=A,\quad c=C,\quad g=G.}
+\]
+\textbf{These are two claims.}
+\begin{itemize}
+\setlength{\itemsep}{0pt}
+\item[\(\Rightarrow\)] If the three equations hold, then \(a,c,g\) must be \(A,C,G\).
+\item[\(\Leftarrow\)] If we set \(a=A,\ c=C,\ g=G\), then the three equations hold.
+\end{itemize}
+At \(t=0\) both are clear, since \(u,v\ne0\). With \(t\), both need a proof.
+\par
+\textbf{What this gives.} A point of the family depends only on \(d,f,u,v,t\).
+\end{frame}
+
+\begin{frame}{The one equation left}
+\textbf{The fourth equation.}
+\[
+F_7=bdf+t\,(10\,acd+10\,cfg)+t^2K_7+\cdots
+\]
+\textbf{Substitute} \(b=1\) and the solutions \(a=A\), \(c=C\), \(g=G\) of the last slide.
+\begin{itemize}
+\setlength{\itemsep}{0pt}
+\item \(bdf\) becomes \(df\).
+\item Each term of \(10\,acd+10\,cfg\) contains two of \(a,c,g\). Each of \(A,C,G\) is zero at \(t=0\), so it is divisible by \(t\). So \(t\,(10\,acd+10\,cfg)\) becomes divisible by \(t^3\): no \(t\) term is left.
+\end{itemize}
+\textbf{The result.} Near \(Q\) the family is given by one equation in \(d,f,u,v\) and \(t\):
+\[
+\boxed{\Phi(d,f,u,v,t)=df+t^2B(d,f,u,v)+t^3(\cdots)=0,}
+\]
+and at \(d=f=0\) the coefficient \(B\) is \(\ B(0,0,u,v)=p(u,v)=-8u^2-20uv-8v^2-20u-20v-8\).
+\par
+Compare the dummy example \(xy-t^2\): the same shape.
+\src{v4, Section 4, where \(d,f,\Phi\) are called \(U,V,f\). \textcolor{red}{\(H_7\) and \(p\) are copied from v4, not re-derived.}}
+\end{frame}
+
+\begin{frame}{What a singular point near the triangle would satisfy}
+\textbf{The hypothesis.} \(P\) is a singular point of the generic fibre, and \(P\leadsto Q\) in the triangle. As in the dummy example, at \(P\):
+\[
+\Phi=0,\qquad \Phi_d=\Phi_f=\Phi_u=\Phi_v=0 .
+\]
+\textbf{Step 1: \(d\) and \(f\) are small.} Since \(\Phi=df+t^2B+\cdots\),
+\[
+\Phi_d=f+t^2(\cdots)=0,\qquad \Phi_f=d+t^2(\cdots)=0 .
+\]
+So at \(P\) both \(d\) and \(f\) are divisible by \(t^2\).
+\par
+\textbf{Step 2: substitute.} Then \(df\) is divisible by \(t^4\), and \(B(d,f,u,v)=p(u,v)+t^2(\cdots)\). The equations \(\Phi=0\), \(\Phi_u=0\), \(\Phi_v=0\) become
+\[
+t^2p+t^3(\cdots)=0,\qquad t^2p_u+t^3(\cdots)=0,\qquad t^2p_v+t^3(\cdots)=0 .
+\]
+\textbf{Step 3: divide by \(t^2\) and specialize \(P\leadsto Q\).} The coordinates \((u,v)\) of \(Q\) satisfy
+\[
+\boxed{p(u,v)=0,\qquad p_u(u,v)=0,\qquad p_v(u,v)=0.}
+\]
+\src{v4, Proposition 4.1, where the steps are made over a discrete valuation ring; here they are only sketched.}
+\end{frame}
+
+\begin{frame}{No singular point near the triangle}
+\textbf{Where we are.} A singular point \(P\leadsto Q\) would give a common zero \((u,v)\) of \(p,\ p_u,\ p_v\), where
+\[
+p=-8u^2-20uv-8v^2-20u-20v-8 .
+\]
+\textbf{There is none.} The derivatives are
+\[
+p_u=-16u-20v-20,\qquad p_v=-20u-16v-20 .
+\]
+\(p_u=p_v=0\) forces \(u=v=-\tfrac59\). There
+\[
+p\bigl(-\tfrac59,-\tfrac59\bigr)=\tfrac{28}9\ne0 .
+\]
+\textbf{The same in one line.}
+\[
+\boxed{p-\tfrac12\bigl(u+\tfrac59\bigr)p_u-\tfrac12\bigl(v+\tfrac59\bigr)p_v=\tfrac{28}{9}.}
+\]
+\textbf{Conclusion.} No singular point of the generic fibre specializes to the triangle \(beh\).
+\end{frame}
+
+\begin{frame}{The other cases}
+The same scheme applies to every face of \(\mathcal M\).
+\begin{itemize}
+\setlength{\itemsep}{12pt}
+\item \textbf{Edges.} The edge \(be\) has two ranges of valuations and an exceptional cancellation: \(H_7=10acd+10cfg\).
+\item \textbf{Other triangles and edges.} Tables and short calculations.
+\item \textbf{Vertices.} Three orbits: \(a\), \(b\), \(d\).
+\end{itemize}
+\end{frame}
+
+\partslide{6}{Algebraization}{The formal family over \(\C[[t]]\) is replaced by a family over an algebraic curve.}
+
+\begin{frame}{From a formal family to a family over a curve}
+\textbf{Input.} A flat family over \(\C[[t]]\): special fibre \(X\), smooth generic fibre (Parts 4 and 5).
+\par
+\textbf{Output.} A curve \(C\ni0\) and a flat family in \(\Pj^7\times C\): fibre \(X\) over \(0\), smooth fibres elsewhere.
+\begin{columns}[c]
+\begin{column}{0.63\textwidth}
+\begin{enumerate}
+\setlength{\itemsep}{2pt}
+\item \emph{Hilbert scheme \(\mathcal H\).} Its points: the subschemes of \(\Pj^7\) with the Hilbert polynomial of \(X\). One of them is \(x=X\).
+\item \emph{The formal family is an arc} \(\operatorname{Spec}\C[[t]]\to\mathcal H\): closed point to \(x\), generic point to a point \(\eta\).
+\item \emph{Smooth subschemes form an open set} of \(\mathcal H\). It contains \(\eta\) and not \(x\).
+\item \emph{\(W\): the closure of \(\eta\).} A variety through \(x\); most of its points are smooth subschemes.
+\item \emph{Choose a curve} in \(W\) through \(x\), not inside the bad set.
+\end{enumerate}
+\end{column}
+\begin{column}{0.32\textwidth}\centering
+\begin{tikzpicture}[scale=0.7]
+\draw[thick] plot[smooth cycle,tension=0.8] coordinates {(-2,-1.6) (2,-1.9) (2.3,1.5) (-1.8,1.9)};
+\fill[gray!35] plot[smooth cycle,tension=0.8] coordinates {(-1.9,-1.5) (0.3,-1.6) (-0.3,-0.2) (-1.75,0.3)};
+\node at (-1.1,-1.0) {\small bad};
+\fill (-0.3,-0.2) circle (2pt) node[below right=-1pt]{\(x\)};
+\draw[dashed,thick] (-0.3,-0.2) .. controls (0.2,0.5) and (0.6,0.4) .. (0.9,1.0);
+\node at (1.25,1.15) {\small arc};
+\draw[thick] (-0.3,-0.2) .. controls (0.6,-0.1) and (1.2,-0.5) .. (1.9,-0.3);
+\node at (1.75,-0.65) {\small \(C\)};
+\node at (1.5,1.75) {\(\mathcal H\)};
+\end{tikzpicture}
+\par
+{\small Grey: not smooth. Dashed: the formal arc. Solid: the curve chosen.}
+\end{column}
+\end{columns}
+\src{v4, Theorem 9.1. The curve need not be the arc we started with; no convergence of the series is used.}
+\end{frame}
+
+\partslide{7}{Conclusion}{What we did, and what is open.}
+
+\begin{frame}{What we did}
+\textbf{Theorem (proposed).} \(\SR(\mathcal M)\) is a limit of smooth Calabi--Yau threefolds of degree \(20\) in \(\Pj^7\).
+\par\medskip
+{\small\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}p{0.36\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}}
+\textbf{Step}&\textbf{Idea}&\textbf{In this talk}\\ \hline
+1. A formal family&an obstruction fixed by \(G\) is zero&argument shown; the computation of \(T^2\) not shown\\
+2. Its generic fibre is smooth&a singular point would specialize to a face; there the family is \(df+t^2p+\cdots\)&the triangle \(beh\); the other faces not shown\\
+3. Algebraization&a curve in the Hilbert scheme&sketched\\
+4. Calabi--Yau&semicontinuity and Riemann--Roch&shown, for every \(3\)-sphere
+\end{tabular}}
+\par\medskip
+\textbf{Around it.} \(\mathcal M\) is one of \(39\) spheres with \(8\) vertices; the known Calabi--Yau threefolds in \(\Pj^7\) are eleven families. Which family the smoothing of \(\mathcal M\) belongs to is not known.
+\src{\textbf{Status.} The proof was assembled with AI help and checked only by an AI audit. No human has verified it.}
+\end{frame}
+
+\begin{frame}{Open questions}
+\begin{itemize}
+\setlength{\itemsep}{12pt}
+\item Is the smoothing the Gulliksen--Negård threefold? A comparison with a del Pezzo construction suggested by Grzegorz is unresolved.
+\item Hodge numbers, fundamental group.
+\item Other non-polytopal spheres.
+\item Human verification of the proof.
+\end{itemize}
+\par\bigskip
+\textbf{Questions for you.}
+\begin{enumerate}
+\item Which step would you check first?
+\item Is there a conceptual reason why this complex smooths?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{References}
+\printbibliography[heading=none]
+\end{frame}
+\end{document}
