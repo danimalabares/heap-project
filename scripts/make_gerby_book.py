@@ -35,7 +35,7 @@ KNOWN_CHAPTERS = {
     "homological-algebra",
     "deformations",
     "classical-mechanics",
-    "physics",
+    "electric-forces-to-data",
     "pde",
     "probability",
     "economy",
@@ -90,6 +90,7 @@ KNOWN_CHAPTERS = {
     "quantum-groups",
     "legal-2027",
     "derived-categories",
+    "knot-theory",
 }
 
 

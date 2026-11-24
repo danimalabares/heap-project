@@ -266,6 +266,168 @@ faster. More RAM and a faster CPU can,
 however, make the browser and the rest of
 the machine respond much more smoothly.
 
+\section{How wires carry one moving surface}
+\label{section-surface-on-wires}
+
+I watched an animation in my browser: a
+sphere that slowly changes shape. Here is
+how that picture exists inside the laptop.
+All numbers are for this one animation on
+my 2015 MacBook Pro.
+
+\medskip\noindent
+{\bf One wire, one bit.}
+As in Section \ref{section-bulb-bit}, a wire
+inside the chip is held at a low voltage or
+at a high voltage. Low is read as 0 and high
+as 1. What counts is the level at the moment
+of reading. It has nothing to do with how
+fast anything flows.
+
+\medskip\noindent
+{\bf One number, 64 bits.}
+The program is written in JavaScript. A
+number in JavaScript is stored as 64 bits,
+in the format called double precision. The
+64 bits are read in three groups:
+\begin{itemize}
+\item 1 bit $s$ for the sign,
+\item 11 bits for a whole number $e$,
+\item 52 bits $f$ for the digits after the
+point, in base two.
+\end{itemize}
+The number stored is
+$$
+(-1)^s \times 1.f \times 2^{e-1023}.
+$$
+
+\medskip\noindent
+{\bf Two examples.}
+One corner of a hexagon in the animation is
+the point
+$$
+(\sin 60^\circ,\ -\cos 60^\circ,\ 0).
+$$
+
+The second coordinate is $-0.5 = -1 \times
+2^{-1}$. So $s = 1$, and $e - 1023 = -1$
+gives $e = 1022$, which is
+{\tt 01111111110} in base two, and $f$ is 52
+zeros:
+\begin{verbatim}
+1 01111111110 0000000000000000000000000000
+              000000000000000000000000
+\end{verbatim}
+
+The first coordinate is $\sin 60^\circ =
+0.8660254\ldots = 1.7320508\ldots \times
+2^{-1}$. So $s = 0$, again $e = 1022$, and
+$f$ is the beginning of $\sqrt 3$ written in
+base two, after the point:
+\begin{verbatim}
+0 01111111110 1011101101100111101011101000
+              010110000100110010101010
+\end{verbatim}
+There are only $2^{64}$ patterns, so most
+numbers are rounded. The stored number is
+very close to $\sin 60^\circ$ and is not
+equal to it.
+
+\medskip\noindent
+{\bf One point, three numbers.}
+A point of the surface has three
+coordinates, so it is 192 bits.
+
+\medskip\noindent
+{\bf The surface.}
+The program keeps a net of $73 \times 97 =
+7081$ points on the sphere. That is 21243
+numbers, or 1\,359\,552 bits, about 170
+kilobytes. The RAM of this laptop is 8
+gigabytes, which is 68\,719\,476\,736 bits.
+So RAM is not what limits this animation.
+
+\medskip\noindent
+{\bf Where the bits wait.}
+The bits of the surface are stored in RAM.
+They are not all on the wires of the
+processor at once.
+
+\medskip\noindent
+{\bf What one core does.}
+A core fetches a few numbers from RAM into
+its registers. A register is a row of
+storage places inside the core; think of
+one register as holding one number. An
+arithmetic circuit, built from gates like
+the
+\href{https://www.heap-project.org/tag/0HHN}
+{inverter}, takes two numbers on 128 input
+wires and gives their sum or product on 64
+output wires. The result goes to a register
+and later back to RAM. Then the core takes
+the next few numbers. It does one such small
+job at a time.
+
+\medskip\noindent
+{\bf One frame.}
+To move the surface a little, the program
+computes a new place for each of the 7081
+points, one after another, with sines,
+cosines, sums and products. Measured outside
+the browser, this takes about 10
+milliseconds for all the points, so about
+1.4 millionths of a second per point. The
+clock of this processor is rated at 2.9
+billion ticks per second. So one point costs
+about four thousand ticks.
+
+For smooth motion the screen wants 60
+pictures per second, which leaves 16.7
+milliseconds for each. The computing uses
+about 10 of them. Painting comes on top; I
+have not measured it.
+
+\medskip\noindent
+{\bf From numbers to light.}
+The points are then turned into colours of
+pixels. In the browser's drawing area a
+pixel is four numbers of 8 bits each: red,
+green, blue, and how opaque it is. The
+screen reads the colours and sets the
+brightness of its dots.
+
+\medskip\noindent
+{\bf Why one core, and what a GPU changes.}
+A JavaScript program does its steps in
+order, on one core. This laptop has two
+cores, and the second one does not help.
+But the new place of one point does not
+depend on the other points. So many small
+cores could each move one point at the same
+moment. That is what a GPU is for. This
+animation was not written to use it.
+
+\medskip\noindent
+{\bf What I take from this.}
+For this kind of picture what matters is
+the speed of one core. RAM does not matter,
+and no separate graphics card is needed.
+
+\medskip\noindent
+{\bf Checked and not checked.}
+The two bit patterns, the counts and the 10
+milliseconds were computed on this laptop on
+24 November 2026. For numbers stored with a
+sign, an exponent and a fraction, and for
+registers and arithmetic circuits, see
+\cite{harris-digital-design}; I did not
+reopen the book for section numbers. That
+JavaScript numbers are double precision is
+in the ECMAScript language specification,
+under ``The Number Type''; I did not reopen
+it either.
+
 \section{The software stack}
 \label{section-computing-systems-software}
 

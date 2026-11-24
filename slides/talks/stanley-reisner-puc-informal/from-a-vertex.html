@@ -38,11 +38,14 @@
   #wheel { width:58px; height:58px; cursor:grab; touch-action:none; color:var(--fg); display:block; }
   #wheel:active { cursor:grabbing; }
   button.dk { position:absolute; right:10px; top:8px; z-index:2; margin:0; }
+  .fs { position:absolute; right:112px; top:10px; z-index:2; display:flex; gap:10px; font-size:13px; white-space:nowrap; }
+  .fs label { display:inline-flex; align-items:center; gap:5px; margin:0; cursor:pointer; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <div id="stage"><canvas id="cv"></canvas>
+    <div class="fs" title="Full screen: the whole page, controls included. Key f, or Esc to leave."><label><input type="radio" name="fs" id="fsW" checked> Window</label><label><input type="radio" name="fs" id="fsF"> Full screen</label></div>
     <nav class="models"><a href="from-a-vertex.html" class="on">3D</a><a href="from-a-vertex-4d.html">4D</a></nav>
     <button id="dk" class="dk" title="Drawing colours for a black background">dark colours</button>
     <div class="steer"><button id="fromV" title="Turn the solid so that v points at you, in the same position as the picture on the left">look from <i>v</i></button>
@@ -311,6 +314,22 @@ function draw() {
 mark(); choose(); resize(); setDark(darkCols);
 }
 if (typeof module !== "undefined") module.exports = { SOLIDS, build, scene, summary };
+</script>
+<script>
+// ---------- full screen (whole page, so the controls stay; key f, Esc leaves) ----------
+if (typeof document !== "undefined") (function () {
+  const d = document, el = d.documentElement, w = d.getElementById("fsW"), f = d.getElementById("fsF");
+  const req = el.requestFullscreen || el.webkitRequestFullscreen, exit = d.exitFullscreen || d.webkitExitFullscreen;
+  if (!w || !f) return; if (!req || !exit) { w.closest(".fs").style.display = "none"; return; }
+  const on = () => !!(d.fullscreenElement || d.webkitFullscreenElement);
+  const sync = () => { f.checked = on(); w.checked = !on(); };
+  const set = want => { if (want === on()) return sync(); try { const p = want ? req.call(el) : exit.call(d); if (p && p.catch) p.catch(sync); } catch (e) { sync(); } };
+  f.onchange = () => set(true); w.onchange = () => set(false);
+  d.addEventListener("fullscreenchange", sync); d.addEventListener("webkitfullscreenchange", sync);
+  d.addEventListener("keydown", e => { const t = e.target, typing = t.tagName === "TEXTAREA" || (t.tagName === "INPUT" && !/^(range|radio|checkbox|button)$/.test(t.type));
+    if (e.key === "f" && !typing && !e.metaKey && !e.ctrlKey && !e.altKey) set(!on()); });
+  sync();
+})();
 </script>
 </body>
 </html>
