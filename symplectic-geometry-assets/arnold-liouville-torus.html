@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The torus in Arnold-Liouville</title>
+<meta name="description" content="Why a compact level set of an integrable system is a torus: commuting flows, the lattice of return times, Proposition 16.3 of the symplectic geometry notes.">
+<style>
+  /* The page is white always. "Dark" changes only the colours drawn on the canvas (COLS below). */
+  :root { --bg:#fff; --fg:#1c1c1c; --mute:#6b6b6b; --line:#d9d6cf; --panel:#f1efe9; --hinge:#096762; --motion:#bc4d2c; }
+  * { box-sizing:border-box; }
+  html, body { height:100%; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:14px/1.42 Georgia, "Times New Roman", serif; }
+  .wrap { display:flex; flex-direction:column; height:100vh; }
+  #stage { flex:1 1 auto; min-height:230px; position:relative; }
+  canvas { position:absolute; inset:0; width:100%; height:100%; display:block; cursor:grab; touch-action:none; }
+  canvas:active { cursor:grabbing; }
+  /* The title is the one sentence the step is about; it may take two or three lines and stays clear of the buttons on the right. */
+  h1 { position:absolute; left:12px; top:7px; right:196px; font-size:16.5px; line-height:1.28; margin:0; font-weight:normal; pointer-events:none; border-left:3px solid var(--hinge); padding-left:9px; }
+  .hint { position:absolute; left:12px; bottom:5px; color:var(--mute); font-size:12px; pointer-events:none; }
+  .dk { position:absolute; right:10px; top:9px; z-index:2; display:flex; gap:10px; font-size:13px; white-space:nowrap; }
+  /* The panel takes at most 42% of the height, so the figure keeps the larger part. Long text scrolls inside #text; the controls and Back / Next stay in view. */
+  aside { flex:0 0 auto; display:flex; flex-direction:column; padding:6px 12px 5px; background:var(--panel); border-top:1px solid var(--line); max-height:42vh; }
+  #text { flex:0 1 auto; min-height:0; overflow:auto; }
+  .cols, nav { flex:0 0 auto; }
+  #text p { margin:0 0 4px; font-size:13.5px; line-height:1.36; }
+  #text .pt { font-size:14.5px; border-left:3px solid var(--hinge); padding:0 0 0 9px; margin-bottom:5px; }
+  #text ol { margin:0 0 4px; padding-left:22px; font-size:13.5px; line-height:1.36; } #text li { margin:0 0 1px; }
+  #text .src { color:var(--mute); font-size:12px; }
+  .r1 { color:var(--motion); } .r2 { color:var(--hinge); }
+  .cols { display:grid; grid-template-columns:1.25fr 1fr; gap:0 20px; margin-top:3px; }
+  h2 { font-size:11.5px; margin:2px 0 1px; text-transform:uppercase; letter-spacing:.06em; color:var(--mute); font-weight:normal; }
+  label { display:inline-flex; align-items:center; gap:5px; cursor:pointer; white-space:nowrap; }
+  button { font:inherit; font-size:12.5px; padding:2px 8px; margin:0; border:1px solid var(--line); background:var(--bg); color:var(--fg); border-radius:4px; cursor:pointer; }
+  button:hover { border-color:var(--fg); }
+  button.on { background:var(--fg); color:var(--bg); border-color:var(--fg); }
+  button:disabled { opacity:.35; cursor:default; }
+  input[type=range] { width:100%; margin:0; accent-color:var(--motion); }
+  .ctl { display:grid; grid-template-columns:auto auto 1fr 4.2em; gap:3px 7px; align-items:center; }
+  .ctl .v { text-align:right; font-variant-numeric:tabular-nums; color:var(--mute); font-size:12.5px; }
+  .ctl button { min-width:2.1em; padding:2px 5px; }
+  .ctl .nop { width:0; }
+  .rows { display:grid; grid-template-columns:auto auto 1fr; gap:0 9px; align-items:baseline; font-size:12.5px; line-height:1.3; }
+  .rows .n { font-variant-numeric:tabular-nums; text-align:right; }
+  .rows .w { color:var(--mute); font-size:12px; }
+  nav { display:flex; align-items:center; gap:10px; margin-top:4px; padding-top:4px; border-top:1px solid var(--line); }
+  nav button { padding:1px 12px; font-size:13px; }
+  #count { color:var(--mute); font-size:13px; }
+  #dots { flex:1; display:flex; gap:5px; justify-content:center; }
+  #dots b { width:9px; height:9px; border-radius:50%; border:1px solid var(--mute); cursor:pointer; }
+  #dots b.on { background:var(--fg); border-color:var(--fg); }
+  .fs { position:absolute; right:10px; top:32px; z-index:2; display:flex; gap:10px; font-size:13px; white-space:nowrap; }
+  .fs label { display:inline-flex; align-items:center; gap:5px; margin:0; cursor:pointer; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="stage"><canvas id="cv"></canvas>
+    <div class="fs" title="Full screen: the whole page, controls included. Key f, or Esc to leave."><label><input type="radio" name="fs" id="fsW" checked> Window</label><label><input type="radio" name="fs" id="fsF"> Full screen</label></div>
+    <div class="dk" title="The page stays white; only the drawing colours change."><label><input type="radio" name="dk" id="dkL"> Light</label><label><input type="radio" name="dk" id="dkD"> Dark</label></div>
+    <h1 id="title"></h1>
+    <div class="hint" id="hint">Drag to rotate. Scroll to change the size.</div>
+  </div>
+  <aside>
+    <div id="text"></div>
+    <div class="cols">
+      <div><div class="ctl" id="ctl"></div></div>
+      <div><h2 id="rowsT">Numbers</h2><div class="rows" id="rows"></div></div>
+    </div>
+    <nav><button id="back">&lsaquo; Back</button><span id="count"></span><span id="dots"></span><button id="next">Next &rsaquo;</button></nav>
+  </aside>
+</div>
+<script>
+// ---------- geometry (no DOM) ----------
+// M = R^4 with coordinates x = (q1, p1, q2, p2) and omega = dq1^dp1 + dq2^dp2.
+// The vector field X_f is defined by i_{X_f} omega = df (the convention of the notes), so X_f = (f_p1, -f_q1, f_p2, -f_q2).
+const TAU = 2*Math.PI;
+const I1 = x => (x[0]*x[0] + x[1]*x[1])/2, I2 = x => (x[2]*x[2] + x[3]*x[3])/2;
+const F = (x, w) => [I1(x) + w*I2(x), I2(x)];                 // f1 = H = I1 + w I2,  f2 = I2
+const hamVec = g => [g[1], -g[0], g[3], -g[2]];               // from the gradient g of f to X_f
+// Turn the (q1,p1) plane by a and the (q2,p2) plane by b, both clockwise: the exact flow of q' = p, p' = -q.
+function turn(x, a, b) { const ca = Math.cos(a), sa = Math.sin(a), cb = Math.cos(b), sb = Math.sin(b);
+  return [x[0]*ca + x[1]*sa, -x[0]*sa + x[1]*ca, x[2]*cb + x[3]*sb, -x[2]*sb + x[3]*cb]; }
+// t.x : the flow of f1 for time t1 and the flow of f2 for time t2.
+const flow = (x, t1, t2, w) => turn(x, t1, w*t1 + t2);
+const pt = (a, b, r1, r2) => [r1*Math.cos(a), -r1*Math.sin(a), r2*Math.cos(b), -r2*Math.sin(b)];   // the point with angles (a, b)
+const angles = x => [Math.atan2(-x[1], x[0]), Math.atan2(-x[3], x[2])];
+const gens = w => [[TAU, -TAU*w], [0, TAU]];                  // generators of the lattice of times that fix every point
+const toAngles = (t, w) => [t[0], w*t[0] + t[1]];             // the linear map T: sends the generators to (2 pi, 0) and (0, 2 pi)
+const dist4 = (x, y) => Math.hypot(x[0]-y[0], x[1]-y[1], x[2]-y[2], x[3]-y[3]);
+// The picture (my choice): scale x to the unit 3-sphere and project stereographically from (0,0,0,1) to 3-space.
+// A level set {I1 = c1, I2 = c2} becomes a torus of revolution about the third axis.
+function proj(x) { const n = Math.hypot(x[0],x[1],x[2],x[3]), d = 1 - x[3]/n; return [x[0]/n/d, x[1]/n/d, x[2]/n/d]; }
+function torusRadii(x) { const n = Math.hypot(x[0],x[1],x[2],x[3]), a = Math.hypot(x[0],x[1])/n, b = Math.hypot(x[2],x[3])/n; return [1/a, b/a]; }   // big, small
+function normal(p, x) { const Rc = torusRadii(x)[0], h = Math.hypot(p[0],p[1]) || 1, v = [p[0] - Rc*p[0]/h, p[1] - Rc*p[1]/h, p[2]], m = Math.hypot(v[0],v[1],v[2]) || 1;
+  return [v[0]/m, v[1]/m, v[2]/m]; }
+const R1 = Math.sqrt(3), R2 = 1, W0 = 0.5;                    // the level set I1 = 1.5, I2 = 0.5; second oscillator at half speed
+const X0 = pt(3.15, -0.6, R1, R2);                              // the base point x
+if (typeof module !== "undefined") module.exports = { I1, I2, F, hamVec, turn, flow, pt, angles, gens, toAngles, dist4, proj, torusRadii, normal, R1, R2, W0, X0, TAU };
+
+// ---------- page ----------
+if (typeof document !== "undefined") {
+const $ = id => document.getElementById(id);
+const cv = $("cv"), ctx = cv.getContext("2d"), PI = Math.PI;
+const COLS = { light:{ ink:"#202e32", quiet:"#a1a9a4", hinge:"#096762", motion:"#bc4d2c", fill:"rgba(188,77,44,.15)", halo:"#fff" },
+               dark: { ink:"#f5f5f5", quiet:"#9a9a9a", hinge:"#4fc3b5", motion:"#ff8a65", fill:"rgba(255,138,101,.30)", halo:null } };
+let dark = false; try { dark = localStorage.getItem("darkCols") === "1"; } catch (e) {}
+const I = s => "<i>" + s + "</i>", sb = (s, n) => `<i>${s}</i><sub>${n}</sub>`;
+const f1 = sb("f",1), f2 = sb("f",2), X1 = sb("X",1), X2 = sb("X",2), t1 = sb("t",1), t2 = sb("t",2), g1 = sb("&gamma;",1), g2 = sb("&gamma;",2), Rn = "&#8477;", Gam = "&Gamma;";
+const fx = (v, n) => v.toFixed(n === undefined ? 3 : n), fpi = v => (Math.abs(v/PI) < 0.005 ? 0 : v/PI).toFixed(2) + "&pi;";
+const samp = (fn, lo, hi, n) => { const o = []; for (let i = 0; i <= n; i++) o.push(fn(lo + (hi-lo)*i/n)); return o; };
+const mod = a => ((a % TAU) + TAU) % TAU;
+const G = gens(W0);
+
+// ----- scenes -----
+const timeCtl = (key, label, lo, hi, extra) => ({ key, label, kind:"wrap", play:true, range:() => [lo,hi], fmt:fpi, ...extra });
+const T1 = timeCtl("t1", `time ${t1} along ${X1}`, 0, TAU), T2 = timeCtl("t2", `time ${t2} along ${X2}`, 0, TAU);
+function orbitScene(st) { const a = flow(X0, st.t1, 0, W0), y = flow(X0, st.t1, st.t2, W0);
+  return { kind:"torus",
+    curves:[{ X:samp(s => flow(y, s, 0, W0), 0, 2*TAU, 160), col:"motion", w:1.3, dash:[1.5,5] }, { X:samp(s => flow(y, 0, s, W0), 0, TAU, 80), col:"hinge", w:1.3, dash:[1.5,5] },
+            { X:samp(s => flow(X0, s, 0, W0), 0, st.t1, 60), col:"motion", w:3 }, { X:samp(s => flow(a, 0, s, W0), 0, st.t2, 60), col:"hinge", w:3 }],
+    dots:[{ x:X0, col:"ink", label:"x" }, { x:y, col:"motion", label:"t·x", big:true }],
+    right:{ c:[PI, PI/2], half:1.72*PI, lattice:true, polys:[{ pts:[[0,0], G[0], [G[0][0]+G[1][0], G[0][1]+G[1][1]], G[1]], stroke:"quiet" }],
+      segs:[{ a:[0,0], b:[st.t1,0], col:"motion", w:3 }, { a:[st.t1,0], b:[st.t1,st.t2], col:"hinge", w:3 }], pt:[st.t1,st.t2], cap:"plane of times; dots: the lattice Γ" },
+    rowsT:"Values", rows:[[f1, fx(F(y,W0)[0]), "fixed"], [f2, fx(F(y,W0)[1]), "fixed"], ["distance from "+I("t")+"&middot;"+I("x")+" to "+I("x"), fx(dist4(y,X0)), "changes"]] }; }
+const orbitStep = { init:() => ({ t1:2.2, t2:1.6 }), controls:[T1, T2], scene:orbitScene };
+
+const STEPS = [
+ { title:`A compact level set of an integrable system is a torus: the plane of times (${t1}, ${t2}) divided by the times that bring a point back`, ...orbitStep,
+   text:`<p>Press play. Left: a point of the level set, moved by two flows. Right: how long each flow ran.</p><ol>
+     <li>One function: circles (step 2).</li>
+     <li>Two functions and their level set ${I("N")} (3, 4).</li>
+     <li>Proposition 16.3: the flows act on ${I("N")} (5) and reach every point (6); the return times form a lattice (7); so ${I("N")} is a torus (8).</li>
+     <li>The flow of ${I("H")} on the torus (9). Sources (10), summary (11).</li></ol>` },
+
+ { title:`The integral curves of the harmonic oscillator Hamiltonian are circles, each traversed in time 2&pi;`, hint:"",
+   text:`<p>${I("&omega;")} = ${I("dq")} &and; ${I("dp")}, ${sb("X","H")} = (${I("p")}, &minus;${I("q")}). Press play: the red point is ${I("x")} after time ${I("t")}. So the circle is the line of times with ${I("t")} and ${I("t")} + 2&pi; identified: ${Rn}/2&pi;&#8484;. The torus will appear the same way, with two times.</p>`,
+   init:() => ({ t:1.1, c:1 }),
+   controls:[timeCtl("t", `time ${I("t")} along ${sb("X","H")}`, 0, 2*TAU), { key:"c", label:`value of ${I("H")}`, range:() => [0.2,2], fmt:v => fx(v,2) }],
+   scene:st => { const r = Math.sqrt(2*st.c), x = [r*Math.cos(0.7), -r*Math.sin(0.7), 0, 0], y = turn(x, st.t, 0);
+     return { kind:"plane", r, x, y, t:st.t, rows:[[I("H"), fx(I1(y)), "fixed"], [I("q"), fx(y[0]), "changes"], [I("p"), fx(y[1]), "changes"]] }; } },
+
+ { title:`An integrable system on ${Rn}<sup>4</sup>: two functions ${f1} = ${I("H")} and ${f2}, each constant along the flow of the other`, hint:"",
+   text:`<p>Two harmonic oscillators, one in each plane, with ${sb("I","k")} = (${sb("q","k")}<sup>2</sup> + ${sb("p","k")}<sup>2</sup>)/2: &nbsp; <span class="r1">${f1} = ${I("H")} = ${sb("I",1)} + &frac12;${sb("I",2)}</span>, &nbsp; <span class="r2">${f2} = ${sb("I",2)}</span>.</p>
+     <p>Play either flow: both values stay fixed (table). This is {${f1}, ${f2}} = 0.</p>
+     <p class="src">Notes, Definition 16.1. It also asks that ${I("d")}${f1}, ${I("d")}${f2} be independent: true where neither circle is a point. The example is my choice.</p>`,
+   init:() => ({ t1:0.8, t2:0.5 }), controls:[{ ...T1, label:`time ${t1}, flow of ${f1}` }, { ...T2, label:`time ${t2}, flow of ${f2}` }],
+   scene:st => { const y = flow(X0, st.t1, st.t2, W0);
+     return { kind:"planes", y, rowsT:"Values", rows:[[f1, fx(F(y,W0)[0]), "fixed"], [f2, fx(F(y,W0)[1]), "fixed"], [sb("q",1), fx(y[0]), "changes"], [sb("q",2), fx(y[2]), "changes"]] }; } },
+
+ { title:`Fix the two values of ${f1} and ${f2}. There is still room to wander: a surface ${I("N")}, and here it is a torus`,
+   text:`<p>${I("N")} = {${f1} = 1.75, ${f2} = 0.5}: one circle in each plane, so a torus. The two ways to wander are the flows of ${f1} and ${f2}; <span class="r1">${X1}</span>, <span class="r2">${X2}</span> are their vector fields. Press play.</p>
+     <p>Proposition 16.3 proves it is a torus without looking, from ${I("N")}, ${X1}, ${X2} alone (steps 5 to 8).</p>
+     <p class="src">Tangent: ${I("d")}${sb("f","i")}(${sb("X","j")}) = {${sb("f","i")}, ${sb("f","j")}} = 0. Commuting: [${X1}, ${X2}] = &minus;${sb("X","{"+f1+", "+f2+"}")} = 0. The picture is a projection of ${I("N")} from ${Rn}<sup>4</sup> to 3-space (my choice); the motion is computed in ${Rn}<sup>4</sup>.</p>`,
+   init:() => ({ t1:0.6, t2:0.9 }), controls:[T1, T2],
+   scene:st => { const y = flow(X0, st.t1, st.t2, W0);
+     return { kind:"torus", curves:[{ X:samp(s => flow(y, s, 0, W0), 0, 2*TAU, 160), col:"motion", w:1.3, dash:[1.5,5] }, { X:samp(s => flow(y, 0, s, W0), 0, TAU, 80), col:"hinge", w:1.3, dash:[1.5,5] }],
+       dots:[{ x:y, col:"ink", big:true }], arrows:[{ x:y, d:[1,0], col:"motion", label:"X₁" }, { x:y, d:[0,1], col:"hinge", label:"X₂" }],
+       rowsT:"Values", rows:[[f1, fx(F(y,W0)[0]), "fixed"], [f2, fx(F(y,W0)[1]), "fixed"]] }; } },
+
+ { title:`Since [${X1}, ${X2}] = 0, the two flows can be done in either order: pairs of times (${t1}, ${t2}) act on ${I("N")}`,
+   text:`<p>Solid: <span class="r1">${X1}</span> for time ${t1}, then <span class="r2">${X2}</span> for time ${t2}. Dashed: the other order. Same end point (table). Call it ${I("t")}&middot;${I("x")}.</p>
+     <p class="src">Proposition 16.3, step 1.</p>`,
+   init:() => ({ t1:1.9, t2:2.6 }),
+   controls:[{ key:"t1", label:`time ${t1} along ${X1}`, play:true, range:() => [0,4.4], fmt:fpi }, { key:"t2", label:`time ${t2} along ${X2}`, play:true, range:() => [0,4.4], fmt:fpi }],
+   scene:st => { const a = flow(X0, st.t1, 0, W0), b = flow(X0, 0, st.t2, W0), ya = flow(a, 0, st.t2, W0), yb = flow(b, st.t1, 0, W0);
+     return { kind:"torus",
+       curves:[{ X:samp(s => flow(X0, 0, s, W0), 0, st.t2, 60), col:"hinge", w:2, dash:[5,4] }, { X:samp(s => flow(b, s, 0, W0), 0, st.t1, 60), col:"motion", w:2, dash:[5,4] },
+               { X:samp(s => flow(X0, s, 0, W0), 0, st.t1, 60), col:"motion", w:3 }, { X:samp(s => flow(a, 0, s, W0), 0, st.t2, 60), col:"hinge", w:3 }],
+       dots:[{ x:X0, col:"ink", label:"x" }, { x:ya, col:"ink", label:"t·x", big:true }],
+       right:{ c:[2.2,2.2], half:3.1, segs:[{ a:[0,0], b:[0,st.t2], col:"hinge", w:2, dash:[5,4] }, { a:[0,st.t2], b:[st.t1,st.t2], col:"motion", w:2, dash:[5,4] },
+           { a:[0,0], b:[st.t1,0], col:"motion", w:3 }, { a:[st.t1,0], b:[st.t1,st.t2], col:"hinge", w:3 }], pt:[st.t1,st.t2], cap:"plane of times" },
+       rowsT:"Check", rows:[["distance between the two ends", fx(dist4(ya,yb)), "same point"]] }; } },
+
+ { title:`Starting from one point ${I("x")}, the two flows reach every point of ${I("N")}`,
+   text:`<p>Right: a square of times around 0. Left: the points ${I("t")}&middot;${I("x")} for ${I("t")} in the square. Press play: the square grows and its image covers ${I("N")}.</p>
+     <p>Why: ${X1}, ${X2} are independent, so a small square of times gives a small patch around each reached point. The set of reached points is then open, also closed, and ${I("N")} is connected.</p>
+     <p class="src">Proposition 16.3, step 2. Past half side &pi; the image overlaps itself: different times give the same point.</p>`,
+   init:() => ({ s:0.7 }), controls:[{ key:"s", label:"half side of the square", play:true, range:() => [0.15,4.2], fmt:fpi }],
+   scene:st => { const s = st.s, curves = [], n = Math.max(8, Math.round(s*14));
+     const ks = []; for (let k = 0; k*0.35 < s; k++) { ks.push(k*0.35); if (k) ks.push(-k*0.35); } ks.push(s, -s);
+     for (const k of ks) { curves.push({ X:samp(u => flow(X0, u, k, W0), -s, s, n), col:"motion", w:1.1 }); curves.push({ X:samp(u => flow(X0, k, u, W0), -s, s, n), col:"hinge", w:1.1 }); }
+     return { kind:"torus", curves, dots:[{ x:X0, col:"ink", label:"x" }],
+       right:{ c:[0,0], half:4.7, polys:[{ pts:[[-s,-s],[s,-s],[s,s],[-s,s]], fill:"fill", stroke:"motion" }], pt:[0,0], cap:"plane of times" },
+       rowsT:"Patch", rows:[["covers", s >= PI ? "all of " + I("N") : "part of " + I("N"), ""]] }; } },
+
+ { title:`The times that bring ${I("x")} back to itself form a lattice ${Gam} in the plane of times`,
+   text:`<p>Black dots: the times ${I("t")} with ${I("t")}&middot;${I("x")} = ${I("x")}. Move ${t1}, ${t2} onto a dot: the red point is back at ${I("x")} (table).</p>
+     <p>(2&pi;, 0) is not a dot: after it the second circle has made only half a turn. The dots are generated by ${g1} = (2&pi;, &minus;&pi;) and ${g2} = (0, 2&pi;).</p>
+     <p class="src">Proposition 16.3, step 3. In general ${Gam} is a discrete subgroup of ${Rn}<sup>2</sup>, so it has 0, 1 or 2 generators.</p>`,
+   init:() => ({ t1:PI, t2:PI/2 }),
+   controls:[timeCtl("t1", `time ${t1} along ${X1}`, -TAU, TAU, { step:PI/12 }), timeCtl("t2", `time ${t2} along ${X2}`, -TAU, TAU, { step:PI/12 })],
+   scene:st => { const y = flow(X0, st.t1, st.t2, W0), dd = dist4(y, X0);
+     return { kind:"torus", curves:[{ X:samp(u => flow(X0, u*st.t1, u*st.t2, W0), 0, 1, 140), col:"motion", w:2.6 }],
+       dots:[{ x:X0, col:"ink", label:"x" }, { x:y, col:"motion", label:"t·x", big:true }],
+       right:{ c:[0,0], half:2.3*PI, lattice:true, segs:[{ a:[0,0], b:[st.t1,st.t2], col:"motion", w:2.6 }], pt:[st.t1,st.t2], cap:"plane of times; dots: Γ" },
+       rowsT:"Check", rows:[["distance from "+I("t")+"&middot;"+I("x")+" to "+I("x"), fx(dd), dd < 1e-9 ? "back at x" : "changes"]] }; } },
+
+ { title:`${I("N")} is the plane of times divided by ${Gam}; ${I("N")} compact forces ${Gam} to have two generators, so ${I("N")} is a torus`,
+   text:`<p>Right, shaded: part of the parallelogram on <span class="r1">${g1}</span>, <span class="r2">${g2}</span>. Left: its image. Play the extent along ${g1}: the band closes into the whole of ${I("N")}.</p>
+     <p>With one generator the band would never close: a circle times a line, not compact.</p>
+     <p>In the coordinates ${I("&theta;")} = (${t1}, &frac12;${t1} + ${t2}) the lattice is 2&pi;&#8484;<sup>2</sup>, so ${I("N")} = ${Rn}<sup>2</sup>/2&pi;&#8484;<sup>2</sup>.</p>
+     <p class="src">Proposition 16.3, step 4; Theorem 16.2, item 1.</p>`,
+   init:() => ({ u:0.3, v:1 }),
+   controls:[{ key:"u", label:`extent along ${g1}`, play:true, range:() => [0.02,1], fmt:v => fx(v,2) }, { key:"v", label:`extent along ${g2}`, play:true, range:() => [0.02,1], fmt:v => fx(v,2) }],
+   scene:st => { const { u, v } = st, at = (a,b) => [a*G[0][0] + b*G[1][0], a*G[0][1] + b*G[1][1]], img = (a,b) => { const t = at(a,b); return flow(X0, t[0], t[1], W0); }, curves = [];
+     const as = [], bs = []; for (let k = 0; k/12 < u; k++) as.push(k/12); as.push(u); for (let k = 0; k/8 < v; k++) bs.push(k/8); bs.push(v);
+     for (const a of as) curves.push({ X:samp(b => img(a,b), 0, v, Math.max(6, Math.round(72*v))), col:"hinge", w:1.2 });
+     for (const b of bs) curves.push({ X:samp(a => img(a,b), 0, u, Math.max(6, Math.round(72*u))), col:"motion", w:1.2 });
+     return { kind:"torus", curves, dots:[{ x:X0, col:"ink", label:"x" }],
+       right:{ c:[PI, PI/2], half:1.72*PI, lattice:true, polys:[{ pts:[at(0,0), at(1,0), at(1,1), at(0,1)], stroke:"quiet" }, { pts:[at(0,0), at(u,0), at(u,v), at(0,v)], fill:"fill" }],
+         segs:[{ a:[0,0], b:G[0], col:"motion", w:2.6 }, { a:[0,0], b:G[1], col:"hinge", w:2.6 }], labels:[{ at:[G[0][0]+0.75, G[0][1]-0.35], s:"γ₁", col:"motion" }, { at:[G[1][0]+0.8, G[1][1]-1.1], s:"γ₂", col:"hinge" }], cap:"plane of times" },
+       rowsT:"Patch", rows:[["part of " + I("N") + " covered", Math.round(100*u*v) + "%", u*v > 0.999 ? "all" : ""]] }; } },
+
+ { title:`In the angles of the torus, the flow of ${I("H")} is a straight line at constant speed`,
+   text:`<p>The flow of ${I("H")} for time ${I("s")} is the time (${I("s")}, 0), so ${I("&theta;")}(${I("s")}) = ${sb("&theta;",0)} + ${I("s")}(1, ${I("w")}), where ${I("H")} = ${sb("I",1)} + ${I("w")}${sb("I",2)} (${I("w")} = &frac12; until now).</p>
+     <p>Right: the square of angles, opposite sides glued. ${I("w")} = 0.50: the path closes at ${I("s")} = 4&pi;. ${I("w")} = 0.62: only at 100&pi;. Irrational ${I("w")}: never.</p>
+     <p class="src">Theorem 16.2, item 2.</p>`,
+   init:() => ({ s:9, w:0.5 }),
+   controls:[timeCtl("s", `time ${I("s")} along ${sb("X","H")}`, 0, 16*PI, { speed:2.2 }), { key:"w", label:`speed ${I("w")}`, range:() => [0.1,1], step:0.01, fmt:v => fx(v,2) }],
+   scene:st => { const n = Math.max(2, Math.round(st.s*14)), X = samp(s => flow(X0, s, 0, st.w), 0, st.s, n), y = X[X.length-1], segs = []; let prev = null;
+     for (const x of X) { const a = angles(x).map(mod); if (prev && Math.abs(a[0]-prev[0]) < 1 && Math.abs(a[1]-prev[1]) < 1) segs.push({ a:prev, b:a, col:"motion", w:1.6 }); prev = a; }
+     return { kind:"torus", curves:[{ X, col:"motion", w:1.8 }], dots:[{ x:X0, col:"ink", label:"x" }, { x:y, col:"motion", big:true }],
+       right:{ c:[PI,PI], half:1.16*PI, polys:[{ pts:[[0,0],[TAU,0],[TAU,TAU],[0,TAU]], stroke:"ink" }], segs, pt:angles(y).map(mod), cap:"square of angles (θ₁, θ₂)", axes:false },
+       rowsT:"Angles", rows:[[sb("&theta;",1), fpi(mod(angles(y)[0])), "changes"], [sb("&theta;",2), fpi(mod(angles(y)[1])), "changes"], [I("&alpha;"), "(1, " + fx(st.w,2) + ")", "fixed"]] }; } },
+
+ { title:`This is Theorem 16.2 (Arnold&ndash;Liouville) of your symplectic geometry notes; the torus is Proposition 16.3`, ...orbitStep,
+   text:`<ol>
+     <li>Notes, section 16: Definition 16.1, Theorem 16.2, Proposition 16.3. The proof of 16.3 is steps 5 to 8 here.</li>
+     <li>Arnold, ${I("Mathematical Methods of Classical Mechanics")} (2nd ed. 1989), chapter on integrable systems. <span class="src">Not opened on this machine. Liouville 1855, Arnold 1963: from memory.</span></li>
+     <li>Theorem 16.4: near ${I("N")}, ${I("M")} is a ball times the torus, with ${I("&omega;")} = &sum; ${sb("dI","i")} &and; ${sb("d&phi;","i")}.</li>
+     <li>Bending: fixed hinge lengths leave a torus of angles. <span class="src">See the slideshow &ldquo;Bending from zero&rdquo;, step 10, in the Torelli notes.</span></li>
+     <li>Holomorphic version, in the notes: the smooth compact fibres of a holomorphic Lagrangian fibration are complex tori.</li></ol>` },
+
+ { title:`A compact connected level set of ${I("n")} commuting independent quantities is ${Rn}<sup>${I("n")}</sup>/${Gam}, a torus, and the flow of ${I("H")} is a straight line on it`, ...orbitStep,
+   text:`<ol>
+     <li>${I("N")} has ${I("n")} tangent, independent, commuting vector fields.</li>
+     <li>Their flows give an action of ${Rn}<sup>${I("n")}</sup> on ${I("N")}.</li>
+     <li>The action reaches every point, and the return times form a lattice ${Gam}.</li>
+     <li>${I("N")} = ${Rn}<sup>${I("n")}</sup>/${Gam} is compact, so ${Gam} has ${I("n")} generators: a torus.</li>
+     <li>In the angles, the flow of ${I("H")} is ${sb("&theta;",0)} + ${I("&alpha;s")}.</li></ol>` },
+];
+
+// ----- state -----
+let ready = false, cur = 0, playing = {}, phase = {}, drag = null, W = 0, H = 0, zoom = 1;
+STEPS.forEach(s => s.st = s.init());
+const mulM = (A,B) => A.map(r => [0,1,2].map(j => r[0]*B[0][j]+r[1]*B[1][j]+r[2]*B[2][j]));
+const rotX = a => [[1,0,0],[0,Math.cos(a),-Math.sin(a)],[0,Math.sin(a),Math.cos(a)]];
+const rotY = a => [[Math.cos(a),0,Math.sin(a)],[0,1,0],[-Math.sin(a),0,Math.cos(a)]];
+const dot = (a,b) => a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+let R = mulM([[1,0,0],[0,0.5,0.866],[0,-0.866,0.5]], [[0.94,0.34,0],[-0.34,0.94,0],[0,0,1]]);   // rows: screen right, screen up, towards the viewer
+const ctlList = () => STEPS[cur].controls || [];
+
+function go(i) { cur = Math.max(0, Math.min(STEPS.length-1, i)); playing = {}; phase = {}; zoom = 1;
+  const S = STEPS[cur];
+  $("title").innerHTML = S.title; $("text").innerHTML = S.text; $("text").scrollTop = 0; $("hint").textContent = S.hint === undefined ? "Drag to rotate. Scroll to change the size." : S.hint;
+  $("count").textContent = (cur+1) + " / " + STEPS.length; $("back").disabled = cur === 0; $("next").disabled = cur === STEPS.length-1;
+  [...$("dots").children].forEach((b,j) => b.className = j === cur ? "on" : "");
+  try { history.replaceState(null, "", "#" + (cur+1)); } catch (e) {}
+  buildControls(); ready = true; draw(); }
+function buildControls() { const st = STEPS[cur].st, L = ctlList();
+  $("ctl").innerHTML = L.map((c,i) => (c.play ? `<button id="p${i}" title="play">&#9654;</button>` : `<span class="nop"></span>`) +
+    `<span>${c.label}</span><input id="s${i}" type="range" step="${c.step || 0.005}"><span class="v" id="v${i}"></span>`).join("");
+  L.forEach((c,i) => {
+    $("s"+i).addEventListener("input", e => { st[c.key] = +e.target.value; delete phase[c.key]; draw(); });
+    if (c.play) $("p"+i).onclick = () => { playing[c.key] = !playing[c.key]; $("p"+i).classList.toggle("on", !!playing[c.key]); $("p"+i).innerHTML = playing[c.key] ? "&#10073;&#10073;" : "&#9654;"; draw(); }; });
+}
+function syncControls() { const st = STEPS[cur].st; ctlList().forEach((c,i) => { const el = $("s"+i), [lo,hi] = c.range(st);
+    el.min = lo; el.max = hi; st[c.key] = Math.max(lo, Math.min(hi, st[c.key]));
+    if (document.activeElement !== el || playing[c.key]) el.value = st[c.key]; $("v"+i).innerHTML = c.fmt(st[c.key]); }); }
+
+// ----- drawing -----
+function line(pts, col, w, dash) { ctx.beginPath(); pts.forEach((p,i) => i ? ctx.lineTo(p[0],p[1]) : ctx.moveTo(p[0],p[1]));
+  ctx.strokeStyle = col; ctx.lineWidth = w; ctx.setLineDash(dash || []); ctx.lineJoin = ctx.lineCap = "round"; ctx.stroke(); ctx.setLineDash([]); }
+function text(s, x, y, col, C, font) { ctx.font = font || "italic 17px Georgia, serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  if (C.halo) { ctx.lineWidth = 4; ctx.strokeStyle = C.halo; ctx.strokeText(s, x, y); } ctx.fillStyle = col; ctx.fillText(s, x, y); }
+function disc(p, r, col, hollow) { ctx.beginPath(); ctx.arc(p[0], p[1], r, 0, TAU); if (hollow) { ctx.strokeStyle = col; ctx.lineWidth = 2; ctx.stroke(); } else { ctx.fillStyle = col; ctx.fill(); } }
+function arrow(a, b, col, w) { const ux = b[0]-a[0], uy = b[1]-a[1], L = Math.hypot(ux,uy) || 1, ex = ux/L, ey = uy/L; line([a,b], col, w);
+  ctx.beginPath(); ctx.moveTo(b[0]+5*ex, b[1]+5*ey); ctx.lineTo(b[0]-6*ex-5*ey, b[1]-6*ey+5*ex); ctx.lineTo(b[0]-6*ex+5*ey, b[1]-6*ey-5*ex); ctx.closePath(); ctx.fillStyle = col; ctx.fill(); }
+const SMALL = "13px Georgia, serif";
+const WIRE = []; for (let i = 0; i < 24; i++) WIRE.push(samp(b => pt(TAU*i/24, b, R1, R2), 0, TAU, 48)); for (let j = 0; j < 10; j++) WIRE.push(samp(a => pt(a, TAU*j/10, R1, R2), 0, TAU, 96));
+
+function drawTorus(C, d) { const mx = d.right ? W*0.31 : W*0.5, my = H*0.5 + 24, s = Math.min(d.right ? W*0.6 : W, H - 70)/2/1.92*zoom;
+  const scr = p => [mx + s*dot(R[0],p), my - s*dot(R[1],p)];
+  const front = x => { const p = proj(x); return dot(R[2], normal(p, x)) > 0; };
+  function curve(X, col, w, dash) { let run = [], rf = null;                       // the side turned away from the viewer is drawn fainter
+    const flush = () => { if (run.length > 1) { ctx.globalAlpha = rf ? 1 : 0.3; line(run, col, rf ? w : w*0.75, dash); ctx.globalAlpha = 1; } };
+    for (const x of X) { const q = scr(proj(x)), f = front(x); run.push(q); if (rf !== null && f !== rf) { flush(); run = [q]; } rf = f; }
+    flush(); }
+  for (const X of WIRE) curve(X, C.quiet, 0.8);
+  for (const c of d.curves || []) curve(c.X, C[c.col], c.w, c.dash);
+  for (const a of d.arrows || []) { const p = scr(proj(a.x)), q = scr(proj(flow(a.x, 0.02*a.d[0], 0.02*a.d[1], W0))), L = Math.hypot(q[0]-p[0], q[1]-p[1]) || 1, e = [p[0] + 52*(q[0]-p[0])/L, p[1] + 52*(q[1]-p[1])/L];
+    arrow(p, e, C[a.col], 2.6); text(a.label, e[0] + 15*(q[0]-p[0])/L, e[1] + 15*(q[1]-p[1])/L, C[a.col], C); }
+  for (const o of d.dots || []) { const p = scr(proj(o.x)); disc(p, o.big ? 6 : 4.5, C[o.col], !front(o.x)); if (o.label) text(o.label, p[0] + 4, p[1] - 15, C[o.col], C); }
+}
+function drawRight(C, r) { const cx = W*0.79, cy = H*0.5 + 22, hp = Math.min(W*0.185, (H - 130)/2), k = hp/r.half;
+  const P = t => [cx + (t[0]-r.c[0])*k, cy - (t[1]-r.c[1])*k];
+  ctx.save(); ctx.beginPath(); ctx.rect(cx-hp, cy-hp, 2*hp, 2*hp); ctx.clip();
+  if (r.axes !== false) { line([P([r.c[0]-r.half,0]), P([r.c[0]+r.half,0])], C.quiet, 1); line([P([0,r.c[1]-r.half]), P([0,r.c[1]+r.half])], C.quiet, 1); }
+  for (const g of r.polys || []) { ctx.beginPath(); g.pts.map(P).forEach((p,i) => i ? ctx.lineTo(p[0],p[1]) : ctx.moveTo(p[0],p[1])); ctx.closePath();
+    if (g.fill) { ctx.fillStyle = C[g.fill]; ctx.fill(); } if (g.stroke) { ctx.strokeStyle = C[g.stroke]; ctx.lineWidth = 1.2; ctx.stroke(); } }
+  for (const g of r.segs || []) line([P(g.a), P(g.b)], C[g.col], g.w, g.dash);
+  if (r.lattice) for (let m = -4; m <= 4; m++) for (let n = -4; n <= 4; n++) { const t = [m*G[0][0] + n*G[1][0], m*G[0][1] + n*G[1][1]];
+    if (Math.abs(t[0]-r.c[0]) <= r.half && Math.abs(t[1]-r.c[1]) <= r.half) disc(P(t), 3.6, C.ink); }
+  for (const l of r.labels || []) text(l.s, P(l.at)[0], P(l.at)[1], C[l.col], C);
+  if (r.pt) disc(P(r.pt), 5.5, C.motion);
+  ctx.restore();
+  ctx.strokeStyle = C.quiet; ctx.lineWidth = 1; ctx.strokeRect(cx-hp, cy-hp, 2*hp, 2*hp);
+  if (r.axes !== false) { text("t₁", cx + hp - 11, Math.max(cy-hp+10, Math.min(cy+hp-10, P([0,0])[1] + 11)), C.quiet, C, "italic 13px Georgia, serif"); text("t₂", Math.max(cx-hp+11, Math.min(cx+hp-11, P([0,0])[0] - 12)), cy - hp + 11, C.quiet, C, "italic 13px Georgia, serif"); }
+  text(r.cap, cx, cy + hp + 13, C.quiet, C, SMALL);
+}
+function drawPlane(C, d) {                                 // step 2: the (q,p) plane and the line of times
+  const ty = H - 44, mx = W*0.5, my = (62 + ty - 36)/2, k = Math.min(W*0.4, (ty - 36 - 62)/2)/2.15, P = x => [mx + k*x[0], my - k*x[1]];   // circles above, line of times below
+  line([[mx-2.15*k,my],[mx+2.15*k,my]], C.quiet, 1); line([[mx,my-2.15*k],[mx,my+2.15*k]], C.quiet, 1);
+  text("q", mx + 2.15*k - 8, my + 12, C.quiet, C, "italic 14px Georgia, serif"); text("p", mx + 11, my - 2.15*k + 8, C.quiet, C, "italic 14px Georgia, serif");
+  for (const c of [0.25,0.5,1,1.5,2]) { ctx.beginPath(); ctx.arc(mx, my, k*Math.sqrt(2*c), 0, TAU); ctx.strokeStyle = C.quiet; ctx.lineWidth = 0.8; ctx.stroke(); }
+  ctx.beginPath(); ctx.arc(mx, my, k*d.r, 0, TAU); ctx.strokeStyle = C.hinge; ctx.lineWidth = 2.6; ctx.stroke();
+  const p = P(d.y), v = hamVec([d.y[0], d.y[1], 0, 0]), L = Math.hypot(v[0],v[1]) || 1, e = [p[0] + 46*v[0]/L, p[1] - 46*v[1]/L];
+  arrow(p, e, C.motion, 2.4); text("X", e[0] + 13*v[0]/L, e[1] - 13*v[1]/L, C.motion, C);
+  disc(P(d.x), 4.5, C.ink); text("x, time 0", P(d.x)[0] + 40, P(d.x)[1] - 4, C.ink, C); disc(p, 6, C.motion);
+  const cx = W*0.5, hp = Math.min(W*0.4, 300), T = t => [cx - hp + 2*hp*t/(2*TAU), ty];
+  line([T(0), T(2*TAU)], C.quiet, 1.2); line([T(0), T(d.t)], C.motion, 3);
+  [["0",0],["2π",TAU],["4π",2*TAU]].forEach(([s,t]) => { disc(T(t), 3.6, C.ink); text(s, T(t)[0], ty + 16, C.ink, C, SMALL); });
+  disc(T(d.t), 5.5, C.motion); text("line of times; dots: the point is back at x", cx, ty - 15, C.quiet, C, SMALL);
+}
+function drawPlanes(C, d) {                                // step 3: the two planes of R^4
+  const my = H*0.5 + 22, k = Math.min(W*0.2, (H - 112)/2)/2.05;
+  [[W*0.27, 0, R1, "(q₁, p₁)"], [W*0.73, 2, R2, "(q₂, p₂)"]].forEach(([mx, j, r, cap]) => { const P = x => [mx + k*x[j], my - k*x[j+1]];
+    line([[mx-2.05*k,my],[mx+2.05*k,my]], C.quiet, 1); line([[mx,my-2.05*k],[mx,my+2.05*k]], C.quiet, 1);
+    ctx.beginPath(); ctx.arc(mx, my, k*r, 0, TAU); ctx.strokeStyle = C.hinge; ctx.lineWidth = 2.4; ctx.stroke();
+    line([[mx,my], P(d.y)], C.quiet, 1, [3,3]); disc(P(X0), 4.5, C.ink); text("x", P(X0)[0] + 13, P(X0)[1] - 5, C.ink, C); disc(P(d.y), 6, C.motion);
+    text(cap, mx, my + 2.05*k + 13, C.quiet, C, "italic 13px Georgia, serif"); });
+}
+function draw() { if (!W || !ready) return;
+  const S = STEPS[cur]; syncControls();
+  const C = COLS[dark ? "dark" : "light"], d = S.scene(S.st);
+  ctx.clearRect(0,0,W,H);
+  if (d.kind === "plane") drawPlane(C, d); else if (d.kind === "planes") drawPlanes(C, d); else { drawTorus(C, d); if (d.right) drawRight(C, d.right); }
+  $("rowsT").textContent = d.rowsT || "Numbers";
+  $("rows").innerHTML = (d.rows || []).map(([a,v,w]) => `<span>${a}</span><span class="n">${v}</span><span class="w">${w}</span>`).join("");
+}
+function resize() { const r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+  W = r.width; H = r.height; cv.width = Math.round(W*d); cv.height = Math.round(H*d); ctx.setTransform(d,0,0,d,0,0); draw(); }
+window.addEventListener("resize", resize);
+cv.addEventListener("pointerdown", e => { drag = [e.clientX, e.clientY]; cv.setPointerCapture(e.pointerId); });
+cv.addEventListener("pointermove", e => { if (!drag) return;
+  R = mulM(rotY((e.clientX-drag[0])*0.008), mulM(rotX((e.clientY-drag[1])*0.008), R)); drag = [e.clientX, e.clientY]; draw(); });
+cv.addEventListener("pointerup", () => drag = null);
+cv.addEventListener("pointercancel", () => drag = null);
+cv.addEventListener("wheel", e => { e.preventDefault(); zoom = Math.max(0.4, Math.min(3, zoom*Math.exp(-e.deltaY*0.002))); draw(); }, {passive:false});
+function setDark(on) { dark = on; $("dkL").checked = !on; $("dkD").checked = on; try { localStorage.setItem("darkCols", on ? "1" : "0"); } catch (e) {} draw(); }
+$("dkL").onchange = () => setDark(false); $("dkD").onchange = () => setDark(true);
+$("back").onclick = () => go(cur-1); $("next").onclick = () => go(cur+1);
+$("dots").innerHTML = STEPS.map(() => "<b></b>").join(""); [...$("dots").children].forEach((b,j) => b.onclick = () => go(j));
+// Left / right arrows change the step, also when a slider or a radio button has the focus (capture phase, so the control does not take the key).
+window.addEventListener("keydown", e => { const t = e.target, typing = t.tagName === "TEXTAREA" || (t.tagName === "INPUT" && !/^(range|radio|checkbox|button)$/.test(t.type));
+  if (typing || e.metaKey || e.ctrlKey || e.altKey || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
+  e.preventDefault(); e.stopPropagation(); go(cur + (e.key === "ArrowRight" ? 1 : -1)); }, true);
+let then = null;
+function tick(now) { const dt = then === null ? 0 : Math.min(0.05, (now-then)/1000); then = now; const st = STEPS[cur].st;
+  let any = false; for (const c of ctlList()) if (playing[c.key]) { any = true; const [lo,hi] = c.range(st);
+    if (c.kind === "wrap") { let v = st[c.key] + (c.speed || 1)*dt; if (v > hi) v = lo; st[c.key] = v; }      // a time runs on and starts again
+    else { let ph = phase[c.key]; if (ph === undefined) ph = Math.acos(Math.max(-1, Math.min(1, 1 - 2*(st[c.key]-lo)/(hi-lo))));   // a length goes back and forth
+      ph += 0.5*dt; phase[c.key] = ph; st[c.key] = lo + (hi-lo)*(0.5 - 0.5*Math.cos(ph)); } }
+  if (any) draw(); requestAnimationFrame(tick); }
+resize(); setDark(dark); go(Math.max(1, Math.min(STEPS.length, parseInt(location.hash.slice(1)) || 1)) - 1); requestAnimationFrame(tick);
+}
+</script>
+<script>
+// ---------- full screen (whole page, so the controls stay; key f, Esc leaves) ----------
+if (typeof document !== "undefined") (function () {
+  const d = document, el = d.documentElement, w = d.getElementById("fsW"), f = d.getElementById("fsF");
+  const req = el.requestFullscreen || el.webkitRequestFullscreen, exit = d.exitFullscreen || d.webkitExitFullscreen;
+  if (!w || !f) return; if (!req || !exit) { w.closest(".fs").style.display = "none"; return; }
+  const on = () => !!(d.fullscreenElement || d.webkitFullscreenElement);
+  const sync = () => { f.checked = on(); w.checked = !on(); };
+  const set = want => { if (want === on()) return sync(); try { const p = want ? req.call(el) : exit.call(d); if (p && p.catch) p.catch(sync); } catch (e) { sync(); } };
+  f.onchange = () => set(true); w.onchange = () => set(false);
+  d.addEventListener("fullscreenchange", sync); d.addEventListener("webkitfullscreenchange", sync);
+  d.addEventListener("keydown", e => { const t = e.target, typing = t.tagName === "TEXTAREA" || (t.tagName === "INPUT" && !/^(range|radio|checkbox|button)$/.test(t.type));
+    if (e.key === "f" && !typing && !e.metaKey && !e.ctrlKey && !e.altKey) set(!on()); });
+  sync();
+})();
+</script>
+</body>
+</html>

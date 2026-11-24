@@ -620,6 +620,16 @@ class ContentsAndDownloadsTests(
                      base + "pants-graph.png"):
             self.assertEqual(client.get(path).status_code, 404, path)
 
+    def test_symplectic_model(self):
+        client = app.test_client()
+        got = client.get("/models/symplectic-geometry/arnold-liouville-torus.html")
+        self.assertEqual(got.status_code, 200)
+        self.assertIn("text/html", got.content_type)
+        # Only HTML files that exist in a chapter's assets folder are served.
+        for path in ("/models/symplectic-geometry/nothing.html", "/models/nothing/arnold-liouville-torus.html",
+                     "/models/symplectic-geometry/arnold-liouville-torus.png"):
+            self.assertEqual(client.get(path).status_code, 404, path)
+
     def test_talk_models(self):
         client = app.test_client()
         base = "/talks/stanley-reisner-puc-informal/"
