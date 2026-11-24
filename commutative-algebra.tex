@@ -15,10 +15,27 @@
 
 \begin{definition}
 \label{definition-domain}
-A ring $R$ is called a {\it domain} if it has
+A nonzero ring $R$ is called
+a {\it domain} if it has
 no proper zero divisors,
 that is, if $ab=0$ then $a=0$ or $b=0$.
 \end{definition}
+
+\medskip\noindent
+{\it Note (24 November 2026).}
+The word ``nonzero'' was added to
+Definition~\ref{definition-domain}
+while formalizing this section in Lean,
+to agree with the usual convention
+that the zero ring is not a domain.
+The first five sections of this chapter
+are formalized in Lean, see
+\href{https://github.com/danimalabares/%
+heap-project/blob/main/lean/HeapProject/%
+CommutativeAlgebra/Basics.lean}
+{the Lean file}.
+The Lean statements and proofs
+were written by an AI (Claude Code).
 
 \begin{theorem}
 \label{theorem-ideal-quoti-corre}
@@ -122,7 +139,7 @@ principal, or find a counterexample.
 
 \begin{proof}
 This is false. Consider
-$R=\mathbb{C}[x,y]/(y-x^2)$
+$R=\mathbb{C}[x,y]/(y^3-x^2)$
 and the ideal $(x,y) \subset
 \mathbb{C}[x,y]$.
 This ideal contains $y^3-x^2$,
@@ -132,6 +149,18 @@ Indeed, even after substituting $y^3=x^2$,
 there's no way to obtain $y$ from $x$
 or vice versa. [Proof can be improved]
 \end{proof}
+
+\medskip\noindent
+{\it Note (24 November 2026).}
+An earlier version of this proof
+took the quotient by $(y-x^2)$.
+That ring is isomorphic to
+$\mathbb{C}[x]$, which is a principal
+ideal domain, so it is not a counterexample.
+The rest of the proof already used
+$y^3-x^2$. This was noticed while preparing
+the Lean formalization of this section;
+the exercise itself is not formalized.
 
 \begin{exercise}
 \label{exercise-smooth-irreducible-plane}
@@ -171,14 +200,28 @@ and gdc:
 \label{definition-lcm-and-gdc-%
 universal}
 A {\it least common multiple} of $a,b \in R$
-is an element $d$ such that if for
-every $c\in R$, if $a,b|c$ then $d|c$.
+is an element $d$ such that $a,b|d$ and
+for every $c\in R$, if $a,b|c$ then $d|c$.
 
 A {\it greatest common divisor} of $a,b \in
-R$ is an element $d$ such that
+R$ is an element $d$ such that $d|a,b$ and
 for every  $c \in R$,  if $c|a,b$ then
 $c|d$.
 \end{definition}
+
+\medskip\noindent
+{\it Note (24 November 2026).}
+An earlier version of
+Definition~\ref{definition-lcm-and-gdc-%
+universal}
+did not ask that $a,b|d$
+for the least common multiple,
+nor that $d|a,b$ for the greatest
+common divisor.
+Formalizing it in Lean showed that then
+$1$ is a least common multiple and $0$ is
+a greatest common divisor
+of any two elements.
 
 But it looks like it shall be easier to
 define them
@@ -219,22 +262,37 @@ domains}
 domain}
 A domain $R$ is an {\it Euclidean domain} if
 there
-is a function  $\varphi:R\to \mathbb{Z}_+$,
+is a function
+$\varphi:R\setminus\{0\}\to \mathbb{Z}_+$,
 the positive integers,
 such that
 \begin{enumerate}
 \item $\varphi(ab)\geq \varphi(a)$ for all
-$a,b \in R$,
+nonzero $a,b \in R$,
 \label{item-valuation}
-\item For all $a,b \in R$ with $\varphi(a)
-\geq \varphi(b)$,
-there are $q,r \in R$ such that
-$$
-a=bq+r\qquad \text{and}
-\qquad\varphi(r)<\varphi(b).
-$$
+\item For all $a,b \in R$ with $b\neq 0$
+there are $q,r \in R$ such that $a=bq+r$
+and either $r=0$
+or $\varphi(r)<\varphi(b)$.
 \end{enumerate}
 \end{definition}
+
+\medskip\noindent
+{\it Note (24 November 2026).}
+An earlier version of
+Definition~\ref{definition-euclidean-%
+domain}
+defined $\varphi$ on all of $R$,
+asked for division with remainder
+whenever $\varphi(a)\geq\varphi(b)$,
+and required $\varphi(r)<\varphi(b)$
+for the remainder.
+Formalizing it in Lean showed that
+no ring satisfies this:
+for $a=b=0$ the remainder is $r=0$,
+and $\varphi(0)<\varphi(0)$ is false.
+The definition now excludes division
+by zero and allows a zero remainder.
 
 \begin{remark}
 \label{remark-equivalence-for-%
@@ -242,7 +300,8 @@ valuation}
 Item
 \ref{item-valuation}
 is equivalent to
-asking that if $a$ divides $b$ then
+asking that if $a$ divides $b$
+and $b$ is nonzero then
 $\varphi(a) \leq \varphi (b)$.
 \end{remark}
 
