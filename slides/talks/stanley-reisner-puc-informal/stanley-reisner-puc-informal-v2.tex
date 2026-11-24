@@ -5,7 +5,7 @@
 % Divider for the seven parts: number, title, what the part does.
 \usepackage{array}
 \newcommand{\partslide}[3]{\begin{frame}\centering
-{\large Part #1}\par\medskip{\huge #2\par}\par\vspace{9mm}
+{\large Part #1}\par\medskip{\huge #2\par}\par\vspace{6mm}
 \begin{minipage}{0.78\textwidth}\centering #3\end{minipage}\end{frame}}
 % The link of b, drawn flat (the picture of Part 2), at a given scale.
 \newcommand{\linkofb}[1]{\begin{tikzpicture}[scale=#1,line join=round]
@@ -33,64 +33,22 @@
 \begin{columns}[c]
 \begin{column}{0.6\textwidth}
 \textbf{The sphere.} \(\mathcal M\): a triangulation of the \(3\)-sphere with \(8\) vertices and \(20\) tetrahedra \cite{GS}.
-\par\medskip
+\par\bigskip
 \textbf{The scheme.} \(X=\SR(\mathcal M)\subset\Pj^7\): one \(\Pj^3\) for each tetrahedron, glued as the tetrahedra are glued.
-\par\medskip
+\par\bigskip
 \fbox{\begin{minipage}{0.93\linewidth}
-\textbf{Theorem (proposed).} \(X\) is a limit of smooth Calabi--Yau threefolds of degree \(20\) in \(\Pj^7\).
+\textbf{Theorem (proposed).} \(X\) has a smoothing: a flat family over a curve, in which one fibre is \(X\) and every other fibre is a smooth Calabi--Yau threefold of degree \(20\) in \(\Pj^7\).
 \end{minipage}}
 \end{column}
 \begin{column}{0.38\textwidth}\centering
-\linkofb{0.4}
+\linkofb{0.5}
 \par
 {\small \(\mathcal M\) seen from its vertex \(b\) (Part 2).}
 \end{column}
 \end{columns}
-\par\medskip
-\textbf{In full.} There is a flat family \(\mathcal Y\subset\Pj^7\times C\) over a curve \(C\), with fibre \(X\) over a point \(0\in C\). Every other fibre \(Y\) is smooth, and
-\[
-K_Y\simeq\cO_Y,\qquad H^1(\cO_Y)=H^2(\cO_Y)=0,\qquad H^3=20,\qquad c_2\cdot H=56.
-\]
-\src{\textbf{Status.} The proof was assembled with AI help and checked only by an AI audit. No human has verified it. \textbf{Not claimed:} Hodge numbers, or which known family \(Y\) belongs to.}
+\src{\textbf{Status.} The proof was assembled with AI help and checked only by an AI audit. No human has verified it.}
 \end{frame}
 
-\begin{frame}{The same statement in lower dimensions}
-\begin{columns}[t]
-\begin{column}{0.31\textwidth}\centering
-\begin{tikzpicture}[scale=0.55,line join=round]
-\coordinate (A) at (90:1.2); \coordinate (B) at (210:1.2); \coordinate (C) at (330:1.2);
-\draw[thick] (A)--(B)--(C)--cycle;
-\foreach \p/\pos/\n in {A/above/x,B/left/y,C/right/z} \fill (\p) circle (1.6pt) node[\pos]{\(\n\)};
-\end{tikzpicture}
-\par\smallskip
-\textbf{Triangle}\\ (a circle).\\ Three lines in \(\Pj^2\):\\ \(xyz=0\).\\ A limit of smooth cubic curves.
-\end{column}
-\begin{column}{0.31\textwidth}\centering
-\begin{tikzpicture}[scale=0.55,line join=round]
-\coordinate (A) at (0,1.3); \coordinate (B) at (-1.3,-0.6); \coordinate (C) at (0.3,-1.0); \coordinate (D) at (1.3,-0.3);
-\draw[dashed] (B)--(D);
-\draw[thick] (A)--(B)--(C)--(D)--cycle (A)--(C);
-\foreach \p/\pos/\n in {A/above/x,B/left/y,C/below/z,D/right/w} \fill (\p) circle (1.6pt) node[\pos]{\(\n\)};
-\end{tikzpicture}
-\par\smallskip
-\textbf{Tetrahedron}\\ (a \(2\)-sphere).\\ Four planes in \(\Pj^3\):\\ \(xyzw=0\).\\ A limit of smooth quartics: K3 surfaces.
-\end{column}
-\begin{column}{0.34\textwidth}\centering
-\begin{tikzpicture}[scale=0.55,line join=round]
-\foreach \i in {0,...,4} \coordinate (p\i) at ({90+72*\i}:1.3);
-\draw[thick] (p0)--(p1)--(p2)--(p3)--(p4)--cycle;
-\draw (p0)--(p2)--(p4)--(p1)--(p3)--cycle;
-\foreach \i in {0,...,4} \fill (p\i) circle (1.6pt);
-\end{tikzpicture}
-\par\smallskip
-\textbf{\(5\)-cell}\\ (a \(3\)-sphere).\\ Five \(\Pj^3\)'s in \(\Pj^4\):\\ \(x_0x_1x_2x_3x_4=0\).\\ A limit of smooth quintic threefolds.
-\end{column}
-\end{columns}
-\par\smallskip
-\textbf{The rule.} One coordinate for each vertex. One equation for each set of vertices that is not a face: the product of its coordinates.
-\par
-\textbf{Why \(\mathcal M\) is harder.} Above there is one equation, and \(xyzw+t\,q\), with \(q\) a general quartic, is a smoothing. For \(\mathcal M\) there are sixteen equations, to be deformed together.
-\end{frame}
 
 \begin{frame}{The proof in four steps}
 \begin{center}
@@ -117,10 +75,12 @@ K_Y\simeq\cO_Y,\qquad H^1(\cO_Y)=H^2(\cO_Y)=0,\qquad H^3=20,\qquad c_2\cdot H=56
 \partslide{2}{What is \(\mathcal M\)?}{Pictures of \(\mathcal M\), to get used to it. They are not needed for the proof.}
 
 \begin{frame}{Spheres made of simplices}
+\textbf{Definition.} A \emph{triangulated \(d\)-sphere}: simplices of dimension \(d\), glued along their faces, so that the result is topologically the sphere \(S^d\).
+\par\medskip
 \begin{columns}[t]
 \begin{column}{0.3\textwidth}
 \centering
-\begin{tikzpicture}[scale=0.9]
+\begin{tikzpicture}[scale=0.95]
 \foreach \i in {0,...,5} \coordinate (p\i) at ({90+60*\i}:1.3);
 \draw (p0)--(p1)--(p2)--(p3)--(p4)--(p5)--cycle;
 \foreach \i in {0,...,5} \fill (p\i) circle (1.6pt);
@@ -130,7 +90,7 @@ K_Y\simeq\cO_Y,\qquad H^1(\cO_Y)=H^2(\cO_Y)=0,\qquad H^3=20,\qquad c_2\cdot H=56
 \end{column}
 \begin{column}{0.3\textwidth}
 \centering
-\begin{tikzpicture}[scale=0.9,line join=round]
+\begin{tikzpicture}[scale=0.95,line join=round]
 \coordinate (t) at (0,1.5); \coordinate (u) at (0,-1.5);
 \coordinate (w) at (-1.4,-0.1); \coordinate (x) at (-0.3,-0.45);
 \coordinate (y) at (1.4,0.1); \coordinate (z) at (0.3,0.45);
@@ -143,14 +103,12 @@ K_Y\simeq\cO_Y,\qquad H^1(\cO_Y)=H^2(\cO_Y)=0,\qquad H^3=20,\qquad c_2\cdot H=56
 \end{column}
 \begin{column}{0.36\textwidth}
 \centering
-\vspace{2mm}
-{\Large \(\mathcal M\)}
-\par\vspace{2mm}
+\vspace{8mm}
+{\Huge \(\mathcal M\)}
+\par\vspace{6mm}
 \textbf{A \(3\)-sphere.}\\ 8 vertices, 28 edges, 40 triangles, 20 tetrahedra.
 \end{column}
 \end{columns}
-\par\bigskip
-In this talk we discuss \(\mathcal M\), a specific triangulation of the \(3\)-sphere with \(8\) vertices, described by Grünbaum and Sreedharan in 1967 \cite{GS}.
 \src{\textcolor{red}{I did not confirm the incidence relations in any picture of this talk.}}
 \end{frame}
 
@@ -158,7 +116,7 @@ In this talk we discuss \(\mathcal M\), a specific triangulation of the \(3\)-sp
 The \emph{link} (or vertex figure) of a vertex: what is at incidence distance \(1\) from it.
 \begin{columns}[c]
 \begin{column}{0.48\textwidth}\centering
-\begin{tikzpicture}[scale=0.78,line join=round]
+\begin{tikzpicture}[scale=1.12,line join=round]
 \coordinate (t) at (0,1.6); \coordinate (u) at (0,-1.6);
 \coordinate (w) at (-1.5,-0.1); \coordinate (x) at (-0.35,-0.5);
 \coordinate (y) at (1.5,0.1); \coordinate (z) at (0.35,0.5);
@@ -176,138 +134,67 @@ The \emph{link} (or vertex figure) of a vertex: what is at incidence distance \(
 \draw[->] (1.8,0)--(2.3,0);
 \end{tikzpicture}
 \par\smallskip
-\textbf{Octahedron, from \(p\).} A square: a circle with \(4\) vertices. The vertex \(q\) is at distance \(2\) and is not in it.
+\textbf{Octahedron, from \(p\).} A square. \(q\) is not in it.
 \end{column}
 \begin{column}{0.5\textwidth}\centering
-\begin{tikzpicture}[scale=0.45,line join=round]
-\coordinate (g) at (0,3.3);
-\coordinate (f) at (-3.7,-2.3);
-\coordinate (h) at (3.7,-2.3);
-\coordinate (c) at (0,1.3);
-\coordinate (e) at (-1.3,-1.2);
-\coordinate (d) at (0.9,-0.9);
-\coordinate (a) at (-0.13,-0.27);
-\draw (f)--(g)--(h)--cycle;
-\draw (c)--(f) (c)--(g) (c)--(h) (c)--(e) (c)--(d) (c)--(a);
-\draw (e)--(f) (d)--(h) (d)--(e) (a)--(d) (a)--(e) (e)--(h);
-\foreach \p/\pos in {g/above,f/below left,h/below right,c/above right,e/below left,d/right,a/below}
-  \fill (\p) circle (1.5pt) node[\pos]{\(\p\)};
-\end{tikzpicture}
+\linkofb{0.72}
 \par\smallskip
-\textbf{\(\mathcal M\), from \(b\).} A \(2\)-sphere with \(7\) vertices, \(15\) edges, \(10\) triangles, drawn flat. Every vertex is at distance \(1\) from \(b\), so all seven are in it.
+\textbf{\(\mathcal M\), from \(b\).} A \(2\)-sphere, drawn flat. All \(7\) other vertices are in it.
 \end{column}
 \end{columns}
 \end{frame}
 
 \begin{frame}{The link of \(b\): what it shows and what it misses}
 \begin{columns}[c]
-\begin{column}{0.5\textwidth}\centering
-\begin{tikzpicture}[scale=0.8,line join=round]
-\coordinate (g) at (0,3.3);
-\coordinate (f) at (-3.7,-2.3);
-\coordinate (h) at (3.7,-2.3);
-\coordinate (c) at (0,1.3);
-\coordinate (e) at (-1.3,-1.2);
-\coordinate (d) at (0.9,-0.9);
-\coordinate (a) at (-0.13,-0.27);
-\draw (f)--(g)--(h)--cycle;
-\draw (c)--(f) (c)--(g) (c)--(h) (c)--(e) (c)--(d) (c)--(a);
-\draw (e)--(f) (d)--(h) (d)--(e) (a)--(d) (a)--(e) (e)--(h);
-\foreach \p/\pos in {g/above,f/below left,h/below right,c/above right,e/below left,d/right,a/below}
-  \fill (\p) circle (1.8pt) node[\pos]{\(\p\)};
-\end{tikzpicture}
+\begin{column}{0.62\textwidth}\centering
+\linkofb{1.05}
 \end{column}
-\begin{column}{0.48\textwidth}
-\textbf{What it shows.} An edge \(xy\) of the picture is the triangle \(bxy\) of \(\mathcal M\). A triangle \(xyz\) of the picture is the tetrahedron \(bxyz\) of \(\mathcal M\).
-\par\medskip
-\textbf{What it misses.} Everything that does not touch \(b\):
+\begin{column}{0.36\textwidth}
+\textbf{It shows.} An edge \(xy\): the triangle \(bxy\). A triangle \(xyz\): the tetrahedron \(bxyz\).
+\par\bigskip
+\textbf{It misses} what does not touch \(b\):
 \begin{itemize}
 \setlength{\itemsep}{4pt}
-\item \(10\) of the \(20\) tetrahedra:\\ \(acdf,\ acef,\ adeg,\ adfg,\ aefh,\)\\ \(aegh,\ afgh,\ cdfg,\ cdgh,\ degh\);
+\item \(10\) of the \(20\) tetrahedra;
 \item \(6\) of the \(28\) edges:\\ \(af,\ ag,\ ah,\ df,\ dg,\ eg\);
 \item \(15\) of the \(40\) triangles.
 \end{itemize}
-\par\medskip
+\par\bigskip
 The picture is the surface of a ball. The missing tetrahedra fill the inside.
 \end{column}
 \end{columns}
 \end{frame}
 
-\begin{frame}{Provisional: the six missing edges, drawn}
+
+\begin{frame}{\(2\)-spheres seen from a vertex}
 \begin{columns}[c]
-\begin{column}{0.5\textwidth}\centering
-\begin{tikzpicture}[scale=0.8,line join=round]
-\coordinate (g) at (0,3.3);
-\coordinate (f) at (-3.7,-2.3);
-\coordinate (h) at (3.7,-2.3);
-\coordinate (c) at (0,1.3);
-\coordinate (e) at (-1.3,-1.2);
-\coordinate (d) at (0.9,-0.9);
-\coordinate (a) at (-0.13,-0.27);
-\draw[red,dashed,thick] (a)--(f) (a) to[bend left=28] (g) (a)--(h) (d)--(f) (d)--(g) (e)--(g);
-\draw (f)--(g)--(h)--cycle;
-\draw (c)--(f) (c)--(g) (c)--(h) (c)--(e) (c)--(d) (c)--(a);
-\draw (e)--(f) (d)--(h) (d)--(e) (a)--(d) (a)--(e) (e)--(h);
-\foreach \p/\pos in {g/above,f/below left,h/below right,c/above right,e/below left,d/right,a/below}
-  \fill (\p) circle (1.8pt) node[\pos]{\(\p\)};
-\end{tikzpicture}
+\begin{column}{0.56\textwidth}
+\textbf{The model.} Left: the sphere with the vertex \(v\) removed, drawn flat. Right: the solid, to turn by hand.
+\par\medskip
+\textbf{Regular.} Tetrahedron, cube, octahedron, dodecahedron, icosahedron.
+\par\medskip
+\textbf{Other \(2\)-spheres.} Double pyramids with \(5\) and \(7\) vertices. The link of \(b\) in \(\mathcal M\). The links of \(7\) and of \(1\) in Barnette's sphere.
+\par\medskip
+\textbf{Seen from.} Any vertex: use the arrows.
 \end{column}
-\begin{column}{0.48\textwidth}
-\textbf{Dashed.} The \(6\) edges not touching \(b\):\\ \(af,\ ag,\ ah,\ df,\ dg,\ eg\).
-\par\medskip
-They are inside the ball. Drawn flat, they cross the other edges.
-\par\medskip
-Now every pair of the \(7\) points is joined: \(15+6=21\).
-\par\medskip
-The \(10\) missing tetrahedra are made of these lines. For example, \(afgh\) is the big triangle \(fgh\) with \(a\) inside: it covers the whole picture.
-\par\medskip
-The lines do not show which \(10\) of the \(35\) quadruples are the tetrahedra. For that: the 3D model.
+\begin{column}{0.42\textwidth}\centering
+\linkofb{0.5}
+\par
+{\small One of them: the link of \(b\) in \(\mathcal M\).}
 \end{column}
 \end{columns}
+\src{In the live version this slide is the model itself, with all its buttons.}
 \end{frame}
 
-\begin{frame}{Why the link of \(b\) is a \(2\)-sphere}
-A sphere drawn flat: remove one face, flatten the rest. The removed face becomes the outside region. It is like stereographic projection from a point inside that face.
+\begin{frame}{\(3\)-spheres seen from a vertex}
+\textbf{The model.} A \(3\)-sphere with the vertex \(v\) removed, drawn in space. The link of \(v\) is a surface. The cells that do not touch \(v\) fill its inside. The cells at \(v\) are outside.
 \par\medskip
-\begin{columns}[c]
-\begin{column}{0.3\textwidth}\centering
-\begin{tikzpicture}[scale=0.42,line join=round]
-\coordinate (A) at (0,3.3); \coordinate (B) at (-3.7,-2.3); \coordinate (C) at (3.7,-2.3); \coordinate (O) at (0,-0.4);
-\draw (A)--(B)--(C)--cycle (O)--(A) (O)--(B) (O)--(C);
-\foreach \p in {A,B,C,O} \fill (\p) circle (2pt);
-\end{tikzpicture}
-\par\smallskip
-\textbf{Tetrahedron.}\\ 3 triangles drawn\\ + the outside \(=4\).
-\end{column}
-\begin{column}{0.3\textwidth}\centering
-\begin{tikzpicture}[scale=0.42,line join=round]
-\coordinate (A) at (0,3.3); \coordinate (B) at (-3.7,-2.3); \coordinate (C) at (3.7,-2.3);
-\coordinate (a) at (0,-1.5); \coordinate (b) at (1.2,0.5); \coordinate (c) at (-1.2,0.5);
-\draw (A)--(B)--(C)--cycle (a)--(b)--(c)--cycle;
-\draw (A)--(b) (A)--(c) (B)--(c) (B)--(a) (C)--(a) (C)--(b);
-\foreach \p in {A,B,C,a,b,c} \fill (\p) circle (2pt);
-\end{tikzpicture}
-\par\smallskip
-\textbf{Octahedron.}\\ 7 triangles drawn\\ + the outside \(=8\).
-\end{column}
-\begin{column}{0.36\textwidth}\centering
-\begin{tikzpicture}[scale=0.42,line join=round]
-\coordinate (g) at (0,3.3);
-\coordinate (f) at (-3.7,-2.3);
-\coordinate (h) at (3.7,-2.3);
-\coordinate (c) at (0,1.3);
-\coordinate (e) at (-1.3,-1.2);
-\coordinate (d) at (0.9,-0.9);
-\coordinate (a) at (-0.13,-0.27);
-\draw (f)--(g)--(h)--cycle;
-\draw (c)--(f) (c)--(g) (c)--(h) (c)--(e) (c)--(d) (c)--(a);
-\draw (e)--(f) (d)--(h) (d)--(e) (a)--(d) (a)--(e) (e)--(h);
-\foreach \p in {g,f,h,c,e,d,a} \fill (\p) circle (2pt);
-\end{tikzpicture}
-\par\smallskip
-\textbf{Link of \(b\).}\\ 9 triangles drawn\\ + the outside \(fgh\) \(=10\).
-\end{column}
-\end{columns}
+\textbf{Regular.} \(5\)-cell, \(16\)-cell, \(600\)-cell, tesseract, \(24\)-cell, \(120\)-cell.
+\par\medskip
+\textbf{Other \(3\)-spheres.} Double pyramids with \(6\) and \(7\) vertices. Cyclic polytopes with \(7\) and \(8\) vertices. \(\mathcal M\). Barnette's sphere.
+\par\medskip
+\textbf{Seen from.} Any vertex: use the arrows. The tetrahedra can be shown one by one.
+\src{In the live version this slide is the model itself, with all its buttons.}
 \end{frame}
 
 \begin{frame}{\(\mathcal M\) is a non-polytopal sphere}
@@ -346,7 +233,7 @@ abf,\ abg,\ abh,\ acg,\ ach,\ adh,\ bdf,\ bdg,\ beg,\ cde,\ ceg,\ ceh,\ cfh,\ de
 \par\medskip
 \textbf{Canonical class.} On \(\Pj^3\), \(K=-4\) planes. Each \(\Pj^3\) is glued to its neighbours along exactly \(4\) planes: the \(4\) faces of its tetrahedron. The two cancel.
 \par\medskip
-\textbf{One dimension down.} One \(\Pj^2\) for each triangle of a \(2\)-sphere. On \(\Pj^2\), \(K=-3\) lines, and a triangle has \(3\) sides. The tetrahedron gives \(xyzw=0\), a limit of K3 surfaces.
+\textbf{One dimension down.} One \(\Pj^2\) for each triangle of a \(2\)-sphere. On \(\Pj^2\), \(K=-3\) lines, and a triangle has \(3\) sides. The tetrahedron gives \(xyzw=0\), which deforms to smooth quartics: K3 surfaces.
 \par\medskip
 \textbf{This is not a proof.} \(X\) is not smooth. The proof is on the next two slides: it looks at a smooth fibre \(Y\) near \(X\).
 \end{column}
@@ -942,7 +829,7 @@ The same scheme applies to every face of \(\mathcal M\).
 \partslide{7}{Conclusion}{What we did, and what is open.}
 
 \begin{frame}{What we did}
-\textbf{Theorem (proposed).} \(\SR(\mathcal M)\) is a limit of smooth Calabi--Yau threefolds of degree \(20\) in \(\Pj^7\).
+\textbf{Theorem (proposed).} \(\SR(\mathcal M)\) has a smoothing, whose smooth fibres are Calabi--Yau threefolds of degree \(20\) in \(\Pj^7\).
 \par\medskip
 {\small\renewcommand{\arraystretch}{1.15}
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}p{0.36\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}}
@@ -972,6 +859,124 @@ The same scheme applies to every face of \(\mathcal M\).
 \item Is there a conceptual reason why this complex smooths?
 \end{enumerate}
 \end{frame}
+
+%% Frames taken out of v2 (kept, not shown).
+\iffalse
+\begin{frame}{The same statement in lower dimensions}
+\begin{columns}[t]
+\begin{column}{0.31\textwidth}\centering
+\begin{tikzpicture}[scale=0.55,line join=round]
+\coordinate (A) at (90:1.2); \coordinate (B) at (210:1.2); \coordinate (C) at (330:1.2);
+\draw[thick] (A)--(B)--(C)--cycle;
+\foreach \p/\pos/\n in {A/above/x,B/left/y,C/right/z} \fill (\p) circle (1.6pt) node[\pos]{\(\n\)};
+\end{tikzpicture}
+\par\smallskip
+\textbf{Triangle}\\ (a circle).\\ Three lines in \(\Pj^2\):\\ \(xyz=0\).\\ A limit of smooth cubic curves.
+\end{column}
+\begin{column}{0.31\textwidth}\centering
+\begin{tikzpicture}[scale=0.55,line join=round]
+\coordinate (A) at (0,1.3); \coordinate (B) at (-1.3,-0.6); \coordinate (C) at (0.3,-1.0); \coordinate (D) at (1.3,-0.3);
+\draw[dashed] (B)--(D);
+\draw[thick] (A)--(B)--(C)--(D)--cycle (A)--(C);
+\foreach \p/\pos/\n in {A/above/x,B/left/y,C/below/z,D/right/w} \fill (\p) circle (1.6pt) node[\pos]{\(\n\)};
+\end{tikzpicture}
+\par\smallskip
+\textbf{Tetrahedron}\\ (a \(2\)-sphere).\\ Four planes in \(\Pj^3\):\\ \(xyzw=0\).\\ A limit of smooth quartics: K3 surfaces.
+\end{column}
+\begin{column}{0.34\textwidth}\centering
+\begin{tikzpicture}[scale=0.55,line join=round]
+\foreach \i in {0,...,4} \coordinate (p\i) at ({90+72*\i}:1.3);
+\draw[thick] (p0)--(p1)--(p2)--(p3)--(p4)--cycle;
+\draw (p0)--(p2)--(p4)--(p1)--(p3)--cycle;
+\foreach \i in {0,...,4} \fill (p\i) circle (1.6pt);
+\end{tikzpicture}
+\par\smallskip
+\textbf{\(5\)-cell}\\ (a \(3\)-sphere).\\ Five \(\Pj^3\)'s in \(\Pj^4\):\\ \(x_0x_1x_2x_3x_4=0\).\\ A limit of smooth quintic threefolds.
+\end{column}
+\end{columns}
+\par\smallskip
+\textbf{The rule.} One coordinate for each vertex. One equation for each set of vertices that is not a face: the product of its coordinates.
+\par
+\textbf{Why \(\mathcal M\) is harder.} Above there is one equation, and \(xyzw+t\,q\), with \(q\) a general quartic, is a smoothing. For \(\mathcal M\) there are sixteen equations, to be deformed together.
+\end{frame}
+
+\begin{frame}{Provisional: the six missing edges, drawn}
+\begin{columns}[c]
+\begin{column}{0.5\textwidth}\centering
+\begin{tikzpicture}[scale=0.8,line join=round]
+\coordinate (g) at (0,3.3);
+\coordinate (f) at (-3.7,-2.3);
+\coordinate (h) at (3.7,-2.3);
+\coordinate (c) at (0,1.3);
+\coordinate (e) at (-1.3,-1.2);
+\coordinate (d) at (0.9,-0.9);
+\coordinate (a) at (-0.13,-0.27);
+\draw[red,dashed,thick] (a)--(f) (a) to[bend left=28] (g) (a)--(h) (d)--(f) (d)--(g) (e)--(g);
+\draw (f)--(g)--(h)--cycle;
+\draw (c)--(f) (c)--(g) (c)--(h) (c)--(e) (c)--(d) (c)--(a);
+\draw (e)--(f) (d)--(h) (d)--(e) (a)--(d) (a)--(e) (e)--(h);
+\foreach \p/\pos in {g/above,f/below left,h/below right,c/above right,e/below left,d/right,a/below}
+  \fill (\p) circle (1.8pt) node[\pos]{\(\p\)};
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Dashed.} The \(6\) edges not touching \(b\):\\ \(af,\ ag,\ ah,\ df,\ dg,\ eg\).
+\par\medskip
+They are inside the ball. Drawn flat, they cross the other edges.
+\par\medskip
+Now every pair of the \(7\) points is joined: \(15+6=21\).
+\par\medskip
+The \(10\) missing tetrahedra are made of these lines. For example, \(afgh\) is the big triangle \(fgh\) with \(a\) inside: it covers the whole picture.
+\par\medskip
+The lines do not show which \(10\) of the \(35\) quadruples are the tetrahedra. For that: the 3D model.
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Why the link of \(b\) is a \(2\)-sphere}
+A sphere drawn flat: remove one face, flatten the rest. The removed face becomes the outside region. It is like stereographic projection from a point inside that face.
+\par\medskip
+\begin{columns}[c]
+\begin{column}{0.3\textwidth}\centering
+\begin{tikzpicture}[scale=0.42,line join=round]
+\coordinate (A) at (0,3.3); \coordinate (B) at (-3.7,-2.3); \coordinate (C) at (3.7,-2.3); \coordinate (O) at (0,-0.4);
+\draw (A)--(B)--(C)--cycle (O)--(A) (O)--(B) (O)--(C);
+\foreach \p in {A,B,C,O} \fill (\p) circle (2pt);
+\end{tikzpicture}
+\par\smallskip
+\textbf{Tetrahedron.}\\ 3 triangles drawn\\ + the outside \(=4\).
+\end{column}
+\begin{column}{0.3\textwidth}\centering
+\begin{tikzpicture}[scale=0.42,line join=round]
+\coordinate (A) at (0,3.3); \coordinate (B) at (-3.7,-2.3); \coordinate (C) at (3.7,-2.3);
+\coordinate (a) at (0,-1.5); \coordinate (b) at (1.2,0.5); \coordinate (c) at (-1.2,0.5);
+\draw (A)--(B)--(C)--cycle (a)--(b)--(c)--cycle;
+\draw (A)--(b) (A)--(c) (B)--(c) (B)--(a) (C)--(a) (C)--(b);
+\foreach \p in {A,B,C,a,b,c} \fill (\p) circle (2pt);
+\end{tikzpicture}
+\par\smallskip
+\textbf{Octahedron.}\\ 7 triangles drawn\\ + the outside \(=8\).
+\end{column}
+\begin{column}{0.36\textwidth}\centering
+\begin{tikzpicture}[scale=0.42,line join=round]
+\coordinate (g) at (0,3.3);
+\coordinate (f) at (-3.7,-2.3);
+\coordinate (h) at (3.7,-2.3);
+\coordinate (c) at (0,1.3);
+\coordinate (e) at (-1.3,-1.2);
+\coordinate (d) at (0.9,-0.9);
+\coordinate (a) at (-0.13,-0.27);
+\draw (f)--(g)--(h)--cycle;
+\draw (c)--(f) (c)--(g) (c)--(h) (c)--(e) (c)--(d) (c)--(a);
+\draw (e)--(f) (d)--(h) (d)--(e) (a)--(d) (a)--(e) (e)--(h);
+\foreach \p in {g,f,h,c,e,d,a} \fill (\p) circle (2pt);
+\end{tikzpicture}
+\par\smallskip
+\textbf{Link of \(b\).}\\ 9 triangles drawn\\ + the outside \(fgh\) \(=10\).
+\end{column}
+\end{columns}
+\end{frame}
+\fi
 
 \begin{frame}[allowframebreaks]{References}
 \printbibliography[heading=none]
