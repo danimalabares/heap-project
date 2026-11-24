@@ -246,7 +246,7 @@ function draw() {
   if (!W || !ready) return;
   const S = STEPS[cur], st = S.st; syncControls();
   const C = COLS[dark ? "dark" : "light"], d = S.scene(st), G = d.G, rho = G.rho || 0.28, thin = d.thin === undefined ? 1 : d.thin, gap = d.gap || 0, pinch = d.pinch || 0;
-  const s = Math.min(W, H-50)/2/(d.rad || S.rad)*zoom, mx = W/2, my = H/2 + 12, cen = S.centre || [0,0,0];
+  const s = Math.min(W, H-50)/2/(d.rad || S.rad)*0.86*zoom, mx = W/2, my = H/2 + 12, cen = S.centre || [0,0,0];
   const vw = p => { const o = sub(p, cen); return [mx + s*dot(R[0],o), my - s*dot(R[1],o), s*dot(R[2],o)]; };      // CSS pixels; third entry: towards the viewer
   const vdir = T => [dot(R[0],T), -dot(R[1],T), dot(R[2],T)];
   const radius = (c,t) => rho*thin*(c.b !== null && pinch ? Math.sqrt(Math.max(0, 1 - pinch*(1 - (2*t-1)*(2*t-1)))) : 1);
