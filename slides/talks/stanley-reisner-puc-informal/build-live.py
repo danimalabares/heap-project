@@ -21,7 +21,7 @@ DPI = 200            # about 1300 px wide for a 16:9 beamer page
 # spin: turn slowly at start (4d only).
 SLOTS = [
     {"title": "The link of a vertex", "rect": [0.01, 0.21, 0.98, 0.73], "model": "2d", "full": True},
-    {"title": "M seen from a vertex", "rect": [0.01, 0.12, 0.98, 0.82], "model": "4d", "hash": "Mb", "full": True},
+    {"title": "M seen from a vertex", "rect": [0.01, 0.10, 0.98, 0.84], "model": "4d", "hash": "Mb", "full": True},
 ]
 MODELS = {"2d": "from-a-vertex.html", "4d": "from-a-vertex-4d.html"}
 
