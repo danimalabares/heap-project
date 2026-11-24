@@ -300,8 +300,11 @@ $("back").onclick = () => go(cur-1); $("next").onclick = () => go(cur+1);
 $("dots").innerHTML = STEPS.map(() => "<b></b>").join(""); [...$("dots").children].forEach((b,j) => b.onclick = () => go(j));
 // Left / right arrows change the step, also when a slider or a radio button has the focus (capture phase, so the control does not take the key).
 window.addEventListener("keydown", e => { const t = e.target, typing = t.tagName === "TEXTAREA" || (t.tagName === "INPUT" && !/^(range|radio|checkbox|button)$/.test(t.type));
-  if (typing || e.metaKey || e.ctrlKey || e.altKey || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
-  e.preventDefault(); e.stopPropagation(); go(cur + (e.key === "ArrowRight" ? 1 : -1)); }, true);
+  if (typing || e.metaKey || e.ctrlKey || e.altKey || (e.key !== "ArrowRight" && e.key !== "ArrowLeft" && e.key !== " ")) return;
+  e.preventDefault(); e.stopPropagation(); if (e.key !== " ") { go(cur + (e.key === "ArrowRight" ? 1 : -1)); return; }
+  // Space plays the first animation of the step, or pauses whatever is playing (never scrolls, never presses the focused button).
+  if (e.repeat) return; const L = ctlList(), on = L.map((c,i) => playing[c.key] ? i : -1).filter(i => i >= 0), b = on.length ? on : [L.findIndex(c => c.play)];
+  for (const i of b) { const el = $("p"+i); if (el) el.click(); } }, true);
 let then = null;
 function tick(now) { const dt = then === null ? 0 : Math.min(0.05, (now-then)/1000); then = now; const st = STEPS[cur].st;
   let any = false; for (const c of ctlList()) if (playing[c.key]) { any = true; const [lo,hi] = c.range(st);      // a slider goes back and forth between its two ends
