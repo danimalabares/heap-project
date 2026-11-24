@@ -229,6 +229,7 @@ import gerby.views.tag
 # Heap Project specific pages
 import gerby.views.stacks
 import gerby.views.slides
+import gerby.views.models
 import gerby.views.seminars
 import gerby.views.conferences
 import gerby.views.minicourses

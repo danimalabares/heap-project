@@ -609,6 +609,17 @@ class ContentsAndDownloadsTests(
             got = [subject for subject, _ in seminars.load_seminars()]
         self.assertEqual(got, ["b", "c", "a"])
 
+    def test_chapter_models(self):
+        client = app.test_client()
+        base = "/models/differential-topology/"
+        got = client.get(base + "pants-and-graphs.html")
+        self.assertEqual(got.status_code, 200)
+        self.assertIn("text/html", got.content_type)
+        # Only HTML files that exist in a chapter's assets folder are served.
+        for path in (base + "nothing.html", "/models/nothing/pants-and-graphs.html",
+                     base + "pants-graph.png"):
+            self.assertEqual(client.get(path).status_code, 404, path)
+
     def test_talk_models(self):
         client = app.test_client()
         base = "/talks/stanley-reisner-puc-informal/"
