@@ -1,0 +1,200 @@
+/-
+Heap Project, Commutative Algebra, Section "Nakayama's lemma".
+https://www.heap-project.org/tag/05D7
+
+Each declaration carries the permanent HP tag of the statement it
+formalizes.  Statements and proofs were written by Claude Code from
+`commutative-algebra.tex`; a proof here certifies the Lean statement,
+so the match between the Lean statement and the HP statement has to be
+checked by a human.
+-/
+import Mathlib
+
+namespace HeapProject.CommutativeAlgebra
+
+variable {R : Type*} [CommRing R]
+
+/-- HP tag 05D9 (definition-jacobson-ideal).  The Jacobson ideal of a
+ring is the intersection of all maximal ideals.  Mathlib's name for it
+is `Ring.jacobson R`; this checks that the two definitions agree. -/
+theorem jacobson_eq_sInf_isMaximal :
+    Ring.jacobson R = sInf {m : Ideal R | m.IsMaximal} := by
+  rw [← Ideal.jacobson_bot]
+  simp [Ideal.jacobson]
+
+/-- HP tag 05DA (lemma-jacobson-ideal).  An element `a` belongs to the
+Jacobson ideal if and only if `1 + a * r` is invertible for all `r`. -/
+theorem mem_jacobson_iff (a : R) :
+    a ∈ Ring.jacobson R ↔ ∀ r : R, IsUnit (1 + a * r) := by
+  rw [← Ideal.jacobson_bot, Ideal.mem_jacobson_bot]
+  exact forall_congr' fun r => by rw [add_comm]
+
+/-- HP tag 05DB (definition-quasi-regular-ideal).  An ideal is
+quasi-regular if `1 + a` is invertible for every `a` in it. -/
+def IsQuasiRegular (I : Ideal R) : Prop :=
+  ∀ a ∈ I, IsUnit (1 + a)
+
+/-- HP tag 05DC (lemma-quasi-regular-jacobson).  An ideal is
+quasi-regular if and only if it is contained in the Jacobson ideal. -/
+theorem isQuasiRegular_iff_le_jacobson (I : Ideal R) :
+    IsQuasiRegular I ↔ I ≤ Ring.jacobson R := by
+  constructor
+  · intro h a ha
+    rw [← Ideal.jacobson_bot, Ideal.mem_jacobson_bot]
+    intro y
+    rw [add_comm]
+    exact h _ (I.mul_mem_right y ha)
+  · intro h a ha
+    have := (mem_jacobson_iff a).1 (h ha) 1
+    simpa using this
+
+section Module
+
+variable {M : Type*} [AddCommGroup M] [Module R M]
+
+/-- HP tag 05DE (lemma-kernel-localization).  The kernel of the natural
+map from `M` to its localization at a multiplicative system `S` is the
+set of elements killed by some element of `S`.  The localization of
+HP tag 05DD is Mathlib's `LocalizedModule S M`. -/
+theorem mem_ker_mkLinearMap_iff (S : Submonoid R) (m : M) :
+    m ∈ LinearMap.ker (LocalizedModule.mkLinearMap S M) ↔
+      ∃ s ∈ S, s • m = 0 := by
+  exact LocalizedModule.mem_ker_mkLinearMap_iff
+
+/-- HP tag 05DF (lemma-nakayama-first; Nakayama, first version, also
+known as Krull's lemma).  If `I` is a quasi-regular ideal and `M` is a
+finitely generated module with `M = I M`, then `M = 0`. -/
+theorem nakayama_first [Module.Finite R M] (I : Ideal R)
+    (hI : IsQuasiRegular I)
+    (h : (⊤ : Submodule R M) = I • (⊤ : Submodule R M)) :
+    Subsingleton M := by
+  have hJ : I ≤ Ideal.jacobson ⊥ := by
+    rw [Ideal.jacobson_bot]
+    exact (isQuasiRegular_iff_le_jacobson I).1 hI
+  have hbot : (⊤ : Submodule R M) = ⊥ :=
+    Submodule.eq_bot_of_le_smul_of_le_jacobson_bot I ⊤
+      Module.Finite.fg_top h.le hJ
+  refine ⟨fun x y => ?_⟩
+  have hx : x ∈ (⊤ : Submodule R M) := trivial
+  have hy : y ∈ (⊤ : Submodule R M) := trivial
+  rw [hbot] at hx hy
+  rw [(Submodule.mem_bot R).1 hx, (Submodule.mem_bot R).1 hy]
+
+/-- HP tag 05DG (lemma-nakayama).  If `M` is a finitely generated module
+with `M = I M` then `(1 + a) M = 0` for some `a` in `I`.
+
+HP states this for a domain `R` and a nonzero ideal `I`; neither
+hypothesis is used, so they are dropped here. -/
+theorem nakayama [Module.Finite R M] (I : Ideal R)
+    (h : (⊤ : Submodule R M) = I • (⊤ : Submodule R M)) :
+    ∃ a ∈ I, ∀ m : M, (1 + a) • m = 0 := by
+  obtain ⟨r, hr, h0⟩ :=
+    Submodule.exists_sub_one_mem_and_smul_eq_zero_of_fg_of_le_smul
+      I ⊤ Module.Finite.fg_top h.le
+  refine ⟨r - 1, hr, fun m => ?_⟩
+  have := h0 m trivial
+  simpa using this
+
+/-- HP tag 05D8 (definition-torsion).  Over a domain, the torsion of a
+module is the set of elements killed by a nonzero element of the ring.
+Mathlib's name for it is `Submodule.torsion R M`; this checks that the
+two definitions agree. -/
+theorem mem_torsion_iff_of_isDomain [IsDomain R] (m : M) :
+    m ∈ Submodule.torsion R M ↔ ∃ a : R, a ≠ 0 ∧ a • m = 0 := by
+  rw [Submodule.mem_torsion_iff]
+  constructor
+  · rintro ⟨a, ha⟩
+    exact ⟨a, nonZeroDivisors.coe_ne_zero a, ha⟩
+  · rintro ⟨a, ha0, ha⟩
+    exact ⟨⟨a, mem_nonZeroDivisors_of_ne_zero ha0⟩, ha⟩
+
+end Module
+
+section LocalRing
+
+open IsLocalRing
+
+variable [IsLocalRing R]
+variable {M₁ M₂ : Type*} [AddCommGroup M₁] [Module R M₁]
+  [AddCommGroup M₂] [Module R M₂]
+
+omit [IsLocalRing R] in
+/-- A linear map sends `I M₁` into `I M₂`, so it induces a map
+`M₁ / I M₁ → M₂ / I M₂`.  Auxiliary to HP tag 05DK. -/
+theorem smul_top_le_comap (I : Ideal R) (φ : M₁ →ₗ[R] M₂) :
+    I • (⊤ : Submodule R M₁) ≤
+      (I • (⊤ : Submodule R M₂)).comap φ := by
+  refine Submodule.smul_le.2 fun r hr n _ => ?_
+  rw [Submodule.mem_comap, map_smul]
+  exact Submodule.smul_mem_smul hr trivial
+
+/-- HP tag 05DK (lemma-localization-nakayama).  Over a local ring with
+maximal ideal `𝔪`, if a linear map `φ : M₁ → M₂` induces a surjective
+map `M₁ / 𝔪 M₁ → M₂ / 𝔪 M₂`, then `φ` is surjective.
+
+HP assumes both modules finitely generated; only `M₂` is needed. -/
+theorem surjective_of_surjective_mapQ [Module.Finite R M₂]
+    (φ : M₁ →ₗ[R] M₂)
+    (h : Function.Surjective
+      ((maximalIdeal R • (⊤ : Submodule R M₁)).mapQ
+        (maximalIdeal R • (⊤ : Submodule R M₂)) φ
+        (smul_top_le_comap (maximalIdeal R) φ))) :
+    Function.Surjective φ := by
+  rw [← LinearMap.range_eq_top]
+  apply top_le_iff.mp
+  apply Submodule.le_of_le_smul_of_le_jacobson_bot
+    (I := maximalIdeal R) Module.Finite.fg_top
+  · exact (Ideal.jacobson_bot.trans
+      (IsLocalRing.ringJacobson_eq_maximalIdeal R)).ge
+  · intro y _
+    obtain ⟨q, hq⟩ := h (Submodule.Quotient.mk y)
+    obtain ⟨x, rfl⟩ := Submodule.Quotient.mk_surjective _ q
+    rw [Submodule.mapQ_apply, Submodule.Quotient.eq] at hq
+    have hy : y = φ x - (φ x - y) := by abel
+    rw [hy]
+    exact Submodule.sub_mem _
+      (Submodule.mem_sup_left ⟨x, rfl⟩)
+      (Submodule.mem_sup_right hq)
+
+/-- HP tag 05DL (lemma-local-modules).  Over a local ring, elements of
+a finitely generated module `M` whose classes generate `M / 𝔪 M`
+generate `M`.
+
+HP takes finitely many elements; any indexed family is allowed here. -/
+theorem span_eq_top_of_span_mkQ_eq_top {M : Type*} [AddCommGroup M]
+    [Module R M] [Module.Finite R M] {ι : Type*} (x : ι → M)
+    (h : Submodule.span R (Set.range fun i =>
+      (maximalIdeal R • (⊤ : Submodule R M)).mkQ (x i)) = ⊤) :
+    Submodule.span R (Set.range x) = ⊤ := by
+  rw [← IsLocalRing.map_mkQ_eq_top, Submodule.map_span,
+    ← Set.range_comp]
+  exact h
+
+/-- HP tag 05DN (theorem-projective-locally-free).  A finitely
+generated projective module over a local ring is free. -/
+theorem free_of_projective {P : Type*} [AddCommGroup P] [Module R P]
+    [Module.Finite R P] [Module.Projective R P] : Module.Free R P :=
+  Module.free_of_flat_of_isLocalRing
+
+end LocalRing
+
+/-- HP tag 05DM (theorem-finite-dominant-surjective).  A finite
+dominant map is surjective.  HP states this for varieties; this is the
+algebraic form: if `A → B` is injective and `B` is a finite `A`-module,
+then every prime ideal of `A` is the preimage of a prime ideal of `B`.
+The match with the HP statement is the least literal in this file. -/
+theorem exists_prime_comap_eq_of_finite_of_injective {A B : Type*}
+    [CommRing A] [CommRing B] [Algebra A B] [Module.Finite A B]
+    (hinj : Function.Injective (algebraMap A B))
+    (P : Ideal A) [P.IsPrime] :
+    ∃ Q : Ideal B, Q.IsPrime ∧ Q.comap (algebraMap A B) = P := by
+  haveI : Algebra.IsIntegral A B := Algebra.IsIntegral.of_finite A B
+  obtain ⟨Q, -, hQ, hQP⟩ :=
+    Ideal.exists_ideal_over_prime_of_isIntegral P (⊥ : Ideal B)
+      (by
+        rw [← RingHom.ker_eq_comap_bot,
+          (RingHom.injective_iff_ker_eq_bot _).1 hinj]
+        exact bot_le)
+  exact ⟨Q, hQ, hQP⟩
+
+end HeapProject.CommutativeAlgebra
