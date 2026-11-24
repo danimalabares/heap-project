@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Two tetrahedra with a common triangle</title>
+<style>
+html,body{margin:0;height:100%;background:#fff;overflow:hidden}
+canvas{position:absolute;left:0;top:0;width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+</style></head><body>
+<canvas id="cv"></canvas>
+<script>
+// Two tetrahedra glued along a triangle (grey): two P^3's meeting along a plane. Drag to turn; double-click to spin.
+var cv = document.getElementById("cv"), ctx = cv.getContext("2d"), W = 0, H = 0, drag = null;
+var s3 = Math.sqrt(3)/2;
+var V = [[0,1,0],[0,-0.5,s3],[0,-0.5,-s3],[-1.5,0,0],[1.5,0,0]];      // the triangle 0,1,2 and the two apexes
+var EDGES = [[3,0],[3,1],[3,2],[4,0],[4,1],[4,2]], TRI = [0,1,2];
+function mul(A,B){ var C=[[0,0,0],[0,0,0],[0,0,0]],i,j,k; for(i=0;i<3;i++)for(j=0;j<3;j++)for(k=0;k<3;k++)C[i][j]+=A[i][k]*B[k][j]; return C; }
+function rotY(t){ var c=Math.cos(t),s=Math.sin(t); return [[c,0,s],[0,1,0],[-s,0,c]]; }
+function rotX(t){ var c=Math.cos(t),s=Math.sin(t); return [[1,0,0],[0,c,-s],[0,s,c]]; }
+var R3 = mul(rotX(0.25), rotY(0.55));
+function pt(v){ var x=R3[0][0]*v[0]+R3[0][1]*v[1]+R3[0][2]*v[2], y=R3[1][0]*v[0]+R3[1][1]*v[1]+R3[1][2]*v[2];
+  var sc=Math.min(W/3.6,H/2.5); return [W/2+sc*x, H/2-sc*y]; }
+function draw(){
+  var P=V.map(pt), i, e;
+  ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,cv.width,cv.height);
+  var d=window.devicePixelRatio||1; ctx.setTransform(d,0,0,d,0,0); ctx.lineJoin="round"; ctx.lineCap="round";
+  ctx.beginPath(); ctx.moveTo(P[0][0],P[0][1]); ctx.lineTo(P[1][0],P[1][1]); ctx.lineTo(P[2][0],P[2][1]); ctx.closePath();
+  ctx.fillStyle="rgba(120,120,120,0.35)"; ctx.fill();
+  ctx.strokeStyle="#111"; ctx.lineWidth=1.2;
+  for(i=0;i<EDGES.length;i++){ e=EDGES[i]; ctx.beginPath(); ctx.moveTo(P[e[0]][0],P[e[0]][1]); ctx.lineTo(P[e[1]][0],P[e[1]][1]); ctx.stroke(); }
+  ctx.lineWidth=3; ctx.beginPath(); ctx.moveTo(P[0][0],P[0][1]); ctx.lineTo(P[1][0],P[1][1]); ctx.lineTo(P[2][0],P[2][1]); ctx.closePath(); ctx.stroke();
+  ctx.fillStyle="#111"; for(i=0;i<P.length;i++){ ctx.beginPath(); ctx.arc(P[i][0],P[i][1],3,0,2*Math.PI); ctx.fill(); }
+}
+function resize(){ var r=cv.getBoundingClientRect(), d=window.devicePixelRatio||1; W=r.width; H=r.height;
+  cv.width=Math.round(W*d); cv.height=Math.round(H*d); draw(); }
+window.addEventListener("resize", resize);
+function down(x,y){ drag=[x,y]; }
+function move(x,y){ if(!drag)return; R3=mul(mul(rotX((y-drag[1])*0.01), rotY((x-drag[0])*0.01)), R3); drag=[x,y]; draw(); }
+function up(){ drag=null; }
+cv.addEventListener("mousedown",function(e){down(e.clientX,e.clientY);e.preventDefault();});
+window.addEventListener("mousemove",function(e){move(e.clientX,e.clientY);});
+window.addEventListener("mouseup",up);
+cv.addEventListener("touchstart",function(e){down(e.touches[0].clientX,e.touches[0].clientY);e.preventDefault();});
+cv.addEventListener("touchmove",function(e){move(e.touches[0].clientX,e.touches[0].clientY);e.preventDefault();});
+cv.addEventListener("touchend",up);
+resize();
+</script></body></html>
