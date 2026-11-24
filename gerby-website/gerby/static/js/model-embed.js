@@ -36,6 +36,10 @@ $(document).ready(function() {
       }
       var frame = $("<iframe>", {
         "class": "model-embed",
+        // Sized here too: a browser may hold an
+        // older stylesheet for hours.
+        style: "display:block;width:100%;max-width:700px;" +
+          "height:800px;margin:0 auto;border:1px solid #ccc",
         src: path + step,
         title: "Interactive model",
         loading: "lazy",
