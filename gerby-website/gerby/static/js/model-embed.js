@@ -22,6 +22,7 @@ $(document).ready(function() {
 
   $("#tag a[href*='/models/']").each(function() {
     var path = this.pathname;
+    var step = this.hash;
     if (!pattern.test(path)) {
       return;
     }
@@ -35,7 +36,7 @@ $(document).ready(function() {
       }
       image.replaceWith($("<iframe>", {
         "class": "model-embed",
-        src: path,
+        src: path + step,
         title: "Interactive model",
         loading: "lazy",
         allow: "fullscreen"
