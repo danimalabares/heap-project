@@ -1,7 +1,8 @@
 // A link to an interactive model
 // (/models/<chapter>/<name>.html) that follows a
-// figure puts a play button on that figure. The
-// model is loaded in place only on click.
+// figure replaces that figure by the live model.
+// The figure stays in the PDF, and on the site
+// when the model is not served.
 $(document).ready(function() {
   var pattern = /\/models\/[a-z0-9-]+\/[a-z0-9-]+\.html$/;
 
@@ -25,53 +26,20 @@ $(document).ready(function() {
       return;
     }
     var image = figureBefore(this);
-    if (!image.length || image.parent().is(".model-embed")) {
+    if (!image.length) {
       return;
     }
-    // No button for a model the site does not serve.
     $.ajax({url: path, method: "HEAD"}).done(function() {
-      embed(image, path);
-    });
-  });
-
-  function embed(image, path) {
-    if (image.parent().is(".model-embed")) {
-      return;
-    }
-    image.wrap('<span class="model-embed"></span>');
-    var holder = image.parent();
-    var play = $(
-      '<button type="button" class="model-play"' +
-      ' aria-label="Play the interactive model"' +
-      ' title="Play the interactive model">' +
-      "&#9654;</button>"
-    );
-    var close = $(
-      '<button type="button" class="model-close">' +
-      "Back to the figure</button>"
-    );
-    var frame = null;
-    holder.append(play);
-
-    function open() {
-      frame = $("<iframe>", {
+      if (!image.parent().length) {
+        return;
+      }
+      image.replaceWith($("<iframe>", {
+        "class": "model-embed",
         src: path,
         title: "Interactive model",
+        loading: "lazy",
         allow: "fullscreen"
-      });
-      image.hide();
-      play.hide();
-      holder.addClass("model-open").append(frame, close);
-    }
-
-    play.on("click", open);
-    image.on("click", open);
-    close.on("click", function() {
-      frame.remove();
-      close.detach();
-      holder.removeClass("model-open");
-      image.show();
-      play.show();
+      }));
     });
-  }
+  });
 });
