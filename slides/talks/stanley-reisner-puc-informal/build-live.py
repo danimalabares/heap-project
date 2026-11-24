@@ -20,7 +20,6 @@ DPI = 200            # about 1300 px wide for a 16:9 beamer page
 # hash: for 4d, the sphere (#Mb = M seen from b). click: text of a button to press.
 # spin: turn slowly at start (4d only).
 SLOTS = [
-    {"title": "Spheres made of simplices", "rect": [0.33, 0.235, 0.26, 0.38], "model": "2d", "solo": True, "zoom": 62},
     {"title": "The link of a vertex", "rect": [0.01, 0.21, 0.98, 0.73], "model": "2d", "full": True},
     {"title": "M seen from a vertex", "rect": [0.01, 0.12, 0.98, 0.82], "model": "4d", "hash": "Mb", "full": True},
 ]
