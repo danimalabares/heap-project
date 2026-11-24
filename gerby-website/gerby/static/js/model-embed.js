@@ -22,7 +22,7 @@ $(document).ready(function() {
 
   $("#tag a[href*='/models/']").each(function() {
     var path = this.pathname;
-    var step = this.hash;
+    var step = this.search + this.hash;
     if (!pattern.test(path)) {
       return;
     }

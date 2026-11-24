@@ -363,7 +363,7 @@ function tick(now) { const dt = then === null ? 0 : Math.min(0.05, (now-then)/10
     else { let ph = phase[c.key]; if (ph === undefined) ph = Math.acos(Math.max(-1, Math.min(1, 1 - 2*(st[c.key]-lo)/(hi-lo))));   // a length goes back and forth
       ph += 0.5*dt; phase[c.key] = ph; st[c.key] = lo + (hi-lo)*(0.5 - 0.5*Math.cos(ph)); } }
   if (any) draw(); requestAnimationFrame(tick); }
-resize(); setDark(dark); go(Math.max(1, Math.min(STEPS.length, parseInt(location.hash.slice(1)) || 1)) - 1); requestAnimationFrame(tick);
+resize(); setDark(dark); go(Math.max(1, Math.min(STEPS.length, parseInt(new URLSearchParams(location.search).get("step") || location.hash.slice(1)) || 1)) - 1); requestAnimationFrame(tick);
 }
 </script>
 <script>
