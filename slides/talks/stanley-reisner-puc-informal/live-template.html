@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deformations of Stanley-Reisner schemes: live slides</title>
+<style>
+html,body{margin:0;height:100%;background:#fff;overflow:hidden}
+#box{position:absolute;left:0;top:0;background:#fff}
+#pg{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
+.slot{position:absolute;background:#fff;overflow:hidden;visibility:hidden}
+.slot iframe{width:100%;height:100%;border:0;display:block}
+#fsb{position:fixed;right:8px;top:6px;font:12px Georgia,serif;color:#555;opacity:.35;z-index:5;white-space:nowrap}
+#fsb:hover{opacity:1}#fsb label{margin-left:8px;cursor:pointer}
+.big{position:fixed!important;left:0!important;top:0!important;width:100%!important;height:100%!important;z-index:10}
+.enl{position:absolute;right:122px;top:6px;z-index:3;font:12px Georgia,serif;padding:2px 7px;border:1px solid #d9d6cf;border-radius:4px;background:#fff;color:#1c1c1c;cursor:pointer}
+#note{position:fixed;right:8px;bottom:6px;font:11px Georgia,serif;color:#888;display:none}
+</style></head><body>
+<div id="box"><img id="pg" alt=""></div>
+<div id="note"></div>
+<div id="fsb"><label><input type="radio" name="fs" id="fsW" checked> Window</label><label><input type="radio" name="fs" id="fsF"> Full screen</label></div>
+<script>/*PDFJS*/</script>
+<script>
+/*DATA*/
+(function(){
+var cur=0,N=IMGS.length,box=document.getElementById("box"),pg=document.getElementById("pg"),
+    live=true,ready={},frames={},slotEls={},fsDone=false;
+var vcv=document.createElement("canvas"),pdfDoc=null,tok=0,rt=null;
+vcv.style.cssText="position:absolute;left:0;top:0;width:100%;height:100%;display:none";box.appendChild(vcv);
+function render(){
+  if(!pdfDoc)return;var my=++tok;vcv.style.display="none";
+  pdfDoc.getPage(cur+1).then(function(p){
+    var dpr=window.devicePixelRatio||1,w=Math.round(box.clientWidth*dpr),v0=p.getViewport({scale:1}),v=p.getViewport({scale:w/v0.width});
+    var c=document.createElement("canvas");c.width=Math.round(v.width);c.height=Math.round(v.height);
+    p.render({canvasContext:c.getContext("2d"),viewport:v,background:"#ffffff"}).promise.then(function(){
+      if(my!==tok)return;vcv.width=c.width;vcv.height=c.height;vcv.getContext("2d").drawImage(c,0,0);vcv.style.display="block";});
+  });
+}
+function laterRender(){if(rt){clearTimeout(rt);}rt=setTimeout(render,150);}
+function initPdf(){
+  try{
+    var bin=atob(PDFB64),n=bin.length,u=new Uint8Array(n),i;for(i=0;i<n;i++){u[i]=bin.charCodeAt(i);}
+    pdfjsLib.GlobalWorkerOptions.workerSrc=URL.createObjectURL(new Blob([WORKER],{type:"text/javascript"}));
+    pdfjsLib.getDocument({data:u}).promise.then(function(d){pdfDoc=d;render();},function(){});
+  }catch(e){}
+}
+function size(){laterRender();
+  var W=window.innerWidth||document.documentElement.clientWidth,H=window.innerHeight||document.documentElement.clientHeight;
+  var w=W,h=W/ASPECT; if(h>H){h=H;w=H*ASPECT;}
+  box.style.width=w+"px";box.style.height=h+"px";box.style.left=((W-w)/2)+"px";box.style.top=((H-h)/2)+"px";
+}
+function mount(id){
+  if(frames[id])return;
+  var f=document.createElement("iframe");f.setAttribute("scrolling","no");
+  slotEls[id].appendChild(f);frames[id]=f;
+  var d=f.contentWindow.document;d.open();d.write(MODELS[id]);d.close();
+}
+function show(i){
+  if(i<0||i>=N)return;
+  var k,j,list;
+  for(k in slotEls){slotEls[k].style.display="none";}
+  cur=i;pg.src=IMGS[i];render();
+  list=SLOTS[i]||[];
+  for(j=0;j<list.length;j++){var id=list[j].id;slotEls[id].style.display="block";
+    slotEls[id].style.visibility=(live&&ready[id])?"visible":"hidden";mount(id);}
+  try{location.hash=String(i+1);}catch(e){}
+  var nx=IMGS[i+1];if(nx){(new Image()).src=nx;}
+}
+function setLive(v){live=v;show(cur);
+  var n=document.getElementById("note");n.style.display=v?"none":"block";n.textContent="static pictures (press s for live models)";}
+(function build(){
+  var p,list,j,s,e;
+  for(p in SLOTS){list=SLOTS[p];for(j=0;j<list.length;j++){s=list[j];e=document.createElement("div");
+    e.className="slot";e.style.left=(s.rect[0]*100)+"%";e.style.top=(s.rect[1]*100)+"%";
+    e.style.width=(s.rect[2]*100)+"%";e.style.height=(s.rect[3]*100)+"%";box.appendChild(e);slotEls[s.id]=e;
+    if(s.full){(function(e){var b=document.createElement("button");b.className="enl";b.textContent="Enlarge";
+      b.onclick=function(ev){ev.stopPropagation();var on=(" "+e.className+" ").indexOf(" big ")<0;
+        e.className=on?"slot big":"slot";b.textContent=on?"Shrink":"Enlarge";};e.appendChild(b);})(e);}}}
+})();
+window.addEventListener("message",function(ev){
+  var m=String(ev.data||"");if(m.indexOf("live-ready:")!==0)return;
+  var id=m.slice(11);ready[id]=true;
+  if(slotEls[id]&&slotEls[id].style.display==="block"&&live){slotEls[id].style.visibility="visible";}
+},false);
+function fsOn(){
+  var e=document.documentElement,r=e.requestFullscreen||e.webkitRequestFullscreen||e.mozRequestFullScreen||e.msRequestFullscreen;
+  try{if(r){r.call(e);}}catch(x){}
+}
+function exitfs(){var d=document,x=d.exitFullscreen||d.webkitExitFullscreen||d.mozCancelFullScreen||d.msExitFullscreen;try{x.call(d);}catch(e){}}
+function isfs(){return !!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement||document.msFullscreenElement);}
+window.addEventListener("keydown",function(e){
+  var k=e.key||e.keyCode;
+  if(e.metaKey||e.ctrlKey||e.altKey)return;
+  if(k==="ArrowRight"||k==="PageDown"||k===" "||k==="Right"||k==="Spacebar"||k===39||k===34||k===32){show(cur+1);e.preventDefault();}
+  else if(k==="ArrowLeft"||k==="PageUp"||k==="Left"||k===37||k===33){show(cur-1);e.preventDefault();}
+  else if(k==="Home"||k===36){show(0);}
+  else if(k==="End"||k===35){show(N-1);}
+  else if(k==="f"||k==="F"||k===70){if(isfs()){exitfs();}else{fsOn();}}
+  else if(k==="Escape"||k===27){var bg=box.querySelectorAll(".big"),q;for(q=0;q<bg.length;q++){bg[q].className="slot";}}
+  else if(k==="s"||k==="S"||k===83){setLive(!live);}
+},false);
+document.addEventListener("click",function(e){
+  if(e.target&&e.target.tagName==="IFRAME")return;
+  var x=e.clientX/(window.innerWidth||1);
+  show(x<0.2?cur-1:cur+1);
+},false);
+var tx=null;
+document.addEventListener("touchstart",function(e){tx=e.touches[0].clientX;},false);
+document.addEventListener("touchend",function(e){if(tx===null)return;var dx=e.changedTouches[0].clientX-tx;tx=null;
+  if(dx<-50){show(cur+1);}else if(dx>50){show(cur-1);}},false);
+function syncFs(){var f=isfs();document.getElementById("fsF").checked=f;document.getElementById("fsW").checked=!f;size();}
+["fullscreenchange","webkitfullscreenchange","mozfullscreenchange","MSFullscreenChange"].forEach(function(n){document.addEventListener(n,syncFs,false);});
+document.getElementById("fsF").onclick=function(e){e.stopPropagation();if(!isfs()){fsOn();}};
+document.getElementById("fsW").onclick=function(e){e.stopPropagation();if(isfs()){exitfs();}};
+document.getElementById("fsb").addEventListener("click",function(e){e.stopPropagation();},false);
+window.addEventListener("resize",size,false);
+size();initPdf();
+var h=parseInt((location.hash||"").slice(1),10);
+show(h>0&&h<=N?h-1:0);
+})();
+</script></body></html>
