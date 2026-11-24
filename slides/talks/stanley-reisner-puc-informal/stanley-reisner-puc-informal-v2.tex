@@ -115,8 +115,8 @@
 \begin{frame}{The link of a vertex}
 The \emph{link} (or vertex figure) of a vertex: what is at incidence distance \(1\) from it.
 \begin{columns}[c]
-\begin{column}{0.48\textwidth}\centering
-\begin{tikzpicture}[scale=1.12,line join=round]
+\begin{column}{0.5\textwidth}\centering
+\begin{tikzpicture}[scale=1.05,line join=round]
 \coordinate (t) at (0,1.6); \coordinate (u) at (0,-1.6);
 \coordinate (w) at (-1.5,-0.1); \coordinate (x) at (-0.35,-0.5);
 \coordinate (y) at (1.5,0.1); \coordinate (z) at (0.35,0.5);
@@ -127,75 +127,60 @@ The \emph{link} (or vertex figure) of a vertex: what is at incidence distance \(
 \foreach \p in {u,w,x,y,z} \fill (\p) circle (1.6pt);
 \fill (t) circle (2.4pt) node[above]{\(p\)};
 \node[below] at (u) {\(q\)};
-\begin{scope}[xshift=3.3cm]
-\draw[very thick] (-0.7,-0.7) rectangle (0.7,0.7);
-\foreach \a/\b in {-0.7/-0.7,0.7/-0.7,0.7/0.7,-0.7/0.7} \fill (\a,\b) circle (1.6pt);
-\end{scope}
-\draw[->] (1.8,0)--(2.3,0);
 \end{tikzpicture}
 \par\smallskip
-\textbf{Octahedron, from \(p\).} A square. \(q\) is not in it.
+\textbf{The octahedron.} The link of \(p\) is the thick square. The vertex \(q\) is at distance \(2\): it is not in the link.
 \end{column}
-\begin{column}{0.5\textwidth}\centering
-\linkofb{0.72}
+\begin{column}{0.48\textwidth}\centering
+\begin{tikzpicture}[scale=1.05,line join=round]
+\foreach \a/\b/\n in {-1/-1/A,1/-1/B,1/1/C,-1/1/D} \coordinate (\n) at (\a,\b);
+\coordinate (q) at (0,0);
+\foreach \n/\a/\b in {A/-1/-1,B/1/-1,C/1/1,D/-1/1} \draw[dashed] (\n)--++(0.8*\a,0.8*\b);
+\draw (q)--(A) (q)--(B) (q)--(C) (q)--(D);
+\draw[very thick] (A)--(B)--(C)--(D)--cycle;
+\foreach \n in {A,B,C,D} \fill (\n) circle (1.6pt);
+\fill (q) circle (1.6pt) node[below right=-1pt]{\(q\)};
+\node at (2.05,1.95) {\(p\)};
+\end{tikzpicture}
 \par\smallskip
-\textbf{\(\mathcal M\), from \(b\).} A \(2\)-sphere, drawn flat. All \(7\) other vertices are in it.
+\textbf{The same, seen from \(p\).} Inside the square: the \(4\) triangles that do not touch \(p\). Outside: the \(4\) triangles at \(p\); the dashed edges go to \(p\), which is at infinity.
 \end{column}
 \end{columns}
 \end{frame}
 
-\begin{frame}{The link of \(b\): what it shows and what it misses}
-\begin{columns}[c]
-\begin{column}{0.62\textwidth}\centering
-\linkofb{1.05}
+\begin{frame}{\(\mathcal M\) seen from a vertex}
+\begin{columns}[t]
+\begin{column}{0.46\textwidth}\centering
+\begin{tikzpicture}[scale=0.8,line join=round]
+\coordinate (t) at (0,1.6); \coordinate (u) at (0,-1.6);
+\coordinate (w) at (-1.5,-0.1); \coordinate (x) at (-0.35,-0.5);
+\coordinate (y) at (1.5,0.1); \coordinate (z) at (0.35,0.5);
+\draw[dashed] (t)--(z)--(u) (w)--(z)--(y);
+\draw (t)--(w)--(u) (t)--(x)--(u) (t)--(y)--(u) (w)--(x)--(y);
+\foreach \p in {t,u,w,x,y,z} \fill (\p) circle (1.6pt);
+\end{tikzpicture}
+\par\smallskip
+\textbf{The \(16\)-cell}: a regular \(3\)-sphere with \(8\) vertices and \(16\) tetrahedra.
+\par\smallskip
+The link of a vertex is an octahedron: \(6\) of the \(7\) other vertices. Inside it: the \(8\) tetrahedra that do not touch the vertex.
+\par\smallskip
+All \(8\) vertices look the same: \(384\) symmetries.
 \end{column}
-\begin{column}{0.36\textwidth}
-\textbf{It shows.} An edge \(xy\): the triangle \(bxy\). A triangle \(xyz\): the tetrahedron \(bxyz\).
-\par\bigskip
-\textbf{It misses} what does not touch \(b\):
-\begin{itemize}
-\setlength{\itemsep}{4pt}
-\item \(10\) of the \(20\) tetrahedra;
-\item \(6\) of the \(28\) edges:\\ \(af,\ ag,\ ah,\ df,\ dg,\ eg\);
-\item \(15\) of the \(40\) triangles.
-\end{itemize}
-\par\bigskip
-The picture is the surface of a ball. The missing tetrahedra fill the inside.
-\end{column}
-\end{columns}
-\end{frame}
-
-
-\begin{frame}{\(2\)-spheres seen from a vertex}
-\begin{columns}[c]
-\begin{column}{0.56\textwidth}
-\textbf{The model.} Left: the sphere with the vertex \(v\) removed, drawn flat. Right: the solid, to turn by hand.
-\par\medskip
-\textbf{Regular.} Tetrahedron, cube, octahedron, dodecahedron, icosahedron.
-\par\medskip
-\textbf{Other \(2\)-spheres.} Double pyramids with \(5\) and \(7\) vertices. The link of \(b\) in \(\mathcal M\). The links of \(7\) and of \(1\) in Barnette's sphere.
-\par\medskip
-\textbf{Seen from.} Any vertex: use the arrows.
-\end{column}
-\begin{column}{0.42\textwidth}\centering
-\linkofb{0.5}
-\par
-{\small One of them: the link of \(b\) in \(\mathcal M\).}
+\begin{column}{0.52\textwidth}\centering
+\linkofb{0.44}
+\par\smallskip
+\textbf{\(\mathcal M\)}: \(8\) vertices and \(20\) tetrahedra.
+\par\smallskip
+The link of \(b\), drawn flat: all \(7\) other vertices, \(10\) triangles. Inside it: the \(10\) tetrahedra that do not touch \(b\).
+\par\smallskip
+The vertices do not all look the same: the links of \(d\) and \(f\) are different from the other six. Only \(6\) symmetries (Part 4).
 \end{column}
 \end{columns}
-\src{In the live version this slide is the model itself, with all its buttons.}
 \end{frame}
 
-\begin{frame}{\(3\)-spheres seen from a vertex}
-\textbf{The model.} A \(3\)-sphere with the vertex \(v\) removed, drawn in space. The link of \(v\) is a surface. The cells that do not touch \(v\) fill its inside. The cells at \(v\) are outside.
-\par\medskip
-\textbf{Regular.} \(5\)-cell, \(16\)-cell, \(600\)-cell, tesseract, \(24\)-cell, \(120\)-cell.
-\par\medskip
-\textbf{Other \(3\)-spheres.} Double pyramids with \(6\) and \(7\) vertices. Cyclic polytopes with \(7\) and \(8\) vertices. \(\mathcal M\). Barnette's sphere.
-\par\medskip
-\textbf{Seen from.} Any vertex: use the arrows. The tetrahedra can be shown one by one.
-\src{In the live version this slide is the model itself, with all its buttons.}
-\end{frame}
+
+
+
 
 \begin{frame}{\(\mathcal M\) is a non-polytopal sphere}
 \textbf{Definition.} A simplicial \(d\)-sphere is \emph{polytopal} if it is isomorphic to the boundary of a convex simplicial \((d+1)\)-polytope.
@@ -975,6 +960,57 @@ A sphere drawn flat: remove one face, flatten the rest. The removed face becomes
 \textbf{Link of \(b\).}\\ 9 triangles drawn\\ + the outside \(fgh\) \(=10\).
 \end{column}
 \end{columns}
+\end{frame}
+\begin{frame}{The link of \(b\): what it shows and what it misses}
+\begin{columns}[c]
+\begin{column}{0.62\textwidth}\centering
+\linkofb{1.05}
+\end{column}
+\begin{column}{0.36\textwidth}
+\textbf{It shows.} An edge \(xy\): the triangle \(bxy\). A triangle \(xyz\): the tetrahedron \(bxyz\).
+\par\bigskip
+\textbf{It misses} what does not touch \(b\):
+\begin{itemize}
+\setlength{\itemsep}{4pt}
+\item \(10\) of the \(20\) tetrahedra;
+\item \(6\) of the \(28\) edges:\\ \(af,\ ag,\ ah,\ df,\ dg,\ eg\);
+\item \(15\) of the \(40\) triangles.
+\end{itemize}
+\par\bigskip
+The picture is the surface of a ball. The missing tetrahedra fill the inside.
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{\(2\)-spheres seen from a vertex}
+\begin{columns}[c]
+\begin{column}{0.56\textwidth}
+\textbf{The model.} Left: the sphere with the vertex \(v\) removed, drawn flat. Right: the solid, to turn by hand.
+\par\medskip
+\textbf{Regular.} Tetrahedron, cube, octahedron, dodecahedron, icosahedron.
+\par\medskip
+\textbf{Other \(2\)-spheres.} Double pyramids with \(5\) and \(7\) vertices. The link of \(b\) in \(\mathcal M\). The links of \(7\) and of \(1\) in Barnette's sphere.
+\par\medskip
+\textbf{Seen from.} Any vertex: use the arrows.
+\end{column}
+\begin{column}{0.42\textwidth}\centering
+\linkofb{0.5}
+\par
+{\small One of them: the link of \(b\) in \(\mathcal M\).}
+\end{column}
+\end{columns}
+\src{In the live version this slide is the model itself, with all its buttons.}
+\end{frame}
+
+\begin{frame}{\(3\)-spheres seen from a vertex}
+\textbf{The model.} A \(3\)-sphere with the vertex \(v\) removed, drawn in space. The link of \(v\) is a surface. The cells that do not touch \(v\) fill its inside. The cells at \(v\) are outside.
+\par\medskip
+\textbf{Regular.} \(5\)-cell, \(16\)-cell, \(600\)-cell, tesseract, \(24\)-cell, \(120\)-cell.
+\par\medskip
+\textbf{Other \(3\)-spheres.} Double pyramids with \(6\) and \(7\) vertices. Cyclic polytopes with \(7\) and \(8\) vertices. \(\mathcal M\). Barnette's sphere.
+\par\medskip
+\textbf{Seen from.} Any vertex: use the arrows. The tetrahedra can be shown one by one.
+\src{In the live version this slide is the model itself, with all its buttons.}
 \end{frame}
 \fi
 
