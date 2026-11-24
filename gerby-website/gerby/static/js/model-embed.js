@@ -34,13 +34,21 @@ $(document).ready(function() {
       if (!image.parent().length) {
         return;
       }
-      image.replaceWith($("<iframe>", {
+      var frame = $("<iframe>", {
         "class": "model-embed",
         src: path + step,
         title: "Interactive model",
         loading: "lazy",
         allow: "fullscreen"
-      }));
+      });
+      // The model takes the place of the whole
+      // figure, also when it has several pictures.
+      var figure = image.parent();
+      if (figure.is("div.centered, figure")) {
+        figure.empty().append(frame);
+      } else {
+        image.replaceWith(frame);
+      }
     });
   });
 });
