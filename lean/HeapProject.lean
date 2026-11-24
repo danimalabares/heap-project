@@ -1,4 +1,5 @@
 import HeapProject.CommutativeAlgebra.Basics
+import HeapProject.CommutativeAlgebra.Flat
 import HeapProject.CommutativeAlgebra.Foundations
 import HeapProject.CommutativeAlgebra.Nakayama
 import HeapProject.CommutativeAlgebra.NoetherianTensor

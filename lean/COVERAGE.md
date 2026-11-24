@@ -9,6 +9,7 @@ Statements and proofs written by Claude Code unless noted.
 | Commutative Algebra, UFDs and the Gauss lemma (0595) | 0596 0597 0598 0599 059A 059B 059C 059G 059H; 059F for polynomials over R only | 059E (Lang's order and content over the fraction field: not in Mathlib) and so 059F as stated; 059D (remark); exercise-rational-functions-irreducible | no |
 | Commutative Algebra: Modules, Invariant factors theorem, Algebras, Spectrum of a ring, Localization | 059R 059T 059U 059W 059Y 059Z 07QA 07QB 07QD 08DK (some in part, see docstrings) | invariant factor form and Jordan canonical form (not in Mathlib); HP's form of finite presentation; exercise-maximal-spectrum | no |
 | Commutative Algebra: Noetherian and Artinian rings, Tensor product | 05A1 05A2 05A3 05A4 05A5 05A8 05AA 05AB 05AC 05AH 05AM 05AP 05AR 05AX 08DN 08DP | Tensor product: the exercises asking for examples, Hom(N,-) left exactness, injective modules, finitely generated projective iff summand, the two lemmas on Hom and exactness, R/I tensor R/I' = 0, all statements about varieties and Spec, reducedness of tensor products over C; lemma-diagonal-of-product (its HP statement is cut off: no conclusion) | no |
+| Commutative Algebra, Flat modules | definition-flat-module, lemma-free-tensor-copies, definition-torsion-module, and four exercises (torsion-free, finite flat over local Noetherian is free, local flatness) | exercise-union-flat-modules-flat and exercise-boolean-ring-flat (not in Mathlib); the Boolean ring definition. In the last local-flatness exercise the domain hypothesis is not needed | no |
 | Commutative Algebra, Nakayama's lemma (05D7) | 05D8 05D9 05DA 05DB 05DC 05DE 05DF 05DG 05DJ 05DK 05DL 05DM 05DN | 05DD (Mathlib's `LocalizedModule` used, agreement with the tensor-product definition not proved); 05DH (not a formal statement) | no |
 
 ## HP statements corrected because of the formalization
@@ -29,4 +30,4 @@ Each has a dated note in the TeX next to the statement.
 
 ## Next
 
-Commutative Algebra from "Flat modules" onward, then the rest of the chapter. Left over in "Tensor product": lemma-diagonal-of-product (HP statement has no conclusion; fix and formalize), R/I tensor R/I' = 0, Hom(N,-) left exactness, finitely generated projective iff direct summand. The Noetherian and Tensor sections have no pointer to their Lean file in the TeX yet.
+Commutative Algebra from "Artinian algebras" onward, then the rest of the chapter. Left over in "Tensor product": lemma-diagonal-of-product (HP statement has no conclusion; fix and formalize), R/I tensor R/I' = 0, Hom(N,-) left exactness, finitely generated projective iff direct summand. The Noetherian and Tensor sections have no pointer to their Lean file in the TeX yet.
