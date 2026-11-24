@@ -26,3 +26,7 @@ Each has a dated note in the TeX next to the statement.
 | 0599 | Division algorithm for polynomials over a field: needs g nonzero |
 | 059B | Second sentence now says f is irreducible |
 | definition-localization | Equality of fractions needs a factor t in S when R has zero divisors |
+
+## Next
+
+Commutative Algebra from "Flat modules" onward, then the rest of the chapter. Left over in "Tensor product": lemma-diagonal-of-product (HP statement has no conclusion; fix and formalize), R/I tensor R/I' = 0, Hom(N,-) left exactness, finitely generated projective iff direct summand. The Noetherian and Tensor sections have no pointer to their Lean file in the TeX yet.
