@@ -12,6 +12,9 @@ html,body{margin:0;height:100%;background:#fff;overflow:hidden}
 #fsb:hover{opacity:1}#fsb label{margin-left:8px;cursor:pointer}
 .big{position:fixed!important;left:0!important;top:0!important;width:100%!important;height:100%!important;z-index:10}
 .enl{position:absolute;right:122px;top:6px;z-index:3;font:12px Georgia,serif;padding:2px 7px;border:1px solid #d9d6cf;border-radius:4px;background:#fff;color:#1c1c1c;cursor:pointer}
+#tl{position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden;line-height:1}
+#tl span{position:absolute;color:transparent;white-space:pre;cursor:text;transform-origin:0 0;font-family:Georgia,serif}
+#tl span::selection{background:rgba(0,90,255,.3)}
 #note{position:fixed;right:8px;bottom:6px;font:11px Georgia,serif;color:#888;display:none}
 </style></head><body>
 <div id="box"><img id="pg" alt=""></div>
@@ -25,9 +28,24 @@ var cur=0,N=IMGS.length,box=document.getElementById("box"),pg=document.getElemen
     live=true,ready={},frames={},slotEls={},fsDone=false;
 var vcv=document.createElement("canvas"),pdfDoc=null,tok=0,rt=null;
 vcv.style.cssText="position:absolute;left:0;top:0;width:100%;height:100%;display:none";box.appendChild(vcv);
+var tl=document.createElement("div");tl.id="tl";box.appendChild(tl);
+// Invisible text over the slide, so that it can be selected and copied.
+function textLayer(p,my){
+  var v0=p.getViewport({scale:1}),sc=box.clientWidth/v0.width,tr=p.getViewport({scale:sc}).transform;
+  p.getTextContent().then(function(tc){
+    if(my!==tok)return;tl.innerHTML="";
+    var i,it,m,x,y,fh,sp,w;
+    for(i=0;i<tc.items.length;i++){it=tc.items[i];if(!it.str)continue;m=it.transform;
+      x=tr[0]*m[4]+tr[2]*m[5]+tr[4];y=tr[1]*m[4]+tr[3]*m[5]+tr[5];fh=Math.sqrt(m[2]*m[2]+m[3]*m[3])*sc;if(!(fh>0))continue;
+      sp=document.createElement("span");sp.textContent=it.str+(it.hasEOL?"\n":" ");
+      sp.style.left=x+"px";sp.style.top=(y-fh)+"px";sp.style.fontSize=fh+"px";tl.appendChild(sp);
+      w=sp.getBoundingClientRect().width;if(w>0&&it.width>0){sp.style.transform="scaleX("+(it.width*sc/w)+")";}}
+  },function(){});
+}
 function render(){
   if(!pdfDoc)return;var my=++tok;vcv.style.display="none";
   pdfDoc.getPage(cur+1).then(function(p){
+    try{textLayer(p,my);}catch(e){}
     var dpr=window.devicePixelRatio||1,w=Math.round(box.clientWidth*dpr),v0=p.getViewport({scale:1}),v=p.getViewport({scale:w/v0.width});
     var c=document.createElement("canvas");c.width=Math.round(v.width);c.height=Math.round(v.height);
     p.render({canvasContext:c.getContext("2d"),viewport:v,background:"#ffffff"}).promise.then(function(){
@@ -70,10 +88,7 @@ function setLive(v){live=v;show(cur);
   var p,list,j,s,e;
   for(p in SLOTS){list=SLOTS[p];for(j=0;j<list.length;j++){s=list[j];e=document.createElement("div");
     e.className="slot";e.style.left=(s.rect[0]*100)+"%";e.style.top=(s.rect[1]*100)+"%";
-    e.style.width=(s.rect[2]*100)+"%";e.style.height=(s.rect[3]*100)+"%";box.appendChild(e);slotEls[s.id]=e;
-    if(s.full){(function(e){var b=document.createElement("button");b.className="enl";b.textContent="Enlarge";
-      b.onclick=function(ev){ev.stopPropagation();var on=(" "+e.className+" ").indexOf(" big ")<0;
-        e.className=on?"slot big":"slot";b.textContent=on?"Shrink":"Enlarge";};e.appendChild(b);})(e);}}}
+    e.style.width=(s.rect[2]*100)+"%";e.style.height=(s.rect[3]*100)+"%";box.appendChild(e);slotEls[s.id]=e;}}
 })();
 window.addEventListener("message",function(ev){
   var m=String(ev.data||"");if(m.indexOf("live-ready:")!==0)return;
@@ -99,6 +114,7 @@ window.addEventListener("keydown",function(e){
 },false);
 document.addEventListener("click",function(e){
   if(e.target&&e.target.tagName==="IFRAME")return;
+  try{if(String(window.getSelection())){return;}}catch(x0){}
   var x=e.clientX/(window.innerWidth||1);
   show(x<0.2?cur-1:cur+1);
 },false);

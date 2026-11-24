@@ -36,7 +36,11 @@ h1,.fs,nav.models{display:none!important}
 html,body{height:100%;overflow:hidden;background:#fff}
 .wrap{height:100%}
 #stage{min-height:110px}
-aside{max-height:52%!important}
+aside{max-height:52%}
+#grip{flex:0 0 16px;position:relative;background:var(--panel);border-top:1px solid var(--line);cursor:ns-resize;touch-action:none;-webkit-user-select:none;user-select:none}
+#grip:before{content:"";position:absolute;left:50%;top:6px;width:44px;margin-left:-22px;border-top:3px double var(--mute)}
+#grip button{position:absolute;right:8px;top:0;margin:0;padding:0 7px;font-size:11px;line-height:13px;cursor:pointer}
+#grip + aside{border-top:0}
 canvas{top:0;left:0;right:0;bottom:0}
 #info{top:6px!important;right:200px!important}
 .hint{display:none}
@@ -56,6 +60,31 @@ EMBED_JS = """<script>
       if(cv){ cv.addEventListener("dblclick",function(){
         if(box){ box.checked=!box.checked; }
         else { on=!on; if(on){ loop(); } } }); }
+      if(cfg.full){ (function(){
+        // A bar between the picture and the controls: drag it to resize the controls, button to hide them.
+        var as=document.querySelector("aside"); if(!as){return;}
+        var g=document.createElement("div"), hb=document.createElement("button"), y0=null, h0=0, key="live-controls-"+cfg.id;
+        g.id="grip"; g.title="Drag up or down to resize the controls"; hb.textContent="hide controls"; g.appendChild(hb);
+        as.parentNode.insertBefore(g,as);
+        function relayout(){ window.dispatchEvent(new Event("resize")); }
+        function save(){ try{ localStorage.setItem(key, JSON.stringify({h:as.style.height||"", off:as.style.display==="none"})); }catch(e){} }
+        function setH(h){ var max=(window.innerHeight||400)-56; if(h<24){h=24;} if(h>max){h=max;}
+          as.style.maxHeight="none"; as.style.height=h+"px"; relayout(); }
+        function setOff(off){ as.style.display=off?"none":""; hb.textContent=off?"show controls":"hide controls"; relayout(); }
+        function down(y){ if(as.style.display==="none"){return;} y0=y; h0=as.getBoundingClientRect().height; }
+        function move(y){ if(y0!==null){ setH(h0+(y0-y)); } }
+        function up(){ if(y0!==null){ y0=null; save(); } }
+        g.addEventListener("mousedown",function(e){ if(e.target===hb){return;} down(e.clientY); e.preventDefault(); });
+        window.addEventListener("mousemove",function(e){ move(e.clientY); });
+        window.addEventListener("mouseup",up);
+        document.addEventListener("mouseleave",up);
+        g.addEventListener("touchstart",function(e){ if(e.target===hb){return;} down(e.touches[0].clientY); e.preventDefault(); });
+        window.addEventListener("touchmove",function(e){ move(e.touches[0].clientY); });
+        window.addEventListener("touchend",up);
+        hb.addEventListener("click",function(e){ e.stopPropagation(); setOff(as.style.display!=="none"); save(); });
+        try{ var st=JSON.parse(localStorage.getItem(key)||"null");
+          if(st){ if(st.h){ as.style.maxHeight="none"; as.style.height=st.h; } if(st.off){ setOff(true); } } }catch(e){}
+      })(); }
       window.dispatchEvent(new Event("resize"));
     }catch(e){}
     setTimeout(function(){try{parent.postMessage("live-ready:"+cfg.id,"*");}catch(e){}},250);
