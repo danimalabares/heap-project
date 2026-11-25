@@ -191,7 +191,8 @@ def theorem_names(document):
   names = set(["thmenv"])
   try:
     path = "packages/amsthm/theorems"
-    names.update(document.userdata.getPath(path))
+    names.update(
+        document.userdata.getPath(path) or [])
   except (KeyError, AttributeError):
     pass
   return names
