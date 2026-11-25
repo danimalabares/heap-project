@@ -12,7 +12,6 @@ KNOWN_CHAPTERS = {
     "hilbert-schemes",
     "algebra",
     "linear-algebra",
-    "optimal-transport",
     "commutative-algebra",
     "differential-geometry",
     "differential-topology",
@@ -93,6 +92,9 @@ KNOWN_CHAPTERS = {
     "knot-theory",
     "psychoanalysis",
     "candomble",
+    "philosophy",
+    "topological-groups",
+    "birman-hilden",
 }
 
 

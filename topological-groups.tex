@@ -1,0 +1,3085 @@
+\input{preamble}
+
+\begin{document}
+
+\title{Topological Groups}
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Overview}
+\label{section-overview}
+
+\noindent
+These are my notes from a course on
+topological transformation groups. They
+were written in Spanish under the title
+{\it Grupos topol\'ogicos de
+transformaciones}; the original is kept
+in {\tt standalone/} as
+{\tt grupos-topologicos-transformaciones}.
+The source does not name the course, the
+lecturer or the semester. This chapter is
+a translation that keeps the content as
+it was: statements without proof stay
+without proof, unfinished proofs stay
+unfinished, and questions stay open.
+Where the original is wrong, incomplete
+or unclear, a sentence starting with
+{\it Note on the original} says so.
+Statements marked ``for presentation''
+were topics for student presentations.
+
+\medskip\noindent
+{\bf Big picture.} A topological group is
+a group with a topology for which the
+group operations are continuous. It acts
+on a space $X$ by homeomorphisms, and
+$X$ is then called a $G$-space. The
+notes go through the following steps.
+\begin{enumerate}
+\item Topological groups are homogeneous
+and regular
+(Sections
+\ref{section-definition-examples} and
+\ref{section-topological-properties}).
+\item Orbits, stabilizers and the orbit
+space $X/G$; for compact $G$ the orbit
+space inherits the good properties of
+$X$, including metrizability
+(Section \ref{section-group-actions}).
+\item The twisted product
+$G\times_HX$ builds a $G$-space out of
+an $H$-space
+(Section \ref{section-twisted-product}).
+\item A slice is a subset whose
+saturation is a twisted product; slices
+give the local structure of a $G$-space
+(Section \ref{section-slices}).
+\item Extension of equivariant maps:
+averaging with the Haar measure, the
+theorem of Dugundji and its equivariant
+version through $G$-canonical covers
+(Sections \ref{section-extension},
+\ref{section-dugundji} and
+\ref{section-canonical-cover}).
+\item Proper actions of locally compact
+groups
+(Section \ref{section-proper-actions}).
+\end{enumerate}
+
+\section{Definition and examples}
+\label{section-definition-examples}
+
+\begin{definition}
+\label{definition-topological-group}
+A {\it topological group} is a triple
+$(G,\tau,\cdot)$ where $\tau$ is a
+topology and $\cdot$ is a group
+operation such that the multiplication
+$$
+G\times G\to G,
+\qquad
+(x,y)\mapsto x\cdot y
+$$
+and the symmetry (inversion)
+$$
+G\to G,
+\qquad
+x\mapsto -x
+$$
+are continuous.
+\end{definition}
+
+\noindent
+{\it Note on the original.} The inversion
+is written additively there; in
+multiplicative notation it is
+$x\mapsto x^{-1}$.
+
+\begin{example}
+\label{example-first-topological-groups}
+\begin{enumerate}
+\item $(\mathbb{R},+)$.
+\item $(\mathbb{R}^n,+)$. Exercise: prove
+with $\varepsilon$ and $\delta$ that the
+sum is continuous. Solution: let
+$\varepsilon>0$ and let $(x,y)$ and
+$(x',y')$ be points of
+$\mathbb{R}^n\times\mathbb{R}^n$.
+Suppose that both lie in an open square
+of side less than $\varepsilon/2$. Then
+$$
+\begin{aligned}
+|x+y-(x'+y')|
+&=|x-x'+y-y'| \\
+&\leq|x-x'|+|y-y'| \\
+&<\varepsilon.
+\end{aligned}
+$$
+\item If $X$ is a normed linear space,
+then $(X,+)$ is a topological group.
+\item $(\mathbb{R}_+,\cdot)$ where
+$$
+\mathbb{R}_+
+=\{x\in\mathbb{R}:x>0\}.
+$$
+In this case the space is not a vector
+space (it is isomorphic to one, but
+that is not obvious for now).
+\item
+$(\mathbb{R}\setminus\{0\},\cdot)$,
+which is not connected.
+\item $(\operatorname{GL}(n),\cdot)$,
+where $\operatorname{GL}(n)$ is the set
+of invertible matrices $A=(a_{ij})$ with
+real entries $a_{ij}$ and the operation
+is the usual product of matrices.
+
+Recall that a matrix is invertible if
+and only if its determinant is not zero.
+Since the determinant is multiplicative,
+the product is well defined, so this is
+indeed a group. The topology is the one
+induced by the metric of
+$\mathbb{R}^{n^2}$.
+
+Now we check that the group operations
+are continuous. For the product: the
+product $AB=C$ of two matrices, with
+$C=(c_{ij})$, is given by
+$$
+c_{ij}=\sum_{k=1}^na_{ik}b_{kj},
+$$
+which is a continuous function.
+
+For the inversion, suppose that
+$A^{-1}=(c_{ij})$, so that
+$$
+c_{ij}
+=\frac{(-1)^{i+j}a_{ij}}{\det A_{ij}}
+$$
+where $A_{ij}$ is the matrix of minors
+obtained by removing row $i$ and
+column $j$. Now consider
+$$
+\xymatrix{
+\operatorname{GL}(n,\mathbb{R})
+  \ar@{^{(}->}[d] \ar[r]^-{\det}
+  & \mathbb{R} \\
+M(n,\mathbb{R})
+  \approx\mathbb{R}^{n^2}
+  \ar[ur]_{\det}
+}
+$$
+and since the determinant is a
+polynomial, continuity follows.
+
+{\it Note on the original.} The formula
+for $c_{ij}$ is not the formula for the
+inverse matrix. The correct one is
+$$
+c_{ij}
+=\frac{(-1)^{i+j}\det A_{ji}}{\det A},
+$$
+a quotient of polynomials in the entries
+with nonvanishing denominator, which is
+what the argument needs.
+\end{enumerate}
+\end{example}
+
+\begin{definition}
+\label{definition-lie-group}
+A topological group $G$ is called a
+{\it Lie group} if
+\begin{enumerate}
+\item $G$ is a differentiable manifold,
+\item the multiplication and the
+inversion are differentiable.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+\label{remark-lie-group-examples}
+All the examples so far are Lie groups.
+An example that is not a Lie group is
+$C([0,1])$, the continuous functions on
+$[0,1]$, since it is not locally
+homeomorphic to $\mathbb{R}^n$ with $n$
+finite.
+\end{remark}
+
+\begin{definition}
+\label{definition-topological-subgroup}
+Let $G$ be a topological group and
+$H<G$ an algebraic subgroup. With the
+induced topology $H$ is a topological
+group (since the restriction of a
+continuous function is continuous). It
+is called a {\it topological subgroup}
+of $G$.
+\end{definition}
+
+\begin{example}[For presentation]
+\label{example-matrix-groups}
+\begin{enumerate}
+\item $\operatorname{GL}(n,\mathbb{R})$,
+since it is an open subset of
+$\mathbb{R}^{n^2}$ (it is the preimage
+of the open set
+$\mathbb{R}\setminus\{0\}$ under the
+continuous function $\det$).
+\begin{enumerate}
+\item $\operatorname{GL}(1)
+=\mathbb{R}\setminus\{0\}$.
+\item The matrices of
+$\operatorname{GL}(n)$ with positive
+determinant and with negative
+determinant are topological subgroups.
+\end{enumerate}
+\item The subgroup of orthogonal
+matrices
+$\operatorname{O}(n,\mathbb{R})
+<\operatorname{GL}(n,\mathbb{R})$,
+that is, the set of
+$A\in\operatorname{GL}(n,\mathbb{R})$
+such that
+$$
+A^{-1}=A^t.
+$$
+It is also a Lie group which, unlike
+$\operatorname{GL}(n,\mathbb{R})$, is
+compact.
+\begin{enumerate}
+\item $\operatorname{O}(1)
+=\{-1,1\}=\mathbb{Z}_2$.
+\item $\operatorname{SO}(1)=\{1\}$.
+\end{enumerate}
+\item The special linear group
+$\operatorname{SL}(n,\mathbb{R})
+<\operatorname{GL}(n,\mathbb{R})$,
+that is, the set of
+$A\in\operatorname{GL}(n,\mathbb{R})$
+such that
+$$
+\det A=1,
+$$
+which is not compact either.
+\item The group
+$$
+\operatorname{SO}(n,\mathbb{R})
+=\operatorname{O}(n,\mathbb{R})
+\cap\operatorname{SL}(n,\mathbb{R}).
+$$
+According to the GAP program, the
+subgroup generated by the identity has
+index 2; is this possible? How do we
+prove that the two cosets are
+disconnected from each other?
+\item $\mathbb{C}^*
+=\mathbb{C}\setminus\{0\}$, which has
+as a subgroup
+$$
+\mathbb{S}^1
+=\{z\in\mathbb{C}:|z|=1\}.
+$$
+\item $\mathbb{S}^3\subset\mathbb{C}^2$
+is also a group, but $\mathbb{S}^2$ is
+not. This fact is related to the fact
+that $\mathbb{R}^3$ cannot have a field
+structure, whereas
+$\mathbb{R}^2\approx\mathbb{C}$ and
+$\mathbb{R}$ can. For its part,
+$\mathbb{R}^4$ seen as the quaternions
+is a {\it skew field}, which satisfies
+all the field axioms except the
+existence of multiplicative inverses.
+\end{enumerate}
+\end{example}
+
+\noindent
+{\it Note on the original.} The matrices
+with negative determinant do not form a
+subgroup: they do not contain the
+identity. In the item on
+$\operatorname{SO}(n,\mathbb{R})$ the
+question is left as it was asked; the
+subgroup of index 2 in
+$\operatorname{O}(n,\mathbb{R})$ is
+$\operatorname{SO}(n,\mathbb{R})$, the
+connected component of the identity. The
+quaternions do have multiplicative
+inverses; the field axiom that fails is
+the commutativity of the product.
+
+\section{Topological properties of
+topological groups}
+\label{section-topological-properties}
+
+\begin{remark}
+\label{remark-translations-open}
+As we will see with $G$-spaces, for each
+element $g\in G$ we have a
+homeomorphism $\tilde{g}$ that sends
+each point to its product with $g$. For
+any open set $U\subseteq G$, the sets
+$g\cdot U$ and $U\cdot g$ are open, and
+the same holds for a closed set. The
+product of an open set $U$ with any set
+$W$, defined pointwise, is open, since
+$$
+W\cdot U=\bigcup_{w\in W}w\cdot U.
+$$
+\end{remark}
+
+\begin{definition}
+\label{definition-neighborhood}
+A subset $V\subseteq X$ of a topological
+space is a {\it neighborhood} of
+$x\in X$ if $x$ lies in the interior of
+$V$. The set of neighborhoods of the
+identity $e$ of a topological group $G$
+is denoted by $N(e)$.
+\end{definition}
+
+\begin{definition}
+\label{definition-homogeneous}
+A topological space $X$ is
+{\it homogeneous} if for any two points
+$x,y\in X$ there is a homeomorphism
+$f:X\to X$ such that $f(x)=y$.
+\end{definition}
+
+\begin{remark}
+\label{remark-groups-homogeneous}
+Every topological group is homogeneous.
+\end{remark}
+
+\begin{proposition}
+\label{proposition-local-base-translate}
+Let $B$ be a local base at $e$. Then
+$$
+B_x=\{x\cdot V:V\in B\}
+$$
+is a local base at any $x\in G$.
+\end{proposition}
+
+\begin{proof}
+Let $V\in\tau$ with $x\in V$. Then
+$e\in x^{-1}V$. Since $B$ is a base,
+there is $W\in B$ such that
+$$
+e\in W\subseteq x^{-1}\cdot V.
+$$
+Then
+$$
+x\in x\cdot W
+\subseteq x\cdot x^{-1}V=V,
+$$
+and $x\cdot W\in B_x$.
+\end{proof}
+
+\begin{definition}
+\label{definition-symmetric-neighborhood}
+A set $V\in N(e)$ is a
+{\it symmetric neighborhood} if
+$V=V^{-1}$.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-symmetric-neighborhood}
+Let $V\in N(e)\cap\tau_G$. Then there is
+$W\in N(e)\cap\tau_G$ such that
+$$
+W=W^{-1}\subset V.
+$$
+\end{proposition}
+
+\begin{proof}
+Let $e\in V\in\tau_G$. Since the
+inversion is continuous, there is
+$W'\in N(e)\cap\tau_G$ such that
+$(W')^{-1}\subset V$. We propose
+$W'\cap(W')^{-1}$.
+\end{proof}
+
+\noindent
+{\it Note on the original.} For
+$W'\cap(W')^{-1}\subset V$ one should
+also ask $W'\subset V$, which can be
+arranged by intersecting $W'$ with $V$.
+
+\begin{remark}
+\label{remark-square-root-neighborhood}
+If $V\in N(e)\cap\tau$, there is
+$W\in N(e)\cap\tau$ such that $W^2=V$.
+\end{remark}
+
+\noindent
+{\it Note on the original.} The equality
+should be the inclusion $W^2\subset V$,
+which is the first item of the next
+theorem.
+
+\begin{theorem}
+\label{theorem-neighborhoods-of-identity}
+Let $G$ be a topological group. Then
+\begin{enumerate}
+\item for every $U\in N(e)\cap\tau$
+there is $V\in N(e)\cap\tau$ such that
+$V^2\subset U$;
+\item for every $U\in N(e)\cap\tau$
+there is $V\in N(e)\cap\tau$ such that
+$V^2\subset U$ and $V^{-1}=V$;
+\item for every $U\in N(e)\cap\tau$
+there is $V\in N(e)\cap\tau$ which is
+{\it regular}, that is, such that
+$V\subset\bar{V}\subset U$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) Let $U\in N(e)\cap\tau$. Since the
+product is continuous and
+$e\cdot e=e\in U$, there are two open
+sets $V_1,V_2\in N(e)$ such that
+$V_1\cdot V_2\subset U$. Define
+$V=V_1\cap V_2$. Then
+$V\in N(e)\cap\tau$ and
+$$
+V\cdot V
+=(V_1\cap V_2)\cdot(V_1\cap V_2)
+\subset V_1\cdot V_2\subset U.
+$$
+
+(2) Let $U\in N(e)\cap\tau$. Then there
+is $V_1\in N(e)\cap\tau$ with
+$V_1^2\subset U$. By
+Proposition
+\ref{proposition-symmetric-neighborhood}
+there is $V\in N(e)\cap\tau$ such that
+$V^{-1}=V$ and $V\subset V_1$. Then
+$$
+V\cdot V\subset V_1\cdot V_1
+=V_1^2\subset U.
+$$
+
+(3) Let $U\in N(e)\cap\tau$. By the
+previous item there is
+$V\in N(e)\cap\tau$ such that
+$V^2\subset U$ and $V^{-1}=V$. We claim
+that $\bar{V}\subset U$. Let
+$x\in\bar{V}$. The set $x\cdot V$ is a
+neighborhood of $x$, so
+$$
+x\cdot V\cap V\neq\varnothing.
+$$
+Thus there are $v_1,v_2\in V$ such that
+$x\cdot v_1=v_2$. Then
+$$
+x=v_2\cdot v_1^{-1}
+\in V\cdot V=V^2\subset U,
+$$
+that is, $x\in U$.
+\end{proof}
+
+\noindent
+{\it Note on the original.} In item (3)
+the original writes ``$x\in x\cdot V$,
+so $x\in x\cdot V\cap V$'' and uses
+capital letters $V_1,V_2$ for the two
+elements of $V$. The version above is
+the intended argument.
+
+\begin{definition}
+\label{definition-separation-axioms}
+The topological space $X$ is
+\begin{enumerate}
+\item {\it $T_0$} if for any distinct
+$x,y\in X$ there is $U\in\tau_X$ such
+that $|U\cap\{x,y\}|=1$;
+\item {\it $T_1$} if for any distinct
+$x,y\in X$ there are open sets $U,V$
+such that $x\in U\setminus V$ and
+$y\in V\setminus U$;
+\item {\it $T_2$} if for any two points
+$x,y\in X$ there are open sets $U,V$
+such that $x\in U$, $y\in V$ and
+$U\cap V\neq\varnothing$;
+\item {\it $T_3$} if $X$ is $T_1$ and
+moreover for any point $x\in X$ and any
+closed set $A\subset X$ there are open
+sets $U,V$ such that $x\in U$,
+$A\subset V$ and
+$U\cap V\neq\varnothing$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+{\it Note on the original.} In $T_2$ and
+$T_3$ the condition should be
+$U\cap V=\varnothing$, the two points in
+$T_2$ should be distinct, and in $T_3$
+the point $x$ should not belong to $A$.
+The condition of $T_3$ is garbled in the
+original; it is reconstructed here.
+
+\begin{remark}
+\label{remark-separation-axioms}
+\begin{enumerate}
+\item $X$ is $T_1$ if and only if
+$\{x\}$ is closed for every point
+$x\in X$.
+\item If $X$ is $T_1$ and regular, then
+it is $T_3$.
+\item There are implications
+$$
+T_3\Rightarrow T_2
+\Rightarrow T_1\Rightarrow T_0.
+$$
+\end{enumerate}
+\end{remark}
+
+\begin{theorem}
+\label{theorem-t0-implies-t3}
+Every $T_0$ topological group is $T_3$.
+\end{theorem}
+
+\begin{proof}
+Since any topological group satisfies
+condition (3) of
+Theorem
+\ref{theorem-neighborhoods-of-identity},
+we only have to show that it is $T_1$,
+that is, that the one-point sets are
+closed. Since $G$ is homogeneous, it is
+enough to prove that $\{e\}$ is closed.
+
+We show that if $g\in G\setminus\{e\}$
+then there is $V\in\tau_G$ such that
+$$
+g\in V\subset G\setminus\{e\}.
+$$
+Since $g\neq e$ and $G$ is $T_0$, there
+is an open set $U$ such that
+$|U\cap\{g,e\}|=1$. There are two cases.
+\begin{enumerate}
+\item If $g\in U$, then $e\notin U$, so
+$g\in U\subset G\setminus\{e\}$.
+\item If $e\in U$, then there is
+$V\in N(e)\cap\tau_G$ with
+$\bar{V}\subset U$. Clearly
+$g\notin\bar{V}$, so
+$g\in G\setminus\bar{V}\in\tau_G$ and
+$e\notin G\setminus\bar{V}$. Then
+$$
+g\in G\setminus\bar{V}
+\subset G\setminus\{e\}
+$$
+and $G\setminus\{e\}\in\tau_G$.
+\end{enumerate}
+\end{proof}
+
+\begin{remark}
+\label{remark-translations-no-fixed-points}
+Translations have no fixed points: if
+$x\in G$ is such that $x=gx$, then
+$g=e$.
+\end{remark}
+
+\begin{definition}
+\label{definition-fixed-point-property}
+A topological space $X$ has the
+{\it fixed point property} if every
+continuous function $f:X\to X$ has a
+fixed point.
+\end{definition}
+
+Some examples of spaces with the fixed
+point property are the interval
+$[0,1]\subset\mathbb{R}$, the $n$-balls
+$B_r(0)\subset\mathbb{R}^n$ and the
+Hilbert cube $[0,1]^{\mathbb{N}}$. Since
+translations have no fixed points, the
+Hilbert cube cannot have the structure
+of a topological group (with its usual
+topology, of course).
+
+Now consider a subgroup $H<G$ and the
+quotient space $G/H$, which is defined
+even if $H$ is not normal (it is a
+topological space without group
+structure). It turns out that no space
+of this form is homeomorphic to the
+Hilbert cube.
+
+\noindent
+{\it Note on the original.} The balls
+should be closed balls. The last claim
+is stated without proof or reference.
+
+\begin{remark}
+\label{remark-sum-of-closed-sets}
+The set
+$$
+A=\left\{n+\frac{1}{n}
+\right\}_{n\in\mathbb{N}}
+$$
+is closed, but
+$$
+A-\mathbb{N}
+=\left\{\frac{1}{n}
+\right\}_{n\in\mathbb{N}}
+$$
+is not.
+\end{remark}
+
+\noindent
+{\it Note on the original.} The set
+$A-\mathbb{N}$ of all differences is
+larger than the set displayed; it
+contains the displayed points and has
+$0$ as a limit point outside it, which
+is the point of the remark: the product
+of two closed sets need not be closed.
+
+\begin{theorem}
+\label{theorem-products-of-subsets}
+Let $G$ be a topological group,
+$A,B,O,U\subset G$ and $g\in G$. Then
+\begin{enumerate}
+\item if $A$ is closed and $B$ is
+compact, $A\cdot B$ is closed;
+\item if $A$ and $B$ are open,
+$A\cdot B$ is open;
+\item if $A$ is open (closed),
+$g\cdot A$ and $A\cdot g$ are open
+(closed);
+\item if $A$ and $B$ are compact,
+$A\cdot B$ is compact.
+\end{enumerate}
+\end{theorem}
+
+\begin{proposition}
+\label{proposition-coset-projection}
+Let $G$ be a topological group and
+$H<G$. The projection
+$$
+p:G\to G/H
+$$
+is continuous, open and, if $G$ is
+compact, closed.
+\end{proposition}
+
+\noindent
+{\it Note on the original.} This
+statement appears there under the
+heading ``Definition'' and without
+proof. Openness is
+Corollary
+\ref{corollary-coset-projection-open}.
+
+\section{Group actions}
+\label{section-group-actions}
+
+\begin{definition}
+\label{definition-action}
+Let $G$ be a topological group and $X$
+a topological space. An {\it action}
+$G\curvearrowright X$ is a continuous
+function $\alpha:G\times X\to X$ such
+that
+\begin{enumerate}
+\item for $g,h\in G$ and $x\in X$,
+$$
+\alpha(g,\alpha(h,x))
+=\alpha(g\cdot h,x),
+$$
+that is, $g(hx)=(g\cdot h)x$;
+\item $\alpha(e,x)=x$ where $e\in G$ is
+the identity, that is, $ex=x$.
+\end{enumerate}
+The triple $(G,X,\alpha)$ is called a
+{\it $G$-space} or a
+{\it topological transformation group}.
+\end{definition}
+
+This last name refers to the
+transformations of the form
+$$
+\tilde{g}:X\to X,
+\qquad
+x\mapsto gx
+$$
+for $g\in G$, which are continuous.
+Moreover,
+\begin{enumerate}
+\item $\widetilde{gh}
+=\tilde{g}\circ\tilde{h}$,
+\item $\tilde{e}=1_X$.
+\end{enumerate}
+
+\begin{proposition}
+\label{proposition-translation-homeomorphism}
+The map $\tilde{g}$ is a homeomorphism.
+\end{proposition}
+
+\begin{proof}
+We have
+$$
+\tilde{g}\circ\widetilde{g^{-1}}
+=\widetilde{gg^{-1}}
+=\tilde{e}=1_X,
+$$
+and also
+$\widetilde{g^{-1}}\circ\tilde{g}=1_X$,
+so
+$\widetilde{g^{-1}}=(\tilde{g})^{-1}$.
+\end{proof}
+
+So in fact we have the homomorphism
+$$
+G\to\mathcal{H}(X),
+\qquad
+g\mapsto\tilde{g}
+$$
+where $\mathcal{H}(X)$ is the group of
+homeomorphisms of $X$.
+
+The interesting theory appears when $X$
+has properties, such as being a linear
+space. In that case we could take the
+linear homeomorphisms and build a
+diagram where we {\it represent} the
+group $G$ by linear homeomorphisms.
+
+Now, is the map $g\mapsto\tilde{g}$
+continuous? To answer this question we
+need to give a topology to
+$\mathcal{H}(X)$. Well,
+$\mathcal{H}(X)
+\subset\mathcal{C}_C(X,X)$, where the
+index $C$ stands for the compact-open
+topology on the space of continuous
+functions of $X$.
+
+\begin{definition}
+\label{definition-equivariant}
+If $X$ and $Y$ are two $G$-spaces, a
+function $f:X\to Y$ is called
+{\it $G$-equivariant} if
+$f(gx)=gf(x)$.
+\end{definition}
+
+\begin{theorem}[For presentation]
+\label{theorem-homeo-group-locally-compact}
+Let $X$ be a locally compact Hausdorff
+and locally connected space. Then
+$\mathcal{H}_C(X)$ is a topological
+group.
+\end{theorem}
+
+\begin{remark}
+\label{remark-homeo-group-locally-connected}
+On the proof: if we do not ask for
+local connectedness, the continuity of
+$f\mapsto f^{-1}$ fails. For example,
+the space
+$$
+X=\left\{\frac{1}{n}
+\right\}_{n\in\mathbb{N}}
+$$
+is locally compact but not locally
+connected.
+\end{remark}
+
+\noindent
+{\it Note on the original.} The space
+displayed is discrete, hence locally
+connected; the counterexamples I know
+need a different space. The remark is
+kept as written.
+
+\begin{theorem}[For presentation]
+\label{theorem-homeo-group-compact}
+Let $X$ be compact and Hausdorff. Then
+$\mathcal{H}_C(X)$ is a topological
+group.
+\end{theorem}
+
+Another interesting topic is the
+following.
+
+\begin{theorem}[For presentation]
+\label{theorem-evaluation-action}
+The action
+$$
+\mathcal{H}(X)\times X\to X,
+\qquad
+(f,x)\mapsto f(x)
+$$
+is continuous when $\mathcal{H}(X)$ is
+a topological group. That is, $X$ is an
+$\mathcal{H}(X)$-space.
+\end{theorem}
+
+\begin{remark}
+\label{remark-evaluation-not-continuous}
+If we take
+$$
+\mathcal{C}(X,X)\times X\to X,
+\qquad
+(f,x)\mapsto f(x)
+$$
+this is not necessarily continuous, for
+example if $X=\mathbb{Q}$, since
+$\mathbb{Q}$ is not locally compact.
+But if $X$ is locally compact, it is.
+\end{remark}
+
+\begin{example}
+\label{example-actions}
+\begin{enumerate}
+\item Let $G$ be any topological group
+and take $X=G$. We can define the
+action in different ways:
+\begin{enumerate}
+\item $g\cdot x=gx$, the same operation
+as that of the group;
+\item $g\cdot x=xg^{-1}$, which is not
+the same as the previous one if the
+group is not abelian;
+\item $g\cdot x=gxg^{-1}$.
+\end{enumerate}
+\item For a subgroup $H<G$ and the set
+of cosets
+$$
+G/H=\{gH:g\in G\},
+$$
+we have $G\curvearrowright G/H$ given
+by $g(xH)=(gx)H$:
+$$
+\xymatrix{
+G\times G/H \ar[r] & G/H \\
+G\times G \ar@<0.5ex>[u]
+  \ar@<-0.5ex>[u] \ar[r]
+  & G \ar[u]_{\pi}
+}
+$$
+\item If $X$ is a $G$-space and $H<G$,
+there is an induced action $\alpha'$ of
+$H$, the restriction of $\alpha$ to
+$H\times X$:
+$$
+\xymatrix{
+G\times X \ar[r]^-{\alpha} & X \\
+H\times X \ar@{^{(}->}[u]
+  \ar@{-->}[ur]_{\alpha'}
+}
+$$
+\item $G=\mathbb{S}^1$ and
+$X=\mathbb{R}^2$, where $G$ acts by
+multiplication; geometrically these are
+rotations.
+\item
+$\operatorname{SO}(n)
+\curvearrowright\mathbb{R}^n$, which we
+now see as orthogonal transformations
+that preserve the norm. To see that the
+action is continuous, we use the
+previous theorems to see that the
+evaluation
+$$
+\omega:
+\mathcal{H}_C(\mathbb{R}^n)
+\times\mathbb{R}^n
+\to\mathbb{R}^n
+$$
+is continuous, and then use
+$$
+\xymatrix{
+\mathcal{H}_C(\mathbb{R}^n)
+  \times\mathbb{R}^n
+  \ar[r]^-{\omega}
+  & \mathbb{R}^n \\
+\operatorname{SO}(n)
+  \times\mathbb{R}^n
+  \ar@{^{(}->}[u] \ar@{-->}[ur]
+}
+$$
+with the detail that one has to check
+that the topology of
+$\operatorname{SO}(n)$ is the same as
+the compact-open topology.
+\item In the previous diagram we can
+replace $\operatorname{SO}(n)$ by
+$\operatorname{O}(n)$ or
+$\operatorname{GL}(n)$.
+\end{enumerate}
+\end{example}
+
+\noindent
+{\it Note on the original.} In the last
+diagram the original omits the factors
+$\mathbb{R}^n$ on the left.
+
+\begin{definition}
+\label{definition-orbit}
+Let $X$ be a $G$-space and $x\in X$.
+The {\it orbit} of $x$ is
+$$
+G(x)=\{gx:g\in G\}.
+$$
+\end{definition}
+
+Note that two orbits are disjoint or
+equal. In fact, setting $x\sim y$ when
+$G(x)=G(y)$ gives an equivalence
+relation, from which we get the
+{\it orbit projection}
+$\pi:X\to X/G$, and we can give this
+set the quotient topology.
+
+\begin{proposition}
+\label{proposition-orbit-projection-open}
+The orbit projection is open.
+\end{proposition}
+
+\begin{proof}
+Take $U\subset X$ open. To see that
+$\pi(U)$ is open, it is enough to see
+that $\pi^{-1}(\pi(U))$ is open. A
+point $x\in X$ lies in
+$\pi^{-1}(\pi(U))$ if and only if
+$\pi(x)\in\pi(U)$, that is, if and only
+if there is $u\in U$ with
+$\pi(x)=\pi(u)$, that is, with
+$x\in G(u)$. Hence
+$$
+\begin{aligned}
+\pi^{-1}\left(\pi(U)\right)
+&=\bigcup_{u\in U}G(u) \\
+&=\bigcup_{g\in G}gU
+\end{aligned}
+$$
+which is open.
+\end{proof}
+
+\begin{corollary}
+\label{corollary-coset-projection-open}
+The projection $p:G\to G/H$ is open.
+\end{corollary}
+
+\begin{definition}
+\label{definition-stabilizer}
+Let $X$ be a $G$-space. The
+{\it stabilizer} of $x\in X$ is the
+subgroup
+$$
+G_x=\{g\in G:gx=x\}<G.
+$$
+\end{definition}
+
+\begin{proposition}
+\label{proposition-stabilizer-closed}
+If $X$ is Hausdorff, $G_x$ is closed.
+\end{proposition}
+
+\begin{definition}
+\label{definition-free-action}
+An action is {\it free} if all the
+stabilizers are trivial, that is,
+$G_x=\{e\}$ for every $x\in X$.
+\end{definition}
+
+\begin{definition}
+\label{definition-transitive-action}
+An action is {\it transitive} if
+$G(x)=X$ for every $x\in X$. In this
+case $X/G$ is a single point.
+\end{definition}
+
+\begin{example}
+\label{example-pathological-orbit-spaces}
+\begin{enumerate}
+\item $X=\mathbb{R}^2$ and
+$G=(\mathbb{R}_+,\cdot)$: the action by
+rays. This space is $T_0$ but not
+$T_1$.
+\item We say that
+$(\mathbb{R},X,\alpha)$ is a
+{\it dynamical system} and that
+$(\mathbb{Z},X,\alpha)$ is a
+{\it discrete dynamical system}.
+\item
+$\mathbb{R}\curvearrowright\mathbb{S}^1$
+by
+$$
+t\cdot e^{iu}=e^{i(t+u)}.
+$$
+\item $\mathbb{R}\curvearrowright
+\mathbb{S}^1\times\mathbb{S}^1$ by
+$$
+t\cdot(e^{iu},e^{iv})
+=(e^{i(u+t)},e^{i(u+\sqrt{2}t)}).
+$$
+The orbits $\mathbb{R}(z)$ are dense in
+$\mathbb{S}^1\times\mathbb{S}^1$. This
+space is neither $T_1$ nor $T_0$.
+\end{enumerate}
+\end{example}
+
+\noindent
+{\it Note on the original.} In the
+first and last items ``this space'' is
+the orbit space $X/G$. In the last
+formula the second coordinate should be
+$e^{i(v+\sqrt{2}t)}$.
+
+\begin{remark}
+\label{remark-pullback-action}
+For an epimorphism $p:G'\to G$, if $X$
+is a $G$-space, it is also a
+$G'$-space.
+\end{remark}
+
+The following theorem rules out these
+pathological cases.
+
+\begin{theorem}
+\label{theorem-compact-group-orbits}
+Let $X$ be a $G$-space with $G$ a
+compact group.
+\begin{enumerate}
+\item Every orbit is closed in $X$.
+\item The projection $p$ is closed.
+\item There is a $G$-equivariant
+homeomorphism
+$$
+G(x)\approx_GG/G_x,
+$$
+since both are $G$-spaces.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) Fix $x\in X$ and define
+$$
+p:G\to G(x),
+\qquad
+g\mapsto gx.
+$$
+Since $p$ is continuous and $G$ is
+compact, $G(x)$ is compact and in
+particular closed.
+
+(3) We take the action
+$G\curvearrowright G(x)$ given by
+$g'(gx)=(g'g)x$. This makes the orbit
+projection $\eta$ of the action of
+$G_x$ on $G$ open. Now observe
+$$
+\xymatrix{
+G \ar[r]^-{p} \ar[d]_{\eta}
+  & G(x) \\
+G/G_x \ar@{-->}[ur]_{\tilde{p}}
+}
+$$
+Note that $p$ is constant on the
+cosets, so we can define the dashed
+arrow by
+$$
+\tilde{p}(gG_x):=p(g)=gx.
+$$
+This function turns out to be bijective
+and, by compactness, closed.
+
+To see that $\tilde{p}$ is equivariant,
+$$
+\tilde{p}(t\cdot gG_x)
+=t\,\tilde{p}(gG_x).
+$$
+\end{proof}
+
+\noindent
+{\it Note on the original.} The second
+item is numbered 1.5 there and has no
+proof. In the proof of the third item
+the original says ``the action
+$G(x)\curvearrowright G$'', writes
+$\tilde{p}(gG_x)=gG_x$ and states the
+equivariance as
+$\tilde{p}(t\cdot g)=t\tilde{p}(g)$;
+the text above gives the intended
+reading. Closedness of the orbits and of
+$\tilde{p}$ uses that $X$ is Hausdorff.
+
+The simplest examples of $G$-spaces are
+of the form $G(x)=G/H$, in particular
+$G(x)=G/G_x$. And they are glued
+together like this: $X$ is the disjoint
+union of its orbits $G(x)$.
+
+\begin{definition}
+\label{definition-invariant-subset}
+A subset $A\subset X$ is
+{\it $G$-invariant} if
+$G(a)\subseteq A$ for every $a\in A$.
+We can take restricted actions to
+produce {\it $G$-subspaces}:
+$$
+\xymatrix{
+G\times X \ar[r]^-{\alpha} & X \\
+G\times A \ar@{^{(}->}[u]
+  \ar[r]^-{\alpha'}
+  & A \ar@{^{(}->}[u]
+}
+$$
+\end{definition}
+
+\begin{definition}
+\label{definition-perfect-map}
+A surjective function $f:X\to Y$ is
+{\it perfect} if the fibers
+$f^{-1}(y)$ are compact.
+\end{definition}
+
+\noindent
+{\it Note on the original.} A perfect
+map is also required to be continuous
+and closed, as the original itself says
+later, in the proof of
+Proposition
+\ref{proposition-invariant-refinement}.
+
+\begin{theorem}
+\label{theorem-perfect-invariants}
+Let $G$ be compact and $X$ a $G$-space.
+Then any property $\mathcal{P}$ that is
+invariant under perfect maps passes
+from $X$ to $X/G$ through the orbit
+projection. Among them:
+\begin{enumerate}
+\item compactness;
+\item connectedness;
+\item the separation axioms $T_0$,
+$T_1$, $T_2$, $T_3$,
+$T_{3\frac{1}{2}}$, $T_4$;
+\item paracompactness;
+\item metrizability.
+\end{enumerate}
+\end{theorem}
+
+\begin{definition}
+\label{definition-invariant-metric}
+A metric $\rho$ on a $G$-space $X$ is
+{\it invariant} if $\tilde{g}$ is an
+isometry for every $g$ in $G$, that is,
+$$
+\rho(gx,gy)=\rho(x,y).
+$$
+\end{definition}
+
+In fact, there are times when the
+$\tilde{g}$ are linear.
+
+\begin{theorem}
+\label{theorem-invariant-metric-quotient}
+Let $G$ be compact and $X$ a metrizable
+$G$-space. Then there is a compatible
+invariant metric on $X/G$.
+\end{theorem}
+
+(This theorem implies property 5 of
+Theorem
+\ref{theorem-perfect-invariants}.)
+
+\begin{proof}
+We say that two orbits in a metric
+space are {\it parallel} if the
+quantity
+$$
+\rho(x,G(y))
+=\inf_{g\in G}\rho(x,gy)
+$$
+is constant along the orbit of $x$.
+This allows us to define a metric on
+the orbit space by
+$$
+\tilde{\rho}(\pi(x),\pi(y))
+:=\rho(x,G(y)).
+$$
+\end{proof}
+
+\noindent
+{\it Note on the original.} This is only
+the idea; the full argument is the
+proof of the next theorem, which assumes
+an invariant metric on $X$. That a
+metrizable $G$-space with $G$ compact
+admits a compatible invariant metric is
+not proved in the notes. The statement
+presumably means a compatible metric on
+$X/G$.
+
+\begin{theorem}[For presentation]
+\label{theorem-metric-on-orbit-space}
+If $G$ is compact and $X$ is a
+$G$-space that admits an invariant
+metric, then there is a compatible
+metric on $X/G$.
+\end{theorem}
+
+\begin{proof}
+For fixed $x,y\in X$, the function
+$$
+G(y)\to\mathbb{R},
+\qquad
+gy\mapsto\rho(x,gy)
+$$
+is bounded below by zero, so we can
+define
+$$
+\rho(x,G(y))
+:=\inf_{g\in G}\rho(x,gy).
+$$
+Now we see that in fact this map is
+constant on $G(x)$. Since the metric of
+$X$ is $G$-invariant, for any
+$hx\in G(x)$,
+$$
+\begin{aligned}
+\rho(hx,G(y))
+&=\inf_{g\in G}\rho(hx,gy) \\
+&=\inf_{g\in G}\rho(x,h^{-1}gy) \\
+&=\inf_{g\in G}\rho(x,gy) \\
+&=\rho(x,G(y))
+\end{aligned}
+$$
+because the sets
+$\{\rho(hx,gy):g\in G\}$ and
+$\{\rho(x,h^{-1}gy):g\in G\}$ are
+equal, so their infimum is the same.
+Define
+$$
+\tilde{\rho}(G(x),G(y))
+:=\rho(x,G(y)).
+$$
+Now we check that this function is
+indeed a metric.
+\begin{enumerate}
+\item $\tilde{\rho}(G(x),G(x))=0$
+trivially.
+
+\item It is positive, that is,
+$\tilde{\rho}(G(x),G(y))\geq0$ for any
+$x,y\in X$.
+
+If $G(x)\neq G(y)$ but
+$\tilde{\rho}(G(x),G(y))=0$, then we
+can (since $X$ is metrizable) build a
+sequence of points in $G(y)$ whose
+distances to some $x\in G(x)$ tend to
+zero, that is, the sequence tends to
+$x$. Since the group is compact, $G(y)$
+is closed and contains its limit
+points, so $x\in G(y)$, which is not
+possible.
+
+\item It is symmetric, since
+$$
+\begin{aligned}
+\tilde{\rho}(G(x),G(y))
+&=\inf_{g\in G}\rho(x,gy) \\
+&=\inf_{g\in G}\rho(gy,x) \\
+&=\inf_{g\in G}\rho(y,g^{-1}x) \\
+&=\inf_{g\in G}\rho(y,gx) \\
+&=\tilde{\rho}(G(y),G(x)).
+\end{aligned}
+$$
+
+\item The triangle inequality is
+inherited. Write
+$$
+m=\inf_{g,h\in G}
+\left(\rho(x,hy)+\rho(hy,gz)\right).
+$$
+Then
+$$
+\begin{aligned}
+\tilde{\rho}(G(x),G(z))
+&=\inf_{g\in G}\rho(x,gz) \\
+&\leq m \\
+&=\inf_{h\in G}\rho(x,hy)
+ +\inf_{g,h\in G}\rho(hy,gz) \\
+&=\tilde{\rho}(G(x),G(y))
+ +\tilde{\rho}(G(y),G(z))
+\end{aligned}
+$$
+since
+$$
+\rho(x,gz)
+\leq\rho(x,hy)+\rho(hy,gz)
+$$
+for any $g,h\in G$.
+\end{enumerate}
+
+Finally, we see that the topology
+induced by $\tilde{\rho}$ is the same
+as the quotient topology. Recall that
+the open sets of the quotient topology
+are the subsets of $X/G$ whose preimage
+under the projection $\pi:X\to X/G$ is
+open in $X$.
+
+{\it Claim.} For any $x\in X$,
+$$
+\pi(B_\varepsilon(x))
+=\tilde{B}_\varepsilon(G(x))
+$$
+for the open balls of radius
+$\varepsilon>0$ in the respective
+spaces.
+
+First we see why the result follows
+from this claim. Let $\tau$ be the
+quotient topology on $X/G$, and take an
+open set $U$ of $(X/G,\tau)$. Its
+inverse image is an open set in $X$,
+which is a union of open balls. The
+image of each open ball is an open ball
+in $(X/G,\tilde{\rho})$, so
+$\pi(\pi^{-1}(U))=U$ is open in
+$(X/G,\tilde{\rho})$.
+
+Conversely, any open set of
+$(X/G,\tilde{\rho})$ is a union of
+balls, each of which is the image of an
+open ball in $X$. Since the quotient
+projection is open in $(X/G,\tau)$, we
+are done.
+
+Now we prove the claim. Take
+$\varepsilon>0$, $x\in X$ and the open
+balls: $B_\varepsilon(x)$ is the set of
+$y\in X$ with $\rho(x,y)<\varepsilon$,
+and $\tilde{B}_\varepsilon(G(x))$ is
+the set of $G(y)\in X/G$ with
+$\tilde{\rho}(G(x),G(y))<\varepsilon$.
+
+($\subseteq$) If
+$y\in B_\varepsilon(x)$, then
+$\pi(y)=G(y)
+\in\tilde{B}_\varepsilon(G(x))$ since
+$$
+\tilde{\rho}(G(x),G(y))
+\leq\rho(x,y).
+$$
+
+($\supseteq$) If
+$G(y)\in\tilde{B}_\varepsilon(G(x))$,
+we must find
+$y'\in B_\varepsilon(x)$ such that
+$\pi(y')=G(y)$. The distance between
+$x$ and the set $\pi^{-1}(G(y))$ is
+$$
+\begin{aligned}
+\rho(x,\pi^{-1}(G(y)))
+&=\inf_{z\in\pi^{-1}G(y)}\rho(x,z) \\
+&=\inf_{g\in G}\rho(x,gy) \\
+&=\rho(x,G(y)) \\
+&=\tilde{\rho}(G(x),G(y)) \\
+&<\varepsilon.
+\end{aligned}
+$$
+So there is
+$y'\in\pi^{-1}(G(y))
+\cap B_\varepsilon(x)$.
+\end{proof}
+
+The theorem is also true if $G$ is
+countably compact.
+
+\begin{definition}
+\label{definition-countably-compact}
+A space $X$ is {\it countably compact}
+if every countable open cover has a
+finite subcover.
+\end{definition}
+
+To prove this variant of the theorem it
+is enough to check that the metric is
+positive (the second item of the
+proof). It will turn out that the orbit
+$G(y)$, being the image of $G$ under
+$g\mapsto gy$, is countably compact, so
+it must contain at least one
+{\it $\omega$-limit point}, which gives
+a contradiction as in the previous
+proof. Specifically:
+
+\begin{proposition}
+\label{proposition-image-countably-compact}
+The image of a countably compact space
+under a continuous function is
+countably compact.
+\end{proposition}
+
+\begin{proof}
+Suppose that $f:X\to Y$ is continuous
+and surjective and that $X$ is
+countably compact. Take a countable
+cover $\{U_\alpha\}$ of $Y$. Then
+$\{f^{-1}(U_\alpha)\}$ is a countable
+cover of $X$, for which there is a
+finite subcover
+$f^{-1}(U_1),\ldots,f^{-1}(U_n)$. If
+$U_1,\ldots,U_n$ does not cover $Y$,
+choose a point $y$ of $Y$ outside
+$U_1\cup\ldots\cup U_n$, and then
+$y'\in f^{-1}(y)$, so that
+$y'\in f^{-1}(U_j)$ for some
+$j=1,\ldots,n$. But then
+$f(y')=y\in U_j$.
+\end{proof}
+
+\begin{definition}
+\label{definition-omega-limit-point}
+Let $X$ be a topological space and
+$A\subset X$. We say that $x\in X$ is
+an {\it $\omega$-limit point} of $A$ if
+every open set $U\subset X$ that
+contains $x$ has infinitely many points
+of $A$.
+\end{definition}
+
+In our case, the space $X$ is the orbit
+$G(y)$, and the subset $A$ is the
+sequence converging to $x$. We will see
+that in fact this point is in $A$.
+
+\begin{proposition}
+\label{proposition-omega-limit-point}
+Let $X$ be a topological space and
+$A\subset X$ an infinite subset. If $X$
+is countably compact, then $A$ has at
+least one $\omega$-limit point.
+\end{proposition}
+
+\begin{proof}
+(Taken from
+\href{https://math.stackexchange.com/%
+questions/1817245/%
+a-topological-space-is-countably-%
+compact-iff-every-countably-infinite-%
+subset-has}{this Mathematics Stack
+Exchange question}.) Suppose that $A$
+has no $\omega$-limit points. Then for
+any $x\in X$ there is a neighborhood
+$U_x$ whose intersection with $A$ is
+finite. Clearly the family of all $U_x$
+with $x\in X$ is a cover of $X$. We
+will use that the family of finite
+subsets of a countable set is countable
+to build a countable cover. For any
+finite $F\subset A$, let $U_F$ be the
+union of the sets $U_x$ such that
+$$
+U_x\cap A=F.
+$$
+The sets $U_F$ form a countable cover
+of $X$, since they contain all the
+points of the $U_x$. Note that every
+$U_F\cap A$ is finite by definition.
+But if there were a finite subcover,
+there would have to be at least one
+$U_F$ containing infinitely many points
+of $A$.
+\end{proof}
+
+\noindent
+{\it Note on the original.} The
+countability of the family of the $U_F$
+needs $A$ to be countable; one first
+replaces $A$ by a countably infinite
+subset. The sets $U_x$ should be open.
+
+\begin{example}[For presentation]
+\label{example-noncompact-metric-fails}
+If $G$ is not compact, we can give a
+counterexample: a space $X$ with a
+$G$-invariant metric that does not pass
+to the quotient $X/G$.
+
+It is necessary that the orbits are not
+compact sets. The example is the
+irrational flow on the torus: since the
+orbits are dense, in any neighborhood
+of a point $x$ there is an element of
+any orbit $G(y)$, so
+$$
+\inf_{g\in G}\rho(x,gy)=0
+$$
+even though $G(x)\neq G(y)$.
+
+A simpler action with this idea is
+$\mathbb{Z}\curvearrowright
+\mathbb{S}^1$ by
+$$
+n\cdot e^{2\pi it}=e^{2\pi itn}.
+$$
+It will turn out that the orbit of any
+point with irrational argument is dense
+in $\mathbb{S}^1$. To prove it we fix
+$\alpha$ irrational and obtain from
+Dirichlet's approximation theorem that
+$$
+\begin{aligned}
+|e^{2\pi i\alpha n}-e^{2\pi im}|
+&\leq|2\pi i\alpha n-2\pi im| \\
+&=2\pi|\alpha n-m| \\
+&<\frac{1}{N}
+\end{aligned}
+$$
+for any integer $N$, so the orbits
+$\mathbb{Z}(\alpha)$ and
+$\mathbb{Z}(1)$ are infinitely close.
+But the neutral element of $\mathbb{Z}$
+sends every point to $1$! {\bf This is
+not an action.}
+
+Maybe the multiplicative group
+$\mathbb{Q}^\times$ acting on
+$\mathbb{R}$?
+\end{example}
+
+\noindent
+{\it Note on the original.} The second
+part of this example is a failed
+attempt and is recognized as such
+there; the last question is left open.
+
+\begin{example}
+\label{example-one-sided-invariant-metric}
+If the group is metrizable and compact
+then it can always be done. But if the
+group is not compact and not abelian it
+is possible to give a metric that is
+invariant on one side but not on the
+other. (See Tkachenko et al.)
+\end{example}
+
+\noindent
+{\it Note on the original.} The
+reference ``Tkachenko et al.'' is not
+specified further.
+
+\section{Twisted product}
+\label{section-twisted-product}
+
+Let $G$ be a topological group, $H<G$
+and $X$ an $H$-space. Then we have the
+action $H\curvearrowright(G\times X)$
+given by
+$$
+h\cdot(g,x):=(gh^{-1},hx).
+$$
+We can then consider the orbit space
+$$
+G\times_HX:=(G\times X)/H,
+$$
+which is called the
+{\it twisted product} of $G$ and $X$
+by means of $H$.
+
+In this space the action of $H$ is
+lost, but the action of $G$ is
+preserved. We denote the orbit
+$H((g,x))$ by $[g,x]$.
+
+\begin{theorem}
+\label{theorem-action-on-twisted-product}
+The correspondence
+$G\curvearrowright(G\times_HX)$ defined
+by
+$$
+g'*[g,x]:=[g'\cdot g,x]
+$$
+is an action.
+\end{theorem}
+
+\begin{proof}
+Consider the following diagram, where
+$\beta(g',g,x)=(g'\cdot g,x)$ and
+$\alpha$ is the action of the
+statement:
+$$
+\xymatrix{
+G\times(G\times_HX)
+  \ar[r]^-{\alpha}
+  & G\times_HX \\
+G\times G\times X
+  \ar[u]^{\operatorname{id}\times p}
+  \ar[r]^-{\beta}
+  & G\times X \ar[u]_{p}
+}
+$$
+\end{proof}
+
+\noindent
+{\it Note on the original.} The proof
+consists of the diagram alone.
+
+Note that we can identify $X$ with the
+subset $S$ of $G\times_HX$ of the
+classes $[e,x]$ with $x\in X$. The set
+$H*S$ of the points $h*[e,x]$ with
+$h\in H$ is equal to $S$, since
+$$
+h*[e,x]=[he,x]
+=[heh^{-1}e,x]=[e,x]
+$$
+because it is an equivalence class.
+
+\noindent
+{\it Note on the original.} The last
+computation is not right: in general
+$$
+h*[e,x]=[h,x]=[e,hx],
+$$
+which is again a point of $S$, so the
+conclusion $H*S=S$ holds, but $h$ does
+not fix $[e,x]$.
+
+\begin{theorem}
+\label{theorem-embedding-twisted-product}
+Let $X$ be a topological space. The
+function
+$$
+f:X\to G\times_HX,
+\qquad
+x\mapsto[e,x]
+$$
+is an $H$-embedding, that is, an
+$H$-equivariant embedding. And it is
+closed if $H$ is closed.
+\end{theorem}
+
+\noindent
+{\it Note on the original.} Here $X$ is
+an $H$-space, as in the definition of
+the twisted product.
+
+For a proof, we first see the
+following.
+
+\begin{proposition}
+\label{proposition-closed-set-in-product}
+Let $B\subset X$ be a closed set in a
+$G$-space $X$, with $G$ any topological
+group and $H<G$ a closed subgroup.
+Then the set
+$$
+A=\{(h^{-1},hb):h\in H,b\in B\}
+$$
+is closed in $G\times X$.
+\end{proposition}
+
+\begin{proof}
+To prove that it is a closed set we
+take a {\it net} (which generalizes a
+sequence) and see that it converges.
+Let $(h_i)\subset G$ be a net. Suppose
+that
+$$
+(h_i^{-1},h_ib)\to(g,x).
+$$
+If $h_i^{-1}\to g$ and $h_ib\to x$,
+then $h_i^{-1}(h_ib)\to gx$. Then
+$gx=b$, so $x=g^{-1}b$ and
+$$
+(g,x)=(g,g^{-1}b),
+$$
+and in fact $g\in H$ since $H$ is
+closed.
+\end{proof}
+
+\noindent
+{\it Note on the original.} The net
+should be in $H$, and the point $b$
+should vary with the index: for a net
+$(h_i^{-1},h_ib_i)$ in $A$ converging
+to $(g,x)$ one gets $b_i\to gx$, and
+$gx\in B$ because $B$ is closed.
+
+\begin{proof}[Proof of Theorem
+\ref{theorem-embedding-twisted-product}]
+To see that $f$ is injective, consider
+the composition
+$$
+\xymatrix{
+X \ar[r] & G\times X \ar[r]^-{\pi}
+  & G\times_HX
+}
+$$
+which sends $x$ to $(e,x)$ and then to
+$[e,x]$, and $y$ to $(e,y)$ and then to
+$[e,y]$. Suppose that $[e,x]=[e,y]$.
+Then there is $h\in H$ such that
+$$
+(e,x)=h\cdot(e,y)=(h^{-1},hy),
+$$
+but then $h=e$.
+
+To see that $f$ is closed, take
+$B\subset X$ a closed set. Then
+$p^{-1}(f(B))$ is the set of
+$(g,x)\in G\times X$ such that
+$[g,x]\in f(B)$, that is, such that
+$[g,x]=[e,b]$ for some $b\in B$. So
+$$
+p^{-1}\left(f(B)\right)
+=\{(h^{-1},hb):b\in B,h\in H\}.
+$$
+Moreover, $f$ is $H$-equivariant, since
+$$
+f(hx)=[e,hx]=[h,x]=h*[e,x]=hf(x).
+$$
+\end{proof}
+
+\noindent
+{\it Note on the original.} The
+equivariance computation is left
+unfinished there: it reads
+``$[e,hx]=f(hx)=hf(x)=[\,,]$''. The
+middle steps above complete it.
+
+\begin{proof}[Proof by Lucho that $f$
+is closed]
+{\it Claim.}
+$\pi^{-1}(S)=H\times X$.
+
+($\supseteq$) Clear, since for
+$(h,x)\in H\times X$ we have
+$[h,x]=[e,x]$.
+
+($\subseteq$) Let
+$(g,x)\in\pi^{-1}(S)$. Then there is
+$y\in X$ such that $[g,x]=[e,y]$, so
+$$
+(g,x)=h\cdot(e,y)=(h^{-1},hy)
+$$
+for some $h\in H$.
+
+From here it follows that $S$ is
+closed.
+
+To see that $f$ is open we build its
+inverse through the transgression
+theorem applied to
+$$
+\xymatrix{
+H\times X \ar[r]^-{\pi}
+  \ar[d]_{\alpha}
+  & S \ar@{-->}[dl] \\
+X
+}
+$$
+where $\alpha(h,x)=hx$. It is enough to
+note that
+$$
+\pi^{-1}([e,x])
+=\{(h,h^{-1}x):h\in H\},
+$$
+so the dashed arrow sends
+$[e,x]\mapsto x$.
+\end{proof}
+
+\noindent
+{\it Note on the original.} In the
+inclusion ($\supseteq$) the class
+$[h,x]$ equals $[e,hx]$, not $[e,x]$;
+it is still a point of $S$.
+
+\begin{proposition}
+\label{proposition-twisted-orbit-space}
+For $H<G$ closed there is a
+homeomorphism
+$$
+\frac{G\times_HX}{G}\approx X/H.
+$$
+\end{proposition}
+
+\begin{proof}
+We claim that the map $f$ sending
+$H(x)$ to $G([e,x])$ is a
+homeomorphism. Since the projection
+$p:G\times X\to X$ is $H$-equivariant,
+we have
+$$
+\tilde{p}:G\times_HX\to X/H,
+\qquad
+[g,x]\mapsto H(x).
+$$
+It is possible to factor $\tilde{p}$
+through $\varphi$ according to
+$$
+\xymatrix{
+\frac{G\times_HX}{G}
+  \ar[rd]^{\varphi} \\
+G\times_HX \ar[u]^{\pi}
+  \ar[r]_-{\tilde{p}}
+  & X/H
+}
+$$
+and in fact $\varphi$ and $f$ are
+inverse to each other.
+\end{proof}
+
+\noindent
+{\it Note on the original.} There the
+map $f$ is written
+$H(x)\mapsto G(x)$ and the target of
+$\tilde{p}$ is written $X$.
+
+\section{Slices}
+\label{section-slices}
+
+\begin{definition}
+\label{definition-cross-section}
+A {\it cross section} is a function
+$\sigma$ such that the following
+diagram commutes:
+$$
+\xymatrix{
+& X \ar[d]^{\pi} \\
+X/G \ar[r]_-{\operatorname{Id}}
+  \ar@{-->}[ur]^{\sigma}
+  & X/G
+}
+$$
+\end{definition}
+
+\begin{definition}
+\label{definition-retraction}
+Given a subset $A\subseteq X$ of a
+topological space, a {\it retraction}
+is a function $r:X\to A$ such that
+$r\circ i=\operatorname{Id}_A$ for the
+inclusion $i:A\hookrightarrow X$.
+\end{definition}
+
+\begin{definition}
+\label{definition-slice}
+Let $X$ be a $G$-space, $H<G$ and
+$S\subset X$. We say that $S$ is an
+{\it $H$-slice} of $X$ if
+\begin{enumerate}
+\item $S$ is $H$-invariant, that is,
+$H(S)=S$;
+\item $S$ is closed in its
+{\it saturation}
+$$
+G(S)=\{gs:g\in G,s\in S\};
+$$
+\item if $g$ is such that
+$gS\cap S\neq\varnothing$, then
+$g\in H$;
+\item $G(S)$ is open in $X$.
+\end{enumerate}
+If $G(S)=X$ we say that $S$ is a
+{\it global slice}.
+\end{definition}
+
+It follows that if two orbits have
+nonempty intersection, then they are
+the same.
+
+When do slices exist?
+
+\begin{theorem}[Slice theorem]
+\label{theorem-slice-first}
+If $G$ is a compact Lie group and $X$
+is Tychonoff, then for any $x\in X$
+there is a $G_x$-slice $S\subset X$
+with $x\in S$.
+\end{theorem}
+
+\begin{proposition}
+\label{proposition-action-on-slice-open}
+Let $X$ be a $G$-space with $G$
+compact. If $S\subset X$ is a global
+$H$-slice and $\alpha$ is the action of
+$G$ on $X$, then the restriction of
+$\alpha$
+$$
+G\times S\to G(S)=X
+$$
+is open.
+\end{proposition}
+
+\begin{remark}
+\label{remark-slice-of-saturation}
+$S$ is a global $H$-slice of $G(S)$, so
+for any open sets $U$ of $S$ and $O$ of
+$G$, the set $U\cdot O$ is open in
+$G(S)$. Moreover, since $G(S)$ is open
+in $X$, so is $U\cdot O$.
+\end{remark}
+
+\begin{proposition}
+\label{proposition-small-slices}
+Suppose that $(X,d)$ is a metrizable
+$G$-space with $G$ a compact Lie group.
+Then for each $x\in X$ and $r>0$ there
+is a $G_x$-slice $S$ such that
+$$
+\operatorname{diam}(S)\leq2r.
+$$
+\end{proposition}
+
+\begin{definition}
+\label{definition-linear-g-space}
+We say that $V$ is a
+{\it linear $G$-space} if the action is
+linear, that is,
+$$
+g\cdot(\lambda x+y)
+=\lambda gx+gy.
+$$
+\end{definition}
+
+\begin{example}
+\label{example-slices}
+\begin{enumerate}
+\item $S=\{eH\}$ with $eH\in G/H$ is an
+$H$-slice. The motion of $eH$ in $G/H$
+``models'' the motion of $S$ in $X$.
+\item In the twisted product
+$G\times_HS$, the subset of the classes
+$[e,s]$ with $s\in S$, which we
+identify with $S$, is a global
+$H$-slice. Let us look at condition 2.
+Suppose that
+$gS\cap S\neq\varnothing$, so that
+there is $h\in H$ such that
+$$
+[e,x]=[g^{-1},gs]=[h^{-1},hs].
+$$
+\end{enumerate}
+\end{example}
+
+\noindent
+{\it Note on the original.} The
+condition being checked is the third
+one of
+Definition \ref{definition-slice}, and
+the verification stops there.
+
+\begin{proposition}
+\label{proposition-retract-of-orbit-space}
+If $H<G$ is closed, the space
+$\frac{G\times_HX}{G}$ is homeomorphic
+to a retract of $\frac{G\times_HX}{H}$.
+\end{proposition}
+
+\begin{proof}
+We use that
+$\frac{G\times_HX}{G}\approx X/H$
+(Proposition
+\ref{proposition-twisted-orbit-space}).
+Define the retraction
+$$
+r:\frac{G\times_HX}{H}\to X/H,
+\qquad
+H([g,x])\mapsto H(x).
+$$
+Now for the inclusion
+$i:X\hookrightarrow G\times_HX$ we have
+$$
+\tilde{i}:X/H
+\hookrightarrow\frac{G\times_HX}{H},
+\qquad
+H(x)\mapsto H([e,x]),
+$$
+and $r$ sends $H([e,x])$ back to
+$H(x)$, so we have built a left inverse
+of $r$, hence it is a retraction
+according to the following proposition.
+\end{proof}
+
+\noindent
+{\it Note on the original.} The map
+$\tilde{i}$ is a right inverse of $r$:
+the composition $r\circ\tilde{i}$ is
+the identity.
+
+\begin{proposition}
+\label{proposition-retraction-onto-image}
+Let $r:X\to A$ and $f:A\to X$ be
+continuous and such that
+$r\circ f=\operatorname{Id}_A$. Then
+$r:X\to f(A)$ is a retraction onto
+$f(A)$.
+\end{proposition}
+
+\begin{proof}
+The map $rf$ is injective, since if
+$rf(a_1)=rf(a_2)$, then $a_1=a_2$.
+Moreover, $f$ is an embedding, since
+$$
+f(C)=f(A)\cap r^{-1}(C)
+$$
+and $C=r(f(C))$.
+\end{proof}
+
+\noindent
+{\it Note on the original.} The
+retraction onto $f(A)$ is the
+composition $f\circ r$.
+
+Now we see that any tubular
+neighborhood (the saturation of a
+slice) is a twisted product.
+
+\begin{theorem}
+\label{theorem-tube-is-twisted-product}
+Let $G$ be a topological group, $H<G$
+closed, $X$ a $G$-space and
+$S\subset X$ an $H$-slice. Then
+$$
+G\times_HS\approx_GG(S).
+$$
+\end{theorem}
+
+\begin{proof}
+Take
+$$
+f:G\times_HS\to G(S),
+\qquad
+[g,s]\mapsto gs.
+$$
+First note that $f$ sends
+$[gh^{-1},hs]$ to
+$$
+(gh^{-1})hs=gs,
+$$
+so $f$ is well defined. Then
+$$
+\xymatrix{
+G\times_HS \ar[r] & G(S) \\
+G\times S \ar[u] \ar[ur]_{\varphi}
+  \ar@{^{(}->}[r]
+  & G\times G(S) \ar[u]
+}
+$$
+where $\varphi$ is the action. By this
+diagram, $f$ is continuous. Now we see
+that it is injective, taking $[g,s]$
+and $[g',s']$ that go to $gs=g's'$.
+Then
+$$
+s'=(g')^{-1}gs
+\in S\cap(g')^{-1}gS
+\neq\varnothing.
+$$
+Take $h:=(g')^{-1}g\in H$, so that
+$g'=gh^{-1}$. It is also surjective.
+
+(I think that) if $G$ is compact, then
+$f$ is closed.
+\end{proof}
+
+\noindent
+{\it Note on the original.} That the
+inverse of $f$ is continuous is not
+proved; the last sentence is a guess
+recorded as such in the original.
+
+\begin{lemma}
+\label{lemma-compact-action-closed}
+Let $G$ be a compact group and $X$ a
+$G$-space. Then the action
+$G\times X\to X$ is closed.
+\end{lemma}
+
+\begin{theorem}[Slice theorem]
+\label{theorem-slice}
+Let $G$ be a compact Lie group, $X$ a
+Tychonoff $G$-space and $x\in X$. Then
+there is a $G_x$-slice $S\subset X$
+such that $x\in S$.
+\end{theorem}
+
+\begin{proposition}
+\label{proposition-preimage-of-slice}
+Let $G$ be any topological group and
+$f:X\to Y$ a $G$-map. If $S\subset Y$
+is an $H$-slice in $Y$, then
+$f^{-1}(S)$ is an $H$-slice in $X$.
+\end{proposition}
+
+\section{Extension of equivariant maps:
+the Tietze--Urysohn theorem}
+\label{section-extension}
+
+\noindent
+{\it Note on the original.} The title
+there reads ``teorema de
+Tits-{\it Urison}''; I take it to be the
+Tietze--Urysohn extension theorem,
+stated below as
+Theorem \ref{theorem-tietze}.
+
+Given the action
+$\mathbb{Z}_2\curvearrowright\mathbb{R}$
+given by $x\mapsto-x$, how do we extend
+equivariantly a function from a closed
+set $A$ in $\mathbb{R}$ to
+$\mathbb{R}^2$?
+$$
+\xymatrix{
+A \ar[r]^-{\varphi}
+  \ar@{^{(}->}[d]
+  & \mathbb{R} \\
+\mathbb{R}^2 \ar@{-->}[ur]_{f}
+}
+$$
+We simply take the average
+$$
+f(x)=\frac{\varphi(x)-\varphi(-x)}{2}
+$$
+since in this case $f(x)=-f(x)$, that
+is, $f$ is $\mathbb{Z}_2$-equivariant.
+
+\noindent
+{\it Note on the original.} The
+equivariance is $f(-x)=-f(x)$. The
+formula uses $\varphi$ on all of the
+space, so $\varphi$ here should already
+be some continuous extension of the
+given function on $A$ (which exists by
+Theorem \ref{theorem-tietze}), with $A$
+invariant; the average then makes it
+equivariant. The same applies to the
+integral below. It is also not clear
+whether the domain is $\mathbb{R}$ or
+$\mathbb{R}^2$.
+
+Now consider the action
+$\mathbb{S}^1
+\curvearrowright\mathbb{R}^2$ by
+rotations. Take
+$$
+f(x)
+=\int_{\mathbb{S}^1}
+g^{-1}\varphi(gx)\,dg
+$$
+where $dg$ is the {\it Haar measure},
+which is defined as follows: it is a
+map
+$$
+\int:\mathcal{C}(G,\mathbb{R})
+\to\mathbb{R}
+$$
+such that
+\begin{enumerate}
+\item it is linear,
+\item $\int1=1$,
+\item $\int f\geq0$ if $f\geq0$,
+\item $\int gf=\int f=\int g*f$, where
+$gf$ and $g*f$ are the left and right
+translates of $f$ by $g$.
+\end{enumerate}
+Now we see whether $f$ is equivariant,
+that is, whether $f(hx)=hf(x)$. On the
+one hand, with the change of variable
+$t=gh$, for which $dt=dg$,
+$$
+\begin{aligned}
+f(hx)
+&=\int g^{-1}\varphi(ghx)\,dg \\
+&=\int ht^{-1}\varphi(tx)\,dt \\
+&=h\int t^{-1}\varphi(tx)\,dt.
+\end{aligned}
+$$
+On the other hand
+$$
+hf(x)=h\int g^{-1}\varphi(gx)\,dg.
+$$
+If $a\in A$,
+$$
+\begin{aligned}
+f(a)
+&=\int g^{-1}\varphi(ga)\,dg \\
+&=\int g^{-1}g\varphi(a)\,dg \\
+&=\int\varphi(a)\,dg \\
+&=\varphi(a).
+\end{aligned}
+$$
+
+\noindent
+{\it Note on the original.} The domain
+of the integral is written
+``$(G,\mathbb{R})$'' there, and the
+last line of the computation of $f(hx)$
+reads
+``$h\varphi t^{-1}\varphi(tx)$''. The
+last computation uses that $\varphi$ is
+equivariant on the invariant set $A$.
+
+\section{Dugundji's theorem}
+\label{section-dugundji}
+
+\begin{theorem}[Dugundji]
+\label{theorem-dugundji}
+Let $X$ be a metrizable space,
+$A=\bar{A}\subset X$, let $L$ be a
+locally convex vector space and
+$V\subset L$ convex. Then any
+continuous function $f:A\to V$ admits
+an extension $F$.
+$$
+\xymatrix{
+A \ar[r]^-{f} \ar@{^{(}->}[d]
+  & V \\
+X \ar@{-->}[ur]_{F}
+}
+$$
+Moreover
+$$
+\operatorname{img}F
+\subset\operatorname{conv}
+\operatorname{img}F.
+$$
+\end{theorem}
+
+\noindent
+{\it Note on the original.} The last
+inclusion is trivial as written; the
+statement of Dugundji's theorem is that
+the image of $F$ lies in the convex
+hull of the image of $f$.
+
+First we will need the following.
+
+\begin{lemma}
+\label{lemma-dugundji-system}
+In this situation there is an open
+cover $\omega$ of $X\setminus A$ such
+that
+\begin{enumerate}
+\item $\omega$ is locally finite in
+$X\setminus A$, that is, every point
+has a neighborhood that intersects
+finitely many open sets of $\omega$;
+\item for any point $a\in A$ and each
+neighborhood $U_a$ there is another
+neighborhood $V_a$ such that if
+$V_a\cap W\neq\varnothing$ for some
+$W\in\omega$, then $W\subset U_a$.
+\end{enumerate}
+We say that this cover is a
+{\it Dugundji system}.
+\end{lemma}
+
+\begin{definition}
+\label{definition-partition-of-unity}
+A {\it partition of unity} subordinate
+to a cover $\omega=\{U_i\}_{i\in J}$ is
+a family of continuous functions
+$\varphi_i:X\to[0,1]$ with $i\in J$
+such that
+\begin{enumerate}
+\item
+$\varphi_i^{-1}((0,1])\subset U_i$,
+\item $\sum_{i\in J}\varphi_i(x)=1$.
+\end{enumerate}
+\end{definition}
+
+It turns out that any locally finite
+cover admits a subordinate partition of
+unity. Now we prove Dugundji's theorem.
+
+\begin{proof}[Proof of Theorem
+\ref{theorem-dugundji}]
+Let $\omega$ be the Dugundji system for
+$X\setminus A$. For each
+$U_i\in\omega$, let $x_i\in U_i$ and
+$a_i\in A$ be such that
+$$
+\rho(x_i,a_i)\leq2d(x_i,A)
+$$
+where
+$$
+d(x_i,A):=\inf_{a\in A}\rho(x_i,a).
+$$
+For a partition of unity of $\omega$,
+define $F(x)=f(x)$ if $x\in A$ and
+$$
+F(x):=\sum_{i\in J}\varphi_i(x)f(a_i)
+$$
+if $x\in X\setminus A$. Since this is a
+partition of unity, the sum is a convex
+sum (the coefficients add up to 1), so
+in either case $F(x)\in V$.
+
+Now we see that $F$ is continuous. We
+proceed by cases.
+\begin{enumerate}
+\item If $x\in X\setminus A$, there is
+$S$ with $x\in S$ such that
+$S\cap U_i\neq\varnothing$ for finitely
+many indices $i\in J$. Then
+$$
+F(z)=\sum_{i\in J}\varphi_i(z)f(a_i)
+$$
+for every $z\in S$ because the
+$\varphi_i$ are a partition of unity.
+
+\item If $x=a\in A$, then $F(a)=f(a)$.
+Take a convex open set $Q\subset V$
+that contains this point. Since $f$ is
+continuous on $A$, there is a
+neighborhood of $a$ in $A$, that is,
+there is $\delta>0$ such that
+$$
+f(B(a,\delta)\cap A)\subset Q.
+$$
+
+By property (2) in
+Lemma \ref{lemma-dugundji-system}, we
+know that there is $r>0$ such that for
+any $W\in\omega$ with
+$W\cap B(a,r)\neq\varnothing$ we have
+$W\subset B(a,\delta)$. Suppose that
+$r<\frac{\delta}{4}$.
+
+We claim that $F(B(a,r))\subset Q$. Let
+$x\in B(a,r)\cap(X\setminus A)$. Then
+$$
+F(x)=\sum_{i\in J}\varphi_i(x)f(a_i)
+$$
+and we ask whether it lies in $Q$. We
+have
+$$
+\rho(a,a_i)
+\leq\rho(a_i,x_i)+\rho(x_i,a)
+<2d+\delta<4\delta<r.
+$$
+Then $a_i\in B(a,r)$, so $f(a_i)\in Q$
+and by convexity
+$$
+F(x)=\sum_{i\in J}\varphi_i(x)f(a_i)
+\in Q.
+$$
+\end{enumerate}
+\end{proof}
+
+\noindent
+{\it Note on the original.} The chain of
+inequalities at the end does not make
+sense as written (it ends with
+$4\delta<r$ while $r<\delta/4$), and
+$d$ is not defined. The standard
+argument is as follows: only the
+indices $i$ with $x\in U_i$ contribute
+to $F(x)$; for those,
+$U_i\subset B(a,\delta/3)$ if $r$ is
+chosen for the neighborhood
+$B(a,\delta/3)$, so
+$\rho(x_i,a)<\delta/3$,
+$\rho(x_i,a_i)\leq2d(x_i,A)
+<2\delta/3$ and
+$\rho(a,a_i)<\delta$. In the first case
+the set $S$ should be an open
+neighborhood of $x$ inside
+$X\setminus A$.
+
+Now we ask what happens in the
+equivariant analogue.
+
+\begin{definition}
+\label{definition-absolute-extensor}
+Let $X$ be a topological space and $K$
+some class of topological spaces. $X$
+is said to be an
+{\it absolute extensor} for $K$,
+written $X\in\operatorname{AE}(K)$, if
+for any $Y\in K$, any closed
+$A\subset Y$ and any continuous
+$f:A\to X$ there is a continuous
+extension $F:Y\to X$.
+\end{definition}
+
+\begin{example}
+\label{example-convex-absolute-extensor}
+For $W$ a convex subset of a locally
+convex space and $M$ the class of
+metrizable spaces, Dugundji's theorem
+ensures that
+$W\in\operatorname{AE}(M)$.
+\end{example}
+
+\begin{theorem}[Tietze]
+\label{theorem-tietze}
+Let $X$ be a normal space and
+$A\subset X$ closed. If
+$f:A\to[0,1]$ is a continuous function,
+then there is a continuous extension
+$f:X\to[0,1]$.
+\end{theorem}
+
+\begin{definition}
+\label{definition-neighborhood-extensor}
+Let $X$ be a topological space and $K$
+some class of topological spaces. $X$
+is said to be an
+{\it absolute neighborhood extensor}
+for $K$, written
+$X\in\operatorname{ANE}(K)$, if for any
+$Y\in K$, any closed $A\subset Y$ and
+any continuous $f:A\to X$ there is a
+continuous extension $F:U\to X$ with
+$U$ an open neighborhood of $A$.
+\end{definition}
+
+\noindent
+{\it Note on the original.} In both
+definitions the original writes
+``$y\in K$, $A\in Y$'' and does not say
+that $A$ is closed or that $F$ extends
+$f$.
+
+\begin{theorem}
+\label{theorem-ae-iff-contractible-ane}
+$X\in\operatorname{AE}(M)$ if and only
+if $X$ is contractible and
+$X\in\operatorname{ANE}(M)$.
+\end{theorem}
+
+\begin{theorem}[Dugundji for $G$-spaces]
+\label{theorem-equivariant-dugundji}
+Let $X$ be a metrizable $G$-space and
+$A=\bar{A}\subset X$ invariant, that
+is, $G(A)=A$. If $L$ is a locally
+convex vector $G$-space and
+$V\subset L$ is invariant and convex,
+then any equivariant function
+$f:A\to V$ admits an extension
+$F:U\to V$ with $U$ an invariant
+neighborhood of $A$.
+$$
+\xymatrix{
+A \ar[r]^-{f} \ar@{^{(}->}[d]
+  & V \\
+U \ar@{-->}[ur]_{F}
+}
+$$
+Moreover
+$$
+\operatorname{img}F
+\subset\operatorname{conv}
+\operatorname{img}F.
+$$
+\end{theorem}
+
+\noindent
+{\it Note on the original.} The
+hypothesis reads there ``any function
+$f:A\to V$ is equivariant, then
+admits\ldots''. The extension $F$ is
+presumably meant to be equivariant, and
+the last inclusion has the same problem
+as in Theorem \ref{theorem-dugundji}.
+No hypothesis on $G$ is stated.
+
+That is, $f$ cannot be extended to the
+whole space but it can be extended to a
+neighborhood. It will turn out that if
+$X$ is contractible we can extend the
+function. Giving the spaces of
+continuous functions the compact-open
+topology, they turn out to be
+topological vector spaces too (the
+operations are continuous) and
+$G$-spaces (with
+$(gf)(x)=g^{-1}f(gx)$), and the
+operator
+$$
+\Delta:\mathcal{C}(A,V)
+\to\mathcal{C}(X,V)
+$$
+is a linear embedding.
+
+\noindent
+{\it Note on the original.} The action
+on functions is written
+``$gf(x)=g^{-1}f(gx(x))$'' there; the
+usual convention is
+$(gf)(x)=gf(g^{-1}x)$.
+
+\section{$G$-canonical cover and
+Dugundji's theorem}
+\label{section-canonical-cover}
+
+\begin{definition}
+\label{definition-refinement-paracompact}
+\begin{enumerate}
+\item Let $\mathcal{U},\mathcal{V}$ be
+open covers of a topological space $X$.
+We say that $\mathcal{U}$
+{\it refines} $\mathcal{V}$ if for any
+$U\in\mathcal{U}$ there is
+$V\in\mathcal{V}$ such that
+$U\subset V$.
+\item Let $\mathcal{U}$ be an open
+cover of $X$. We say that $\mathcal{U}$
+is {\it locally finite} if any
+$x\in X$ has a neighborhood that
+intersects finitely many elements of
+$\mathcal{U}$.
+\item A space is {\it paracompact} if
+any open cover admits a locally finite
+refinement.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+\label{remark-compact-paracompact}
+If $X$ is compact then it is
+paracompact.
+\end{remark}
+
+\begin{theorem}[Stone]
+\label{theorem-stone}
+If $X$ is metrizable then $X$ is
+paracompact.
+\end{theorem}
+
+\begin{proof}
+Similar to that of Urysohn's theorem.
+\end{proof}
+
+So if $X$ is metrizable and the metric
+is $G$-invariant, then $X/G$ is
+paracompact.
+
+\begin{theorem}
+\label{theorem-paracompact-partitions}
+$X$ is paracompact if and only if any
+open cover $\mathcal{U}$ of $X$ admits
+a partition of unity subordinate to
+$\mathcal{U}$.
+\end{theorem}
+
+\begin{proposition}
+\label{proposition-map-from-fixed-points}
+Let $G$ be a topological group,
+$H\leq G$ closed and $X$ a $G$-space.
+Let $X[H]$ be the set
+$\operatorname{Fix}(H)$ of the points
+$x\in X$ such that $hx=x$ for all
+$h\in H$. The function
+$$
+G/H\times X[H]\to X,
+\qquad
+(gH,x)\mapsto gx
+$$
+is well defined and continuous.
+\end{proposition}
+
+\begin{proof}
+Let $(g_1H,x)$ and $(g_2H,x)$ be points
+of $G/H\times X[H]$ such that
+$g_1H=g_2H$, that is,
+$g_2^{-1}g_1\in H$. Then
+$g_2^{-1}g_1x=x$, so $g_1x=g_2x$.
+
+To see that it is continuous, simply
+look at
+$$
+\xymatrix{
+G/H\times X[H] \ar[r]^-{\omega}
+  & X \\
+G\times X[H] \ar[ur]_{\alpha}
+  \ar[u]^{p\times\operatorname{Id}}
+}
+$$
+where $\alpha$ is the restriction of
+the action to $G\times X[H]$. Assuming
+for now that $X[H]$ is closed, the
+preimages of closed sets under $\omega$
+are closed, since
+$p\times\operatorname{Id}$ is open.
+\end{proof}
+
+\begin{definition}
+\label{definition-invariant-cover}
+Let $X$ be a $G$-space. We say that a
+cover $\{U_\alpha\}$ is
+{\it invariant} if each $U_\alpha$ is
+an invariant set (that is, a tube: the
+saturation of a slice).
+\end{definition}
+
+\begin{proposition}
+\label{proposition-invariant-refinement}
+Let $X$ be a paracompact space. If
+$\{U_\alpha\}$ is an invariant cover,
+then there is a locally finite
+refinement of $\{U_\alpha\}$ by
+invariant sets.
+\end{proposition}
+
+\begin{proof}
+Since the projection is a perfect map
+(continuous, closed and with compact
+fibers), $X/G$ is paracompact.
+
+Let $\{U_\alpha\}$ be an invariant
+cover of $X$. Then $\{p(U_\alpha)\}$ is
+an open cover of $X/G$, so we can find
+a locally finite refinement
+$\{V_\lambda\}$. Then
+$\{p^{-1}(V_\lambda)\}$ is an open
+cover of $X$; in fact, it is locally
+finite since $\{V_\lambda\}$ is locally
+finite.
+
+To see that $\{p^{-1}(V_\lambda)\}$ is
+a refinement of $\{U_\alpha\}$, note
+that $p^{-1}(V_\lambda)\subset U_\alpha$
+since $U_\alpha$ is invariant.
+Moreover, $p^{-1}(V_\lambda)$ is
+invariant.
+\end{proof}
+
+\noindent
+{\it Note on the original.} Here $X$ is
+a $G$-space and the proof uses that $G$
+is compact, so that the orbit
+projection is perfect; neither is in
+the statement.
+
+\begin{proposition}
+\label{proposition-tubular-refinement}
+Let $X$ be a paracompact $G$-space. If
+$\{G(S_\alpha)\}_{\alpha\in A}$ is a
+tubular cover (that is, $S_\alpha$ is
+an $H_\alpha$-slice for $\alpha\in A$),
+then there is a locally finite
+refinement by tubular sets.
+\end{proposition}
+
+\begin{proof}
+We know that $G(S_\alpha)$ is open in
+$X$, so our cover is as in the previous
+proposition. By the same construction
+we obtain a refinement
+$\{p^{-1}(V_\lambda)\}$. Take
+$$
+p^{-1}(V_\lambda)
+\subset U_\alpha=G(S_\alpha)
+$$
+and define
+$$
+Q_\lambda
+=p^{-1}(V_\lambda)\cap S_\alpha.
+$$
+In fact,
+$p^{-1}(V_\lambda)=G(Q_\lambda)$, and
+$Q_\lambda$ is an $H_\alpha$-slice.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-map-to-coset-space}
+Suppose that $S$ is a global $H$-slice.
+There is a function
+$\tilde{g}:X\to G/H$ such that
+$x\in gS$ for $g\in\tilde{g}(x)$, and
+it is continuous, equivariant and
+unique.
+\end{proposition}
+
+\begin{proof}
+Since $X=G(S)$, any $x\in X$ is of the
+form $gs$. Define $\tilde{g}(x)=gH$.
+
+To see that $\tilde{g}$ is well
+defined, take $g_x,h_x\in G$ such that
+$x\in g_xS$ and $x\in h_xS$. Then
+$g_x^{-1}x\in S$ and
+$g_x^{-1}x\in g_x^{-1}h_xS$, and then
+$$
+S\cap g^{-1}_xh_xS\neq\varnothing.
+$$
+Since $S$ is a slice,
+$g^{-1}_xh_x\in H$, that is,
+$$
+g_xH=h_xH=\tilde{g}(x).
+$$
+
+We see that $\tilde{g}:X\to G/H$ is
+continuous. Let $x\in X$ and $U$ open
+in $G/H$ be such that
+$\tilde{g}(x)\in U$. Consider
+$p:G\to G/H$, which is open, so
+$p^{-1}(U)$ is open in $G$. Then
+$W=E\cdot S$ is open in $X$. If
+$x\in gS$, then $\tilde{g}(x)=gH$
+\ldots\ {\bf (the rest is missing)}.
+\end{proof}
+
+\noindent
+{\it Note on the original.} The proof
+of continuity is unfinished there, and
+the set $E$ is not defined; presumably
+$E=p^{-1}(U)$, and $E\cdot S$ is then
+the preimage of $U$ under $\tilde{g}$.
+Its openness would follow from
+Proposition
+\ref{proposition-action-on-slice-open}
+when $G$ is compact.
+
+\begin{definition}
+\label{definition-canonical-cover}
+Let $U$ be an invariant open set of a
+$G$-space $X$ and
+$\{G(S_\lambda)\}_{\lambda\in\Lambda}$
+a tubular cover, with $S_\lambda$ an
+$H_\lambda$-slice. We say that this
+cover is {\it $G$-canonical} if:
+\begin{enumerate}
+\item it is locally finite;
+\item for each $\lambda\in\Lambda$
+there is $x\in U$ such that
+$G_x=H_\lambda$;
+\item for each $a\in X\setminus U$ and
+any neighborhood $V_a$ there is a
+neighborhood $W_a$ of $a$ in $X$ such
+that if $g\in G$ and
+$gS_\lambda\cap W_a\neq\varnothing$
+then
+\begin{enumerate}
+\item $gS_\lambda\subset V_a$,
+\item there is $h\in G$ such that
+$ha\in V_a$ and
+$H_\lambda\subset g^{-1}G_{ha}g$.
+\end{enumerate}
+\end{enumerate}
+\end{definition}
+
+\noindent
+{\it Note on the original.} The cover
+is presumably a cover of $U$. In the
+third condition the original writes
+$gS_x$ for $gS_\lambda$ and
+``$g^{-1}Ghag$'' for the conjugate of
+the stabilizer; the reading
+$g^{-1}G_{ha}g$ is mine.
+
+\begin{proposition}[5.5 of Bredon, due
+to Palais]
+\label{proposition-bredon-palais}
+Let $G$ be a compact Lie group. For
+each neighborhood $U$ of $e$ in $G$ and
+for every $x\in X$ there is an open set
+$V$ of $X$ containing $x$ such that for
+every $y\in V$ there is $u\in U$ such
+that
+$$
+u^{-1}G_yu=G_x.
+$$
+\end{proposition}
+
+\noindent
+{\it Note on the original.} The
+reference is given only as ``5.5 de
+Bredon, de Palais''; I have not checked
+it against the book. The conclusion
+should be an inclusion,
+$u^{-1}G_yu\subset G_x$, which is how
+the result is used in the unfinished
+proof below: stabilizers of nearby
+points can be smaller.
+
+\begin{theorem}
+\label{theorem-canonical-cover-exists}
+If $(X,d)$ is a metrizable $G$-space
+with $G$ a compact Lie group, then
+each invariant open set $U$ admits a
+$G$-canonical cover.
+\end{theorem}
+
+\noindent
+{\it Note on the original.} The source
+file contains the following attempt at
+a proof, disabled so that it does not
+appear in the compiled notes. It is
+unfinished, and it breaks down at the
+place marked.
+
+\medskip\noindent
+{\it Unfinished proof.} If $U=X$, we
+have that for every $x\in X$ there is a
+$G_x$-slice. Then
+$\{G(S_x)\}_{x\in X}$ is a tubular open
+cover, for which, by
+Proposition
+\ref{proposition-tubular-refinement},
+there is a refinement
+$\{G(Q_\alpha)\}$ where $Q_\alpha$ is a
+$G_x$-slice. Thus we have properties 1
+and 2 of the definition. Property 3
+holds vacuously.
+
+Now suppose that $U\neq X$. Then $U$ is
+metrizable, so it is paracompact by
+Stone's theorem. Since $U$ is the union
+of the orbits $G(x)$ with $x\in U$,
+take a representative $x\in U$ of each
+orbit and a $G_x$-slice $Q_x$. Define
+$$
+r_x=\frac{1}{4}
+\rho(x,X\setminus U)
+$$
+which is a positive number because $U$
+is open. Now define
+$$
+R_x=Q_x\cap B_{r_x}(x)
+$$
+which is a $G_x$-slice.
+
+Then the $R_x$ {\it are an open cover}
+of $U$, for which there is a tubular
+refinement $\{U_\lambda\}$, with
+$U_\lambda=G(S_\lambda)$ for
+$S_\lambda$ a slice for
+$G_x=H_\lambda$ of the form
+$S_\lambda=R_x\cap U_x$. With this we
+have proved the first two points of the
+definition.
+
+Let $a\in X\setminus U$ and $V_a$ open
+in $X$ with $a\in V_a$. Since
+$G\times X\to X$ is continuous and
+$e\cdot a=a\in V_a$, there is $E$ open
+in $G$ with $e\in E$ such that
+$g\cdot a\in V_a$ for $g\in E$. Now we
+apply
+Proposition
+\ref{proposition-bredon-palais}: there
+is a ball $B_\varepsilon(a)$ such that
+for every $y\in B_\varepsilon(a)$ there
+is $u\in E$ with
+$$
+u^{-1}G_yu\subset G_a.
+$$
+Now let $W_a=B_{\varepsilon/4}(a)$ and
+$g\in G$ be such that
+$gS_\lambda\cap W_a\neq\varnothing$.
+Recall that there is $x\in U$ such that
+$S_x=R_x\cap U_x$ and $S_x$ is a
+$G_x$-slice.
+
+Now let
+$y\in gS_x\cap W_a\subset gR_x$. Then
+$$
+\begin{aligned}
+\rho(a,gx)
+&\leq\rho(a,y)+\rho(y,gx) \\
+&<\varepsilon/4+\rho(y,gx) \\
+&\leq\varepsilon/4
+ +\operatorname{diam}R_x
+\end{aligned}
+$$
+and
+$$
+\begin{aligned}
+\operatorname{diam}R_x
+&\leq r_x \\
+&=\frac{1}{2}\rho(x,X\setminus U) \\
+&=\frac{1}{2}\rho(gx,X\setminus U) \\
+&<\rho(gx,a)
+\end{aligned}
+$$
+since $a\in X\setminus U$. Then
+$$
+\operatorname{diam}R_x
+<\frac{1}{2}\rho(x,X\setminus U)
+<\frac{1}{2}\rho(gx,a),
+$$
+hence
+$$
+\rho(a,gx)
+<\varepsilon/4
++\frac{1}{2}\rho(gx,a),
+$$
+hence
+$$
+\rho(a,gx)<\varepsilon/2.
+$$
+Finally, {\bf here it failed}:
+$$
+\operatorname{diam}gR_x
+\leq\frac{1}{2}
+\rho(gx,X\setminus U)
+\leq\frac{1}{2}
+$$
+
+\noindent
+{\it Note on the original.} In this
+attempt the original writes
+$\rho(X,X\setminus U)$ and
+$\rho(gX,X\setminus U)$, which I read
+as distances from the points $x$ and
+$gx$. The constant in $r_x$ changes
+from $\frac{1}{4}$ to $\frac{1}{2}$,
+the metric is used as if it were
+invariant, and the ball has diameter at
+most $2r_x$, not $r_x$.
+
+\begin{theorem}[Dugundji]
+\label{theorem-dugundji-canonical}
+(The statement was left empty in the
+original.)
+\end{theorem}
+
+\section{Proper actions of locally
+compact groups}
+\label{section-proper-actions}
+
+\begin{definition}
+\label{definition-proper-action}
+\begin{enumerate}
+\item Let $G$ be a locally compact
+Hausdorff group and $X$ a $G$-space.
+For $U,V\subset X$ we define the
+{\it transporter} as
+$$
+\left\langle{} U,V \right\rangle{}
+:=\{g\in G:gU\cap V\neq\varnothing\}.
+$$
+\item We say that
+{\it $U$ is thin relative to $V$} if
+the closure of
+$\left\langle{} U,V \right\rangle{}$
+is compact.
+\item $U$ is called {\it small} if
+every $x\in X$ has a neighborhood $V_x$
+such that $V_x$ is thin relative to
+$U$.
+\item An action $G\curvearrowright X$
+is called {\it proper} (in the sense of
+Richard Palais) if every point
+$x\in X$ has a small neighborhood
+$V_x$. In this case we say that $X$ is
+a {\it proper $G$-space}.
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}[van Dantzig]
+\label{theorem-van-dantzig}
+Let $X$ be a connected Riemannian
+manifold. Then $\operatorname{Iso}(X)$
+is a Lie group and the natural action
+$$
+\operatorname{Iso}(X)\times X\to X,
+\qquad
+(f,x)\mapsto f(x)
+$$
+is proper.
+\end{theorem}
+
+\noindent
+{\it Note on the original.} The name is
+written ``van Danzig'' there, with no
+reference. That the isometry group of a
+Riemannian manifold is a Lie group is
+usually attributed to Myers and
+Steenrod; I have not checked the
+attribution of the statement as given.
+
+\begin{remark}
+\label{remark-van-dantzig-general}
+The theorem can be generalized to a
+locally compact, locally connected,
+metrizable space and a locally compact
+group.
+\end{remark}
+
+\begin{example}
+\label{example-proper-actions}
+\begin{enumerate}
+\item $\mathbb{R}_+
+\curvearrowright\mathbb{R}^2$ is not
+proper because it has a fixed point.
+\item Let $G$ be locally compact and
+$H<G$. The action
+$G\curvearrowright G/H$ is proper if
+and only if $H$ is compact.
+\item Let $X$ be a topological group
+and $G<X$ locally compact. Then the
+natural multiplicative action
+$G\curvearrowright X$ is proper.
+\end{enumerate}
+\end{example}
+
+\begin{theorem}[R. Palais, 1961]
+\label{theorem-palais-invariant-metric}
+Let $G$ be a Lie group that acts
+properly on a separable metrizable
+space $X$. Then there is a
+$G$-invariant metric on $X$.
+\end{theorem}
+
+\begin{remark}
+\label{remark-question-separability}
+Question: is it possible to remove the
+separability condition? This is an open
+problem.
+\end{remark}
+
+\noindent
+{\it Note on the original.} The problem
+is called open in the notes; I have not
+checked its current status.
+
+The property of being $T_1$ passes to
+the quotient $X\to X/G$ (the notes for
+this are missing). What will happen
+with the property of being $T_2$?
+
+\begin{proposition}
+\label{proposition-proper-hausdorff-quotient}
+Let $G\curvearrowright X$ be proper. If
+for any $x,y\in X$ there are relatively
+thin neighborhoods $U_x$ and $U_y$,
+then $X/G$ is $T_2$ if $X$ is $T_2$.
+\end{proposition}
+
+\begin{proof}
+(Seen in class.)
+\end{proof}
+
+Using this proposition we prove that
+the property $T_2$ also passes to the
+quotient. Continuing with the
+separation axioms, we have the
+following proposition.
+
+\begin{proposition}
+\label{proposition-proper-tychonoff-quotient}
+Let $G\curvearrowright X$ be proper. If
+$X$ is $T_{3\frac{1}{2}}$, then $X/G$
+is $T_{3\frac{1}{2}}$.
+\end{proposition}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}
