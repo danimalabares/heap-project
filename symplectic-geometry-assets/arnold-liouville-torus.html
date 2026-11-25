@@ -51,11 +51,15 @@
   #dots b.on { background:var(--fg); border-color:var(--fg); }
   .fs { position:absolute; right:10px; top:32px; z-index:2; display:flex; gap:10px; font-size:13px; white-space:nowrap; }
   .fs label { display:inline-flex; align-items:center; gap:5px; margin:0; cursor:pointer; }
+.tb { position:absolute; right:10px; top:55px; z-index:2; display:flex; gap:10px; font-size:13px; white-space:nowrap; }
+.tb label { display:inline-flex; align-items:center; gap:5px; margin:0; cursor:pointer; }
+body.notools aside { display:none; }   /* the toolbox can always be hidden: the figure takes the whole page */
 </style>
 </head>
 <body>
 <div class="wrap">
   <div id="stage"><canvas id="cv"></canvas>
+    <div class="tb" title="Show or hide the toolbox under the figure. Key t."><label><input type="radio" name="tb" id="tbS" checked> Tools</label><label><input type="radio" name="tb" id="tbH"> No tools</label></div>
     <div class="fs" title="Full screen: the whole page, controls included. Key f, or Esc to leave."><label><input type="radio" name="fs" id="fsW" checked> Window</label><label><input type="radio" name="fs" id="fsF"> Full screen</label></div>
     <div class="dk" title="The page stays white; only the drawing colours change."><label><input type="radio" name="dk" id="dkL"> Light</label><label><input type="radio" name="dk" id="dkD"> Dark</label></div>
     <h1 id="title"></h1>
@@ -380,6 +384,17 @@ if (typeof document !== "undefined") (function () {
   d.addEventListener("keydown", e => { const t = e.target, typing = t.tagName === "TEXTAREA" || (t.tagName === "INPUT" && !/^(range|radio|checkbox|button)$/.test(t.type));
     if (e.key === "f" && !typing && !e.metaKey && !e.ctrlKey && !e.altKey) set(!on()); });
   sync();
+})();
+</script>
+<script>
+// ---------- toolbox (the panel under the figure) shown or hidden; key t ----------
+if (typeof document !== "undefined") (function () {
+  const d = document, s = d.getElementById("tbS"), h = d.getElementById("tbH"); if (!s || !h) return;
+  const set = hide => { d.body.classList.toggle("notools", hide); h.checked = hide; s.checked = !hide; window.dispatchEvent(new Event("resize")); };
+  s.onchange = () => set(false); h.onchange = () => set(true);
+  d.addEventListener("keydown", e => { const t = e.target, typing = t.tagName === "TEXTAREA" || (t.tagName === "INPUT" && !/^(range|radio|checkbox|button)$/.test(t.type));
+    if (e.key === "t" && !typing && !e.metaKey && !e.ctrlKey && !e.altKey) set(!d.body.classList.contains("notools")); });
+  if (/(^|[#&])notools\b/.test(location.hash)) set(true);
 })();
 </script>
 </body>
