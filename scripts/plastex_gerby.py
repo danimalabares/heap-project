@@ -187,6 +187,43 @@ class FancyvrbVerbatim:
     return result
 
 
+def theorem_names(document):
+  names = set(["thmenv"])
+  try:
+    path = "packages/amsthm/theorems"
+    names.update(document.userdata.getPath(path))
+  except (KeyError, AttributeError):
+    pass
+  return names
+
+
+def linear_representation(document):
+  """Like Gerby.linearRepresentation, but amsthm
+  environments (nodeName proposition, lemma, ...)
+  count as statements, so proofs find them."""
+  names = theorem_names(document)
+  linear = []
+  stack = list(document.childNodes)
+  while stack:
+    node = stack.pop()
+    if node.nodeName in names or node.nodeName in [
+        "proof", "reference", "history", "slogan"]:
+      linear.append(node)
+    stack.extend(node.childNodes)
+  document.userdata["linear"] = list(
+      reversed(linear))
+
+
+def search_preceding_theorem(linear, node):
+  names = theorem_names(node.ownerDocument)
+  last = None
+  for current in linear:
+    if current.nodeName in names:
+      last = current
+    if current.isSameNode(node):
+      return last.id if last is not None else None
+
+
 def main():
   plastex = shutil.which("plastex")
   if plastex is None:
@@ -194,6 +231,9 @@ def main():
 
   ContextItem.__getitem__ = context_item_getitem
   Gerby.partsList = parts_list
+  Gerby.linearRepresentation = linear_representation
+  Gerby.searchPrecedingTheorem = (
+      search_preceding_theorem)
   install_source_images(Gerby.Renderer)
   # fancyvrb.Verbatim.parse calls this name.
   fancyvrb.verbatim = FancyvrbVerbatim
