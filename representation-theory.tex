@@ -927,6 +927,192 @@ quaternion group $Q_8$ is the binary
 dihedral group $\mathcal{D}_2$.
 \end{remark}
 
+\noindent
+For an angle $\theta$ we write
+$$
+A(\theta)=
+\begin{pmatrix}
+\cos\theta & -\sin\theta \\
+\sin\theta & \cos\theta
+\end{pmatrix}
+$$
+for the rotation of the plane by $\theta$.
+
+\begin{proposition}
+\label{proposition-normal-form-son}
+Let $R \in \text{SO}(n)$. There are an
+orthonormal basis of $\mathbb{R}^n$, an
+integer $k$ with $0 \leq 2k \leq n$, and
+angles $\theta_1,\ldots,\theta_k$ in the
+interval $(0,\pi]$, such that the matrix of
+$R$ in this basis is block diagonal:
+$$
+\begin{pmatrix}
+A(\theta_1) & & & \\
+& \ddots & & \\
+& & A(\theta_k) & \\
+& & & I_{n-2k}
+\end{pmatrix}.
+$$
+Here $I_{n-2k}$ is the identity matrix of
+size $n-2k$.
+\end{proposition}
+
+\begin{proof}
+Put $S=R+R^{-1}$. Since $R$ is orthogonal,
+$R^{-1}$ is the transpose of $R$, so $S$ is
+symmetric. Every linear operator on
+$\mathbb{R}^n$ is compact, so by the
+spectral theorem
+(\href{https://www.heap-project.org/tag/056L}
+{Tag 056L}) the space $\mathbb{R}^n$ is the
+orthogonal direct sum of the eigenspaces
+$V_\lambda$ of $S$. Since $R$ commutes with
+$S$, it maps each $V_\lambda$ to itself.
+It is enough to find the required basis in
+each $V_\lambda$.
+
+For $v \in V_\lambda$ we have
+$$
+|\lambda|\,|v|
+=|Rv+R^{-1}v|
+\leq 2|v|,
+$$
+because $R$ preserves lengths. Hence
+$\lambda=2\cos\theta$ for a unique
+$\theta \in [0,\pi]$. On $V_\lambda$ the
+equation $R+R^{-1}=\lambda$ gives
+\begin{equation}
+\label{equation-normal-form-son-quadratic}
+R^2-2\cos\theta\, R+1=0.
+\end{equation}
+
+Suppose $\theta=0$. Then
+$(R-1)^2=0$ on $V_\lambda$. The transpose
+of $R-1$ is $R^{-1}-1=-R^{-1}(R-1)$, so
+for $v \in V_\lambda$
+$$
+|(R-1)v|^2
+=-\left\langle{}
+R^{-1}(R-1)^2v,v
+\right\rangle{}
+=0.
+$$
+Thus $R$ is the identity on $V_2$. In the
+same way, if $\theta=\pi$ then
+$(R+1)^2=0$ on $V_\lambda$, the transpose
+of $R+1$ is $R^{-1}(R+1)$, and
+$$
+|(R+1)v|^2
+=\left\langle{}
+R^{-1}(R+1)^2v,v
+\right\rangle{}
+=0.
+$$
+Thus $R$ is minus the identity on $V_{-2}$.
+
+Suppose $0<\theta<\pi$, and let
+$v \in V_\lambda$ be a unit vector. Since
+$\left\langle{} R^{-1}v,v \right\rangle{}
+=\left\langle{} Rv,v \right\rangle{}$,
+$$
+2\cos\theta
+=\left\langle{} Sv,v \right\rangle{}
+=2\left\langle{} Rv,v \right\rangle{}.
+$$
+Hence
+$$
+|Rv-\cos\theta\, v|^2
+=1-\cos^2\theta
+=\sin^2\theta,
+$$
+which is not zero. So
+$$
+w=\frac{Rv-\cos\theta\, v}{\sin\theta}
+$$
+is a unit vector orthogonal to $v$, and
+$$
+Rv=\cos\theta\, v+\sin\theta\, w.
+$$
+By
+(\ref{equation-normal-form-son-quadratic}),
+$$
+\begin{aligned}
+Rw
+&=\frac{R^2v-\cos\theta\, Rv}{\sin\theta}
+\\
+&=\frac{\cos\theta\, Rv-v}{\sin\theta}
+\\
+&=-\sin\theta\, v+\cos\theta\, w.
+\end{aligned}
+$$
+So $R$ maps the plane $P$ spanned by $v$
+and $w$ to itself, with matrix $A(\theta)$
+in the basis $v,w$. Since $R$ is orthogonal
+and maps $P$ and $V_\lambda$ onto
+themselves, it also maps the orthogonal
+complement of $P$ in $V_\lambda$ to itself.
+By induction on the dimension, $V_\lambda$
+is an orthogonal direct sum of such planes.
+
+It remains to treat $V_{-2}$. Each block
+$A(\theta)$ has determinant $1$, so
+$$
+1=\det R=(-1)^{\dim V_{-2}}.
+$$
+Hence $\dim V_{-2}$ is even. On two
+orthonormal vectors of $V_{-2}$ the map $R$
+has matrix $A(\pi)$, so an orthonormal
+basis of $V_{-2}$ gives blocks $A(\pi)$.
+\end{proof}
+
+\begin{corollary}
+\label{corollary-normal-form-so3-so4}
+Let $R \in \text{SO}(n)$.
+\begin{enumerate}
+\item If $n=3$, there are an orthonormal
+basis of $\mathbb{R}^3$ and an angle
+$\theta \in [0,\pi]$ such that $R$ has
+matrix
+$$
+\begin{pmatrix}
+A(\theta) & \\
+& 1
+\end{pmatrix}.
+$$
+So $R$ fixes a line, its axis, point by
+point, and turns the orthogonal plane by
+$\theta$.
+\item If $n=4$, there are an orthonormal
+basis of $\mathbb{R}^4$ and angles
+$\theta_1,\theta_2 \in [0,\pi]$ such that
+$R$ has matrix
+$$
+\begin{pmatrix}
+A(\theta_1) & \\
+& A(\theta_2)
+\end{pmatrix}.
+$$
+So $R$ maps two orthogonal planes to
+themselves and turns them by $\theta_1$ and
+$\theta_2$. If both angles are nonzero,
+$R$ fixes only the origin. If
+$\theta_2=0$ and $\theta_1 \neq 0$, the
+fixed points of $R$ form a plane.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+Apply
+Proposition~\ref{proposition-normal-form-son}
+and note that $A(0)$ is the identity
+matrix of size $2$. If $n=3$ then $n-2k$
+is odd, so $k \leq 1$, and $k=0$ is the
+case $\theta=0$. If $n=4$ then $k$ is $0$,
+$1$ or $2$, and the missing blocks are
+$A(0)$.
+\end{proof}
+
 
 
 
