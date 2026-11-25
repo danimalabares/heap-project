@@ -91,6 +91,7 @@ KNOWN_CHAPTERS = {
     "legal-2027",
     "derived-categories",
     "knot-theory",
+    "psychoanalysis",
 }
 
 
