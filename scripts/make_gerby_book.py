@@ -92,6 +92,7 @@ KNOWN_CHAPTERS = {
     "derived-categories",
     "knot-theory",
     "psychoanalysis",
+    "candomble",
 }
 
 
