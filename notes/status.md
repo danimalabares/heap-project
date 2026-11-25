@@ -9,6 +9,10 @@ Latest handoff: notes/handoff/2026-11-25-1613.md
 - New chapter Philosophy from UNAM coursework (La República, Filosofía del
   Lenguaje, Ricoeur). Sources located; nothing written.
 
+- Topological Groups and Birman-Hilden: old Spanish notes to become
+  chapters; Topología Algebraica (first course) to blend into
+  algebraic-topology.tex. Requested, not started.
+
 ## Next
 
 - Read the coursework listed in the handoff note, then create philosophy.tex
