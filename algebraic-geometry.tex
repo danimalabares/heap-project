@@ -5538,6 +5538,568 @@ $$
 Thus extension spaces can be computed
 from cohomology on the curve.
 
+\section{The dualizing sheaf}
+\label{section-dualizing-sheaf}
+
+On a smooth projective variety, Serre
+duality is stated with the canonical line
+bundle. A singular projective scheme has
+no canonical line bundle, but it has a
+sheaf that plays the same role in duality:
+the dualizing sheaf. This section recalls
+its definition, computes it in the
+simplest singular examples, and explains
+how it behaves in a flat family. General
+results are quoted from \cite{har} without
+proof; the examples are worked out.
+Throughout, $k$ is an algebraically closed
+field.
+
+\medskip\noindent
+{\bf The smooth case.}
+Let $X$ be a smooth projective variety of
+dimension $n$. Its canonical line bundle
+is
+$$
+\omega_X=\bigwedge^n\Omega^1_X.
+$$
+Its local sections are the regular
+$n$-forms. Serre duality says that for
+every locally free sheaf $F$ on $X$ and
+every $i$ there is an isomorphism
+$$
+H^i(X,F)\cong
+H^{n-i}(X,F^\vee\otimes\omega_X)^\vee.
+$$
+Here $F^\vee$ is the dual sheaf, and the
+outer $\vee$ is the dual vector space.
+Take $F=\mathcal{O}_X$ and $i=n$. Since
+$X$ is connected,
+$$
+H^n(X,\omega_X)\cong
+H^0(X,\mathcal{O}_X)^\vee=k.
+$$
+So the top cohomology of $\omega_X$ is one
+dimensional. The definition below turns
+this observation around.
+
+\medskip\noindent
+{\bf The definition.}
+Let $X$ be a projective scheme of
+dimension $n$ over $k$. A dualizing sheaf
+for $X$ is a coherent sheaf
+$\omega_X^\circ$ together with a linear
+map
+$$
+t:H^n(X,\omega_X^\circ)\to k,
+$$
+called the trace, with the following
+property. Let $F$ be any coherent sheaf.
+A homomorphism from $F$ to
+$\omega_X^\circ$ induces a linear map
+from $H^n(X,F)$ to
+$H^n(X,\omega_X^\circ)$. Composing with
+$t$ gives a linear form on $H^n(X,F)$.
+The requirement is that the resulting map
+$$
+\operatorname{Hom}(F,\omega_X^\circ)
+\to H^n(X,F)^\vee
+$$
+is an isomorphism for every coherent $F$.
+This is the definition of
+\cite[Section III.7]{har}. In words:
+linear forms on the top cohomology of $F$
+are the same thing as homomorphisms from
+$F$ to $\omega_X^\circ$.
+
+Nothing in this definition mentions
+differential forms. It asks only for
+duality in the top degree, and only for
+this one sheaf.
+
+\begin{theorem}
+\label{theorem-dualizing-sheaf-exists}
+Let $X\subset\mathbb{P}^N_k$ be a closed
+subscheme of dimension $n$, and put
+$c=N-n$.
+\begin{enumerate}
+\item A dualizing sheaf for $X$ exists. It
+is unique up to a unique isomorphism
+compatible with the traces.
+\item It is given by
+$$
+\omega_X^\circ\cong
+\mathcal{E}xt^{c}_{\mathbb{P}^N}
+(\mathcal{O}_X,
+\mathcal{O}_{\mathbb{P}^N}(-N-1)).
+$$
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+See \cite[III, Proposition 7.2]{har} for
+uniqueness and
+\cite[III, Proposition 7.5]{har} for
+existence and the formula. The sheaf
+$\mathcal{O}_{\mathbb{P}^N}(-N-1)$ is the
+canonical line bundle of
+$\mathbb{P}^N$; see
+\cite[II, Example 8.20.1]{har}.
+\end{proof}
+
+\medskip\noindent
+{\bf Comparison with the canonical
+module.}
+Let $S=k[x_0,\ldots,x_N]$ and let $R=S/I$
+be the homogeneous coordinate ring of
+$X$. In Commutative Algebra, Definition
+\ref{commutative-algebra-%
+definition-canonical-module-graded},
+the canonical module of a
+Cohen--Macaulay ring $R$ is
+$$
+\omega_R=
+\operatorname{Ext}^{c}_S(R,S(-N-1)).
+$$
+This is the same formula as in Theorem
+\ref{theorem-dualizing-sheaf-exists},
+one level up: modules over $S$ instead of
+sheaves on $\mathbb{P}^N$. The two are
+related as follows. Take a graded free
+resolution of $R$ over $S$. The
+associated sheaves form a resolution of
+$\mathcal{O}_X$ by direct sums of line
+bundles on $\mathbb{P}^N$. Sheaf
+$\mathcal{E}xt$ can be computed from a
+locally free resolution of the first
+argument \cite[III, Proposition 6.5]{har}.
+Hence the sheaf associated with
+$\omega_R$ is $\omega_X^\circ$. In
+particular, if $\omega_R\cong R(a)$ then
+$$
+\omega_X^\circ\cong\mathcal{O}_X(a).
+$$
+
+\medskip\noindent
+{\bf Duality in all degrees.}
+The definition gives duality only for
+$H^n$. The other degrees need a
+hypothesis on $X$.
+
+\begin{theorem}
+\label{theorem-serre-duality-cohen-macaulay}
+Let $X$ be a projective scheme over $k$,
+equidimensional of dimension $n$ and
+Cohen--Macaulay. Then for every locally
+free sheaf $F$ on $X$ and every $i$,
+$$
+H^i(X,F)\cong
+H^{n-i}(X,F^\vee\otimes\omega_X^\circ)^\vee.
+$$
+\end{theorem}
+
+\begin{proof}
+See \cite[III, Corollary 7.7]{har}.
+\end{proof}
+
+This is the same statement as in the
+smooth case, with $\omega_X^\circ$ in the
+place of $\omega_X$. The next theorem
+says that the two sheaves agree when both
+are defined, and that $\omega_X^\circ$ is
+still a line bundle for local complete
+intersections.
+
+\begin{theorem}
+\label{theorem-dualizing-sheaf-lci}
+\begin{enumerate}
+\item If $X$ is a smooth projective
+variety of dimension $n$, then
+$$
+\omega_X^\circ\cong
+\bigwedge^n\Omega^1_X.
+$$
+\item Let $X\subset\mathbb{P}^N_k$ be a
+closed subscheme that is a local complete
+intersection of codimension $c$, with
+ideal sheaf $\mathcal{I}$. Then
+$$
+\omega_X^\circ\cong
+\mathcal{O}_X(-N-1)\otimes
+\bigwedge^c
+(\mathcal{I}/\mathcal{I}^2)^\vee.
+$$
+In particular $\omega_X^\circ$ is an
+invertible sheaf.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+See \cite[III, Corollary 7.12]{har} for
+the first part and
+\cite[III, Theorem 7.11]{har} for the
+second.
+\end{proof}
+
+From now on the dualizing sheaf is
+written $\omega_X$, also when $X$ is
+singular.
+
+\begin{corollary}
+\label{corollary-dualizing-hypersurface}
+Let $X\subset\mathbb{P}^N_k$ be a
+hypersurface of degree $d$. Then
+$$
+\omega_X\cong\mathcal{O}_X(d-N-1).
+$$
+More generally, if $X$ is a complete
+intersection of hypersurfaces of degrees
+$d_1,\ldots,d_c$, then
+$$
+\omega_X\cong
+\mathcal{O}_X(d_1+\cdots+d_c-N-1).
+$$
+\end{corollary}
+
+\begin{proof}
+For a hypersurface of degree $d$ the
+ideal sheaf is
+$\mathcal{O}_{\mathbb{P}^N}(-d)$, so
+$$
+\mathcal{I}/\mathcal{I}^2
+\cong\mathcal{O}_X(-d).
+$$
+Its dual is $\mathcal{O}_X(d)$, and
+$c=1$. Now apply Theorem
+\ref{theorem-dualizing-sheaf-lci}. For a
+complete intersection,
+$\mathcal{I}/\mathcal{I}^2$ is the direct
+sum of the sheaves $\mathcal{O}_X(-d_j)$.
+The top exterior power of its dual is
+$\mathcal{O}_X(d_1+\cdots+d_c)$.
+\end{proof}
+
+The corollary does not ask $X$ to be
+smooth, irreducible or reduced. This is
+what makes the following examples work.
+
+\medskip\noindent
+{\bf Three lines in the plane.}
+Let $X\subset\mathbb{P}^2$ be given by
+$xyz=0$. It is the union of three lines
+meeting in three points. Here $d=3$ and
+$N=2$, so
+$$
+\omega_X\cong\mathcal{O}_X.
+$$
+A smooth plane cubic has the same degree,
+hence also a trivial canonical bundle.
+
+\medskip\noindent
+{\bf Four planes in space.}
+Let $X\subset\mathbb{P}^3$ be given by
+$x_0x_1x_2x_3=0$. It is the union of
+four planes, glued like the four
+triangles of the boundary of a
+tetrahedron. Here $d=4$ and $N=3$, so
+again
+$$
+\omega_X\cong\mathcal{O}_X.
+$$
+A smooth quartic surface has the same
+degree: it is a K3 surface. In the same
+way, the union of the $N+1$ coordinate
+hyperplanes of $\mathbb{P}^N$ has trivial
+dualizing sheaf.
+
+\medskip\noindent
+{\bf Sections as forms with poles.}
+For the three lines one can see a
+generator of $\omega_X$ by hand. I use
+the following description of the
+dualizing sheaf of a curve whose only
+singular points are nodes; I have not
+checked a reference for it. A section of
+$\omega_X$ over an open set is a rational
+$1$-form on each component, regular away
+from the nodes, with at most a simple
+pole at each node, and such that at each
+node the residues on the two branches add
+up to zero.
+
+First, one line. On $\mathbb{P}^1$ with
+affine coordinate $u$, consider
+$$
+\frac{du}{u}.
+$$
+It has a simple pole at $u=0$ with
+residue $1$, and no zeros or poles for
+other finite $u$. Near infinity put
+$w=1/u$. Then
+$$
+\frac{du}{u}=-\frac{dw}{w}.
+$$
+So there is a simple pole at infinity,
+with residue $-1$.
+
+Every rational form on $\mathbb{P}^1$
+that is regular away from $0$ and
+$\infty$ and has at most simple poles
+there is a constant multiple of this
+one. Indeed, such a form is
+$$
+g(u)\,\frac{du}{u}
+$$
+with $g$ a polynomial, because it has at
+most a simple pole at $0$ and no other
+finite pole. Near infinity it becomes
+$$
+-g(1/w)\,\frac{dw}{w}.
+$$
+This has at most a simple pole at $w=0$
+only when $g$ is constant.
+
+Now the three lines. Call them $L_x$,
+$L_y$, $L_z$, where $L_x$ is the line
+$x=0$, and so on. The three nodes are
+$$
+p_x=[1:0:0],\qquad
+p_y=[0:1:0],\qquad
+p_z=[0:0:1].
+$$
+Choose the coordinates
+$$
+u_z=\frac{x}{y},\qquad
+u_x=\frac{y}{z},\qquad
+u_y=\frac{z}{x}
+$$
+on $L_z$, $L_x$, $L_y$ respectively. On
+$L_z$ the point $u_z=0$ is $p_y$ and the
+point $u_z=\infty$ is $p_x$. On $L_x$ the
+point $u_x=0$ is $p_z$ and the point
+$u_x=\infty$ is $p_y$. On $L_y$ the point
+$u_y=0$ is $p_x$ and the point
+$u_y=\infty$ is $p_z$.
+
+By the previous paragraph, a global
+section of $\omega_X$ is given by three
+constants $c_z$, $c_x$, $c_y$: the form
+on $L_z$ is $c_z$ times $du_z/u_z$, and
+likewise on the other two lines. Its
+residues are $c$ at $u=0$ and $-c$ at
+$u=\infty$. The condition at the three
+nodes reads as follows.
+\begin{enumerate}
+\item At $p_y$: the residue on $L_z$ is
+$c_z$ and the residue on $L_x$ is $-c_x$.
+So $c_z=c_x$.
+\item At $p_z$: the residue on $L_x$ is
+$c_x$ and the residue on $L_y$ is $-c_y$.
+So $c_x=c_y$.
+\item At $p_x$: the residue on $L_y$ is
+$c_y$ and the residue on $L_z$ is $-c_z$.
+So $c_y=c_z$.
+\end{enumerate}
+The three conditions say that the three
+constants are equal. So
+$$
+H^0(X,\omega_X)=k,
+$$
+and the section with all constants equal
+to $1$ has no zeros: on each line it is
+$du/u$, and each of its poles is
+cancelled by the opposite pole on the
+neighbouring line. This is a nowhere
+vanishing section of $\omega_X$, in
+agreement with
+$\omega_X\cong\mathcal{O}_X$.
+
+By Theorem
+\ref{theorem-serre-duality-cohen-macaulay}
+with $F=\mathcal{O}_X$ and $i=1$,
+$$
+H^1(X,\mathcal{O}_X)\cong
+H^0(X,\omega_X)^\vee=k.
+$$
+The three lines form a cycle, and this
+one dimensional $H^1$ is the first
+homology of that cycle.
+
+\medskip\noindent
+{\bf Gorenstein schemes.}
+A scheme is Gorenstein when all its local
+rings are Gorenstein; see Commutative
+Algebra, Section
+\ref{commutative-algebra-%
+section-gorenstein-properties}. Local
+complete intersections are Gorenstein.
+For a projective, equidimensional,
+Cohen--Macaulay scheme $X$, the dualizing
+sheaf $\omega_X$ is invertible exactly
+when $X$ is Gorenstein. This is the sheaf
+version of Commutative Algebra, Theorem
+\ref{commutative-algebra-%
+theorem-graded-gorenstein}. In terms of
+dualizing complexes it is
+\href{https://stacks.math.columbia.edu/tag/0BFQ}
+{Stacks Project, Tag 0BFQ}; I have not
+checked the translation from the dualizing
+complex to the dualizing sheaf.
+
+So there are three levels. On a smooth
+variety, $\omega_X$ is the line bundle of
+top forms. On a Gorenstein scheme it is
+still a line bundle, and Serre duality
+holds as in the smooth case. On a
+Cohen--Macaulay scheme it is only a
+coherent sheaf, and duality still holds.
+A Gorenstein projective scheme with
+$\omega_X\cong\mathcal{O}_X$ is the
+singular analogue of a variety with
+trivial canonical bundle.
+
+\medskip\noindent
+{\bf Families.}
+Let $C$ be a smooth curve with a point
+$0$, and let
+$$
+f:\mathcal{X}\to C
+$$
+be a flat projective morphism. Write
+$X_t$ for the fibre over a point $t$ of
+$C$. I use the following fact about the
+relative dualizing sheaf. I have not
+found it in this form in a reference. Its
+two ingredients are in the Stacks
+Project: the points where a flat morphism
+of finite presentation is Gorenstein form
+an open set
+(\href{https://stacks.math.columbia.edu/tag/0C09}
+{Tag 0C09}), and a proper flat morphism has
+a relative dualizing complex whose
+formation commutes with base change, in
+particular with restriction to a fibre
+(\href{https://stacks.math.columbia.edu/tag/0E2Z}
+{Tag 0E2Z} and
+\href{https://stacks.math.columbia.edu/tag/0E2Y}
+{Tag 0E2Y}). I have not written out how
+the statement below follows from them.
+
+Suppose that $X_0$ is Gorenstein. Then
+there are an open neighbourhood $U$ of
+$0$ in $C$ and an invertible sheaf
+$\omega$ on $f^{-1}(U)$ such that, for
+every point $t$ of $U$, the fibre $X_t$
+is Gorenstein and the restriction of
+$\omega$ to $X_t$ is the dualizing sheaf
+of $X_t$.
+
+Two things are packed into this fact:
+being Gorenstein is an open condition on
+the fibres, and the dualizing sheaves of
+the fibres fit together into one sheaf on
+the total space.
+
+\begin{proposition}
+\label{proposition-trivial-dualizing-nearby}
+In the situation above, suppose that
+$X_0$ is Gorenstein, that
+$$
+\omega_{X_0}\cong\mathcal{O}_{X_0},
+$$
+and that
+$$
+H^1(X_0,\mathcal{O}_{X_0})=0.
+$$
+Then there is an open neighbourhood $V$
+of $0$ in $C$ such that
+$$
+\omega_{X_t}\cong\mathcal{O}_{X_t}
+$$
+for every point $t$ of $V$. In
+particular, a smooth fibre $X_t$ with $t$
+in $V$ has trivial canonical bundle.
+\end{proposition}
+
+\begin{proof}
+Let $U$ and $\omega$ be as in the fact
+recalled above. The proof has three
+steps.
+
+Step 1: a section on the special fibre.
+The restriction of $\omega$ to $X_0$ is
+$\omega_{X_0}$, which is isomorphic to
+$\mathcal{O}_{X_0}$. The constant
+function $1$ corresponds to a section
+$s_0$ of $\omega_{X_0}$ that vanishes at
+no point of $X_0$.
+
+Step 2: the section extends. The sheaf
+$\omega$ is invertible and $f$ is flat,
+so $\omega$ is flat over $U$. By
+hypothesis,
+$$
+H^1(X_0,\omega_{X_0})\cong
+H^1(X_0,\mathcal{O}_{X_0})=0.
+$$
+By cohomology and base change \cite[III,
+Theorem 12.11]{har}, applied to $\omega$ in
+degree $1$, this has two consequences. The
+base change map in degree $1$ at the point
+$0$ has target zero, so it is surjective. By
+part (a) of the theorem it is an isomorphism,
+so the fibre of $R^1f_*\omega$ at $0$ is
+zero, and by Nakayama's lemma $R^1f_*\omega$
+is zero in a neighbourhood of $0$. In
+particular it is locally free there. By part
+(b) of the theorem, the base change map in
+degree $0$,
+$$
+(f_*\omega)\otimes k(0)\to
+H^0(X_0,\omega_{X_0}),
+$$
+is then surjective. Hence, after replacing
+$U$
+by a smaller neighbourhood of $0$, there
+is a section $s$ of $\omega$ over
+$f^{-1}(U)$ whose restriction to $X_0$ is
+$s_0$.
+
+Step 3: no zeros on nearby fibres. Let
+$Z$ be the set of points of $f^{-1}(U)$
+where $s$ vanishes. It is closed. It does
+not meet $X_0$, because $s_0$ has no
+zeros. The morphism $f$ is projective,
+hence proper, so $f(Z)$ is closed in $U$.
+It does not contain $0$. Let $V$ be the
+complement of $f(Z)$ in $U$. For $t$ in
+$V$, the restriction of $s$ to $X_t$ is a
+section of $\omega_{X_t}$ with no zeros.
+A line bundle with a nowhere vanishing
+section is trivial. So
+$\omega_{X_t}\cong\mathcal{O}_{X_t}$.
+
+The last sentence of the statement
+follows from Theorem
+\ref{theorem-dualizing-sheaf-lci}: on a
+smooth fibre, $\omega_{X_t}$ is the
+canonical bundle.
+\end{proof}
+
+The hypothesis on $H^1$ is used only in
+Step 2. It is also what one wants for
+another reason: by semicontinuity
+\cite[III, Theorem 12.8]{har}, if
+$H^i(X_0,\mathcal{O}_{X_0})=0$ then
+$H^i(X_t,\mathcal{O}_{X_t})=0$ for $t$
+near $0$.
+
+This proposition is applied to
+Stanley--Reisner schemes of triangulated
+spheres in the chapter on
+Stanley--Reisner schemes, in the section
+on the dualizing sheaf of a sphere.
+
 \section{Reduced schemes}
 \label{section-reduced}
 

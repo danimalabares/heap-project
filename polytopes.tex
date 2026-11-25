@@ -1,0 +1,343 @@
+\input{preamble}
+
+\begin{document}
+
+\title{Polytopes}
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Convex polytopes and their
+boundaries}
+\label{section-convex-polytopes}
+
+\noindent
+This chapter collects notes on convex
+polytopes and on triangulated spheres and
+manifolds. The basic definitions are
+standard; see \cite{ziegler-polytopes}.
+Polytopes in the skeletal sense, where a
+polygon is a cycle of edges with no interior,
+are the subject of the chapter Skeletal
+polytopes, Section
+\ref{skeletal-polytopes-section-skeletal}.
+
+A convex polytope is the convex hull of a
+finite set of points in $\mathbb{R}^n$. Its
+dimension is the dimension of the affine
+space it spans. A face of a convex polytope
+$P$ is the set of points of $P$ where a
+linear function attains its maximum on $P$.
+The faces of dimension $0$ are the vertices,
+and the faces of dimension one less than $P$
+are the facets.
+
+A convex polytope is simplicial when every
+facet is a simplex. In that case every proper
+face is a simplex, and the proper faces form
+a simplicial complex on the set of vertices:
+a set of vertices is a face of the complex
+when it is the set of vertices of a proper
+face of $P$. This is the boundary complex of
+$P$. If $P$ has dimension $d+1$, its boundary
+is homeomorphic to the sphere of dimension
+$d$, so the boundary complex is a
+triangulation of that sphere.
+
+Simplicial complexes are defined in
+Stanley-Reisner schemes, Section
+\ref{stanley-reisner-section-sr}. A
+simplicial complex whose geometric
+realization is homeomorphic to a sphere is
+called a triangulated sphere. The question of
+the next sections is the converse of the
+previous paragraph: which triangulated
+spheres are boundary complexes of convex
+polytopes?
+
+\section{Polytopality and nonrealizable
+abstract symmetries}
+\label{section-polytopality-symmetries}
+
+\noindent
+The next four sections follow
+\cite{HollebenYang2026}. They explain what
+it means for a triangulated sphere to be
+the boundary of a convex polytope, and why
+a symmetry of the triangulation need not
+be a symmetry of any convex realization.
+
+\section{What polytopality asks}
+\label{subsection-polytopality}
+
+\noindent
+Source: Thiago Holleben and Yirong Yang,
+\emph{Polytopal Bier spheres and
+nonrealizable central symmetries}
+\cite{HollebenYang2026} (2026 preprint).
+
+Start with an abstract triangulated sphere:
+we know which vertices form faces, but
+have not assigned coordinates. Can we
+place its vertices so that these are
+exactly the faces of a convex solid?
+A simplicial $d$-sphere is
+\emph{polytopal} if it is isomorphic to
+the boundary of a convex simplicial
+$(d+1)$-polytope. Convexity concerns the
+solid, not its boundary: every segment
+between points of the solid stays inside.
+A nonconvex drawing does not prove
+nonpolytopality; every possible convex
+realization must be ruled out.
+
+Nonpolytopality starts in sphere dimension
+$d=3$, hence ambient dimension four.
+A triangulated circle is a polygon.
+For a triangulated $2$-sphere, its graph
+is planar and $3$-connected; Steinitz's
+theorem gives a convex $3$-polytope with
+that graph and the same faces. See
+\href{https://arxiv.org/abs/2608.07233}
+{Holleben--Yang, Introduction}.
+In higher dimensions, being a topological
+sphere no longer guarantees compatible
+convex coordinates: all prescribed
+facets must simultaneously lie in
+supporting hyperplanes, with all other
+vertices strictly on the inner side.
+These geometric constraints can conflict.
+
+\section{Realizing abstract symmetries}
+\label{subsection-realizing-symmetries}
+
+\noindent
+What's the relationship between
+realizability of symmetries and
+polytopality?
+
+\noindent
+A vertex permutation $\varphi$ preserving
+faces is an abstract symmetry. In a
+realization with vertices $p_v$, it is
+realized affinely when an affine
+bijection $A$ satisfies
+$$
+A(p_v)=p_{\varphi(v)}.
+$$
+A symmetry missing from one realization
+may appear in another. A nonrealizable
+symmetry appears in none of the convex
+realizations. This still does not imply
+that the sphere itself is nonpolytopal.
+
+Central symmetry geometrically sends
+$x$ to $2c-x$ about a centre $c$.
+Combinatorially it pairs vertices by a
+face-preserving involution fixing no
+nonempty face setwise.
+
+For the Stanley--Reisner scheme,
+every abstract symmetry acts by permuting
+variables, because it preserves $I_K$.
+Convex realizability is not needed for
+this algebraic action.
+
+\section{Bier spheres and an infinite
+family}
+\label{subsection-bier-spheres}
+
+\noindent
+Bier's construction turns a complex into
+a sphere by using two copies of its
+vertices. Choose a face from the first
+copy and a face from a complementary
+complex in the second. You may combine
+them provided no vertex is chosen in both
+copies. Remarkably, the resulting complex
+is a sphere even when the input is not.
+
+\begin{definition}
+\label{definition-bier-sphere}
+Let $V=\{1,\ldots,n\}$ and let $K$ be a
+proper subcomplex of $2^V$ containing
+$\varnothing$. Its \emph{Alexander dual}
+is
+$$
+K^\vee=\{B\subseteq V:V\setminus B\notin K\}.
+$$
+On two copies $V^+$ and $V^-$, the
+\emph{Bier sphere} has faces
+$$
+\begin{gathered}
+A^+\cup B^-,\\
+A\in K,\quad B\in K^\vee,\quad
+A\cap B=\varnothing.
+\end{gathered}
+$$
+\end{definition}
+
+\noindent
+Reference:
+\href{https://arxiv.org/abs/2608.07233}
+{Holleben--Yang, Section 2.2}.
+Bier's theorem says this is an
+$(n-2)$-sphere with at most $2n$ vertices;
+some singleton sets may be absent.
+
+With this construction defined, we can
+state the failure of symmetry realization
+for spheres which are nevertheless
+polytopal.
+
+\begin{theorem}[Holleben--Yang]
+\label{theorem-polytopal-nonrealizable}
+There exist polytopal Bier spheres whose
+combinatorial central symmetry cannot be
+realized affinely in any convex
+realization.
+\end{theorem}
+
+\noindent
+Reference:
+\href{https://arxiv.org/abs/2608.07233}
+{Holleben--Yang, Theorem 1.2 and
+Lemma 3.10}.
+This disproves the tempting implication
+from nonrealizability of a symmetry to
+nonpolytopality of the sphere.
+For their twelve-vertex examples,
+Proposition 3.4 rules out central
+symmetry geometrically, while Theorem 1.4
+establishes polytopality.
+
+The following result supplies an infinite
+family when the dimension is allowed to
+grow.
+
+\begin{theorem}[Holleben--Yang]
+\label{theorem-bier-infinite-family}
+For every even $n\geq6$, there are
+combinatorially centrally symmetric Bier
+$(n-2)$-spheres with $2n$ vertices which
+admit no centrally symmetric convex
+realization.
+\end{theorem}
+
+\noindent
+This is a consequence of
+\href{https://arxiv.org/abs/2608.07233}
+{Holleben--Yang, Theorem 1.1}.
+The vertex counts are $12,16,20,\ldots$.
+The theorem does not assert that these
+spheres are nonpolytopal. All Bier spheres
+with at most twelve vertices are
+polytopal by Theorem 1.4 of that preprint.
+
+\section{Where the BEK example fits}
+\label{subsection-bek-example}
+
+\noindent
+BEK stands for
+Bokowski--Ewald--Kleinschmidt.
+Their example is a polytopal $3$-sphere
+with ten vertices, and therefore the
+boundary of a convex $4$-polytope.
+Its combinatorial central symmetry is
+$$
+(1\,10)(2\,5)(3\,6)(4\,9)(7\,8).
+$$
+No convex realization realizes this
+permutation affinely. See
+\href{https://arxiv.org/abs/2608.07233}
+{Holleben--Yang, Section 3.3, Proposition 3.8
+and Lemma 3.10}.
+It is the earlier counterexample to the
+implication discussed above; the Bier
+construction supplies further examples.
+
+There is also a topological consequence:
+for a polytopal sphere with nonrealizable
+central symmetry, the space of convex
+realizations modulo affine changes of
+coordinates is noncontractible;
+see \href{https://arxiv.org/abs/2608.07233}
+{Holleben--Yang, Proposition 3.14}.
+
+\section{The Grünbaum-Sreedharan sphere}
+\label{section-grunbaum-sreedharan-sphere}
+
+\noindent
+Grünbaum and Sreedharan enumerated the
+simplicial convex polytopes of dimension $4$
+with $8$ vertices \cite{gru}. In the course
+of the enumeration they found a triangulation
+$\mathcal{M}$ of the sphere of dimension $3$,
+with $8$ vertices and $20$ tetrahedra, that
+is not the boundary complex of any convex
+polytope. So non-polytopal spheres exist
+already with $8$ vertices in dimension $3$.
+
+The Stanley-Reisner ideal of $\mathcal{M}$ is
+written down in Stanley-Reisner schemes,
+Section
+\ref{stanley-reisner-section-grunbaum-sphere}.
+
+\section{6-vertex triangulation of RP2}
+\label{section-6-vertex-triangulation-of-rp2}
+
+\noindent
+Here I read \cite{KuhnelBanchoff1983}.
+
+\medskip\noindent
+The icosahedron quotiented by antipodal
+map gives a triangulation of 6 vertices
+of $\mathbb{R}P^2$.
+This can be embedded in $\mathbb{R}^5$ 
+inside the 5-simplex $\Delta^5$,
+which has 6 vertices.
+This embedding has the properties
+of symmetry (icosahedral$/-\text{Id}$),
+duality (three vertices of $\Delta^5$
+determine
+a triangle of $\mathbb{R}P^2_6$ if and only
+if
+the remaining do not),
+tightness (too complicated) and
+secant tangency (a chord joining
+two points of $\mathbb{R}P^2$ is contained
+in a boundary 4-simplex of $\Delta^5$.
+
+Then consider Veronesse embedding
+$[x_0:x_1:x_2]\mapsto
+[x_0^2:x_1^2:x_2^2:x_0x_1:x_0x_2:x_1x_2]$.
+Like $\mathbb{R}P^2_6$ is contained in the
+boundary of $\Delta^5$,
+this embedding is contained in $S^4$.
+It also satisfies properties of symmetry (of
+$\mathbb{R}^3$),
+duality, tightness and secant-tangency.
+
+Each of the third and fourth properties
+characterizes $\mathbb{R}P^2_v$ among
+the smooth embeddings of $\mathbb{R}P^2$
+in $\mathbb{R}^5$ not lying in an affine
+hyperplane.
+``Pohl and Kuipar have in fact shown that
+any {\it topological} embedding of the real
+projective plane into $\mathbb{R}^5$ not
+lying in
+a hyperplane which has the tightness property
+alone must either be $\mathbb{R}P^2_v$ or
+$\mathbb{R}P^2_v$.''
+
+With respect to the complex projective plane,
+the situation has been less satisfactory.
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

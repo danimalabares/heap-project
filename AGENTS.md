@@ -119,7 +119,7 @@ coursework folder.
 
 Every section of a seminar or conference
 notebook that records one talk (the notebooks
-of Parts XI and XII, such as
+of Parts XII and XIII, such as
 `seminars-algebra.tex`) gives the speaker,
 place and date in comment lines right after
 its `\label`:

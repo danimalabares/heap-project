@@ -93,6 +93,9 @@ KNOWN_CHAPTERS = {
     "knot-theory",
     "psychoanalysis",
     "candomble",
+    "plane-tessellations",
+    "polytopes",
+    "skeletal-polytopes",
 }
 
 
