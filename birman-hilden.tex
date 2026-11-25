@@ -1,0 +1,2203 @@
+\input{preamble}
+
+\begin{document}
+
+\title{Birman-Hilden theory}
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Overview}
+\label{section-introduction}
+
+\noindent
+These are my notes from a seminar on
+Birman-Hilden theory. They were written
+in Spanish under the title
+{\it Teor\'ia de Birman-Hilden}; the
+original is kept in {\tt standalone/} as
+{\tt teoria-birman-hilden}. The source
+does not name the speakers or the dates
+of the sessions. This chapter is a
+translation that keeps the content as it
+was: statements without proof stay
+without proof, unfinished proofs stay
+unfinished, and questions stay open.
+Where the original is wrong, incomplete
+or unclear, a sentence starting with
+{\it Note on the original} says so.
+Statements marked ``Homework'' were
+marked {\it Tarea} in the original.
+
+\medskip\noindent
+{\bf Big picture.} A branched cover
+$p:S\to X$ of surfaces relates
+homeomorphisms of $S$ that preserve the
+fibers of $p$ to homeomorphisms of $X$
+that lift. Birman-Hilden theory asks
+when this relation passes to isotopy
+classes. The notes go through the
+following steps.
+\begin{enumerate}
+\item Covering spaces, group actions,
+lifts and deck transformations
+(Sections
+\ref{section-covering-spaces},
+\ref{section-group-actions},
+\ref{section-lifts} and
+\ref{section-deck-transformations}).
+\item Covering actions and the
+quotients they produce
+(Section \ref{section-covering-actions}).
+\item Branched covers and the
+Riemann-Hurwitz formula
+(Section \ref{section-branched-covers}).
+\item The mapping class group and first
+examples
+(Section
+\ref{section-mapping-class-group}).
+\item The Birman-Hilden property, the
+statement of the theorem of Birman and
+Hilden, and lemmas towards a proof
+(Section
+\ref{section-birman-hilden-theorem}).
+\end{enumerate}
+
+\section{Covering spaces}
+\label{section-covering-spaces}
+
+\noindent
+In the proof of the fundamental group of
+the circle we had already used the idea
+of a covering space. Here is the general
+definition.
+
+\begin{definition}
+\label{definition-covering-space}
+A {\it covering space} of $X$ is a space
+$E$ together with a map
+$$
+p:E\to X
+$$
+such that every point $x\in X$ has an
+open neighbourhood $U\subseteq X$ such
+that $p^{-1}(U)$ is a disjoint union of
+open sets of $E$, each of which is
+projected homeomorphically onto $U$ by
+$p$.
+\end{definition}
+
+The original has a figure here: a
+rectangle $X$ containing a disc $U$, and
+above it a rectangle $E$ containing a
+stack of five discs, with an arrow $p$
+from $E$ down to $X$.
+
+We introduce other terms.
+\begin{itemize}
+\item The map $p$ is called the
+{\it covering projection}.
+\item The set $U$ is called a
+{\it regular neighbourhood}.
+\item The open sets of $p^{-1}(U)$ that
+are projected homeomorphically onto $U$
+are called the {\it sheets} of $E$ over
+$U$.
+\item The set $p^{-1}(x)$ is called the
+{\it fiber} of $x$ under $p$.
+\end{itemize}
+
+\begin{remark}
+\label{remark-sheets}
+\begin{itemize}
+\item If $U$ is connected then the
+sheets of $U$ are the connected
+components of $p^{-1}(U)$.
+\item The number of sheets over $U$ is
+equal to the cardinality of $p^{-1}(x)$.
+\item This number is {\it locally
+constant}, that is, it is the same for
+every point.
+\end{itemize}
+Note on the original: the last item
+ends with a colon and nothing follows
+it. Locally constant means constant on
+a neighbourhood of each point; the
+number is the same for every point when
+$X$ is connected.
+\end{remark}
+
+\begin{example}
+\label{example-covering-spaces}
+\begin{enumerate}
+\item The identity
+$\operatorname{Id}:X\to X$.
+\item The natural projection of the
+disjoint union of copies of a space,
+that is,
+$p:\bigsqcup_{\alpha\in I}X\to X$.
+\item For any two covers $p:E\to X$ and
+$q:\tilde{E}\to X$, the projection from
+the disjoint union
+$r:E\sqcup\tilde{E}\to X$ defined in the
+natural way is also a cover. This is to
+say that we are interested in covers of
+connected spaces whose covering spaces
+are connected.
+\item The map $p:\mathbb{R}\to S^1$ as
+in the proof of the fundamental group of
+the circle.
+\item For a natural number $n$, the map
+$p:S^1\to S^1$ given by $p(z)=z^n$.
+\end{enumerate}
+\end{example}
+
+\section{Actions of a group on a
+topological space}
+\label{section-group-actions}
+
+\begin{definition}
+\label{definition-action}
+We say that a group $G$ {\it acts} on
+$X$ if there is a group homomorphism
+$$
+\varphi:G\to\operatorname{Homeo}(X)
+$$
+that sends $g$ to the homeomorphism
+$\varphi(g):X\to X$, which in turn sends
+$x$ to $\varphi(g)(x)$, so that
+\begin{itemize}
+\item $\varphi(g_1g_2)
+=\varphi(g_1)\varphi(g_2)$,
+\item $(g_1g_2)x=g_1(g_2(x))$,
+\item $\varphi(1_G)
+=\operatorname{Id}_X$.
+\end{itemize}
+This is denoted by
+$G\curvearrowright X$. An action is
+{\it free} if $g(y)=y$, for any $g\in G$
+and $y\in X$, implies that $g=1_G$; and
+an action is {\it transitive} if for any
+$y,y'\in X$ there is an element $g\in G$
+such that $g\cdot y=y'$.
+
+We denote the {\it orbit space} by
+$$
+X/G:=\{G\cdot x:x\in X\}.
+$$
+\end{definition}
+
+\begin{remark}
+\label{remark-not-free}
+Not every finite group induces a free
+action on a given space. For example,
+$\mathbb{Z}/2\mathbb{Z}\approx
+\{\operatorname{Id},
+-\operatorname{Id}\}$
+acting on all of $\mathbb{R}^2$ fixes
+the origin.
+\end{remark}
+
+\section{Lifts}
+\label{section-lifts}
+
+\noindent
+We begin by recalling the lifting
+criterion for maps. Consider a cover
+$p:E\to X$ and any map $f:Y\to X$. We
+want the following diagram to commute.
+$$
+\xymatrix{
+  & E \ar[d]^{p} \\
+Y \ar@{-->}[ur]^{\tilde{f}}
+  \ar[r]_{f}
+  & X
+}
+$$
+
+\begin{proposition}[Uniqueness of the
+lift]
+\label{proposition-unique-lift}
+Let $p:E\to X$ be a cover and
+$f:Y\to X$ a map. If two lifts
+$\tilde{f}_1,\tilde{f}_2:Y\to E$ of $f$
+agree at one point and $Y$ is connected,
+then $\tilde{f}_1=\tilde{f}_2$.
+$$
+\xymatrix{
+  & E \ar[d]^{p} \\
+Y \ar@<0.6ex>[ur]^{\tilde{f}_1}
+  \ar@<-0.6ex>[ur]_{\tilde{f}_2}
+  \ar[r]_{f}
+  & X
+}
+$$
+\end{proposition}
+
+\begin{theorem}[Homotopy lifting
+property for covers]
+\label{theorem-homotopy-lifting}
+Given a cover $p:E\to X$, a homotopy
+$f_t:Y\to X$ and a lift
+$\tilde{f}_0:Y\to E$ of $f_0$, there is
+a unique homotopy $\tilde{f}_t:Y\to E$
+that lifts each of the $f_t$.
+
+That is, the following diagram commutes.
+$$
+\xymatrix{
+Y\times\{0\} \ar[r]^{\tilde{f}_0}
+  \ar[dr]^{f_0}
+  \ar@{^{(}->}[d]
+  & E \ar[d]^{p} \\
+Y\times I \ar[r]
+  \ar@{-->}[ur]
+  & X
+}
+$$
+\end{theorem}
+
+\begin{definition}
+\label{definition-locally-path-connected}
+We say that a topological space $Y$ is
+{\it locally path-connected} if for
+every point $y\in Y$ and every
+neighbourhood $U$ of $y$ there is a
+path-connected $V$ with
+$y\in V\subseteq U$.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-lifting-criterion}
+Let $p:(E,E_0)\to(X,x_0)$ be a cover and
+$f:(Y,y_0)\to(X,x_0)$ a map, with $Y$ a
+path-connected and locally
+path-connected space. Then there is a
+lift $\tilde{f}:(Y,y_0)\to(E,E_0)$ if
+and only if
+$$
+f_*\pi_1(Y,y_0)\subseteq
+p_*\pi_1(E,E_0).
+$$
+\end{proposition}
+
+\begin{definition}
+\label{definition-lift}
+A {\it lift} of a map $f:Y\to X$ with
+respect to a cover $p:E\to X$ is a map
+$\tilde{f}:Y\to E$ such that
+$p\tilde{f}=f$. That is, the following
+diagram commutes.
+$$
+\xymatrix{
+  & E \ar[d]^{p} \\
+Y \ar@{-->}[ur]^{\tilde{f}}
+  \ar[r]_{f}
+  & X
+}
+$$
+\end{definition}
+
+\section{Deck transformations}
+\label{section-deck-transformations}
+
+\begin{definition}
+\label{definition-deck-transformation}
+Take a space $X$ and a cover
+$p:E\to X$. A {\it deck transformation}
+is an isomorphism of $E$ onto itself,
+that is, a homeomorphism that makes the
+following diagram commute.
+$$
+\xymatrix{
+E \ar[r]^{f} \ar[d]_{p}
+  & E \ar[dl]^{p} \\
+X
+}
+$$
+That is, $pf=p$.
+\end{definition}
+
+The set $\operatorname{Deck}(E)$ of all
+deck transformations $f:E\to E$ has a
+group structure, and we call it the
+{\it group of deck transformations}, or
+the {\it deck group}.
+
+\begin{proposition}
+\label{proposition-deck-agree}
+If $g,f:E\to E$ are deck
+transformations, with $E$
+path-connected, and there is $x\in E$
+with $g(x)=f(x)$, then $g=f$.
+\end{proposition}
+
+\begin{proof}
+It is enough to think of a deck
+transformation as a lift of the covering
+projection.
+$$
+\xymatrix{
+  & E \ar[d]^{p} \\
+E \ar@{-->}[ur]^{f}
+  \ar[r]_{p}
+  & X
+}
+$$
+By the lifting theorem for maps, $f$ is
+unique once we choose a point
+$y\in f^{-1}(x)$ in the fiber of $x$.
+Note on the original: the last sentence
+is unclear; the fiber of a point is its
+preimage under $p$, not under $f$.
+\end{proof}
+
+\begin{definition}
+\label{definition-regular-cover}
+We say that a cover $p:E\to X$ is
+{\it regular} if for any $x\in X$ and
+$e,e'\in p^{-1}(x)$ there is a deck
+transformation $f:E\to E$ such that
+$f(e)=e'$. That is, the group of deck
+transformations acts transitively on the
+fibers.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-deck-normalizer}
+Let $p:(E,e_0)\to(X,x_0)$ be a cover
+with $E$ and $X$ path-connected and
+locally path-connected. Let
+$$
+H=p_*\pi_1(E,e_0)\leq\pi_1(X,x_0).
+$$
+Then
+\begin{enumerate}
+\item The cover is regular if and only
+if $H\trianglelefteq\pi_1(X,x_0)$.
+\item There is an isomorphism
+$$
+\operatorname{Deck}(E)\cong N(H)/H,
+$$
+where
+$$
+N(H)=\left\{g\in\pi_1(X,x_0)
+\mid g^{-1}Hg=H\right\}.
+$$
+\end{enumerate}
+In particular, when $E$ is regular,
+$$
+\operatorname{Deck}(E)\cong
+\pi_1(X,x_0)/H.
+$$
+And if moreover $E$ is the universal
+cover, we simply have
+$$
+\operatorname{Deck}(E)\cong
+\pi_1(X,x_0).
+$$
+\end{proposition}
+
+\begin{proof}
+The idea is to define a surjective map
+$\pi_1(X,x_0)\to
+\operatorname{Deck}(p)$.
+Note on the original: this is all the
+original says. In general such a map is
+defined on $N(H)$ only.
+\end{proof}
+
+\section{Covering actions}
+\label{section-covering-actions}
+
+\begin{definition}
+\label{definition-covering-action}
+We say that $G\curvearrowright Y$ is a
+{\it covering action} if either of the
+following two equivalent conditions
+holds.
+\begin{itemize}
+\item Every point $y\in Y$ has a
+neighbourhood $U$ such that
+$g_1U\cap g_2U\neq\emptyset$ implies
+$g_1=g_2$.
+\item Every point $y\in Y$ has a
+neighbourhood $U$ such that
+$gU\cap U\neq\emptyset$ implies
+$g=1_G$.
+\end{itemize}
+In particular, these conditions imply
+that the action is free.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-covering-action}
+Given a covering action
+$G\curvearrowright Y$,
+\begin{enumerate}
+\item The quotient projection
+$p:Y\to Y/G$ given by $p(y)=Gy$ is a
+regular cover.
+\item If $Y$ is path-connected,
+$G\approx\operatorname{Deck}(p)$.
+\item If $Y$ is path-connected and
+locally path-connected,
+$$
+G\cong\pi_1(Y/G,y_0)\big/
+p_*\pi_1(Y,\tilde{y}_0).
+$$
+\end{enumerate}
+\end{proposition}
+
+\begin{corollary}
+\label{corollary-simply-connected}
+If moreover $Y$ is simply connected, by
+parts (2) and (3) of
+Proposition
+\ref{proposition-covering-action},
+$$
+G=G(\tilde{Y})\cong\pi_1(Y/G,y_0).
+$$
+\end{corollary}
+
+Note on the original: the notation
+$G(\tilde{Y})$ is not defined. In
+Section \ref{section-commented-out} the
+same notation is used for a deck group.
+The parts of
+Proposition
+\ref{proposition-covering-action} are
+lettered a), b), c) in the original.
+
+\begin{proposition}
+\label{proposition-regular-quotient}
+Let $p:E\to X$ be a regular cover with
+$G=\operatorname{Deck}(p)$. Then there
+is a homeomorphism $\psi:X\to E/G$ such
+that
+$$
+\xymatrix{
+E \ar[d]_{p} \ar[dr]^{\bar{p}} \\
+X \ar[r]^{\psi} & E/G
+}
+$$
+\end{proposition}
+
+Note on the original: the map $\bar{p}$
+is not defined and the sentence ends at
+the diagram. Presumably $\bar{p}$ is the
+quotient projection and the diagram
+commutes.
+
+\begin{example}
+\label{example-genus-cover}
+The surface of genus greater than $3$ is
+a cover of $S_2$.
+\end{example}
+
+\begin{theorem}
+\label{theorem-uniformization}
+If $X$ is a simply connected Riemann
+surface, then it is conformally
+equivalent to one of the following
+surfaces:
+\begin{itemize}
+\item $\mathbb{C}$,
+\item $\mathbb{C}\cup\{\infty\}
+\approx S^2$,
+\item $\mathbb{H}^2$.
+\end{itemize}
+\end{theorem}
+
+\begin{example}
+\label{example-hyperbolic-plane}
+The universal cover of the surfaces of
+genus greater than or equal to $2$ is
+the hyperbolic plane (recall Klein). The
+cover can in fact be seen as a local
+isometry, so we have a hyperbolic metric
+on $S_g$.
+
+The deck transformations are isometries,
+that is,
+$$
+\operatorname{Deck}(p)\leq
+\operatorname{Isom}^+\mathbb{H}^2
+=\operatorname{PSL}(2,\mathbb{R})
+=\operatorname{SL}(2,\mathbb{R})
+/A\sim-A.
+$$
+This way we end up defining Fuchsian
+groups as discrete subgroups of
+$\operatorname{PSL}(2,\mathbb{R})$.
+\end{example}
+
+\begin{example}
+\label{example-rotations-genus-four}
+The action of $\mathbb{Z}/3\mathbb{Z}$
+on $S_4$ by rotations.
+\end{example}
+
+\begin{example}
+\label{example-torus-klein}
+The torus with antipodal points
+identified is a Klein bottle. To see it,
+we take one half of the torus and look
+at how the identification is on the
+boundary.
+\end{example}
+
+The following three exercises are one
+homework list in the original, with
+items numbered $1$, $1^*$ and $2$.
+
+\begin{exercise}[Homework]
+\label{exercise-klein-lifts}
+Consider the previous cover
+$p:T^2\to T^2/\langle\sigma\rangle$.
+Prove that every homeomorphism of the
+Klein bottle onto itself admits a lift
+to the torus. (In fact there are two,
+one of which preserves the orientation
+of the surface.)
+\end{exercise}
+
+Note on the original: $\sigma$ is not
+defined; presumably it is the antipodal
+map of
+Example \ref{example-torus-klein}.
+
+\begin{proof}
+Building on the solution of
+Exercise \ref{exercise-klein-reflection},
+any homeomorphism of the Klein bottle
+onto itself induces an isomorphism on
+fundamental groups, and since the cover
+sends $\mathbb{Z}\times\mathbb{Z}$ into
+$\mathbb{Z}\rtimes\mathbb{Z}$, the
+condition for lifting maps is always
+satisfied.
+
+{\bf Remark.} It seems rather that
+$p_*\pi_1(T^2)$ is a subgroup of index
+$2$ in $\pi_1(K)$.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-klein-reflection}
+Prove that the homeomorphism ``reflect
+with respect to $y=0$'' in the diagram
+of the square of the Klein bottle lifts
+to the torus.
+\end{exercise}
+
+\begin{proof}[Solution]
+Let $\rho$ be that reflection. Since
+the spaces are locally path-connected
+and path-connected, it is enough to
+show that
+$$
+\rho_*\pi_1(K,k_0)\subseteq
+p_*\pi_1(T,t_0).
+$$
+The original has a figure here with
+three squares whose sides carry arrows.
+The first is the square of the torus:
+the two vertical sides point up and the
+two horizontal sides point right. Below
+it, joined by an arrow $p$ pointing
+down, is the square of the Klein bottle:
+the two vertical sides point up, the top
+side points right and the bottom side
+points left. To the left of the Klein
+bottle, joined to it by an arrow $\rho$,
+is its reflection: the two vertical
+sides point down, the top side points
+left and the bottom side points right.
+A dashed arrow goes from this last
+square to the square of the torus.
+
+First note that, by the theorem of Van
+Kampen,
+$$
+\pi_1(K)\approx
+\langle a,b\mid abab^{-1}\rangle
+\approx\mathbb{Z}\rtimes\mathbb{Z},
+$$
+so we have the following diagram of
+induced maps.
+$$
+\xymatrix{
+  & \mathbb{Z}\times\mathbb{Z}
+    \ar[d]^{p_*} \\
+\mathbb{Z}\rtimes\mathbb{Z}
+  \ar[r]_{\rho_*} \ar[ur]
+  & \mathbb{Z}\rtimes\mathbb{Z}
+}
+$$
+First let us see how $\rho_*$ acts on
+the generators: $a\mapsto a^{-1}$ and
+$b\mapsto b^{-1}$, so $\rho_*$ is an
+isomorphism. To know how $p_*$ acts, we
+see that $a\mapsto a$ and
+$b\mapsto b^{-1}$. Thus
+$$
+p_*\pi_1(T)=
+\langle a,b^{-1}\mid ab^{-1}ab\rangle
+\approx\mathbb{Z}\rtimes\mathbb{Z}.
+$$
+We conclude that
+$$
+\rho_*\pi_1(K,k_0)\approx
+\mathbb{Z}\rtimes\mathbb{Z}\approx
+p_*\pi_1(T,t_0).
+$$
+It seems that the lift reverses
+orientation since, at least in terms of
+the generators of the fundamental group,
+it sends $a\mapsto a^{-1}$.
+
+Note on the original: the argument is
+not complete. The lifting criterion
+asks for an inclusion of subgroups of
+$\pi_1(K)$, which does not follow from
+an isomorphism of abstract groups. Also
+$p_*\pi_1(T)$ is the image of the
+abelian group
+$\mathbb{Z}\times\mathbb{Z}$, so it is
+abelian, in agreement with the remark
+in the solution of
+Exercise \ref{exercise-klein-lifts}.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-quotient-genus}
+If we take $S_g$ instead of the torus,
+what is $S_g/\langle\sigma\rangle$? Is
+it true that
+$$
+\chi(S_g)=
+2\chi(S_g/\langle\sigma\rangle)?
+$$
+Recall that $\chi(S_g)=2-2g$ and
+$\chi(N_g)=2-g$.
+\end{exercise}
+
+\section{Branched covers}
+\label{section-branched-covers}
+
+\begin{definition}
+\label{definition-branched-cover}
+Let $E$ and $X$ be two manifolds. We say
+that $p:E\to X$ is a {\it branched
+cover} if there is a submanifold $B$ of
+codimension $2$ in $X$ such that
+$$
+p|_{E\backslash p^{-1}(B)}:
+E\backslash p^{-1}(B)\to X\backslash B
+$$
+is a covering space. We say that $B$ is
+the {\it branch set}, and $p^{-1}(B)$ is
+the {\it set of singular points} or
+{\it branch points}.
+\end{definition}
+
+\begin{example}
+\label{example-power-map}
+The map $z\mapsto z^n$ acting on the
+disc. The point $0$ is a branch point.
+\end{example}
+
+\begin{remark}
+\label{remark-ramification-index}
+Branch points locally look like
+$z\mapsto z^n$, and this number is
+called the {\it ramification index}.
+This simply means that these are Riemann
+surfaces for which there are complex
+coordinate charts such that the
+projection looks like $z\mapsto z^n$.
+\end{remark}
+
+\begin{theorem}
+\label{theorem-properly-discontinuous}
+If $G\curvearrowright S$ is properly
+discontinuous, $p:S\to S/G$ is a regular
+branched cover.
+\end{theorem}
+
+\begin{example}
+\label{example-hyperelliptic}
+The torus rotating by $\pi$ about the
+$x$ axis. The quotient
+$T_2/\mathbb{Z}_2$ is a sphere with four
+branch points. If instead we take $S_2$,
+the quotient is a sphere with $6$ branch
+points. In general, $S_g$ has $2g+2$
+branch points.
+\end{example}
+
+\begin{example}
+\label{example-triple-torus}
+Rotating a triple torus about the $x$
+axis and then about the $y$ axis, we
+have a cover with $4$ sheets. The branch
+points, which are $6$, have index $2$.
+Note that
+$$
+(\chi(S^2)-t)=
+\sum_{x\in B}|p^{-1}(x)|,
+$$
+where $B$ is the set of branch points.
+Note on the original: $t$ is not
+defined, and the formula does not have
+the form of
+Theorem \ref{theorem-riemann-hurwitz}.
+\end{example}
+
+\begin{theorem}[Riemann-Hurwitz]
+\label{theorem-riemann-hurwitz}
+Let $p:S\to S/G$ be a branched cover
+with $B\subseteq S/G$ the set of branch
+points. Then
+$$
+\begin{aligned}
+\chi(S)&=|G|\chi(S/G)
+-|G|\sum_{x\in B}
+\left(1-\frac{1}{n_x}\right)\\
+&=|G|(\chi(S/G)-|B|)
++\sum_{x\in B}|p^{-1}(x)|,
+\end{aligned}
+$$
+where $n_x=|G_x|$ is the size of the
+stabilizer of $x$.
+\end{theorem}
+
+\begin{proof}
+By lifting a cell decomposition of the
+base space. The vertices may fail to
+lift well, and that is why we subtract a
+term.
+\end{proof}
+
+\begin{remark}
+\label{remark-unbranched-euler}
+For an unbranched cover $p:E\to X$ of
+degree $n$,
+$$
+\chi(E)=n\chi(X).
+$$
+The following theorem generalizes this
+result to branched covers.
+\end{remark}
+
+\begin{theorem}[Riemann-Hurwitz in
+general]
+\label{theorem-riemann-hurwitz-general}
+If $p:E\to X$ is a branched cover with
+$n$ sheets and $B\subseteq X$ is the set
+of branch points,
+$$
+\chi(E)=n(\chi(X)-|B|)
++\sum_{x\in B}|p^{-1}(x)|.
+$$
+And if
+$p^{-1}(B)=\{e_1,\ldots,e_r\}\subset E$
+and the ramification index of $e_i$ is
+$d_i$, then
+$$
+\chi(E)=n\chi(X)-\sum_{i=1}^r(d_i-1).
+$$
+\end{theorem}
+
+\begin{corollary}[Hurwitz inequality]
+\label{corollary-hurwitz-inequality}
+If a finite group $G$ acts on $S_g$ for
+$g\geq2$, then $|G|\leq84(g-1)$.
+\end{corollary}
+
+\begin{remark}
+\label{remark-hurwitz-groups}
+Is there a group with $|G|=84(g-1)$
+that acts on $S_g$? Yes, they are called
+Hurwitz groups.
+\end{remark}
+
+\begin{exercise}[Homework]
+\label{exercise-three-branch-points}
+Find a cover $\Sigma_g\to S^2$ with
+exactly $3$ branch points. {\bf Hint}:
+use the hyperelliptic involution
+$\Sigma_g\to S^2$ with $2g+2$ branch
+points and then another cover
+$S^2\to S^2$ that ``sends two points to
+three''.
+\end{exercise}
+
+\begin{proof}[Solution]
+Consider first the case of the torus.
+The hyperelliptic involution acts on the
+torus to produce a sphere with four
+branch points (an orbifold). We can then
+let a rotation by $120$ degrees act on
+this sphere, whose axis passes through
+two of these four points and which
+identifies the other two. The
+composition of the two quotient maps is
+a map from the torus to the sphere with
+two points that have a single preimage
+and one point that has two preimages.
+
+To generalize this reasoning to the
+surface of genus $g$ we simply have to
+keep making rotations of the sphere to
+identify points among the $2g+2$ until
+only three are left. In the end, there
+will be two points with a single
+preimage, and the others will have
+preimages of different cardinalities.
+
+Note on the original: a rotation by
+$120$ degrees cannot interchange two
+points; the rotation about an axis that
+interchanges two points is by $\pi$.
+\end{proof}
+
+\begin{example}
+\label{example-at-least-three}
+Take a branched cover $\Sigma_g\to S^2$.
+If $g\geq1$, then the number of branch
+points is greater than or equal to $3$.
+\end{example}
+
+\begin{exercise}[Homework]
+\label{exercise-two-branch-points}
+If $\Sigma_g\to S^2$ is a branched cover
+with $2$ branch points, then $g=0$, that
+is, $\Sigma_g$ is $S^2$.
+\end{exercise}
+
+\begin{proof}[Solution]
+It seems analogous to the previous
+example, simply substituting in the
+Riemann-Hurwitz formula to reach a
+contradiction.
+\end{proof}
+
+Now let us study something like the
+converse of Riemann-Hurwitz.
+
+Suppose that we have two orientable
+surfaces $\Sigma_g$ and $\Sigma_h$. Take
+a natural number $d$ (which is like the
+number of sheets of the cover) and
+partitions of this number (which are
+like the ramification indices of each of
+the $k$ branch points at its $\ell_i$
+preimages):
+$$
+d=(d_{11},\ldots,d_{1\ell_1}),\ldots,
+(d_{k1},\ldots,d_{k\ell_k}),
+$$
+where $\sum_id_{ji}=d$. Suppose moreover
+that
+$$
+\chi(\Sigma_g)=d\chi(\Sigma_h)
+-\sum_{i=1}^k\left(
+\sum_{j=1}^{\ell_i}(d_{ij}-1)\right).
+$$
+Under what conditions is there a cover
+$\Sigma_g\to\Sigma_h$ with $d$ sheets,
+those branch points and those
+ramification indices?
+\begin{itemize}
+\item If $h\geq1$.
+\item If $h=0$, sometimes it can be
+done. {\bf Homework:} what conditions on
+the partitions of $d$ are needed in this
+case?
+\end{itemize}
+Note on the original: the first item is
+an unfinished sentence.
+
+\section{Mapping class group}
+\label{section-mapping-class-group}
+
+\begin{definition}
+\label{definition-finite-type}
+A surface of genus $g$ with $n$
+punctures and $b$ boundary components is
+a {\it surface of finite type} and is
+denoted by $S^b_{g,n}$.
+\end{definition}
+
+\begin{definition}
+\label{definition-cross-cap}
+A {\it cross-cap} is removing a disc
+from a surface and gluing a M\"obius
+band along the boundary of that disc.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-cross-caps}
+What is the genus of a torus with a
+cross-cap? It is a sphere with three
+cross-caps, genus $3$. And a torus with
+three cross-caps is a sphere with five
+cross-caps, and it is also a double
+torus with one cross-cap.
+\end{exercise}
+
+The point is that we can represent any
+nonorientable surface $N_g$ as a sphere
+with $g$ cross-caps.
+
+\begin{definition}
+\label{definition-dehn-twist}
+Consider the annulus
+$\mathbb{A}=S^1\times[0,1]$. The map
+$$
+\begin{aligned}
+T:\mathbb{A}&\to\mathbb{A}\\
+(e^{2\pi i\theta},t)&\mapsto
+(e^{2\pi i\theta t},t)
+\end{aligned}
+$$
+is called a {\it Dehn twist}.
+\end{definition}
+
+Note on the original: the formula is
+not well defined, because $\theta$ and
+$\theta+1$ give the same point but
+different images. The usual Dehn twist
+sends $(e^{2\pi i\theta},t)$ to
+$(e^{2\pi i(\theta+t)},t)$.
+
+\begin{remark}
+\label{remark-dehn-twist-boundary}
+The map $T$ is the identity on the two
+ends of the annulus.
+\end{remark}
+
+\begin{definition}
+\label{definition-homeo}
+For a surface $\Sigma$, we denote by
+$\operatorname{Homeo}(\Sigma)$ its
+{\it group of homeomorphisms}.
+\end{definition}
+
+\begin{remark}
+\label{remark-compact-open}
+It is a topological group with the
+compact-open topology. A basis (or
+subbasis?) of this topology is given by
+the sets of the form
+$$
+V(K,U)=\{f\in
+\operatorname{Homeo}(\Sigma):
+f(K)\subset U\}
+$$
+for $K$ compact and $U$ open in
+$\Sigma$.
+\end{remark}
+
+\begin{definition}
+\label{definition-isotopy}
+A homotopy between homeomorphisms such
+that all the maps in between are
+homeomorphisms is called an
+{\it isotopy}. If $f$ and $g$ are
+isotopic we write $f\simeq g$.
+\end{definition}
+
+We denote
+$$
+\operatorname{Homeo}_0(\Sigma)
+=\{f\in\operatorname{Homeo}(\Sigma):
+f\simeq\operatorname{Id}_\Sigma\}
+$$
+and
+$$
+\operatorname{Homeo}
+(\Sigma;\partial\Sigma)
+=\{f\in\operatorname{Homeo}(\Sigma):
+f|_{\partial\Sigma}
+=\operatorname{Id}|_{\partial\Sigma}\},
+$$
+and we denote by
+$\operatorname{Homeo}^+
+(\Sigma;\partial\Sigma)$
+the set of those
+$f\in\operatorname{Homeo}
+(\Sigma;\partial\Sigma)$
+that preserve orientation.
+
+\begin{exercise}[Homework]
+\label{exercise-homeo-zero-normal}
+$\operatorname{Homeo}_0(\Sigma)
+\triangleleft
+\operatorname{Homeo}(\Sigma)$.
+\end{exercise}
+
+\begin{proof}
+Suppose that $f\simeq\operatorname{Id}$
+and $g\in\operatorname{Homeo}(\Sigma)$.
+Then there is a continuous map
+$H:I\times\Sigma\to\Sigma$ such that
+$H(0,p)=p$ and $H(1,p)=f(p)$ for
+$t\in I$ and $p\in\Sigma$. Then
+$$
+\begin{aligned}
+\tilde{H}:I\times\Sigma&\to\Sigma\\
+(t,p)&\mapsto g\circ H\circ g^{-1}(p)
+\end{aligned}
+$$
+is such that
+$$
+H(0,p)=g(H(0,g^{-1}(p)))
+=gg^{-1}(p)=p
+$$
+and
+$$
+H(1,p)=g(f(g^{-1}(p)))
+=gfg^{-1}(p),
+$$
+that is,
+$gfg^{-1}\simeq\operatorname{Id}$.
+
+Note on the original: the left-hand
+sides of the last two displays are the
+values of $\tilde{H}$, not of $H$, and
+the formula for $\tilde{H}(t,p)$ is
+meant as $g(H(t,g^{-1}(p)))$.
+\end{proof}
+
+\begin{definition}
+\label{definition-mapping-class-group}
+The {\it mapping class group} or
+{\it modular group} of a surface
+$\Sigma$ is
+$$
+\operatorname{Mod}
+(\Sigma;\partial\Sigma)
+=\operatorname{Homeo}
+(\Sigma;\partial\Sigma)\Big/
+\operatorname{Homeo}_0
+(\Sigma,\partial\Sigma).
+$$
+\end{definition}
+
+\begin{remark}
+\label{remark-mapping-class-group}
+\begin{itemize}
+\item The mapping class group is a
+topological group with the quotient
+topology.
+\item Also,
+$\operatorname{Mod}(S_{g,n}^b)$ is the
+quotient of
+$\operatorname{Homeo}
+(\Sigma;\partial\Sigma)$
+by isotopy.
+\item An isotopy can be thought of as a
+path in the group of homeomorphisms,
+that is,
+$\hat{H}:I\to
+\operatorname{Homeo}(\Sigma,\partial)$,
+so each isotopy class is a connected
+component of this group:
+$$
+\operatorname{Mod}(S_{g,n}^b):=
+\pi_0(\operatorname{Homeo}
+(\Sigma;\partial\Sigma)).
+$$
+\item A surface of genus $g$ with $n$
+punctures and $b$ boundary components is
+a {\it surface of finite type} and is
+denoted by $\Sigma^b_{g,n}$. It will
+turn out that if $\Sigma$ is a surface
+of finite type, then
+$\operatorname{Mod}
+(\Sigma;\partial\Sigma)$
+is a discrete group (homework).
+\end{itemize}
+\end{remark}
+
+\begin{example}[Mapping class group of
+the disc]
+\label{example-mod-disc}
+$\operatorname{Mod}
+(\mathbb{D}^2,\partial\mathbb{D}^2)
+\approx\{1\}$.
+\end{example}
+
+\begin{proof}
+Any map of the disc that fixes the
+boundary is isotopic to the identity.
+Let us define the isotopy geometrically.
+We look for a map
+$H:\mathbb{D}^2\times I\to\mathbb{D}^2$.
+The map that sends $(x,t)$ to
+$$
+\begin{cases}
+(1-t)f(\frac{x}{1-t})
+&\qquad0\leq|x|\leq1-t\\
+x&\qquad1-t\leq|x|\leq1
+\end{cases}
+$$
+is such that $H(-,0)=f$ and
+$H(-,1)=\operatorname{Id}_{\mathbb{D}^2}$.
+
+The geometric idea is, in the solid
+cylinder $\mathbb{D}^2\times I$, to
+collapse the disc that is one of the
+ends to a point in the opposite end. In
+fact, at each height we have a circle
+given by $|x|=1-t$. It {\bf remains} to
+see that we have a homeomorphism at
+each $t$.
+\end{proof}
+
+\begin{example}[Mapping class group of
+the annulus]
+\label{example-mod-annulus}
+$\operatorname{Mod}
+(\mathbb{A};\partial\mathbb{A})
+\approx\mathbb{Z}$.
+\end{example}
+
+\begin{proof}
+We can think of $\mathbb{A}$ as a
+surface of genus $0$ (that is, $S^2$)
+with two boundary components and no
+punctures.
+
+The universal cover of $\mathbb{A}$ is
+$I\times\mathbb{R}$.
+
+Take
+$[f]\in\operatorname{Mod}
+(\mathbb{A},\partial\mathbb{A})$,
+and $\alpha$ the curve that joins
+$(0,0)$ and $(0,1)$ by a straight line.
+Then $f(\alpha)$ is a curve that may
+wind around the cylinder a number of
+times, but ends at the same point. A
+lift $\widetilde{f(\alpha)}$ is uniquely
+determined by its image at a single
+point. I think that this forces the lift
+to be a translation of the strip
+$\mathbb{R}\times I$ by as many units as
+the number of times the curve
+$f(\alpha)$ winds around the cylinder.
+$$
+\xymatrix{
+  & \mathbb{R}\times I \ar[d]^{p} \\
+\mathbb{A}
+  \ar[ur]^{\widetilde{f(\alpha)}}
+  \ar[r]_{f}
+  & \mathbb{A}
+}
+$$
+This transformation of the cover is well
+defined and does not depend on the
+representative. Thus we have built a
+correspondence $[f]\mapsto k_f$ where
+$k_f$ is a translation. Proving that
+this map is surjective is not trivial,
+but it is true.
+\end{proof}
+
+\begin{example}[Mapping class group of
+the M\"obius band]
+\label{example-mod-mobius}
+$\operatorname{Mod}
+(\mathbb{M};\partial\mathbb{M})
+=\{\operatorname{Id}\}$.
+\end{example}
+
+\begin{example}[Mapping class group of
+the sphere, homework]
+\label{example-mod-sphere}
+$\operatorname{Mod}(S^2)
+=\{\operatorname{Id}\}$.
+\end{example}
+
+\begin{proof}
+Hint: use that any homeomorphism can be
+homotoped to a homeomorphism that has a
+fixed point.
+\end{proof}
+
+\begin{example}[Mapping class group of
+the torus]
+\label{example-mod-torus}
+$\operatorname{Mod}(T^2)\approx
+\operatorname{SL}_2(\mathbb{Z})$.
+\end{example}
+
+\begin{proof}
+Through a map
+$$
+\Phi:\operatorname{Mod}(T^2)\to
+\operatorname{SL}_2(\mathbb{Z})
+$$
+that sends $[f]$ to
+$$
+\begin{aligned}
+f_*:H_1(T^2)&\to H_1(T^2)\\
+\langle a\rangle\times\langle b\rangle
+&\to
+\langle a\rangle\times\langle b\rangle
+\end{aligned}
+$$
+which turns out to be surjective and
+injective. At some point we use the
+cover of the torus, the plane.
+\end{proof}
+
+Note on the original: the mapping class
+group was defined above with all
+homeomorphisms. The statements for the
+sphere and the torus hold for
+orientation-preserving homeomorphisms; a
+reflection of $S^2$ is not isotopic to
+the identity, and an
+orientation-reversing homeomorphism of
+$T^2$ acts on $H_1(T^2)$ with
+determinant $-1$.
+
+\begin{example}[Mapping class group of
+the projective plane]
+\label{example-mod-projective-plane}
+$\operatorname{Mod}(\mathbb{R}P^2)
+\approx\{\operatorname{Id}\}$.
+\end{example}
+
+\begin{proof}
+By cutting the upper hemisphere of the
+sphere along a parallel.
+\end{proof}
+
+\section{The Birman-Hilden theorem}
+\label{section-birman-hilden-theorem}
+
+\noindent
+First we observe that we can take
+isotopy classes and homotopy classes
+interchangeably, and also that one can
+take diffeomorphisms instead of
+homeomorphisms.
+
+\begin{remark}
+\label{remark-homotopy-isotopy}
+\begin{itemize}
+\item Let $\Sigma$ be any compact
+surface, and let $f$ and $g$ be
+homotopic homeomorphisms of $\Sigma$.
+Then $f$ and $g$ are isotopic unless
+they are one of the two examples
+described above (on
+$\Sigma=\mathbb{D}^2$ and
+$\Sigma=\mathbb{A}$). In particular, if
+$f$ and $g$ are orientation-preserving
+then they are isotopic.
+\item Let $\Sigma$ be a compact surface.
+Then every homeomorphism of $\Sigma$ is
+isotopic to a diffeomorphism of
+$\Sigma$.
+\end{itemize}
+Note on the original: this remark is in
+English in the original, without a
+source, and the two examples it refers
+to are not in these notes.
+\end{remark}
+
+Take a branched cover $p:S\to X$ with
+$S$ and $X$ orientable surfaces. Let
+$B\subset X$ be the set of branch points
+of $p$. We will work with homeomorphisms
+that fix $B$. This can be expressed as
+follows, where $k=|B|$.
+$$
+\operatorname{Mod}(X\backslash B)
+\approx\operatorname{Mod}_{k}X
+$$
+
+Given a homeomorphism of $S$, when can
+we define a homeomorphism of $X$?
+$$
+\xymatrix{
+S \ar[r]^{\tilde{f}} \ar[d]_{p}
+  & S \ar[d]^{p} \\
+X \ar@{-->}[r]^{f} & X
+}
+$$
+It is enough to ask that $f$ preserve
+the fibers, that is, that
+$\tilde{f}(p^{-1}(x))=p^{-1}(y)$ for
+some $y\in X$. Or else,
+$f(\tilde{x})=f(\tilde{x}')$ for
+$\tilde{x}$ and $\tilde{x}'$ in the same
+fiber of some point of $X$.
+
+Note on the original: it is the map
+$\tilde{f}$ of $S$ that preserves the
+fibers, and the second condition is
+presumably meant as
+$p\tilde{f}(\tilde{x})
+=p\tilde{f}(\tilde{x}')$.
+
+Denote by
+$\mathcal{S}\operatorname{Homeo}(S)$ the
+set of those
+$\tilde{f}\in\operatorname{Homeo}(S)$
+that preserve the fibers of $p$, and by
+$\mathcal{L}\operatorname{Homeo}(X)$ the
+set of those
+$f\in\operatorname{Homeo}
+(X\backslash B)$
+that lift under $p$.
+
+\begin{remark}
+\label{remark-natural-homomorphism}
+For a branched cover $p:S\to X$, there
+is a {\it natural homomorphism}
+$$
+\begin{aligned}
+\Phi:\mathcal{S}\operatorname{Homeo}(S)
+&\to\mathcal{L}\operatorname{Homeo}(X)\\
+\tilde{f}&\mapsto f
+\end{aligned}
+$$
+But the converse is not always true,
+since for each liftable map there are
+many possible lifts.
+\end{remark}
+
+The natural projection
+$$
+\begin{aligned}
+\pi:\operatorname{Homeo}(S)
+&\to\operatorname{Mod}(S)\\
+f&\mapsto[f]
+\end{aligned}
+$$
+allows us to define
+$$
+\begin{aligned}
+\mathcal{S}\operatorname{Mod}(S)
+:&=\pi(\mathcal{S}
+\operatorname{Homeo}(S))\\
+&=\{[\tilde{f}]\in
+\operatorname{Mod}(S):
+\exists\tilde{f}'\in
+\mathcal{S}\operatorname{Homeo}(S),\
+\tilde{f}\simeq\tilde{f}'\}.
+\end{aligned}
+$$
+That is, these are the isotopy classes
+in the mapping class group that contain
+at least one element that preserves
+fibers. The {\it symmetric mapping class
+group} of $S$ is precisely
+$\mathcal{S}\operatorname{Mod}(S)
+<\operatorname{Mod}(S)$.
+
+Analogously, the projection
+$$
+\begin{aligned}
+\pi:\operatorname{Homeo}
+(X\backslash B)
+&\to\operatorname{Mod}_k(X)\\
+f&\mapsto[f]
+\end{aligned}
+$$
+allows us to define
+$$
+\begin{aligned}
+\mathcal{L}\operatorname{Mod}(X)
+:&=\pi(\mathcal{L}
+\operatorname{Homeo}(X))\\
+&=\{[f]\in\operatorname{Mod}_k(X):
+\exists f'\in
+\mathcal{L}\operatorname{Homeo}(X),\
+f\simeq f'\},
+\end{aligned}
+$$
+which we call the {\it liftable mapping
+class group} of $X$.
+
+In which cases can we extend a map
+$\phi$ as follows? Here $\Phi$ sends
+$[f]$ to $[\phi(f)]$.
+$$
+\xymatrix{
+\mathcal{S}\operatorname{Homeo}(S)
+  \ar[r]^{\phi} \ar[d]_{\pi}
+  & \mathcal{L}\operatorname{Homeo}(X)
+    \ar[d]^{\pi} \\
+\mathcal{S}\operatorname{Mod}(S)
+  \ar@{-->}[r]^{\Phi}
+  & \mathcal{L}\operatorname{Mod}(X)
+}
+$$
+First we must see that given
+$[\tilde{f}]\in
+\mathcal{S}\operatorname{Mod}(S)$,
+if
+$\tilde{g},\tilde{g}'\in
+\mathcal{S}\operatorname{Homeo}(S)$
+are in the class of $\tilde{f}$, then
+$\Phi(\tilde{g})\simeq
+\Phi(\tilde{g}')$.
+For this, it is enough to see that the
+covering projection preserves
+homotopies.
+
+Specifically, for $H:S\times I\to S$
+with $H(-,0)=\tilde{g}$ and
+$H(-,1)=\tilde{g}'$ there is a
+$\bar{H}:X\times I\to X$ with
+$\bar{H}(-,0)=\phi(\tilde{g})$ and
+$\bar{H}(-,1)=\phi(\tilde{g}')$.
+
+One can guarantee this if
+$h_t:=H(-,t)\in
+\mathcal{S}\operatorname{Homeo}(S)$
+for every $t$. In fact, it is enough to
+show that there is a map isotopic to the
+identity that preserves fibers, since
+$$
+\begin{aligned}
+\tilde{g}\simeq\tilde{g}'
+&\implies\phi(\tilde{g})
+\simeq\phi(\tilde{g}')\\
+\iff\tilde{g}\circ\tilde{g}^{-1}
+\simeq\operatorname{Id}_S
+&\iff\phi(\tilde{g}\circ\tilde{g}^{-1}
+\simeq\operatorname{Id}_X)
+\iff f\simeq\operatorname{Id}_S
+\end{aligned}
+$$
+with
+$f\in\mathcal{S}\operatorname{Homeo}(S)$
+through a homotopy $H:S\times I\to S$
+such that
+$H(-,t)\in
+\mathcal{S}\operatorname{Homeo}(S)
+\iff\phi(f)\simeq\operatorname{Id}_X$.
+
+Note on the original: the last display
+and the sentence after it are copied as
+they stand; the chain of implications is
+garbled. In the diagram, the original
+labels the horizontal maps $\phi$ and
+$\Phi$ in this way, while the remark
+above calls the upper map $\Phi$.
+
+\begin{definition}
+\label{definition-birman-hilden-property}
+Let $p:S\to X$ be a branched cover. We
+say that $p$ satisfies the
+{\it Birman-Hilden property} if for
+every
+$g\in\mathcal{S}\operatorname{Homeo}(S)
+\cap\operatorname{Homeo}_0(S)$
+there is an isotopy $H:S\times I\to S$
+such that
+$h_t:=H(-,t)\in
+\mathcal{S}\operatorname{Homeo}(S)$.
+That is, there is an isotopy to the
+identity of $S$ that preserves the
+fibers of the cover.
+\end{definition}
+
+\begin{remark}
+\label{remark-well-defined}
+A cover $p$ satisfies the Birman-Hilden
+property if and only if the natural map
+$\Phi:\mathcal{S}\operatorname{Mod}(S)
+\to\mathcal{L}\operatorname{Mod}(X)$
+is well defined.
+\end{remark}
+
+\begin{example}
+\label{example-torus-fails}
+Take $S=T^2$ as a cover of $S^2$ through
+the hyperelliptic involution, which has
+four branch points. Consider also
+$\tilde{f}$, the rotation about the $Z$
+axis by $\pi$, which is homotopic to the
+identity. Moreover, $\tilde{f}$
+preserves fibers; why? This cover does
+not satisfy the Birman-Hilden condition.
+\end{example}
+
+\begin{theorem}[Birman-Hilden]
+\label{theorem-birman-hilden}
+Let $p:S\to X$ be a regular branched
+cover with a finite number of sheets,
+with $\chi(S)<0$. If $p$ is unbranched
+or {\it solvable}
+($p_*(\pi_1(S\backslash B))
+\triangleleft\pi_1(X\backslash B)$
+is solvable), then $p$ has the
+Birman-Hilden property.
+\end{theorem}
+
+Note on the original: the condition in
+parentheses is copied as it stands. The
+set $B$ is a subset of $X$, not of $S$,
+and it is not said which group is
+required to be solvable.
+
+We add this comment quickly. The
+following definition is from
+\cite[p.~464]{rotman-abstract-algebra}.
+A {\it normal series} of a group $G$ is
+a sequence of groups
+$$
+G=G_0\geq G_1\geq G_2\geq\ldots
+\geq G_t=\{1\}
+$$
+with each $G_{i+1}$ a normal subgroup of
+$G_i$; the {\it factor groups} of this
+series are the quotients
+$$
+G_0/G_1,\quad G_1/G_2,\quad\ldots
+\quad G_{t-1}/G_t.
+$$
+A finite group $G$ is {\it solvable} if
+$G=\{1\}$ or $G$ has a normal series
+whose factor groups are of finite order.
+
+Note on the original: as written, every
+finite group satisfies the last
+condition. The usual definition asks
+for factor groups of prime order.
+
+Before proving it, we will prove the
+following.
+
+\begin{theorem}
+\label{theorem-birman-hilden-fixed}
+Let $p:S\to X$ be a regular branched
+cover with a finite number of sheets $g$
+and a finite number of branch points.
+Suppose that each deck transformation
+fixes the set of branch points and that
+$S$ is hyperbolic. Then $p$ satisfies
+the Birman-Hilden condition.
+\end{theorem}
+
+We begin with the following.
+
+\medskip\noindent
+{\bf Step 1.} Let $B\subset X$ be the
+set of branch points. If
+$f\in\mathcal{S}\operatorname{Homeo}(S)
+\cap\operatorname{Homeo}_0(S)$,
+then $f(\tilde{x})=\tilde{x}$ for any
+$\tilde{x}\in p^{-1}(B)$.
+
+\begin{definition}
+\label{definition-riemann-surface}
+A {\it Riemann surface} $S$ is a surface
+for which the changes of coordinates are
+analytic in the complex sense, that is,
+$$
+\partial_zf=0=\frac{1}{2}
+(\partial_xf-i\partial_yf).
+$$
+\end{definition}
+
+Note on the original: the
+Cauchy-Riemann equation is the
+vanishing of
+$\frac{1}{2}
+(\partial_xf+i\partial_yf)$,
+the derivative with respect to
+$\bar{z}$.
+
+\begin{remark}
+\label{remark-analytic-cover}
+If $p:S\to X$ is a branched cover, we
+can think of Riemann surface structures
+such that $p:(S,Y)\to(X,Z)$ is analytic
+in the complex sense. In this context,
+the deck transformations are analytic.
+\end{remark}
+
+\begin{exercise}[Homework]
+\label{exercise-trivial-center}
+\begin{enumerate}
+\item If $\chi(S)<0$, then
+$Z(\pi_1(S))$ is trivial. (This item is
+marked ``Dani'' in the original.)
+\item If $f\in\operatorname{Homeo}(S)$
+is such that
+$f_*:\pi_1(S)\to\pi_1(S)$ is the
+identity, then
+$f\simeq\operatorname{Id}_S$.
+\item If the map is moreover analytic,
+then in fact $f$ is the identity, that
+is, if
+$f\in\operatorname{Homeo}(S)\cap
+\operatorname{Homeo}_0(S)$
+is analytic, $f=\operatorname{Id}_S$.
+\end{enumerate}
+\end{exercise}
+
+\begin{proof}
+This is written under the first item in
+the original. {\it Another idea, more
+geometric:}
+
+First observe that a surface without
+boundary $S$ with $\chi(S)<0$ admits a
+Riemannian metric of constant negative
+curvature; see
+\url{https://mathoverflow.net/questions/14548/finding-constant-curvature-metrics-on-surfaces-without-full-power-of-uniformiza}.
+To see it, it is enough to show that any
+surface of genus $g$ can be seen
+topologically as a polygon with $4g$
+sides suitably identified.
+
+In the case of the torus, we can use a
+square and identify its sides as usual.
+The key observation is that the
+Euclidean plane can be tessellated with
+copies of this square, and the group of
+translations that sends one square to
+another, $\mathbb{Z}\times\mathbb{Z}$,
+is a group of isometries of the plane.
+
+The hyperbolic plane has the incredible
+property that it can be tessellated by
+regular polygons with any number of
+sides, in particular with a $4g$-gon
+whose sides are identified to build our
+surface. The group of hyperbolic
+translations that takes copies of the
+polygon to other copies is a subgroup of
+isometries of the hyperbolic plane. In
+fact, one can choose a group $\Gamma$
+with that property such that the
+quotient $\mathbb{H}^2/\Gamma$ is
+homeomorphic to our surface.
+
+From here on the argument is as in the
+previous proof.
+
+These ideas are also in \cite{ler}.
+
+Note on the original: there is no
+previous proof in the notes, so the
+argument is incomplete.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fixed-class}
+Let
+$f\in\operatorname{Homeo}(S)
+\backslash\{\operatorname{Id}\}$
+be such that $f$ fixes a point
+$\tilde{x}\in S$. Consider
+$$
+f_*:\pi_1(S,\tilde{x})\to
+\pi_1(S,\tilde{x}).
+$$
+Then
+$$
+f_*([\gamma])=[\gamma]\implies
+[\gamma]=1.
+$$
+\end{lemma}
+
+\begin{proof}
+Let
+$[\gamma]\in\pi_1(S,\tilde{x})
+\backslash\{1\}$
+be such that $f_*([\gamma])=[\gamma]$.
+We have that
+$$
+f(\gamma)\simeq\gamma
+\operatorname{rel}\tilde{x}.
+$$
+We also have the universal cover
+$q:\mathbb{H}^2\to S$, and we can lift
+$f$:
+$$
+\xymatrix{
+(\mathbb{H}^2,\xi) \ar[r]^{\tilde{f}}
+  \ar[d]_{q}
+  & (\mathbb{H}^2,\xi) \ar[d]^{q} \\
+(S,\tilde{x}) \ar[r]^{f}
+  & (S,\tilde{x})
+}
+$$
+Since $f$ is analytic,
+$\tilde{f}\in
+\operatorname{Isom}^+(\mathbb{H}^2)$.
+Taking $\gamma:I\to S$ with
+$\gamma(0)=\gamma(1)=\tilde{x}$, we
+have:
+$$
+\xymatrix{
+  & (\mathbb{H}^2,\xi) \ar[d]^{q} \\
+(I,0) \ar[r]^{\gamma}
+  \ar@{-->}[ur]^{\tilde{\gamma}}
+  & (S,\tilde{x})
+}
+$$
+That is, we have
+$\tilde{\gamma}:I\to\mathbb{H}^2$ such
+that $\tilde{\gamma}(0)=\xi$. Call
+$\xi'=\tilde{\gamma}(1)\neq\xi$.
+
+On the other hand,
+$f(\gamma)\simeq\gamma
+\operatorname{rel}\tilde{x}$,
+so
+$\widetilde{f(\gamma)}(1)
+=\tilde{\gamma}(1)=\xi'$.
+But
+$\widetilde{f(\gamma)}
+=\tilde{f}\tilde{\gamma}$
+and thus
+$$
+\tilde{f}\xi'
+$$
+Note on the original: the proof stops
+here, with the word ``missing''. The
+proof uses that $f$ is analytic, which
+is not among the hypotheses of the
+lemma.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-commutes-with-deck}
+Let
+$\tilde{g}\in
+\mathcal{S}\operatorname{Homeo}(S)
+\cap\operatorname{Homeo}_0(S)$.
+Then $\tilde{g}$ commutes with the deck
+transformations.
+\end{lemma}
+
+\begin{proof}
+Let $\tau\in\operatorname{Deck}(p)$, so
+that
+$$
+\xymatrix@C=1.2em{
+S \ar[rr]^{\tau} \ar[dr]_{p}
+  && S \ar[dl]^{p}
+     \ar[r]^{\tilde{g}^{-1}}
+  & S \ar[r]^{\tau} \ar[d]^{p}
+  & S \ar[dl]^{p} \ar[r]
+  & S \ar[d]^{p} \\
+  & X \ar[rr]_{g^{-1}}
+  && X \ar[rr]^{g}
+  && X
+}
+$$
+Defining
+$$
+r:=\tilde{g}\circ\tau\circ
+\tilde{g}^{-1}\in
+\operatorname{Deck}(p)
+$$
+we have that:
+\begin{enumerate}
+\item $r\simeq\operatorname{Id}_S$.
+\item $r$ fixes the branch points of the
+cover $p:S\to X$.
+\end{enumerate}
+Given a branch point $\tilde{x}_1\in S$,
+we have that
+$$
+r_*:\pi_1(S,\tilde{x}_1)\to
+\pi_1(S,\tilde{x}_1)
+$$
+is an inner automorphism of
+$\pi_1(S,\tilde{x}_1)$, so there is
+$[\beta]\in\pi_1(S,\tilde{x}_1)$ (it
+remained to see that $[\beta]\neq1$)
+such that
+$r_*([\gamma])
+=[\beta\cdot\gamma\cdot\beta^{-1}]$.
+
+Now if $r\neq\operatorname{Id}_S$,
+since $r$ is analytic and fixes a point,
+by the previous lemma,
+$$
+r_*([\beta])
+=[\beta\cdot\beta\cdot\beta^{-1}]
+=[\beta]\implies[\beta]=1.
+$$
+Then $r_*=\operatorname{Id}_S$, and in
+fact, since this is a hyperbolic
+surface, $r=\operatorname{Id}$. To
+conclude, we simply note that
+$$
+\tilde{g}\tau\tilde{g}^{-1}\tau^{-1}
+=\operatorname{Id}_S\implies
+\tilde{g}\tau=\tau\tilde{g}
+$$
+for any $\tau\in\operatorname{Deck}(p)$.
+
+Note on the original: the last arrow of
+the upper row of the diagram has no
+label. The map $r$ is defined as
+$\tilde{g}\tau\tilde{g}^{-1}$, but the
+conclusion uses
+$\tilde{g}\tau\tilde{g}^{-1}\tau^{-1}$;
+presumably $r$ is meant to be this
+commutator.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fixes-branch-points}
+Let
+$\tilde{g}\in
+\mathcal{S}\operatorname{Homeo}(S)
+\cap\operatorname{Homeo}_0(S)$
+with a homotopy $G:S\times I\to S$ such
+that $G(\tilde{x},0)=\tilde{x}$ and
+$G(\tilde{x},1)=\tilde{g}(\tilde{x})$.
+\begin{enumerate}
+\item $\tilde{g}(\tilde{x}_i)
+=\tilde{x}_i$
+for $i=1,\ldots,n$, where
+$p^{-1}(B)
+=\{\tilde{x}_1,\ldots,\tilde{x}_n\}$.
+\item The loop $\beta_i=G(\tilde{x},-)$
+is homotopic to the constant loop in
+$\pi_1(S,\tilde{x}_i)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For the first item, by contradiction,
+suppose that
+$\tilde{g}(\tilde{x}_i)\neq\tilde{x}_i$,
+so that, since we are assuming that the
+deck transformations fix the set of
+branch points,
+$\tilde{g}(\tilde{x}_i)=\tilde{x}_j$
+with $i\neq j$.
+
+Take a loop $\gamma$ based at
+$\tilde{x}_i$ and
+$\tau\in\operatorname{Deck}(p)
+\backslash\{\operatorname{Id}\}$.
+By the previous lemma, $\tilde{g}$
+commutes with $\tau$.
+\begin{equation}
+\label{equation-commute}
+\tilde{g}\tau=\tau\tilde{g}
+\end{equation}
+Define $\beta(t)=G(\tilde{x},t)$. Then
+$$
+\gamma\simeq\beta\cdot\tilde{g}(\gamma)
+\cdot\beta^{-1}
+$$
+since
+$\tilde{g}\simeq\operatorname{Id}
+\operatorname{rel}\tilde{x}_i$.
+
+Applying $\tau$ to the above (since
+$\tau(\tilde{x}_i)=\tilde{x}_i$),
+\begin{equation}
+\label{equation-apply-tau}
+\tau(\gamma)\simeq\tau(\beta)\cdot
+\tau\tilde{g}(\gamma)\cdot
+\tau(\beta^{-1})
+\end{equation}
+Since $\gamma$ is arbitrary, put
+$\tau(\gamma)$ and
+\begin{equation}
+\label{equation-replace-gamma}
+\tau(\gamma)\simeq\beta\cdot
+\tilde{g}(\tau(\gamma))\cdot\beta^{-1}
+\end{equation}
+By (\ref{equation-commute}),
+$\tau(\gamma)\simeq\beta\cdot
+\tau\tilde{g}(\gamma)\cdot\beta^{-1}$,
+and by (\ref{equation-apply-tau}),
+$$
+\begin{aligned}
+\tau(\beta)\cdot\tau\tilde{g}(\gamma)
+\cdot\tau(\beta^{-1})
+=\beta\cdot\tau\tilde{g}(\gamma)
+\cdot\beta^{-1}\\
+\implies(\beta^{-1}\cdot\tau(\beta))
+\cdot\tau\tilde{g}(\tau)\cdot
+(\tau(\beta^{-1})\cdot\beta)
+\simeq\tau\tilde{g}(\gamma)
+\end{aligned}
+$$
+Since $\gamma$ was arbitrary, we can
+replace
+$\gamma=t^{-1}g^{-1}(\gamma)$.
+
+This is in order to prove that the loop
+$\beta^{-1}\cdot\tau(\beta)$ commutes
+with all the elements of
+$\pi_1(S,\tilde{x}_j)$. Then
+$$
+[\beta^{-1}\cdot\tau(\beta)]\in
+Z(\pi_1(S,\tilde{x}_j))\approx
+\{\operatorname{Id}\}.
+$$
+Then
+$$
+\beta^{-1}\cdot\tau(\beta)\simeq
+c_{\tilde{x}_j}.
+$$
+Hence
+$$
+\tau(\beta)\simeq\beta
+\operatorname{rel}
+\tilde{x}_i,\tilde{x}_j.
+$$
+{\bf Claim.} $\tau=\operatorname{Id}_S$.
+$$
+\xymatrix{
+(\mathbb{H}^2,\xi_i)
+  \ar[r]^{\tilde{\tau}} \ar[d]_{q}
+  & (\mathbb{H}^2,\xi_i) \ar[d]^{q} \\
+(S,\tilde{x}_i) \ar[r]_{\tau}
+  & (S,\tilde{x}_i)
+}
+$$
+Consider $\tilde{\beta}=\xi_i$, so that
+$\tilde{\beta}(1)=\xi_j\in
+q^{-1}(\tilde{x}_j)$.
+$$
+\widetilde{\tau(\beta)}
+=\tilde{\tau}(\tilde{\beta}(1))
+=\tilde{\tau}(\xi_j)
+=\tilde{\tau}(\xi_j)=\xi_j
+$$
+Then $\tilde{\tau}$ fixes two points, so
+$\tau=\operatorname{Id}_{\mathbb{H}^2}$,
+and then $\tau=\operatorname{Id}_S$.
+
+This claim leads us to a contradiction,
+since we assumed that
+$\tau\in\operatorname{Deck}
+\backslash\{\operatorname{Id}\}$.
+
+Note on the original: several formulas
+of this proof are copied as they stand.
+In the last aligned display
+$\tau\tilde{g}(\tau)$ is presumably
+$\tau\tilde{g}(\gamma)$; the
+replacement
+$\gamma=t^{-1}g^{-1}(\gamma)$ is
+presumably by
+$\tau^{-1}\tilde{g}^{-1}(\gamma)$;
+$\tilde{\beta}=\xi_i$ presumably means
+$\tilde{\beta}(0)=\xi_i$; and the map
+that equals
+$\operatorname{Id}_{\mathbb{H}^2}$ is
+$\tilde{\tau}$. In the statement, the
+point $\tilde{x}$ in $\beta_i$ is
+presumably $\tilde{x}_i$. The second
+item of the lemma is not proved. In its
+place, the original has the following
+two items.
+\begin{enumerate}
+\item Homework: prove that $\pi_1(S)$
+with $\chi(S)<0$ is torsion-free.
+\item Consider the diagram
+$$
+\xymatrix{
+S \ar[d]_{p} \ar[r]^{\pi_1}
+  & S/H \ar[dl]^{\pi_2} \\
+S/G
+}
+$$
+with $H\triangleleft G$. If $\pi_1$ and
+$\pi_2$ (the quotient projections)
+satisfy Birman-Hilden, then
+$p:S\to S/G$ does too.
+\end{enumerate}
+\end{proof}
+
+\begin{theorem}[Dehn-Nielsen-Baer]
+\label{theorem-dehn-nielsen-baer}
+$$
+\operatorname{Mod}^\pm(S)\approx
+\operatorname{Aut}\pi_1(S,x_0)\Big/
+\operatorname{img}(\pi_1(S,x_0))
+$$
+\end{theorem}
+
+\begin{proof}
+$$
+\xymatrix@C=1.5em{
+\pi_1(S,x_0) \ar[r]^{f_*}
+  & \pi_1(S,f(x_0)) \ar[r]^{c_\beta}
+  & \pi_1(S,x_0) \\
+[\gamma] \ar@{|->}[r]
+  & [f(\gamma)] \ar@{|->}[r]
+  & [\beta\circ f(\gamma)
+    \circ\beta^{-1}]
+}
+$$
+\end{proof}
+
+Note on the original: the subgroup
+written
+$\operatorname{img}(\pi_1(S,x_0))$ is
+presumably the group of inner
+automorphisms, and the proof consists
+of the diagram only.
+
+\begin{theorem}
+\label{theorem-solvable-projects}
+Let $p:S\to X$ be a regular cover,
+either branched or unbranched, with at
+most a finite number of branch points.
+Suppose that the group of deck
+transformations
+$G=\operatorname{Deck}(p)$ is solvable
+and finite. If
+$\tilde{g}\in
+\mathcal{S}\operatorname{Homeo}(S)
+\cap\operatorname{Homeo}_0(S)$,
+then the homeomorphism $g:X\to X$ such
+that
+$$
+\xymatrix{
+S \ar[r]^{\tilde{g}} \ar[d]_{p}
+  & S \ar[d]^{p} \\
+X \ar[r]^{g} & X
+}
+$$
+is isotopic to the identity on $X$, that
+is, $g\in\operatorname{Homeo}_0(X)$.
+\end{theorem}
+
+The original calls this statement
+``Theorem 1''.
+
+\begin{lemma}
+\label{lemma-prime-order}
+If $p:S\to X$ is a cover with the
+properties of
+Theorem \ref{theorem-solvable-projects}
+and such that $|G|$ is prime, then for
+any $\tau\in\operatorname{Deck}(p)$ we
+have $\tau(\tilde{x})=\tilde{x}$ for any
+$\tilde{x}\in p^{-1}(B)$, where
+$B\subseteq X$ is the set of branch
+points.
+\end{lemma}
+
+\section{Material commented out in the
+original}
+\label{section-commented-out}
+
+\noindent
+The source contains two passages that
+are disabled and do not appear in the
+original document. They are recorded
+here.
+
+The first follows the definition of the
+deck group in
+Section
+\ref{section-deck-transformations}.
+
+\begin{example}
+\label{example-deck-circle}
+The cover $f_n:S^1\to S^1$ given by
+$z\mapsto z^n$ has group of deck
+transformations
+$$
+G(f_n:S^1\to S^1)
+=\mathbb{Z}/n\mathbb{Z}.
+$$
+Moreover,
+$f_{n*}\pi_1(S^1)=n\mathbb{Z}$. So
+$$
+G(f_n:S^1\to S^1)\cong
+\pi_1(S^1)/f_{n*}\pi_1(S^1).
+$$
+And this is no coincidence.
+
+Moreover, for the universal cover of
+$S^1$, which is
+$\exp:\mathbb{R}\to S^1$, it also holds,
+since the fundamental group is trivial,
+that is,
+$$
+G(\exp:\mathbb{R}\to S^1)\cong
+\mathbb{Z}/\{0\}\cong\mathbb{Z}.
+$$
+\end{example}
+
+The second is at the end of the source.
+
+The {\it liftable} transformations are
+those that satisfy the lifting property,
+and they are denoted by
+$\mathcal{L}\operatorname{Mod}(S)$.
+
+\begin{remark}
+\label{remark-descend}
+For a cover $p:E\to X$ and a map
+$\tilde{f}:E\to E$ that preserves
+fibers, we can define a map
+$f:X\to X$.
+\end{remark}
+
+The {\it symmetric} transformations are
+automorphisms of the cover that preserve
+fibers, and they are denoted by
+$\mathcal{S}\operatorname{Mod}(S)$.
+
+How can we relate
+$\mathcal{L}\operatorname{Mod}(S)$ and
+$\mathcal{S}\operatorname{Mod}(S)$? We
+need an isotopy between two symmetric
+transformations through symmetric
+transformations.
+
+{\bf Questions.}
+\begin{itemize}
+\item How must the cover be so that
+there are maps
+$$
+\mathcal{S}\operatorname{Mod}(E)\to
+\mathcal{L}\operatorname{Mod}(X),
+\qquad
+\mathcal{L}\operatorname{Mod}(X)\to
+\mathcal{S}\operatorname{Mod}(E)?
+$$
+\item Under what conditions do the
+equalities
+$$
+\mathcal{L}\operatorname{Mod}(X)
+=\operatorname{Mod}(X),
+\qquad
+\mathcal{S}\operatorname{Mod}(E)
+=\operatorname{Mod}(E)
+$$
+hold?
+\item For the braid group $B_k$,
+\end{itemize}
+Note on the original: the last question
+is unfinished.
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

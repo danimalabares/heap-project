@@ -1033,6 +1033,973 @@ and
 a base-point change, from loops in $A$. Hence
 $\pi_1(A)\to\pi_1(Y)$ is surjective.
 \end{proof}
+\section{Definition of a covering space}
+\label{section-covering-space-definition}
+
+In the computation of the fundamental group
+of the circle we already used the idea of a
+covering space. Here is the general
+definition. Further results on covering
+spaces are in
+Section \ref{section-covering-spaces}.
+
+\begin{definition}
+\label{definition-covering-space}
+A {\it covering space} of $X$ is a space
+$\tilde{X}$ together with a map
+$$
+p:\tilde{X}\to X
+$$
+such that every point $x\in X$ has an open
+neighbourhood $U\subseteq X$ for which
+$p^{-1}(U)$ is a disjoint union of open
+subsets of $\tilde{X}$, each of which is
+projected homeomorphically onto $U$ by $p$.
+\end{definition}
+
+\begin{center}
+\includegraphics[width=.3\textwidth]{
+algebraic-topology-assets/covering-sheets
+}
+\end{center}
+
+We introduce further terms.
+\begin{itemize}
+\item The map $p$ is called the
+{\it covering projection}.
+\item The set $U$ is called a
+{\it regular neighbourhood}.
+\item The open subsets of $p^{-1}(U)$ that
+are projected homeomorphically onto $U$ are
+called the {\it sheets} of $\tilde{X}$ over
+$U$.
+\item The set $p^{-1}(x)$ is called the
+{\it fibre} of $x$ under $p$.
+\end{itemize}
+
+\begin{remark}
+\label{remark-covering-sheets}
+\begin{itemize}
+\item If $U$ is connected, then the sheets
+over $U$ are the connected components of
+$p^{-1}(U)$.
+\item The number of sheets over $U$ is equal
+to the cardinality of $p^{-1}(x)$ for
+$x\in U$.
+\item This number is {\it locally constant},
+that is, it is the same for every point.
+The original notes break off after this
+sentence; that the number is the same for
+all points of $X$ uses that $X$ is
+connected.
+\end{itemize}
+\end{remark}
+
+\begin{example}
+\label{example-covering-spaces}
+\begin{enumerate}
+\item The identity
+$\operatorname{Id}:X\to X$.
+\item The natural projection from a disjoint
+union of copies of a space, that is,
+$p:\bigsqcup_{\alpha\in I}X\to X$.
+\item For any two coverings
+$p:\tilde{X}\to X$ and $q:\hat{X}\to X$, the
+projection from the disjoint union
+$r:\tilde{X}\sqcup\hat{X}\to X$ defined in
+the natural way is also a covering. This is
+to say that we are interested in coverings
+of connected spaces whose covering spaces
+are connected.
+\item The map $p:\mathbb{R}\to S^1$ as in
+the proof of the fundamental group of the
+circle.
+\item For $n\in\mathbb{N}$, the map
+$p:S^1\to S^1$ given by $p(z)=z^n$.
+\end{enumerate}
+\end{example}
+
+\section{Homotopy lifting for coverings}
+\label{section-covering-homotopy-lifting}
+
+\begin{definition}
+\label{definition-lift-covering}
+A {\it lift} of a map $f:Y\to X$ with
+respect to a covering $p:\tilde{X}\to X$ is
+a map $\tilde{f}:Y\to\tilde{X}$ such that
+$p\tilde{f}=f$. That is, the following
+diagram commutes.
+$$
+\xymatrix{
+  & \tilde{X} \ar[d]^{p} \\
+Y \ar@{-->}[ur]^{\tilde{f}}
+  \ar[r]_{f}
+  & X
+}
+$$
+\end{definition}
+
+\begin{theorem}[Homotopy lifting property for
+coverings]
+\label{theorem-covering-homotopy-lifting}
+Given a covering $p:\tilde{X}\to X$, a
+homotopy $f_t:Y\to X$ and a lift
+$\tilde{f}_0:Y\to\tilde{X}$ of $f_0$, there
+exists a unique homotopy
+$\tilde{f}_t:Y\to\tilde{X}$ that lifts each
+of the $f_t$. That is, the dashed arrow in
+the following diagram exists and makes it
+commute.
+$$
+\xymatrix{
+Y\times\{0\} \ar[r]^-{\tilde{f}_0}
+  \ar@{^{(}->}[d]
+  & \tilde{X} \ar[d]^{p} \\
+Y\times I \ar[r] \ar@{-->}[ur]
+  & X
+}
+$$
+\end{theorem}
+
+\section{The homomorphism induced by the
+covering projection}
+\label{section-covering-induced-homomorphism}
+
+Given a covering projection
+$p:\tilde{X}\to X$, what properties does the
+induced map
+$$
+p_*:\pi_1(\tilde{X},\tilde{x}_0)
+\to\pi_1(X,x_0)
+$$
+have, where $p(\tilde{x}_0)=x_0$? It will
+turn out to be injective.
+
+To prove this, one uses the homotopy lifting
+property for coverings
+(Theorem
+\ref{theorem-covering-homotopy-lifting}). So
+first we look at a couple of simple cases of
+how this theorem is used.
+
+\begin{proposition}[Path lifting property]
+\label{proposition-path-lifting}
+A path has a unique lift once it is decided
+where the initial point goes. To see it, take
+the case in which $Y$ consists of a single
+point, so that a homotopy of $Y\times I$ is a
+path in $X$.
+\end{proposition}
+
+\begin{remark}
+\label{remark-lift-constant-path}
+The lift of a constant path is a constant
+path.
+\end{remark}
+
+\begin{remark}
+\label{remark-lift-homotopy-rel-endpoints}
+If $Y=I$ and $H:I\times I\to X$ is a
+homotopy relative to $0,1$, then the lift
+$\tilde{H}$ is also a homotopy relative to
+$0,1$.
+\end{remark}
+
+Now we can state the result.
+
+\begin{proposition}
+\label{proposition-covering-injective-pi1}
+Given a covering projection
+$p:\tilde{X}\to X$, the induced map
+$$
+p_*:\pi_1(\tilde{X},\tilde{x}_0)
+\to\pi_1(X,x_0)
+$$
+is injective. Moreover, the subgroup
+$$
+p_*\left(\pi_1(\tilde{X},\tilde{x}_0)
+\right)\leq\pi_1(X,x_0)
+$$
+consists of the loops based at $x_0$ that
+lift to loops in $\tilde{X}$ based at
+$\tilde{x}_0$.
+\end{proposition}
+
+\section{The number of sheets of a covering
+and the fundamental group}
+\label{section-covering-number-sheets}
+
+\begin{proposition}
+\label{proposition-covering-sheets-index}
+Let $p:\tilde{X}\to X$ be a covering with
+$\tilde{X}$ and $X$ path-connected. Then the
+number of sheets of the covering is equal to
+the index of
+$p_*(\pi_1(\tilde{X},\tilde{x}_0))$ in
+$\pi_1(X,x_0)$.
+\end{proposition}
+
+\section{The lifting criterion}
+\label{section-covering-lifting-criterion}
+
+Consider a covering $p:\tilde{X}\to X$ and
+an arbitrary map $f:Y\to X$. Under what
+conditions is it possible to lift this map
+to the covering? We want the following
+diagram to commute.
+$$
+\xymatrix{
+  & \tilde{X} \ar[d]^{p} \\
+Y \ar@{-->}[ur]^{\tilde{f}}
+  \ar[r]_{f}
+  & X
+}
+$$
+Such maps do not always exist. To know when
+they do, we first need a definition.
+
+\begin{definition}
+\label{definition-locally-path-connected}
+A topological space $Y$ is
+{\it locally path-connected} if for every
+point $y\in Y$ and every neighbourhood $U$
+of $y$ there is a path-connected $V$ with
+$y\in V\subseteq U$.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-lifting-criterion}
+Let $p:(\tilde{X},\tilde{x}_0)\to(X,x_0)$ be
+a covering and $f:(Y,y_0)\to(X,x_0)$ a map
+with $Y$ path-connected and locally
+path-connected. Then a lift
+$\tilde{f}:(Y,y_0)\to
+(\tilde{X},\tilde{x}_0)$
+exists if and only if
+$$
+f_*\pi_1(Y,y_0)\subseteq
+p_*\pi_1(\tilde{X},\tilde{x}_0).
+$$
+\end{proposition}
+
+\section{Uniqueness of lifts}
+\label{section-covering-uniqueness-lifts}
+
+Under what conditions is a lift unique? When
+two lifts agree at one point, they must be
+equal, as long as the domain is connected.
+This is Proposition
+\ref{proposition-unique-lifting-property},
+stated and proved in
+Section \ref{section-covering-spaces}
+following \cite{hat}; the course video
+stated it for based spaces. The situation is
+the following diagram.
+$$
+\xymatrix{
+  & \tilde{X} \ar[d]^{p} \\
+Y \ar@<0.6ex>[ur]^{\tilde{f}_1}
+  \ar@<-0.6ex>[ur]_{\tilde{f}_2}
+  \ar[r]_{f}
+  & X
+}
+$$
+
+\section{The universal covering}
+\label{section-universal-covering}
+
+In this section we try to classify all the
+coverings that a space can have. The first
+question is in which cases a space has a
+covering whose fundamental group is trivial.
+Such a covering will be called the
+{\it universal covering}; it is universal in
+that it covers any other covering.
+
+Suppose we have a space $X$ that is
+path-connected and locally path-connected.
+Now take a covering $p:\tilde{X}\to X$ as we
+said, simply connected. When we take a point
+$x\in X$ and a regular neighbourhood, any
+loop contained in that neighbourhood can be
+lifted to one of its preimages. But since
+the covering space $\tilde{X}$ is simply
+connected, the lifted loop is contractible,
+and that homotopy projects to a homotopy
+from the loop we started with to the
+constant loop.
+
+\begin{definition}
+\label{definition-semilocally-simply-conn}
+A space $X$ is
+{\it semilocally simply connected} if every
+$x\in X$ has a neighbourhood $U$ such that
+every loop contained in $U$ contracts to the
+constant loop $c_x$ in $X$. Equivalently,
+the homomorphism
+$\pi_1(U,x)\to\pi_1(X,x)$ induced by the
+inclusion is trivial.
+\end{definition}
+
+So we have already shown that if $X$ has a
+universal covering then it is semilocally
+simply connected. Now we want to see that
+the converse is also true, when $X$ is also
+path-connected and locally path-connected.
+
+\begin{proposition}
+\label{proposition-simply-connected-paths}
+A space $Y$ is simply connected if and only
+if for all $x,y\in Y$ there is a unique
+homotopy class relative to $0,1$ of paths
+joining $x$ to $y$.
+\end{proposition}
+
+This implies that there is a bijection
+between the points of a simply connected
+space $Y$ and the equivalence classes of
+paths that start at $x_0$, that is, between
+$Y$ and the set
+$$
+\{[\gamma]:\gamma(0)=x_0\}.
+$$
+
+Now consider a covering $p:\tilde{X}\to X$
+with $\tilde{X}$ simply connected and a
+point $\tilde{x}_0\in\tilde{X}$. Write
+$p(\tilde{x}_0)=x_0\in X$. Then, by what was
+just said, the points of the covering space
+$\tilde{X}$ are in bijection with the
+classes of paths that start at
+$\tilde{x}_0$, and projecting by $p$ we land
+in the paths that start at $x_0$. Using the
+homotopy lifting property, one verifies that
+this correspondence between the two sets
+$$
+\{[\gamma]:\gamma(0)=\tilde{x}_0\},
+\qquad
+\{[\beta]:\beta(0)=x_0\}
+$$
+is bijective.
+
+\begin{theorem}
+\label{theorem-universal-covering-exists}
+Suppose that $X$ is a path-connected,
+locally path-connected and semilocally
+simply connected topological space, and take
+a base point $x_0\in X$. The space
+$$
+\tilde{X}:=\{[\gamma]:\gamma(0)=x_0\}
+$$
+together with the map $p:\tilde{X}\to X$
+given by
+$$
+p([\gamma])=\gamma(1)
+$$
+is a universal covering of $X$. That is:
+\begin{itemize}
+\item $\tilde{X}$ has a topology;
+\item $p$ is continuous;
+\item $p$ is a covering;
+\item $\tilde{X}$ is simply connected.
+\end{itemize}
+\end{theorem}
+
+\section{The classification theorem for
+coverings}
+\label{section-classification-coverings}
+
+In this section we see, roughly, that there
+is a correspondence between coverings (up to
+isomorphism) and the subgroups of the
+fundamental group. (The original notes say
+``universal coverings'' here.)
+
+\begin{proposition}
+\label{proposition-covering-for-subgroup}
+Let $X$ be a path-connected, locally
+path-connected and semilocally simply
+connected topological space. Then for every
+$H\leq\pi_1(X,x_0)$ there is a covering
+$p:X_H\to X$ such that
+$$
+p_{*}\left(\pi_1(X_H,\tilde{x}_0)\right)=H.
+$$
+\end{proposition}
+
+\begin{proof}
+Using the construction of the universal
+covering, we take an equivalence relation
+$\sim$ determined by $H$ and propose the
+quotient space $\tilde{X}/{\sim}$.
+\end{proof}
+
+Now we ask whether this covering is unique
+in some way. The answer is yes, but first we
+must define the notion of isomorphism of
+coverings.
+
+\begin{definition}
+\label{definition-isomorphic-coverings}
+Two coverings $p_1:\tilde{X}_1\to X$ and
+$p_2:\tilde{X}_2\to X$ are {\it isomorphic}
+if there is a homeomorphism
+$f:\tilde{X}_1\to\tilde{X}_2$ making the
+following diagram commute.
+$$
+\xymatrix{
+\tilde{X}_1 \ar[dr]_{p_1} \ar[rr]^{f}
+  && \tilde{X}_2 \ar[dl]^{p_2} \\
+  & X
+}
+$$
+\end{definition}
+
+\begin{proposition}
+\label{proposition-isomorphic-coverings}
+If $X$ is path-connected and locally
+path-connected, then
+$p_1:\tilde{X}_1\to X$ and
+$p_2:\tilde{X}_2\to X$ are isomorphic via a
+map $f:\tilde{X}_1\to\tilde{X}_2$, with base
+points such that
+$f(\tilde{x}_1)=\tilde{x}_2$ and
+$p_1(\tilde{x}_1)=p_2(\tilde{x}_2)=x_0
+\in X$,
+if and only if
+$$
+p_{1*}\left(\pi_1(\tilde{X}_1,\tilde{x}_1)
+\right)
+=p_{2*}\left(\pi_1(\tilde{X}_2,\tilde{x}_2)
+\right).
+$$
+\end{proposition}
+
+Note that in Proposition
+\ref{proposition-covering-for-subgroup}
+the group $H$ was an arbitrary subgroup of
+$\pi_1(X,x_0)$. We have shown that two
+coverings that come from the same subgroup
+are isomorphic. In fact, we have already
+shown the following.
+
+\begin{theorem}
+\label{theorem-classification-based-covers}
+Let $X$ be a path-connected, locally
+path-connected and semilocally simply
+connected space, and $x_0\in X$. Consider
+the set of coverings
+$p:(\tilde{X},\tilde{x}_0)\to(X,x_0)$ up to
+isomorphism, and the set of subgroups
+$H\leq\pi_1(X,x_0)$. The correspondence
+from the first set to the second given by
+$$
+p\longmapsto
+p_*\left(\pi_1(\tilde{X},\tilde{x}_0)
+\right)
+$$
+is a bijection.
+\end{theorem}
+
+\begin{remark}
+\label{remark-classification-hypotheses}
+The original notes state this theorem and
+the next one for $X$ ``connected, locally
+path-connected and semilocally
+path-connected''. The hypotheses written
+above are those of
+Proposition
+\ref{proposition-covering-for-subgroup}; see
+\cite{hat}, Theorem 1.38.
+\end{remark}
+
+Note that if we change the choice of the
+base point $\tilde{x}_0$ in the covering,
+we may land in a very different subgroup.
+This leads to the following.
+
+\begin{theorem}
+\label{theorem-classification-coverings}
+Let $X$ be a path-connected, locally
+path-connected and semilocally simply
+connected space, and $x_0\in X$. Consider
+the set of coverings $p:\tilde{X}\to X$ up
+to isomorphism, and the set of subgroups
+$H\leq\pi_1(X,x_0)$ up to conjugation. For a
+covering $p$, choose
+$\tilde{x}_0\in p^{-1}(x_0)$. The
+correspondence from the first set to the
+second given by
+$$
+p\longmapsto
+p_*\left(\pi_1(\tilde{X},\tilde{x}_0)
+\right)
+$$
+is a bijection.
+\end{theorem}
+
+\section{Deck transformations}
+\label{section-deck-transformations}
+
+\begin{definition}
+\label{definition-deck-transformation}
+Take a space $X$ and a covering
+$p:\tilde{X}\to X$. A
+{\it deck transformation} is an isomorphism
+of $\tilde{X}$ with itself, that is, a
+homeomorphism $f$ making the following
+diagram commute.
+$$
+\xymatrix{
+\tilde{X} \ar[r]^{f} \ar[d]_{p}
+  & \tilde{X} \ar[dl]^{p} \\
+X
+}
+$$
+That is, $pf=p$. The set $G(\tilde{X})$ of
+all deck transformations
+$f:\tilde{X}\to\tilde{X}$ has a group
+structure, and we call it the
+{\it group of deck transformations}.
+\end{definition}
+
+\begin{example}
+\label{example-deck-transformations-circle}
+The covering $f_n:S^1\to S^1$ given by
+$z\mapsto z^n$ has group of deck
+transformations
+$$
+G(f_n:S^1\to S^1)=\mathbb{Z}/n\mathbb{Z}.
+$$
+Moreover, $f_{n*}\pi_1(S^1)=n\mathbb{Z}$.
+So
+$$
+G(f_n:S^1\to S^1)\cong
+\pi_1(S^1)/f_{n*}\pi_1(S^1).
+$$
+And this is no coincidence.
+
+Moreover, for the universal covering of
+$S^1$, which is $\exp:\mathbb{R}\to S^1$,
+this also holds, since the fundamental group
+of $\mathbb{R}$ is trivial, that is,
+$$
+G(\exp:\mathbb{R}\to S^1)
+\cong\mathbb{Z}/\{0\}\cong\mathbb{Z}.
+$$
+\end{example}
+
+\begin{proposition}
+\label{proposition-deck-agree-point}
+If $g,f:\tilde{X}\to\tilde{X}$ are deck
+transformations with $\tilde{X}$
+path-connected and such that there is
+$x\in\tilde{X}$ with $g(x)=f(x)$, then
+$g=f$.
+\end{proposition}
+
+\begin{proof}
+It is enough to think of the deck
+transformation as a lift of the covering
+projection.
+$$
+\xymatrix{
+  & \tilde{X} \ar[d]^{p} \\
+\tilde{X} \ar@{-->}[ur]^{f} \ar[r]_{p}
+  & X
+}
+$$
+By uniqueness of lifts
+(Proposition
+\ref{proposition-unique-lifting-property}),
+$f$ is unique once we choose the image of
+one point.
+\end{proof}
+
+\begin{definition}
+\label{definition-normal-covering}
+A covering $p:\tilde{X}\to X$ is {\it normal}
+if for any $x\in X$ and any
+$\tilde{x},\tilde{x}'$ in the fibre of $x$
+there is a deck transformation
+$f:\tilde{X}\to\tilde{X}$ such that
+$f(\tilde{x})=\tilde{x}'$. That is, the
+group of deck transformations acts
+transitively on the fibres.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-deck-group-normalizer}
+Let $p:(\tilde{X},\tilde{x}_0)\to(X,x_0)$
+be a covering with $\tilde{X}$ and $X$
+path-connected and locally path-connected.
+Let
+$$
+H=p_*\pi_1(\tilde{X},\tilde{x}_0)
+\leq\pi_1(X,x_0).
+$$
+Then:
+\begin{enumerate}
+\item the covering is normal if and only if
+$H$ is a normal subgroup of $\pi_1(X,x_0)$;
+\item $G(\tilde{X})\cong N(H)/H$, where
+$$
+N(H)=\left\{g\in\pi_1(X,x_0):
+g^{-1}Hg=H\right\}.
+$$
+\end{enumerate}
+In particular, when $\tilde{X}$ is normal,
+$G(\tilde{X})\cong\pi_1(X,x_0)/H$. And if
+moreover $\tilde{X}$ is the universal
+covering, we simply have
+$G(\tilde{X})\cong\pi_1(X,x_0)$.
+\end{proposition}
+
+\section{Group actions and coverings}
+\label{section-group-actions-coverings}
+
+\begin{definition}
+\label{definition-group-action-space}
+A group $G$ {\it acts} on a space $X$ if
+there is a group homomorphism
+$$
+\varphi:G\to\operatorname{Homeo}(X).
+$$
+We write $g(x)$ or $gx$ for
+$\varphi(g)(x)$, so that:
+\begin{itemize}
+\item
+$\varphi(g_1g_2)=\varphi(g_1)\varphi(g_2)$;
+\item $(g_1g_2)x=g_1(g_2(x))$;
+\item
+$\varphi(1_G)=\operatorname{Id}_X$.
+\end{itemize}
+This is denoted $G\curvearrowright X$. The
+{\it orbit} of a point $x\in X$ is the set
+$$
+\operatorname{Orb}(x)=\{g(x):g\in G\}.
+$$
+\end{definition}
+
+Note that the relation $x\sim y$ if and only
+if $y\in\operatorname{Orb}(x)$ is an
+equivalence relation, so we can think of the
+quotient space $X/{\sim}$, written $X/G$. We
+ask the following question: given a group
+action $G\curvearrowright Y$, when is
+$Y\to Y/G$ a covering?
+
+\begin{definition}
+\label{definition-covering-action}
+An action $G\curvearrowright Y$ is a
+{\it covering action} if either of the
+following two equivalent conditions holds.
+\begin{itemize}
+\item Every point $y\in Y$ has a
+neighbourhood $U$ such that
+$g_1U\cap g_2U\neq\emptyset$ implies
+$g_1=g_2$.
+\item Every point $y\in Y$ has a
+neighbourhood $U$ such that
+$gU\cap U\neq\emptyset$ implies $g=1_G$.
+\end{itemize}
+In particular, these conditions imply that
+the action is {\it free}, that is, if
+$g(y)=y$ for some $g\in G$ and $y\in Y$,
+then $g=1_G$. This is the same notion as in
+Definition
+\ref{definition-prope-disco-actio}.
+\end{definition}
+
+\begin{proposition}
+\label{proposition-covering-action-quotient}
+Given a covering action
+$G\curvearrowright Y$:
+\begin{enumerate}
+\item the quotient projection
+$p:Y\to Y/G$ given by $p(y)=Gy$ is a normal
+covering;
+\item if $Y$ is path-connected, $G$ is the
+group of deck transformations of $p$;
+\item if $Y$ is path-connected and locally
+path-connected, then
+$$
+G\cong\pi_1(Y/G,y_0)\big/
+p_*\pi_1(Y,\tilde{y}_0).
+$$
+\end{enumerate}
+\end{proposition}
+
+\begin{corollary}
+\label{corollary-covering-action-simply-conn}
+If moreover $Y$ is simply connected, then by
+the second and third items,
+$$
+G=G(Y)\cong\pi_1(Y/G,y_0).
+$$
+\end{corollary}
+
+\section{Exercises on covering spaces}
+\label{section-covering-exercises}
+
+\begin{exercise}
+\label{exercise-covering-sphere-wedge-torus}
+Let $S$ be the 2-sphere and $T$ the 2-torus.
+Compute the fundamental group $G$ of
+$X:=S\vee T$, construct the universal
+covering $\widetilde{X}\to X$ and describe
+the action of $G$ on $\widetilde{X}$ by deck
+transformations.
+\end{exercise}
+
+\begin{proof}[Solution]
+By the Van Kampen theorem,
+$\pi_1(S\vee T,x_0)
+=\mathbb{Z}\times\mathbb{Z}$.
+The universal covering is $\mathbb{R}^2$
+with copies of $S^2$ glued at each point
+with integer coordinates, and the action by
+deck transformations is exactly the
+collection of translations by vectors with
+integer coordinates.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-covering-of-cw-complex}
+Let $f:X\to Y$ be a covering. Show that if
+$Y$ is a CW complex, then so is $X$.
+\end{exercise}
+
+\begin{proof}[Solution]
+First define $X^0:=f^{-1}(Y^0)$. The idea is
+to use the lifting criterion for the
+attaching maps. However, this cannot be done
+to build the 1-skeleton of $X$, because
+$S^0$ is not connected. What we can do is
+take the characteristic map
+$$
+\xymatrix{
+  & X \ar[d]^{f} \\
+D_\alpha^1
+  \ar@{-->}[ur]^{\tilde{\Phi}_\alpha}
+  \ar[r]_{\Phi_\alpha}
+  & Y^1
+}
+$$
+which lifts because $D^1_\alpha$ is
+contractible. With this we can define the
+attaching map
+$\tilde{\varphi}_\alpha:S^0\to X^0$
+directly as
+$\tilde{\varphi}_\alpha(-1)
+=\tilde{\Phi}_\alpha(0)$
+and
+$\tilde{\varphi}_\alpha(1)
+=\tilde{\Phi}_\alpha(1)$,
+which works because the characteristic map
+extends the attaching map.
+
+The same method works to build the
+2-skeleton, and the remaining attaching maps
+can be lifted directly because $S^n$ is
+simply connected for $n>1$.
+
+If $Y$ is finite-dimensional, we know that
+$Y=Y^n$. The original solution stops here
+with the note ``a little is missing''.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-covering-surfaces-genus}
+Show that for every $g\geq2$ there is a
+covering $S_g\to S_2$, that is, the surface
+of genus 2 is covered by every surface of
+genus $g\geq2$. Show moreover that the torus
+is not covered by any closed surface of
+genus $g\geq2$.
+\end{exercise}
+
+\begin{proof}[Solution]
+Here we must visualize $S_g$ as a
+flower-shaped doughnut with one hole in the
+centre and $g-1$ petals. In this case the
+cyclic group of order $g-1$ gives a covering
+action on $S_g$ by rotating around the
+central hole. The resulting quotient space
+is exactly $S_2$, since all the petals are
+identified.
+
+Suppose there is a covering $p:S_g\to T$
+with $g\geq2$. We know that the induced
+homomorphism $p_*$ is injective, so
+$p_*\pi_1(S_g)\cong\pi_1(S_g)$, which by the
+Van Kampen theorem has the presentation with
+generators $a_1,b_1,\ldots,a_g,b_g$ and the
+single relation
+$$
+a_1b_1a_1^{-1}b_1^{-1}\cdots
+a_gb_ga_g^{-1}b_g^{-1},
+$$
+and is not commutative. But every subgroup
+of $\pi_1(T)\cong\mathbb{Z}\times\mathbb{Z}$
+is commutative.
+\end{proof}
+
+\begin{exercise}[Hatcher 1.3.8]
+\label{exercise-hatcher-covering-equivalence}
+Let $\tilde{X}$ and $\tilde{Y}$ be simply
+connected covering spaces of path-connected
+and simply connected spaces $X$ and $Y$.
+Show that if $X\simeq Y$, then
+$\tilde{X}\simeq\tilde{Y}$. (It may help to
+use Exercise
+\ref{exercise-hatcher-homotopy-equivalence}.)
+\end{exercise}
+
+\begin{remark}
+\label{remark-hatcher-covering-equivalence}
+The statement is copied as in the original
+notes. In \cite{hat}, Exercise 1.3.8, the
+spaces $X$ and $Y$ are path-connected and
+locally path-connected.
+\end{remark}
+
+\begin{proof}[Solution]
+Everything is in the following commutative
+diagram.
+$$
+\xymatrix{
+  &&& \tilde{X} \ar[dd]^{p} \\
+  && \tilde{Y} \ar[d]^{q}
+     \ar@{-->}[ur]^{\tilde{g}} \\
+\tilde{X} \ar@{-->}[urr]^{\tilde{f}}
+  \ar[r]_{p}
+  & X \ar[r]_{f}
+  & Y \ar[r]_{g}
+  & X
+}
+$$
+Here:
+\begin{enumerate}
+\item $f$ and $g$ are homotopy equivalences
+between $X$ and $Y$.
+\item $fp$ lifts to a unique map $\tilde{f}$
+by the connectedness hypotheses. The same
+holds to find $\tilde{g}$.
+\item Since everything commutes,
+$\tilde{g}\tilde{f}$ is a lift of $gfp$.
+\item Since
+$gf\simeq\operatorname{Id}_X$, we have
+$gfp\simeq p$. This homotopy lifts uniquely
+to a homotopy
+$H:\tilde{X}\times I\to\tilde{X}$ with, as
+we have just seen,
+$H(-,0)=\tilde{g}\tilde{f}$. Then
+$pH(-,1)=p$.
+\item So $h:=H(-,1)$ is a lift of $p$, just
+like the identity. If we managed to see that
+they agree at a single point, that is, that
+$h$ fixes some point, then by uniqueness of
+lifts we would have
+$h=\operatorname{Id}_{\tilde{X}}$.
+
+But we are not certain that this happens.
+What we do know is that since $\tilde{X}$ is
+simply connected, $p$ is a normal covering.
+So the group of deck transformations acts
+transitively on the fibres of points.
+
+So take a point $\xi\in\tilde{X}$. If $h$
+does not fix it, too bad, but we know that
+there is a deck transformation $u$ such that
+$u(h(\xi))=\xi$.
+
+Now, by uniqueness of lifts,
+$uh=\operatorname{Id}_{\tilde{X}}$.
+\item Then
+$u\tilde{g}\tilde{f}\simeq
+\operatorname{Id}_{\tilde{X}}$.
+\item Exercise
+\ref{exercise-hatcher-homotopy-equivalence}
+assures us that if we find two maps
+$\phi,\psi:\tilde{Y}\to\tilde{X}$ such that
+$\phi\tilde{f}\simeq
+\operatorname{Id}_{\tilde{X}}$
+and
+$\tilde{f}\psi\simeq
+\operatorname{Id}_{\tilde{Y}}$,
+then $\tilde{f}$ is a homotopy equivalence
+and we are done. We have already found
+$\phi$.
+
+To find $\psi$, we simply repeat the same
+reasoning, only now we need a deck
+transformation $w$ such that
+$\tilde{f}\tilde{g}w\simeq
+\operatorname{Id}_{\tilde{Y}}$.
+
+That is, here $w$ must be applied before the
+map we obtain through the homotopy, say
+$\bar{h}$. This is legitimate: instead of
+moving $\bar{h}(\xi)$ back to $\xi$, we
+first move $\xi$ by $w$ to a point in the
+preimage of $\xi$ under $\bar{h}$. Although
+$\bar{h}$ may not be surjective, it is
+enough to choose
+$\xi\in\operatorname{im}\bar{h}$.
+\end{enumerate}
+\end{proof}
+
+\begin{exercise}
+\label{exercise-maps-to-circle-finite-pi1}
+Show that if $X$ is path-connected and
+locally path-connected and $\pi_1(X)$ is
+finite, then every map $f:X\to S^1$ is
+homotopic to a constant.
+\end{exercise}
+
+\begin{proof}[Solution]
+Since $\pi_1(X)$ is finite and
+$f_*\pi_1(X)$ is a subgroup of
+$\pi_1(S^1)\cong\mathbb{Z}$, and the only
+finite subgroup of $\mathbb{Z}$ is the
+trivial one, we have $f_*\pi_1(X)=0$. Hence
+there is a lift $\tilde{f}:X\to\mathbb{R}$
+to the universal covering of the circle.
+$$
+\xymatrix{
+  & \mathbb{R} \ar[d]^{p} \\
+X \ar@{-->}[ur]^{\tilde{f}} \ar[r]_{f}
+  & S^1
+}
+$$
+Since $X$ is path-connected, the image of
+$\tilde{f}$ must be an interval, which is
+contractible, that is,
+$\operatorname{im}\tilde{f}\simeq
+\{\tilde{x}_0\}$
+via a homotopy equivalence
+$\phi:\operatorname{im}\tilde{f}\to
+\{\tilde{x}_0\}$
+and
+$\psi:\{\tilde{x}_0\}\to
+\operatorname{im}\tilde{f}$.
+Of course, these two maps are nothing but
+the constant $\tilde{x}_0$, so in fact we
+have a homotopy from the identity of
+$\operatorname{im}\tilde{f}$ to the
+constant $\tilde{x}_0$, say
+$$
+h:\operatorname{im}\tilde{f}\times I\to
+\operatorname{im}\tilde{f}
+$$
+with $h(x,0)=x$ and $h(x,1)=\tilde{x}_0$.
+
+The map $g(x,t)=p(h(\tilde{f}(x),t))$ is a
+homotopy between $f=p\circ\tilde{f}$ and the
+constant $x_0=p(\tilde{x}_0)$.
+\end{proof}
+
 
 \section{Homological algebra for topology}
 \label{at-section-homological-algebra}
