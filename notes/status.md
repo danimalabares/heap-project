@@ -9,6 +9,6 @@ Latest handoff: notes/handoff/2026-11-25-1700.md
 
 ## Next
 
-- Ask Daniel the name and teacher of the Ricoeur course.
+- Ricoeur course: taught by Greta Rivara; its name is still unknown.
 - Optional: remaining philosophy coursework (exams, Aristotle reading notes,
   essay drafts); date order for the Conferences Part.
