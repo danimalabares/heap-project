@@ -33,8 +33,8 @@ details{margin-top:10px;font-size:13px;color:var(--muted)}details p{max-width:72
 </header><div class="readings"><span>Longitud AB <b id="length"></b></span><span>Giro de S₃ <b id="angle"></b></span></div>
 <main><canvas id="cv" aria-label="Vista 3D interactiva de dos caras con la arista AB en común"></canvas></main>
 <div class="legend"><span>Cara inicial</span><span>Su imagen por S₃</span></div>
-<p class="hint">Arrastra para mirar desde otro lado. Usa la rueda para acercarte.</p>
-<aside><div class="controls"><output id="alpha" for="slider"></output><input id="slider" type="range" min="-1.5707963267948966" max="1.5707963267948966" step="any" aria-label="Parámetro α"><button id="play">▶ Variar α</button></div>
+<p class="hint">Arrastra para mirar desde otro lado. Usa la rueda para acercarte y la barra espaciadora para pausar o continuar.</p>
+<aside><div class="controls"><output id="alpha" for="slider"></output><input id="slider" type="range" min="-1.5707963267948966" max="1.5707963267948966" step="any" aria-label="Parámetro α"><button id="play" aria-keyshortcuts="Space">▶ Variar α</button></div>
 <div class="jump"><button id="short">Arista más corta</button><button id="roli">Dragón-octaédrico</button><button id="long">Arista más larga</button><button id="turn">▶ Aplicar S₃</button></div>
 <div class="jump"><label><input type="checkbox" id="faces" checked> Ver las dos caras completas</label><button id="walk">Recorrer 12 lados</button><output id="count"></output></div>
 <details><summary>Cómo está hecha la vista 3D</summary><p>La familia {5,3,5/2} vive en cuatro dimensiones. Para cada α calculamos los doce vértices de la cara y sus imágenes por S₃. Usamos una proyección oblicua: parte de la coordenada en la dirección del punto medio de AB se dibuja a lo largo del eje AB. Así se separan los vértices que coincidían en la vista ortogonal. Así se conservan la longitud de AB y el giro alrededor de AB. Para comparar distintos α mantenemos el eje de la arista en la misma dirección y alineada la primera cara por su vértice vecino P.</p>
@@ -96,6 +96,8 @@ let palette=light, W=0,H=0, yaw=.49,pitch=.45,roll=-.16,zoom=1,drag=null;
 let s=stops.roli, data=frame(s), progress=1, turning=false, hold=1.3, last=null;
 let playing=!matchMedia("(prefers-reduced-motion: reduce)").matches;
 let walk=null;
+let paused=false;
+function hasMotion(){return playing || turning || (walk!==null && walk<12)}
 function camera([x,y,z]){
   const a=Math.cos(yaw)*x-Math.sin(yaw)*z, b=Math.sin(yaw)*x+Math.cos(yaw)*z;
   const up=Math.cos(pitch)*y-Math.sin(pitch)*b, depth=Math.sin(pitch)*y+Math.cos(pitch)*b;
@@ -152,17 +154,34 @@ function display(){
   $("alpha").value="α = "+alpha;$("slider").value=s; $("slider").setAttribute("aria-valuetext","α = "+alpha);
   $("angle").textContent=(Math.abs(data.angle)*180/pi).toFixed(1)+"°";
   $("length").textContent=data.length.toFixed(3);
-  $("play").textContent=playing?"❙❙ Pausar α":"▶ Variar α";draw();
+  $("play").textContent=paused?"▶ Continuar":hasMotion()?"❙❙ Pausar":"▶ Variar α";draw();
 }
 function leaveWalk(){walk=null;$("count").value="";$("walk").textContent="Recorrer 12 lados"}
 $("walk").onclick=()=>{
+  paused=false;
   if(walk===null){walk=0;playing=false;turning=false;$("walk").textContent="Volver a las dos caras"}
   else leaveWalk();
   display();
 };
-function manual(value){leaveWalk();s=value;playing=false;turning=false;progress=1;display()}
-function turn(){leaveWalk();playing=false;turning=true;progress=0;display()}
-$("play").onclick=()=>{leaveWalk();playing=!playing;turning=false;hold=0;display()};
+function manual(value){paused=false;leaveWalk();s=value;playing=false;turning=false;progress=1;display()}
+function turn(){paused=false;leaveWalk();playing=false;turning=true;progress=0;display()}
+function togglePlayback(){
+  if(hasMotion()){
+    paused=!paused;
+  }else{
+    leaveWalk();
+    playing=true;
+    paused=false;
+    hold=0;
+  }
+  display();
+}
+$("play").onclick=togglePlayback;
+document.addEventListener("keydown",event=>{
+  if(event.key!==" " || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+  event.preventDefault();
+  if(!event.repeat) togglePlayback();
+});
 $("turn").onclick=turn;
 for(const [key,value] of Object.entries(stops))$(key).onclick=()=>{manual(value);turn()};
 $("slider").oninput=e=>manual(Number(e.target.value));
@@ -184,8 +203,9 @@ function resize(){
 }
 function tick(now){
   const dt=last===null?0:Math.min(.06,(now-last)/1000);last=now;
-  if(walk!==null && walk<12){walk=Math.min(12,walk+dt*1.1);draw()}
-  else if(turning){progress=Math.min(1,progress+dt/2.1);turning=progress<1;draw()}
+  if(paused){requestAnimationFrame(tick);return}
+  if(walk!==null && walk<12){walk=Math.min(12,walk+dt*1.1);if(walk===12) display();else draw()}
+  else if(turning){progress=Math.min(1,progress+dt/2.1);turning=progress<1;if(turning) draw();else display()}
   else if(playing){
     if(hold>0)hold-=dt;
     else{
