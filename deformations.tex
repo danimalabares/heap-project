@@ -14,48 +14,12 @@
 \label{section-intro}
 
 \noindent
-\cite{Sernesi-Overview} has a great way of
-motivating deformation
-theory via the moduli problem.
-Here let's just put the following important
-meaning for
-``deformation theory'' (as opposed to
-studying flat families!):
-
-\begin{quote}
-``{\it Deformation theory} is the study of
-infinitesimal deformaitons
-as a tool to understand the local structure
-of the moduli space.
-The goal is to be able to describe the
-restriction
-of the universal family to a small
-neighborhood of $m \in \mathcal{M}$,
-or, more precisely, its restriction to the
-germ of $M$ at $m$.
-
-What is interesting here is that we can study
-order and infinitesimal
-deformations even though the functor $F$ is
-not representable or simply we don’t
-yet know it is. This is the most frequent
-case. Such an investigation will
-reveal the infinitesimal properties at $[X]$
-of a yet unknown global structure
-on $M$ which will be hopefully understood at
-a subsequent stage of the
-investigation.  In order words it turns out
-to be possible and convenient to
-separate the {\it global moduli problem} from
-the {\it local moduli problem},
-and deformation theory studies the latter,
-with the purpose of constructing a
-family of deformations of a given object
-parametrized by the spectrum of a local
-ring, and having properties as close as
-possible to a universal property.''
-\end{quote}
-
+Deformation theory studies how a scheme
+varies over a base with a marked fibre.
+Infinitesimal bases probe the local
+structure of a moduli problem even when
+a moduli space has yet to be constructed
+\cite{Sernesi-deformations}.
 
 \section{A short history of deformation theory}
 \label{section-history-deformation-theory}
@@ -160,9 +124,7 @@ IH\'ES in 1970, and Deligne proved the final
 Weil conjecture in 1974 by a different
 route.
 
-\begin{remark}[Algebraization in the
-Gr\"unbaum paper]
-Two related results must not be conflated.
+\begin{remark}[Algebraization]
 Grothendieck's existence theorem, developed
 in EGA III in 1961, gives effectivity and
 algebraization results over a complete local
@@ -177,18 +139,729 @@ of finite type. See
 \href{https://stacks.math.columbia.edu/tag/04UW}
 {Stacks Project's historical summary}.
 
-Consequently, the sentence in our current
-handout saying that properness and
-``Grothendieck's Existence Theorem'' turn a
-formal family directly into a family over
-an algebraic curve is probably too quick.
-The passage from a formal family over
-$\operatorname{Spf}k[[s]]$ to a family over
-an algebraic curve generally involves Artin
-approximation or algebraization. This step
-must be stated carefully in the paper.
 \end{remark}
 
+
+\section{Deformations of schemes}
+\label{section-deformations-of-schemes}
+
+\noindent
+We use the terminology of \cite{Sernesi-deformations}.
+
+\begin{definition}
+\label{definition-deformation}
+Let $X$ be an algebraic $\mathbb{C}$-scheme.
+\begin{enumerate}
+\item A {\it deformation} of $X$ is a
+Cartesian diagram $\xi$
+$$
+\xymatrix{
+X\ar[r]\ar[d]&\mathcal{X}\ar[d]^{\pi}\\
+\Spec \mathbb{C}\ar[r]^s&S
+}
+$$
+where $\pi$ is a flat surjective morphism of
+algebraic $\mathbb{C}$-schemes and
+$S$ is connected. (Recall that flatness
+accounts for ``continuity''.)
+\item A {\it local deformation} of $X$ is a
+deformation $\xi$ where
+$S=\Spec A$ for $A$ a noetherian local
+$\mathbb{C}$ algebra with residue
+field $\mathbb{C}$.
+\item An {\it infinitesimal deformation of
+$X$} is a local deformation with $A$
+an artinian local $\mathbb{C}$-algebra with
+residue field $\mathbb{C}$. $X$ is
+called {\it rigid} if all infinitesimal
+deformations are trivial.
+\item An {\it inifinitesimal deformation of
+order $n$} is an infinitesimal
+deformation when $S=\Spec
+(\mathbb{C}[t]/(t^{n+1})$.
+\end{enumerate}
+\end{definition}
+
+
+\section{Structures over the Dual Numbers}
+\label{section-structures-dual-numbers}
+
+\noindent
+For first-order deformations, see
+\cite[Chapter 1, Section 2]
+{Hartshorne-deformation}.
+
+\begin{definition}
+\label{definition-dual-numbers-first-order}
+The very first deformation question to study
+is structures over the \emph{dual numbers}
+$$
+D=k[t]/t^2.
+$$
+That is, one gives a structure (e.g., a
+scheme, or a scheme with a subscheme, or a
+scheme with a sheaf on it) over $k$ and one
+seeks to classify extensions of this
+structure over the dual numbers. These are
+also called \emph{first-order deformations}.
+To ensure that our structure is evenly
+spread out over the base, we will always
+assume that the extended structure is flat
+over $D$. Flatness is the technical condition
+that corresponds to the intuitive idea of a
+deformation.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-flatness-tor}
+A module $M$ over a noetherian ring $A$ is
+flat if and only if for every prime ideal
+$\mathfrak{p}\subseteq A$,
+$$
+\operatorname{Tor}^A_1
+(M,A/\mathfrak{p})=0.
+$$
+\end{lemma}
+
+\begin{proposition}
+\label{proposition-square-zero-flatness}
+Let $A'\to A$ be a surjective homomorphism
+of noetherian rings whose kernel $J$ has
+square zero. Then an $A'$-module $M'$ is flat
+over $A'$ if and only if
+\begin{enumerate}
+\item
+$$
+M=M'\otimes_{A'}A
+$$
+is flat over $A$, and
+\item the natural map
+$$
+M\otimes_AJ\longrightarrow M'
+$$
+is injective.
+\end{enumerate}
+\end{proposition}
+
+\begin{definition}
+\label{definition-embedded-first-order}
+Let $X$ be a scheme over $k$ and let $Y$ be
+a closed subscheme of $X$. We define a
+\emph{deformation of $Y$ over $D$ in $X$} to
+be a closed subscheme
+$$
+Y'\subseteq X'=X\times D,
+$$
+flat over $D$, such that
+$$
+Y'\times_D k=Y.
+$$
+\end{definition}
+
+We consider the affine case first. Then $X$
+corresponds to a $k$-algebra $B$, and $Y$ is
+defined by an ideal $I\subseteq B$. We are
+seeking ideals
+$$
+I'\subseteq B'=B[t]/t^2
+$$
+with $B'/I'$ flat over $D$ and such that the
+image of $I'$ in $B=B'/tB'$ is just $I$.
+Note that
+$$
+(B'/I')\otimes_Dk=B/I.
+$$
+Since $B$ is automatically flat over $k$,
+by (2.2) the flatness of
+$B'/I'$ over $D$ is equivalent to the
+exactness of the sequence
+$$
+0\longrightarrow B/I
+\xrightarrow{t}B'/I'
+\longrightarrow B/I
+\longrightarrow 0.
+$$
+
+\begin{proposition}
+\label{proposition-affine-first-order}
+In the situation above, to give
+$I'\subseteq B'$ such that $B'/I'$ is flat
+over $D$ and the image of $I'$ in $B$ is $I$
+is equivalent to giving an element
+$$
+\varphi\in\operatorname{Hom}_B(I,B/I).
+$$
+In particular, $\varphi=0$ corresponds to the
+trivial deformation given by
+$$
+I'=I\oplus tI
+$$
+inside $B'\cong B\oplus tB$.
+\end{proposition}
+
+\begin{definition}
+\label{definition-normal-sheaf}
+Before stating the conclusion, we will
+define the \emph{normal sheaf of $Y$ in
+$X$}. Note that the group
+$$
+\operatorname{Hom}_X
+(\mathcal{I},\mathcal{O}_Y)
+$$
+can be regarded as
+$$
+H^0\bigl(X,
+\mathcal{H}om_X
+(\mathcal{I},\mathcal{O}_Y)\bigr).
+$$
+Furthermore, homomorphisms of $\mathcal{I}$
+to $\mathcal{O}_Y$ factor through
+$\mathcal{I}/\mathcal{I}^2$, which is a sheaf
+on $Y$. So
+$$
+\mathcal{H}om_X
+(\mathcal{I},\mathcal{O}_Y)
+=
+\mathcal{H}om_Y
+(\mathcal{I}/\mathcal{I}^2,
+\mathcal{O}_Y),
+$$
+and this latter sheaf is called the normal
+sheaf of $Y$ in $X$, and is denoted by
+$\mathcal{N}_{Y/X}$. If $X$ is nonsingular
+and $Y$ is a locally complete intersection
+in $X$, then $\mathcal{I}/\mathcal{I}^2$ is
+locally free, so $\mathcal{N}_{Y/X}$ is
+locally free also and can be called the
+\emph{normal bundle of $Y$ in $X$}. This
+terminology derives from the fact that if
+$Y$ is also nonsingular, there is an exact
+sequence
+$$
+0\longrightarrow\mathcal{T}_Y
+\longrightarrow\mathcal{T}_X|_Y
+\longrightarrow\mathcal{N}_{Y/X}
+\longrightarrow 0,
+$$
+where $\mathcal{T}_Y$ and $\mathcal{T}_X$
+denote the tangent sheaves to $Y$ and $X$,
+respectively. In this case, therefore,
+$\mathcal{N}_{Y/X}$ is the usual normal
+bundle.
+\end{definition}
+
+\begin{theorem}
+\label{theorem-embedded-first-order}
+Let $X$ be a scheme over a field $k$, and let
+$Y$ be a closed subscheme of $X$. Then the
+deformations of $Y$ over $D$ in $X$ are in
+natural one-to-one correspondence with
+elements of $H^0(Y,\mathcal{N}_{Y/X})$, the
+zero element corresponding to the trivial
+deformation.
+\end{theorem}
+
+\begin{corollary}
+\label{lemma-hilbert-tangent-first-order}
+If $Y$ is a closed subscheme of the
+projective space $X=\mathbb{P}^n_k$, then the
+Zariski tangent space of the Hilbert scheme
+$H$ at the point $y$ corresponding to $Y$ is
+isomorphic to $H^0(Y,\mathcal{N}_{Y/X})$.
+\end{corollary}
+
+Next we consider Situation B. Let $X$ be a
+scheme over $k$ and let $L$ be an invertible
+sheaf on $X$. We will study the set of
+isomorphism classes of invertible sheaves
+$L'$ on
+$$
+X'=X\times D
+$$
+such that $L'\otimes\mathcal{O}_X\cong L$.
+In this case flatness is automatic, because
+$L'$ is locally free and $X'$ is flat over
+$D$.
+
+\begin{proposition}
+\label{proposition-line-bundle-first-order}
+Let $X$ be a scheme over $k$, and $L$ an
+invertible sheaf on $X$. The set of
+isomorphism classes of invertible sheaves
+$L'$ on $X\times D$ such that
+$L'\otimes\mathcal{O}_X\cong L$ is in natural
+one-to-one correspondence with elements of
+the group $H^1(X,\mathcal{O}_X)$.
+\end{proposition}
+
+\begin{definition}
+\label{definition-coherent-first-order}
+Let $X$ be a scheme over $k$, and let $F$ be
+a coherent sheaf on $X$. We define a
+\emph{deformation of $F$ over $D$} to be a
+coherent sheaf $F'$ on $X'=X\times D$, flat
+over $D$, together with a homomorphism
+$F'\to F$ such that the induced map
+$$
+F'\otimes_D k\longrightarrow F
+$$
+is an isomorphism. We say that two such
+deformations $F'_1\to F$ and $F'_2\to F$ are
+\emph{equivalent} if there is an isomorphism
+$$
+F'_1\xrightarrow{\sim}F'_2
+$$
+compatible with the given maps to $F$.
+\end{definition}
+
+\begin{theorem}
+\label{theorem-coherent-first-order}
+Let $X$ be a scheme over $k$, and let $F$ be
+a coherent sheaf on $X$. The (equivalence
+classes of) deformations of $F$ over $D$ are
+in natural one-to-one correspondence with
+the elements of the group
+$\operatorname{Ext}^1_X(F,F)$, where the
+zero-element corresponds to the trivial
+deformation.
+\end{theorem}
+
+\begin{remark}
+\label{remark-unmarked-coherent-first-order}
+Given $F$ on $X$, we can also pose a
+different problem, like the one in (2.6),
+namely to classify isomorphism classes of
+coherent sheaves $F'$ on $X'$, flat over
+$D$, such that $F'\otimes_D k$ is isomorphic
+to $F$ (without specifying the isomorphism).
+This set need not be the same as the set of
+deformations of $F$, but we can explain
+their relationship as follows. The group
+$\operatorname{Aut}F$ of automorphisms of
+$F$ acts on the set of deformations of $F$
+by letting $\alpha\in\operatorname{Aut}F$
+applied to $f:F'\to F$ be
+$\alpha f:F'\to F$. Now let $f:F'\to F$ and
+$g:F''\to F$ be two deformations of $F$. One
+sees easily that $F'$ and $F''$ are
+isomorphic as sheaves on $X'$ if and only if
+there exists an
+$\alpha\in\operatorname{Aut}F$ such that
+$\alpha f$ and $g$ are equivalent as
+deformations of $F$. Thus the set of $F'$'s
+up to isomorphism as sheaves on $X'$ is the
+orbit space of $\operatorname{Ext}^1_X(F,F)$
+under the action of $\operatorname{Aut}F$.
+This kind of subtle distinction will play an
+important role in questions of
+pro-representability (Chapter 3).
+\end{remark}
+
+\begin{corollary}
+\label{lemma-vector-bundle-first-order}
+If $E$ is a vector bundle over $X$, then the
+deformations of $E$ over $D$ are in natural
+one-to-one correspondence with the elements
+of $H^1(X,\mathcal{E}nd E)$, where
+$\mathcal{E}nd E=\mathcal{H}om(E,E)$ is the
+sheaf of endomorphisms of $E$. The trivial
+deformation corresponds to the zero element.
+\end{corollary}
+
+
+
+\section{The deformation functor
+\texorpdfstring
+{$\operatorname{Def}_X$}{Def X}}
+\label{section-deformation-functor}
+
+\noindent
+The correct object parametrizing abstract
+infinitesimal deformations is initially a
+functor, not a scheme.
+
+Fix a field $k$ and a $k$-scheme $X$. Let
+$\mathbf{Art}_k$ denote the category of
+local Artinian $k$-algebras whose residue
+field is $k$. Its morphisms are local
+$k$-algebra homomorphisms.
+
+\begin{definition}
+\label{definition-deformation-artin}
+Let $A\in\mathbf{Art}_k$. A
+\emph{deformation of $X$ over $A$} is a
+flat morphism
+$$
+\pi:\mathcal{X}_A\longrightarrow
+\operatorname{Spec}A
+$$
+together with an isomorphism, called the
+marking of the special fiber,
+$$
+\iota:\mathcal{X}_A
+\times_{\operatorname{Spec}A}
+\operatorname{Spec}k\xrightarrow{\sim}X.
+$$
+An isomorphism between two such deformations
+is an isomorphism of $A$-schemes compatible
+with their markings.
+\end{definition}
+
+\begin{definition}
+\label{definition-def-x}
+The \emph{deformation functor of $X$} is
+defined as follows. For each
+$A\in\mathbf{Art}_k$, let $\mathcal{D}_X(A)$
+be the set of pairs $(\pi,\iota)$ in the
+previous definition. Its value at $A$ is
+$$
+\operatorname{Def}_X(A)
+=
+\mathcal{D}_X(A)/{\cong}.
+$$
+These sets form the functor
+$$
+\begin{aligned}
+\operatorname{Def}_X:
+\mathbf{Art}_k&\longrightarrow
+\mathbf{Sets},\\
+A&\longmapsto
+\operatorname{Def}_X(A).
+\end{aligned}
+$$
+If $A\to B$ is a homomorphism, the
+corresponding map
+$\operatorname{Def}_X(A)\to
+\operatorname{Def}_X(B)$ is given by base
+change:
+$$
+\mathcal{X}_A\longmapsto
+\mathcal{X}_A\times_{\operatorname{Spec}A}
+\operatorname{Spec}B.
+$$
+\end{definition}
+
+\noindent
+A richer version assigns to $A$ the
+\emph{groupoid} of deformations and their
+isomorphisms. Passing to the set of
+isomorphism classes forgets the automorphisms
+of each deformation. Infinitesimal
+automorphisms can prevent the resulting
+set-valued functor from being representable.
+
+\medskip\noindent
+\textbf{Comparison with the Hilbert
+functor.}
+If $X\subset Y$ is a fixed embedding, the
+local Hilbert functor parametrizes flat
+deformations
+$$
+\mathcal{X}_A\subset Y\times
+\operatorname{Spec}A
+$$
+of $X$ \emph{inside the fixed ambient
+scheme $Y$}. There is a natural
+transformation
+$$
+\operatorname{Def}_{X\subset Y}
+\longrightarrow
+\operatorname{Def}_X
+$$
+which forgets the embedding. The functor on
+the left describes embedded deformations;
+the one on the right describes abstract
+deformations.
+
+In our Stanley--Reisner problem, perturbing
+the homogeneous generators of
+$I_X\subset k[x_0,\ldots,x_7]$ initially
+studies embedded deformations of
+$X\subset \mathbb{P}^7$. It belongs first
+to the local Hilbert problem, although
+one can subsequently forget the embedding
+and obtain an abstract deformation.
+
+\medskip
+\noindent
+\textbf{Universal and miniversal formal
+deformations.}
+
+\noindent
+Let $R$ be a complete local Noetherian
+$k$-algebra with residue field $k$. It
+defines a functor. Let $\mathbf{C}_k$ denote
+the category of such algebras and local
+$k$-algebra homomorphisms. We regard every
+object of $\mathbf{Art}_k$ as an object of
+$\mathbf{C}_k$. Then
+$$
+h_R(A)=\operatorname{Hom}_{\mathbf{C}_k}
+(R,A).
+$$
+Geometrically, this is the functor associated
+to the formal scheme $\operatorname{Spf}R$.
+
+If there is a natural isomorphism
+$$
+h_R\xrightarrow{\sim}
+\operatorname{Def}_X,
+$$
+then $\operatorname{Def}_X$ is
+\emph{prorepresentable}. Equivalently,
+$\operatorname{Spf}R$ carries a universal
+formal deformation: every infinitesimal
+deformation is obtained by pullback along a
+unique homomorphism $R\to A$.
+
+In general this is too much to expect. One
+therefore asks for a natural transformation
+$$
+h_R\longrightarrow\operatorname{Def}_X
+$$
+which is formally smooth and induces an
+isomorphism on tangent spaces. Formal
+smoothness means that compatible data over
+the two rings in a small extension can be
+lifted to $h_R$ over the larger ring.
+Concretely, for every small extension
+$B\longrightarrow A$, the map
+$$
+h_R(B)\longrightarrow
+h_R(A)\times_{\operatorname{Def}_X(A)}
+\operatorname{Def}_X(B)
+$$
+is required to be surjective.
+
+The tangent space of the deformation functor
+is
+$$
+T\operatorname{Def}_X=
+\operatorname{Def}_X
+\big(k[\varepsilon]/(\varepsilon^2)\big).
+$$
+Thus the minimality condition says that
+$$
+T_o\operatorname{Spf}R
+\xrightarrow{\sim}
+T\operatorname{Def}_X.
+$$
+
+\begin{definition}
+\label{definition-miniversal-deformation}
+A formal deformation over
+$\operatorname{Spf}R$ satisfying the two
+conditions above is called a
+\emph{miniversal deformation}. The formal
+scheme $\operatorname{Spf}R$ is called a
+\emph{miniversal deformation space}, a
+\emph{semiuniversal deformation space}, or
+a \emph{hull} of $\operatorname{Def}_X$.
+\end{definition}
+
+\noindent
+The crucial distinction is that
+$\operatorname{Def}_X$ is the functor,
+whereas $\operatorname{Spf}R$, together
+with the natural transformation above, is
+a miniversal space for it.
+A miniversal family contains all
+infinitesimal deformation directions and has
+no redundant tangent parameters, but the map
+producing a given deformation need not be
+unique. If it were unique for every Artinian
+base, the family would be universal and the
+functor would be prorepresentable.
+
+Schlessinger's theorem gives conditions under
+which a functor on $\mathbf{Art}_k$ has such
+a hull, and stronger conditions under which
+it is prorepresentable. Once its lifting
+conditions hold, finite-dimensionality of
+the tangent space is the key finiteness
+condition for the existence of a hull.
+Proper schemes in standard finite-type
+settings have this finiteness. Infinitesimal
+automorphisms can prevent a hull from being
+universal.
+
+The cotangent complex gives the standard
+tangent and obstruction spaces
+$$
+T^1_X=\operatorname{Ext}^1
+(\mathbb{L}_{X/k},\mathcal{O}_X),
+\qquad
+T^2_X=\operatorname{Ext}^2
+(\mathbb{L}_{X/k},\mathcal{O}_X).
+$$
+The second group is an obstruction space:
+obstructions to lifting lie in it, although
+not every element must occur as an
+obstruction.
+
+Suppose that $T^1_X$ is finite-dimensional
+and that a hull exists. A minimal
+presentation of its complete local ring has
+the form
+$$
+R\cong k[[t_1,\ldots,t_r]]/J,
+\qquad
+J\subset (t_1,\ldots,t_r)^2,
+\qquad
+r=\dim_kT^1_X.
+$$
+The ideal $J$ records the higher-order
+lifting conditions detected by the
+obstruction theory. Its lack of linear terms
+expresses the tangent-space minimality of the
+presentation.
+
+Finally, a formal one-parameter deformation
+is only a formal arc in this miniversal
+space:
+$$
+\operatorname{Spf}k[[s]]
+\longrightarrow
+\operatorname{Spf}R.
+$$
+Concretely, an arc through the origin is a morphism
+$$
+\gamma:\operatorname{Spf}k[[t]]
+\longrightarrow
+\operatorname{Spf}R
+$$
+sending the closed point $t=0$ to the point representing
+$X$. Since morphisms of affine formal schemes reverse the
+arrows on rings, this is equivalently a continuous local
+$k$-algebra homomorphism
+$$
+\gamma^\#:R\longrightarrow k[[t]].
+$$
+If
+$$
+R\cong k[[x_1,\ldots,x_r]]/J,
+$$
+then specifying the arc amounts to choosing power series
+$$
+x_i\longmapsto x_i(t)\in t\,k[[t]]
+$$
+which satisfy the equations in $J$. Thus the arc selects a
+one-dimensional formal path through the possibly much
+larger deformation space. Pulling the miniversal family
+back along $\gamma$ produces a formal one-parameter
+deformation over $\operatorname{Spf}k[[t]]$. In particular,
+the arc is a device for passing from the full deformation
+space to a one-parameter deformation; it is not a section
+of the total family.
+
+In our problem the Maurer--Cartan
+construction seeks a compatible deformation
+along such an arc. If that formal deformation
+is algebraized, one can then ask whether its
+generic fiber is smooth. The construction
+does not by itself produce the whole
+miniversal deformation space.
+
+\section{Artin's criterion for flatness}
+\label{section-artins-criterion}
+
+For a quotient of a polynomial ring,
+flatness over an Artinian base can be
+checked by lifting the first two maps
+of a free resolution
+\cite[Theorem 3.15]{Graffeo-Alessi}.
+
+\begin{theorem}[Artin's criterion for flatness]
+\label{theorem-artin-criterion}
+Let $R=\mathbb{C}[x_1,…,x_n]$ be the polynomial ring
+in $n$ variables and complex coefficients.
+Let also $A$ be a local Artinian algebra of finite type over $\mathbb{C}$.
+Let also $I \subset R$ and $I_A \subset R_A=R\otimes A$.
+Suppose that there is an exact sequence
+\begin{equation}
+\label{equation-artin-criterion1}
+\xymatrix{
+R^\ell\ar[r]
+&R^m\ar[r]
+&R\ar[r]
+&R/I\ar[r]
+&0
+}
+\end{equation}
+\noindent
+and a complex
+\begin{equation}
+\label{equation-artin-criterion2}
+\xymatrix{
+R^\ell_A\ar[r]
+&R^m_A\ar[r]
+&R_A\ar[r]
+&R_A/I_A\ar[r]
+&0
+}
+\end{equation}
+
+\noindent
+such that the part
+$$
+\xymatrix{
+R^m_A\ar[r]
+&R_A\ar[r]
+&R_A/I_A\ar[r]
+&0
+}
+$$
+is exact. Then, if
+\ref{equation-artin-criterion2}$\otimes_A\mathbb{C}
+=$\ref{equation-artin-criterion1},
+the module $R_A/I_A$ is $A$-flat.
+\end{theorem}
+
+\noindent
+To express the criterion in terms of
+relations, put $k=\mathbb C$ and
+$S=k[x_1,\ldots,x_n]$.
+Let $F_0:E=S^m\to S$ be the row
+$(f_1,\ldots,f_m)$ generating $I_0$.
+A syzygy is a column $v$ with $F_0v=0$.
+Choose a matrix $R_0$ whose columns
+generate $\ker F_0$.
+
+\begin{corollary}[Flatness by lifting syzygies]
+\label{corollary-flatness-lifting-syzygies}
+Let $B$ be a local Artinian $k$-algebra
+with residue field $k$, and put
+$S_B=S\otimes_k B$ and $E_B=E\otimes_k B$.
+Choose lifts $F$ of the row $F_0$. Then
+$S_B/(F)$ is flat over $B$ if and only if
+every syzygy of $F_0$ lifts to a syzygy of
+$F$. Equivalently, there is a matrix $R$
+reducing to $R_0$ with $FR=0$ in $S_B$.
+\end{corollary}
+
+\begin{proof}
+If the columns of $R_0$ lift, choose
+these lifts as the columns of $R$.
+The identity $FR=0$ gives a complex
+lifting the presentation on the special
+fibre, so
+Theorem~\ref{theorem-artin-criterion}
+gives flatness.
+
+Conversely, suppose $S_B/J$ is flat over
+$B$, where $J=(F)$. Tensoring
+$0\to J\to S_B\to S_B/J\to0$ with $k$
+then identifies $J\otimes_B k$ with $I_0$.
+Put $K=\ker(E_B\to J)$. Right exactness
+of tensor product gives an exact sequence
+$$
+K\otimes_B k\longrightarrow E
+\longrightarrow I_0\longrightarrow 0.
+$$
+Thus every syzygy of $F_0$ is the
+reduction of an element of $K$, that is,
+of a syzygy of $F$.
+\end{proof}
 
 \section{Cotangent complex and
 cotangent cohomology}
@@ -764,1268 +1437,13 @@ q\circ\widetilde p_0=p_0.
 $$
 This is the algebra analogue of lifting $P_0\to B$ to $P_0\to E$ in the ordinary $\operatorname{Ext}^1$ argument.
 
-\section{Why $T^2$ contains
-obstruction classes}
-\label{section-obstruction-classes}
-
-\section{Torus action and AC multidegrees}
-\label{section-torus-action-ac-multidegrees}
-
-\noindent
-Our goal is to understand the multidegree
-pieces of $T^2$ used by
-Altmann and Christophersen (AC) in
-\emph{Cotangent cohomology of
-Stanley--Reisner rings} \cite{jan3}.
-They compute $T^1$ and $T^2$ from the
-simplicial complex. Before studying their
-combinatorial formulas, we explain what
-the pieces being computed mean:
-they are weight spaces for the torus
-that independently rescales the variables.
-Thus the multidegree decomposition has a
-representation-theoretic interpretation.
-We will build this interpretation in
-three steps.
-
-\begin{enumerate}
-\item The torus acts on the Stanley--Reisner
-algebra by independently rescaling
-the variables.
-\item This action induces a linear
-representation on $T^2$.
-\item This representation decomposes into
-weight spaces, which are precisely the
-multidegree pieces.
-\end{enumerate}
-
-\noindent
-We now explain the first item.
-Put
-$$
-S=\mathbb{C}[x_1,\ldots,x_n],
-\qquad T=(\mathbb{C}^{\times})^n.
-$$
-Independent rescaling means choosing
-one nonzero scalar $t_i$ for each variable.
-For $t=(t_1,\ldots,t_n)\in T$, define
-the algebra automorphism
-$$
-\rho_t:S\longrightarrow S,
-\qquad x_i\longmapsto t_i x_i.
-$$
-Its inverse is $\rho_{t^{-1}}$.
-These automorphisms give a torus action:
-$$
-\rho_t\circ\rho_u=\rho_{tu},
-\qquad \rho_{(1,\ldots,1)}=\operatorname{id}.
-$$
-
-\begin{proposition}
-\label{proposition-monomial-torus-action}
-For every monomial ideal $I\subset S$,
-independent rescaling descends to a
-torus action on the quotient algebra $S/I$.
-\end{proposition}
-
-\begin{proof}
-Let $m=x_1^{a_1}\cdots x_n^{a_n}$ be
-a monomial generator of $I$. Then
-$$
-\rho_t(m)=
-(t_1^{a_1}\cdots t_n^{a_n})m.
-$$
-Thus $\rho_t(m)\in I$.
-Every $f\in I$ is a finite sum
-$$
-f=\sum_j h_jm_j,
-\qquad h_j\in S,
-$$
-where the $m_j$ are monomial generators.
-Consequently,
-$$
-\rho_t(f)=
-\sum_j\rho_t(h_j)\rho_t(m_j)\in I.
-$$
-This proves $\rho_t(I)\subseteq I$.
-Applying the same argument to $t^{-1}$
-gives the reverse inclusion, so
-$$
-\rho_t(I)=I.
-$$
-
-We can therefore define
-$$
-\overline{\rho}_t:S/I\longrightarrow S/I,
-\qquad [f]\longmapsto[\rho_t(f)].
-$$
-This is well-defined: if $[f]=[g]$, then
-$f-g\in I$, hence
-$\rho_t(f)-\rho_t(g)\in I$.
-It is an algebra automorphism with inverse
-$\overline{\rho}_{t^{-1}}$.
-The action identities on $S$ pass to
-the quotient:
-$$
-\overline{\rho}_t\circ\overline{\rho}_u
-=\overline{\rho}_{tu},
-\qquad
-\overline{\rho}_{(1,\ldots,1)}
-=\operatorname{id}.
-$$
-\end{proof}
-
-\noindent
-A Stanley--Reisner ideal is monomial,
-so the proposition applies to our algebra.
-
-
-\medskip\noindent
-For now we accept items 2 and 3:
-the action on $R=S/I$ induces an
-algebraic torus representation on $T^2$,
-and its weight spaces are the AC
-multidegree pieces. We postpone the
-construction through the cotangent
-complex.
-
-The general torus decomposition is stated
-in Theorem~\ref
-{representation-theory-theorem-torus-weights}
-of \emph{Representation Theory}.
-That section also explains its relation
-to Lie algebra weight spaces.
-This is standard representation theory;
-AC's contribution is the combinatorial
-description of the individual cotangent
-cohomology pieces, not the existence of
-the weight decomposition.
-
-Write $t\cdot v$ for the induced action
-on $T^2$. What does a weight describe?
-First keep two different objects apart.
-An element
-$$
-t=(t_1,\ldots,t_n)\in T
-$$
-chooses the rescaling: multiply $x_i$
-by $t_i$. A weight will instead record
-how a vector responds to all these
-choices.
-
-Start with a familiar example in the
-polynomial ring:
-$$
-\rho_t(x_1^2x_2)=t_1^2t_2x_1^2x_2.
-$$
-Every rescaling preserves the line
-spanned by this monomial.
-The scalar changes with $t$, but the
-rule is always $t_1^2t_2$.
-We label this rule by the exponent
-vector $(2,1,0,\ldots,0)$.
-
-Now suppose a nonzero vector $v\in T^2$
-also stays on its own line under every
-rescaling. Write
-$$
-t\cdot v=\chi(t)v.
-$$
-The function $\chi$ records the scalar
-for every choice of $t$.
-Acting by $u$ and then by $t$ is the
-same as acting by $tu$, so
-$$
-\chi(tu)v
-=t\cdot(u\cdot v)
-=\chi(u)\chi(t)v.
-$$
-Since $v\neq0$, we obtain
-$$
-\chi(tu)=\chi(t)\chi(u).
-$$
-The scalars are nonzero because the
-action is invertible. Such an algebraic
-homomorphism
-$\chi:T\to\mathbb{C}^{\times}$
-is called a \emph{character}.
-Here this means a one-dimensional
-representation; it agrees with the
-trace character in dimension one.
-
-Why do integer vectors appear?
-The algebraic characters of $T$ are
-precisely the Laurent monomials
-$$
-\chi_\alpha(t)=t^\alpha
-=\prod_{i=1}^n t_i^{\alpha_i},
-\qquad \alpha\in\mathbb{Z}^n.
-$$
-This classification is a standard fact;
-see \cite[Section 4g and Chapter 12,
-Sections a--d]{milne-ag-2022}.
-The exponents are integers, and negative
-ones are allowed since each $t_i$ is
-nonzero. Thus $t$ specifies a
-transformation, while $\alpha$ labels
-a scaling rule. They belong to
-different sets.
-
-We group together all vectors with
-the same scaling rule:
-$$
-T^2_\alpha=
-\{v\in T^2:t\cdot v=t^\alpha v
-\ \forall t\in T\}.
-$$
-This space can have dimension greater
-than one: several independent vectors
-can respond by the same scalar.
-The theorem we are accepting says that
-every vector is a unique finite sum of
-vectors belonging to these spaces:
-\begin{equation}
-\label{equation-ac-weight-decomposition}
-T^2=\bigoplus_{\alpha\in\mathbb{Z}^n}
-T^2_\alpha.
-\end{equation}
-This is \cite[Theorem 12.12]
-{milne-ag-2022}, applied to the
-algebraic torus representation on $T^2$.
-These are the pieces computed by AC.
-
-The following comparison is only a bridge
-to the weight decompositions we already
-know from Lie algebras. It is not needed
-for the deformation argument and may
-be skipped.
-To recognize the Lie algebra version,
-put $t_i=e^{s h_i}$ and differentiate
-at $s=0$. For $v\in T^2_\alpha$,
-$$
-t(s)\cdot v
-=e^{s\sum_i\alpha_i h_i}v
-\quad\Longrightarrow\quad
-\pi(h)v=\left(\sum_i\alpha_i h_i\right)v.
-$$
-Thus the Lie algebra weight is the
-linear functional
-$\lambda_\alpha(h)=\sum_i\alpha_i h_i$.
-This is the simultaneous-eigenvector
-condition from
-Definition~\ref
-{lie-algebras-definition-weight-space}.
-
-For the graded projective problem we
-use the total-degree-zero part:
-$$
-(T^2)_0=
-\bigoplus_{\sum_i\alpha_i=0}T^2_\alpha.
-$$
-Indeed, setting all $t_i=c$ gives the
-scalar $c^{\sum_i\alpha_i}$.
-Total degree zero means that this
-common rescaling acts trivially.
-
-There is a second compatibility that
-we also accept for now. Let $G$ be a
-group of vertex permutations preserving
-the simplicial complex; in our
-Gr\"unbaum argument this is the chosen
-subgroup isomorphic to $S_3$.
-Use the convention $g(x_i)=x_{g(i)}$.
-Then
-\begin{equation}
-\label{equation-ac-weight-permutation}
-g(T^2_\alpha)=T^2_{g\alpha},
-\qquad
-(g\alpha)_i=\alpha_{g^{-1}(i)}.
-\end{equation}
-This says that relabelling the vertices
-also relabels the entries of the weight.
-For example, swapping vertices 1 and 2
-sends the space of weight
-$(a,b,\alpha_3,\ldots,\alpha_n)$
-to the space of weight
-$(b,a,\alpha_3,\ldots,\alpha_n)$.
-It need not preserve each weight space
-separately.
-
-The reason is that a permutation
-conjugates independent rescaling to
-independent rescaling with permuted
-scalars. The induced actions on $T^2$
-retain this compatibility.
-Consequently we can organize the AC
-pieces into $G$-orbits and study one
-representative at a time.
-Permutations fixing a weight can still
-act nontrivially inside its weight
-space; understanding that action will
-be essential for finding invariant
-obstruction classes.
-
-\section{Structures over the Dual Numbers}
-\label{section-structures-dual-numbers}
-
-\noindent
-Other than the contents of
-\cite[Chapter 1, Section 2]
-{Hartshorne-deformation}, which
-is most of the content of this section,
-let us recall from Ariel's
-lecture that he proved a proposition
-with 4 equivalent conditions
-for flatness over the dual numbers:
-being a free module, having
-$\operatorname{Tor}^1=0$, and two more
-involving annihilators.
-
-\begin{definition}
-\label{definition-dual-numbers-first-order}
-The very first deformation question to study
-is structures over the \emph{dual numbers}
-$$
-D=k[t]/t^2.
-$$
-That is, one gives a structure (e.g., a
-scheme, or a scheme with a subscheme, or a
-scheme with a sheaf on it) over $k$ and one
-seeks to classify extensions of this
-structure over the dual numbers. These are
-also called \emph{first-order deformations}.
-To ensure that our structure is evenly
-spread out over the base, we will always
-assume that the extended structure is flat
-over $D$. Flatness is the technical condition
-that corresponds to the intuitive idea of a
-deformation.
-\end{definition}
-
-\begin{lemma}
-\label{lemma-flatness-tor}
-A module $M$ over a noetherian ring $A$ is
-flat if and only if for every prime ideal
-$\mathfrak{p}\subseteq A$,
-$$
-\operatorname{Tor}^A_1
-(M,A/\mathfrak{p})=0.
-$$
-\end{lemma}
-
-\begin{proposition}
-\label{proposition-square-zero-flatness}
-Let $A'\to A$ be a surjective homomorphism
-of noetherian rings whose kernel $J$ has
-square zero. Then an $A'$-module $M'$ is flat
-over $A'$ if and only if
-\begin{enumerate}
-\item
-$$
-M=M'\otimes_{A'}A
-$$
-is flat over $A$, and
-\item the natural map
-$$
-M\otimes_AJ\longrightarrow M'
-$$
-is injective.
-\end{enumerate}
-\end{proposition}
-
-\begin{definition}
-\label{definition-embedded-first-order}
-Let $X$ be a scheme over $k$ and let $Y$ be
-a closed subscheme of $X$. We define a
-\emph{deformation of $Y$ over $D$ in $X$} to
-be a closed subscheme
-$$
-Y'\subseteq X'=X\times D,
-$$
-flat over $D$, such that
-$$
-Y'\times_D k=Y.
-$$
-\end{definition}
-
-We consider the affine case first. Then $X$
-corresponds to a $k$-algebra $B$, and $Y$ is
-defined by an ideal $I\subseteq B$. We are
-seeking ideals
-$$
-I'\subseteq B'=B[t]/t^2
-$$
-with $B'/I'$ flat over $D$ and such that the
-image of $I'$ in $B=B'/tB'$ is just $I$.
-Note that
-$$
-(B'/I')\otimes_Dk=B/I.
-$$
-Since $B$ is automatically flat over $k$,
-by (2.2) the flatness of
-$B'/I'$ over $D$ is equivalent to the
-exactness of the sequence
-$$
-0\longrightarrow B/I
-\xrightarrow{t}B'/I'
-\longrightarrow B/I
-\longrightarrow 0.
-$$
-
-\begin{proposition}
-\label{proposition-affine-first-order}
-In the situation above, to give
-$I'\subseteq B'$ such that $B'/I'$ is flat
-over $D$ and the image of $I'$ in $B$ is $I$
-is equivalent to giving an element
-$$
-\varphi\in\operatorname{Hom}_B(I,B/I).
-$$
-In particular, $\varphi=0$ corresponds to the
-trivial deformation given by
-$$
-I'=I\oplus tI
-$$
-inside $B'\cong B\oplus tB$.
-\end{proposition}
-
-\begin{definition}
-\label{definition-normal-sheaf}
-Before stating the conclusion, we will
-define the \emph{normal sheaf of $Y$ in
-$X$}. Note that the group
-$$
-\operatorname{Hom}_X
-(\mathcal{I},\mathcal{O}_Y)
-$$
-can be regarded as
-$$
-H^0\bigl(X,
-\mathcal{H}om_X
-(\mathcal{I},\mathcal{O}_Y)\bigr).
-$$
-Furthermore, homomorphisms of $\mathcal{I}$
-to $\mathcal{O}_Y$ factor through
-$\mathcal{I}/\mathcal{I}^2$, which is a sheaf
-on $Y$. So
-$$
-\mathcal{H}om_X
-(\mathcal{I},\mathcal{O}_Y)
-=
-\mathcal{H}om_Y
-(\mathcal{I}/\mathcal{I}^2,
-\mathcal{O}_Y),
-$$
-and this latter sheaf is called the normal
-sheaf of $Y$ in $X$, and is denoted by
-$\mathcal{N}_{Y/X}$. If $X$ is nonsingular
-and $Y$ is a locally complete intersection
-in $X$, then $\mathcal{I}/\mathcal{I}^2$ is
-locally free, so $\mathcal{N}_{Y/X}$ is
-locally free also and can be called the
-\emph{normal bundle of $Y$ in $X$}. This
-terminology derives from the fact that if
-$Y$ is also nonsingular, there is an exact
-sequence
-$$
-0\longrightarrow\mathcal{T}_Y
-\longrightarrow\mathcal{T}_X|_Y
-\longrightarrow\mathcal{N}_{Y/X}
-\longrightarrow 0,
-$$
-where $\mathcal{T}_Y$ and $\mathcal{T}_X$
-denote the tangent sheaves to $Y$ and $X$,
-respectively. In this case, therefore,
-$\mathcal{N}_{Y/X}$ is the usual normal
-bundle.
-\end{definition}
-
-\begin{theorem}
-\label{theorem-embedded-first-order}
-Let $X$ be a scheme over a field $k$, and let
-$Y$ be a closed subscheme of $X$. Then the
-deformations of $Y$ over $D$ in $X$ are in
-natural one-to-one correspondence with
-elements of $H^0(Y,\mathcal{N}_{Y/X})$, the
-zero element corresponding to the trivial
-deformation.
-\end{theorem}
-
-\begin{corollary}
-\label{lemma-hilbert-tangent-first-order}
-If $Y$ is a closed subscheme of the
-projective space $X=\mathbb{P}^n_k$, then the
-Zariski tangent space of the Hilbert scheme
-$H$ at the point $y$ corresponding to $Y$ is
-isomorphic to $H^0(Y,\mathcal{N}_{Y/X})$.
-\end{corollary}
-
-Next we consider Situation B. Let $X$ be a
-scheme over $k$ and let $L$ be an invertible
-sheaf on $X$. We will study the set of
-isomorphism classes of invertible sheaves
-$L'$ on
-$$
-X'=X\times D
-$$
-such that $L'\otimes\mathcal{O}_X\cong L$.
-In this case flatness is automatic, because
-$L'$ is locally free and $X'$ is flat over
-$D$.
-
-\begin{proposition}
-\label{proposition-line-bundle-first-order}
-Let $X$ be a scheme over $k$, and $L$ an
-invertible sheaf on $X$. The set of
-isomorphism classes of invertible sheaves
-$L'$ on $X\times D$ such that
-$L'\otimes\mathcal{O}_X\cong L$ is in natural
-one-to-one correspondence with elements of
-the group $H^1(X,\mathcal{O}_X)$.
-\end{proposition}
-
-\begin{definition}
-\label{definition-coherent-first-order}
-Let $X$ be a scheme over $k$, and let $F$ be
-a coherent sheaf on $X$. We define a
-\emph{deformation of $F$ over $D$} to be a
-coherent sheaf $F'$ on $X'=X\times D$, flat
-over $D$, together with a homomorphism
-$F'\to F$ such that the induced map
-$$
-F'\otimes_D k\longrightarrow F
-$$
-is an isomorphism. We say that two such
-deformations $F'_1\to F$ and $F'_2\to F$ are
-\emph{equivalent} if there is an isomorphism
-$$
-F'_1\xrightarrow{\sim}F'_2
-$$
-compatible with the given maps to $F$.
-\end{definition}
-
-\begin{theorem}
-\label{theorem-coherent-first-order}
-Let $X$ be a scheme over $k$, and let $F$ be
-a coherent sheaf on $X$. The (equivalence
-classes of) deformations of $F$ over $D$ are
-in natural one-to-one correspondence with
-the elements of the group
-$\operatorname{Ext}^1_X(F,F)$, where the
-zero-element corresponds to the trivial
-deformation.
-\end{theorem}
-
-\begin{remark}
-\label{remark-unmarked-coherent-first-order}
-Given $F$ on $X$, we can also pose a
-different problem, like the one in (2.6),
-namely to classify isomorphism classes of
-coherent sheaves $F'$ on $X'$, flat over
-$D$, such that $F'\otimes_D k$ is isomorphic
-to $F$ (without specifying the isomorphism).
-This set need not be the same as the set of
-deformations of $F$, but we can explain
-their relationship as follows. The group
-$\operatorname{Aut}F$ of automorphisms of
-$F$ acts on the set of deformations of $F$
-by letting $\alpha\in\operatorname{Aut}F$
-applied to $f:F'\to F$ be
-$\alpha f:F'\to F$. Now let $f:F'\to F$ and
-$g:F''\to F$ be two deformations of $F$. One
-sees easily that $F'$ and $F''$ are
-isomorphic as sheaves on $X'$ if and only if
-there exists an
-$\alpha\in\operatorname{Aut}F$ such that
-$\alpha f$ and $g$ are equivalent as
-deformations of $F$. Thus the set of $F'$'s
-up to isomorphism as sheaves on $X'$ is the
-orbit space of $\operatorname{Ext}^1_X(F,F)$
-under the action of $\operatorname{Aut}F$.
-This kind of subtle distinction will play an
-important role in questions of
-pro-representability (Chapter 3).
-\end{remark}
-
-\begin{corollary}
-\label{lemma-vector-bundle-first-order}
-If $E$ is a vector bundle over $X$, then the
-deformations of $E$ over $D$ are in natural
-one-to-one correspondence with the elements
-of $H^1(X,\mathcal{E}nd E)$, where
-$\mathcal{E}nd E=\mathcal{H}om(E,E)$ is the
-sheaf of endomorphisms of $E$. The trivial
-deformation corresponds to the zero element.
-\end{corollary}
-
-
-
-\section{Deformations of schemes}
-\label{section-deformations-of-schemes}
-
-\noindent
-The following definition is from
-[lucas-defos], which in turn comes from
-\cite{Sernesi-deformations}
-
-\begin{definition}
-\label{definition-deformation}
-Let $X$ be an algebraic $\mathbb{C}$-scheme.
-\begin{enumerate}
-\item A {\it deformation} of $X$ is a
-Cartesian diagram $\xi$
-$$
-\xymatrix{
-X\ar[r]\ar[d]&\mathcal{X}\ar[d]^{\pi}\\
-\Spec \mathbb{C}\ar[r]^s&S
-}
-$$
-where $\pi$ is a flat surjective morphism of
-algebraic $\mathbb{C}$-schemes and
-$S$ is connected. (Recall that flatness
-accounts for ``continuity''.)
-\item A {\it local deformation} of $X$ is a
-deformation $\xi$ where
-$S=\Spec A$ for $A$ a noetherian local
-$\mathbb{C}$ algebra with residue
-field $\mathbb{C}$.
-\item An {\it infinitesimal deformation of
-$X$} is a local deformation with $A$
-an artinian local $\mathbb{C}$-algebra with
-residue field $\mathbb{C}$. $X$ is
-called {\it rigid} if all infinitesimal
-deformations are trivial.
-\item An {\it inifinitesimal deformation of
-order $n$} is an infinitesimal
-deformation when $S=\Spec
-(\mathbb{C}[t]/(t^{n+1})$.
-\end{enumerate}
-\end{definition}
-
-
-\section{The deformation functor
-\texorpdfstring
-{$\operatorname{Def}_X$}{Def X}}
-\label{section-deformation-functor}
-
-\noindent
-The correct object parametrizing abstract
-infinitesimal deformations is initially a
-functor, not a scheme.
-
-Fix a field $k$ and a $k$-scheme $X$. Let
-$\mathbf{Art}_k$ denote the category of
-local Artinian $k$-algebras whose residue
-field is $k$. Its morphisms are local
-$k$-algebra homomorphisms.
-
-\begin{definition}
-\label{definition-deformation-artin}
-Let $A\in\mathbf{Art}_k$. A
-\emph{deformation of $X$ over $A$} is a
-flat morphism
-$$
-\pi:\mathcal{X}_A\longrightarrow
-\operatorname{Spec}A
-$$
-together with an isomorphism, called the
-marking of the special fiber,
-$$
-\iota:\mathcal{X}_A
-\times_{\operatorname{Spec}A}
-\operatorname{Spec}k\xrightarrow{\sim}X.
-$$
-An isomorphism between two such deformations
-is an isomorphism of $A$-schemes compatible
-with their markings.
-\end{definition}
-
-\begin{definition}
-\label{definition-def-x}
-The \emph{deformation functor of $X$} is
-defined as follows. For each
-$A\in\mathbf{Art}_k$, let $\mathcal{D}_X(A)$
-be the set of pairs $(\pi,\iota)$ in the
-previous definition. Its value at $A$ is
-$$
-\operatorname{Def}_X(A)
-=
-\mathcal{D}_X(A)/{\cong}.
-$$
-These sets form the functor
-$$
-\begin{aligned}
-\operatorname{Def}_X:
-\mathbf{Art}_k&\longrightarrow
-\mathbf{Sets},\\
-A&\longmapsto
-\operatorname{Def}_X(A).
-\end{aligned}
-$$
-If $A\to B$ is a homomorphism, the
-corresponding map
-$\operatorname{Def}_X(A)\to
-\operatorname{Def}_X(B)$ is given by base
-change:
-$$
-\mathcal{X}_A\longmapsto
-\mathcal{X}_A\times_{\operatorname{Spec}A}
-\operatorname{Spec}B.
-$$
-\end{definition}
-
-\noindent
-A richer version assigns to $A$ the
-\emph{groupoid} of deformations and their
-isomorphisms. Passing to the set of
-isomorphism classes forgets the automorphisms
-of each deformation. Infinitesimal
-automorphisms can prevent the resulting
-set-valued functor from being representable.
-
-\medskip\noindent
-\textbf{Comparison with the Hilbert
-functor.}
-If $X\subset Y$ is a fixed embedding, the
-local Hilbert functor parametrizes flat
-deformations
-$$
-\mathcal{X}_A\subset Y\times
-\operatorname{Spec}A
-$$
-of $X$ \emph{inside the fixed ambient
-scheme $Y$}. There is a natural
-transformation
-$$
-\operatorname{Def}_{X\subset Y}
-\longrightarrow
-\operatorname{Def}_X
-$$
-which forgets the embedding. The functor on
-the left describes embedded deformations;
-the one on the right describes abstract
-deformations.
-
-In our Stanley--Reisner problem, perturbing
-the homogeneous generators of
-$I_X\subset k[x_0,\ldots,x_7]$ initially
-studies embedded deformations of
-$X\subset \mathbb{P}^7$. It belongs first
-to the local Hilbert problem, although
-one can subsequently forget the embedding
-and obtain an abstract deformation.
-
-\medskip
-\noindent
-\textbf{Universal and miniversal formal
-deformations.}
-
-\noindent
-Let $R$ be a complete local Noetherian
-$k$-algebra with residue field $k$. It
-defines a functor. Let $\mathbf{C}_k$ denote
-the category of such algebras and local
-$k$-algebra homomorphisms. We regard every
-object of $\mathbf{Art}_k$ as an object of
-$\mathbf{C}_k$. Then
-$$
-h_R(A)=\operatorname{Hom}_{\mathbf{C}_k}
-(R,A).
-$$
-Geometrically, this is the functor associated
-to the formal scheme $\operatorname{Spf}R$.
-
-If there is a natural isomorphism
-$$
-h_R\xrightarrow{\sim}
-\operatorname{Def}_X,
-$$
-then $\operatorname{Def}_X$ is
-\emph{prorepresentable}. Equivalently,
-$\operatorname{Spf}R$ carries a universal
-formal deformation: every infinitesimal
-deformation is obtained by pullback along a
-unique homomorphism $R\to A$.
-
-In general this is too much to expect. One
-therefore asks for a natural transformation
-$$
-h_R\longrightarrow\operatorname{Def}_X
-$$
-which is formally smooth and induces an
-isomorphism on tangent spaces. Formal
-smoothness means that compatible data over
-the two rings in a small extension can be
-lifted to $h_R$ over the larger ring.
-Concretely, for every small extension
-$B\longrightarrow A$, the map
-$$
-h_R(B)\longrightarrow
-h_R(A)\times_{\operatorname{Def}_X(A)}
-\operatorname{Def}_X(B)
-$$
-is required to be surjective.
-
-The tangent space of the deformation functor
-is
-$$
-T\operatorname{Def}_X=
-\operatorname{Def}_X
-\big(k[\varepsilon]/(\varepsilon^2)\big).
-$$
-Thus the minimality condition says that
-$$
-T_o\operatorname{Spf}R
-\xrightarrow{\sim}
-T\operatorname{Def}_X.
-$$
-
-\begin{definition}
-\label{definition-miniversal-deformation}
-A formal deformation over
-$\operatorname{Spf}R$ satisfying the two
-conditions above is called a
-\emph{miniversal deformation}. The formal
-scheme $\operatorname{Spf}R$ is called a
-\emph{miniversal deformation space}, a
-\emph{semiuniversal deformation space}, or
-a \emph{hull} of $\operatorname{Def}_X$.
-\end{definition}
-
-\noindent
-The crucial distinction is that
-$\operatorname{Def}_X$ is the functor,
-whereas $\operatorname{Spf}R$, together
-with the natural transformation above, is
-a miniversal space for it.
-A miniversal family contains all
-infinitesimal deformation directions and has
-no redundant tangent parameters, but the map
-producing a given deformation need not be
-unique. If it were unique for every Artinian
-base, the family would be universal and the
-functor would be prorepresentable.
-
-Schlessinger's theorem gives conditions under
-which a functor on $\mathbf{Art}_k$ has such
-a hull, and stronger conditions under which
-it is prorepresentable. Once its lifting
-conditions hold, finite-dimensionality of
-the tangent space is the key finiteness
-condition for the existence of a hull.
-Proper schemes in standard finite-type
-settings have this finiteness. Infinitesimal
-automorphisms can prevent a hull from being
-universal.
-
-The cotangent complex gives the standard
-tangent and obstruction spaces
-$$
-T^1_X=\operatorname{Ext}^1
-(\mathbb{L}_{X/k},\mathcal{O}_X),
-\qquad
-T^2_X=\operatorname{Ext}^2
-(\mathbb{L}_{X/k},\mathcal{O}_X).
-$$
-The second group is an obstruction space:
-obstructions to lifting lie in it, although
-not every element must occur as an
-obstruction.
-
-Suppose that $T^1_X$ is finite-dimensional
-and that a hull exists. A minimal
-presentation of its complete local ring has
-the form
-$$
-R\cong k[[t_1,\ldots,t_r]]/J,
-\qquad
-J\subset (t_1,\ldots,t_r)^2,
-\qquad
-r=\dim_kT^1_X.
-$$
-The ideal $J$ records the higher-order
-lifting conditions detected by the
-obstruction theory. Its lack of linear terms
-expresses the tangent-space minimality of the
-presentation.
-
-Finally, a formal one-parameter deformation
-is only a formal arc in this miniversal
-space:
-$$
-\operatorname{Spf}k[[s]]
-\longrightarrow
-\operatorname{Spf}R.
-$$
-Concretely, an arc through the origin is a morphism
-$$
-\gamma:\operatorname{Spf}k[[t]]
-\longrightarrow
-\operatorname{Spf}R
-$$
-sending the closed point $t=0$ to the point representing
-$X$. Since morphisms of affine formal schemes reverse the
-arrows on rings, this is equivalently a continuous local
-$k$-algebra homomorphism
-$$
-\gamma^\#:R\longrightarrow k[[t]].
-$$
-If
-$$
-R\cong k[[x_1,\ldots,x_r]]/J,
-$$
-then specifying the arc amounts to choosing power series
-$$
-x_i\longmapsto x_i(t)\in t\,k[[t]]
-$$
-which satisfy the equations in $J$. Thus the arc selects a
-one-dimensional formal path through the possibly much
-larger deformation space. Pulling the miniversal family
-back along $\gamma$ produces a formal one-parameter
-deformation over $\operatorname{Spf}k[[t]]$. In particular,
-the arc is a device for passing from the full deformation
-space to a one-parameter deformation; it is not a section
-of the total family.
-
-In our problem the Maurer--Cartan
-construction seeks a compatible deformation
-along such an arc. If that formal deformation
-is algebraized, one can then ask whether its
-generic fiber is smooth. The construction
-does not by itself produce the whole
-miniversal deformation space.
-
-\section{The Maurer--Cartan equation in complex geometry}
-\label{section-maurer-cartan-complex-geometry}
-
-\noindent
-Let $X$ be a complex manifold and let $M$ be its
-underlying real manifold. The complex structure is
-equivalently encoded by the splitting
-$$
-T_{\mathbb C}M=T^{1,0}X\oplus T^{0,1}X.
-$$
-Thus, to deform the complex structure we may deform
-the subbundle $T^{0,1}X$ inside $T_{\mathbb C}M$.
-
-A sufficiently small deformation which stays transverse
-to $T^{1,0}X$ is the graph of a bundle map
-$$
-\phi:T^{0,1}X\longrightarrow T^{1,0}X.
-$$
-Equivalently,
-$$
-\phi\in A^{0,1}(T^{1,0}X),
-$$
-since
-$$
-\operatorname{Hom}(T^{0,1}X,T^{1,0}X)
-\cong (T^{0,1}X)^*\otimes T^{1,0}X.
-$$
-The deformed antiholomorphic tangent bundle is
-$$
-T^{0,1}_\phi
-=\{v+\phi(v):v\in T^{0,1}X\}.
-$$
-
-Why does such a map really describe a deformation of the
-subbundle? This is simply fiberwise linear algebra. Suppose
-$$
-E=V\oplus W
-$$
-and let $W'\subset E$ be another subspace of the same
-dimension as $W$, transverse to $V$. Then the projection
-$$
-\pi_W:E\longrightarrow W
-$$
-restricts to an isomorphism
-$$
-\pi_W|_{W'}:W'\xrightarrow{\sim}W.
-$$
-Therefore for every $w\in W$ there is a unique vector of
-$W'$ projecting to $w$. It has the form
-$$
-w+\phi(w)
-$$
-for a unique $\phi(w)\in V$. Thus there is a unique linear
-map
-$$
-\phi:W\longrightarrow V
-$$
-such that
-$$
-W'=\{w+\phi(w):w\in W\}=\operatorname{graph}(\phi).
-$$
-
-Applying this at each $x\in X$ with
-$$
-E=T_{\mathbb C,x}M,\qquad
-V=T^{1,0}_xX,\qquad
-W=T^{0,1}_xX,
-$$
-shows that every nearby $n$-plane transverse to
-$T^{1,0}_xX$ is uniquely the graph of a map
-$$
-\phi_x:T^{0,1}_xX\longrightarrow T^{1,0}_xX.
-$$
-If these planes vary smoothly with $x$, the maps $\phi_x$
-assemble into the bundle map $\phi$ above. In other words,
-$$
-\operatorname{Hom}(T^{0,1}_xX,T^{1,0}_xX)
-$$
-gives local coordinates near $T^{0,1}_xX$ in the
-Grassmannian of $n$-planes in $T_{\mathbb C,x}M$. Thus
-$\phi$ is literally the slope of the deformed subbundle
-relative to the original splitting.
-
-Here ``sufficiently small'' just guarantees that
-$T^{0,1}_\phi$ and its complex conjugate remain
-transverse, so that they define an almost complex
-structure. For example, after choosing a Hermitian
-metric and assuming $X$ compact, it is enough to take
-$\phi$ sufficiently small in the $C^0$ norm. Stronger
-topologies such as $C^k$, H\"older or Sobolev topologies
-are useful when studying the differential equation below.
-
-The remaining question is whether this almost complex
-structure is integrable. By the Newlander--Nirenberg
-theorem, integrability is equivalent to
-$$
-[T^{0,1}_\phi,T^{0,1}_\phi]
-\subseteq T^{0,1}_\phi.
-$$
-
-To compute this condition, choose local holomorphic
-coordinates $z^1,\ldots,z^n$ for the original complex
-structure and write
-$$
-\phi=
-\phi^k_{\bar i}\,d\bar z^i\otimes
-\frac{\partial}{\partial z^k}.
-$$
-Then $T^{0,1}_\phi$ is locally spanned by
-$$
-e_{\bar i}
-=\frac{\partial}{\partial\bar z^i}
-+\phi^k_{\bar i}\frac{\partial}{\partial z^k}.
-$$
-A direct computation gives
-$$
-[e_{\bar i},e_{\bar j}]
-=
-\left(
-\frac{\partial\phi^k_{\bar j}}{\partial\bar z^i}
--\frac{\partial\phi^k_{\bar i}}{\partial\bar z^j}
-+\phi^\ell_{\bar i}
-\frac{\partial\phi^k_{\bar j}}{\partial z^\ell}
--\phi^\ell_{\bar j}
-\frac{\partial\phi^k_{\bar i}}{\partial z^\ell}
-\right)
-\frac{\partial}{\partial z^k}.
-$$
-The first two terms are the components of
-$\bar\partial\phi$, while the last two are the
-components of $\frac12[\phi,\phi]$, where the bracket
-is the natural extension of the Lie bracket of vector
-fields to $T^{1,0}X$-valued forms. Hence the
-integrability condition is precisely
-$$
-\boxed{
-\bar\partial\phi+\frac12[\phi,\phi]=0.
-}
-$$
-This is the \emph{Maurer--Cartan equation}.
-
-Thus the differential graded Lie algebra
-$$
-A^{0,\bullet}(T^{1,0}X),
-\qquad d=\bar\partial,
-$$
-with this bracket naturally appears when one studies
-deformations of complex structures: its
-Maurer--Cartan elements are precisely the small
-integrable deformations written in these graph
-coordinates.
-
-Up to this point, $\phi$ has represented one single
-nearby complex structure: its graph is the deformed
-subbundle $T^{0,1}_\phi$. There has been no deformation
-parameter $t$ yet.
-
-To discuss first order, second order and lifting, we now
-make an additional choice: consider a one-parameter family
-of deformations passing through the original complex
-structure,
-$$
-t\longmapsto \phi_t,
-\qquad
-\phi_0=0.
-$$
-Thus we regard the family as a curve,
-that is, as vector-valued 
-map of a real parameter $t$, 
-with values in the
-vector space
-$$
-A^{0,1}(T^{1,0}X)
-=\Gamma\!\left(\operatorname{Hom}
-(T^{0,1}X,T^{1,0}X)\right).
-$$
-If this family depends analytically on $t$, we may Taylor
-expand it at $t=0$. Absorbing the usual factorials into the
-coefficients, we write
-$$
-\phi(t)=t\phi_1+t^2\phi_2+t^3\phi_3+\cdots.
-$$
-In formal deformation theory we instead take such a formal
-power series as the object from the start. The condition
-$\phi(0)=0$ explains why there is no constant term: at
-$t=0$ we recover the original complex structure.
-
-For this one-parameter formal deformation, the complete
-local base ring is
-$$
-\mathbb C[[t]]
-=\varprojlim_n \mathbb C[t]/(t^{n+1}).
-$$
-Thus a formal deformation over $\mathbb C[[t]]$ means a
-compatible system of finite-order deformations over
-$$
-\operatorname{Spec}\big(\mathbb C[t]/(t^{n+1})\big),
-$$
-or equivalently a deformation over the formal base
-$\operatorname{Spf}\mathbb C[[t]]$. The series $\phi(t)$
-above is therefore naturally a power series in the
-coordinate $t$ of this formal base.
-
-Here ``first order'' means the coefficient of $t^1$ after
-expanding the Maurer--Cartan equation as a formal power
-series in $t$. Indeed,
-$$
-\bar\partial\phi(t)
-=t\bar\partial\phi_1+t^2\bar\partial\phi_2+\cdots,
-$$
-while bilinearity of the bracket gives
-$$
-[\phi(t),\phi(t)]
-=t^2[\phi_1,\phi_1]
-+2t^3[\phi_1,\phi_2]+\cdots.
-$$
-Thus
-$$
-t\bar\partial\phi_1
-+t^2\left(
-\bar\partial\phi_2+\frac12[\phi_1,\phi_1]
-\right)
-+\cdots=0.
-$$
-A formal power series is zero if and only if each of its
-coefficients is zero. Hence
-$$
-\boxed{\text{order }t:\quad \bar\partial\phi_1=0}
-$$
-and
-$$
-\boxed{
-\text{order }t^2:\quad
-\bar\partial\phi_2+\frac12[\phi_1,\phi_1]=0.
-}
-$$
-Equivalently, working to first order means working modulo
-$t^2$. Then
-$$
-\phi(t)\equiv t\phi_1\pmod{t^2},
-$$
-and the bracket term disappears because it is already of
-order $t^2$. This is why first-order deformation theory is
-linear, whereas the first obstruction appears at second
-order.
-
-Thus the bracket produces the first quadratic
-obstruction: {\bf the first-order direction $\phi_1$ lifts
-to second order only if
-$\frac12[\phi_1,\phi_1]$ is
-$\bar\partial$-exact}.
-The corresponding obstruction is therefore
-the cohomology class
-$$
-\left[\frac{1}{2}[\phi_1,\phi_1]\right]
-\in
-H^{0,2}(X,T^{1,0}X).
-$$
-If that class is zero, then we have
-Maurer-Cartan and we can choose $\phi_2$
-to lift $\phi_1$ to second order.
-But if this class is nonzero, we are stuck.
-
-
-After quotienting first-order deformations by
-infinitesimal changes of coordinates, their classes lie
-in
-$$
-H^{0,1}(X,T^{1,0}X)\cong H^1(X,T_X),
-$$
-which is exactly the space that appears in the
-Kodaira--Spencer map below.
-
-The isomorphism above is simply the Dolbeault theorem for
-the holomorphic vector bundle $T_X$. The sheaf $T_X$ of
-holomorphic vector fields has the Dolbeault resolution
-$$
-0\longrightarrow T_X
-\longrightarrow \mathcal A^{0,0}(T^{1,0}X)
-\xrightarrow{\bar\partial}
-\mathcal A^{0,1}(T^{1,0}X)
-\xrightarrow{\bar\partial}
-\mathcal A^{0,2}(T^{1,0}X)
-\xrightarrow{\bar\partial}\cdots .
-$$
-This is an exact resolution of $T_X$, and the sheaves
-$\mathcal A^{0,q}(T^{1,0}X)$ are fine, hence acyclic for
-global sections. Therefore the sheaf cohomology of $T_X$
-is computed by the cohomology of the complex of global
-sections
-$$
-A^{0,0}(T^{1,0}X)
-\xrightarrow{\bar\partial}
-A^{0,1}(T^{1,0}X)
-\xrightarrow{\bar\partial}
-A^{0,2}(T^{1,0}X)
-\longrightarrow\cdots .
-$$
-Consequently,
-$$
-H^q(X,T_X)\cong H^{0,q}_{\bar\partial}
-(X,T^{1,0}X),
-$$
-and in particular
-$$
-H^1(X,T_X)\cong H^{0,1}_{\bar\partial}
-(X,T^{1,0}X).
-$$
-So the same quotient that appears naturally from the
-Maurer--Cartan linearization---$\bar\partial$-closed
-first-order directions modulo $\bar\partial$-exact
-infinitesimal coordinate changes---is precisely the usual
-sheaf cohomology group $H^1(X,T_X)$.
-
-\medskip\noindent
-The point to retain is that the Maurer--Cartan equation
-is not an extra formal gadget imposed on deformation
-theory. Already for ordinary complex structures it is
-simply the integrability condition for the deformed
-object. Its linear term describes first-order
-deformations, its bracket gives the quadratic
-obstruction, and the full equation organizes lifting to
-all orders.
-
-\section{Kodaira-Spencer map}
+\section{The Kodaira--Spencer map}
 \label{section-kodaira-spencer-map}
 
 \noindent
 Let $\mathcal{X} \to B$ be a
 deformation of $X$.
-Kodaira-Spencer map is
+The Kodaira--Spencer map at $p$ is
 $$
 T_pB \to H^1(X,T_X)
 $$
@@ -2091,25 +1509,14 @@ a cocycle in $H^1(T_X)$.
 \end{enumerate}
 
 
-\section{Kodaira-Spencer correspondence}
-\label{section-kodaia-spencer-correspondence}
-
-
 \medskip\noindent
-After a few months of the previous text in
-this section
-I think I have understood the construction of
-Kodaira-Spencer map for embedded
-deformations,
-which is \cite[Proposition
-3.2.1(ii)]{Sernesi-deformations}.
-
-But I will actually briefly outline a
-particular case
-of this, which is easier: \cite[Examples
-3.2.4(ii)]{Sernesi-deformations}.
-This the case when $X \subset Y$ is a Cartier
-divisor.
+\textbf{Embedded deformations.}
+For the embedded Kodaira--Spencer map,
+see \cite[Proposition 3.2.1(ii)]
+{Sernesi-deformations}.
+Consider the case of a Cartier divisor
+$X\subset Y$
+\cite[Example 3.2.4(ii)]{Sernesi-deformations}.
 Then $X$ is cut out locally by a set of
 functions $f_i$
 defined on an affine cover $U_i$ of $Y$.
@@ -2493,942 +1900,331 @@ the restricted holomorphic vector fields.
 % \end{enumerate}
 \end{proof}
 
-\section{Deformations of Stanley-Reisner schemes}
-\label{section-sr}
+\section{The Maurer--Cartan equation in complex geometry}
+\label{section-maurer-cartan-complex-geometry}
 
 \noindent
-My aim in this section is to cover the
-minimal
-theory needed to apply results in \cite{jan2}
-to my deformation problem. The main theorem
-I expect to use is the following:
-
-\begin{theorem}
-\label{theorem-deformations-threefolds}
-\begin{reference}
-\cite[Theorem 5.7]{jan2}
-\end{reference}
-If $\mathcal{K}$ is a 3-dimensional manifold
-then
+Let $X$ be a complex manifold and let $M$ be its
+underlying real manifold. The complex structure is
+equivalently encoded by the splitting
 $$
-\dim T^1_{\mathbb{P}(K)}
-=11d_3+5e_3+3e_4+e_{\geq 5}+c_{\geq
-6}+5f_1^{(3)}+2f_1^{(4)}+h^2(\mathcal{K}).
+T_{\mathbb C}M=T^{1,0}X\oplus T^{0,1}X.
 $$
-\end{theorem}
+Thus, to deform the complex structure we may deform
+the subbundle $T^{0,1}X$ inside $T_{\mathbb C}M$.
 
-\noindent
-I need to do some interpretation first.
-From \cite[p. 1]{jan3}:
-
-\begin{quotation}
-  ``For each $\mathbb{C}$-algebra $A$,
-there is a cohomology theory providing
-modules $T^i_A$.
-However, only $T^1_A$ and $T^2_A$ are
-relevant for the deformation
-theory of $\operatorname{Spec} A$. The module $T^1_A$
-collects the infinitesimal
-deformations of $A$ and $T^2_A$ contains the
-obstructions
-for lifting these deformations to decent
-parameter spaces.
-Eventually, $\text{Der}_{\mathbb{C}}(A,A)$
-will be called $T_A^0$."
-\end{quotation}
-
-\cite[p. 3]{jan3}:
-\begin{quotation}
-``In general, for a finitely generated
-$\mathbb{C}$-algebra $A$,
-the modules $T_A^i$ allow the following ad
-hoc definitions:
-Let $P=\mathbb{C}[x_0,…,x_n]$ mapping onto
-$A$ so that $A \simeq P/I$
-for an ideal $I$. The $T_A^1$ is the cokernel
-of the natural map
-$\text{Der}_\mathbb{C}(P,P) \to \Hom_P(I,A)$.
-Moreovr, […] and we obtain $T^2_A$ as the
-cokernel
-of the induced map
-$\Hom_P(P^m,A)\to\Hom_A(R/R_0,A)$.''
-\end{quotation}
-
-\begin{remark}[dani]
-\label{remark-dani1}
-Let's think more about that definition of
-$T^1_A$
-as the cokernel of the ``natural map''
-$\text{Der}_\mathbb{C}(P,P) \to \Hom_P(I,A)$.
-
-Pick a derivation $\chi \in
-\text{Der}_\mathbb{C}(P,P)$.
-We want a map $I \to A=P/I$.
-Pick an element $a \in I$ and map it to
-$\chi(a)$.
-And that's it. It might be zero or not.
-If the $\chi$ we picked maps any $a \in I$ to
-some element in $I$,
-then this $\chi$ is in the kernel of the
-natural map.
-So the image consists of the deformations
-coming from infinitesimal coordinate
-changes. The module $T^1_A$ is the target
-modulo this image, namely the cokernel.
-\end{remark}
-
-\noindent
-Unfortunately this doesn't say much about the
-following crucial fact:
-the $T^i_A$ modules are
-$\mathbb{Z}^{n+1}$-graded.
-But here goes an explanation.
-We use the notation that $e_p$ is a ``face
-not in the complex'',
-which of course corresponds to a generating
-monomial $x^p$
-of the SR ideal $I$.
-It has a degree, of course (given by the
-``support'' of $p$).
-Now here's a rather sloppy step but:
-since the cotangent modules are built upon
-$I$,
-who is given by $e_p$,
-we just notice that the degree of $e_p$
-along with a (very natural, too) notion of
-degree among relations,
-induce a grading in all the cotangent modules
-$T_A^i$.
-Thus, the grading is morally just the degree
-of the monomials,
-which is in fact the support of $p$, a vector
-$\mathbf{c} \in \mathbb{Z}^{n+1}$.
-
-\medskip\noindent
-{\bf The $a-b$ grading.}
-Next in line is the decomposition
-$\mathbf{c}=\mathbf{a}-\mathbf{b}$
-into positive minus negative part. But how
-exactly…? 
-
-Let $I_{\mathcal M}$ be a Stanley--Reisner
-ideal. Its generators are monomials
-corresponding to missing faces of
-$\mathcal M$.
-
-A first-order deformation replaces a
-forbidden monomial by that monomial plus a
-legal monomial. Schematically,
+A sufficiently small deformation which stays transverse
+to $T^{1,0}X$ is the graph of a bundle map
 $$
-x_b \quad \leadsto \quad x_b + t x_a .
+\phi:T^{0,1}X\longrightarrow T^{1,0}X.
+$$
+Equivalently,
+$$
+\phi\in A^{0,1}(T^{1,0}X),
+$$
+since
+$$
+\operatorname{Hom}(T^{0,1}X,T^{1,0}X)
+\cong (T^{0,1}X)^*\otimes T^{1,0}X.
+$$
+The deformed antiholomorphic tangent bundle is
+$$
+T^{0,1}_\phi
+=\{v+\phi(v):v\in T^{0,1}X\}.
 $$
 
-Here $x_b$ is the original Stanley--Reisner
-generator. Thus $b$ records the missing face.
+Why does such a map really describe a deformation of the
+subbundle? This is simply fiberwise linear algebra. Suppose
+$$
+E=V\oplus W
+$$
+and let $W'\subset E$ be another subspace of the same
+dimension as $W$, transverse to $V$. Then the projection
+$$
+\pi_W:E\longrightarrow W
+$$
+restricts to an isomorphism
+$$
+\pi_W|_{W'}:W'\xrightarrow{\sim}W.
+$$
+Therefore for every $w\in W$ there is a unique vector of
+$W'$ projecting to $w$. It has the form
+$$
+w+\phi(w)
+$$
+for a unique $\phi(w)\in V$. Thus there is a unique linear
+map
+$$
+\phi:W\longrightarrow V
+$$
+such that
+$$
+W'=\{w+\phi(w):w\in W\}=\operatorname{graph}(\phi).
+$$
 
-The monomial $x_a$ is the correction term.
-Its support is a face of the complex, or at
-least lies in a face/facet region of the
-complex. Thus $a$ records what is inserted
-by the deformation.
+Applying this at each $x\in X$ with
+$$
+E=T_{\mathbb C,x}M,\qquad
+V=T^{1,0}_xX,\qquad
+W=T^{0,1}_xX,
+$$
+shows that every nearby $n$-plane transverse to
+$T^{1,0}_xX$ is uniquely the graph of a map
+$$
+\phi_x:T^{0,1}_xX\longrightarrow T^{1,0}_xX.
+$$
+If these planes vary smoothly with $x$, the maps $\phi_x$
+assemble into the bundle map $\phi$ above. In other words,
+$$
+\operatorname{Hom}(T^{0,1}_xX,T^{1,0}_xX)
+$$
+gives local coordinates near $T^{0,1}_xX$ in the
+Grassmannian of $n$-planes in $T_{\mathbb C,x}M$. Thus
+$\phi$ is literally the slope of the deformed subbundle
+relative to the original splitting.
 
-The multidegree of this deformation is
+Here ``sufficiently small'' just guarantees that
+$T^{0,1}_\phi$ and its complex conjugate remain
+transverse, so that they define an almost complex
+structure. For example, after choosing a Hermitian
+metric and assuming $X$ compact, it is enough to take
+$\phi$ sufficiently small in the $C^0$ norm. Stronger
+topologies such as $C^k$, H\"older or Sobolev topologies
+are useful when studying the differential equation below.
+
+The remaining question is whether this almost complex
+structure is integrable. By the Newlander--Nirenberg
+theorem, integrability is equivalent to
 $$
-\deg(x_a)-\deg(x_b)=a-b.
+[T^{0,1}_\phi,T^{0,1}_\phi]
+\subseteq T^{0,1}_\phi.
 $$
 
-For example, the direction $t_{48}$ sends
-the missing triangle $348$ to the monomial
-$x_2x_5^2$. Thus
+To compute this condition, choose local holomorphic
+coordinates $z^1,\ldots,z^n$ for the original complex
+structure and write
 $$
-x_3x_4x_8
-\quad\leadsto\quad
-x_3x_4x_8+t x_2x_5^2.
+\phi=
+\phi^k_{\bar i}\,d\bar z^i\otimes
+\frac{\partial}{\partial z^k}.
 $$
-So in this case
+Then $T^{0,1}_\phi$ is locally spanned by
 $$
-b=348,
+e_{\bar i}
+=\frac{\partial}{\partial\bar z^i}
++\phi^k_{\bar i}\frac{\partial}{\partial z^k}.
+$$
+A direct computation gives
+$$
+[e_{\bar i},e_{\bar j}]
+=
+\left(
+\frac{\partial\phi^k_{\bar j}}{\partial\bar z^i}
+-\frac{\partial\phi^k_{\bar i}}{\partial\bar z^j}
++\phi^\ell_{\bar i}
+\frac{\partial\phi^k_{\bar j}}{\partial z^\ell}
+-\phi^\ell_{\bar j}
+\frac{\partial\phi^k_{\bar i}}{\partial z^\ell}
+\right)
+\frac{\partial}{\partial z^k}.
+$$
+The first two terms are the components of
+$\bar\partial\phi$, while the last two are the
+components of $\frac12[\phi,\phi]$, where the bracket
+is the natural extension of the Lie bracket of vector
+fields to $T^{1,0}X$-valued forms. Hence the
+integrability condition is precisely
+$$
+\boxed{
+\bar\partial\phi+\frac12[\phi,\phi]=0.
+}
+$$
+This is the \emph{Maurer--Cartan equation}.
+
+Thus the differential graded Lie algebra
+$$
+A^{0,\bullet}(T^{1,0}X),
+\qquad d=\bar\partial,
+$$
+with this bracket naturally appears when one studies
+deformations of complex structures: its
+Maurer--Cartan elements are precisely the small
+integrable deformations written in these graph
+coordinates.
+
+Up to this point, $\phi$ has represented one single
+nearby complex structure: its graph is the deformed
+subbundle $T^{0,1}_\phi$. There has been no deformation
+parameter $t$ yet.
+
+To discuss first order, second order and lifting, we now
+make an additional choice: consider a one-parameter family
+of deformations passing through the original complex
+structure,
+$$
+t\longmapsto \phi_t,
 \qquad
-a=\deg(x_2x_5^2).
+\phi_0=0.
 $$
-
-In words: $b$ is the forbidden face being
-deformed, and $a$ is the legal monomial
-inserted as the first-order correction.
-
-
-
-
-\section{Artin's criterion for flatness}
-\label{section-artins-criterion}
-
-The notes on minimal free resolutions,
-syzygies, grading shifts and Macaulay2
-notation are now in the commutative algebra
-notebook, Section
-\ref{commutative-algebra-%
-section-minimal-resolutions}.
-Here we use relations among the generators
-of the defining ideal to apply Artin's
-criterion for flatness
-(\cite[Theorem 3.15]{Graffeo-Alessi}).
-
-\noindent
-The roadmap is:
-\begin{enumerate}
-\item Start with a finitely generated
-$R$-module $R/I$ with $I = (f_1,…,f_m)$.
-Compute it's minimal resolution.
-
-\item Choose an ideal $I_A$ inside
-$R \otimes_\mathbb{C} A := R_A$
-generated by elements $F_i$
-such that $F_i-f_i \in \mathfrak{m}$
-where $m$ is the maximal ideal of $A$.
-This means that $F_i$ is a {\it lift} of
-$f_i$.
-
-\item Choose lifts $S_j$ of the syzygies
-$s_i$ of $R/I$ in the same way.
-Ask that the lifted syzygies $S_j$
-are syzygies of the lifted complex
-(this is to say:
-$R^\ell_A \to R^m_A\to R_A \to R_A/I_A$
-is exact.)
-
-\item In this construction, when we tensor
-by  $\mathbb{C}=A/\mathfrak{m}$
-we are literally killing the new variables,
-thus coming back to the fiber of
-the closed point.
-
-\item Then $A \to R_A/I_A$ is flat
-with fiber over the closed point
-$R \to R/I$.
-\end{enumerate}
-
-\begin{theorem}[Artin's criterion for flatness]
-\label{theorem-artin-criterion}
-Let $R=\mathbb{C}[x_1,…,x_n]$ be the polynomial ring
-in $n$ variables and complex coefficients.
-Let also $A$ be a local Artinian algebra of finite type over $\mathbb{C}$.
-Let also $I \subset R$ and $I_A \subset R_A=R\otimes A$.
-Suppose that there is an exact sequence
-\begin{equation}
-\label{equation-artin-criterion1}
-\xymatrix{
-R^\ell\ar[r]
-&R^m\ar[r]
-&R\ar[r]
-&R/I\ar[r]
-&0
-}
-\end{equation}
-\noindent
-and a complex
-\begin{equation}
-\label{equation-artin-criterion2}
-\xymatrix{
-R^\ell_A\ar[r]
-&R^m_A\ar[r]
-&R_A\ar[r]
-&R_A/I_A\ar[r]
-&0
-}
-\end{equation}
-
-\noindent
-such that the part
+Thus we regard the family as a curve,
+that is, as vector-valued
+map of a real parameter $t$,
+with values in the
+vector space
 $$
-\xymatrix{
-R^m_A\ar[r]
-&R_A\ar[r]
-&R_A/I_A\ar[r]
-&0
+A^{0,1}(T^{1,0}X)
+=\Gamma\!\left(\operatorname{Hom}
+(T^{0,1}X,T^{1,0}X)\right).
+$$
+If this family depends analytically on $t$, we may Taylor
+expand it at $t=0$. Absorbing the usual factorials into the
+coefficients, we write
+$$
+\phi(t)=t\phi_1+t^2\phi_2+t^3\phi_3+\cdots.
+$$
+In formal deformation theory we instead take such a formal
+power series as the object from the start. The condition
+$\phi(0)=0$ explains why there is no constant term: at
+$t=0$ we recover the original complex structure.
+
+For this one-parameter formal deformation, the complete
+local base ring is
+$$
+\mathbb C[[t]]
+=\varprojlim_n \mathbb C[t]/(t^{n+1}).
+$$
+Thus a formal deformation over $\mathbb C[[t]]$ means a
+compatible system of finite-order deformations over
+$$
+\operatorname{Spec}\big(\mathbb C[t]/(t^{n+1})\big),
+$$
+or equivalently a deformation over the formal base
+$\operatorname{Spf}\mathbb C[[t]]$. The series $\phi(t)$
+above is therefore naturally a power series in the
+coordinate $t$ of this formal base.
+
+Here ``first order'' means the coefficient of $t^1$ after
+expanding the Maurer--Cartan equation as a formal power
+series in $t$. Indeed,
+$$
+\bar\partial\phi(t)
+=t\bar\partial\phi_1+t^2\bar\partial\phi_2+\cdots,
+$$
+while bilinearity of the bracket gives
+$$
+[\phi(t),\phi(t)]
+=t^2[\phi_1,\phi_1]
++2t^3[\phi_1,\phi_2]+\cdots.
+$$
+Thus
+$$
+t\bar\partial\phi_1
++t^2\left(
+\bar\partial\phi_2+\frac12[\phi_1,\phi_1]
+\right)
++\cdots=0.
+$$
+A formal power series is zero if and only if each of its
+coefficients is zero. Hence
+$$
+\boxed{\text{order }t:\quad \bar\partial\phi_1=0}
+$$
+and
+$$
+\boxed{
+\text{order }t^2:\quad
+\bar\partial\phi_2+\frac12[\phi_1,\phi_1]=0.
 }
 $$
-is exact. Then, if
-\ref{equation-artin-criterion2}$\otimes_A\mathbb{C}
-=$\ref{equation-artin-criterion1},
-the module $R_A/I_A$ is $A$-flat.
-\end{theorem}
+Equivalently, working to first order means working modulo
+$t^2$. Then
+$$
+\phi(t)\equiv t\phi_1\pmod{t^2},
+$$
+and the bracket term disappears because it is already of
+order $t^2$. This is why first-order deformation theory is
+linear, whereas the first obstruction appears at second
+order.
 
-\section{Cotangent obstructions and
-the Gr\"unbaum quadrics}
-\label{section-cotangent-quadrics}
+Thus the bracket produces the first quadratic
+obstruction: {\bf the first-order direction $\phi_1$ lifts
+to second order only if
+$\frac12[\phi_1,\phi_1]$ is
+$\bar\partial$-exact}.
+The corresponding obstruction is therefore
+the cohomology class
+$$
+\left[\frac{1}{2}[\phi_1,\phi_1]\right]
+\in
+H^{0,2}(X,T^{1,0}X).
+$$
+If that class is zero, then we have
+Maurer-Cartan and we can choose $\phi_2$
+to lift $\phi_1$ to second order.
+But if this class is nonzero, we are stuck.
 
-\noindent
-The question is concrete: given a flat
-first-order deformation of our equations,
-can we add second-order terms and keep it
-flat? We shall construct the space in which
-the failure of this attempt lives.
 
-\medskip\noindent
-\textbf{Equations and their syzygies.}
-Work over $k=\mathbb{C}$. Put
+After quotienting first-order deformations by
+infinitesimal changes of coordinates, their classes lie
+in
 $$
-S=k[x_1,\ldots,x_n],\qquad
-I_0=(f_1,\ldots,f_m),\qquad A=S/I_0.
+H^{0,1}(X,T^{1,0}X)\cong H^1(X,T_X),
 $$
-The generators are homogeneous, with
-$d_i=\deg f_i$. Write them as a row,
-and introduce their generator module:
-$$
-F_0=(f_1,\ldots,f_m),\qquad
-E=\bigoplus_{i=1}^m S(-d_i).
-$$
-If $\epsilon_i$ denotes the $i$th basis
-vector of $E$, then $F_0(\epsilon_i)=f_i$.
-The shift gives $\epsilon_i$ degree $d_i$,
-so $F_0:E\to S$ preserves degree. Let
-$$
-\mathrm{Rel}=\ker(F_0:E\to S).
-$$
-Choose a graded free module $P$ and a matrix
-$R_0:P\to E$ whose columns generate
-\emph{all} of $\mathrm{Rel}$. Thus
-$$
-F_0R_0=0.
-$$
-Each column records an identity among the
-generators, with polynomial coefficients.
-The columns need not be independent or
-minimal. In the Gr\"unbaum computation,
-$m=16$ and a minimal $R_0$ has 30 columns.
+which is exactly the space that appears in the
+Kodaira--Spencer map below.
 
-\begin{corollary}[Flatness by lifting syzygies]
-\label{corollary-flatness-lifting-syzygies}
-Let $B$ be a local Artinian $k$-algebra
-with residue field $k$, and put
-$S_B=S\otimes_k B$ and $E_B=E\otimes_k B$.
-Choose lifts $F$ of the row $F_0$. Then
-$S_B/(F)$ is flat over $B$ if and only if
-every syzygy of $F_0$ lifts to a syzygy of
-$F$. Equivalently, there is a matrix $R$
-reducing to $R_0$ with $FR=0$ in $S_B$.
-\end{corollary}
-
-\begin{proof}
-If the columns of $R_0$ lift, choose
-these lifts as the columns of $R$.
-The identity $FR=0$ gives a complex
-lifting the presentation on the special
-fibre, so
-Theorem~\ref{theorem-artin-criterion}
-gives flatness.
-
-Conversely, suppose $S_B/J$ is flat over
-$B$, where $J=(F)$. Tensoring
-$0\to J\to S_B\to S_B/J\to0$ with $k$
-then identifies $J\otimes_B k$ with $I_0$.
-Put $K=\ker(E_B\to J)$. Right exactness
-of tensor product gives an exact sequence
+The isomorphism above is simply the Dolbeault theorem for
+the holomorphic vector bundle $T_X$. The sheaf $T_X$ of
+holomorphic vector fields has the Dolbeault resolution
 $$
-K\otimes_B k\longrightarrow E
-\longrightarrow I_0\longrightarrow 0.
+0\longrightarrow T_X
+\longrightarrow \mathcal A^{0,0}(T^{1,0}X)
+\xrightarrow{\bar\partial}
+\mathcal A^{0,1}(T^{1,0}X)
+\xrightarrow{\bar\partial}
+\mathcal A^{0,2}(T^{1,0}X)
+\xrightarrow{\bar\partial}\cdots .
 $$
-Thus every syzygy of $F_0$ is the
-reduction of an element of $K$, that is,
-of a syzygy of $F$.
-\end{proof}
-
-The coefficients of a syzygy are therefore
-allowed to change. Requiring $FR_0=0$
-would impose an extra condition: flatness
-only requires some lift $R$ of $R_0$.
+This is an exact resolution of $T_X$, and the sheaves
+$\mathcal A^{0,q}(T^{1,0}X)$ are fine, hence acyclic for
+global sections. Therefore the sheaf cohomology of $T_X$
+is computed by the cohomology of the complex of global
+sections
+$$
+A^{0,0}(T^{1,0}X)
+\xrightarrow{\bar\partial}
+A^{0,1}(T^{1,0}X)
+\xrightarrow{\bar\partial}
+A^{0,2}(T^{1,0}X)
+\longrightarrow\cdots .
+$$
+Consequently,
+$$
+H^q(X,T_X)\cong H^{0,q}_{\bar\partial}
+(X,T^{1,0}X),
+$$
+and in particular
+$$
+H^1(X,T_X)\cong H^{0,1}_{\bar\partial}
+(X,T^{1,0}X).
+$$
+So the same quotient that appears naturally from the
+Maurer--Cartan linearization---$\bar\partial$-closed
+first-order directions modulo $\bar\partial$-exact
+infinitesimal coordinate changes---is precisely the usual
+sheaf cohomology group $H^1(X,T_X)$.
 
 \medskip\noindent
-\textbf{Expanding to second order.}
-Put $B_r=k[t]/(t^{r+1})$, with $t$ of
-degree zero in the polynomial grading.
-Over $B_2$ write
-$$
-\begin{aligned}
-F&=F_0+tF_1+t^2F_2,\\
-R&=R_0+tR_1+t^2R_2.
-\end{aligned}
-$$
-The rows $F_1,F_2:E\to S$ correct the
-defining polynomials. The matrices
-$R_1,R_2:P\to E$ correct the coefficients
-of the syzygies. All maps preserve degree;
-each $F_i$ has size $1\times m$, and each
-$R_i$ has the same size as $R_0$.
+The point to retain is that the Maurer--Cartan equation
+is not an extra formal gadget imposed on deformation
+theory. Already for ordinary complex structures it is
+simply the integrability condition for the deformed
+object. Its linear term describes first-order
+deformations, its bracket gives the quadratic
+obstruction, and the full equation organizes lifting to
+all orders.
 
-Multiplication, followed by comparison of
-the coefficients of $t$ and $t^2$, gives
-\begin{equation}
-\label{equation-syzygy-lifts}
-\begin{aligned}
-F_0R_1+F_1R_0&=0,\\
-F_0R_2+F_1R_1+F_2R_0&=0.
-\end{aligned}
-\end{equation}
-The constant coefficient already vanishes
-because $F_0R_0=0$. These two identities
-are exactly $FR=0$ modulo $t^3$.
-
-Suppose the first identity has been solved.
-Then $F_1,R_1$ give a flat deformation over
-$B_1$. At the next step the known residual
-is $F_1R_1$. We must find $F_2,R_2$ such
-that
-$$
-F_1R_1=-F_0R_2-F_2R_0.
-$$
-Thus the obstruction asks whether this
-residual can be removed by corrections.
-It does not ask whether the residual
-itself is zero.
-
-For comparison with first-order theory,
-put a bar over a polynomial to denote its
-class in $A$. The first identity implies
-$\overline{F_1}R_0=0$. Consequently the rule
-$$
-f_i\longmapsto\overline{(F_1)_i}
-$$
-defines an element of
-$\operatorname{Hom}_S(I_0,A)_0$:
-it respects every relation among the
-$f_i$. This is the embedded tangent space
-from
-Proposition~%
-\ref{proposition-affine-first-order}.
-
-\medskip\noindent
-\textbf{The quotient defining cotangent
-cohomology.}
-Some syzygies exist for any list of
-polynomials, simply by commutativity. Let
-$K\subset\mathrm{Rel}$ be the submodule
-generated by the Koszul syzygies
-$$
-k_{ij}=f_i\epsilon_j-f_j\epsilon_i.
-$$
-The quotient $\mathrm{Rel}/K$ is an
-$A$-module. To check this, take
-$s=\sum_j s_j\epsilon_j\in\mathrm{Rel}$.
-Then
-$$
-f_i s=\sum_j s_j
-(f_i\epsilon_j-f_j\epsilon_i)\in K,
-$$
-since $\sum_j s_jf_j=0$. Thus $I_0$
-annihilates $\mathrm{Rel}/K$.
-
-Every $S$-linear map $\phi:E\to A$
-vanishes on $K$, because the $f_i$ act as
-zero on $A$. Restriction therefore gives
-$$
-\begin{aligned}
-\rho:\operatorname{Hom}_S(E,A)_0
-&\longrightarrow
-\operatorname{Hom}_A(\mathrm{Rel}/K,A)_0,\\
-\rho(\phi)(s+K)&=\phi(s).
-\end{aligned}
-$$
-If $\phi$ is represented by a row $H$ of
-polynomials, its values on the chosen
-syzygy generators are $\overline{H R_0}$.
-
-\begin{definition}
-\label{definition-cotangent-two}
-The degree-zero part of the
-\emph{second cotangent cohomology} of
-$A$ over $k$, with coefficients in $A$, is
-$$
-T^2_{A,0}=\operatorname{coker}(\rho).
-$$
-Explicitly,
-\begin{equation}
-\label{equation-cotangent-two-quotient}
-T^2_{A,0}=
-\frac{
-\operatorname{Hom}_A(\mathrm{Rel}/K,A)_0
-}{
-\rho\bigl(\operatorname{Hom}_S(E,A)_0\bigr)
-}.
-\end{equation}
-\end{definition}
-
-\noindent
-The subscript $0$ means that maps preserve
-the usual total degree in the $x_i$.
-It does not mean constant polynomial
-entries. In our project $E=S(-3)^{16}$,
-so a degree-zero map $E\to A$ sends each
-basis vector to a cubic in $A$.
-The superscript $2$ is the cohomological
-index; it is unrelated to this grading.
-
-This is the concrete construction in
-\cite[Section 0.2]{Fausk}. Her generator
-module is called $F$, her polynomial ring
-is $R$, and her Koszul submodule is
-$\mathrm{Rel}_0$. Her source for the
-restriction map agrees with ours because
-$K\subset I_0E$.
-The construction and its independence
-from the presentation are also explained
-in \href{https://math.berkeley.edu/%
-\string~robin/math274root.pdf}
-{Hartshorne's online lectures}, Section 3,
-especially Lemmas 3.2 and 3.3.
-These references identify the quotient
-with cotangent cohomology; we do not need
-to construct a cotangent complex here.
-
-The following theorem explains why this
-quotient detects flat lifts at every order.
-Write $T^2_A=T^2(A/k,A)$ for the same
-cokernel without the degree restriction.
-
-\begin{theorem}[Obstruction to a flat lift]
-\label{theorem-obstruction-flat-lift}
-Let $A$ be a finitely generated
-$k$-algebra. Let $B'\to B$ be a surjection
-of local Artinian $k$-algebras with
-residue field $k$. Write $J=\ker(B'\to B)$
-and assume
-$$
-\mathfrak{m}_{B'}J=0.
-$$
-Let $A_B$ be a flat, finitely generated
-$B$-algebra, with a specified
-identification $A_B\otimes_B k\cong A$.
-There is a canonical obstruction
-$$
-\operatorname{ob}(A_B,B')
-\in T^2_A\otimes_k J.
-$$
-It vanishes if and only if there exists
-a flat, finitely generated $B'$-algebra
-$A_{B'}$ with an identification
-$$
-A_{B'}\otimes_{B'}B\cong A_B.
-$$
-Such a lift can be realized by lifting
-the generators of the ideal in a chosen
-polynomial presentation of $A_B$.
-\end{theorem}
-
-\noindent
-For a proof, see Hartshorne,
-\href{https://math.berkeley.edu/%
-\string~robin/math274root.pdf}
-{\emph{Lectures on Deformation Theory}}
-(2004), Theorem 10.1(a), p.~58
-(PDF page 64; proof on pp.~59--60),
-and Corollary 10.3, p.~61.
-
-\medskip\noindent
-For the rings $B_r$ above, take
-$$
-B'=B_{r+1},\qquad B=B_r,\qquad
-J=(t^{r+1})/(t^{r+2})\cong k.
-$$
-Thus a lift extends the specified family
-by one order while preserving flatness.
-For graded deformations with $\deg t=0$,
-the calculation takes place in
-$T^2_{A,0}$: the maps preserve degree,
-so corrections can be chosen in degree
-zero. We now construct the obstruction
-explicitly at second order.
-
-\medskip\noindent
-\textbf{Why the residual belongs to this
-particular target.}
-For an arbitrary $s\in\mathrm{Rel}$,
-choose a first-order lift $s+tu$ satisfying
-$$
-F_0u=-F_1s.
-$$
-Such a $u\in E$ exists because the
-first-order deformation is flat. Define
-$$
-\beta(s)=\overline{F_1u}\in A.
-$$
-There are three small checks.
-\begin{enumerate}
-\item If $u'$ is another choice, then
-$u'-u\in\mathrm{Rel}$. Since $F_1$ sends
-every syzygy into $I_0$, we have
-$\overline{F_1(u'-u)}=0$. Thus $\beta(s)$
-does not depend on the choice of lift.
-Adding or multiplying choices of $u$
-also proves that $\beta$ is $S$-linear.
-
-\item For $s=k_{ij}$, take
-$$
-u=(F_1)_i\epsilon_j-(F_1)_j\epsilon_i.
-$$
-Then $F_0u=-F_1k_{ij}$, while
-$$
-F_1u=(F_1)_i(F_1)_j
--(F_1)_j(F_1)_i=0.
-$$
-Hence $\beta(K)=0$; this reflects the fact
-that Koszul syzygies always lift.
-
-\item The degrees in the construction
-match. Therefore $\beta$ induces a
-degree-zero $A$-linear map
-$$
-\beta:\mathrm{Rel}/K\longrightarrow A.
-$$
-\end{enumerate}
-On the columns of $R_0$, this map is
-represented by $\overline{F_1R_1}$.
-The construction proves that these values
-respect relations among the syzygies.
-An arbitrary row with the same number of
-entries need not have this property.
-
-\medskip\noindent
-\textbf{Which part can the corrections
-remove?}
-Reducing the second identity in
-\ref{equation-syzygy-lifts} modulo $I_0$
-removes $F_0R_2$, and leaves
-$$
-\beta+\rho(\overline{F_2})=0.
-$$
-Consequently the obstruction class is
-$$
-\operatorname{ob}_2(F_1)=[\beta]
-\in T^2_{A,0}.
-$$
-If this class is zero, choose $F_2$ with
-$\rho(\overline{F_2})=-\beta$. Each entry
-of $F_1R_1+F_2R_0$ then belongs to $I_0$.
-Expressing its negative in the generators
-$f_i$ supplies the columns of $R_2$.
-Thus a second-order flat lift exists.
-Conversely, any such lift gives this
-identity and hence a zero class.
-
-Notice that $F_2$ is an arbitrary correction
-row of the appropriate degrees. It need
-not itself represent a first-order
-deformation. This is why the denominator
-uses all of $\operatorname{Hom}_S(E,A)_0$.
-
-We have already checked independence of
-$R_1$ and of the chosen syzygy generators.
-For completeness, replacing $F_1$ by
-$F_1+F_0H$ merely changes its polynomial
-representatives. Taking $R_1-HR_0$ as the
-new syzygy correction changes $\beta$ by
-$$
--\rho(\overline{F_1H}),
-$$
-so its class is unchanged. Here $H:E\to E$
-has degree zero. Changes of the generator
-presentation give the canonical
-identifications cited above. Infinitesimal
-coordinate changes also preserve the class:
-they extend to coordinate changes over
-$k[t]/(t^3)$, and the obstruction
-construction is natural under these
-isomorphisms. Thus the class depends on the
-intrinsic first-order deformation.
-
-\begin{example}
-\label{example-removing-residual}
-Take $S=k[x,y,z]$ and $I_0=(x^2,xy)$.
-All syzygies are multiples of the column
-$r=(y,-x)^{\mathsf{T}}$: cancellation of
-$x$ in $ax^2+bxy=0$ gives $ax+by=0$.
-Choose
-$$
-F_0=(x^2,xy),\quad F_1=(0,yz),\quad
-R_0=\begin{pmatrix}y\\-x\end{pmatrix},
-\quad R_1=\begin{pmatrix}0\\z\end{pmatrix}.
-$$
-Then $F_0R_1=xyz$ and $F_1R_0=-xyz$.
-The first-order equation holds, but
-$$
-F_1R_1=yz^2\neq0
-$$
-even in $A=S/(x^2,xy)$. Nevertheless,
-$F_2=(-z^2,0)$ gives $F_2R_0=-yz^2$,
-so $R_2=0$ completes the second-order lift.
-Indeed the product is identically zero:
-$$
-(x^2-t^2z^2,xy+tyz)
-\begin{pmatrix}y\\-x+tz\end{pmatrix}=0.
-$$
-
-Here $\mathrm{Rel}=Sr$ and $K=xSr$.
-Giving a map $\mathrm{Rel}/K\to A$ amounts
-to choosing its value on $r$, annihilated
-by $x$. Since
-$$
-\operatorname{ann}_A(x)=(x,y),\qquad
-\rho(h_1,h_2)(r)=yh_1-xh_2,
-$$
-restriction is surjective, also in degree
-zero: every cubic in $(x,y)\subset A$ has
-this form with quadratic $h_1,h_2$.
-Thus $T^2_{A,0}=0$. The nonzero residual
-represents zero in the quotient.
-\end{example}
-
-\medskip\noindent
-\textbf{Where the quadratic polynomials
-come from.}
-The intrinsic tangent space is
-$$
-V=T^1_{A,0}=
-\frac{\operatorname{Hom}_S(I_0,A)_0}
-{\operatorname{im}
-(\operatorname{Der}_k(S,A)_0
-\to\operatorname{Hom}_S(I_0,A)_0)}.
-$$
-The denominator consists of infinitesimal
-coordinate changes. Choose a basis
-$v_1,\ldots,v_d$ of $V$ and polynomial
-representatives for it. For each basis
-vector solve the first-order syzygy
-equation once. Linearity then gives
-$$
-F_1(y)=\sum_{a=1}^d y_a U_a,\qquad
-R_1(y)=\sum_{a=1}^d y_a V_a.
-$$
-Here $U_a$ is a row representing $v_a$,
-and $V_a$ is its syzygy correction matrix.
-The $y_a$ are coefficients of a tangent
-vector, not the original variables $x_i$.
-
-The residual is now
-$$
-F_1(y)R_1(y)=
-\sum_{a,b}y_ay_bU_aV_b.
-$$
-It is quadratic in $y$. Reduction modulo
-$I_0$ and passage to the cokernel are
-linear operations. Therefore they give
-a quadratic map
-$$
-q_2:V\longrightarrow T^2_{A,0}.
-$$
-Choose a basis $e_1,\ldots,e_r$ of
-$T^2_{A,0}$. In this basis,
-\begin{equation}
-\label{equation-quadratic-coordinates}
-q_2(y)=\sum_{i=1}^r Q_i(y)e_i,
-\qquad Q_i=e_i^*\circ q_2.
-\end{equation}
-The dual vector $e_i^*$ extracts the
-$i$th coordinate. This is literally the
-meaning of the polynomial $Q_i$: it is
-one coordinate of the obstruction class.
-
-Computationally, choose monomial bases in
-the relevant graded pieces of $A$. Encode
-maps on syzygies by their coefficients,
-impose the relations among syzygies and
-the condition that $K$ maps to zero, and
-then row-reduce the restriction map $\rho$.
-Apply the resulting quotient coordinates
-to $\overline{F_1(y)R_1(y)}$. This is
-linear elimination producing the $Q_i$.
-Equivalently one eliminates the unknown
-coefficients of $F_2,R_2$ from the
-second-order equation. Identifying the
-result with $T^2$ requires the target and
-quotient just constructed; the cokernel
-of an arbitrary matrix of equations is
-not automatically cotangent cohomology.
-
-Changing the basis $e_i$ takes invertible
-linear combinations of the $Q_i$.
-Changing tangent coordinates substitutes
-an invertible linear change in $y$.
-The obstruction map itself is intrinsic.
-There can be fewer than $r$ independent
-quadratic coordinates: the assertion that
-all $r$ are independent needs checking.
-
-\medskip\noindent
-\textbf{The numbers in the Gr\"unbaum
-project.}
-The computational source here is
-\href{https://github.com/danimalabares/%
-grunbaum-zero-context-proof/%
-tree/%
-ee984e9541e9cb9259728e6dc7b3a1bc0fda8a9b}
-{the zero-context proof repository},
-at the displayed pinned revision.
-Its variables $a,\ldots,h$ use a different
-vertex labelling from our
-Stanley--Reisner chapter. Direct comparison
-of the 16 monomials identifies the ideals
-under the substitution
-$$
-(a,b,c,d,e,f,g,h)\longmapsto
-(x_3,x_1,x_7,x_4,x_2,x_6,x_5,x_8).
-$$
-
-The audit
-\href{https://github.com/danimalabares/%
-grunbaum-zero-context-proof/blob/%
-ee984e9541e9cb9259728e6dc7b3a1bc0fda8a9b/%
-enumerate/SYMMETRY_AUDIT.md}
-{\texttt{enumerate/SYMMETRY\_AUDIT.md}}
-points to the following exact computations.
-Only their tangent and obstruction data
-are needed here.
-\begin{enumerate}
-\item The script
-\href{https://github.com/danimalabares/%
-grunbaum-zero-context-proof/blob/%
-ee984e9541e9cb9259728e6dc7b3a1bc0fda8a9b/%
-reconstruct/coordinate_split_rank.m2}
-{\texttt{coordinate\_split\_rank.m2}}
-computes the normal space and the image
-of the 64 linear coordinate changes.
-The dimensions are
-$$
-\dim_k\operatorname{Hom}_S(I_0,A)_0=109,
-\qquad \dim_k V=109-56=53.
-$$
-There are 104 standard cubic monomials in
-$A$, so the initial coefficient space has
-$16\cdot104=1664$ dimensions. Imposing
-the syzygies leaves 109; quotienting by
-coordinate changes removes 56 more.
-Thus 53 counts intrinsic tangent
-directions, not all embedded directions.
-
-\item The script
-\href{https://github.com/danimalabares/%
-grunbaum-zero-context-proof/blob/%
-ee984e9541e9cb9259728e6dc7b3a1bc0fda8a9b/%
-reconstruct/audit_ct1_ct2_basis.m2}
-{\texttt{audit\_ct1\_ct2\_basis.m2}}
-and its
-\href{https://github.com/danimalabares/%
-grunbaum-zero-context-proof/blob/%
-ee984e9541e9cb9259728e6dc7b3a1bc0fda8a9b/%
-reconstruct/audit_ct1_ct2_basis_output.txt}
-{recorded output} report 53 basis columns
-for \texttt{CT\^{}1(\{0\},F0)} and 27
-for \texttt{CT\^{}2(\{0\},F0)}.
-The latter matrix has size $30\times27$:
-its rows refer to the syzygy generators,
-and its columns represent a basis of
-$$
-W=T^2_{A,0},\qquad \dim_k W=27.
-$$
-The interpretation of \texttt{CT\^{}2}
-as cotangent cohomology is specified in
-the \href{https://macaulay2.com/doc/%
-Macaulay2/share/doc/Macaulay2/%
-VersalDeformations/html/___C__T.html}
-{Macaulay2 package documentation}.
-
-\item The same Macaulay2 script computes
-a fresh order-two versal deformation.
-It checks that its 27 quadratic
-coordinates have rank 27 and span the
-same space as the stored quadratic list.
-Separately,
-\href{https://github.com/danimalabares/%
-grunbaum-zero-context-proof/blob/%
-ee984e9541e9cb9259728e6dc7b3a1bc0fda8a9b/%
-enumerate/audit_symmetry_formal.py}
-{\texttt{audit\_symmetry\_formal.py}}
-extracts the degree-two parts of
-\texttt{reconstruct/}%
-\texttt{p1\_quartic\_component.m2}
-and checks their rank over $\mathbb{Q}$.
-For example, in that file's coordinates
-(with $t_i$ renamed $y_i$), the first two
-quadrics are
-$$
-\begin{aligned}
-Q_1&=-y_{40}y_{46}+y_{43}y_{49},\\
-Q_2&=y_{11}y_{43}-y_1y_{46}.
-\end{aligned}
-$$
-These are coefficients in the obstruction
-space, not additional equations in the
-original variables $x_1,\ldots,x_8$.
-\end{enumerate}
-
-\noindent
-\emph{Verification status (8 September
-2026).} The monomial relabelling, the
-dimensions 109 and 56, and the rank 27 of
-the stored quadrics were recomputed with
-exact rational arithmetic while preparing
-this section. For the tangent calculation,
-all pair syzygies of the monomial ideal
-were imposed. For the quadratic rank,
-each of the 27 polynomials has a monomial
-absent from the other 26; these give a
-diagonal coefficient minor with nonzero
-entries. Macaulay2 was unavailable, so the
-independent computation of
-$\dim T^2_{A,0}=27$ and the identification
-of the stored span with the freshly
-computed primary obstruction coordinates
-were checked against the cited scripts
-and their recorded output, not rerun.
-Those two statements remain computational
-inputs to this explanation.
-
-The calculations use rational coefficients;
-extension from $\mathbb{Q}$ to
-$\mathbb{C}$ preserves these dimensions
-and ranks. The 27 independent quadrics
-give an injective map
-$$
-W^*\longrightarrow
-\operatorname{Sym}^2(V^*),\qquad
-\lambda\longmapsto\lambda\circ q_2.
-$$
-Thus their span is identified with $W^*$.
-Independence is an extra computational
-fact, not a consequence of $\dim W=27$.
-It also does not say that the quadrics
-form a regular sequence or impose
-codimension 27.
-
-\medskip\noindent
-\textbf{What vanishing proves.}
-For a specified tangent vector $y$,
-$$
-Q_1(y)=\cdots=Q_{27}(y)=0
-$$
-is equivalent to the existence of a flat
-lift from $k[t]/(t^2)$ to $k[t]/(t^3)$.
-It does not by itself give an all-orders
-deformation or a smooth fibre.
-
-At the next stage, the known residual is
-$F_1R_2+F_2R_1$, and the new corrections
-are $F_0R_3+F_3R_0$. More generally, after
-a flat lift through order $n$, the
-coefficient to be removed at order $n+1$
-is
-$$
-\sum_{i=1}^n F_iR_{n+1-i}.
-$$
-Theorem~\ref{theorem-obstruction-flat-lift}
-assigns
-its class to the same space $T^2_{A,0}$,
-tensored with the one-dimensional kernel
-$(t^{n+1})/(t^{n+2})$. These later classes
-depend on the previously chosen lift.
-The original quadrics describe only the
-first of these lifting tests.
-
-\section{Gröbner denerations}
+\section{Gröbner degenerations}
 \label{section-grobner-degenerations}
 
 \noindent
@@ -3483,18 +2279,6 @@ fiber over any $(t-u)$ for $0 \neq u \in k$
 is $S/I$.
 
 \end{theorem}
-
-\medskip\noindent
-Now I'll put the original notes on this:
-
-
-\section{Miscellaneous}
-\label{section-misc}
-
-Look for the ``Perfect obstruction theory''.
-This is used by Bruzzo for deformations of
-(super)stacks,
-work with E. Paiva and ---.
 
 \bibliography{my}
 \bibliographystyle{amsalpha}

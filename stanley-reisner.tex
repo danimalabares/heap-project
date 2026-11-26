@@ -40,6 +40,301 @@ The {\it Stanley-Reisner ring} of $\mathcal{K}$ is
 $A_{\mathcal{K}}=S/I_{\mathcal{K}}$
 and the {\it Stanley-Reisner scheme} is $\text{Proj} A_{\mathcal{K}}$.
 
+\section{Torus action and AC multidegrees}
+\label{section-torus-action-ac-multidegrees}
+
+\noindent
+Our goal is to understand the multidegree
+pieces of $T^2$ used by
+Altmann and Christophersen (AC) in
+\emph{Cotangent cohomology of
+Stanley--Reisner rings} \cite{jan3}.
+They compute $T^1$ and $T^2$ from the
+simplicial complex. Before studying their
+combinatorial formulas, we explain what
+the pieces being computed mean:
+they are weight spaces for the torus
+that independently rescales the variables.
+Thus the multidegree decomposition has a
+representation-theoretic interpretation.
+We will build this interpretation in
+three steps.
+
+\begin{enumerate}
+\item The torus acts on the Stanley--Reisner
+algebra by independently rescaling
+the variables.
+\item This action induces a linear
+representation on $T^2$.
+\item This representation decomposes into
+weight spaces, which are precisely the
+multidegree pieces.
+\end{enumerate}
+
+\noindent
+We now explain the first item.
+Put
+$$
+S=\mathbb{C}[x_1,\ldots,x_n],
+\qquad T=(\mathbb{C}^{\times})^n.
+$$
+Independent rescaling means choosing
+one nonzero scalar $t_i$ for each variable.
+For $t=(t_1,\ldots,t_n)\in T$, define
+the algebra automorphism
+$$
+\rho_t:S\longrightarrow S,
+\qquad x_i\longmapsto t_i x_i.
+$$
+Its inverse is $\rho_{t^{-1}}$.
+These automorphisms give a torus action:
+$$
+\rho_t\circ\rho_u=\rho_{tu},
+\qquad \rho_{(1,\ldots,1)}=\operatorname{id}.
+$$
+
+\begin{proposition}
+\label{proposition-monomial-torus-action}
+For every monomial ideal $I\subset S$,
+independent rescaling descends to a
+torus action on the quotient algebra $S/I$.
+\end{proposition}
+
+\begin{proof}
+Let $m=x_1^{a_1}\cdots x_n^{a_n}$ be
+a monomial generator of $I$. Then
+$$
+\rho_t(m)=
+(t_1^{a_1}\cdots t_n^{a_n})m.
+$$
+Thus $\rho_t(m)\in I$.
+Every $f\in I$ is a finite sum
+$$
+f=\sum_j h_jm_j,
+\qquad h_j\in S,
+$$
+where the $m_j$ are monomial generators.
+Consequently,
+$$
+\rho_t(f)=
+\sum_j\rho_t(h_j)\rho_t(m_j)\in I.
+$$
+This proves $\rho_t(I)\subseteq I$.
+Applying the same argument to $t^{-1}$
+gives the reverse inclusion, so
+$$
+\rho_t(I)=I.
+$$
+
+We can therefore define
+$$
+\overline{\rho}_t:S/I\longrightarrow S/I,
+\qquad [f]\longmapsto[\rho_t(f)].
+$$
+This is well-defined: if $[f]=[g]$, then
+$f-g\in I$, hence
+$\rho_t(f)-\rho_t(g)\in I$.
+It is an algebra automorphism with inverse
+$\overline{\rho}_{t^{-1}}$.
+The action identities on $S$ pass to
+the quotient:
+$$
+\overline{\rho}_t\circ\overline{\rho}_u
+=\overline{\rho}_{tu},
+\qquad
+\overline{\rho}_{(1,\ldots,1)}
+=\operatorname{id}.
+$$
+\end{proof}
+
+\noindent
+A Stanley--Reisner ideal is monomial,
+so the proposition applies to our algebra.
+
+
+\medskip\noindent
+For now we accept items 2 and 3:
+the action on $R=S/I$ induces an
+algebraic torus representation on $T^2$,
+and its weight spaces are the AC
+multidegree pieces. We postpone the
+construction through the cotangent
+complex.
+
+The general torus decomposition is stated
+in Theorem~\ref
+{representation-theory-theorem-torus-weights}
+of \emph{Representation Theory}.
+That section also explains its relation
+to Lie algebra weight spaces.
+This is standard representation theory;
+AC's contribution is the combinatorial
+description of the individual cotangent
+cohomology pieces, not the existence of
+the weight decomposition.
+
+Write $t\cdot v$ for the induced action
+on $T^2$. What does a weight describe?
+First keep two different objects apart.
+An element
+$$
+t=(t_1,\ldots,t_n)\in T
+$$
+chooses the rescaling: multiply $x_i$
+by $t_i$. A weight will instead record
+how a vector responds to all these
+choices.
+
+Start with a familiar example in the
+polynomial ring:
+$$
+\rho_t(x_1^2x_2)=t_1^2t_2x_1^2x_2.
+$$
+Every rescaling preserves the line
+spanned by this monomial.
+The scalar changes with $t$, but the
+rule is always $t_1^2t_2$.
+We label this rule by the exponent
+vector $(2,1,0,\ldots,0)$.
+
+Now suppose a nonzero vector $v\in T^2$
+also stays on its own line under every
+rescaling. Write
+$$
+t\cdot v=\chi(t)v.
+$$
+The function $\chi$ records the scalar
+for every choice of $t$.
+Acting by $u$ and then by $t$ is the
+same as acting by $tu$, so
+$$
+\chi(tu)v
+=t\cdot(u\cdot v)
+=\chi(u)\chi(t)v.
+$$
+Since $v\neq0$, we obtain
+$$
+\chi(tu)=\chi(t)\chi(u).
+$$
+The scalars are nonzero because the
+action is invertible. Such an algebraic
+homomorphism
+$\chi:T\to\mathbb{C}^{\times}$
+is called a \emph{character}.
+Here this means a one-dimensional
+representation; it agrees with the
+trace character in dimension one.
+
+Why do integer vectors appear?
+The algebraic characters of $T$ are
+precisely the Laurent monomials
+$$
+\chi_\alpha(t)=t^\alpha
+=\prod_{i=1}^n t_i^{\alpha_i},
+\qquad \alpha\in\mathbb{Z}^n.
+$$
+This classification is a standard fact;
+see \cite[Section 4g and Chapter 12,
+Sections a--d]{milne-ag-2022}.
+The exponents are integers, and negative
+ones are allowed since each $t_i$ is
+nonzero. Thus $t$ specifies a
+transformation, while $\alpha$ labels
+a scaling rule. They belong to
+different sets.
+
+We group together all vectors with
+the same scaling rule:
+$$
+T^2_\alpha=
+\{v\in T^2:t\cdot v=t^\alpha v
+\ \forall t\in T\}.
+$$
+This space can have dimension greater
+than one: several independent vectors
+can respond by the same scalar.
+The theorem we are accepting says that
+every vector is a unique finite sum of
+vectors belonging to these spaces:
+\begin{equation}
+\label{equation-ac-weight-decomposition}
+T^2=\bigoplus_{\alpha\in\mathbb{Z}^n}
+T^2_\alpha.
+\end{equation}
+This is \cite[Theorem 12.12]
+{milne-ag-2022}, applied to the
+algebraic torus representation on $T^2$.
+These are the pieces computed by AC.
+
+The following comparison is only a bridge
+to the weight decompositions we already
+know from Lie algebras. It is not needed
+for the deformation argument and may
+be skipped.
+To recognize the Lie algebra version,
+put $t_i=e^{s h_i}$ and differentiate
+at $s=0$. For $v\in T^2_\alpha$,
+$$
+t(s)\cdot v
+=e^{s\sum_i\alpha_i h_i}v
+\quad\Longrightarrow\quad
+\pi(h)v=\left(\sum_i\alpha_i h_i\right)v.
+$$
+Thus the Lie algebra weight is the
+linear functional
+$\lambda_\alpha(h)=\sum_i\alpha_i h_i$.
+This is the simultaneous-eigenvector
+condition from
+Definition~\ref
+{lie-algebras-definition-weight-space}.
+
+For the graded projective problem we
+use the total-degree-zero part:
+$$
+(T^2)_0=
+\bigoplus_{\sum_i\alpha_i=0}T^2_\alpha.
+$$
+Indeed, setting all $t_i=c$ gives the
+scalar $c^{\sum_i\alpha_i}$.
+Total degree zero means that this
+common rescaling acts trivially.
+
+There is a second compatibility that
+we also accept for now. Let $G$ be a
+group of vertex permutations preserving
+the simplicial complex.
+Use the convention $g(x_i)=x_{g(i)}$.
+Then
+\begin{equation}
+\label{equation-ac-weight-permutation}
+g(T^2_\alpha)=T^2_{g\alpha},
+\qquad
+(g\alpha)_i=\alpha_{g^{-1}(i)}.
+\end{equation}
+This says that relabelling the vertices
+also relabels the entries of the weight.
+For example, swapping vertices 1 and 2
+sends the space of weight
+$(a,b,\alpha_3,\ldots,\alpha_n)$
+to the space of weight
+$(b,a,\alpha_3,\ldots,\alpha_n)$.
+It need not preserve each weight space
+separately.
+
+The reason is that a permutation
+conjugates independent rescaling to
+independent rescaling with permuted
+scalars. The induced actions on $T^2$
+retain this compatibility.
+Consequently we can organize the AC
+pieces into $G$-orbits and study one
+representative at a time.
+Permutations fixing a weight can still
+act nontrivially inside its weight
+space; understanding that action will
+be essential for finding invariant
+obstruction classes.
+
 \section{The dualizing sheaf of a sphere}
 \label{section-sr-dualizing-sheaf}
 
