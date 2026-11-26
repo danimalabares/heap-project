@@ -19,6 +19,15 @@ The Heap is a general knowledge notebook. It
 is not a diary, not a research journal, not a
 chat log, and it is not addressed to Daniel.
 
+Daniel has explicitly made two chapter-level
+exceptions to the public-and-professional rule:
+`philosophy.tex` and `genealogia-familiar.tex`
+may retain their existing personal, informal,
+autobiographical, family and other sensitive
+material. This exception applies only to those
+two chapters and must not be generalized to
+other files.
+
 Never publish, in a chapter, a comment, a
 template, a slide, a README, a handoff note or
 a commit message:
