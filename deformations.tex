@@ -2797,9 +2797,8 @@ The columns need not be independent or
 minimal. In the Gr\"unbaum computation,
 $m=16$ and a minimal $R_0$ has 30 columns.
 
-Here is the precise flatness statement we
-need, in the setting of
-Theorem~\ref{theorem-artin-criterion}.
+\begin{corollary}[Flatness by lifting syzygies]
+\label{corollary-flatness-lifting-syzygies}
 Let $B$ be a local Artinian $k$-algebra
 with residue field $k$, and put
 $S_B=S\otimes_k B$ and $E_B=E\otimes_k B$.
@@ -2808,24 +2807,31 @@ $S_B/(F)$ is flat over $B$ if and only if
 every syzygy of $F_0$ lifts to a syzygy of
 $F$. Equivalently, there is a matrix $R$
 reducing to $R_0$ with $FR=0$ in $S_B$.
+\end{corollary}
 
-For justification, apply the
-\href{https://stacks.math.columbia.edu/%
-tag/051K}{Stacks Project, Lemma 10.101.6
-(Tag 051K)}, with the maximal ideal of $B$.
-It says that flatness is equivalent to
-$$
-\operatorname{Tor}^B_1(S_B/(F),k)=0.
-$$
-Indeed, write $J=(F)$. Tensoring
+\begin{proof}
+If the columns of $R_0$ lift, choose
+these lifts as the columns of $R$.
+The identity $FR=0$ gives a complex
+lifting the presentation on the special
+fibre, so
+Theorem~\ref{theorem-artin-criterion}
+gives flatness.
+
+Conversely, suppose $S_B/J$ is flat over
+$B$, where $J=(F)$. Tensoring
 $0\to J\to S_B\to S_B/J\to0$ with $k$
-identifies this Tor group with the kernel
-of $J\otimes_B k\to S$. A presentation
-$E_B\to J$ shows that this kernel vanishes
-exactly when the relations among the $f_i$
-come from relations among their lifts.
-This also explains why generators of the
-syzygy module suffice.
+then identifies $J\otimes_B k$ with $I_0$.
+Put $K=\ker(E_B\to J)$. Right exactness
+of tensor product gives an exact sequence
+$$
+K\otimes_B k\longrightarrow E
+\longrightarrow I_0\longrightarrow 0.
+$$
+Thus every syzygy of $F_0$ is the
+reduction of an element of $K$, that is,
+of a syzygy of $F$.
+\end{proof}
 
 The coefficients of a syzygy are therefore
 allowed to change. Requiring $FR_0=0$
