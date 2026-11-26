@@ -37,8 +37,8 @@ details{margin-top:10px;font-size:13px;color:var(--muted)}details p{max-width:72
 <p class="caption">Cada línea poligonal cerrada es una cara. El giro S₃ lleva la verde a la naranja alrededor de la arista negra. Sus extremos son el vértice base w<sub>α</sub> y su vecino w<sub>α</sub>S₁⁻¹. Cuando α = 0, la arista negra es la arista base de 𝒯.</p>
 <p class="hint">Arrastra para mirar desde otro lado. Usa la rueda para acercarte y la barra espaciadora para pausar o continuar.</p>
 <aside><div class="controls"><output id="alpha" for="slider"></output><input id="slider" type="range" min="-1.5707963267948966" max="1.5707963267948966" step="any" aria-label="Parámetro α"><button id="play" aria-keyshortcuts="Space">▶ Variar α</button></div>
-<div class="jump"><button id="original">α = 0 · Arista de 𝒯</button><button id="dual">α = 1</button><button id="short">Arista más corta</button><button id="roli">Dragón-octaédrico</button><button id="long">Arista más larga</button><button id="turn">▶ Aplicar S₃</button></div>
-<div class="jump"><label><input type="checkbox" id="faces" checked> Ver las dos caras completas</label><button id="walk">Recorrer 12 lados</button><output id="count"></output></div>
+<div class="jump"><button id="original">α = 0 · Arista de 𝒯</button><button id="short">Arista más corta</button><button id="roli">Dragón-octaédrico</button><button id="dual">α = 1</button><button id="long">Arista más larga</button></div>
+<div class="jump"><label><input type="checkbox" id="faces" checked> Ver las dos caras completas</label><button id="turn">▶ Aplicar S₃</button></div>
 <details><summary>Los vértices y la proyección</summary>
 <p>Desde w<sub>α</sub>, un paso por la cara verde lleva a w<sub>α</sub>S₁. Un paso en sentido contrario lleva a w<sub>α</sub>S₁⁻¹, el otro extremo de la arista negra.</p>
 <p>Para α = 0, el segmento negro es la arista base del 4-politopo regular original 𝒯 = {5,3,5/2}. Entonces sus extremos son el vértice base de 𝒯 y su imagen por la reflexión R₀. El centroide de la celda base de 𝒯 se llama v₃. Para α = 1, el vértice base w<sub>α</sub> está en la dirección de v₃.</p>
@@ -101,16 +101,15 @@ const light={axis:"#102f37",first:"#087453",last:"#b74e1a"};
 const alt={axis:"#293d59",first:"#00655e",last:"#993d19"};
 let palette=light, W=0,H=0, yaw=-.10,pitch=-.30,roll=-.16,zoom=1,drag=null;
 const schlafliSymbols=new Map([
-  [0, "Tesis · {12/(1,5), 3, 5/2}"],
+  [0, "Tesis Daniel · {12/(1,5), 3, 5/2}"],
   [stops.roli, "Dragón · {12/(1,5), 3, 4}"],
-  [Math.PI/4, "Tesis · {12/(1,5), 3, 5}"]
+  [Math.PI/4, "Tesis Daniel · {12/(1,5), 3, 5}"]
 ]);
 const playbackStops=[...new Set([...Object.values(stops), ...schlafliSymbols.keys()])].sort((a,b)=>a-b);
 let s=stops.roli, data=frame(s), progress=1, turning=false, hold=1.3, last=null;
 let playing=!matchMedia("(prefers-reduced-motion: reduce)").matches;
-let walk=null;
 let paused=false;
-function hasMotion(){return playing || turning || (walk!==null && walk<12)}
+function hasMotion(){return playing || turning}
 function camera([x,y,z]){
   const a=Math.cos(yaw)*x-Math.sin(yaw)*z, b=Math.sin(yaw)*x+Math.cos(yaw)*z;
   const up=Math.cos(pitch)*y-Math.sin(pitch)*b, depth=Math.sin(pitch)*y+Math.cos(pitch)*b;
@@ -135,16 +134,6 @@ function draw(){
   const c=palette,F=data.face,B=F[11],A=F[0],C=F[1];
   const target=F.map(p=>rotateEdge(p,data.angle)), marker=rotateEdge(C,data.angle*progress);
   ctx.clearRect(0,0,W,H);ctx.lineJoin=ctx.lineCap="round";
-  if(walk!==null){
-    const path=[B,...F], i=Math.min(11,Math.floor(walk));
-    const tip=combine(path[i],1-(walk-i),path[i+1],walk-i);
-    line(path,"#a4bfbd",1.8);
-    line([...path.slice(0,i+1),tip],c.first,4);
-    F.forEach(p=>point(p,c.first,3));
-    point(tip,c.last,7);label(tip,String(i+1),9,-7,c.last);
-    $("count").value="Lado "+(i+1)+" de 12";
-    return;
-  }
   const layers=[{v:F,col:c.first},{v:target,col:c.last}];
   layers.sort((a,b)=>camera(a.v[1])[2]-camera(b.v[1])[2]);
   for(const {v,col} of layers){
@@ -173,20 +162,12 @@ function display(){
   if($("symbol").textContent!==symbol) $("symbol").textContent=symbol;
   $("play").textContent=paused?"▶ Continuar":hasMotion()?"❙❙ Pausar":"▶ Variar α";draw();
 }
-function leaveWalk(){walk=null;$("count").value="";$("walk").textContent="Recorrer 12 lados"}
-$("walk").onclick=()=>{
-  paused=false;
-  if(walk===null){walk=0;playing=false;turning=false;$("walk").textContent="Volver a las dos caras"}
-  else leaveWalk();
-  display();
-};
-function manual(value){paused=false;leaveWalk();s=value;playing=false;turning=false;progress=1;display()}
-function turn(){paused=false;leaveWalk();playing=false;turning=true;progress=0;display()}
+function manual(value){paused=false;s=value;playing=false;turning=false;progress=1;display()}
+function turn(){paused=false;playing=false;turning=true;progress=0;display()}
 function togglePlayback(){
   if(hasMotion()){
     paused=!paused;
   }else{
-    leaveWalk();
     playing=true;
     paused=false;
     hold=0;
@@ -209,7 +190,7 @@ $("slider").oninput=e=>{
   const nearby=[...schlafliSymbols.keys()].find(stop=>Math.abs(stop-value)<=tolerance);
   manual(nearby ?? value);
 };
-$("faces").onchange=()=>{leaveWalk();draw()};
+$("faces").onchange=draw;
 function chooseDark(on){palette=on?alt:light;
   const keys=document.querySelectorAll(".legend span");
   keys[0].style.setProperty("--sample",palette.first);keys[1].style.setProperty("--sample",palette.last);
@@ -228,8 +209,7 @@ function resize(){
 function tick(now){
   const dt=last===null?0:Math.min(.06,(now-last)/1000);last=now;
   if(paused){requestAnimationFrame(tick);return}
-  if(walk!==null && walk<12){walk=Math.min(12,walk+dt*1.1);if(walk===12) display();else draw()}
-  else if(turning){progress=Math.min(1,progress+dt/2.1);turning=progress<1;if(turning) draw();else display()}
+  if(turning){progress=Math.min(1,progress+dt/2.1);turning=progress<1;if(turning) draw();else display()}
   else if(playing){
     if(hold>0)hold-=dt;
     else{
