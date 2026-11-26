@@ -295,7 +295,13 @@ def makeBibliography(files):
       BibliographyEntry.create(entrytype=entry.type, key=entry.key, code=data.to_string("bibtex"))
 
       for (field, value) in entry.fields.items():
-        value = pybtex.richtext.Text.from_latex(value).render_as("html")
+        # URLs are data, not LaTeX prose.
+        # The template escapes them once.
+        if field.lower() == "url":
+          # Accept older TeX-escaped percent.
+          value = re.sub(r"\\+%", "%", value)
+        else:
+          value = pybtex.richtext.Text.from_latex(value).render_as("html")
         BibliographyField.create(key=entry.key, field=field.lower(), value=value)
 
       for (field, value) in entry.persons.items():

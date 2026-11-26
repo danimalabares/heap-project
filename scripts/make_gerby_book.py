@@ -98,6 +98,7 @@ KNOWN_CHAPTERS = {
     "plane-tessellations",
     "polytopes",
     "skeletal-polytopes",
+    "yoga",
 }
 
 
