@@ -121,3 +121,37 @@ Worktree: `~/github/heap-discrete-geometry`, branch `feat/discrete-geometry`
 - Not recompiled after the moves: seminars-complex-geometry.tex,
   hilbert-schemes.tex.
 - Research repo commit `dd9ee5f` (GN variety notes archived) is local only.
+
+## Update, 2026-11-26 (Claude Code, Fable 5.2)
+
+- Item 1 done: `plane-tessellations.tex` is an English account of the
+  bachelor's thesis (15 pages): definitions, Archimedean and Laves tilings,
+  rosette and frieze groups, preliminaries, presentations, and the 17
+  groups, each with its unit cell, generators and a presentation.
+  Compiles clean.
+- Pictures in `plane-tessellations-assets/`: the 17 unit-cell diagrams
+  (cropped from the thesis PDF at 200 dpi) and two of Daniel's own diagrams
+  (symmetries of the triangle). NOT included: Escher's drawings, the
+  figures scanned from Grünbaum-Shephard, the Owen Jones plates, the
+  Cayley diagrams built on Escher's horseman. HP is a public site and
+  Escher / Grünbaum-Shephard images are under copyright: Daniel decides.
+  The crop script approach: render page with gs, crop with sips.
+- Corrections made to the thesis (the thesis text is wrong as written;
+  tell Daniel): p3 presentation is u^3=v^3=(uv)^3 for u=r_{A,120},
+  v=r_{G,120} (the thesis has (vu^{-1})^3, but vu^{-1} is a translation);
+  p4m is (uv)^4=(vw)^2=(wu)^4 (the thesis has three 4's, a hyperbolic
+  group); in p4 the half-turn is r_{M,90}r_{A,90}; in p4g the conjugate is
+  r_{E,-90}; p1 "not linearly independent" typo. The thesis's "other
+  presentations" quoted from Coxeter-Moser are omitted (not checked
+  against the book; no copy in ~/books).
+- The presentations were checked by hand by the writing session only; no
+  independent review yet.
+- my.bib: the merge `ada18518e` had dropped the closing brace of
+  `rotman-abstract-algebra` (BibTeX then skipped `reisner-cm`); fixed.
+  Added `KLSV` (was cited on main with no entry; data checked on arXiv),
+  and six entries for the tessellations chapter.
+- Recompiled after the moves: hilbert-schemes.tex clean;
+  seminars-complex-geometry.tex has only the cross-chapter reference to
+  lie-algebras (no .aux in this worktree).
+- Still waiting on Daniel: is the other bot done? Then items 2 and 5,
+  merge, push.
