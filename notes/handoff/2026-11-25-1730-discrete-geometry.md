@@ -104,3 +104,20 @@ Worktree: `~/github/heap-discrete-geometry`, branch `feat/discrete-geometry`
 7. Undefined cross-chapter references in a fresh worktree go away on the
    second `make` once all `.aux` exist; `KuhnelBanchoff1983` was missing
    from my.bib and is now added.
+
+## Update, same day, later
+
+- Local `main` (with the other bot's three local commits) was merged into
+  this branch: `ada18518e`. Items 3 and 6 above are done for now:
+  `.claude/research-kit.json` (Daniel created it; classic BibTeX, in-place
+  builds) is committed as `057bfcdb5`. Not yet tested that the hooks now
+  accept Write of a BibTeX chapter.
+- Item 4 is decided: Daniel approved discarding the main checkout's
+  uncommitted copies of algebraic-geometry.tex, stanley-reisner.tex and
+  my.bib at merge time (this branch contains them).
+- Daniel: "we can wait for the other bot". Do NOT merge into main or touch
+  the main checkout until he says the other bot is done. Then: merge main
+  here again, items 2 and 5, merge to main, push.
+- Not recompiled after the moves: seminars-complex-geometry.tex,
+  hilbert-schemes.tex.
+- Research repo commit `dd9ee5f` (GN variety notes archived) is local only.
