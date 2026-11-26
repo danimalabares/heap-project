@@ -95,6 +95,7 @@ KNOWN_CHAPTERS = {
     "philosophy",
     "topological-groups",
     "birman-hilden",
+    "yoga",
 }
 
 
