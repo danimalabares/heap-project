@@ -15,7 +15,7 @@ h1{margin:0;border-left:3px solid var(--cyan);padding-left:10px;font:500 21px/1.
 header label{display:inline-flex;align-items:center;gap:2px}input{accent-color:var(--cyan)}button,label,summary{cursor:pointer}
 main{position:relative;flex:1 1 0;min-height:220px}
 canvas{width:100%;height:100%;display:block;touch-action:none;cursor:grab}
-.hint{margin:0 18px 6px;color:var(--muted);font-size:12px}
+.caption{margin:0 18px 6px;line-height:1.3}.hint{margin:0 18px 6px;color:var(--muted);font-size:12px}
 aside{padding:12px 18px;background:#f3f6f5;border-top:1px solid var(--rule);max-height:42vh;overflow:auto}
 body.notools aside{display:none} .controls,.jump{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.controls{margin-bottom:10px}
 button{font:inherit;font-size:14px;padding:6px 12px;border-radius:5px;background:#fff;color:var(--ink);border:1px solid #aabbbb}
@@ -24,21 +24,24 @@ input[type=range]{flex:1;min-width:60px}.value{font-variant-numeric:tabular-nums
 details{margin-top:10px;font-size:13px;color:var(--muted)}details p{max-width:72ch;margin:6px 0}a{color:var(--cyan)}
 @media(max-width:480px){h1{font-size:17px}header{padding-right:148px}.controls,.jump{gap:5px}aside{padding:9px}button{padding:5px 8px}}
 
-.readings{display:flex;gap:20px;align-items:baseline;padding:4px 18px 0;font-size:14px;color:#456065}.readings b{font-weight:550;color:#193238;font-variant-numeric:tabular-nums}.legend{display:flex;gap:18px;margin:0 18px 8px;font-size:13px;flex-wrap:wrap}.legend span:before{content:"";display:inline-block;width:20px;height:3px;vertical-align:middle;margin-right:6px;background:var(--sample)}.legend span:first-child{--sample:#007477}.legend span:last-child{--sample:#ae4629} #play{min-width:108px}.jump{margin-top:8px}#alpha{font:600 17px Georgia;min-width:98px;text-align:left} #slider{margin:0}.hint{font-size:12px} .controls{flex-wrap:nowrap}#faces{accent-color:var(--cyan)}
+.readings{display:flex;gap:20px;align-items:baseline;padding:4px 18px 0;font-size:14px;color:#456065}.readings b{font-weight:550;color:#193238;font-variant-numeric:tabular-nums}.legend{display:flex;gap:18px;margin:0 18px 8px;font-size:13px;flex-wrap:wrap}.legend span:before{content:"";display:inline-block;width:20px;height:3px;vertical-align:middle;margin-right:6px;background:var(--sample)}.legend span:first-child{--sample:#087453}.legend span:last-child{--sample:#b74e1a} #play{min-width:108px}.jump{margin-top:8px}#alpha{font:600 17px Georgia;min-width:98px;text-align:left} #slider{margin:0}.hint{font-size:12px} .controls{flex-wrap:nowrap}#faces{accent-color:var(--cyan)}
 </style></head><body><div class="wrap"><header><h1>Al variar α, cambia el ángulo de S₃</h1>
     <div class="fs" title="Full screen: the whole page, controls included. Key f, or Esc to leave."><label><input type="radio" name="fs" id="fsW" checked> Window</label><label><input type="radio" name="fs" id="fsF"> Full screen</label></div>
     <div class="tb" title="Show or hide the toolbox under the figure. Key t."><label><input type="radio" name="tb" id="tbS" checked> Tools</label><label><input type="radio" name="tb" id="tbH"> No tools</label></div>
     <div class="dk"><label><input type="radio" name="dk" id="dkL"> Light</label><label><input type="radio" name="dk" id="dkD"> Dark</label></div>
 
-</header><div class="readings"><span>Longitud AB <b id="length"></b></span><span>Giro de S₃ <b id="angle"></b></span></div>
-<main><canvas id="cv" aria-label="Vista 3D interactiva de dos caras con la arista AB en común"></canvas></main>
-<div class="legend"><span>Cara inicial</span><span>Su imagen por S₃</span></div>
+</header><div class="readings"><span>Longitud de la arista <b id="length"></b></span><span>Giro de S₃ <b id="angle"></b></span></div>
+<main><canvas id="cv" aria-label="Dos caras de doce aristas, con la arista base entre w₀ y w₁₁ en común"></canvas></main>
+<div class="legend"><span>Cara verde · 12 aristas</span><span>Cara naranja · 12 aristas</span></div>
+<p class="caption">Cada línea poligonal cerrada es una cara. El giro S₃ lleva la verde a la naranja alrededor de la arista negra. Su extremo w₀ es el vértice base de la familia para el valor de α elegido. Cuando α = 0, la arista negra es la arista base de 𝒯.</p>
 <p class="hint">Arrastra para mirar desde otro lado. Usa la rueda para acercarte y la barra espaciadora para pausar o continuar.</p>
 <aside><div class="controls"><output id="alpha" for="slider"></output><input id="slider" type="range" min="-1.5707963267948966" max="1.5707963267948966" step="any" aria-label="Parámetro α"><button id="play" aria-keyshortcuts="Space">▶ Variar α</button></div>
-<div class="jump"><button id="short">Arista más corta</button><button id="roli">Dragón-octaédrico</button><button id="long">Arista más larga</button><button id="turn">▶ Aplicar S₃</button></div>
+<div class="jump"><button id="original">α = 0 · Arista de 𝒯</button><button id="short">Arista más corta</button><button id="roli">Dragón-octaédrico</button><button id="long">Arista más larga</button><button id="turn">▶ Aplicar S₃</button></div>
 <div class="jump"><label><input type="checkbox" id="faces" checked> Ver las dos caras completas</label><button id="walk">Recorrer 12 lados</button><output id="count"></output></div>
-<details><summary>Cómo está hecha la vista 3D</summary><p>La familia {5,3,5/2} vive en cuatro dimensiones. Para cada α calculamos los doce vértices de la cara y sus imágenes por S₃. Usamos una proyección oblicua: parte de la coordenada en la dirección del punto medio de AB se dibuja a lo largo del eje AB. Así se separan los vértices que coincidían en la vista ortogonal. Así se conservan la longitud de AB y el giro alrededor de AB. Para comparar distintos α mantenemos el eje de la arista en la misma dirección y alineada la primera cara por su vértice vecino P.</p>
-<p>El borde de cada cara es un polígono alabeado de doce lados. El sombreado resalta la esquina ABP. El arco punteado sigue a P mientras aplicamos el giro con α fijo. El control recorre toda la recta proyectiva mediante arctan(α).</p><p>En el caso dragón-octaédrico hay cuatro caras alrededor de AB. La vista muestra una de ellas y la siguiente, que se obtiene con un giro de 90°.</p></details></aside></div>
+<details><summary>Los vértices y la proyección</summary>
+<p>Numeramos los vértices de la cara verde a partir de w₀ = w<sub>α</sub>. Al aplicar S₁ recorremos el ciclo w₀, w₁, …, w₁₁, w₀. La arista base une w₀ con su vecino anterior, w₁₁ = w₀S₁⁻¹.</p>
+<p>Para α = 0, el segmento negro es la arista base del 4-politopo regular original 𝒯 = {5,3,5/2}. Entonces sus extremos son el vértice base de 𝒯 y su imagen por la reflexión R₀. El centro de la celda base de 𝒯 interviene en la construcción de w<sub>α</sub>.</p>
+<p>En cuatro dimensiones, la arista opuesta une −w₀ con −w₁₁. También pertenece a ambas caras. La proyección oblicua separa las dos aristas a lo largo del eje y conserva el ángulo de giro. El arco punteado muestra la trayectoria de P = w₁ durante el giro. En el caso dragón-octaédrico pasan cuatro caras por la arista base. Aquí se ven dos consecutivas.</p></details></aside></div>
 <script>
 const pi = Math.PI, tau = 2*pi, phi = (1+Math.sqrt(5))/2;
 const dot = (u,v) => u.reduce((s,x,i)=>s+x*v[i],0);
@@ -65,8 +68,9 @@ function frame(s) {
   }
   const v=[0,1,2,3].map(i=>(i%2?-1:1)*minor(i));
   // Shear only along the fixed axis. Both endpoints shift equally and the
-  // transverse action is still the true S₃ rotation. Separate A from −B.
-  const shear=.48*dot(B,axis)/dot(B,radial);
+  // transverse action is still the true S₃ rotation. Keep the base edge disjoint from its antipode by placing
+  // its two endpoints on the same side of the projected origin.
+  const shear=1.2*dot(B,axis)/dot(B,radial);
   const project=p=>[dot(p,axis)+shear*dot(p,radial),dot(p,u),dot(p,v)];
   // Proposition 3.3. Project w to the two eigenspaces of (S₁+S₁⁻¹)/2.
   const p1=combine(combine(B,.5,C,.5),1/Math.sqrt(3),w,.5);
@@ -77,7 +81,9 @@ function frame(s) {
   }
   const moved=project(applyS3(u)), angle=Math.atan2(moved[2],moved[1]);
   const face=[w]; for(let j=1;j<12;j++) face.push(forward(face[j-1]));
-  return {face:face.map(project),angle,length:Math.hypot(...combine(w,1,B,-1)),project,applyS3,vertices:face};
+  const projectedFace=face.map(project);
+  const extent=Math.max(...projectedFace.map(p=>Math.hypot(...p)));
+  return {face:projectedFace,extent,angle,length:Math.hypot(...combine(w,1,B,-1)),project,applyS3,vertices:face};
 }
 function rotateEdge([x,y,z],a) {return [x,y*Math.cos(a)-z*Math.sin(a),y*Math.sin(a)+z*Math.cos(a)];}
 // Principal directions in Π for the cosine between adjacent vertices (v4, §5).
@@ -90,9 +96,9 @@ if(typeof module!=="undefined") module.exports={frame,rotateEdge,stops,dot,pi};
 </script>
 <script>
 const $=id=>document.getElementById(id), cv=$("cv"), ctx=cv.getContext("2d");
-const light={axis:"#102f37",first:"#007477",last:"#ae4629",aFill:"rgba(0,133,129,.13)",bFill:"rgba(214,100,55,.17)",wireA:"#74a9a7",wireB:"#cc9b89"};
-const alt={axis:"#293d59",first:"#006898",last:"#a02c78",aFill:"rgba(51,139,185,.17)",bFill:"rgba(189,65,141,.14)",wireA:"#7c9cac",wireB:"#b78ca5"};
-let palette=light, W=0,H=0, yaw=.49,pitch=.45,roll=-.16,zoom=1,drag=null;
+const light={axis:"#102f37",first:"#087453",last:"#b74e1a"};
+const alt={axis:"#293d59",first:"#00655e",last:"#993d19"};
+let palette=light, W=0,H=0, yaw=-.10,pitch=-.30,roll=-.16,zoom=1,drag=null;
 let s=stops.roli, data=frame(s), progress=1, turning=false, hold=1.3, last=null;
 let playing=!matchMedia("(prefers-reduced-motion: reduce)").matches;
 let walk=null;
@@ -101,16 +107,13 @@ function hasMotion(){return playing || turning || (walk!==null && walk<12)}
 function camera([x,y,z]){
   const a=Math.cos(yaw)*x-Math.sin(yaw)*z, b=Math.sin(yaw)*x+Math.cos(yaw)*z;
   const up=Math.cos(pitch)*y-Math.sin(pitch)*b, depth=Math.sin(pitch)*y+Math.cos(pitch)*b;
-  const scale=Math.min(W*.35,H*.40)*zoom*4/(4-depth);
+  const distance=Math.max(4,3*data.extent);
+  const scale=Math.min(W*.39,H*.41)*zoom/Math.max(1,data.extent)*distance/(distance-depth);
   return [W/2+scale*(Math.cos(roll)*a-Math.sin(roll)*up),H*.50-scale*(Math.sin(roll)*a+Math.cos(roll)*up),depth];
 }
 function line(pts,color,width,dash=[]){
   ctx.beginPath();pts.map(camera).forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y));
   ctx.lineWidth=width;ctx.strokeStyle=color;ctx.setLineDash(dash);ctx.stroke();ctx.setLineDash([]);
-}
-function surface(pts,color){
-  ctx.beginPath();pts.map(camera).forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y));
-  ctx.closePath();ctx.fillStyle=color;ctx.fill();
 }
 function point(p,col,r){const [x,y]=camera(p);ctx.beginPath();ctx.arc(x,y,r,0,tau);ctx.fillStyle=col;ctx.fill();ctx.strokeStyle="white";ctx.lineWidth=1.3;ctx.stroke()}
 function label(p,name,dx,dy,col){const [x,y]=camera(p);ctx.font="italic 17px Georgia";ctx.lineWidth=4;ctx.strokeStyle="white";ctx.strokeText(name,x+dx,y+dy);ctx.fillStyle=col;ctx.fillText(name,x+dx,y+dy)}
@@ -129,23 +132,22 @@ function draw(){
     $("count").value="Lado "+(i+1)+" de 12";
     return;
   }
-  // Each patch highlights the corner of a skew 12-gon. Only its two solid sides are edges.
-  const layers=[{v:F,fill:c.aFill,col:c.first,wire:c.wireA},{v:target,fill:c.bFill,col:c.last,wire:c.wireB}];
+  const layers=[{v:F,col:c.first},{v:target,col:c.last}];
   layers.sort((a,b)=>camera(a.v[1])[2]-camera(b.v[1])[2]);
-  for(const {v,fill,col,wire} of layers){
-    if($("faces").checked)line([...v,v[0]],wire,1.5);
-    surface([B,A,v[1]],fill);line([A,v[1]],col,3.7);line([B,v[1]],wire,1,[3,5]);
+  for(const {v,col} of layers){
+    if($("faces").checked){
+      line([...v,v[0]],col,2.4);
+      v.forEach(p=>point(p,col,2.7));
+    }
+    line([A,v[1]],col,3.4);
   }
-  const foot=[C[0],0,0];
-  line([[Math.min(-1.04,foot[0]-.1),0,0],[1.06,0,0]],"#9aa9aa",1,[4,5]);
-  line([foot,C],c.first,1.2,[3,4]);line([foot,target[1]],c.last,1.2,[3,4]);
   const arc=Array.from({length:73},(_,i)=>rotateEdge(C,data.angle*i/72));
   line(arc,c.last,1.9,[4,4]);line([B,A],c.axis,6);point(A,c.axis,5);point(B,c.axis,5);
   point(C,c.first,5);point(target[1],c.last,5);
   if(turning){
-    surface([B,A,marker],"rgba(220,148,42,.16)");line([A,marker],"#ae7116",3);point(marker,"#98620d",6);
+    line([A,marker],"#ae7116",3);point(marker,"#98620d",6);
   }
-  label(A,"A",-15,19,c.axis);label(B,"B",7,19,c.axis);
+  label(A,"w₀",-20,19,c.axis);label(B,"w₁₁",7,19,c.axis);
   label(C,"P",-13,-9,c.first);label(target[1],"S₃(P)",8,-9,c.last);
 }
 function display(){
@@ -183,6 +185,7 @@ document.addEventListener("keydown",event=>{
   if(!event.repeat) togglePlayback();
 });
 $("turn").onclick=turn;
+$("original").onclick=()=>manual(0);
 for(const [key,value] of Object.entries(stops))$(key).onclick=()=>{manual(value);turn()};
 $("slider").oninput=e=>manual(Number(e.target.value));
 $("faces").onchange=()=>{leaveWalk();draw()};
