@@ -1,9 +1,14 @@
 import os.path
 
-from flask import abort, send_from_directory
+from flask import abort, render_template, send_from_directory
 
 from gerby.application import app
 from gerby.configuration import ROOT
+
+
+@app.route("/models", strict_slashes=False)
+def show_models():
+  return render_template("single/models.html")
 
 
 @app.route("/models/<chapter>/<name>.html")
