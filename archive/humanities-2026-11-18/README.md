@@ -3,8 +3,7 @@
 Implemented by Codex, 18 November 2026,
 following Daniel's approved plan.
 
-- History absorbs the Brazil and family
-  notebooks.
+- History absorbs the Brazil notebook.
 - Anthropology absorbs the Bahia visit
   and religious-reading notebook.
 - Linguistics develops the recovered
@@ -38,7 +37,4 @@ are stated. Following Daniel's correction,
 the original language tree is displayed
 in Linguistics with Guajá added and brief
 notes on non-genealogical links. It remains
-a dated working map. Family diagrams
-were replaced with explicit reconstructions
-whose evidence and gaps are distinguished.
-No claim of a complete genealogy is made.
+a dated working map.

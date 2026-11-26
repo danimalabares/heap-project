@@ -456,7 +456,6 @@ class ContentsAndDownloadsTests(
                     "Differential geometry",
                     ["C006"],
                 ),
-                ("Analysis and PDE", [None]),
             ],
         )
         self.assertEqual(
