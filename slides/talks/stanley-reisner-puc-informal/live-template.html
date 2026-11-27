@@ -15,11 +15,23 @@ html,body{margin:0;height:100%;background:#fff;overflow:hidden}
 #tl{position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden;line-height:1}
 #tl span{position:absolute;color:transparent;white-space:pre;cursor:text;transform-origin:0 0;font-family:Georgia,serif}
 #tl span::selection{background:rgba(0,90,255,.3)}
+#toc{position:fixed;left:0;top:0;right:0;bottom:0;z-index:20;background:#fff;overflow:auto;display:none;padding:14px 18px 18px;box-sizing:border-box;font:13px/1.35 Georgia,serif;color:#1c1c1c}
+#toc h2{font:bold 16px Georgia,serif;margin:0 0 8px}
+#toc h2 small{font:12px Georgia,serif;color:#777;margin-left:10px}
+#toc .cols{-webkit-column-count:2;column-count:2;-webkit-column-gap:26px;column-gap:26px}
+#toc a{display:block;padding:1px 4px 1px 34px;text-indent:-30px;color:#1c1c1c;text-decoration:none;cursor:pointer;border-radius:3px;-webkit-column-break-inside:avoid;break-inside:avoid}
+#toc a:hover{background:#eee}
+#toc a.part{font-weight:bold;margin-top:7px}
+#toc a.cur{background:#dde8ff}
+#toc a.sel{outline:2px solid #2a5bd7;outline-offset:-2px}
+#toc a b{display:inline-block;width:26px;text-indent:0;font-weight:normal;color:#777}
+@media (max-width:520px){#toc .cols{-webkit-column-count:1;column-count:1}}
 #note{position:fixed;right:8px;bottom:6px;font:11px Georgia,serif;color:#888;display:none}
 </style></head><body>
 <div id="box"><img id="pg" alt=""></div>
 <div id="note"></div>
-<div id="fsb"><label><input type="radio" name="fs" id="fsW" checked> Window</label><label><input type="radio" name="fs" id="fsF"> Full screen</label></div>
+<div id="toc"><h2>Contents<small>arrows or h j k l to move, Enter to open, t or Esc to close</small></h2><div class="cols" id="tocl"></div></div>
+<div id="fsb"><label id="tocb" title="Table of contents. Key t.">Contents</label><label><input type="radio" name="fs" id="fsW" checked> Window</label><label><input type="radio" name="fs" id="fsF"> Full screen</label></div>
 <script>/*PDFJS*/</script>
 <script>
 /*DATA*/
@@ -78,10 +90,44 @@ function show(i){
   cur=i;pg.src=IMGS[i];render();
   list=SLOTS[i]||[];
   for(j=0;j<list.length;j++){var id=list[j].id;slotEls[id].style.display="block";
-    slotEls[id].style.visibility=(live&&ready[id])?"visible":"hidden";mount(id);}
+    slotEls[id].style.visibility=(live&&ready[id])?"visible":"hidden";mount(id);
+    try{frames[id].contentWindow.postMessage("live-show","*");}catch(e){}}
   try{location.hash=String(i+1);}catch(e){}
+  if(tocOpen()){sel=cur;tocMark();}
   var nx=IMGS[i+1];if(nx){(new Image()).src=nx;}
 }
+// Space on a slide whose model plays by itself: play or pause it. Elsewhere: next slide.
+// Up and down arrows on such a slide: the previous or the next model.
+function model(d){var list=SLOTS[cur]||[],j;
+  for(j=0;j<list.length;j++){if(list[j].auto&&frames[list[j].id]){try{frames[list[j].id].contentWindow.postMessage(d>0?"live-next":"live-prev","*");}catch(e){}}}}
+function space(){var list=SLOTS[cur]||[],j,hit=false;
+  for(j=0;j<list.length;j++){if(list[j].auto&&frames[list[j].id]){hit=true;try{frames[list[j].id].contentWindow.postMessage("live-toggle","*");}catch(e){}}}
+  if(!hit){show(cur+1);}}
+var tocEl=document.getElementById("toc"),tocL=document.getElementById("tocl"),tocA=[];
+(function(){var i,a;for(i=0;i<N;i++){a=document.createElement("a");var t=(typeof TOC!=="undefined"&&TOC[i])||["",false];
+  a.innerHTML="<b>"+(i+1)+"</b>";a.appendChild(document.createTextNode(t[0]||("Slide "+(i+1))));if(t[1]){a.className="part";}
+  a.onclick=(function(k){return function(e){e.stopPropagation();tocShow(false);show(k);};})(i);tocL.appendChild(a);tocA.push(a);}})();
+var sel=0;
+function tocMark(){var i;for(i=0;i<tocA.length;i++){tocA[i].className=tocA[i].className.replace(/ ?(cur|sel)/g,"")+(i===cur?" cur":"")+(i===sel?" sel":"");}}
+function tocSel(i){if(i<0||i>=tocA.length)return;sel=i;tocMark();try{tocA[sel].scrollIntoView({block:"nearest"});}catch(e){}}
+// Left or right in the contents: the entry at the same height in the other column.
+function tocSide(d){var r=tocA[sel].getBoundingClientRect(),i,q,best=-1,bd=1e9,dy;
+  for(i=0;i<tocA.length;i++){q=tocA[i].getBoundingClientRect();
+    if(d>0?q.left>r.left+20:q.left<r.left-20){dy=Math.abs(q.top-r.top);if(dy<bd){bd=dy;best=i;}}}
+  if(best>=0){tocSel(best);}}
+// Keys while the contents are open. Returns true when the key was used.
+function tocKey(k){
+  if(k==="ArrowDown"||k==="Down"||k===40||k==="j"){tocSel(sel+1);}
+  else if(k==="ArrowUp"||k==="Up"||k===38||k==="k"){tocSel(sel-1);}
+  else if(k==="ArrowRight"||k==="Right"||k===39||k==="l"){tocSide(1);}
+  else if(k==="ArrowLeft"||k==="Left"||k===37||k==="h"){tocSide(-1);}
+  else if(k==="Home"||k===36){tocSel(0);}
+  else if(k==="End"||k===35){tocSel(tocA.length-1);}
+  else if(k==="Enter"||k===13||k===" "||k==="Spacebar"||k===32){tocShow(false);show(sel);}
+  else{return false;}
+  return true;}
+function tocOpen(){return tocEl.style.display==="block";}
+function tocShow(v){tocEl.style.display=v?"block":"none";if(v){sel=cur;tocMark();try{tocA[cur].scrollIntoView({block:"center"});}catch(e){}try{window.focus();}catch(e){}}}
 function setLive(v){live=v;show(cur);
   var n=document.getElementById("note");n.style.display=v?"none":"block";n.textContent="static pictures (press s for live models)";}
 (function build(){
@@ -91,7 +137,12 @@ function setLive(v){live=v;show(cur);
     e.style.width=(s.rect[2]*100)+"%";e.style.height=(s.rect[3]*100)+"%";box.appendChild(e);slotEls[s.id]=e;}}
 })();
 window.addEventListener("message",function(ev){
-  var m=String(ev.data||"");if(m.indexOf("live-ready:")!==0)return;
+  var m=String(ev.data||"");
+  if(m.indexOf("live-key:")===0){var kk=m.slice(9);
+    if(tocOpen()&&tocKey(kk)){}
+    else if(kk==="t"||kk==="T"){tocShow(!tocOpen());}else if(kk==="Escape"){tocShow(false);}else if(kk===" "){space();}else if(kk==="ArrowDown"||kk==="j"){model(1);}else if(kk==="ArrowUp"||kk==="k"){model(-1);}else if(kk==="ArrowRight"||kk==="PageDown"||kk==="l"){show(cur+1);}else if(kk==="ArrowLeft"||kk==="PageUp"||kk==="h"){show(cur-1);}
+    try{window.focus();}catch(e){}return;}
+  if(m.indexOf("live-ready:")!==0)return;
   var id=m.slice(11);ready[id]=true;
   if(slotEls[id]&&slotEls[id].style.display==="block"&&live){slotEls[id].style.visibility="visible";}
 },false);
@@ -104,19 +155,18 @@ function isfs(){return !!(document.fullscreenElement||document.webkitFullscreenE
 window.addEventListener("keydown",function(e){
   var k=e.key||e.keyCode;
   if(e.metaKey||e.ctrlKey||e.altKey)return;
-  if(k==="ArrowRight"||k==="PageDown"||k===" "||k==="Right"||k==="Spacebar"||k===39||k===34||k===32){show(cur+1);e.preventDefault();}
-  else if(k==="ArrowLeft"||k==="PageUp"||k==="Left"||k===37||k===33){show(cur-1);e.preventDefault();}
+  if(tocOpen()&&tocKey(k)){e.preventDefault();}
+  else if(k===" "||k==="Spacebar"||k===32){space();e.preventDefault();}
+  else if(k==="ArrowRight"||k==="PageDown"||k==="Right"||k===39||k===34||k==="l"){show(cur+1);e.preventDefault();}
+  else if(k==="ArrowLeft"||k==="PageUp"||k==="Left"||k===37||k===33||k==="h"){show(cur-1);e.preventDefault();}
+  else if(k==="ArrowDown"||k==="Down"||k===40||k==="j"){model(1);e.preventDefault();}
+  else if(k==="ArrowUp"||k==="Up"||k===38||k==="k"){model(-1);e.preventDefault();}
   else if(k==="Home"||k===36){show(0);}
   else if(k==="End"||k===35){show(N-1);}
   else if(k==="f"||k==="F"||k===70){if(isfs()){exitfs();}else{fsOn();}}
-  else if(k==="Escape"||k===27){var bg=box.querySelectorAll(".big"),q;for(q=0;q<bg.length;q++){bg[q].className="slot";}}
+  else if(k==="t"||k==="T"||k===84){tocShow(!tocOpen());}
+  else if(k==="Escape"||k===27){tocShow(false);var bg=box.querySelectorAll(".big"),q;for(q=0;q<bg.length;q++){bg[q].className="slot";}}
   else if(k==="s"||k==="S"||k===83){setLive(!live);}
-},false);
-document.addEventListener("click",function(e){
-  if(e.target&&e.target.tagName==="IFRAME")return;
-  try{if(String(window.getSelection())){return;}}catch(x0){}
-  var x=e.clientX/(window.innerWidth||1);
-  show(x<0.2?cur-1:cur+1);
 },false);
 var tx=null;
 document.addEventListener("touchstart",function(e){tx=e.touches[0].clientX;},false);
@@ -126,6 +176,7 @@ function syncFs(){var f=isfs();document.getElementById("fsF").checked=f;document
 ["fullscreenchange","webkitfullscreenchange","mozfullscreenchange","MSFullscreenChange"].forEach(function(n){document.addEventListener(n,syncFs,false);});
 document.getElementById("fsF").onclick=function(e){e.stopPropagation();if(!isfs()){fsOn();}};
 document.getElementById("fsW").onclick=function(e){e.stopPropagation();if(isfs()){exitfs();}};
+document.getElementById("tocb").onclick=function(e){e.stopPropagation();tocShow(!tocOpen());};
 document.getElementById("fsb").addEventListener("click",function(e){e.stopPropagation();},false);
 window.addEventListener("resize",size,false);
 size();initPdf();

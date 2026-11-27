@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A symmetry of M as a rotation</title>
+<meta name="description" content="The symmetry sigma tau of order three of the Grünbaum-Sreedharan sphere M, as a rotation by a third of a turn of the picture of M seen from the vertex d.">
+<style>
+  /* The page is white always. "Dark" changes only the colours drawn on the canvas. */
+  :root { --bg:#fff; --fg:#1c1c1c; --mute:#6b6b6b; --line:#d9d6cf; --panel:#f1efe9; --red:#c62828; --green:#2a7f62; --hinge:#2a7f62; }
+  * { box-sizing:border-box; }
+  html, body { height:100%; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:14px/1.42 Georgia, "Times New Roman", serif; }
+  .wrap { display:flex; flex-direction:column; height:100vh; }
+  #stage { flex:1 1 auto; min-height:230px; position:relative; }
+  canvas { position:absolute; inset:0; width:100%; height:100%; display:block; cursor:grab; touch-action:none; }
+  h1 { position:absolute; left:12px; top:7px; right:196px; font-size:16.5px; line-height:1.28; margin:0; font-weight:normal; pointer-events:none; border-left:3px solid var(--hinge); padding-left:9px; }
+  .hint { position:absolute; left:12px; bottom:5px; color:var(--mute); font-size:12px; pointer-events:none; }
+  .dk { position:absolute; right:10px; top:9px; z-index:2; display:flex; gap:10px; font-size:13px; white-space:nowrap; }
+  aside { flex:0 0 auto; padding:6px 12px 6px; background:var(--panel); border-top:1px solid var(--line); max-height:42vh; overflow:auto; }
+  p { margin:0 0 6px; }
+  h2 { font-size:11.5px; margin:5px 0 3px; text-transform:uppercase; letter-spacing:.06em; color:var(--mute); font-weight:normal; }
+  label { display:inline-flex; align-items:center; gap:5px; cursor:pointer; white-space:nowrap; margin-right:12px; }
+  button { font:inherit; font-size:12.5px; padding:2px 6px; min-width:2.1em; border:1px solid var(--line); background:var(--bg); color:var(--fg); border-radius:4px; cursor:pointer; }
+  button.on { background:var(--fg); color:var(--bg); border-color:var(--fg); }
+  input[type=range] { width:100%; margin:0; accent-color:var(--red); }
+  .ctl { display:grid; grid-template-columns:auto auto 1fr 3.6em; gap:3px 7px; align-items:center; margin:4px 0; }
+  .ctl .v { text-align:right; font-variant-numeric:tabular-nums; color:var(--mute); font-size:12.5px; }
+  .map { font-size:13px; font-style:italic; } .map span { display:inline-block; margin-right:11px; white-space:nowrap; }
+  .sw { width:10px; height:10px; border-radius:2px; display:inline-block; margin-right:3px; }
+  .fs { position:absolute; right:10px; top:32px; z-index:2; display:flex; gap:10px; font-size:13px; white-space:nowrap; }
+  .fs label { display:inline-flex; align-items:center; gap:5px; margin:0; cursor:pointer; }
+  .tb { position:absolute; right:10px; top:55px; z-index:2; display:flex; gap:10px; font-size:13px; white-space:nowrap; }
+  .tb label, .dk label { margin:0; }
+  body.notools aside { display:none; }
+  details { margin-top:4px; } summary { cursor:pointer; color:var(--mute); font-size:13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="stage"><canvas id="cv"></canvas>
+    <div class="fs" title="Full screen: the whole page, controls included. Key f, or Esc to leave."><label><input type="radio" name="fs" id="fsW" checked> Window</label><label><input type="radio" name="fs" id="fsF"> Full screen</label></div>
+    <div class="tb" title="Show or hide the toolbox under the figure. Key t."><label><input type="radio" name="tb" id="tbS" checked> Tools</label><label><input type="radio" name="tb" id="tbH"> No tools</label></div>
+    <div class="dk"><label><input type="radio" name="dk" id="dkL"> Light</label><label><input type="radio" name="dk" id="dkD"> Dark</label></div>
+    <h1 id="title"></h1>
+    <div class="hint">Drag to rotate. Scroll to change the size.</div>
+  </div>
+  <aside>
+    <div><b>Symmetry of <i>M</i>:</b>
+      &sigma;&tau; = (a g c)(b e h), seen from <i>d</i></div>
+    <div class="ctl"><button id="play" title="play">&#9654;</button><span id="sLab"></span><input id="s" type="range" min="0" max="100" step="1" value="0"><span class="v" id="sV"></span></div>
+    <h2>Vertices</h2><div class="map" id="vmap"></div>
+    <h2>The ten tetrahedra away from <i id="ap0" style="text-transform:none"></i> and their images, away from <i id="ap1" style="text-transform:none"></i></h2><div class="map" id="tmap"></div>
+    <details>
+      <summary>What this is</summary>
+      <p>The picture of <i>M</i> seen from the vertex <i>d</i>: the thick edges are the link of <i>d</i>, the ten coloured tetrahedra are the ones that do not touch <i>d</i>, and the dashed rays are the edges going to <i>d</i>, which is at infinity.</p>
+      <p>&sigma;&tau; = (a g c)(b e h) keeps <i>d</i> and <i>f</i>. The picture is drawn so that &sigma;&tau; is a rotation by a third of a turn about the dotted axis, which passes through <i>f</i> and the centre of the triangle <i>beh</i>. The grey lines are the link of <i>d</i> before the motion.</p>
+      <p>The coordinates were found by computer search for this page and checked numerically, not exactly: the twenty tetrahedra have the same orientation, and a ray from the origin meets one triangle of the link of <i>d</i>.</p>
+      <p>The three symmetries of order two (&sigma;, &tau;, &tau;&sigma;&tau;) are not shown: no picture of this kind makes one of them a rotation (argument by Claude, not reviewed).</p>
+      <p>Source for &sigma;, &tau; and the list of tetrahedra: v4, Section 1.</p>
+    </details>
+  </aside>
+</div>
+<script>
+// ---------- geometry (no DOM): everything node can test ----------
+const LABELS = "abcdefgh";
+const TETS = "acdf acef adeg adfg aefh aegh afgh cdfg cdgh degh bacd bace bade bcdh bcef bcfg bcgh bdeh befh bfgh".split(" ");
+// straight pictures of M seen from b, e, h (the coordinates of from-a-vertex-4d.html, found there by computer search)
+const VIEWS = {"b":{"a":[-4,8,-5],"c":[-12,12,12],"d":[-12,12,-11],"e":[-1,12,-12],"f":[8,0,12],"g":[-11,0,2],"h":[-12,-12,-12]},"e":{"a":[-5,12,-12],"b":[12,12,12],"c":[7,8,4],"d":[2,12,5],"f":[11,-8,-12],"g":[-2,4,1],"h":[-12,6,12]},"h":{"a":[7,-4,-12],"b":[5,-6,12],"c":[4,1,1],"d":[8,-2,-4],"e":[8,-12,-12],"f":[-11,12,-12],"g":[12,12,-2]}};
+const perm = cycles => { const p = {}; for (const x of LABELS) p[x] = x;
+  for (const c of cycles.split(" ")) for (let i = 0; i < c.length; i++) p[c[i]] = c[(i+1) % c.length]; return p; };
+const SYM = { sigma: perm("bh cg df"), tau: perm("ac be df") };
+SYM.rho = {}; for (const x of LABELS) SYM.rho[x] = SYM.tau[SYM.sigma[SYM.tau[x]]];           // tau sigma tau = (a g)(d f)(e h)
+SYM.rot = {}; for (const x of LABELS) SYM.rot[x] = SYM.sigma[SYM.tau[x]];                    // sigma tau = (a g c)(b e h); keeps d and f
+const NAME = { sigma:"σ", tau:"τ", rho:"τστ", rot:"στ" };
+// M seen from d, drawn so that sigma tau is the rotation by -120 degrees about the third axis (found by computer search for this page)
+const turn = (p, t) => [p[0]*Math.cos(t)-p[1]*Math.sin(t), p[0]*Math.sin(t)+p[1]*Math.cos(t), p[2]];
+const FROM_D = (() => { const k = 18, a = [0.67*k, 0, 0.56*k], b = [-0.17*k, 0.62*k, -0.64*k], w = -2*Math.PI/3;
+  return { f:[0,0,0.62*k], a, g:turn(a,w), c:turn(a,2*w), b, e:turn(b,w), h:turn(b,2*w) }; })();
+const APEX = g => g === "rot" ? "d" : "b";            // the vertex the first picture is seen from
+const sortS = s => s.split("").sort().join("");
+const image = (g, t) => sortS(t.split("").map(x => SYM[g][x]).join(""));
+const preserves = g => { const T = new Set(TETS.map(sortS)); return TETS.every(t => T.has(image(g, t))); };
+const away = v => TETS.filter(t => !t.includes(v)).map(sortS);                  // the tetrahedra that do not touch v
+const linkEdges = v => { const E = new Set();                                    // edges of the link of v
+  for (const t of TETS) if (t.includes(v)) { const r = t.replace(v, ""); for (let i = 0; i < 3; i++) for (let j = i+1; j < 3; j++) E.add(sortS(r[i]+r[j])); }
+  return [...E]; };
+const allEdges = v => { const E = new Set(); for (const t of away(v)) for (let i = 0; i < 4; i++) for (let j = i+1; j < 4; j++) E.add(t[i]+t[j]); return [...E]; };
+// where the vertex x (not b) is at time s: from its place seen from b to the place of g(x) seen from g(b)
+// for sigma tau seen from d: the vertex x turns about the axis, a true rotation, and ends at the place of g(x)
+function place(g, x, s) { if (g === "rot") return turn(FROM_D[x], -2*Math.PI/3*s);
+  const p = VIEWS.b[x], q = VIEWS[SYM[g].b][SYM[g][x]]; return [0,1,2].map(i => (1-s)*p[i] + s*q[i]); }
+if (typeof module !== "undefined") module.exports = { LABELS, TETS, VIEWS, SYM, image, preserves, away, linkEdges, allEdges, place, FROM_D, APEX };
+
+// ---------- page ----------
+if (typeof document !== "undefined") {
+const $ = id => document.getElementById(id), cv = $("cv"), ctx = cv.getContext("2d");
+const COL_L = ["#4e79a7","#f28e2b","#59a14f","#b07aa1","#edc948","#76b7b2","#e15759","#9c755f","#ff9da7","#86bc86"];
+const COL_D = ["#6fa8ff","#ffa94d","#7ddc6f","#d59cff","#ffe066","#66e0d6","#ff7b7b","#d9a37a","#ffb3c7","#a8e6a1"];
+const INK = { light:{ fg:"#1c1c1c", red:"#c62828", green:"#2a7f62" }, dark:{ fg:"#f5f5f5", red:"#ff7b7b", green:"#5fe0b0" } };
+let dark = false; try { dark = localStorage.getItem("darkCols") === "1"; } catch (e) {}
+let g = "rot", round = false, s = 0, playing = false, dir = 1, drag = null, W = 0, H = 0, zoom = 1;
+{ const h = location.hash.replace("#", "").split("&")[0]; if (SYM[h]) g = h; round = /(^|[#&])round\b/.test(location.hash); }
+const mul = (A,B) => A.map(r => [0,1,2].map(j => r[0]*B[0][j]+r[1]*B[1][j]+r[2]*B[2][j]));
+const rotX = t => [[1,0,0],[0,Math.cos(t),-Math.sin(t)],[0,Math.sin(t),Math.cos(t)]];
+const rotY = t => [[Math.cos(t),0,Math.sin(t)],[0,1,0],[-Math.sin(t),0,Math.cos(t)]];
+const START = mul(rotX(-0.35), rotY(0.6));
+let R3 = START;
+const RAD = 21;                                   // all the coordinates lie in the cube of side 24 about the origin
+const ease = u => u*u*(3-2*u);
+const CH = 9, RS = 31;                            // height of the straight picture in 4-space; size of the round picture
+const rnd = p => { if (!round) return p; const k = RS/(Math.sqrt(p[0]*p[0]+p[1]*p[1]+p[2]*p[2]+CH*CH)+CH); return [p[0]*k, p[1]*k, p[2]*k]; };
+const mix = (p, q, u) => [0,1,2].map(i => (1-u)*p[i] + u*q[i]);
+const it = x => "<i>" + x + "</i>";
+function texts() { const G = SYM[g], n = NAME[g], A = APEX(g), t = G[A];
+  $("title").innerHTML = g === "rot"
+    ? `The symmetry ${n} = (a g c)(b e h) keeps ${it("d")}: it turns the picture of ${it("M")} seen from ${it("d")} by a third of a turn about the axis through ${it("f")} and the centre of the triangle ${it("beh")}`
+    : t === "b"
+    ? `The symmetry ${n} = (a g)(d f)(e h) keeps ${it("b")}: it sends the picture of ${it("M")} seen from ${it("b")} to itself, exchanging ${it("a")} with ${it("g")}, ${it("d")} with ${it("f")} and ${it("e")} with ${it("h")}`
+    : `The symmetry ${n} sends ${it("b")} to ${it(t)}: it carries the link of ${it("b")}, and the ten tetrahedra inside it, to the link of ${it(t)} and the ten tetrahedra inside that one`;
+  $("sLab").innerHTML = g === "rot" ? "a third of a turn" : `from ${it("b")} to ${it(t)}`; $("ap0").textContent = A; $("ap1").textContent = t;
+  $("vmap").innerHTML = LABELS.split("").map(x => `<span>${x} &rarr; ${G[x]}</span>`).join("");
+  const C = dark ? COL_D : COL_L;
+  $("tmap").innerHTML = away(A).map((t,i) => `<span><span class="sw" style="background:${C[i]}"></span>${t} &rarr; ${image(g,t)}</span>`).join("");
+  document.querySelectorAll('input[name="rd"]').forEach(r => r.checked = (r.value === "1") === round); }
+function draw() { if (!W) return;
+  const K = INK[dark ? "dark" : "light"], C = dark ? COL_D : COL_L, G = SYM[g], e = ease(s), auto = !!window.AUTO, A = APEX(g);
+  const S = Math.min(W, H - (auto ? 0 : 60)) / ((auto ? 2.8 : 3.3)*RAD) * zoom;
+  const scr = p => [W/2 + (R3[0][0]*p[0]+R3[0][1]*p[1]+R3[0][2]*p[2])*S, H/2 + (auto ? 0 : 22) - (R3[1][0]*p[0]+R3[1][1]*p[1]+R3[1][2]*p[2])*S, R3[2][0]*p[0]+R3[2][1]*p[1]+R3[2][2]*p[2]];
+  const P = {}, Q = {}; for (const x of LABELS) if (x !== A) { P[x] = place(g, x, e); Q[x] = scr(rnd(P[x])); }
+  const N = round ? 5 : 1, line = (p, q) => { const out = []; for (let i = 0; i <= (round ? 12 : 1); i++) out.push(scr(rnd(mix(p, q, i/(round ? 12 : 1))))); return out; };
+  const path = L => { ctx.beginPath(); ctx.moveTo(L[0][0],L[0][1]); for (let i = 1; i < L.length; i++) ctx.lineTo(L[i][0],L[i][1]); };
+  ctx.clearRect(0,0,W,H); ctx.lineJoin = ctx.lineCap = "round";
+  const items = [];
+  away(A).forEach((t,i) => { for (let a = 0; a < 4; a++) { const F = t.replace(t[a], "").split("").map(x => P[x]);
+    const pt = (u, v) => scr(rnd([0,1,2].map(k => F[0][k] + (F[1][k]-F[0][k])*u/N + (F[2][k]-F[0][k])*v/N)));      // each face cut into N*N small triangles
+    for (let u = 0; u < N; u++) for (let v = 0; u+v < N; v++) for (const up of [true, false]) { if (!up && u+v+2 > N) continue;
+      const f = up ? [pt(u,v), pt(u+1,v), pt(u,v+1)] : [pt(u+1,v), pt(u+1,v+1), pt(u,v+1)];
+      items.push([(f[0][2]+f[1][2]+f[2][2])/3, () => { ctx.beginPath(); ctx.moveTo(f[0][0],f[0][1]); ctx.lineTo(f[1][0],f[1][1]); ctx.lineTo(f[2][0],f[2][1]); ctx.closePath();
+        ctx.globalAlpha = dark ? 0.5 : 0.42; ctx.fillStyle = C[i]; ctx.fill(); ctx.globalAlpha = 1; }]); } } });
+  const LE = new Set(linkEdges(A));
+  if (g === "rot") {                          // the axis of the rotation, and the link of d before the motion
+    const a0 = scr([0,0,-30]), a1 = scr([0,0,30]);
+    items.push([-1e9, () => { ctx.beginPath(); ctx.moveTo(a0[0],a0[1]); ctx.lineTo(a1[0],a1[1]); ctx.strokeStyle = K.fg; ctx.lineWidth = 1; ctx.setLineDash([1.5,5]); ctx.stroke(); ctx.setLineDash([]);
+      if (s > 0 && s < 1) { ctx.strokeStyle = dark ? "#999" : "#b9b6ae"; ctx.lineWidth = 1; LE.forEach(ed => { path(line(FROM_D[ed[0]], FROM_D[ed[1]])); ctx.stroke(); }); } }]); }
+  allEdges(A).forEach(ed => { const L = line(P[ed[0]], P[ed[1]]), link = LE.has(ed);
+    for (let i = 0; i+1 < L.length; i++) { const a = L[i], b = L[i+1];
+      items.push([(a[2]+b[2])/2 + 0.02, () => { ctx.beginPath(); ctx.moveTo(a[0],a[1]); ctx.lineTo(b[0],b[1]);
+        ctx.strokeStyle = link ? K.fg : K.red; ctx.lineWidth = link ? 2 : 1.3; ctx.stroke(); }]); } });
+  const apex = s < 0.5 ? A : G[A];
+  for (const x of LABELS) { if (x === A) continue; const q = Q[x], far = scr(rnd(P[x]).map(c => c*1.5));
+    items.push([far[2] - 0.01, () => { ctx.beginPath(); ctx.moveTo(q[0],q[1]); ctx.lineTo(far[0],far[1]); ctx.strokeStyle = K.green; ctx.lineWidth = 1.4; ctx.setLineDash([5,4]); ctx.stroke(); ctx.setLineDash([]);
+      ctx.font = "italic 14px Georgia, serif"; ctx.fillStyle = K.green; ctx.fillText(apex, far[0]+4, far[1]+4); }]);
+    items.push([q[2] + 0.04, () => { ctx.beginPath(); ctx.arc(q[0],q[1],3.2,0,7); ctx.fillStyle = K.fg; ctx.fill();
+      const lab = s <= 0 ? x : s >= 1 ? G[x] : G[x] === x ? x : x + " → " + G[x];
+      ctx.font = "italic 18px Georgia, serif"; ctx.fillStyle = s > 0 && s < 1 && G[x] !== x ? K.red : K.fg; ctx.fillText(lab, q[0]+7, q[1]-7); }]); }
+  items.sort((a,b) => a[0]-b[0]).forEach(i => i[1]());
+  if (document.activeElement !== $("s") || playing) $("s").value = Math.round(s*100); $("sV").textContent = Math.round(s*100) + "%";
+}
+function resize() { const r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1; W = r.width; H = r.height;
+  cv.width = Math.round(W*d); cv.height = Math.round(H*d); ctx.setTransform(d,0,0,d,0,0); draw(); }
+window.addEventListener("resize", resize);
+cv.addEventListener("pointerdown", e => { drag = [e.clientX, e.clientY]; cv.setPointerCapture(e.pointerId); });
+cv.addEventListener("pointermove", e => { if (!drag) return; R3 = mul(mul(rotX((e.clientY-drag[1])*0.008), rotY((e.clientX-drag[0])*0.008)), R3); drag = [e.clientX, e.clientY]; draw(); });
+cv.addEventListener("pointerup", () => drag = null); cv.addEventListener("pointercancel", () => drag = null);
+cv.addEventListener("wheel", e => { e.preventDefault(); zoom = Math.max(0.4, Math.min(3, zoom*Math.exp(-e.deltaY*0.002))); draw(); }, {passive:false});
+function setPlay(on) { playing = on; $("play").classList.toggle("on", on); $("play").innerHTML = on ? "&#10073;&#10073;" : "&#9654;"; }
+function setSym(k) { g = k; s = 0; dir = 1; texts(); draw(); }
+document.querySelectorAll('input[name="rd"]').forEach(r => r.onchange = () => { round = r.value === "1"; texts(); draw(); });
+$("s").addEventListener("input", e => { setPlay(false); s = e.target.value/100; draw(); });
+$("play").onclick = () => setPlay(!playing);
+function setDark(on) { dark = on; $("dkL").checked = !on; $("dkD").checked = on; try { localStorage.setItem("darkCols", on ? "1" : "0"); } catch (e) {} texts(); draw(); }
+$("dkL").onchange = () => setDark(false); $("dkD").onchange = () => setDark(true);
+let then = null;
+function tick(now) { const dt = then === null ? 0 : Math.min(0.05, (now-then)/1000); then = now;
+  if (playing && !window.AUTO) { s += dir*dt/3; if (s >= 1) { s = 1; dir = -1; } if (s <= 0) { s = 0; dir = 1; } draw(); }   // a length: back and forth
+  requestAnimationFrame(tick); }
+texts(); resize(); setDark(dark); requestAnimationFrame(tick);
+
+// ---------- automatic animation: only when the page that embeds this one sets window.AUTO = { seq:[...], extra:[...] } ----------
+// The picture from b turns slowly; every vertex moves to the place of its image; the picture from g(b) is held; then back.
+if (window.AUTO) {
+  const A = window.AUTO, items = [...A.seq, ...(A.extra || [])], nseq = A.seq.length;
+  const foot = document.createElement("div"); foot.id = "auto"; foot.innerHTML = '<div id="cap"></div>';
+  const abar = document.createElement("div"); abar.id = "abar"; $("stage").appendChild(abar);
+  $("stage").parentNode.insertBefore(foot, $("stage").nextSibling);
+  const st = document.createElement("style"); st.textContent = `#auto{flex:0 0 auto;padding:2px 8px 4px;background:#fff}
+#cap{text-align:center;color:#1c1c1c;font:clamp(12px,3.4vw,24px)/1.25 Georgia,serif;min-height:2.5em}
+#abar{position:absolute;right:4px;bottom:1px;z-index:3;display:flex;gap:2px;opacity:.4}#abar:hover{opacity:1}
+#abar button{font:10.5px Georgia,serif;padding:1px 5px;margin:0;min-width:0;border:1px solid transparent;border-radius:3px;background:none;color:#555;cursor:pointer}
+#abar button:hover{border-color:#bbb}#abar button.on{border-color:#999;color:#000;background:none}`; document.head.appendChild(st);
+  let run = 0, looping = true, paused = false, pt = 0, off = 0, at = 0;
+  const clk = () => (paused ? pt : performance.now()) - off;          // a clock that stops while paused
+  const pause = on => { if (on === paused) return; if (on) pt = performance.now(); else off += performance.now() - pt; paused = on; pb.textContent = on ? "paused" : "auto"; };
+  const back = () => { try { document.activeElement.blur(); } catch (e) {} };
+  const pb = document.createElement("button"); pb.textContent = "auto"; pb.title = "Play, again and again";
+  pb.onclick = () => { looping = true; play(at); back(); }; abar.appendChild(pb);
+  const btns = items.map((it,i) => { const b = document.createElement("button"); b.innerHTML = it.label;
+    b.onclick = () => { looping = true; play(i); back(); }; abar.appendChild(b); return b; });
+  const lit = i => { pb.classList.toggle("on", looping); btns.forEach((b,j) => b.classList.toggle("on", j === i)); };
+  cv.addEventListener("pointerdown", () => { looping = false; pb.classList.remove("on"); });
+  window.addEventListener("message", e => { if (e.data === "live-show") { looping = true; play(0); } if (e.data === "live-toggle") pause(!paused);
+    if (e.data === "live-next" || e.data === "live-prev") { looping = true; play((at + (e.data === "live-next" ? 1 : items.length-1)) % items.length); } });
+  window.addEventListener("keydown", e => { try { parent.postMessage("live-key:" + e.key, "*"); } catch (x) {} });
+  const D = [3000, 3500, 4000, 3500];          // from b; moving; from g(b); moving back
+  function play(i) { at = i; pause(false); const id = ++run, item = items[i], t0 = clk(); let tl = t0, ph = -1;
+    g = item.key; round = !!item.round; s = 0; R3 = START; texts(); lit(i);
+    const frame = () => { if (id !== run) return; const now = clk();
+      if (!drag) R3 = mul(rotY((now-tl)*0.00025), R3); tl = now;
+      const T = D[0]+D[1]+D[2]+D[3]; let t = now-t0; if (t >= T) { if (looping) { play(i); return; } t = T; }
+      const p = t < D[0] ? 0 : t < D[0]+D[1] ? 1 : t < D[0]+D[1]+D[2] ? 2 : 3;
+      s = p === 0 ? 0 : p === 1 ? (t-D[0])/D[1] : p === 2 ? 1 : Math.max(0, 1-(t-D[0]-D[1]-D[2])/D[3]);
+      if (p !== ph) { ph = p; $("cap").innerHTML = p === 0 ? item.cap : p === 2 ? item.cap2 : p === 1 ? item.capm : item.capb || item.capm; }
+      draw(); requestAnimationFrame(frame); };
+    requestAnimationFrame(frame); }
+  resize(); play(Math.max(0, items.findIndex(it => it.key === g && !!it.round === round)));
+}
+}
+</script>
+<script>
+// ---------- full screen (whole page, so the controls stay; key f, Esc leaves) ----------
+if (typeof document !== "undefined") (function () {
+  const d = document, el = d.documentElement, w = d.getElementById("fsW"), f = d.getElementById("fsF");
+  const req = el.requestFullscreen || el.webkitRequestFullscreen, exit = d.exitFullscreen || d.webkitExitFullscreen;
+  if (!w || !f) return; if (!req || !exit) { w.closest(".fs").style.display = "none"; return; }
+  const on = () => !!(d.fullscreenElement || d.webkitFullscreenElement);
+  const sync = () => { f.checked = on(); w.checked = !on(); };
+  const set = want => { if (want === on()) return sync(); try { const p = want ? req.call(el) : exit.call(d); if (p && p.catch) p.catch(sync); } catch (e) { sync(); } };
+  f.onchange = () => set(true); w.onchange = () => set(false);
+  d.addEventListener("fullscreenchange", sync); d.addEventListener("webkitfullscreenchange", sync);
+  d.addEventListener("keydown", e => { const t = e.target, typing = t.tagName === "TEXTAREA" || (t.tagName === "INPUT" && !/^(range|radio|checkbox|button)$/.test(t.type));
+    if (e.key === "f" && !typing && !e.metaKey && !e.ctrlKey && !e.altKey) set(!on()); });
+  sync();
+})();
+</script>
+<script>
+// ---------- toolbox (the panel under the figure) shown or hidden; key t ----------
+if (typeof document !== "undefined") (function () {
+  const d = document, s = d.getElementById("tbS"), h = d.getElementById("tbH"); if (!s || !h) return;
+  const set = hide => { d.body.classList.toggle("notools", hide); h.checked = hide; s.checked = !hide; window.dispatchEvent(new Event("resize")); };
+  s.onchange = () => set(false); h.onchange = () => set(true);
+  d.addEventListener("keydown", e => { const t = e.target, typing = t.tagName === "TEXTAREA" || (t.tagName === "INPUT" && !/^(range|radio|checkbox|button)$/.test(t.type));
+    if (e.key === "t" && !typing && !e.metaKey && !e.ctrlKey && !e.altKey) set(!d.body.classList.contains("notools")); });
+  if (/(^|[#&])notools\b/.test(location.hash)) set(true);
+})();
+</script>
+</body>
+</html>

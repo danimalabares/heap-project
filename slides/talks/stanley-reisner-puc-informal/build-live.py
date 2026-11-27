@@ -19,21 +19,50 @@ DPI = 200            # about 1300 px wide for a 16:9 beamer page
 # width, height as fractions of the page. model: "2d" or "4d".
 # hash: for 4d, the sphere (#Mb = M seen from b). click: text of a button to press.
 # spin: turn slowly at start (4d only).
+# auto: the model plays by itself (window.AUTO in the model): seq is played in a loop, extra can only be chosen;
+# all the controls are hidden except one small row of names.
 SLOTS = [
-    {"title": "The link of a vertex", "rect": [0.01, 0.21, 0.98, 0.73], "model": "2d", "full": True},
+    {"title": "The link of a vertex", "rect": [0.01, 0.193, 0.98, 0.747], "model": "2d", "auto": {
+        "end": "Turned so that <i>v</i> points at us: this is the picture on the left.",
+        "seq": [
+            {"key": "octa", "label": "octahedron", "cap": "The octahedron. In green: a vertex <i>v</i>. Thick: the link of <i>v</i>, a square."},
+            {"key": "bip5", "vi": 2, "label": "double pyramid", "cap": "A double pyramid over a pentagon: not regular. Thick: the link of <i>v</i>, a square."},
+        ],
+        # not played by themselves: the two links drawn on the next slide, each seen from the vertex that sits in the dent there
+        "extra": [
+            {"key": "linkb", "vi": 0, "label": "link of <i>b</i> in <i>M</i>",
+             "cap": "The link of <i>b</i> in <i>M</i>, seen from its vertex <i>a</i>. Thick: the link of <i>a</i> in it, a triangle."},
+            {"key": "barn1", "vi": 4, "label": "link of 1 in Barnette",
+             "cap": "The link of 1 in Barnette's sphere, seen from its vertex 6. Thick: the link of 6 in it, a triangle."},
+        ]}},
     {"title": "The same for a 3-sphere", "rect": [0.03, 0.17, 0.32, 0.41], "model": "tets"},
-    {"title": "M seen from a vertex", "rect": [0.01, 0.10, 0.98, 0.84], "model": "4d", "hash": "Mb", "full": True},
+    {"title": "M seen from a vertex", "rect": [0.01, 0.10, 0.98, 0.855], "model": "4d", "auto": {
+        "seq": [
+            {"key": "5", "label": "5-cell", "cap": "The 5-cell, seen from a vertex <i>v</i>. Thick: the link of <i>v</i>, a tetrahedron."},
+            {"key": "16", "label": "16-cell", "cap": "The 16-cell, seen from a vertex <i>v</i>. Thick: the link of <i>v</i>, an octahedron."},
+            {"key": "M", "label": "<i>M</i>", "cap": "<i>M</i>, seen from the vertex <i>b</i>. Thick: the link of <i>b</i>, a 2-sphere with 7 vertices."},
+        ],
+        "extra": [
+            {"key": "B", "vi": 0, "label": "Barnette",      # vi 0 is the vertex 1 (vi 6 is the vertex 7, whose link is an octahedron)
+             "cap": "Barnette's sphere, seen from the vertex 1. Thick: the link of 1, a 2-sphere with 7 vertices."},
+        ]}},
+    # only the symmetry of order three, a true rotation of the picture from d; the three of order two have no such picture
+    {"title": "Figure for",
+     "rect": [0.47, 0.095, 0.52, 0.76], "model": "sym", "hash": "rot", "auto": {
+        "seq": [{"key": "rot", "label": "&sigma;&tau; from <i>d</i>", "cap": "<i>M</i> seen from <i>d</i>. Thick: the link of <i>d</i>. Dotted: the axis.", "capm": "&sigma;&tau; = (a g c)(b e h): a third of a turn about the axis.", "cap2": "Again <i>M</i> seen from <i>d</i>: &sigma;&tau; keeps <i>d</i> and its link."}],
+        "extra": []}},
 ]
-MODELS = {"2d": "from-a-vertex.html", "4d": "from-a-vertex-4d.html", "tets": "two-tetrahedra.html"}
+MODELS = {"2d": "from-a-vertex.html", "4d": "from-a-vertex-4d.html", "tets": "two-tetrahedra.html", "sym": "symmetries-of-m.html"}
 
 EMBED_CSS = """<style id="embed">
-h1,#info,.hint,aside,.fs,button.dk,nav.models,.steer,details{display:none!important}
+h1,#info,.hint,aside,.fs,.tb,.dk,nav.models,.steer,details{display:none!important}
 html,body{height:100%;overflow:hidden;background:#fff}
 .wrap{height:100%}
+#stage{min-height:0!important}
 canvas{top:0;left:0;right:0;bottom:0}
 </style>"""
 EMBED_CSS_FULL = """<style id="embed">
-h1,.fs,nav.models{display:none!important}
+h1,.fs,.tb,nav.models{display:none!important}
 html,body{height:100%;overflow:hidden;background:#fff}
 .wrap{height:100%}
 #stage{min-height:110px}
@@ -116,6 +145,57 @@ def pages_text(tmp):
     return out
 
 
+def detex(t):
+    """A frame title as plain text."""
+    t = re.sub(r"\\cite\{([^}]*)\}", r"[\1]", t)
+    t = t.replace("\\mathcal M", "M").replace("\\Pj", "P").replace("\\C", "C").replace("\\ne", "≠").replace("\\sigma", "σ").replace("\\tau", "τ")
+    t = re.sub(r"\\operatorname\{([^}]*)\}", r"\1 ", t)
+    sup = {"2": "²", "3": "³", "7": "⁷"}
+    t = re.sub(r"\^(\d)", lambda m: sup.get(m.group(1), "^" + m.group(1)), t)
+    t = re.sub(r"_(\d)", lambda m: chr(0x2080 + int(m.group(1))), t)
+    t = t.replace("\\(", "").replace("\\)", "").replace("\\ ", " ").replace("\\,", "").replace("--", "–")
+    t = re.sub(r"\\[a-zA-Z]+", "", t).replace("{", "").replace("}", "")
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def toc(titles):
+    """One entry per page: [text, is_part]. Titles are read from the TeX source (the text drawn from the
+    PDF loses spaces and ligatures) and matched to the pages in order; a page without a match keeps the PDF's text."""
+    import difflib
+    src = []
+    tex = os.path.join(HERE, os.path.splitext(os.path.basename(PDF))[0] + ".tex")
+    if os.path.exists(tex):
+        body = open(tex, encoding="utf-8").read().split("\\begin{document}", 1)[-1].split("\\end{document}")[0]
+        body = re.sub(r"\\iffalse.*?\\fi\b", "", body, flags=re.S)
+        body = "\n".join(l for l in body.splitlines() if not l.lstrip().startswith("%"))
+        for m in re.finditer(r"\\partslide\{(\d+)\}\{((?:[^{}]|\{[^{}]*\})*)\}|\\begin\{frame\}(?:\[[^\]]*\])?\{((?:[^{}]|\{[^{}]*\})*)\}", body):
+            if m.group(1):
+                src.append(("Part %s. %s" % (m.group(1), detex(m.group(2))), True, "Part" + m.group(1)))
+            else:
+                src.append((detex(m.group(3)), False, detex(m.group(3))))
+    out, j = [], 0
+    fix = lambda x: x.replace("昀椀", "fi").replace("昀氀", "fl")
+    for t in titles:
+        got = fix(t[0]) if t else ""
+        hit = None
+        for line in t[:2]:      # a superscript in the title can come out as a line of its own, before the title
+            for k in range(j, min(j + 4, len(src))):
+                a, b = squash(fix(line)).lower(), squash(src[k][2]).lower()
+                if a and b and (a.startswith(b) or difflib.SequenceMatcher(None, a, b).ratio() > 0.6):
+                    hit = k; break
+            if hit is not None:
+                break
+        if hit is None:
+            out.append([got, False])
+        else:
+            out.append([src[hit][0], src[hit][1]]); j = hit + 1
+    if out and os.path.exists(tex):
+        m = re.search(r"\\title\{((?:[^{}]|\{[^{}]*\})*)\}", open(tex, encoding="utf-8").read())
+        if m:
+            out[0][0] = detex(m.group(1))
+    return out
+
+
 def lower(js):
     """Lower modern syntax (??, ?., ...) for old browsers with esbuild, if present."""
     exe = os.environ.get("ESBUILD") or shutil.which("esbuild")
@@ -146,6 +226,8 @@ def prepare(model, cfg):
     html = html.replace("3*W/4 + (R3", "(window.SOLO ? W/2 : 3*W/4) + (R3")
     html = html.replace("</head>", (EMBED_CSS_FULL if full else EMBED_CSS) + "</head>", 1)
     html = html.replace("</body>", (EMBED_JS % json.dumps(cfg)) + "</body>", 1)
+    if cfg.get("auto"):
+        html = html.replace("<script>", "<script>window.AUTO=%s;</script><script>" % json.dumps(cfg["auto"]).replace("</", "<\\/"), 1)
     if cfg.get("hash"):
         html = html.replace("location.hash", '"#%s"' % cfg["hash"])
     return html
@@ -169,19 +251,19 @@ def main():
 
     slots, models, missing = {}, {}, []
     for k, s in enumerate(SLOTS):
-        page = next((i for i, t in enumerate(titles) if t and squash(t[0]).startswith(squash(s["title"]))), None)
+        page = next((i for i, t in enumerate(titles) if t and (squash(t[0]).endswith(squash(s["title"])) if s.get("tail") else squash(t[0]).startswith(squash(s["title"])))), None)
         if page is None:
             missing.append(s["title"]); continue
-        cfg = {"id": k, "click": s.get("click"), "spin": s.get("spin", False), "solo": s.get("solo", False), "full": s.get("full", False), "zoom": s.get("zoom"), "hash": s.get("hash")}
+        cfg = {"id": k, "auto": s.get("auto"), "click": s.get("click"), "spin": s.get("spin", False), "solo": s.get("solo", False), "full": s.get("full", False), "zoom": s.get("zoom"), "hash": s.get("hash")}
         models[k] = prepare(s["model"], cfg)
-        slots.setdefault(page, []).append({"id": k, "rect": s["rect"], "full": bool(s.get("full"))})
+        slots.setdefault(page, []).append({"id": k, "rect": s["rect"], "full": bool(s.get("full")), "auto": bool(s.get("auto"))})
 
     page = open(os.path.join(HERE, "live-template.html"), encoding="utf-8").read()
     rd = lambda f: open(os.path.join(HERE, "vendor", f), encoding="utf-8").read()
     pdfb64 = base64.b64encode(open(PDF, "rb").read()).decode()
     page = page.replace("/*PDFJS*/", rd("pdf.min.js").replace("</script", "<\\/script"))
     wk = "var WORKER=%s;\nvar PDFB64=\"%s\";\n" % (json.dumps(rd("pdf.worker.min.js")).replace("</", "<\\/"), pdfb64)
-    data = (wk + "var IMGS=%s;\nvar ASPECT=%f;\nvar SLOTS=%s;\nvar MODELS=%s;\n" % (
+    data = (wk + "var TOC=%s;\n" % json.dumps(toc(titles)) + "var IMGS=%s;\nvar ASPECT=%f;\nvar SLOTS=%s;\nvar MODELS=%s;\n" % (
         json.dumps(imgs), pw / float(ph), json.dumps(slots),
         json.dumps(models).replace("</", "<\\/")))
     open(OUT, "w", encoding="utf-8").write(page.replace("/*DATA*/", data))
