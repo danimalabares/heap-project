@@ -60,8 +60,8 @@ document.addEventListener("keydown", function(event) {
     var elapsed = Date.now() - start.time;
     start = null;
 
-    if (elapsed > 700) return;
-    if (Math.abs(dx) < 70 || Math.abs(dx) < 2.5 * Math.abs(dy)) return;
+    if (elapsed > 1000) return;
+    if (Math.abs(dx) < 60 || Math.abs(dx) < 1.5 * Math.abs(dy)) return;
     // zoomed-in page: the swipe pans it
     if (window.visualViewport && window.visualViewport.scale > 1.01) return;
     // the page itself scrolls sideways
