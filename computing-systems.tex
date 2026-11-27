@@ -5,34 +5,39 @@
 \title{Computing systems}
 \maketitle
 
-\tableofcontents
-
-\section{Questions for choosing a computer}
+\section{What I am trying to learn}
 \label{section-computing-systems-goal}
 
-The goal of these notes is not computer
-engineering.  It is to understand enough
-about computers to choose a machine well.
+The immediate goal is not to become a
+computer engineer.  It is to understand
+enough about computers to make good
+choices about my own machines.
 
-In particular, a buyer should be able to
-answer:
+In particular, when buying a computer I
+want to be able to answer:
 
 \begin{itemize}
 \item What work is limited by the CPU?
-\item How much RAM is actually needed?
+\item How much RAM do I actually need?
 \item When does a GPU matter?
 \item What is VRAM, and why does it matter
 for local AI?
-\item Which parts of the machine can be
-replaced or upgraded?
+\item Which parts of the machine can I
+replace or upgrade?
 \item Which restrictions come from the
 hardware, and which come from the
 operating system?
 \item What does it mean for a computer to
 be open?
-\item How much of the work can remain local
+\item How much of my work can remain local
 and private?
 \end{itemize}
+
+For my present situation there is one more
+constraint: I move around a lot.  So the
+main machine has to be a laptop.  A large
+desktop workstation may make sense later,
+but it is not the present problem.
 
 \section{Sending one bit with a bulb}
 \label{section-bulb-bit}
@@ -40,19 +45,18 @@ and private?
 Keep the
 \href{https://www.heap-project.org/tag/0HHL}
 {cell, switch and incandescent bulb}.
-Two people agree that a lit bulb means one
-and a dark bulb means zero. The sender
-chooses a switch position early enough for
-the bulb to light up or cool down. The
-receiver watches the bulb at noon and
-recovers the choice, even if it was zero and
-no current flowed. The agreement has given
-the two observations a meaning and a time to
-read them. The meanings could be reversed
-tomorrow using the very same wires.
+A friend watches the bulb at noon. We agree
+that lit means one and dark means zero. I
+choose a switch position early enough for the
+bulb to light up or cool down. At noon my
+friend can recover my choice, even if I sent
+zero and no current flowed. Our agreement has
+given the two observations a meaning and a
+time to read them. We could reverse the
+meanings tomorrow using the very same wires.
 
-How could a laptop read the choice? Replace
-the receiving person with a powered receiving circuit.
+How could a laptop read my choice? Replace
+the friend with a powered receiving circuit.
 Connect its reference terminal to the shell,
 which is wired to the cell's minus terminal,
 and its input to the tip. The receiver draws
@@ -65,7 +69,7 @@ voltage.
 
 Suppose the receiver accepts 0 to 0.4 volts
 as low and 1.0 to 1.5 volts as high. These
-are example ranges for this experiment. A
+are example ranges for our experiment. A
 reading of 1.3 volts still conveys one. At
 0.7 volts the receiver promises neither
 answer. Hold the switch steady so the input
@@ -89,7 +93,7 @@ See \cite[Sections 1.6.2--1.6.3]
 {harris-digital-design}.
 
 What if a measurement has two possible
-outcomes but one can also choose what to
+outcomes but we can also choose what to
 measure? Try
 \href{https://www.heap-project.org/tag/0HHM}
 {measuring an electron's spin}.
@@ -127,11 +131,11 @@ between RAM and the much slower SSD.  This
 can make a machine feel dramatically
 slower.
 
-For mathematical work, RAM is particularly
-important because a browser, editor, TeX
-compiler, terminals, computer algebra
-systems, and AI tools may all be open at
-the same time.
+For my work, RAM is particularly important
+because I may simultaneously have a
+browser, editor, TeX compiler, terminals,
+computer algebra systems, and AI tools
+open.
 
 \medskip\noindent
 {\bf Storage and SSD.}
@@ -265,11 +269,11 @@ the machine respond much more smoothly.
 \section{How wires carry one moving surface}
 \label{section-surface-on-wires}
 
-Consider an animation running in a browser:
-a sphere that slowly changes shape. Here is
+I watched an animation in my browser: a
+sphere that slowly changes shape. Here is
 how that picture exists inside the laptop.
 All numbers are for this one animation on
-a 2015 dual-core laptop with 8 GB of RAM.
+my 2015 MacBook Pro.
 
 \medskip\noindent
 {\bf One wire, one bit.}
@@ -381,8 +385,8 @@ about four thousand ticks.
 For smooth motion the screen wants 60
 pictures per second, which leaves 16.7
 milliseconds for each. The computing uses
-about 10 of them. Painting comes on top and
-was not measured.
+about 10 of them. Painting comes on top; I
+have not measured it.
 
 \medskip\noindent
 {\bf From numbers to light.}
@@ -405,22 +409,24 @@ moment. That is what a GPU is for. This
 animation was not written to use it.
 
 \medskip\noindent
-{\bf Conclusion.}
+{\bf What I take from this.}
 For this kind of picture what matters is
 the speed of one core. RAM does not matter,
 and no separate graphics card is needed.
 
 \medskip\noindent
-{\bf Sources.}
+{\bf Checked and not checked.}
 The two bit patterns, the counts and the 10
-milliseconds were computed on this laptop.
-For numbers stored with a sign, an exponent
-and a fraction, and for registers and
-arithmetic circuits, see
-\cite{harris-digital-design}. That
+milliseconds were computed on this laptop on
+24 November 2026. For numbers stored with a
+sign, an exponent and a fraction, and for
+registers and arithmetic circuits, see
+\cite{harris-digital-design}; I did not
+reopen the book for section numbers. That
 JavaScript numbers are double precision is
 in the ECMAScript language specification,
-under ``The Number Type''.
+under ``The Number Type''; I did not reopen
+it either.
 
 \section{The software stack}
 \label{section-computing-systems-software}
@@ -463,28 +469,25 @@ make soldered RAM replaceable.
 \section{What openness means}
 \label{section-computing-systems-openness}
 
-The word open does not mean only one
-thing.  There are several different
-freedoms.
+I should avoid using the word open as if
+it meant only one thing.  There are
+several different freedoms.
 
 \begin{itemize}
-\item {\bf Software freedom:} can the user
-run, inspect, modify, and replace the
-software?
+\item {\bf Software freedom:} can I run,
+inspect, modify, and replace the software?
 \item {\bf Operating-system freedom:} can
-another operating system be installed?
-\item {\bf Hardware freedom:} can the
-machine be opened and its components
-replaced?
-\item {\bf Repair freedom:} can parts be
-obtained and the machine repaired without
-the manufacturer's permission?
-\item {\bf Data freedom:} are the files in
-portable formats that can be moved
-elsewhere?
-\item {\bf Service independence:} does the
-workflow continue to work without a
-particular company's cloud services?
+I install another operating system?
+\item {\bf Hardware freedom:} can I open
+the machine and replace components?
+\item {\bf Repair freedom:} can I obtain
+parts and repair the machine without the
+manufacturer's permission?
+\item {\bf Data freedom:} are my files in
+portable formats that I can move elsewhere?
+\item {\bf Service independence:} does my
+workflow continue to work if I stop using
+a particular company's cloud services?
 \end{itemize}
 
 These freedoms are related but not
@@ -497,10 +500,10 @@ can still depend heavily on cloud services.
 \section{Local AI and privacy}
 \label{section-computing-systems-local-ai}
 
-One reason to care about hardware is
+One reason I care about hardware now is
 local AI.
 
-A local model runs on the user's own machine.
+A local model runs on my own machine.
 This can improve privacy because the model
 does not inherently require sending the
 prompt and documents to an external
@@ -515,11 +518,11 @@ search, or remote APIs.
 So the privacy question should always be:
 
 \begin{quote}
-Which data leave the machine, through which
+Which data leave my machine, through which
 program, and for what reason?
 \end{quote}
 
-For local AI one should distinguish:
+For local AI I should learn to distinguish:
 
 \begin{itemize}
 \item model size;
@@ -533,71 +536,78 @@ quantization;
 
 A powerful laptop can run useful local
 models, but a laptop is constrained by
-weight, battery, heat, and power.  A
-portable machine is not a permanent
-substitute for a workstation.
+weight, battery, heat, and power.  I should
+not expect a portable machine to be a
+permanent substitute for a future
+workstation.
 
-\section{Vendor lock-in: the example of Apple}
+\section{The Apple question}
 \label{section-computing-systems-apple}
 
-The concern with Apple is not simply that
-macOS is proprietary.  It is dependence on
-a system in which the same company controls
-the hardware, operating system, account
-ecosystem, cloud services, and an
-increasing number of AI features.
+My worry about Apple should also be stated
+precisely.
+
+The concern is not simply that macOS is
+proprietary.  I am worried about becoming
+dependent on a system in which the same
+company controls the hardware, operating
+system, account ecosystem, cloud services,
+and an increasing number of AI features.
 
 There are several separate questions.
 
 \medskip\noindent
-{\bf Can the user install software?}
-On macOS a great deal of software can be
-installed outside Apple's App Store.
+{\bf Can I install my own software?}
+On macOS I can already install a great deal
+of software outside Apple's App Store.
 For mathematical and programming work this
 includes most of the ordinary Unix-style
 toolchain.
 
-So saying that Apple simply prevents users
+So saying that Apple simply prevents me
 from installing software is too crude a
 description of the problem.
 
 \medskip\noindent
-{\bf Can the operating system be replaced?}
+{\bf Can I replace the operating system?}
 This depends on the particular Mac and on
 the state of Linux support for its
 hardware.  Even when Linux can run, not all
 hardware features necessarily work equally
 well.
 
-Thus Linux support has to be checked for
-the exact model before buying.
+Thus I should never buy a particular Mac
+on the assumption that it will later
+become an ideal Linux laptop without first
+checking that exact model.
 
 \medskip\noindent
-{\bf Can the machine be upgraded?}
+{\bf Can I upgrade the machine?}
 This is a much clearer limitation.
 Modern Mac laptops integrate many
 components very tightly.  RAM and storage
 are generally not ordinary user-upgradable
 modules.
 
-That means enough memory and storage must
-be bought at the beginning, and hardware
+That means I must buy enough memory and
+storage at the beginning, and hardware
 obsolescence can force replacement of more
-of the machine than necessary.
+of the machine than I would like.
 
 \medskip\noindent
-{\bf Can Apple force the use of its AI?}
-No general principle forces a computing
-workflow to use Apple's AI services.
-Third-party software and local models
-remain available.
+{\bf Can Apple force me to use its AI?}
+No general principle forces my computing
+workflow to use Apple's AI services.  I
+can use third-party software and local
+models.
 
-The more serious strategic issue is
-ecosystem dependence: if files, workflows,
-devices, authentication, and services
-become tightly tied to one vendor, leaving
-becomes expensive even if no single
-restriction prevents it.
+The more serious strategic worry is
+ecosystem dependence: if my files,
+workflows, devices, authentication, and
+services become tightly tied to one
+vendor, leaving becomes expensive even if
+no single restriction prevents me from
+leaving.
 
 \medskip\noindent
 {\bf Privacy.}
@@ -608,10 +618,10 @@ still send data to remote services if it
 is configured to do so.
 
 The robust habit is therefore not to trust
-a brand-level slogan, but to know where
-the data live, what is synchronized,
+a brand-level slogan.  I should understand
+where my data live, what is synchronized,
 which services receive it, and which parts
-of the workflow can work completely
+of my workflow can work completely
 offline.
 
 \section{Mac versus Linux for a laptop}
@@ -637,11 +647,29 @@ the environment used by a huge amount of
 scientific computing, servers, and AI
 infrastructure.
 
-Therefore the question is not which
-platform is morally better.  It is which
-compromises matter during the period in
-which one laptop has to be the entire
-computing system.
+A small example of the difference in control
+is removing the shadows around windows. On
+macOS there is no setting for it. As far as
+I know, the only route is to inject code
+into the window server with the tool yabai,
+which requires partially disabling System
+Integrity Protection, and which breaks with
+macOS updates. I have not tested this on
+macOS Monterey. On Linux the compositor
+belongs to the user. With the compositor
+picom one writes \texttt{shadow = false;}
+in its configuration file, KDE Plasma has
+a switch for the shadows effect in its
+desktop effects settings, and under GNOME
+a few lines of GTK style sheet in the user's
+configuration directory remove them. I have
+not tested these either.
+
+Therefore the question for my next laptop
+is not which platform is morally better.
+It is which compromises matter during the
+period in which this laptop has to be my
+entire computing system.
 
 \section{AI, emotion, and attention}
 \label{section-ai-emotion-attention}
@@ -712,11 +740,30 @@ and apparently nonjudgmental character can
 change how much a person discloses and how
 strongly they react to the interaction.
 
-\section{A checklist for comparing laptops}
+\medskip\noindent
+This also connects to computer performance.
+Repeated small delays in opening a page,
+switching applications, waiting for a
+response, or recovering from a failed
+connection are not merely benchmark
+numbers.  Experimental work has measured
+physiological and emotional responses to
+system delays, including changes in heart
+rate and skin conductance
+\cite{trimmel-meixner-haring-2003}.
+Delays interrupt attention and can amplify
+frustration in a workflow that is already
+cognitively and emotionally intense.  For
+that reason, responsiveness is a legitimate
+criterion when choosing a computer, even
+when the underlying task would eventually
+finish on slower hardware.
+
+\section{What I should compare before buying}
 \label{section-computing-systems-buying}
 
-Every serious candidate should be checked
-against the same list.
+For every serious candidate, I should make
+the same checklist.
 
 \begin{enumerate}
 \item CPU performance for sustained work.
@@ -738,11 +785,11 @@ storage for several years.
 \end{enumerate}
 
 The right comparison is between complete
-machines configured for the actual needs,
+machines configured for my actual needs,
 not between the cheapest advertised
 versions.
 
-\section{A learning order}
+\section{What I should learn next}
 \label{section-computing-systems-next}
 
 A sensible learning order is:
@@ -763,12 +810,12 @@ A sensible learning order is:
 \item Local AI runtimes and model formats.
 \end{enumerate}
 
-None of this has to be mastered before
+I do not need to master all of this before
 buying a computer.  The point is to stop
 treating the machine as a mysterious
 sealed object and gradually understand
-each layer well enough to control one's
-own workflow.
+each layer well enough to control my own
+workflow.
 
 
 \section{From silicon to a computer}
@@ -971,6 +1018,12 @@ New plants in other countries can
 diversify capacity, but expertise,
 suppliers, and production quality
 cannot be reproduced immediately.
+
+Governments and private investors
+must also be distinguished. The
+sale of Taiwanese shares by foreign
+funds is not the same as a US
+government withdrawal or confiscation.
 
 \section{A path for deeper study}
 

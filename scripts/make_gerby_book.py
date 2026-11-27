@@ -25,6 +25,7 @@ KNOWN_CHAPTERS = {
     "variations-of-hodge-structures",
     "homological-mirror-symmetry",
     "k3",
+    "ringed-spaces",
     "schemes",
     "symplectic-geometry",
     "lie-algebras",

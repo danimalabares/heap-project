@@ -1,0 +1,551 @@
+\input{preamble}
+
+\begin{document}
+
+\title{Commutative algebra exam}
+\maketitle
+
+\section{Hilbert's Nullstellensatz
+and Zariski topology}
+
+\begin{exercise}
+\label{exercise-maximal-spectrum}
+Let $R=\mathbb{R}[t]$ and $X$ be its
+maximal spectrum. Prove that $X$ with its
+Zariski topology is homeomorphic
+to the maximal spectrum of $\mathbb{C}[t]$.
+\end{exercise}
+
+\begin{proof}
+It's clear that
+the maximal spectrums of $\mathbb{R}[t]$
+and $\mathbb{C}[t]$ have the same
+cardinality. Choose any bijection between
+them. We claim this is a homeomorphism
+by being a closed map. This follows
+since closed sets in any maximal spectrum
+are the finite sets (and the
+image of a finite set under
+a bijection is finite).
+
+To check a closed set $F$ is finite,
+suppose $\mathfrak{m} \in F$.
+The basis of closed sets is given
+by the complements of $U(f)$,
+which are defined by
+$\mathfrak{m}' \in U(f) \iff
+f \not\in \mathfrak{m}'$.
+Thus for the closed set $F=U(f)^c$
+we have that $\mathfrak{m} \in F
+\iff f \in \mathfrak{m}$.
+Now since $K[t]$ is a PID,
+we may assume $\mathfrak{m}=(g)$,
+so $f \in \mathfrak{m}$ becomes
+$g$ is a factor of $f$.
+But $f$ can have only finitely many factors.
+
+To check any finite set is closed, we
+only use the maximal ideals
+$t-a$ for any $a \in \mathbb{R}$ or
+$\mathbb{C}$.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-ring-of-plane-curve-is-pid}
+Let $P(x,y)$ be an irreducible polynomial
+and $R = \frac{\mathbb{C}[x,y]}{(P)}$.
+Prove that all ideals in $R$ are
+principal, or find a counterexample.
+\end{exercise}
+
+\begin{proof}
+This is false. Consider
+$R=\mathbb{C}[x,y]/(y-x^2)$
+and the ideal $(x,y) \subset
+\mathbb{C}[x,y]$.
+This ideal contains $y^3-x^2$,
+so it's an ideal of $R$,
+but it is not principal!
+Indeed, even after substituting $y^3=x^2$,
+there's no way to obtain $y$ from $x$
+or vice versa. [Proof can be improved]
+\end{proof}
+
+\section{Noetherian rings}
+
+\begin{exercise}
+\label{exercise-intersection-submodules-noet}
+Let $M$ be an $A$-module, where $A$
+is not necessarily Noetherian,
+and $N_1,N_2 \subset M$ submodules
+which satisfy $N_1 \cap N_2 = 0$.
+Assume that the modules $M/N_1$
+and $M/N_2$ are Noetherian.
+Prove that $M$ is Noetherian.
+\end{exercise}
+
+\begin{proof}[Failed proof]
+Let $N$ be a submodule (=ideal) of $M$.
+Projecting $N$ to $M/N_1$
+we obtain a finitely generated module.
+Suppose the generators are
+$x_i + N_1$, where $x_i \in N$.
+The fact that they are generators means
+that for any $x \in N$ we have
+$x+N_1=\sum a_ix_i + N_1$,
+that is, $x-\sum a_ix_i \in N_1$.
+The same goes for $N_2$, say,
+$x - \sum b_i x_i' \in N_2$ for any
+$x \in N$. But then
+$\sum a_i x_i - \sum b_i x_i' \in N_1\cap
+N_2$, a contradiction (no…)
+\end{proof}
+
+\begin{exercise}
+\label{exercise-descending-chains-is-field}
+Let $A$ be a ring without zero divisors.
+Suppose that any descending chain of
+ideals in $A$ stabilizes. Prove
+that $A$ is a field.
+\end{exercise}
+
+\begin{proof}
+Suppose that $A$ is not a field
+and let's show that there's a descending
+chain of ideals which does not stabilize.
+Let $a$ be not invertible (since $A$
+is not a field).
+Then 
+$$
+(a)\subset (a^2) \subset \subset (a^3)
+\subset…
+$$
+does not stabilize. Indeed,
+if $(a^n)=(a^{n+1})$ we obtain
+$a^n=ba^{n+1}\iff a^n(1-ba)=0
+\implies  1=ba$, since $A$ is a domain,
+which is a contradiction because
+$a$ is not invertible.
+\end{proof}
+
+
+
+\section{Irreducible polynomials and Galois
+theory}
+
+\begin{exercise}
+\label{exercise-rational-functions-irreducible}
+Let $k=\mathbb{C}(t)$ be the field of
+rational functions on $\mathbb{C}$.
+Prove that for any $n$ there exists
+an irreducible polynomial
+$P(t) \in k[t]$ of degree $n$.
+\end{exercise}
+
+\begin{proof}
+Let $P(x) \in k[x]=\mathbb{C}(t)[x]$
+be $P(x) = x^n-t$.
+This polynomial has no root in
+$k=\mathbb{C}(t)$,
+for if $(f/g)^n=t$ then 
+$n(\operatorname{deg}f-
+\operatorname{deg}g)=1$,
+which is impossible for $n>1$.
+But unfortunately this doesn't prove
+that it's irreducible: in $\mathbb{R}[x]$,
+the polynomial
+$(x^2 + 1)(x^2+2)=x^4+3x^2+2$
+is reducible and has no roots.
+
+To prove $x^n + t$ is irreducible we shall
+use the Gauss lemma. Forget the above
+notation and suppose that
+$fg = x^n + t$, where
+$f,g \in \mathbb{C}(t)[x]$.
+We want to clear the denominators in
+the coefficients of $f$ and $g$,
+so we multiply by the product $D$ of all
+such denominators and obtain
+$$
+f_1g_1 = (x^n + t)D,
+$$
+where $D \in \mathbb{C}[t]$ and
+$f_1,g_1 \in \mathbb{C}[t][x]$.
+Now we apply Gauss lemma, that is, the
+content of the product is the product
+of the contents. Since $x^n +t$ is primitive
+(i.e. has content $1$), then the
+content of $f_1g_1$ equals the content
+of $D$, but $D$ is a constant
+(constants here are polynomials in
+$\mathbb{C}[t]$).
+We obtain
+$$
+FG = x^n + t
+$$
+where $F$ and $G$ are the primitive parts
+of $f_1$ and $g_1$. This holds up to
+multiplication by a complex number.
+
+Now we reduce modulo $t$ and obtain
+$$
+[F][G] = [x^n],
+$$
+and conclude that, as classes,
+$$
+[F]=[cx^m],\qquad 
+[G]=[c^{-1}x^{n-m}].
+$$
+Thus we see that each of $F,G$
+lost their constant term when we reduced,
+i.e. that their constant terms are divisible
+by $t$. This means that $t^2$ divides
+the constant term of the product $FG$.
+But this is impossible, since the constant
+term of $FG$ is $t$. 
+
+The only way
+this makes sense is if $m=0$ or $m=n$.
+To conclude we note that reduction modulo
+$t$ preserves the degree of both $F$, and 
+$G$ because their leading coefficients
+multiply to $1$. Thus $m=0$ or $m=n$
+imply that $F$ or $G$ is a unit, which
+in turn implies so for $f$ or $g$.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-smooth-irreducible-plane}
+Prove that for any $d \in  \mathbb{Z}^{>0}$
+there exists an irreducible polynomial
+$P \in \mathbb{C}[x,y]$ such that
+$P(x,y)=0$ defines a smooth submanifold
+in $\mathbb{C}^2$.
+\end{exercise}
+
+\begin{proof}
+$x^n+y$ since $\partial_y =1$.
+This is an irreducible polynomial
+because $y$ is irreducible
+More precisely,
+if $x^n+y = fg$, then either of $f,g$
+must have no $y$ variable, say $f \in
+\mathbb{C}[x]$,
+and the other one must be degree 1 in $y$.
+Suppose $g = y g' + g''$ for $g',g'' \in
+\mathbb{C}[x]$. But then
+$x^n+y = fg = yfg' + f g''$,
+which means that $f$ cannot have positive
+degree in $x$, but $f \in \mathbb{C}[x]$,
+so it is a unit.
+\end{proof}
+
+\section{Tensor product of R-modules}
+
+\begin{exercise}
+\label{exercise-local-flat-implies-flat}
+Let $A$ be a ring without zero divisors,
+and $M$ an $A$-module
+which is flat over all local rings
+$A_\mathfrak{p} \supset A$
+obtained by localizing $A$
+at prime ideals.
+Prove that $M$ is flat.
+\end{exercise}
+
+\begin{proof}
+Let
+$$
+\xymatrix{
+0\ar[r]
+&M_1\ar[r]
+&M_2\ar[r]
+&M_3\ar[r]
+&0
+}
+$$
+be exact. Then consider
+$$
+\xymatrix{
+0\ar[r]
+&M_1 \otimes_A M\ar[r]^{\varphi}
+&M_2 \otimes_A M\ar[r]
+&M_3 \otimes_A M\ar[r]
+&0.
+}
+$$
+We need to show that the map
+$\varphi: M_1 \otimes_A M 
+\to M_2 \otimes_A M$ is injective.
+So basically the claim is:
+if that map is injective
+over all localizations $A_{\mathfrak{p}}$
+then it is injective over $A$.
+
+So it's basically two steps:
+(1) show that
+\begin{equation}
+\label{equation-localized-varphi}
+(\Ker \varphi)_{\mathfrak{p}}
+=
+\Ker \varphi^{\mathfrak{p}}
+\end{equation}
+where $\varphi^{\mathfrak{p}}$
+is the induced map over $A_{\mathfrak{p}}$
+for any $\mathfrak{p} \subset A$
+prime. More precisely:
+$$
+\xymatrix{
+0\ar[r]
+&(M_1)_{\mathfrak{p}} 
+\otimes_{A_{\mathfrak{p}}}M_{\mathfrak{p}}
+\ar[r]^{
+\varphi^{\mathfrak{p}}}
+&
+(M_2)_{\mathfrak{p}} 
+\otimes_{A_{\mathfrak{p}}}
+M_{\mathfrak{p}}\ar[r]
+&(M_3)_{\mathfrak{p}}
+\otimes_{A_{\mathfrak{p}}}
+M_{\mathfrak{p}}\ar[r]
+&0
+}
+$$
+where the localizations of each module
+are given by tensoring with $A_{\mathfrak{p}}$
+over $A$, e.g. $M_{\mathfrak{p}} =
+A_{\mathfrak{p}} \otimes_A M$ by definition.
+Thus the above sequence is exactly
+$$
+\xymatrix{
+0\ar[r]
+&(M_1 \otimes_A M)_{\mathfrak{p}}\ar[r]
+^{\varphi^{\mathfrak{p}}}
+&(M_2 \otimes_A M)_{\mathfrak{p}}\ar[r]
+&(M_3 \otimes_A M)_{\mathfrak{p}}\ar[r]
+&0
+}
+$$
+and we see that
+Equation \ref{equation-localized-varphi}
+follows by definition.
+Indeed, both sets are barely
+$$
+\left\{
+\frac{a}{b}x:\varphi(x)=0,
+\frac{a}{b}\in A_{\mathfrak{p}}\right\}.
+$$
+
+
+By the exercise's hypothesis, we know that
+$\Ker \varphi^{\mathfrak{p}}=0$.
+
+Then, step (2) is:
+show that if any $A$-module $K$
+is zero as an $A_{\mathfrak{p}}$-module
+for any $\mathfrak{p}\subset A$,
+then it is zero as an $A$-module.
+Here's AI's proof: consider the annihilator
+of an element $m \in M$, it's the
+set of scalars that kill it, i.e.
+$\operatorname{Ann}(m) =
+\{a \in A: am=0\}$. It's nonempty by
+hypothesis (yes, the fact that $m$ is
+zero over $A_{\mathfrak{p}}$ literally
+means that there is $a \not\in \mathfrak{p}$
+such that $a m =0$).
+This just says that $\operatorname{Ann}(m)
+\not\subset \mathfrak{p}$ for any
+$\mathfrak{p}$.
+But that's not true: any ideal is
+contained in some maximal (and thus prime)
+ideal. The reason for that is Zorn's lemma:
+the set of ideals containing
+$\operatorname{Ann}(m)$ is inductive
+(i.e. every chain is bounded, in this case
+by the union of the ideals), so it has
+a maximal element, and maximal ideals
+are prime because the quotient is a field,
+which is in particular a domain.
+ 
+\end{proof}
+
+\begin{definition}
+\label{definition-boolean-ring}
+A {\it boolean ring} is a ring such
+that all its elements are idempotents,
+that is, satisfy $a^2=a$.
+\end{definition}
+
+\begin{exercise}
+\label{exercise-boolean-ring-flat}
+Prove that any finitely generated module
+over a Boolean ring is flat.
+\end{exercise}
+
+\begin{proof}[Failed proof]
+The claim is false.
+Consider the boolean ring
+$\mathbb{Z}/2\mathbb{Z} \oplus
+\mathbb{Z}/2\mathbb{Z}$,
+equipped with the usual ring structure
+for direct sums which is given
+by applying the operations entry by entry.
+
+This module has torsion:
+$$
+([1],[0])([0],[1])=([0],[0]).
+$$
+Ah! But this ring is not a domain. Forget it.
+\end{proof}
+
+\section{Tensor product of rings}
+
+\begin{exercise}
+\label{exercise-tensor-product-fg-or-not}
+Let $R_1, R_2$ be rings over $\mathbb{C}$
+such that $R_1 \otimes_{\mathbb{C}}R_2$
+is finitely generated. Prove that
+$R_1,R_2$ are finitely generated,
+or find a counterexample.
+\end{exercise}
+
+\begin{proof}
+Suppose 
+$R_1 \otimes_{\mathbb{C}}R_2
+= \mathbb{C}[z_1,…,z_n]$
+and
+$z_j=\sum_{k}a_{jk} \otimes b_{jk}$.
+Let $A\subset R_1$ be the algebra
+generated by the $a_{jk}$.
+It's clear that the generators
+$z_j$ are in $A\otimes_{\mathbb{C}}R_2$.
+Thus, any polynomial on the $z_j$
+lies in $A \otimes_{\mathbb{C}}R_2$.
+That is, $R_1 \otimes_{\mathbb{C}}R_2
+=A \otimes_{\mathbb{C}}R_2$.
+
+Let $\lambda:R_2 \to \mathbb{C}$
+be a linear functional with $\lambda(1)=1$.
+Consider the operator
+$\operatorname{id} \otimes \lambda:
+A \otimes R_2 \to A$.
+
+Now take $r_1 \in R_1$.
+Then $r_1 \otimes 1 \in 
+R_1 \otimes_{\mathbb{C}}R_2
+=A \otimes_{\mathbb{C}}R_2$.
+Therefore
+$r_1=\operatorname{id}\otimes \lambda
+(r_1 \otimes 1) \in A$,
+and $A$ is finitely generated.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-trans-deg-hol-functions}
+Let $A$ be the ring of complex-analytic
+functions on $\mathbb{C}$,
+and $k(A)$ its fraction field.
+Prove that the transcendence degree
+of $A$ over $\mathbb{C}$ is infinite.
+\end{exercise}
+
+
+\section{Normality, irreducibility,
+smoothness}
+
+\begin{exercise}
+\label{exercise-normal-surface}
+Prove that the ring 
+$\mathbb{C}[x,y,z]/(y^2-xz)$
+is integrally closed.
+\end{exercise}
+
+\begin{proof}
+Consider a parametrization of the
+corresponding affine surface:
+$$
+\varphi:(t,s) \longmapsto (t^2,t s,s^2)
+$$
+This gives an isomorphism
+$$
+\frac{k[x,y,z]}{(y^2-xz)}
+\cong
+k[t^2,t s,s^2] \subset k[t,s].
+$$
+To check this we need to prove that its 
+kernel is indeed $(y^2-xz)$.
+For this let $F \in \Ker \varphi$.
+Consider $F$ as a polynomial in $y$
+and use division algorithm by
+$y^2-xz$ to obtain:
+$$
+F=Q(y^2-xz)+A(x,z)+yB(x,z).
+$$
+since the residue must have degree in $y$
+strictly less than
+$2=\operatorname{deg}(y^2-xz)$. Applying
+$\varphi$ we obtain
+$$
+0=A(s^2,t^2)+stB(s^2,t^2),
+$$
+which have different parity degrees
+on $s$ and $t$, meaning both summands
+are zero. The fact that $(y^2-xz) \subset
+\Ker\varphi$ is obvious, so we have equality
+as desired.
+
+Let $A=\mathbb{C}[t^2,ts,s^2]$.
+To prove $A$ is integrally closed
+notice that $A$ is exactly the subring
+of $\mathbb{C}[t,s]$ of polynomials which
+remain invariant under
+$\varphi:(t,s)\mapsto (-t,-s)$. Indeed,
+it is clear that elements $A$ are 
+$\varphi$-invariant, and conversely,
+any $\varphi$-invariant polynomial
+must have even degree in all variables
+and thus it must be in $A$.
+
+Now let $u \in \operatorname{Frac}A$
+be the root of a monic polynomial
+with coefficients in $A$.
+Since $A \subset \mathbb{C}[t,s]$,
+and $\mathbb{C}[t,s]$ is integrally closed,
+we conclude $u \in \mathbb{C}[t,s]$.
+But since $u$ is a quotient of elements
+in $A$, it is $\varphi$-invariant.
+Therefore $u \in A$.
+\end{proof}
+
+\begin{exercise}
+\label{exercise-quotient-not-smooth}
+Let $\zeta_n \in \mathbb{C}$
+be a primitive root of unity
+of degree $n$.
+Define the action of the cyclic group
+$G = \mathbb{Z}/\{0\}Z$ on $\mathbb{C}^2$
+with coordinates $x,y$
+in such a way that the generator
+$t$ maps $x$ to $\zeta_nx$ and
+$y$ to $\zeta_n^{-1}y$.
+Prove that the quotient $\mathbb{C}^2/G$
+is singular.
+\end{exercise}
+
+\begin{proof}
+The ring of invariants is
+$\mathbb{C}[x^n,y^n,xy]$.
+Consider the ideal 
+$\mathfrak{m}=(x^n,y^n,xy)$.
+It is clear that, for $n\geq 2$,
+the cotangent space
+$\mathfrak{m}/\mathfrak{m}^2$
+has three linearly independent vectors,
+namely, the classes of
+$x^n,y^n$ and $xy$, and thus it can't
+be regular.
+\end{proof}
+
+
+\end{document}

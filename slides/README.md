@@ -76,4 +76,10 @@ The `dbar-poincare` decks were copied from `danimalabares/tmp`, whose `dbar-poin
 The Kodaira decks were developed in
 `danimalabares/tmp` (`kodaira-lectures/`; that repository was deleted and recreated empty on 18 November 2026, so its old history and links no longer exist)
 and copied here on 16 November 2026 from tmp commit `ad55fbd`; lecture 24
-slide 12 was edited here afterwards.
+slide 12 was edited here afterwards. On 17 November 2026 the drafts, speaker
+notes (`notes.md`, `lecture-24-backup.tex`, `lecture-24-appendix.tex`),
+`sources.md`, `english-exam/` and `archive/` were copied to
+`kodaira-lectures/` in this repository. They are not in `index.json`, so
+they are not on the website. Misha's course PDFs (`misha/` in tmp) are not
+here, since they are third-party material; they are in the local library
+`~/books/people/misha/` (`hodge-theory-2025/`, `hodge-theory-2026/`).

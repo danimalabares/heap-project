@@ -128,3 +128,7 @@ registry tool. The unpushed first allocation remains only in the local
 checkpoint branch; it was not merged into the published registry.
 The final chapter tag is 0GB2. All assignments from the newer remote
 commit are preserved.
+
+The config alias and shared-memory update were blocked by automatic
+approval review, which considered the separate private repository
+outside this request's scope. No config update is claimed here.
